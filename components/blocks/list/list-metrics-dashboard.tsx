@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -212,7 +213,7 @@ export function ListMetricsDashboard({
   metricsSlot,
   metricsClassName,
   categories,
-  lastUpdated = "Today at 15:42 UTC",
+  lastUpdated,
   lastUpdatedClassName,
   dashboardAction,
   dashboardActionSlot,
@@ -222,8 +223,8 @@ export function ListMetricsDashboard({
   headerClassName,
   footerClassName,
   className,
-  background = "white",
-  spacing = "md",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   activeCategory: controlledActiveCategory,
@@ -243,9 +244,9 @@ export function ListMetricsDashboard({
   const filteredMetrics =
     activeTab === "all"
       ? metrics
-      : metrics.filter((metric) => metric.category === activeTab);
+      : metrics?.filter((metric) => metric.category === activeTab);
 
-  const renderBadge = () => {
+  const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badge) return null;
 
@@ -254,9 +255,9 @@ export function ListMetricsDashboard({
     ) : (
       <div className={badgeClassName}>{badge}</div>
     );
-  };
+  }, [badgeSlot, badge, badgeClassName]);
 
-  const renderDashboardAction = () => {
+  const renderDashboardAction = useMemo(() => {
     if (dashboardActionSlot) return dashboardActionSlot;
     if (!dashboardAction) return null;
 
@@ -284,12 +285,12 @@ export function ListMetricsDashboard({
         )}
       </Pressable>
     );
-  };
+  }, [dashboardActionSlot, dashboardAction, dashboardActionClassName]);
 
-  const renderMetrics = () => {
+  const renderMetrics = useMemo(() => {
     if (metricsSlot) return metricsSlot;
 
-    if (filteredMetrics.length === 0) {
+    if (!filteredMetrics || filteredMetrics.length === 0) {
       return (
         <div className="text-muted-foreground py-8 text-center">
           No metrics available for this category.
@@ -381,7 +382,7 @@ export function ListMetricsDashboard({
         </div>
       </div>
     ));
-  };
+  }, [metricsSlot, filteredMetrics, metricsClassName]);
 
   return (
     <Section
@@ -397,7 +398,7 @@ export function ListMetricsDashboard({
           headerClassName,
         )}
       >
-        {renderBadge()}
+        {renderBadge}
         {heading &&
           (typeof heading === "string" ? (
             <h2
@@ -434,54 +435,58 @@ export function ListMetricsDashboard({
             onValueChange={handleTabChange}
             className={cn("w-full gap-0", tabsClassName)}
           >
-            <div className="border-b p-3 md:hidden">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button className="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background">
-                    <span>
-                      {activeTab === "all"
-                        ? "All Metrics"
-                        : categories.find((c) => c.value === activeTab)
-                            ?.label ||
-                          activeTab.charAt(0).toUpperCase() +
-                            activeTab.slice(1)}
-                    </span>
-                    <DynamicIcon
-                      name="lucide/menu"
-                      size={16}
-                      className="ml-2"
-                    />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-[200px]">
-                  {categories.map((category) => (
-                    <DropdownMenuItem
-                      key={category.value}
-                      onClick={() => handleTabChange(category.value)}
-                    >
-                      {category.label}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+            {categories && (
+              <>
+                <div className="border-b p-3 md:hidden">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button className="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background">
+                        <span>
+                          {activeTab === "all"
+                            ? "All Metrics"
+                            : categories.find((c) => c.value === activeTab)
+                                ?.label ||
+                              activeTab.charAt(0).toUpperCase() +
+                                activeTab.slice(1)}
+                        </span>
+                        <DynamicIcon
+                          name="lucide/menu"
+                          size={16}
+                          className="ml-2"
+                        />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start" className="w-[200px]">
+                      {categories.map((category) => (
+                        <DropdownMenuItem
+                          key={category.value}
+                          onClick={() => handleTabChange(category.value)}
+                        >
+                          {category.label}
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
 
-            <div className="hidden border-b px-4 md:block">
-              <TabsList className="h-12 bg-transparent">
-                {categories.map((category) => (
-                  <TabsTrigger
-                    key={category.value}
-                    value={category.value}
-                    className="data-[state=active]:bg-muted rounded-none data-[state=active]:shadow-none"
-                  >
-                    {category.label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </div>
+                <div className="hidden border-b px-4 md:block">
+                  <TabsList className="h-12 bg-transparent">
+                    {categories.map((category) => (
+                      <TabsTrigger
+                        key={category.value}
+                        value={category.value}
+                        className="data-[state=active]:bg-muted rounded-none data-[state=active]:shadow-none"
+                      >
+                        {category.label}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                </div>
+              </>
+            )}
 
             <TabsContent value={activeTab} className="mt-0 p-0">
-              <div className="grid grid-cols-1 divide-y">{renderMetrics()}</div>
+              <div className="grid grid-cols-1 divide-y">{renderMetrics}</div>
             </TabsContent>
           </Tabs>
         </CardContent>
@@ -504,7 +509,7 @@ export function ListMetricsDashboard({
             {typeof lastUpdated === "string" ? lastUpdated : lastUpdated}
           </div>
         )}
-        <div className="order-1 sm:order-2">{renderDashboardAction()}</div>
+        <div className="order-1 sm:order-2">{renderDashboardAction}</div>
       </div>
     </Section>
   );

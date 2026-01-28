@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -150,52 +151,54 @@ export function ListAchievementsShowcase({
   itemActionClassName,
   containerClassName,
   className,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ListAchievementsShowcaseProps): React.JSX.Element {
-  const renderItemAction = (item: ListAchievementItem) => {
-    const action = item.action ?? defaultAction;
-    if (!action) return null;
+  const renderItemAction = useMemo(() => {
+    return (item: ListAchievementItem) => {
+      const action = item.action ?? defaultAction;
+      if (!action) return null;
 
-    const {
-      label,
-      icon,
-      iconAfter,
-      children,
-      className: actionClassName,
-      ...pressableProps
-    } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
 
-    return (
-      <Pressable
-        asButton
-        className={cn(
-          "order-3 ml-auto w-fit gap-2 md:order-0",
-          actionClassName,
-          itemActionClassName,
-        )}
-        {...pressableProps}
-      >
-        {children ?? (
-          <>
-            {icon}
-            {label && <span>{label}</span>}
-            {iconAfter ?? (
-              <DynamicIcon
-                name="lucide/arrow-right"
-                size={16}
-                className="text-current"
-              />
-            )}
-          </>
-        )}
-      </Pressable>
-    );
-  };
+      return (
+        <Pressable
+          asButton
+          className={cn(
+            "order-3 ml-auto w-fit gap-2 md:order-0",
+            actionClassName,
+            itemActionClassName,
+          )}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label && <span>{label}</span>}
+              {iconAfter ?? (
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="text-current"
+                />
+              )}
+            </>
+          )}
+        </Pressable>
+      );
+    };
+  }, [defaultAction, itemActionClassName]);
 
-  const renderItems = () => {
+  const renderItems = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -278,7 +281,7 @@ export function ListAchievementsShowcase({
         ))}
       </div>
     );
-  };
+  }, [itemsSlot, items, itemsClassName, itemClassName, itemIconClassName, itemTitleClassName, itemCategoryClassName, itemDescriptionClassName, renderItemAction]);
 
   return (
     <Section
@@ -304,7 +307,7 @@ export function ListAchievementsShowcase({
               {heading}
             </div>
           ))}
-        {renderItems()}
+        {renderItems}
       </div>
     </Section>
   );

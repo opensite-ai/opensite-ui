@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
@@ -153,22 +154,17 @@ export interface ListCareerTimelineProps {
  * ```
  */
 export function ListCareerTimeline({
-  sectionLabel = "/ CAREER PATH",
+  sectionLabel,
   sectionLabelClassName,
-  heading = (
-    <>
-      BUILDING SOLUTIONS,
-      <br /> SHAPING THE FUTURE
-    </>
-  ),
+  heading,
   headingClassName,
-  experienceLabel = "/ EXPERIENCE",
+  experienceLabel,
   experienceLabelClassName,
   experiences,
   experiencesSlot,
   experiencesClassName,
   experienceRowClassName,
-  achievementsLabel = "/ ACHIEVEMENTS",
+  achievementsLabel,
   achievementsLabelClassName,
   awards,
   awardsSlot,
@@ -176,12 +172,12 @@ export function ListCareerTimeline({
   awardRowClassName,
   contentClassName,
   className,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ListCareerTimelineProps): React.JSX.Element {
-  const renderExperiences = () => {
+  const renderExperiences = useMemo(() => {
     if (experiencesSlot) return experiencesSlot;
     if (!experiences || experiences.length === 0) return null;
 
@@ -221,9 +217,9 @@ export function ListCareerTimeline({
         ))}
       </div>
     );
-  };
+  }, [experiencesSlot, experiences, experiencesClassName, experienceRowClassName]);
 
-  const renderAwards = () => {
+  const renderAwards = useMemo(() => {
     if (awardsSlot) return awardsSlot;
     if (!awards || awards.length === 0) return null;
 
@@ -263,7 +259,7 @@ export function ListCareerTimeline({
         ))}
       </div>
     );
-  };
+  }, [awardsSlot, awards, awardsClassName, awardRowClassName]);
 
   return (
     <Section
@@ -274,55 +270,61 @@ export function ListCareerTimeline({
       patternOpacity={patternOpacity}
     >
       <div className={cn("flex flex-col gap-12", contentClassName)}>
-        <div className="flex flex-col gap-5">
-          {sectionLabel &&
-            (typeof sectionLabel === "string" ? (
-              <span
-                className={cn(
-                  "text-sm text-muted-foreground",
-                  sectionLabelClassName,
-                )}
-              >
-                {sectionLabel}
-              </span>
-            ) : (
-              <div className={sectionLabelClassName}>{sectionLabel}</div>
-            ))}
-          {heading &&
-            (typeof heading === "string" ? (
-              <h1 className={cn("text-4xl md:text-6xl", headingClassName)}>
-                {heading}
-              </h1>
-            ) : (
-              <div className={cn("text-4xl md:text-6xl", headingClassName)}>
-                {heading}
-              </div>
-            ))}
-        </div>
-        <div className="flex flex-col gap-7">
-          {experienceLabel &&
-            (typeof experienceLabel === "string" ? (
-              <h2 className={cn("text-xl", experienceLabelClassName)}>
-                {experienceLabel}
-              </h2>
-            ) : (
-              <div className={experienceLabelClassName}>{experienceLabel}</div>
-            ))}
-          {renderExperiences()}
-        </div>
-        <div className="flex flex-col gap-7">
-          {achievementsLabel &&
-            (typeof achievementsLabel === "string" ? (
-              <h2 className={cn("text-xl", achievementsLabelClassName)}>
-                {achievementsLabel}
-              </h2>
-            ) : (
-              <div className={achievementsLabelClassName}>
-                {achievementsLabel}
-              </div>
-            ))}
-          {renderAwards()}
-        </div>
+        {(sectionLabel || heading) && (
+          <div className="flex flex-col gap-5">
+            {sectionLabel &&
+              (typeof sectionLabel === "string" ? (
+                <span
+                  className={cn(
+                    "text-sm text-muted-foreground",
+                    sectionLabelClassName,
+                  )}
+                >
+                  {sectionLabel}
+                </span>
+              ) : (
+                <div className={sectionLabelClassName}>{sectionLabel}</div>
+              ))}
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1 className={cn("text-4xl md:text-6xl", headingClassName)}>
+                  {heading}
+                </h1>
+              ) : (
+                <div className={cn("text-4xl md:text-6xl", headingClassName)}>
+                  {heading}
+                </div>
+              ))}
+          </div>
+        )}
+        {(experienceLabel || experiencesSlot || experiences) && (
+          <div className="flex flex-col gap-7">
+            {experienceLabel &&
+              (typeof experienceLabel === "string" ? (
+                <h2 className={cn("text-xl", experienceLabelClassName)}>
+                  {experienceLabel}
+                </h2>
+              ) : (
+                <div className={experienceLabelClassName}>{experienceLabel}</div>
+              ))}
+            {renderExperiences}
+          </div>
+        )}
+        {(achievementsLabel || awardsSlot || awards) && (
+          <div className="flex flex-col gap-7">
+            {achievementsLabel &&
+              (typeof achievementsLabel === "string" ? (
+                <h2 className={cn("text-xl", achievementsLabelClassName)}>
+                  {achievementsLabel}
+                </h2>
+              ) : (
+                <div className={achievementsLabelClassName}>
+                  {achievementsLabel}
+                </div>
+              ))}
+            {renderAwards}
+          </div>
+        )}
       </div>
     </Section>
   );

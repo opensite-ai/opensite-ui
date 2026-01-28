@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -150,10 +151,10 @@ export function ListSearchableGrid({
   headingClassName,
   description,
   descriptionClassName,
-  searchPlaceholder = "Search resources...",
+  searchPlaceholder,
   searchInputClassName,
   searchContainerClassName,
-  emptyStateMessage = "No matching results. Try a different keyword.",
+  emptyStateMessage,
   emptyStateClassName,
   items,
   itemsSlot,
@@ -165,8 +166,8 @@ export function ListSearchableGrid({
   cardTagClassName,
   headerClassName,
   className,
-  background = "white",
-  spacing = "md",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   searchTerm: controlledSearchTerm,
@@ -201,7 +202,7 @@ export function ListSearchableGrid({
     });
   }, [items, searchTerm]);
 
-  const renderItems = () => {
+  const renderItems = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!filteredItems || filteredItems.length === 0) return null;
 
@@ -291,7 +292,7 @@ export function ListSearchableGrid({
         </motion.div>
       );
     });
-  };
+  }, [itemsSlot, filteredItems, cardClassName, cardIconClassName, cardTitleClassName, cardDescriptionClassName, cardTagClassName]);
 
   return (
     <Section
@@ -329,26 +330,28 @@ export function ListSearchableGrid({
           ))}
       </div>
 
-      <div className={cn("mx-auto mt-8 max-w-2xl", searchContainerClassName)}>
-        <div className="relative">
-          <DynamicIcon
-            name="lucide/search"
-            size={20}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
-          />
-          <Input
-            type="text"
-            placeholder={searchPlaceholder}
-            value={searchTerm}
-            onChange={(event) => handleSearchChange(event.target.value)}
-            className={cn(
-              "h-12 rounded-xl border-border/60 bg-background pl-12 pr-4",
-              searchInputClassName,
-            )}
-            aria-label="Search"
-          />
+      {searchPlaceholder && (
+        <div className={cn("mx-auto mt-8 max-w-2xl", searchContainerClassName)}>
+          <div className="relative">
+            <DynamicIcon
+              name="lucide/search"
+              size={20}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
+            />
+            <Input
+              type="text"
+              placeholder={searchPlaceholder}
+              value={searchTerm}
+              onChange={(event) => handleSearchChange(event.target.value)}
+              className={cn(
+                "h-12 rounded-xl border-border/60 bg-background pl-12 pr-4",
+                searchInputClassName,
+              )}
+              aria-label="Search"
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       <div
         className={cn(
@@ -356,10 +359,11 @@ export function ListSearchableGrid({
           itemsClassName,
         )}
       >
-        {renderItems()}
+        {renderItems}
       </div>
 
       {(filteredItems?.length ?? 0) === 0 &&
+        emptyStateMessage &&
         (typeof emptyStateMessage === "string" ? (
           <p
             className={cn(

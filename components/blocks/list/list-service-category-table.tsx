@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import {
@@ -156,12 +157,12 @@ export function ListServiceCategoryTable({
   cellClassName,
   containerClassName,
   className,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ListServiceCategoryTableProps): React.JSX.Element {
-  const renderItems = () => {
+  const renderItems = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -238,7 +239,7 @@ export function ListServiceCategoryTable({
         </TableCell>
       </TableRow>
     ));
-  };
+  }, [itemsSlot, items, rowClassName, cellClassName]);
 
   return (
     <Section
@@ -328,7 +329,7 @@ export function ListServiceCategoryTable({
                 </TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>{renderItems()}</TableBody>
+            <TableBody>{renderItems}</TableBody>
           </Table>
         </div>
       </div>

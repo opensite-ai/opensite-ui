@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -204,12 +205,7 @@ export function ListFeatureComparison({
   descriptionClassName,
   features,
   featuresSlot,
-  planHeaders = {
-    feature: "Feature",
-    basic: "Basic",
-    pro: "Pro",
-    enterprise: "Enterprise",
-  },
+  planHeaders,
   actions,
   actionsSlot,
   actionsClassName,
@@ -224,12 +220,12 @@ export function ListFeatureComparison({
   tableRowClassName,
   headerClassName,
   className,
-  background = "white",
-  spacing = "md",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ListFeatureComparisonProps): React.JSX.Element {
-  const renderBadge = () => {
+  const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badge) return null;
 
@@ -240,9 +236,9 @@ export function ListFeatureComparison({
     ) : (
       <div className={badgeClassName}>{badge}</div>
     );
-  };
+  }, [badgeSlot, badge, badgeClassName]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -282,11 +278,12 @@ export function ListFeatureComparison({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderFeatures = () => {
+  const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
+    if (!planHeaders) return null;
 
     return (
       <div className={cn("overflow-x-auto", tableWrapperClassName)}>
@@ -301,16 +298,16 @@ export function ListFeatureComparison({
               <thead className={cn("bg-muted/50", tableHeaderClassName)}>
                 <tr>
                   <th className="text-foreground px-6 py-3 text-left text-sm font-semibold">
-                    {planHeaders?.feature}
+                    {planHeaders.feature}
                   </th>
                   <th className="text-foreground px-6 py-3 text-center text-sm font-semibold">
-                    {planHeaders?.basic}
+                    {planHeaders.basic}
                   </th>
                   <th className="text-foreground px-6 py-3 text-center text-sm font-semibold">
-                    {planHeaders?.pro}
+                    {planHeaders.pro}
                   </th>
                   <th className="text-foreground px-6 py-3 text-center text-sm font-semibold">
-                    {planHeaders?.enterprise}
+                    {planHeaders.enterprise}
                   </th>
                 </tr>
               </thead>
@@ -370,9 +367,9 @@ export function ListFeatureComparison({
         </div>
       </div>
     );
-  };
+  }, [featuresSlot, features, planHeaders, tableWrapperClassName, tableClassName, tableHeaderClassName, tableBodyClassName, tableRowClassName]);
 
-  const renderTrustIndicators = () => {
+  const renderTrustIndicators = useMemo(() => {
     if (trustIndicatorsSlot) return trustIndicatorsSlot;
     if (!trustIndicators || trustIndicators.length === 0) return null;
 
@@ -415,7 +412,7 @@ export function ListFeatureComparison({
         ))}
       </div>
     );
-  };
+  }, [trustIndicatorsSlot, trustIndicators, trustIndicatorsClassName, trustIndicatorClassName]);
 
   return (
     <Section
@@ -426,7 +423,7 @@ export function ListFeatureComparison({
       patternOpacity={patternOpacity}
     >
       <div className={cn("mb-8 flex justify-center", headerClassName)}>
-        {renderBadge()}
+        {renderBadge}
       </div>
 
       <div className="mb-6 text-center">
@@ -462,9 +459,9 @@ export function ListFeatureComparison({
           ))}
       </div>
 
-      {renderFeatures()}
-      {renderActions()}
-      {renderTrustIndicators()}
+      {renderFeatures}
+      {renderActions}
+      {renderTrustIndicators}
     </Section>
   );
 }

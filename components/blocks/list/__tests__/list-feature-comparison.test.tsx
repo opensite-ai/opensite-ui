@@ -13,6 +13,13 @@ describe("ListFeatureComparison", () => {
     { name: "Advanced Analytics", basic: false, pro: false, enterprise: true },
   ];
 
+  const mockPlanHeaders = {
+    feature: "Feature",
+    basic: "Basic",
+    pro: "Pro",
+    enterprise: "Enterprise",
+  };
+
   const mockTrustIndicators: ListFeatureComparisonTrustIndicator[] = [
     {
       icon: "lucide/users",
@@ -42,7 +49,7 @@ describe("ListFeatureComparison", () => {
   });
 
   it("renders custom features correctly", () => {
-    render(<ListFeatureComparison features={mockFeatures} />);
+    render(<ListFeatureComparison features={mockFeatures} planHeaders={mockPlanHeaders} />);
     expect(screen.getByText("Unlimited Projects")).toBeInTheDocument();
     expect(screen.getByText("API Access")).toBeInTheDocument();
     expect(screen.getByText("Advanced Analytics")).toBeInTheDocument();
@@ -50,7 +57,7 @@ describe("ListFeatureComparison", () => {
 
   it("renders correct number of table rows", () => {
     const { container } = render(
-      <ListFeatureComparison features={mockFeatures} />
+      <ListFeatureComparison features={mockFeatures} planHeaders={mockPlanHeaders} />
     );
     const rows = container.querySelectorAll("tbody tr");
     expect(rows.length).toBe(3);
@@ -78,7 +85,7 @@ describe("ListFeatureComparison", () => {
 
   it("renders table structure correctly", () => {
     const { container } = render(
-      <ListFeatureComparison features={mockFeatures} />
+      <ListFeatureComparison features={mockFeatures} planHeaders={mockPlanHeaders} />
     );
     expect(container.querySelector("table")).toBeInTheDocument();
     expect(container.querySelector("thead")).toBeInTheDocument();

@@ -54,7 +54,9 @@ describe("ListCareerTimeline", () => {
   });
 
   it("renders with empty awards array", () => {
-    const { container } = render(<ListCareerTimeline awards={[]} />);
+    const { container } = render(
+      <ListCareerTimeline awards={[]} achievementsLabel="/ ACHIEVEMENTS" />
+    );
     expect(container.firstChild).toBeInTheDocument();
     expect(screen.getByText("/ ACHIEVEMENTS")).toBeInTheDocument();
   });
