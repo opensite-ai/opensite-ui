@@ -125,7 +125,7 @@ export function AboutStoryHero({
     return (
       <div
         className={cn(
-          "mt-6 md:mt-8 rounded-xl bg-muted p-6",
+          "mt-6 md:mt-8 rounded-2xl bg-muted p-6",
           teamInfoClassName,
         )}
       >
@@ -205,7 +205,7 @@ export function AboutStoryHero({
             src={heroImage.src}
             alt={heroImage.alt}
             className={cn(
-              "w-full h-auto rounded-2xl object-cover sm:h-full",
+              "mt-6 md:mt-0 w-full h-auto rounded-2xl object-cover sm:h-full",
               imageClassName,
             )}
             optixFlowConfig={optixFlowConfig}
