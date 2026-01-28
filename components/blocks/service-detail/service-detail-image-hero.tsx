@@ -62,7 +62,7 @@ export function ServiceDetailImageHero({
   heroImageSlot,
   heroClassName,
   heroOverlayClassName,
-  heroMinHeight = "500px",
+  heroMinHeight,
   introTitle,
   introTitleClassName,
   introDescription,
@@ -199,7 +199,7 @@ export function ServiceDetailImageHero({
           "relative flex items-center justify-center py-32",
           heroClassName,
         )}
-        style={{ minHeight: heroMinHeight }}
+        style={heroMinHeight ? { minHeight: heroMinHeight } : undefined}
       >
         <div className="absolute inset-0">{renderHeroImage()}</div>
         <div

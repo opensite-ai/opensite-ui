@@ -64,7 +64,7 @@ export function ServiceDetailProseMinimal({
   servicesList,
   servicesListSlot,
   className,
-  headerBackground = "muted",
+  headerBackground,
   bodyBackground,
   bodySpacing,
   bodyPattern,

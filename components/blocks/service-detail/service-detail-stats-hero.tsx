@@ -76,7 +76,7 @@ export function ServiceDetailStatsHero({
   heroImage,
   heroImageSlot,
   heroClassName,
-  heroMinHeight = "500px",
+  heroMinHeight,
   heroOverlayClassName,
   serviceIcon,
   serviceIconSlot,
@@ -90,7 +90,7 @@ export function ServiceDetailStatsHero({
   servicesList,
   servicesListSlot,
   className,
-  statsBackground = "muted",
+  statsBackground,
   bodyBackground,
   bodySpacing,
   bodyPattern,
@@ -249,7 +249,7 @@ export function ServiceDetailStatsHero({
           "relative flex items-center justify-center py-32",
           heroClassName,
         )}
-        style={{ minHeight: heroMinHeight }}
+        style={heroMinHeight ? { minHeight: heroMinHeight } : undefined}
       >
         <div className="absolute inset-0">{renderHeroImage()}</div>
         <div

@@ -102,7 +102,7 @@ export function ServiceDetailSidebarStats({
   containerClassName,
   mainColumnClassName,
   sidebarClassName,
-  headerBackground = "muted",
+  headerBackground,
   bodyBackground,
   bodySpacing,
   bodyPattern,
