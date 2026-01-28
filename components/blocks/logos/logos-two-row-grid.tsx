@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -103,42 +104,48 @@ export function LogosTwoRowGrid({
   logosClassName,
   rowClassName,
   logoWrapperClassName,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: LogosTwoRowGridProps): React.JSX.Element {
-  const firstRow =
-    companies?.slice(0, Math.ceil((companies?.length ?? 0) / 2)) ?? [];
-  const secondRow =
-    companies?.slice(Math.ceil((companies?.length ?? 0) / 2)) ?? [];
-
-  const renderCompanyLogo = (
-    company: LogosTwoRowGridCompanyItem,
-    index: number,
-  ) => (
-    <Pressable
-      key={index}
-      href={company.url}
-      className={cn(
-        "opacity-70 grayscale transition-all hover:opacity-100 hover:grayscale-0",
-        logoWrapperClassName,
-        company.className,
-      )}
-    >
-      <Img
-        src={company.logo}
-        alt={`${company.name} logo`}
-        width={120}
-        height={40}
-        className={cn("h-10 w-auto object-contain", company.imgClassName)}
-        optixFlowConfig={optixFlowConfig}
-      />
-    </Pressable>
+  const firstRow = useMemo(
+    () => companies?.slice(0, Math.ceil((companies?.length ?? 0) / 2)) ?? [],
+    [companies],
+  );
+  const secondRow = useMemo(
+    () => companies?.slice(Math.ceil((companies?.length ?? 0) / 2)) ?? [],
+    [companies],
   );
 
-  const renderCompanies = () => {
+  const renderCompanyLogo = useMemo(
+    () =>
+      (company: LogosTwoRowGridCompanyItem, index: number) =>
+        (
+          <Pressable
+            key={index}
+            href={company.url}
+            className={cn(
+              "opacity-70 grayscale transition-all hover:opacity-100 hover:grayscale-0",
+              logoWrapperClassName,
+              company.className,
+            )}
+          >
+            <Img
+              src={company.logo}
+              alt={`${company.name} logo`}
+              width={120}
+              height={40}
+              className={cn("h-10 w-auto object-contain", company.imgClassName)}
+              optixFlowConfig={optixFlowConfig}
+            />
+          </Pressable>
+        ),
+    [logoWrapperClassName, optixFlowConfig],
+  );
+
+  const renderCompanies = useMemo(() => {
     if (companiesSlot) return companiesSlot;
     if (!companies || companies.length === 0) return null;
 
@@ -164,7 +171,7 @@ export function LogosTwoRowGrid({
         </div>
       </div>
     );
-  };
+  }, [companiesSlot, companies, logosClassName, rowClassName, firstRow, secondRow, renderCompanyLogo]);
 
   return (
     <Section
@@ -187,7 +194,7 @@ export function LogosTwoRowGrid({
         ) : (
           <div className={headingClassName}>{heading}</div>
         ))}
-      {renderCompanies()}
+      {renderCompanies}
     </Section>
   );
 }

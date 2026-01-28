@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -131,13 +132,13 @@ export function LogosCertificationsGrid({
   logosClassName,
   logoWrapperClassName,
   gridClassName,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: LogosCertificationsGridProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -155,9 +156,9 @@ export function LogosCertificationsGrid({
         {action.iconAfter}
       </Pressable>
     ));
-  };
+  }, [actions, actionsSlot]);
 
-  const renderLogos = () => {
+  const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
@@ -180,7 +181,7 @@ export function LogosCertificationsGrid({
         />
       </div>
     ));
-  };
+  }, [logos, logosSlot, logoWrapperClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -224,7 +225,7 @@ export function LogosCertificationsGrid({
               ) : (
                 <div className={descriptionClassName}>{description}</div>
               ))}
-            <div className={actionsClassName}>{renderActions()}</div>
+            <div className={actionsClassName}>{renderActions}</div>
           </div>
         </div>
         <div
@@ -233,7 +234,7 @@ export function LogosCertificationsGrid({
             logosClassName,
           )}
         >
-          {renderLogos()}
+          {renderLogos}
         </div>
       </div>
     </Section>

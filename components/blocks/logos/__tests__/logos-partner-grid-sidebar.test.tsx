@@ -24,7 +24,7 @@ describe("LogosPartnerGridSidebar", () => {
   });
 
   it("handles empty partners array with explicit heading", () => {
-    render(<LogosPartnerGridSidebar heading="Our Partners" partners={[]} />);
+    render(<LogosPartnerGridSidebar sidebarTitle="Our Partners" partners={[]} />);
     expect(screen.getByText("Our Partners")).toBeInTheDocument();
   });
 });

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -136,13 +137,13 @@ export function LogosPartnerNetwork({
   logosSlot,
   logosClassName,
   logoWrapperClassName,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: LogosPartnerNetworkProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -160,9 +161,9 @@ export function LogosPartnerNetwork({
         {action.iconAfter}
       </Pressable>
     ));
-  };
+  }, [actions, actionsSlot]);
 
-  const renderLogos = () => {
+  const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
@@ -185,7 +186,7 @@ export function LogosPartnerNetwork({
         />
       </div>
     ));
-  };
+  }, [logos, logosSlot, logoWrapperClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -235,7 +236,7 @@ export function LogosPartnerNetwork({
           ) : (
             <div className={descriptionClassName}>{description}</div>
           ))}
-        <div className={actionsClassName}>{renderActions()}</div>
+        <div className={actionsClassName}>{renderActions}</div>
       </div>
       <div
         className={cn(
@@ -243,7 +244,7 @@ export function LogosPartnerNetwork({
           logosClassName,
         )}
       >
-        {renderLogos()}
+        {renderLogos}
       </div>
     </Section>
   );

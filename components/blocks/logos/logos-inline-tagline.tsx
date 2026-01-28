@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -84,18 +85,18 @@ export interface LogosInlineTaglineProps {
 export function LogosInlineTagline({
   className,
   containerClassName,
-  tagline = "Used by the world's leading companies",
+  tagline,
   taglineClassName,
   partners,
   partnersSlot,
   partnersClassName,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: LogosInlineTaglineProps): React.JSX.Element {
-  const renderPartners = () => {
+  const renderPartners = useMemo(() => {
     if (partnersSlot) return partnersSlot;
     if (!partners || partners.length === 0) return null;
 
@@ -110,7 +111,7 @@ export function LogosInlineTagline({
         optixFlowConfig={optixFlowConfig}
       />
     ));
-  };
+  }, [partners, partnersSlot, optixFlowConfig]);
 
   return (
     <Section
@@ -145,7 +146,7 @@ export function LogosInlineTagline({
             partnersClassName,
           )}
         >
-          {renderPartners()}
+          {renderPartners}
         </div>
       </div>
     </Section>

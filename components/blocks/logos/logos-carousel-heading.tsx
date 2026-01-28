@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
@@ -120,13 +121,13 @@ export function LogosCarouselHeading({
   logoWrapperClassName,
   leftFadeClassName,
   rightFadeClassName,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: LogosCarouselHeadingProps): React.JSX.Element {
-  const renderLogos = () => {
+  const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
@@ -165,7 +166,7 @@ export function LogosCarouselHeading({
         </CarouselContent>
       </Carousel>
     );
-  };
+  }, [logos, logosSlot, carouselClassName, carouselItemClassName, logoWrapperClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -203,7 +204,7 @@ export function LogosCarouselHeading({
             logosClassName,
           )}
         >
-          {renderLogos()}
+          {renderLogos}
           <div
             className={cn(
               "absolute inset-y-0 left-0 w-12 bg-linear-to-r from-background to-transparent",

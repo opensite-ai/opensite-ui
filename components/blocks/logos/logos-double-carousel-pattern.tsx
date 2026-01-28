@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
@@ -149,13 +150,13 @@ export function LogosDoubleCarouselPattern({
   logoWrapperClassName,
   overlayClassName,
   backgroundPattern = "dots",
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: LogosDoubleCarouselPatternProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -173,9 +174,9 @@ export function LogosDoubleCarouselPattern({
         {action.iconAfter}
       </Pressable>
     ));
-  };
+  }, [actions, actionsSlot]);
 
-  const renderTopRowLogos = () => {
+  const renderTopRowLogos = useMemo(() => {
     if (topRowLogosSlot) return topRowLogosSlot;
     if (!topRowLogos || topRowLogos.length === 0) return null;
 
@@ -213,9 +214,9 @@ export function LogosDoubleCarouselPattern({
         </CarouselContent>
       </Carousel>
     );
-  };
+  }, [topRowLogos, topRowLogosSlot, carouselItemClassName, logoWrapperClassName, optixFlowConfig]);
 
-  const renderBottomRowLogos = () => {
+  const renderBottomRowLogos = useMemo(() => {
     if (bottomRowLogosSlot) return bottomRowLogosSlot;
     if (!bottomRowLogos || bottomRowLogos.length === 0) return null;
 
@@ -255,9 +256,9 @@ export function LogosDoubleCarouselPattern({
         </CarouselContent>
       </Carousel>
     );
-  };
+  }, [bottomRowLogos, bottomRowLogosSlot, carouselItemClassName, logoWrapperClassName, optixFlowConfig]);
 
-  const getBackgroundStyle = () => {
+  const getBackgroundStyle = useMemo(() => {
     if (backgroundPattern === "none") return {};
     const patternUrl =
       backgroundPattern === "dots" ? patternSvgs.dots : patternSvgs.grid1;
@@ -265,7 +266,7 @@ export function LogosDoubleCarouselPattern({
       backgroundImage: `url("${patternUrl}")`,
       backgroundSize: "30px 30px",
     };
-  };
+  }, [backgroundPattern]);
 
   return (
     <Section
@@ -274,7 +275,7 @@ export function LogosDoubleCarouselPattern({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn("overflow-hidden", className)}
-      style={getBackgroundStyle()}
+      style={getBackgroundStyle}
     >
       <div
         className={cn(
@@ -320,12 +321,12 @@ export function LogosDoubleCarouselPattern({
             actionsClassName,
           )}
         >
-          {renderActions()}
+          {renderActions}
         </div>
       </div>
       <div className={cn("relative space-y-8", logosClassName)}>
-        {renderTopRowLogos()}
-        {renderBottomRowLogos()}
+        {renderTopRowLogos}
+        {renderBottomRowLogos}
       </div>
     </Section>
   );

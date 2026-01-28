@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -108,13 +109,13 @@ export function LogosCenteredSimple({
   logosSlot,
   logosClassName,
   logoWrapperClassName,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: LogosCenteredSimpleProps): React.JSX.Element {
-  const renderLogos = () => {
+  const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
@@ -137,7 +138,7 @@ export function LogosCenteredSimple({
         />
       </div>
     ));
-  };
+  }, [logos, logosSlot, logoWrapperClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -178,7 +179,7 @@ export function LogosCenteredSimple({
           logosClassName,
         )}
       >
-        {renderLogos()}
+        {renderLogos}
       </div>
     </Section>
   );

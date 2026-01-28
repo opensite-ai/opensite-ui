@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -134,9 +135,9 @@ export interface LogosPartnerGridSidebarProps {
  */
 export function LogosPartnerGridSidebar({
   className,
-  sidebarTitle = "Our Partners",
+  sidebarTitle,
   sidebarTitleClassName,
-  sidebarDescription = "We've partnered with industry leaders to deliver exceptional value to our customers.",
+  sidebarDescription,
   sidebarDescriptionClassName,
   sidebarClassName,
   yearSections,
@@ -148,13 +149,13 @@ export function LogosPartnerGridSidebar({
   partnersClassName,
   partnerCardClassName,
   gridClassName,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: LogosPartnerGridSidebarProps): React.JSX.Element {
-  const renderYearSections = () => {
+  const renderYearSections = useMemo(() => {
     if (yearSectionsSlot) return yearSectionsSlot;
     if (!yearSections || yearSections.length === 0) return null;
 
@@ -177,9 +178,9 @@ export function LogosPartnerGridSidebar({
         ))}
       </div>
     );
-  };
+  }, [yearSections, yearSectionsSlot, yearSectionsClassName, yearSectionItemClassName]);
 
-  const renderPartners = () => {
+  const renderPartners = useMemo(() => {
     if (partnersSlot) return partnersSlot;
     if (!partners || partners.length === 0) return null;
 
@@ -205,7 +206,7 @@ export function LogosPartnerGridSidebar({
         />
       </div>
     ));
-  };
+  }, [partners, partnersSlot, partnerCardClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -249,7 +250,7 @@ export function LogosPartnerGridSidebar({
                 {sidebarDescription}
               </div>
             ))}
-          {renderYearSections()}
+          {renderYearSections}
         </div>
         <div className="lg:col-span-2">
           <div
@@ -258,7 +259,7 @@ export function LogosPartnerGridSidebar({
               partnersClassName,
             )}
           >
-            {renderPartners()}
+            {renderPartners}
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
@@ -96,13 +97,13 @@ export function LogosMinimalCarousel({
   carouselItemClassName,
   logoWrapperClassName,
   borderContainerClassName,
-  background = "white",
-  spacing = "md",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: LogosMinimalCarouselProps): React.JSX.Element {
-  const renderLogos = () => {
+  const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
@@ -144,7 +145,7 @@ export function LogosMinimalCarousel({
         </CarouselContent>
       </Carousel>
     );
-  };
+  }, [logos, logosSlot, carouselClassName, carouselItemClassName, logoWrapperClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -161,7 +162,7 @@ export function LogosMinimalCarousel({
           logosClassName,
         )}
       >
-        {renderLogos()}
+        {renderLogos}
       </div>
     </Section>
   );

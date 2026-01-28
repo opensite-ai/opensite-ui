@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
@@ -113,10 +114,10 @@ export interface LogosNumberedCarouselProps {
  */
 export function LogosNumberedCarousel({
   className,
-  headline = "Powering the world's best product teams.",
+  headline,
   headlineClassName,
   headerClassName,
-  counterSuffix = "companies trust us",
+  counterSuffix,
   counterClassName,
   logos,
   logosSlot,
@@ -126,13 +127,13 @@ export function LogosNumberedCarousel({
   logoWrapperClassName,
   leftFadeClassName,
   rightFadeClassName,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: LogosNumberedCarouselProps): React.JSX.Element {
-  const renderLogos = () => {
+  const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
@@ -177,7 +178,7 @@ export function LogosNumberedCarousel({
         </CarouselContent>
       </Carousel>
     );
-  };
+  }, [logos, logosSlot, carouselClassName, carouselItemClassName, logoWrapperClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -207,25 +208,27 @@ export function LogosNumberedCarousel({
             ) : (
               <div className={headlineClassName}>{headline}</div>
             ))}
-          <div
-            className={cn(
-              "flex items-center gap-2 text-sm text-muted-foreground",
-              counterClassName,
-            )}
-          >
-            <span className="font-semibold text-foreground">
-              {(logos?.length ?? 0).toString().padStart(2, "0")}
-            </span>
-            {typeof counterSuffix === "string" ? (
-              <span>{counterSuffix}</span>
-            ) : (
-              counterSuffix
-            )}
-          </div>
+          {counterSuffix && (
+            <div
+              className={cn(
+                "flex items-center gap-2 text-sm text-muted-foreground",
+                counterClassName,
+              )}
+            >
+              <span className="font-semibold text-foreground">
+                {(logos?.length ?? 0).toString().padStart(2, "0")}
+              </span>
+              {typeof counterSuffix === "string" ? (
+                <span>{counterSuffix}</span>
+              ) : (
+                counterSuffix
+              )}
+            </div>
+          )}
         </div>
       </div>
       <div className={cn("relative", logosClassName)}>
-        {renderLogos()}
+        {renderLogos}
         <div
           className={cn(
             "pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-background to-transparent",

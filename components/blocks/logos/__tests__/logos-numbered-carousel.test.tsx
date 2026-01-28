@@ -55,6 +55,7 @@ describe("LogosNumberedCarousel", () => {
     render(
       <LogosNumberedCarousel
         headline="Powering the world's best product teams."
+        counterSuffix="companies trust us"
         logos={[]}
       />
     );

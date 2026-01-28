@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
@@ -111,13 +112,13 @@ export function LogosMarqueeMuted({
   logoWrapperClassName,
   leftFadeClassName,
   rightFadeClassName,
-  background = "muted",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: LogosMarqueeMutedProps): React.JSX.Element {
-  const renderLogos = () => {
+  const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
@@ -159,7 +160,7 @@ export function LogosMarqueeMuted({
         </CarouselContent>
       </Carousel>
     );
-  };
+  }, [logos, logosSlot, carouselClassName, carouselItemClassName, logoWrapperClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -186,7 +187,7 @@ export function LogosMarqueeMuted({
         </div>
       )}
       <div className={cn("relative", logosClassName)}>
-        {renderLogos()}
+        {renderLogos}
         <div
           className={cn(
             "pointer-events-none absolute inset-y-0 left-0 w-24 bg-linear-to-r from-muted to-transparent",
