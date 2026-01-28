@@ -16,7 +16,7 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { BRIGHTNESS_CLASS_MAP, cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -160,21 +160,6 @@ export interface CarouselAnimatedSectionsProps {
    */
   containerMaxWidth?: ContainerMaxWidth;
 }
-
-/**
- * Maps brightness prop values to Tailwind classes
- * Values 10-40 use arbitrary values for finer control on bright images
- */
-const BRIGHTNESS_CLASS_MAP: Record<string, string> = {
-  "10": "brightness-[.1]",
-  "20": "brightness-[.2]",
-  "25": "brightness-[.25]",
-  "30": "brightness-[.3]",
-  "40": "brightness-[.4]",
-  "50": "brightness-50",
-  "75": "brightness-75",
-  "100": "brightness-100",
-};
 
 export function CarouselAnimatedSections({
   sections,

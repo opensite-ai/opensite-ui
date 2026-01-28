@@ -198,7 +198,14 @@ export function CarouselMultiStepShowcase({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -210,7 +217,13 @@ export function CarouselMultiStepShowcase({
             <>
               {icon}
               {label}
-              {iconAfter ?? <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />}
+              {iconAfter ?? (
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="ml-2"
+                />
+              )}
             </>
           )}
         </Pressable>
@@ -247,29 +260,44 @@ export function CarouselMultiStepShowcase({
       <div className={cn("container mx-auto px-4", containerClassName)}>
         {/* Header */}
         <div className={cn("mb-12 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {subheading && (
-            typeof subheading === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subheadingClassName)}>{subheading}</p>
+            ))}
+          {subheading &&
+            (typeof subheading === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subheadingClassName,
+                )}
+              >
+                {subheading}
+              </p>
             ) : (
               <div className={subheadingClassName}>{subheading}</div>
-            )
-          )}
+            ))}
         </div>
 
         {/* Step navigation */}
         {stepsSlot ? (
           <div className={stepNavigationClassName}>{stepsSlot}</div>
         ) : (
-          <div className={cn("mb-8 flex flex-wrap justify-center gap-2", stepNavigationClassName)}>
+          <div
+            className={cn(
+              "mb-8 flex flex-wrap justify-center gap-2",
+              stepNavigationClassName,
+            )}
+          >
             {steps?.map((step, index) => (
               <button
                 key={step.id}
@@ -279,7 +307,7 @@ export function CarouselMultiStepShowcase({
                   activeStep === index
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-muted-foreground hover:bg-muted/80",
-                  step.className
+                  step.className,
                 )}
               >
                 <span
@@ -287,13 +315,15 @@ export function CarouselMultiStepShowcase({
                     "flex h-6 w-6 items-center justify-center rounded-full text-xs",
                     activeStep === index
                       ? "bg-primary-foreground text-primary"
-                      : "bg-background"
+                      : "bg-background",
                   )}
                 >
                   {step.step}
                 </span>
                 <span className="hidden sm:inline">
-                  {typeof step.title === "string" ? step.title.split(":")[0] : step.title}
+                  {typeof step.title === "string"
+                    ? step.title.split(":")[0]
+                    : step.title}
                 </span>
               </button>
             ))}
@@ -301,7 +331,12 @@ export function CarouselMultiStepShowcase({
         )}
 
         {/* Progress bar */}
-        <div className={cn("mx-auto mb-12 h-1 max-w-2xl overflow-hidden rounded-full bg-muted", progressClassName)}>
+        <div
+          className={cn(
+            "mx-auto mb-12 h-1 max-w-2xl overflow-hidden rounded-full bg-muted",
+            progressClassName,
+          )}
+        >
           <motion.div
             className="h-full bg-primary"
             initial={{ width: 0 }}
@@ -313,9 +348,19 @@ export function CarouselMultiStepShowcase({
         </div>
 
         {/* Content */}
-        <div className={cn("grid gap-8 lg:grid-cols-2 lg:gap-12", contentClassName)}>
+        <div
+          className={cn(
+            "grid gap-8 lg:grid-cols-2 lg:gap-12",
+            contentClassName,
+          )}
+        >
           {/* Image */}
-          <div className={cn("relative aspect-video overflow-hidden rounded-xl bg-muted", imageClassName)}>
+          <div
+            className={cn(
+              "relative aspect-video overflow-hidden rounded-xl bg-muted",
+              imageClassName,
+            )}
+          >
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={activeStep}
@@ -325,11 +370,18 @@ export function CarouselMultiStepShowcase({
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className={cn("absolute inset-0", steps?.[activeStep]?.imageClassName)}
+                className={cn(
+                  "absolute inset-0",
+                  steps?.[activeStep]?.imageClassName,
+                )}
               >
                 <Img
                   src={steps?.[activeStep]?.image}
-                  alt={typeof steps?.[activeStep]?.title === "string" ? steps[activeStep].title : `Step ${activeStep + 1}`}
+                  alt={
+                    typeof steps?.[activeStep]?.title === "string"
+                      ? steps[activeStep].title
+                      : `Step ${activeStep + 1}`
+                  }
                   className="h-full w-full object-cover"
                   optixFlowConfig={optixFlowConfig}
                 />
@@ -352,27 +404,27 @@ export function CarouselMultiStepShowcase({
                   Step {steps?.[activeStep]?.step} of {steps?.length ?? 0}
                 </div>
 
-                {steps?.[activeStep]?.title && (
-                  typeof steps[activeStep].title === "string" ? (
+                {steps?.[activeStep]?.title &&
+                  (typeof steps[activeStep].title === "string" ? (
                     <h3 className="text-2xl font-semibold md:text-3xl">
                       {steps[activeStep].title}
                     </h3>
                   ) : (
                     <div>{steps[activeStep].title}</div>
-                  )
-                )}
+                  ))}
 
-                {steps?.[activeStep]?.description && (
-                  typeof steps[activeStep].description === "string" ? (
+                {steps?.[activeStep]?.description &&
+                  (typeof steps[activeStep].description === "string" ? (
                     <p className="mt-4 text-lg text-muted-foreground">
                       {steps[activeStep].description}
                     </p>
                   ) : (
                     <div className="mt-4">{steps[activeStep].description}</div>
-                  )
-                )}
+                  ))}
 
-                <div className={cn("mt-8 flex gap-4", actionsClassName)}>
+                <div
+                  className={cn("mt-8 flex gap-3 flex-wrap", actionsClassName)}
+                >
                   <Pressable
                     onClick={goToPrev}
                     asButton
@@ -398,7 +450,8 @@ export function CarouselMultiStepShowcase({
                       />
                     </Pressable>
                   ) : (
-                    (actionsSlot || (actions && actions.length > 0)) && renderActions()
+                    (actionsSlot || (actions && actions.length > 0)) &&
+                    renderActions()
                   )}
                 </div>
               </motion.div>
@@ -409,4 +462,3 @@ export function CarouselMultiStepShowcase({
     </Section>
   );
 }
-
