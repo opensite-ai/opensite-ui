@@ -193,7 +193,7 @@ const BlogCard = React.memo(function BlogCard({
       <Card className="size-full rounded-lg border py-0">
         <CardContent className="p-0">
           {postCategory && (
-            <div className="border-b p-2.5 text-sm leading-[1.2] font-medium text-muted-foreground">
+            <div className="border-b p-2.5 text-xs leading-[1.2] font-bold text-muted-foreground/70 uppercase">
               {postCategory}
             </div>
           )}
@@ -255,7 +255,7 @@ const FilterForm = React.memo(function FilterForm({
         return (
           <Label
             key={category.value}
-            className="flex cursor-pointer items-center gap-2.5 rounded-full bg-muted px-2.5 py-1.5"
+            className="flex cursor-pointer items-center gap-2.5 bg-none px-2.5 py-1.5"
           >
             <div>{category.label}</div>
             <Checkbox
@@ -483,11 +483,11 @@ export function BlogFilteredResultsComponent({
     >
       <div
         className={cn(
-          "bg-muted bg-size-[3.125rem_3.125rem] bg-repeat",
+          "bg-muted bg-size-[3.125rem_3.125rem] bg-repeat rounded-2xl shadow-xl",
           heroClassName,
         )}
       >
-        <div className="container flex flex-col items-start justify-start gap-16 py-20 lg:flex-row lg:items-center lg:justify-between">
+        <div className="w-full flex flex-col items-start justify-start gap-6 md:gap-16 p-12 md:p-20 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex w-full flex-col justify-between gap-12">
             <div className="flex w-full max-w-xl flex-col gap-8">
               {breadcrumbContent}
@@ -551,7 +551,7 @@ export function BlogFilteredResultsComponent({
             <div className="flex w-full flex-col gap-4 py-8 lg:gap-8">
               <div
                 className={cn(
-                  "grid gap-10 md:grid-cols-2 lg:grid-cols-3",
+                  "grid gap-4 md:gap-6 lg:gap-10 md:grid-cols-2 lg:grid-cols-3",
                   postsClassName,
                 )}
               >
