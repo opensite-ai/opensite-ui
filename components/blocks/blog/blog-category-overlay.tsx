@@ -191,9 +191,9 @@ export function BlogCategoryOverlay({
             )}
             {(post.category || post.label) && (
               <Badge
-                variant="secondary"
+                variant="default"
                 className={cn(
-                  "absolute top-4 right-4 bg-background/70 px-3 py-1 text-sm backdrop-blur-sm",
+                  "absolute top-4 right-4 px-3 py-1 text-sm backdrop-blur-sm",
                   categoryBadgeClassName,
                 )}
               >
@@ -254,7 +254,7 @@ export function BlogCategoryOverlay({
       <div className={cn("container", containerClassName)}>
         <div
           className={cn(
-            "mx-auto flex max-w-3xl flex-col items-center gap-6 text-center",
+            "mx-auto flex max-w-3xl flex-col items-center gap-6 text-center px-8 md:px-0",
             headerClassName,
           )}
         >
@@ -282,7 +282,12 @@ export function BlogCategoryOverlay({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("text-muted-foreground", descriptionClassName)}>
+              <p
+                className={cn(
+                  "text-muted-foreground text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
@@ -292,7 +297,7 @@ export function BlogCategoryOverlay({
         </div>
         <div
           className={cn(
-            "mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+            "mt-6 md:mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-3",
             postsClassName,
           )}
         >

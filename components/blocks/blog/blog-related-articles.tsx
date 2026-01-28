@@ -207,7 +207,7 @@ export function BlogRelatedArticles({
         </div>
         <div
           className={cn(
-            "grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-4 lg:gap-10",
+            "grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-10",
             articlesClassName,
           )}
         >

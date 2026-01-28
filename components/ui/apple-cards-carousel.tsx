@@ -140,7 +140,7 @@ export const AppleCarousel = ({
     >
       <div className={cn("relative w-full", className)}>
         <div
-          className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-10 [scrollbar-width:none] md:py-20"
+          className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-4 [scrollbar-width:none] md:py-10"
           ref={carouselRef}
           onScroll={checkScrollability}
         >
@@ -182,26 +182,20 @@ export const AppleCarousel = ({
         </div>
         <div className="mr-10 flex justify-end gap-2">
           <Pressable
-            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full disabled:opacity-50"
             onClick={scrollLeftHandler}
             disabled={!canScrollLeft}
             asButton
           >
-            <DynamicIcon
-              name="lucide/arrow-left"
-              className="h-6 w-6 text-gray-500"
-            />
+            <DynamicIcon name="lucide/arrow-left" className="h-6 w-6" />
           </Pressable>
           <Pressable
-            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full disabled:opacity-50"
             onClick={scrollRightHandler}
             disabled={!canScrollRight}
             asButton
           >
-            <DynamicIcon
-              name="lucide/arrow-right"
-              className="h-6 w-6 text-gray-500"
-            />
+            <DynamicIcon name="lucide/arrow-right" className="h-6 w-6" />
           </Pressable>
         </div>
       </div>

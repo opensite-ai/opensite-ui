@@ -15,7 +15,13 @@ import {
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
 import { Section } from "../../ui/section";
-import type { SocialLinkItem, OptixFlowConfig, ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  SocialLinkItem,
+  OptixFlowConfig,
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleChapter {
@@ -29,11 +35,13 @@ export interface ArticleAuthor {
   role?: string;
   image?: string;
   bio?: string;
-  socialLinks?: SocialLinkItem[] | {
-    twitter?: string;
-    linkedin?: string;
-    github?: string;
-  };
+  socialLinks?:
+    | SocialLinkItem[]
+    | {
+        twitter?: string;
+        linkedin?: string;
+        github?: string;
+      };
 }
 
 export type ArticleAuthorConfig = ArticleAuthor;
@@ -123,7 +131,10 @@ export interface ArticleChaptersAuthorProps {
   /**
    * Render callback for chapter links (overrides default rendering)
    */
-  renderChapterLink?: (chapter: ArticleChapter, isActive: boolean) => React.ReactNode;
+  renderChapterLink?: (
+    chapter: ArticleChapter,
+    isActive: boolean,
+  ) => React.ReactNode;
   /**
    * Author configuration
    */
@@ -241,9 +252,19 @@ export function ArticleChaptersAuthorComponent({
   pattern,
   patternOpacity,
 }: ArticleChaptersAuthorProps) {
-  const conclusionActions = conclusionActionsProp ?? (conclusionButtonText ? [{ label: conclusionButtonText, href: conclusionButtonHref || "#", variant: "default" as const }] : []);
+  const conclusionActions =
+    conclusionActionsProp ??
+    (conclusionButtonText
+      ? [
+          {
+            label: conclusionButtonText,
+            href: conclusionButtonHref || "#",
+            variant: "default" as const,
+          },
+        ]
+      : []);
   const [activeChapter, setActiveChapter] = React.useState<string>(
-    chapters?.[0]?.id || ""
+    chapters?.[0]?.id || "",
   );
 
   React.useEffect(() => {
@@ -257,7 +278,7 @@ export function ArticleChaptersAuthorComponent({
           }
         });
       },
-      { rootMargin: "-20% 0px -80% 0px" }
+      { rootMargin: "-20% 0px -80% 0px" },
     );
 
     chapters.forEach((chapter) => {
@@ -273,7 +294,7 @@ export function ArticleChaptersAuthorComponent({
     if (!breadcrumbs || breadcrumbs.length === 0) return null;
 
     return (
-      <Breadcrumb className={cn("mb-8", breadcrumbClassName)}>
+      <Breadcrumb className={cn("mb-8 md:mb-20", breadcrumbClassName)}>
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
@@ -314,7 +335,11 @@ export function ArticleChaptersAuthorComponent({
           {chapters.map((chapter) => {
             const isActive = activeChapter === chapter.id;
             if (renderChapterLink) {
-              return <React.Fragment key={chapter.id}>{renderChapterLink(chapter, isActive)}</React.Fragment>;
+              return (
+                <React.Fragment key={chapter.id}>
+                  {renderChapterLink(chapter, isActive)}
+                </React.Fragment>
+              );
             }
             return (
               <Pressable
@@ -324,7 +349,7 @@ export function ArticleChaptersAuthorComponent({
                   "flex items-center gap-3 text-sm transition-colors",
                   isActive
                     ? "font-medium text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-xs">
@@ -337,7 +362,13 @@ export function ArticleChaptersAuthorComponent({
         </nav>
       </div>
     );
-  }, [chaptersSlot, chapters, activeChapter, renderChapterLink, chaptersClassName]);
+  }, [
+    chaptersSlot,
+    chapters,
+    activeChapter,
+    renderChapterLink,
+    chaptersClassName,
+  ]);
 
   const authorCardContent = React.useMemo(() => {
     if (authorSlot) return authorSlot;
@@ -355,11 +386,13 @@ export function ArticleChaptersAuthorComponent({
                   href={link.href}
                   className={cn(
                     "flex h-8 w-8 items-center justify-center rounded-md border hover:bg-muted",
-                    link.className
+                    link.className,
                   )}
                   aria-label={link["aria-label"]}
                 >
-                  {link.icon ?? <DynamicIcon name={`lucide/${link.platform}`} size={14} />}
+                  {link.icon ?? (
+                    <DynamicIcon name={`lucide/${link.platform}`} size={14} />
+                  )}
                 </Pressable>
               ))}
             </div>
@@ -383,7 +416,10 @@ export function ArticleChaptersAuthorComponent({
                   key={platform}
                   href={href}
                   className="flex h-8 w-8 items-center justify-center rounded-md border hover:bg-muted"
-                  aria-label={platformLabels[platform] || platform.charAt(0).toUpperCase() + platform.slice(1)}
+                  aria-label={
+                    platformLabels[platform] ||
+                    platform.charAt(0).toUpperCase() + platform.slice(1)
+                  }
                 >
                   <DynamicIcon name={`lucide/${platform}`} size={14} />
                 </Pressable>
@@ -400,21 +436,15 @@ export function ArticleChaptersAuthorComponent({
         <div className="flex items-center gap-3">
           <Avatar className="h-12 w-12">
             <AvatarImage src={author.image} />
-            <AvatarFallback>
-              {author.name?.charAt(0) || "A"}
-            </AvatarFallback>
+            <AvatarFallback>{author.name?.charAt(0) || "A"}</AvatarFallback>
           </Avatar>
           <div>
             <p className="font-medium">{author.name}</p>
-            <p className="text-xs text-muted-foreground">
-              {author.role}
-            </p>
+            <p className="text-xs text-muted-foreground">{author.role}</p>
           </div>
         </div>
         {author.bio && (
-          <p className="mt-3 text-sm text-muted-foreground">
-            {author.bio}
-          </p>
+          <p className="mt-3 text-sm text-muted-foreground">{author.bio}</p>
         )}
         {socialLinksContent}
       </div>
@@ -429,36 +459,62 @@ export function ArticleChaptersAuthorComponent({
       <Img
         src={heroImageSrc}
         alt={heroImageAlt}
-        className={cn("my-8 aspect-video w-full rounded-lg object-cover", heroImageClassName)}
+        className={cn(
+          "my-8 aspect-video w-full rounded-lg object-cover",
+          heroImageClassName,
+        )}
         optixFlowConfig={optixFlowConfig}
       />
     );
-  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
+  }, [
+    heroMediaSlot,
+    heroImageSrc,
+    heroImageAlt,
+    heroImageClassName,
+    optixFlowConfig,
+  ]);
 
   const conclusionContent = React.useMemo(() => {
     if (conclusionSlot) return conclusionSlot;
-    if (!conclusionTitle && !conclusionDescription && (!conclusionActions || conclusionActions.length === 0)) return null;
+    if (
+      !conclusionTitle &&
+      !conclusionDescription &&
+      (!conclusionActions || conclusionActions.length === 0)
+    )
+      return null;
 
     return (
-      <div className={cn("mt-12 rounded-lg border bg-muted/50 p-6 not-prose", conclusionClassName)}>
-        {conclusionTitle && (
-          typeof conclusionTitle === "string" ? (
+      <div
+        className={cn(
+          "mt-12 rounded-lg border bg-muted/50 p-6 not-prose",
+          conclusionClassName,
+        )}
+      >
+        {conclusionTitle &&
+          (typeof conclusionTitle === "string" ? (
             <h3 className="text-lg font-semibold">{conclusionTitle}</h3>
           ) : (
             conclusionTitle
-          )
-        )}
-        {conclusionDescription && (
-          typeof conclusionDescription === "string" ? (
-            <p className="mt-2 text-muted-foreground">{conclusionDescription}</p>
+          ))}
+        {conclusionDescription &&
+          (typeof conclusionDescription === "string" ? (
+            <p className="mt-2 text-muted-foreground">
+              {conclusionDescription}
+            </p>
           ) : (
             <div className="mt-2">{conclusionDescription}</div>
-          )
-        )}
+          ))}
         {conclusionActions && conclusionActions.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
             {conclusionActions.map((action, index) => {
-              const { label, icon, iconAfter, children: actionChildren, className: actionClassName, ...pressableProps } = action;
+              const {
+                label,
+                icon,
+                iconAfter,
+                children: actionChildren,
+                className: actionClassName,
+                ...pressableProps
+              } = action;
               return (
                 <Pressable
                   key={index}
@@ -480,7 +536,13 @@ export function ArticleChaptersAuthorComponent({
         )}
       </div>
     );
-  }, [conclusionSlot, conclusionTitle, conclusionDescription, conclusionActions, conclusionClassName]);
+  }, [
+    conclusionSlot,
+    conclusionTitle,
+    conclusionDescription,
+    conclusionActions,
+    conclusionClassName,
+  ]);
 
   return (
     <Section
@@ -493,25 +555,33 @@ export function ArticleChaptersAuthorComponent({
       <div className={cn("container", containerClassName)}>
         {breadcrumbsContent}
 
-        <div className={cn("mb-12 text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", titleClassName)}>
+        <div className={cn("mb-12 text-center px-8 md:px-0", headerClassName)}>
+          {title &&
+            (typeof title === "string" ? (
+              <h1
+                className={cn(
+                  "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h1>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground md:text-xl", subtitleClassName)}>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground md:text-xl text-balance",
+                  subtitleClassName,
+                )}
+              >
                 {subtitle}
               </p>
             ) : (
               <div className={cn("mt-4", subtitleClassName)}>{subtitle}</div>
-            )
-          )}
+            ))}
         </div>
 
         <div className="grid gap-10 lg:grid-cols-[280px_minmax(0,1fr)]">
@@ -522,7 +592,12 @@ export function ArticleChaptersAuthorComponent({
             </div>
           </aside>
 
-          <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
+          <article
+            className={cn(
+              "prose max-w-none dark:prose-invert",
+              articleClassName,
+            )}
+          >
             {heroMediaContent}
 
             {children}

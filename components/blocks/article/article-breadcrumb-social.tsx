@@ -243,15 +243,27 @@ export function ArticleBreadcrumbSocialComponent({
 
   const platformLabels: Record<string, string> = {
     twitter: "Twitter",
+    x: "X",
     facebook: "Facebook",
     linkedin: "LinkedIn",
     instagram: "Instagram",
     github: "GitHub",
   };
+
+  // Map platform names to simple-icons (brand icons) - lucide doesn't have social brand icons
+  const socialIconMap: Record<string, string> = {
+    twitter: "simple-icons/x", // Twitter is now X
+    x: "simple-icons/x",
+    facebook: "simple-icons/facebook",
+    linkedin: "simple-icons/linkedin",
+    instagram: "simple-icons/instagram",
+    github: "simple-icons/github",
+  };
+
   const socialLinks = socialLinksProp ?? (shareUrls ? Object.entries(shareUrls).filter(([, href]) => href).map(([platform, href]) => ({
     platform,
     href: href!,
-    icon: <DynamicIcon name={`lucide/${platform}`} size={16} />,
+    icon: <DynamicIcon name={socialIconMap[platform] || `simple-icons/${platform}`} size={16} />,
     "aria-label": `Share on ${platformLabels[platform] || platform.charAt(0).toUpperCase() + platform.slice(1)}`,
     className: undefined,
   } as const)) : []);
@@ -463,6 +475,13 @@ export function ArticleBreadcrumbSocialComponent({
               {heroMediaContent}
 
               {children}
+
+              {/* Mobile share section - hidden on desktop where sidebar shows */}
+              {shareButtonsContent && (
+                <div className="not-prose mt-8 lg:hidden">
+                  {shareButtonsContent}
+                </div>
+              )}
             </article>
           )}
 

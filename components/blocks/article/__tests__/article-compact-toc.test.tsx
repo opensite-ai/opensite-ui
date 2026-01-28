@@ -49,13 +49,14 @@ describe("ArticleCompactToc", () => {
   it("toggles table of contents on mobile", () => {
     render(<ArticleCompactToc title="Test Article" sections={mockSections} />);
 
-    const tocButton = screen.getByText("Table of Contents");
+    // Find the mobile TOC button (inside the popover trigger)
+    const tocButton = screen.getByRole("button", { name: /table of contents/i });
     expect(tocButton).toBeInTheDocument();
 
-    // Click to open TOC
+    // Click to open TOC popover
     fireEvent.click(tocButton);
 
-    // Sections should be visible - use getAllByText since there may be duplicates
+    // Sections should be visible - use getAllByText since there may be duplicates (desktop + mobile)
     const introElements = screen.getAllByText("Introduction");
     expect(introElements.length).toBeGreaterThan(0);
     const methodsElements = screen.getAllByText("Methods");

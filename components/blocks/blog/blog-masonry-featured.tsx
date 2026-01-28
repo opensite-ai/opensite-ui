@@ -226,7 +226,7 @@ export function BlogMasonryFeaturedComponent({
           (typeof heading === "string" ? (
             <h1
               className={cn(
-                "mb-12 text-center text-4xl font-medium md:text-7xl",
+                "mb-6 md:mb-12 text-center text-4xl font-medium md:text-6xl text-balance",
                 headingClassName,
               )}
             >
@@ -238,7 +238,7 @@ export function BlogMasonryFeaturedComponent({
 
         <div
           className={cn(
-            "xs:grid-cols-1 mt-24 grid gap-4 sm:grid-cols-2 lg:grid-cols-4",
+            "xs:grid-cols-1 mt-6 md:mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4",
             postsClassName,
           )}
         >

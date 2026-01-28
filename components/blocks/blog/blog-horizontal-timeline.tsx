@@ -117,14 +117,14 @@ export function BlogHorizontalTimelineComponent({
         <div
           key={postId}
           className={cn(
-            "flex flex-col items-center gap-16 md:flex-row",
+            "flex flex-col items-center gap-6 md:flex-row md:gap-16",
             postItemClassName,
           )}
         >
           {post.image && (
             <div
               className={cn(
-                "flex h-80 w-full items-center justify-center overflow-hidden rounded-3xl bg-muted md:w-140",
+                "flex h-48 w-full shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-muted md:h-80 md:w-140 md:rounded-3xl",
                 postImageClassName,
               )}
             >
@@ -136,29 +136,31 @@ export function BlogHorizontalTimelineComponent({
               />
             </div>
           )}
-          <Card className={cn("border-none shadow-none", postCardClassName)}>
+          <Card
+            className={cn("w-full border-none shadow-none", postCardClassName)}
+          >
             <CardContent className="p-0">
               <div
                 className={cn(
-                  "mb-5 flex h-90 items-start border-b py-10 md:mb-0 lg:gap-32",
+                  "flex flex-col gap-4 border-b py-4 md:h-90 md:flex-row md:items-start md:gap-0 md:py-10 lg:gap-32",
                   index === 0 && "md:border-t",
                 )}
               >
-                <div className="flex h-full w-full flex-col items-start justify-between pr-8">
+                <div className="flex w-full flex-col items-start gap-2 md:h-full md:justify-between md:pr-8">
                   {post.title && (
-                    <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+                    <h2 className="text-xl font-bold tracking-tight text-foreground md:text-3xl">
                       {post.title}
                     </h2>
                   )}
                   {postDate && (
-                    <p className="mt-2 text-sm font-semibold tracking-widest text-muted-foreground uppercase">
+                    <p className="text-xs font-semibold tracking-widest text-muted-foreground uppercase md:mt-2 md:text-sm">
                       {postDate}
                     </p>
                   )}
                 </div>
-                <div className="flex h-full w-full flex-col items-start justify-between gap-6">
+                <div className="flex w-full flex-col items-start gap-4 md:h-full md:justify-between md:gap-6">
                   {postDescription && (
-                    <p className="text-lg leading-relaxed font-normal tracking-tight text-muted-foreground md:text-xl">
+                    <p className="text-base leading-relaxed font-normal tracking-tight text-muted-foreground md:text-xl">
                       {postDescription}
                     </p>
                   )}
@@ -168,7 +170,7 @@ export function BlogHorizontalTimelineComponent({
                       variant="ghost"
                       className="inline-flex items-center justify-center gap-4 px-0 text-primary transition-all ease-in-out hover:gap-6 hover:text-accent-foreground"
                     >
-                      <span className="text-lg font-semibold tracking-tight">
+                      <span className="text-base font-semibold tracking-tight md:text-lg">
                         {readText}
                       </span>
                       <DynamicIcon name="lucide/arrow-right" size={20} />

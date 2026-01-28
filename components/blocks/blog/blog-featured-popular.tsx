@@ -157,7 +157,7 @@ export function BlogFeaturedPopular({
                 : "Featured post"
             }
             className={cn(
-              "aspect-video rounded-lg object-cover",
+              "aspect-video rounded-lg object-cover w-full h-auto",
               featuredImageClassName,
             )}
             optixFlowConfig={optixFlowConfig}
@@ -260,12 +260,17 @@ export function BlogFeaturedPopular({
     >
       <div className={cn("container", containerClassName)}>
         {(heading || description) && (
-          <div className={cn("mb-16 text-center", headerClassName)}>
+          <div
+            className={cn(
+              "mb-6 md:mb-16 text-center px-8 md:px-0",
+              headerClassName,
+            )}
+          >
             {heading &&
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "text-5xl font-medium md:text-6xl",
+                    "text-4xl font-bold md:text-5xl text-balance",
                     headingClassName,
                   )}
                 >
@@ -278,7 +283,7 @@ export function BlogFeaturedPopular({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mx-auto mt-4 max-w-xl text-lg text-muted-foreground",
+                    "mx-auto mt-4 max-w-xl text-lg text-muted-foreground text-balance",
                     descriptionClassName,
                   )}
                 >

@@ -178,7 +178,7 @@ export function BlogTechInsights({
     if (featuredSlot) return featuredSlot;
     if (!featuredPost) return null;
 
-    return (
+    const content = (
       <div className={cn("mb-4", featuredClassName)}>
         {featuredPost.image && (
           <Img
@@ -230,6 +230,19 @@ export function BlogTechInsights({
         )}
       </div>
     );
+
+    if (featuredPost.href) {
+      return (
+        <Pressable
+          href={featuredPost.href}
+          className="block transition-opacity hover:opacity-90"
+        >
+          {content}
+        </Pressable>
+      );
+    }
+
+    return content;
   }, [
     featuredSlot,
     featuredPost,
@@ -244,10 +257,14 @@ export function BlogTechInsights({
 
     return secondaryPosts.map((post) => {
       const postId = post.id || String(post.title) || Math.random().toString();
+      const descriptionText = post.description || post.summary;
+      const truncatedDescription =
+        typeof descriptionText === "string" && descriptionText.length > 100
+          ? `${descriptionText.slice(0, 100)}...`
+          : descriptionText;
 
-      return (
+      const postContent = (
         <div
-          key={postId}
           className={cn(
             "flex items-start gap-4 border-b pb-6 last:border-b-0",
             secondaryPostItemClassName,
@@ -266,14 +283,33 @@ export function BlogTechInsights({
             )}
           </div>
           <div className="w-3/4 md:w-4/5">
-            {(post.description || post.summary) && (
-              <p className="text-sm leading-relaxed md:text-base">
-                {post.description || post.summary}
+            {post.title && (
+              <h3 className="font-semibold text-foreground md:text-lg">
+                {post.title}
+              </h3>
+            )}
+            {truncatedDescription && (
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground md:text-base">
+                {truncatedDescription}
               </p>
             )}
           </div>
         </div>
       );
+
+      if (post.href) {
+        return (
+          <Pressable
+            key={postId}
+            href={post.href}
+            className="block transition-opacity hover:opacity-80"
+          >
+            {postContent}
+          </Pressable>
+        );
+      }
+
+      return <div key={postId}>{postContent}</div>;
     });
   }, [
     secondaryPostsSlot,

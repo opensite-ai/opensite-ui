@@ -197,8 +197,8 @@ export function BlogCarouselAppleComponent({
     <Section
       title={title}
       subtitle={subtitle}
-      background={background || "white"}
-      spacing={spacing || "lg"}
+      background={background}
+      spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}

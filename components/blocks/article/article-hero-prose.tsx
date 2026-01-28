@@ -7,7 +7,11 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleHeroProsePost {
@@ -116,14 +120,27 @@ export function ArticleHeroProseComponent({
   pattern,
   patternOpacity,
 }: ArticleHeroProseProps) {
-  const { title, authorName, authorHref, image, pubDate, description, authorImage } = post ?? {};
+  const {
+    title,
+    authorName,
+    authorHref,
+    image,
+    pubDate,
+    description,
+    authorImage,
+  } = post ?? {};
 
   const authorContent = React.useMemo(() => {
     if (authorSlot) return authorSlot;
     if (!authorName) return null;
 
     return (
-      <div className={cn("flex items-center gap-3 text-sm md:text-base", authorClassName)}>
+      <div
+        className={cn(
+          "flex items-center gap-3 text-sm md:text-base",
+          authorClassName,
+        )}
+      >
         <Avatar className="h-8 w-8 border">
           {authorImage && <AvatarImage src={authorImage} />}
           <AvatarFallback>{authorName.charAt(0)}</AvatarFallback>
@@ -138,7 +155,15 @@ export function ArticleHeroProseComponent({
         </span>
       </div>
     );
-  }, [authorSlot, authorName, authorImage, authorHref, pubDate, dateFormat, authorClassName]);
+  }, [
+    authorSlot,
+    authorName,
+    authorImage,
+    authorHref,
+    pubDate,
+    dateFormat,
+    authorClassName,
+  ]);
 
   const heroMediaContent = React.useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
@@ -148,7 +173,10 @@ export function ArticleHeroProseComponent({
       <Img
         src={image}
         alt="Hero media"
-        className={cn("mt-4 mb-8 aspect-video w-full rounded-lg border object-cover", heroImageClassName)}
+        className={cn(
+          "mt-4 mb-8 aspect-video w-full rounded-lg border object-cover",
+          heroImageClassName,
+        )}
         optixFlowConfig={optixFlowConfig}
       />
     );
@@ -163,14 +191,29 @@ export function ArticleHeroProseComponent({
       className={className}
     >
       <div className={cn("container", containerClassName)}>
-        <div className={cn("mx-auto flex max-w-5xl flex-col items-center gap-4 text-center", headerClassName)}>
+        <div
+          className={cn(
+            "mx-auto flex max-w-5xl flex-col items-center gap-4 text-center",
+            headerClassName,
+          )}
+        >
           {title && (
-            <h1 className={cn("max-w-3xl text-5xl font-semibold text-pretty md:text-6xl", titleClassName)}>
+            <h1
+              className={cn(
+                "max-w-3xl text-5xl font-semibold text-pretty md:text-6xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h1>
           )}
           {description && (
-            <h3 className={cn("max-w-3xl text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
+            <h3
+              className={cn(
+                "max-w-3xl text-lg text-muted-foreground md:text-xl text-balance",
+                descriptionClassName,
+              )}
+            >
               {description}
             </h3>
           )}
@@ -180,7 +223,12 @@ export function ArticleHeroProseComponent({
       </div>
       {children && (
         <div className={cn("container", containerClassName)}>
-          <div className={cn("mx-auto prose max-w-3xl dark:prose-invert", proseClassName)}>
+          <div
+            className={cn(
+              "mx-auto prose max-w-3xl dark:prose-invert",
+              proseClassName,
+            )}
+          >
             {children}
           </div>
         </div>

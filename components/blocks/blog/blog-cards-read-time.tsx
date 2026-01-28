@@ -229,14 +229,14 @@ export function BlogCardsReadTime({
       <div className={cn("container", containerClassName)}>
         <div
           className={cn(
-            "mx-auto flex max-w-3xl flex-col items-center gap-4 text-center",
+            "mx-auto flex max-w-3xl flex-col items-center gap-4 text-center px-8 md:px-0",
             headerClassName,
           )}
         >
           {badge && (
             <div className={badgeClassName}>
               {typeof badge === "string" ? (
-                <Badge variant="outline" className="gap-1 py-1">
+                <Badge variant="outline" className="gap-1">
                   <DynamicIcon
                     name="lucide/file-text"
                     size={16}
@@ -264,7 +264,12 @@ export function BlogCardsReadTime({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("text-muted-foreground", descriptionClassName)}>
+              <p
+                className={cn(
+                  "text-muted-foreground text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
@@ -273,7 +278,7 @@ export function BlogCardsReadTime({
         </div>
         <div
           className={cn(
-            "mt-20 grid gap-4 md:grid-cols-2 lg:grid-cols-3",
+            "mt-6 md:mt-20 grid gap-4 md:grid-cols-2 lg:grid-cols-3",
             postsClassName,
           )}
         >

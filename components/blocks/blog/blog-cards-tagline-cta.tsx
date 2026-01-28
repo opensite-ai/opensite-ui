@@ -244,7 +244,12 @@ export function BlogCardsTaglineCta({
           containerClassName,
         )}
       >
-        <div className={cn("text-center", headerClassName)}>
+        <div
+          className={cn(
+            "text-center flex flex-col items-center px-6 md:px-0",
+            headerClassName,
+          )}
+        >
           {badge &&
             (typeof badge === "string" ? (
               <Badge variant="secondary" className={cn("mb-6", badgeClassName)}>
@@ -270,7 +275,7 @@ export function BlogCardsTaglineCta({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mb-8 text-muted-foreground md:text-base lg:max-w-2xl lg:text-lg",
+                  "mb-8 text-muted-foreground md:text-base lg:max-w-2xl lg:text-lg text-balance",
                   descriptionClassName,
                 )}
               >

@@ -238,7 +238,7 @@ export function ArticleSidebarStickyComponent({
                 <div className={titleClassName}>{title}</div>
               )
             )}
-            <div className="mt-4 lg:hidden">
+            <div className="not-prose mt-4 lg:hidden">
               {renderAuthor(true)}
             </div>
             {heroMediaContent}

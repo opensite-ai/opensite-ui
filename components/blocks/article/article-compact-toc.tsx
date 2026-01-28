@@ -15,7 +15,17 @@ import {
 } from "../../ui/breadcrumb";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
-import type { OptixFlowConfig, SocialLinkItem, SectionBackground, SectionSpacing } from "../../../src/types";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "../../ui/popover";
+import type {
+  OptixFlowConfig,
+  SocialLinkItem,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleCompactTocSection {
@@ -112,7 +122,10 @@ export interface ArticleCompactTocProps {
   /**
    * Render callback for section links (overrides default rendering)
    */
-  renderSectionLink?: (section: ArticleCompactTocSection, isActive: boolean) => React.ReactNode;
+  renderSectionLink?: (
+    section: ArticleCompactTocSection,
+    isActive: boolean,
+  ) => React.ReactNode;
   /**
    * Social share links
    */
@@ -200,7 +213,7 @@ export function ArticleCompactTocComponent({
   patternOpacity,
 }: ArticleCompactTocProps) {
   const [activeSection, setActiveSection] = React.useState<string>(
-    sections?.[0]?.id || ""
+    sections?.[0]?.id || "",
   );
   const [isTocOpen, setIsTocOpen] = React.useState(false);
 
@@ -215,7 +228,7 @@ export function ArticleCompactTocComponent({
           }
         });
       },
-      { rootMargin: "-20% 0px -80% 0px" }
+      { rootMargin: "-20% 0px -80% 0px" },
     );
 
     sections?.forEach((section) => {
@@ -231,7 +244,7 @@ export function ArticleCompactTocComponent({
     if (!breadcrumbs && !currentPage) return null;
 
     return (
-      <Breadcrumb className={cn("mb-6", breadcrumbClassName)}>
+      <Breadcrumb className={cn("mb-6 md:mb-20", breadcrumbClassName)}>
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
@@ -280,53 +293,90 @@ export function ArticleCompactTocComponent({
     );
   }, [shareSlot, socialLinks, shareClassName]);
 
+  const renderTocLinks = React.useCallback(
+    (onLinkClick?: () => void) => {
+      if (!sections) return null;
+      return sections.map((section) => {
+        const isActive = activeSection === section.id;
+        if (renderSectionLink) {
+          return (
+            <React.Fragment key={section.id}>
+              {renderSectionLink(section, isActive)}
+            </React.Fragment>
+          );
+        }
+        return (
+          <Pressable
+            key={section.id}
+            href={`#${section.id}`}
+            className={cn(
+              "block text-sm transition-colors",
+              isActive
+                ? "font-medium text-foreground"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+            onClick={onLinkClick}
+          >
+            {section.title}
+          </Pressable>
+        );
+      });
+    },
+    [sections, activeSection, renderSectionLink],
+  );
+
   const tocContent = React.useMemo(() => {
     if (tocSlot) return tocSlot;
     if (!sections || sections.length === 0) return null;
 
     return (
       <div className="mb-8 lg:hidden">
-        <button
-          onClick={() => setIsTocOpen(!isTocOpen)}
-          className={cn(
-            "flex w-full items-center justify-between rounded-lg border p-4",
-            tocClassName
-          )}
-        >
-          <span className="text-sm font-medium">Table of Contents</span>
-          <DynamicIcon
-            name={isTocOpen ? "lucide/chevron-up" : "lucide/chevron-down"}
-            size={16}
-          />
-        </button>
-        {isTocOpen && (
-          <nav className="mt-2 space-y-2 rounded-lg border p-4">
-            {sections.map((section) => {
-              const isActive = activeSection === section.id;
-              if (renderSectionLink) {
-                return <React.Fragment key={section.id}>{renderSectionLink(section, isActive)}</React.Fragment>;
-              }
-              return (
-                <Pressable
-                  key={section.id}
-                  href={`#${section.id}`}
-                  className={cn(
-                    "block text-sm transition-colors",
-                    isActive
-                      ? "font-medium text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
-                  )}
-                  onClick={() => setIsTocOpen(false)}
-                >
-                  {section.title}
-                </Pressable>
-              );
-            })}
-          </nav>
-        )}
+        <Popover open={isTocOpen} onOpenChange={setIsTocOpen}>
+          <PopoverTrigger asChild>
+            <button
+              className={cn(
+                "flex w-full items-center justify-between rounded-lg border p-4",
+                tocClassName,
+              )}
+            >
+              <span className="text-sm font-medium">Table of Contents</span>
+              <DynamicIcon
+                name={isTocOpen ? "lucide/chevron-up" : "lucide/chevron-down"}
+                size={16}
+              />
+            </button>
+          </PopoverTrigger>
+          <PopoverContent
+            align="start"
+            className="w-[var(--radix-popover-trigger-width)] space-y-2 p-4"
+          >
+            {renderTocLinks(() => setIsTocOpen(false))}
+          </PopoverContent>
+        </Popover>
       </div>
     );
-  }, [tocSlot, sections, isTocOpen, activeSection, renderSectionLink, tocClassName]);
+  }, [tocSlot, sections, isTocOpen, tocClassName, renderTocLinks]);
+
+  const desktopTocContent = React.useMemo(() => {
+    if (tocSlot) return null;
+    if (!sections || sections.length === 0) return null;
+
+    return (
+      <aside
+        className={cn(
+          "hidden lg:block fixed top-24 right-8 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto",
+          tocClassName,
+        )}
+      >
+        <nav className="space-y-2 rounded-lg border bg-background p-4">
+          <span className="mb-3 block text-sm font-semibold">
+            Table of Contents
+          </span>
+          {renderTocLinks()}
+        </nav>
+      </aside>
+    );
+  }, [tocSlot, sections, tocClassName, renderTocLinks]);
 
   const heroMediaContent = React.useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
@@ -336,11 +386,20 @@ export function ArticleCompactTocComponent({
       <Img
         src={heroImageSrc}
         alt={heroImageAlt}
-        className={cn("my-8 aspect-video w-full rounded-lg object-cover", heroImageClassName)}
+        className={cn(
+          "my-8 aspect-video w-full rounded-lg object-cover",
+          heroImageClassName,
+        )}
         optixFlowConfig={optixFlowConfig}
       />
     );
-  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
+  }, [
+    heroMediaSlot,
+    heroImageSrc,
+    heroImageAlt,
+    heroImageClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -348,36 +407,49 @@ export function ArticleCompactTocComponent({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      className={cn("relative", className)}
     >
+      {desktopTocContent}
       <div className={cn("container", containerClassName)}>
         {breadcrumbsContent}
 
         <div className={cn("mx-auto max-w-3xl", contentClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h1 className={cn("text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl", titleClassName)}>
+          {title &&
+            (typeof title === "string" ? (
+              <h1
+                className={cn(
+                  "text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h1>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
+            ))}
 
           {(authorName || publishDate || readTime) && (
-            <div className={cn("mt-4 flex flex-wrap items-center gap-4 text-sm text-muted-foreground", metaClassName)}>
-              {authorName && (
-                authorHref ? (
+            <div
+              className={cn(
+                "mt-4 flex flex-wrap items-center gap-4 text-sm text-muted-foreground",
+                metaClassName,
+              )}
+            >
+              {authorName &&
+                (authorHref ? (
                   <Pressable href={authorHref} className="hover:underline">
                     {authorName}
                   </Pressable>
                 ) : (
                   <span>{authorName}</span>
-                )
+                ))}
+              {authorName && publishDate && (
+                <Separator orientation="vertical" className="h-4" />
               )}
-              {authorName && publishDate && <Separator orientation="vertical" className="h-4" />}
               {publishDate && <span>{publishDate}</span>}
-              {publishDate && readTime && <Separator orientation="vertical" className="h-4" />}
+              {publishDate && readTime && (
+                <Separator orientation="vertical" className="h-4" />
+              )}
               {readTime && <span>{readTime}</span>}
             </div>
           )}
@@ -389,7 +461,12 @@ export function ArticleCompactTocComponent({
           {tocContent}
 
           {children && (
-            <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
+            <article
+              className={cn(
+                "prose max-w-none dark:prose-invert",
+                articleClassName,
+              )}
+            >
               {heroMediaContent}
               {children}
             </article>

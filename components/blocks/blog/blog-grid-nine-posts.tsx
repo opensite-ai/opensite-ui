@@ -181,7 +181,7 @@ export function BlogGridNinePosts({
             </div>
           )}
           {post.title && (
-            <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium wrap-break-word md:mb-3 md:pt-4 md:text-2xl lg:pt-4 lg:text-3xl">
+            <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium wrap-break-word md:mb-3">
               {post.title}
             </div>
           )}
@@ -229,13 +229,13 @@ export function BlogGridNinePosts({
     >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mb-8 md:mb-14 lg:mb-16", headerClassName)}>
-          <div className="flex items-start justify-between gap-8">
+          <div className="flex items-start justify-between gap:4 md:gap-8">
             <div>
               {heading &&
                 (typeof heading === "string" ? (
                   <h2
                     className={cn(
-                      "mb-4 w-full text-4xl font-medium md:mb-5 md:text-5xl lg:mb-6 lg:text-6xl",
+                      "mb-4 w-full text-4xl font-bold md:mb-5 lg:mb-6 lg:text-5xl text-balance",
                       headingClassName,
                     )}
                   >
@@ -255,7 +255,7 @@ export function BlogGridNinePosts({
         </div>
         <div
           className={cn(
-            "grid gap-x-4 gap-y-8 md:grid-cols-2 lg:gap-x-6 lg:gap-y-12 2xl:grid-cols-3",
+            "grid gap-x-4 gap-y-8 md:grid-cols-2 lg:gap-x-6 lg:gap-y-12 lg:grid-cols-3",
             postsClassName,
           )}
         >
