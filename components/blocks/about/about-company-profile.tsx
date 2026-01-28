@@ -333,10 +333,15 @@ export function AboutCompanyProfile({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-      <div className="mb-14 grid gap-5 text-center md:grid-cols-2 md:text-left">
+      <div className="mb-6 md:mb-14 grid gap-5 md:grid-cols-2 text-left">
         {title &&
           (typeof title === "string" ? (
-            <h1 className={cn("text-5xl font-semibold", titleClassName)}>
+            <h1
+              className={cn(
+                "text-5xl font-semibold text-balance",
+                titleClassName,
+              )}
+            >
               {title}
             </h1>
           ) : (
@@ -344,7 +349,12 @@ export function AboutCompanyProfile({
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p className={cn("text-muted-foreground", descriptionClassName)}>
+            <p
+              className={cn(
+                "text-muted-foreground text-balance",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
@@ -370,7 +380,7 @@ export function AboutCompanyProfile({
               src={secondaryImage.src}
               alt={secondaryImage.alt}
               className={cn(
-                "grow basis-0 rounded-xl object-cover md:w-1/2 lg:min-h-0 lg:w-auto",
+                "grow basis-0 rounded-xl object-cover w-full h-auto md:w-1/2 lg:min-h-0 lg:w-auto",
                 secondaryImageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
