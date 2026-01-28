@@ -17,6 +17,8 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../../../lib/utils";
+import { Pressable } from "../../../lib/Pressable";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -73,19 +75,19 @@ function SliderBtn({
       onClick={() => handleButtonClick(value)}
     >
       {children}
-      <div
-        className="absolute inset-0 -z-10 max-h-full max-w-full overflow-hidden"
-        role="progressbar"
-        aria-valuenow={active === value ? progress : 0}
-      >
-        <span
-          className={cn("absolute left-0", progressBarClass)}
-          style={{
-            [vertical ? "height" : "width"]:
-              active === value ? `${progress}%` : "0%",
-          }}
-        />
-      </div>
+            <div
+              className="absolute inset-0 -z-10 max-h-full max-w-full overflow-hidden rounded-lg"
+              role="progressbar"
+              aria-valuenow={active === value ? progress : 0}
+            >
+              <span
+                className={cn("absolute left-0 rounded-b-lg", progressBarClass)}
+                style={{
+                  [vertical ? "height" : "width"]:
+                    active === value ? `${progress}%` : "0%",
+                }}
+              />
+            </div>
     </button>
   );
 }
@@ -227,7 +229,7 @@ export function CarouselProgressSlider({
   subheading,
   slides,
   slidesSlot,
-  duration = 5000,
+  duration = 8000,
   fastDuration = 400,
   vertical = false,
   className,
@@ -243,27 +245,41 @@ export function CarouselProgressSlider({
   pattern,
   patternOpacity,
 }: CarouselProgressSliderProps): React.JSX.Element {
-  const [active, setActive] = React.useState<string>(slides?.[0]?.id ?? "");
-  const [progress, setProgress] = React.useState<number>(0);
-  const [isFastForward, setIsFastForward] = React.useState<boolean>(false);
-  const frame = React.useRef<number>(0);
-  const firstFrameTime = React.useRef<number>(performance.now());
-  const targetValue = React.useRef<string | null>(null);
+    const [active, setActive] = React.useState<string>(slides?.[0]?.id ?? "");
+    const [progress, setProgress] = React.useState<number>(0);
+    const [isFastForward, setIsFastForward] = React.useState<boolean>(false);
+    const [isPaused, setIsPaused] = React.useState<boolean>(false);
+    const frame = React.useRef<number>(0);
+    const firstFrameTime = React.useRef<number>(performance.now());
+    const targetValue = React.useRef<string | null>(null);
+    const pausedProgress = React.useRef<number>(0);
 
   const sliderValues = React.useMemo(
     () => slides?.map((slide) => slide.id),
     [slides],
   );
 
-  React.useEffect(() => {
-    if ((sliderValues?.length ?? 0) > 0) {
-      firstFrameTime.current = performance.now();
-      frame.current = requestAnimationFrame(animate);
-    }
-    return () => {
-      cancelAnimationFrame(frame.current);
+    React.useEffect(() => {
+      if ((sliderValues?.length ?? 0) > 0 && !isPaused) {
+        firstFrameTime.current = performance.now();
+        if (pausedProgress.current > 0) {
+          setProgress(pausedProgress.current);
+          pausedProgress.current = 0;
+        }
+        frame.current = requestAnimationFrame(animate);
+      }
+      return () => {
+        cancelAnimationFrame(frame.current);
+      };
+    }, [sliderValues, active, isFastForward, isPaused]);
+
+    const togglePause = () => {
+      if (!isPaused) {
+        pausedProgress.current = progress;
+        cancelAnimationFrame(frame.current);
+      }
+      setIsPaused(!isPaused);
     };
-  }, [sliderValues, active, isFastForward]);
 
   const animate = (now: number) => {
     const currentDuration = isFastForward ? fastDuration : duration;
@@ -321,34 +337,47 @@ export function CarouselProgressSlider({
       >
         <div className={cn("relative", containerClassName)}>
           <div className={cn("grid gap-8 lg:grid-cols-2", contentClassName)}>
-            {/* Content area */}
-            <div className={cn("relative min-h-[300px]", imageClassName)}>
-              {slidesSlot
-                ? slidesSlot
-                : slides?.map((slide) => (
-                    <SliderWrapper
-                      key={slide.id}
-                      value={slide.id}
-                      className={cn("absolute inset-0", slide.className)}
-                    >
-                      <div className="aspect-video overflow-hidden rounded-lg">
-                        <Img
-                          src={slide.image}
-                          alt={
-                            typeof slide.title === "string"
-                              ? slide.title
-                              : `Slide ${slide.id}`
-                          }
-                          className={cn(
-                            "h-full w-full object-cover",
-                            slide.imageClassName,
-                          )}
-                          optixFlowConfig={optixFlowConfig}
-                        />
-                      </div>
-                    </SliderWrapper>
-                  ))}
-            </div>
+                        {/* Content area */}
+                        <div className={cn("relative", imageClassName)}>
+                          {slidesSlot
+                            ? slidesSlot
+                            : slides?.map((slide) => (
+                                <SliderWrapper
+                                  key={slide.id}
+                                  value={slide.id}
+                                  className={cn("", slide.className)}
+                                >
+                                  <div className="aspect-video overflow-hidden rounded-lg">
+                                    <Img
+                                      src={slide.image}
+                                      alt={
+                                        typeof slide.title === "string"
+                                          ? slide.title
+                                          : `Slide ${slide.id}`
+                                      }
+                                      className={cn(
+                                        "h-full w-full object-cover",
+                                        slide.imageClassName,
+                                      )}
+                                      optixFlowConfig={optixFlowConfig}
+                                    />
+                                  </div>
+                                </SliderWrapper>
+                              ))}
+                          {/* Play/Pause button */}
+                          <div className="mt-4 flex justify-center lg:justify-start">
+                            <Pressable
+                              onClick={togglePause}
+                              asButton
+                              variant="outline"
+                              size="icon"
+                              className="flex h-10 w-10 items-center justify-center rounded-full"
+                              aria-label={isPaused ? "Play" : "Pause"}
+                            >
+                              <DynamicIcon name={isPaused ? "lucide/play" : "lucide/pause"} size={18} />
+                            </Pressable>
+                          </div>
+                        </div>
 
             {/* Navigation buttons */}
             <div

@@ -165,30 +165,30 @@ export function CarouselImageHero({
     );
   };
 
-  const renderActions = () => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
+    const renderActions = () => {
+      if (actionsSlot) return actionsSlot;
+      if (!actions || actions.length === 0) return null;
 
-    return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={cn("bg-primary-foreground text-primary dark:bg-primary dark:text-primary-foreground", actionClassName)}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  };
+      return actions.map((action, index) => {
+        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        return (
+          <Pressable
+            key={index}
+            asButton
+            className={actionClassName}
+            {...pressableProps}
+          >
+            {children ?? (
+              <>
+                {icon}
+                {label}
+                {iconAfter}
+              </>
+            )}
+          </Pressable>
+        );
+      });
+    };
 
   return (
     <Section
@@ -241,27 +241,27 @@ export function CarouselImageHero({
           <DynamicIcon name="lucide/chevron-right" size={24} className="text-white" />
         </Pressable>
 
-        {/* Indicators */}
-        <div className={cn("absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2", indicatorsClassName)}>
-          {images?.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={cn(
-                "h-2.5 w-2.5 rounded-full transition-colors",
-                index === currentImageIndex
-                  ? "bg-white"
-                  : "bg-white/50 hover:bg-white/80"
-              )}
-              aria-label={`Go to image ${index + 1}`}
-            />
-          ))}
-        </div>
+                {/* Indicators */}
+                <div className={cn("absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-3", indicatorsClassName)}>
+                  {images?.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={cn(
+                        "flex h-3 w-3 items-center justify-center rounded-full transition-colors",
+                        index === currentImageIndex
+                          ? "bg-white"
+                          : "bg-white/50 hover:bg-white/80"
+                      )}
+                      aria-label={`Go to image ${index + 1}`}
+                    />
+                  ))}
+                </div>
       </div>
 
-      {/* Content */}
-      <div className={cn("container relative z-10 mx-auto flex min-h-[600px] flex-col items-center justify-center px-4 py-24 text-center md:px-6 md:py-32 2xl:max-w-[1400px]", containerClassName)}>
-        <div className={cn("max-w-3xl space-y-8", contentClassName)}>
+            {/* Content */}
+            <div className={cn("container relative z-10 mx-auto flex min-h-[600px] flex-col items-center justify-center px-4 py-16 text-center md:px-6 md:py-20", containerClassName)}>
+              <div className={cn("max-w-4xl space-y-6", contentClassName)}>
           <div className="space-y-4">
             {badge && (
               typeof badge === "string" ? (

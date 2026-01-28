@@ -32,6 +32,9 @@ vi.mock("framer-motion", () => ({
       </div>
     ),
   },
+  AnimatePresence: ({ children }: { children: React.ReactNode }) => (
+    <>{children}</>
+  ),
   useScroll: () => ({
     scrollYProgress: { get: () => 0 },
   }),
@@ -95,15 +98,15 @@ describe("CarouselScrollingFeatureShowcase", () => {
     expect(screen.getByText("2")).toBeInTheDocument();
   });
 
-  it("renders feature sections with IDs for intersection observer", () => {
-    const features = [
-      { id: "test-feature", title: "Test", description: "Desc", image: "img.jpg" },
-    ];
-    const { container } = render(
-      <CarouselScrollingFeatureShowcase features={features} />
-    );
-    const featureSection = container.querySelector("#test-feature");
-    expect(featureSection).toBeInTheDocument();
-  });
+    it("renders feature sections with data attributes for intersection observer", () => {
+      const features = [
+        { id: "test-feature", title: "Test", description: "Desc", image: "img.jpg" },
+      ];
+      const { container } = render(
+        <CarouselScrollingFeatureShowcase features={features} />
+      );
+      const featureSection = container.querySelector('[data-feature-id="test-feature"]');
+      expect(featureSection).toBeInTheDocument();
+    });
 });
 

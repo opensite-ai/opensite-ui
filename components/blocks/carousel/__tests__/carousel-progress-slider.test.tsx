@@ -73,15 +73,15 @@ describe("CarouselProgressSlider", () => {
     expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
-  it("renders navigation buttons for each slide", () => {
-    const slides = [
-      { id: "slide-1", title: "Slide 1", description: "Desc 1", image: "img1.jpg" },
-      { id: "slide-2", title: "Slide 2", description: "Desc 2", image: "img2.jpg" },
-    ];
-    const { container } = render(<CarouselProgressSlider slides={slides} />);
-    const buttons = container.querySelectorAll("button");
-    expect(buttons.length).toBe(2);
-  });
+    it("renders navigation buttons for each slide plus play/pause button", () => {
+      const slides = [
+        { id: "slide-1", title: "Slide 1", description: "Desc 1", image: "img1.jpg" },
+        { id: "slide-2", title: "Slide 2", description: "Desc 2", image: "img2.jpg" },
+      ];
+      const { container } = render(<CarouselProgressSlider slides={slides} />);
+      const buttons = container.querySelectorAll("button");
+      expect(buttons.length).toBe(3);
+    });
 
   it("handles slide button click", () => {
     const slides = [

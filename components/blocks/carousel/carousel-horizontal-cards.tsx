@@ -199,7 +199,7 @@ export function CarouselHorizontalCards({
     return items.map((item, index) => (
       <motion.div
         key={item.id}
-        className={cn("group w-[280px] shrink-0", item.className)}
+        className={cn("group w-[320px] shrink-0 sm:w-[360px] lg:w-[400px]", item.className)}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -254,27 +254,27 @@ export function CarouselHorizontalCards({
     >
       <div className={cn("container mx-auto px-4 md:px-6", containerClassName)}>
         {/* Header Section */}
-        <div className={cn("mb-6 flex items-center justify-between", headerClassName)}>
+        <div className={cn("mb-8 flex items-center justify-between gap-4", headerClassName)}>
           <div>
-            {heading && (
-              <a href={headingHref} className="group inline-flex items-center">
-                {typeof heading === "string" ? (
-                  <h2
-                    id="carousel-title"
-                    className={cn("text-2xl font-bold tracking-tight text-card-foreground md:text-3xl", headingClassName)}
-                  >
-                    {heading}
-                  </h2>
-                ) : (
-                  <div className={headingClassName}>{heading}</div>
-                )}
-                <DynamicIcon
-                  name="lucide/chevron-right"
-                  size={24}
-                  className="ml-2 transition-transform group-hover:translate-x-1"
-                />
-              </a>
-            )}
+                        {heading && (
+                          <a href={headingHref} className="group inline-flex items-center">
+                            {typeof heading === "string" ? (
+                              <h2
+                                id="carousel-title"
+                                className={cn("text-2xl font-bold tracking-tight text-card-foreground md:text-3xl", headingClassName)}
+                              >
+                                {heading}
+                              </h2>
+                            ) : (
+                              <div className={headingClassName}>{heading}</div>
+                            )}
+                            <DynamicIcon
+                              name="lucide/chevron-right"
+                              size={24}
+                              className="ml-2 flex-shrink-0 self-center transition-transform group-hover:translate-x-1"
+                            />
+                          </a>
+                        )}
             {subtitle && (
               typeof subtitle === "string" ? (
                 <p className={cn("mt-1 text-muted-foreground", subtitleClassName)}>{subtitle}</p>
@@ -295,26 +295,26 @@ export function CarouselHorizontalCards({
           </div>
 
           {/* Navigation Buttons */}
-          {!isAtStart && (
-            <Pressable
-              onClick={() => scroll("left")}
-              className={cn("absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full border bg-background/60 p-2 text-foreground shadow-md backdrop-blur-sm transition-opacity hover:bg-background/80", navigationClassName)}
-              aria-label="Scroll left"
-              asButton
-            >
-              <DynamicIcon name="lucide/chevron-left" size={24} />
-            </Pressable>
-          )}
-          {!isAtEnd && (
-            <Pressable
-              onClick={() => scroll("right")}
-              className={cn("absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full border bg-background/60 p-2 text-foreground shadow-md backdrop-blur-sm transition-opacity hover:bg-background/80", navigationClassName)}
-              aria-label="Scroll right"
-              asButton
-            >
-              <DynamicIcon name="lucide/chevron-right" size={24} />
-            </Pressable>
-          )}
+                    {!isAtStart && (
+                      <Pressable
+                        onClick={() => scroll("left")}
+                        className={cn("absolute left-0 top-1/2 z-10 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border bg-background/60 text-foreground shadow-md backdrop-blur-sm transition-opacity hover:bg-background/80", navigationClassName)}
+                        aria-label="Scroll left"
+                        asButton
+                      >
+                        <DynamicIcon name="lucide/chevron-left" size={20} />
+                      </Pressable>
+                    )}
+                    {!isAtEnd && (
+                      <Pressable
+                        onClick={() => scroll("right")}
+                        className={cn("absolute right-0 top-1/2 z-10 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border bg-background/60 text-foreground shadow-md backdrop-blur-sm transition-opacity hover:bg-background/80", navigationClassName)}
+                        aria-label="Scroll right"
+                        asButton
+                      >
+                        <DynamicIcon name="lucide/chevron-right" size={20} />
+                      </Pressable>
+                    )}
         </div>
       </div>
     </Section>

@@ -15,10 +15,9 @@
  */
 
 import * as React from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -152,47 +151,49 @@ export function CarouselScrollingFeatureShowcase({
   const [activeFeature, setActiveFeature] = React.useState<string>(
     features?.[0]?.id ?? ""
   );
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  const featureRefs = React.useRef<Map<string, HTMLDivElement>>(new Map());
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const imageOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-
-  // Intersection observer for feature sections
   React.useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+    if (!features || features.length === 0) return;
 
-    features?.forEach((feature) => {
-      const element = document.getElementById(feature.id);
-      if (element) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                setActiveFeature(feature.id);
-              }
-            });
-          },
-          { threshold: 0.5 }
-        );
-        observer.observe(element);
-        observers.push(observer);
-      }
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -60% 0px",
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const featureId = entry.target.getAttribute("data-feature-id");
+          if (featureId) {
+            setActiveFeature(featureId);
+          }
+        }
+      });
+    }, observerOptions);
+
+    featureRefs.current.forEach((element) => {
+      observer.observe(element);
     });
 
     return () => {
-      observers.forEach((observer) => observer.disconnect());
+      observer.disconnect();
     };
   }, [features]);
 
   const activeFeatureData = features?.find((f) => f.id === activeFeature);
 
+  const setFeatureRef = (id: string) => (el: HTMLDivElement | null) => {
+    if (el) {
+      featureRefs.current.set(id, el);
+    } else {
+      featureRefs.current.delete(id);
+    }
+  };
+
   return (
     <Section
-      ref={containerRef}
       background={background}
       spacing={spacing}
       className={cn(className)}
@@ -201,7 +202,7 @@ export function CarouselScrollingFeatureShowcase({
     >
       <div className={cn("container mx-auto px-4", containerClassName)}>
         {/* Header */}
-        <div className={cn("py-16 text-center", headerClassName)}>
+        <div className={cn("mb-12 text-center", headerClassName)}>
           {heading && (
             typeof heading === "string" ? (
               <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl", headingClassName)}>
@@ -221,37 +222,46 @@ export function CarouselScrollingFeatureShowcase({
         </div>
 
         {/* Scrolling content */}
-        <div className={cn("grid gap-8 lg:grid-cols-2", contentClassName)}>
+        <div className={cn("grid gap-8 lg:grid-cols-2 lg:gap-12", contentClassName)}>
           {/* Sticky image panel */}
           <div className="hidden lg:block">
             <div className="sticky top-24">
-              <motion.div
-                style={{ opacity: imageOpacity }}
-                className={cn("aspect-video overflow-hidden rounded-xl", imageClassName)}
-              >
-                {activeFeatureData && (
-                  <Img
-                    src={activeFeatureData.image}
-                    alt={typeof activeFeatureData.title === "string" ? activeFeatureData.title : `Feature ${activeFeatureData.id}`}
-                    className={cn("h-full w-full object-cover transition-all duration-500", activeFeatureData.imageClassName)}
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                )}
-              </motion.div>
+              <div className={cn("aspect-video overflow-hidden rounded-xl bg-muted", imageClassName)}>
+                <AnimatePresence mode="wait">
+                  {activeFeatureData && (
+                    <motion.div
+                      key={activeFeatureData.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="h-full w-full"
+                    >
+                      <Img
+                        src={activeFeatureData.image}
+                        alt={typeof activeFeatureData.title === "string" ? activeFeatureData.title : `Feature ${activeFeatureData.id}`}
+                        className={cn("h-full w-full object-cover", activeFeatureData.imageClassName)}
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </div>
 
           {/* Feature descriptions */}
-          <div className={cn("space-y-32 py-16", featuresClassName)}>
+          <div className={cn("space-y-24 lg:space-y-32", featuresClassName)}>
             {featuresSlot ? (
               featuresSlot
             ) : (
               features?.map((feature, index) => (
                 <div
                   key={feature.id}
-                  id={feature.id}
+                  ref={setFeatureRef(feature.id)}
+                  data-feature-id={feature.id}
                   className={cn(
-                    "min-h-[50vh] transition-opacity duration-300",
+                    "scroll-mt-24 transition-opacity duration-300",
                     activeFeature === feature.id
                       ? "opacity-100"
                       : "opacity-50",
@@ -260,7 +270,7 @@ export function CarouselScrollingFeatureShowcase({
                 >
                   {/* Mobile image */}
                   <div className="mb-6 lg:hidden">
-                    <div className="aspect-video overflow-hidden rounded-lg">
+                    <div className="aspect-video overflow-hidden rounded-lg bg-muted">
                       <Img
                         src={feature.image}
                         alt={typeof feature.title === "string" ? feature.title : `Feature ${feature.id}`}

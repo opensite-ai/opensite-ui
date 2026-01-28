@@ -236,30 +236,34 @@ export function CarouselProductFeatureShowcase({
   const currentImage =
     activeFeature?.colors?.[activeColorIndex]?.image || activeFeature?.image;
 
-  const renderActions = () => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
+    const renderActions = () => {
+      if (actionsSlot) return actionsSlot;
+      if (!actions || actions.length === 0) return null;
 
-    return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
       return (
-        <Pressable
-          key={index}
-          asButton
-          className={cn("mt-8", actionClassName)}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
+        <div className="mt-8 flex flex-wrap gap-3">
+          {actions.map((action, index) => {
+            const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+            return (
+              <Pressable
+                key={index}
+                asButton
+                className={actionClassName}
+                {...pressableProps}
+              >
+                {children ?? (
+                  <>
+                    {icon}
+                    {label}
+                    {iconAfter}
+                  </>
+                )}
+              </Pressable>
+            );
+          })}
+        </div>
       );
-    });
-  };
+    };
 
   return (
     <Section
@@ -317,27 +321,27 @@ export function CarouselProductFeatureShowcase({
                 </motion.div>
               </AnimatePresence>
 
-              {/* Navigation arrows */}
-              <div className={cn("absolute bottom-4 right-4 flex gap-2", navigationClassName)}>
-                <Pressable
-                  onClick={goToPrev}
-                  asButton
-                  variant="secondary"
-                  size="icon"
-                  className="rounded-full bg-background/80 backdrop-blur-sm"
-                >
-                  <DynamicIcon name="lucide/chevron-left" size={20} />
-                </Pressable>
-                <Pressable
-                  onClick={goToNext}
-                  asButton
-                  variant="secondary"
-                  size="icon"
-                  className="rounded-full bg-background/80 backdrop-blur-sm"
-                >
-                  <DynamicIcon name="lucide/chevron-right" size={20} />
-                </Pressable>
-              </div>
+                            {/* Navigation arrows */}
+                            <div className={cn("absolute bottom-4 right-4 flex gap-2", navigationClassName)}>
+                              <Pressable
+                                onClick={goToPrev}
+                                asButton
+                                variant="outline"
+                                size="icon"
+                                className="flex h-10 w-10 items-center justify-center rounded-full border-border bg-background/90 text-foreground backdrop-blur-sm hover:bg-background"
+                              >
+                                <DynamicIcon name="lucide/chevron-left" size={20} />
+                              </Pressable>
+                              <Pressable
+                                onClick={goToNext}
+                                asButton
+                                variant="outline"
+                                size="icon"
+                                className="flex h-10 w-10 items-center justify-center rounded-full border-border bg-background/90 text-foreground backdrop-blur-sm hover:bg-background"
+                              >
+                                <DynamicIcon name="lucide/chevron-right" size={20} />
+                              </Pressable>
+                            </div>
             </div>
 
             {/* Content section */}
