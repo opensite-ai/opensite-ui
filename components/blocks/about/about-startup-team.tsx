@@ -324,23 +324,25 @@ export function AboutStartupTeam({
     if (!teamMembers || teamMembers.length === 0) return null; // No need for tabs without team members
 
     return (
-      <nav className="flex gap-2 overflow-x-auto pb-2 lg:hidden">
-        {effectiveTabs.map((link, idx) => (
-          <Pressable
-            key={idx}
-            componentType="button"
-            onClick={() => handleTabChange(link.value)}
-            className={cn(
-              "shrink-0 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
-              activeTab === link.value
-                ? "bg-primary text-primary-foreground"
-                : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground",
-            )}
-          >
-            {link.label}
-          </Pressable>
-        ))}
-      </nav>
+      <div className="w-full min-w-0 max-w-[calc(100vw-1rem)] overflow-hidden sm:max-w-[calc(100vw-2rem)] lg:hidden">
+        <nav className="-mx-2 flex gap-2 overflow-x-auto px-2 pb-2">
+          {effectiveTabs.map((link, idx) => (
+            <Pressable
+              key={idx}
+              componentType="button"
+              onClick={() => handleTabChange(link.value)}
+              className={cn(
+                "shrink-0 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
+                activeTab === link.value
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground",
+              )}
+            >
+              {link.label}
+            </Pressable>
+          ))}
+        </nav>
+      </div>
     );
   }, [sidebarSlot, effectiveTabs, activeTab]);
 
