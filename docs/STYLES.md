@@ -7,12 +7,13 @@ This document provides a complete reference for customizing all @opensite/ui com
 ## Table of Contents
 
 1. [Quick Start (Tailwind 4)](#quick-start-tailwind-4)
-2. [Complete CSS Template](#complete-css-template)
-3. [Tailwind Config Template](#tailwind-config-template)
-4. [CSS Variables Reference](#css-variables-reference)
-5. [Component-Specific Styling](#component-specific-styling)
-6. [Custom Theme Examples](#custom-theme-examples)
-7. [Server-Side Style Synchronization](#server-side-style-synchronization)
+2. [Typography (Prose) Styling](#typography-prose-styling)
+3. [Complete CSS Template](#complete-css-template)
+4. [Tailwind Config Template](#tailwind-config-template)
+5. [CSS Variables Reference](#css-variables-reference)
+6. [Component-Specific Styling](#component-specific-styling)
+7. [Custom Theme Examples](#custom-theme-examples)
+8. [Server-Side Style Synchronization](#server-side-style-synchronization)
 
 ---
 
@@ -39,12 +40,76 @@ Modify the CSS variables in `:root` to match your brand colors and design system
 
 ---
 
+## Typography (Prose) Styling
+
+Several @opensite/ui blocks use the `prose` class from `@tailwindcss/typography` to style rich content like articles, case studies, and service detail pages. **This plugin is required for blocks that display long-form content.**
+
+### Blocks That Require Typography Plugin
+
+The following blocks use `prose` classes and require the typography plugin:
+- `ArticleHeroProse`
+- `ArticleBreadcrumbSocial`
+- `CaseStudyProseSidebar`
+- `CaseStudyStatsMetrics`
+- `CaseStudyTocSocialSidebar`
+- `ServiceDetailProseMinimal`
+- `ServiceDetailCenteredExpertise`
+- `ServiceDetailCompactCards`
+- `ResourceDetailArticleHero`
+
+### Installation (Tailwind CSS v4)
+
+1. **Install the typography plugin:**
+
+```bash
+npm install @tailwindcss/typography
+```
+
+2. **Add the plugin import to your CSS file:**
+
+```css
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:is(.dark *));
+```
+
+> **Note:** In Tailwind CSS v4, plugins are imported via `@plugin` in your CSS file instead of the `tailwind.config.js` plugins array.
+
+### Prose Customization
+
+The prose styles can be customized using Tailwind's prose modifiers. Common customizations include:
+
+```css
+/* Custom prose colors using CSS variables */
+.prose {
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-links: var(--primary);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-quotes: var(--muted-foreground);
+  --tw-prose-quote-borders: var(--primary);
+  --tw-prose-bullets: var(--muted-foreground);
+  --tw-prose-counters: var(--muted-foreground);
+}
+```
+
+Or use Tailwind's prose modifier classes in your JSX:
+
+```tsx
+<div className="prose prose-headings:text-foreground prose-p:text-muted-foreground prose-blockquote:border-l-primary dark:prose-invert">
+  {/* Your content */}
+</div>
+```
+
+---
+
 ## Complete CSS Template
 
 This template uses Tailwind CSS 4's `@theme inline` directive to map CSS variables to Tailwind utility classes. **Copy this entire template to your `globals.css` file:**
 
 ```css
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @custom-variant dark (&:is(.dark *));
 @config "../tailwind.config.ts";
 
