@@ -6,8 +6,15 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { PatternBackground, type PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground } from "../../../src/types";
+import {
+  PatternBackground,
+  type PatternName,
+} from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+} from "../../../src/types";
 
 export interface DirectionConfig {
   desktop: "mediaRight" | "mediaLeft";
@@ -159,7 +166,10 @@ export function AboutSplitHero({
         variant={ctaAction.variant || "default"}
         size={ctaAction.size || "lg"}
         asButton
-        className={cn("inline-flex items-center gap-2.5 font-semibold", ctaClassName)}
+        className={cn(
+          "inline-flex items-center gap-2.5 font-semibold",
+          ctaClassName,
+        )}
       >
         <span>{ctaAction.label}</span>
         <DynamicIcon name="lucide/chevron-right" size={20} />
@@ -182,11 +192,21 @@ export function AboutSplitHero({
   }, [background]);
 
   // Determine flex direction based on directionConfig
-  const desktopOrder = directionConfig.desktop === "mediaRight" ? "lg:flex-row" : "lg:flex-row-reverse";
-  const mobileOrder = directionConfig.mobile === "mediaTop" ? "flex-col" : "flex-col-reverse";
+  const desktopOrder =
+    directionConfig.desktop === "mediaRight"
+      ? "lg:flex-row"
+      : "lg:flex-row-reverse";
+  const mobileOrder =
+    directionConfig.mobile === "mediaTop" ? "flex-col" : "flex-col-reverse";
 
   const contentArea = (
-    <div className={cn("relative flex w-full items-center lg:w-1/2", bgColorClass, contentClassName)}>
+    <div
+      className={cn(
+        "relative flex w-full items-center lg:w-1/2",
+        bgColorClass,
+        contentClassName,
+      )}
+    >
       {/* Pattern Background */}
       {pattern && (
         <div className="absolute inset-0 overflow-hidden">
@@ -199,13 +219,18 @@ export function AboutSplitHero({
         <div className="mx-auto max-w-xl space-y-8">
           {/* Brand Text */}
           {(brandText || brandHighlight) && (
-            <div className={cn("text-xl font-semibold uppercase tracking-wider sm:text-2xl", brandTextClassName)}>
+            <div
+              className={cn(
+                "text-xl font-semibold uppercase tracking-wider sm:text-2xl",
+                brandTextClassName,
+              )}
+            >
               {brandText}
               {brandText && brandHighlight && " "}
               {brandHighlight && (
                 <span
                   className={cn(
-                    "bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent",
+                    "bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent",
                     brandHighlightClassName,
                   )}
                 >
@@ -216,26 +241,34 @@ export function AboutSplitHero({
           )}
 
           {/* Heading */}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl xl:text-6xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl xl:text-6xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
+            ))}
 
           {/* Description */}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-base leading-relaxed opacity-90 sm:text-lg", descriptionClassName)}>
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-base leading-relaxed opacity-90 sm:text-lg",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
 
           {/* CTA */}
           {ctaContent && <div className="pt-4">{ctaContent}</div>}
@@ -257,7 +290,7 @@ export function AboutSplitHero({
 
   return (
     <section className={cn("relative w-full overflow-hidden", className)}>
-      <div className={cn("flex min-h-[600px]", mobileOrder, desktopOrder)}>
+      <div className={cn("flex min-h-screen", mobileOrder, desktopOrder)}>
         {contentArea}
         {imageArea}
       </div>
