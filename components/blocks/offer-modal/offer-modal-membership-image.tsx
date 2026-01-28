@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+const { useMemo } = React;
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
@@ -203,13 +204,13 @@ export interface OfferModalMembershipImageProps {
  * ```
  */
 export function OfferModalMembershipImage({
-  overline = "Treat Yourself!",
+  overline,
   title,
   description,
   image,
   imageSlot,
-  emailPlaceholder = "Email Address",
-  buttonText = "Get Offer",
+  emailPlaceholder,
+  buttonText,
   closeButtonSlot,
   formSlot,
   footerSlot,
@@ -291,7 +292,7 @@ export function OfferModalMembershipImage({
     ? { open, onOpenChange }
     : { defaultOpen };
 
-  const renderImage = () => {
+  const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
@@ -305,9 +306,9 @@ export function OfferModalMembershipImage({
         />
       </div>
     );
-  };
+  }, [imageSlot, image, imageWrapperClassName, imageClassName, optixFlowConfig]);
 
-  const renderCloseButton = () => {
+  const renderCloseButton = useMemo(() => {
     if (closeButtonSlot) return closeButtonSlot;
 
     return (
@@ -327,9 +328,9 @@ export function OfferModalMembershipImage({
         </DialogClose>
       </div>
     );
-  };
+  }, [closeButtonSlot, closeClassName]);
 
-  const renderForm = () => {
+  const renderForm = useMemo(() => {
     if (formSlot) return formSlot;
 
     return (
@@ -389,9 +390,9 @@ export function OfferModalMembershipImage({
         </Pressable>
       </Form>
     );
-  };
+  }, [formSlot, form, formConfig, formMethod, emailPlaceholder, inputClassName, submitClassName, buttonText, formClassName]);
 
-  const renderFooter = () => {
+  const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
     if (!description) return null;
 
@@ -402,7 +403,7 @@ export function OfferModalMembershipImage({
         </DialogDescription>
       </DialogFooter>
     );
-  };
+  }, [footerSlot, description, footerClassName, descriptionClassName]);
 
   return (
     <Dialog {...dialogProps}>
@@ -413,8 +414,8 @@ export function OfferModalMembershipImage({
           className
         )}
       >
-        {renderCloseButton()}
-        {renderImage()}
+        {renderCloseButton}
+        {renderImage}
         <div className={cn("lg:px-15 space-y-5 overflow-y-auto px-9 py-5 lg:py-7", contentClassName)}>
           <div className="space-y-2.5">
             {overline && (
@@ -432,8 +433,8 @@ export function OfferModalMembershipImage({
               </DialogTitle>
             )}
           </div>
-          {renderForm()}
-          {renderFooter()}
+          {renderForm}
+          {renderFooter}
         </div>
       </DialogContent>
     </Dialog>

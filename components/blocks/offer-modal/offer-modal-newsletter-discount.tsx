@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+const { useMemo } = React;
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
@@ -169,9 +170,9 @@ export interface OfferModalNewsletterDiscountProps {
  */
 export function OfferModalNewsletterDiscount({
   title,
-  emailPlaceholder = "Email",
-  buttonText = "Subscribe",
-  closeButtonText = "Close",
+  emailPlaceholder,
+  buttonText,
+  closeButtonText,
   closeButtonSlot,
   formSlot,
   headerSlot,
@@ -247,8 +248,9 @@ export function OfferModalNewsletterDiscount({
     ? { open, onOpenChange }
     : { defaultOpen };
 
-  const renderCloseButton = () => {
+  const renderCloseButton = useMemo(() => {
     if (closeButtonSlot) return closeButtonSlot;
+    if (!closeButtonText) return null;
 
     return (
       <div className="absolute end-1.5 top-1.5">
@@ -264,9 +266,9 @@ export function OfferModalNewsletterDiscount({
         </DialogClose>
       </div>
     );
-  };
+  }, [closeButtonSlot, closeButtonText, closeClassName]);
 
-  const renderHeader = () => {
+  const renderHeader = useMemo(() => {
     if (headerSlot) return headerSlot;
     if (!title) return null;
 
@@ -283,9 +285,9 @@ export function OfferModalNewsletterDiscount({
         )}
       </DialogHeader>
     );
-  };
+  }, [headerSlot, title, headerClassName, titleClassName]);
 
-  const renderForm = () => {
+  const renderForm = useMemo(() => {
     if (formSlot) return formSlot;
 
     return (
@@ -327,7 +329,7 @@ export function OfferModalNewsletterDiscount({
         </Pressable>
       </Form>
     );
-  };
+  }, [formSlot, form, formConfig, formMethod, emailPlaceholder, inputClassName, submitClassName, buttonText, formClassName]);
 
   return (
     <Dialog {...dialogProps} modal={false}>
@@ -344,9 +346,9 @@ export function OfferModalNewsletterDiscount({
         )}
       >
         <div className={contentClassName}>
-          {renderCloseButton()}
-          {renderHeader()}
-          {renderForm()}
+          {renderCloseButton}
+          {renderHeader}
+          {renderForm}
         </div>
       </DialogContent>
     </Dialog>

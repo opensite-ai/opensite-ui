@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+const { useMemo } = React;
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
@@ -238,12 +239,12 @@ export function OfferModalSheetNewsletter({
   description,
   image,
   imageSlot,
-  emailPlaceholder = "Email Address",
-  buttonText = "Join",
-  termsUrl = "#",
-  termsText = "Terms of Use",
-  privacyUrl = "#",
-  privacyText = "Privacy Policy",
+  emailPlaceholder,
+  buttonText,
+  termsUrl,
+  termsText,
+  privacyUrl,
+  privacyText,
   legalSlot,
   closeButtonSlot,
   formSlot,
@@ -326,7 +327,7 @@ export function OfferModalSheetNewsletter({
     ? { open, onOpenChange }
     : { defaultOpen };
 
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -340,14 +341,14 @@ export function OfferModalSheetNewsletter({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
 
-  const renderHeader = () => {
+  const renderHeader = useMemo(() => {
     if (headerSlot) return headerSlot;
 
     return (
       <SheetHeader className={cn("gap-8 p-0", headerClassName)}>
-        {renderLogo()}
+        {renderLogo}
         <div className="space-y-4">
           {title && (
             <SheetTitle className={cn("text-2xl font-medium leading-tight md:text-3xl lg:text-4xl", titleClassName)}>
@@ -362,9 +363,9 @@ export function OfferModalSheetNewsletter({
         </div>
       </SheetHeader>
     );
-  };
+  }, [headerSlot, renderLogo, headerClassName, title, titleClassName, description, descriptionClassName]);
 
-  const renderForm = () => {
+  const renderForm = useMemo(() => {
     if (formSlot) return formSlot;
 
     return (
@@ -411,10 +412,11 @@ export function OfferModalSheetNewsletter({
         </div>
       </Form>
     );
-  };
+  }, [formSlot, form, formConfig, formMethod, emailPlaceholder, inputClassName, submitClassName, buttonText, formClassName]);
 
-  const renderLegal = () => {
+  const renderLegal = useMemo(() => {
     if (legalSlot) return legalSlot;
+    if (!termsUrl || !termsText || !privacyUrl || !privacyText) return null;
 
     return (
       <p className={cn("text-muted-foreground text-xs", legalClassName)}>
@@ -429,9 +431,9 @@ export function OfferModalSheetNewsletter({
         .
       </p>
     );
-  };
+  }, [legalSlot, termsUrl, termsText, privacyUrl, privacyText, legalClassName]);
 
-  const renderImage = () => {
+  const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
@@ -447,7 +449,7 @@ export function OfferModalSheetNewsletter({
         </AspectRatio>
       </div>
     );
-  };
+  }, [imageSlot, image, imageWrapperClassName, imageClassName, optixFlowConfig]);
 
   return (
     <Sheet {...sheetProps}>
@@ -460,12 +462,12 @@ export function OfferModalSheetNewsletter({
         <div className={cn("max-h-full overflow-y-auto", contentClassName)}>
           <div className="space-y-4 p-6 md:p-16">
             <div className="basis-1/2 space-y-8">
-              {renderHeader()}
-              {renderForm()}
+              {renderHeader}
+              {renderForm}
             </div>
-            {renderLegal()}
+            {renderLegal}
           </div>
-          {renderImage()}
+          {renderImage}
         </div>
       </SheetContent>
     </Sheet>
