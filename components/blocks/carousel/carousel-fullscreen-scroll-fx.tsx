@@ -75,6 +75,10 @@ export interface CarouselFullscreenScrollFxProps {
    */
   className?: string;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Additional CSS classes for the navigation dots
    */
   navigationClassName?: string;
@@ -132,6 +136,7 @@ export function CarouselFullscreenScrollFx({
   slides,
   slidesSlot,
   className,
+  containerClassName = "h-full flex flex-col justify-center",
   navigationClassName,
   contentClassName,
   subtitleClassName,
@@ -184,6 +189,7 @@ export function CarouselFullscreenScrollFx({
       pattern={pattern}
       patternOpacity={patternOpacity}
       containerMaxWidth={containerMaxWidth}
+      containerClassName={containerClassName}
     >
       {/* Navigation dots */}
       <div
@@ -248,7 +254,7 @@ export function CarouselFullscreenScrollFx({
               {/* Content */}
               <div
                 className={cn(
-                  "relative z-10 mx-auto max-w-4xl px-6 text-center text-white",
+                  "relative z-10 mx-auto max-w-4xl md:max-w-2xl px-6 text-center text-white text-shadow",
                   contentClassName,
                 )}
               >
@@ -282,7 +288,7 @@ export function CarouselFullscreenScrollFx({
                   (typeof slide.description === "string" ? (
                     <p
                       className={cn(
-                        "mx-auto max-w-2xl text-lg text-white/80 md:text-xl",
+                        "mx-auto text-lg text-white/80 md:text-xl text-balance",
                         descriptionClassName,
                       )}
                     >
@@ -293,24 +299,24 @@ export function CarouselFullscreenScrollFx({
                       {slide.description}
                     </div>
                   ))}
-
-                {/* Scroll indicator */}
-                {index < (slides?.length ?? 0) - 1 && (
-                  <div
-                    className={cn(
-                      "absolute bottom-8 left-1/2 -translate-x-1/2",
-                      scrollIndicatorClassName,
-                    )}
-                  >
-                    <div className="flex flex-col items-center gap-2">
-                      <span className="text-xs uppercase tracking-widest text-white/50">
-                        Scroll
-                      </span>
-                      <div className="h-12 w-px animate-pulse bg-gradient-to-b from-white/50 to-transparent" />
-                    </div>
-                  </div>
-                )}
               </div>
+
+              {/* Scroll indicator */}
+              {index < (slides?.length ?? 0) - 1 && (
+                <div
+                  className={cn(
+                    "absolute bottom-8 left-1/2 -translate-x-1/2",
+                    scrollIndicatorClassName,
+                  )}
+                >
+                  <div className="flex flex-col items-center gap-2">
+                    <span className="text-xs uppercase tracking-widest text-white/50">
+                      Scroll
+                    </span>
+                    <div className="h-12 w-px animate-pulse bg-linear-to-b from-white/50 to-transparent" />
+                  </div>
+                </div>
+              )}
 
               {/* Slide counter */}
               <div
