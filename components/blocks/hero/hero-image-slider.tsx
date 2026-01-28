@@ -5,7 +5,6 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { ImageSlider, type ImageSliderImage } from "../../ui/image-slider";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import type {
   ActionConfig,
@@ -192,13 +191,18 @@ export function HeroImageSlider({
     if (contentSlot) return contentSlot;
 
     return (
-      <div className={cn("mx-auto flex max-w-3xl flex-col items-center", contentClassName)}>
+      <div
+        className={cn(
+          "mx-auto flex max-w-3xl flex-col items-center",
+          contentClassName,
+        )}
+      >
         {eyebrow ? (
           typeof eyebrow === "string" ? (
             <p
               className={cn(
                 "text-xs font-semibold uppercase tracking-[0.3em] text-primary-foreground/80",
-                eyebrowClassName
+                eyebrowClassName,
               )}
             >
               {eyebrow}
@@ -212,7 +216,7 @@ export function HeroImageSlider({
             <h1
               className={cn(
                 "mt-5 text-4xl font-semibold tracking-tight text-balance md:text-6xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
@@ -226,7 +230,7 @@ export function HeroImageSlider({
             <p
               className={cn(
                 "mt-6 text-base text-primary-foreground/80 md:text-lg",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
@@ -239,7 +243,7 @@ export function HeroImageSlider({
           <div
             className={cn(
               "mt-8 flex w-full flex-col items-center justify-center gap-3 sm:flex-row",
-              actionsClassName
+              actionsClassName,
             )}
           >
             {renderActions}
@@ -247,7 +251,20 @@ export function HeroImageSlider({
         ) : null}
       </div>
     );
-  }, [contentSlot, eyebrow, heading, description, actionsSlot, actions, contentClassName, eyebrowClassName, headingClassName, descriptionClassName, actionsClassName, renderActions]);
+  }, [
+    contentSlot,
+    eyebrow,
+    heading,
+    description,
+    actionsSlot,
+    actions,
+    contentClassName,
+    eyebrowClassName,
+    headingClassName,
+    descriptionClassName,
+    actionsClassName,
+    renderActions,
+  ]);
 
   return (
     <Section

@@ -98,7 +98,7 @@ export function BlogRelatedArticles({
   articlesClassName,
   articleCardClassName,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
 }: BlogRelatedArticlesProps): React.JSX.Element {
