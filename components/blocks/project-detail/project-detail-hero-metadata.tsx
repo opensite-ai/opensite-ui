@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
@@ -90,8 +91,8 @@ export function ProjectDetailHeroMetadata(
     action,
     actionSlot,
     optixFlowConfig,
-    background = "white",
-    spacing = "lg",
+    background,
+    spacing,
     pattern,
     patternOpacity,
     className,
@@ -103,7 +104,7 @@ export function ProjectDetailHeroMetadata(
     heroImageClassName,
   } = props;
 
-  const renderAction = () => {
+  const renderedAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -132,7 +133,7 @@ export function ProjectDetailHeroMetadata(
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
   return (
     <Section
@@ -207,7 +208,7 @@ export function ProjectDetailHeroMetadata(
                 <span className="font-medium text-muted-foreground">
                   {subtitle}
                 </span>
-                {renderAction()}
+                {renderedAction}
               </div>
             </motion.div>
           </div>

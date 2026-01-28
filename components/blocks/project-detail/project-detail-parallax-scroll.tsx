@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
@@ -162,8 +163,8 @@ export function ProjectDetailParallaxScroll(
     backAction,
     backActionSlot,
     optixFlowConfig,
-    background = "white",
-    spacing = "none",
+    background,
+    spacing,
     pattern,
     patternOpacity,
     className,
@@ -183,7 +184,7 @@ export function ProjectDetailParallaxScroll(
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  const renderBackAction = () => {
+  const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
@@ -212,7 +213,7 @@ export function ProjectDetailParallaxScroll(
         )}
       </Pressable>
     );
-  };
+  }, [backActionSlot, backAction]);
 
   return (
     <Section
@@ -248,7 +249,7 @@ export function ProjectDetailParallaxScroll(
                 transition={{ duration: 0.6 }}
                 className="absolute top-8 left-0"
               >
-                {renderBackAction()}
+                {renderedBackAction}
               </motion.div>
             )}
 

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
@@ -100,8 +101,8 @@ export function ProjectDetailSplitMaterials(
     backAction,
     backActionSlot,
     optixFlowConfig,
-    background = "white",
-    spacing = "lg",
+    background,
+    spacing,
     pattern,
     patternOpacity,
     className,
@@ -115,7 +116,7 @@ export function ProjectDetailSplitMaterials(
     secondaryImageClassName,
   } = props;
 
-  const renderBackAction = () => {
+  const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
@@ -144,7 +145,7 @@ export function ProjectDetailSplitMaterials(
         )}
       </Pressable>
     );
-  };
+  }, [backActionSlot, backAction]);
 
   return (
     <Section
@@ -157,7 +158,7 @@ export function ProjectDetailSplitMaterials(
       <article className={containerClassName}>
         {(backActionSlot || backAction) && (
           <motion.div {...fadeInUp} className="mb-12">
-            {renderBackAction()}
+            {renderedBackAction}
           </motion.div>
         )}
 

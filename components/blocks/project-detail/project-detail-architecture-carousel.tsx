@@ -117,8 +117,8 @@ export function ProjectDetailArchitectureCarousel(
     backAction,
     backActionSlot,
     optixFlowConfig,
-    background = "white",
-    spacing = "lg",
+    background,
+    spacing,
     pattern,
     patternOpacity,
     className,
@@ -184,7 +184,7 @@ export function ProjectDetailArchitectureCarousel(
     }
   }, [carouselImages]);
 
-  const renderBackAction = () => {
+  const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
@@ -213,7 +213,7 @@ export function ProjectDetailArchitectureCarousel(
         )}
       </Pressable>
     );
-  };
+  }, [backActionSlot, backAction]);
 
   return (
     <Section
@@ -226,7 +226,7 @@ export function ProjectDetailArchitectureCarousel(
       <article className={containerClassName}>
         {(backActionSlot || backAction) && (
           <motion.div {...fadeInUp} className="mb-12">
-            {renderBackAction()}
+            {renderedBackAction}
           </motion.div>
         )}
 

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
@@ -81,8 +82,8 @@ export function ProjectDetailSidebarNavigation(
     backAction,
     backActionSlot,
     optixFlowConfig,
-    background = "white",
-    spacing = "lg",
+    background,
+    spacing,
     pattern,
     patternOpacity,
     className,
@@ -127,7 +128,7 @@ export function ProjectDetailSidebarNavigation(
     }
   };
 
-  const renderBackAction = () => {
+  const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
@@ -156,7 +157,7 @@ export function ProjectDetailSidebarNavigation(
         )}
       </Pressable>
     );
-  };
+  }, [backActionSlot, backAction]);
 
   return (
     <Section
@@ -170,7 +171,7 @@ export function ProjectDetailSidebarNavigation(
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <aside className={cn("lg:col-span-3", sidebarClassName)}>
             <div className="sticky top-24 space-y-8">
-              {(backActionSlot || backAction) && renderBackAction()}
+              {(backActionSlot || backAction) && renderedBackAction}
 
               <nav className={cn("space-y-1", navClassName)}>
                 {sections?.map((section) => (

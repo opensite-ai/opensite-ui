@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
@@ -87,8 +88,8 @@ export function ProjectDetailCardHeader(
     backAction,
     backActionSlot,
     optixFlowConfig,
-    background = "white",
-    spacing = "lg",
+    background,
+    spacing,
     pattern,
     patternOpacity,
     className,
@@ -100,7 +101,7 @@ export function ProjectDetailCardHeader(
     galleryClassName,
   } = props;
 
-  const renderBackAction = () => {
+  const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
@@ -129,7 +130,7 @@ export function ProjectDetailCardHeader(
         )}
       </Pressable>
     );
-  };
+  }, [backActionSlot, backAction]);
 
   return (
     <Section
@@ -142,7 +143,7 @@ export function ProjectDetailCardHeader(
       <article className={containerClassName}>
         {(backActionSlot || backAction) && (
           <motion.div {...fadeInUp} className="mb-12">
-            {renderBackAction()}
+            {renderedBackAction}
           </motion.div>
         )}
 
