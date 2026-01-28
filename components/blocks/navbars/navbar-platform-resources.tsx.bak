@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState , useMemo} from "react";
+import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -210,7 +210,7 @@ export const NavbarPlatformResources = ({
 }: NavbarPlatformResourcesProps) => {
   const [open, setOpen] = useState(false);
 
-  const renderLogo = useMemo(() => {
+  const renderLogo = () => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -237,7 +237,7 @@ export const NavbarPlatformResources = ({
           ))}
       </Pressable>
     );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
+  };
 
   const hasDropdownItems = (link: IMenuLink) =>
     Boolean(link.links?.length || link.dropdownGroups?.length);
@@ -664,7 +664,7 @@ export const NavbarPlatformResources = ({
     );
   };
 
-  const renderActions = useMemo(() => {
+  const renderActions = () => {
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
@@ -688,7 +688,7 @@ export const NavbarPlatformResources = ({
         </Pressable>
       );
     });
-  }, [actions]);
+  };
 
   // Get layout classes based on variant
   const {
@@ -718,7 +718,7 @@ export const NavbarPlatformResources = ({
               className={cn("min-w-full", navigationMenuClassName)}
             >
           <div className="flex w-full items-center justify-between gap-12 py-4">
-            {renderLogo}
+            {renderLogo()}
             <NavigationMenuList
               className={cn("hidden lg:flex", navigationMenuListClassName)}
             >
@@ -760,7 +760,7 @@ export const NavbarPlatformResources = ({
                 actionsClassName,
               )}
             >
-              {renderActions}
+              {renderActions()}
             </div>
             <div className="flex items-center gap-4 lg:hidden">
               <Pressable
@@ -875,7 +875,7 @@ export const NavbarPlatformResources = ({
                   actionsClassName,
                 )}
               >
-                {renderActions}
+                {renderActions()}
               </div>
             </div>
           )}

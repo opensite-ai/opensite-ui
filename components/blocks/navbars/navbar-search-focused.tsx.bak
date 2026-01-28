@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState , useMemo} from "react";
+import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -173,7 +173,7 @@ export const NavbarSearchFocused = ({
 }: NavbarSearchFocusedProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const renderLogo = useMemo(() => {
+  const renderLogo = () => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -200,7 +200,7 @@ export const NavbarSearchFocused = ({
           ))}
       </Pressable>
     );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
+  };
 
   const renderNavigation = (items: NavItem[]) => {
     if (navigationSlot) return navigationSlot;
@@ -228,7 +228,7 @@ export const NavbarSearchFocused = ({
     );
   };
 
-  const renderAuthActions = useMemo(() => {
+  const renderAuthActions = () => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -260,9 +260,9 @@ export const NavbarSearchFocused = ({
         </Pressable>
       );
     });
-  }, [authActionsSlot, authActions]);
+  };
 
-  const renderMobileMenuActions = useMemo(() => {
+  const renderMobileMenuActions = () => {
     if (mobileMenuActionsSlot) return mobileMenuActionsSlot;
     if (!mobileMenuActions || mobileMenuActions.length === 0) return null;
 
@@ -284,7 +284,7 @@ export const NavbarSearchFocused = ({
         })}
       </div>
     );
-  }, [mobileMenuActionsSlot, mobileMenuActions]);
+  };
 
   // Get layout classes based on variant
   const {
@@ -316,7 +316,7 @@ export const NavbarSearchFocused = ({
                 navClassName,
               )}
             >
-          {renderLogo}
+          {renderLogo()}
 
           <NavigationMenu
             className={cn("hidden lg:flex", navigationMenuClassName)}
@@ -336,7 +336,7 @@ export const NavbarSearchFocused = ({
               actionsClassName,
             )}
           >
-            {renderAuthActions}
+            {renderAuthActions()}
           </div>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -370,7 +370,7 @@ export const NavbarSearchFocused = ({
                     </Pressable>
                   ))}
                 </div>
-                <div className="border-t pt-4">{renderMobileMenuActions}</div>
+                <div className="border-t pt-4">{renderMobileMenuActions()}</div>
               </div>
             </SheetContent>
           </Sheet>

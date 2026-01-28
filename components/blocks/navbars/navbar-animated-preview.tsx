@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Fragment, useState, useEffect, useRef, forwardRef } from "react";
+import { Fragment, useState, useEffect, useRef, forwardRef, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -188,8 +188,8 @@ export const NavbarAnimatedPreview = ({
   actions,
   actionsSlot,
   layoutVariant = "fullScreenContainerizedLinks",
-  background = "white",
-  spacing = "none",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -222,7 +222,7 @@ export const NavbarAnimatedPreview = ({
     setOpen(!open);
   };
 
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -250,9 +250,9 @@ export const NavbarAnimatedPreview = ({
           ))}
       </Pressable>
     );
-  };
+  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -284,9 +284,9 @@ export const NavbarAnimatedPreview = ({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderNavigation = () => {
+  const renderNavigation = useMemo(() => {
     if (navigationSlot) return navigationSlot;
     if (!menuLinks || menuLinks.length === 0) return null;
 
@@ -302,7 +302,7 @@ export const NavbarAnimatedPreview = ({
         ))}
       </NavigationMenuList>
     );
-  };
+  }, [navigationSlot, menuLinks, optixFlowConfig]);
 
   // Get layout classes based on variant
   const {
@@ -342,12 +342,12 @@ export const NavbarAnimatedPreview = ({
                   "relative z-999 grid w-full grid-cols-2 items-center justify-between gap-8 xl:grid-cols-3",
                 )}
               >
-                {renderLogo()}
+                {renderLogo}
                 <div className={cn("hidden xl:flex", navClassName)}>
-                  {renderNavigation()}
+                  {renderNavigation}
                 </div>
                 <div className={cn("justify-self-end", actionsClassName)}>
-                  <div className="hidden xl:block">{renderActions()}</div>
+                  <div className="hidden xl:block">{renderActions}</div>
                   <div className="xl:hidden">
                     <Pressable
                       className="size-11"
@@ -795,7 +795,7 @@ const MobileNavigationMenu = ({
   actions,
   actionsSlot,
 }: MobileNavigationMenuProps) => {
-  const renderMobileActions = () => {
+  const renderMobileActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -825,7 +825,7 @@ const MobileNavigationMenu = ({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <Sheet open={open}>
@@ -847,7 +847,7 @@ const MobileNavigationMenu = ({
                   renderMobileMenuItem(item, index),
                 )}
               </Accordion>
-              <div className="flex flex-col gap-2">{renderMobileActions()}</div>
+              <div className="flex flex-col gap-2">{renderMobileActions}</div>
             </div>
           </div>
         </div>

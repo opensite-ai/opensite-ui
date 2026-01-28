@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useRef, useEffect , useMemo} from "react";
+import { useState, useRef, useEffect } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -234,7 +234,7 @@ export const NavbarImagePreview = ({
     setOpen(!open);
   };
 
-  const renderLogo = useMemo(() => {
+  const renderLogo = () => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -262,9 +262,9 @@ export const NavbarImagePreview = ({
           ))}
       </Pressable>
     );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
+  };
 
-  const renderNavigation = useMemo(() => {
+  const renderNavigation = () => {
     if (navigationSlot) return navigationSlot;
     if (!navigation || navigation.length === 0) return null;
 
@@ -280,9 +280,9 @@ export const NavbarImagePreview = ({
         ))}
       </NavigationMenuList>
     );
-  }, [navigationSlot, navigation, optixFlowConfig]);
+  };
 
-  const renderAuthActions = useMemo(() => {
+  const renderAuthActions = () => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -312,7 +312,7 @@ export const NavbarImagePreview = ({
         </Pressable>
       );
     });
-  }, [authActionsSlot, authActions]);
+  };
 
   // Get layout classes based on variant
   const {
@@ -350,17 +350,17 @@ export const NavbarImagePreview = ({
                 navClassName,
               )}
             >
-            {renderLogo}
+            {renderLogo()}
             <NavigationMenu
               className={cn(
                 "hidden lg:flex [&>div:nth-child(2)]:left-1/2 [&>div:nth-child(2)]:-translate-x-1/2",
                 navigationMenuClassName,
               )}
             >
-              {renderNavigation}
+              {renderNavigation()}
             </NavigationMenu>
             <div className={cn("flex items-center gap-3.5", actionsClassName)}>
-              {renderAuthActions}
+              {renderAuthActions()}
               <div className="lg:hidden">
                 <Pressable
                   variant="ghost"
@@ -512,7 +512,7 @@ const MobileNavigationMenu = ({
   authActions,
   authActionsSlot,
 }: MobileNavigationMenuProps) => {
-  const renderMobileNavigation = useMemo(() => {
+  const renderMobileNavigation = () => {
     if (mobileNavigationSlot) return mobileNavigationSlot;
     if (!mobileNavigation || mobileNavigation.length === 0) return null;
 
@@ -548,9 +548,9 @@ const MobileNavigationMenu = ({
         ))}
       </div>
     );
-  }, [mobileNavigationSlot, mobileNavigation]);
+  };
 
-  const renderSocialLinks = useMemo(() => {
+  const renderSocialLinks = () => {
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
@@ -574,9 +574,9 @@ const MobileNavigationMenu = ({
         </div>
       </div>
     );
-  }, [socialLinksSlot, socialLinks]);
+  };
 
-  const renderMobileAuthActions = useMemo(() => {
+  const renderMobileAuthActions = () => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -610,7 +610,7 @@ const MobileNavigationMenu = ({
         })}
       </div>
     );
-  }, [authActionsSlot, authActions]);
+  };
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -639,9 +639,9 @@ const MobileNavigationMenu = ({
               </SheetClose>
             </div>
             <div className="flex h-full flex-col justify-between gap-30 pt-24">
-              {renderMobileNavigation}
-              {renderSocialLinks}
-              {renderMobileAuthActions}
+              {renderMobileNavigation()}
+              {renderSocialLinks()}
+              {renderMobileAuthActions()}
             </div>
           </div>
         </div>

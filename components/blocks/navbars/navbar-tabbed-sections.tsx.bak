@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState , useMemo} from "react";
+import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -165,7 +165,7 @@ export const NavbarTabbedSections = ({
 }: NavbarTabbedSectionsProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const renderLogo = useMemo(() => {
+  const renderLogo = () => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -190,9 +190,9 @@ export const NavbarTabbedSections = ({
           ))}
       </Pressable>
     );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
+  };
 
-  const renderAuthActions = useMemo(() => {
+  const renderAuthActions = () => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -222,9 +222,9 @@ export const NavbarTabbedSections = ({
         </Pressable>
       );
     });
-  }, [authActionsSlot, authActions]);
+  };
 
-  const renderMenu = useMemo(() => {
+  const renderMenu = () => {
     if (menuSlot) return menuSlot;
     if (!menu || menu.length === 0) return null;
 
@@ -325,9 +325,9 @@ export const NavbarTabbedSections = ({
         </NavigationMenuItem>
       ),
     );
-  }, [menuSlot, menu, optixFlowConfig]);
+  };
 
-  const renderMobileMenu = useMemo(() => {
+  const renderMobileMenu = () => {
     if (menuSlot) return menuSlot;
     if (!menu || menu.length === 0) return null;
 
@@ -368,7 +368,7 @@ export const NavbarTabbedSections = ({
         </Pressable>
       ),
     );
-  }, [menuSlot, menu]);
+  };
 
   // Get layout classes based on variant
   const {
@@ -401,10 +401,10 @@ export const NavbarTabbedSections = ({
               )}
             >
           <div className="flex items-center gap-8">
-            {renderLogo}
+            {renderLogo()}
 
             <NavigationMenu className="hidden lg:flex">
-              <NavigationMenuList>{renderMenu}</NavigationMenuList>
+              <NavigationMenuList>{renderMenu()}</NavigationMenuList>
             </NavigationMenu>
           </div>
 
@@ -414,7 +414,7 @@ export const NavbarTabbedSections = ({
               actionsClassName,
             )}
           >
-            {renderAuthActions}
+            {renderAuthActions()}
           </div>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -432,14 +432,14 @@ export const NavbarTabbedSections = ({
             <SheetContent side="right" className="w-[300px] overflow-y-auto">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-4 pt-8">
-                {renderMobileMenu}
+                {renderMobileMenu()}
                 <div
                   className={cn(
                     "mt-4 flex flex-col gap-2 border-t pt-4",
                     actionsClassName,
                   )}
                 >
-                  {renderAuthActions}
+                  {renderAuthActions()}
                 </div>
               </div>
             </SheetContent>

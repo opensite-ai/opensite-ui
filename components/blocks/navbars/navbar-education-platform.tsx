@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -174,15 +174,15 @@ export const NavbarEducationPlatform = ({
   authActions,
   authActionsSlot,
   layoutVariant = "fullScreenContainerizedLinks",
-  background = "white",
-  spacing = "none",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: NavbarEducationPlatformProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -207,9 +207,9 @@ export const NavbarEducationPlatform = ({
           ))}
       </Pressable>
     );
-  };
+  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
 
-  const renderAuthActions = () => {
+  const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -234,7 +234,7 @@ export const NavbarEducationPlatform = ({
         </Pressable>
       );
     });
-  };
+  }, [authActionsSlot, authActions]);
 
   // Get layout classes based on variant
   const {
@@ -270,7 +270,7 @@ export const NavbarEducationPlatform = ({
               )}
             >
           <div className="flex flex-1 items-center gap-9">
-            {renderLogo()}
+            {renderLogo}
             <div
               className={cn(
                 "hidden items-center gap-1.5 lg:flex",
@@ -322,31 +322,6 @@ export const NavbarEducationPlatform = ({
                             QUICK START
                           </p>
                           <div>
-                            <NavigationMenuLink asChild>
-                              <Pressable
-                                href="#"
-                                className="flex flex-row items-center gap-3"
-                              >
-                                <DynamicIcon
-                                  name="lucide/book-open"
-                                  size={16}
-                                />
-                                <span className="text-sm font-medium whitespace-nowrap">
-                                  Platform 101
-                                </span>
-                              </Pressable>
-                            </NavigationMenuLink>
-                            <NavigationMenuLink asChild>
-                              <Pressable
-                                href="#"
-                                className="flex flex-row items-center gap-3"
-                              >
-                                <DynamicIcon name="lucide/users" size={16} />
-                                <span className="text-sm font-medium whitespace-nowrap">
-                                  Find a tutor
-                                </span>
-                              </Pressable>
-                            </NavigationMenuLink>
                           </div>
                           <p className="mt-5 mb-3 text-[10px] text-muted-foreground uppercase">
                             LATEST UPDATES
@@ -360,14 +335,6 @@ export const NavbarEducationPlatform = ({
                                   className="aspect-video min-w-52 rounded-md object-cover"
                                   optixFlowConfig={optixFlowConfig}
                                 />
-                              </div>
-                              <div className="mt-3.5 flex flex-col gap-2 px-1">
-                                <p className="text-xs font-medium">
-                                  One Platform. Every Learner.
-                                </p>
-                                <p className="text-xs text-muted-foreground">
-                                  Personalized learning paths for every student.
-                                </p>
                               </div>
                             </Pressable>
                           </NavigationMenuLink>
@@ -455,7 +422,7 @@ export const NavbarEducationPlatform = ({
               actionsClassName,
             )}
           >
-            {renderAuthActions()}
+            {renderAuthActions}
           </div>
 
           <Pressable
@@ -524,28 +491,6 @@ export const NavbarEducationPlatform = ({
                       <p className="mb-3 text-[10px] text-muted-foreground uppercase">
                         QUICK START
                       </p>
-                      <div className="space-y-5">
-                        <Pressable
-                          href="#"
-                          className="flex cursor-pointer flex-row items-center gap-3 rounded-md transition-colors"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          <DynamicIcon name="lucide/book-open" size={16} />
-                          <span className="text-sm font-medium">
-                            Platform 101
-                          </span>
-                        </Pressable>
-                        <Pressable
-                          href="#"
-                          className="flex cursor-pointer flex-row items-center gap-3 rounded-md transition-colors"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          <DynamicIcon name="lucide/users" size={16} />
-                          <span className="text-sm font-medium">
-                            Find a tutor
-                          </span>
-                        </Pressable>
-                      </div>
                     </div>
                   </div>
                 </AccordionContent>

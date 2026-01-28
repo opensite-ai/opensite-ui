@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -164,11 +164,11 @@ export const NavbarDarkIcons = ({
   navigationSlot,
   authActions,
   authActionsSlot,
-  githubUrl = "https://github.com/opensite-ai/opensite-ui",
+  githubUrl,
   githubSlot,
   layoutVariant = "fullScreenContainerizedLinks",
-  background = "white",
-  spacing = "none",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -201,7 +201,7 @@ export const NavbarDarkIcons = ({
     setOpen(!open);
   };
 
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -231,9 +231,9 @@ export const NavbarDarkIcons = ({
           ))}
       </Pressable>
     );
-  };
+  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
 
-  const renderAuthActions = () => {
+  const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -263,9 +263,9 @@ export const NavbarDarkIcons = ({
         </Pressable>
       );
     });
-  };
+  }, [authActionsSlot, authActions]);
 
-  const renderNavigation = () => {
+  const renderNavigation = useMemo(() => {
     if (navigationSlot) return navigationSlot;
     if (!navigation || navigation.length === 0) return null;
 
@@ -280,13 +280,13 @@ export const NavbarDarkIcons = ({
         ))}
       </NavigationMenuList>
     );
-  };
+  }, [navigationSlot, navigation]);
 
-  const renderGithubStars = () => {
+  const renderGithubStars = useMemo(() => {
     if (githubSlot) return githubSlot;
     if (!githubUrl) return null;
     return <GithubStars repoUrl={githubUrl} />;
-  };
+  }, [githubSlot, githubUrl]);
 
   // Get layout classes based on variant
   const {
@@ -318,16 +318,16 @@ export const NavbarDarkIcons = ({
                 navClassName,
               )}
             >
-            {renderLogo()}
+            {renderLogo}
             <NavigationMenu
               className={cn("hidden lg:flex", navigationMenuClassName)}
               viewport={false}
             >
-              {renderNavigation()}
+              {renderNavigation}
             </NavigationMenu>
             <div className={cn("flex items-center gap-4", actionsClassName)}>
-              {renderGithubStars()}
-              {renderAuthActions()}
+              {renderGithubStars}
+              {renderAuthActions}
               <div className="lg:hidden">
                 <Pressable
                   variant="ghost"
@@ -455,7 +455,7 @@ const MobileNavigationMenu = ({
   authActions,
   authActionsSlot,
 }: MobileNavigationMenuProps) => {
-  const renderMobileAuthActions = () => {
+  const renderMobileAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -485,7 +485,7 @@ const MobileNavigationMenu = ({
         </Pressable>
       );
     });
-  };
+  }, [authActionsSlot, authActions]);
 
   return (
     <Sheet open={open}>
@@ -508,7 +508,7 @@ const MobileNavigationMenu = ({
                 )}
               </Accordion>
               <div className="flex flex-col gap-2 pb-20">
-                {renderMobileAuthActions()}
+                {renderMobileAuthActions}
               </div>
             </div>
           </div>

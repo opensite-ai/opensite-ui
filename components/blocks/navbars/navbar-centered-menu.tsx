@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -255,13 +256,13 @@ export const NavbarCenteredMenu = ({
   navigationMenuClassName,
   actionsClassName,
   layoutVariant = "fullScreenContainerizedLinks",
-  background = "white",
-  spacing = "sm",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: NavbarCenteredMenuProps) => {
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -288,9 +289,9 @@ export const NavbarCenteredMenu = ({
           ))}
       </Pressable>
     );
-  };
+  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
 
-  const renderAuthActions = () => {
+  const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -320,21 +321,21 @@ export const NavbarCenteredMenu = ({
         </Pressable>
       );
     });
-  };
+  }, [authActionsSlot, authActions]);
 
-  const renderMenu = () => {
+  const renderMenu = useMemo(() => {
     if (menuSlot) return menuSlot;
     if (!menu || menu.length === 0) return null;
 
     return menu.map((item) => renderMenuItem(item));
-  };
+  }, [menuSlot, menu]);
 
-  const renderMobileMenu = () => {
+  const renderMobileMenu = useMemo(() => {
     if (menuSlot) return menuSlot;
     if (!menu || menu.length === 0) return null;
 
     return menu.map((item) => renderMobileMenuItem(item));
-  };
+  }, [menuSlot, menu]);
 
   // Get layout classes based on variant
   const {
@@ -365,27 +366,27 @@ export const NavbarCenteredMenu = ({
               className={cn("hidden justify-between lg:flex", desktopNavClassName)}
             >
           {/* Logo */}
-          {renderLogo()}
+          {renderLogo}
           <div className="flex items-center gap-6">
             <div className="flex items-center">
               <NavigationMenuWithoutViewport
                 className={navigationMenuClassName}
               >
                 <NavigationMenuList className="relative">
-                  {renderMenu()}
+                  {renderMenu}
                 </NavigationMenuList>
               </NavigationMenuWithoutViewport>
             </div>
           </div>
           <div className={cn("flex gap-2", actionsClassName)}>
-            {renderAuthActions()}
+            {renderAuthActions}
           </div>
         </nav>
 
           {/* Mobile Menu */}
           <div className={cn("block lg:hidden", mobileNavClassName)}>
             <div className="flex items-center justify-between">
-              {renderLogo()}
+              {renderLogo}
               <Sheet>
                 <SheetTrigger asChild>
                   <Pressable
@@ -399,7 +400,7 @@ export const NavbarCenteredMenu = ({
                 </SheetTrigger>
                 <SheetContent className="overflow-y-auto">
                   <SheetHeader>
-                    <SheetTitle>{renderLogo()}</SheetTitle>
+                    <SheetTitle>{renderLogo}</SheetTitle>
                   </SheetHeader>
                   <div className="flex flex-col gap-6 p-4">
                     <Accordion
@@ -407,11 +408,11 @@ export const NavbarCenteredMenu = ({
                       collapsible
                       className="flex w-full flex-col gap-4"
                     >
-                      {renderMobileMenu()}
+                      {renderMobileMenu}
                     </Accordion>
 
                     <div className={cn("flex flex-col gap-3", actionsClassName)}>
-                      {renderAuthActions()}
+                      {renderAuthActions}
                     </div>
                   </div>
                 </SheetContent>

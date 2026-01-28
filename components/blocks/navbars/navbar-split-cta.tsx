@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState , useMemo} from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -166,8 +166,8 @@ export const NavbarSplitCta = ({
   navigationMenuClassName,
   actionsClassName,
   layoutVariant = "fullScreenContainerizedLinks",
-  background = "white",
-  spacing = "none",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -209,7 +209,7 @@ export const NavbarSplitCta = ({
         ]
       : []);
 
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -234,9 +234,9 @@ export const NavbarSplitCta = ({
           ))}
       </Pressable>
     );
-  };
+  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
 
-  const renderAuthActions = () => {
+  const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!finalAuthActions || finalAuthActions.length === 0) return null;
 
@@ -266,14 +266,14 @@ export const NavbarSplitCta = ({
         </Pressable>
       );
     });
-  };
+  }, [authActionsSlot, finalAuthActions]);
 
-  const renderMenu = (): MenuItem[] | null => {
+  const renderMenu = useMemo((): MenuItem[] | null => {
     if (menuSlot) return null;
     if (!menu || menu.length === 0) return null;
 
     return menu;
-  };
+  }, [menuSlot, menu]);
 
   // Get layout classes based on variant
   const {
@@ -306,7 +306,7 @@ export const NavbarSplitCta = ({
               )}
             >
           <div className="flex items-center gap-8">
-            {renderLogo()}
+            {renderLogo}
 
             <NavigationMenu
               className={cn("hidden lg:flex", navigationMenuClassName)}
@@ -314,7 +314,7 @@ export const NavbarSplitCta = ({
               <NavigationMenuList>
                 {menuSlot
                   ? menuSlot
-                  : renderMenu()?.map((item, index) =>
+                  : renderMenu?.map((item, index) =>
                       item.items ? (
                         <NavigationMenuItem key={index}>
                           <NavigationMenuTrigger>
@@ -375,7 +375,7 @@ export const NavbarSplitCta = ({
               actionsClassName,
             )}
           >
-            {renderAuthActions()}
+            {renderAuthActions}
           </div>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -393,11 +393,11 @@ export const NavbarSplitCta = ({
             <SheetContent side="right" className="w-[300px]">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-6 pt-8">
-                <div className="flex flex-col gap-2">{renderAuthActions()}</div>
+                <div className="flex flex-col gap-2">{renderAuthActions}</div>
                 <div className="border-t pt-4">
                   {menuSlot
                     ? menuSlot
-                    : renderMenu()?.map((item, index) =>
+                    : renderMenu?.map((item, index) =>
                         item.items ? (
                           <div key={index} className="mb-4">
                             <div className="mb-2 text-sm font-medium text-muted-foreground">

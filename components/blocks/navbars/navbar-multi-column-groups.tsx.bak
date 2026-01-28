@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect , useMemo} from "react";
+import { useState, useEffect } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -206,7 +206,7 @@ export const NavbarMultiColumnGroups = ({
     setOpen(!open);
   };
 
-  const renderLogo = useMemo(() => {
+  const renderLogo = () => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -234,9 +234,9 @@ export const NavbarMultiColumnGroups = ({
           ))}
       </Pressable>
     );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
+  };
 
-  const renderNavigation = useMemo(() => {
+  const renderNavigation = () => {
     if (navigationSlot) return navigationSlot;
     if (!navigation || navigation.length === 0) return null;
 
@@ -251,9 +251,9 @@ export const NavbarMultiColumnGroups = ({
         ))}
       </NavigationMenuList>
     );
-  }, [navigationSlot, navigation]);
+  };
 
-  const renderAuthActions = useMemo(() => {
+  const renderAuthActions = () => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -283,7 +283,7 @@ export const NavbarMultiColumnGroups = ({
         </Pressable>
       );
     });
-  }, [authActionsSlot, authActions]);
+  };
 
   // Get layout classes based on variant
   const {
@@ -316,12 +316,12 @@ export const NavbarMultiColumnGroups = ({
               )}
             >
           <div className="flex items-center gap-8">
-            {renderLogo}
+            {renderLogo()}
             <NavigationMenu
               className={cn("hidden xl:flex", navigationMenuClassName)}
               viewport={false}
             >
-              {renderNavigation}
+              {renderNavigation()}
             </NavigationMenu>
           </div>
           <div
@@ -330,7 +330,7 @@ export const NavbarMultiColumnGroups = ({
               actionsClassName,
             )}
           >
-            {renderAuthActions}
+            {renderAuthActions()}
           </div>
           <div className="xl:hidden">
             <Pressable
@@ -452,7 +452,7 @@ const MobileNavigationMenu = ({
   authActions,
   authActionsSlot,
 }: MobileNavigationMenuProps) => {
-  const renderMobileAuthActions = useMemo(() => {
+  const renderMobileAuthActions = () => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -486,7 +486,7 @@ const MobileNavigationMenu = ({
         })}
       </div>
     );
-  }, [authActionsSlot, authActions]);
+  };
 
   return (
     <Sheet open={open}>
@@ -503,7 +503,7 @@ const MobileNavigationMenu = ({
               </SheetTitle>
             </div>
             <div className="flex flex-col gap-6">
-              {renderMobileAuthActions}
+              {renderMobileAuthActions()}
               <Accordion type="multiple" className="w-full">
                 {navigation.map((item, index) =>
                   renderMobileMenuItem(item, index),

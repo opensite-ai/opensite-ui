@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState , useMemo} from "react";
+import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -147,7 +147,7 @@ export const NavbarFullscreenMenu = ({
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const renderLogo = useMemo(() => {
+  const renderLogo = () => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -174,9 +174,9 @@ export const NavbarFullscreenMenu = ({
           ))}
       </Pressable>
     );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
+  };
 
-  const renderMenuItems = useMemo(() => {
+  const renderMenuItems = () => {
     if (menuSlot) return menuSlot;
     if (!menuItems || menuItems.length === 0) return null;
 
@@ -197,9 +197,9 @@ export const NavbarFullscreenMenu = ({
         </Pressable>
       </div>
     ));
-  }, [menuSlot, menuItems]);
+  };
 
-  const renderSocialLinks = useMemo(() => {
+  const renderSocialLinks = () => {
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
@@ -215,7 +215,7 @@ export const NavbarFullscreenMenu = ({
         <span>{link.label}</span>
       </Pressable>
     ));
-  }, [socialLinksSlot, socialLinks]);
+  };
 
   // Get layout classes based on variant
   const {
@@ -247,7 +247,7 @@ export const NavbarFullscreenMenu = ({
                 headerClassName,
               )}
             >
-          <div className="z-50">{renderLogo}</div>
+          <div className="z-50">{renderLogo()}</div>
 
           <div className="z-50">
             <button
@@ -287,7 +287,7 @@ export const NavbarFullscreenMenu = ({
           >
             <div className="flex h-full flex-col items-center justify-center px-6">
               <div className={cn("mb-16 text-center", menuItemsClassName)}>
-                {renderMenuItems}
+                {renderMenuItems()}
               </div>
 
               <div
@@ -297,7 +297,7 @@ export const NavbarFullscreenMenu = ({
                 )}
                 style={{ animationDelay: "0.7s", animationFillMode: "both" }}
               >
-                {renderSocialLinks}
+                {renderSocialLinks()}
               </div>
             </div>
           </div>

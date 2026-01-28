@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect , useMemo} from "react";
+import { useState, useEffect } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -180,7 +180,7 @@ export const NavbarTransparentOverlay = ({
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const renderLogo = useMemo(() => {
+  const renderLogo = () => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -216,9 +216,9 @@ export const NavbarTransparentOverlay = ({
           ))}
       </Pressable>
     );
-  }, [logoSlot, logo, logoClassName, isScrolled, isOpen, optixFlowConfig]);
+  };
 
-  const renderNavigation = useMemo(() => {
+  const renderNavigation = () => {
     if (navigationSlot) return navigationSlot;
     if (!navItems || navItems.length === 0) return null;
 
@@ -248,9 +248,9 @@ export const NavbarTransparentOverlay = ({
         ))}
       </NavigationMenuList>
     );
-  }, [navigationSlot, navItems, isScrolled]);
+  };
 
-  const renderAuthActions = useMemo(() => {
+  const renderAuthActions = () => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -291,9 +291,9 @@ export const NavbarTransparentOverlay = ({
         </Pressable>
       );
     });
-  }, [authActionsSlot, authActions, isScrolled]);
+  };
 
-  const renderMobileAuthActions = useMemo(() => {
+  const renderMobileAuthActions = () => {
     if (mobileAuthActionsSlot) return mobileAuthActionsSlot;
     if (!mobileAuthActions || mobileAuthActions.length === 0) return null;
 
@@ -324,7 +324,7 @@ export const NavbarTransparentOverlay = ({
         </Pressable>
       );
     });
-  }, [mobileAuthActionsSlot, mobileAuthActions]);
+  };
 
   // Get layout classes based on variant
   const {
@@ -360,12 +360,12 @@ export const NavbarTransparentOverlay = ({
         >
           <div className={innerContainerClasses}>
             <div className="flex h-16 items-center justify-between">
-            {renderLogo}
+            {renderLogo()}
 
             <NavigationMenu
               className={cn("hidden lg:flex", navigationMenuClassName)}
             >
-              {renderNavigation}
+              {renderNavigation()}
             </NavigationMenu>
 
             <div
@@ -374,7 +374,7 @@ export const NavbarTransparentOverlay = ({
                 actionsClassName,
               )}
             >
-              {renderAuthActions}
+              {renderAuthActions()}
             </div>
 
             <button
@@ -464,7 +464,7 @@ export const NavbarTransparentOverlay = ({
                 : "0ms",
             }}
           >
-            {renderMobileAuthActions}
+            {renderMobileAuthActions()}
           </div>
         </div>
       </div>

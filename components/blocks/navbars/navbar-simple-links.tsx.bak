@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useRef, useEffect , useMemo} from "react";
+import { useState, useRef, useEffect } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -162,7 +162,7 @@ const MobileNav = ({
 }: MobileNavProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const renderActions = useMemo(() => {
+  const renderActions = () => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -192,7 +192,7 @@ const MobileNav = ({
         </Pressable>
       );
     });
-  }, [actionsSlot, actions]);
+  };
 
   return (
     <div className="flex h-full items-center lg:hidden">
@@ -225,7 +225,7 @@ const MobileNav = ({
             ))}
             {(actionsSlot || (actions && actions.length > 0)) && (
               <li className="flex flex-col gap-3 px-7 py-2">
-                {renderActions}
+                {renderActions()}
               </li>
             )}
           </ul>
@@ -295,7 +295,7 @@ export const NavbarSimpleLinks = ({
     return () => window.removeEventListener("resize", updateIndicator);
   }, [activeItem]);
 
-  const renderLogo = useMemo(() => {
+  const renderLogo = () => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -322,9 +322,9 @@ export const NavbarSimpleLinks = ({
           ))}
       </Pressable>
     );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
+  };
 
-  const renderNavItems = useMemo(() => {
+  const renderNavItems = () => {
     if (navItemsSlot) return navItemsSlot;
     if (!navItems || navItems.length === 0) return null;
 
@@ -344,9 +344,9 @@ export const NavbarSimpleLinks = ({
         </NavigationMenuItem>
       </React.Fragment>
     ));
-  }, [navItemsSlot, navItems, activeItem]);
+  };
 
-  const renderActions = useMemo(() => {
+  const renderActions = () => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -376,7 +376,7 @@ export const NavbarSimpleLinks = ({
         </Pressable>
       );
     });
-  }, [actionsSlot, actions]);
+  };
 
   // Get layout classes based on variant
   const {
@@ -408,7 +408,7 @@ export const NavbarSimpleLinks = ({
                 navClassName,
               )}
             >
-          {renderLogo}
+          {renderLogo()}
 
           <NavigationMenu
             className={cn("hidden lg:block", navigationMenuClassName)}
@@ -420,7 +420,7 @@ export const NavbarSimpleLinks = ({
                 menuListClassName,
               )}
             >
-              {renderNavItems}
+              {renderNavItems()}
               <div
                 ref={indicatorRef}
                 className="absolute bottom-2 flex h-1 items-center justify-center px-2 transition-all duration-300"
@@ -444,7 +444,7 @@ export const NavbarSimpleLinks = ({
               actionsClassName,
             )}
           >
-            {renderActions}
+            {renderActions()}
           </div>
         </nav>
           </div>

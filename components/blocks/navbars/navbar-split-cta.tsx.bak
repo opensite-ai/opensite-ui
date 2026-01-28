@@ -1,18 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useState , useMemo} from "react";
+import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "../../ui/accordion";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -35,7 +29,7 @@ import type { LogoConfig, NavbarLayoutVariant } from "./types";
 import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export LogoConfig for backward compatibility
-export type { LogoConfig };
+export type { LogoConfig } from "./types";
 
 interface SubMenuItem {
   title: string;
@@ -51,9 +45,9 @@ interface MenuItem {
 }
 
 /**
- * Props for the NavbarSidebarMobile component
+ * Props for the NavbarSplitCta component
  */
-export interface NavbarSidebarMobileProps {
+export interface NavbarSplitCtaProps {
   /**
    * Additional CSS classes for the section
    */
@@ -95,13 +89,21 @@ export interface NavbarSidebarMobileProps {
    */
   menuSlot?: React.ReactNode;
   /**
-   * Extra links shown in mobile sidebar footer
+   * Primary CTA configuration (deprecated - use authActions instead)
+   * @deprecated
    */
-  mobileExtraLinks?: { title: string; url: string }[];
+  primaryCta?: {
+    label: string;
+    url: string;
+  };
   /**
-   * Custom slot for mobile extra links
+   * Secondary CTA configuration (deprecated - use authActions instead)
+   * @deprecated
    */
-  mobileExtraLinksSlot?: React.ReactNode;
+  secondaryCta?: {
+    label: string;
+    url: string;
+  };
   /**
    * Authentication action configurations
    */
@@ -137,15 +139,15 @@ export interface NavbarSidebarMobileProps {
 }
 
 /**
- * NavbarSidebarMobile - A navigation bar with a slide-out sidebar for mobile devices.
+ * NavbarSplitCta - A navigation bar with split primary and secondary call-to-action buttons.
  *
- * Features a standard horizontal navigation menu on desktop with dropdown menus containing
- * icons, titles, and descriptions for each item. Mobile view uses a slide-out sidebar from
- * the left with accordion navigation and additional footer links. The sidebar includes a
- * header with logo and close button. Ideal for applications that need a more app-like
- * mobile navigation experience.
+ * Features a balanced layout with navigation links on the left and two distinct CTA buttons
+ * on the right - a secondary outline button and a primary filled button. The dropdown menus
+ * display items with icons and descriptions in a clean list format. Mobile view uses a
+ * slide-out sheet with the CTAs prominently displayed at the top. Ideal for SaaS products
+ * and services that want to emphasize both login/signup or demo/trial actions.
  */
-export const NavbarSidebarMobile = ({
+export const NavbarSplitCta = ({
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
@@ -154,8 +156,8 @@ export const NavbarSidebarMobile = ({
   logoClassName,
   menu,
   menuSlot,
-  mobileExtraLinks,
-  mobileExtraLinksSlot,
+  primaryCta,
+  secondaryCta,
   authActions,
   authActionsSlot,
   className,
@@ -169,8 +171,43 @@ export const NavbarSidebarMobile = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarSidebarMobileProps) => {
+}: NavbarSplitCtaProps) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Support legacy primaryCta/secondaryCta props
+  const finalAuthActions =
+    authActions ||
+    (primaryCta || secondaryCta
+      ? [
+          ...(secondaryCta
+            ? [
+                {
+                  label: secondaryCta.label,
+                  href: secondaryCta.url,
+                  variant: "outline" as const,
+                  size: "default" as const,
+                },
+              ]
+            : []),
+          ...(primaryCta
+            ? [
+                {
+                  label: primaryCta.label,
+                  href: primaryCta.url,
+                  variant: "default" as const,
+                  size: "default" as const,
+                  iconAfter: (
+                    <DynamicIcon
+                      name="lucide/arrow-right"
+                      size={16}
+                      className="ml-1"
+                    />
+                  ),
+                },
+              ]
+            : []),
+        ]
+      : []);
 
   const renderLogo = () => {
     if (logoSlot) return logoSlot;
@@ -201,9 +238,9 @@ export const NavbarSidebarMobile = ({
 
   const renderAuthActions = () => {
     if (authActionsSlot) return authActionsSlot;
-    if (!authActions || authActions.length === 0) return null;
+    if (!finalAuthActions || finalAuthActions.length === 0) return null;
 
-    return authActions.map((action, index) => {
+    return finalAuthActions.map((action, index) => {
       const {
         label,
         icon,
@@ -211,7 +248,7 @@ export const NavbarSidebarMobile = ({
         children,
         className: actionClassName,
         ...pressableProps
-      } = action;
+      } = action as ActionConfig;
       return (
         <Pressable
           key={index}
@@ -236,15 +273,6 @@ export const NavbarSidebarMobile = ({
     if (!menu || menu.length === 0) return null;
 
     return menu;
-  };
-
-  const renderMobileExtraLinks = ():
-    | { title: string; url: string }[]
-    | null => {
-    if (mobileExtraLinksSlot) return null;
-    if (!mobileExtraLinks || mobileExtraLinks.length === 0) return null;
-
-    return mobileExtraLinks;
   };
 
   // Get layout classes based on variant
@@ -293,30 +321,32 @@ export const NavbarSidebarMobile = ({
                             {item.title}
                           </NavigationMenuTrigger>
                           <NavigationMenuContent>
-                            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
+                            <ul className="w-[280px] p-2">
                               {item.items.map((subItem, subIndex) => (
                                 <li key={subIndex}>
                                   <NavigationMenuLink asChild>
                                     <Pressable
                                       href={subItem.url}
-                                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                      className="flex items-start gap-3 rounded-md p-3 hover:bg-accent"
                                     >
-                                      <div className="flex items-center gap-2">
-                                        {subItem.icon && (
+                                      {subItem.icon && (
+                                        <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border bg-background">
                                           <DynamicIcon
                                             name={subItem.icon}
                                             size={16}
                                           />
-                                        )}
-                                        <div className="text-sm font-medium leading-none">
+                                        </div>
+                                      )}
+                                      <div>
+                                        <div className="text-sm font-medium">
                                           {subItem.title}
                                         </div>
+                                        {subItem.description && (
+                                          <p className="text-xs text-muted-foreground">
+                                            {subItem.description}
+                                          </p>
+                                        )}
                                       </div>
-                                      {subItem.description && (
-                                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                          {subItem.description}
-                                        </p>
-                                      )}
                                     </Pressable>
                                   </NavigationMenuLink>
                                 </li>
@@ -341,7 +371,7 @@ export const NavbarSidebarMobile = ({
 
           <div
             className={cn(
-              "hidden items-center gap-2 lg:flex",
+              "hidden items-center gap-3 lg:flex",
               actionsClassName,
             )}
           >
@@ -351,7 +381,7 @@ export const NavbarSidebarMobile = ({
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
               <Pressable
-                variant="outline"
+                variant="ghost"
                 size="icon"
                 asButton
                 onClick={() => {}}
@@ -360,77 +390,49 @@ export const NavbarSidebarMobile = ({
                 <span className="sr-only">Toggle menu</span>
               </Pressable>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[300px] sm:w-[350px]">
+            <SheetContent side="right" className="w-[300px]">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <div className="flex h-full flex-col">
-                <div className="flex items-center justify-between border-b pb-4">
-                  {renderLogo()}
-                </div>
-
-                <div className="flex-1 overflow-y-auto py-4">
-                  <Accordion type="single" collapsible className="w-full">
-                    {menuSlot
-                      ? menuSlot
-                      : renderMenu()?.map((item, index) =>
-                          item.items ? (
-                            <AccordionItem key={index} value={`item-${index}`}>
-                              <AccordionTrigger className="text-base hover:no-underline">
-                                {item.title}
-                              </AccordionTrigger>
-                              <AccordionContent>
-                                <div className="flex flex-col space-y-2 pl-4">
-                                  {item.items.map((subItem, subIndex) => (
-                                    <Pressable
-                                      key={subIndex}
-                                      href={subItem.url}
-                                      className="flex items-center gap-2 rounded-md py-2 text-sm text-muted-foreground hover:text-foreground"
-                                      onClick={() => setIsOpen(false)}
-                                    >
-                                      {subItem.icon && (
-                                        <DynamicIcon
-                                          name={subItem.icon}
-                                          size={14}
-                                        />
-                                      )}
-                                      {subItem.title}
-                                    </Pressable>
-                                  ))}
-                                </div>
-                              </AccordionContent>
-                            </AccordionItem>
-                          ) : (
-                            <div key={index} className="border-b py-4">
-                              <Pressable
-                                href={item.url}
-                                className="text-base font-medium"
-                                onClick={() => setIsOpen(false)}
-                              >
-                                {item.title}
-                              </Pressable>
-                            </div>
-                          ),
-                        )}
-                  </Accordion>
-                </div>
-
+              <div className="flex flex-col gap-6 pt-8">
+                <div className="flex flex-col gap-2">{renderAuthActions()}</div>
                 <div className="border-t pt-4">
-                  <div className="flex flex-col gap-2">
-                    {renderAuthActions()}
-                  </div>
-                  <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
-                    {mobileExtraLinksSlot
-                      ? mobileExtraLinksSlot
-                      : renderMobileExtraLinks()?.map((link, index) => (
+                  {menuSlot
+                    ? menuSlot
+                    : renderMenu()?.map((item, index) =>
+                        item.items ? (
+                          <div key={index} className="mb-4">
+                            <div className="mb-2 text-sm font-medium text-muted-foreground">
+                              {item.title}
+                            </div>
+                            <div className="flex flex-col gap-1 pl-2">
+                              {item.items.map((subItem, subIndex) => (
+                                <Pressable
+                                  key={subIndex}
+                                  href={subItem.url}
+                                  className="flex items-center gap-2 rounded-md py-2 text-sm"
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  {subItem.icon && (
+                                    <DynamicIcon
+                                      name={subItem.icon}
+                                      size={14}
+                                    />
+                                  )}
+                                  {subItem.title}
+                                </Pressable>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
                           <Pressable
                             key={index}
-                            href={link.url}
-                            className="text-xs text-muted-foreground hover:text-foreground"
+                            href={item.url}
+                            className="block py-2 text-sm font-medium"
                             onClick={() => setIsOpen(false)}
                           >
-                            {link.title}
+                            {item.title}
                           </Pressable>
-                        ))}
-                  </div>
+                        ),
+                      )}
                 </div>
               </div>
             </SheetContent>
@@ -443,4 +445,4 @@ export const NavbarSidebarMobile = ({
   );
 };
 
-export default NavbarSidebarMobile;
+export default NavbarSplitCta;

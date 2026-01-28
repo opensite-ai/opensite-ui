@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -384,8 +384,8 @@ export const NavbarEnterpriseMega = ({
   actions,
   actionsSlot,
   layoutVariant = "fullScreenContainerizedLinks",
-  background = "white",
-  spacing = "none",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -412,7 +412,7 @@ export const NavbarEnterpriseMega = ({
     setOpen(!open);
   };
 
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -440,9 +440,9 @@ export const NavbarEnterpriseMega = ({
           ))}
       </Pressable>
     );
-  };
+  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -467,7 +467,7 @@ export const NavbarEnterpriseMega = ({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
   // Get layout classes based on variant
   const {
@@ -503,7 +503,7 @@ export const NavbarEnterpriseMega = ({
                   navClassName,
                 )}
               >
-            {renderLogo()}
+            {renderLogo}
             <NavigationMenu
               className={cn("hidden lg:flex", navigationMenuClassName)}
               viewport={false}
@@ -521,7 +521,7 @@ export const NavbarEnterpriseMega = ({
             </NavigationMenu>
             <div className={cn("flex items-center gap-3", actionsClassName)}>
               <div className="hidden lg:flex lg:items-center lg:gap-3">
-                {renderActions()}
+                {renderActions}
               </div>
               <div className="lg:hidden">
                 <Pressable
@@ -1311,7 +1311,7 @@ const MobileNavigationMenu = ({
   actionsSlot,
   optixFlowConfig,
 }: MobileNavigationMenuProps) => {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -1341,7 +1341,7 @@ const MobileNavigationMenu = ({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
   return (
     <Sheet open={open}>
       <SheetContent
@@ -1357,7 +1357,7 @@ const MobileNavigationMenu = ({
               </SheetTitle>
             </div>
             <div className={cn("flex flex-col gap-4", actionsClassName)}>
-              {renderActions()}
+              {renderActions}
             </div>
             <Accordion type="multiple" className="mt-6 w-full">
               {menuLinks.map((item, index) => {

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -144,8 +144,8 @@ export const NavbarFloatingPill = ({
   navigationMenuClassName,
   actionsClassName,
   layoutVariant = "fullScreenContainerizedLinks",
-  background = "white",
-  spacing = "none",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -153,7 +153,7 @@ export const NavbarFloatingPill = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -180,9 +180,9 @@ export const NavbarFloatingPill = ({
           ))}
       </Pressable>
     );
-  };
+  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
 
-  const renderAuthActions = () => {
+  const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -212,14 +212,14 @@ export const NavbarFloatingPill = ({
         </Pressable>
       );
     });
-  };
+  }, [authActionsSlot, authActions]);
 
-  const renderMenu = (): NavItem[] | null => {
+  const renderMenu = useMemo((): NavItem[] | null => {
     if (menuSlot) return null;
     if (!items || items.length === 0) return null;
 
     return items;
-  };
+  }, [menuSlot, items]);
 
   // Get layout classes based on variant
   const {
@@ -256,7 +256,7 @@ export const NavbarFloatingPill = ({
                 pillWrapperClassName,
               )}
             >
-          {renderLogo()}
+          {renderLogo}
 
           {/* Desktop Navigation */}
           <NavigationMenu
@@ -265,7 +265,7 @@ export const NavbarFloatingPill = ({
             <NavigationMenuList>
               {menuSlot
                 ? menuSlot
-                : renderMenu()?.map((link) =>
+                : renderMenu?.map((link) =>
                     link.dropdownItems ? (
                       <NavigationMenuItem key={link.label}>
                         <NavigationMenuTrigger className="bg-transparent! px-1.5 data-[state=open]:bg-accent/50">
@@ -313,7 +313,7 @@ export const NavbarFloatingPill = ({
 
           {/* Auth Buttons */}
           <div className={cn("flex items-center gap-2.5", actionsClassName)}>
-            <div className="max-lg:hidden">{renderAuthActions()}</div>
+            <div className="max-lg:hidden">{renderAuthActions}</div>
 
             {/* Hamburger Menu Button (Mobile Only) */}
             <button
@@ -352,7 +352,7 @@ export const NavbarFloatingPill = ({
           <nav className="flex flex-1 flex-col divide-y divide-border">
             {menuSlot
               ? menuSlot
-              : renderMenu()?.map((link) =>
+              : renderMenu?.map((link) =>
                   link.dropdownItems ? (
                     <div key={link.label} className="py-4 first:pt-0 last:pb-0">
                       <button

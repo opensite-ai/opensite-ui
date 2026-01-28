@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -146,13 +147,13 @@ export const NavbarFeatureGrid = ({
   authActions,
   authActionsSlot,
   layoutVariant = "fullScreenContainerizedLinks",
-  background = "white",
-  spacing = "sm",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: NavbarFeatureGridProps) => {
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -179,9 +180,9 @@ export const NavbarFeatureGrid = ({
           ))}
       </Pressable>
     );
-  };
+  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
 
-  const renderAuthActions = () => {
+  const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -206,7 +207,7 @@ export const NavbarFeatureGrid = ({
         </Pressable>
       );
     });
-  };
+  }, [authActionsSlot, authActions]);
 
   // Get layout classes based on variant
   const {
@@ -235,58 +236,36 @@ export const NavbarFeatureGrid = ({
             <nav
               className={cn("flex items-center justify-between", navClassName)}
             >
-          {renderLogo()}
+          {renderLogo}
           <NavigationMenu
             className={cn("hidden lg:block", navigationMenuClassName)}
           >
             <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Features</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="grid w-[600px] grid-cols-2 p-3">
-                    {features?.map((feature, index) => (
-                      <NavigationMenuLink
-                        href={feature.href}
-                        key={index}
-                        className="rounded-md p-3 transition-colors hover:bg-muted/70"
-                      >
-                        <div>
-                          <p className="mb-1 font-semibold text-foreground">
-                            {feature.title}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {feature.description}
-                          </p>
-                        </div>
-                      </NavigationMenuLink>
-                    ))}
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  href="#"
-                  className={navigationMenuTriggerStyle()}
-                >
-                  Products
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  href="#"
-                  className={navigationMenuTriggerStyle()}
-                >
-                  Resources
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  href="#"
-                  className={navigationMenuTriggerStyle()}
-                >
-                  Contact
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+              {features && features.length > 0 && (
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>Features</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="grid w-[600px] grid-cols-2 p-3">
+                      {features.map((feature, index) => (
+                        <NavigationMenuLink
+                          href={feature.href}
+                          key={index}
+                          className="rounded-md p-3 transition-colors hover:bg-muted/70"
+                        >
+                          <div>
+                            <p className="mb-1 font-semibold text-foreground">
+                              {feature.title}
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              {feature.description}
+                            </p>
+                          </div>
+                        </NavigationMenuLink>
+                      ))}
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              )}
             </NavigationMenuList>
           </NavigationMenu>
           <div
@@ -295,7 +274,7 @@ export const NavbarFeatureGrid = ({
               actionsClassName,
             )}
           >
-            {renderAuthActions()}
+            {renderAuthActions}
           </div>
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
@@ -310,51 +289,42 @@ export const NavbarFeatureGrid = ({
             </SheetTrigger>
             <SheetContent side="top" className="max-h-screen overflow-auto">
               <SheetHeader>
-                <SheetTitle>{renderLogo()}</SheetTitle>
+                <SheetTitle>{renderLogo}</SheetTitle>
               </SheetHeader>
               <div className="flex flex-col p-4">
-                <Accordion type="single" collapsible className="mt-4 mb-2">
-                  <AccordionItem value="solutions" className="border-none">
-                    <AccordionTrigger className="text-base hover:no-underline">
-                      Features
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <div className="grid md:grid-cols-2">
-                        {features?.map((feature, index) => (
-                          <Pressable
-                            href={feature.href}
-                            key={index}
-                            className="rounded-md p-3 transition-colors hover:bg-muted/70"
-                          >
-                            <div>
-                              <p className="mb-1 font-semibold text-foreground">
-                                {feature.title}
-                              </p>
-                              <p className="text-sm text-muted-foreground">
-                                {feature.description}
-                              </p>
-                            </div>
-                          </Pressable>
-                        ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-                <div className="flex flex-col gap-6">
-                  <Pressable href="#" className="font-medium">
-                    Templates
-                  </Pressable>
-                  <Pressable href="#" className="font-medium">
-                    Blog
-                  </Pressable>
-                  <Pressable href="#" className="font-medium">
-                    Pricing
-                  </Pressable>
-                </div>
+                {features && features.length > 0 && (
+                  <Accordion type="single" collapsible className="mt-4 mb-2">
+                    <AccordionItem value="solutions" className="border-none">
+                      <AccordionTrigger className="text-base hover:no-underline">
+                        Features
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="grid md:grid-cols-2">
+                          {features.map((feature, index) => (
+                            <Pressable
+                              href={feature.href}
+                              key={index}
+                              className="rounded-md p-3 transition-colors hover:bg-muted/70"
+                            >
+                              <div>
+                                <p className="mb-1 font-semibold text-foreground">
+                                  {feature.title}
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  {feature.description}
+                                </p>
+                              </div>
+                            </Pressable>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                )}
                 <div
                   className={cn("mt-6 flex flex-col gap-4", actionsClassName)}
                 >
-                  {renderAuthActions()}
+                  {renderAuthActions}
                 </div>
               </div>
             </SheetContent>

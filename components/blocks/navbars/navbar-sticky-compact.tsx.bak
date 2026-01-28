@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect , useMemo} from "react";
+import { useState, useEffect } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -161,7 +161,7 @@ export const NavbarStickyCompact = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const renderLogo = useMemo(() => {
+  const renderLogo = () => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -197,9 +197,9 @@ export const NavbarStickyCompact = ({
           ))}
       </Pressable>
     );
-  }, [logoSlot, logo, logoClassName, isScrolled, optixFlowConfig]);
+  };
 
-  const renderAuthActions = useMemo(() => {
+  const renderAuthActions = () => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -231,9 +231,9 @@ export const NavbarStickyCompact = ({
         </Pressable>
       );
     });
-  }, [authActionsSlot, authActions, isScrolled]);
+  };
 
-  const renderMenu = useMemo(() => {
+  const renderMenu = () => {
     if (menuSlot) return menuSlot;
     if (!menu || menu.length === 0) return null;
 
@@ -283,9 +283,9 @@ export const NavbarStickyCompact = ({
         </NavigationMenuItem>
       ),
     );
-  }, [menuSlot, menu, isScrolled]);
+  };
 
-  const renderMobileMenu = useMemo(() => {
+  const renderMobileMenu = () => {
     if (menuSlot) return menuSlot;
     if (!menu || menu.length === 0) return null;
 
@@ -320,7 +320,7 @@ export const NavbarStickyCompact = ({
         </Pressable>
       ),
     );
-  }, [menuSlot, menu]);
+  };
 
   // Get layout classes based on variant
   const {
@@ -357,10 +357,10 @@ export const NavbarStickyCompact = ({
                 navClassName,
               )}
             >
-          {renderLogo}
+          {renderLogo()}
 
           <NavigationMenu className="hidden lg:flex">
-            <NavigationMenuList>{renderMenu}</NavigationMenuList>
+            <NavigationMenuList>{renderMenu()}</NavigationMenuList>
           </NavigationMenu>
 
           <div
@@ -369,7 +369,7 @@ export const NavbarStickyCompact = ({
               actionsClassName,
             )}
           >
-            {renderAuthActions}
+            {renderAuthActions()}
           </div>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -388,14 +388,14 @@ export const NavbarStickyCompact = ({
             <SheetContent side="right" className="w-[280px]">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-4 pt-8">
-                {renderMobileMenu}
+                {renderMobileMenu()}
                 <div
                   className={cn(
                     "mt-4 flex flex-col gap-2 border-t pt-4",
                     actionsClassName,
                   )}
                 >
-                  {renderAuthActions}
+                  {renderAuthActions()}
                 </div>
               </div>
             </SheetContent>
