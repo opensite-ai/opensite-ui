@@ -8,7 +8,14 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+
+/** Special value for the "All" tab */
+const ALL_TAB_VALUE = "__all__";
 
 export interface SidebarLinkItem {
   label: React.ReactNode;
@@ -126,6 +133,10 @@ export interface AboutStartupTeamProps {
    * Callback when tab changes
    */
   onTabChange?: (value: string) => void;
+  /**
+   * Label for the "All" tab (defaults to "All")
+   */
+  allTabLabel?: React.ReactNode;
 }
 
 export function AboutStartupTeam({
@@ -150,9 +161,29 @@ export function AboutStartupTeam({
   patternOpacity,
   defaultActiveTab,
   onTabChange,
+  allTabLabel = "All",
 }: AboutStartupTeamProps): React.JSX.Element {
+  // Build effective tabs: add "All" tab at the beginning if sidebarLinks and teamMembers are provided
+  const effectiveTabs = useMemo(() => {
+    if (
+      !sidebarLinks ||
+      sidebarLinks.length === 0 ||
+      !teamMembers ||
+      teamMembers.length === 0
+    ) {
+      return sidebarLinks || [];
+    }
+    // Add "All" tab at the beginning
+    const allTab: SidebarLinkItem = {
+      label: allTabLabel,
+      value: ALL_TAB_VALUE,
+    };
+    return [allTab, ...sidebarLinks];
+  }, [sidebarLinks, teamMembers, allTabLabel]);
+
   const [activeTab, setActiveTab] = useState<string>(
-    defaultActiveTab || (sidebarLinks && sidebarLinks.length > 0 ? sidebarLinks[0].value : "")
+    defaultActiveTab ||
+      (effectiveTabs.length > 0 ? effectiveTabs[0].value : ""),
   );
 
   const handleTabChange = (value: string) => {
@@ -160,13 +191,36 @@ export function AboutStartupTeam({
     onTabChange?.(value);
   };
 
-  const sidebarContent = useMemo(() => {
+  // Get the active tab's label for the team section title
+  const activeTabLabel = useMemo(() => {
+    if (!effectiveTabs || effectiveTabs.length === 0) return null;
+    const currentTab = effectiveTabs.find((tab) => tab.value === activeTab);
+    return currentTab?.label || null;
+  }, [effectiveTabs, activeTab]);
+
+  // Compute dynamic team title based on active tab
+  const dynamicTeamTitle = useMemo(() => {
+    // If teamTitle is explicitly provided, use it as-is (static behavior)
+    if (teamTitle) return teamTitle;
+    // Otherwise, generate a dynamic title based on active tab label
+    if (activeTabLabel) {
+      // Handle both string and ReactNode labels
+      if (typeof activeTabLabel === "string") {
+        return `${activeTabLabel} Team`;
+      }
+      // For ReactNode labels, wrap with " Team" suffix
+      return <>{activeTabLabel} Team</>;
+    }
+    return null;
+  }, [teamTitle, activeTabLabel]);
+
+  const renderTabsNav = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
-    if (!sidebarLinks || sidebarLinks.length === 0) return null;
+    if (!effectiveTabs || effectiveTabs.length === 0) return null;
 
     return (
       <nav className="space-y-1">
-        {sidebarLinks.map((link, idx) => (
+        {effectiveTabs.map((link, idx) => (
           <Pressable
             key={idx}
             componentType="button"
@@ -175,7 +229,7 @@ export function AboutStartupTeam({
               "block w-full text-left rounded-lg px-4 py-2 text-sm font-medium transition-colors",
               activeTab === link.value
                 ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground",
             )}
           >
             {link.label}
@@ -183,15 +237,16 @@ export function AboutStartupTeam({
         ))}
       </nav>
     );
-  }, [sidebarSlot, sidebarLinks, activeTab]);
+  }, [sidebarSlot, effectiveTabs, activeTab]);
 
   const filteredTeamMembers = useMemo(() => {
     if (!teamMembers || teamMembers.length === 0) return [];
-    if (!activeTab) return teamMembers;
+    // If "All" tab is active or no activeTab, show all team members
+    if (!activeTab || activeTab === ALL_TAB_VALUE) return teamMembers;
 
     // Filter team members by active tab. Members without a tab value show in all tabs.
     return teamMembers.filter(
-      (member) => !member.tab || member.tab === activeTab
+      (member) => !member.tab || member.tab === activeTab,
     );
   }, [teamMembers, activeTab]);
 
@@ -200,12 +255,14 @@ export function AboutStartupTeam({
     if (filteredTeamMembers.length === 0) return null;
 
     return (
-      <div className={cn("mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3", teamMembersClassName)}>
+      <div
+        className={cn(
+          "mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3",
+          teamMembersClassName,
+        )}
+      >
         {filteredTeamMembers.map((member, idx) => (
-          <div
-            key={idx}
-            className="rounded-xl border bg-card p-6 text-center"
-          >
+          <div key={idx} className="rounded-xl border bg-card p-6 text-center">
             {member.avatar ? (
               <Img
                 src={member.avatar.src}
@@ -222,20 +279,18 @@ export function AboutStartupTeam({
                 />
               </div>
             )}
-            {member.name && (
-              typeof member.name === "string" ? (
+            {member.name &&
+              (typeof member.name === "string" ? (
                 <h3 className="mt-4 font-semibold">{member.name}</h3>
               ) : (
                 <div className="mt-4">{member.name}</div>
-              )
-            )}
-            {member.role && (
-              typeof member.role === "string" ? (
+              ))}
+            {member.role &&
+              (typeof member.role === "string" ? (
                 <p className="text-sm text-muted-foreground">{member.role}</p>
               ) : (
                 <div className="text-sm">{member.role}</div>
-              )
-            )}
+              ))}
             {member.socialLinks && member.socialLinks.length > 0 && (
               <div className="mt-4 flex justify-center gap-3">
                 {member.socialLinks.map((link, linkIdx) => (
@@ -254,7 +309,38 @@ export function AboutStartupTeam({
         ))}
       </div>
     );
-  }, [teamMembersSlot, filteredTeamMembers, teamMembersClassName, optixFlowConfig]);
+  }, [
+    teamMembersSlot,
+    filteredTeamMembers,
+    teamMembersClassName,
+    optixFlowConfig,
+  ]);
+
+  // Mobile tabs navigation - horizontal scrollable on mobile, hidden on desktop
+  const mobileTabsNav = useMemo(() => {
+    if (sidebarSlot) return null; // Don't render mobile tabs if using custom sidebar slot
+    if (!effectiveTabs || effectiveTabs.length === 0) return null;
+
+    return (
+      <nav className="flex gap-2 overflow-x-auto pb-2 lg:hidden">
+        {effectiveTabs.map((link, idx) => (
+          <Pressable
+            key={idx}
+            componentType="button"
+            onClick={() => handleTabChange(link.value)}
+            className={cn(
+              "shrink-0 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
+              activeTab === link.value
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground",
+            )}
+          >
+            {link.label}
+          </Pressable>
+        ))}
+      </nav>
+    );
+  }, [sidebarSlot, effectiveTabs, activeTab]);
 
   return (
     <Section
@@ -266,38 +352,71 @@ export function AboutStartupTeam({
     >
       <div className={cn(containerClassName)}>
         <div className="grid gap-12 lg:grid-cols-4">
-          <aside className={cn("lg:sticky lg:top-24 lg:self-start", sidebarClassName)}>
-            {sidebarContent}
+          {/* Desktop sidebar - hidden on mobile */}
+          <aside
+            className={cn(
+              "hidden lg:block lg:sticky lg:top-24 lg:self-start",
+              sidebarClassName,
+            )}
+          >
+            {renderTabsNav}
           </aside>
 
           <div className="lg:col-span-3">
-            {title && (
-              typeof title === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
+            {title &&
+              (typeof title === "string" ? (
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight md:text-5xl",
+                    titleClassName,
+                  )}
+                >
                   {title}
                 </h1>
               ) : (
                 <div className={titleClassName}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-6 text-lg text-muted-foreground whitespace-pre-line", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mt-6 text-lg text-muted-foreground whitespace-pre-line",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
-                <div className={cn("mt-6", descriptionClassName)}>{description}</div>
-              )
-            )}
+                <div className={cn("mt-6", descriptionClassName)}>
+                  {description}
+                </div>
+              ))}
 
-            <div className="mt-16">
-              {teamTitle && (
-                typeof teamTitle === "string" ? (
-                  <h2 className={cn("text-2xl font-bold", teamTitleClassName)}>{teamTitle}</h2>
+            <div className="mt-8 md:mt-16">
+              {/* Mobile tabs - shown above team members on mobile only */}
+              {mobileTabsNav}
+
+              {dynamicTeamTitle &&
+                (typeof dynamicTeamTitle === "string" ? (
+                  <h2
+                    className={cn(
+                      "text-2xl font-bold",
+                      mobileTabsNav ? "mt-6" : "",
+                      teamTitleClassName,
+                    )}
+                  >
+                    {dynamicTeamTitle}
+                  </h2>
                 ) : (
-                  <div className={teamTitleClassName}>{teamTitle}</div>
-                )
-              )}
+                  <div
+                    className={cn(
+                      mobileTabsNav ? "mt-6" : "",
+                      teamTitleClassName,
+                    )}
+                  >
+                    {dynamicTeamTitle}
+                  </div>
+                ))}
               {teamMembersContent}
             </div>
           </div>

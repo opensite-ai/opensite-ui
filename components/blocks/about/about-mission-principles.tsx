@@ -7,7 +7,11 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface AboutMissionPrincipleItem {
   /**
@@ -204,7 +208,12 @@ export function AboutMissionPrinciples({
     if (!principles || principles.length === 0) return null;
 
     return (
-      <div className={cn("grid grid-cols-1 gap-6 sm:grid-cols-2", principlesClassName)}>
+      <div
+        className={cn(
+          "grid grid-cols-1 gap-6 sm:grid-cols-2",
+          principlesClassName,
+        )}
+      >
         {principles.map((principle, idx) => (
           <div
             key={idx}
@@ -216,20 +225,20 @@ export function AboutMissionPrinciples({
               </div>
             )}
             <div className="space-y-3">
-              {principle.title && (
-                typeof principle.title === "string" ? (
+              {principle.title &&
+                (typeof principle.title === "string" ? (
                   <h3 className="text-xl font-bold">{principle.title}</h3>
                 ) : (
                   principle.title
-                )
-              )}
-              {principle.description && (
-                typeof principle.description === "string" ? (
-                  <p className="text-muted-foreground">{principle.description}</p>
+                ))}
+              {principle.description &&
+                (typeof principle.description === "string" ? (
+                  <p className="text-muted-foreground">
+                    {principle.description}
+                  </p>
                 ) : (
                   principle.description
-                )
-              )}
+                ))}
             </div>
           </div>
         ))}
@@ -269,65 +278,102 @@ export function AboutMissionPrinciples({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
-          <div className="space-y-8">
-            {badgeText && (
-              typeof badgeText === "string" ? (
-                <div className={cn("inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary", badgeClassName)}>
-                  {badgeText}
+      <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
+        <div className="space-y-4 md:space-y-8">
+          {badgeText &&
+            (typeof badgeText === "string" ? (
+              <div
+                className={cn(
+                  "inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary",
+                  badgeClassName,
+                )}
+              >
+                {badgeText}
+              </div>
+            ) : (
+              <div className={badgeClassName}>{badgeText}</div>
+            ))}
+
+          {missionHeading &&
+            (typeof missionHeading === "string" ? (
+              <h2
+                className={cn(
+                  "text-4xl font-bold leading-tight tracking-tight lg:text-5xl",
+                  missionHeadingClassName,
+                )}
+              >
+                {missionHeading}
+              </h2>
+            ) : (
+              <div className={missionHeadingClassName}>{missionHeading}</div>
+            ))}
+
+          {missionDescription &&
+            (typeof missionDescription === "string" ? (
+              <p
+                className={cn(
+                  "text-xl text-muted-foreground",
+                  missionDescriptionClassName,
+                )}
+              >
+                {missionDescription}
+              </p>
+            ) : (
+              <div className={missionDescriptionClassName}>
+                {missionDescription}
+              </div>
+            ))}
+
+          {missionActionContent}
+        </div>
+
+        {principlesContent}
+      </div>
+
+      <div
+        className={cn(
+          "mt-6 md:mt-24 rounded-lg bg-muted p-8 lg:p-12",
+          visionClassName,
+        )}
+      >
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            {visionHeading &&
+              (typeof visionHeading === "string" ? (
+                <h3
+                  className={cn(
+                    "mb-4 text-2xl font-bold",
+                    visionHeadingClassName,
+                  )}
+                >
+                  {visionHeading}
+                </h3>
+              ) : (
+                <div className={cn("mb-4", visionHeadingClassName)}>
+                  {visionHeading}
                 </div>
+              ))}
+            {visionDescription &&
+              (typeof visionDescription === "string" ? (
+                <p
+                  className={cn(
+                    "mb-4 text-foreground/80",
+                    visionDescriptionClassName,
+                  )}
+                >
+                  {visionDescription}
+                </p>
               ) : (
-                <div className={badgeClassName}>{badgeText}</div>
-              )
-            )}
-
-            {missionHeading && (
-              typeof missionHeading === "string" ? (
-                <h2 className={cn("text-4xl font-bold leading-tight tracking-tight lg:text-5xl", missionHeadingClassName)}>
-                  {missionHeading}
-                </h2>
-              ) : (
-                <div className={missionHeadingClassName}>{missionHeading}</div>
-              )
-            )}
-
-            {missionDescription && (
-              typeof missionDescription === "string" ? (
-                <p className={cn("text-xl text-muted-foreground", missionDescriptionClassName)}>{missionDescription}</p>
-              ) : (
-                <div className={missionDescriptionClassName}>{missionDescription}</div>
-              )
-            )}
-
-            {missionActionContent}
+                <div className={cn("mb-4", visionDescriptionClassName)}>
+                  {visionDescription}
+                </div>
+              ))}
           </div>
-
-          {principlesContent}
-        </div>
-
-        <div className={cn("mt-24 rounded-lg bg-muted p-8 lg:p-12", visionClassName)}>
-          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-3">
-            <div className="lg:col-span-2">
-              {visionHeading && (
-                typeof visionHeading === "string" ? (
-                  <h3 className={cn("mb-4 text-2xl font-bold", visionHeadingClassName)}>{visionHeading}</h3>
-                ) : (
-                  <div className={cn("mb-4", visionHeadingClassName)}>{visionHeading}</div>
-                )
-              )}
-              {visionDescription && (
-                typeof visionDescription === "string" ? (
-                  <p className={cn("mb-4 text-foreground/80", visionDescriptionClassName)}>{visionDescription}</p>
-                ) : (
-                  <div className={cn("mb-4", visionDescriptionClassName)}>{visionDescription}</div>
-                )
-              )}
-            </div>
-            <div className="flex justify-center lg:col-span-1 lg:justify-end">
-              {visionActionContent}
-            </div>
+          <div className="flex justify-center lg:col-span-1 lg:justify-end">
+            {visionActionContent}
           </div>
         </div>
+      </div>
     </Section>
   );
 }
