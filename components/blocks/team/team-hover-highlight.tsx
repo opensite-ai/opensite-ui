@@ -149,8 +149,8 @@ export function TeamHoverHighlight({
   description,
   members,
   membersSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -165,7 +165,7 @@ export function TeamHoverHighlight({
   socialLinksClassName,
   optixFlowConfig,
 }: TeamHoverHighlightProps): React.JSX.Element {
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -234,7 +234,7 @@ export function TeamHoverHighlight({
         )}
       </div>
     ));
-  };
+  }, [membersSlot, members, memberCardClassName, memberImageClassName, optixFlowConfig, memberNameClassName, memberRoleClassName, socialLinksClassName]);
 
   return (
     <Section
@@ -283,7 +283,7 @@ export function TeamHoverHighlight({
           gridClassName,
         )}
       >
-        {renderMembers()}
+        {renderMembers}
       </div>
     </Section>
   );

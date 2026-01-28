@@ -171,8 +171,8 @@ export function TeamTestimonialStats({
   description,
   members,
   membersSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -189,7 +189,7 @@ export function TeamTestimonialStats({
   socialLinksClassName,
   optixFlowConfig,
 }: TeamTestimonialStatsProps): React.JSX.Element {
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -301,7 +301,18 @@ export function TeamTestimonialStats({
         </CardContent>
       </Card>
     ));
-  };
+  }, [
+    membersSlot,
+    members,
+    memberCardClassName,
+    memberImageClassName,
+    optixFlowConfig,
+    memberNameClassName,
+    memberRoleClassName,
+    statsClassName,
+    testimonialClassName,
+    socialLinksClassName,
+  ]);
 
   return (
     <Section
@@ -348,7 +359,7 @@ export function TeamTestimonialStats({
       <div
         className={cn("grid grid-cols-1 gap-8 lg:grid-cols-2", gridClassName)}
       >
-        {renderMembers()}
+        {renderMembers}
       </div>
     </Section>
   );

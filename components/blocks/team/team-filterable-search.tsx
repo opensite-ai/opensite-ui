@@ -196,8 +196,8 @@ export function TeamFilterableSearch({
   members,
   membersSlot,
   filtersSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -242,7 +242,7 @@ export function TeamFilterableSearch({
     });
   }, [members, searchQuery, selectedDepartment]);
 
-  const renderFilters = () => {
+  const renderFilters = React.useMemo(() => {
     if (filtersSlot) return filtersSlot;
 
     return (
@@ -282,9 +282,18 @@ export function TeamFilterableSearch({
         </div>
       </div>
     );
-  };
+  }, [
+    filtersSlot,
+    filtersClassName,
+    searchPlaceholder,
+    searchQuery,
+    searchInputClassName,
+    departments,
+    selectedDepartment,
+    filterButtonClassName,
+  ]);
 
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
 
     return filteredMembers.map((member) => (
@@ -373,7 +382,17 @@ export function TeamFilterableSearch({
         </div>
       </div>
     ));
-  };
+  }, [
+    membersSlot,
+    filteredMembers,
+    memberCardClassName,
+    avatarClassName,
+    memberNameClassName,
+    departmentBadgeClassName,
+    memberRoleClassName,
+    memberDescriptionClassName,
+    socialLinksClassName,
+  ]);
 
   return (
     <Section
@@ -412,7 +431,7 @@ export function TeamFilterableSearch({
           ))}
       </div>
 
-      {renderFilters()}
+      {renderFilters}
 
       <div
         className={cn(
@@ -420,7 +439,7 @@ export function TeamFilterableSearch({
           gridClassName,
         )}
       >
-        {renderMembers()}
+        {renderMembers}
       </div>
 
       {filteredMembers.length === 0 && !membersSlot && (

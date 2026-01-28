@@ -148,8 +148,8 @@ export function TeamCarouselExperience({
   description,
   members,
   membersSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -163,7 +163,7 @@ export function TeamCarouselExperience({
   memberRoleClassName,
   optixFlowConfig,
 }: TeamCarouselExperienceProps): React.JSX.Element {
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -209,7 +209,7 @@ export function TeamCarouselExperience({
         </div>
       </CarouselItem>
     ));
-  };
+  }, [membersSlot, members, memberCardClassName, memberImageClassName, optixFlowConfig, memberNameClassName, memberRoleClassName]);
 
   return (
     <Section
@@ -261,7 +261,7 @@ export function TeamCarouselExperience({
         </div>
         <div className="mt-16 [&>div[data-slot=carousel-content]]:overflow-visible">
           <CarouselContent className="max-w-[min(calc(100vw-4rem),24rem)] select-none">
-            {renderMembers()}
+            {renderMembers}
           </CarouselContent>
         </div>
       </Carousel>

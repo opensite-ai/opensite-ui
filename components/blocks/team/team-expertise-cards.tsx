@@ -196,10 +196,10 @@ export function TeamExpertiseCards({
   ctaHeading,
   ctaDescription,
   ctaButtonText,
-  ctaButtonUrl = "#",
+  ctaButtonUrl,
   ctaSlot,
-  background = "gray",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -219,7 +219,7 @@ export function TeamExpertiseCards({
   ctaDescriptionClassName,
   ctaButtonClassName,
 }: TeamExpertiseCardsProps): React.JSX.Element {
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -292,9 +292,9 @@ export function TeamExpertiseCards({
         </CardContent>
       </Card>
     ));
-  };
+  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName, departmentBadgeClassName, memberDescriptionClassName, expertiseClassName]);
 
-  const renderCta = () => {
+  const renderCta = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
 
     return (
@@ -335,7 +335,7 @@ export function TeamExpertiseCards({
         </Pressable>
       </div>
     );
-  };
+  }, [ctaSlot, ctaSectionClassName, ctaHeading, ctaHeadingClassName, ctaDescription, ctaDescriptionClassName, ctaButtonUrl, ctaButtonText, ctaButtonClassName]);
 
   return (
     <Section
@@ -380,10 +380,10 @@ export function TeamExpertiseCards({
           gridClassName,
         )}
       >
-        {renderMembers()}
+        {renderMembers}
       </div>
 
-      {renderCta()}
+      {renderCta}
     </Section>
   );
 }

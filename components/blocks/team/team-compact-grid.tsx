@@ -182,10 +182,10 @@ export function TeamCompactGrid({
   ctaHeading,
   ctaDescription,
   ctaButtonText,
-  ctaButtonUrl = "#",
+  ctaButtonUrl,
   ctaSlot,
-  background = "gray",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -203,7 +203,7 @@ export function TeamCompactGrid({
   ctaDescriptionClassName,
   ctaButtonClassName,
 }: TeamCompactGridProps): React.JSX.Element {
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -253,9 +253,9 @@ export function TeamCompactGrid({
         </div>
       </div>
     ));
-  };
+  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName, departmentBadgeClassName]);
 
-  const renderCta = () => {
+  const renderCta = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
 
     return (
@@ -296,7 +296,7 @@ export function TeamCompactGrid({
         </Pressable>
       </div>
     );
-  };
+  }, [ctaSlot, ctaSectionClassName, ctaHeading, ctaHeadingClassName, ctaDescription, ctaDescriptionClassName, ctaButtonUrl, ctaButtonText, ctaButtonClassName]);
 
   return (
     <Section
@@ -341,10 +341,10 @@ export function TeamCompactGrid({
           gridClassName,
         )}
       >
-        {renderMembers()}
+        {renderMembers}
       </div>
 
-      {renderCta()}
+      {renderCta}
     </Section>
   );
 }

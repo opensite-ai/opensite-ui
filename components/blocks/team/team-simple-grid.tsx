@@ -127,8 +127,8 @@ export function TeamSimpleGrid({
   description,
   members,
   membersSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -141,7 +141,7 @@ export function TeamSimpleGrid({
   memberNameClassName,
   memberRoleClassName,
 }: TeamSimpleGridProps): React.JSX.Element {
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -177,7 +177,7 @@ export function TeamSimpleGrid({
         </p>
       </div>
     ));
-  };
+  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName]);
 
   return (
     <Section
@@ -226,7 +226,7 @@ export function TeamSimpleGrid({
           gridClassName,
         )}
       >
-        {renderMembers()}
+        {renderMembers}
       </div>
     </Section>
   );

@@ -150,10 +150,10 @@ export function TeamCompactCta({
   members,
   membersSlot,
   ctaButtonText,
-  ctaButtonUrl = "#",
+  ctaButtonUrl,
   ctaSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -167,7 +167,7 @@ export function TeamCompactCta({
   memberRoleClassName,
   ctaClassName,
 }: TeamCompactCtaProps): React.JSX.Element {
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -198,9 +198,9 @@ export function TeamCompactCta({
         </p>
       </div>
     ));
-  };
+  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName]);
 
-  const renderCta = () => {
+  const renderCta = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
 
     return (
@@ -214,7 +214,7 @@ export function TeamCompactCta({
         {ctaButtonText}
       </Pressable>
     );
-  };
+  }, [ctaSlot, ctaButtonUrl, ctaButtonText]);
 
   return (
     <Section
@@ -263,9 +263,9 @@ export function TeamCompactCta({
           gridClassName,
         )}
       >
-        {renderMembers()}
+        {renderMembers}
       </div>
-      <div className={cn("mt-12 text-center", ctaClassName)}>{renderCta()}</div>
+      <div className={cn("mt-12 text-center", ctaClassName)}>{renderCta}</div>
     </Section>
   );
 }

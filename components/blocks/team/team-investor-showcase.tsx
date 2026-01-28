@@ -116,8 +116,8 @@ export function TeamInvestorShowcase({
   heading,
   investors,
   investorsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -129,7 +129,7 @@ export function TeamInvestorShowcase({
   investorCompanyClassName,
   optixFlowConfig,
 }: TeamInvestorShowcaseProps): React.JSX.Element {
-  const renderInvestors = () => {
+  const renderInvestors = React.useMemo(() => {
     if (investorsSlot) return investorsSlot;
     if (!investors || investors.length === 0) return null;
 
@@ -151,7 +151,7 @@ export function TeamInvestorShowcase({
         </p>
       </div>
     ));
-  };
+  }, [investorsSlot, investors, investorCardClassName, investorImageClassName, optixFlowConfig, investorNameClassName, investorCompanyClassName]);
 
   return (
     <Section
@@ -180,7 +180,7 @@ export function TeamInvestorShowcase({
           gridClassName,
         )}
       >
-        {renderInvestors()}
+        {renderInvestors}
       </div>
     </Section>
   );

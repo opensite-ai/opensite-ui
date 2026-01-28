@@ -175,8 +175,8 @@ export function TeamContactCards({
   description,
   members,
   membersSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -193,7 +193,7 @@ export function TeamContactCards({
   socialLinksClassName,
   optixFlowConfig,
 }: TeamContactCardsProps): React.JSX.Element {
-  const getStatusColor = (status: string) => {
+  const getStatusColor = React.useCallback((status: string) => {
     switch (status) {
       case "active":
         return "bg-success";
@@ -202,9 +202,9 @@ export function TeamContactCards({
       default:
         return "bg-muted-foreground";
     }
-  };
+  }, []);
 
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -319,7 +319,19 @@ export function TeamContactCards({
         </CardContent>
       </Card>
     ));
-  };
+  }, [
+    membersSlot,
+    members,
+    memberCardClassName,
+    memberImageClassName,
+    optixFlowConfig,
+    getStatusColor,
+    memberNameClassName,
+    memberRoleClassName,
+    memberBioClassName,
+    contactClassName,
+    socialLinksClassName,
+  ]);
 
   return (
     <Section
@@ -366,7 +378,7 @@ export function TeamContactCards({
       <div
         className={cn("grid grid-cols-1 gap-8 md:grid-cols-2", gridClassName)}
       >
-        {renderMembers()}
+        {renderMembers}
       </div>
     </Section>
   );

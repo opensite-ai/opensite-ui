@@ -154,8 +154,8 @@ export function TeamHoverOverlay({
   description,
   members,
   membersSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -171,7 +171,7 @@ export function TeamHoverOverlay({
   socialLinksClassName,
   optixFlowConfig,
 }: TeamHoverOverlayProps): React.JSX.Element {
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -254,7 +254,17 @@ export function TeamHoverOverlay({
         </CardContent>
       </Card>
     ));
-  };
+  }, [
+    membersSlot,
+    members,
+    memberCardClassName,
+    memberImageClassName,
+    optixFlowConfig,
+    memberBioClassName,
+    socialLinksClassName,
+    memberNameClassName,
+    memberRoleClassName,
+  ]);
 
   return (
     <Section
@@ -304,7 +314,7 @@ export function TeamHoverOverlay({
           gridClassName,
         )}
       >
-        {renderMembers()}
+        {renderMembers}
       </div>
     </Section>
   );

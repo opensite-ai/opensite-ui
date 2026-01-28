@@ -147,8 +147,8 @@ export function TeamAvatarSocial({
   description,
   members,
   membersSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -162,7 +162,7 @@ export function TeamAvatarSocial({
   memberRoleClassName,
   socialLinksClassName,
 }: TeamAvatarSocialProps): React.JSX.Element {
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -232,7 +232,7 @@ export function TeamAvatarSocial({
         )}
       </div>
     ));
-  };
+  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName, socialLinksClassName]);
 
   return (
     <Section
@@ -282,7 +282,7 @@ export function TeamAvatarSocial({
           gridClassName,
         )}
       >
-        {renderMembers()}
+        {renderMembers}
       </div>
     </Section>
   );

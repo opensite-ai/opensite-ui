@@ -206,11 +206,11 @@ export function TeamMediaShowcase({
   itemsSlot,
   children,
   listEyebrow,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
-  gridClassName = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
+  gridClassName,
   className,
   eyebrowClassName,
   memberNameClassName,
@@ -218,7 +218,7 @@ export function TeamMediaShowcase({
   actionClassName,
   optixFlowConfig,
 }: TeamMediaShowcaseProps): React.JSX.Element {
-  const renderItems = () => {
+  const renderItems = React.useMemo(() => {
     if (itemsSlot) return itemsSlot;
 
     return items.map((member, idx) => {
@@ -282,7 +282,7 @@ export function TeamMediaShowcase({
         </TeamMemberBackgroundImageCard>
       );
     });
-  };
+  }, [itemsSlot, items, optixFlowConfig, memberNameClassName, memberRoleClassName, actionClassName]);
 
   return (
     <Section
@@ -309,7 +309,7 @@ export function TeamMediaShowcase({
             ) : (
               <div className={eyebrowClassName}>{listEyebrow}</div>
             ))}
-          <div className={gridClassName}>{renderItems()}</div>
+          <div className={gridClassName}>{renderItems}</div>
         </div>
       </div>
     </Section>

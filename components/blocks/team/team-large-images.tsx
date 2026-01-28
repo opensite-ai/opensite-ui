@@ -153,8 +153,8 @@ export function TeamLargeImages({
   description,
   members,
   membersSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -170,7 +170,7 @@ export function TeamLargeImages({
   socialLinksClassName,
   optixFlowConfig,
 }: TeamLargeImagesProps): React.JSX.Element {
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -250,7 +250,17 @@ export function TeamLargeImages({
         )}
       </div>
     ));
-  };
+  }, [
+    membersSlot,
+    members,
+    memberCardClassName,
+    memberImageClassName,
+    optixFlowConfig,
+    memberNameClassName,
+    memberRoleClassName,
+    memberBioClassName,
+    socialLinksClassName,
+  ]);
 
   return (
     <Section
@@ -300,7 +310,7 @@ export function TeamLargeImages({
           gridClassName,
         )}
       >
-        {renderMembers()}
+        {renderMembers}
       </div>
     </Section>
   );

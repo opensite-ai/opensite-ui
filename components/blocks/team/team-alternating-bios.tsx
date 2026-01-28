@@ -158,8 +158,8 @@ export function TeamAlternatingBios({
   description,
   members,
   membersSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -176,7 +176,7 @@ export function TeamAlternatingBios({
   socialLinksClassName,
   optixFlowConfig,
 }: TeamAlternatingBiosProps): React.JSX.Element {
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -277,7 +277,18 @@ export function TeamAlternatingBios({
         </div>
       </div>
     ));
-  };
+  }, [
+    membersSlot,
+    members,
+    memberRowClassName,
+    memberImageContainerClassName,
+    memberImageClassName,
+    optixFlowConfig,
+    memberNameClassName,
+    memberRoleClassName,
+    memberBioClassName,
+    socialLinksClassName,
+  ]);
 
   return (
     <Section
@@ -322,7 +333,7 @@ export function TeamAlternatingBios({
       </div>
 
       <div className={cn("space-y-24", membersContainerClassName)}>
-        {renderMembers()}
+        {renderMembers}
       </div>
     </Section>
   );

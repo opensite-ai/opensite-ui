@@ -162,8 +162,8 @@ export function TeamSkillBadges({
   description,
   members,
   membersSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -180,7 +180,7 @@ export function TeamSkillBadges({
   socialLinksClassName,
   optixFlowConfig,
 }: TeamSkillBadgesProps): React.JSX.Element {
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -287,7 +287,7 @@ export function TeamSkillBadges({
         </CardContent>
       </Card>
     ));
-  };
+  }, [membersSlot, members, memberCardClassName, memberImageClassName, optixFlowConfig, memberNameClassName, memberRoleClassName, memberBioClassName, skillsClassName, socialLinksClassName]);
 
   return (
     <Section
@@ -337,7 +337,7 @@ export function TeamSkillBadges({
           gridClassName,
         )}
       >
-        {renderMembers()}
+        {renderMembers}
       </div>
     </Section>
   );

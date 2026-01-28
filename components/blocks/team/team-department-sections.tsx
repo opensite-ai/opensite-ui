@@ -134,8 +134,8 @@ export function TeamDepartmentSections({
   heading,
   departments,
   departmentsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -149,7 +149,7 @@ export function TeamDepartmentSections({
   memberRoleClassName,
   optixFlowConfig,
 }: TeamDepartmentSectionsProps): React.JSX.Element {
-  const renderDepartments = () => {
+  const renderDepartments = React.useMemo(() => {
     if (departmentsSlot) return departmentsSlot;
     if (!departments || departments.length === 0) return null;
 
@@ -200,7 +200,7 @@ export function TeamDepartmentSections({
         </div>
       </div>
     ));
-  };
+  }, [departmentsSlot, departments, departmentClassName, departmentNameClassName, membersGridClassName, memberCardClassName, memberAvatarClassName, optixFlowConfig, memberNameClassName, memberRoleClassName]);
 
   return (
     <Section
@@ -225,7 +225,7 @@ export function TeamDepartmentSections({
             <div className={headingClassName}>{heading}</div>
           ))}
 
-        {renderDepartments()}
+        {renderDepartments}
       </Container>
     </Section>
   );

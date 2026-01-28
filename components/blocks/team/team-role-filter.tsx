@@ -169,8 +169,8 @@ export function TeamRoleFilter({
   membersSlot,
   roles,
   rolesSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -190,13 +190,15 @@ export function TeamRoleFilter({
   const [selectedRole, setSelectedRole] = React.useState("All");
 
   const filteredMembers = React.useMemo(() => {
+    if (!members) return [];
     return members.filter((member) =>
       selectedRole === "All" ? true : member.role === selectedRole,
     );
   }, [members, selectedRole]);
 
-  const renderRoles = () => {
+  const renderRoles = React.useMemo(() => {
     if (rolesSlot) return rolesSlot;
+    if (!roles) return null;
 
     return (
       <div
@@ -218,9 +220,9 @@ export function TeamRoleFilter({
         ))}
       </div>
     );
-  };
+  }, [rolesSlot, filtersClassName, roles, selectedRole, filterButtonClassName]);
 
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
 
     return filteredMembers.map((member) => (
@@ -300,7 +302,7 @@ export function TeamRoleFilter({
         </CardContent>
       </Card>
     ));
-  };
+  }, [membersSlot, filteredMembers, memberCardClassName, memberImageClassName, optixFlowConfig, memberNameClassName, memberPositionClassName, socialLinksClassName]);
 
   return (
     <Section
@@ -341,7 +343,7 @@ export function TeamRoleFilter({
           ))}
       </div>
 
-      {renderRoles()}
+      {renderRoles}
 
       <div
         className={cn(
@@ -349,7 +351,7 @@ export function TeamRoleFilter({
           gridClassName,
         )}
       >
-        {renderMembers()}
+        {renderMembers}
       </div>
     </Section>
   );

@@ -162,8 +162,8 @@ export function TeamBioBadges({
   description,
   members,
   membersSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -179,7 +179,7 @@ export function TeamBioBadges({
   memberBioClassName,
   socialLinksClassName,
 }: TeamBioBadgesProps): React.JSX.Element {
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -264,7 +264,17 @@ export function TeamBioBadges({
         </div>
       </div>
     ));
-  };
+  }, [
+    membersSlot,
+    members,
+    memberCardClassName,
+    avatarClassName,
+    memberNameClassName,
+    departmentBadgeClassName,
+    memberRoleClassName,
+    memberBioClassName,
+    socialLinksClassName,
+  ]);
 
   return (
     <Section
@@ -308,7 +318,7 @@ export function TeamBioBadges({
           ))}
       </div>
       <div className={cn("mt-16 grid gap-8 md:grid-cols-2", gridClassName)}>
-        {renderMembers()}
+        {renderMembers}
       </div>
     </Section>
   );

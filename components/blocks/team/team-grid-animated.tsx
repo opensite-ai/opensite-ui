@@ -171,8 +171,8 @@ export function TeamGridAnimated({
   logo,
   socialLinksMain,
   socialLinksMainSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -192,7 +192,7 @@ export function TeamGridAnimated({
     "hsl(var(--warning)/0.2)",
   ];
 
-  const renderMembers = () => {
+  const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
     if (!members || members.length === 0) return null;
 
@@ -265,9 +265,19 @@ export function TeamGridAnimated({
         )}
       </div>
     ));
-  };
+  }, [
+    membersSlot,
+    members,
+    memberCardClassName,
+    cardColors,
+    memberImageClassName,
+    optixFlowConfig,
+    memberNameClassName,
+    memberDesignationClassName,
+    socialLinksClassName,
+  ]);
 
-  const renderSocialLinksMain = () => {
+  const renderSocialLinksMain = React.useMemo(() => {
     if (socialLinksMainSlot) return socialLinksMainSlot;
     if (!socialLinksMain || socialLinksMain.length === 0) return null;
 
@@ -285,7 +295,7 @@ export function TeamGridAnimated({
         <span className="text-muted-foreground text-sm">www.opensite.ai</span>
       </div>
     );
-  };
+  }, [socialLinksMainSlot, socialLinksMain]);
 
   return (
     <Section
@@ -351,7 +361,7 @@ export function TeamGridAnimated({
           </div>
         </div>
 
-        {renderSocialLinksMain()}
+        {renderSocialLinksMain}
 
         <div
           className={cn(
@@ -359,7 +369,7 @@ export function TeamGridAnimated({
             gridClassName,
           )}
         >
-          {renderMembers()}
+          {renderMembers}
         </div>
       </div>
     </Section>
