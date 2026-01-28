@@ -17,9 +17,11 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
+  ActionConfig,
   ContainerMaxWidth,
   OptixFlowConfig,
   SectionBackground,
@@ -59,6 +61,10 @@ export interface FullscreenSlide {
    * Additional CSS classes for the image
    */
   imageClassName?: string;
+  /**
+   * Array of action configurations
+   */
+  actions?: ActionConfig[];
 }
 
 export interface CarouselFullscreenScrollFxProps {
@@ -152,44 +158,53 @@ export function CarouselFullscreenScrollFx({
   patternOpacity = 0.033,
 }: CarouselFullscreenScrollFxProps): React.JSX.Element {
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
 
+  // Handle scroll to update active index
   React.useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer || !slides?.length) return;
 
-    slides?.forEach((slide, index) => {
-      const element = document.getElementById(`fullscreen-${slide.id}`);
-      if (element) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-                setActiveIndex(index);
-              }
-            });
-          },
-          { threshold: 0.5 },
-        );
-        observer.observe(element);
-        observers.push(observer);
-      }
-    });
-
-    return () => {
-      observers.forEach((observer) => observer.disconnect());
+    const handleScroll = () => {
+      const scrollLeft = scrollContainer.scrollLeft;
+      const slideWidth = scrollContainer.clientWidth;
+      const newIndex = Math.round(scrollLeft / slideWidth);
+      setActiveIndex(newIndex);
     };
+
+    scrollContainer.addEventListener("scroll", handleScroll);
+    return () => scrollContainer.removeEventListener("scroll", handleScroll);
   }, [slides]);
+
+  // Handle navigation dot clicks
+  const scrollToSlide = React.useCallback((index: number) => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    const slideWidth = scrollContainer.clientWidth;
+    // Check if scrollTo is available (not available in some test environments)
+    if (typeof scrollContainer.scrollTo === "function") {
+      scrollContainer.scrollTo({
+        left: slideWidth * index,
+        behavior: "smooth",
+      });
+    } else {
+      // Fallback for test environments
+      scrollContainer.scrollLeft = slideWidth * index;
+    }
+  }, []);
 
   return (
     <Section
       ref={containerRef}
       background={background}
       spacing={spacing}
-      className={cn(className)}
+      className={cn("relative overflow-hidden", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
       containerMaxWidth={containerMaxWidth}
-      containerClassName={containerClassName}
+      containerClassName="p-0"
     >
       {/* Navigation dots */}
       <div
@@ -201,10 +216,7 @@ export function CarouselFullscreenScrollFx({
         {slides?.map((slide, index) => (
           <button
             key={slide.id}
-            onClick={() => {
-              const element = document.getElementById(`fullscreen-${slide.id}`);
-              element?.scrollIntoView({ behavior: "smooth" });
-            }}
+            onClick={() => scrollToSlide(index)}
             className={cn(
               "h-3 w-3 rounded-full border-2 transition-all",
               activeIndex === index
@@ -216,120 +228,171 @@ export function CarouselFullscreenScrollFx({
         ))}
       </div>
 
-      {/* Slides */}
-      {slidesSlot
-        ? slidesSlot
-        : slides?.map((slide, index) => (
-            <div
-              key={slide.id}
-              id={`fullscreen-${slide.id}`}
-              className={cn(
-                "relative flex h-screen w-full items-center justify-center overflow-hidden",
-                slide.className,
-              )}
-            >
-              {/* Background image */}
-              <div className="absolute inset-0">
-                <Img
-                  src={slide.image}
-                  alt={
-                    typeof slide.title === "string"
-                      ? slide.title
-                      : `Slide ${index + 1}`
-                  }
-                  className={cn(
-                    "h-full w-full object-cover",
-                    slide.imageClassName,
-                  )}
-                  optixFlowConfig={optixFlowConfig}
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    backgroundColor: slide.overlayColor || "rgba(0, 0, 0, 0.5)",
-                  }}
-                />
-              </div>
+      {/* Horizontal scroll container */}
+      <div
+        ref={scrollContainerRef}
+        className="flex h-screen snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
 
-              {/* Content */}
-              <div
-                className={cn(
-                  "relative z-10 mx-auto max-w-4xl md:max-w-2xl px-6 text-center text-white text-shadow",
-                  contentClassName,
-                )}
-              >
-                {slide.subtitle &&
-                  (typeof slide.subtitle === "string" ? (
-                    <p
-                      className={cn(
-                        "mb-4 text-sm font-medium uppercase tracking-widest text-white/70",
-                        subtitleClassName,
-                      )}
-                    >
-                      {slide.subtitle}
-                    </p>
-                  ) : (
-                    <div className={subtitleClassName}>{slide.subtitle}</div>
-                  ))}
-                {slide.title &&
-                  (typeof slide.title === "string" ? (
-                    <h2
-                      className={cn(
-                        "mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
-                        titleClassName,
-                      )}
-                    >
-                      {slide.title}
-                    </h2>
-                  ) : (
-                    <div className={titleClassName}>{slide.title}</div>
-                  ))}
-                {slide.description &&
-                  (typeof slide.description === "string" ? (
-                    <p
-                      className={cn(
-                        "mx-auto text-lg text-white/80 md:text-xl text-balance",
-                        descriptionClassName,
-                      )}
-                    >
-                      {slide.description}
-                    </p>
-                  ) : (
-                    <div className={descriptionClassName}>
-                      {slide.description}
-                    </div>
-                  ))}
-              </div>
+        {/* Slides */}
+        {slidesSlot
+          ? slidesSlot
+          : slides?.map((slide, index) => {
+              // Render actions for this slide
+              const renderActions = React.useMemo(() => {
+                if (!slide.actions || slide.actions.length === 0) return null;
 
-              {/* Scroll indicator */}
-              {index < (slides?.length ?? 0) - 1 && (
+                return slide.actions.map((action, actionIndex) => {
+                  const {
+                    label,
+                    icon,
+                    iconAfter,
+                    children,
+                    className: actionClassName,
+                    asButton,
+                    ...pressableProps
+                  } = action;
+
+                  return (
+                    <Pressable
+                      key={actionIndex}
+                      asButton={asButton ?? true}
+                      className={actionClassName}
+                      {...pressableProps}
+                    >
+                      {children ?? (
+                        <>
+                          {icon}
+                          {label}
+                          {iconAfter}
+                        </>
+                      )}
+                    </Pressable>
+                  );
+                });
+              }, [slide.actions]);
+
+              return (
                 <div
+                  key={slide.id}
+                  id={`fullscreen-${slide.id}`}
                   className={cn(
-                    "absolute bottom-8 left-1/2 -translate-x-1/2",
-                    scrollIndicatorClassName,
+                    "relative flex h-screen min-w-full snap-start items-center justify-center overflow-hidden",
+                    slide.className,
                   )}
                 >
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="text-xs uppercase tracking-widest text-white/50">
-                      Scroll
-                    </span>
-                    <div className="h-12 w-px animate-pulse bg-linear-to-b from-white/50 to-transparent" />
+                  {/* Background image */}
+                  <div className="absolute inset-0">
+                    <Img
+                      src={slide.image}
+                      alt={
+                        typeof slide.title === "string"
+                          ? slide.title
+                          : `Slide ${index + 1}`
+                      }
+                      className={cn(
+                        "h-full w-full object-cover",
+                        slide.imageClassName,
+                      )}
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        backgroundColor: slide.overlayColor || "rgba(0, 0, 0, 0.5)",
+                      }}
+                    />
+                  </div>
+
+                  {/* Content */}
+                  <div
+                    className={cn(
+                      "relative z-10 mx-auto max-w-4xl md:max-w-2xl px-6 text-center text-white text-shadow",
+                      contentClassName,
+                    )}
+                  >
+                    {slide.subtitle &&
+                      (typeof slide.subtitle === "string" ? (
+                        <p
+                          className={cn(
+                            "mb-4 text-sm font-medium uppercase tracking-widest text-white/70",
+                            subtitleClassName,
+                          )}
+                        >
+                          {slide.subtitle}
+                        </p>
+                      ) : (
+                        <div className={subtitleClassName}>{slide.subtitle}</div>
+                      ))}
+                    {slide.title &&
+                      (typeof slide.title === "string" ? (
+                        <h2
+                          className={cn(
+                            "mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
+                            titleClassName,
+                          )}
+                        >
+                          {slide.title}
+                        </h2>
+                      ) : (
+                        <div className={titleClassName}>{slide.title}</div>
+                      ))}
+                    {slide.description &&
+                      (typeof slide.description === "string" ? (
+                        <p
+                          className={cn(
+                            "mx-auto text-lg text-white/80 md:text-xl text-balance",
+                            descriptionClassName,
+                          )}
+                        >
+                          {slide.description}
+                        </p>
+                      ) : (
+                        <div className={descriptionClassName}>
+                          {slide.description}
+                        </div>
+                      ))}
+
+                    {/* Actions */}
+                    {renderActions && (
+                      <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                        {renderActions}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Scroll indicator */}
+                  {index < (slides?.length ?? 0) - 1 && (
+                    <div
+                      className={cn(
+                        "absolute bottom-8 left-1/2 -translate-x-1/2",
+                        scrollIndicatorClassName,
+                      )}
+                    >
+                      <div className="flex flex-col items-center gap-2">
+                        <span className="text-xs uppercase tracking-widest text-white/50">
+                          Scroll
+                        </span>
+                        <div className="h-12 w-px animate-pulse bg-linear-to-b from-white/50 to-transparent" />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Slide counter */}
+                  <div
+                    className={cn(
+                      "absolute bottom-8 right-8 text-sm text-white/50",
+                      counterClassName,
+                    )}
+                  >
+                    {String(index + 1).padStart(2, "0")} /{" "}
+                    {String(slides?.length ?? 0).padStart(2, "0")}
                   </div>
                 </div>
-              )}
-
-              {/* Slide counter */}
-              <div
-                className={cn(
-                  "absolute bottom-8 right-8 text-sm text-white/50",
-                  counterClassName,
-                )}
-              >
-                {String(index + 1).padStart(2, "0")} /{" "}
-                {String(slides?.length ?? 0).padStart(2, "0")}
-              </div>
-            </div>
-          ))}
+              );
+            })}
+      </div>
     </Section>
   );
 }
