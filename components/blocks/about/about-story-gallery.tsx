@@ -6,7 +6,11 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface GalleryImageItem {
   src: string;
@@ -102,7 +106,7 @@ export function AboutStoryGallery({
             alt={image.alt}
             className={cn(
               "h-64 w-full rounded-xl object-cover",
-              image.className
+              image.className,
             )}
             optixFlowConfig={optixFlowConfig}
           />
@@ -121,25 +125,35 @@ export function AboutStoryGallery({
       containerClassName={containerClassName}
     >
       <div className="mx-auto max-w-3xl text-center">
-          {title && (
-            typeof title === "string" ? (
-              <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
-                {title}
-              </h1>
-            ) : (
-              <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-6 text-lg text-muted-foreground whitespace-pre-line", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={cn("mt-6", descriptionClassName)}>{description}</div>
-            )
-          )}
-        </div>
+        {title &&
+          (typeof title === "string" ? (
+            <h1
+              className={cn(
+                "text-4xl font-bold tracking-tight md:text-5xl text-balance",
+                titleClassName,
+              )}
+            >
+              {title}
+            </h1>
+          ) : (
+            <div className={titleClassName}>{title}</div>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-6 text-lg text-muted-foreground whitespace-pre-line text-balance",
+                descriptionClassName,
+              )}
+            >
+              {description}
+            </p>
+          ) : (
+            <div className={cn("mt-6", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
+      </div>
 
       {imagesContent}
     </Section>

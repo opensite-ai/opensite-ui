@@ -7,7 +7,14 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, LogoItem, StatItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  LogoItem,
+  StatItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface BreakoutConfig {
   /**
@@ -192,7 +199,12 @@ export function AboutCompanyProfile({
     if (!breakout) return null;
 
     return (
-      <div className={cn("flex flex-col justify-between gap-6 rounded-xl bg-muted p-7 md:w-1/2 lg:w-auto", breakoutClassName)}>
+      <div
+        className={cn(
+          "flex flex-col justify-between gap-6 rounded-xl bg-muted p-7 md:w-1/2 lg:w-auto",
+          breakoutClassName,
+        )}
+      >
         {breakout.logo && (
           <Img
             src={breakout.logo.src}
@@ -235,17 +247,17 @@ export function AboutCompanyProfile({
 
   const companiesContent = useMemo(() => {
     if (companiesSlot) return companiesSlot;
-    if (!companies || companies.length === 0) return null;
+    if (!companies || companies.length === 0)
+      return <div className="w-full h-7" />;
 
     return (
       <div className={cn("py-32", companiesClassName)}>
-        {companiesTitle && (
-          typeof companiesTitle === "string" ? (
+        {companiesTitle &&
+          (typeof companiesTitle === "string" ? (
             <p className="text-center">{companiesTitle}</p>
           ) : (
             companiesTitle
-          )
-        )}
+          ))}
         <div className="mt-8 flex flex-wrap justify-center gap-8">
           {companies.map((company, idx) => {
             if (typeof company.src === "string") {
@@ -282,7 +294,13 @@ export function AboutCompanyProfile({
         </div>
       </div>
     );
-  }, [companiesSlot, companies, companiesClassName, companiesTitle, optixFlowConfig]);
+  }, [
+    companiesSlot,
+    companies,
+    companiesClassName,
+    companiesTitle,
+    optixFlowConfig,
+  ]);
 
   const achievementsContent = useMemo(() => {
     if (achievementsSlot) return achievementsSlot;
@@ -291,7 +309,9 @@ export function AboutCompanyProfile({
     return achievements.map((item, idx) => (
       <div className="flex flex-col gap-2" key={idx}>
         {typeof item.value === "string" ? (
-          <span className="text-4xl font-semibold md:text-5xl">{item.value}</span>
+          <span className="text-4xl font-semibold md:text-5xl">
+            {item.value}
+          </span>
         ) : (
           item.value
         )}
@@ -313,69 +333,95 @@ export function AboutCompanyProfile({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-        <div className="mb-14 grid gap-5 text-center md:grid-cols-2 md:text-left">
-          {title && (
-            typeof title === "string" ? (
-              <h1 className={cn("text-5xl font-semibold", titleClassName)}>{title}</h1>
-            ) : (
-              <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
-        </div>
-        <div className="grid gap-7 lg:grid-cols-3">
-          {mainImage && (
+      <div className="mb-14 grid gap-5 text-center md:grid-cols-2 md:text-left">
+        {title &&
+          (typeof title === "string" ? (
+            <h1 className={cn("text-5xl font-semibold", titleClassName)}>
+              {title}
+            </h1>
+          ) : (
+            <div className={titleClassName}>{title}</div>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p className={cn("text-muted-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          ))}
+      </div>
+      <div className="grid gap-7 lg:grid-cols-3">
+        {mainImage && (
+          <Img
+            src={mainImage.src}
+            alt={mainImage.alt}
+            className={cn(
+              "size-full max-h-[620px] rounded-xl object-cover lg:col-span-2",
+              mainImageClassName,
+            )}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        <div className="flex flex-col gap-7 md:flex-row lg:flex-col">
+          {(breakoutSlot || breakout) && breakoutContent}
+          {secondaryImage && (
             <Img
-              src={mainImage.src}
-              alt={mainImage.alt}
-              className={cn("size-full max-h-[620px] rounded-xl object-cover lg:col-span-2", mainImageClassName)}
+              src={secondaryImage.src}
+              alt={secondaryImage.alt}
+              className={cn(
+                "grow basis-0 rounded-xl object-cover md:w-1/2 lg:min-h-0 lg:w-auto",
+                secondaryImageClassName,
+              )}
               optixFlowConfig={optixFlowConfig}
             />
           )}
-          <div className="flex flex-col gap-7 md:flex-row lg:flex-col">
-            {(breakoutSlot || breakout) && breakoutContent}
-            {secondaryImage && (
-              <Img
-                src={secondaryImage.src}
-                alt={secondaryImage.alt}
-                className={cn("grow basis-0 rounded-xl object-cover md:w-1/2 lg:min-h-0 lg:w-auto", secondaryImageClassName)}
-                optixFlowConfig={optixFlowConfig}
-              />
-            )}
-          </div>
         </div>
-        {(companiesSlot || (companies && companies.length > 0)) && companiesContent}
-        <div className={cn("relative overflow-hidden rounded-xl bg-muted p-7 md:p-16", achievementsClassName)}>
-          <div className="flex flex-col gap-4 text-center md:text-left">
-            {achievementsTitle && (
-              typeof achievementsTitle === "string" ? (
-                <h2 className={cn("text-3xl font-semibold md:text-4xl", achievementsTitleClassName)}>
-                  {achievementsTitle}
-                </h2>
-              ) : (
-                <div className={achievementsTitleClassName}>{achievementsTitle}</div>
-              )
-            )}
-            {achievementsDescription && (
-              typeof achievementsDescription === "string" ? (
-                <p className={cn("max-w-xl text-muted-foreground", achievementsDescriptionClassName)}>
-                  {achievementsDescription}
-                </p>
-              ) : (
-                <div className={achievementsDescriptionClassName}>{achievementsDescription}</div>
-              )
-            )}
-          </div>
-          <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 text-center lg:grid-cols-4">
-            {achievementsContent}
-          </div>
+      </div>
+      {(companiesSlot || (companies && companies.length > 0)) &&
+        companiesContent}
+      <div
+        className={cn(
+          "relative overflow-hidden rounded-xl bg-muted p-7 md:p-16",
+          achievementsClassName,
+        )}
+      >
+        <div className="flex flex-col gap-4 text-center md:text-left">
+          {achievementsTitle &&
+            (typeof achievementsTitle === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold md:text-4xl",
+                  achievementsTitleClassName,
+                )}
+              >
+                {achievementsTitle}
+              </h2>
+            ) : (
+              <div className={achievementsTitleClassName}>
+                {achievementsTitle}
+              </div>
+            ))}
+          {achievementsDescription &&
+            (typeof achievementsDescription === "string" ? (
+              <p
+                className={cn(
+                  "max-w-xl text-muted-foreground",
+                  achievementsDescriptionClassName,
+                )}
+              >
+                {achievementsDescription}
+              </p>
+            ) : (
+              <div className={achievementsDescriptionClassName}>
+                {achievementsDescription}
+              </div>
+            ))}
         </div>
+        <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 text-center lg:grid-cols-4">
+          {achievementsContent}
+        </div>
+      </div>
     </Section>
   );
 }

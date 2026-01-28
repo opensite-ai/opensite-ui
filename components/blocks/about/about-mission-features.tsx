@@ -6,7 +6,12 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { FeatureItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  FeatureItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface AboutMissionFeaturesProps {
   /**
@@ -155,23 +160,26 @@ export function AboutMissionFeatures({
 
     return features.map((feature, idx) => (
       <div className="flex flex-col" key={idx}>
-        <div className={cn("mb-5 flex size-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground", feature.iconBgClass)}>
+        <div
+          className={cn(
+            "mb-5 flex size-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground",
+            feature.iconBgClass,
+          )}
+        >
           {feature.icon}
         </div>
-        {feature.title && (
-          typeof feature.title === "string" ? (
+        {feature.title &&
+          (typeof feature.title === "string" ? (
             <h3 className="mt-2 mb-3 text-lg font-semibold">{feature.title}</h3>
           ) : (
             feature.title
-          )
-        )}
-        {feature.description && (
-          typeof feature.description === "string" ? (
+          ))}
+        {feature.description &&
+          (typeof feature.description === "string" ? (
             <p className="text-muted-foreground">{feature.description}</p>
           ) : (
             feature.description
-          )
-        )}
+          ))}
       </div>
     ));
   }, [featuresSlot, features]);
@@ -184,36 +192,47 @@ export function AboutMissionFeatures({
       patternOpacity={patternOpacity}
       className={cn(className)}
     >
-      <div className={cn("flex flex-col gap-16 lg:gap-28", containerClassName)}>
+      <div className={cn("flex flex-col gap-8 lg:gap-16", containerClassName)}>
         <div className="flex flex-col gap-4 lg:gap-8">
-          {title && (
-            typeof title === "string" ? (
-              <h1 className={cn("text-4xl font-semibold tracking-tighter lg:text-7xl", titleClassName)}>
+          {title &&
+            (typeof title === "string" ? (
+              <h1
+                className={cn(
+                  "text-4xl font-semibold tracking-tighter lg:text-7xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h1>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("max-w-xl text-xl", descriptionClassName)}>{description}</p>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p className={cn("max-w-xl text-xl", descriptionClassName)}>
+                {description}
+              </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           {mainImage && (
             <Img
               src={mainImage.src}
               alt={mainImage.alt}
-              className={cn("size-full max-h-96 rounded-2xl object-cover", mainImageClassName)}
+              className={cn(
+                "size-full max-h-96 rounded-2xl object-cover",
+                mainImageClassName,
+              )}
               optixFlowConfig={optixFlowConfig}
             />
           )}
           <div
-            className={cn("relative flex flex-col justify-between gap-10 overflow-hidden rounded-2xl bg-muted p-10", missionSectionClassName)}
+            className={cn(
+              "relative flex flex-col justify-between gap-10 overflow-hidden rounded-2xl bg-muted p-10",
+              missionSectionClassName,
+            )}
           >
             {missionBackgroundImage && (
               <>
@@ -223,49 +242,71 @@ export function AboutMissionFeatures({
                   className="absolute inset-0 size-full object-cover"
                   optixFlowConfig={optixFlowConfig}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/50 to-black/30" />
               </>
             )}
             <div className="relative z-10">
-              {missionLabel && (
-                typeof missionLabel === "string" ? (
-                  <p className={cn("text-sm font-semibold text-white", missionLabelClassName)}>{missionLabel}</p>
+              {missionLabel &&
+                (typeof missionLabel === "string" ? (
+                  <p
+                    className={cn(
+                      "text-sm font-semibold text-white",
+                      missionLabelClassName,
+                    )}
+                  >
+                    {missionLabel}
+                  </p>
                 ) : (
                   <div className={missionLabelClassName}>{missionLabel}</div>
-                )
-              )}
+                ))}
             </div>
             <div className="relative z-10">
-              {missionText && (
-                typeof missionText === "string" ? (
-                  <p className={cn("text-lg font-medium text-white", missionTextClassName)}>{missionText}</p>
+              {missionText &&
+                (typeof missionText === "string" ? (
+                  <p
+                    className={cn(
+                      "text-lg font-medium text-white",
+                      missionTextClassName,
+                    )}
+                  >
+                    {missionText}
+                  </p>
                 ) : (
                   <div className={missionTextClassName}>{missionText}</div>
-                )
-              )}
+                ))}
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-6 md:gap-20">
+        <div className="flex flex-col gap-6 md:gap-12">
           <div className="max-w-xl">
-            {featuresTitle && (
-              typeof featuresTitle === "string" ? (
-                <h2 className={cn("mb-4 text-3xl font-semibold tracking-tight md:text-5xl", featuresTitleClassName)}>
+            {featuresTitle &&
+              (typeof featuresTitle === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-4 text-2xl font-semibold tracking-tight md:text-4xl",
+                    featuresTitleClassName,
+                  )}
+                >
                   {featuresTitle}
                 </h2>
               ) : (
                 <div className={featuresTitleClassName}>{featuresTitle}</div>
-              )
-            )}
-            {featuresDescription && (
-              typeof featuresDescription === "string" ? (
-                <p className={cn("text-lg text-muted-foreground", featuresDescriptionClassName)}>
+              ))}
+            {featuresDescription &&
+              (typeof featuresDescription === "string" ? (
+                <p
+                  className={cn(
+                    "text-lg text-muted-foreground",
+                    featuresDescriptionClassName,
+                  )}
+                >
                   {featuresDescription}
                 </p>
               ) : (
-                <div className={featuresDescriptionClassName}>{featuresDescription}</div>
-              )
-            )}
+                <div className={featuresDescriptionClassName}>
+                  {featuresDescription}
+                </div>
+              ))}
           </div>
           <div className={cn("grid gap-10 md:grid-cols-3", featuresClassName)}>
             {featuresContent}

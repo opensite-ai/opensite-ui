@@ -6,7 +6,11 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface TabItem {
   /**
@@ -156,7 +160,12 @@ export function AboutInteractiveTabs({
 
     return (
       <div className="mt-16">
-        <div className={cn("flex flex-wrap justify-center gap-2 border-b", tabsContainerClassName)}>
+        <div
+          className={cn(
+            "flex flex-wrap justify-center gap-2 border-b",
+            tabsContainerClassName,
+          )}
+        >
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -164,9 +173,12 @@ export function AboutInteractiveTabs({
               className={cn(
                 "px-6 py-3 text-sm font-medium transition-colors",
                 activeTab === tab.id
-                  ? cn("border-b-2 border-primary text-primary", activeTabClassName)
+                  ? cn(
+                      "border-b-2 border-primary text-primary",
+                      activeTabClassName,
+                    )
                   : "text-muted-foreground hover:text-foreground",
-                tabButtonClassName
+                tabButtonClassName,
               )}
             >
               {tab.label}
@@ -175,26 +187,47 @@ export function AboutInteractiveTabs({
         </div>
 
         {activeContent && (
-          <div className={cn("mt-12 grid gap-12 lg:grid-cols-2 lg:items-center", tabContentClassName)}>
+          <div
+            className={cn(
+              "mt-12 grid gap-12 lg:grid-cols-2 lg:items-center",
+              tabContentClassName,
+            )}
+          >
             <div>
               {typeof activeContent.title === "string" ? (
-                <h2 className={cn("text-3xl font-bold", tabContentTitleClassName)}>{activeContent.title}</h2>
+                <h2
+                  className={cn("text-3xl font-bold", tabContentTitleClassName)}
+                >
+                  {activeContent.title}
+                </h2>
               ) : (
-                <div className={tabContentTitleClassName}>{activeContent.title}</div>
+                <div className={tabContentTitleClassName}>
+                  {activeContent.title}
+                </div>
               )}
               {typeof activeContent.description === "string" ? (
-                <p className={cn("mt-4 text-lg text-muted-foreground", tabContentDescriptionClassName)}>
+                <p
+                  className={cn(
+                    "mt-4 text-lg text-muted-foreground",
+                    tabContentDescriptionClassName,
+                  )}
+                >
                   {activeContent.description}
                 </p>
               ) : (
-                <div className={cn("mt-4", tabContentDescriptionClassName)}>{activeContent.description}</div>
+                <div className={cn("mt-4", tabContentDescriptionClassName)}>
+                  {activeContent.description}
+                </div>
               )}
             </div>
             {activeContent.image && (
               <Img
                 src={activeContent.image.src}
                 alt={activeContent.image.alt}
-                className={cn("rounded-2xl object-cover", tabContentImageClassName)}
+                className={cn(
+                  "rounded-2xl object-cover",
+                  tabContentImageClassName,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             )}
@@ -202,7 +235,21 @@ export function AboutInteractiveTabs({
         )}
       </div>
     );
-  }, [tabsSlot, tabs, tabsContainerClassName, activeTab, activeTabClassName, tabButtonClassName, handleTabChange, activeContent, tabContentClassName, tabContentTitleClassName, tabContentDescriptionClassName, tabContentImageClassName, optixFlowConfig]);
+  }, [
+    tabsSlot,
+    tabs,
+    tabsContainerClassName,
+    activeTab,
+    activeTabClassName,
+    tabButtonClassName,
+    handleTabChange,
+    activeContent,
+    tabContentClassName,
+    tabContentTitleClassName,
+    tabContentDescriptionClassName,
+    tabContentImageClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -213,26 +260,36 @@ export function AboutInteractiveTabs({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-        <div className={cn("mx-auto max-w-3xl text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
-                {title}
-              </h1>
-            ) : (
-              <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
-            ) : (
-              <div className={cn("mt-4", subtitleClassName)}>{subtitle}</div>
-            )
-          )}
-        </div>
+      <div className={cn("mx-auto max-w-3xl text-center", headerClassName)}>
+        {title &&
+          (typeof title === "string" ? (
+            <h1
+              className={cn(
+                "text-4xl font-bold tracking-tight md:text-5xl text-balance",
+                titleClassName,
+              )}
+            >
+              {title}
+            </h1>
+          ) : (
+            <div className={titleClassName}>{title}</div>
+          ))}
+        {subtitle &&
+          (typeof subtitle === "string" ? (
+            <p
+              className={cn(
+                "mt-4 text-lg text-muted-foreground text-balance",
+                subtitleClassName,
+              )}
+            >
+              {subtitle}
+            </p>
+          ) : (
+            <div className={cn("mt-4", subtitleClassName)}>{subtitle}</div>
+          ))}
+      </div>
 
-        {(tabsSlot || (tabs && tabs.length > 0)) && tabsContent}
+      {(tabsSlot || (tabs && tabs.length > 0)) && tabsContent}
     </Section>
   );
 }

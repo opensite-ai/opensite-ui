@@ -7,7 +7,12 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface GalleryImageItem {
   src: string;
@@ -189,7 +194,12 @@ export function AboutVisionGallery({
     if (!images || images.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-3 md:grid-cols-2 lg:grid-cols-3", imagesClassName)}>
+      <div
+        className={cn(
+          "grid gap-3 md:grid-cols-2 lg:grid-cols-3",
+          imagesClassName,
+        )}
+      >
         {images.map((image, idx) => (
           <Img
             key={idx}
@@ -221,7 +231,10 @@ export function AboutVisionGallery({
   }, [ctaSlot, ctaAction]);
 
   const hasPrimarySection = primarySectionTitle || primarySectionContent;
-  const hasSecondarySection = secondarySectionTitle || secondarySectionContent || secondarySectionLinkText;
+  const hasSecondarySection =
+    secondarySectionTitle ||
+    secondarySectionContent ||
+    secondarySectionLinkText;
   const hasCtaSection = ctaTitle || ctaSlot || ctaAction;
 
   return (
@@ -233,86 +246,135 @@ export function AboutVisionGallery({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-        {(title || subtitle) && (
-          <div className="mx-auto flex max-w-3xl flex-col gap-8 pb-28 text-center">
-            {title && (
-              typeof title === "string" ? (
-                <h1 className={cn("text-4xl font-semibold md:text-7xl", titleClassName)}>{title}</h1>
-              ) : (
-                <div className={titleClassName}>{title}</div>
-              )
-            )}
-            {subtitle && (
-              typeof subtitle === "string" ? (
-                <p className={cn("text-xl font-medium text-muted-foreground", subtitleClassName)}>
-                  {subtitle}
-                </p>
-              ) : (
-                <div className={subtitleClassName}>{subtitle}</div>
-              )
-            )}
-          </div>
-        )}
-        {imagesContent}
-        {(hasPrimarySection || hasSecondarySection) && (
-          <div className="mx-auto grid max-w-5xl gap-28 py-28 md:grid-cols-2">
-            {hasPrimarySection && (
-              <div>
-                {primarySectionTitle && (
-                  typeof primarySectionTitle === "string" ? (
-                    <h2 className={cn("mb-5 text-4xl font-semibold", primarySectionTitleClassName)}>{primarySectionTitle}</h2>
-                  ) : (
-                    <div className={cn("mb-5", primarySectionTitleClassName)}>{primarySectionTitle}</div>
-                  )
+      {(title || subtitle) && (
+        <div className="mx-auto flex max-w-3xl flex-col gap-8 pb-28 text-center">
+          {title &&
+            (typeof title === "string" ? (
+              <h1
+                className={cn(
+                  "text-4xl font-semibold md:text-7xl text-balance",
+                  titleClassName,
                 )}
-                {primarySectionContent && (
-                  typeof primarySectionContent === "string" ? (
-                    <p className={cn("text-xl leading-8 font-medium text-muted-foreground whitespace-pre-line", primarySectionContentClassName)}>
-                      {primarySectionContent}
-                    </p>
-                  ) : (
-                    <div className={primarySectionContentClassName}>{primarySectionContent}</div>
-                  )
+              >
+                {title}
+              </h1>
+            ) : (
+              <div className={titleClassName}>{title}</div>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "text-xl font-medium text-muted-foreground text-balance",
+                  subtitleClassName,
                 )}
-              </div>
-            )}
-            {hasSecondarySection && (
-              <div>
-                {secondarySectionTitle && (
-                  typeof secondarySectionTitle === "string" ? (
-                    <h2 className={cn("mb-5 text-4xl font-semibold", secondarySectionTitleClassName)}>{secondarySectionTitle}</h2>
-                  ) : (
-                    <div className={cn("mb-5", secondarySectionTitleClassName)}>{secondarySectionTitle}</div>
-                  )
-                )}
-                {(secondarySectionContent || secondarySectionLinkText) && (
-                  <p className={cn("text-xl leading-8 font-medium text-muted-foreground", secondarySectionContentClassName)}>
-                    {secondarySectionLinkText && secondarySectionLinkUrl && (
-                      <Pressable href={secondarySectionLinkUrl} className="mr-1 underline">
-                        {secondarySectionLinkText}
-                      </Pressable>
+              >
+                {subtitle}
+              </p>
+            ) : (
+              <div className={subtitleClassName}>{subtitle}</div>
+            ))}
+        </div>
+      )}
+      {imagesContent}
+      {(hasPrimarySection || hasSecondarySection) && (
+        <div className="mx-auto grid max-w-5xl gap-28 py-6 md:py-16 md:grid-cols-2">
+          {hasPrimarySection && (
+            <div>
+              {primarySectionTitle &&
+                (typeof primarySectionTitle === "string" ? (
+                  <h2
+                    className={cn(
+                      "mb-5 text-4xl font-semibold",
+                      primarySectionTitleClassName,
                     )}
-                    {secondarySectionContent}
+                  >
+                    {primarySectionTitle}
+                  </h2>
+                ) : (
+                  <div className={cn("mb-5", primarySectionTitleClassName)}>
+                    {primarySectionTitle}
+                  </div>
+                ))}
+              {primarySectionContent &&
+                (typeof primarySectionContent === "string" ? (
+                  <p
+                    className={cn(
+                      "text-xl leading-8 font-medium text-muted-foreground whitespace-pre-line",
+                      primarySectionContentClassName,
+                    )}
+                  >
+                    {primarySectionContent}
                   </p>
+                ) : (
+                  <div className={primarySectionContentClassName}>
+                    {primarySectionContent}
+                  </div>
+                ))}
+            </div>
+          )}
+          {hasSecondarySection && (
+            <div>
+              {secondarySectionTitle &&
+                (typeof secondarySectionTitle === "string" ? (
+                  <h2
+                    className={cn(
+                      "mb-5 text-4xl font-semibold",
+                      secondarySectionTitleClassName,
+                    )}
+                  >
+                    {secondarySectionTitle}
+                  </h2>
+                ) : (
+                  <div className={cn("mb-5", secondarySectionTitleClassName)}>
+                    {secondarySectionTitle}
+                  </div>
+                ))}
+              {(secondarySectionContent || secondarySectionLinkText) && (
+                <p
+                  className={cn(
+                    "text-xl leading-8 font-medium text-muted-foreground",
+                    secondarySectionContentClassName,
+                  )}
+                >
+                  {secondarySectionLinkText && secondarySectionLinkUrl && (
+                    <Pressable
+                      href={secondarySectionLinkUrl}
+                      className="mr-1 underline"
+                    >
+                      {secondarySectionLinkText}
+                    </Pressable>
+                  )}
+                  {secondarySectionContent}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+      {hasCtaSection && (
+        <div
+          className={cn(
+            "mx-auto flex max-w-5xl flex-col items-center justify-between gap-8 rounded-2xl bg-muted/50 p-14 text-center md:flex-row md:text-left",
+            ctaClassName,
+          )}
+        >
+          {ctaTitle &&
+            (typeof ctaTitle === "string" ? (
+              <h3
+                className={cn(
+                  "text-3xl font-semibold whitespace-pre-line",
+                  ctaTitleClassName,
                 )}
-              </div>
-            )}
-          </div>
-        )}
-        {hasCtaSection && (
-          <div className={cn("mx-auto flex max-w-5xl flex-col items-center justify-between gap-8 rounded-2xl bg-muted/50 p-14 text-center md:flex-row md:text-left", ctaClassName)}>
-            {ctaTitle && (
-              typeof ctaTitle === "string" ? (
-                <h3 className={cn("text-3xl font-semibold whitespace-pre-line", ctaTitleClassName)}>
-                  {ctaTitle}
-                </h3>
-              ) : (
-                <div className={ctaTitleClassName}>{ctaTitle}</div>
-              )
-            )}
-            {ctaContent}
-          </div>
-        )}
+              >
+                {ctaTitle}
+              </h3>
+            ) : (
+              <div className={ctaTitleClassName}>{ctaTitle}</div>
+            ))}
+          {ctaContent}
+        </div>
+      )}
     </Section>
   );
 }

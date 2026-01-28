@@ -8,7 +8,14 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, StatItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  StatItem,
+  LogoItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface AboutDeveloperStoryProps {
   /**
@@ -153,7 +160,9 @@ export function AboutDeveloperStory({
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div className={cn("flex flex-wrap justify-center gap-4", actionsClassName)}>
+      <div
+        className={cn("flex flex-wrap justify-center gap-4", actionsClassName)}
+      >
         {actions.map((action, idx) => (
           <Pressable
             key={idx}
@@ -164,7 +173,13 @@ export function AboutDeveloperStory({
             asButton
           >
             {action.label}
-            {idx === 1 && <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />}
+            {idx === 1 && (
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={16}
+                className="ml-2"
+              />
+            )}
           </Pressable>
         ))}
       </div>
@@ -176,7 +191,12 @@ export function AboutDeveloperStory({
     if (!logos || logos.length === 0) return null;
 
     return (
-      <div className={cn("mt-20 flex flex-wrap items-center justify-center gap-8 opacity-60", logosClassName)}>
+      <div
+        className={cn(
+          "mt-20 flex flex-wrap items-center justify-center gap-8 opacity-60",
+          logosClassName,
+        )}
+      >
         {logos.map((logo, idx) => {
           if (typeof logo.src === "string") {
             return (
@@ -194,14 +214,14 @@ export function AboutDeveloperStory({
               <Img
                 src={logo.src.light}
                 alt={logo.alt}
-                className="h-8 w-auto grayscale dark:hidden"
+                className="h-42 w-auto object-contain grayscale dark:hidden"
                 optixFlowConfig={optixFlowConfig}
               />
               {logo.src.dark && (
                 <Img
                   src={logo.src.dark}
                   alt={logo.alt}
-                  className="hidden h-8 w-auto grayscale dark:block"
+                  className="hidden h-42 w-auto object-contain grayscale dark:block"
                   optixFlowConfig={optixFlowConfig}
                 />
               )}
@@ -217,23 +237,26 @@ export function AboutDeveloperStory({
     if (!stats || stats.length === 0) return null;
 
     return (
-      <div className={cn("mt-20 grid grid-cols-1 gap-8 border-y py-12 md:grid-cols-3", statsClassName)}>
+      <div
+        className={cn(
+          "mt-20 grid grid-cols-1 gap-8 border-y py-12 md:grid-cols-3",
+          statsClassName,
+        )}
+      >
         {stats.map((stat, idx) => (
           <div key={idx} className="text-center">
-            {stat.value && (
-              typeof stat.value === "string" ? (
+            {stat.value &&
+              (typeof stat.value === "string" ? (
                 <p className="text-4xl font-bold">{stat.value}</p>
               ) : (
                 stat.value
-              )
-            )}
-            {stat.label && (
-              typeof stat.label === "string" ? (
+              ))}
+            {stat.label &&
+              (typeof stat.label === "string" ? (
                 <p className="mt-2 text-muted-foreground">{stat.label}</p>
               ) : (
                 <div className="mt-2">{stat.label}</div>
-              )
-            )}
+              ))}
           </div>
         ))}
       </div>
@@ -249,59 +272,79 @@ export function AboutDeveloperStory({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-        <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 text-center">
-          {title && (
-            typeof title === "string" ? (
-              <h1 className={cn("text-4xl font-bold tracking-tight md:text-6xl", titleClassName)}>
-                {title}
-              </h1>
+      <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 text-center">
+        {title &&
+          (typeof title === "string" ? (
+            <h1
+              className={cn(
+                "text-4xl font-bold tracking-tight md:text-6xl text-balance",
+                titleClassName,
+              )}
+            >
+              {title}
+            </h1>
+          ) : (
+            <div className={titleClassName}>{title}</div>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "max-w-2xl text-lg text-muted-foreground md:text-xl text-balance",
+                descriptionClassName,
+              )}
+            >
+              {description}
+            </p>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          ))}
+        {actionsContent}
+      </div>
+
+      {logosContent}
+      {statsContent}
+
+      <div className="mt-20 grid gap-12 md:grid-cols-2 md:items-center">
+        <div>
+          {storyTitle &&
+            (typeof storyTitle === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold md:text-4xl",
+                  storyTitleClassName,
+                )}
+              >
+                {storyTitle}
+              </h2>
             ) : (
-              <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("max-w-2xl text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
-                {description}
+              <div className={storyTitleClassName}>{storyTitle}</div>
+            ))}
+          {storyContent &&
+            (typeof storyContent === "string" ? (
+              <p
+                className={cn(
+                  "mt-6 text-lg text-muted-foreground whitespace-pre-line",
+                  storyContentClassName,
+                )}
+              >
+                {storyContent}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
-          {actionsContent}
+              <div className={cn("mt-6", storyContentClassName)}>
+                {storyContent}
+              </div>
+            ))}
         </div>
-
-        {logosContent}
-        {statsContent}
-
-        <div className="mt-20 grid gap-12 md:grid-cols-2 md:items-center">
-          <div>
-            {storyTitle && (
-              typeof storyTitle === "string" ? (
-                <h2 className={cn("text-3xl font-bold md:text-4xl", storyTitleClassName)}>{storyTitle}</h2>
-              ) : (
-                <div className={storyTitleClassName}>{storyTitle}</div>
-              )
-            )}
-            {storyContent && (
-              typeof storyContent === "string" ? (
-                <p className={cn("mt-6 text-lg text-muted-foreground whitespace-pre-line", storyContentClassName)}>
-                  {storyContent}
-                </p>
-              ) : (
-                <div className={cn("mt-6", storyContentClassName)}>{storyContent}</div>
-              )
-            )}
-          </div>
-          {storyImage && (
-            <Img
-              src={storyImage.src}
-              alt={storyImage.alt}
-              className={cn("rounded-2xl object-cover", storyImageClassName)}
-              optixFlowConfig={optixFlowConfig}
-            />
-          )}
-        </div>
+        {storyImage && (
+          <Img
+            src={storyImage.src}
+            alt={storyImage.alt}
+            className={cn("rounded-2xl object-cover", storyImageClassName)}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+      </div>
     </Section>
   );
 }

@@ -6,7 +6,11 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ShowcaseImageItem {
   src: string;
@@ -210,7 +214,7 @@ export function AboutStatsShowcase({
             alt={image.alt}
             className={cn(
               "size-full max-h-96 rounded-xl object-cover",
-              image.colSpan ? `md:col-span-${image.colSpan}` : "md:col-span-4"
+              image.colSpan ? `md:col-span-${image.colSpan}` : "md:col-span-4",
             )}
             optixFlowConfig={optixFlowConfig}
           />
@@ -224,23 +228,23 @@ export function AboutStatsShowcase({
     if (!stats || stats.length === 0) return null;
 
     return (
-      <div className={cn("grid grid-cols-2 gap-6 md:grid-cols-3", statsClassName)}>
+      <div
+        className={cn("grid grid-cols-2 gap-6 md:grid-cols-3", statsClassName)}
+      >
         {stats.map((stat, idx) => (
           <div className="flex flex-col gap-6 border-b pb-8" key={idx}>
-            {stat.value && (
-              typeof stat.value === "string" ? (
+            {stat.value &&
+              (typeof stat.value === "string" ? (
                 <p className="text-4xl font-medium md:text-5xl">{stat.value}</p>
               ) : (
                 stat.value
-              )
-            )}
-            {stat.label && (
-              typeof stat.label === "string" ? (
+              ))}
+            {stat.label &&
+              (typeof stat.label === "string" ? (
                 <p className="text-muted-foreground">{stat.label}</p>
               ) : (
                 stat.label
-              )
-            )}
+              ))}
           </div>
         ))}
       </div>
@@ -254,36 +258,47 @@ export function AboutStatsShowcase({
     return (
       <div className="bg-muted/50 py-24">
         <div className="container flex flex-col items-center gap-11">
-          {logosTitle && (
-            typeof logosTitle === "string" ? (
-              <p className={cn("text-center text-xl font-medium", logosTitleClassName)}>{logosTitle}</p>
+          {logosTitle &&
+            (typeof logosTitle === "string" ? (
+              <p
+                className={cn(
+                  "text-center text-xl font-medium",
+                  logosTitleClassName,
+                )}
+              >
+                {logosTitle}
+              </p>
             ) : (
               <div className={logosTitleClassName}>{logosTitle}</div>
-            )
-          )}
-          <div className={cn("grid grid-cols-2 gap-x-7 gap-y-12 lg:grid-cols-4", logosClassName)}>
+            ))}
+          <div
+            className={cn(
+              "grid grid-cols-2 gap-x-7 gap-y-12 lg:grid-cols-4",
+              logosClassName,
+            )}
+          >
             {logos.map((logo, idx) => (
-              <div className="flex items-center gap-3" key={idx}>
+              <div className="flex items-center justify-center" key={idx}>
                 <Img
                   src={logo.src}
                   alt={logo.alt}
-                  className="h-8 w-auto md:h-14"
+                  className="h-8 object-contain w-auto md:h-14 max-h-24"
                   optixFlowConfig={optixFlowConfig}
                 />
-                {logo.name && (
-                  typeof logo.name === "string" ? (
-                    <p className="text-xl font-semibold md:text-4xl">{logo.name}</p>
-                  ) : (
-                    logo.name
-                  )
-                )}
               </div>
             ))}
           </div>
         </div>
       </div>
     );
-  }, [logosSlot, logos, logosTitle, logosTitleClassName, logosClassName, optixFlowConfig]);
+  }, [
+    logosSlot,
+    logos,
+    logosTitle,
+    logosTitleClassName,
+    logosClassName,
+    optixFlowConfig,
+  ]);
 
   const benefitsContent = useMemo(() => {
     if (benefitsSlot) return benefitsSlot;
@@ -291,16 +306,25 @@ export function AboutStatsShowcase({
 
     return (
       <div className="container flex flex-col items-center gap-14">
-        {benefitsTitle && (
-          typeof benefitsTitle === "string" ? (
-            <h2 className={cn("text-center text-4xl font-semibold md:text-5xl", benefitsTitleClassName)}>
+        {benefitsTitle &&
+          (typeof benefitsTitle === "string" ? (
+            <h2
+              className={cn(
+                "text-center font-semibold text-2xl md:text-3xl",
+                benefitsTitleClassName,
+              )}
+            >
               {benefitsTitle}
             </h2>
           ) : (
             <div className={benefitsTitleClassName}>{benefitsTitle}</div>
-          )
-        )}
-        <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3", benefitsClassName)}>
+          ))}
+        <div
+          className={cn(
+            "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+            benefitsClassName,
+          )}
+        >
           {benefits.map((benefit, idx) => (
             <div key={idx} className="flex flex-col gap-6">
               {benefit.image && (
@@ -313,27 +337,28 @@ export function AboutStatsShowcase({
               )}
               {benefit.stat && (
                 <div className="flex flex-col justify-center rounded-xl bg-muted p-8">
-                  {benefit.stat.value && (
-                    typeof benefit.stat.value === "string" ? (
-                      <p className="mb-2 text-4xl font-medium">{benefit.stat.value}</p>
+                  {benefit.stat.value &&
+                    (typeof benefit.stat.value === "string" ? (
+                      <p className="mb-2 text-4xl font-medium">
+                        {benefit.stat.value}
+                      </p>
                     ) : (
                       <div className="mb-2">{benefit.stat.value}</div>
-                    )
-                  )}
-                  {benefit.stat.label && (
-                    typeof benefit.stat.label === "string" ? (
+                    ))}
+                  {benefit.stat.label &&
+                    (typeof benefit.stat.label === "string" ? (
                       <p className="mb-6 font-semibold">{benefit.stat.label}</p>
                     ) : (
                       <div className="mb-6">{benefit.stat.label}</div>
-                    )
-                  )}
-                  {benefit.stat.description && (
-                    typeof benefit.stat.description === "string" ? (
-                      <p className="text-muted-foreground">{benefit.stat.description}</p>
+                    ))}
+                  {benefit.stat.description &&
+                    (typeof benefit.stat.description === "string" ? (
+                      <p className="text-muted-foreground">
+                        {benefit.stat.description}
+                      </p>
                     ) : (
                       benefit.stat.description
-                    )
-                  )}
+                    ))}
                 </div>
               )}
               {benefit.testimonial && (
@@ -347,36 +372,40 @@ export function AboutStatsShowcase({
                         optixFlowConfig={optixFlowConfig}
                       />
                     )}
-                    {benefit.testimonial.company && (
-                      typeof benefit.testimonial.company === "string" ? (
-                        <span className="text-lg font-semibold">{benefit.testimonial.company}</span>
+                    {benefit.testimonial.company &&
+                      (typeof benefit.testimonial.company === "string" ? (
+                        <span className="text-lg font-semibold">
+                          {benefit.testimonial.company}
+                        </span>
                       ) : (
                         benefit.testimonial.company
-                      )
-                    )}
+                      ))}
                   </div>
-                  {benefit.testimonial.quote && (
-                    typeof benefit.testimonial.quote === "string" ? (
-                      <p className="mb-6 text-sm">{benefit.testimonial.quote}</p>
+                  {benefit.testimonial.quote &&
+                    (typeof benefit.testimonial.quote === "string" ? (
+                      <p className="mb-6 text-sm">
+                        {benefit.testimonial.quote}
+                      </p>
                     ) : (
                       <div className="mb-6">{benefit.testimonial.quote}</div>
-                    )
-                  )}
+                    ))}
                   <div className="flex items-baseline gap-1">
-                    {benefit.testimonial.author && (
-                      typeof benefit.testimonial.author === "string" ? (
-                        <span className="font-medium">{benefit.testimonial.author},</span>
+                    {benefit.testimonial.author &&
+                      (typeof benefit.testimonial.author === "string" ? (
+                        <span className="font-medium">
+                          {benefit.testimonial.author},
+                        </span>
                       ) : (
                         benefit.testimonial.author
-                      )
-                    )}
-                    {benefit.testimonial.role && (
-                      typeof benefit.testimonial.role === "string" ? (
-                        <span className="text-sm text-muted-foreground">{benefit.testimonial.role}</span>
+                      ))}
+                    {benefit.testimonial.role &&
+                      (typeof benefit.testimonial.role === "string" ? (
+                        <span className="text-sm text-muted-foreground">
+                          {benefit.testimonial.role}
+                        </span>
                       ) : (
                         benefit.testimonial.role
-                      )
-                    )}
+                      ))}
                   </div>
                 </div>
               )}
@@ -385,7 +414,14 @@ export function AboutStatsShowcase({
         </div>
       </div>
     );
-  }, [benefitsSlot, benefits, benefitsTitle, benefitsTitleClassName, benefitsClassName, optixFlowConfig]);
+  }, [
+    benefitsSlot,
+    benefits,
+    benefitsTitle,
+    benefitsTitleClassName,
+    benefitsClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -396,41 +432,57 @@ export function AboutStatsShowcase({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-        <div className="container flex flex-col gap-10 text-center md:gap-24">
+      <div className="flex flex-col gap-10 md:gap-24">
+        <div className="flex flex-col gap-10 text-center md:gap-24 mb-4 md:mb-8">
           <div className="mx-auto flex max-w-3xl flex-col gap-6">
-            {title && (
-              typeof title === "string" ? (
-                <h1 className={cn("text-4xl font-medium md:text-6xl", titleClassName)}>{title}</h1>
+            {title &&
+              (typeof title === "string" ? (
+                <h1
+                  className={cn(
+                    "text-4xl font-medium md:text-6xl text-balance",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h1>
               ) : (
                 <div className={titleClassName}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-lg text-muted-foreground md:text-xl text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
           </div>
           {imagesContent}
         </div>
         <div className="container flex flex-col gap-16">
-          {statsTitle && (
-            typeof statsTitle === "string" ? (
-              <h2 className={cn("max-w-3xl text-4xl font-medium md:text-5xl", statsTitleClassName)}>
+          {statsTitle &&
+            (typeof statsTitle === "string" ? (
+              <h2
+                className={cn(
+                  "max-w-3xl font-medium text-2xl md:text-3xl",
+                  statsTitleClassName,
+                )}
+              >
                 {statsTitle}
               </h2>
             ) : (
               <div className={statsTitleClassName}>{statsTitle}</div>
-            )
-          )}
+            ))}
           {statsContent}
         </div>
         {logosContent}
         {benefitsContent}
+      </div>
     </Section>
   );
 }
