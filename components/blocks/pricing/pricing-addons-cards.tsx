@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -213,9 +214,9 @@ export function PricingAddonsCards({
   addons,
   addonsSlot,
   featureIcon,
-  featureIconName = "lucide/check",
-  background = "white",
-  spacing = "lg",
+  featureIconName,
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -236,102 +237,106 @@ export function PricingAddonsCards({
   featureTextClassName,
   actionClassName,
 }: PricingAddonsCardsProps): React.JSX.Element {
-  const renderFeatures = (addon: PricingAddonsCard) => {
-    if (addon.featuresSlot) return addon.featuresSlot;
-    if (!addon.features || addon.features.length === 0) return null;
+  const renderFeatures = useMemo(() => {
+    return (addon: PricingAddonsCard) => {
+      if (addon.featuresSlot) return addon.featuresSlot;
+      if (!addon.features || addon.features.length === 0) return null;
 
-    return (
-      <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
-        {addon.features.map((feature, featureIndex) => {
-          const resolvedIcon =
-            feature.icon ??
-            featureIcon ??
-            (feature.iconName || featureIconName ? (
-              <DynamicIcon
-                name={feature.iconName || featureIconName}
-                size={16}
+      return (
+        <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
+          {addon.features.map((feature, featureIndex) => {
+            const resolvedIcon =
+              feature.icon ??
+              featureIcon ??
+              (feature.iconName || featureIconName ? (
+                <DynamicIcon
+                  name={feature.iconName || featureIconName}
+                  size={16}
+                  className={cn(
+                    "mt-0.5 shrink-0 text-primary",
+                    featureIconClassName,
+                    feature.iconClassName,
+                  )}
+                />
+              ) : null);
+
+            return (
+              <li
+                key={featureIndex}
                 className={cn(
-                  "mt-0.5 shrink-0 text-primary",
-                  featureIconClassName,
-                  feature.iconClassName,
+                  "flex items-start gap-3",
+                  featureItemClassName,
+                  feature.className,
                 )}
-              />
-            ) : null);
+              >
+                {resolvedIcon}
+                {feature.text &&
+                  (typeof feature.text === "string" ? (
+                    <span
+                      className={cn(
+                        "text-sm text-muted-foreground",
+                        featureTextClassName,
+                        feature.textClassName,
+                      )}
+                    >
+                      {feature.text}
+                    </span>
+                  ) : (
+                    <div
+                      className={cn(
+                        "text-sm text-muted-foreground",
+                        featureTextClassName,
+                        feature.textClassName,
+                      )}
+                    >
+                      {feature.text}
+                    </div>
+                  ))}
+              </li>
+            );
+          })}
+        </ul>
+      );
+    };
+  }, [featuresClassName, featureIcon, featureIconName, featureIconClassName, featureItemClassName, featureTextClassName]);
 
-          return (
-            <li
-              key={featureIndex}
-              className={cn(
-                "flex items-start gap-3",
-                featureItemClassName,
-                feature.className,
-              )}
-            >
-              {resolvedIcon}
-              {feature.text &&
-                (typeof feature.text === "string" ? (
-                  <span
-                    className={cn(
-                      "text-sm text-muted-foreground",
-                      featureTextClassName,
-                      feature.textClassName,
-                    )}
-                  >
-                    {feature.text}
-                  </span>
-                ) : (
-                  <div
-                    className={cn(
-                      "text-sm text-muted-foreground",
-                      featureTextClassName,
-                      feature.textClassName,
-                    )}
-                  >
-                    {feature.text}
-                  </div>
-                ))}
-            </li>
-          );
-        })}
-      </ul>
-    );
-  };
+  const renderAction = useMemo(() => {
+    return (addon: PricingAddonsCard) => {
+      if (addon.actionSlot) return addon.actionSlot;
+      if (!addon.action) return null;
 
-  const renderAction = (addon: PricingAddonsCard) => {
-    if (addon.actionSlot) return addon.actionSlot;
-    if (!addon.action) return null;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionItemClassName,
+        ...pressableProps
+      } = addon.action;
 
-    const {
-      label,
-      icon,
-      iconAfter,
-      children,
-      className: actionItemClassName,
-      ...pressableProps
-    } = addon.action;
+      return (
+        <Pressable
+          asButton
+          className={cn(
+            "w-full justify-center",
+            actionClassName,
+            actionItemClassName,
+          )}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    };
+  }, [actionClassName]);
 
-    return (
-      <Pressable
-        asButton
-        className={cn(
-          "w-full justify-center",
-          actionClassName,
-          actionItemClassName,
-        )}
-        {...pressableProps}
-      >
-        {children ?? (
-          <>
-            {icon}
-            {label}
-            {iconAfter}
-          </>
-        )}
-      </Pressable>
-    );
-  };
-
-  const renderAddons = () => {
+  const renderAddons = useMemo(() => {
     if (addonsSlot) return addonsSlot;
     if (!addons || addons.length === 0) return null;
 
@@ -398,7 +403,7 @@ export function PricingAddonsCards({
         ))}
       </div>
     );
-  };
+  }, [addonsSlot, addons, gridClassName, cardClassName, addonTitleClassName, addonDescriptionClassName, priceClassName, priceDescriptionClassName, renderFeatures, renderAction]);
 
   return (
     <Section
@@ -441,7 +446,7 @@ export function PricingAddonsCards({
             ))}
         </div>
 
-        {renderAddons()}
+        {renderAddons}
       </div>
     </Section>
   );

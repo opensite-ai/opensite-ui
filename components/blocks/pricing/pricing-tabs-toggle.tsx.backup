@@ -329,8 +329,7 @@ export function PricingTabsToggle({
     "monthly",
   );
 
-  const renderFeatures = useMemo(() => {
-    return (plan: PricingTabsTogglePlan) => {
+  const renderFeatures = (plan: PricingTabsTogglePlan) => {
     if (plan.featuresSlot) return plan.featuresSlot;
     if (!plan.features || plan.features.length === 0) return null;
 
@@ -389,11 +388,9 @@ export function PricingTabsToggle({
         })}
       </ul>
     );
-    };
-  }, [featuresClassName, featureIcon, featureIconName, featureIconClassName, featureItemClassName, featureTextClassName]);
+  };
 
-  const renderAction = useMemo(() => {
-    return (plan: PricingTabsTogglePlan) => {
+  const renderAction = (plan: PricingTabsTogglePlan) => {
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
@@ -425,10 +422,9 @@ export function PricingTabsToggle({
         )}
       </Pressable>
     );
-    };
-  }, [actionClassName]);
+  };
 
-  const renderPlans = useMemo(() => {
+  const renderPlans = () => {
     if (plansSlot) return plansSlot;
     if (!plans || plans.length === 0) return null;
 
@@ -537,7 +533,7 @@ export function PricingTabsToggle({
         })}
       </div>
     );
-  }, [plansSlot, plans, gridClassName, popularBadge, cardClassName, popularCardClassName, badgeClassName, iconWrapperClassName, planTitleClassName, planDescriptionClassName, priceClassName, priceIntervalClassName, separatorClassName, billingPeriod, yearlyInterval, monthlyInterval, renderFeatures, renderAction]);
+  };
 
   return (
     <Section
@@ -606,7 +602,7 @@ export function PricingTabsToggle({
           </Tabs>
         </div>
 
-        {renderPlans}
+        {renderPlans()}
       </div>
     </Section>
   );

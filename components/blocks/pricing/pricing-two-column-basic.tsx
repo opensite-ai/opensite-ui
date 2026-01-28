@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -260,9 +260,9 @@ export function PricingTwoColumnBasic({
   plans,
   plansSlot,
   featureIcon,
-  featureIconName = "lucide/check",
-  background = "white",
-  spacing = "lg",
+  featureIconName,
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -292,7 +292,8 @@ export function PricingTwoColumnBasic({
     "monthly",
   );
 
-  const renderFeatures = (plan: PricingTwoColumnBasicPlan) => {
+  const renderFeatures = useMemo(() => {
+    return (plan: PricingTwoColumnBasicPlan) => {
     if (plan.featuresSlot) return plan.featuresSlot;
     if (!plan.features || plan.features.length === 0) return null;
 
@@ -351,9 +352,11 @@ export function PricingTwoColumnBasic({
         })}
       </ul>
     );
-  };
+    };
+  }, [featuresClassName, featureIcon, featureIconName, featureIconClassName, featureItemClassName, featureTextClassName]);
 
-  const renderAction = (plan: PricingTwoColumnBasicPlan) => {
+  const renderAction = useMemo(() => {
+    return (plan: PricingTwoColumnBasicPlan) => {
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
@@ -385,9 +388,10 @@ export function PricingTwoColumnBasic({
         )}
       </Pressable>
     );
-  };
+    };
+  }, [actionClassName]);
 
-  const renderPlans = () => {
+  const renderPlans = useMemo(() => {
     if (plansSlot) return plansSlot;
     if (!plans || plans.length === 0) return null;
 
@@ -471,7 +475,7 @@ export function PricingTwoColumnBasic({
         ))}
       </div>
     );
-  };
+  }, [plansSlot, plans, gridClassName, badgeClassName, cardClassName, badgedCardClassName, planTitleClassName, planDescriptionClassName, priceClassName, priceIntervalClassName, billingPeriod, yearlyInterval, monthlyInterval, renderFeatures, renderAction]);
 
   return (
     <Section
@@ -554,7 +558,7 @@ export function PricingTwoColumnBasic({
           </div>
         </div>
 
-        {renderPlans()}
+        {renderPlans}
       </div>
     </Section>
   );

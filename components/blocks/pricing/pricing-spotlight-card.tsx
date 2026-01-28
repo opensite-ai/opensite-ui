@@ -213,12 +213,12 @@ export function PricingSpotlightCard({
   features,
   featuresSlot,
   featureIcon,
-  featureIconName = "lucide/check",
+  featureIconName,
   actions,
   actionsSlot,
   finePrint,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -242,7 +242,7 @@ export function PricingSpotlightCard({
   actionClassName,
   finePrintClassName,
 }: PricingSpotlightCardProps): React.JSX.Element {
-  const renderFeatures = () => {
+  const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -310,9 +310,9 @@ export function PricingSpotlightCard({
         })}
       </ul>
     );
-  };
+  }, [featuresSlot, features, featuresClassName, featureIcon, featureIconName, featureIconClassName, featureItemClassName, featureIconWrapperClassName, featureTextClassName]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -347,7 +347,7 @@ export function PricingSpotlightCard({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions, actionClassName]);
 
   return (
     <Section
@@ -435,11 +435,11 @@ export function PricingSpotlightCard({
               )}
             </div>
 
-            {renderFeatures()}
+            {renderFeatures}
 
             {(actionsSlot || (actions && actions.length > 0)) && (
               <div className={cn("mt-10 space-y-3", actionsClassName)}>
-                {renderActions()}
+                {renderActions}
               </div>
             )}
 

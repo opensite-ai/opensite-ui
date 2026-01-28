@@ -1,13 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
-import { Badge } from "../../ui/badge";
-import { Separator } from "../../ui/separator";
-import { Tabs, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Section } from "../../ui/section";
 import type {
   ActionConfig,
@@ -16,7 +12,7 @@ import type {
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
-export interface PricingTabsToggleFeature {
+export interface PricingServicesCardsFeature {
   /**
    * Feature text
    */
@@ -43,27 +39,27 @@ export interface PricingTabsToggleFeature {
   textClassName?: string;
 }
 
-export interface PricingTabsTogglePlan {
+export interface PricingServicesCardPlan {
   /**
-   * Plan name
+   * Service name
    */
   name?: React.ReactNode;
   /**
-   * Monthly price display
+   * Service price
    */
-  monthlyPrice?: React.ReactNode;
+  price?: React.ReactNode;
   /**
-   * Yearly price display
+   * Price description/interval
    */
-  yearlyPrice?: React.ReactNode;
+  priceDescription?: React.ReactNode;
   /**
-   * Plan description
+   * Service description
    */
   description?: React.ReactNode;
   /**
-   * Plan features
+   * Features list
    */
-  features?: PricingTabsToggleFeature[];
+  features?: PricingServicesCardsFeature[];
   /**
    * Custom slot for rendering features (overrides features array)
    */
@@ -79,11 +75,7 @@ export interface PricingTabsTogglePlan {
   /**
    * Highlight this plan
    */
-  isPopular?: boolean;
-  /**
-   * Badge content for popular plan
-   */
-  badge?: React.ReactNode;
+  isHighlighted?: boolean;
   /**
    * Icon element
    */
@@ -96,41 +88,29 @@ export interface PricingTabsTogglePlan {
    * Additional CSS classes for the plan card
    */
   className?: string;
+  /**
+   * Additional CSS classes for the icon wrapper
+   */
+  iconWrapperClassName?: string;
+  /**
+   * Additional CSS classes for the icon
+   */
+  iconClassName?: string;
 }
 
-export interface PricingTabsToggleProps {
+export interface PricingServicesCardsProps {
   /**
-   * Section title
+   * Section heading
    */
-  title?: React.ReactNode;
+  heading?: React.ReactNode;
   /**
-   * Section subtitle
+   * Supporting subtitle
    */
   subtitle?: React.ReactNode;
   /**
-   * Tabs label for monthly billing
+   * Service plans
    */
-  monthlyLabel?: React.ReactNode;
-  /**
-   * Tabs label for yearly billing
-   */
-  yearlyLabel?: React.ReactNode;
-  /**
-   * Badge displayed on yearly tab
-   */
-  yearlyBadge?: React.ReactNode;
-  /**
-   * Monthly price suffix
-   */
-  monthlyInterval?: React.ReactNode;
-  /**
-   * Yearly price suffix
-   */
-  yearlyInterval?: React.ReactNode;
-  /**
-   * Pricing plans
-   */
-  plans?: PricingTabsTogglePlan[];
+  plans?: PricingServicesCardPlan[];
   /**
    * Custom slot for rendering plans (overrides plans array)
    */
@@ -143,10 +123,6 @@ export interface PricingTabsToggleProps {
    * Default icon name for features
    */
   featureIconName?: string;
-  /**
-   * Badge content for popular plans
-   */
-  popularBadge?: React.ReactNode;
   /**
    * Background style for the section
    */
@@ -180,29 +156,13 @@ export interface PricingTabsToggleProps {
    */
   headerClassName?: string;
   /**
-   * Additional CSS classes for the title
+   * Additional CSS classes for the heading
    */
-  titleClassName?: string;
+  headingClassName?: string;
   /**
    * Additional CSS classes for the subtitle
    */
   subtitleClassName?: string;
-  /**
-   * Additional CSS classes for the tabs
-   */
-  tabsClassName?: string;
-  /**
-   * Additional CSS classes for the tabs list
-   */
-  tabsListClassName?: string;
-  /**
-   * Additional CSS classes for the tabs triggers
-   */
-  tabsTriggerClassName?: string;
-  /**
-   * Additional CSS classes for the yearly badge
-   */
-  yearlyBadgeClassName?: string;
   /**
    * Additional CSS classes for the grid
    */
@@ -212,23 +172,19 @@ export interface PricingTabsToggleProps {
    */
   cardClassName?: string;
   /**
-   * Additional CSS classes for popular cards
+   * Additional CSS classes for highlighted cards
    */
-  popularCardClassName?: string;
-  /**
-   * Additional CSS classes for badge
-   */
-  badgeClassName?: string;
+  highlightedCardClassName?: string;
   /**
    * Additional CSS classes for icon wrapper
    */
-  iconWrapperClassName?: string;
+  planIconWrapperClassName?: string;
   /**
-   * Additional CSS classes for plan title
+   * Additional CSS classes for plan titles
    */
   planTitleClassName?: string;
   /**
-   * Additional CSS classes for plan description
+   * Additional CSS classes for plan descriptions
    */
   planDescriptionClassName?: string;
   /**
@@ -236,19 +192,15 @@ export interface PricingTabsToggleProps {
    */
   priceClassName?: string;
   /**
-   * Additional CSS classes for price interval
+   * Additional CSS classes for price description
    */
-  priceIntervalClassName?: string;
+  priceDescriptionClassName?: string;
   /**
-   * Additional CSS classes for separator
-   */
-  separatorClassName?: string;
-  /**
-   * Additional CSS classes for features list
+   * Additional CSS classes for the features list
    */
   featuresClassName?: string;
   /**
-   * Additional CSS classes for feature item
+   * Additional CSS classes for feature items
    */
   featureItemClassName?: string;
   /**
@@ -260,41 +212,35 @@ export interface PricingTabsToggleProps {
    */
   featureTextClassName?: string;
   /**
-   * Additional CSS classes for action
+   * Additional CSS classes for the action
    */
   actionClassName?: string;
 }
 
 /**
- * PricingTabsToggle displays a 3-column pricing grid with a tabs-based monthly/yearly toggle.
- * Features plan icons, popular plan highlighting, and clean card design with feature lists.
- * The tabs toggle provides a clear visual indication of the selected billing period.
+ * PricingServicesCards displays a two-card layout for service-based pricing.
+ * Features icon headers, feature lists, and distinct styling for the primary service.
+ * Ideal for agencies, consultants, or service-based businesses.
  *
- * Ideal for SaaS products with a free tier and paid options.
+ * Perfect for showcasing different service tiers or packages.
  *
  * @example
  * ```tsx
- * <PricingTabsToggle
- *   title="Choose Your Plan"
+ * <PricingServicesCards
+ *   heading="Our Services"
  *   plans={[
- *     { name: "Free", monthlyPrice: "$0", yearlyPrice: "$0", features: [{ text: "Feature 1" }], iconName: "lucide/user" }
+ *     { name: "Consultation", price: "$199", features: [{ text: "Feature 1" }], iconName: "lucide/users" }
  *   ]}
  * />
  * ```
  */
-export function PricingTabsToggle({
-  title,
+export function PricingServicesCards({
+  heading,
   subtitle,
-  monthlyLabel,
-  yearlyLabel,
-  yearlyBadge,
-  monthlyInterval,
-  yearlyInterval,
   plans,
   plansSlot,
   featureIcon,
   featureIconName,
-  popularBadge,
   background,
   spacing,
   pattern,
@@ -303,39 +249,28 @@ export function PricingTabsToggle({
   className,
   containerClassName,
   headerClassName,
-  titleClassName,
+  headingClassName,
   subtitleClassName,
-  tabsClassName,
-  tabsListClassName,
-  tabsTriggerClassName,
-  yearlyBadgeClassName,
   gridClassName,
   cardClassName,
-  popularCardClassName,
-  badgeClassName,
-  iconWrapperClassName,
+  highlightedCardClassName,
+  planIconWrapperClassName,
   planTitleClassName,
   planDescriptionClassName,
   priceClassName,
-  priceIntervalClassName,
-  separatorClassName,
+  priceDescriptionClassName,
   featuresClassName,
   featureItemClassName,
   featureIconClassName,
   featureTextClassName,
   actionClassName,
-}: PricingTabsToggleProps): React.JSX.Element {
-  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">(
-    "monthly",
-  );
-
-  const renderFeatures = useMemo(() => {
-    return (plan: PricingTabsTogglePlan) => {
+}: PricingServicesCardsProps): React.JSX.Element {
+  const renderFeatures = (plan: PricingServicesCardPlan) => {
     if (plan.featuresSlot) return plan.featuresSlot;
     if (!plan.features || plan.features.length === 0) return null;
 
     return (
-      <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
+      <ul className={cn("mb-8 flex-1 space-y-3", featuresClassName)}>
         {plan.features.map((feature, featureIndex) => {
           const resolvedIcon =
             feature.icon ??
@@ -389,11 +324,9 @@ export function PricingTabsToggle({
         })}
       </ul>
     );
-    };
-  }, [featuresClassName, featureIcon, featureIconName, featureIconClassName, featureItemClassName, featureTextClassName]);
+  };
 
-  const renderAction = useMemo(() => {
-    return (plan: PricingTabsTogglePlan) => {
+  const renderAction = (plan: PricingServicesCardPlan) => {
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
@@ -425,25 +358,27 @@ export function PricingTabsToggle({
         )}
       </Pressable>
     );
-    };
-  }, [actionClassName]);
+  };
 
-  const renderPlans = useMemo(() => {
+  const renderPlans = () => {
     if (plansSlot) return plansSlot;
     if (!plans || plans.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-6 md:grid-cols-3", gridClassName)}>
+      <div
+        className={cn(
+          "mx-auto grid max-w-4xl gap-8 md:grid-cols-2",
+          gridClassName,
+        )}
+      >
         {plans.map((plan, index) => {
-          const badgeContent =
-            plan.badge ?? (plan.isPopular ? popularBadge : null);
           const resolvedIcon =
             plan.icon ??
             (plan.iconName ? (
               <DynamicIcon
                 name={plan.iconName}
-                size={20}
-                className="text-primary"
+                size={24}
+                className={plan.iconClassName}
               />
             ) : null);
 
@@ -451,34 +386,25 @@ export function PricingTabsToggle({
             <div
               key={index}
               className={cn(
-                "relative flex flex-col rounded-2xl border p-6",
-                plan.isPopular ? "border-primary shadow-lg" : "border-border",
+                "flex flex-col rounded-2xl border p-8",
+                plan.isHighlighted
+                  ? "border-primary bg-primary/5 shadow-lg"
+                  : "border-border",
                 cardClassName,
-                plan.isPopular ? popularCardClassName : null,
+                plan.isHighlighted ? highlightedCardClassName : null,
                 plan.className,
               )}
             >
-              {badgeContent && (
-                <div
-                  className={cn(
-                    "absolute -top-3 left-1/2 -translate-x-1/2",
-                    badgeClassName,
-                  )}
-                >
-                  {typeof badgeContent === "string" ? (
-                    <Badge>{badgeContent}</Badge>
-                  ) : (
-                    badgeContent
-                  )}
-                </div>
-              )}
-
-              <div className="mb-4 flex items-center gap-3">
+              <div className="mb-6 flex items-start gap-4">
                 {resolvedIcon && (
                   <div
                     className={cn(
-                      "flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10",
-                      iconWrapperClassName,
+                      "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl",
+                      plan.isHighlighted
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted text-muted-foreground",
+                      planIconWrapperClassName,
+                      plan.iconWrapperClassName,
                     )}
                   >
                     {resolvedIcon}
@@ -487,7 +413,12 @@ export function PricingTabsToggle({
                 <div>
                   {plan.name &&
                     (typeof plan.name === "string" ? (
-                      <h3 className={cn("font-semibold", planTitleClassName)}>
+                      <h3
+                        className={cn(
+                          "text-xl font-semibold",
+                          planTitleClassName,
+                        )}
+                      >
                         {plan.name}
                       </h3>
                     ) : (
@@ -497,7 +428,7 @@ export function PricingTabsToggle({
                     (typeof plan.description === "string" ? (
                       <p
                         className={cn(
-                          "text-sm text-muted-foreground",
+                          "mt-1 text-sm text-muted-foreground",
                           planDescriptionClassName,
                         )}
                       >
@@ -512,24 +443,23 @@ export function PricingTabsToggle({
               </div>
 
               <div className="mb-6">
-                <span className={cn("text-4xl font-bold", priceClassName)}>
-                  {billingPeriod === "yearly"
-                    ? plan.yearlyPrice
-                    : plan.monthlyPrice}
-                </span>
-                <span
-                  className={cn(
-                    "text-muted-foreground",
-                    priceIntervalClassName,
-                  )}
-                >
-                  {billingPeriod === "yearly"
-                    ? yearlyInterval
-                    : monthlyInterval}
-                </span>
+                {plan.price && (
+                  <span className={cn("text-4xl font-bold", priceClassName)}>
+                    {plan.price}
+                  </span>
+                )}
+                {plan.priceDescription && (
+                  <span
+                    className={cn(
+                      "text-muted-foreground",
+                      priceDescriptionClassName,
+                    )}
+                  >
+                    {plan.priceDescription}
+                  </span>
+                )}
               </div>
 
-              <Separator className={cn("mb-6", separatorClassName)} />
               {renderFeatures(plan)}
               {renderAction(plan)}
             </div>
@@ -537,7 +467,7 @@ export function PricingTabsToggle({
         })}
       </div>
     );
-  }, [plansSlot, plans, gridClassName, popularBadge, cardClassName, popularCardClassName, badgeClassName, iconWrapperClassName, planTitleClassName, planDescriptionClassName, priceClassName, priceIntervalClassName, separatorClassName, billingPeriod, yearlyInterval, monthlyInterval, renderFeatures, renderAction]);
+  };
 
   return (
     <Section
@@ -552,18 +482,18 @@ export function PricingTabsToggle({
         <div
           className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
         >
-          {title &&
-            (typeof title === "string" ? (
+          {heading &&
+            (typeof heading === "string" ? (
               <h2
                 className={cn(
                   "text-3xl font-bold tracking-tight sm:text-4xl",
-                  titleClassName,
+                  headingClassName,
                 )}
               >
-                {title}
+                {heading}
               </h2>
             ) : (
-              <div className={titleClassName}>{title}</div>
+              <div className={headingClassName}>{heading}</div>
             ))}
           {subtitle &&
             (typeof subtitle === "string" ? (
@@ -578,35 +508,9 @@ export function PricingTabsToggle({
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
             ))}
-
-          <Tabs
-            value={billingPeriod}
-            onValueChange={(v) => setBillingPeriod(v as "monthly" | "yearly")}
-            className={cn("mt-8", tabsClassName)}
-          >
-            <TabsList className={cn("mx-auto", tabsListClassName)}>
-              <TabsTrigger value="monthly" className={tabsTriggerClassName}>
-                {monthlyLabel}
-              </TabsTrigger>
-              <TabsTrigger value="yearly" className={tabsTriggerClassName}>
-                {yearlyLabel}
-                {yearlyBadge &&
-                  (typeof yearlyBadge === "string" ? (
-                    <Badge
-                      variant="secondary"
-                      className={cn("ml-2", yearlyBadgeClassName)}
-                    >
-                      {yearlyBadge}
-                    </Badge>
-                  ) : (
-                    <span className={yearlyBadgeClassName}>{yearlyBadge}</span>
-                  ))}
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
         </div>
 
-        {renderPlans}
+        {renderPlans()}
       </div>
     </Section>
   );

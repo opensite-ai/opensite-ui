@@ -298,8 +298,7 @@ export function PricingComparisonHeaders({
     (plan, index) => plan.id ?? `plan-${index}`,
   ) ?? [];
 
-  const renderFeatureValue = useMemo(() => {
-    return (value: boolean | React.ReactNode | undefined) => {
+  const renderFeatureValue = (value: boolean | React.ReactNode | undefined) => {
     if (typeof value === "boolean") {
       return value
         ? (availableIcon ?? (
@@ -318,11 +317,9 @@ export function PricingComparisonHeaders({
           ));
     }
     return value ? <span className="text-sm font-medium">{value}</span> : null;
-    };
-  }, [availableIcon, availableIconName, unavailableIcon, unavailableIconName]);
+  };
 
-  const renderAction = useMemo(() => {
-    return (plan: PricingComparisonHeadersPlan) => {
+  const renderAction = (plan: PricingComparisonHeadersPlan) => {
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
@@ -354,10 +351,9 @@ export function PricingComparisonHeaders({
         )}
       </Pressable>
     );
-    };
-  }, [actionClassName]);
+  };
 
-  const renderPlans = useMemo(() => {
+  const renderPlans = () => {
     if (plansSlot) return plansSlot;
 
     return plans.map((plan, index) => {
@@ -424,9 +420,9 @@ export function PricingComparisonHeaders({
         </th>
       );
     });
-  }, [plansSlot, plans, resolvedPlanIds, planHeaderClassName, planBadgeClassName, planTitleClassName, planDescriptionClassName, planPriceClassName, planPriceIntervalClassName, isYearly, yearlyInterval, monthlyInterval, renderAction]);
+  };
 
-  const renderFeatureRows = useMemo(() => {
+  const renderFeatureRows = () => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -448,7 +444,7 @@ export function PricingComparisonHeaders({
         ))}
       </tr>
     ));
-  }, [featuresSlot, features, featureRowClassName, featureNameClassName, resolvedPlanIds, featureValueClassName, renderFeatureValue]);
+  };
 
   return (
     <Section
@@ -533,10 +529,10 @@ export function PricingComparisonHeaders({
             <thead>
               <tr>
                 <th className="p-4 text-left">{featureColumnLabel}</th>
-                {renderPlans}
+                {renderPlans()}
               </tr>
             </thead>
-            <tbody>{renderFeatureRows}</tbody>
+            <tbody>{renderFeatureRows()}</tbody>
           </table>
         </div>
       </div>

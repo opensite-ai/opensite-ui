@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -214,11 +215,11 @@ export function PricingSingleCard({
   featureGroups,
   featureGroupsSlot,
   featureIcon,
-  featureIconName = "lucide/check",
+  featureIconName,
   action,
   actionSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -239,68 +240,70 @@ export function PricingSingleCard({
   featureIconClassName,
   featureTextClassName,
 }: PricingSingleCardProps): React.JSX.Element {
-  const renderGroupFeatures = (group: PricingSingleCardFeatureGroup) => {
-    if (group.featuresSlot) return group.featuresSlot;
-    if (!group.features || group.features.length === 0) return null;
+  const renderGroupFeatures = useMemo(() => {
+    return (group: PricingSingleCardFeatureGroup) => {
+      if (group.featuresSlot) return group.featuresSlot;
+      if (!group.features || group.features.length === 0) return null;
 
-    return (
-      <ul className={cn("space-y-3", groupFeaturesClassName)}>
-        {group.features.map((feature, featureIndex) => {
-          const resolvedIcon =
-            feature.icon ??
-            featureIcon ??
-            (feature.iconName || featureIconName ? (
-              <DynamicIcon
-                name={feature.iconName || featureIconName}
-                size={16}
+      return (
+        <ul className={cn("space-y-3", groupFeaturesClassName)}>
+          {group.features.map((feature, featureIndex) => {
+            const resolvedIcon =
+              feature.icon ??
+              featureIcon ??
+              (feature.iconName || featureIconName ? (
+                <DynamicIcon
+                  name={feature.iconName || featureIconName}
+                  size={16}
+                  className={cn(
+                    "mt-0.5 shrink-0 text-primary",
+                    featureIconClassName,
+                    feature.iconClassName,
+                  )}
+                />
+              ) : null);
+
+            return (
+              <li
+                key={featureIndex}
                 className={cn(
-                  "mt-0.5 shrink-0 text-primary",
-                  featureIconClassName,
-                  feature.iconClassName,
+                  "flex items-start gap-3",
+                  featureItemClassName,
+                  feature.className,
                 )}
-              />
-            ) : null);
+              >
+                {resolvedIcon}
+                {feature.text &&
+                  (typeof feature.text === "string" ? (
+                    <span
+                      className={cn(
+                        "text-sm text-muted-foreground",
+                        featureTextClassName,
+                        feature.textClassName,
+                      )}
+                    >
+                      {feature.text}
+                    </span>
+                  ) : (
+                    <div
+                      className={cn(
+                        "text-sm text-muted-foreground",
+                        featureTextClassName,
+                        feature.textClassName,
+                      )}
+                    >
+                      {feature.text}
+                    </div>
+                  ))}
+              </li>
+            );
+          })}
+        </ul>
+      );
+    };
+  }, [groupFeaturesClassName, featureIcon, featureIconName, featureIconClassName, featureItemClassName, featureTextClassName]);
 
-          return (
-            <li
-              key={featureIndex}
-              className={cn(
-                "flex items-start gap-3",
-                featureItemClassName,
-                feature.className,
-              )}
-            >
-              {resolvedIcon}
-              {feature.text &&
-                (typeof feature.text === "string" ? (
-                  <span
-                    className={cn(
-                      "text-sm text-muted-foreground",
-                      featureTextClassName,
-                      feature.textClassName,
-                    )}
-                  >
-                    {feature.text}
-                  </span>
-                ) : (
-                  <div
-                    className={cn(
-                      "text-sm text-muted-foreground",
-                      featureTextClassName,
-                      feature.textClassName,
-                    )}
-                  >
-                    {feature.text}
-                  </div>
-                ))}
-            </li>
-          );
-        })}
-      </ul>
-    );
-  };
-
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -332,9 +335,9 @@ export function PricingSingleCard({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action, actionClassName]);
 
-  const renderGroups = () => {
+  const renderGroups = useMemo(() => {
     if (featureGroupsSlot) return featureGroupsSlot;
     if (!featureGroups || featureGroups.length === 0) return null;
 
@@ -355,7 +358,7 @@ export function PricingSingleCard({
         ))}
       </div>
     );
-  };
+  }, [featureGroupsSlot, featureGroups, groupsClassName, groupTitleClassName, renderGroupFeatures]);
 
   return (
     <Section
@@ -424,11 +427,11 @@ export function PricingSingleCard({
                 ))}
             </div>
 
-            {renderAction()}
+            {renderAction}
           </div>
 
           <Separator className={cn("my-8", separatorClassName)} />
-          {renderGroups()}
+          {renderGroups}
         </div>
       </div>
     </Section>

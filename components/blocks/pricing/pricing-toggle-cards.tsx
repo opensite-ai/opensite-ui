@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -292,10 +292,10 @@ export function PricingToggleCards({
   plans,
   plansSlot,
   featureIcon,
-  featureIconName = "lucide/circle-check",
+  featureIconName,
   popularBadge,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -326,7 +326,8 @@ export function PricingToggleCards({
 }: PricingToggleCardsProps): React.JSX.Element {
   const [isYearly, setIsYearly] = useState(false);
 
-  const renderFeatures = (plan: PricingToggleCardsPlan) => {
+  const renderFeatures = useMemo(() => {
+    return (plan: PricingToggleCardsPlan) => {
     if (plan.featuresSlot) return plan.featuresSlot;
     if (!plan.features || plan.features.length === 0) return null;
 
@@ -385,9 +386,11 @@ export function PricingToggleCards({
         })}
       </ul>
     );
-  };
+    };
+  }, [featuresClassName, featureIcon, featureIconName, featureIconClassName, featureItemClassName, featureTextClassName]);
 
-  const renderAction = (plan: PricingToggleCardsPlan) => {
+  const renderAction = useMemo(() => {
+    return (plan: PricingToggleCardsPlan) => {
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
@@ -419,9 +422,10 @@ export function PricingToggleCards({
         )}
       </Pressable>
     );
-  };
+    };
+  }, [actionClassName]);
 
-  const renderPlans = () => {
+  const renderPlans = useMemo(() => {
     if (plansSlot) return plansSlot;
     if (!plans || plans.length === 0) return null;
 
@@ -519,7 +523,7 @@ export function PricingToggleCards({
         })}
       </div>
     );
-  };
+  }, [plansSlot, plans, gridClassName, popularBadge, cardClassName, popularCardClassName, badgeClassName, cardHeaderClassName, cardTitleClassName, cardDescriptionClassName, priceClassName, priceIntervalClassName, separatorClassName, cardFooterClassName, isYearly, yearlyInterval, monthlyInterval, renderFeatures, renderAction]);
 
   return (
     <Section
@@ -603,7 +607,7 @@ export function PricingToggleCards({
           </div>
         </div>
 
-        {renderPlans()}
+        {renderPlans}
       </div>
     </Section>
   );

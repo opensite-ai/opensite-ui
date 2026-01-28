@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -286,11 +286,11 @@ export function PricingFourTierToggle({
   plansSlot,
   includedIcon,
   excludedIcon,
-  includedIconName = "lucide/check",
-  excludedIconName = "lucide/x",
+  includedIconName,
+  excludedIconName,
   popularBadge,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -318,109 +318,113 @@ export function PricingFourTierToggle({
 }: PricingFourTierToggleProps): React.JSX.Element {
   const [isAnnual, setIsAnnual] = useState(false);
 
-  const renderFeatures = (plan: PricingFourTierPlan) => {
-    if (plan.featuresSlot) return plan.featuresSlot;
-    if (!plan.features || plan.features.length === 0) return null;
+  const renderFeatures = useMemo(() => {
+    return (plan: PricingFourTierPlan) => {
+      if (plan.featuresSlot) return plan.featuresSlot;
+      if (!plan.features || plan.features.length === 0) return null;
 
-    return (
-      <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
-        {plan.features.map((feature, featureIndex) => {
-          const isIncluded = feature.included !== false;
-          const fallbackIconName = isIncluded
-            ? includedIconName
-            : excludedIconName;
-          const resolvedIcon =
-            feature.icon ??
-            (isIncluded ? includedIcon : excludedIcon) ??
-            (feature.iconName || fallbackIconName ? (
-              <DynamicIcon
-                name={feature.iconName || fallbackIconName}
-                size={16}
+      return (
+        <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
+          {plan.features.map((feature, featureIndex) => {
+            const isIncluded = feature.included !== false;
+            const fallbackIconName = isIncluded
+              ? includedIconName
+              : excludedIconName;
+            const resolvedIcon =
+              feature.icon ??
+              (isIncluded ? includedIcon : excludedIcon) ??
+              (feature.iconName || fallbackIconName ? (
+                <DynamicIcon
+                  name={feature.iconName || fallbackIconName}
+                  size={16}
+                  className={cn(
+                    "mt-0.5 shrink-0",
+                    isIncluded ? "text-primary" : "text-muted-foreground",
+                    featureIconClassName,
+                    feature.iconClassName,
+                  )}
+                />
+              ) : null);
+
+            return (
+              <li
+                key={featureIndex}
                 className={cn(
-                  "mt-0.5 shrink-0",
-                  isIncluded ? "text-primary" : "text-muted-foreground",
-                  featureIconClassName,
-                  feature.iconClassName,
+                  "flex items-start gap-2",
+                  featureItemClassName,
+                  feature.className,
                 )}
-              />
-            ) : null);
+              >
+                {resolvedIcon}
+                {feature.name &&
+                  (typeof feature.name === "string" ? (
+                    <span
+                      className={cn(
+                        "text-sm",
+                        isIncluded ? "text-foreground" : "text-muted-foreground",
+                        featureTextClassName,
+                        feature.textClassName,
+                      )}
+                    >
+                      {feature.name}
+                    </span>
+                  ) : (
+                    <div
+                      className={cn(
+                        "text-sm",
+                        isIncluded ? "text-foreground" : "text-muted-foreground",
+                        featureTextClassName,
+                        feature.textClassName,
+                      )}
+                    >
+                      {feature.name}
+                    </div>
+                  ))}
+              </li>
+            );
+          })}
+        </ul>
+      );
+    };
+  }, [featuresClassName, includedIconName, excludedIconName, includedIcon, excludedIcon, featureIconClassName, featureItemClassName, featureTextClassName]);
 
-          return (
-            <li
-              key={featureIndex}
-              className={cn(
-                "flex items-start gap-2",
-                featureItemClassName,
-                feature.className,
-              )}
-            >
-              {resolvedIcon}
-              {feature.name &&
-                (typeof feature.name === "string" ? (
-                  <span
-                    className={cn(
-                      "text-sm",
-                      isIncluded ? "text-foreground" : "text-muted-foreground",
-                      featureTextClassName,
-                      feature.textClassName,
-                    )}
-                  >
-                    {feature.name}
-                  </span>
-                ) : (
-                  <div
-                    className={cn(
-                      "text-sm",
-                      isIncluded ? "text-foreground" : "text-muted-foreground",
-                      featureTextClassName,
-                      feature.textClassName,
-                    )}
-                  >
-                    {feature.name}
-                  </div>
-                ))}
-            </li>
-          );
-        })}
-      </ul>
-    );
-  };
+  const renderAction = useMemo(() => {
+    return (plan: PricingFourTierPlan) => {
+      if (plan.actionSlot) return plan.actionSlot;
+      if (!plan.action) return null;
 
-  const renderAction = (plan: PricingFourTierPlan) => {
-    if (plan.actionSlot) return plan.actionSlot;
-    if (!plan.action) return null;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionItemClassName,
+        ...pressableProps
+      } = plan.action;
 
-    const {
-      label,
-      icon,
-      iconAfter,
-      children,
-      className: actionItemClassName,
-      ...pressableProps
-    } = plan.action;
+      return (
+        <Pressable
+          asButton
+          className={cn(
+            "w-full justify-center",
+            actionClassName,
+            actionItemClassName,
+          )}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    };
+  }, [actionClassName]);
 
-    return (
-      <Pressable
-        asButton
-        className={cn(
-          "w-full justify-center",
-          actionClassName,
-          actionItemClassName,
-        )}
-        {...pressableProps}
-      >
-        {children ?? (
-          <>
-            {icon}
-            {label}
-            {iconAfter}
-          </>
-        )}
-      </Pressable>
-    );
-  };
-
-  const renderPlans = () => {
+  const renderPlans = useMemo(() => {
     if (plansSlot) return plansSlot;
     if (!plans || plans.length === 0) return null;
 
@@ -513,7 +517,7 @@ export function PricingFourTierToggle({
         })}
       </div>
     );
-  };
+  }, [plansSlot, plans, gridClassName, popularBadge, cardClassName, popularCardClassName, badgeClassName, planTitleClassName, planDescriptionClassName, priceClassName, priceIntervalClassName, isAnnual, yearlyInterval, monthlyInterval, renderFeatures, renderAction]);
 
   return (
     <Section
@@ -600,7 +604,7 @@ export function PricingFourTierToggle({
           </div>
         </div>
 
-        {renderPlans()}
+        {renderPlans}
       </div>
     </Section>
   );

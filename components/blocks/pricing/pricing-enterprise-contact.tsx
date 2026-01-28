@@ -180,11 +180,11 @@ export function PricingEnterpriseContact({
   features,
   featuresSlot,
   featureIcon,
-  featureIconName = "lucide/check",
+  featureIconName,
   actions,
   actionsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -200,7 +200,7 @@ export function PricingEnterpriseContact({
   actionClassName,
   featuresClassName,
 }: PricingEnterpriseContactProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -231,9 +231,9 @@ export function PricingEnterpriseContact({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions, actionClassName]);
 
-  const renderFeatures = () => {
+  const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -289,7 +289,7 @@ export function PricingEnterpriseContact({
         </div>
       );
     });
-  };
+  }, [featuresSlot, features, featureIcon, featureIconName]);
 
   return (
     <Section
@@ -356,13 +356,13 @@ export function PricingEnterpriseContact({
                     actionsClassName,
                   )}
                 >
-                  {renderActions()}
+                  {renderActions}
                 </div>
               )}
             </div>
 
             <div className={cn("space-y-4", featuresClassName)}>
-              {renderFeatures()}
+              {renderFeatures}
             </div>
           </div>
         </div>

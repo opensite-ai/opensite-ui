@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -64,21 +64,23 @@ export function PricingResponsiveTable({
   className,
   title,
   subtitle,
-  plans,
+  plans = [],
   features,
 }: PricingResponsiveTableProps) {
   const [isYearly, setIsYearly] = useState(false);
 
-  const renderFeatureValue = (value: boolean | string) => {
-    if (typeof value === "boolean") {
-      return value ? (
-        <DynamicIcon name="lucide/check" size={18} className="text-primary" />
-      ) : (
-        <DynamicIcon name="lucide/minus" size={18} className="text-muted-foreground" />
-      );
-    }
-    return <span className="text-sm font-medium">{value}</span>;
-  };
+  const renderFeatureValue = useMemo(() => {
+    return (value: boolean | string) => {
+      if (typeof value === "boolean") {
+        return value ? (
+          <DynamicIcon name="lucide/check" size={18} className="text-primary" />
+        ) : (
+          <DynamicIcon name="lucide/minus" size={18} className="text-muted-foreground" />
+        );
+      }
+      return <span className="text-sm font-medium">{value}</span>;
+    };
+  }, []);
 
   return (
     <section className={cn("py-24", className)}>

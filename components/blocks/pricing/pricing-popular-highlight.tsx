@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -272,10 +272,10 @@ export function PricingPopularHighlight({
   plans,
   plansSlot,
   featureIcon,
-  featureIconName = "lucide/check",
+  featureIconName,
   popularBadge,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -303,102 +303,106 @@ export function PricingPopularHighlight({
 }: PricingPopularHighlightProps): React.JSX.Element {
   const [isAnnual, setIsAnnual] = useState(false);
 
-  const renderFeatures = (plan: PricingPopularHighlightPlan) => {
-    if (plan.featuresSlot) return plan.featuresSlot;
-    if (!plan.features || plan.features.length === 0) return null;
+  const renderFeatures = useMemo(() => {
+    return (plan: PricingPopularHighlightPlan) => {
+      if (plan.featuresSlot) return plan.featuresSlot;
+      if (!plan.features || plan.features.length === 0) return null;
 
-    return (
-      <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
-        {plan.features.map((feature, featureIndex) => {
-          const resolvedIcon =
-            feature.icon ??
-            featureIcon ??
-            (feature.iconName || featureIconName ? (
-              <DynamicIcon
-                name={feature.iconName || featureIconName}
-                size={18}
+      return (
+        <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
+          {plan.features.map((feature, featureIndex) => {
+            const resolvedIcon =
+              feature.icon ??
+              featureIcon ??
+              (feature.iconName || featureIconName ? (
+                <DynamicIcon
+                  name={feature.iconName || featureIconName}
+                  size={18}
+                  className={cn(
+                    "mt-0.5 shrink-0 text-primary",
+                    featureIconClassName,
+                    feature.iconClassName,
+                  )}
+                />
+              ) : null);
+
+            return (
+              <li
+                key={featureIndex}
                 className={cn(
-                  "mt-0.5 shrink-0 text-primary",
-                  featureIconClassName,
-                  feature.iconClassName,
+                  "flex items-start gap-3",
+                  featureItemClassName,
+                  feature.className,
                 )}
-              />
-            ) : null);
+              >
+                {resolvedIcon}
+                {feature.text &&
+                  (typeof feature.text === "string" ? (
+                    <span
+                      className={cn(
+                        "text-sm text-muted-foreground",
+                        featureTextClassName,
+                        feature.textClassName,
+                      )}
+                    >
+                      {feature.text}
+                    </span>
+                  ) : (
+                    <div
+                      className={cn(
+                        "text-sm text-muted-foreground",
+                        featureTextClassName,
+                        feature.textClassName,
+                      )}
+                    >
+                      {feature.text}
+                    </div>
+                  ))}
+              </li>
+            );
+          })}
+        </ul>
+      );
+    };
+  }, [featuresClassName, featureIcon, featureIconName, featureIconClassName, featureItemClassName, featureTextClassName]);
 
-          return (
-            <li
-              key={featureIndex}
-              className={cn(
-                "flex items-start gap-3",
-                featureItemClassName,
-                feature.className,
-              )}
-            >
-              {resolvedIcon}
-              {feature.text &&
-                (typeof feature.text === "string" ? (
-                  <span
-                    className={cn(
-                      "text-sm text-muted-foreground",
-                      featureTextClassName,
-                      feature.textClassName,
-                    )}
-                  >
-                    {feature.text}
-                  </span>
-                ) : (
-                  <div
-                    className={cn(
-                      "text-sm text-muted-foreground",
-                      featureTextClassName,
-                      feature.textClassName,
-                    )}
-                  >
-                    {feature.text}
-                  </div>
-                ))}
-            </li>
-          );
-        })}
-      </ul>
-    );
-  };
+  const renderAction = useMemo(() => {
+    return (plan: PricingPopularHighlightPlan) => {
+      if (plan.actionSlot) return plan.actionSlot;
+      if (!plan.action) return null;
 
-  const renderAction = (plan: PricingPopularHighlightPlan) => {
-    if (plan.actionSlot) return plan.actionSlot;
-    if (!plan.action) return null;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionItemClassName,
+        ...pressableProps
+      } = plan.action;
 
-    const {
-      label,
-      icon,
-      iconAfter,
-      children,
-      className: actionItemClassName,
-      ...pressableProps
-    } = plan.action;
+      return (
+        <Pressable
+          asButton
+          className={cn(
+            "w-full justify-center",
+            actionClassName,
+            actionItemClassName,
+          )}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    };
+  }, [actionClassName]);
 
-    return (
-      <Pressable
-        asButton
-        className={cn(
-          "w-full justify-center",
-          actionClassName,
-          actionItemClassName,
-        )}
-        {...pressableProps}
-      >
-        {children ?? (
-          <>
-            {icon}
-            {label}
-            {iconAfter}
-          </>
-        )}
-      </Pressable>
-    );
-  };
-
-  const renderPlans = () => {
+  const renderPlans = useMemo(() => {
     if (plansSlot) return plansSlot;
     if (!plans || plans.length === 0) return null;
 
@@ -493,7 +497,7 @@ export function PricingPopularHighlight({
         })}
       </div>
     );
-  };
+  }, [plansSlot, plans, gridClassName, popularBadge, badgeClassName, cardClassName, popularCardClassName, planTitleClassName, planDescriptionClassName, priceClassName, priceIntervalClassName, isAnnual, yearlyInterval, monthlyInterval, renderFeatures, renderAction]);
 
   return (
     <Section
@@ -577,7 +581,7 @@ export function PricingPopularHighlight({
           </div>
         </div>
 
-        {renderPlans()}
+        {renderPlans}
       </div>
     </Section>
   );

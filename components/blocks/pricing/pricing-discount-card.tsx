@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -210,11 +211,11 @@ export function PricingDiscountCard({
   features,
   featuresSlot,
   featureIcon,
-  featureIconName = "lucide/check",
+  featureIconName,
   action,
   actionSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -236,7 +237,7 @@ export function PricingDiscountCard({
   featureTextClassName,
   actionClassName,
 }: PricingDiscountCardProps): React.JSX.Element {
-  const renderFeatures = () => {
+  const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -295,9 +296,9 @@ export function PricingDiscountCard({
         })}
       </ul>
     );
-  };
+  }, [featuresSlot, features, featuresClassName, featureIcon, featureIconName, featureIconClassName, featureItemClassName, featureTextClassName]);
 
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -329,7 +330,7 @@ export function PricingDiscountCard({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action, actionClassName]);
 
   return (
     <Section
@@ -424,8 +425,8 @@ export function PricingDiscountCard({
           </div>
 
           <Separator className={cn("my-6", separatorClassName)} />
-          {renderFeatures()}
-          {renderAction()}
+          {renderFeatures}
+          {renderAction}
         </div>
       </div>
     </Section>
