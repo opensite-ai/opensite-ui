@@ -7,7 +7,12 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface AboutMissionDualImageProps {
   /**
@@ -140,7 +145,14 @@ export function AboutMissionDualImage({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -169,74 +181,102 @@ export function AboutMissionDualImage({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-        <div className={cn("grid gap-16 lg:grid-cols-2", contentClassName)}>
-          <div className="flex flex-col justify-center">
-            <div className="mb-12">
-              {missionTitle && (
-                typeof missionTitle === "string" ? (
-                  <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl", missionTitleClassName)}>
-                    {missionTitle}
-                  </h2>
-                ) : (
-                  <div className={missionTitleClassName}>{missionTitle}</div>
-                )
-              )}
-              {missionContent && (
-                typeof missionContent === "string" ? (
-                  <p className={cn("mt-4 text-lg text-muted-foreground", missionContentClassName)}>
-                    {missionContent}
-                  </p>
-                ) : (
-                  <div className={cn("mt-4", missionContentClassName)}>{missionContent}</div>
-                )
-              )}
-            </div>
-            <div>
-              {visionTitle && (
-                typeof visionTitle === "string" ? (
-                  <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl", visionTitleClassName)}>
-                    {visionTitle}
-                  </h2>
-                ) : (
-                  <div className={visionTitleClassName}>{visionTitle}</div>
-                )
-              )}
-              {visionContent && (
-                typeof visionContent === "string" ? (
-                  <p className={cn("mt-4 text-lg text-muted-foreground", visionContentClassName)}>
-                    {visionContent}
-                  </p>
-                ) : (
-                  <div className={cn("mt-4", visionContentClassName)}>{visionContent}</div>
-                )
-              )}
-            </div>
-            {(actionsSlot || (actions && actions.length > 0)) && (
-              <div className={cn("mt-8 flex flex-wrap gap-4", actionsClassName)}>
-                {actionsContent}
-              </div>
-            )}
+      <div
+        className={cn("grid gap-8 md:gap-16 lg:grid-cols-2", contentClassName)}
+      >
+        <div className="flex flex-col justify-center">
+          <div className="mb-8 md:mb-12">
+            {missionTitle &&
+              (typeof missionTitle === "string" ? (
+                <h2
+                  className={cn(
+                    "text-3xl font-bold tracking-tight md:text-4xl",
+                    missionTitleClassName,
+                  )}
+                >
+                  {missionTitle}
+                </h2>
+              ) : (
+                <div className={missionTitleClassName}>{missionTitle}</div>
+              ))}
+            {missionContent &&
+              (typeof missionContent === "string" ? (
+                <p
+                  className={cn(
+                    "mt-4 text-lg text-muted-foreground",
+                    missionContentClassName,
+                  )}
+                >
+                  {missionContent}
+                </p>
+              ) : (
+                <div className={cn("mt-4", missionContentClassName)}>
+                  {missionContent}
+                </div>
+              ))}
           </div>
-
-          <div className="relative flex flex-col gap-4 sm:grid sm:grid-cols-2">
-            {primaryImage && (
-              <Img
-                src={primaryImage.src}
-                alt={primaryImage.alt}
-                className={cn("w-full h-auto rounded-2xl object-cover sm:h-full", primaryImageClassName)}
-                optixFlowConfig={optixFlowConfig}
-              />
-            )}
-            {secondaryImage && (
-              <Img
-                src={secondaryImage.src}
-                alt={secondaryImage.alt}
-                className={cn("w-full h-auto rounded-2xl object-cover sm:h-full sm:mt-12", secondaryImageClassName)}
-                optixFlowConfig={optixFlowConfig}
-              />
-            )}
+          <div>
+            {visionTitle &&
+              (typeof visionTitle === "string" ? (
+                <h2
+                  className={cn(
+                    "text-3xl font-bold tracking-tight md:text-4xl",
+                    visionTitleClassName,
+                  )}
+                >
+                  {visionTitle}
+                </h2>
+              ) : (
+                <div className={visionTitleClassName}>{visionTitle}</div>
+              ))}
+            {visionContent &&
+              (typeof visionContent === "string" ? (
+                <p
+                  className={cn(
+                    "mt-4 text-lg text-muted-foreground",
+                    visionContentClassName,
+                  )}
+                >
+                  {visionContent}
+                </p>
+              ) : (
+                <div className={cn("mt-4", visionContentClassName)}>
+                  {visionContent}
+                </div>
+              ))}
           </div>
+          {(actionsSlot || (actions && actions.length > 0)) && (
+            <div className={cn("mt-8 flex flex-wrap gap-4", actionsClassName)}>
+              {actionsContent}
+            </div>
+          )}
         </div>
+
+        <div className="relative flex flex-col gap-4 sm:grid sm:grid-cols-2">
+          {primaryImage && (
+            <Img
+              src={primaryImage.src}
+              alt={primaryImage.alt}
+              className={cn(
+                "w-full h-auto rounded-2xl object-cover sm:h-full",
+                primaryImageClassName,
+              )}
+              optixFlowConfig={optixFlowConfig}
+            />
+          )}
+          {secondaryImage && (
+            <Img
+              src={secondaryImage.src}
+              alt={secondaryImage.alt}
+              className={cn(
+                "w-full h-auto rounded-2xl object-cover sm:h-full sm:mt-12",
+                secondaryImageClassName,
+              )}
+              optixFlowConfig={optixFlowConfig}
+            />
+          )}
+        </div>
+      </div>
     </Section>
   );
 }

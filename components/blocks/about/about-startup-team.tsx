@@ -317,9 +317,11 @@ export function AboutStartupTeam({
   ]);
 
   // Mobile tabs navigation - horizontal scrollable on mobile, hidden on desktop
+  // Only render when there are team members to filter
   const mobileTabsNav = useMemo(() => {
     if (sidebarSlot) return null; // Don't render mobile tabs if using custom sidebar slot
     if (!effectiveTabs || effectiveTabs.length === 0) return null;
+    if (!teamMembers || teamMembers.length === 0) return null; // No need for tabs without team members
 
     return (
       <nav className="flex gap-2 overflow-x-auto pb-2 lg:hidden">
