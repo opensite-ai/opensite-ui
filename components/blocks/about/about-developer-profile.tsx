@@ -7,7 +7,13 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, SocialLinkItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SocialLinkItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface AboutDeveloperProfileProps {
   /**
@@ -161,7 +167,10 @@ export function AboutDeveloperProfile({
         key={idx}
         href={link.href}
         aria-label={link["aria-label"]}
-        className={cn("text-muted-foreground hover:text-foreground", link.className)}
+        className={cn(
+          "text-muted-foreground hover:text-foreground",
+          link.className,
+        )}
       >
         {link.icon}
       </Pressable>
@@ -175,7 +184,10 @@ export function AboutDeveloperProfile({
     return skills.map((skill, idx) => (
       <span
         key={idx}
-        className={cn("rounded-full bg-muted px-4 py-2 text-sm font-medium", skillTagClassName)}
+        className={cn(
+          "rounded-full bg-muted px-4 py-2 text-sm font-medium",
+          skillTagClassName,
+        )}
       >
         {skill}
       </span>
@@ -187,7 +199,14 @@ export function AboutDeveloperProfile({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -216,72 +235,89 @@ export function AboutDeveloperProfile({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-        <div className={cn("mx-auto max-w-4xl", contentClassName)}>
-          <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
-            {avatar && (
-              <Img
-                src={avatar.src}
-                alt={avatar.alt}
-                className={cn("h-48 w-48 rounded-full object-cover", avatarClassName)}
-                optixFlowConfig={optixFlowConfig}
-              />
-            )}
-            <div className="text-center md:text-left">
-              {name && (
-                typeof name === "string" ? (
-                  <h1 className={cn("text-4xl font-bold", nameClassName)}>{name}</h1>
-                ) : (
-                  <div className={nameClassName}>{name}</div>
-                )
+      <div className={cn("mx-auto max-w-4xl", contentClassName)}>
+        <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
+          {avatar && (
+            <Img
+              src={avatar.src}
+              alt={avatar.alt}
+              className={cn(
+                "h-48 w-48 rounded-xl object-cover shadow-xl",
+                avatarClassName,
               )}
-              {role && (
-                typeof role === "string" ? (
-                  <p className={cn("mt-2 text-xl text-primary", roleClassName)}>{role}</p>
-                ) : (
-                  <div className={cn("mt-2", roleClassName)}>{role}</div>
-                )
-              )}
-              {(socialLinksSlot || (socialLinks && socialLinks.length > 0)) && (
-                <div className={cn("mt-4 flex justify-center gap-4 md:justify-start", socialLinksClassName)}>
-                  {socialLinksContent}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {bio && (
-            <div className="mt-12">
-              {typeof bio === "string" ? (
-                <p className={cn("text-lg text-muted-foreground whitespace-pre-line", bioClassName)}>
-                  {bio}
+              optixFlowConfig={optixFlowConfig}
+            />
+          )}
+          <div className="text-center md:text-left">
+            {name &&
+              (typeof name === "string" ? (
+                <h1 className={cn("text-4xl font-bold", nameClassName)}>
+                  {name}
+                </h1>
+              ) : (
+                <div className={nameClassName}>{name}</div>
+              ))}
+            {role &&
+              (typeof role === "string" ? (
+                <p className={cn("mt-2 text-xl text-primary", roleClassName)}>
+                  {role}
                 </p>
               ) : (
-                <div className={bioClassName}>{bio}</div>
-              )}
-            </div>
-          )}
-
-          {(skillsSlot || (skills && skills.length > 0)) && (
-            <div className={cn("mt-12", skillsClassName)}>
-              {skillsTitle && (
-                typeof skillsTitle === "string" ? (
-                  <h2 className="text-xl font-semibold">{skillsTitle}</h2>
-                ) : (
-                  skillsTitle
-                )
-              )}
-              <div className="mt-4 flex flex-wrap gap-2">
-                {skillsContent}
+                <div className={cn("mt-2", roleClassName)}>{role}</div>
+              ))}
+            {(socialLinksSlot || (socialLinks && socialLinks.length > 0)) && (
+              <div
+                className={cn(
+                  "mt-4 flex justify-center gap-4 md:justify-start",
+                  socialLinksClassName,
+                )}
+              >
+                {socialLinksContent}
               </div>
-            </div>
-          )}
-
-          {(actionsSlot || (actions && actions.length > 0)) && (
-            <div className={cn("mt-12 text-center md:text-left", actionsClassName)}>
-              {actionsContent}
-            </div>
-          )}
+            )}
+          </div>
         </div>
+
+        {bio && (
+          <div className="mt-12">
+            {typeof bio === "string" ? (
+              <p
+                className={cn(
+                  "text-lg text-muted-foreground whitespace-pre-line",
+                  bioClassName,
+                )}
+              >
+                {bio}
+              </p>
+            ) : (
+              <div className={bioClassName}>{bio}</div>
+            )}
+          </div>
+        )}
+
+        {(skillsSlot || (skills && skills.length > 0)) && (
+          <div className={cn("mt-12", skillsClassName)}>
+            {skillsTitle &&
+              (typeof skillsTitle === "string" ? (
+                <h2 className="text-xl font-semibold">{skillsTitle}</h2>
+              ) : (
+                skillsTitle
+              ))}
+            <div className="mt-4 flex flex-wrap gap-2">{skillsContent}</div>
+          </div>
+        )}
+
+        {(actionsSlot || (actions && actions.length > 0)) && (
+          <div
+            className={cn(
+              "mt-12 text-center md:text-left flex gap-2 items-center flex-wrap",
+              actionsClassName,
+            )}
+          >
+            {actionsContent}
+          </div>
+        )}
+      </div>
     </Section>
   );
 }

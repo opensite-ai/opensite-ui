@@ -6,10 +6,13 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import { Section } from "../../ui/section";
-import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternBackground, type PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground } from "../../../src/types";
+
+export interface DirectionConfig {
+  desktop: "mediaRight" | "mediaLeft";
+  mobile: "mediaTop" | "mediaBottom";
+}
 
 export interface AboutSplitHeroProps {
   /**
@@ -69,13 +72,13 @@ export interface AboutSplitHeroProps {
    */
   imageClassName?: string;
   /**
+   * Additional CSS classes for the content area
+   */
+  contentClassName?: string;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
-  /**
-   * Additional CSS classes for the container
-   */
-  containerClassName?: string;
   /**
    * Optional Optix Flow configuration for image optimization
    */
@@ -85,10 +88,6 @@ export interface AboutSplitHeroProps {
    */
   background?: SectionBackground;
   /**
-   * Section spacing variant
-   */
-  spacing?: SectionSpacing;
-  /**
    * Pattern background key or URL
    */
   pattern?: PatternName | undefined;
@@ -96,14 +95,20 @@ export interface AboutSplitHeroProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Direction configuration for desktop and mobile layouts
+   * @default { desktop: 'mediaRight', mobile: 'mediaTop' }
+   */
+  directionConfig?: DirectionConfig;
 }
 
 /**
- * About Split Hero - A split-screen hero section with dark theme styling,
- * featuring text content on the left and a large image on the right.
+ * About Split Hero - A full-width split-screen hero section with edge-to-edge design,
+ * featuring text content on one side and a large full-height image on the other.
  *
- * Layout: Two-column split layout with text on left, full-height image on right.
- * Key features: Dark theme, gradient text highlight, prominent CTA button.
+ * Layout: 50/50 split layout with content and image sections. Fully responsive with
+ * configurable media placement for desktop and mobile.
+ * Key features: Pattern background support, gradient text highlight, edge-to-edge design.
  * Best for: Premium/pro tier landing pages, product launches, upgrade prompts.
  *
  * @example
@@ -114,6 +119,9 @@ export interface AboutSplitHeroProps {
  *   heading="Achieve More with Elite Access Pro"
  *   description="Enhance your career hunt with increased visibility."
  *   ctaAction={{ label: "Upgrade to premium", href: "/upgrade" }}
+ *   imageSrc="/hero-image.jpg"
+ *   pattern="dots"
+ *   background="dark"
  * />
  * ```
  */
@@ -132,13 +140,13 @@ export function AboutSplitHero({
   imageSrc,
   imageAlt,
   imageClassName,
+  contentClassName,
   className,
-  containerClassName,
   optixFlowConfig,
-  background,
-  spacing,
+  background = "dark",
   pattern,
   patternOpacity,
+  directionConfig = { desktop: "mediaRight", mobile: "mediaTop" },
 }: AboutSplitHeroProps): React.JSX.Element {
   const ctaContent = useMemo(() => {
     if (ctaSlot) return ctaSlot;
@@ -151,7 +159,7 @@ export function AboutSplitHero({
         variant={ctaAction.variant || "default"}
         size={ctaAction.size || "lg"}
         asButton
-        className={cn("mt-10 flex h-fit items-center gap-2.5 rounded-xl px-5 py-4 font-bold", ctaClassName)}
+        className={cn("inline-flex items-center gap-2.5 font-semibold", ctaClassName)}
       >
         <span>{ctaAction.label}</span>
         <DynamicIcon name="lucide/chevron-right" size={20} />
@@ -159,52 +167,100 @@ export function AboutSplitHero({
     );
   }, [ctaSlot, ctaAction, ctaClassName]);
 
-  return (
-    <Section
-      background={background}
-      spacing={spacing}
-      pattern={pattern}
-      patternOpacity={patternOpacity}
-      className={cn(className)}
-      containerClassName={containerClassName}
-    >
-        <div className="container my-10 flex w-[500px] flex-col gap-24">
+  // Determine background color based on background variant
+  const bgColorClass = useMemo(() => {
+    switch (background) {
+      case "dark":
+        return "bg-gray-900 text-white";
+      case "gray":
+        return "bg-gray-100 text-gray-900";
+      case "white":
+        return "bg-white text-gray-900";
+      default:
+        return "bg-background text-foreground";
+    }
+  }, [background]);
+
+  // Determine flex direction based on directionConfig
+  const desktopOrder = directionConfig.desktop === "mediaRight" ? "lg:flex-row" : "lg:flex-row-reverse";
+  const mobileOrder = directionConfig.mobile === "mediaTop" ? "flex-col" : "flex-col-reverse";
+
+  const contentArea = (
+    <div className={cn("relative flex w-full items-center lg:w-1/2", bgColorClass, contentClassName)}>
+      {/* Pattern Background */}
+      {pattern && (
+        <div className="absolute inset-0 overflow-hidden">
+          <PatternBackground pattern={pattern} opacity={patternOpacity} />
+        </div>
+      )}
+
+      {/* Content */}
+      <div className="relative z-10 w-full px-8 py-16 sm:px-12 sm:py-20 lg:px-16 lg:py-24 xl:px-24">
+        <div className="mx-auto max-w-xl space-y-8">
+          {/* Brand Text */}
           {(brandText || brandHighlight) && (
-            <h1 className={cn("text-4xl text-foreground", brandTextClassName)}>
-              {brandText}{" "}
+            <div className={cn("text-xl font-semibold uppercase tracking-wider sm:text-2xl", brandTextClassName)}>
+              {brandText}
+              {brandText && brandHighlight && " "}
               {brandHighlight && (
-                <span className={cn("bg-gradient-to-tr from-foreground to-muted bg-clip-text text-transparent", brandHighlightClassName)}>
+                <span
+                  className={cn(
+                    "bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent",
+                    brandHighlightClassName,
+                  )}
+                >
                   {brandHighlight}
                 </span>
               )}
-            </h1>
+            </div>
           )}
-          <div>
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("text-4xl text-foreground lg:text-6xl", headingClassName)}>{heading}</h2>
-              ) : (
-                <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-2.5 text-foreground lg:text-xl", descriptionClassName)}>{description}</p>
-              ) : (
-                <div className={cn("mt-2.5", descriptionClassName)}>{description}</div>
-              )
-            )}
-            {ctaContent}
-          </div>
+
+          {/* Heading */}
+          {heading && (
+            typeof heading === "string" ? (
+              <h1 className={cn("text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl xl:text-6xl", headingClassName)}>
+                {heading}
+              </h1>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+
+          {/* Description */}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("text-base leading-relaxed opacity-90 sm:text-lg", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
+
+          {/* CTA */}
+          {ctaContent && <div className="pt-4">{ctaContent}</div>}
         </div>
-      {imageSrc && (
-        <Img
-          src={imageSrc}
-          alt={imageAlt || ""}
-          className={cn("hidden h-screen w-1/2 object-cover lg:block", imageClassName)}
-          optixFlowConfig={optixFlowConfig}
-        />
-      )}
-    </Section>
+      </div>
+    </div>
+  );
+
+  const imageArea = imageSrc ? (
+    <div className="relative h-64 w-full sm:h-96 lg:h-auto lg:w-1/2">
+      <Img
+        src={imageSrc}
+        alt={imageAlt || ""}
+        className={cn("h-full w-full object-cover", imageClassName)}
+        optixFlowConfig={optixFlowConfig}
+      />
+    </div>
+  ) : null;
+
+  return (
+    <section className={cn("relative w-full overflow-hidden", className)}>
+      <div className={cn("flex min-h-[600px]", mobileOrder, desktopOrder)}>
+        {contentArea}
+        {imageArea}
+      </div>
+    </section>
   );
 }

@@ -7,7 +7,11 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface AboutExpandableValueItem {
   /**
@@ -220,7 +224,7 @@ export function AboutExpandableValues({
     if (!values || values.length === 0) return null;
 
     return (
-      <div className={cn("grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3", valuesClassName)}>
+      <div className={cn("grid grid-cols-1 gap-6 mt-8", valuesClassName)}>
         {values.map((value) => (
           <div
             key={value.id}
@@ -228,7 +232,7 @@ export function AboutExpandableValues({
               "group overflow-hidden rounded-xl border bg-card text-card-foreground transition-all duration-300",
               expandedValue === value.id
                 ? "col-span-1 shadow-lg md:col-span-2 lg:col-span-3"
-                : ""
+                : "",
             )}
           >
             <button
@@ -237,34 +241,32 @@ export function AboutExpandableValues({
               type="button"
             >
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 rounded-md bg-primary/10 p-3">
+                <div className="shrink-0 rounded-md bg-primary/10 p-3">
                   {value.icon}
                 </div>
                 <div>
-                  {value.title && (
-                    typeof value.title === "string" ? (
+                  {value.title &&
+                    (typeof value.title === "string" ? (
                       <h3 className="text-lg font-bold">{value.title}</h3>
                     ) : (
                       value.title
-                    )
-                  )}
-                  {value.shortDescription && (
-                    typeof value.shortDescription === "string" ? (
+                    ))}
+                  {value.shortDescription &&
+                    (typeof value.shortDescription === "string" ? (
                       <p className="mt-1 text-sm text-muted-foreground">
                         {value.shortDescription}
                       </p>
                     ) : (
                       <div className="mt-1">{value.shortDescription}</div>
-                    )
-                  )}
+                    ))}
                 </div>
               </div>
               <DynamicIcon
                 name="lucide/chevron-down"
                 size={20}
                 className={cn(
-                  "mt-1 flex-shrink-0 text-muted-foreground transition-transform duration-300",
-                  expandedValue === value.id ? "rotate-180" : ""
+                  "mt-1 shrink-0 text-muted-foreground transition-transform duration-300",
+                  expandedValue === value.id ? "rotate-180" : "",
                 )}
               />
             </button>
@@ -274,7 +276,9 @@ export function AboutExpandableValues({
                 {value.longDescription && (
                   <div className="rounded-lg bg-muted/50 p-4">
                     {typeof value.longDescription === "string" ? (
-                      <p className="text-muted-foreground">{value.longDescription}</p>
+                      <p className="text-muted-foreground">
+                        {value.longDescription}
+                      </p>
                     ) : (
                       value.longDescription
                     )}
@@ -289,7 +293,7 @@ export function AboutExpandableValues({
                     <ul className="space-y-2">
                       {value.examples.map((example, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <div className="mt-0.5 flex-shrink-0 rounded-full bg-primary/10 p-1">
+                          <div className="mt-1 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
                             <DynamicIcon
                               name="lucide/check"
                               size={12}
@@ -297,7 +301,7 @@ export function AboutExpandableValues({
                             />
                           </div>
                           {typeof example === "string" ? (
-                            <span className="text-sm">{example}</span>
+                            <span className="text-sm pt-2">{example}</span>
                           ) : (
                             example
                           )}
@@ -323,53 +327,83 @@ export function AboutExpandableValues({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-        <div className={cn("mx-auto max-w-3xl space-y-4 text-center", headerClassName)}>
-          {badgeText && (
-            typeof badgeText === "string" ? (
-              <div className={cn("inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary", badgeClassName)}>
-                {badgeText}
-              </div>
-            ) : (
-              <div className={badgeClassName}>{badgeText}</div>
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight", headingClassName)}>{heading}</h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
-        </div>
+      <div
+        className={cn(
+          "mx-auto max-w-3xl space-y-4 text-center",
+          headerClassName,
+        )}
+      >
+        {badgeText &&
+          (typeof badgeText === "string" ? (
+            <div
+              className={cn(
+                "inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary",
+                badgeClassName,
+              )}
+            >
+              {badgeText}
+            </div>
+          ) : (
+            <div className={badgeClassName}>{badgeText}</div>
+          ))}
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-bold tracking-tight text-balance",
+                headingClassName,
+              )}
+            >
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "text-muted-foreground text-balance",
+                descriptionClassName,
+              )}
+            >
+              {description}
+            </p>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          ))}
+      </div>
 
-        {valuesContent}
+      {valuesContent}
 
-        <div className={cn("relative mt-8 rounded-lg bg-accent/50 p-8", ctaClassName)}>
-          <div className="mx-auto max-w-3xl space-y-6 text-center">
-            {ctaHeading && (
-              typeof ctaHeading === "string" ? (
-                <h3 className={cn("text-2xl font-bold", ctaHeadingClassName)}>{ctaHeading}</h3>
-              ) : (
-                <div className={ctaHeadingClassName}>{ctaHeading}</div>
-              )
-            )}
-            {ctaDescription && (
-              typeof ctaDescription === "string" ? (
-                <p className={cn("text-muted-foreground", ctaDescriptionClassName)}>{ctaDescription}</p>
-              ) : (
-                <div className={ctaDescriptionClassName}>{ctaDescription}</div>
-              )
-            )}
-            {actionsContent}
-          </div>
+      <div
+        className={cn(
+          "relative mt-8 rounded-lg bg-accent/50 p-8",
+          ctaClassName,
+        )}
+      >
+        <div className="mx-auto max-w-3xl space-y-6 text-center">
+          {ctaHeading &&
+            (typeof ctaHeading === "string" ? (
+              <h3 className={cn("text-2xl font-bold", ctaHeadingClassName)}>
+                {ctaHeading}
+              </h3>
+            ) : (
+              <div className={ctaHeadingClassName}>{ctaHeading}</div>
+            ))}
+          {ctaDescription &&
+            (typeof ctaDescription === "string" ? (
+              <p
+                className={cn("text-muted-foreground", ctaDescriptionClassName)}
+              >
+                {ctaDescription}
+              </p>
+            ) : (
+              <div className={ctaDescriptionClassName}>{ctaDescription}</div>
+            ))}
+          {actionsContent}
         </div>
+      </div>
     </Section>
   );
 }

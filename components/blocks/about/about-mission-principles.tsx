@@ -208,7 +208,7 @@ export function AboutMissionPrinciples({
         {principles.map((principle, idx) => (
           <div
             key={idx}
-            className="relative rounded-lg border p-6 transition-colors hover:bg-accent/50"
+            className="relative rounded-lg border p-6 transition-colors hover:bg-muted"
           >
             {principle.number && (
               <div className="absolute right-4 top-4 text-3xl font-bold text-primary/20">
@@ -305,7 +305,7 @@ export function AboutMissionPrinciples({
           {principlesContent}
         </div>
 
-        <div className={cn("mt-24 rounded-lg bg-accent p-8 lg:p-12", visionClassName)}>
+        <div className={cn("mt-24 rounded-lg bg-muted p-8 lg:p-12", visionClassName)}>
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-3">
             <div className="lg:col-span-2">
               {visionHeading && (
@@ -317,7 +317,7 @@ export function AboutMissionPrinciples({
               )}
               {visionDescription && (
                 typeof visionDescription === "string" ? (
-                  <p className={cn("mb-4 text-muted-foreground", visionDescriptionClassName)}>{visionDescription}</p>
+                  <p className={cn("mb-4 text-foreground/80", visionDescriptionClassName)}>{visionDescription}</p>
                 ) : (
                   <div className={cn("mb-4", visionDescriptionClassName)}>{visionDescription}</div>
                 )

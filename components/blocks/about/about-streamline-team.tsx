@@ -8,7 +8,13 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, FeatureItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  FeatureItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface AboutStreamlineTeamProps {
   /**
@@ -159,24 +165,29 @@ export function AboutStreamlineTeam({
       <div className={cn("mt-10 space-y-6", featuresClassName)}>
         {features.map((feature, idx) => (
           <div key={idx} className="flex gap-4">
-            <div className={cn("flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10", feature.iconBgClass)}>
+            <div
+              className={cn(
+                "flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10",
+                feature.iconBgClass,
+              )}
+            >
               {feature.icon}
             </div>
             <div>
-              {feature.title && (
-                typeof feature.title === "string" ? (
+              {feature.title &&
+                (typeof feature.title === "string" ? (
                   <h3 className="font-semibold">{feature.title}</h3>
                 ) : (
                   feature.title
-                )
-              )}
-              {feature.description && (
-                typeof feature.description === "string" ? (
-                  <p className="text-sm text-muted-foreground">{feature.description}</p>
+                ))}
+              {feature.description &&
+                (typeof feature.description === "string" ? (
+                  <p className="text-sm text-muted-foreground">
+                    {feature.description}
+                  </p>
                 ) : (
                   feature.description
-                )
-              )}
+                ))}
             </div>
           </div>
         ))}
@@ -216,67 +227,102 @@ export function AboutStreamlineTeam({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div className="relative">
-            {primaryImage && (
-              <Img
-                src={primaryImage.src}
-                alt={primaryImage.alt}
-                className={cn("rounded-2xl object-cover", primaryImageClassName)}
-                optixFlowConfig={optixFlowConfig}
-              />
-            )}
-            {secondaryImage && (
-              <Img
-                src={secondaryImage.src}
-                alt={secondaryImage.alt}
-                className={cn("absolute -bottom-8 -right-8 h-48 w-48 rounded-xl border-4 border-background object-cover shadow-lg", secondaryImageClassName)}
-                optixFlowConfig={optixFlowConfig}
-              />
-            )}
-          </div>
-          <div>
-            {title && (
-              typeof title === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
-                  {title}
-                </h1>
-              ) : (
-                <div className={titleClassName}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-6 text-lg text-muted-foreground", descriptionClassName)}>{description}</p>
-              ) : (
-                <div className={cn("mt-6", descriptionClassName)}>{description}</div>
-              )
-            )}
-            {featuresContent}
-          </div>
+      <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div className="relative">
+          {primaryImage && (
+            <Img
+              src={primaryImage.src}
+              alt={primaryImage.alt}
+              className={cn(
+                "rounded-2xl object-cover w-auto h-full",
+                primaryImageClassName,
+              )}
+              optixFlowConfig={optixFlowConfig}
+            />
+          )}
+          {secondaryImage && (
+            <Img
+              src={secondaryImage.src}
+              alt={secondaryImage.alt}
+              className={cn(
+                "absolute -bottom-8 -right-8 h-48 w-48 rounded-xl border-4 border-background object-cover shadow-lg",
+                secondaryImageClassName,
+              )}
+              optixFlowConfig={optixFlowConfig}
+            />
+          )}
         </div>
+        <div>
+          {title &&
+            (typeof title === "string" ? (
+              <h1
+                className={cn(
+                  "text-4xl font-bold tracking-tight md:text-5xl",
+                  titleClassName,
+                )}
+              >
+                {title}
+              </h1>
+            ) : (
+              <div className={titleClassName}>{title}</div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-6 text-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mt-6", descriptionClassName)}>
+                {description}
+              </div>
+            ))}
+          {featuresContent}
+        </div>
+      </div>
 
-        <div className={cn("mt-32 rounded-2xl bg-muted p-8 md:p-16", teamSectionClassName)}>
-          <div className="mx-auto max-w-2xl text-center">
-            {teamTitle && (
-              typeof teamTitle === "string" ? (
-                <h2 className={cn("text-3xl font-bold md:text-4xl", teamTitleClassName)}>{teamTitle}</h2>
-              ) : (
-                <div className={teamTitleClassName}>{teamTitle}</div>
-              )
-            )}
-            {teamDescription && (
-              typeof teamDescription === "string" ? (
-                <p className={cn("mt-4 text-lg text-muted-foreground", teamDescriptionClassName)}>
-                  {teamDescription}
-                </p>
-              ) : (
-                <div className={cn("mt-4", teamDescriptionClassName)}>{teamDescription}</div>
-              )
-            )}
-            {actionsContent}
-          </div>
+      <div
+        className={cn(
+          "mt-6 md:mt-32 rounded-2xl bg-muted p-8 md:p-16",
+          teamSectionClassName,
+        )}
+      >
+        <div className="mx-auto max-w-2xl text-center">
+          {teamTitle &&
+            (typeof teamTitle === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold md:text-4xl",
+                  teamTitleClassName,
+                )}
+              >
+                {teamTitle}
+              </h2>
+            ) : (
+              <div className={teamTitleClassName}>{teamTitle}</div>
+            ))}
+          {teamDescription &&
+            (typeof teamDescription === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  teamDescriptionClassName,
+                )}
+              >
+                {teamDescription}
+              </p>
+            ) : (
+              <div className={cn("mt-4", teamDescriptionClassName)}>
+                {teamDescription}
+              </div>
+            ))}
+          {actionsContent}
         </div>
+      </div>
     </Section>
   );
 }

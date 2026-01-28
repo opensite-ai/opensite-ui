@@ -12,7 +12,14 @@ import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../.
 
 export interface SidebarLinkItem {
   label: React.ReactNode;
+  /**
+   * Value used for tab matching with TeamMemberItem.tab
+   */
   value: string;
+  /**
+   * Optional href for navigation (currently not used in default rendering)
+   */
+  href?: string;
 }
 
 export interface TeamMemberItem {
@@ -27,6 +34,11 @@ export interface TeamMemberItem {
     url: string;
     label: string;
   }>;
+  /**
+   * Tab value this team member belongs to (matches SidebarLinkItem.value).
+   * If not provided, team member will show in all tabs.
+   */
+  tab?: string;
 }
 
 export interface AboutStartupTeamProps {
@@ -173,13 +185,23 @@ export function AboutStartupTeam({
     );
   }, [sidebarSlot, sidebarLinks, activeTab]);
 
+  const filteredTeamMembers = useMemo(() => {
+    if (!teamMembers || teamMembers.length === 0) return [];
+    if (!activeTab) return teamMembers;
+
+    // Filter team members by active tab. Members without a tab value show in all tabs.
+    return teamMembers.filter(
+      (member) => !member.tab || member.tab === activeTab
+    );
+  }, [teamMembers, activeTab]);
+
   const teamMembersContent = useMemo(() => {
     if (teamMembersSlot) return teamMembersSlot;
-    if (!teamMembers || teamMembers.length === 0) return null;
+    if (filteredTeamMembers.length === 0) return null;
 
     return (
       <div className={cn("mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3", teamMembersClassName)}>
-        {teamMembers.map((member, idx) => (
+        {filteredTeamMembers.map((member, idx) => (
           <div
             key={idx}
             className="rounded-xl border bg-card p-6 text-center"
@@ -232,7 +254,7 @@ export function AboutStartupTeam({
         ))}
       </div>
     );
-  }, [teamMembersSlot, teamMembers, teamMembersClassName, optixFlowConfig]);
+  }, [teamMembersSlot, filteredTeamMembers, teamMembersClassName, optixFlowConfig]);
 
   return (
     <Section

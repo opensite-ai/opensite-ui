@@ -6,7 +6,11 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface AboutMinimalStoryProps {
   /**
@@ -143,38 +147,49 @@ export function AboutMinimalStory({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-        <div className={cn("mx-auto max-w-3xl", contentClassName)}>
-          {(authorSlot || author) && authorContent}
+      <div className={cn("mx-auto max-w-3xl", contentClassName)}>
+        {(authorSlot || author) && authorContent}
 
-          {title && (
-            typeof title === "string" ? (
-              <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
-                {title}
-              </h1>
-            ) : (
-              <div className={titleClassName}>{title}</div>
-            )
-          )}
+        {title &&
+          (typeof title === "string" ? (
+            <h1
+              className={cn(
+                "text-4xl font-bold tracking-tight md:text-5xl",
+                titleClassName,
+              )}
+            >
+              {title}
+            </h1>
+          ) : (
+            <div className={titleClassName}>{title}</div>
+          ))}
 
-          {content && (
-            typeof content === "string" ? (
-              <p className={cn("mt-8 text-lg leading-relaxed text-muted-foreground whitespace-pre-line", bodyClassName)}>
-                {content}
-              </p>
-            ) : (
-              <div className={cn("mt-8", bodyClassName)}>{content}</div>
-            )
-          )}
+        {content &&
+          (typeof content === "string" ? (
+            <p
+              className={cn(
+                "mt-8 text-lg leading-relaxed text-muted-foreground whitespace-pre-line",
+                bodyClassName,
+              )}
+            >
+              {content}
+            </p>
+          ) : (
+            <div className={cn("mt-8", bodyClassName)}>{content}</div>
+          ))}
 
-          {featuredImage && (
-            <Img
-              src={featuredImage.src}
-              alt={featuredImage.alt}
-              className={cn("mt-12 w-full rounded-2xl object-cover", imageClassName)}
-              optixFlowConfig={optixFlowConfig}
-            />
-          )}
-        </div>
+        {featuredImage && (
+          <Img
+            src={featuredImage.src}
+            alt={featuredImage.alt}
+            className={cn(
+              "mt-6 md:mt-12 w-full rounded-2xl object-cover",
+              imageClassName,
+            )}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+      </div>
     </Section>
   );
 }

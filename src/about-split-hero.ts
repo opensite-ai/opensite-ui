@@ -11,4 +11,4 @@
  */
 
 export { AboutSplitHero } from "../components/blocks/about/about-split-hero";
-export type { AboutSplitHeroProps } from "../components/blocks/about/about-split-hero";
+export type { AboutSplitHeroProps, DirectionConfig } from "../components/blocks/about/about-split-hero";

@@ -162,7 +162,7 @@ export function AboutInteractiveTabs({
       <div className="mt-16">
         <div
           className={cn(
-            "flex flex-wrap justify-center gap-2 border-b",
+            "flex overflow-x-auto gap-2 border-b scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 sm:justify-center",
             tabsContainerClassName,
           )}
         >
@@ -171,7 +171,7 @@ export function AboutInteractiveTabs({
               key={tab.id}
               onClick={() => handleTabChange(tab.id)}
               className={cn(
-                "px-6 py-3 text-sm font-medium transition-colors",
+                "flex-shrink-0 whitespace-nowrap px-6 py-3 text-sm font-medium transition-colors",
                 activeTab === tab.id
                   ? cn(
                       "border-b-2 border-primary text-primary",
@@ -225,7 +225,7 @@ export function AboutInteractiveTabs({
                 src={activeContent.image.src}
                 alt={activeContent.image.alt}
                 className={cn(
-                  "rounded-2xl object-cover",
+                  "w-full h-auto rounded-2xl object-cover lg:h-full",
                   tabContentImageClassName,
                 )}
                 optixFlowConfig={optixFlowConfig}

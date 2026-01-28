@@ -218,12 +218,12 @@ export function AboutMissionDualImage({
             )}
           </div>
 
-          <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="relative flex flex-col gap-4 sm:grid sm:grid-cols-2">
             {primaryImage && (
               <Img
                 src={primaryImage.src}
                 alt={primaryImage.alt}
-                className={cn("h-full rounded-2xl object-cover", primaryImageClassName)}
+                className={cn("w-full h-auto rounded-2xl object-cover sm:h-full", primaryImageClassName)}
                 optixFlowConfig={optixFlowConfig}
               />
             )}
@@ -231,7 +231,7 @@ export function AboutMissionDualImage({
               <Img
                 src={secondaryImage.src}
                 alt={secondaryImage.alt}
-                className={cn("h-full rounded-2xl object-cover sm:mt-12", secondaryImageClassName)}
+                className={cn("w-full h-auto rounded-2xl object-cover sm:h-full sm:mt-12", secondaryImageClassName)}
                 optixFlowConfig={optixFlowConfig}
               />
             )}

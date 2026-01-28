@@ -71,8 +71,8 @@ describe("AboutStartupTeam", () => {
 
   it("renders sidebar links when provided", () => {
     const sidebarLinks = [
-      { label: "About", href: "/about" },
-      { label: "Team", href: "/team" },
+      { label: "About", value: "about", href: "/about" },
+      { label: "Team", value: "team", href: "/team" },
     ];
     render(<AboutStartupTeam sidebarLinks={sidebarLinks} />);
     expect(screen.getByText("About")).toBeInTheDocument();

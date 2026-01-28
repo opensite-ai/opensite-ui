@@ -11,7 +11,12 @@ import { Card, CardContent } from "../../ui/card";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CommunityMetric {
   /**
@@ -229,23 +234,28 @@ export function CommunityInitiatives({
   patternOpacity,
 }: CommunityInitiativesProps): React.JSX.Element {
   const [activeCategory, setActiveCategory] = React.useState(
-    categories?.[0]?.id || ""
+    categories?.[0]?.id || "",
   );
 
   const currentCategory =
     categories?.find((category) => category.id === activeCategory) ||
     categories?.[0];
 
-  const handleCategoryChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setActiveCategory(e.target.value);
-  }, []);
+  const handleCategoryChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setActiveCategory(e.target.value);
+    },
+    [],
+  );
 
   const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div className={cn("flex flex-wrap justify-center gap-4", actionsClassName)}>
+      <div
+        className={cn("flex flex-wrap justify-center gap-4", actionsClassName)}
+      >
         {actions.map((action, idx) => (
           <Pressable
             key={idx}
@@ -274,7 +284,7 @@ export function CommunityInitiatives({
         className={cn("space-y-8", tabsClassName)}
       >
         <div className="flex justify-center">
-          <div className="mb-6 w-full md:hidden">
+          <div className="mb-0 md:mb-6 w-full md:hidden">
             <select
               value={activeCategory}
               onChange={handleCategoryChange}
@@ -301,7 +311,7 @@ export function CommunityInitiatives({
           </TabsList>
         </div>
 
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto max-w-2xl text-left md:text-center">
           <p className="text-muted-foreground">
             {currentCategory?.description}
           </p>
@@ -324,7 +334,7 @@ export function CommunityInitiatives({
                   <div
                     className={cn(
                       "space-y-6 md:col-span-7",
-                      isEven ? "md:order-1" : "md:order-2"
+                      isEven ? "md:order-1" : "md:order-2",
                     )}
                   >
                     <div className="flex items-center gap-3">
@@ -335,9 +345,7 @@ export function CommunityInitiatives({
                           className="text-primary"
                         />
                       </div>
-                      <h3 className="text-2xl font-bold">
-                        {initiative.title}
-                      </h3>
+                      <h3 className="text-2xl font-bold">{initiative.title}</h3>
                     </div>
 
                     <p className="text-muted-foreground">
@@ -364,7 +372,7 @@ export function CommunityInitiatives({
                     <div
                       className={cn(
                         "md:col-span-5",
-                        isEven ? "md:order-2" : "md:order-1"
+                        isEven ? "md:order-2" : "md:order-1",
                       )}
                     >
                       <div className="relative aspect-4/3 overflow-hidden rounded-xl">
@@ -380,7 +388,7 @@ export function CommunityInitiatives({
                     <div
                       className={cn(
                         "flex h-full items-center justify-center md:col-span-5",
-                        isEven ? "md:order-2" : "md:order-1"
+                        isEven ? "md:order-2" : "md:order-1",
                       )}
                     >
                       <Card className="flex h-full min-h-[280px] w-full items-center justify-center bg-muted/30">
@@ -405,7 +413,16 @@ export function CommunityInitiatives({
         ))}
       </Tabs>
     );
-  }, [categoriesSlot, categories, activeCategory, setActiveCategory, tabsClassName, handleCategoryChange, currentCategory, optixFlowConfig]);
+  }, [
+    categoriesSlot,
+    categories,
+    activeCategory,
+    setActiveCategory,
+    tabsClassName,
+    handleCategoryChange,
+    currentCategory,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -416,64 +433,87 @@ export function CommunityInitiatives({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-        <div className={cn("mx-auto mb-16 max-w-3xl space-y-4 text-center", headerClassName)}>
-          {badgeText && (
-            typeof badgeText === "string" ? (
-              <div className={cn("inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary", badgeClassName)}>
-                {badgeText}
-              </div>
-            ) : (
-              <div className={badgeClassName}>{badgeText}</div>
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl", headingClassName)}>
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
-        </div>
-
-        {categoriesContent}
-
-        <div className={cn("mt-20 text-center", ctaClassName)}>
-          {ctaBadgeText && (
-            <div className="mb-8 inline-flex items-center justify-center rounded-full bg-muted p-1">
-              <Badge className="rounded-full bg-primary px-4 py-1 text-primary-foreground">
-                {ctaBadgeText}
-              </Badge>
+      <div
+        className={cn(
+          "mx-auto mb-8 md:mb-16 max-w-3xl space-y-4 text-center",
+          headerClassName,
+        )}
+      >
+        {badgeText &&
+          (typeof badgeText === "string" ? (
+            <div
+              className={cn(
+                "inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary",
+                badgeClassName,
+              )}
+            >
+              {badgeText}
             </div>
-          )}
+          ) : (
+            <div className={badgeClassName}>{badgeText}</div>
+          ))}
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-bold tracking-tight md:text-4xl",
+                headingClassName,
+              )}
+            >
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p className={cn("text-muted-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          ))}
+      </div>
 
-          {ctaHeading && (
-            typeof ctaHeading === "string" ? (
-              <h3 className={cn("mb-4 text-2xl font-bold", ctaHeadingClassName)}>{ctaHeading}</h3>
-            ) : (
-              <div className={cn("mb-4", ctaHeadingClassName)}>{ctaHeading}</div>
-            )
-          )}
-          {ctaDescription && (
-            typeof ctaDescription === "string" ? (
-              <p className={cn("mx-auto mb-8 max-w-2xl text-muted-foreground", ctaDescriptionClassName)}>
-                {ctaDescription}
-              </p>
-            ) : (
-              <div className={cn("mx-auto mb-8 max-w-2xl", ctaDescriptionClassName)}>{ctaDescription}</div>
-            )
-          )}
+      {categoriesContent}
 
-          {actionsContent}
-        </div>
+      <div className={cn("mt-20 text-center", ctaClassName)}>
+        {ctaBadgeText && (
+          <div className="mb-8 inline-flex items-center justify-center rounded-full bg-muted p-1">
+            <Badge className="rounded-full bg-primary px-4 py-1 text-primary-foreground">
+              {ctaBadgeText}
+            </Badge>
+          </div>
+        )}
+
+        {ctaHeading &&
+          (typeof ctaHeading === "string" ? (
+            <h3 className={cn("mb-4 text-2xl font-bold", ctaHeadingClassName)}>
+              {ctaHeading}
+            </h3>
+          ) : (
+            <div className={cn("mb-4", ctaHeadingClassName)}>{ctaHeading}</div>
+          ))}
+        {ctaDescription &&
+          (typeof ctaDescription === "string" ? (
+            <p
+              className={cn(
+                "mx-auto mb-8 max-w-2xl text-muted-foreground",
+                ctaDescriptionClassName,
+              )}
+            >
+              {ctaDescription}
+            </p>
+          ) : (
+            <div
+              className={cn("mx-auto mb-8 max-w-2xl", ctaDescriptionClassName)}
+            >
+              {ctaDescription}
+            </div>
+          ))}
+
+        {actionsContent}
+      </div>
     </Section>
   );
 }

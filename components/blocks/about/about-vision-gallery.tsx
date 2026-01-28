@@ -205,7 +205,7 @@ export function AboutVisionGallery({
             key={idx}
             src={image.src}
             alt={image.alt}
-            className="max-h-80 w-full object-cover"
+            className="h-80 w-full object-cover"
             optixFlowConfig={optixFlowConfig}
           />
         ))}

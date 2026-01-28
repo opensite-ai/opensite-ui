@@ -98,7 +98,12 @@ export function AboutStoryGallery({
     if (!images || images.length === 0) return null;
 
     return (
-      <div className={cn("mt-16 grid gap-4 md:grid-cols-3", imagesClassName)}>
+      <div
+        className={cn(
+          "mt-7 md:mt-16 grid gap-4 md:grid-cols-3",
+          imagesClassName,
+        )}
+      >
         {images.map((image, idx) => (
           <Img
             key={idx}

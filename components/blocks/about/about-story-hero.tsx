@@ -6,7 +6,11 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface AboutStoryHeroProps {
   /**
@@ -119,7 +123,12 @@ export function AboutStoryHero({
     if (!teamInfo) return null;
 
     return (
-      <div className={cn("mt-8 rounded-xl bg-muted p-6", teamInfoClassName)}>
+      <div
+        className={cn(
+          "mt-6 md:mt-8 rounded-xl bg-muted p-6",
+          teamInfoClassName,
+        )}
+      >
         {typeof teamInfo.title === "string" ? (
           <p className="text-2xl font-bold">{teamInfo.title}</p>
         ) : (
@@ -143,45 +152,65 @@ export function AboutStoryHero({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-      <div className={cn("grid gap-12 lg:grid-cols-2 lg:items-center", contentClassName)}>
-          <div>
-            {subtitle && (
-              typeof subtitle === "string" ? (
-                <p className={cn("text-sm font-semibold uppercase tracking-wider text-primary", subtitleClassName)}>
-                  {subtitle}
-                </p>
-              ) : (
-                <div className={subtitleClassName}>{subtitle}</div>
-              )
+      <div
+        className={cn(
+          "grid gap:6 md:gap-12 lg:grid-cols-2 lg:items-center",
+          contentClassName,
+        )}
+      >
+        <div>
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "text-sm font-semibold uppercase tracking-wider text-primary",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
+            ) : (
+              <div className={subtitleClassName}>{subtitle}</div>
+            ))}
+          {title &&
+            (typeof title === "string" ? (
+              <h1
+                className={cn(
+                  "mt-4 text-4xl font-bold tracking-tight md:text-5xl",
+                  titleClassName,
+                )}
+              >
+                {title}
+              </h1>
+            ) : (
+              <div className={cn("mt-4", titleClassName)}>{title}</div>
+            ))}
+          {content &&
+            (typeof content === "string" ? (
+              <p
+                className={cn(
+                  "mt-6 text-lg text-muted-foreground whitespace-pre-line",
+                  bodyClassName,
+                )}
+              >
+                {content}
+              </p>
+            ) : (
+              <div className={cn("mt-6", bodyClassName)}>{content}</div>
+            ))}
+          {(teamInfoSlot || teamInfo) && teamInfoContent}
+        </div>
+        {heroImage && (
+          <Img
+            src={heroImage.src}
+            alt={heroImage.alt}
+            className={cn(
+              "w-full h-auto rounded-2xl object-cover sm:h-full",
+              imageClassName,
             )}
-            {title && (
-              typeof title === "string" ? (
-                <h1 className={cn("mt-4 text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
-                  {title}
-                </h1>
-              ) : (
-                <div className={cn("mt-4", titleClassName)}>{title}</div>
-              )
-            )}
-            {content && (
-              typeof content === "string" ? (
-                <p className={cn("mt-6 text-lg text-muted-foreground whitespace-pre-line", bodyClassName)}>
-                  {content}
-                </p>
-              ) : (
-                <div className={cn("mt-6", bodyClassName)}>{content}</div>
-              )
-            )}
-            {(teamInfoSlot || teamInfo) && teamInfoContent}
-          </div>
-          {heroImage && (
-            <Img
-              src={heroImage.src}
-              alt={heroImage.alt}
-              className={cn("rounded-2xl object-cover", imageClassName)}
-              optixFlowConfig={optixFlowConfig}
-            />
-          )}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
       </div>
     </Section>
   );
