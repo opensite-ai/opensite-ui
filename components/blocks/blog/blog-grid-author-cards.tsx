@@ -233,7 +233,7 @@ export function BlogGridAuthorCardsComponent({
     >
       <div className={cn("container", containerClassName)}>
         {(heading || description) && (
-          <div className={cn("mb-8 md:mb-14 lg:mb-16", headerClassName)}>
+          <div className={cn("mb-6 md:mb-14 lg:mb-16", headerClassName)}>
             <div className="flex items-start justify-between gap-8">
               <div>
                 {heading &&

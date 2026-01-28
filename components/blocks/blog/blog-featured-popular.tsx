@@ -262,7 +262,7 @@ export function BlogFeaturedPopular({
         {(heading || description) && (
           <div
             className={cn(
-              "mb-6 md:mb-16 text-center px-8 md:px-0",
+              "mb-6 md:mb-16 text-center px-4 md:px-0",
               headerClassName,
             )}
           >

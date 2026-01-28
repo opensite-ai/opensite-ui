@@ -242,7 +242,7 @@ export function BlogHorizontalCards({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container mx-auto", containerClassName)}>
+      <div className={cn("flex flex-col items-center", containerClassName)}>
         <div className={cn("mx-auto max-w-3xl text-center", headerClassName)}>
           {badge &&
             (typeof badge === "string" ? (

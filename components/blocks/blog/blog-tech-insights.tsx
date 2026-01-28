@@ -326,8 +326,13 @@ export function BlogTechInsights({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("mb-8", headerClassName)}>
+      <div
+        className={cn(
+          "flex flex-col items-center gap-8 md:gap-14",
+          containerClassName,
+        )}
+      >
+        <div className={cn("w-full", headerClassName)}>
           {heading &&
             (typeof heading === "string" ? (
               <h1
@@ -362,7 +367,7 @@ export function BlogTechInsights({
 
         <div
           className={cn(
-            "mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12",
+            "grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12",
             contentClassName,
           )}
         >

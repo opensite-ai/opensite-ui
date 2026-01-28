@@ -234,7 +234,7 @@ export function CarouselProgressSlider({
   pattern,
   patternOpacity,
 }: CarouselProgressSliderProps): React.JSX.Element {
-  const [active, setActive] = React.useState<string>(slides[0].id);
+  const [active, setActive] = React.useState<string>(slides?.[0]?.id ?? '');
   const [progress, setProgress] = React.useState<number>(0);
   const [isFastForward, setIsFastForward] = React.useState<boolean>(false);
   const frame = React.useRef<number>(0);
@@ -242,12 +242,12 @@ export function CarouselProgressSlider({
   const targetValue = React.useRef<string | null>(null);
 
   const sliderValues = React.useMemo(
-    () => slides.map((slide) => slide.id),
+    () => slides?.map((slide) => slide.id),
     [slides]
   );
 
   React.useEffect(() => {
-    if (sliderValues.length > 0) {
+    if ((sliderValues?.length ?? 0) > 0) {
       firstFrameTime.current = performance.now();
       frame.current = requestAnimationFrame(animate);
     }
@@ -276,9 +276,10 @@ export function CarouselProgressSlider({
           targetValue.current = null;
         }
       } else {
-        const currentIndex = sliderValues.indexOf(active);
-        const nextIndex = (currentIndex + 1) % sliderValues.length;
-        setActive(sliderValues[nextIndex]);
+        const currentIndex = sliderValues?.indexOf(active) ?? -1;
+        const nextIndex = (currentIndex + 1) % (sliderValues?.length ?? 1);
+        const nextValue = sliderValues?.[nextIndex];
+        if (nextValue) setActive(nextValue);
       }
       setProgress(0);
       firstFrameTime.current = performance.now();
@@ -314,7 +315,7 @@ export function CarouselProgressSlider({
               {slidesSlot ? (
                 slidesSlot
               ) : (
-                slides.map((slide) => (
+                slides?.map((slide) => (
                   <SliderWrapper
                     key={slide.id}
                     value={slide.id}
@@ -335,7 +336,7 @@ export function CarouselProgressSlider({
 
             {/* Navigation buttons */}
             <div className={cn("flex flex-col justify-center gap-4", navigationClassName)}>
-              {slides.map((slide) => (
+              {slides?.map((slide) => (
                 <SliderBtn
                   key={slide.id}
                   value={slide.id}

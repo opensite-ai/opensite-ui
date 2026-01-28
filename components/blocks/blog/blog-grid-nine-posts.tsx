@@ -228,7 +228,7 @@ export function BlogGridNinePosts({
       patternOpacity={patternOpacity}
     >
       <div className={cn("container", containerClassName)}>
-        <div className={cn("mb-8 md:mb-14 lg:mb-16", headerClassName)}>
+        <div className={cn("mb-6 md:mb-14 lg:mb-16", headerClassName)}>
           <div className="flex items-start justify-between gap:4 md:gap-8">
             <div>
               {heading &&

@@ -173,8 +173,8 @@ export function CarouselAnimatedSections({
   counterClassName,
   overlayClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CarouselAnimatedSectionsProps): React.JSX.Element {
@@ -183,11 +183,11 @@ export function CarouselAnimatedSections({
   const [isAnimating, setIsAnimating] = React.useState(false);
 
   const goToNext = React.useCallback(() => {
-    if (isAnimating || currentIndex >= sections.length - 1) return;
+    if (isAnimating || currentIndex >= (sections?.length ?? 0) - 1) return;
     setIsAnimating(true);
     setDirection(1);
     setCurrentIndex((prev) => prev + 1);
-  }, [currentIndex, isAnimating, sections.length]);
+  }, [currentIndex, isAnimating, sections?.length]);
 
   const goToPrev = React.useCallback(() => {
     if (isAnimating || currentIndex <= 0) return;
@@ -256,7 +256,7 @@ export function CarouselAnimatedSections({
     }),
   };
 
-  const currentSection = sections[currentIndex];
+  const currentSection = sections?.[currentIndex];
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
@@ -269,15 +269,14 @@ export function CarouselAnimatedSections({
           asButton
           variant={action.variant}
           size={action.size || "lg"}
-          className={cn("bg-white text-black hover:bg-white/90", action.className)}
+          className={cn(
+            "bg-white text-black hover:bg-white/90",
+            action.className,
+          )}
         >
           {action.label}
-          {action.icon && (
-            <span className="ml-2">{action.icon}</span>
-          )}
-          {action.iconAfter && (
-            <span className="ml-2">{action.iconAfter}</span>
-          )}
+          {action.icon && <span className="ml-2">{action.icon}</span>}
+          {action.iconAfter && <span className="ml-2">{action.iconAfter}</span>}
         </Pressable>
       ));
     }
@@ -295,7 +294,7 @@ export function CarouselAnimatedSections({
       {/* Background slides */}
       {sectionsSlot ? (
         sectionsSlot
-      ) : (
+      ) : currentSection ? (
         <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
             key={currentIndex}
@@ -306,21 +305,35 @@ export function CarouselAnimatedSections({
             exit="exit"
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             onAnimationComplete={() => setIsAnimating(false)}
-            className={cn("absolute inset-0", currentSection.className)}
+            className={cn("absolute inset-0", currentSection?.className)}
           >
             <Img
-              src={currentSection.image}
-              alt={typeof currentSection.title === "string" ? currentSection.title : `Section ${currentSection.id}`}
-              className={cn("h-full w-full object-cover", currentSection.imageClassName)}
+              src={currentSection?.image}
+              alt={
+                typeof currentSection?.title === "string"
+                  ? currentSection?.title
+                  : `Section ${currentSection?.id}`
+              }
+              className={cn(
+                "h-full w-full object-cover",
+                currentSection?.imageClassName,
+              )}
               optixFlowConfig={optixFlowConfig}
             />
-            <div className={cn("absolute inset-0 bg-black/50", overlayClassName)} />
+            <div
+              className={cn("absolute inset-0 bg-black/50", overlayClassName)}
+            />
           </motion.div>
         </AnimatePresence>
-      )}
+      ) : null}
 
       {/* Content */}
-      <div className={cn("relative z-10 flex h-full items-center", contentClassName)}>
+      <div
+        className={cn(
+          "relative z-10 flex h-full items-center",
+          contentClassName,
+        )}
+      >
         <div className={cn("container mx-auto px-6", containerClassName)}>
           <AnimatePresence mode="wait">
             <motion.div
@@ -331,50 +344,69 @@ export function CarouselAnimatedSections({
               transition={{ duration: 0.4, delay: 0.2 }}
               className="max-w-2xl text-white"
             >
-              {currentSection.subtitle && (
-                typeof currentSection.subtitle === "string" ? (
-                  <p className={cn("mb-2 text-sm font-medium uppercase tracking-widest text-white/70", subtitleClassName)}>
-                    {currentSection.subtitle}
+              {currentSection?.subtitle &&
+                (typeof currentSection?.subtitle === "string" ? (
+                  <p
+                    className={cn(
+                      "mb-2 text-sm font-medium uppercase tracking-widest text-white/70",
+                      subtitleClassName,
+                    )}
+                  >
+                    {currentSection?.subtitle}
                   </p>
                 ) : (
-                  <div className={cn("mb-2", subtitleClassName)}>{currentSection.subtitle}</div>
-                )
-              )}
-              {currentSection.title && (
-                typeof currentSection.title === "string" ? (
-                  <h2 className={cn("mb-4 text-4xl font-bold md:text-5xl lg:text-6xl", titleClassName)}>
-                    {currentSection.title}
+                  <div className={cn("mb-2", subtitleClassName)}>
+                    {currentSection?.subtitle}
+                  </div>
+                ))}
+              {currentSection?.title &&
+                (typeof currentSection?.title === "string" ? (
+                  <h2
+                    className={cn(
+                      "mb-4 text-4xl font-bold md:text-5xl lg:text-6xl",
+                      titleClassName,
+                    )}
+                  >
+                    {currentSection?.title}
                   </h2>
                 ) : (
-                  <div className={cn("mb-4", titleClassName)}>{currentSection.title}</div>
-                )
-              )}
-              {currentSection.description && (
-                typeof currentSection.description === "string" ? (
-                  <p className={cn("mb-8 text-lg text-white/80", descriptionClassName)}>
-                    {currentSection.description}
+                  <div className={cn("mb-4", titleClassName)}>
+                    {currentSection?.title}
+                  </div>
+                ))}
+              {currentSection?.description &&
+                (typeof currentSection?.description === "string" ? (
+                  <p
+                    className={cn(
+                      "mb-8 text-lg text-white/80",
+                      descriptionClassName,
+                    )}
+                  >
+                    {currentSection?.description}
                   </p>
                 ) : (
-                  <div className={cn("mb-8", descriptionClassName)}>{currentSection.description}</div>
-                )
-              )}
-              <div className={actionsClassName}>
-                {renderActions() || (currentSection.ctaText && (
-                  <Pressable
-                    href={currentSection.ctaHref}
-                    onClick={currentSection.ctaOnClick}
-                    asButton
-                    size="lg"
-                    className="bg-white text-black hover:bg-white/90"
-                  >
-                    {currentSection.ctaText}
-                    <DynamicIcon
-                      name="lucide/arrow-right"
-                      size={16}
-                      className="ml-2"
-                    />
-                  </Pressable>
+                  <div className={cn("mb-8", descriptionClassName)}>
+                    {currentSection?.description}
+                  </div>
                 ))}
+              <div className={actionsClassName}>
+                {renderActions() ||
+                  (currentSection?.ctaText && (
+                    <Pressable
+                      href={currentSection?.ctaHref}
+                      onClick={currentSection?.ctaOnClick}
+                      asButton
+                      size="lg"
+                      className="bg-white text-black hover:bg-white/90"
+                    >
+                      {currentSection?.ctaText}
+                      <DynamicIcon
+                        name="lucide/arrow-right"
+                        size={16}
+                        className="ml-2"
+                      />
+                    </Pressable>
+                  ))}
               </div>
             </motion.div>
           </AnimatePresence>
@@ -382,8 +414,13 @@ export function CarouselAnimatedSections({
       </div>
 
       {/* Navigation dots */}
-      <div className={cn("absolute right-6 top-1/2 z-20 flex -translate-y-1/2 flex-col gap-3", navigationClassName)}>
-        {sections.map((_, index) => (
+      <div
+        className={cn(
+          "absolute right-6 top-1/2 z-20 flex -translate-y-1/2 flex-col gap-3",
+          navigationClassName,
+        )}
+      >
+        {sections?.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
@@ -391,7 +428,7 @@ export function CarouselAnimatedSections({
               "h-3 w-3 rounded-full border-2 transition-all",
               currentIndex === index
                 ? "scale-125 border-white bg-white"
-                : "border-white/50 bg-transparent hover:border-white"
+                : "border-white/50 bg-transparent hover:border-white",
             )}
             aria-label={`Go to section ${index + 1}`}
           />
@@ -399,7 +436,12 @@ export function CarouselAnimatedSections({
       </div>
 
       {/* Arrow navigation */}
-      <div className={cn("absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-4", arrowsClassName)}>
+      <div
+        className={cn(
+          "absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-4",
+          arrowsClassName,
+        )}
+      >
         <Pressable
           onClick={goToPrev}
           asButton
@@ -415,7 +457,7 @@ export function CarouselAnimatedSections({
           asButton
           variant="ghost"
           size="icon"
-          disabled={currentIndex === sections.length - 1}
+          disabled={currentIndex === (sections?.length ?? 0) - 1}
           className="rounded-full border border-white/30 text-white hover:bg-white/10 disabled:opacity-30"
         >
           <DynamicIcon name="lucide/chevron-down" size={20} />
@@ -423,11 +465,15 @@ export function CarouselAnimatedSections({
       </div>
 
       {/* Slide counter */}
-      <div className={cn("absolute bottom-8 right-8 z-20 text-sm text-white/50", counterClassName)}>
+      <div
+        className={cn(
+          "absolute bottom-8 right-8 z-20 text-sm text-white/50",
+          counterClassName,
+        )}
+      >
         {String(currentIndex + 1).padStart(2, "0")} /{" "}
-        {String(sections.length).padStart(2, "0")}
+        {String(sections?.length ?? 0).padStart(2, "0")}
       </div>
     </Section>
   );
 }
-

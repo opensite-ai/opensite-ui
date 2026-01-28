@@ -132,6 +132,9 @@ importers:
       '@vitest/ui':
         specifier: ^4.0.10
         version: 4.0.16(vitest@4.0.16)
+      embla-carousel:
+        specifier: ^8.6.0
+        version: 8.6.0
       happy-dom:
         specifier: ^20.0.10
         version: 20.0.11

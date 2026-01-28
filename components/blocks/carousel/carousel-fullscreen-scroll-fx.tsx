@@ -147,7 +147,7 @@ export function CarouselFullscreenScrollFx({
   React.useEffect(() => {
     const observers: IntersectionObserver[] = [];
 
-    slides.forEach((slide, index) => {
+    slides?.forEach((slide, index) => {
       const element = document.getElementById(`fullscreen-${slide.id}`);
       if (element) {
         const observer = new IntersectionObserver(
@@ -181,7 +181,7 @@ export function CarouselFullscreenScrollFx({
     >
       {/* Navigation dots */}
       <div className={cn("fixed right-6 top-1/2 z-50 hidden -translate-y-1/2 flex-col gap-3 lg:flex", navigationClassName)}>
-        {slides.map((slide, index) => (
+        {slides?.map((slide, index) => (
           <button
             key={slide.id}
             onClick={() => {
@@ -203,7 +203,7 @@ export function CarouselFullscreenScrollFx({
       {slidesSlot ? (
         slidesSlot
       ) : (
-        slides.map((slide, index) => (
+        slides?.map((slide, index) => (
           <div
             key={slide.id}
             id={`fullscreen-${slide.id}`}
@@ -256,7 +256,7 @@ export function CarouselFullscreenScrollFx({
               )}
 
               {/* Scroll indicator */}
-              {index < slides.length - 1 && (
+              {index < (slides?.length ?? 0) - 1 && (
                 <div className={cn("absolute bottom-8 left-1/2 -translate-x-1/2", scrollIndicatorClassName)}>
                   <div className="flex flex-col items-center gap-2">
                     <span className="text-xs uppercase tracking-widest text-white/50">
@@ -271,7 +271,7 @@ export function CarouselFullscreenScrollFx({
             {/* Slide counter */}
             <div className={cn("absolute bottom-8 right-8 text-sm text-white/50", counterClassName)}>
               {String(index + 1).padStart(2, "0")} /{" "}
-              {String(slides.length).padStart(2, "0")}
+              {String(slides?.length ?? 0).padStart(2, "0")}
             </div>
           </div>
         ))

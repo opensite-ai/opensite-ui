@@ -254,7 +254,7 @@ export function BlogCategoryOverlay({
       <div className={cn("container", containerClassName)}>
         <div
           className={cn(
-            "mx-auto flex max-w-3xl flex-col items-center gap-6 text-center px-8 md:px-0",
+            "mx-auto flex max-w-3xl flex-col items-center gap-6 text-center px-4 md:px-0",
             headerClassName,
           )}
         >

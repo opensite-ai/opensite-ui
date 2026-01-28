@@ -149,15 +149,15 @@ export function CarouselGalleryThumbnails({
 
   const prevSlide = React.useCallback(() => {
     setCurrentIndex((prev) =>
-      prev === 0 ? images.length - 1 : prev - 1
+      prev === 0 ? (images?.length ?? 0) - 1 : prev - 1
     );
-  }, [images.length]);
+  }, [images?.length]);
 
   const nextSlide = React.useCallback(() => {
     setCurrentIndex((prev) =>
-      prev === images.length - 1 ? 0 : prev + 1
+      prev === (images?.length ?? 0) - 1 ? 0 : prev + 1
     );
-  }, [images.length]);
+  }, [images?.length]);
 
   // Auto play functionality
   React.useEffect(() => {
@@ -198,7 +198,7 @@ export function CarouselGalleryThumbnails({
           {imagesSlot ? (
             imagesSlot
           ) : (
-            images.map((image, index) => (
+            images?.map((image, index) => (
               <div
                 key={`slide-${index}`}
                 className={cn(
@@ -243,11 +243,11 @@ export function CarouselGalleryThumbnails({
 
         {/* Caption */}
         <div className={cn("absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-sm text-white", captionClassName)}>
-          {images[currentIndex].alt && (
-            typeof images[currentIndex].alt === "string" ? (
-              images[currentIndex].alt
+          {images?.[currentIndex].alt && (
+            typeof images?.[currentIndex].alt === "string" ? (
+              images?.[currentIndex].alt
             ) : (
-              <div>{images[currentIndex].alt}</div>
+              <div>{images?.[currentIndex].alt}</div>
             )
           )}
         </div>
@@ -256,7 +256,7 @@ export function CarouselGalleryThumbnails({
       {/* Thumbnails */}
       {showThumbnails && (
         <div className={cn("mt-4 flex gap-2 overflow-x-auto px-2 py-2", thumbnailsClassName)}>
-          {images.map((image, index) => (
+          {images?.map((image, index) => (
             <button
               key={`thumb-${index}`}
               className={cn(

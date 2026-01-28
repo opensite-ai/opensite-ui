@@ -246,7 +246,7 @@ export function BlogCardsTaglineCta({
       >
         <div
           className={cn(
-            "text-center flex flex-col items-center px-6 md:px-0",
+            "text-center flex flex-col items-center px-4 md:px-0",
             headerClassName,
           )}
         >

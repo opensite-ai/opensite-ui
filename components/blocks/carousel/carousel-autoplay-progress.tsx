@@ -297,7 +297,7 @@ export function CarouselAutoplayProgress({
           {slidesSlot ? (
             slidesSlot
           ) : (
-            slides.map((slide, index) => (
+            slides?.map((slide, index) => (
               <div
                 className={cn("flex-[0_0_70%] transform-gpu pl-3", slideClassName, slide.className)}
                 key={index}
@@ -369,7 +369,7 @@ export function CarouselAutoplayProgress({
         </Pressable>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes autoplay-progress {
           from {
             transform: translateX(0);
