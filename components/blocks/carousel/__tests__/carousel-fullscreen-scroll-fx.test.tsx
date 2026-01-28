@@ -76,8 +76,9 @@ describe("CarouselFullscreenScrollFx", () => {
       { id: "s2", title: "Slide 2", subtitle: "Sub 2", description: "Desc 2", image: "img2.jpg" },
     ];
     render(<CarouselFullscreenScrollFx slides={slides} />);
+    // 2 navigation dots + 1 scroll indicator button on first slide = 3 buttons
     const dots = screen.getAllByRole("button");
-    expect(dots.length).toBe(2);
+    expect(dots.length).toBe(3);
   });
 
   it("handles navigation dot click", () => {

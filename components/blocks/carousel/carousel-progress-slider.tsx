@@ -18,7 +18,6 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -42,7 +41,7 @@ function useProgressSliderContext(): ProgressSliderContextType {
   const context = React.useContext(ProgressSliderContext);
   if (!context) {
     throw new Error(
-      "useProgressSliderContext must be used within a ProgressSlider"
+      "useProgressSliderContext must be used within a ProgressSlider",
     );
   }
   return context;
@@ -69,7 +68,7 @@ function SliderBtn({
       className={cn(
         "relative",
         active === value ? "opacity-100" : "opacity-50",
-        className
+        className,
       )}
       onClick={() => handleButtonClick(value)}
     >
@@ -146,6 +145,14 @@ export interface ProgressSlide {
 
 export interface CarouselProgressSliderProps {
   /**
+   * Section title (renders as h2)
+   */
+  heading?: string;
+  /**
+   * Section subtitle/eyebrow (renders above title)
+   */
+  subheading?: string;
+  /**
    * Array of slides
    */
   slides?: ProgressSlide[];
@@ -216,6 +223,8 @@ export interface CarouselProgressSliderProps {
 }
 
 export function CarouselProgressSlider({
+  heading,
+  subheading,
   slides,
   slidesSlot,
   duration = 5000,
@@ -229,12 +238,12 @@ export function CarouselProgressSlider({
   buttonClassName,
   progressBarClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CarouselProgressSliderProps): React.JSX.Element {
-  const [active, setActive] = React.useState<string>(slides?.[0]?.id ?? '');
+  const [active, setActive] = React.useState<string>(slides?.[0]?.id ?? "");
   const [progress, setProgress] = React.useState<number>(0);
   const [isFastForward, setIsFastForward] = React.useState<boolean>(false);
   const frame = React.useRef<number>(0);
@@ -243,7 +252,7 @@ export function CarouselProgressSlider({
 
   const sliderValues = React.useMemo(
     () => slides?.map((slide) => slide.id),
-    [slides]
+    [slides],
   );
 
   React.useEffect(() => {
@@ -265,7 +274,7 @@ export function CarouselProgressSlider({
       setProgress(
         isFastForward
           ? progress + (100 - progress) * timeFraction
-          : timeFraction * 100
+          : timeFraction * 100,
       );
       frame.current = requestAnimationFrame(animate);
     } else {
@@ -302,63 +311,79 @@ export function CarouselProgressSlider({
       value={{ active, progress, handleButtonClick, vertical }}
     >
       <Section
+        title={heading}
+        subtitle={subheading}
         background={background}
         spacing={spacing}
         className={cn(className)}
         pattern={pattern}
         patternOpacity={patternOpacity}
       >
-        <div className={cn("container mx-auto px-4", containerClassName)}>
+        <div className={cn("relative", containerClassName)}>
           <div className={cn("grid gap-8 lg:grid-cols-2", contentClassName)}>
             {/* Content area */}
             <div className={cn("relative min-h-[300px]", imageClassName)}>
-              {slidesSlot ? (
-                slidesSlot
-              ) : (
-                slides?.map((slide) => (
-                  <SliderWrapper
-                    key={slide.id}
-                    value={slide.id}
-                    className={cn("absolute inset-0", slide.className)}
-                  >
-                    <div className="aspect-video overflow-hidden rounded-lg">
-                      <Img
-                        src={slide.image}
-                        alt={typeof slide.title === "string" ? slide.title : `Slide ${slide.id}`}
-                        className={cn("h-full w-full object-cover", slide.imageClassName)}
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                    </div>
-                  </SliderWrapper>
-                ))
-              )}
+              {slidesSlot
+                ? slidesSlot
+                : slides?.map((slide) => (
+                    <SliderWrapper
+                      key={slide.id}
+                      value={slide.id}
+                      className={cn("absolute inset-0", slide.className)}
+                    >
+                      <div className="aspect-video overflow-hidden rounded-lg">
+                        <Img
+                          src={slide.image}
+                          alt={
+                            typeof slide.title === "string"
+                              ? slide.title
+                              : `Slide ${slide.id}`
+                          }
+                          className={cn(
+                            "h-full w-full object-cover",
+                            slide.imageClassName,
+                          )}
+                          optixFlowConfig={optixFlowConfig}
+                        />
+                      </div>
+                    </SliderWrapper>
+                  ))}
             </div>
 
             {/* Navigation buttons */}
-            <div className={cn("flex flex-col justify-center gap-4", navigationClassName)}>
+            <div
+              className={cn(
+                "flex flex-col justify-center gap-4",
+                navigationClassName,
+              )}
+            >
               {slides?.map((slide) => (
                 <SliderBtn
                   key={slide.id}
                   value={slide.id}
-                  className={cn("rounded-lg border p-4 text-left transition-colors hover:bg-muted", buttonClassName)}
-                  progressBarClass={cn("bottom-0 h-1 bg-primary", progressBarClassName)}
+                  className={cn(
+                    "rounded-lg border p-4 text-left transition-colors hover:bg-muted",
+                    buttonClassName,
+                  )}
+                  progressBarClass={cn(
+                    "bottom-0 h-1 bg-primary",
+                    progressBarClassName,
+                  )}
                 >
-                  {slide.title && (
-                    typeof slide.title === "string" ? (
+                  {slide.title &&
+                    (typeof slide.title === "string" ? (
                       <h3 className="text-lg font-semibold">{slide.title}</h3>
                     ) : (
                       <div>{slide.title}</div>
-                    )
-                  )}
-                  {slide.description && (
-                    typeof slide.description === "string" ? (
+                    ))}
+                  {slide.description &&
+                    (typeof slide.description === "string" ? (
                       <p className="mt-1 text-sm text-muted-foreground">
                         {slide.description}
                       </p>
                     ) : (
                       <div className="mt-1">{slide.description}</div>
-                    )
-                  )}
+                    ))}
                 </SliderBtn>
               ))}
             </div>
@@ -368,4 +393,3 @@ export function CarouselProgressSlider({
     </ProgressSliderContext.Provider>
   );
 }
-

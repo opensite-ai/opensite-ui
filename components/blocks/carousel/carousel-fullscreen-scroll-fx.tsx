@@ -142,7 +142,7 @@ export function CarouselFullscreenScrollFx({
   slides,
   slidesSlot,
   className,
-  containerClassName = "h-full flex flex-col justify-center",
+  containerClassName = "mx-auto w-full p-0 px-0 sm:px-0 lg:px-0 max-w-full relative z-10 h-full flex flex-col justify-center",
   navigationClassName,
   contentClassName,
   subtitleClassName,
@@ -161,15 +161,15 @@ export function CarouselFullscreenScrollFx({
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  // Handle scroll to update active index
+  // Handle scroll to update active index (vertical)
   React.useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer || !slides?.length) return;
 
     const handleScroll = () => {
-      const scrollLeft = scrollContainer.scrollLeft;
-      const slideWidth = scrollContainer.clientWidth;
-      const newIndex = Math.round(scrollLeft / slideWidth);
+      const scrollTop = scrollContainer.scrollTop;
+      const slideHeight = scrollContainer.clientHeight;
+      const newIndex = Math.round(scrollTop / slideHeight);
       setActiveIndex(newIndex);
     };
 
@@ -177,21 +177,21 @@ export function CarouselFullscreenScrollFx({
     return () => scrollContainer.removeEventListener("scroll", handleScroll);
   }, [slides]);
 
-  // Handle navigation dot clicks
+  // Handle navigation dot clicks (vertical)
   const scrollToSlide = React.useCallback((index: number) => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
 
-    const slideWidth = scrollContainer.clientWidth;
+    const slideHeight = scrollContainer.clientHeight;
     // Check if scrollTo is available (not available in some test environments)
     if (typeof scrollContainer.scrollTo === "function") {
       scrollContainer.scrollTo({
-        left: slideWidth * index,
+        top: slideHeight * index,
         behavior: "smooth",
       });
     } else {
       // Fallback for test environments
-      scrollContainer.scrollLeft = slideWidth * index;
+      scrollContainer.scrollTop = slideHeight * index;
     }
   }, []);
 
@@ -204,7 +204,7 @@ export function CarouselFullscreenScrollFx({
       pattern={pattern}
       patternOpacity={patternOpacity}
       containerMaxWidth={containerMaxWidth}
-      containerClassName="p-0"
+      containerClassName={containerClassName}
     >
       {/* Navigation dots */}
       <div
@@ -228,13 +228,12 @@ export function CarouselFullscreenScrollFx({
         ))}
       </div>
 
-      {/* Horizontal scroll container */}
+      {/* Vertical scroll container */}
       <div
         ref={scrollContainerRef}
-        className="flex h-screen snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth"
+        className="flex h-screen flex-col snap-y snap-mandatory overflow-x-hidden overflow-y-auto scroll-smooth"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-
         {/* Slides */}
         {slidesSlot
           ? slidesSlot
@@ -278,7 +277,7 @@ export function CarouselFullscreenScrollFx({
                   key={slide.id}
                   id={`fullscreen-${slide.id}`}
                   className={cn(
-                    "relative flex h-screen min-w-full snap-start items-center justify-center overflow-hidden",
+                    "relative flex h-screen min-h-screen w-full snap-start items-center justify-center overflow-hidden",
                     slide.className,
                   )}
                 >
@@ -300,7 +299,8 @@ export function CarouselFullscreenScrollFx({
                     <div
                       className="absolute inset-0"
                       style={{
-                        backgroundColor: slide.overlayColor || "rgba(0, 0, 0, 0.5)",
+                        backgroundColor:
+                          slide.overlayColor || "rgba(0, 0, 0, 0.5)",
                       }}
                     />
                   </div>
@@ -308,7 +308,7 @@ export function CarouselFullscreenScrollFx({
                   {/* Content */}
                   <div
                     className={cn(
-                      "relative z-10 mx-auto max-w-4xl md:max-w-2xl px-6 text-center text-white text-shadow",
+                      "relative z-10 mx-auto max-w-4xl md:max-w-xl px-6 text-center text-shadow",
                       contentClassName,
                     )}
                   >
@@ -323,7 +323,9 @@ export function CarouselFullscreenScrollFx({
                           {slide.subtitle}
                         </p>
                       ) : (
-                        <div className={subtitleClassName}>{slide.subtitle}</div>
+                        <div className={subtitleClassName}>
+                          {slide.subtitle}
+                        </div>
                       ))}
                     {slide.title &&
                       (typeof slide.title === "string" ? (
@@ -362,13 +364,15 @@ export function CarouselFullscreenScrollFx({
                     )}
                   </div>
 
-                  {/* Scroll indicator */}
+                  {/* Scroll indicator - clickable to scroll to next slide */}
                   {index < (slides?.length ?? 0) - 1 && (
-                    <div
+                    <button
+                      onClick={() => scrollToSlide(index + 1)}
                       className={cn(
-                        "absolute bottom-8 left-1/2 -translate-x-1/2",
+                        "absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg p-2",
                         scrollIndicatorClassName,
                       )}
+                      aria-label="Scroll to next slide"
                     >
                       <div className="flex flex-col items-center gap-2">
                         <span className="text-xs uppercase tracking-widest text-white/50">
@@ -376,7 +380,7 @@ export function CarouselFullscreenScrollFx({
                         </span>
                         <div className="h-12 w-px animate-pulse bg-linear-to-b from-white/50 to-transparent" />
                       </div>
-                    </div>
+                    </button>
                   )}
 
                   {/* Slide counter */}
