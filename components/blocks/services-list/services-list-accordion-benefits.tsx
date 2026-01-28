@@ -180,8 +180,8 @@ export function ServicesListAccordionBenefits({
   accordionClassName,
   accordionItemClassName,
   bottomActionClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListAccordionBenefitsProps): React.JSX.Element {

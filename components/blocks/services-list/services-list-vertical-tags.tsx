@@ -133,8 +133,8 @@ export function ServicesListVerticalTags({
   listClassName,
   cardClassName,
   iconClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListVerticalTagsProps): React.JSX.Element {

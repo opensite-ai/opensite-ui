@@ -153,8 +153,8 @@ export function ServicesListMasonry({
   gridClassName,
   cardClassName,
   iconClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListMasonryProps): React.JSX.Element {

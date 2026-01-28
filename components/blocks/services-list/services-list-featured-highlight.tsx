@@ -153,8 +153,8 @@ export function ServicesListFeaturedHighlight({
   descriptionClassName,
   gridClassName,
   cardClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListFeaturedHighlightProps): React.JSX.Element {
@@ -186,16 +186,15 @@ export function ServicesListFeaturedHighlight({
             )}
           >
             {service.featured &&
+              service.featuredBadge &&
               (typeof service.featuredBadge === "string" ? (
                 <Badge className="absolute -top-3 right-6">
-                  {service.featuredBadge || "Popular"}
+                  {service.featuredBadge}
                 </Badge>
-              ) : service.featuredBadge ? (
+              ) : (
                 <div className="absolute -top-3 right-6">
                   {service.featuredBadge}
                 </div>
-              ) : (
-                <Badge className="absolute -top-3 right-6">Popular</Badge>
               ))}
 
             <div className="flex items-start gap-4">

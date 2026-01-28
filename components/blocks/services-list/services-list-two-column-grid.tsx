@@ -166,8 +166,8 @@ export function ServicesListTwoColumnGrid({
   gridClassName,
   cardClassName,
   iconClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListTwoColumnGridProps): React.JSX.Element {

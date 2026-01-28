@@ -145,8 +145,8 @@ export function ServicesListMethodologySteps({
   stepsClassName,
   stepClassName,
   numberClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListMethodologyStepsProps): React.JSX.Element {

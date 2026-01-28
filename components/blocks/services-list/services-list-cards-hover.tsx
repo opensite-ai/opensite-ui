@@ -149,8 +149,8 @@ export function ServicesListCardsHover({
   gridClassName,
   cardClassName,
   iconClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListCardsHoverProps): React.JSX.Element {

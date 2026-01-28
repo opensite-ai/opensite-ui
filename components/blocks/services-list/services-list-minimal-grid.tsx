@@ -145,8 +145,8 @@ export function ServicesListMinimalGrid({
   gridClassName,
   cardClassName,
   iconClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListMinimalGridProps): React.JSX.Element {

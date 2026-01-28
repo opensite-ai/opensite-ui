@@ -152,8 +152,8 @@ export function ServicesListCategoryAccordion({
   accordionItemClassName,
   itemsGridClassName,
   badgesClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListCategoryAccordionProps): React.JSX.Element {

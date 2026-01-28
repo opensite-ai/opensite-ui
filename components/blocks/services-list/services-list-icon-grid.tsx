@@ -135,8 +135,8 @@ export function ServicesListIconGrid({
   gridClassName,
   cardClassName,
   iconClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListIconGridProps): React.JSX.Element {

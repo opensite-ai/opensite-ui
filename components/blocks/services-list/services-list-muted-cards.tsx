@@ -139,8 +139,8 @@ export function ServicesListMutedCards({
   gridClassName,
   cardClassName,
   iconClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListMutedCardsProps): React.JSX.Element {
@@ -199,8 +199,8 @@ export function ServicesListMutedCards({
 
             {service.items && service.items.length > 0 && (
               <div className="space-y-3">
-                {service.itemsLabel ? (
-                  typeof service.itemsLabel === "string" ? (
+                {service.itemsLabel &&
+                  (typeof service.itemsLabel === "string" ? (
                     <h4 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                       {service.itemsLabel}
                     </h4>
@@ -208,12 +208,7 @@ export function ServicesListMutedCards({
                     <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                       {service.itemsLabel}
                     </div>
-                  )
-                ) : (
-                  <h4 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                    What&apos;s Included
-                  </h4>
-                )}
+                  ))}
                 <div className="grid grid-cols-2 gap-2">
                   {service.items.map((item, itemIndex) => (
                     <div key={itemIndex} className="flex items-center gap-2">

@@ -149,8 +149,8 @@ export function ServicesListTimeline({
   descriptionClassName,
   timelineClassName,
   cardClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListTimelineProps): React.JSX.Element {

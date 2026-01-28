@@ -165,8 +165,8 @@ export function ServicesListAccordion({
   accordionClassName,
   accordionItemClassName,
   iconClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListAccordionProps): React.JSX.Element {

@@ -135,8 +135,8 @@ export function ServicesListCenteredIcons({
   gridClassName,
   cardClassName,
   iconClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListCenteredIconsProps): React.JSX.Element {

@@ -142,8 +142,8 @@ export function ServicesListNumberedSteps({
   stepsClassName,
   stepClassName,
   numberClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListNumberedStepsProps): React.JSX.Element {

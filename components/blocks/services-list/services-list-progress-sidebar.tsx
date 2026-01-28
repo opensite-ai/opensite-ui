@@ -153,8 +153,8 @@ export function ServicesListProgressSidebar({
   servicesClassName,
   cardClassName,
   iconClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListProgressSidebarProps): React.JSX.Element {

@@ -156,8 +156,8 @@ export function ServicesListPricingGrid({
   gridClassName,
   cardClassName,
   iconClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ServicesListPricingGridProps): React.JSX.Element {
