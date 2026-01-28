@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -188,6 +188,10 @@ export interface ResourceListFeaturedGridProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Label for the "All" category in the filter tabs (defaults to "All")
+   */
+  allCategoryLabel?: React.ReactNode;
 }
 
 /**
@@ -226,20 +230,26 @@ export function ResourceListFeaturedGrid({
   latestUpdatesTitleClassName,
   gridClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
+  allCategoryLabel,
 }: ResourceListFeaturedGridProps) {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const allLabel = allCategoryLabel ?? "All";
+  const [selectedCategory, setSelectedCategory] = useState(
+    typeof allLabel === "string" ? allLabel : "All",
+  );
 
   const filteredArticles =
     articles?.filter(
       (article) =>
-        selectedCategory === "All" || article.category === selectedCategory,
+        selectedCategory ===
+          (typeof allLabel === "string" ? allLabel : "All") ||
+        article.category === selectedCategory,
     ) ?? [];
 
-  const renderFeaturedArticle = () => {
+  const renderedFeaturedArticle = useMemo(() => {
     if (featuredArticleSlot) return featuredArticleSlot;
     if (!featuredArticle) return null;
 
@@ -307,9 +317,9 @@ export function ResourceListFeaturedGrid({
         </div>
       </Pressable>
     );
-  };
+  }, [featuredArticleSlot, featuredArticle, featuredArticleClassName, optixFlowConfig]);
 
-  const renderSecondaryArticles = () => {
+  const renderedSecondaryArticles = useMemo(() => {
     if (secondaryArticlesSlot) return secondaryArticlesSlot;
     if (!secondaryArticles || secondaryArticles.length === 0) return null;
 
@@ -379,9 +389,9 @@ export function ResourceListFeaturedGrid({
         ))}
       </div>
     );
-  };
+  }, [secondaryArticlesSlot, secondaryArticles, secondaryArticlesClassName, optixFlowConfig]);
 
-  const renderArticles = () => {
+  const renderedArticles = useMemo(() => {
     if (articlesSlot) return articlesSlot;
     if (filteredArticles.length === 0) return null;
 
@@ -429,7 +439,7 @@ export function ResourceListFeaturedGrid({
         ))}
       </div>
     );
-  };
+  }, [articlesSlot, filteredArticles, articlesClassName]);
 
   return (
     <Section
@@ -471,8 +481,8 @@ export function ResourceListFeaturedGrid({
           gridClassName,
         )}
       >
-        {renderFeaturedArticle()}
-        {renderSecondaryArticles()}
+        {renderedFeaturedArticle}
+        {renderedSecondaryArticles}
       </div>
       <div className="mt-24">
         {latestUpdatesTitle &&
@@ -491,7 +501,7 @@ export function ResourceListFeaturedGrid({
             </div>
           ))}
         <Tabs
-          defaultValue="All"
+          defaultValue={typeof allLabel === "string" ? allLabel : "All"}
           className={cn("border-b border-border", categoriesClassName)}
           onValueChange={setSelectedCategory}
         >
@@ -508,7 +518,7 @@ export function ResourceListFeaturedGrid({
             ))}
           </TabsList>
         </Tabs>
-        {renderArticles()}
+        {renderedArticles}
       </div>
     </Section>
   );

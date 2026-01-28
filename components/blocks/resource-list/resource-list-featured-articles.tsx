@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -243,12 +244,12 @@ export function ResourceListFeaturedArticles({
   articlesSlot,
   articlesClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ResourceListFeaturedArticlesProps) {
-  const renderFeaturedPost = () => {
+  const renderedFeaturedPost = useMemo(() => {
     if (featuredPostSlot) return featuredPostSlot;
     if (!featuredPost) return null;
 
@@ -263,9 +264,9 @@ export function ResourceListFeaturedArticles({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [featuredPostSlot, featuredPost, featuredPostClassName, featuredBadgeText, featuredBadgeClassName, featuredButtonText, featuredButtonClassName, optixFlowConfig]);
 
-  const renderArticles = () => {
+  const renderedArticles = useMemo(() => {
     if (articlesSlot) return articlesSlot;
     if (!articles || articles.length === 0) return null;
 
@@ -299,7 +300,7 @@ export function ResourceListFeaturedArticles({
         ))}
       </div>
     );
-  };
+  }, [articlesSlot, articles, articlesClassName]);
 
   return (
     <Section
@@ -309,7 +310,7 @@ export function ResourceListFeaturedArticles({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      {renderFeaturedPost()}
+      {renderedFeaturedPost}
       <div className="flex w-full flex-col gap-4">
         {articlesTitle &&
           (typeof articlesTitle === "string" ? (
@@ -326,7 +327,7 @@ export function ResourceListFeaturedArticles({
               {articlesTitle}
             </div>
           ))}
-        {renderArticles()}
+        {renderedArticles}
       </div>
     </Section>
   );

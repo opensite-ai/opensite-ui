@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -130,12 +130,12 @@ export function ResourceListNewsUpdates({
   newsSlot,
   newsClassName,
   contentClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ResourceListNewsUpdatesProps) {
-  const renderNews = () => {
+  const renderedNews = useMemo(() => {
     if (newsSlot) return newsSlot;
     if (!news || news.length === 0) return null;
 
@@ -188,7 +188,7 @@ export function ResourceListNewsUpdates({
         ))}
       </div>
     );
-  };
+  }, [newsSlot, news, newsClassName]);
 
   return (
     <Section
@@ -233,7 +233,7 @@ export function ResourceListNewsUpdates({
               )}
             </h2>
           )}
-          {renderNews()}
+          {renderedNews}
         </div>
       </div>
     </Section>

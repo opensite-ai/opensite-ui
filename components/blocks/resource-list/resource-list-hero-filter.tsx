@@ -627,14 +627,14 @@ export function ResourceListHeroFilter({
   heroClassName,
   contentClassName,
   heroPatternUrl,
-  heroPatternSize = "3.125rem 3.125rem",
+  heroPatternSize,
   formConfig,
   onSubmit,
   onSuccess,
   onError,
   optixFlowConfig,
 }: ResourceListHeroFilterProps) {
-  const renderBreadcrumb = () => {
+  const renderedBreadcrumb = useMemo(() => {
     if (breadcrumbSlot) return breadcrumbSlot;
     if (!breadcrumb || breadcrumb.length === 0) return null;
     return (
@@ -642,9 +642,9 @@ export function ResourceListHeroFilter({
         <BreadcrumbBlog breadcrumb={breadcrumb} />
       </div>
     );
-  };
+  }, [breadcrumbSlot, breadcrumb, breadcrumbClassName]);
 
-  const renderPrimaryPost = () => {
+  const renderedPrimaryPost = useMemo(() => {
     if (primaryPostSlot) return primaryPostSlot;
     if (!primaryPost) return null;
     return (
@@ -652,9 +652,9 @@ export function ResourceListHeroFilter({
         <ResourceCard {...primaryPost} optixFlowConfig={optixFlowConfig} />
       </div>
     );
-  };
+  }, [primaryPostSlot, primaryPost, primaryPostClassName, optixFlowConfig]);
 
-  const renderPosts = () => {
+  const renderedPosts = useMemo(() => {
     if (postsSlot) return postsSlot;
     if (!posts || posts.length === 0) return null;
     return (
@@ -668,7 +668,7 @@ export function ResourceListHeroFilter({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [postsSlot, posts, categories, postsPerPage, loadMoreText, categoriesClassName, postsClassName, optixFlowConfig]);
 
   return (
     <section className={cn("pb-32", className)}>
@@ -682,7 +682,7 @@ export function ResourceListHeroFilter({
         <div className="container flex flex-col items-start justify-start gap-16 py-20 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex w-full flex-col justify-between gap-12">
             <div className="flex w-full max-w-xl flex-col gap-8">
-              {renderBreadcrumb()}
+              {renderedBreadcrumb}
               <div className="flex w-full flex-col gap-5">
                 {title && (
                   typeof title === "string" ? (
@@ -715,7 +715,7 @@ export function ResourceListHeroFilter({
               </div>
             </div>
           </div>
-          {renderPrimaryPost()}
+          {renderedPrimaryPost}
         </div>
       </div>
       <div className={cn("py-20", contentClassName)}>
@@ -730,7 +730,7 @@ export function ResourceListHeroFilter({
             )
           )}
           <div>
-            {renderPosts()}
+            {renderedPosts}
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -142,6 +143,14 @@ export interface ResourceListCourseCardsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Default fallback label for lessons count (defaults to "Lessons")
+   */
+  defaultLessonsLabel?: string;
+  /**
+   * Default fallback label for videos count (defaults to "Videos")
+   */
+  defaultVideosLabel?: string;
 }
 
 /**
@@ -169,12 +178,14 @@ export function ResourceListCourseCards({
   courseContentClassName,
   courseVisualClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "md",
+  background,
+  spacing,
   pattern,
   patternOpacity,
+  defaultLessonsLabel,
+  defaultVideosLabel,
 }: ResourceListCourseCardsProps) {
-  const renderCourses = () => {
+  const renderedCourses = useMemo(() => {
     if (coursesSlot) return coursesSlot;
     if (!courses || courses.length === 0) return null;
 
@@ -225,13 +236,15 @@ export function ResourceListCourseCards({
                   <div className="flex items-center gap-2">
                     <DynamicIcon name="lucide/book-open" size={16} />
                     <span>
-                      {course.lessons} {course.lessonsLabel ?? "Lessons"}
+                      {course.lessons}{" "}
+                      {course.lessonsLabel ?? defaultLessonsLabel ?? "Lessons"}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <DynamicIcon name="lucide/play" size={16} />
                     <span>
-                      {course.videos} {course.videosLabel ?? "Videos"},{" "}
+                      {course.videos}{" "}
+                      {course.videosLabel ?? defaultVideosLabel ?? "Videos"},{" "}
                       {course.duration}
                     </span>
                   </div>
@@ -320,7 +333,7 @@ export function ResourceListCourseCards({
         ))}
       </div>
     );
-  };
+  }, [coursesSlot, courses, coursesClassName, courseCardClassName, courseContentClassName, courseVisualClassName, defaultLessonsLabel, defaultVideosLabel, optixFlowConfig]);
 
   return (
     <Section
@@ -330,7 +343,7 @@ export function ResourceListCourseCards({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      {renderCourses()}
+      {renderedCourses}
     </Section>
   );
 }
