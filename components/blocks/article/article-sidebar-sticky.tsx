@@ -6,8 +6,9 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleSidebarStickyProps {
   /**
@@ -102,63 +103,23 @@ export interface ArticleSidebarStickyProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
-
-const defaultArticleContent = (optixFlowConfig?: OptixFlowConfig) => (
-  <>
-    <p className="lead">
-      In the ever-evolving landscape of web development, staying current
-      with best practices and emerging technologies is crucial for
-      building exceptional digital experiences.
-    </p>
-    <h2>Understanding the Fundamentals</h2>
-    <p>
-      Before diving into advanced concepts, it&apos;s essential to have
-      a solid grasp of the fundamentals. HTML, CSS, and JavaScript form
-      the backbone of web development, and mastering these technologies
-      opens doors to more complex frameworks and tools.
-    </p>
-    <p>
-      Modern web development has evolved significantly over the past
-      decade. What once required extensive server-side rendering can now
-      be accomplished with client-side frameworks that offer improved
-      performance and user experience.
-    </p>
-    <h2>The Rise of Component-Based Architecture</h2>
-    <p>
-      Component-based architecture has revolutionized how we build web
-      applications. By breaking down interfaces into reusable,
-      self-contained components, developers can create more maintainable
-      and scalable codebases.
-    </p>
-    <blockquote>
-      &ldquo;The best code is no code at all. Every new line of code you
-      willingly bring into the world is code that has to be debugged,
-      code that has to be read and understood.&rdquo;
-    </blockquote>
-    <h2>Performance Optimization</h2>
-    <p>
-      Performance is no longer optional—it&apos;s a critical factor in
-      user experience and search engine rankings. Techniques like code
-      splitting, lazy loading, and image optimization have become
-      standard practices in modern web development.
-    </p>
-    <Img
-      src={imagePlaceholders[3]}
-      alt="Performance optimization illustration"
-      className="my-8 aspect-video w-full rounded-lg object-cover"
-      optixFlowConfig={optixFlowConfig}
-    />
-    <h2>Looking Ahead</h2>
-    <p>
-      The future of web development is exciting, with emerging
-      technologies like WebAssembly, Edge Computing, and AI-powered
-      development tools reshaping how we build for the web. Staying
-      curious and continuously learning will be key to thriving in this
-      dynamic field.
-    </p>
-  </>
-);
 
 export function ArticleSidebarStickyComponent({
   className,
@@ -184,6 +145,10 @@ export function ArticleSidebarStickyComponent({
   heroMediaSlot,
   children,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: ArticleSidebarStickyProps) {
   const backLinkContent = React.useMemo(() => {
     if (backLinkSlot) return backLinkSlot;
@@ -243,7 +208,13 @@ export function ArticleSidebarStickyComponent({
   }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="grid gap-10 lg:grid-cols-[1fr_minmax(0,2fr)]">
           <aside className={cn("hidden lg:block", sidebarClassName)}>
@@ -271,11 +242,11 @@ export function ArticleSidebarStickyComponent({
               {renderAuthor(true)}
             </div>
             {heroMediaContent}
-            {children || defaultArticleContent(optixFlowConfig)}
+            {children}
           </article>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

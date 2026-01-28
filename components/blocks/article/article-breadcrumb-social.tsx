@@ -15,8 +15,9 @@ import {
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
 import { Separator } from "../../ui/separator";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { SocialLinkItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { SocialLinkItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleBreadcrumbSection {
   id: string;
@@ -180,88 +181,23 @@ export interface ArticleBreadcrumbSocialProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
-
-const defaultArticleContent = (optixFlowConfig?: OptixFlowConfig) => (
-  <>
-    <Img
-      src={imagePlaceholders[6]}
-      alt="Article hero"
-      className="my-8 aspect-video w-full rounded-lg object-cover"
-      optixFlowConfig={optixFlowConfig}
-    />
-
-    <section id="overview">
-      <h2>Overview</h2>
-      <p>
-        Performance optimization is crucial for delivering exceptional
-        user experiences. In this comprehensive guide, we&apos;ll
-        explore proven strategies for improving web application
-        performance.
-      </p>
-      <p>
-        From initial page load to runtime performance, every
-        millisecond counts. Users expect fast, responsive applications,
-        and search engines reward sites that deliver.
-      </p>
-    </section>
-
-    <section id="key-features">
-      <h2>Key Features</h2>
-      <p>
-        Modern performance optimization encompasses several key areas:
-      </p>
-      <ul>
-        <li>Code splitting and lazy loading</li>
-        <li>Image optimization and responsive images</li>
-        <li>Caching strategies and CDN utilization</li>
-        <li>Bundle size optimization</li>
-      </ul>
-      <Img
-        src={imagePlaceholders[7]}
-        alt="Performance metrics"
-        className="my-8 aspect-video w-full rounded-lg object-cover"
-        optixFlowConfig={optixFlowConfig}
-      />
-    </section>
-
-    <section id="implementation">
-      <h2>Implementation</h2>
-      <p>
-        Implementing performance optimizations requires a systematic
-        approach. Start by measuring your current performance using
-        tools like Lighthouse, WebPageTest, or Chrome DevTools.
-      </p>
-      <blockquote>
-        &ldquo;You can&apos;t improve what you don&apos;t measure.&rdquo;
-        - Peter Drucker
-      </blockquote>
-      <p>
-        Once you have baseline metrics, prioritize optimizations based
-        on their potential impact and implementation effort.
-      </p>
-    </section>
-
-    <section id="performance">
-      <h2>Performance Metrics</h2>
-      <p>
-        Focus on Core Web Vitals: Largest Contentful Paint (LCP), First
-        Input Delay (FID), and Cumulative Layout Shift (CLS). These
-        metrics directly impact user experience and SEO rankings.
-      </p>
-    </section>
-
-    <section id="summary">
-      <h2>Summary</h2>
-      <p>
-        Performance optimization is an ongoing process, not a one-time
-        task. Continuously monitor your metrics, identify bottlenecks,
-        and iterate on improvements to maintain a fast, responsive
-        application.
-      </p>
-    </section>
-  </>
-);
 
 export function ArticleBreadcrumbSocialComponent({
   className,
@@ -298,6 +234,10 @@ export function ArticleBreadcrumbSocialComponent({
   enableTocTracking,
   enableBackToTop,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: ArticleBreadcrumbSocialProps) {
   const author = authorProp ?? (authorName ? { name: authorName, image: authorImage, role: authorRole } : undefined);
 
@@ -493,30 +433,38 @@ export function ArticleBreadcrumbSocialComponent({
   }, [shareSlot, socialLinks, shareClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container", containerClassName)}>
         {breadcrumbsContent}
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
-          <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
-            {title && (
-              typeof title === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
-                  {title}
-                </h1>
-              ) : (
-                <div className={titleClassName}>{title}</div>
-              )
-            )}
+          {children && (
+            <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
+              {title && (
+                typeof title === "string" ? (
+                  <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
+                    {title}
+                  </h1>
+                ) : (
+                  <div className={titleClassName}>{title}</div>
+                )
+              )}
 
-            {authorContent}
+              {authorContent}
 
-            <Separator className="my-8" />
+              <Separator className="my-8" />
 
-            {heroMediaContent}
+              {heroMediaContent}
 
-            {children || defaultArticleContent(optixFlowConfig)}
-          </article>
+              {children}
+            </article>
+          )}
 
           <aside className={cn("hidden lg:block", sidebarClassName)}>
             <div className="sticky top-8 space-y-6">
@@ -536,7 +484,7 @@ export function ArticleBreadcrumbSocialComponent({
           <DynamicIcon name="lucide/arrow-up" size={20} />
         </button>
       )}
-    </section>
+    </Section>
   );
 }
 

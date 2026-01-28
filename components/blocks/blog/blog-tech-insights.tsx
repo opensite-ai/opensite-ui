@@ -8,7 +8,13 @@ import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  BlogPostItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface BlogTechInsightsProps {
   /**
@@ -130,8 +136,8 @@ export function BlogTechInsights({
   secondaryPostsClassName,
   secondaryPostItemClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: BlogTechInsightsProps): React.JSX.Element {
@@ -139,11 +145,22 @@ export function BlogTechInsights({
     if (readMoreSlot) return readMoreSlot;
     if (!readMoreAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = readMoreAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = readMoreAction;
     return (
       <Pressable
         asButton
-        className={cn("ml-auto rounded-full border-foreground text-foreground", actionClassName, readMoreClassName)}
+        className={cn(
+          "ml-auto rounded-full border-foreground text-foreground",
+          actionClassName,
+          readMoreClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -165,15 +182,22 @@ export function BlogTechInsights({
       <div className={cn("mb-4", featuredClassName)}>
         {featuredPost.image && (
           <Img
-            className={cn("w-full rounded-lg object-cover", featuredImageClassName)}
+            className={cn(
+              "w-full rounded-lg object-cover",
+              featuredImageClassName,
+            )}
             src={featuredPost.image}
-            alt={typeof featuredPost.title === "string" ? featuredPost.title : "Featured item"}
+            alt={
+              typeof featuredPost.title === "string"
+                ? featuredPost.title
+                : "Featured item"
+            }
             optixFlowConfig={optixFlowConfig}
           />
         )}
         <div className="mt-4">
-          {featuredPost.title && (
-            typeof featuredPost.title === "string" ? (
+          {featuredPost.title &&
+            (typeof featuredPost.title === "string" ? (
               <h2 className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
                 {featuredPost.title}
               </h2>
@@ -181,8 +205,7 @@ export function BlogTechInsights({
               <div className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
                 {featuredPost.title}
               </div>
-            )
-          )}
+            ))}
         </div>
         {(featuredPost.author || featuredPost.authorAvatar) && (
           <div className="mt-6 flex items-center gap-3 md:mt-8 md:gap-4">
@@ -207,7 +230,13 @@ export function BlogTechInsights({
         )}
       </div>
     );
-  }, [featuredSlot, featuredPost, featuredClassName, featuredImageClassName, optixFlowConfig]);
+  }, [
+    featuredSlot,
+    featuredPost,
+    featuredClassName,
+    featuredImageClassName,
+    optixFlowConfig,
+  ]);
 
   const secondaryPostsContent = useMemo(() => {
     if (secondaryPostsSlot) return secondaryPostsSlot;
@@ -219,14 +248,19 @@ export function BlogTechInsights({
       return (
         <div
           key={postId}
-          className={cn("flex items-start gap-4 border-b pb-6 last:border-b-0", secondaryPostItemClassName)}
+          className={cn(
+            "flex items-start gap-4 border-b pb-6 last:border-b-0",
+            secondaryPostItemClassName,
+          )}
         >
           <div className="w-1/4 shrink-0 md:w-1/5">
             {post.image && (
               <Img
                 className="rounded-md"
                 src={post.image}
-                alt={typeof post.title === "string" ? post.title : "Content item"}
+                alt={
+                  typeof post.title === "string" ? post.title : "Content item"
+                }
                 optixFlowConfig={optixFlowConfig}
               />
             )}
@@ -241,7 +275,12 @@ export function BlogTechInsights({
         </div>
       );
     });
-  }, [secondaryPostsSlot, secondaryPosts, secondaryPostItemClassName, optixFlowConfig]);
+  }, [
+    secondaryPostsSlot,
+    secondaryPosts,
+    secondaryPostItemClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -253,34 +292,52 @@ export function BlogTechInsights({
     >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mb-8", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-3xl font-bold text-foreground md:text-4xl lg:text-5xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-3xl font-bold text-foreground md:text-4xl lg:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
+            ))}
 
           <div className="mt-4 flex justify-start">
-            {description && (
-              typeof description === "string" ? (
-                <span className={cn("mt-2 block text-sm text-muted-foreground md:text-base", descriptionClassName)}>
+            {description &&
+              (typeof description === "string" ? (
+                <span
+                  className={cn(
+                    "mt-2 block text-sm text-muted-foreground md:text-base",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </span>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
             {readMoreActionContent}
           </div>
         </div>
 
-        <div className={cn("mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12", contentClassName)}>
+        <div
+          className={cn(
+            "mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12",
+            contentClassName,
+          )}
+        >
           {featuredPostContent}
 
-          <div className={cn("space-y-6 text-foreground md:space-y-8", secondaryPostsClassName)}>
+          <div
+            className={cn(
+              "space-y-6 text-foreground md:space-y-8",
+              secondaryPostsClassName,
+            )}
+          >
             {secondaryPostsContent}
           </div>
         </div>

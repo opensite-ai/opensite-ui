@@ -14,8 +14,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { SocialLinkItem, OptixFlowConfig, ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { SocialLinkItem, OptixFlowConfig, ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleChapter {
   id: string;
@@ -182,94 +183,23 @@ export interface ArticleChaptersAuthorProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
-
-const defaultArticleContent = (optixFlowConfig?: OptixFlowConfig) => (
-  <>
-    <Img
-      src={imagePlaceholders[0]}
-      alt="Article hero"
-      className="my-8 aspect-video w-full rounded-lg object-cover"
-      optixFlowConfig={optixFlowConfig}
-    />
-
-    <section id="chapter-1">
-      <h2>Chapter 1: The Foundation</h2>
-      <p>
-        Design patterns are reusable solutions to common problems in
-        software design. They represent best practices evolved over time
-        by experienced software developers.
-      </p>
-      <p>
-        Understanding the foundation of design patterns helps you
-        recognize when and how to apply them effectively in your own
-        projects.
-      </p>
-    </section>
-
-    <section id="chapter-2">
-      <h2>Chapter 2: Building Blocks</h2>
-      <p>
-        The building blocks of design patterns include creational,
-        structural, and behavioral patterns. Each category addresses
-        different aspects of software design.
-      </p>
-      <Img
-        src={imagePlaceholders[1]}
-        alt="Pattern categories"
-        className="my-8 aspect-video w-full rounded-lg object-cover"
-        optixFlowConfig={optixFlowConfig}
-      />
-      <p>
-        Creational patterns deal with object creation mechanisms,
-        structural patterns focus on class composition, and behavioral
-        patterns characterize object interaction.
-      </p>
-    </section>
-
-    <section id="chapter-3">
-      <h2>Chapter 3: Advanced Patterns</h2>
-      <p>
-        Advanced patterns build upon the fundamentals to address more
-        complex scenarios. These include patterns for concurrency,
-        distributed systems, and enterprise applications.
-      </p>
-      <blockquote>
-        &ldquo;Patterns are not invented, they are discovered.&rdquo; -
-        Christopher Alexander
-      </blockquote>
-    </section>
-
-    <section id="chapter-4">
-      <h2>Chapter 4: Real-World Applications</h2>
-      <p>
-        Seeing patterns in action helps solidify understanding. This
-        chapter explores how major frameworks and libraries implement
-        design patterns.
-      </p>
-      <ul>
-        <li>React&apos;s use of the Observer pattern</li>
-        <li>Express.js middleware as Chain of Responsibility</li>
-        <li>Redux implementing the Flux pattern</li>
-        <li>Dependency injection in Angular</li>
-      </ul>
-    </section>
-
-    <section id="chapter-5">
-      <h2>Chapter 5: Future Directions</h2>
-      <p>
-        As software development evolves, new patterns emerge while
-        others become less relevant. Understanding the principles behind
-        patterns helps you adapt to changing technologies.
-      </p>
-      <p>
-        The rise of functional programming, microservices, and
-        serverless architectures has introduced new patterns and
-        variations on classic ones.
-      </p>
-    </section>
-  </>
-);
 
 export function ArticleChaptersAuthorComponent({
   className,
@@ -306,6 +236,10 @@ export function ArticleChaptersAuthorComponent({
   children,
   enableChapterTracking = true,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: ArticleChaptersAuthorProps) {
   const conclusionActions = conclusionActionsProp ?? (conclusionButtonText ? [{ label: conclusionButtonText, href: conclusionButtonHref || "#", variant: "default" as const }] : []);
   const [activeChapter, setActiveChapter] = React.useState<string>(
@@ -549,7 +483,13 @@ export function ArticleChaptersAuthorComponent({
   }, [conclusionSlot, conclusionTitle, conclusionDescription, conclusionActions, conclusionClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container", containerClassName)}>
         {breadcrumbsContent}
 
@@ -585,13 +525,13 @@ export function ArticleChaptersAuthorComponent({
           <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
             {heroMediaContent}
 
-            {children || defaultArticleContent(optixFlowConfig)}
+            {children}
 
             {conclusionContent}
           </article>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

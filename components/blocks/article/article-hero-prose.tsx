@@ -5,11 +5,10 @@ import { format } from "date-fns";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Alert, AlertDescription, AlertTitle } from "../../ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleHeroProsePost {
   title?: string;
@@ -79,101 +78,23 @@ export interface ArticleHeroProseProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
-
-const defaultArticleContent = (optixFlowConfig?: OptixFlowConfig) => (
-  <>
-    <h2 className="text-3xl font-extrabold">The Great Joke Tax</h2>
-    <p className="mt-2 text-lg text-muted-foreground">
-      In a kingdom far away, where laughter once flowed freely, a peculiar
-      tale unfolded about a king who decided to tax the very essence of
-      joy itself - jokes and jest.
-    </p>
-
-    <h2>How the Tax System Works</h2>
-    <p>
-      The king, seeing how much happier his subjects were, realized the
-      error of his ways and repealed the joke tax. Jokester was declared a
-      hero, and the kingdom lived happily ever after.
-    </p>
-    <Alert>
-      <DynamicIcon name="lucide/lightbulb" size={16} />
-      <AlertTitle>Royal Decree!</AlertTitle>
-      <AlertDescription>
-        Remember, all jokes must be registered at the Royal Jest Office
-        before telling them
-      </AlertDescription>
-    </Alert>
-    <h2>The People&apos;s Rebellion</h2>
-    <p>
-      The people of the kingdom, feeling uplifted by the laughter, started
-      to tell jokes and puns again, and soon the entire kingdom was in on
-      the joke.
-    </p>
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>King&apos;s Treasury</th>
-            <th>People&apos;s happiness</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Empty</td>
-            <td>Overflowing</td>
-          </tr>
-          <tr className="m-0 border-t p-0 even:bg-muted">
-            <td>Modest</td>
-            <td>Satisfied</td>
-          </tr>
-          <tr className="m-0 border-t p-0 even:bg-muted">
-            <td>Full</td>
-            <td>Ecstatic</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p>
-      The king, seeing how much happier his subjects were, realized the
-      error of his ways and repealed the joke tax. Jokester was declared a
-      hero, and the kingdom lived happily ever after.
-    </p>
-
-    <h2>The King&apos;s Plan</h2>
-
-    <Img
-      src={imagePlaceholders[1]}
-      alt="Article content image"
-      className="my-8 aspect-video w-full rounded-md object-cover"
-      optixFlowConfig={optixFlowConfig}
-    />
-    <p>
-      The king thought long and hard, and finally came up with{" "}
-      <Pressable href="#">a brilliant plan</Pressable>: he would tax the jokes in the
-      kingdom.
-    </p>
-    <blockquote>
-      &ldquo;After all,&rdquo; he said, &ldquo;everyone enjoys a good
-      joke, so it&apos;s only fair that they should pay for the
-      privilege.&rdquo;
-    </blockquote>
-    <p>
-      The king&apos;s subjects were not amused. They grumbled and
-      complained, but the king was firm:
-    </p>
-    <ul>
-      <li>1st level of puns: 5 gold coins</li>
-      <li>2nd level of jokes: 10 gold coins</li>
-      <li>3rd level of one-liners : 20 gold coins</li>
-    </ul>
-    <p>
-      As a result, people stopped telling jokes, and the kingdom fell into
-      a gloom. But there was one person who refused to let the king&apos;s
-      foolishness get him down: a court jester named Jokester.
-    </p>
-  </>
-);
 
 export function ArticleHeroProseComponent({
   post,
@@ -190,6 +111,10 @@ export function ArticleHeroProseComponent({
   children,
   dateFormat = "MMMM d, yyyy",
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: ArticleHeroProseProps) {
   const { title, authorName, authorHref, image, pubDate, description, authorImage } = post ?? {};
 
@@ -230,7 +155,13 @@ export function ArticleHeroProseComponent({
   }, [heroMediaSlot, image, heroImageClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto flex max-w-5xl flex-col items-center gap-4 text-center", headerClassName)}>
           {title && (
@@ -247,12 +178,14 @@ export function ArticleHeroProseComponent({
           {heroMediaContent}
         </div>
       </div>
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("mx-auto prose max-w-3xl dark:prose-invert", proseClassName)}>
-          {children || defaultArticleContent(optixFlowConfig)}
+      {children && (
+        <div className={cn("container", containerClassName)}>
+          <div className={cn("mx-auto prose max-w-3xl dark:prose-invert", proseClassName)}>
+            {children}
+          </div>
         </div>
-      </div>
-    </section>
+      )}
+    </Section>
   );
 }
 

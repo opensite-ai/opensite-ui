@@ -7,10 +7,15 @@ import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "../../ui/card";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  BlogPostItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface BlogCardsTaglineCtaProps {
   /**
@@ -122,8 +127,8 @@ export function BlogCardsTaglineCta({
   postsClassName,
   postCardClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: BlogCardsTaglineCtaProps): React.JSX.Element {
@@ -131,10 +136,21 @@ export function BlogCardsTaglineCta({
     if (ctaSlot) return ctaSlot;
     if (!ctaAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = ctaAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = ctaAction;
     return (
       <Pressable
-        className={cn("w-full sm:w-auto inline-flex items-center", actionClassName, ctaClassName)}
+        className={cn(
+          "w-full sm:w-auto inline-flex items-center",
+          actionClassName,
+          ctaClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -155,13 +171,17 @@ export function BlogCardsTaglineCta({
     return posts.map((post) => {
       const postHref = post.href || post.url || post.link || "#";
       const postId = post.id || String(post.title) || Math.random().toString();
-      const postTitle = typeof post.title === "string" ? post.title : "Blog post";
+      const postTitle =
+        typeof post.title === "string" ? post.title : "Blog post";
       const postSummary = post.summary || post.description;
 
       return (
         <Card
           key={postId}
-          className={cn("grid grid-rows-[auto_auto_1fr_auto] overflow-hidden pt-0", postCardClassName)}
+          className={cn(
+            "grid grid-rows-[auto_auto_1fr_auto] overflow-hidden pt-0",
+            postCardClassName,
+          )}
         >
           {post.image && (
             <div className="aspect-video w-full">
@@ -218,38 +238,55 @@ export function BlogCardsTaglineCta({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container mx-auto flex flex-col items-center gap-16 lg:px-16", containerClassName)}>
+      <div
+        className={cn(
+          "container mx-auto flex flex-col items-center gap-16 lg:px-16",
+          containerClassName,
+        )}
+      >
         <div className={cn("text-center", headerClassName)}>
-          {badge && (
-            typeof badge === "string" ? (
+          {badge &&
+            (typeof badge === "string" ? (
               <Badge variant="secondary" className={cn("mb-6", badgeClassName)}>
                 {badge}
               </Badge>
             ) : (
               <div className={cn("mb-6", badgeClassName)}>{badge}</div>
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-3 text-3xl font-semibold text-pretty md:mb-4 md:text-4xl lg:mb-6 lg:max-w-3xl lg:text-5xl", headingClassName)}>
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-3 text-3xl font-semibold text-pretty md:mb-4 md:text-4xl lg:mb-6 lg:max-w-3xl lg:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mb-8 text-muted-foreground md:text-base lg:max-w-2xl lg:text-lg", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mb-8 text-muted-foreground md:text-base lg:max-w-2xl lg:text-lg",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           {ctaActionContent}
         </div>
-        <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8", postsClassName)}>
+        <div
+          className={cn(
+            "grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8",
+            postsClassName,
+          )}
+        >
           {postsContent}
         </div>
       </div>

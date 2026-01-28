@@ -14,8 +14,9 @@ import {
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
 import { Separator } from "../../ui/separator";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { OptixFlowConfig, SocialLinkItem } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { OptixFlowConfig, SocialLinkItem, SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleCompactTocSection {
   id: string;
@@ -145,74 +146,23 @@ export interface ArticleCompactTocProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
-
-const defaultArticleContent = () => (
-  <>
-    <section id="introduction">
-      <h2>Introduction</h2>
-      <p>
-        Understanding user behavior is fundamental to creating effective
-        web applications. This study examines patterns in user
-        interaction and provides insights for improving user experience.
-      </p>
-      <p>
-        Our research focuses on identifying key factors that influence
-        user engagement and satisfaction in modern web applications.
-      </p>
-    </section>
-
-    <section id="methodology">
-      <h2>Methodology</h2>
-      <p>
-        We employed a mixed-methods approach combining quantitative
-        analytics with qualitative user interviews. Data was collected
-        from over 10,000 users across diverse demographics.
-      </p>
-      <p>
-        Statistical analysis was performed using industry-standard tools
-        to ensure reliability and validity of our findings.
-      </p>
-    </section>
-
-    <section id="results">
-      <h2>Results</h2>
-      <p>
-        Our findings reveal several key patterns in user behavior:
-      </p>
-      <ul>
-        <li>Users prefer intuitive navigation over complex menus</li>
-        <li>Page load time significantly impacts engagement</li>
-        <li>Mobile-first design improves overall satisfaction</li>
-        <li>Clear calls-to-action increase conversion rates</li>
-      </ul>
-    </section>
-
-    <section id="discussion">
-      <h2>Discussion</h2>
-      <p>
-        These results align with existing literature while providing new
-        insights into emerging user expectations. The implications for
-        web development practices are significant.
-      </p>
-      <blockquote>
-        &ldquo;User experience is not just about usability—it&apos;s
-        about creating meaningful interactions that resonate with
-        users.&rdquo;
-      </blockquote>
-    </section>
-
-    <section id="conclusion">
-      <h2>Conclusion</h2>
-      <p>
-        This study provides actionable insights for developers and
-        designers seeking to improve user experience. Future research
-        should explore the impact of emerging technologies on user
-        behavior patterns.
-      </p>
-    </section>
-  </>
-);
 
 export function ArticleCompactTocComponent({
   className,
@@ -244,6 +194,10 @@ export function ArticleCompactTocComponent({
   children,
   enableTocTracking = true,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: ArticleCompactTocProps) {
   const [activeSection, setActiveSection] = React.useState<string>(
     sections?.[0]?.id || ""
@@ -389,7 +343,13 @@ export function ArticleCompactTocComponent({
   }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container", containerClassName)}>
         {breadcrumbsContent}
 
@@ -428,13 +388,15 @@ export function ArticleCompactTocComponent({
 
           {tocContent}
 
-          <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
-            {heroMediaContent}
-            {children ?? defaultArticleContent()}
-          </article>
+          {children && (
+            <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
+              {heroMediaContent}
+              {children}
+            </article>
+          )}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

@@ -6,10 +6,15 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  BlogPostItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface BlogCategoryOverlayProps {
   /**
@@ -126,8 +131,8 @@ export function BlogCategoryOverlay({
   postCardClassName,
   categoryBadgeClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: BlogCategoryOverlayProps): React.JSX.Element {
@@ -135,10 +140,21 @@ export function BlogCategoryOverlay({
     if (viewAllSlot) return viewAllSlot;
     if (!viewAllAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = viewAllAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = viewAllAction;
     return (
       <Pressable
-        className={cn("flex items-center gap-1 text-sm font-semibold", actionClassName, viewAllClassName)}
+        className={cn(
+          "flex items-center gap-1 text-sm font-semibold",
+          actionClassName,
+          viewAllClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -166,7 +182,9 @@ export function BlogCategoryOverlay({
             {post.image && (
               <Img
                 src={post.image}
-                alt={typeof post.title === "string" ? post.title : "Content item"}
+                alt={
+                  typeof post.title === "string" ? post.title : "Content item"
+                }
                 className="aspect-video w-full rounded-lg object-cover"
                 optixFlowConfig={optixFlowConfig}
               />
@@ -174,31 +192,41 @@ export function BlogCategoryOverlay({
             {(post.category || post.label) && (
               <Badge
                 variant="secondary"
-                className={cn("absolute top-4 right-4 bg-background/70 px-3 py-1 text-sm backdrop-blur-sm", categoryBadgeClassName)}
+                className={cn(
+                  "absolute top-4 right-4 bg-background/70 px-3 py-1 text-sm backdrop-blur-sm",
+                  categoryBadgeClassName,
+                )}
               >
                 {post.category || post.label}
               </Badge>
             )}
           </div>
           <div className="flex h-full flex-col justify-between p-4">
-            {post.title && (
-              typeof post.title === "string" ? (
+            {post.title &&
+              (typeof post.title === "string" ? (
                 <h2 className="mb-5 text-xl font-semibold">{post.title}</h2>
               ) : (
                 <div className="mb-5 text-xl font-semibold">{post.title}</div>
-              )
-            )}
+              ))}
             <div className="flex justify-between gap-6 text-sm">
               {(post.date || post.published) && (
                 <span className="flex items-center gap-1 text-muted-foreground">
-                  <DynamicIcon name="lucide/calendar" size={16} className="h-4 w-4" />
+                  <DynamicIcon
+                    name="lucide/calendar"
+                    size={16}
+                    className="h-4 w-4"
+                  />
                   {post.date || post.published}
                 </span>
               )}
               {readMoreText && (
                 <Pressable href={postHref} className="flex items-center gap-1">
                   {readMoreText}
-                  <DynamicIcon name="lucide/chevron-right" size={12} className="h-full w-3" />
+                  <DynamicIcon
+                    name="lucide/chevron-right"
+                    size={12}
+                    className="h-full w-3"
+                  />
                 </Pressable>
               )}
             </div>
@@ -206,7 +234,14 @@ export function BlogCategoryOverlay({
         </div>
       );
     });
-  }, [postsSlot, posts, postCardClassName, categoryBadgeClassName, optixFlowConfig, readMoreText]);
+  }, [
+    postsSlot,
+    posts,
+    postCardClassName,
+    categoryBadgeClassName,
+    optixFlowConfig,
+    readMoreText,
+  ]);
 
   return (
     <Section
@@ -217,7 +252,12 @@ export function BlogCategoryOverlay({
       patternOpacity={patternOpacity}
     >
       <div className={cn("container", containerClassName)}>
-        <div className={cn("mx-auto flex max-w-3xl flex-col items-center gap-6 text-center", headerClassName)}>
+        <div
+          className={cn(
+            "mx-auto flex max-w-3xl flex-col items-center gap-6 text-center",
+            headerClassName,
+          )}
+        >
           {badge && (
             <div className={badgeClassName}>
               {typeof badge === "string" ? (
@@ -227,23 +267,35 @@ export function BlogCategoryOverlay({
               )}
             </div>
           )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-4xl font-semibold text-balance", headingClassName)}>{heading}</h1>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-4xl font-semibold text-balance",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h1>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p className={cn("text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           {viewAllActionContent}
         </div>
-        <div className={cn("mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-3", postsClassName)}>
+        <div
+          className={cn(
+            "mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+            postsClassName,
+          )}
+        >
           {postsContent}
         </div>
       </div>

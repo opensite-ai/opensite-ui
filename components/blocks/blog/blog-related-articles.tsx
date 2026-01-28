@@ -5,7 +5,13 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  BlogPostItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface BlogRelatedArticlesProps {
   /**
@@ -91,8 +97,8 @@ export function BlogRelatedArticles({
   seeAllClassName,
   articlesClassName,
   articleCardClassName,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: BlogRelatedArticlesProps): React.JSX.Element {
@@ -100,11 +106,22 @@ export function BlogRelatedArticles({
     if (seeAllSlot) return seeAllSlot;
     if (!seeAllAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = seeAllAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = seeAllAction;
     return (
       <Pressable
         asButton
-        className={cn("md:h-10 md:px-4 md:py-2", actionClassName, seeAllClassName)}
+        className={cn(
+          "md:h-10 md:px-4 md:py-2",
+          actionClassName,
+          seeAllClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -137,13 +154,12 @@ export function BlogRelatedArticles({
               {item.category || item.label}
             </span>
           )}
-          {item.title && (
-            typeof item.title === "string" ? (
+          {item.title &&
+            (typeof item.title === "string" ? (
               <h3 className="mb-1 text-lg font-semibold">{item.title}</h3>
             ) : (
               <div className="mb-1 text-lg font-semibold">{item.title}</div>
-            )
-          )}
+            ))}
           {(item.description || item.summary) && (
             <p className="mb-4 text-sm text-muted-foreground">
               {item.description || item.summary}
@@ -168,17 +184,33 @@ export function BlogRelatedArticles({
       patternOpacity={patternOpacity}
     >
       <div className={cn("container", containerClassName)}>
-        <div className={cn("mb-8 flex flex-wrap items-center justify-between gap-1", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-2xl font-semibold md:text-4xl", headingClassName)}>{heading}</h1>
+        <div
+          className={cn(
+            "mb-8 flex flex-wrap items-center justify-between gap-1",
+            headerClassName,
+          )}
+        >
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-2xl font-semibold md:text-4xl",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h1>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
+            ))}
           {renderedSeeAllAction}
         </div>
-        <div className={cn("grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-4 lg:gap-10", articlesClassName)}>
+        <div
+          className={cn(
+            "grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-4 lg:gap-10",
+            articlesClassName,
+          )}
+        >
           {renderedArticles}
         </div>
       </div>

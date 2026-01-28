@@ -5,10 +5,14 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  BlogPostItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface BlogFeaturedPopularProps {
   /**
@@ -120,8 +124,8 @@ export function BlogFeaturedPopular({
   postsClassName,
   postCardClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: BlogFeaturedPopularProps): React.JSX.Element {
@@ -138,25 +142,40 @@ export function BlogFeaturedPopular({
 
     return (
       <PostWrapper
-        className={cn("my-16 grid grid-cols-1 items-center gap-8 md:grid-cols-2 lg:gap-16", featuredClassName)}
+        className={cn(
+          "my-16 grid grid-cols-1 items-center gap-8 md:grid-cols-2 lg:gap-16",
+          featuredClassName,
+        )}
         {...wrapperProps}
       >
         {featuredPost.image && (
           <Img
             src={featuredPost.image}
-            alt={typeof featuredPost.title === "string" ? featuredPost.title : "Featured post"}
-            className={cn("aspect-video rounded-lg object-cover", featuredImageClassName)}
+            alt={
+              typeof featuredPost.title === "string"
+                ? featuredPost.title
+                : "Featured post"
+            }
+            className={cn(
+              "aspect-video rounded-lg object-cover",
+              featuredImageClassName,
+            )}
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        <div className={cn("flex flex-col items-start gap-4", featuredContentClassName)}>
+        <div
+          className={cn(
+            "flex flex-col items-start gap-4",
+            featuredContentClassName,
+          )}
+        >
           {(featuredPost.category || featuredPost.label) && (
             <Badge variant="secondary" className="shrink">
               {featuredPost.category || featuredPost.label}
             </Badge>
           )}
-          {featuredPost.title && (
-            typeof featuredPost.title === "string" ? (
+          {featuredPost.title &&
+            (typeof featuredPost.title === "string" ? (
               <h2 className="text-2xl font-semibold text-balance md:max-w-lg lg:text-3xl">
                 {featuredPost.title}
               </h2>
@@ -164,8 +183,7 @@ export function BlogFeaturedPopular({
               <div className="text-2xl font-semibold text-balance md:max-w-lg lg:text-3xl">
                 {featuredPost.title}
               </div>
-            )
-          )}
+            ))}
           {(featuredPost.description || featuredPost.summary) && (
             <p className="text-muted-foreground md:max-w-lg">
               {featuredPost.description || featuredPost.summary}
@@ -174,7 +192,14 @@ export function BlogFeaturedPopular({
         </div>
       </PostWrapper>
     );
-  }, [featuredSlot, featuredPost, featuredClassName, featuredImageClassName, featuredContentClassName, optixFlowConfig]);
+  }, [
+    featuredSlot,
+    featuredPost,
+    featuredClassName,
+    featuredImageClassName,
+    featuredContentClassName,
+    optixFlowConfig,
+  ]);
 
   const renderedPopularPosts = React.useMemo(() => {
     if (postsSlot) return postsSlot;
@@ -205,8 +230,8 @@ export function BlogFeaturedPopular({
               {post.category || post.label}
             </Badge>
           )}
-          {post.title && (
-            typeof post.title === "string" ? (
+          {post.title &&
+            (typeof post.title === "string" ? (
               <h3 className="text-xl font-semibold text-balance md:max-w-md">
                 {post.title}
               </h3>
@@ -214,8 +239,7 @@ export function BlogFeaturedPopular({
               <div className="text-xl font-semibold text-balance md:max-w-md">
                 {post.title}
               </div>
-            )
-          )}
+            ))}
           {(post.description || post.summary) && (
             <p className="text-muted-foreground md:max-w-md">
               {post.description || post.summary}
@@ -237,35 +261,56 @@ export function BlogFeaturedPopular({
       <div className={cn("container", containerClassName)}>
         {(heading || description) && (
           <div className={cn("mb-16 text-center", headerClassName)}>
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("text-5xl font-medium md:text-6xl", headingClassName)}>{heading}</h1>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "text-5xl font-medium md:text-6xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h1>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mx-auto mt-4 max-w-xl text-lg text-muted-foreground", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mx-auto mt-4 max-w-xl text-lg text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
           </div>
         )}
         <div className="mx-auto max-w-7xl">
           {renderedFeaturedPost}
-          {popularHeading && (
-            typeof popularHeading === "string" ? (
-              <p className={cn("text-2xl font-medium md:text-3xl", popularHeadingClassName)}>{popularHeading}</p>
+          {popularHeading &&
+            (typeof popularHeading === "string" ? (
+              <p
+                className={cn(
+                  "text-2xl font-medium md:text-3xl",
+                  popularHeadingClassName,
+                )}
+              >
+                {popularHeading}
+              </p>
             ) : (
               <div className={popularHeadingClassName}>{popularHeading}</div>
-            )
-          )}
+            ))}
           {renderedPopularPosts && (
-            <div className={cn("mt-8 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-6", postsClassName)}>
+            <div
+              className={cn(
+                "mt-8 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-6",
+                postsClassName,
+              )}
+            >
               {renderedPopularPosts}
             </div>
           )}

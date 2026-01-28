@@ -155,28 +155,30 @@ export function BlogCarouselAppleComponent({
   const cardElements = React.useMemo(() => {
     if (!posts || posts.length === 0) return [];
 
-    return carouselCards.map((card, index) => {
-      const post = posts[index];
-      if (!post) return null;
+    return carouselCards
+      .map((card, index) => {
+        const post = posts[index];
+        if (!post) return null;
 
-      const action: AppleCarouselCardAction = {
-        type: actionType || "link",
-        href: actionType === "link" && post.url ? post.url : undefined,
-        onClick: onCardClick ? () => onCardClick(post, index) : undefined,
-      };
+        const action: AppleCarouselCardAction = {
+          type: actionType || "link",
+          href: actionType === "link" && post.url ? post.url : undefined,
+          onClick: onCardClick ? () => onCardClick(post, index) : undefined,
+        };
 
-      return (
-        <AppleCarouselCard
-          key={`carousel-card-${index}`}
-          card={card}
-          index={index}
-          action={action}
-          layout={enableLayoutAnimations || false}
-          optixFlowConfig={optixFlowConfig}
-          className={cardClassName}
-        />
-      );
-    }).filter(Boolean);
+        return (
+          <AppleCarouselCard
+            key={`carousel-card-${index}`}
+            card={card}
+            index={index}
+            action={action}
+            layout={enableLayoutAnimations || false}
+            optixFlowConfig={optixFlowConfig}
+            className={cardClassName}
+          />
+        );
+      })
+      .filter((element): element is JSX.Element => element !== null);
   }, [
     carouselCards,
     posts,

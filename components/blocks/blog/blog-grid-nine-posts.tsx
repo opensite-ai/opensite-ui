@@ -8,7 +8,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  BlogPostItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface BlogGridNinePostsProps {
   /**
@@ -105,8 +111,8 @@ export function BlogGridNinePosts({
   postCardClassName,
   ctaClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: BlogGridNinePostsProps): React.JSX.Element {
@@ -114,7 +120,14 @@ export function BlogGridNinePosts({
     if (ctaSlot) return ctaSlot;
     if (!ctaAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = ctaAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = ctaAction;
     return (
       <Pressable
         asButton
@@ -152,7 +165,9 @@ export function BlogGridNinePosts({
               {post.image && (
                 <Img
                   src={post.image}
-                  alt={typeof post.title === "string" ? post.title : "Content item"}
+                  alt={
+                    typeof post.title === "string" ? post.title : "Content item"
+                  }
                   className="aspect-3/2 h-full w-full object-cover object-center"
                   optixFlowConfig={optixFlowConfig}
                 />
@@ -180,7 +195,11 @@ export function BlogGridNinePosts({
               <Avatar className="size-12">
                 {post.authorAvatar && <AvatarImage src={post.authorAvatar} />}
                 <AvatarFallback>
-                  {post.authorInitials || authorStr.split(" ").map((n) => n[0]).join("")}
+                  {post.authorInitials ||
+                    authorStr
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col gap-px">
@@ -212,30 +231,43 @@ export function BlogGridNinePosts({
         <div className={cn("mb-8 md:mb-14 lg:mb-16", headerClassName)}>
           <div className="flex items-start justify-between gap-8">
             <div>
-              {heading && (
-                typeof heading === "string" ? (
-                  <h2 className={cn("mb-4 w-full text-4xl font-medium md:mb-5 md:text-5xl lg:mb-6 lg:text-6xl", headingClassName)}>
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h2
+                    className={cn(
+                      "mb-4 w-full text-4xl font-medium md:mb-5 md:text-5xl lg:mb-6 lg:text-6xl",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h2>
                 ) : (
                   <div className={headingClassName}>{heading}</div>
-                )
-              )}
+                ))}
             </div>
           </div>
-          {description && (
-            typeof description === "string" ? (
+          {description &&
+            (typeof description === "string" ? (
               <p className={descriptionClassName}>{description}</p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
-        <div className={cn("grid gap-x-4 gap-y-8 md:grid-cols-2 lg:gap-x-6 lg:gap-y-12 2xl:grid-cols-3", postsClassName)}>
+        <div
+          className={cn(
+            "grid gap-x-4 gap-y-8 md:grid-cols-2 lg:gap-x-6 lg:gap-y-12 2xl:grid-cols-3",
+            postsClassName,
+          )}
+        >
           {renderedPosts}
         </div>
         {(ctaSlot || ctaAction) && (
-          <div className={cn("mt-8 flex flex-col items-center py-2 md:hidden", ctaClassName)}>
+          <div
+            className={cn(
+              "mt-8 flex flex-col items-center py-2 md:hidden",
+              ctaClassName,
+            )}
+          >
             {renderedCtaAction}
           </div>
         )}

@@ -4,12 +4,11 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Alert, AlertDescription, AlertTitle } from "../../ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { OptixFlowConfig, ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { OptixFlowConfig, ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleTocSection {
   id: string;
@@ -164,90 +163,23 @@ export interface ArticleTocSidebarProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
-
-const defaultArticleContent = (optixFlowConfig?: OptixFlowConfig) => (
-  <>
-    <section id="introduction">
-      <h2>Introduction</h2>
-      <p>
-        Building scalable applications requires careful consideration of
-        architecture, design patterns, and infrastructure. In this
-        guide, we&apos;ll explore the key principles that enable
-        applications to grow gracefully with increasing demand.
-      </p>
-      <Alert>
-        <DynamicIcon name="lucide/lightbulb" size={16} />
-        <AlertTitle>Pro Tip</AlertTitle>
-        <AlertDescription>
-          Start with a simple architecture and evolve it as your needs
-          grow. Premature optimization can lead to unnecessary
-          complexity.
-        </AlertDescription>
-      </Alert>
-    </section>
-
-    <section id="getting-started">
-      <h2>Getting Started</h2>
-      <p>
-        Before diving into complex architectural patterns, ensure you
-        have a solid understanding of your application&apos;s
-        requirements. Consider factors like expected traffic, data
-        volume, and team expertise.
-      </p>
-      <p>
-        A well-designed system starts with clear requirements and
-        constraints. Document your assumptions and validate them with
-        stakeholders before making architectural decisions.
-      </p>
-    </section>
-
-    <section id="core-concepts">
-      <h2>Core Concepts</h2>
-      <p>
-        Scalability encompasses both horizontal and vertical scaling
-        strategies. Horizontal scaling adds more machines to handle
-        load, while vertical scaling increases the capacity of existing
-        machines.
-      </p>
-      <Img
-        src={imagePlaceholders[5]}
-        alt="Architecture diagram"
-        className="my-8 aspect-video w-full rounded-lg object-cover"
-        optixFlowConfig={optixFlowConfig}
-      />
-      <p>
-        Key concepts include load balancing, caching, database sharding,
-        and microservices architecture. Each approach has trade-offs
-        that must be carefully evaluated.
-      </p>
-    </section>
-
-    <section id="best-practices">
-      <h2>Best Practices</h2>
-      <p>
-        Follow these best practices to ensure your application scales
-        effectively:
-      </p>
-      <ul>
-        <li>Design for failure and implement graceful degradation</li>
-        <li>Use caching strategically at multiple levels</li>
-        <li>Implement proper monitoring and alerting</li>
-        <li>Automate deployment and scaling processes</li>
-      </ul>
-    </section>
-
-    <section id="conclusion">
-      <h2>Conclusion</h2>
-      <p>
-        Building scalable applications is both an art and a science. By
-        understanding the fundamental principles and applying them
-        thoughtfully, you can create systems that grow with your
-        business needs.
-      </p>
-    </section>
-  </>
-);
 
 export function ArticleTocSidebarComponent({
   className,
@@ -286,6 +218,10 @@ export function ArticleTocSidebarComponent({
   children,
   enableTocTracking = true,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: ArticleTocSidebarProps) {
   const ctaActions = ctaActionsProp ?? (ctaButtonText ? [{ label: ctaButtonText, href: ctaButtonHref || "#", variant: "default" as const, className: "w-full" }] : []);
 
@@ -443,7 +379,13 @@ export function ArticleTocSidebarComponent({
   }, [ctaSlot, ctaTitle, ctaDescription, ctaActions, ctaClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
           <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
@@ -472,7 +414,7 @@ export function ArticleTocSidebarComponent({
 
             {heroMediaContent}
 
-            {children || defaultArticleContent(optixFlowConfig)}
+            {children}
           </article>
 
           <aside className={cn("hidden lg:block", sidebarClassName)}>
@@ -483,7 +425,7 @@ export function ArticleTocSidebarComponent({
           </aside>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

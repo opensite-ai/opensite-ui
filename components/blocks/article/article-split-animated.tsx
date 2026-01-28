@@ -7,8 +7,10 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Separator } from "../../ui/separator";
+import { Section } from "../../ui/section";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { OptixFlowConfig, ActionConfig } from "../../../src/types";
+import type { OptixFlowConfig, ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleSplitAnimatedProps {
   /**
@@ -138,6 +140,22 @@ export interface ArticleSplitAnimatedProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function ArticleSplitAnimatedComponent({
@@ -172,6 +190,10 @@ export function ArticleSplitAnimatedComponent({
   ctaSlot,
   enableAnimations = true,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: ArticleSplitAnimatedProps) {
   const ctaActions = ctaActionsProp ?? (ctaText ? [{ label: ctaText, href: ctaHref || "#", variant: "default" as const, size: "lg" as const }] : []);
 
@@ -282,7 +304,13 @@ export function ArticleSplitAnimatedComponent({
     : {};
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           <MotionWrapper
@@ -336,7 +364,7 @@ export function ArticleSplitAnimatedComponent({
           </MotionWrapper>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

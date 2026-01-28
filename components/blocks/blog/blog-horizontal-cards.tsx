@@ -7,10 +7,15 @@ import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Card } from "../../ui/card";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  BlogPostItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface BlogHorizontalCardsProps {
   /**
@@ -122,8 +127,8 @@ export function BlogHorizontalCards({
   postCardClassName,
   ctaClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: BlogHorizontalCardsProps): React.JSX.Element {
@@ -131,7 +136,14 @@ export function BlogHorizontalCards({
     if (ctaSlot) return ctaSlot;
     if (!ctaAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = ctaAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = ctaAction;
     return (
       <Pressable
         asButton
@@ -156,7 +168,8 @@ export function BlogHorizontalCards({
     return posts.map((post) => {
       const postHref = post.href || post.url || post.link || "#";
       const postId = post.id || String(post.title) || Math.random().toString();
-      const postTitle = typeof post.title === "string" ? post.title : "Content item";
+      const postTitle =
+        typeof post.title === "string" ? post.title : "Content item";
       const postLabel = post.label || post.category;
       const postSummary = post.summary || post.description;
       const postDate = post.published || post.date;
@@ -164,7 +177,10 @@ export function BlogHorizontalCards({
       return (
         <Card
           key={postId}
-          className={cn("overflow-hidden border-0 bg-transparent shadow-none", postCardClassName)}
+          className={cn(
+            "overflow-hidden border-0 bg-transparent shadow-none",
+            postCardClassName,
+          )}
         >
           <div className="flex flex-col gap-6 sm:flex-row">
             {post.image && (
@@ -196,9 +212,7 @@ export function BlogHorizontalCards({
                 </h3>
               )}
               {postSummary && (
-                <p className="text-base text-muted-foreground">
-                  {postSummary}
-                </p>
+                <p className="text-base text-muted-foreground">{postSummary}</p>
               )}
               {readMoreText && (
                 <Pressable
@@ -230,33 +244,40 @@ export function BlogHorizontalCards({
     >
       <div className={cn("container mx-auto", containerClassName)}>
         <div className={cn("mx-auto max-w-3xl text-center", headerClassName)}>
-          {badge && (
-            typeof badge === "string" ? (
+          {badge &&
+            (typeof badge === "string" ? (
               <Badge variant="secondary" className={cn("mb-6", badgeClassName)}>
                 {badge}
               </Badge>
             ) : (
               <div className={cn("mb-6", badgeClassName)}>{badge}</div>
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-3 text-3xl font-semibold text-pretty md:mb-4 md:text-5xl lg:mb-6", headingClassName)}>
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-3 text-3xl font-semibold text-pretty md:mb-4 md:text-5xl lg:mb-6",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mb-12 text-muted-foreground md:text-base lg:text-lg", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mb-12 text-muted-foreground md:text-base lg:text-lg",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
 
         <div className={cn("mx-auto max-w-5xl space-y-12", postsClassName)}>

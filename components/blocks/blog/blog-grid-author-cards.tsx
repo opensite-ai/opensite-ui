@@ -8,7 +8,13 @@ import { Badge } from "../../ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  BlogPostItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface BlogGridAuthorCardsProps {
   /**
@@ -105,8 +111,8 @@ export function BlogGridAuthorCardsComponent({
   postCardClassName,
   viewAllClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: BlogGridAuthorCardsProps): React.JSX.Element {
@@ -114,7 +120,14 @@ export function BlogGridAuthorCardsComponent({
     if (viewAllSlot) return viewAllSlot;
     if (!viewAllAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = viewAllAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = viewAllAction;
     return (
       <Pressable
         asButton
@@ -154,7 +167,9 @@ export function BlogGridAuthorCardsComponent({
               <div className="transition-opacity duration-300 group-hover:opacity-80">
                 <Img
                   src={post.image}
-                  alt={typeof post.title === "string" ? post.title : "Content item"}
+                  alt={
+                    typeof post.title === "string" ? post.title : "Content item"
+                  }
                   className="aspect-3/2 h-full w-full object-cover object-center"
                   optixFlowConfig={optixFlowConfig}
                 />
@@ -167,8 +182,8 @@ export function BlogGridAuthorCardsComponent({
               <Badge variant="secondary">{post.label || post.category}</Badge>
             </div>
           )}
-          {post.title && (
-            typeof post.title === "string" ? (
+          {post.title &&
+            (typeof post.title === "string" ? (
               <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium wrap-break-word md:mb-3 md:pt-4 md:text-2xl lg:pt-4 lg:text-3xl">
                 {post.title}
               </div>
@@ -176,8 +191,7 @@ export function BlogGridAuthorCardsComponent({
               <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium wrap-break-word md:mb-3 md:pt-4 md:text-2xl lg:pt-4 lg:text-3xl">
                 {post.title}
               </div>
-            )
-          )}
+            ))}
           {(post.summary || post.description) && (
             <div className="mb-4 line-clamp-2 text-sm text-muted-foreground md:mb-5 md:text-base">
               {post.summary || post.description}
@@ -188,7 +202,8 @@ export function BlogGridAuthorCardsComponent({
               <Avatar className="size-12">
                 {post.authorAvatar && <AvatarImage src={post.authorAvatar} />}
                 <AvatarFallback>
-                  {post.authorInitials || (authorStr ? authorStr.slice(0, 2).toUpperCase() : "")}
+                  {post.authorInitials ||
+                    (authorStr ? authorStr.slice(0, 2).toUpperCase() : "")}
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col gap-px">
@@ -221,31 +236,44 @@ export function BlogGridAuthorCardsComponent({
           <div className={cn("mb-8 md:mb-14 lg:mb-16", headerClassName)}>
             <div className="flex items-start justify-between gap-8">
               <div>
-                {heading && (
-                  typeof heading === "string" ? (
-                    <h2 className={cn("mb-4 w-full text-4xl font-medium md:mb-5 md:text-5xl lg:mb-6 lg:text-6xl", headingClassName)}>
+                {heading &&
+                  (typeof heading === "string" ? (
+                    <h2
+                      className={cn(
+                        "mb-4 w-full text-4xl font-medium md:mb-5 md:text-5xl lg:mb-6 lg:text-6xl",
+                        headingClassName,
+                      )}
+                    >
                       {heading}
                     </h2>
                   ) : (
                     <div className={headingClassName}>{heading}</div>
-                  )
-                )}
+                  ))}
               </div>
             </div>
-            {description && (
-              typeof description === "string" ? (
+            {description &&
+              (typeof description === "string" ? (
                 <p className={descriptionClassName}>{description}</p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
           </div>
         )}
-        <div className={cn("grid gap-x-4 gap-y-8 md:grid-cols-2 lg:gap-x-6 lg:gap-y-12 2xl:grid-cols-3", postsClassName)}>
+        <div
+          className={cn(
+            "grid gap-x-4 gap-y-8 md:grid-cols-2 lg:gap-x-6 lg:gap-y-12 2xl:grid-cols-3",
+            postsClassName,
+          )}
+        >
           {postsContent}
         </div>
         {(viewAllSlot || viewAllAction) && (
-          <div className={cn("mt-8 flex flex-col items-center py-2 md:hidden", viewAllClassName)}>
+          <div
+            className={cn(
+              "mt-8 flex flex-col items-center py-2 md:hidden",
+              viewAllClassName,
+            )}
+          >
             {viewAllActionContent}
           </div>
         )}

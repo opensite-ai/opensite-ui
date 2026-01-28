@@ -20,7 +20,13 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  BlogPostItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Breadcrumb item configuration
@@ -169,10 +175,15 @@ interface BlogCardProps {
   className?: string;
 }
 
-const BlogCard = React.memo(function BlogCard({ post, optixFlowConfig, className }: BlogCardProps) {
+const BlogCard = React.memo(function BlogCard({
+  post,
+  optixFlowConfig,
+  className,
+}: BlogCardProps) {
   const postHref = post.href || post.url || post.link || "#";
   const postImage = post.thumbnail || post.image;
-  const postTitle = typeof post.title === "string" ? post.title : "Content item";
+  const postTitle =
+    typeof post.title === "string" ? post.title : "Content item";
   const postCategory = post.category || post.label;
   const postSummary = post.summary || post.description;
   const postCta = post.cta || "Read more";
@@ -236,7 +247,9 @@ const FilterForm = React.memo(function FilterForm({
   className,
 }: FilterFormProps) {
   return (
-    <div className={cn("flex w-full flex-wrap items-center gap-2.5", className)}>
+    <div
+      className={cn("flex w-full flex-wrap items-center gap-2.5", className)}
+    >
       {categories.map((category) => {
         const isChecked = selectedCategories.includes(category.value);
         return (
@@ -262,12 +275,15 @@ interface BreadcrumbBlogProps {
   breadcrumb: BreadcrumbItemType[];
 }
 
-const BreadcrumbBlog = React.memo(function BreadcrumbBlog({ breadcrumb }: BreadcrumbBlogProps) {
+const BreadcrumbBlog = React.memo(function BreadcrumbBlog({
+  breadcrumb,
+}: BreadcrumbBlogProps) {
   return (
     <Breadcrumb>
       <BreadcrumbList>
         {breadcrumb.map((item, i) => {
-          const labelKey = typeof item.label === "string" ? item.label : `breadcrumb-${i}`;
+          const labelKey =
+            typeof item.label === "string" ? item.label : `breadcrumb-${i}`;
           return (
             <Fragment key={labelKey}>
               <BreadcrumbItem>
@@ -313,8 +329,8 @@ export function BlogFilteredResultsComponent({
   postCardClassName,
   loadMoreClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: BlogFilteredResultsProps): React.JSX.Element {
@@ -347,7 +363,7 @@ export function BlogFilteredResultsComponent({
       });
       setVisibleCount(effectivePostsPerPage);
     },
-    [effectivePostsPerPage]
+    [effectivePostsPerPage],
   );
 
   const handleLoadMore = useCallback(() => {
@@ -357,8 +373,12 @@ export function BlogFilteredResultsComponent({
   const filteredPosts = useMemo(() => {
     if (!posts) return [];
     return posts.filter((post) => {
-      const postCategory = typeof post.category === "string" ? post.category.toLowerCase() : "";
-      return selectedCategories.includes(postCategory) || selectedCategories.includes("all");
+      const postCategory =
+        typeof post.category === "string" ? post.category.toLowerCase() : "";
+      return (
+        selectedCategories.includes(postCategory) ||
+        selectedCategories.includes("all")
+      );
     });
   }, [posts, selectedCategories]);
 
@@ -374,7 +394,13 @@ export function BlogFilteredResultsComponent({
   const primaryPostContent = React.useMemo(() => {
     if (primaryPostSlot) return primaryPostSlot;
     if (!primaryPost) return null;
-    return <BlogCard post={primaryPost} optixFlowConfig={optixFlowConfig} className={postCardClassName} />;
+    return (
+      <BlogCard
+        post={primaryPost}
+        optixFlowConfig={optixFlowConfig}
+        className={postCardClassName}
+      />
+    );
   }, [primaryPostSlot, primaryPost, optixFlowConfig, postCardClassName]);
 
   const categoriesContent = React.useMemo(() => {
@@ -388,7 +414,13 @@ export function BlogFilteredResultsComponent({
         className={categoriesClassName}
       />
     );
-  }, [categoriesSlot, categories, selectedCategories, handleCategoryChange, categoriesClassName]);
+  }, [
+    categoriesSlot,
+    categories,
+    selectedCategories,
+    handleCategoryChange,
+    categoriesClassName,
+  ]);
 
   const postsContent = React.useMemo(() => {
     if (postsSlot) return postsSlot;
@@ -403,13 +435,26 @@ export function BlogFilteredResultsComponent({
         />
       );
     });
-  }, [postsSlot, postsToDisplay, visibleCount, optixFlowConfig, postCardClassName]);
+  }, [
+    postsSlot,
+    postsToDisplay,
+    visibleCount,
+    optixFlowConfig,
+    postCardClassName,
+  ]);
 
   const loadMoreContent = React.useMemo(() => {
     if (loadMoreSlot) return loadMoreSlot;
     if (!loadMoreAction || !hasMore) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = loadMoreAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = loadMoreAction;
     return (
       <Pressable
         asButton
@@ -436,30 +481,43 @@ export function BlogFilteredResultsComponent({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("bg-muted bg-size-[3.125rem_3.125rem] bg-repeat", heroClassName)}>
+      <div
+        className={cn(
+          "bg-muted bg-size-[3.125rem_3.125rem] bg-repeat",
+          heroClassName,
+        )}
+      >
         <div className="container flex flex-col items-start justify-start gap-16 py-20 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex w-full flex-col justify-between gap-12">
             <div className="flex w-full max-w-xl flex-col gap-8">
               {breadcrumbContent}
               <div className="flex w-full flex-col gap-5">
-                {heading && (
-                  typeof heading === "string" ? (
-                    <h1 className={cn("text-[2.5rem] leading-[1.2] font-semibold md:text-5xl lg:text-6xl", headingClassName)}>
+                {heading &&
+                  (typeof heading === "string" ? (
+                    <h1
+                      className={cn(
+                        "text-[2.5rem] leading-[1.2] font-semibold md:text-5xl lg:text-6xl",
+                        headingClassName,
+                      )}
+                    >
                       {heading}
                     </h1>
                   ) : (
                     <div className={headingClassName}>{heading}</div>
-                  )
-                )}
-                {description && (
-                  typeof description === "string" ? (
-                    <p className={cn("text-xl leading-[1.4] text-muted-foreground", descriptionClassName)}>
+                  ))}
+                {description &&
+                  (typeof description === "string" ? (
+                    <p
+                      className={cn(
+                        "text-xl leading-[1.4] text-muted-foreground",
+                        descriptionClassName,
+                      )}
+                    >
                       {description}
                     </p>
                   ) : (
                     <div className={descriptionClassName}>{description}</div>
-                  )
-                )}
+                  ))}
               </div>
             </div>
           </div>
@@ -473,19 +531,30 @@ export function BlogFilteredResultsComponent({
       </div>
       <div className={cn("py-20", allContentClassName)}>
         <div className="container flex flex-col gap-8">
-          {allContentHeading && (
-            typeof allContentHeading === "string" ? (
-              <h2 className={cn("text-[1.75rem] leading-none font-medium md:text-[2.25rem] lg:text-[2rem]", allContentHeadingClassName)}>
+          {allContentHeading &&
+            (typeof allContentHeading === "string" ? (
+              <h2
+                className={cn(
+                  "text-[1.75rem] leading-none font-medium md:text-[2.25rem] lg:text-[2rem]",
+                  allContentHeadingClassName,
+                )}
+              >
                 {allContentHeading}
               </h2>
             ) : (
-              <div className={allContentHeadingClassName}>{allContentHeading}</div>
-            )
-          )}
+              <div className={allContentHeadingClassName}>
+                {allContentHeading}
+              </div>
+            ))}
           <div>
             {categoriesContent}
             <div className="flex w-full flex-col gap-4 py-8 lg:gap-8">
-              <div className={cn("grid gap-10 md:grid-cols-2 lg:grid-cols-3", postsClassName)}>
+              <div
+                className={cn(
+                  "grid gap-10 md:grid-cols-2 lg:grid-cols-3",
+                  postsClassName,
+                )}
+              >
                 {postsContent}
               </div>
               <div className={cn("flex justify-center", loadMoreClassName)}>

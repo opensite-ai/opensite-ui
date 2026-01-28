@@ -8,10 +8,15 @@ import { Badge } from "../../ui/badge";
 import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Separator } from "../../ui/separator";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  BlogPostItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface BlogCardsReadTimeProps {
   /**
@@ -118,8 +123,8 @@ export function BlogCardsReadTime({
   postCardClassName,
   viewAllClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: BlogCardsReadTimeProps): React.JSX.Element {
@@ -127,13 +132,16 @@ export function BlogCardsReadTime({
     if (viewAllSlot) return viewAllSlot;
     if (!viewAllAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = viewAllAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = viewAllAction;
     return (
-      <Pressable
-        asButton
-        className={actionClassName}
-        {...pressableProps}
-      >
+      <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
           <>
             {icon}
@@ -170,13 +178,12 @@ export function BlogCardsReadTime({
             )}
           </div>
           <div className="px-3 pt-2 pb-4">
-            {post.title && (
-              typeof post.title === "string" ? (
+            {post.title &&
+              (typeof post.title === "string" ? (
                 <h2 className="mb-1 font-medium">{post.title}</h2>
               ) : (
                 <div className="mb-1 font-medium">{post.title}</div>
-              )
-            )}
+              ))}
             {(post.summary || post.description) && (
               <p className="line-clamp-2 text-sm text-muted-foreground">
                 {post.summary || post.description}
@@ -187,7 +194,12 @@ export function BlogCardsReadTime({
               <div className="flex items-center gap-3">
                 <Avatar className="size-9 rounded-full ring-1 ring-input">
                   {post.authorAvatar && (
-                    <AvatarImage src={post.authorAvatar} alt={typeof post.author === "string" ? post.author : "Author"} />
+                    <AvatarImage
+                      src={post.authorAvatar}
+                      alt={
+                        typeof post.author === "string" ? post.author : "Author"
+                      }
+                    />
                   )}
                 </Avatar>
                 {post.author && (
@@ -215,34 +227,56 @@ export function BlogCardsReadTime({
       patternOpacity={patternOpacity}
     >
       <div className={cn("container", containerClassName)}>
-        <div className={cn("mx-auto flex max-w-3xl flex-col items-center gap-4 text-center", headerClassName)}>
+        <div
+          className={cn(
+            "mx-auto flex max-w-3xl flex-col items-center gap-4 text-center",
+            headerClassName,
+          )}
+        >
           {badge && (
             <div className={badgeClassName}>
               {typeof badge === "string" ? (
                 <Badge variant="outline" className="gap-1 py-1">
-                  <DynamicIcon name="lucide/file-text" size={16} className="h-full w-4" /> {badge}
+                  <DynamicIcon
+                    name="lucide/file-text"
+                    size={16}
+                    className="h-full w-4"
+                  />{" "}
+                  {badge}
                 </Badge>
               ) : (
                 badge
               )}
             </div>
           )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-4xl font-semibold text-balance", headingClassName)}>{heading}</h1>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-4xl font-semibold text-balance",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h1>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p className={cn("text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
-        <div className={cn("mt-20 grid gap-4 md:grid-cols-2 lg:grid-cols-3", postsClassName)}>
+        <div
+          className={cn(
+            "mt-20 grid gap-4 md:grid-cols-2 lg:grid-cols-3",
+            postsClassName,
+          )}
+        >
           {renderedPosts}
         </div>
         {(viewAllSlot || viewAllAction) && (

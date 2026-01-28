@@ -6,10 +6,14 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent } from "../../ui/card";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  BlogPostItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface BlogHorizontalTimelineProps {
   /**
@@ -91,8 +95,8 @@ export function BlogHorizontalTimelineComponent({
   postImageClassName,
   postCardClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: BlogHorizontalTimelineProps): React.JSX.Element {
@@ -105,15 +109,25 @@ export function BlogHorizontalTimelineComponent({
       const postId = post.id || String(post.title) || Math.random().toString();
       const postDate = post.date || post.published;
       const postDescription = post.description || post.summary;
-      const postImageAlt = post.imageAlt || (typeof post.title === "string" ? post.title : "Content item");
+      const postImageAlt =
+        post.imageAlt ||
+        (typeof post.title === "string" ? post.title : "Content item");
 
       return (
         <div
           key={postId}
-          className={cn("flex flex-col items-center gap-16 md:flex-row", postItemClassName)}
+          className={cn(
+            "flex flex-col items-center gap-16 md:flex-row",
+            postItemClassName,
+          )}
         >
           {post.image && (
-            <div className={cn("flex h-80 w-full items-center justify-center overflow-hidden rounded-3xl bg-muted md:w-140", postImageClassName)}>
+            <div
+              className={cn(
+                "flex h-80 w-full items-center justify-center overflow-hidden rounded-3xl bg-muted md:w-140",
+                postImageClassName,
+              )}
+            >
               <Img
                 src={post.image}
                 className="h-full w-full object-cover"
@@ -127,7 +141,7 @@ export function BlogHorizontalTimelineComponent({
               <div
                 className={cn(
                   "mb-5 flex h-90 items-start border-b py-10 md:mb-0 lg:gap-32",
-                  index === 0 && "md:border-t"
+                  index === 0 && "md:border-t",
                 )}
               >
                 <div className="flex h-full w-full flex-col items-start justify-between pr-8">
@@ -167,7 +181,15 @@ export function BlogHorizontalTimelineComponent({
         </div>
       );
     });
-  }, [postsSlot, posts, postItemClassName, postImageClassName, postCardClassName, optixFlowConfig, readText]);
+  }, [
+    postsSlot,
+    posts,
+    postItemClassName,
+    postImageClassName,
+    postCardClassName,
+    optixFlowConfig,
+    readText,
+  ]);
 
   return (
     <Section
@@ -178,19 +200,21 @@ export function BlogHorizontalTimelineComponent({
       patternOpacity={patternOpacity}
     >
       <div className={cn("container", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("mb-12 max-w-lg font-sans text-5xl font-extrabold tracking-tight text-foreground md:text-7xl", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "mb-12 max-w-lg font-sans text-5xl font-extrabold tracking-tight text-foreground md:text-7xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
             <div className={cn("mb-12", headingClassName)}>{heading}</div>
-          )
-        )}
+          ))}
 
-        <div className={cn("flex flex-col", postsClassName)}>
-          {renderPosts}
-        </div>
+        <div className={cn("flex flex-col", postsClassName)}>{renderPosts}</div>
       </div>
     </Section>
   );

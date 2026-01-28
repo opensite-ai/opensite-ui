@@ -6,7 +6,12 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  BlogPostItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface BlogMasonryFeaturedProps {
   /**
@@ -88,8 +93,8 @@ export function BlogMasonryFeaturedComponent({
   featuredImageClassName,
   postCardClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: BlogMasonryFeaturedProps): React.JSX.Element {
@@ -100,10 +105,16 @@ export function BlogMasonryFeaturedComponent({
     if (featuredSlot) return featuredSlot;
     if (!featuredPost) return null;
 
-    const postHref = featuredPost.href || featuredPost.url || featuredPost.link || "#";
+    const postHref =
+      featuredPost.href || featuredPost.url || featuredPost.link || "#";
 
     return (
-      <div className={cn("relative md:row-span-2 lg:col-span-2", featuredClassName)}>
+      <div
+        className={cn(
+          "relative md:row-span-2 lg:col-span-2",
+          featuredClassName,
+        )}
+      >
         <Pressable
           href={postHref}
           className="block h-fit rounded-lg p-3 md:top-0"
@@ -111,8 +122,15 @@ export function BlogMasonryFeaturedComponent({
           {featuredPost.image && (
             <Img
               src={featuredPost.image}
-              alt={typeof featuredPost.title === "string" ? featuredPost.title : "Featured content"}
-              className={cn("h-48 w-full rounded-lg object-cover hover:opacity-80 md:h-80 lg:h-96", featuredImageClassName)}
+              alt={
+                typeof featuredPost.title === "string"
+                  ? featuredPost.title
+                  : "Featured content"
+              }
+              className={cn(
+                "h-48 w-full rounded-lg object-cover hover:opacity-80 md:h-80 lg:h-96",
+                featuredImageClassName,
+              )}
               optixFlowConfig={optixFlowConfig}
             />
           )}
@@ -121,16 +139,21 @@ export function BlogMasonryFeaturedComponent({
               {(featuredPost.date || featuredPost.published) && (
                 <time>{featuredPost.date || featuredPost.published}</time>
               )}
-              {(featuredPost.date || featuredPost.published) && featuredPost.author && "·"}
+              {(featuredPost.date || featuredPost.published) &&
+                featuredPost.author &&
+                "·"}
               {featuredPost.author && <span>{featuredPost.author}</span>}
             </div>
-            {featuredPost.title && (
-              typeof featuredPost.title === "string" ? (
-                <h3 className="text-lg md:text-3xl lg:text-4xl">{featuredPost.title}</h3>
+            {featuredPost.title &&
+              (typeof featuredPost.title === "string" ? (
+                <h3 className="text-lg md:text-3xl lg:text-4xl">
+                  {featuredPost.title}
+                </h3>
               ) : (
-                <div className="text-lg md:text-3xl lg:text-4xl">{featuredPost.title}</div>
-              )
-            )}
+                <div className="text-lg md:text-3xl lg:text-4xl">
+                  {featuredPost.title}
+                </div>
+              ))}
             {(featuredPost.description || featuredPost.summary) && (
               <p className="mt-4 text-muted-foreground">
                 {featuredPost.description || featuredPost.summary}
@@ -140,7 +163,13 @@ export function BlogMasonryFeaturedComponent({
         </Pressable>
       </div>
     );
-  }, [featuredSlot, featuredPost, featuredClassName, featuredImageClassName, optixFlowConfig]);
+  }, [
+    featuredSlot,
+    featuredPost,
+    featuredClassName,
+    featuredImageClassName,
+    optixFlowConfig,
+  ]);
 
   const otherPostsContent = React.useMemo(() => {
     if (postsSlot) return postsSlot;
@@ -151,7 +180,11 @@ export function BlogMasonryFeaturedComponent({
       const postId = post.id || String(post.title) || Math.random().toString();
 
       return (
-        <Pressable key={postId} href={postHref} className={cn("rounded-lg p-3", postCardClassName)}>
+        <Pressable
+          key={postId}
+          href={postHref}
+          className={cn("rounded-lg p-3", postCardClassName)}
+        >
           {post.image && (
             <Img
               src={post.image}
@@ -162,17 +195,18 @@ export function BlogMasonryFeaturedComponent({
           )}
           <div className="mt-5">
             <div className="mb-2.5 flex items-center gap-1 text-sm text-muted-foreground">
-              {(post.date || post.published) && <time>{post.date || post.published}</time>}
+              {(post.date || post.published) && (
+                <time>{post.date || post.published}</time>
+              )}
               {(post.date || post.published) && post.author && "·"}
               {post.author && <span>{post.author}</span>}
             </div>
-            {post.title && (
-              typeof post.title === "string" ? (
+            {post.title &&
+              (typeof post.title === "string" ? (
                 <h3 className="text-lg">{post.title}</h3>
               ) : (
                 <div className="text-lg">{post.title}</div>
-              )
-            )}
+              ))}
           </div>
         </Pressable>
       );
@@ -188,17 +222,26 @@ export function BlogMasonryFeaturedComponent({
       patternOpacity={patternOpacity}
     >
       <div className={cn("container", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("mb-12 text-center text-4xl font-medium md:text-7xl", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "mb-12 text-center text-4xl font-medium md:text-7xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
+          ))}
 
-        <div className={cn("xs:grid-cols-1 mt-24 grid gap-4 sm:grid-cols-2 lg:grid-cols-4", postsClassName)}>
+        <div
+          className={cn(
+            "xs:grid-cols-1 mt-24 grid gap-4 sm:grid-cols-2 lg:grid-cols-4",
+            postsClassName,
+          )}
+        >
           {featuredPostContent}
           {otherPostsContent}
         </div>
