@@ -136,8 +136,8 @@ export function TimelineTwoColumnFeatured({
   imageClassName,
   titleClassName,
   featureDescriptionClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -145,7 +145,7 @@ export function TimelineTwoColumnFeatured({
   style,
   optixFlowConfig,
 }: TimelineTwoColumnFeaturedProps) {
-  const renderActions = () => {
+  const renderActions = React.useMemo(() => {
     if (actionsSlot) {
       return actionsSlot;
     }
@@ -178,7 +178,7 @@ export function TimelineTwoColumnFeatured({
         )}
       </>
     );
-  };
+  }, [actionsSlot, primaryAction, secondaryAction]);
 
   return (
     <Section
@@ -216,7 +216,7 @@ export function TimelineTwoColumnFeatured({
                 actionsClassName,
               )}
             >
-              {renderActions()}
+              {renderActions}
             </div>
           </div>
           <div

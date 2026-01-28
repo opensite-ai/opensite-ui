@@ -127,11 +127,8 @@ export interface TimelineProductLaunchProps {
 export function TimelineProductLaunch({
   heading,
   description,
-  cardHeading = "Guidance from industry leaders",
-  ctaAction = {
-    label: "Request a demo",
-    href: "#",
-  },
+  cardHeading,
+  ctaAction,
   ctaSlot,
   steps,
   className,
@@ -145,15 +142,15 @@ export function TimelineProductLaunch({
   stepTitleClassName,
   stepHeadingClassName,
   stepDescriptionClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   id,
   style,
 }: TimelineProductLaunchProps) {
-  const renderCta = () => {
+  const renderCta = React.useMemo(() => {
     if (ctaSlot) {
       return ctaSlot;
     }
@@ -173,7 +170,7 @@ export function TimelineProductLaunch({
       );
     }
     return null;
-  };
+  }, [ctaSlot, ctaAction]);
 
   return (
     <Section
@@ -220,7 +217,7 @@ export function TimelineProductLaunch({
             >
               {cardHeading}
             </h2>
-            {renderCta()}
+            {renderCta}
           </div>
           {steps && steps.length > 0 && (
             <div className="mt-3 flex gap-4 sm:flex-col">

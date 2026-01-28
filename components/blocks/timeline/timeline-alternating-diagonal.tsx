@@ -118,7 +118,7 @@ export interface TimelineAlternatingDiagonalProps {
   };
 }
 
-const DiagonalPattern = ({
+const DiagonalPattern = React.memo(({
   className,
   patternOpacity = 0.15,
 }: {
@@ -135,13 +135,10 @@ const DiagonalPattern = ({
       }}
     />
   );
-};
+});
 
 export function TimelineAlternatingDiagonal({
-  badge = {
-    icon: "lucide/rocket",
-    text: "Accelerate",
-  },
+  badge,
   badgeSlot,
   heading,
   description,
@@ -155,8 +152,8 @@ export function TimelineAlternatingDiagonal({
   titleClassName,
   itemDescriptionClassName,
   imageClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -164,7 +161,7 @@ export function TimelineAlternatingDiagonal({
   style,
   optixFlowConfig,
 }: TimelineAlternatingDiagonalProps) {
-  const renderBadge = () => {
+  const renderedBadge = React.useMemo(() => {
     if (badgeSlot) {
       return badgeSlot;
     }
@@ -180,7 +177,7 @@ export function TimelineAlternatingDiagonal({
       );
     }
     return null;
-  };
+  }, [badgeSlot, badge]);
 
   return (
     <Section
@@ -200,7 +197,7 @@ export function TimelineAlternatingDiagonal({
             containerClassName,
           )}
         >
-          {renderBadge()}
+          {renderedBadge}
           <h2
             className={cn(
               "text-3xl leading-tight tracking-tight md:text-4xl lg:text-6xl",

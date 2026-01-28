@@ -114,8 +114,8 @@ export function TimelineChangelogBadges({
   badgeClassName,
   itemsClassName,
   itemClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -194,7 +194,7 @@ export function TimelineChangelogBadges({
               <Card className="my-5 border-none shadow-none">
                 <CardContent className="px-2">
                   <ul className={cn("flex flex-col gap-1", itemsClassName)}>
-                    {entry.items.map((item, itemIndex) => (
+                    {entry.items?.map((item, itemIndex) => (
                       <li key={itemIndex} className="flex gap-3">
                         <span className="mt-2 h-2 w-2 flex-none rounded-full bg-foreground" />
                         {item.content ? (

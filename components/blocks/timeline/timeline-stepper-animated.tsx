@@ -101,10 +101,10 @@ export interface TimelineStepperAnimatedProps {
   };
 }
 
-const ProcessBar: React.FC<{
+const ProcessBar = React.memo<{
   currentStep: number;
   steps: TimelineStep[];
-}> = ({ currentStep, steps }) => (
+}>(({ currentStep, steps }) => (
   <div className="relative w-full scale-75">
     <div className="flex items-center justify-between">
       {steps.map((step, index) => (
@@ -143,9 +143,9 @@ const ProcessBar: React.FC<{
       ))}
     </div>
   </div>
-);
+));
 
-const StepperContent: React.FC<{
+const StepperContent = React.memo<{
   step: TimelineStep;
   optixFlowConfig?: {
     apiKey: string;
@@ -153,7 +153,7 @@ const StepperContent: React.FC<{
   };
   imageClassName?: string;
   descriptionClassName?: string;
-}> = ({ step, optixFlowConfig, imageClassName, descriptionClassName }) => {
+}>(({ step, optixFlowConfig, imageClassName, descriptionClassName }) => {
   return (
     <div className="my-4 flex min-h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl bg-muted p-6 text-center">
       <motion.div
@@ -183,12 +183,12 @@ const StepperContent: React.FC<{
       </p>
     </div>
   );
-};
+});
 
-const NavButtons: React.FC<{
+const NavButtons = React.memo<{
   handlePrev: () => void;
   handleNext: () => void;
-}> = ({ handlePrev, handleNext }) => (
+}>(({ handlePrev, handleNext }) => (
   <div className="flex w-full justify-end gap-3 tracking-tight">
     <Pressable
       onClick={handlePrev}
@@ -210,12 +210,12 @@ const NavButtons: React.FC<{
       <DynamicIcon name="lucide/chevron-right" size={20} />
     </Pressable>
   </div>
-);
+));
 
 export function TimelineStepperAnimated({
   heading,
   steps,
-  initialStep = 1,
+  initialStep,
   className,
   containerClassName,
   headingClassName,
@@ -224,8 +224,8 @@ export function TimelineStepperAnimated({
   imageClassName,
   descriptionClassName,
   navButtonsClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -235,17 +235,17 @@ export function TimelineStepperAnimated({
 }: TimelineStepperAnimatedProps) {
   const safeInitialStep =
     (steps?.length ?? 0) > 0
-      ? Math.max(0, Math.min(initialStep, (steps?.length ?? 1) - 1))
+      ? Math.max(0, Math.min(initialStep ?? 0, (steps?.length ?? 1) - 1))
       : 0;
   const [currentStep, setCurrentStep] = useState(safeInitialStep);
 
-  const handleNext = () => {
+  const handleNext = React.useCallback(() => {
     setCurrentStep((prev) => Math.min(prev + 1, (steps?.length ?? 1) - 1));
-  };
+  }, [steps?.length]);
 
-  const handlePrev = () => {
+  const handlePrev = React.useCallback(() => {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
-  };
+  }, []);
 
   const safeCurrentStep =
     (steps?.length ?? 0) > 0

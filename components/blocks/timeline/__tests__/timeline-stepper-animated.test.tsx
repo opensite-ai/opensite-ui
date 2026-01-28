@@ -92,7 +92,7 @@ describe("TimelineStepperAnimated", () => {
       },
     ];
     const { getByText } = render(
-      <TimelineStepperAnimated steps={customSteps} />
+      <TimelineStepperAnimated steps={customSteps} initialStep={1} />
     );
     expect(getByText("Custom description 2")).toBeInTheDocument();
   });

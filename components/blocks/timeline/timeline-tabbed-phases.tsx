@@ -122,10 +122,7 @@ export interface TimelineTabbedPhasesProps {
 export function TimelineTabbedPhases({
   heading,
   phases,
-  downloadAction = {
-    label: "Download the app",
-    href: "#",
-  },
+  downloadAction,
   downloadSlot,
   className,
   containerClassName,
@@ -137,8 +134,8 @@ export function TimelineTabbedPhases({
   phaseHeadingClassName,
   descriptionClassName,
   imageClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -146,7 +143,7 @@ export function TimelineTabbedPhases({
   style,
   optixFlowConfig,
 }: TimelineTabbedPhasesProps) {
-  const renderDownloadButton = () => {
+  const renderDownloadButton = React.useMemo(() => {
     if (downloadSlot) {
       return downloadSlot;
     }
@@ -175,7 +172,7 @@ export function TimelineTabbedPhases({
       );
     }
     return null;
-  };
+  }, [downloadSlot, downloadAction]);
 
   if (!phases || phases.length === 0) {
     return (
@@ -292,7 +289,7 @@ export function TimelineTabbedPhases({
                 >
                   {phase.description}
                 </p>
-                {renderDownloadButton()}
+                {renderDownloadButton}
               </div>
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
