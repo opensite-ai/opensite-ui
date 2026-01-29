@@ -15,7 +15,7 @@
  */
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { BRIGHTNESS_CLASS_MAP, cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -137,6 +137,10 @@ export interface CarouselPortfolioHeroProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Brightness level for slide images (controls overlay visibility)
+   */
+  slideMediaBrightness?: "10" | "20" | "25" | "30" | "40" | "50" | "75" | "100";
 }
 
 export function CarouselPortfolioHero({
@@ -155,10 +159,11 @@ export function CarouselPortfolioHero({
   navigationClassName,
   counterClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background = "dark",
+  spacing = "none",
   pattern,
   patternOpacity,
+  slideMediaBrightness = "50",
 }: CarouselPortfolioHeroProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
@@ -226,21 +231,24 @@ export function CarouselPortfolioHero({
               slide.className
             )}
           >
-            <Img
-              src={slide.image}
-              alt={typeof slide.title === "string" ? slide.title : `Slide ${index + 1}`}
-              className={cn("h-full w-full object-cover", slide.imageClassName)}
-              optixFlowConfig={optixFlowConfig}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                        <Img
+                          src={slide.image}
+                          alt={typeof slide.title === "string" ? slide.title : `Slide ${index + 1}`}
+                          className={cn(
+                            "h-full w-full object-cover",
+                            BRIGHTNESS_CLASS_MAP[slideMediaBrightness],
+                            slide.imageClassName
+                          )}
+                          optixFlowConfig={optixFlowConfig}
+                        />
           </div>
         ))
       )}
 
-      {/* Content */}
-      <div className={cn("relative z-10 flex h-full w-full flex-col justify-end p-4 pb-16 text-white sm:p-8 md:p-12", containerClassName)}>
-        <div className="container mx-auto">
-          <div className={cn("max-w-3xl", contentClassName)}>
+            {/* Content */}
+            <div className={cn("relative z-10 flex h-full w-full flex-col justify-end px-6 pb-16 text-white md:px-8 lg:px-12", containerClassName)}>
+              <div className="container mx-auto">
+                <div className={cn("max-w-4xl", contentClassName)}>
             {currentSlide?.tag && (
               <div className="mb-4">
                 {typeof currentSlide.tag === "string" ? (

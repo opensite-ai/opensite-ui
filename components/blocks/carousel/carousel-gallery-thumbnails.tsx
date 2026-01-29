@@ -15,7 +15,7 @@
  */
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { BRIGHTNESS_CLASS_MAP, cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -124,6 +124,10 @@ export interface CarouselGalleryThumbnailsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Brightness level for slide images (controls overlay visibility)
+   */
+  slideMediaBrightness?: "10" | "20" | "25" | "30" | "40" | "50" | "75" | "100";
 }
 
 export function CarouselGalleryThumbnails({
@@ -144,6 +148,7 @@ export function CarouselGalleryThumbnails({
   spacing = "xl",
   pattern,
   patternOpacity,
+  slideMediaBrightness = "50",
 }: CarouselGalleryThumbnailsProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
@@ -211,12 +216,16 @@ export function CarouselGalleryThumbnails({
                   image.className
                 )}
               >
-                <Img
-                  src={image.src}
-                  alt={typeof image.alt === "string" ? image.alt : `Image ${index + 1}`}
-                  className={cn("h-full w-full object-cover", image.imageClassName)}
-                  optixFlowConfig={optixFlowConfig}
-                />
+                                <Img
+                                  src={image.src}
+                                  alt={typeof image.alt === "string" ? image.alt : `Image ${index + 1}`}
+                                  className={cn(
+                                    "h-full w-full object-cover",
+                                    BRIGHTNESS_CLASS_MAP[slideMediaBrightness],
+                                    image.imageClassName
+                                  )}
+                                  optixFlowConfig={optixFlowConfig}
+                                />
               </div>
             ))
           )}

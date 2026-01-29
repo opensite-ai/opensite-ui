@@ -288,47 +288,59 @@ export function CarouselMultiStepShowcase({
             ))}
         </div>
 
-        {/* Step navigation */}
-        {stepsSlot ? (
-          <div className={stepNavigationClassName}>{stepsSlot}</div>
-        ) : (
-          <div
-            className={cn(
-              "mb-8 flex flex-wrap justify-center gap-2",
-              stepNavigationClassName,
-            )}
-          >
-            {steps?.map((step, index) => (
-              <button
-                key={step.id}
-                onClick={() => goToStep(index)}
-                className={cn(
-                  "flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all",
-                  activeStep === index
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground hover:bg-muted/80",
-                  step.className,
+                {/* Step navigation - hidden on mobile since badge provides step info */}
+                {stepsSlot ? (
+                  <div className={cn("hidden sm:block", stepNavigationClassName)}>{stepsSlot}</div>
+                ) : (
+                  <div
+                    className={cn(
+                      "mb-8 hidden flex-wrap justify-center gap-2 sm:flex",
+                      stepNavigationClassName,
+                    )}
+                  >
+                    {steps?.map((step, index) => {
+                      const isCompleted = index < activeStep;
+                      const isActive = index === activeStep;
+                      return (
+                        <button
+                          key={step.id}
+                          onClick={() => goToStep(index)}
+                          className={cn(
+                            "flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all",
+                            isActive
+                              ? "bg-primary text-primary-foreground"
+                              : isCompleted
+                                ? "bg-primary text-primary-foreground"
+                                : "bg-muted text-muted-foreground hover:bg-muted/80",
+                            step.className,
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              "flex h-6 w-6 items-center justify-center rounded-full text-xs",
+                              isActive
+                                ? "bg-primary-foreground text-primary"
+                                : isCompleted
+                                  ? "bg-primary-foreground text-primary"
+                                  : "bg-background",
+                            )}
+                          >
+                            {isCompleted ? (
+                              <DynamicIcon name="lucide/check" size={14} />
+                            ) : (
+                              step.step
+                            )}
+                          </span>
+                          <span className="hidden sm:inline">
+                            {typeof step.title === "string"
+                              ? step.title.split(":")[0]
+                              : step.title}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 )}
-              >
-                <span
-                  className={cn(
-                    "flex h-6 w-6 items-center justify-center rounded-full text-xs",
-                    activeStep === index
-                      ? "bg-primary-foreground text-primary"
-                      : "bg-background",
-                  )}
-                >
-                  {step.step}
-                </span>
-                <span className="hidden sm:inline">
-                  {typeof step.title === "string"
-                    ? step.title.split(":")[0]
-                    : step.title}
-                </span>
-              </button>
-            ))}
-          </div>
-        )}
 
         {/* Progress bar */}
         <div
