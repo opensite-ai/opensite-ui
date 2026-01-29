@@ -122,7 +122,7 @@ export function FeatureShowcase({
   equalizeOnMobile,
   stretchMediaOnMobile,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -130,11 +130,11 @@ export function FeatureShowcase({
   const baseArrowClassName = useMemo(
     () =>
       "bottom-4 top-auto size-12 translate-y-0 rounded-full border border-current bg-transparent text-current shadow-sm focus:ring-current focus:ring-offset-2 focus:ring-offset-transparent hover:bg-current/10 md:bottom-6",
-    []
+    [],
   );
 
   const [mobileSlideHeight, setMobileSlideHeight] = useState<number | null>(
-    null
+    null,
   );
   const slideRefs = useRef<Array<HTMLDivElement | null>>([]);
 
@@ -143,7 +143,7 @@ export function FeatureShowcase({
       equalizeOnMobile && stretchMediaOnMobile
         ? "flex-1 min-h-0 md:flex-none"
         : "",
-    [equalizeOnMobile, stretchMediaOnMobile]
+    [equalizeOnMobile, stretchMediaOnMobile],
   );
 
   useEffect(() => {
@@ -167,9 +167,7 @@ export function FeatureShowcase({
       const maxHeight = Math.max(...heights, 0);
 
       if (maxHeight > 0) {
-        setMobileSlideHeight((prev) =>
-          prev === maxHeight ? prev : maxHeight
-        );
+        setMobileSlideHeight((prev) => (prev === maxHeight ? prev : maxHeight));
       }
     };
 
@@ -210,7 +208,7 @@ export function FeatureShowcase({
                   }
                   className={cn(
                     "flex flex-col gap-8 md:gap-14 md:flex-row md:items-center md:justify-between",
-                    slideClassName
+                    slideClassName,
                   )}
                 >
                   {item.content && (
@@ -223,7 +221,7 @@ export function FeatureShowcase({
                       className={cn(
                         "w-full",
                         mediaWrapperClassName,
-                        mediaClassName
+                        mediaClassName,
                       )}
                     >
                       {item.mediaComponent}
@@ -235,14 +233,25 @@ export function FeatureShowcase({
           </CarouselContent>
         </div>
         <CarouselPrevious
-          className={cn(baseArrowClassName, "left-4 md:left-6", arrowClassName)}
+          className={cn(baseArrowClassName, "right-16", arrowClassName)}
         />
         <CarouselNext
-          className={cn(baseArrowClassName, "right-4 md:right-6", arrowClassName)}
+          className={cn(baseArrowClassName, "right-0", arrowClassName)}
         />
       </Carousel>
     );
-  }, [items, carouselClassName, equalizeOnMobile, mobileSlideHeight, slideClassName, contentClassName, mediaWrapperClassName, mediaClassName, baseArrowClassName, arrowClassName]);
+  }, [
+    items,
+    carouselClassName,
+    equalizeOnMobile,
+    mobileSlideHeight,
+    slideClassName,
+    contentClassName,
+    mediaWrapperClassName,
+    mediaClassName,
+    baseArrowClassName,
+    arrowClassName,
+  ]);
 
   return (
     <Section

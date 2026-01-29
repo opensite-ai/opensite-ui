@@ -95,9 +95,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
           "relative",
           pattern ? "overflow-hidden" : null,
           backgroundStyles[background],
-          isPredefinedSpacing(spacing)
-            ? spacingStyles[spacing]
-            : spacing,
+          isPredefinedSpacing(spacing) ? spacingStyles[spacing] : spacing,
           className,
         )}
         style={style}
@@ -113,7 +111,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
           className={cn("relative z-10", containerClassName)}
         >
           {(title || subtitle) && (
-            <div className="mb-12 text-center md:mb-16">
+            <div className="mb-6 text-center md:mb-16">
               {subtitle && (
                 <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary">
                   {subtitle}
