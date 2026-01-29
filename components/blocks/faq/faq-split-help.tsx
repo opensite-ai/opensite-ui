@@ -129,7 +129,7 @@ export function FaqSplitHelp({
   helpAction,
   helpSlot,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -181,7 +181,14 @@ export function FaqSplitHelp({
         ))}
       </Accordion>
     );
-  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
+  }, [
+    itemsSlot,
+    items,
+    accordionClassName,
+    accordionItemClassName,
+    accordionTriggerClassName,
+    accordionContentClassName,
+  ]);
 
   const helpSectionContent = useMemo(() => {
     if (helpSlot) return helpSlot;
@@ -189,7 +196,7 @@ export function FaqSplitHelp({
     return (
       <div
         className={cn(
-          "mt-16 flex flex-col items-center gap-4 rounded-lg bg-accent p-6 text-center md:flex-row md:justify-between md:text-left lg:p-8",
+          "mt-8 md:mt-16 flex flex-col items-center gap-4 rounded-lg bg-muted p-6 text-center md:flex-row md:justify-between md:text-left lg:p-8",
           helpSectionClassName,
         )}
       >
@@ -220,7 +227,13 @@ export function FaqSplitHelp({
         )}
       </div>
     );
-  }, [helpSlot, helpHeading, helpDescription, helpAction, helpSectionClassName]);
+  }, [
+    helpSlot,
+    helpHeading,
+    helpDescription,
+    helpAction,
+    helpSectionClassName,
+  ]);
 
   return (
     <Section

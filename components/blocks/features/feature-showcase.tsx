@@ -248,7 +248,6 @@ export function FeatureShowcase({
           canScrollPrevious={canScrollPrevious}
           canScrollNext={canScrollNext}
           className="absolute bottom-4 right-0 md:bottom-6"
-          buttonClassName="size-12 rounded-full border border-current bg-transparent text-current shadow-sm hover:bg-current/10"
         />
       </Carousel>
     );

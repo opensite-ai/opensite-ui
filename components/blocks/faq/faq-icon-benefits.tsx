@@ -103,7 +103,7 @@ export function FaqIconBenefits({
   benefits,
   benefitsSlot,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -174,7 +174,16 @@ export function FaqIconBenefits({
         ))}
       </div>
     );
-  }, [benefitsSlot, benefits, gridClassName, benefitCardClassName, iconWrapperClassName, iconClassName, titleClassName, benefitDescriptionClassName]);
+  }, [
+    benefitsSlot,
+    benefits,
+    gridClassName,
+    benefitCardClassName,
+    iconWrapperClassName,
+    iconClassName,
+    titleClassName,
+    benefitDescriptionClassName,
+  ]);
 
   return (
     <Section

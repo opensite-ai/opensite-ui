@@ -3,12 +3,15 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureStatsHighlightStat {
   /**
@@ -165,7 +168,7 @@ export function FeatureStatsHighlight({
   statsGridClassName,
   statCardClassName,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -209,15 +212,24 @@ export function FeatureStatsHighlight({
     return stats.map((stat, index) => (
       <div
         key={index}
-        className={cn("flex flex-col gap-2 rounded-xl border bg-card p-6", statCardClassName, stat.className)}
+        className={cn(
+          "flex flex-col gap-2 rounded-xl border bg-card p-6",
+          statCardClassName,
+          stat.className,
+        )}
       >
         {stat.value && (
-          <span className={cn("text-4xl font-bold lg:text-5xl", stat.valueClassName)}>
+          <span
+            className={cn(
+              "text-4xl font-bold lg:text-5xl",
+              stat.valueClassName,
+            )}
+          >
             {stat.value}
           </span>
         )}
         {stat.label && (
-          <span className={cn("text-muted-foreground", stat.labelClassName)}>{stat.label}</span>
+          <span className={cn("", stat.labelClassName)}>{stat.label}</span>
         )}
       </div>
     ));
@@ -233,31 +245,47 @@ export function FeatureStatsHighlight({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("grid gap-10 lg:grid-cols-2 lg:gap-20", gridClassName)}>
+      <div
+        className={cn("grid gap-10 lg:grid-cols-2 lg:gap-20", gridClassName)}
+      >
         <div className={cn("flex flex-col gap-5", contentClassName)}>
           {badge && (
             <Badge variant="outline" className={cn("w-fit", badgeClassName)}>
               {badge}
             </Badge>
           )}
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</h2>
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold lg:text-5xl",
+                  titleClassName,
+                )}
+              >
+                {title}
+              </h2>
             ) : (
-              <div className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</p>
+              <div
+                className={cn(
+                  "text-3xl font-semibold lg:text-5xl",
+                  titleClassName,
+                )}
+              >
+                {title}
+              </div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p className={cn(" lg:text-lg", descriptionClassName)}>
+                {description}
+              </p>
             ) : (
-              <div className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</div>
-            )
-          )}
+              <div className={cn(" lg:text-lg", descriptionClassName)}>
+                {description}
+              </div>
+            ))}
           {(actionsSlot || (actions && actions.length > 0)) && (
-            <div className={actionsClassName}>
-              {actionsContent}
-            </div>
+            <div className={actionsClassName}>{actionsContent}</div>
           )}
         </div>
         {(statsSlot || (stats && stats.length > 0)) && (

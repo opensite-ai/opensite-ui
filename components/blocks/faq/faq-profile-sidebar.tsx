@@ -174,7 +174,7 @@ export function FaqProfileSidebar({
   contactText,
   contactAction,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -230,7 +230,14 @@ export function FaqProfileSidebar({
         ))}
       </Accordion>
     );
-  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
+  }, [
+    itemsSlot,
+    items,
+    accordionClassName,
+    accordionItemClassName,
+    accordionTriggerClassName,
+    accordionContentClassName,
+  ]);
 
   const profileSectionContent = useMemo(() => {
     if (profileSlot) return profileSlot;
@@ -250,48 +257,57 @@ export function FaqProfileSidebar({
             />
           )}
           <div>
-            {profileName && (typeof profileName === "string" ? (
-              <h3 className={cn("font-semibold", profileNameClassName)}>
-                {profileName}
-              </h3>
-            ) : (
-              <div className={profileNameClassName}>{profileName}</div>
-            ))}
-            {profileRole && (typeof profileRole === "string" ? (
-              <p
-                className={cn(
-                  "text-muted-foreground text-sm",
-                  profileRoleClassName,
-                )}
-              >
-                {profileRole}
-              </p>
-            ) : (
-              <div className={profileRoleClassName}>{profileRole}</div>
-            ))}
+            {profileName &&
+              (typeof profileName === "string" ? (
+                <h3 className={cn("font-semibold", profileNameClassName)}>
+                  {profileName}
+                </h3>
+              ) : (
+                <div className={profileNameClassName}>{profileName}</div>
+              ))}
+            {profileRole &&
+              (typeof profileRole === "string" ? (
+                <p
+                  className={cn(
+                    "text-muted-foreground text-sm",
+                    profileRoleClassName,
+                  )}
+                >
+                  {profileRole}
+                </p>
+              ) : (
+                <div className={profileRoleClassName}>{profileRole}</div>
+              ))}
           </div>
         </div>
-        {profileDescription && (typeof profileDescription === "string" ? (
-          <p
+        {profileDescription &&
+          (typeof profileDescription === "string" ? (
+            <p
+              className={cn(
+                "text-muted-foreground mt-4 text-sm",
+                profileDescriptionClassName,
+              )}
+            >
+              {profileDescription}
+            </p>
+          ) : (
+            <div className={profileDescriptionClassName}>
+              {profileDescription}
+            </div>
+          ))}
+        {contactAction && (
+          <div
             className={cn(
-              "text-muted-foreground mt-4 text-sm",
-              profileDescriptionClassName,
+              "mt-6 border-t pt-6 flex flex-col space-y-4",
+              contactSectionClassName,
             )}
           >
-            {profileDescription}
-          </p>
-        ) : (
-          <div className={profileDescriptionClassName}>
-            {profileDescription}
-          </div>
-        ))}
-        {contactAction && (
-          <div className={cn("mt-6 border-t pt-6", contactSectionClassName)}>
-            {contactText && (typeof contactText === "string" ? (
-              <p className="text-sm font-medium">{contactText}</p>
-            ) : (
-              contactText
-            ))}
+            {contactText &&
+              (typeof contactText === "string" ? (
+                <p className="text-sm font-medium">{contactText}</p>
+              ) : (
+                contactText
+              ))}
             <Pressable
               href={contactAction.href}
               onClick={contactAction.onClick}
@@ -305,7 +321,22 @@ export function FaqProfileSidebar({
         )}
       </div>
     );
-  }, [profileSlot, profileImage, profileName, profileRole, profileDescription, contactText, contactAction, profileCardClassName, profileImageClassName, profileNameClassName, profileRoleClassName, profileDescriptionClassName, contactSectionClassName, optixFlowConfig]);
+  }, [
+    profileSlot,
+    profileImage,
+    profileName,
+    profileRole,
+    profileDescription,
+    contactText,
+    contactAction,
+    profileCardClassName,
+    profileImageClassName,
+    profileNameClassName,
+    profileRoleClassName,
+    profileDescriptionClassName,
+    contactSectionClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -319,7 +350,7 @@ export function FaqProfileSidebar({
       <div className={containerClassName}>
         <div
           className={cn(
-            "flex flex-col gap-10 lg:flex-row lg:gap-16",
+            "flex flex-col gap-6 lg:flex-row lg:gap-16",
             contentWrapperClassName,
           )}
         >

@@ -103,7 +103,7 @@ export function FaqNumberedList({
   items,
   itemsSlot,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -139,7 +139,7 @@ export function FaqNumberedList({
           >
             <span
               className={cn(
-                "bg-secondary flex size-6 shrink-0 items-center justify-center rounded-sm text-xs font-medium",
+                "bg-muted flex size-10 shrink-0 items-center justify-center rounded-lg text-md font-semibold",
                 numberClassName,
               )}
             >
@@ -172,7 +172,15 @@ export function FaqNumberedList({
         ))}
       </div>
     );
-  }, [itemsSlot, items, itemsWrapperClassName, itemClassName, numberClassName, questionClassName, answerClassName]);
+  }, [
+    itemsSlot,
+    items,
+    itemsWrapperClassName,
+    itemClassName,
+    numberClassName,
+    questionClassName,
+    answerClassName,
+  ]);
 
   return (
     <Section

@@ -87,7 +87,7 @@ export function FaqMutedCards({
   items,
   itemsSlot,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -135,7 +135,14 @@ export function FaqMutedCards({
         ))}
       </Accordion>
     );
-  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
+  }, [
+    itemsSlot,
+    items,
+    accordionClassName,
+    accordionItemClassName,
+    accordionTriggerClassName,
+    accordionContentClassName,
+  ]);
 
   return (
     <Section
@@ -149,14 +156,14 @@ export function FaqMutedCards({
       <div className={cn("container max-w-3xl", containerClassName)}>
         {heading &&
           (typeof heading === "string" ? (
-            <h1
+            <h2
               className={cn(
-                "mb-4 text-3xl font-bold md:mb-11 md:text-4xl",
+                "mb-4 text-3xl font-bold md:mb-11 md:text-4xl px-4",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
           ))}

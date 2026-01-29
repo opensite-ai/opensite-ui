@@ -161,16 +161,12 @@ export function FeatureThreeColumnValues({
     return values.map((value, index) => (
       <div
         key={index}
-        className={cn(
-          "rounded-lg bg-accent p-5",
-          cardClassName,
-          value.className,
-        )}
+        className={cn("rounded-lg p-5", cardClassName, value.className)}
       >
         {(value.icon || value.iconName) && (
           <span
             className={cn(
-              "mb-8 flex size-12 items-center justify-center rounded-full bg-background",
+              "mb-8 flex size-12 items-center justify-center rounded-full ",
               value.iconClassName,
             )}
           >
@@ -193,21 +189,11 @@ export function FeatureThreeColumnValues({
           ))}
         {value.description &&
           (typeof value.description === "string" ? (
-            <p
-              className={cn(
-                "leading-7 text-muted-foreground",
-                value.descriptionClassName,
-              )}
-            >
+            <p className={cn("leading-7 ", value.descriptionClassName)}>
               {value.description}
             </p>
           ) : (
-            <div
-              className={cn(
-                "leading-7 text-muted-foreground",
-                value.descriptionClassName,
-              )}
-            >
+            <div className={cn("leading-7", value.descriptionClassName)}>
               {value.description}
             </div>
           ))}
@@ -227,21 +213,11 @@ export function FeatureThreeColumnValues({
     >
       {label &&
         (typeof label === "string" ? (
-          <p
-            className={cn(
-              "mb-4 text-sm text-muted-foreground lg:text-base",
-              labelClassName,
-            )}
-          >
+          <p className={cn("mb-4 text-sm lg:text-base", labelClassName)}>
             {label}
           </p>
         ) : (
-          <div
-            className={cn(
-              "mb-4 text-sm text-muted-foreground lg:text-base",
-              labelClassName,
-            )}
-          >
+          <div className={cn("mb-4 text-sm lg:text-base", labelClassName)}>
             {label}
           </div>
         ))}

@@ -120,7 +120,7 @@ export function FaqBorderedBadge({
   items,
   itemsSlot,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -169,7 +169,14 @@ export function FaqBorderedBadge({
         ))}
       </Accordion>
     );
-  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
+  }, [
+    itemsSlot,
+    items,
+    accordionClassName,
+    accordionItemClassName,
+    accordionTriggerClassName,
+    accordionContentClassName,
+  ]);
 
   return (
     <Section
@@ -190,22 +197,27 @@ export function FaqBorderedBadge({
           {badge && (
             <Badge
               variant="outline"
-              className={cn("flex items-center gap-2", badgeClassName)}
+              className={cn(
+                "gap-1.5 px-2.5 py-1 text-sm font-medium",
+                badgeClassName,
+              )}
             >
-              {badgeIcon && <DynamicIcon name={badgeIcon} className="size-4" />}
+              {badgeIcon && (
+                <DynamicIcon name={badgeIcon} size={16} className="shrink-0" />
+              )}
               {badge}
             </Badge>
           )}
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <h2
                 className={cn(
                   "max-w-2xl text-3xl font-semibold md:text-4xl",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
             ))}

@@ -113,7 +113,7 @@ export function FaqCategorizedSections({
   categories,
   categoriesSlot,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -185,7 +185,16 @@ export function FaqCategorizedSections({
         ))}
       </div>
     );
-  }, [categoriesSlot, categories, categoriesWrapperClassName, categoryTitleClassName, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
+  }, [
+    categoriesSlot,
+    categories,
+    categoriesWrapperClassName,
+    categoryTitleClassName,
+    accordionClassName,
+    accordionItemClassName,
+    accordionTriggerClassName,
+    accordionContentClassName,
+  ]);
 
   return (
     <Section

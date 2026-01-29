@@ -100,7 +100,7 @@ export function FaqCenteredAccordion({
   items,
   itemsSlot,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -151,7 +151,14 @@ export function FaqCenteredAccordion({
         ))}
       </Accordion>
     );
-  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
+  }, [
+    itemsSlot,
+    items,
+    accordionClassName,
+    accordionItemClassName,
+    accordionTriggerClassName,
+    accordionContentClassName,
+  ]);
 
   return (
     <Section
@@ -162,7 +169,7 @@ export function FaqCenteredAccordion({
       patternClassName={patternClassName}
       className={className}
     >
-      <div className={cn("space-y-16", containerClassName)}>
+      <div className={cn("space-y-8 md:space-y-16", containerClassName)}>
         <div
           className={cn(
             "mx-auto flex max-w-3xl flex-col text-left md:text-center",

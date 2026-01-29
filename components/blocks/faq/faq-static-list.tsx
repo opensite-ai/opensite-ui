@@ -80,7 +80,7 @@ export function FaqStaticList({
   items,
   itemsSlot,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -118,7 +118,14 @@ export function FaqStaticList({
         ))}
       </div>
     );
-  }, [itemsSlot, items, itemsWrapperClassName, itemClassName, questionClassName, answerClassName]);
+  }, [
+    itemsSlot,
+    items,
+    itemsWrapperClassName,
+    itemClassName,
+    questionClassName,
+    answerClassName,
+  ]);
 
   return (
     <Section

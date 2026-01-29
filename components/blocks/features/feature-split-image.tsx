@@ -238,7 +238,7 @@ export function FeatureSplitImage({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mb-8 max-w-xl text-muted-foreground lg:text-lg",
+                  "mb-8 max-w-xl  lg:text-lg",
                   descriptionClassName,
                 )}
               >
@@ -247,7 +247,7 @@ export function FeatureSplitImage({
             ) : (
               <div
                 className={cn(
-                  "mb-8 max-w-xl text-muted-foreground lg:text-lg",
+                  "mb-8 max-w-xl  lg:text-lg",
                   descriptionClassName,
                 )}
               >

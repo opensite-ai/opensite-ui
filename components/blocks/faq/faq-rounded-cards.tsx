@@ -104,7 +104,7 @@ export function FaqRoundedCards({
   items,
   itemsSlot,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -127,27 +127,30 @@ export function FaqRoundedCards({
       <Accordion
         type="single"
         collapsible
-        className={cn("space-y-4", accordionClassName)}
+        className={cn("space-y-3", accordionClassName)}
       >
         {items.map((item) => (
           <AccordionItem
             key={item.id}
             value={item.id}
             className={cn(
-              "rounded-lg bg-background px-4 border-none",
+              "rounded-xl border border-border/60 bg-card px-5 shadow-sm transition-shadow hover:shadow-md data-[state=open]:shadow-md",
               accordionItemClassName,
             )}
           >
             <AccordionTrigger
               className={cn(
-                "font-semibold hover:no-underline",
+                "py-4 font-medium transition-opacity hover:no-underline hover:opacity-70 lg:text-lg [&[data-state=open]>svg]:rotate-180",
                 accordionTriggerClassName,
               )}
             >
               {item.question}
             </AccordionTrigger>
             <AccordionContent
-              className={cn("text-muted-foreground", accordionContentClassName)}
+              className={cn(
+                "pb-4 text-muted-foreground",
+                accordionContentClassName,
+              )}
             >
               {item.answer}
             </AccordionContent>
@@ -155,7 +158,14 @@ export function FaqRoundedCards({
         ))}
       </Accordion>
     );
-  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
+  }, [
+    itemsSlot,
+    items,
+    accordionClassName,
+    accordionItemClassName,
+    accordionTriggerClassName,
+    accordionContentClassName,
+  ]);
 
   return (
     <Section
@@ -188,12 +198,7 @@ export function FaqRoundedCards({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "text-muted-foreground lg:text-lg",
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("lg:text-lg", descriptionClassName)}>
                 {description}
               </p>
             ) : (
@@ -202,7 +207,7 @@ export function FaqRoundedCards({
         </div>
         <div
           className={cn(
-            "mx-auto mt-10 max-w-3xl rounded-2xl bg-muted/50 p-6 md:p-8",
+            "mx-auto mt-10 max-w-3xl",
             cardsWrapperClassName,
           )}
         >

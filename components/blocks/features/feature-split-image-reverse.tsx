@@ -241,19 +241,13 @@ export function FeatureSplitImageReverse({
           {description &&
             (typeof description === "string" ? (
               <p
-                className={cn(
-                  "mb-8 max-w-xl text-muted-foreground lg:text-lg",
-                  descriptionClassName,
-                )}
+                className={cn("mb-8 max-w-xl lg:text-lg", descriptionClassName)}
               >
                 {description}
               </p>
             ) : (
               <div
-                className={cn(
-                  "mb-8 max-w-xl text-muted-foreground lg:text-lg",
-                  descriptionClassName,
-                )}
+                className={cn("mb-8 max-w-xl lg:text-lg", descriptionClassName)}
               >
                 {description}
               </div>

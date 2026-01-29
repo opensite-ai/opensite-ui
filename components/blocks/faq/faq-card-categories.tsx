@@ -122,7 +122,7 @@ export function FaqCardCategories({
   categories,
   categoriesSlot,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -201,7 +201,17 @@ export function FaqCardCategories({
         ))}
       </div>
     );
-  }, [categoriesSlot, categories, gridClassName, cardClassName, categoryTitleClassName, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
+  }, [
+    categoriesSlot,
+    categories,
+    gridClassName,
+    cardClassName,
+    categoryTitleClassName,
+    accordionClassName,
+    accordionItemClassName,
+    accordionTriggerClassName,
+    accordionContentClassName,
+  ]);
 
   return (
     <Section

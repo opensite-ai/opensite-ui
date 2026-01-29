@@ -357,10 +357,7 @@ export function FeatureTabbedContentImage({
             <TabsTrigger
               key={slide.id}
               value={slide.id.toString()}
-              className={cn(
-                "text-sm hover:bg-background md:text-base",
-                tabTriggerClassName,
-              )}
+              className={cn("text-sm  md:text-base", tabTriggerClassName)}
             >
               {slide.tabName}
             </TabsTrigger>
@@ -403,19 +400,13 @@ export function FeatureTabbedContentImage({
                 {slide.description &&
                   (typeof slide.description === "string" ? (
                     <p
-                      className={cn(
-                        "text-muted-foreground lg:text-xl",
-                        slide.descriptionClassName,
-                      )}
+                      className={cn(" lg:text-xl", slide.descriptionClassName)}
                     >
                       {slide.description}
                     </p>
                   ) : (
                     <div
-                      className={cn(
-                        "text-muted-foreground lg:text-xl",
-                        slide.descriptionClassName,
-                      )}
+                      className={cn("lg:text-xl", slide.descriptionClassName)}
                     >
                       {slide.description}
                     </div>
@@ -498,7 +489,7 @@ export function FeatureTabbedContentImage({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-center text-balance text-muted-foreground lg:text-xl",
+                "text-center text-balance  lg:text-xl",
                 descriptionClassName,
               )}
             >
@@ -507,7 +498,7 @@ export function FeatureTabbedContentImage({
           ) : (
             <div
               className={cn(
-                "text-center text-balance text-muted-foreground lg:text-xl",
+                "text-center text-balance  lg:text-xl",
                 descriptionClassName,
               )}
             >

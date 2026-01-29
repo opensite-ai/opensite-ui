@@ -150,25 +150,25 @@ export function FaqSidebarNavigation({
   accordionTriggerClassName,
   accordionContentClassName,
 }: FaqSidebarNavigationProps) {
+  // Default to "all" when multiple categories exist, otherwise first category
   const [activeCategory, setActiveCategory] = React.useState(
-    categories?.[0]?.id || "",
+    categories && categories.length > 1 ? "all" : (categories?.[0]?.id || ""),
   );
 
-  const scrollToCategory = (categoryId: string) => {
-    setActiveCategory(categoryId);
-    const element = document.getElementById(`faq-category-${categoryId}`);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+  // Filter categories based on active selection
+  const filteredCategories = useMemo(() => {
+    if (!categories || categories.length === 0) return [];
+    if (activeCategory === "all") return categories;
+    return categories.filter((category) => category.id === activeCategory);
+  }, [categories, activeCategory]);
 
   const categoriesContent = useMemo(() => {
     if (categoriesSlot) return categoriesSlot;
-    if (!categories || categories.length === 0) return null;
+    if (filteredCategories.length === 0) return null;
 
     return (
       <div className={cn("space-y-10 lg:w-3/4", categoriesWrapperClassName)}>
-        {categories.map((category) => (
+        {filteredCategories.map((category) => (
           <div
             key={category.id}
             id={`faq-category-${category.id}`}
@@ -217,7 +217,7 @@ export function FaqSidebarNavigation({
         ))}
       </div>
     );
-  }, [categoriesSlot, categories, categoriesWrapperClassName, categoryTitleClassName, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
+  }, [categoriesSlot, filteredCategories, categoriesWrapperClassName, categoryTitleClassName, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
 
   return (
     <Section
@@ -269,13 +269,30 @@ export function FaqSidebarNavigation({
           )}
         >
           <nav className={cn("lg:w-1/4", navClassName)}>
-            <div className="sticky top-24 space-y-2">
+            <div className="sticky top-24 flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:gap-2 lg:overflow-visible lg:pb-0">
+              {/* Show "All" tab when more than one category exists */}
+              {categories && categories.length > 1 && (
+                <button
+                  onClick={() => setActiveCategory("all")}
+                  className={cn(
+                    "shrink-0 whitespace-nowrap rounded-lg px-4 py-2 text-left text-sm font-medium transition-colors lg:w-full",
+                    activeCategory === "all"
+                      ? cn(
+                          "bg-primary text-primary-foreground",
+                          navButtonActiveClassName,
+                        )
+                      : cn("hover:bg-muted", navButtonClassName),
+                  )}
+                >
+                  All
+                </button>
+              )}
               {categories?.map((category) => (
                 <button
                   key={category.id}
-                  onClick={() => scrollToCategory(category.id)}
+                  onClick={() => setActiveCategory(category.id)}
                   className={cn(
-                    "w-full rounded-lg px-4 py-2 text-left text-sm font-medium transition-colors",
+                    "shrink-0 whitespace-nowrap rounded-lg px-4 py-2 text-left text-sm font-medium transition-colors lg:w-full",
                     activeCategory === category.id
                       ? cn(
                           "bg-primary text-primary-foreground",

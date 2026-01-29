@@ -117,7 +117,7 @@ export function FaqGradientCategories({
   categories,
   categoriesSlot,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -190,7 +190,16 @@ export function FaqGradientCategories({
         ))}
       </div>
     );
-  }, [categoriesSlot, categories, gridClassName, categoryTitleClassName, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
+  }, [
+    categoriesSlot,
+    categories,
+    gridClassName,
+    categoryTitleClassName,
+    accordionClassName,
+    accordionItemClassName,
+    accordionTriggerClassName,
+    accordionContentClassName,
+  ]);
 
   return (
     <Section

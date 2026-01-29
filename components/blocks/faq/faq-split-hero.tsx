@@ -10,9 +10,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../../ui/accordion";
-import { Section } from "../../ui/section";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
-import type { PatternName } from "../../ui/pattern-background";
+import {
+  PatternBackground,
+  type PatternName,
+} from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+
+export interface DirectionConfig {
+  desktop: "mediaRight" | "mediaLeft";
+  mobile: "mediaTop" | "mediaBottom";
+}
 
 export interface FaqItem {
   id: string;
@@ -66,21 +77,13 @@ export interface FaqSplitHeroProps {
    */
   patternOpacity?: number;
   /**
-   * Additional CSS classes for the pattern overlay
-   */
-  patternClassName?: string;
-  /**
    * Additional CSS classes for the section
    */
   className?: string;
   /**
-   * Additional CSS classes for the content wrapper
+   * Additional CSS classes for the content area
    */
-  contentWrapperClassName?: string;
-  /**
-   * Additional CSS classes for the left column
-   */
-  leftColumnClassName?: string;
+  contentClassName?: string;
   /**
    * Additional CSS classes for the header wrapper
    */
@@ -116,10 +119,12 @@ export interface FaqSplitHeroProps {
   /**
    * Optional Optix Flow configuration for image optimization
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Direction configuration for desktop and mobile layouts
+   * @default { desktop: 'mediaRight', mobile: 'mediaTop' }
+   */
+  directionConfig?: DirectionConfig;
 }
 
 export function FaqSplitHero({
@@ -130,14 +135,11 @@ export function FaqSplitHero({
   imageSlot,
   imageSrc,
   imageAlt,
-  background,
-  spacing,
+  background = "dark",
   pattern,
   patternOpacity,
-  patternClassName,
   className,
-  contentWrapperClassName,
-  leftColumnClassName,
+  contentClassName,
   headerClassName,
   headingClassName,
   subheadingClassName,
@@ -147,7 +149,30 @@ export function FaqSplitHero({
   accordionContentClassName,
   imageClassName,
   optixFlowConfig,
-}: FaqSplitHeroProps) {
+  directionConfig = { desktop: "mediaRight", mobile: "mediaTop" },
+}: FaqSplitHeroProps): React.JSX.Element {
+  // Determine background color based on background variant
+  const bgColorClass = useMemo(() => {
+    switch (background) {
+      case "dark":
+        return "bg-gray-900 text-white";
+      case "gray":
+        return "bg-gray-100 text-gray-900";
+      case "white":
+        return "bg-white text-gray-900";
+      default:
+        return "bg-background text-foreground";
+    }
+  }, [background]);
+
+  // Determine flex direction based on directionConfig
+  const desktopOrder =
+    directionConfig.desktop === "mediaRight"
+      ? "lg:flex-row"
+      : "lg:flex-row-reverse";
+  const mobileOrder =
+    directionConfig.mobile === "mediaTop" ? "flex-col" : "flex-col-reverse";
+
   const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
@@ -162,21 +187,18 @@ export function FaqSplitHero({
           <AccordionItem
             key={item.id}
             value={item.id}
-            className={cn("border-b border-border/50", accordionItemClassName)}
+            className={cn("border-b border-current/20", accordionItemClassName)}
           >
             <AccordionTrigger
               className={cn(
-                "py-4 text-left text-base font-medium text-foreground transition-colors hover:text-primary hover:no-underline lg:text-lg",
+                "py-4 text-left text-base font-medium transition-opacity hover:opacity-70 hover:no-underline lg:text-lg",
                 accordionTriggerClassName,
               )}
             >
               {item.question}
             </AccordionTrigger>
             <AccordionContent
-              className={cn(
-                "pb-4 text-muted-foreground",
-                accordionContentClassName,
-              )}
+              className={cn("pb-4 opacity-80", accordionContentClassName)}
             >
               {item.answer}
             </AccordionContent>
@@ -184,75 +206,91 @@ export function FaqSplitHero({
         ))}
       </Accordion>
     );
-  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
+  }, [
+    itemsSlot,
+    items,
+    accordionClassName,
+    accordionItemClassName,
+    accordionTriggerClassName,
+    accordionContentClassName,
+  ]);
 
-  const imageContent = useMemo(() => {
-    if (imageSlot) return imageSlot;
-    if (!imageSrc) return null;
+  const contentArea = (
+    <div
+      className={cn(
+        "relative flex w-full items-center lg:w-1/2",
+        bgColorClass,
+        contentClassName,
+      )}
+    >
+      {/* Pattern Background */}
+      {pattern && (
+        <div className="absolute inset-0 overflow-hidden">
+          <PatternBackground pattern={pattern} opacity={patternOpacity} />
+        </div>
+      )}
 
-    return (
+      {/* Content */}
+      <div className="relative z-10 w-full px-8 py-16 sm:px-12 sm:py-20 lg:px-16 lg:py-24 xl:px-24">
+        <div className="mx-auto max-w-xl space-y-8">
+          {/* Header */}
+          <div className={cn("space-y-4", headerClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              ))}
+            {subheading &&
+              (typeof subheading === "string" ? (
+                <p
+                  className={cn(
+                    "text-base leading-relaxed opacity-80 sm:text-lg",
+                    subheadingClassName,
+                  )}
+                >
+                  {subheading}
+                </p>
+              ) : (
+                <div className={subheadingClassName}>{subheading}</div>
+              ))}
+          </div>
+
+          {/* FAQ Items */}
+          {itemsContent}
+        </div>
+      </div>
+    </div>
+  );
+
+  const imageArea = imageSlot ? (
+    <div className="relative h-64 w-full sm:h-96 lg:h-auto lg:w-1/2">
+      {imageSlot}
+    </div>
+  ) : imageSrc ? (
+    <div className="relative h-64 w-full sm:h-96 lg:h-auto lg:w-1/2">
       <Img
         src={imageSrc}
         alt={imageAlt || "FAQ section image"}
-        className={cn(
-          "hidden h-screen w-1/2 object-cover lg:block",
-          imageClassName,
-        )}
+        className={cn("h-full w-full object-cover", imageClassName)}
         optixFlowConfig={optixFlowConfig}
       />
-    );
-  }, [imageSlot, imageSrc, imageAlt, imageClassName, optixFlowConfig]);
+    </div>
+  ) : null;
 
   return (
-    <Section
-      background={background}
-      spacing={spacing}
-      pattern={pattern}
-      patternOpacity={patternOpacity}
-      patternClassName={patternClassName}
-      className={cn("dark flex", className)}
-    >
-      <div className={cn("flex", contentWrapperClassName)}>
-        <div
-          className={cn(
-            "flex w-full items-center justify-center bg-background lg:w-1/2",
-            leftColumnClassName,
-          )}
-        >
-          <div className="container my-10 flex w-full max-w-[600px] flex-col gap-8 px-6 lg:px-10">
-            <div className={cn("space-y-4", headerClassName)}>
-              {heading &&
-                (typeof heading === "string" ? (
-                  <h2
-                    className={cn(
-                      "text-3xl font-bold text-foreground lg:text-4xl",
-                      headingClassName,
-                    )}
-                  >
-                    {heading}
-                  </h2>
-                ) : (
-                  <div className={headingClassName}>{heading}</div>
-                ))}
-              {subheading &&
-                (typeof subheading === "string" ? (
-                  <p
-                    className={cn(
-                      "text-lg text-muted-foreground",
-                      subheadingClassName,
-                    )}
-                  >
-                    {subheading}
-                  </p>
-                ) : (
-                  <div className={subheadingClassName}>{subheading}</div>
-                ))}
-            </div>
-            {itemsContent}
-          </div>
-        </div>
-        {imageContent}
+    <section className={cn("relative w-full overflow-hidden", className)}>
+      <div className={cn("flex min-h-screen", mobileOrder, desktopOrder)}>
+        {contentArea}
+        {imageArea}
       </div>
-    </Section>
+    </section>
   );
 }

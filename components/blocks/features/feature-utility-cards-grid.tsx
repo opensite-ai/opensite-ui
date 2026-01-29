@@ -10,7 +10,12 @@ import { Card } from "../../ui/card";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureUtilityCardsGridItem {
   /**
@@ -185,14 +190,17 @@ export function FeatureUtilityCardsGrid({
   cardClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
 }: FeatureUtilityCardsGridProps): React.JSX.Element {
   const renderLabelIcon = useMemo(() => {
     if (labelIcon) return labelIcon;
-    if (labelIconName) return <DynamicIcon name={labelIconName} size={20} className="text-primary" />;
+    if (labelIconName)
+      return (
+        <DynamicIcon name={labelIconName} size={20} className="text-primary" />
+      );
     return null;
   }, [labelIcon, labelIconName]);
 
@@ -205,7 +213,10 @@ export function FeatureUtilityCardsGrid({
         <Pressable
           href={learnMoreAction.href}
           onClick={learnMoreAction.onClick}
-          className={cn("hover:text-primary hover:underline", learnMoreAction.className)}
+          className={cn(
+            "hover:text-primary hover:underline",
+            learnMoreAction.className,
+          )}
           aria-label={learnMoreAction["aria-label"]}
         >
           {learnMoreAction.children}
@@ -217,7 +228,7 @@ export function FeatureUtilityCardsGrid({
       <Pressable
         href={learnMoreAction.href}
         onClick={learnMoreAction.onClick}
-        className={cn("hover:text-primary hover:underline", learnMoreAction.className)}
+        className={cn(learnMoreAction.className)}
         aria-label={learnMoreAction["aria-label"]}
       >
         {learnMoreAction.icon}
@@ -227,44 +238,64 @@ export function FeatureUtilityCardsGrid({
     );
   }, [learnMoreSlot, learnMoreAction]);
 
-  const renderUtilityImage = React.useCallback((utility: FeatureUtilityCardsGridItem) => {
-    if (utility.imageSlot) return utility.imageSlot;
-    if (utility.image) {
-      return (
-        <Img
-          src={utility.image}
-          alt={utility.imageAlt || (typeof utility.title === "string" ? utility.title : "Utility image")}
-          className={cn("aspect-video w-full object-cover", utility.imageClassName)}
-          loading="lazy"
-          optixFlowConfig={optixFlowConfig}
-        />
-      );
-    }
-    return null;
-  }, [optixFlowConfig]);
+  const renderUtilityImage = React.useCallback(
+    (utility: FeatureUtilityCardsGridItem) => {
+      if (utility.imageSlot) return utility.imageSlot;
+      if (utility.image) {
+        return (
+          <Img
+            src={utility.image}
+            alt={
+              utility.imageAlt ||
+              (typeof utility.title === "string"
+                ? utility.title
+                : "Utility image")
+            }
+            className={cn(
+              "aspect-video w-full object-cover",
+              utility.imageClassName,
+            )}
+            loading="lazy"
+            optixFlowConfig={optixFlowConfig}
+          />
+        );
+      }
+      return null;
+    },
+    [optixFlowConfig],
+  );
 
   const utilitiesContent = useMemo(() => {
     if (utilitiesSlot) return utilitiesSlot;
     if (!utilities || utilities.length === 0) return null;
 
     return utilities.map((utility, index) => (
-      <Card key={index} className={cn("overflow-hidden pt-0", cardClassName, utility.className)}>
+      <Card
+        key={index}
+        className={cn("overflow-hidden pt-0", cardClassName, utility.className)}
+      >
         {renderUtilityImage(utility)}
         <div className="p-5">
-          {utility.title && (
-            typeof utility.title === "string" ? (
-              <p className={cn("mb-1 font-medium", utility.titleClassName)}>{utility.title}</p>
+          {utility.title &&
+            (typeof utility.title === "string" ? (
+              <p className={cn("mb-1 font-medium", utility.titleClassName)}>
+                {utility.title}
+              </p>
             ) : (
-              <div className={cn("mb-1 font-medium", utility.titleClassName)}>{utility.title}</div>
-            )
-          )}
-          {utility.description && (
-            typeof utility.description === "string" ? (
-              <p className={cn("text-muted-foreground", utility.descriptionClassName)}>{utility.description}</p>
+              <div className={cn("mb-1 font-medium", utility.titleClassName)}>
+                {utility.title}
+              </div>
+            ))}
+          {utility.description &&
+            (typeof utility.description === "string" ? (
+              <p className={cn("", utility.descriptionClassName)}>
+                {utility.description}
+              </p>
             ) : (
-              <div className={cn("text-muted-foreground", utility.descriptionClassName)}>{utility.description}</div>
-            )
-          )}
+              <div className={cn("", utility.descriptionClassName)}>
+                {utility.description}
+              </div>
+            ))}
         </div>
       </Card>
     ));
@@ -280,19 +311,27 @@ export function FeatureUtilityCardsGrid({
       className={className}
       containerClassName={cn("max-w-7xl", containerClassName)}
     >
-      {(label || labelIcon || labelIconName || learnMoreSlot || learnMoreAction) && (
+      {(label ||
+        labelIcon ||
+        labelIconName ||
+        learnMoreSlot ||
+        learnMoreAction) && (
         <>
-          <div className={cn("flex items-center justify-between text-sm", headerClassName)}>
+          <div
+            className={cn(
+              "flex items-center justify-between text-sm",
+              headerClassName,
+            )}
+          >
             {(label || labelIcon || labelIconName) && (
-              <div className={cn("flex items-center gap-1 text-muted-foreground", labelClassName)}>
+              <div className={cn("flex items-center gap-1 ", labelClassName)}>
                 {renderLabelIcon}
-                {label && (
-                  typeof label === "string" ? (
+                {label &&
+                  (typeof label === "string" ? (
                     <p>{label}</p>
                   ) : (
                     <div>{label}</div>
-                  )
-                )}
+                  ))}
               </div>
             )}
             {learnMoreContent}
@@ -302,24 +341,39 @@ export function FeatureUtilityCardsGrid({
       )}
       {(title || description) && (
         <div className="flex flex-col justify-between gap-6 md:flex-row">
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</h2>
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn("text-3xl font-medium md:w-1/2", titleClassName)}
+              >
+                {title}
+              </h2>
             ) : (
-              <div className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("md:w-1/2", descriptionClassName)}>{description}</p>
+              <div
+                className={cn("text-3xl font-medium md:w-1/2", titleClassName)}
+              >
+                {title}
+              </div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p className={cn("md:w-1/2", descriptionClassName)}>
+                {description}
+              </p>
             ) : (
-              <div className={cn("md:w-1/2", descriptionClassName)}>{description}</div>
-            )
-          )}
+              <div className={cn("md:w-1/2", descriptionClassName)}>
+                {description}
+              </div>
+            ))}
         </div>
       )}
       {(utilitiesSlot || (utilities && utilities.length > 0)) && (
-        <div className={cn("mt-11 grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+        <div
+          className={cn(
+            "mt-11 grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3",
+            gridClassName,
+          )}
+        >
           {utilitiesContent}
         </div>
       )}
