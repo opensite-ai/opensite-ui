@@ -162,15 +162,17 @@ import { parseDesignPayload } from "@opensite/blocks/utils/design";
 ```
 
 #### `@opensite/img` - Optimized Image Component 
+
 **Purpose**: Responsive images with format optimization (AVIF, WebP, JPEG)
 **Used By**: `@opensite/blocks` for media rendering
 
 ```typescript
 // Usage pattern for optimal performance
 <Img 
-  mediaId={mediaRecord.id} 
+  src={mediaRecord.file_data_url} 
+  optixFlowConfig={{ apiKey: API_KEY }}
   // Generates <picture> with full srcset variants
-  // Automatically selects optimal format & size
+  // Automatically transforms image to pixel perfect image in the optimal format & caches then streams from CDN
 />
 ```
 

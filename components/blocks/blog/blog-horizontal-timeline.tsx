@@ -151,7 +151,7 @@ export function BlogHorizontalTimelineComponent({
               >
                 <div className="flex w-full flex-col items-start gap-2 md:h-full md:justify-between md:pr-8">
                   {post.title && (
-                    <h2 className="text-lg font-bold tracking-tight text-foreground line-clamp-2">
+                    <h2 className="text-lg font-bold tracking-tight line-clamp-2">
                       {post.title}
                     </h2>
                   )}
@@ -203,7 +203,7 @@ export function BlogHorizontalTimelineComponent({
           (typeof heading === "string" ? (
             <h1
               className={cn(
-                "mb-12 max-w-lg font-sans text-5xl font-extrabold tracking-tight text-foreground md:text-7xl",
+                "mb-12 max-w-lg font-sans text-5xl font-extrabold tracking-tight md:text-7xl",
                 headingClassName,
               )}
             >

@@ -114,8 +114,8 @@ const ProcessBar = React.memo<{
               className={cn(
                 "z-10 flex h-8 w-8 items-center justify-center rounded-full",
                 index <= currentStep
-                  ? "bg-neutral-800 text-white"
-                  : "bg-gray-200 text-white dark:bg-gray-800 dark:text-gray-600",
+                  ? "bg-foreground text-background"
+                  : "bg-muted text-muted-foreground",
               )}
               animate={{ scale: 1.02 }}
             >
@@ -272,7 +272,7 @@ export function TimelineStepperAnimated({
         >
           <h1
             className={cn(
-              "mb-10 text-center text-6xl font-bold tracking-tighter text-foreground",
+              "mb-10 text-center text-6xl font-bold tracking-tighter",
               headingClassName,
             )}
           >
@@ -302,7 +302,7 @@ export function TimelineStepperAnimated({
       >
         <h1
           className={cn(
-            "mb-10 text-center text-6xl font-bold tracking-tighter text-foreground",
+            "mb-10 text-center text-6xl font-bold tracking-tighter",
             headingClassName,
           )}
         >

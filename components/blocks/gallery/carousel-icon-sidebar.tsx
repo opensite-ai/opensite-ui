@@ -234,7 +234,7 @@ export function CarouselIconSidebar({
       >
         <div
           className={cn(
-            "flex h-12 w-12 items-center justify-center rounded-lg bg-background shadow-lg ring-1 ring-gray-200",
+            "flex h-12 w-12 items-center justify-center rounded-lg bg-background shadow-lg ring-1 ring-border",
             iconClassName,
           )}
         >
@@ -270,8 +270,8 @@ export function CarouselIconSidebar({
             </div>
           )}
           <div className={cn("flex items-center gap-4", controlsClassName)}>
-            <CarouselPrevious className="relative top-0 right-0 left-0 translate-x-0 translate-y-0 p-5 transition-all duration-200 hover:bg-black hover:text-white" />
-            <CarouselNext className="relative top-0 right-0 left-0 translate-x-0 translate-y-0 p-5 transition-all duration-200 hover:bg-black hover:text-white" />
+            <CarouselPrevious className="relative top-0 right-0 left-0 translate-x-0 translate-y-0 p-5 transition-all duration-200 hover:bg-foreground hover:text-background" />
+            <CarouselNext className="relative top-0 right-0 left-0 translate-x-0 translate-y-0 p-5 transition-all duration-200 hover:bg-foreground hover:text-background" />
           </div>
         </div>
       </div>

@@ -299,13 +299,13 @@ export function InteriorCarousel({
           </CarouselContent>
           <CarouselPrevious
             className={cn(
-              "left-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50",
+              "left-5 scale-120 border-none bg-foreground/30 text-background hover:bg-foreground/50",
               controlsClassName,
             )}
           />
           <CarouselNext
             className={cn(
-              "right-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50",
+              "right-5 scale-120 border-none bg-foreground/30 text-background hover:bg-foreground/50",
               controlsClassName,
             )}
           />

@@ -155,13 +155,13 @@ export function FaqSplitHero({
   const bgColorClass = useMemo(() => {
     switch (background) {
       case "dark":
-        return "bg-gray-900 text-white";
+        return "bg-foreground text-background";
       case "gray":
-        return "bg-gray-100 text-gray-900";
+        return "bg-muted/30";
       case "white":
-        return "bg-white text-gray-900";
+        return "bg-background";
       default:
-        return "bg-background text-foreground";
+        return "bg-background";
     }
   }, [background]);
 

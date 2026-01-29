@@ -133,7 +133,7 @@ export function TimelineHistoryProse({
         <div className={containerClassName}>
           <h1
             className={cn(
-              "mb-10 text-center text-3xl font-bold tracking-tighter text-foreground sm:text-6xl",
+              "mb-10 text-center text-3xl font-bold tracking-tighter sm:text-6xl",
               headingClassName,
             )}
           >
@@ -158,7 +158,7 @@ export function TimelineHistoryProse({
       <div className={containerClassName}>
         <h1
           className={cn(
-            "mb-10 text-center text-3xl font-bold tracking-tighter text-foreground sm:text-6xl",
+            "mb-10 text-center text-3xl font-bold tracking-tighter sm:text-6xl",
             headingClassName,
           )}
         >
@@ -198,7 +198,7 @@ export function TimelineHistoryProse({
                   {entry.content ? (
                     <div
                       className={cn(
-                        "prose text-foreground dark:prose-invert",
+                        "prose dark:prose-invert",
                         contentClassName,
                       )}
                     >
@@ -207,7 +207,7 @@ export function TimelineHistoryProse({
                   ) : entry.contentHtml ? (
                     <div
                       className={cn(
-                        "prose text-foreground dark:prose-invert",
+                        "prose dark:prose-invert",
                         contentClassName,
                       )}
                       dangerouslySetInnerHTML={{ __html: entry.contentHtml }}

@@ -433,12 +433,12 @@ export function ServiceHoverCarousel({
 
         <div
           className={cn(
-            "absolute bottom-0 left-1/2 h-0.5 w-60 -translate-x-1/2 rounded bg-gray-200",
+            "absolute bottom-0 left-1/2 h-0.5 w-60 -translate-x-1/2 rounded bg-muted",
             progressClassName,
           )}
         >
           <div
-            className="h-0.5 rounded bg-black transition-transform duration-300 ease-out"
+            className="h-0.5 rounded bg-foreground transition-transform duration-300 ease-out"
             style={{
               width: `${progressIndicatorWidth}px`,
               transform: `translateX(${progressOffset}px)`,

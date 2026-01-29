@@ -220,8 +220,8 @@ export function CarouselFullscreenScrollFx({
             className={cn(
               "h-3 w-3 rounded-full border-2 transition-all",
               activeIndex === index
-                ? "scale-125 border-white bg-white"
-                : "border-white/50 bg-transparent hover:border-white",
+                ? "scale-125 border-background bg-background"
+                : "border-background/50 bg-transparent hover:border-background",
             )}
             aria-label={`Go to ${typeof slide.title === "string" ? slide.title : `Slide ${index + 1}`}`}
           />
@@ -233,16 +233,16 @@ export function CarouselFullscreenScrollFx({
         <button
           onClick={() => scrollToSlide(activeIndex + 1)}
           className={cn(
-            "fixed bottom-8 left-1/2 z-50 -translate-x-1/2 cursor-pointer transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg p-2",
+            "fixed bottom-8 left-1/2 z-50 -translate-x-1/2 cursor-pointer transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-background/50 focus-visible:ring-offset-2 focus-visible:ring-offset-foreground rounded-lg p-2",
             scrollIndicatorClassName,
           )}
           aria-label="Scroll to next slide"
         >
           <div className="flex flex-col items-center gap-2">
-            <span className="text-xs uppercase tracking-widest text-white/50">
+            <span className="text-xs uppercase tracking-widest opacity-50">
               Scroll
             </span>
-            <div className="h-12 w-px animate-pulse bg-linear-to-b from-white/50 to-transparent" />
+            <div className="h-12 w-px animate-pulse bg-linear-to-b from-background/50 to-transparent" />
           </div>
         </button>
       )}
@@ -251,7 +251,7 @@ export function CarouselFullscreenScrollFx({
       {slides && slides.length > 0 && (
         <div
           className={cn(
-            "fixed bottom-8 right-8 z-50 text-sm text-white/50",
+            "fixed bottom-8 right-8 z-50 text-sm opacity-50",
             counterClassName,
           )}
         >
@@ -348,7 +348,7 @@ export function CarouselFullscreenScrollFx({
                       (typeof slide.subtitle === "string" ? (
                         <p
                           className={cn(
-                            "mb-4 text-sm font-medium uppercase tracking-widest text-white/70",
+                            "mb-4 text-sm font-medium uppercase tracking-widest opacity-70",
                             subtitleClassName,
                           )}
                         >
@@ -376,7 +376,7 @@ export function CarouselFullscreenScrollFx({
                       (typeof slide.description === "string" ? (
                         <p
                           className={cn(
-                            "mx-auto text-lg text-white/80 md:text-xl text-balance",
+                            "mx-auto text-lg opacity-80 md:text-xl text-balance",
                             descriptionClassName,
                           )}
                         >

@@ -211,7 +211,7 @@ export function CarouselImageHero({
       containerClassName={containerClassName}
     >
       {/* Image Carousel */}
-      <div className={cn("absolute inset-0 bg-black", imageClassName)}>
+      <div className={cn("absolute inset-0 bg-foreground", imageClassName)}>
         {images?.map((image, index) => (
           <div
             key={index}
@@ -226,7 +226,7 @@ export function CarouselImageHero({
               className={cn("h-full w-full object-cover", image.className)}
               optixFlowConfig={optixFlowConfig}
             />
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-foreground/40" />
           </div>
         ))}
 
@@ -244,8 +244,8 @@ export function CarouselImageHero({
               className={cn(
                 "flex h-4 w-4 items-center justify-center rounded-full transition-colors",
                 index === currentImageIndex
-                  ? "bg-white"
-                  : "bg-white/50 hover:bg-white/80",
+                  ? "bg-background"
+                  : "bg-background/50 hover:bg-background/80",
               )}
               aria-label={`Go to image ${index + 1}`}
             />
@@ -265,7 +265,7 @@ export function CarouselImageHero({
               (typeof badge === "string" ? (
                 <div
                   className={cn(
-                    "inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm",
+                    "inline-flex items-center rounded-full bg-background/10 px-3 py-1 text-sm font-medium backdrop-blur-sm",
                     badgeClassName,
                   )}
                 >

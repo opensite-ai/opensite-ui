@@ -18,10 +18,6 @@ export interface ImageSliderImage {
    */
   alt: string;
   /**
-   * Optional legacy media ID for the image component
-   */
-  mediaId?: number;
-  /**
    * Additional CSS classes for the image
    */
   className?: string;
@@ -234,7 +230,7 @@ export const ImageSlider = ({
       <AnimatePresence mode="wait" initial={false}>
         {activeImage ? (
           <motion.div
-            key={`${currentIndex}-${activeImage.src ?? activeImage.mediaId ?? "image"}`}
+            key={`${currentIndex}-${activeImage.src ?? "image"}`}
             initial="initial"
             animate="visible"
             exit={direction === "up" ? "upExit" : "downExit"}
@@ -243,7 +239,6 @@ export const ImageSlider = ({
           >
             <Img
               src={activeImage.src}
-              mediaId={activeImage.mediaId}
               alt={activeImage.alt}
               className={cn(
                 "h-full w-full object-cover object-center",

@@ -276,7 +276,7 @@ export function CarouselPortfolioHero({
       {/* Content */}
       <div
         className={cn(
-          "relative z-10 flex h-full w-full flex-col justify-end px-6 pb-16 text-white md:px-8 lg:px-12",
+          "relative z-10 flex h-full w-full flex-col justify-end px-6 pb-16 md:px-8 lg:px-12",
         )}
       >
         <div className="relative">
@@ -316,7 +316,7 @@ export function CarouselPortfolioHero({
               (typeof currentSlide.description === "string" ? (
                 <p
                   className={cn(
-                    "mt-4 text-lg text-white/80 sm:text-xl md:max-w-2xl  text-balance text-shadow",
+                    "mt-4 text-lg opacity-80 sm:text-xl md:max-w-2xl  text-balance text-shadow",
                     descriptionClassName,
                   )}
                 >
@@ -342,7 +342,7 @@ export function CarouselPortfolioHero({
                 <Pressable
                   variant="outline"
                   size="icon"
-                  className="rounded-full border-white/40 bg-black/30 text-white hover:bg-black/50 hover:text-white"
+                  className="rounded-full border-background/40 bg-foreground/30 hover:bg-foreground/50"
                   onClick={goToPrev}
                   asButton
                 >
@@ -352,7 +352,7 @@ export function CarouselPortfolioHero({
                 <Pressable
                   variant="outline"
                   size="icon"
-                  className="rounded-full border-white/40 bg-black/30 text-white hover:bg-black/50 hover:text-white"
+                  className="rounded-full border-background/40 bg-foreground/30 hover:bg-foreground/50"
                   onClick={goToNext}
                   asButton
                 >
@@ -360,7 +360,7 @@ export function CarouselPortfolioHero({
                 </Pressable>
 
                 <div
-                  className={cn("ml-3 text-sm text-white/80", counterClassName)}
+                  className={cn("ml-3 text-sm opacity-80", counterClassName)}
                 >
                   {currentIndex + 1} / {slides?.length ?? 0}
                 </div>

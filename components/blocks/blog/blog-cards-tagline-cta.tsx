@@ -214,7 +214,7 @@ export function BlogCardsTaglineCta({
             {readMoreText && (
               <Pressable
                 href={postHref}
-                className="flex items-center text-foreground hover:underline"
+                className="flex items-center hover:underline"
               >
                 {readMoreText}
                 <DynamicIcon

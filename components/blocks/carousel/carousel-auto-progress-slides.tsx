@@ -273,7 +273,7 @@ export function CarouselAutoProgressSlides({
           asButton
           variant="ghost"
           size="icon"
-          className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-foreground/10 p-0.5 text-foreground/50 hover:bg-foreground/20 active:scale-95"
+          className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-foreground/10 p-0.5 opacity-50 hover:bg-foreground/20 active:scale-95"
         >
           <DynamicIcon name="lucide/chevron-left" size={16} />
         </Pressable>
@@ -286,7 +286,7 @@ export function CarouselAutoProgressSlides({
               animate={{
                 width: index === currentIndex ? "30px" : "8px",
               }}
-              className="relative flex h-2 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-foreground/15 p-0.5 text-foreground/50"
+              className="relative flex h-2 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-foreground/15 p-0.5 opacity-50"
             >
               {currentIndex === index && (
                 <motion.div
@@ -302,7 +302,7 @@ export function CarouselAutoProgressSlides({
           asButton
           variant="ghost"
           size="icon"
-          className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-foreground/10 p-0.5 text-neutral-400 hover:bg-foreground/20 active:scale-95"
+          className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-foreground/10 p-0.5 hover:bg-foreground/20 active:scale-95"
         >
           <DynamicIcon name="lucide/chevron-right" size={16} />
         </Pressable>

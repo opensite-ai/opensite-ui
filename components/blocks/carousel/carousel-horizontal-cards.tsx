@@ -220,7 +220,7 @@ export function CarouselHorizontalCards({
                   <h2
                     id="carousel-title"
                     className={cn(
-                      "text-2xl font-bold tracking-tight text-card-foreground md:text-3xl",
+                      "text-2xl font-bold tracking-tight md:text-3xl",
                       headingClassName,
                     )}
                   >

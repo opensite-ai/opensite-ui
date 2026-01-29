@@ -157,7 +157,7 @@ export function BlogTechInsights({
       <Pressable
         asButton
         className={cn(
-          "ml-auto rounded-full border-foreground text-foreground",
+          "ml-auto rounded-full border-foreground",
           actionClassName,
           readMoreClassName,
         )}
@@ -198,11 +198,11 @@ export function BlogTechInsights({
         <div className="mt-4">
           {featuredPost.title &&
             (typeof featuredPost.title === "string" ? (
-              <h2 className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
+              <h2 className="text-2xl font-bold md:text-3xl lg:text-4xl">
                 {featuredPost.title}
               </h2>
             ) : (
-              <div className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
+              <div className="text-2xl font-bold md:text-3xl lg:text-4xl">
                 {featuredPost.title}
               </div>
             ))}
@@ -216,7 +216,7 @@ export function BlogTechInsights({
             </Avatar>
             <span className="text-sm md:text-base">
               {featuredPost.author && (
-                <span className="block text-foreground">
+                <span className="block">
                   {featuredPost.author}
                 </span>
               )}
@@ -284,7 +284,7 @@ export function BlogTechInsights({
           </div>
           <div className="flex-1">
             {post.title && (
-              <h3 className="font-semibold text-foreground text-md line-clamp-2">
+              <h3 className="font-semibold text-md line-clamp-2">
                 {post.title}
               </h3>
             )}
@@ -337,7 +337,7 @@ export function BlogTechInsights({
             (typeof heading === "string" ? (
               <h1
                 className={cn(
-                  "text-3xl font-bold text-foreground md:text-4xl lg:text-5xl",
+                  "text-3xl font-bold md:text-4xl lg:text-5xl",
                   headingClassName,
                 )}
               >
@@ -375,7 +375,7 @@ export function BlogTechInsights({
 
           <div
             className={cn(
-              "space-y-6 text-foreground md:space-y-8",
+              "space-y-6 md:space-y-8",
               secondaryPostsClassName,
             )}
           >

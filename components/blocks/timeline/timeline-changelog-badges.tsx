@@ -137,7 +137,7 @@ export function TimelineChangelogBadges({
         <div className={containerClassName}>
           <h1
             className={cn(
-              "mb-10 text-center text-3xl font-bold tracking-tighter text-foreground lg:text-6xl",
+              "mb-10 text-center text-3xl font-bold tracking-tighter lg:text-6xl",
               headingClassName,
             )}
           >
@@ -162,7 +162,7 @@ export function TimelineChangelogBadges({
       <div className={containerClassName}>
         <h1
           className={cn(
-            "mb-10 text-center text-3xl font-bold tracking-tighter text-foreground lg:text-6xl",
+            "mb-10 text-center text-3xl font-bold tracking-tighter lg:text-6xl",
             headingClassName,
           )}
         >
@@ -200,7 +200,7 @@ export function TimelineChangelogBadges({
                         {item.content ? (
                           <span
                             className={cn(
-                              "text-md leading-relaxed text-foreground",
+                              "text-md leading-relaxed",
                               itemClassName,
                             )}
                           >
@@ -209,7 +209,7 @@ export function TimelineChangelogBadges({
                         ) : item.contentHtml ? (
                           <span
                             className={cn(
-                              "text-md leading-relaxed text-foreground",
+                              "text-md leading-relaxed",
                               itemClassName,
                             )}
                             dangerouslySetInnerHTML={{

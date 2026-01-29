@@ -321,13 +321,13 @@ export function CarouselAnimatedSections({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -40 }}
               transition={{ duration: 0.4, delay: 0.2 }}
-              className="max-w-2xl text-white text-shadow"
+              className="max-w-2xl text-shadow"
             >
               {currentSection?.subtitle &&
                 (typeof currentSection?.subtitle === "string" ? (
                   <p
                     className={cn(
-                      "mb-2 text-sm font-medium uppercase tracking-widest text-white/70",
+                      "mb-2 text-sm font-medium uppercase tracking-widest opacity-70",
                       subtitleClassName,
                     )}
                   >
@@ -357,7 +357,7 @@ export function CarouselAnimatedSections({
                 (typeof currentSection?.description === "string" ? (
                   <p
                     className={cn(
-                      "mb-8 text-lg text-white/80 text-balance",
+                      "mb-8 text-lg opacity-80 text-balance",
                       descriptionClassName,
                     )}
                   >
@@ -376,7 +376,7 @@ export function CarouselAnimatedSections({
                       onClick={currentSection?.ctaOnClick}
                       asButton
                       size="lg"
-                      className="bg-white text-black hover:bg-white/90"
+                      className="bg-background text-foreground hover:bg-background/90"
                     >
                       {currentSection?.ctaText}
                       <DynamicIcon
@@ -406,8 +406,8 @@ export function CarouselAnimatedSections({
             className={cn(
               "h-3 w-3 rounded-full border-2 transition-all",
               currentIndex === index
-                ? "scale-125 border-white bg-white"
-                : "border-white/50 bg-transparent hover:border-white",
+                ? "scale-125 border-background bg-background"
+                : "border-background/50 bg-transparent hover:border-background",
             )}
             aria-label={`Go to section ${index + 1}`}
           />
@@ -427,7 +427,7 @@ export function CarouselAnimatedSections({
           variant="ghost"
           size="icon"
           disabled={currentIndex === 0}
-          className="rounded-full border border-white/30 text-white hover:bg-white/10 disabled:opacity-30"
+          className="rounded-full border border-background/30 hover:bg-background/10 disabled:opacity-30"
         >
           <DynamicIcon name="lucide/chevron-up" size={20} />
         </Pressable>
@@ -437,7 +437,7 @@ export function CarouselAnimatedSections({
           variant="ghost"
           size="icon"
           disabled={currentIndex === (sections?.length ?? 0) - 1}
-          className="rounded-full border border-white/30 text-white hover:bg-white/10 disabled:opacity-30"
+          className="rounded-full border border-background/30 hover:bg-background/10 disabled:opacity-30"
         >
           <DynamicIcon name="lucide/chevron-down" size={20} />
         </Pressable>
@@ -446,7 +446,7 @@ export function CarouselAnimatedSections({
       {/* Slide counter */}
       <div
         className={cn(
-          "absolute bottom-8 right-8 z-20 text-sm text-white/50",
+          "absolute bottom-8 right-8 z-20 text-sm opacity-50",
           counterClassName,
         )}
       >

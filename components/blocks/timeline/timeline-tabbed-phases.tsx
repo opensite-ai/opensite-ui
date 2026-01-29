@@ -162,9 +162,9 @@ export function TimelineTabbedPhases({
           aria-label={downloadAction["aria-label"]}
         >
           <DynamicIcon name="lucide/download" size={16} />
-          <p className="text-md font-medium text-foreground">
+          <p className="text-md font-medium">
             Click to{" "}
-            <span className="text-foreground/80">
+            <span className="opacity-80">
               {downloadAction.children || downloadAction.label}
             </span>
           </p>
@@ -247,7 +247,7 @@ export function TimelineTabbedPhases({
                 )}
                 value={phase.id}
               >
-                <span className="hidden font-mono text-foreground/40 md:inline">
+                <span className="hidden font-mono opacity-40 md:inline">
                   {phase.phase}
                 </span>
                 {phase.title}
@@ -275,7 +275,7 @@ export function TimelineTabbedPhases({
                 </p>
                 <h2
                   className={cn(
-                    "text-3xl font-medium tracking-tighter text-foreground md:text-5xl",
+                    "text-3xl font-medium tracking-tighter md:text-5xl",
                     phaseHeadingClassName,
                   )}
                 >

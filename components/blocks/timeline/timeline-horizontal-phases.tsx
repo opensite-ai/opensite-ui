@@ -143,7 +143,7 @@ export function TimelineHorizontalPhases({
         <div className={cn("flex flex-col items-center", containerClassName)}>
           <h1
             className={cn(
-              "mb-10 text-center text-3xl font-bold tracking-tighter text-foreground sm:text-6xl",
+              "mb-10 text-center text-3xl font-bold tracking-tighter sm:text-6xl",
               headingClassName,
             )}
           >
@@ -168,7 +168,7 @@ export function TimelineHorizontalPhases({
       <div className={cn("flex flex-col items-center", containerClassName)}>
         <h1
           className={cn(
-            "mb-10 text-center text-3xl font-bold tracking-tighter text-foreground sm:text-6xl",
+            "mb-10 text-center text-3xl font-bold tracking-tighter sm:text-6xl",
             headingClassName,
           )}
         >
@@ -233,7 +233,7 @@ export function TimelineHorizontalPhases({
                       </p>
                       <h2
                         className={cn(
-                          "text-xl font-bold tracking-tighter text-foreground",
+                          "text-xl font-bold tracking-tighter",
                           titleClassName,
                         )}
                       >
