@@ -17,13 +17,14 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { CarouselPagination } from "../../ui/carousel-pagination";
+import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
+  ActionConfig,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
@@ -50,6 +51,10 @@ export interface CardItem {
    * Label for the count
    */
   countLabel?: React.ReactNode;
+  /**
+   * Array of action configurations for buttons/links on the card
+   */
+  actions?: ActionConfig[];
   /**
    * Additional CSS classes for the card
    */
@@ -154,26 +159,15 @@ export function CarouselHorizontalCards({
   const [isAtStart, setIsAtStart] = React.useState(true);
   const [isAtEnd, setIsAtEnd] = React.useState(false);
 
-  const getCardWidth = React.useCallback(() => {
-    // Match the responsive card widths from the component
-    if (typeof window === "undefined") return 320;
-    if (window.innerWidth >= 1024) return 400; // lg breakpoint
-    if (window.innerWidth >= 640) return 360; // sm breakpoint
-    return 320;
-  }, []);
-
-  const scroll = (direction: "left" | "right") => {
+  const scrollLeft = () => {
     if (carouselRef.current) {
-      const { scrollLeft } = carouselRef.current;
-      const cardWidth = getCardWidth();
-      const gap = 16; // space-x-4 = 1rem = 16px
-      const scrollAmount = cardWidth + gap;
-      const newScrollLeft =
-        direction === "left"
-          ? scrollLeft - scrollAmount
-          : scrollLeft + scrollAmount;
+      carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    }
+  };
 
-      carouselRef.current.scrollTo({ left: newScrollLeft, behavior: "smooth" });
+  const scrollRight = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
     }
   };
 
@@ -202,60 +196,6 @@ export function CarouselHorizontalCards({
     };
   }, [items]);
 
-  const renderItems = () => {
-    if (itemsSlot) return itemsSlot;
-    if (!items || items.length === 0) return null;
-
-    return items.map((item, index) => (
-      <motion.div
-        key={item.id}
-        className={cn(
-          "group w-[320px] shrink-0 snap-start sm:w-[360px] lg:w-[400px]",
-          item.className
-        )}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-      >
-        <div className="overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm transition-shadow hover:shadow-md">
-          <Img
-            alt={typeof item.title === "string" ? item.title : `Card ${index + 1}`}
-            className={cn("aspect-video w-full object-cover transition-transform group-hover:scale-105", item.imageClassName)}
-            src={item.imageSrc}
-            optixFlowConfig={optixFlowConfig}
-          />
-          <div className="p-4">
-            {item.title && (
-              typeof item.title === "string" ? (
-                <h3 className="text-md font-semibold leading-tight text-card-foreground">
-                  {item.title}
-                </h3>
-              ) : (
-                <div>{item.title}</div>
-              )
-            )}
-            {(item.count !== undefined || item.countLabel) && (
-              <div className="mt-4">
-                {item.count !== undefined && (
-                  <p className="text-xl font-bold">{item.count}</p>
-                )}
-                {item.countLabel && (
-                  typeof item.countLabel === "string" ? (
-                    <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                      {item.countLabel}
-                    </p>
-                  ) : (
-                    <div>{item.countLabel}</div>
-                  )
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      </motion.div>
-    ));
-  };
-
   return (
     <Section
       background={background}
@@ -267,90 +207,166 @@ export function CarouselHorizontalCards({
     >
       <div className={cn("container mx-auto px-4 md:px-6", containerClassName)}>
         {/* Header Section */}
-        <div className={cn("mb-8 flex items-center justify-between gap-4", headerClassName)}>
+        <div
+          className={cn(
+            "mb-8 flex items-center justify-between gap-4",
+            headerClassName,
+          )}
+        >
           <div>
-                        {heading && (
-                          <a href={headingHref} className="group inline-flex items-center">
-                            {typeof heading === "string" ? (
-                              <h2
-                                id="carousel-title"
-                                className={cn("text-2xl font-bold tracking-tight text-card-foreground md:text-3xl", headingClassName)}
-                              >
-                                {heading}
-                              </h2>
-                            ) : (
-                              <div className={headingClassName}>{heading}</div>
-                            )}
-                            <DynamicIcon
-                              name="lucide/chevron-right"
-                              size={24}
-                              className="ml-2 flex-shrink-0 self-center transition-transform group-hover:translate-x-1"
-                            />
-                          </a>
-                        )}
-            {subtitle && (
-              typeof subtitle === "string" ? (
-                <p className={cn("mt-1 text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            {heading && (
+              <a href={headingHref} className="group inline-flex items-center">
+                {typeof heading === "string" ? (
+                  <h2
+                    id="carousel-title"
+                    className={cn(
+                      "text-2xl font-bold tracking-tight text-card-foreground md:text-3xl",
+                      headingClassName,
+                    )}
+                  >
+                    {heading}
+                  </h2>
+                ) : (
+                  <div className={headingClassName}>{heading}</div>
+                )}
+                <DynamicIcon
+                  name="lucide/chevron-right"
+                  size={24}
+                  className="ml-2 shrink-0 self-center transition-transform group-hover:translate-x-1"
+                />
+              </a>
+            )}
+            {subtitle &&
+              (typeof subtitle === "string" ? (
+                <p
+                  className={cn(
+                    "mt-1 text-muted-foreground",
+                    subtitleClassName,
+                  )}
+                >
+                  {subtitle}
+                </p>
               ) : (
                 <div className={subtitleClassName}>{subtitle}</div>
-              )
-            )}
+              ))}
           </div>
         </div>
 
         {/* Carousel Section */}
-        <div className="relative">
+        <div className="relative w-full">
           <div
+            className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-4 [scrollbar-width:none] md:py-6"
             ref={carouselRef}
-            className={cn(
-              "scrollbar-hide flex w-full space-x-4 overflow-x-auto pb-4",
-              "snap-x snap-mandatory scroll-pl-0",
-              carouselClassName
-            )}
           >
-            {renderItems()}
-          </div>
+            <div
+              className={cn(
+                "flex flex-row justify-start gap-4 pl-4",
+                carouselClassName,
+              )}
+            >
+              {items?.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  className={cn(
+                    "rounded-lg last:pr-[5%] md:last:pr-[33%]",
+                  )}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 * index, ease: "easeOut" }}
+                >
+                  <div
+                    className={cn(
+                      "group w-56 shrink-0 md:w-96",
+                      item.className,
+                    )}
+                  >
+                    <div className="overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm transition-shadow hover:shadow-md">
+                      <Img
+                        alt={
+                          typeof item.title === "string" ? item.title : `Card ${index + 1}`
+                        }
+                        className={cn(
+                          "aspect-video w-full object-cover transition-transform group-hover:scale-105",
+                          item.imageClassName,
+                        )}
+                        src={item.imageSrc}
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                      <div className="p-4">
+                        {item.title &&
+                          (typeof item.title === "string" ? (
+                            <h3 className="text-md font-semibold leading-tight text-card-foreground">
+                              {item.title}
+                            </h3>
+                          ) : (
+                            <div>{item.title}</div>
+                          ))}
+                        {(item.count !== undefined || item.countLabel) && (
+                          <div className="mt-4">
+                            {item.count !== undefined && (
+                              <p className="text-xl font-bold">{item.count}</p>
+                            )}
+                            {item.countLabel &&
+                              (typeof item.countLabel === "string" ? (
+                                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                                  {item.countLabel}
+                                </p>
+                              ) : (
+                                <div>{item.countLabel}</div>
+                              ))}
+                          </div>
+                        )}
+                        {/* Actions */}
+                        {item.actions && item.actions.length > 0 && (
+                          <div className="mt-4 flex flex-wrap gap-2">
+                            {item.actions.map((action, actionIndex) => {
+                              const {
+                                label,
+                                icon,
+                                iconAfter,
+                                children,
+                                className: actionClassName,
+                                asButton,
+                                ...pressableProps
+                              } = action;
 
+                              return (
+                                <Pressable
+                                  key={actionIndex}
+                                  asButton={asButton}
+                                  className={actionClassName}
+                                  {...pressableProps}
+                                >
+                                  {children ?? (
+                                    <>
+                                      {icon}
+                                      {label}
+                                      {iconAfter}
+                                    </>
+                                  )}
+                                </Pressable>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+              {itemsSlot}
+            </div>
+          </div>
           {/* Navigation Buttons */}
-          {!isAtStart && (
-            <Pressable
-              onClick={() => scroll("left")}
-              className={cn(
-                "absolute left-4 top-1/2 z-10 -translate-y-1/2",
-                "flex h-12 w-12 items-center justify-center",
-                "rounded-full border border-border/50 bg-background shadow-lg",
-                "text-foreground transition-all duration-200",
-                "hover:bg-accent hover:shadow-xl hover:scale-105",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                navigationClassName
-              )}
-              aria-label="Scroll left"
-              asButton
-            >
-              <DynamicIcon name="lucide/chevron-left" size={24} />
-            </Pressable>
-          )}
-          {!isAtEnd && (
-            <Pressable
-              onClick={() => scroll("right")}
-              className={cn(
-                "absolute right-4 top-1/2 z-10 -translate-y-1/2",
-                "flex h-12 w-12 items-center justify-center",
-                "rounded-full border border-border/50 bg-background shadow-lg",
-                "text-foreground transition-all duration-200",
-                "hover:bg-accent hover:shadow-xl hover:scale-105",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                navigationClassName
-              )}
-              aria-label="Scroll right"
-              asButton
-            >
-              <DynamicIcon name="lucide/chevron-right" size={24} />
-            </Pressable>
-          )}
+          <CarouselPagination
+            onPrevious={scrollLeft}
+            onNext={scrollRight}
+            canScrollPrevious={!isAtStart}
+            canScrollNext={!isAtEnd}
+            className={cn("mr-0 md:mr-10", navigationClassName)}
+          />
         </div>
       </div>
     </Section>
   );
 }
-

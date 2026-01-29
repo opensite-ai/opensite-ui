@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "0.7.9",
+  "version": "0.8.0",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -3120,6 +3120,11 @@
       "types": "./dist/card.d.ts",
       "import": "./dist/card.js",
       "require": "./dist/card.cjs"
+    },
+    "./components/carousel-pagination": {
+      "types": "./dist/carousel-pagination.d.ts",
+      "import": "./dist/carousel-pagination.js",
+      "require": "./dist/carousel-pagination.cjs"
     },
     "./components/carousel": {
       "types": "./dist/carousel.d.ts",

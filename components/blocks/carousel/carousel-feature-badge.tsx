@@ -16,15 +16,10 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "../../ui/carousel";
+import { CarouselPagination } from "../../ui/carousel-pagination";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import useEmblaCarousel from "embla-carousel-react";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ContainerMaxWidth,
@@ -151,12 +146,48 @@ export function CarouselFeatureBadge({
   slideLayoutVariant = "square",
   containerMaxWidth = "2xl",
 }: CarouselFeatureBadgeProps): React.JSX.Element {
+  const [emblaRef, emblaApi] = useEmblaCarousel();
+  const [canScrollPrev, setCanScrollPrev] = React.useState(false);
+  const [canScrollNext, setCanScrollNext] = React.useState(false);
+
+  const scrollPrev = React.useCallback(() => {
+    emblaApi?.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = React.useCallback(() => {
+    emblaApi?.scrollNext();
+  }, [emblaApi]);
+
+  const onSelect = React.useCallback(() => {
+    if (!emblaApi) return;
+    setCanScrollPrev(emblaApi.canScrollPrev());
+    setCanScrollNext(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
+  React.useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("reInit", onSelect);
+    emblaApi.on("select", onSelect);
+    return () => {
+      emblaApi?.off("select", onSelect);
+    };
+  }, [emblaApi, onSelect]);
+
   const renderCarouselItems = () => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
     return items.map((item, index) => (
-      <CarouselItem key={index} className={carouselItemClassName}>
+      <div
+        key={index}
+        role="group"
+        aria-roledescription="slide"
+        className={cn(
+          "min-w-0 shrink-0 grow-0 basis-full pl-4",
+          carouselItemClassName,
+        )}
+      >
         <div
           className={cn(
             "flex items-center justify-center overflow-hidden rounded-2xl",
@@ -170,7 +201,7 @@ export function CarouselFeatureBadge({
             optixFlowConfig={optixFlowConfig}
           />
         </div>
-      </CarouselItem>
+      </div>
     ));
   };
 
@@ -222,12 +253,21 @@ export function CarouselFeatureBadge({
                 ))}
             </div>
           </div>
-          <div className={cn("w-full max-w-full px-6", carouselClassName)}>
-            <Carousel>
-              <CarouselContent>{renderCarouselItems()}</CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
+          <div className={cn("w-full max-w-full", carouselClassName)}>
+            <div className="relative">
+              <div ref={emblaRef} className="overflow-hidden">
+                <div className="flex -ml-4">
+                  {renderCarouselItems()}
+                </div>
+              </div>
+              <CarouselPagination
+                onPrevious={scrollPrev}
+                onNext={scrollNext}
+                canScrollPrevious={canScrollPrev}
+                canScrollNext={canScrollNext}
+                className="mt-4"
+              />
+            </div>
           </div>
         </div>
       </div>

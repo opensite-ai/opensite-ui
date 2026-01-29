@@ -41,6 +41,8 @@ export {
   PopoverContent,
 } from "../components/ui/popover";
 export { DynamicIcon } from "../components/ui/dynamic-icon";
+export { CarouselPagination } from "../components/ui/carousel-pagination";
+export type { CarouselPaginationProps } from "../components/ui/carousel-pagination";
 
 // Navigation components
 export { Pressable } from "../lib/Pressable";

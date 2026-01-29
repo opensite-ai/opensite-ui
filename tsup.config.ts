@@ -6,6 +6,7 @@ import { join } from "path";
 const clientEntryNames = new Set([
   "animated-dialog",
   "dynamic-icon",
+  "carousel-pagination",
   "pressable",
   "hooks",
   "use-navigation",
@@ -537,6 +538,7 @@ const allEntries = {
   badge: "components/ui/badge.tsx",
   popover: "components/ui/popover.tsx",
   "dynamic-icon": "components/ui/dynamic-icon.tsx",
+  "carousel-pagination": "components/ui/carousel-pagination.tsx",
   pressable: "lib/Pressable.tsx",
   hooks: "lib/hooks.ts",
   "use-navigation": "lib/useNavigation.ts",

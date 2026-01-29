@@ -77,6 +77,13 @@
   }
 ,
   {
+    "path": "./components/carousel-pagination",
+    "types": "./dist/carousel-pagination.d.ts",
+    "import": "./dist/carousel-pagination.js",
+    "require": "./dist/carousel-pagination.cjs"
+  }
+,
+  {
     "path": "./components/carousel",
     "types": "./dist/carousel.d.ts",
     "import": "./dist/carousel.js",
