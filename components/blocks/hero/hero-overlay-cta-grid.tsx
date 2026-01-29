@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Container } from "../../ui/container";
@@ -208,19 +208,19 @@ export function HeroOverlayCtaGrid({
               href={card.href}
               className="group flex items-center gap-4 px-6 py-6 transition-colors hover:bg-primary/5"
             >
-              <div className="relative flex h-12 w-12 flex-none items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+              <div className={cn("relative flex h-12 w-12 flex-none items-center justify-center rounded-full transition-colors group-hover:text-primary-foreground", `${getAccentColor(background)}/10`, getAccentColor(background), `group-hover:${getAccentColor(background)}`)}>
                 <DynamicIcon name={card.icon} size={22} />
               </div>
               <div className="min-w-0">
                 <p className="text-base font-semibold ">
                   {card.label}
                 </p>
-                <p className="text-sm text-muted-foreground">{card.subtitle}</p>
+                <p className={cn("text-sm", getTextColor(background, "muted"))}>{card.subtitle}</p>
               </div>
               <DynamicIcon
                 name="lucide/arrow-right"
                 size={18}
-                className="ml-auto flex-none text-primary"
+                className={cn("ml-auto flex-none", getAccentColor(background))}
               />
             </Pressable>
           ))}

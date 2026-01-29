@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -215,7 +215,8 @@ export function CtaSplitImage({
           typeof description === "string" ? (
             <p
               className={cn(
-                "mb-8 text-muted-foreground lg:text-lg",
+                "mb-8 lg:text-lg",
+                getTextColor(background, 'muted'),
                 descriptionClassName
               )}
             >
@@ -230,7 +231,7 @@ export function CtaSplitImage({
         {actionsContent}
       </div>
     );
-  }, [heading, description, actionsContent, contentClassName, headingClassName, descriptionClassName]);
+  }, [heading, description, actionsContent, contentClassName, headingClassName, descriptionClassName, background]);
 
   return (
     <Section

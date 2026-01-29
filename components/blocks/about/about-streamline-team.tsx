@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -182,7 +182,7 @@ export function AboutStreamlineTeam({
                 ))}
               {feature.description &&
                 (typeof feature.description === "string" ? (
-                  <p className="text-sm text-muted-foreground">
+                  <p className={cn("text-sm", getTextColor(background, 'muted'))}>
                     {feature.description}
                   </p>
                 ) : (
@@ -193,7 +193,7 @@ export function AboutStreamlineTeam({
         ))}
       </div>
     );
-  }, [featuresSlot, features, featuresClassName]);
+  }, [featuresSlot, features, featuresClassName, background]);
 
   const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -270,7 +270,8 @@ export function AboutStreamlineTeam({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mt-6 text-lg text-muted-foreground",
+                  "mt-6 text-lg",
+                  getTextColor(background, 'muted'),
                   descriptionClassName,
                 )}
               >
@@ -311,7 +312,8 @@ export function AboutStreamlineTeam({
             (typeof teamDescription === "string" ? (
               <p
                 className={cn(
-                  "mt-4 text-lg text-muted-foreground",
+                  "mt-4 text-lg",
+                  getTextColor(background, 'muted'),
                   teamDescriptionClassName,
                 )}
               >

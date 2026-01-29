@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -142,7 +142,7 @@ export function HeroSplitImageNewsletter({
         </div>
         {newsletterForm.helperText && (
           typeof newsletterForm.helperText === "string" ? (
-            <p className="text-sm text-muted-foreground">
+            <p className={cn("text-sm", getTextColor(background, "muted"))}>
               {newsletterForm.helperText}
             </p>
           ) : (
@@ -191,7 +191,7 @@ export function HeroSplitImageNewsletter({
           )}
           {description && (
             typeof description === "string" ? (
-              <p className={cn("text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
+              <p className={cn("text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                 {description}
               </p>
             ) : (

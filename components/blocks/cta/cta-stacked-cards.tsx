@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -186,7 +186,8 @@ export function CtaStackedCards({
               typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mb-8 text-muted-foreground lg:text-lg",
+                    "mb-8 lg:text-lg",
+                    getTextColor(background, 'muted'),
                     descriptionClassName,
                   )}
                 >

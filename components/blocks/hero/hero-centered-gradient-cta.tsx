@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -194,7 +194,7 @@ export function HeroCenteredGradientCta({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
+            <p className={cn("mt-6 max-w-2xl text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
               {description}
             </p>
           ) : (
@@ -207,7 +207,7 @@ export function HeroCenteredGradientCta({
           </div>
         )}
         {(featuresSlot || (features && features.length > 0)) && (
-          <div className={cn("mt-16 flex items-center gap-8 text-sm text-muted-foreground", featuresClassName)}>
+          <div className={cn("mt-16 flex items-center gap-8 text-sm", getTextColor(background, "muted"), featuresClassName)}>
             {renderFeatures}
           </div>
         )}

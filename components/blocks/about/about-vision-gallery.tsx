@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -265,7 +265,8 @@ export function AboutVisionGallery({
             (typeof subtitle === "string" ? (
               <p
                 className={cn(
-                  "text-xl font-medium text-muted-foreground text-balance",
+                  "text-xl font-medium text-balance",
+                  getTextColor(background, 'muted'),
                   subtitleClassName,
                 )}
               >
@@ -300,7 +301,8 @@ export function AboutVisionGallery({
                 (typeof primarySectionContent === "string" ? (
                   <p
                     className={cn(
-                      "text-normal md:text-xl leading-8 font-medium text-muted-foreground whitespace-pre-line",
+                      "text-normal md:text-xl leading-8 font-medium whitespace-pre-line",
+                      getTextColor(background, 'muted'),
                       primarySectionContentClassName,
                     )}
                   >
@@ -333,7 +335,8 @@ export function AboutVisionGallery({
               {(secondarySectionContent || secondarySectionLinkText) && (
                 <p
                   className={cn(
-                    "text-normal md:text-xl leading-8 font-medium text-muted-foreground",
+                    "text-normal md:text-xl leading-8 font-medium",
+                    getTextColor(background, 'muted'),
                     secondarySectionContentClassName,
                   )}
                 >

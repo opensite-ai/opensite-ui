@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -181,11 +181,11 @@ export function FeaturePatternGridLinks({
           )}
           {feature.description && (
             typeof feature.description === "string" ? (
-              <p className={cn("text-sm text-muted-foreground", feature.descriptionClassName)}>
+              <p className={cn("text-sm", getTextColor(background, 'muted'), feature.descriptionClassName)}>
                 {feature.description}
               </p>
             ) : (
-              <div className={cn("text-sm text-muted-foreground", feature.descriptionClassName)}>
+              <div className={cn("text-sm", getTextColor(background, 'muted'), feature.descriptionClassName)}>
                 {feature.description}
               </div>
             )
@@ -194,7 +194,7 @@ export function FeaturePatternGridLinks({
         {renderFeatureLink(feature)}
       </div>
     ));
-  }, [featuresSlot, features, cardClassName, renderFeatureIcon, renderFeatureLink]);
+  }, [featuresSlot, features, cardClassName, renderFeatureIcon, renderFeatureLink, background]);
 
   return (
     <Section

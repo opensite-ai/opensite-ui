@@ -6,7 +6,8 @@ import { useCallback, useMemo, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { ActionConfig, SectionBackground } from "../../../src/types";
 
 /**
  * Props for the BannerSurveyIncentive component
@@ -48,6 +49,11 @@ export interface BannerSurveyIncentiveProps {
    * ARIA label for dismiss button
    */
   dismissAriaLabel?: string;
+  /**
+   * Background style variant for the section
+   * @default "default"
+   */
+  background?: SectionBackground;
   /**
    * Additional CSS classes for the banner container
    */
@@ -114,6 +120,7 @@ export function BannerSurveyIncentive({
   onDismiss,
   dismissIcon,
   dismissAriaLabel,
+  background = "default",
   className,
   containerClassName,
   contentClassName,
@@ -206,7 +213,7 @@ export function BannerSurveyIncentive({
   }
 
   return (
-    <div className={cn("bg-background border-b text-sm", className)}>
+    <Section background={background} spacing="none" className={cn("border-b text-sm", className)}>
       <div className={cn("flex md:items-center justify-between max-w-7xl mx-auto px-4 py-4", containerClassName)}>
         <div className={cn("flex items-center gap-2", contentClassName)}>
           {iconContent}
@@ -229,6 +236,6 @@ export function BannerSurveyIncentive({
           </Pressable>
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

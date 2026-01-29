@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -214,7 +214,7 @@ export function HeroStartupLaunchCta({
         )}
         <div>
           {badgeCard.title && <div className="font-semibold ">{badgeCard.title}</div>}
-          {badgeCard.subtitle && <div className="text-sm text-muted-foreground">{badgeCard.subtitle}</div>}
+          {badgeCard.subtitle && <div className={cn("text-sm", getTextColor(background, "muted"))}>{badgeCard.subtitle}</div>}
         </div>
       </div>
     );
@@ -248,7 +248,7 @@ export function HeroStartupLaunchCta({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>
+                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

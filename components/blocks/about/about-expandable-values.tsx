@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -255,7 +255,7 @@ export function AboutExpandableValues({
                     ))}
                   {value.shortDescription &&
                     (typeof value.shortDescription === "string" ? (
-                      <p className="mt-1 text-sm text-muted-foreground">
+                      <p className={cn("mt-1 text-sm", getTextColor(background, 'muted'))}>
                         {value.shortDescription}
                       </p>
                     ) : (
@@ -267,7 +267,8 @@ export function AboutExpandableValues({
                 name="lucide/chevron-down"
                 size={20}
                 className={cn(
-                  "mt-1 shrink-0 text-muted-foreground transition-transform duration-300",
+                  "mt-1 shrink-0 transition-transform duration-300",
+                  getTextColor(background, 'muted'),
                   expandedValue === value.id ? "rotate-180" : "",
                 )}
               />
@@ -281,7 +282,7 @@ export function AboutExpandableValues({
                     getNestedCardBg(background, 'subtle'),
                   )}>
                     {typeof value.longDescription === "string" ? (
-                      <p className="text-muted-foreground">
+                      <p className={getTextColor(background, 'muted')}>
                         {value.longDescription}
                       </p>
                     ) : (
@@ -292,17 +293,17 @@ export function AboutExpandableValues({
 
                 {value.examples && value.examples.length > 0 && (
                   <div>
-                    <h4 className="mb-2 text-sm font-semibold text-muted-foreground">
+                    <h4 className={cn("mb-2 text-sm font-semibold", getTextColor(background, 'muted'))}>
                       How we put this into practice:
                     </h4>
                     <ul className="space-y-2">
                       {value.examples.map((example, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <div className="mt-1 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                          <div className={cn("mt-1 flex size-5 shrink-0 items-center justify-center rounded-full", getNestedCardBg(background, 'muted'))}>
                             <DynamicIcon
                               name="lucide/check"
                               size={12}
-                              className="text-primary"
+                              className={getAccentColor(background)}
                             />
                           </div>
                           {typeof example === "string" ? (
@@ -342,7 +343,9 @@ export function AboutExpandableValues({
           (typeof badgeText === "string" ? (
             <div
               className={cn(
-                "inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary",
+                "inline-block rounded-lg px-3 py-1 text-sm",
+                getNestedCardBg(background, 'muted'),
+                getAccentColor(background),
                 badgeClassName,
               )}
             >
@@ -368,7 +371,8 @@ export function AboutExpandableValues({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-muted-foreground text-balance",
+                "text-balance",
+                getTextColor(background, 'muted'),
                 descriptionClassName,
               )}
             >
@@ -401,7 +405,7 @@ export function AboutExpandableValues({
           {ctaDescription &&
             (typeof ctaDescription === "string" ? (
               <p
-                className={cn("text-muted-foreground", ctaDescriptionClassName)}
+                className={cn(getTextColor(background, 'muted'), ctaDescriptionClassName)}
               >
                 {ctaDescription}
               </p>

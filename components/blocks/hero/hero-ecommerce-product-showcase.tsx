@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -190,7 +190,7 @@ export function HeroEcommerceProductShowcase({
             {index > 0 && <div className="h-12 w-px bg-border"></div>}
             <div className="text-center">
               <div className="text-2xl font-bold ">{stat.value}</div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
+              <div className={cn("text-sm", getTextColor(background, "muted"))}>{stat.label}</div>
             </div>
           </React.Fragment>
         ))}
@@ -206,7 +206,7 @@ export function HeroEcommerceProductShowcase({
       <div className={cn("grid grid-cols-2 gap-4", imagesClassName)}>
         <div className="space-y-4">
           {images[0] && (
-            <div className="overflow-hidden rounded-2xl bg-muted">
+            <div className={cn("overflow-hidden rounded-2xl", getNestedCardBg(background, "muted"))}>
               <Img
                 src={images[0].src}
                 alt={images[0].alt}
@@ -216,7 +216,7 @@ export function HeroEcommerceProductShowcase({
             </div>
           )}
           {images[1] && (
-            <div className="overflow-hidden rounded-2xl bg-muted">
+            <div className={cn("overflow-hidden rounded-2xl", getNestedCardBg(background, "muted"))}>
               <Img
                 src={images[1].src}
                 alt={images[1].alt}
@@ -228,7 +228,7 @@ export function HeroEcommerceProductShowcase({
         </div>
         <div className="space-y-4 pt-8">
           {images[2] && (
-            <div className="overflow-hidden rounded-2xl bg-muted">
+            <div className={cn("overflow-hidden rounded-2xl", getNestedCardBg(background, "muted"))}>
               <Img
                 src={images[2].src}
                 alt={images[2].alt}
@@ -238,7 +238,7 @@ export function HeroEcommerceProductShowcase({
             </div>
           )}
           {images[3] && (
-            <div className="overflow-hidden rounded-2xl bg-muted">
+            <div className={cn("overflow-hidden rounded-2xl", getNestedCardBg(background, "muted"))}>
               <Img
                 src={images[3].src}
                 alt={images[3].alt}
@@ -280,7 +280,7 @@ export function HeroEcommerceProductShowcase({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>
+                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

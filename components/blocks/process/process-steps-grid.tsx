@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor, getBorderColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -154,14 +154,15 @@ export function ProcessStepsGrid({
           <div
             key={index}
             className={cn(
-              "group relative overflow-hidden rounded-lg border p-8 transition-all hover:border-primary/50 hover:shadow-lg",
+              "group relative overflow-hidden rounded-lg border p-8 transition-all hover:shadow-lg",
+              `hover:${getBorderColor(background, 'accent')}/50`,
               getNestedCardBg(background, 'card'),
               getNestedCardTextColor(background),
               stepCardClassName,
               step.className,
             )}
           >
-            <span className="absolute -right-4 -top-4 text-[120px] font-bold leading-none text-muted/20 transition-colors group-hover:text-primary/10">
+            <span className={cn("absolute -right-4 -top-4 text-[120px] font-bold leading-none transition-colors", getTextColor(background, 'muted'), "opacity-20 group-hover:opacity-10", `group-hover:${getAccentColor(background)}`)}>
               {String(index + 1).padStart(2, "0")}
             </span>
 
@@ -169,7 +170,9 @@ export function ProcessStepsGrid({
               {(step.iconSlot || step.icon) && (
                 <div
                   className={cn(
-                    "mb-6 flex size-14 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
+                    "mb-6 flex size-14 items-center justify-center rounded-lg transition-colors",
+                    getAccentColor(background),
+                    "bg-primary/10 group-hover:bg-primary group-hover:text-primary-foreground",
                     stepIconClassName,
                   )}
                 >
@@ -189,11 +192,11 @@ export function ProcessStepsGrid({
                 ))}
               {step.description &&
                 (typeof step.description === "string" ? (
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className={cn("leading-relaxed", getTextColor(background, 'muted'))}>
                     {step.description}
                   </p>
                 ) : (
-                  <div className="text-muted-foreground leading-relaxed">
+                  <div className={cn("leading-relaxed", getTextColor(background, 'muted'))}>
                     {step.description}
                   </div>
                 ))}
@@ -231,7 +234,8 @@ export function ProcessStepsGrid({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mx-auto max-w-2xl text-lg text-muted-foreground",
+                  "mx-auto max-w-2xl text-lg",
+                  getTextColor(background, 'muted'),
                   descriptionClassName,
                 )}
               >

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -198,14 +198,15 @@ export function TeamGradientCards({
             {member.name}
           </h3>
           <p
-            className={cn("text-sm text-muted-foreground", memberRoleClassName)}
+            className={cn("text-sm", getTextColor(background, "muted"), memberRoleClassName)}
           >
             {member.role}
           </p>
           {member.social && (
             <div
               className={cn(
-                "mt-4 flex gap-3 text-muted-foreground",
+                "mt-4 flex gap-3",
+                getTextColor(background, "muted"),
                 socialLinksClassName,
               )}
             >
@@ -274,7 +275,8 @@ export function TeamGradientCards({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
+                "mb-8 max-w-3xl lg:text-xl",
+                getTextColor(background, "muted"),
                 descriptionClassName,
               )}
             >

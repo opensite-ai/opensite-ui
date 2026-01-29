@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Card, CardContent } from "../../ui/card";
 import { Img } from "@page-speed/img";
@@ -198,11 +198,11 @@ export function TeamContactCards({
       case "active":
         return "bg-success";
       case "busy":
-        return "bg-primary";
+        return getAccentColor(background);
       default:
-        return "bg-muted-foreground";
+        return getTextColor(background, "muted");
     }
-  }, []);
+  }, [background]);
 
   const renderMembers = React.useMemo(() => {
     if (membersSlot) return membersSlot;
@@ -243,7 +243,8 @@ export function TeamContactCards({
                 </h3>
                 <p
                   className={cn(
-                    "text-muted-foreground text-sm",
+                    getTextColor(background, "muted"),
+                    "text-sm",
                     memberRoleClassName,
                   )}
                 >
@@ -253,7 +254,8 @@ export function TeamContactCards({
               <div className="space-y-2">
                 <p
                   className={cn(
-                    "text-muted-foreground text-sm",
+                    getTextColor(background, "muted"),
+                    "text-sm",
                     memberBioClassName,
                   )}
                 >
@@ -265,15 +267,15 @@ export function TeamContactCards({
           </div>
 
           <div className={cn("mt-6 space-y-3 border-t pt-6", contactClassName)}>
-            <div className="text-muted-foreground flex items-center gap-2 text-sm">
+            <div className={cn("flex items-center gap-2 text-sm", getTextColor(background, "muted"))}>
               <DynamicIcon name="lucide/mail" size={16} />
               {member.contact.email}
             </div>
-            <div className="text-muted-foreground flex items-center gap-2 text-sm">
+            <div className={cn("flex items-center gap-2 text-sm", getTextColor(background, "muted"))}>
               <DynamicIcon name="lucide/phone" size={16} />
               {member.contact.phone}
             </div>
-            <div className="text-muted-foreground flex items-center gap-2 text-sm">
+            <div className={cn("flex items-center gap-2 text-sm", getTextColor(background, "muted"))}>
               <DynamicIcon name="lucide/map-pin" size={16} />
               {member.contact.location}
             </div>
@@ -364,7 +366,8 @@ export function TeamContactCards({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-muted-foreground mt-1 text-lg",
+                getTextColor(background, "muted"),
+                "mt-1 text-lg",
                 descriptionClassName,
               )}
             >

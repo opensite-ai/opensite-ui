@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -203,7 +203,7 @@ export function CtaSplitImageLogos({
 
     return (
       <div className={cn("mt-10 w-full", logosClassName)}>
-        {logosLabel && <p className="mb-4 text-sm text-muted-foreground">{logosLabel}</p>}
+        {logosLabel && <p className={cn("mb-4 text-sm", getTextColor(background, 'muted'))}>{logosLabel}</p>}
         <div className="flex flex-wrap items-center justify-center gap-6 lg:justify-start">
           {logos.map((logo, index) => (
             <Img
@@ -258,7 +258,8 @@ export function CtaSplitImageLogos({
               typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mb-8 max-w-xl text-muted-foreground lg:text-xl",
+                    "mb-8 max-w-xl lg:text-xl",
+                    getTextColor(background, 'muted'),
                     descriptionClassName,
                   )}
                 >

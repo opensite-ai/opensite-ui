@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -312,7 +312,7 @@ export function CommunityInitiatives({
         </div>
 
         <div className="mx-auto max-w-2xl text-left md:text-center">
-          <p className="text-muted-foreground">
+          <p className={cn(getTextColor(background, 'muted'))}>
             {currentCategory?.description}
           </p>
         </div>
@@ -338,17 +338,17 @@ export function CommunityInitiatives({
                     )}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="rounded-md bg-primary/10 p-2">
+                      <div className={cn("rounded-md p-2", getNestedCardBg(background, 'muted'))}>
                         <DynamicIcon
                           name={initiative.icon}
                           size={24}
-                          className="text-primary"
+                          className={cn(getAccentColor(background))}
                         />
                       </div>
                       <h3 className="text-2xl font-bold">{initiative.title}</h3>
                     </div>
 
-                    <p className="text-muted-foreground">
+                    <p className={cn(getTextColor(background, 'muted'))}>
                       {initiative.description}
                     </p>
 
@@ -356,10 +356,10 @@ export function CommunityInitiatives({
                       <div className="grid grid-cols-3 gap-4 pt-2">
                         {initiative.metrics.map((metric, i) => (
                           <div key={i} className="text-center">
-                            <div className="text-2xl font-bold text-primary">
+                            <div className={cn("text-2xl font-bold", getAccentColor(background))}>
                               {metric.value}
                             </div>
-                            <div className="mt-1 text-xs text-muted-foreground">
+                            <div className={cn("mt-1 text-xs", getTextColor(background, 'muted'))}>
                               {metric.label}
                             </div>
                           </div>
@@ -399,7 +399,7 @@ export function CommunityInitiatives({
                           <DynamicIcon
                             name={initiative.icon}
                             size={64}
-                            className="mx-auto mb-4 text-muted-foreground/50"
+                            className={cn("mx-auto mb-4", getTextColor(background, 'muted'), "opacity-50")}
                           />
                           <Badge variant="secondary" className="mx-auto">
                             Learn more about our{" "}
@@ -446,7 +446,9 @@ export function CommunityInitiatives({
           (typeof badgeText === "string" ? (
             <div
               className={cn(
-                "inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary",
+                "inline-block rounded-lg px-3 py-1 text-sm",
+                getNestedCardBg(background, 'muted'),
+                getAccentColor(background),
                 badgeClassName,
               )}
             >
@@ -470,7 +472,7 @@ export function CommunityInitiatives({
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p className={cn("text-muted-foreground", descriptionClassName)}>
+            <p className={cn(getTextColor(background, 'muted'), descriptionClassName)}>
               {description}
             </p>
           ) : (
@@ -504,7 +506,8 @@ export function CommunityInitiatives({
           (typeof ctaDescription === "string" ? (
             <p
               className={cn(
-                "mx-auto mb-8 max-w-2xl text-muted-foreground",
+                "mx-auto mb-8 max-w-2xl",
+                getTextColor(background, 'muted'),
                 ctaDescriptionClassName,
               )}
             >

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Input } from "../../ui/input";
@@ -120,7 +120,7 @@ export function HeroNewsletterMinimal({
     if (!stats || stats.length === 0) return null;
 
     return stats.map((stat, index) => (
-      <div key={index} className={cn("flex items-center gap-2 text-sm text-muted-foreground", stat.className)}>
+      <div key={index} className={cn("flex items-center gap-2 text-sm", getTextColor(background, "muted"), stat.className)}>
         {stat.icon}
         <span>{stat.value}</span>
       </div>
@@ -176,7 +176,7 @@ export function HeroNewsletterMinimal({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("mt-6 max-w-xl text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
+            <p className={cn("mt-6 max-w-xl text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
               {description}
             </p>
           ) : (
@@ -188,7 +188,7 @@ export function HeroNewsletterMinimal({
         </div>
         {disclaimer && (
           typeof disclaimer === "string" ? (
-            <p className={cn("mt-4 text-sm text-muted-foreground", disclaimerClassName)}>
+            <p className={cn("mt-4 text-sm", getTextColor(background, "muted"), disclaimerClassName)}>
               {disclaimer}
             </p>
           ) : (

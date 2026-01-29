@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
@@ -185,7 +185,7 @@ export function HeroUiLibraryShowcase({
           )}
           {description && (
             typeof description === "string" ? (
-              <p className={cn("text-xl text-muted-foreground", descriptionClassName)}>
+              <p className={cn("text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                 {description}
               </p>
             ) : (

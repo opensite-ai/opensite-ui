@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -249,7 +249,7 @@ export function HeroPatternBadgeLogos({
               )}
               {description && (
                 typeof description === "string" ? (
-                  <p className={cn("mx-auto max-w-2xl text-muted-foreground md:text-lg lg:text-xl", descriptionClassName)}>
+                  <p className={cn("mx-auto max-w-2xl md:text-lg lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                     {description}
                   </p>
                 ) : (
@@ -268,7 +268,7 @@ export function HeroPatternBadgeLogos({
               <div className={cn("mt-12 flex flex-col items-center gap-4 lg:mt-16", logosClassName)}>
                 {logosTagline && (
                   typeof logosTagline === "string" ? (
-                    <p className="text-center text-sm text-muted-foreground">
+                    <p className={cn("text-center text-sm", getTextColor(background, "muted"))}>
                       {logosTagline}
                     </p>
                   ) : (

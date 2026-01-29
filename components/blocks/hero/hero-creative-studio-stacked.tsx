@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { Fragment, useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -250,7 +250,7 @@ export function HeroCreativeStudioStacked({
             <div className={cn("flex flex-col gap-6", contentClassName)}>
               {tagline && (
                 typeof tagline === "string" ? (
-                  <p className={cn("text-sm font-medium tracking-wider text-muted-foreground uppercase", taglineClassName)}>
+                  <p className={cn("text-sm font-medium tracking-wider uppercase", getTextColor(background, "muted"), taglineClassName)}>
                     {tagline}
                   </p>
                 ) : (
@@ -269,7 +269,7 @@ export function HeroCreativeStudioStacked({
                 )}
                 {description && (
                   typeof description === "string" ? (
-                    <p className={cn("text-xl text-balance text-muted-foreground", descriptionClassName)}>
+                    <p className={cn("text-xl text-balance", getTextColor(background, "muted"), descriptionClassName)}>
                       {description}
                     </p>
                   ) : (

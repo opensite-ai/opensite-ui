@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -203,7 +203,8 @@ export function AboutMissionDualImage({
               (typeof missionContent === "string" ? (
                 <p
                   className={cn(
-                    "mt-4 text-lg text-muted-foreground",
+                    "mt-4 text-lg",
+                    getTextColor(background, 'muted'),
                     missionContentClassName,
                   )}
                 >
@@ -233,7 +234,8 @@ export function AboutMissionDualImage({
               (typeof visionContent === "string" ? (
                 <p
                   className={cn(
-                    "mt-4 text-lg text-muted-foreground",
+                    "mt-4 text-lg",
+                    getTextColor(background, 'muted'),
                     visionContentClassName,
                   )}
                 >

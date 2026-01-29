@@ -14,6 +14,12 @@ vi.mock("../../../ui/dynamic-icon", () => ({
   ),
 }));
 
+vi.mock("../../../ui/section", () => ({
+  Section: ({ children, className }: { children: React.ReactNode; className?: string }) => (
+    <section className={className} data-testid="mock-section">{children}</section>
+  ),
+}));
+
 describe("BannerPrivacyNotice", () => {
   beforeEach(() => {
     vi.clearAllMocks();

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -222,7 +222,7 @@ export function AboutCompanyProfile({
             breakout.title
           )}
           {typeof breakout.description === "string" ? (
-            <p className="text-muted-foreground">{breakout.description}</p>
+            <p className={getTextColor(background, 'muted')}>{breakout.description}</p>
           ) : (
             breakout.description
           )}
@@ -245,7 +245,7 @@ export function AboutCompanyProfile({
         )}
       </div>
     );
-  }, [breakoutSlot, breakout, breakoutClassName, optixFlowConfig]);
+  }, [breakoutSlot, breakout, breakoutClassName, optixFlowConfig, background]);
 
   const companiesContent = useMemo(() => {
     if (companiesSlot) return companiesSlot;
@@ -353,7 +353,8 @@ export function AboutCompanyProfile({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-muted-foreground text-balance",
+                "text-balance",
+                getTextColor(background, 'muted'),
                 descriptionClassName,
               )}
             >
@@ -419,7 +420,8 @@ export function AboutCompanyProfile({
             (typeof achievementsDescription === "string" ? (
               <p
                 className={cn(
-                  "max-w-xl text-muted-foreground",
+                  "max-w-xl",
+                  getTextColor(background, 'muted'),
                   achievementsDescriptionClassName,
                 )}
               >

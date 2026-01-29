@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Card } from "../../ui/card";
@@ -164,7 +164,7 @@ export function HeroSplitIconCards({
           const card = (
             <Card className="h-full border-border/60 px-0 py-0">
               <div className="flex items-start gap-4 p-6">
-                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <div className={cn("flex h-14 w-14 items-center justify-center rounded-xl", `${getAccentColor(background)}/10`, getAccentColor(background))}>
                   <DynamicIcon name={item.icon} size={24} />
                 </div>
                 <div>
@@ -172,7 +172,7 @@ export function HeroSplitIconCards({
                     {item.title}
                   </h3>
                   {item.subtitle ? (
-                    <p className="mt-2 text-sm text-muted-foreground">
+                    <p className={cn("mt-2 text-sm", getTextColor(background, "muted"))}>
                       {item.subtitle}
                     </p>
                   ) : null}
@@ -209,7 +209,7 @@ export function HeroSplitIconCards({
             <>
               {eyebrow && (
                 typeof eyebrow === "string" ? (
-                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+                  <p className={cn("text-xs font-semibold uppercase tracking-[0.25em]", getAccentColor(background))}>
                     {eyebrow}
                   </p>
                 ) : (
@@ -229,7 +229,7 @@ export function HeroSplitIconCards({
               )}
               {description && (
                 typeof description === "string" ? (
-                  <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>{description}</p>
+                  <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>{description}</p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
                 )

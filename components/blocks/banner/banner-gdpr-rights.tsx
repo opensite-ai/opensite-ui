@@ -6,7 +6,8 @@ import { useCallback, useMemo, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { ActionConfig, SectionBackground } from "../../../src/types";
 
 /**
  * Props for the BannerGdprRights component
@@ -80,6 +81,11 @@ export interface BannerGdprRightsProps {
    * Additional CSS classes for the dismiss button
    */
   dismissButtonClassName?: string;
+  /**
+   * Background style variant
+   * @default "default"
+   */
+  background?: SectionBackground;
 }
 
 /**
@@ -110,6 +116,7 @@ export function BannerGdprRights({
   onDismiss,
   dismissIcon,
   dismissAriaLabel,
+  background = "default",
   className,
   containerClassName,
   contentClassName,
@@ -199,12 +206,7 @@ export function BannerGdprRights({
   }
 
   return (
-    <div
-      className={cn(
-        "bg-background border-t fixed bottom-0 left-0 right-0 z-50",
-        className
-      )}
-    >
+    <Section background={background} spacing="none" className={cn("border-t fixed bottom-0 left-0 right-0 z-50", className)}>
       <div className={cn("flex items-start justify-between gap-4 max-w-7xl mx-auto px-4 py-4", containerClassName)}>
         <div className={cn("flex items-start gap-3", contentClassName)}>
           {iconContent}
@@ -224,6 +226,6 @@ export function BannerGdprRights({
           <span className="sr-only">{dismissLabel}</span>
         </Pressable>
       </div>
-    </div>
+    </Section>
   );
 }

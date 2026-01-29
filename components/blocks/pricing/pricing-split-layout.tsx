@@ -4,6 +4,8 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type { SectionBackground } from "../../../src/types";
 
 export interface PricingSplitLayoutProps {
   className?: string;
@@ -17,6 +19,7 @@ export interface PricingSplitLayoutProps {
   buttonHref?: string;
   secondaryButtonText?: string;
   secondaryButtonHref?: string;
+  background?: SectionBackground;
 }
 
 /**
@@ -50,11 +53,11 @@ export function PricingSplitLayout({
   buttonHref = "#",
   secondaryButtonText,
   secondaryButtonHref = "#",
+  background = "default",
 }: PricingSplitLayoutProps) {
   return (
-    <section className={cn("py-24", className)}>
-      <div className="container">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+    <Section background={background} className={className}>
+      <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left - Marketing Content */}
           <div className="flex flex-col justify-center">
             <p className="text-sm font-medium uppercase tracking-wide text-primary">
@@ -119,8 +122,7 @@ export function PricingSplitLayout({
               </p>
             </div>
           </div>
-        </div>
       </div>
-    </section>
+    </Section>
   );
 }

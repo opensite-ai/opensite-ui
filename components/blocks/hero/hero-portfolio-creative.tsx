@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -158,7 +158,7 @@ export function HeroPortfolioCreative({
             </h2>
           )}
           {profile.title && (
-            <p className="text-sm text-muted-foreground">
+            <p className={cn("text-sm", getTextColor(background, "muted"))}>
               {profile.title}
             </p>
           )}
@@ -206,7 +206,7 @@ export function HeroPortfolioCreative({
           <Pressable
             key={index}
             href={link.href}
-            className={cn("text-muted-foreground hover:", link.className)}
+            className={cn("hover:", getTextColor(background, "muted"), link.className)}
           >
             {link.icon ?? (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
           </Pressable>
@@ -296,7 +296,7 @@ export function HeroPortfolioCreative({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>
+                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

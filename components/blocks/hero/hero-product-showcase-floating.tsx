@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -173,7 +173,7 @@ export function HeroProductShowcaseFloating({
     if (badgeSlot) return badgeSlot;
 
     return (
-      <div className="inline-flex w-fit items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+      <div className={cn("inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm font-medium", `${getAccentColor(background)}/10`, getAccentColor(background))}>
         {badgeIcon && <DynamicIcon name={badgeIcon} size={16} />}
         {badgeText && <span>{badgeText}</span>}
       </div>
@@ -229,7 +229,7 @@ export function HeroProductShowcaseFloating({
             <div className="text-2xl font-bold ">
               {floatingStat.value}
             </div>
-            <div className="text-xs text-muted-foreground">{floatingStat.label}</div>
+            <div className={cn("text-xs", getTextColor(background, "muted"))}>{floatingStat.label}</div>
           </div>
         </div>
       </div>
@@ -258,7 +258,7 @@ export function HeroProductShowcaseFloating({
           )}
           <div className="text-sm">
             <div className="font-semibold ">{userCount.count}</div>
-            <div className="text-muted-foreground">{userCount.label}</div>
+            <div className={getTextColor(background, "muted")}>{userCount.label}</div>
           </div>
         </div>
       </div>
@@ -313,7 +313,7 @@ export function HeroProductShowcaseFloating({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>
+                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Pressable } from "../../../lib/Pressable";
@@ -193,12 +193,12 @@ export function TeamCompactCta({
         <h3 className={cn("font-semibold", memberNameClassName)}>
           {member.name}
         </h3>
-        <p className={cn("text-sm text-muted-foreground", memberRoleClassName)}>
+        <p className={cn(getTextColor(background, "muted"), "text-sm", memberRoleClassName)}>
           {member.role}
         </p>
       </div>
     ));
-  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName]);
+  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName, background]);
 
   const renderCta = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
@@ -247,7 +247,8 @@ export function TeamCompactCta({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
+                getTextColor(background, "muted"),
+                "mb-8 max-w-3xl lg:text-xl",
                 descriptionClassName,
               )}
             >

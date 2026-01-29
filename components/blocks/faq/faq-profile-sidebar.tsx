@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 import {
   Accordion,
@@ -222,7 +222,7 @@ export function FaqProfileSidebar({
             <AccordionContent
               className={cn("sm:mb-1 lg:mb-2", accordionContentClassName)}
             >
-              <div className="text-muted-foreground lg:text-lg">
+              <div className={cn(getTextColor(background, "muted"), "lg:text-lg")}>
                 {item.answer}
               </div>
             </AccordionContent>
@@ -237,6 +237,7 @@ export function FaqProfileSidebar({
     accordionItemClassName,
     accordionTriggerClassName,
     accordionContentClassName,
+    background,
   ]);
 
   const profileSectionContent = useMemo(() => {
@@ -269,7 +270,8 @@ export function FaqProfileSidebar({
               (typeof profileRole === "string" ? (
                 <p
                   className={cn(
-                    "text-muted-foreground text-sm",
+                    getTextColor(background, "muted"),
+                    "text-sm",
                     profileRoleClassName,
                   )}
                 >
@@ -284,7 +286,8 @@ export function FaqProfileSidebar({
           (typeof profileDescription === "string" ? (
             <p
               className={cn(
-                "text-muted-foreground mt-4 text-sm",
+                getTextColor(background, "muted"),
+                "mt-4 text-sm",
                 profileDescriptionClassName,
               )}
             >
@@ -336,6 +339,7 @@ export function FaqProfileSidebar({
     profileDescriptionClassName,
     contactSectionClassName,
     optixFlowConfig,
+    background,
   ]);
 
   return (
@@ -374,7 +378,7 @@ export function FaqProfileSidebar({
                   (typeof description === "string" ? (
                     <p
                       className={cn(
-                        "text-muted-foreground",
+                        getTextColor(background, "muted"),
                         descriptionClassName,
                       )}
                     >

@@ -5,7 +5,8 @@ import { useMemo } from "react";
 
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { ActionConfig, SectionBackground } from "../../../src/types";
 
 /**
  * Props for the BannerEventPromo component
@@ -31,6 +32,11 @@ export interface BannerEventPromoProps {
    * Custom slot for rendering actions (overrides actions array)
    */
   actionsSlot?: React.ReactNode;
+  /**
+   * Background style variant for the section
+   * @default "primary"
+   */
+  background?: SectionBackground;
   /**
    * Additional CSS classes for the banner container
    */
@@ -88,6 +94,7 @@ export function BannerEventPromo({
   separator,
   actions,
   actionsSlot,
+  background = "primary",
   className,
   containerClassName,
   contentClassName,
@@ -157,7 +164,7 @@ export function BannerEventPromo({
   }, [eventDetails, eventDetailsClassName]);
 
   return (
-    <div className={cn("bg-primary text-primary-foreground", className)}>
+    <Section background={background} spacing="none" className={className}>
       <div className={cn("container mx-auto px-4 md:px-6 2xl:max-w-[1400px]", containerClassName)}>
         <div className={cn("flex items-center justify-between gap-x-6 p-4", contentClassName)}>
           <div className={cn("flex flex-wrap justify-between w-full items-center gap-x-4 gap-y-2", textClassName)}>
@@ -174,6 +181,6 @@ export function BannerEventPromo({
           </div>
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

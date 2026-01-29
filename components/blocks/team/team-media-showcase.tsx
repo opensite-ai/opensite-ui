@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getNestedCardBg } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
 import type {
@@ -132,6 +132,10 @@ interface TeamMemberBackgroundImageCardProps extends React.HTMLAttributes<HTMLDi
    * Optional Optix Flow configuration for @page-speed/img
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style variant for dynamic color utilities
+   */
+  background?: SectionBackground;
 }
 
 /**
@@ -145,14 +149,15 @@ const TeamMemberBackgroundImageCard = React.forwardRef<
   TeamMemberBackgroundImageCardProps
 >(
   (
-    { className, imageUrl, imageAlt, children, optixFlowConfig, ...props },
+    { className, imageUrl, imageAlt, children, optixFlowConfig, background, ...props },
     ref,
   ) => {
     return (
       <div
         ref={ref}
         className={cn(
-          "group h-[400px] relative w-full max-w-sm overflow-hidden rounded-xl border border-border bg-card shadow-lg",
+          getNestedCardBg(background, "card"),
+          "group h-[400px] relative w-full max-w-sm overflow-hidden rounded-xl border border-border shadow-lg",
           "transition-all duration-300 ease-in-out",
           className,
         )}
@@ -237,6 +242,7 @@ export function TeamMediaShowcase({
           imageAlt={imageAlt}
           className={member.cardClassName}
           optixFlowConfig={optixFlowConfig}
+          background={background}
         >
           <div className="relative flex h-full flex-col justify-end p-6 text-card-foreground">
             <div className="space-y-4 transition-transform duration-500 ease-in-out md:group-hover:-translate-y-12">
@@ -282,7 +288,7 @@ export function TeamMediaShowcase({
         </TeamMemberBackgroundImageCard>
       );
     });
-  }, [itemsSlot, items, optixFlowConfig, memberNameClassName, memberRoleClassName, actionClassName]);
+  }, [itemsSlot, items, optixFlowConfig, memberNameClassName, memberRoleClassName, actionClassName, background]);
 
   return (
     <Section
@@ -300,7 +306,8 @@ export function TeamMediaShowcase({
             (typeof listEyebrow === "string" && listEyebrow.trim() !== "" ? (
               <div
                 className={cn(
-                  "text-md pt-8 uppercase text-muted-foreground tracking-[0.2em] font-semibold",
+                  getTextColor(background, "muted"),
+                  "text-md pt-8 uppercase tracking-[0.2em] font-semibold",
                   eyebrowClassName,
                 )}
               >

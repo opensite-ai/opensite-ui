@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card, CardHeader, CardTitle, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
@@ -188,7 +188,7 @@ export function FeatureCapabilitiesGrid({
                   )
                 )}
                 {item.badge && (
-                  <span className={cn("rounded-full border border-border/20 px-2 py-0.5 text-[10px] leading-none text-muted-foreground", item.badgeClassName)}>
+                  <span className={cn("rounded-full border border-border/20 px-2 py-0.5 text-[10px] leading-none", getTextColor(background, 'muted'), item.badgeClassName)}>
                     {item.badge}
                   </span>
                 )}
@@ -197,7 +197,7 @@ export function FeatureCapabilitiesGrid({
           </CardHeader>
 
           {item.description && (
-            <CardContent className={cn("relative z-10 px-6 pb-6 text-sm text-muted-foreground", item.descriptionClassName)}>
+            <CardContent className={cn("relative z-10 px-6 pb-6 text-sm", getTextColor(background, 'muted'), item.descriptionClassName)}>
               {item.description}
             </CardContent>
           )}
@@ -225,11 +225,11 @@ export function FeatureCapabilitiesGrid({
     >
       {eyebrow && (
         typeof eyebrow === "string" ? (
-          <p className={cn("text-xs tracking-widest text-muted-foreground", eyebrowClassName)}>
+          <p className={cn("text-xs tracking-widest", getTextColor(background, 'muted'), eyebrowClassName)}>
             {eyebrow}
           </p>
         ) : (
-          <div className={cn("text-xs tracking-widest text-muted-foreground", eyebrowClassName)}>
+          <div className={cn("text-xs tracking-widest", getTextColor(background, 'muted'), eyebrowClassName)}>
             {eyebrow}
           </div>
         )

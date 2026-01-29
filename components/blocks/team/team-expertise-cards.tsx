@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
@@ -227,7 +227,8 @@ export function TeamExpertiseCards({
       <Card
         key={member.id}
         className={cn(
-          "group border-0 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg",
+          "group border-0 backdrop-blur-sm transition-all duration-300 hover:shadow-lg",
+          `${getNestedCardBg(background, "card")}/50`,
           memberCardClassName,
         )}
       >
@@ -235,7 +236,7 @@ export function TeamExpertiseCards({
           <div className="relative mb-6">
             <Avatar className={cn("mx-auto h-20 w-20", avatarClassName)}>
               <AvatarImage src={member.avatar} alt={member.name} />
-              <AvatarFallback className="bg-linear-to-br from-primary/20 to-secondary/20 text-2xl font-bold text-primary">
+              <AvatarFallback className={cn("bg-linear-to-br from-primary/20 to-secondary/20 text-2xl font-bold", getAccentColor(background))}>
                 {member.name
                   .split(" ")
                   .map((n) => n[0])
@@ -247,7 +248,8 @@ export function TeamExpertiseCards({
           <div className="mb-4 text-center">
             <h3
               className={cn(
-                "mb-1 text-lg font-semibold transition-colors group-hover:text-primary",
+                "mb-1 text-lg font-semibold transition-colors",
+                `group-hover:${getAccentColor(background)}`,
                 memberNameClassName,
               )}
             >
@@ -255,7 +257,8 @@ export function TeamExpertiseCards({
             </h3>
             <p
               className={cn(
-                "mb-2 text-sm font-medium text-primary",
+                "mb-2 text-sm font-medium",
+                getAccentColor(background),
                 memberRoleClassName,
               )}
             >
@@ -271,7 +274,8 @@ export function TeamExpertiseCards({
 
           <p
             className={cn(
-              "mb-4 text-sm leading-relaxed text-muted-foreground",
+              "mb-4 text-sm leading-relaxed",
+              getTextColor(background, "muted"),
               memberDescriptionClassName,
             )}
           >
@@ -319,7 +323,8 @@ export function TeamExpertiseCards({
           (typeof ctaDescription === "string" ? (
             <p
               className={cn(
-                "mx-auto mb-6 max-w-2xl text-muted-foreground",
+                "mx-auto mb-6 max-w-2xl",
+                getTextColor(background, "muted"),
                 ctaDescriptionClassName,
               )}
             >
@@ -367,7 +372,8 @@ export function TeamExpertiseCards({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mx-auto max-w-3xl text-xl leading-relaxed text-muted-foreground",
+                "mx-auto max-w-3xl text-xl leading-relaxed",
+                getTextColor(background, "muted"),
                 descriptionClassName,
               )}
             >

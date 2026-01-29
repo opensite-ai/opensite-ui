@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -186,7 +186,8 @@ export function TeamAvatarSocial({
           </h3>
           <p
             className={cn(
-              "text-muted-foreground mt-1 text-sm",
+              getTextColor(background, "muted"),
+              "mt-1 text-sm",
               memberRoleClassName,
             )}
           >
@@ -232,7 +233,7 @@ export function TeamAvatarSocial({
         )}
       </div>
     ));
-  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName, socialLinksClassName]);
+  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName, socialLinksClassName, background]);
 
   return (
     <Section
@@ -265,7 +266,8 @@ export function TeamAvatarSocial({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-muted-foreground mt-1 text-lg",
+                getTextColor(background, "muted"),
+                "mt-1 text-lg",
                 descriptionClassName,
               )}
             >

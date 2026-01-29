@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor, getBorderColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -215,7 +215,8 @@ export function TeamGridAnimated({
 
         <div
           className={cn(
-            "relative z-10 h-36 w-36 overflow-hidden rounded-full border-4 border-transparent bg-background/20 transition-all duration-500 ease-out group-hover:border-primary group-hover:scale-105",
+            "relative z-10 h-36 w-36 overflow-hidden rounded-full border-4 border-transparent bg-background/20 transition-all duration-500 ease-out group-hover:scale-105",
+            `group-hover:${getBorderColor(background, "accent")}`,
             memberImageClassName,
           )}
           style={{ transitionDelay: `${index * 100}ms` }}
@@ -238,7 +239,8 @@ export function TeamGridAnimated({
         </h3>
         <p
           className={cn(
-            "relative z-10 text-sm text-muted-foreground",
+            "relative z-10 text-sm",
+            getTextColor(background, "muted"),
             memberDesignationClassName,
           )}
         >
@@ -256,7 +258,11 @@ export function TeamGridAnimated({
               <Pressable
                 key={linkIndex}
                 href={link.href}
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className={cn(
+                  "transition-colors",
+                  getTextColor(background, "muted"),
+                  `hover:${getAccentColor(background)}`
+                )}
               >
                 <DynamicIcon name={link.icon} size={20} />
               </Pressable>
@@ -287,12 +293,16 @@ export function TeamGridAnimated({
           <Pressable
             key={index}
             href={link.href}
-            className="text-muted-foreground hover:text-primary transition-colors"
+            className={cn(
+              "transition-colors",
+              getTextColor(background, "muted"),
+              `hover:${getAccentColor(background)}`
+            )}
           >
             <DynamicIcon name={link.icon} size={24} />
           </Pressable>
         ))}
-        <span className="text-muted-foreground text-sm">www.opensite.ai</span>
+        <span className={cn("text-sm", getTextColor(background, "muted"))}>www.opensite.ai</span>
       </div>
     );
   }, [socialLinksMainSlot, socialLinksMain]);
@@ -320,11 +330,12 @@ export function TeamGridAnimated({
               (typeof title === "string" ? (
                 <h1
                   className={cn(
-                    "text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-muted-foreground",
+                    "text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl",
+                    getTextColor(background, "muted"),
                     titleClassName,
                   )}
                 >
-                  <span className="text-primary block text-xl sm:text-2xl md:text-3xl font-medium">
+                  <span className={cn("block text-xl sm:text-2xl md:text-3xl font-medium", getAccentColor(background))}>
                     O U R
                   </span>
                   {title}
@@ -336,7 +347,8 @@ export function TeamGridAnimated({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed",
+                    "max-w-[700px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed",
+                    getTextColor(background, "muted"),
                     descriptionClassName,
                   )}
                 >

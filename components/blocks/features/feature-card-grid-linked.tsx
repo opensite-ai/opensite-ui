@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -256,7 +256,8 @@ export function FeatureCardGridLinked({
           {feature.description && (
             <p
               className={cn(
-                "p-4 text-muted-foreground md:p-8",
+                "p-4 md:p-8",
+                getTextColor(background, 'muted'),
                 feature.descriptionClassName,
               )}
             >
@@ -266,7 +267,7 @@ export function FeatureCardGridLinked({
         </div>
       );
     });
-  }, [featuresSlot, features, cardClassName, renderImage]);
+  }, [featuresSlot, features, cardClassName, renderImage, background]);
 
   return (
     <Section

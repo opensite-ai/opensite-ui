@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -162,7 +162,8 @@ export function AboutMissionFeatures({
       <div className="flex flex-col" key={idx}>
         <div
           className={cn(
-            "mb-5 flex size-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground",
+            "mb-5 flex size-12 items-center justify-center rounded-2xl text-primary-foreground",
+            getAccentColor(background),
             feature.iconBgClass,
           )}
         >
@@ -176,13 +177,13 @@ export function AboutMissionFeatures({
           ))}
         {feature.description &&
           (typeof feature.description === "string" ? (
-            <p className="text-muted-foreground">{feature.description}</p>
+            <p className={getTextColor(background, 'muted')}>{feature.description}</p>
           ) : (
             feature.description
           ))}
       </div>
     ));
-  }, [featuresSlot, features]);
+  }, [featuresSlot, features, background]);
 
   return (
     <Section
@@ -298,7 +299,8 @@ export function AboutMissionFeatures({
               (typeof featuresDescription === "string" ? (
                 <p
                   className={cn(
-                    "text-lg text-muted-foreground",
+                    "text-lg",
+                    getTextColor(background, 'muted'),
                     featuresDescriptionClassName,
                   )}
                 >

@@ -6,7 +6,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { ActionConfig, SectionBackground } from "../../../src/types";
 
 /**
  * Props for the BannerFloatingOffer component
@@ -56,6 +57,11 @@ export interface BannerFloatingOfferProps {
    * ARIA label for dismiss button
    */
   dismissAriaLabel?: string;
+  /**
+   * Background style variant for the section
+   * @default "primary"
+   */
+  background?: SectionBackground;
   /**
    * Additional CSS classes for the banner container
    */
@@ -121,6 +127,7 @@ export function BannerFloatingOffer({
   dismissible,
   dismissIcon,
   dismissAriaLabel,
+  background = "primary",
   className,
   containerClassName,
   textClassName,
@@ -227,8 +234,8 @@ export function BannerFloatingOffer({
         className
       )}
     >
-      <div className={cn("pointer-events-auto flex items-center justify-between gap-x-6 bg-primary px-6 py-2.5 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5", containerClassName)}>
-        <p className={cn("text-sm leading-6 text-primary-foreground", textClassName)}>
+      <Section background={background} spacing="none" className={cn("pointer-events-auto flex items-center justify-between gap-x-6 px-6 py-2.5 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5", containerClassName)}>
+        <p className={cn("text-sm leading-6", textClassName)}>
           {offerTitleContent}
           {offerTitleContent && offerDescriptionContent && separatorContent}
           {offerDescriptionContent}
@@ -241,14 +248,14 @@ export function BannerFloatingOffer({
               variant="ghost"
               size="icon"
               asButton
-              className={cn("size-8 text-primary-foreground hover:text-primary-foreground/80", dismissButtonClassName)}
+              className={cn("size-8", dismissButtonClassName)}
             >
               {dismissIconContent}
               <span className="sr-only">{dismissLabel}</span>
             </Pressable>
           )}
         </div>
-      </div>
+      </Section>
     </div>
   );
 }

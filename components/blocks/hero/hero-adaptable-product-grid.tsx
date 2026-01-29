@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -154,7 +154,7 @@ export function HeroAdaptableProductGrid({
           <div className={contentClassName}>
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-lg text-muted-foreground lg:text-xl", descriptionClassName)}>
+                <p className={cn("text-lg lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

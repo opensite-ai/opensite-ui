@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { Fragment, useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -161,7 +161,7 @@ export function HeroMentorshipVideoSplit({
       <div className="flex max-w-97.5 flex-col gap-6">
         {videoLabel && (
           typeof videoLabel === "string" ? (
-            <p className="text-xl text-primary">{videoLabel}</p>
+            <p className={cn("text-xl", getAccentColor(background))}>{videoLabel}</p>
           ) : (
             videoLabel
           )
@@ -225,18 +225,18 @@ export function HeroMentorshipVideoSplit({
                 <div className="flex max-w-165 flex-col gap-9">
                   {heading && (
                     typeof heading === "string" ? (
-                      <h1 className={cn("text-[2.5rem] leading-none text-primary sm:text-[3.4375rem] md:text-[4rem]", headingClassName)}>
+                      <h1 className={cn("text-[2.5rem] leading-none sm:text-[3.4375rem] md:text-[4rem]", getAccentColor(background), headingClassName)}>
                         {heading}
                       </h1>
                     ) : (
-                      <h1 className={cn("text-[2.5rem] leading-none text-primary sm:text-[3.4375rem] md:text-[4rem]", headingClassName)}>
+                      <h1 className={cn("text-[2.5rem] leading-none sm:text-[3.4375rem] md:text-[4rem]", getAccentColor(background), headingClassName)}>
                         {heading}
                       </h1>
                     )
                   )}
                   {description && (
                     typeof description === "string" ? (
-                      <p className={cn("text-lg font-medium text-primary md:text-xl", descriptionClassName)}>
+                      <p className={cn("text-lg font-medium md:text-xl", getAccentColor(background), descriptionClassName)}>
                         {description}
                       </p>
                     ) : (

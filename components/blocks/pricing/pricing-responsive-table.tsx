@@ -13,6 +13,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../../ui/tooltip";
+import { Section } from "../../ui/section";
+import type { SectionBackground } from "../../../src/types";
 
 interface PlanFeature {
   name: string;
@@ -38,6 +40,7 @@ export interface PricingResponsiveTableProps {
   subtitle?: string;
   plans?: PricingPlan[];
   features?: PlanFeature[];
+  background?: SectionBackground;
 }
 
 /**
@@ -66,6 +69,7 @@ export function PricingResponsiveTable({
   subtitle,
   plans = [],
   features,
+  background = "default",
 }: PricingResponsiveTableProps) {
   const [isYearly, setIsYearly] = useState(false);
 
@@ -83,37 +87,36 @@ export function PricingResponsiveTable({
   }, []);
 
   return (
-    <section className={cn("py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
+    <Section background={background} className={className}>
+      <div className="mx-auto mb-12 max-w-2xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          {title}
+        </h2>
+        <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
 
-          <div className="mt-8 flex items-center justify-center gap-3">
-            <span
-              className={cn(
-                "text-sm font-medium",
-                !isYearly ? "" : "text-muted-foreground"
-              )}
-            >
-              Monthly
+        <div className="mt-8 flex items-center justify-center gap-3">
+          <span
+            className={cn(
+              "text-sm font-medium",
+              !isYearly ? "" : "text-muted-foreground"
+            )}
+          >
+            Monthly
+          </span>
+          <Switch checked={isYearly} onCheckedChange={setIsYearly} />
+          <span
+            className={cn(
+              "text-sm font-medium",
+              isYearly ? "" : "text-muted-foreground"
+            )}
+          >
+            Yearly
+            <span className="ml-1.5 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">
+              Save 17%
             </span>
-            <Switch checked={isYearly} onCheckedChange={setIsYearly} />
-            <span
-              className={cn(
-                "text-sm font-medium",
-                isYearly ? "" : "text-muted-foreground"
-              )}
-            >
-              Yearly
-              <span className="ml-1.5 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">
-                Save 17%
-              </span>
-            </span>
-          </div>
+          </span>
         </div>
+      </div>
 
         {/* Mobile View - Cards */}
         <div className="grid gap-6 md:hidden">
@@ -251,7 +254,6 @@ export function PricingResponsiveTable({
             </table>
           </div>
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

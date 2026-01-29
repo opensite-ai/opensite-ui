@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
@@ -121,6 +121,7 @@ interface ProcessCardProps {
   optixFlowConfig?: OptixFlowConfig;
   itemClassName?: string;
   hoverImageClassName?: string;
+  background?: SectionBackground;
 }
 
 const ProcessCard = ({
@@ -129,6 +130,7 @@ const ProcessCard = ({
   optixFlowConfig,
   itemClassName,
   hoverImageClassName,
+  background,
 }: ProcessCardProps) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
@@ -168,13 +170,13 @@ const ProcessCard = ({
       </AnimatePresence>
       <div className="flex items-start justify-between gap-8">
         <div className="flex items-center gap-8">
-          <div className="flex w-fit items-center justify-center font-mono text-sm tracking-tighter text-muted-foreground">
+          <div className={cn("flex w-fit items-center justify-center font-mono text-sm tracking-tighter", getTextColor(background, 'muted'))}>
             {step.step ?? `0${index + 1}`}
           </div>
           <div>
             {step.title &&
               (typeof step.title === "string" ? (
-                <h3 className="mb-2 text-2xl font-semibold tracking-tighter transition-colors group-hover:text-primary lg:text-3xl">
+                <h3 className={cn("mb-2 text-2xl font-semibold tracking-tighter transition-colors lg:text-3xl", `group-hover:${getAccentColor(background)}`)}>
                   {step.title}
                 </h3>
               ) : (
@@ -182,11 +184,11 @@ const ProcessCard = ({
               ))}
             {step.description &&
               (typeof step.description === "string" ? (
-                <p className="max-w-md text-muted-foreground">
+                <p className={cn("max-w-md", getTextColor(background, 'muted'))}>
                   {step.description}
                 </p>
               ) : (
-                <div className="max-w-md text-muted-foreground">
+                <div className={cn("max-w-md", getTextColor(background, 'muted'))}>
                   {step.description}
                 </div>
               ))}
@@ -238,6 +240,7 @@ export function ProcessHoverCards({
             optixFlowConfig={optixFlowConfig}
             itemClassName={stepItemClassName}
             hoverImageClassName={hoverImageClassName}
+            background={background}
           />
         ))}
       </ul>
@@ -271,7 +274,8 @@ export function ProcessHoverCards({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-lg text-muted-foreground",
+                  "text-lg",
+                  getTextColor(background, 'muted'),
                   descriptionClassName,
                 )}
               >

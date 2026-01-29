@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
@@ -139,7 +139,7 @@ export function CtaMinimalSeparator({
           >
             {text && (
               typeof text === "string" ? (
-                <p className={cn("text-lg text-muted-foreground", textClassName)}>
+                <p className={cn("text-lg", getTextColor(background, 'muted'), textClassName)}>
                   {text}
                 </p>
               ) : (

@@ -2,7 +2,13 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+  getTextColor,
+  getAccentColor,
+} from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -166,7 +172,7 @@ export function ProcessMissionPrinciples({
     return (
       <div
         className={cn(
-          "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+          "grid gap-6 md:grid-cols-2 lg:grid-cols-3 px-4 md:px-0",
           principlesGridClassName,
         )}
       >
@@ -175,7 +181,7 @@ export function ProcessMissionPrinciples({
             key={index}
             className={cn(
               "group relative rounded-lg border p-6 transition-shadow hover:shadow-md",
-              getNestedCardBg(background, 'card'),
+              getNestedCardBg(background, "card"),
               getNestedCardTextColor(background),
               principleCardClassName,
               principle.className,
@@ -202,11 +208,11 @@ export function ProcessMissionPrinciples({
                 ))}
               {principle.description &&
                 (typeof principle.description === "string" ? (
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className={cn("leading-relaxed", getTextColor(background, 'muted'))}>
                     {principle.description}
                   </p>
                 ) : (
-                  <div className="text-muted-foreground leading-relaxed">
+                  <div className={cn("leading-relaxed", getTextColor(background, 'muted'))}>
                     {principle.description}
                   </div>
                 ))}
@@ -215,7 +221,14 @@ export function ProcessMissionPrinciples({
         ))}
       </div>
     );
-  }, [principlesSlot, principles, background, principlesGridClassName, principleCardClassName, principleBadgeClassName]);
+  }, [
+    principlesSlot,
+    principles,
+    background,
+    principlesGridClassName,
+    principleCardClassName,
+    principleBadgeClassName,
+  ]);
 
   return (
     <Section
@@ -231,7 +244,8 @@ export function ProcessMissionPrinciples({
             (typeof missionLabel === "string" ? (
               <span
                 className={cn(
-                  "mb-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary",
+                  "mb-4 inline-block text-sm font-semibold uppercase tracking-wider",
+                  getAccentColor(background),
                   missionLabelClassName,
                 )}
               >
@@ -259,7 +273,7 @@ export function ProcessMissionPrinciples({
             (typeof missionDescription === "string" ? (
               <p
                 className={cn(
-                  "text-lg text-muted-foreground leading-relaxed",
+                  "text-lg leading-relaxed",
                   missionDescriptionClassName,
                 )}
               >
@@ -277,7 +291,7 @@ export function ProcessMissionPrinciples({
             (typeof principlesLabel === "string" ? (
               <span
                 className={cn(
-                  "mb-8 inline-block text-sm font-semibold uppercase tracking-wider text-primary",
+                  "mb-8 inline-block text-sm font-semibold uppercase tracking-wider",
                   principlesLabelClassName,
                 )}
               >

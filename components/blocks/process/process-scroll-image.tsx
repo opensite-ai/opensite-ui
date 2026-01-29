@@ -3,11 +3,10 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion, useInView } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -155,6 +154,7 @@ interface ProcessCardProps {
   index: number;
   setActive: (index: number) => void;
   itemClassName?: string;
+  background?: SectionBackground;
 }
 
 const ProcessCard = ({
@@ -162,6 +162,7 @@ const ProcessCard = ({
   index,
   setActive,
   itemClassName,
+  background,
 }: ProcessCardProps) => {
   const ref = React.useRef<HTMLLIElement>(null);
 
@@ -199,9 +200,9 @@ const ProcessCard = ({
           ))}
         {step.description &&
           (typeof step.description === "string" ? (
-            <p className="text-muted-foreground">{step.description}</p>
+            <p className={getTextColor(background, 'muted')}>{step.description}</p>
           ) : (
-            <div className="text-muted-foreground">{step.description}</div>
+            <div className={getTextColor(background, 'muted')}>{step.description}</div>
           ))}
       </div>
     </li>
@@ -228,7 +229,7 @@ export function ProcessScrollImage({
   stepsClassName,
   stepItemClassName,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -254,7 +255,7 @@ export function ProcessScrollImage({
               <DynamicIcon
                 name="lucide/corner-down-right"
                 size={20}
-                className="text-primary"
+                className={getAccentColor(background)}
               />
             ),
           },
@@ -267,7 +268,9 @@ export function ProcessScrollImage({
       if (!resolvedActions?.length) return null;
 
       return (
-        <div className={cn("flex flex-col gap-2", actionsClassName)}>
+        <div
+          className={cn("flex flex-wrap items-center gap-2", actionsClassName)}
+        >
           {resolvedActions.map((action, index) => {
             const {
               label,
@@ -315,6 +318,7 @@ export function ProcessScrollImage({
             index={index}
             setActive={setActive}
             itemClassName={stepItemClassName}
+            background={background}
           />
         ))}
       </ul>
@@ -364,7 +368,8 @@ export function ProcessScrollImage({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-base text-muted-foreground",
+                  "text-base",
+                  getTextColor(background, 'muted'),
                   descriptionClassName,
                 )}
               >
@@ -379,17 +384,16 @@ export function ProcessScrollImage({
               imageContainerClassName,
             )}
           >
-            {previousActive !== undefined &&
-              steps?.[previousActive]?.image && (
-                <div className="absolute top-0 h-full w-full">
-                  <Img
-                    src={steps[previousActive].image!}
-                    alt={getStepTitle(steps[previousActive])}
-                    className="h-full w-full object-cover"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </div>
-              )}
+            {previousActive !== undefined && steps?.[previousActive]?.image && (
+              <div className="absolute top-0 h-full w-full">
+                <Img
+                  src={steps[previousActive].image!}
+                  alt={getStepTitle(steps[previousActive])}
+                  className="h-full w-full object-cover"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </div>
+            )}
             {steps?.[active]?.image && (
               <motion.div
                 initial={{ clipPath: "inset(100% 100% 0% 0%)" }}

@@ -8,6 +8,7 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
 import {
   Dialog,
   DialogClose,
@@ -23,7 +24,7 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
-import type { ImageItem, OptixFlowConfig } from "../../../src/types";
+import type { ImageItem, OptixFlowConfig, SectionBackground } from "../../../src/types";
 
 export interface OfferModalMembershipImageProps {
   /**
@@ -184,6 +185,11 @@ export interface OfferModalMembershipImageProps {
    * Optional configuration for OptixFlow image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style variant for the section
+   * @default "default"
+   */
+  background?: SectionBackground;
 }
 
 /**
@@ -234,6 +240,7 @@ export function OfferModalMembershipImage({
   closeClassName,
   footerClassName,
   optixFlowConfig,
+  background = "default",
 }: OfferModalMembershipImageProps): React.JSX.Element {
   const form = useForm<{ email: string }>({
     initialValues: {
@@ -416,26 +423,28 @@ export function OfferModalMembershipImage({
       >
         {renderCloseButton}
         {renderImage}
-        <div className={cn("lg:px-15 space-y-5 overflow-y-auto px-9 py-5 lg:py-7", contentClassName)}>
-          <div className="space-y-2.5">
-            {overline && (
-              typeof overline === "string" ? (
-                <p className={cn("text-center text-sm font-bold uppercase leading-none", overlineClassName)}>
-                  {overline}
-                </p>
-              ) : (
-                <div className={overlineClassName}>{overline}</div>
-              )
-            )}
-            {title && (
-              <DialogTitle className={cn("text-center text-3xl font-bold", titleClassName)}>
-                {title}
-              </DialogTitle>
-            )}
+        <Section background={background} spacing="none">
+          <div className={cn("lg:px-15 space-y-5 overflow-y-auto px-9 py-5 lg:py-7", contentClassName)}>
+            <div className="space-y-2.5">
+              {overline && (
+                typeof overline === "string" ? (
+                  <p className={cn("text-center text-sm font-bold uppercase leading-none", overlineClassName)}>
+                    {overline}
+                  </p>
+                ) : (
+                  <div className={overlineClassName}>{overline}</div>
+                )
+              )}
+              {title && (
+                <DialogTitle className={cn("text-center text-3xl font-bold", titleClassName)}>
+                  {title}
+                </DialogTitle>
+              )}
+            </div>
+            {renderForm}
+            {renderFooter}
           </div>
-          {renderForm}
-          {renderFooter}
-        </div>
+        </Section>
       </DialogContent>
     </Dialog>
   );

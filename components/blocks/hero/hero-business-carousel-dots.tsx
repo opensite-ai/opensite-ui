@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useState, useMemo } from "react";
-import { cn, getNestedCardBg } from "../../../lib/utils";
+import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Img } from "@page-speed/img";
@@ -195,7 +195,7 @@ export function HeroBusinessCarouselDots({
           )}
           {description && (
             typeof description === "string" ? (
-              <p className={cn("mt-5 text-lg text-muted-foreground md:text-xl lg:px-32", descriptionClassName)}>
+              <p className={cn("mt-5 text-lg md:text-xl lg:px-32", getTextColor(background, "muted"), descriptionClassName)}>
                 {description}
               </p>
             ) : (

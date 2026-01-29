@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import {
   Card,
@@ -216,11 +216,11 @@ export function FeatureCategoryImageCards({
           )}
           {feature.category && (
             typeof feature.category === "string" ? (
-              <CardDescription className={cn("text-muted-foreground md:text-lg", feature.categoryClassName)}>
+              <CardDescription className={cn("md:text-lg", getTextColor(background, 'muted'), feature.categoryClassName)}>
                 {feature.category}
               </CardDescription>
             ) : (
-              <div className={cn("text-muted-foreground md:text-lg", feature.categoryClassName)}>
+              <div className={cn("md:text-lg", getTextColor(background, 'muted'), feature.categoryClassName)}>
                 {feature.category}
               </div>
             )
@@ -254,11 +254,11 @@ export function FeatureCategoryImageCards({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("max-w-2xl text-muted-foreground md:text-lg", descriptionClassName)}>
+            <p className={cn("max-w-2xl md:text-lg", getTextColor(background, 'muted'), descriptionClassName)}>
               {description}
             </p>
           ) : (
-            <div className={cn("max-w-2xl text-muted-foreground md:text-lg", descriptionClassName)}>
+            <div className={cn("max-w-2xl md:text-lg", getTextColor(background, 'muted'), descriptionClassName)}>
               {description}
             </div>
           )

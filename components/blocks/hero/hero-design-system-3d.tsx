@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -162,7 +162,7 @@ export function HeroDesignSystem3d({
                   className="block size-6 shrink-0"
                   optixFlowConfig={optixFlowConfig}
                 />
-                <p className="text-nowrap transition-all duration-300 ease-in-out group-hover:text-primary">
+                <p className={cn("text-nowrap transition-all duration-300 ease-in-out", `group-hover:${getAccentColor(background)}`)}>
                   {label}
                 </p>
                 <DynamicIcon
@@ -268,7 +268,7 @@ export function HeroDesignSystem3d({
             </div>
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-center text-base leading-snug text-balance text-muted-foreground sm:text-2xl", descriptionClassName)}>
+                <p className={cn("text-center text-base leading-snug text-balance sm:text-2xl", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

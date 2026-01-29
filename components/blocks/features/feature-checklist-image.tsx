@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -310,7 +310,8 @@ export function FeatureChecklistImage({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mt-1 text-muted-foreground md:mt-6",
+                  "mt-1 md:mt-6",
+                  getTextColor(background, 'muted'),
                   descriptionClassName,
                 )}
               >
@@ -319,7 +320,8 @@ export function FeatureChecklistImage({
             ) : (
               <div
                 className={cn(
-                  "mt-1 text-muted-foreground md:mt-6",
+                  "mt-1 md:mt-6",
+                  getTextColor(background, 'muted'),
                   descriptionClassName,
                 )}
               >

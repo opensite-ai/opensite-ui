@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import type {
@@ -169,7 +169,8 @@ export function TeamSimpleGrid({
         </p>
         <p
           className={cn(
-            "text-center text-muted-foreground",
+            getTextColor(background, "muted"),
+            "text-center",
             memberRoleClassName,
           )}
         >
@@ -177,7 +178,7 @@ export function TeamSimpleGrid({
         </p>
       </div>
     ));
-  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName]);
+  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName, background]);
 
   return (
     <Section
@@ -210,7 +211,8 @@ export function TeamSimpleGrid({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
+                getTextColor(background, "muted"),
+                "mb-8 max-w-3xl lg:text-xl",
                 descriptionClassName,
               )}
             >

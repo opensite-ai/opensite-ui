@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -241,7 +241,7 @@ export function AboutStatsShowcase({
               ))}
             {stat.label &&
               (typeof stat.label === "string" ? (
-                <p className="text-muted-foreground">{stat.label}</p>
+                <p className={getTextColor(background, 'muted')}>{stat.label}</p>
               ) : (
                 stat.label
               ))}
@@ -360,7 +360,7 @@ export function AboutStatsShowcase({
                     ))}
                   {benefit.stat.description &&
                     (typeof benefit.stat.description === "string" ? (
-                      <p className="text-muted-foreground">
+                      <p className={getTextColor(background, 'muted')}>
                         {benefit.stat.description}
                       </p>
                     ) : (
@@ -407,7 +407,7 @@ export function AboutStatsShowcase({
                       ))}
                     {benefit.testimonial.role &&
                       (typeof benefit.testimonial.role === "string" ? (
-                        <span className="text-sm text-muted-foreground">
+                        <span className={cn("text-sm", getTextColor(background, 'muted'))}>
                           {benefit.testimonial.role}
                         </span>
                       ) : (
@@ -459,7 +459,8 @@ export function AboutStatsShowcase({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "text-lg text-muted-foreground md:text-xl text-balance",
+                    "text-lg md:text-xl text-balance",
+                    getTextColor(background, 'muted'),
                     descriptionClassName,
                   )}
                 >

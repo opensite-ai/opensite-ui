@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { Fragment, useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -214,7 +214,7 @@ export function HeroVideoDialogGradient({
               )}
               {description && (
                 typeof description === "string" ? (
-                  <p className={cn("max-w-[750px] text-center text-base leading-relaxed font-normal text-muted-foreground md:text-xl", descriptionClassName)}>
+                  <p className={cn("max-w-[750px] text-center text-base leading-relaxed font-normal md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                     {description}
                   </p>
                 ) : (

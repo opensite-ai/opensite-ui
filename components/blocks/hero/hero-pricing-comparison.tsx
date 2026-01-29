@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getBorderColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -154,7 +154,7 @@ export function HeroPricingComparison({
               "rounded-2xl p-8",
               getNestedCardBg(background, 'card'),
               getNestedCardTextColor(background),
-              plan.isPopular ? "relative border-2 border-primary" : "border border-border"
+              plan.isPopular ? `relative border-2 ${getBorderColor(background, "accent")}` : "border border-border"
             )}
           >
             {plan.isPopular && plan.popularBadge && (
@@ -164,14 +164,14 @@ export function HeroPricingComparison({
             )}
             <h3 className="text-lg font-semibold ">{plan.name}</h3>
             {plan.description && (
-              <p className="mt-2 text-sm text-muted-foreground">
+              <p className={cn("mt-2 text-sm", getTextColor(background, "muted"))}>
                 {plan.description}
               </p>
             )}
             <div className="mt-6">
               <span className="text-4xl font-bold ">{plan.price}</span>
               {plan.pricePeriod && (
-                <span className="text-muted-foreground">{plan.pricePeriod}</span>
+                <span className={getTextColor(background, "muted")}>{plan.pricePeriod}</span>
               )}
             </div>
             {plan.action && (
@@ -224,7 +224,7 @@ export function HeroPricingComparison({
           )}
           {description && (
             typeof description === "string" ? (
-              <p className={cn("mt-6 text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
+              <p className={cn("mt-6 text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                 {description}
               </p>
             ) : (

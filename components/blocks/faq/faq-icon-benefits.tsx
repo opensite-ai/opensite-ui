@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getAccentColor, getTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -140,13 +140,15 @@ export function FaqIconBenefits({
           >
             <div
               className={cn(
-                "flex size-12 items-center justify-center rounded-full bg-primary/10",
+                "flex size-12 items-center justify-center rounded-full",
+                getAccentColor(background),
+                "opacity-10",
                 iconWrapperClassName,
               )}
             >
               <DynamicIcon
                 name={benefit.icon}
-                className={cn("size-6 text-primary", iconClassName)}
+                className={cn("size-6", getAccentColor(background), iconClassName)}
               />
             </div>
             {typeof benefit.title === "string" ? (
@@ -159,7 +161,8 @@ export function FaqIconBenefits({
             {typeof benefit.description === "string" ? (
               <p
                 className={cn(
-                  "text-muted-foreground text-sm",
+                  getTextColor(background, "muted"),
+                  "text-sm",
                   benefitDescriptionClassName,
                 )}
               >
@@ -183,6 +186,7 @@ export function FaqIconBenefits({
     iconClassName,
     titleClassName,
     benefitDescriptionClassName,
+    background,
   ]);
 
   return (
@@ -218,7 +222,8 @@ export function FaqIconBenefits({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-muted-foreground lg:text-lg",
+                  getTextColor(background, "muted"),
+                  "lg:text-lg",
                   descriptionClassName,
                 )}
               >

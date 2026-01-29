@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getBorderColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
@@ -151,7 +151,7 @@ export function HeroConversationIntelligence({
               ratio={3.714285714 / 1}
               className="w-full rounded-xl bg-[linear-gradient(var(--color-muted),transparent)]"
             />
-            <div className="border-muted2 absolute top-1/2 left-1/2 z-10 w-[87.69%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl border">
+            <div className={cn("absolute top-1/2 left-1/2 z-10 w-[87.69%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl border", getBorderColor(background, "muted"))}>
               <AspectRatio ratio={1.594405594 / 1}>
                 <Img
                   src={image.src}
@@ -193,7 +193,7 @@ export function HeroConversationIntelligence({
               </h1>
               {description && (
                 typeof description === "string" ? (
-                  <p className={cn("text-center text-xl leading-normal text-muted-foreground", descriptionClassName)}>
+                  <p className={cn("text-center text-xl leading-normal", getTextColor(background, "muted"), descriptionClassName)}>
                     {description}
                   </p>
                 ) : (

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -236,7 +236,7 @@ export function HeroDashedBorderFeatures({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("mx-auto mb-6 max-w-2xl text-center text-muted-foreground lg:text-xl", descriptionClassName)}>
+                <p className={cn("mx-auto mb-6 max-w-2xl text-center lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

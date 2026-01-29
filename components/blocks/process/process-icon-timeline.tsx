@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getBorderColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -205,11 +205,11 @@ export function ProcessIconTimeline({
                   ))}
                 {step.description &&
                   (typeof step.description === "string" ? (
-                    <p className="mb-4 text-muted-foreground">
+                    <p className={cn("mb-4", getTextColor(background, 'muted'))}>
                       {step.description}
                     </p>
                   ) : (
-                    <div className="mb-4 text-muted-foreground">
+                    <div className={cn("mb-4", getTextColor(background, 'muted'))}>
                       {step.description}
                     </div>
                   ))}
@@ -271,7 +271,8 @@ export function ProcessIconTimeline({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-lg text-muted-foreground",
+                  "text-lg",
+                  getTextColor(background, 'muted'),
                   descriptionClassName,
                 )}
               >
@@ -285,7 +286,8 @@ export function ProcessIconTimeline({
         <div className={cn("relative", timelineClassName)}>
           <div
             className={cn(
-              "absolute left-6 top-0 bottom-0 w-px bg-border lg:left-1/2 lg:-translate-x-1/2",
+              "absolute left-6 top-0 bottom-0 w-px lg:left-1/2 lg:-translate-x-1/2",
+              getBorderColor(background, 'default'),
               timelineLineClassName,
             )}
           />

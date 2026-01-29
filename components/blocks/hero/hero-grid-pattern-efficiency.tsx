@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -133,7 +133,7 @@ export function HeroGridPatternEfficiency({
     return (
       <h1 className={cn("text-5xl leading-tight font-extrabold lg:text-8xl lg:leading-snug", headingClassName)}>
         Less complexity. <span className="mr-6">More</span>
-        <span className="relative inline-block before:absolute before:top-0 before:-right-2 before:-bottom-2 before:-left-4 before:-z-10 before:rounded-lg before:bg-muted-foreground/15">
+        <span className={cn("relative inline-block before:absolute before:top-0 before:-right-2 before:-bottom-2 before:-left-4 before:-z-10 before:rounded-lg", `before:${getTextColor(background, "muted")}/15`)}>
           {highlightedWord}
         </span>
       </h1>
@@ -167,7 +167,7 @@ export function HeroGridPatternEfficiency({
             {renderAction}
             {actionSubtext && (
               typeof actionSubtext === "string" ? (
-                <p className="text-sm text-muted-foreground">{actionSubtext}</p>
+                <p className={cn("text-sm", getTextColor(background, "muted"))}>{actionSubtext}</p>
               ) : (
                 actionSubtext
               )

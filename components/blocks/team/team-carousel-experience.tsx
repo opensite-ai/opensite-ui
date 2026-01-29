@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
 import { Separator } from "../../ui/separator";
@@ -187,7 +187,8 @@ export function TeamCarouselExperience({
           <div className="mt-6 flex flex-col justify-center">
             <p
               className={cn(
-                "text-lg font-medium text-primary",
+                "text-lg font-medium",
+                getAccentColor(background),
                 memberNameClassName,
               )}
             >
@@ -195,7 +196,8 @@ export function TeamCarouselExperience({
             </p>
             <p
               className={cn(
-                "text-sm text-muted-foreground",
+                "text-sm",
+                getTextColor(background, "muted"),
                 memberRoleClassName,
               )}
             >
@@ -203,7 +205,7 @@ export function TeamCarouselExperience({
             </p>
           </div>
           <Separator className="my-6 bg-linear-to-r from-background via-border to-background" />
-          <p className="text-sm text-muted-foreground">
+          <p className={cn("text-sm", getTextColor(background, "muted"))}>
             {member.yearsOfExperience}+ years of experience
           </p>
         </div>
@@ -228,7 +230,7 @@ export function TeamCarouselExperience({
             {headingHighlight &&
               (typeof headingHighlight === "string" ? (
                 <span
-                  className={cn("text-primary/50", headingHighlightClassName)}
+                  className={cn(`${getAccentColor(background)}/50`, headingHighlightClassName)}
                 >
                   {headingHighlight}
                 </span>
@@ -245,7 +247,8 @@ export function TeamCarouselExperience({
         (typeof description === "string" ? (
           <p
             className={cn(
-              "mt-6 max-w-md text-muted-foreground",
+              "mt-6 max-w-md",
+              getTextColor(background, "muted"),
               descriptionClassName,
             )}
           >

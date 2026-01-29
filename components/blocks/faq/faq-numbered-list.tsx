@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -160,7 +160,8 @@ export function FaqNumberedList({
               {typeof item.answer === "string" ? (
                 <p
                   className={cn(
-                    "text-muted-foreground text-sm",
+                    getTextColor(background, "muted"),
+                    "text-sm",
                     answerClassName,
                   )}
                 >
@@ -182,6 +183,7 @@ export function FaqNumberedList({
     numberClassName,
     questionClassName,
     answerClassName,
+    background,
   ]);
 
   return (
@@ -224,7 +226,8 @@ export function FaqNumberedList({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-muted-foreground mt-6 max-w-xl text-base md:text-lg",
+                getTextColor(background, "muted"),
+                "mt-6 max-w-xl text-base md:text-lg",
                 descriptionClassName,
               )}
             >

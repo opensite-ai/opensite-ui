@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
 import type {
@@ -146,12 +146,12 @@ export function TeamInvestorShowcase({
         <h3 className={cn("mt-3 font-semibold", investorNameClassName)}>
           {investor.name}
         </h3>
-        <p className={cn("text-muted-foreground", investorCompanyClassName)}>
+        <p className={cn(getTextColor(background, "muted"), investorCompanyClassName)}>
           {investor.company}
         </p>
       </div>
     ));
-  }, [investorsSlot, investors, investorCardClassName, investorImageClassName, optixFlowConfig, investorNameClassName, investorCompanyClassName]);
+  }, [investorsSlot, investors, investorCardClassName, investorImageClassName, optixFlowConfig, investorNameClassName, investorCompanyClassName, background]);
 
   return (
     <Section
@@ -165,7 +165,8 @@ export function TeamInvestorShowcase({
         (typeof heading === "string" ? (
           <h2
             className={cn(
-              "text-4xl font-medium tracking-wide text-primary",
+              getAccentColor(background),
+              "text-4xl font-medium tracking-wide",
               headingClassName,
             )}
           >

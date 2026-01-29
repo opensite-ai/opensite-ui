@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getAccentColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -156,7 +156,7 @@ export function AlternatingBlocks({
       {(title && typeof title !== "string") || (subtitle && typeof subtitle !== "string") ? (
         <div className="mb-12 text-center md:mb-16">
           {subtitle && typeof subtitle !== "string" && (
-            <div className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary">
+            <div className={cn("mb-2 text-sm font-semibold uppercase tracking-wider", getAccentColor(background))}>
               {subtitle}
             </div>
           )}

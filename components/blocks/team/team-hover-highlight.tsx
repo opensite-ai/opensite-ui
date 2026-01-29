@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getNestedCardBg } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -173,7 +173,8 @@ export function TeamHoverHighlight({
       <div
         key={member.id}
         className={cn(
-          "relative flex flex-col items-center rounded-xl p-6 transition-all duration-300 group-hover:opacity-50 hover:opacity-100! hover:bg-muted/50",
+          "relative flex flex-col items-center rounded-xl p-6 transition-all duration-300 group-hover:opacity-50 hover:opacity-100!",
+          `hover:${getNestedCardBg(background, "muted")}/50`,
           memberCardClassName,
         )}
       >
@@ -193,13 +194,14 @@ export function TeamHoverHighlight({
         <h3 className={cn("text-lg font-semibold", memberNameClassName)}>
           {member.name}
         </h3>
-        <p className={cn("text-sm text-muted-foreground", memberRoleClassName)}>
+        <p className={cn("text-sm", getTextColor(background, "muted"), memberRoleClassName)}>
           {member.role}
         </p>
         {member.social && (
           <div
             className={cn(
-              "mt-4 flex gap-3 text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100",
+              "mt-4 flex gap-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100",
+              getTextColor(background, "muted"),
               socialLinksClassName,
             )}
           >
@@ -267,7 +269,8 @@ export function TeamHoverHighlight({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
+                "mb-8 max-w-3xl lg:text-xl",
+                getTextColor(background, "muted"),
                 descriptionClassName,
               )}
             >

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
@@ -156,10 +156,6 @@ export interface LinkPageGridCardsProps {
    */
   footerClassName?: string;
   /**
-   * Theme variation: "light" or "dark"
-   */
-  theme?: "light" | "dark";
-  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -241,16 +237,14 @@ export function LinkPageGridCards({
   cardLabelClassName,
   cardDescriptionClassName,
   footerClassName,
-  theme = "light",
-  background,
+  background = "gray",
   spacing,
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
 }: LinkPageGridCardsProps): React.JSX.Element {
-  const isDark = theme === "dark";
-  const resolvedBackground = background ?? (isDark ? "dark" : "gray");
+  const resolvedBackground = background;
 
   const resolvedAvatar: ImageItem | undefined =
     avatar ||
@@ -274,8 +268,7 @@ export function LinkPageGridCards({
         {resolvedAvatar && (
           <div
             className={cn(
-              "h-20 w-20 overflow-hidden rounded-2xl shadow-lg",
-              isDark ? "ring-2 ring-white/10" : "ring-2 ring-neutral-200",
+              "h-20 w-20 overflow-hidden rounded-2xl shadow-lg ring-2 ring-neutral-200",
               avatarClassName,
             )}
           >
@@ -306,7 +299,8 @@ export function LinkPageGridCards({
             (typeof bio === "string" ? (
               <p
                 className={cn(
-                  "text-sm text-muted-foreground",
+                  "text-sm",
+                  getTextColor(resolvedBackground, 'muted'),
                   bioClassName,
                 )}
               >
@@ -318,7 +312,7 @@ export function LinkPageGridCards({
         </div>
       </div>
     );
-  }, [profileSlot, resolvedAvatar, isDark, avatarClassName, optixFlowConfig, name, nameClassName, bio, bioClassName, headerClassName]);
+  }, [profileSlot, resolvedAvatar, resolvedBackground, avatarClassName, optixFlowConfig, name, nameClassName, bio, bioClassName, headerClassName]);
 
   const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
@@ -332,11 +326,12 @@ export function LinkPageGridCards({
         )}
       >
         {socialLinks.map((social, index) => {
+          const { iconName, ...socialPressableProps } = social;
           const icon =
             social.icon ||
-            (social.iconName ? (
+            (iconName ? (
               <DynamicIcon
-                name={social.iconName}
+                name={iconName}
                 size={18}
                 className={socialIconClassName}
               />
@@ -349,14 +344,13 @@ export function LinkPageGridCards({
           return (
             <Pressable
               key={social.id ?? index}
-              href={social.href}
+              {...socialPressableProps}
               aria-label={ariaLabel}
               className={cn(
                 "rounded-lg p-2 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
-                isDark
-                  ? "bg-muted/5 text-muted-foreground hover:bg-muted/10"
-                  : "bg-card text-muted-foreground hover:bg-muted",
+                "bg-card hover:opacity-80",
+                getTextColor(resolvedBackground, 'muted'),
                 socialLinkClassName,
                 social.className,
               )}
@@ -367,7 +361,7 @@ export function LinkPageGridCards({
         })}
       </div>
     );
-  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, isDark, socialLinkClassName]);
+  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, resolvedBackground, socialLinkClassName]);
 
   const renderLinks = useMemo(() => {
     if (linksSlot) return linksSlot;
@@ -388,13 +382,14 @@ export function LinkPageGridCards({
             icon,
             children,
             className: linkClassName,
+            iconName,
             ...pressableProps
           } = link;
           const iconElement =
             icon ||
-            (link.iconName ? (
+            (iconName ? (
               <DynamicIcon
-                name={link.iconName}
+                name={iconName}
                 size={24}
                 className={cardIconClassName}
               />
@@ -407,9 +402,7 @@ export function LinkPageGridCards({
                 className={cn(
                   "group flex flex-col items-center gap-2 rounded-xl p-4 transition-all duration-200",
                   "hover:scale-[1.03] active:scale-[0.97]",
-                  isDark
-                    ? "border border-border/10 bg-muted/5 hover:bg-muted/10"
-                    : "border border-border bg-card shadow-sm hover:shadow-md",
+                  "border border-border bg-card shadow-sm hover:shadow-md",
                   cardClassName,
                   linkClassName,
                 )}
@@ -426,9 +419,7 @@ export function LinkPageGridCards({
               className={cn(
                 "group flex flex-col items-center gap-2 rounded-xl p-4 transition-all duration-200",
                 "hover:scale-[1.03] active:scale-[0.97]",
-                isDark
-                  ? "border border-border/10 bg-muted/5 hover:bg-muted/10"
-                  : "border border-border bg-card shadow-sm hover:shadow-md",
+                "border border-border bg-card shadow-sm hover:shadow-md",
                 cardClassName,
                 linkClassName,
               )}
@@ -439,9 +430,7 @@ export function LinkPageGridCards({
                   "flex h-12 w-12 items-center justify-center rounded-xl transition-colors",
                   getNestedCardBg(resolvedBackground),
                   getNestedCardTextColor(resolvedBackground),
-                  isDark
-                    ? "group-hover:bg-muted/20"
-                    : "group-hover:bg-muted/80",
+                  "group-hover:opacity-80",
                   cardIconWrapperClassName,
                 )}
               >
@@ -465,7 +454,8 @@ export function LinkPageGridCards({
                   (typeof description === "string" ? (
                     <span
                       className={cn(
-                        "block text-xs text-muted-foreground",
+                        "block text-xs",
+                        getTextColor(resolvedBackground, 'muted'),
                         cardDescriptionClassName,
                       )}
                     >
@@ -482,7 +472,7 @@ export function LinkPageGridCards({
         })}
       </div>
     );
-  }, [linksSlot, links, columns, gridClassName, cardIconClassName, isDark, cardClassName, cardIconWrapperClassName, cardLabelClassName, cardDescriptionClassName]);
+  }, [linksSlot, links, columns, gridClassName, cardIconClassName, resolvedBackground, cardClassName, cardIconWrapperClassName, cardLabelClassName, cardDescriptionClassName]);
 
   const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
@@ -508,7 +498,8 @@ export function LinkPageGridCards({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          "text-muted-foreground/50",
+          getTextColor(resolvedBackground, 'muted'),
+          "opacity-50",
           footerClassName,
           actionClassName,
         )}
@@ -523,13 +514,13 @@ export function LinkPageGridCards({
         )}
       </Pressable>
     );
-  }, [footerSlot, footerAction, isDark, footerClassName]);
+  }, [footerSlot, footerAction, resolvedBackground, footerClassName]);
 
   return (
     <Section
       background={resolvedBackground}
       spacing={spacing}
-      className={cn(isDark ? "bg-foreground" : "bg-muted/30", className)}
+      className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}

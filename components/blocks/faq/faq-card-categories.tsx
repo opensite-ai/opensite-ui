@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import {
   Accordion,
@@ -187,7 +187,8 @@ export function FaqCardCategories({
                     </AccordionTrigger>
                     <AccordionContent
                       className={cn(
-                        "text-muted-foreground text-sm",
+                        getTextColor(background, "muted"),
+                        "text-sm",
                         accordionContentClassName,
                       )}
                     >
@@ -211,6 +212,7 @@ export function FaqCardCategories({
     accordionItemClassName,
     accordionTriggerClassName,
     accordionContentClassName,
+    background,
   ]);
 
   return (
@@ -225,7 +227,8 @@ export function FaqCardCategories({
       <div className={containerClassName}>
         <div
           className={cn(
-            "relative rounded-lg bg-muted/50 p-8 md:p-12 lg:p-16",
+            "relative rounded-lg p-8 md:p-12 lg:p-16",
+            getNestedCardBg(background, "muted"),
             contentWrapperClassName,
           )}
           style={{
@@ -255,7 +258,8 @@ export function FaqCardCategories({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "text-muted-foreground lg:text-lg",
+                    getTextColor(background, "muted"),
+                    "lg:text-lg",
                     descriptionClassName,
                   )}
                 >

@@ -32,6 +32,11 @@ export {
   cn,
   getNestedCardBg,
   getNestedCardTextColor,
+  getTextColor,
+  getAccentColor,
+  getBorderColor,
   type NestedCardVariant,
   type NestedCardBgOptions,
+  type TextColorVariant,
+  type BorderColorVariant,
 } from "../lib/utils";

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg } from "../../../lib/utils";
+import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -145,7 +145,7 @@ export function HeroCrmStreamlined({
             <div className="mt-10 flex flex-col gap-2">
               {tagline && (
                 typeof tagline === "string" ? (
-                  <p className={cn("text-base font-semibold text-muted-foreground", taglineClassName)}>
+                  <p className={cn("text-base font-semibold", getTextColor(background, "muted"), taglineClassName)}>
                     {tagline}
                   </p>
                 ) : (

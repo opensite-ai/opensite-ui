@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
@@ -256,7 +256,7 @@ export function TeamFilterableSearch({
           <DynamicIcon
             name="lucide/search"
             size={18}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+            className={cn("absolute left-3 top-1/2 -translate-y-1/2", getTextColor(background, "muted"))}
           />
           <Input
             type="text"
@@ -330,7 +330,8 @@ export function TeamFilterableSearch({
             </div>
             <p
               className={cn(
-                "text-sm font-medium text-primary",
+                "text-sm font-medium",
+                getAccentColor(background),
                 memberRoleClassName,
               )}
             >
@@ -338,7 +339,8 @@ export function TeamFilterableSearch({
             </p>
             <p
               className={cn(
-                "mt-2 text-sm text-muted-foreground line-clamp-2",
+                "mt-2 text-sm line-clamp-2",
+                getTextColor(background, "muted"),
                 memberDescriptionClassName,
               )}
             >
@@ -347,7 +349,8 @@ export function TeamFilterableSearch({
             {member.social && (
               <div
                 className={cn(
-                  "mt-3 flex gap-2 text-muted-foreground",
+                  "mt-3 flex gap-2",
+                  getTextColor(background, "muted"),
                   socialLinksClassName,
                 )}
               >
@@ -423,7 +426,8 @@ export function TeamFilterableSearch({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mx-auto max-w-3xl text-xl leading-relaxed text-muted-foreground",
+                "mx-auto max-w-3xl text-xl leading-relaxed",
+                getTextColor(background, "muted"),
                 descriptionClassName,
               )}
             >
@@ -448,7 +452,8 @@ export function TeamFilterableSearch({
       {filteredMembers.length === 0 && !membersSlot && (
         <div
           className={cn(
-            "py-12 text-center text-muted-foreground",
+            "py-12 text-center",
+            getTextColor(background, "muted"),
             emptyStateClassName,
           )}
         >

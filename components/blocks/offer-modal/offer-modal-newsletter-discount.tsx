@@ -6,6 +6,7 @@ import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
 import {
   Dialog,
   DialogClose,
@@ -19,6 +20,7 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
+import type { SectionBackground } from "../../../src/types";
 
 export interface OfferModalNewsletterDiscountProps {
   /**
@@ -151,6 +153,11 @@ export interface OfferModalNewsletterDiscountProps {
    * Additional CSS classes for the close button
    */
   closeClassName?: string;
+  /**
+   * Background style variant for the section
+   * @default "default"
+   */
+  background?: SectionBackground;
 }
 
 /**
@@ -192,6 +199,7 @@ export function OfferModalNewsletterDiscount({
   inputClassName,
   submitClassName,
   closeClassName,
+  background = "default",
 }: OfferModalNewsletterDiscountProps): React.JSX.Element {
   const form = useForm<{ email: string }>({
     initialValues: {
@@ -341,15 +349,17 @@ export function OfferModalNewsletterDiscount({
           }
         }}
         className={cn(
-          "duration-400 data-[state=closed]:slide-out-to-bottom-full data-[state=open]:slide-in-from-bottom-full max-w-[460px] bottom-4 left-auto right-4 top-auto block h-fit max-h-dvh translate-x-0 translate-y-0 space-y-2.5 rounded-sm p-10",
+          "duration-400 data-[state=closed]:slide-out-to-bottom-full data-[state=open]:slide-in-from-bottom-full max-w-[460px] bottom-4 left-auto right-4 top-auto block h-fit max-h-dvh translate-x-0 translate-y-0 rounded-sm",
           className
         )}
       >
-        <div className={contentClassName}>
-          {renderCloseButton}
-          {renderHeader}
-          {renderForm}
-        </div>
+        <Section background={background} spacing="none">
+          <div className={cn("space-y-2.5 p-10", contentClassName)}>
+            {renderCloseButton}
+            {renderHeader}
+            {renderForm}
+          </div>
+        </Section>
       </DialogContent>
     </Dialog>
   );

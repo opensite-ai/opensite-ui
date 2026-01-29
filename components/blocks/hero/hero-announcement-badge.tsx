@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -161,7 +161,7 @@ export function HeroAnnouncementBadge({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("max-w-2xl text-muted-foreground md:text-[2vw] lg:text-xl", descriptionClassName)}>
+            <p className={cn("max-w-2xl md:text-[2vw] lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
               {description}
             </p>
           ) : (

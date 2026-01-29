@@ -67,6 +67,6 @@ describe("FooterComprehensiveLinks", () => {
 
   it("applies custom className", () => {
     const { container } = render(<FooterComprehensiveLinks className="custom-class" />);
-    expect(container.querySelector("footer")).toHaveClass("custom-class");
+    expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

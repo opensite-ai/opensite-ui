@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card } from "../../ui/card";
@@ -183,14 +183,14 @@ export function CtaFeatureCardsGrid({
                   <DynamicIcon
                     name={feature.iconName || ""}
                     size={24}
-                    className="text-primary"
+                    className={getAccentColor(background)}
                   />
                 )}
               </div>
             )}
             {feature.title && <h3 className="mb-2 font-semibold">{feature.title}</h3>}
             {feature.description && (
-              <p className="text-sm text-muted-foreground">
+              <p className={cn("text-sm", getTextColor(background, 'muted'))}>
                 {feature.description}
               </p>
             )}
@@ -228,7 +228,8 @@ export function CtaFeatureCardsGrid({
             typeof description === "string" ? (
               <p
                 className={cn(
-                  "mx-auto mb-8 max-w-2xl text-lg text-muted-foreground",
+                  "mx-auto mb-8 max-w-2xl text-lg",
+                  getTextColor(background, 'muted'),
                   descriptionClassName,
                 )}
               >

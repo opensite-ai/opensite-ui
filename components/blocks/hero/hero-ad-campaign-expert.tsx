@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg } from "../../../lib/utils";
+import { cn, getNestedCardBg, getBorderColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
@@ -153,7 +153,7 @@ export function HeroAdCampaignExpert({
               ) : headingHighlight ? (
                 <h2 className={cn("text-3xl leading-tight font-bold tracking-tighter lg:text-5xl", headingClassName)}>
                   Your ad campaigns excel with{" "}
-                  <span className="border-muted2 border-b-2">{headingHighlight}</span>,
+                  <span className={cn(getBorderColor(background, "muted"), "border-b-2")}>{headingHighlight}</span>,
                   delivering optimized performance.
                 </h2>
               ) : null
@@ -172,7 +172,7 @@ export function HeroAdCampaignExpert({
           <div className={cn("relative flex w-full justify-center lg:w-1/2", imageContainerClassName)}>
             {imageSrc && (
               <div className="relative z-10 -mb-16 h-auto w-[80%] max-w-[355px] lg:w-[520px]">
-                <AspectRatio ratio={355 / 520} className="border-muted2 border">
+                <AspectRatio ratio={355 / 520} className={cn(getBorderColor(background, "muted"), "border")}>
                   <Img
                     src={imageSrc}
                     alt={imageAlt}

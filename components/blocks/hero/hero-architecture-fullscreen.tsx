@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getBorderColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -128,7 +128,7 @@ export function HeroArchitectureFullscreen({
           <div className="flex max-w-245.5 flex-col gap-1">
             {tagline && (
               typeof tagline === "string" ? (
-                <p className={cn("text-sm leading-none text-muted-foreground uppercase", taglineClassName)}>
+                <p className={cn("text-sm leading-none uppercase", getTextColor(background, "muted"), taglineClassName)}>
                   {tagline}
                 </p>
               ) : (
@@ -148,7 +148,7 @@ export function HeroArchitectureFullscreen({
           <div className="flex w-full flex-col justify-between gap-5 sm:flex-row sm:items-center">
             {description && (
               typeof description === "string" ? (
-                <p className={cn("max-w-81 border-l border-muted-foreground pl-6 text-base text-muted-foreground", descriptionClassName)}>
+                <p className={cn("max-w-81 border-l pl-6 text-base", getBorderColor(background, "muted"), getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

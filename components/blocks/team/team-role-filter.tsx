@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Card, CardContent } from "../../ui/card";
 import { Img } from "@page-speed/img";
@@ -250,7 +250,8 @@ export function TeamRoleFilter({
             </h3>
             <p
               className={cn(
-                "text-muted-foreground mt-1 text-sm",
+                getTextColor(background, "muted"),
+                "mt-1 text-sm",
                 memberPositionClassName,
               )}
             >
@@ -302,7 +303,7 @@ export function TeamRoleFilter({
         </CardContent>
       </Card>
     ));
-  }, [membersSlot, filteredMembers, memberCardClassName, memberImageClassName, optixFlowConfig, memberNameClassName, memberPositionClassName, socialLinksClassName]);
+  }, [membersSlot, filteredMembers, memberCardClassName, memberImageClassName, optixFlowConfig, memberNameClassName, memberPositionClassName, socialLinksClassName, background]);
 
   return (
     <Section
@@ -332,7 +333,8 @@ export function TeamRoleFilter({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-muted-foreground mt-1 text-lg",
+                getTextColor(background, "muted"),
+                "mt-1 text-lg",
                 descriptionClassName,
               )}
             >

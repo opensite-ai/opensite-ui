@@ -9,7 +9,7 @@ import {
   PatternBackground,
   type PatternName,
 } from "../../ui/pattern-background";
-import { Container } from "../../ui/container";
+import { Section } from "../../ui/section";
 import type { SectionBackground } from "../../../src/types";
 
 export interface FooterComprehensiveLinksLink {
@@ -152,15 +152,14 @@ export function FooterComprehensiveLinks({
   const copyrightText =
     copyright || `© ${year} ${companyName || ""}. All rights reserved.`;
   return (
-    <footer
-      className={cn(
-        "relative overflow-hidden",
-        className,
-      )}
+    <Section
+      background={background}
+      spacing="lg"
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+      containerClassName="relative z-10"
     >
-      <PatternBackground pattern={pattern} opacity={patternOpacity} />
-
-      <Container className="relative z-10 py-12 lg:py-16">
         <div className="grid grid-cols-1 gap-10 lg:gap-12">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-12">
             {(logoSrc || tagline || summary) && (
@@ -348,7 +347,6 @@ export function FooterComprehensiveLinks({
             ) : null}
           </div>
         </div>
-      </Container>
-    </footer>
+    </Section>
   );
 }

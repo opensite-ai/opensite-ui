@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -185,7 +185,7 @@ export function HeroPatternLogoTechStack({
       <div className={cn("mt-20 flex flex-col items-center gap-5", techLogosClassName)}>
         {techStackLabel && (
           typeof techStackLabel === "string" ? (
-            <p className="font-medium text-muted-foreground lg:text-left">
+            <p className={cn("font-medium lg:text-left", getTextColor(background, "muted"))}>
               {techStackLabel}
             </p>
           ) : (
@@ -244,7 +244,7 @@ export function HeroPatternLogoTechStack({
                 typeof heading === "string" ? (
                   <h1 className={cn("mb-6 text-2xl font-bold tracking-tight text-pretty lg:text-5xl", headingClassName)}>
                     {heading}{" "}
-                    {highlightedWord && <span className="text-primary">{highlightedWord}</span>}
+                    {highlightedWord && <span className={getAccentColor(background)}>{highlightedWord}</span>}
                   </h1>
                 ) : (
                   <h1 className={cn("mb-6 text-2xl font-bold tracking-tight text-pretty lg:text-5xl", headingClassName)}>
@@ -254,7 +254,7 @@ export function HeroPatternLogoTechStack({
               )}
               {description && (
                 typeof description === "string" ? (
-                  <p className={cn("mx-auto max-w-3xl text-muted-foreground lg:text-xl", descriptionClassName)}>
+                  <p className={cn("mx-auto max-w-3xl lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                     {description}
                   </p>
                 ) : (

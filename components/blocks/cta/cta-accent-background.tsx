@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -176,7 +176,8 @@ export function CtaAccentBackground({
               typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mb-8 text-lg font-medium text-muted-foreground lg:text-xl",
+                    "mb-8 text-lg font-medium lg:text-xl",
+                    getTextColor(background, 'muted'),
                     descriptionClassName,
                   )}
                 >

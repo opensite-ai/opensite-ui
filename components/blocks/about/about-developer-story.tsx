@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -253,7 +253,7 @@ export function AboutDeveloperStory({
               ))}
             {stat.label &&
               (typeof stat.label === "string" ? (
-                <p className="mt-2 text-muted-foreground">{stat.label}</p>
+                <p className={cn("mt-2", getTextColor(background, 'muted'))}>{stat.label}</p>
               ) : (
                 <div className="mt-2">{stat.label}</div>
               ))}
@@ -290,7 +290,8 @@ export function AboutDeveloperStory({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "max-w-2xl text-lg text-muted-foreground md:text-xl text-balance",
+                "max-w-2xl text-lg md:text-xl text-balance",
+                getTextColor(background, 'muted'),
                 descriptionClassName,
               )}
             >
@@ -324,7 +325,8 @@ export function AboutDeveloperStory({
             (typeof storyContent === "string" ? (
               <p
                 className={cn(
-                  "mt-6 text-lg text-muted-foreground whitespace-pre-line",
+                  "mt-6 text-lg whitespace-pre-line",
+                  getTextColor(background, 'muted'),
                   storyContentClassName,
                 )}
               >

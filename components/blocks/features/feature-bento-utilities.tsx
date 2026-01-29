@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getNestedCardBg } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Card } from "../../ui/card";
@@ -241,7 +241,7 @@ export function FeatureBentoUtilities({
           <div className="p-6">
             {renderTitle()}
             {card.description && (
-              <p className="text-muted-foreground">{card.description}</p>
+              <p className={getTextColor(background, 'muted')}>{card.description}</p>
             )}
           </div>
         </Card>
@@ -252,7 +252,7 @@ export function FeatureBentoUtilities({
       <Card key={index} className={cardClasses}>
         {renderTitle()}
         {card.description && (
-          <p className="text-muted-foreground">{card.description}</p>
+          <p className={getTextColor(background, 'muted')}>{card.description}</p>
         )}
       </Card>
     );
@@ -277,11 +277,11 @@ export function FeatureBentoUtilities({
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
-      className={cn("bg-muted/60", className)}
+      className={cn(getNestedCardBg(background, 'muted'), className)}
       containerClassName={cn("max-w-7xl", containerClassName)}
     >
       {(labelIconElement || label) && (
-        <div className={cn("flex items-center gap-2 text-muted-foreground", labelClassName)}>
+        <div className={cn("flex items-center gap-2", getTextColor(background, 'muted'), labelClassName)}>
           {labelIconElement}
           {label && (
             typeof label === "string" ? (

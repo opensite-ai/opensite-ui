@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useState, useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Card, CardContent } from "../../ui/card";
@@ -226,11 +226,11 @@ export function FeatureCarouselProgress({
                 )}
                 {slide.description && (
                   typeof slide.description === "string" ? (
-                    <p className={cn("pt-2 text-muted-foreground", slide.descriptionClassName)}>
+                    <p className={cn("pt-2", getTextColor(background, 'muted'), slide.descriptionClassName)}>
                       {slide.description}
                     </p>
                   ) : (
-                    <div className={cn("pt-2 text-muted-foreground", slide.descriptionClassName)}>
+                    <div className={cn("pt-2", getTextColor(background, 'muted'), slide.descriptionClassName)}>
                       {slide.description}
                     </div>
                   )
@@ -277,7 +277,7 @@ export function FeatureCarouselProgress({
             )
           )}
           <div className="flex items-center space-x-2">
-            <div className="mr-2 hidden items-center gap-3 text-xs text-muted-foreground md:flex">
+            <div className={cn("mr-2 hidden items-center gap-3 text-xs md:flex", getTextColor(background, 'muted'))}>
               <span>01</span>
               <Progress value={progress} className={cn("h-0.5 w-52", progressClassName)} />
               <span>0{slidesLength}</span>

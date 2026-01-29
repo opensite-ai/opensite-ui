@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg } from "../../../lib/utils";
+import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarImage } from "../../ui/avatar";
@@ -169,7 +169,7 @@ export function HeroGradientAvatarsRating({
     return (
       <Pressable
         href={topLinkHref}
-        className="my-6 text-xs font-bold tracking-[0.3em] text-muted-foreground uppercase hover:underline"
+        className={cn("my-6 text-xs font-bold tracking-[0.3em] uppercase hover:underline", getTextColor(background, "muted"))}
       >
         {topLinkText}
       </Pressable>
@@ -241,7 +241,7 @@ export function HeroGradientAvatarsRating({
         </div>
         {ratingLabel && (
           typeof ratingLabel === "string" ? (
-            <p className="text-sm font-medium text-muted-foreground">{ratingLabel}</p>
+            <p className={cn("text-sm font-medium", getTextColor(background, "muted"))}>{ratingLabel}</p>
           ) : (
             ratingLabel
           )
@@ -303,7 +303,7 @@ export function HeroGradientAvatarsRating({
                 {headingSubtitle && (
                   <>
                     <br />
-                    <span className="text-muted-foreground">{headingSubtitle}</span>
+                    <span className={getTextColor(background, "muted")}>{headingSubtitle}</span>
                   </>
                 )}
               </h1>
@@ -311,7 +311,7 @@ export function HeroGradientAvatarsRating({
 
             {description && (
               typeof description === "string" ? (
-                <p className={cn("my-8 max-w-xl text-muted-foreground lg:text-lg", descriptionClassName)}>
+                <p className={cn("my-8 max-w-xl lg:text-lg", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

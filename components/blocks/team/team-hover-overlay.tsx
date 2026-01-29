@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Card, CardContent } from "../../ui/card";
 import { Img } from "@page-speed/img";
@@ -244,7 +244,8 @@ export function TeamHoverOverlay({
             </h3>
             <p
               className={cn(
-                "text-muted-foreground mt-1 text-sm",
+                getTextColor(background, "muted"),
+                "mt-1 text-sm",
                 memberRoleClassName,
               )}
             >
@@ -264,6 +265,7 @@ export function TeamHoverOverlay({
     socialLinksClassName,
     memberNameClassName,
     memberRoleClassName,
+    background,
   ]);
 
   return (
@@ -297,7 +299,8 @@ export function TeamHoverOverlay({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-muted-foreground mt-1 text-lg",
+                getTextColor(background, "muted"),
+                "mt-1 text-lg",
                 descriptionClassName,
               )}
             >

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -189,7 +189,7 @@ export function HeroAiPoweredCarousel({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("mx-auto text-muted-foreground lg:text-lg", descriptionClassName)}>
+                <p className={cn("mx-auto lg:text-lg", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

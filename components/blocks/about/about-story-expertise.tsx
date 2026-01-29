@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
@@ -199,7 +199,7 @@ export function AboutStoryExpertise({
     if (!storyParagraphs || storyParagraphs.length === 0) return null;
 
     return (
-      <div className={cn("space-y-4 text-muted-foreground", storyClassName)}>
+      <div className={cn("space-y-4", getTextColor(background, 'muted'), storyClassName)}>
         {storyParagraphs.map((paragraph, idx) =>
           typeof paragraph === "string" ? (
             <p key={idx}>{paragraph}</p>
@@ -250,7 +250,7 @@ export function AboutStoryExpertise({
           <div>
             {highlight.label &&
               (typeof highlight.label === "string" ? (
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                <p className={cn("text-xs font-semibold uppercase tracking-[0.2em]", getTextColor(background, 'muted'))}>
                   {highlight.label}
                 </p>
               ) : (
@@ -268,7 +268,7 @@ export function AboutStoryExpertise({
         </div>
         {highlight.description &&
           (typeof highlight.description === "string" ? (
-            <p className="text-sm text-muted-foreground">
+            <p className={cn("text-sm", getTextColor(background, 'muted'))}>
               {highlight.description}
             </p>
           ) : (
@@ -298,7 +298,11 @@ export function AboutStoryExpertise({
             transition={{ duration: 0.3, delay: idx * 0.05 }}
             className="flex items-start gap-4 rounded-2xl bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <div className={cn(
+              "flex h-12 w-12 items-center justify-center rounded-xl",
+              getNestedCardBg(background, 'muted'),
+              getAccentColor(background),
+            )}>
               {area.icon}
             </div>
             <div>
@@ -312,7 +316,7 @@ export function AboutStoryExpertise({
                 ))}
               {area.description &&
                 (typeof area.description === "string" ? (
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className={cn("mt-1 text-sm", getTextColor(background, 'muted'))}>
                     {area.description}
                   </p>
                 ) : (
@@ -346,7 +350,8 @@ export function AboutStoryExpertise({
               (typeof eyebrow === "string" ? (
                 <p
                   className={cn(
-                    "text-sm font-semibold uppercase tracking-[0.2em] text-primary",
+                    "text-sm font-semibold uppercase tracking-[0.2em]",
+                    getAccentColor(background),
                     eyebrowClassName,
                   )}
                 >
@@ -410,7 +415,7 @@ export function AboutStoryExpertise({
         )}
       >
         <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+          <p className={cn("text-sm font-semibold uppercase tracking-[0.2em]", getAccentColor(background))}>
             Our Expertise
           </p>
           {expertiseHeading &&
@@ -432,7 +437,8 @@ export function AboutStoryExpertise({
             (typeof expertiseDescription === "string" ? (
               <p
                 className={cn(
-                  "mx-auto mt-3 max-w-2xl text-muted-foreground",
+                  "mx-auto mt-3 max-w-2xl",
+                  getTextColor(background, 'muted'),
                   expertiseDescriptionClassName,
                 )}
               >

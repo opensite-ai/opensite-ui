@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
 import { Section } from "../../ui/section";
@@ -145,7 +145,7 @@ export function HeroVideoBackgroundDark({
       <div className={cn("relative z-10 container mx-auto flex size-full max-w-3xl flex-col justify-center gap-4 lg:items-center lg:text-center", contentClassName)}>
         {badgeText && (
           typeof badgeText === "string" ? (
-            <span className="text-xs text-muted-foreground">
+            <span className={cn("text-xs", getTextColor(background, "muted"))}>
               {badgeText}
             </span>
           ) : (
@@ -165,7 +165,7 @@ export function HeroVideoBackgroundDark({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>
+            <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
               {description}
             </p>
           ) : (

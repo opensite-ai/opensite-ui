@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -206,7 +206,7 @@ export function CtaFeatureList({
                 <DynamicIcon
                   name={feature.iconName}
                   size={20}
-                  className="text-primary"
+                  className={getAccentColor(background)}
                 />
               ))}
             <span>{feature.text}</span>
@@ -268,7 +268,8 @@ export function CtaFeatureList({
               typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mb-6 text-muted-foreground lg:text-lg",
+                    "mb-6 lg:text-lg",
+                    getTextColor(background, 'muted'),
                     descriptionClassName
                   )}
                 >

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -239,7 +239,7 @@ export function HeroCommunitySurveyCta({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("mx-auto max-w-4xl text-muted-foreground lg:text-xl", descriptionClassName)}>
+            <p className={cn("mx-auto max-w-4xl lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
               {description}
             </p>
           ) : (

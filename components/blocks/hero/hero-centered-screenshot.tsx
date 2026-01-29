@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getBorderColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -138,7 +138,7 @@ export function HeroCenteredScreenshot({
       patternOpacity={patternOpacity}
       className={cn(className)}
     >
-      <div className="overflow-hidden border-b border-muted">
+      <div className={cn("overflow-hidden border-b", getBorderColor(background, "muted"))}>
         <div className={cn("container", containerClassName)}>
           <div className="mx-auto flex max-w-5xl flex-col items-center">
             <div className={cn("z-10 items-center text-center", contentClassName)}>
@@ -153,7 +153,7 @@ export function HeroCenteredScreenshot({
               )}
               {description && (
                 typeof description === "string" ? (
-                  <p className={cn("mx-auto max-w-3xl text-muted-foreground lg:text-xl", descriptionClassName)}>
+                  <p className={cn("mx-auto max-w-3xl lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                     {description}
                   </p>
                 ) : (

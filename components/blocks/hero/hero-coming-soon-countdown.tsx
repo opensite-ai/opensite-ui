@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Input } from "../../ui/input";
@@ -151,10 +151,10 @@ export function HeroComingSoonCountdown({
         )}>
           {item.value}
         </div>
-        <span className="mt-2 text-sm text-muted-foreground">{item.label}</span>
+        <span className={cn("mt-2 text-sm", getTextColor(background, "muted"))}>{item.label}</span>
       </div>
     ));
-  }, [countdownSlot, countdownItems]);
+  }, [countdownSlot, countdownItems, background]);
 
   const renderForm = useMemo(() => {
     if (formSlot) return formSlot;
@@ -167,7 +167,7 @@ export function HeroComingSoonCountdown({
         <Input
           type="email"
           placeholder={emailPlaceholder}
-          className="h-12 flex-1 bg-muted/30 border-border/50"
+          className={cn("h-12 flex-1 border-border/50", `${getNestedCardBg(background, "muted")}/30`)}
         />
         <Pressable
           asButton
@@ -194,12 +194,12 @@ export function HeroComingSoonCountdown({
       <Pressable
         key={index}
         href={link.href}
-        className={cn("text-muted-foreground hover:opacity-80", link.className)}
+        className={cn(getTextColor(background, "muted"), "hover:opacity-80", link.className)}
       >
         {link.icon ?? (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
       </Pressable>
     ));
-  }, [socialLinksSlot, socialLinks]);
+  }, [socialLinksSlot, socialLinks, background]);
 
   return (
     <Section
@@ -216,7 +216,7 @@ export function HeroComingSoonCountdown({
             getNestedCardTextColor(background),
             badgeClassName
           )}>
-            {badgeIcon && <DynamicIcon name={badgeIcon} size={16} className="text-primary" />}
+            {badgeIcon && <DynamicIcon name={badgeIcon} size={16} className={getAccentColor(background)} />}
             <span>{badgeText}</span>
           </div>
         )}
@@ -231,7 +231,7 @@ export function HeroComingSoonCountdown({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("mt-6 max-w-xl text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
+            <p className={cn("mt-6 max-w-xl text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
               {description}
             </p>
           ) : (

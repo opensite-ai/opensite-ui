@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Card } from "../../ui/card";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -231,7 +231,7 @@ export function CtaDocumentationLinks({
                 <div>
                   {link.title && <h5 className="mb-2 leading-4 font-medium">{link.title}</h5>}
                   {link.description && (
-                    <p className="text-sm text-muted-foreground">
+                    <p className={cn("text-sm", getTextColor(background, 'muted'))}>
                       {link.description}
                     </p>
                   )}
@@ -277,7 +277,7 @@ export function CtaDocumentationLinks({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-muted-foreground", descriptionClassName)}>
+                <p className={cn(getTextColor(background, 'muted'), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -249,7 +249,7 @@ export function CtaFeatureChecklist({
                 {description && (
                   typeof description === "string" ? (
                     <p
-                      className={cn("text-muted-foreground", descriptionClassName)}
+                      className={cn(getTextColor(background, 'muted'), descriptionClassName)}
                     >
                       {description}
                     </p>

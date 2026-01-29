@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -200,7 +200,7 @@ export function HeroEventRegistration({
         {stats.map((stat, index) => (
           <div key={index} className="text-center">
             <div className="text-2xl font-bold ">{stat.value}</div>
-            <div className="text-sm text-muted-foreground">{stat.label}</div>
+            <div className={cn("text-sm", getTextColor(background, "muted"))}>{stat.label}</div>
           </div>
         ))}
       </div>
@@ -214,11 +214,11 @@ export function HeroEventRegistration({
     return (
       <div className="absolute -bottom-4 -left-4 rounded-xl bg-background p-4 shadow-lg">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+          <div className={cn("flex h-12 w-12 items-center justify-center rounded-full", `${getAccentColor(background)}/10`)}>
             <DynamicIcon
               name="lucide/map-pin"
               size={24}
-              className="text-primary"
+              className={getAccentColor(background)}
             />
           </div>
           <div>
@@ -231,7 +231,7 @@ export function HeroEventRegistration({
             )}
             {locationSublabel && (
               typeof locationSublabel === "string" ? (
-                <div className="text-sm text-muted-foreground">{locationSublabel}</div>
+                <div className={cn("text-sm", getTextColor(background, "muted"))}>{locationSublabel}</div>
               ) : (
                 locationSublabel
               )
@@ -286,7 +286,7 @@ export function HeroEventRegistration({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>
+                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

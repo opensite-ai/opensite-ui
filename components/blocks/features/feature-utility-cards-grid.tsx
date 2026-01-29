@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getAccentColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -199,10 +199,10 @@ export function FeatureUtilityCardsGrid({
     if (labelIcon) return labelIcon;
     if (labelIconName)
       return (
-        <DynamicIcon name={labelIconName} size={20} className="text-primary" />
+        <DynamicIcon name={labelIconName} size={20} className={getAccentColor(background)} />
       );
     return null;
-  }, [labelIcon, labelIconName]);
+  }, [labelIcon, labelIconName, background]);
 
   const learnMoreContent = useMemo(() => {
     if (learnMoreSlot) return learnMoreSlot;
@@ -214,7 +214,8 @@ export function FeatureUtilityCardsGrid({
           href={learnMoreAction.href}
           onClick={learnMoreAction.onClick}
           className={cn(
-            "hover:text-primary hover:underline",
+            "hover:underline",
+            `hover:${getAccentColor(background)}`,
             learnMoreAction.className,
           )}
           aria-label={learnMoreAction["aria-label"]}
@@ -236,7 +237,7 @@ export function FeatureUtilityCardsGrid({
         {learnMoreAction.iconAfter}
       </Pressable>
     );
-  }, [learnMoreSlot, learnMoreAction]);
+  }, [learnMoreSlot, learnMoreAction, background]);
 
   const renderUtilityImage = React.useCallback(
     (utility: FeatureUtilityCardsGridItem) => {

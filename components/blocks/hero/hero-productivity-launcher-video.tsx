@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -172,7 +172,7 @@ export function HeroProductivityLauncherVideo({
     if (!versionInfo) return null;
 
     return (
-      <div className="flex gap-6 text-xs text-muted-foreground">
+      <div className={cn("flex gap-6 text-xs", getTextColor(background, "muted"))}>
         {versionInfo.version && <span>{versionInfo.version}</span>}
         {versionInfo.osRequirement && (
           <span className="relative before:absolute before:-left-3 before:content-['|']">
@@ -199,7 +199,7 @@ export function HeroProductivityLauncherVideo({
       >
         {secondaryCta.primaryText && <span>{secondaryCta.primaryText}</span>}
         {secondaryCta.secondaryText && (
-          <span className="flex items-center gap-1 text-muted-foreground">
+          <span className={cn("flex items-center gap-1", getTextColor(background, "muted"))}>
             <span>{secondaryCta.secondaryText}</span>
             <DynamicIcon
               name="lucide/arrow-right"
@@ -255,7 +255,7 @@ export function HeroProductivityLauncherVideo({
             <div className="max-w-90 md:max-w-full">
               {description && (
                 typeof description === "string" ? (
-                  <p className={cn("text-center text-sm leading-normal tracking-tight text-balance text-muted-foreground [text-shadow:0_4px_4px_rgba(0,0,0,0.25)] md:text-lg", descriptionClassName)}>
+                  <p className={cn("text-center text-sm leading-normal tracking-tight text-balance [text-shadow:0_4px_4px_rgba(0,0,0,0.25)] md:text-lg", getTextColor(background, "muted"), descriptionClassName)}>
                     {description}
                   </p>
                 ) : (

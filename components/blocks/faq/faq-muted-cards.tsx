@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import {
   Accordion,
   AccordionContent,
@@ -129,7 +129,7 @@ export function FaqMutedCards({
               {item.question}
             </AccordionTrigger>
             <AccordionContent
-              className={cn("text-muted-foreground", accordionContentClassName)}
+              className={cn(getTextColor(background, "muted"), accordionContentClassName)}
             >
               {item.answer}
             </AccordionContent>
@@ -144,6 +144,7 @@ export function FaqMutedCards({
     accordionItemClassName,
     accordionTriggerClassName,
     accordionContentClassName,
+    background,
   ]);
 
   return (

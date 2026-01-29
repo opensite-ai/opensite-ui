@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Form, useForm, Field } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -357,7 +357,8 @@ export function CtaAppDownloadNewsletter({
                 typeof appDescription === "string" ? (
                   <p
                     className={cn(
-                      "mb-8 text-muted-foreground",
+                      "mb-8",
+                      getTextColor(background, 'muted'),
                       appDescriptionClassName,
                     )}
                   >
@@ -407,7 +408,8 @@ export function CtaAppDownloadNewsletter({
               typeof newsletterDescription === "string" ? (
                 <p
                   className={cn(
-                    "mb-8 text-muted-foreground",
+                    "mb-8",
+                    getTextColor(background, 'muted'),
                     newsletterDescriptionClassName,
                   )}
                 >

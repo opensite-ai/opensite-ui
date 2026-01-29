@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -225,7 +225,7 @@ export function AboutLocationInfoHero({
                   <div key={itemIndex} className="flex flex-col">
                     {item.day &&
                       (typeof item.day === "string" ? (
-                        <span className="text-muted-foreground">{item.day}</span>
+                        <span className={getTextColor(background, 'muted')}>{item.day}</span>
                       ) : (
                         item.day
                       ))}
@@ -243,7 +243,7 @@ export function AboutLocationInfoHero({
         ))}
       </div>
     );
-  }, [hoursSectionsSlot, hoursSections, hoursSectionsClassName, accentColor]);
+  }, [hoursSectionsSlot, hoursSections, hoursSectionsClassName, accentColor, background]);
 
   const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;

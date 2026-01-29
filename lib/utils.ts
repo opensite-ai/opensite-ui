@@ -178,3 +178,197 @@ export function getNestedCardTextColor(
   // When using inverted background on dark parent, ensure text is visible
   return isDark ? "text-foreground" : "";
 }
+
+/**
+ * Text color variant types for dynamic theming
+ */
+export type TextColorVariant = "default" | "muted" | "subtle" | "accent";
+
+/**
+ * Get the appropriate text color class based on parent Section background.
+ *
+ * This utility provides **context-aware text coloring** that adapts to the parent
+ * Section's background to ensure optimal readability and visual hierarchy.
+ *
+ * **How it works:**
+ * - On **dark backgrounds** (dark, secondary, primary): Uses lighter text colors
+ * - On **light backgrounds** (default, white, gray, muted): Uses darker text colors
+ *
+ * **Variants:**
+ * - `default`: Primary text color (highest contrast)
+ * - `muted`: Secondary text color (medium contrast) - for descriptions, labels
+ * - `subtle`: Tertiary text color (lower contrast) - for captions, metadata
+ * - `accent`: Accent color - for emphasis, links, highlights
+ *
+ * @param parentBg - The parent Section's background variant
+ * @param variant - The type of text color to use (default: 'default')
+ * @param options - Optional configuration for manual override
+ * @returns Tailwind text color class string
+ *
+ * @example
+ * // Muted text for descriptions
+ * <p className={getTextColor(background, 'muted')}>
+ *   This is a description with reduced emphasis
+ * </p>
+ *
+ * @example
+ * // Accent text for links
+ * <a className={getTextColor(background, 'accent')}>
+ *   Learn more
+ * </a>
+ *
+ * @example
+ * // Manual override
+ * <span className={getTextColor(background, 'default', { override: 'text-blue-600' })}>
+ *   Custom color
+ * </span>
+ */
+export function getTextColor(
+  parentBg?: SectionBackground,
+  variant: TextColorVariant = "default",
+  options?: { override?: string },
+): string {
+  if (options?.override) return options.override;
+
+  const isDark =
+    parentBg === "dark" ||
+    parentBg === "secondary" ||
+    parentBg === "primary";
+
+  if (isDark) {
+    // For dark backgrounds, use lighter text colors
+    switch (variant) {
+      case "default":
+        return "text-foreground";
+      case "muted":
+        return "text-foreground/80";
+      case "subtle":
+        return "text-foreground/60";
+      case "accent":
+        return "text-accent-foreground";
+    }
+  } else {
+    // For light backgrounds, use darker text colors
+    switch (variant) {
+      case "default":
+        return "text-foreground";
+      case "muted":
+        return "text-muted-foreground";
+      case "subtle":
+        return "text-muted-foreground/70";
+      case "accent":
+        return "text-primary";
+    }
+  }
+}
+
+/**
+ * Get the appropriate accent color class based on parent Section background.
+ *
+ * This utility provides **context-aware accent coloring** for icons, decorations,
+ * and emphasis elements that need to stand out from the background.
+ *
+ * **How it works:**
+ * - On **dark backgrounds**: Uses lighter accent colors for visibility
+ * - On **light backgrounds**: Uses primary brand color for emphasis
+ *
+ * @param parentBg - The parent Section's background variant
+ * @param options - Optional configuration for manual override
+ * @returns Tailwind text color class string (for icons/SVGs)
+ *
+ * @example
+ * // Icon with dynamic accent color
+ * <DynamicIcon className={getAccentColor(background)} />
+ *
+ * @example
+ * // Decorative element
+ * <div className={cn(getAccentColor(background), "absolute top-0 right-0")}>
+ *   <CornerIllustration />
+ * </div>
+ */
+export function getAccentColor(
+  parentBg?: SectionBackground,
+  options?: { override?: string },
+): string {
+  if (options?.override) return options.override;
+
+  const isDark =
+    parentBg === "dark" ||
+    parentBg === "secondary" ||
+    parentBg === "primary";
+
+  // On dark backgrounds, use lighter accent; on light backgrounds, use primary
+  return isDark ? "text-accent-foreground" : "text-primary";
+}
+
+/**
+ * Border color variant types for dynamic theming
+ */
+export type BorderColorVariant = "default" | "muted" | "accent";
+
+/**
+ * Get the appropriate border color class based on parent Section background.
+ *
+ * This utility provides **context-aware border coloring** that adapts to the parent
+ * Section's background to ensure borders remain visible and aesthetically pleasing.
+ *
+ * **How it works:**
+ * - On **dark backgrounds**: Uses lighter border colors for visibility
+ * - On **light backgrounds**: Uses subtle border colors for elegance
+ *
+ * **Variants:**
+ * - `default`: Standard border color (subtle, elegant)
+ * - `muted`: Very subtle border (minimal contrast)
+ * - `accent`: Accent-colored border (for emphasis)
+ *
+ * @param parentBg - The parent Section's background variant
+ * @param variant - The type of border color to use (default: 'default')
+ * @param options - Optional configuration for manual override
+ * @returns Tailwind border color class string
+ *
+ * @example
+ * // Card with dynamic border
+ * <div className={cn(getBorderColor(background), "border rounded-lg p-6")}>
+ *   Content
+ * </div>
+ *
+ * @example
+ * // Accent border for emphasis
+ * <div className={cn(getBorderColor(background, 'accent'), "border-2 rounded-lg")}>
+ *   Featured content
+ * </div>
+ */
+export function getBorderColor(
+  parentBg?: SectionBackground,
+  variant: BorderColorVariant = "default",
+  options?: { override?: string },
+): string {
+  if (options?.override) return options.override;
+
+  const isDark =
+    parentBg === "dark" ||
+    parentBg === "secondary" ||
+    parentBg === "primary";
+
+  if (isDark) {
+    // For dark backgrounds, use lighter borders
+    switch (variant) {
+      case "default":
+        return "border-foreground/20";
+      case "muted":
+        return "border-foreground/10";
+      case "accent":
+        return "border-accent-foreground";
+    }
+  } else {
+    // For light backgrounds, use subtle borders
+    switch (variant) {
+      case "default":
+        return "border-border";
+      case "muted":
+        return "border-muted";
+      case "accent":
+        return "border-primary";
+    }
+  }
+}

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 
@@ -196,7 +196,8 @@ export function HeroWelcomeAsymmetricImages({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mb-12 max-w-[70%] text-xl font-normal text-muted-foreground",
+                    "mb-12 max-w-[70%] text-xl font-normal",
+                    getTextColor(background, "muted"),
                     descriptionClassName,
                   )}
                 >
@@ -205,7 +206,8 @@ export function HeroWelcomeAsymmetricImages({
               ) : (
                 <div
                   className={cn(
-                    "mb-12 max-w-[70%] text-xl font-normal text-muted-foreground",
+                    "mb-12 max-w-[70%] text-xl font-normal",
+                    getTextColor(background, "muted"),
                     descriptionClassName,
                   )}
                 >

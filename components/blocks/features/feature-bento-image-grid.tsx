@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -378,9 +378,9 @@ export function FeatureBentoImageGrid({
       )}
       {description && (
         typeof description === "string" ? (
-          <p className={cn("text-center text-muted-foreground", descriptionClassName)}>{description}</p>
+          <p className={cn("text-center", getTextColor(background, 'muted'), descriptionClassName)}>{description}</p>
         ) : (
-          <div className={cn("text-center text-muted-foreground", descriptionClassName)}>{description}</div>
+          <div className={cn("text-center", getTextColor(background, 'muted'), descriptionClassName)}>{description}</div>
         )
       )}
       <div className={cn("grid grid-cols-1 gap-y-5 pt-14 xl:grid-cols-3 xl:grid-rows-2 xl:gap-x-5 xl:gap-y-0", gridClassName)}>

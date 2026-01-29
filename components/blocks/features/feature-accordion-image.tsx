@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import {
   Accordion,
@@ -194,7 +194,7 @@ export function FeatureAccordionImage({
           </AccordionTrigger>
         )}
         {item.content && (
-          <AccordionContent className={cn("text-muted-foreground", item.contentClassName)}>
+          <AccordionContent className={cn(getTextColor(background, 'muted'), item.contentClassName)}>
             {item.content}
           </AccordionContent>
         )}
@@ -242,11 +242,11 @@ export function FeatureAccordionImage({
           )}
           {description && (
             typeof description === "string" ? (
-              <p className={cn("mt-4 text-muted-foreground lg:text-lg", descriptionClassName)}>
+              <p className={cn("mt-4 lg:text-lg", getTextColor(background, 'muted'), descriptionClassName)}>
                 {description}
               </p>
             ) : (
-              <div className={cn("mt-4 text-muted-foreground lg:text-lg", descriptionClassName)}>
+              <div className={cn("mt-4 lg:text-lg", getTextColor(background, 'muted'), descriptionClassName)}>
                 {description}
               </div>
             )

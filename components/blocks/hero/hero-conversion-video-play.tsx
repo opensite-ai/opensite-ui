@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { Fragment, useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getBorderColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -224,7 +224,7 @@ export function HeroConversionVideoPlay({
       patternOpacity={patternOpacity}
       className={cn(className)}
     >
-        <div className="overflow-hidden border-b border-muted">
+        <div className={cn("overflow-hidden border-b", getBorderColor(background, "muted"))}>
           <div className={cn("container", containerClassName)}>
             <div className="flex flex-col items-center gap-16 md:gap-24">
               <div className={cn("flex flex-col items-center gap-8", contentClassName)}>
@@ -240,7 +240,7 @@ export function HeroConversionVideoPlay({
                   )}
                   {description && (
                     typeof description === "string" ? (
-                      <p className={cn("max-w-[750px] text-center text-base leading-relaxed font-normal text-muted-foreground md:text-xl", descriptionClassName)}>
+                      <p className={cn("max-w-[750px] text-center text-base leading-relaxed font-normal md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                         {description}
                       </p>
                     ) : (
@@ -276,7 +276,7 @@ export function HeroConversionVideoPlay({
           <div className={cn("flex flex-col items-center gap-16 py-20", logosClassName)}>
             {logosTagline && (
               typeof logosTagline === "string" ? (
-                <p className="text-center text-xl font-medium text-primary">
+                <p className={cn("text-center text-xl font-medium", getAccentColor(background))}>
                   {logosTagline}
                 </p>
               ) : (

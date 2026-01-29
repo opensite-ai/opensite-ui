@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg } from "../../../lib/utils";
+import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -137,7 +137,7 @@ export function HeroSpiralPatternCards({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("mb-6 max-w-xl text-muted-foreground md:mb-12 lg:text-xl", descriptionClassName)}>
+            <p className={cn("mb-6 max-w-xl md:mb-12 lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
               {description}
             </p>
           ) : (
@@ -153,7 +153,7 @@ export function HeroSpiralPatternCards({
               xmlns="http://www.w3.org/2000/svg"
               version="1.1"
               viewBox="0 0 800 800"
-              className="h-full w-full text-muted-foreground opacity-20"
+              className={cn("h-full w-full opacity-20", getTextColor(background, "muted"))}
             >
               {Array.from(Array(4000).keys()).map((dot, index, array) => {
                 const angle = 0.2 * index;

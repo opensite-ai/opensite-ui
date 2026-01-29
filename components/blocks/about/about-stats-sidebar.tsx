@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { FeatureItem, StatItem, SectionBackground, SectionSpacing } from "../../../src/types";
@@ -126,7 +126,7 @@ export function AboutStatsSidebar({
             )}
             {stat.description && (
               typeof stat.description === "string" ? (
-                <p className="mt-2 text-sm text-muted-foreground">{stat.description}</p>
+                <p className={cn("mt-2 text-sm", getTextColor(background, 'muted'))}>{stat.description}</p>
               ) : (
                 <div className="mt-2">{stat.description}</div>
               )
@@ -158,7 +158,7 @@ export function AboutStatsSidebar({
               )}
               {feature.description && (
                 typeof feature.description === "string" ? (
-                  <p className="text-muted-foreground">{feature.description}</p>
+                  <p className={getTextColor(background, 'muted')}>{feature.description}</p>
                 ) : (
                   feature.description
                 )
@@ -192,7 +192,7 @@ export function AboutStatsSidebar({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>{description}</p>
+                <p className={cn("mt-4 text-lg", getTextColor(background, 'muted'), descriptionClassName)}>{description}</p>
               ) : (
                 <div className={cn("mt-4", descriptionClassName)}>{description}</div>
               )

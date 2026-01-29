@@ -7,6 +7,7 @@ import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   Sheet,
   SheetContent,
@@ -25,7 +26,7 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
-import type { ImageItem, LogoItem, OptixFlowConfig } from "../../../src/types";
+import type { ImageItem, LogoItem, OptixFlowConfig, SectionBackground } from "../../../src/types";
 
 export interface OfferModalSheetNewsletterProps {
   /**
@@ -210,6 +211,11 @@ export interface OfferModalSheetNewsletterProps {
    * Optional configuration for OptixFlow image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style variant for the section
+   * @default "default"
+   */
+  background?: SectionBackground;
 }
 
 /**
@@ -269,6 +275,7 @@ export function OfferModalSheetNewsletter({
   imageWrapperClassName,
   imageClassName,
   optixFlowConfig,
+  background = "default",
 }: OfferModalSheetNewsletterProps): React.JSX.Element {
   const form = useForm<{ email: string }>({
     initialValues: {
@@ -459,16 +466,18 @@ export function OfferModalSheetNewsletter({
           className
         )}
       >
-        <div className={cn("max-h-full overflow-y-auto", contentClassName)}>
-          <div className="space-y-4 p-6 md:p-16">
-            <div className="basis-1/2 space-y-8">
-              {renderHeader}
-              {renderForm}
+        <Section background={background} spacing="none">
+          <div className={cn("max-h-full overflow-y-auto", contentClassName)}>
+            <div className="space-y-4 p-6 md:p-16">
+              <div className="basis-1/2 space-y-8">
+                {renderHeader}
+                {renderForm}
+              </div>
+              {renderLegal}
             </div>
-            {renderLegal}
+            {renderImage}
           </div>
-          {renderImage}
-        </div>
+        </Section>
       </SheetContent>
     </Sheet>
   );

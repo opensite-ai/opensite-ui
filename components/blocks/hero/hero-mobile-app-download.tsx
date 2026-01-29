@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -232,10 +232,10 @@ export function HeroMobileAppDownload({
       <div className="flex items-center gap-4 pt-4">
         <div className="flex items-center gap-1">
           {[...Array(starCount)].map((_, i) => (
-            <DynamicIcon key={i} name="lucide/star" size={16} className="fill-primary text-primary" />
+            <DynamicIcon key={i} name="lucide/star" size={16} className={cn("fill-current", getAccentColor(background))} />
           ))}
         </div>
-        <span className="text-sm text-muted-foreground">
+        <span className={cn("text-sm", getTextColor(background, "muted"))}>
           {ratingValue} {ratingLabel}
         </span>
       </div>
@@ -260,7 +260,7 @@ export function HeroMobileAppDownload({
           )}
           <div>
             {notification.title && <div className="font-semibold ">{notification.title}</div>}
-            {notification.subtitle && <div className="text-xs text-muted-foreground">{notification.subtitle}</div>}
+            {notification.subtitle && <div className={cn("text-xs", getTextColor(background, "muted"))}>{notification.subtitle}</div>}
           </div>
         </div>
       </div>
@@ -311,7 +311,7 @@ export function HeroMobileAppDownload({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>
+                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

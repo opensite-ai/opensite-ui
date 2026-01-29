@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
@@ -236,10 +236,10 @@ export function FeatureChecklistThreeColumn({
     if (!items || items.length === 0) return null;
 
     return (
-      <ul className={cn("flex flex-col text-muted-foreground", gapClass, checklistClassName)}>
+      <ul className={cn("flex flex-col", getTextColor(background, 'muted'), gapClass, checklistClassName)}>
         {items.map((item, index) => (
           <li key={index} className={cn("flex items-center gap-2", getCheckItemClassName(item))}>
-            <DynamicIcon name="lucide/check" size={16} className="text-primary" />
+            <DynamicIcon name="lucide/check" size={16} className={getAccentColor(background)} />
             {getCheckItemContent(item)}
           </li>
         ))}
@@ -306,21 +306,21 @@ export function FeatureChecklistThreeColumn({
             )}
             {card.description && (
               typeof card.description === "string" ? (
-                <p className={cn("text-muted-foreground", card.descriptionClassName)}>{card.description}</p>
+                <p className={cn(getTextColor(background, 'muted'), card.descriptionClassName)}>{card.description}</p>
               ) : (
-                <div className={cn("text-muted-foreground", card.descriptionClassName)}>{card.description}</div>
+                <div className={cn(getTextColor(background, 'muted'), card.descriptionClassName)}>{card.description}</div>
               )
             )}
           </div>
           <div className="h-px border-t border-dashed"></div>
-          <ul className="text-muted-foreground">
+          <ul className={getTextColor(background, 'muted')}>
             {card.checklistItems?.map((item, itemIndex) => (
               <React.Fragment key={itemIndex}>
                 <li className={cn("flex items-start gap-2 px-4 py-3 sm:px-5 md:px-6", getCheckItemClassName(item))}>
                   <DynamicIcon
                     name="lucide/check"
                     size={16}
-                    className="mt-1 shrink-0 text-primary"
+                    className={cn("mt-1 shrink-0", getAccentColor(background))}
                   />
                   {getCheckItemContent(item)}
                 </li>

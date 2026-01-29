@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarImage } from "../../ui/avatar";
@@ -290,9 +290,9 @@ export function FeatureImageCardsThreeColumn({
       )}
       {description && (
         typeof description === "string" ? (
-          <p className={cn("text-center text-muted-foreground", descriptionClassName)}>{description}</p>
+          <p className={cn("text-center", getTextColor(background, 'muted'), descriptionClassName)}>{description}</p>
         ) : (
-          <div className={cn("text-center text-muted-foreground", descriptionClassName)}>{description}</div>
+          <div className={cn("text-center", getTextColor(background, 'muted'), descriptionClassName)}>{description}</div>
         )
       )}
       <div className={cn("grid gap-5 pt-14 xl:grid-cols-3", gridClassName)}>

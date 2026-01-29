@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -168,14 +168,15 @@ export function AboutDeveloperProfile({
         href={link.href}
         aria-label={link["aria-label"]}
         className={cn(
-          "text-muted-foreground hover:text-primary",
+          getTextColor(background, 'muted'),
+          `hover:${getAccentColor(background)}`,
           link.className,
         )}
       >
         {link.icon}
       </Pressable>
     ));
-  }, [socialLinksSlot, socialLinks]);
+  }, [socialLinksSlot, socialLinks, background]);
 
   const skillsContent = useMemo(() => {
     if (skillsSlot) return skillsSlot;
@@ -194,7 +195,7 @@ export function AboutDeveloperProfile({
         {skill}
       </span>
     ));
-  }, [skillsSlot, skills, skillTagClassName]);
+  }, [skillsSlot, skills, skillTagClassName, background]);
 
   const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -261,7 +262,7 @@ export function AboutDeveloperProfile({
               ))}
             {role &&
               (typeof role === "string" ? (
-                <p className={cn("mt-2 text-xl text-primary", roleClassName)}>
+                <p className={cn("mt-2 text-xl", getAccentColor(background), roleClassName)}>
                   {role}
                 </p>
               ) : (
@@ -285,7 +286,8 @@ export function AboutDeveloperProfile({
             {typeof bio === "string" ? (
               <p
                 className={cn(
-                  "text-lg text-muted-foreground whitespace-pre-line",
+                  "text-lg whitespace-pre-line",
+                  getTextColor(background, 'muted'),
                   bioClassName,
                 )}
               >

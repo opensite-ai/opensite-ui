@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -300,7 +300,8 @@ export function CtaGradientLogosFloating({
               typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mb-8 text-lg text-muted-foreground",
+                    "mb-8 text-lg",
+                    getTextColor(background, 'muted'),
                     descriptionClassName,
                   )}
                 >

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -275,7 +275,7 @@ export function AboutCultureTabs({
         <div className={cn("mx-auto mb-12 max-w-3xl space-y-4 text-center", headerClassName)}>
           {badgeText && (
             typeof badgeText === "string" ? (
-              <div className={cn("inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary", badgeClassName)}>
+              <div className={cn("inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm", getAccentColor(background), badgeClassName)}>
                 {badgeText}
               </div>
             ) : (
@@ -291,7 +291,7 @@ export function AboutCultureTabs({
           )}
           {description && (
             typeof description === "string" ? (
-              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
+              <p className={cn(getTextColor(background, 'muted'), descriptionClassName)}>{description}</p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
             )
@@ -313,7 +313,7 @@ export function AboutCultureTabs({
                   <TabsTrigger
                     key={aspect.id}
                     value={aspect.id}
-                    className="px-3 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                    className={cn("px-3 py-2.5", `data-[state=active]:${getAccentColor(background)}`, "data-[state=active]:text-primary-foreground")}
                   >
                     {aspect.title}
                   </TabsTrigger>
@@ -326,7 +326,7 @@ export function AboutCultureTabs({
                 <div className="grid gap-6 md:grid-cols-2">
                   <div className="space-y-4">
                     <h3 className="text-2xl font-bold tracking-tight">{aspect.title}</h3>
-                    <p className="leading-relaxed text-muted-foreground">
+                    <p className={cn("leading-relaxed", getTextColor(background, 'muted'))}>
                       {aspect.description}
                     </p>
                   </div>
@@ -336,9 +336,9 @@ export function AboutCultureTabs({
                       <DynamicIcon
                         name="lucide/quote"
                         size={32}
-                        className="text-primary/40"
+                        className={cn(getAccentColor(background), "opacity-40")}
                       />
-                      <p className="italic text-muted-foreground">
+                      <p className={cn("italic", getTextColor(background, 'muted'))}>
                         &quot;{aspect.testimonial.quote}&quot;
                       </p>
                       <div className="flex items-center gap-3 pt-2">
@@ -354,7 +354,7 @@ export function AboutCultureTabs({
                           <h4 className="text-sm font-medium">
                             {aspect.testimonial.author}
                           </h4>
-                          <p className="text-xs text-muted-foreground">
+                          <p className={cn("text-xs", getTextColor(background, 'muted'))}>
                             {aspect.testimonial.role}
                           </p>
                         </div>
@@ -395,7 +395,7 @@ export function AboutCultureTabs({
               )}
               {ctaDescription && (
                 typeof ctaDescription === "string" ? (
-                  <p className={cn("mb-6 text-muted-foreground", ctaDescriptionClassName)}>{ctaDescription}</p>
+                  <p className={cn("mb-6", getTextColor(background, 'muted'), ctaDescriptionClassName)}>{ctaDescription}</p>
                 ) : (
                   <div className={cn("mb-6", ctaDescriptionClassName)}>{ctaDescription}</div>
                 )

@@ -2,7 +2,13 @@
 
 import * as React from "react";
 import { useState, useCallback, useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+  getTextColor,
+  getBorderColor,
+} from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -239,13 +245,6 @@ export interface LinkTreeBlockProps {
    */
   footerClassName?: string;
   /**
-   * Theme variation for the component.
-   * - "light": Light background with dark text (default)
-   * - "dark": Dark background with light text
-   * - "glass": Glassmorphism effect with gradient background
-   */
-  theme?: "light" | "dark" | "glass";
-  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -319,8 +318,8 @@ export function LinkTreeBlock({
   brandName,
   brandTagline,
   brandLogo,
-  brandAvatar = blockBrandedIconsAndPlaceholders.avatar1,
-  brandVerified = true,
+  brandAvatar,
+  brandVerified = false,
   verifiedIcon,
   brandSlot,
   links,
@@ -361,19 +360,16 @@ export function LinkTreeBlock({
   socialLinkClassName,
   socialIconClassName,
   footerClassName,
-  theme = "light",
-  background,
+  background = "gray",
   spacing,
   pattern,
   patternOpacity,
   patternClassName,
-  backgroundPattern = "dotPattern",
+  backgroundPattern,
   accentColor,
   optixFlowConfig,
 }: LinkTreeBlockProps): React.JSX.Element {
-  const isDark = theme === "dark";
-  const isGlass = theme === "glass";
-  const resolvedBackground = background ?? (isDark ? "dark" : "gray");
+  const resolvedBackground = background;
   const resolvedPattern = pattern ?? backgroundPattern;
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -454,10 +450,7 @@ export function LinkTreeBlock({
                 <DynamicIcon
                   name="lucide/check"
                   size={14}
-                  className={cn(
-                    "text-primary-foreground",
-                    verifiedIconClassName,
-                  )}
+                  className={cn("", verifiedIconClassName)}
                 />
               )}
             </div>
@@ -482,7 +475,8 @@ export function LinkTreeBlock({
             (typeof brandTagline === "string" ? (
               <p
                 className={cn(
-                  "max-w-xs text-balance text-sm text-muted-foreground",
+                  "max-w-xs text-balance text-sm",
+                  getTextColor(resolvedBackground, 'muted'),
                   taglineClassName,
                 )}
               >
@@ -494,7 +488,22 @@ export function LinkTreeBlock({
         </div>
       </div>
     );
-  }, [brandSlot, headerClassName, avatarClassName, resolvedAvatar, optixFlowConfig, brandVerified, verifiedBadgeClassName, verifiedIcon, verifiedIconClassName, brandName, isDark, nameClassName, brandTagline, taglineClassName]);
+  }, [
+    brandSlot,
+    headerClassName,
+    avatarClassName,
+    resolvedAvatar,
+    optixFlowConfig,
+    brandVerified,
+    verifiedBadgeClassName,
+    verifiedIcon,
+    verifiedIconClassName,
+    brandName,
+    resolvedBackground,
+    nameClassName,
+    brandTagline,
+    taglineClassName,
+  ]);
 
   const renderLinks = useMemo(() => {
     if (linksSlot) return linksSlot;
@@ -536,11 +545,7 @@ export function LinkTreeBlock({
                   "hover:scale-[1.02] active:scale-[0.98]",
                   isFeatured
                     ? "bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
-                    : isDark
-                      ? "border border-border/10 bg-muted/10 hover:bg-muted/20"
-                      : isGlass
-                        ? "border border-border/30 bg-card/60 backdrop-blur-sm hover:bg-card/80"
-                        : "border border-border bg-card hover:bg-accent",
+                    : "border border-border bg-card hover:bg-accent",
                   linkClassName,
                   isFeatured ? featuredLinkClassName : null,
                   linkItemClassName,
@@ -560,11 +565,7 @@ export function LinkTreeBlock({
                 "hover:scale-[1.02] active:scale-[0.98]",
                 isFeatured
                   ? "bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
-                  : isDark
-                    ? "border border-border/10 bg-muted/10 hover:bg-muted/20"
-                    : isGlass
-                      ? "border border-border/30 bg-card/60 backdrop-blur-sm hover:bg-card/80"
-                      : "border border-border bg-card hover:bg-accent",
+                  : "border border-border bg-card hover:bg-accent",
                 linkClassName,
                 isFeatured ? featuredLinkClassName : null,
                 linkItemClassName,
@@ -594,7 +595,7 @@ export function LinkTreeBlock({
                         "mt-0.5 block truncate text-xs",
                         isFeatured
                           ? "text-primary-foreground/70"
-                          : "text-muted-foreground",
+                          : getTextColor(resolvedBackground, 'muted'),
                         linkDescriptionClassName,
                       )}
                     >
@@ -623,7 +624,7 @@ export function LinkTreeBlock({
                   "shrink-0 transition-transform group-hover:translate-x-0.5",
                   isFeatured
                     ? "text-primary-foreground/70"
-                    : "text-muted-foreground",
+                    : getTextColor(resolvedBackground, 'muted'),
                   linkChevronClassName,
                 )}
               />
@@ -632,7 +633,19 @@ export function LinkTreeBlock({
         })}
       </div>
     );
-  }, [linksSlot, links, linksClassName, linkIconClassName, isDark, isGlass, linkClassName, featuredLinkClassName, linkLabelClassName, linkDescriptionClassName, linkBadgeClassName, linkChevronClassName]);
+  }, [
+    linksSlot,
+    links,
+    linksClassName,
+    linkIconClassName,
+    resolvedBackground,
+    linkClassName,
+    featuredLinkClassName,
+    linkLabelClassName,
+    linkDescriptionClassName,
+    linkBadgeClassName,
+    linkChevronClassName,
+  ]);
 
   const renderMediaGallery = useMemo(() => {
     if (mediaGallerySlot) return mediaGallerySlot;
@@ -646,7 +659,7 @@ export function LinkTreeBlock({
           (typeof mediaGalleryTitle === "string" ? (
             <h3
               className={cn(
-                "text-center text-sm font-medium text-muted-foreground",
+                "text-center text-sm font-medium ",
                 mediaGalleryTitleClassName,
               )}
             >
@@ -667,7 +680,8 @@ export function LinkTreeBlock({
               className={cn(
                 "group relative aspect-square overflow-hidden rounded-lg cursor-pointer",
                 "transition-all duration-200 hover:scale-[1.02]",
-                isDark ? "ring-1 ring-white/10" : "ring-1 ring-border",
+                "ring-1",
+                getBorderColor(resolvedBackground, 'muted'),
                 mediaGalleryItemClassName,
                 item.className,
               )}
@@ -724,7 +738,7 @@ export function LinkTreeBlock({
                     name="lucide/play"
                     size={24}
                     className={cn(
-                      "text-background opacity-0 transition-opacity group-hover:opacity-100",
+                      " opacity-0 transition-opacity group-hover:opacity-100",
                       mediaGalleryPlayIconClassName,
                     )}
                   />
@@ -735,7 +749,21 @@ export function LinkTreeBlock({
         </div>
       </div>
     );
-  }, [mediaGallerySlot, mediaGallery, mediaGalleryLimit, mediaGalleryClassName, mediaGalleryTitle, isDark, mediaGalleryTitleClassName, mediaGalleryGridClassName, mediaGalleryItemClassName, handleMediaClick, mediaGalleryMediaClassName, optixFlowConfig, mediaGalleryOverlayClassName, mediaGalleryPlayIconClassName]);
+  }, [
+    mediaGallerySlot,
+    mediaGallery,
+    mediaGalleryLimit,
+    mediaGalleryClassName,
+    mediaGalleryTitle,
+    mediaGalleryTitleClassName,
+    mediaGalleryGridClassName,
+    mediaGalleryItemClassName,
+    handleMediaClick,
+    mediaGalleryMediaClassName,
+    optixFlowConfig,
+    mediaGalleryOverlayClassName,
+    mediaGalleryPlayIconClassName,
+  ]);
 
   const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
@@ -749,11 +777,12 @@ export function LinkTreeBlock({
         )}
       >
         {socialLinks.map((social, index) => {
+          const { iconName, ...socialPressableProps } = social;
           const icon =
             social.icon ||
-            (social.iconName ? (
+            (iconName ? (
               <DynamicIcon
-                name={social.iconName}
+                name={iconName}
                 size={20}
                 className={socialIconClassName}
               />
@@ -766,18 +795,13 @@ export function LinkTreeBlock({
           return (
             <Pressable
               key={social.id ?? index}
-              href={social.href}
+              {...socialPressableProps}
               aria-label={ariaLabel}
               className={cn(
                 "flex h-12 w-12 items-center justify-center rounded-full p-2.5 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
                 getNestedCardBg(resolvedBackground),
                 getNestedCardTextColor(resolvedBackground),
-                isDark
-                  ? "hover:bg-muted/20"
-                  : isGlass
-                    ? "backdrop-blur-sm hover:bg-card/80"
-                    : "hover:bg-accent",
                 socialLinkClassName,
                 social.className,
               )}
@@ -788,7 +812,14 @@ export function LinkTreeBlock({
         })}
       </div>
     );
-  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, isDark, isGlass, socialLinkClassName]);
+  }, [
+    socialLinksSlot,
+    socialLinks,
+    socialLinksClassName,
+    socialIconClassName,
+    resolvedBackground,
+    socialLinkClassName,
+  ]);
 
   const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
@@ -814,7 +845,6 @@ export function LinkTreeBlock({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          "text-muted-foreground/60",
           footerClassName,
           actionClassName,
         )}
@@ -829,20 +859,13 @@ export function LinkTreeBlock({
         )}
       </Pressable>
     );
-  }, [footerSlot, footerAction, isDark, footerClassName]);
+  }, [footerSlot, footerAction, footerClassName]);
 
   return (
     <Section
       background={resolvedBackground}
       spacing={spacing}
-      className={cn(
-        theme === "dark"
-          ? "bg-foreground"
-          : theme === "glass"
-            ? "bg-gradient-to-br from-muted/50 via-background to-muted/30"
-            : "bg-muted/30",
-        className,
-      )}
+      className={className}
       pattern={resolvedPattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}

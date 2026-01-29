@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import type {ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -155,7 +155,7 @@ export function HeroSimpleCenteredImage({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("mb-6 max-w-xl text-muted-foreground lg:mb-12 lg:text-2xl", descriptionClassName)}>
+            <p className={cn("mb-6 max-w-xl lg:mb-12 lg:text-2xl", getTextColor(background, "muted"), descriptionClassName)}>
               {description}
             </p>
           ) : (

@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
@@ -219,10 +219,6 @@ export interface LinkPageNewsletterSocialProps {
    */
   footerClassName?: string;
   /**
-   * Theme variation: "light" or "dark"
-   */
-  theme?: "light" | "dark";
-  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -385,8 +381,7 @@ export function LinkPageNewsletterSocial({
   linkLabelClassName,
   linkChevronClassName,
   footerClassName,
-  theme = "light",
-  background,
+  background = "white",
   spacing,
   pattern,
   patternOpacity,
@@ -397,8 +392,7 @@ export function LinkPageNewsletterSocial({
   onError,
   optixFlowConfig,
 }: LinkPageNewsletterSocialProps): React.JSX.Element {
-  const isDark = theme === "dark";
-  const resolvedBackground = background ?? (isDark ? "dark" : "white");
+  const resolvedBackground = background;
 
   const resolvedAvatar: ImageItem | undefined =
     avatar ||
@@ -511,7 +505,8 @@ export function LinkPageNewsletterSocial({
             (typeof bio === "string" ? (
               <p
                 className={cn(
-                  "max-w-xs text-sm text-muted-foreground",
+                  "max-w-xs text-sm",
+                  getTextColor(resolvedBackground, 'muted'),
                   bioClassName,
                 )}
               >
@@ -523,7 +518,7 @@ export function LinkPageNewsletterSocial({
         </div>
       </div>
     );
-  }, [profileSlot, resolvedAvatar, avatarClassName, optixFlowConfig, name, isDark, nameClassName, bio, bioClassName, headerClassName]);
+  }, [profileSlot, resolvedAvatar, avatarClassName, optixFlowConfig, name, resolvedBackground, nameClassName, bio, bioClassName, headerClassName]);
 
   const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
@@ -537,11 +532,12 @@ export function LinkPageNewsletterSocial({
         )}
       >
         {socialLinks.map((social, index) => {
+          const { iconName, ...socialPressableProps } = social;
           const icon =
             social.icon ||
-            (social.iconName ? (
+            (iconName ? (
               <DynamicIcon
-                name={social.iconName}
+                name={iconName}
                 size={20}
                 className={socialIconClassName}
               />
@@ -554,16 +550,14 @@ export function LinkPageNewsletterSocial({
           return (
             <Pressable
               key={social.id ?? index}
-              href={social.href}
+              {...socialPressableProps}
               aria-label={ariaLabel}
               className={cn(
                 "rounded-full p-2.5 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
                 getNestedCardBg(resolvedBackground),
                 getNestedCardTextColor(resolvedBackground),
-                isDark
-                  ? "hover:bg-muted/20"
-                  : "hover:bg-muted/80",
+                "hover:opacity-80",
                 socialLinkClassName,
                 social.className,
               )}
@@ -574,7 +568,7 @@ export function LinkPageNewsletterSocial({
         })}
       </div>
     );
-  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, isDark, socialLinkClassName]);
+  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, resolvedBackground, socialLinkClassName]);
 
   const renderFormFields = useMemo(() => {
     if (formSlot) return formSlot;
@@ -599,8 +593,6 @@ export function LinkPageNewsletterSocial({
               error={meta.touched && !!meta.error}
               className={cn(
                 "w-full",
-                isDark &&
-                  "border-border/20 bg-muted/10 placeholder:text-muted-foreground/50",
                 inputClassName,
               )}
               aria-label={emailPlaceholder || "Email address"}
@@ -634,7 +626,7 @@ export function LinkPageNewsletterSocial({
         </Pressable>
       </>
     );
-  }, [formSlot, resolvedSubmitAction, emailPlaceholder, isDark, inputClassName, submitButtonClassName, form.isSubmitting, submittingIcon, submittingLabel]);
+  }, [formSlot, resolvedSubmitAction, emailPlaceholder, inputClassName, submitButtonClassName, form.isSubmitting, submittingIcon, submittingLabel]);
 
   const renderNewsletter = useMemo(() => {
     if (newsletterSlot) return newsletterSlot;
@@ -643,9 +635,7 @@ export function LinkPageNewsletterSocial({
       <div
         className={cn(
           "space-y-4 rounded-2xl p-6",
-          isDark
-            ? "border border-border/10 bg-muted/5"
-            : "border border-border bg-card shadow-sm",
+          "border border-border bg-card shadow-sm",
           newsletterCardClassName,
         )}
       >
@@ -669,7 +659,8 @@ export function LinkPageNewsletterSocial({
             (typeof newsletterDescription === "string" ? (
               <p
                 className={cn(
-                  "text-sm text-muted-foreground",
+                  "text-sm",
+                  getTextColor(resolvedBackground, 'muted'),
                   newsletterDescriptionClassName,
                 )}
               >
@@ -692,7 +683,7 @@ export function LinkPageNewsletterSocial({
         </Form>
       </div>
     );
-  }, [newsletterSlot, isDark, newsletterCardClassName, newsletterHeading, newsletterHeadingClassName, newsletterDescription, newsletterDescriptionClassName, form, formConfig?.endpoint, formMethod, formClassName, renderFormFields]);
+  }, [newsletterSlot, newsletterCardClassName, newsletterHeading, newsletterHeadingClassName, newsletterDescription, resolvedBackground, newsletterDescriptionClassName, form, formConfig?.endpoint, formMethod, formClassName, renderFormFields]);
 
   const renderLinks = useMemo(() => {
     if (linksSlot) return linksSlot;
@@ -706,13 +697,14 @@ export function LinkPageNewsletterSocial({
             icon,
             children,
             className: linkItemClassName,
+            iconName,
             ...pressableProps
           } = link;
           const iconElement =
             icon ||
-            (link.iconName ? (
+            (iconName ? (
               <DynamicIcon
-                name={link.iconName}
+                name={iconName}
                 size={18}
                 className={linkIconClassName}
               />
@@ -725,9 +717,7 @@ export function LinkPageNewsletterSocial({
                 className={cn(
                   "flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200",
                   "hover:scale-[1.02] active:scale-[0.98]",
-                  isDark
-                    ? "border border-border/10 bg-muted/5 hover:bg-muted/10"
-                    : "border border-border bg-card hover:bg-muted/50",
+                  "border border-border bg-card hover:opacity-80",
                   linkClassName,
                   linkItemClassName,
                 )}
@@ -744,9 +734,7 @@ export function LinkPageNewsletterSocial({
               className={cn(
                 "flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200",
                 "hover:scale-[1.02] active:scale-[0.98]",
-                isDark
-                  ? "border border-border/10 bg-muted/5 hover:bg-muted/10"
-                  : "border border-border bg-card hover:bg-muted/50",
+                "border border-border bg-card hover:opacity-80",
                 linkClassName,
                 linkItemClassName,
               )}
@@ -770,7 +758,7 @@ export function LinkPageNewsletterSocial({
                 ))}
               <span
                 className={cn(
-                  "text-muted-foreground",
+                  getTextColor(resolvedBackground, 'muted'),
                   linkChevronClassName,
                 )}
               >
@@ -781,7 +769,7 @@ export function LinkPageNewsletterSocial({
         })}
       </div>
     );
-  }, [linksSlot, links, linksClassName, linkIconClassName, isDark, linkClassName, linkLabelClassName, linkChevronClassName, resolvedChevronIcon]);
+  }, [linksSlot, links, linksClassName, linkIconClassName, resolvedBackground, linkClassName, linkLabelClassName, linkChevronClassName, resolvedChevronIcon]);
 
   const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
@@ -807,7 +795,8 @@ export function LinkPageNewsletterSocial({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          "text-muted-foreground/50",
+          getTextColor(resolvedBackground, 'muted'),
+          "opacity-50",
           footerClassName,
           actionClassName,
         )}
@@ -822,16 +811,13 @@ export function LinkPageNewsletterSocial({
         )}
       </Pressable>
     );
-  }, [footerSlot, footerAction, isDark, footerClassName]);
+  }, [footerSlot, footerAction, resolvedBackground, footerClassName]);
 
   return (
     <Section
       background={resolvedBackground}
       spacing={spacing}
-      className={cn(
-        isDark ? "bg-foreground" : "bg-gradient-to-b from-background to-muted/30",
-        className,
-      )}
+      className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}

@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -109,18 +113,6 @@ export interface ProcessStickyStepsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
-  /**
-   * @deprecated Use `heading` instead
-   */
-  title?: string;
-  /**
-   * @deprecated Use `actions` instead
-   */
-  ctaText?: string;
-  /**
-   * @deprecated Use `actions` instead
-   */
-  ctaUrl?: string;
 }
 
 const CornerIllustration = (props: React.SVGProps<SVGSVGElement>) => {
@@ -172,43 +164,21 @@ export function ProcessStickySteps({
   stepsClassName,
   stepItemClassName,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
-  // Backwards compatibility
-  title,
-  ctaText,
-  ctaUrl,
 }: ProcessStickyStepsProps): React.JSX.Element {
-  // Handle backwards compatibility
-  const resolvedHeading = title ?? heading;
-  const resolvedActions: ActionConfig[] =
-    actions ??
-    (ctaText && ctaUrl
-      ? [
-          {
-            label: ctaText,
-            href: ctaUrl,
-            variant: "ghost" as const,
-            icon: (
-              <DynamicIcon
-                name="lucide/corner-down-right"
-                size={20}
-                className="text-primary"
-              />
-            ),
-          },
-        ]
-      : []);
 
   const renderActions = useMemo(() => {
     return () => {
       if (actionsSlot) return actionsSlot;
-      if (!resolvedActions?.length) return null;
+      if (!actions?.length) return null;
 
       return (
-        <div className={cn("flex flex-col gap-2", actionsClassName)}>
-          {resolvedActions.map((action, index) => {
+        <div
+          className={cn("flex flex-wrap items-center gap-2", actionsClassName)}
+        >
+          {actions.map((action, index) => {
             const {
               label,
               icon,
@@ -221,10 +191,7 @@ export function ProcessStickySteps({
               <Pressable
                 key={index}
                 asButton
-                className={cn(
-                  "flex items-center justify-start gap-2",
-                  actionClassName,
-                )}
+                className={cn(actionClassName)}
                 {...pressableProps}
               >
                 {children ?? (
@@ -240,7 +207,7 @@ export function ProcessStickySteps({
         </div>
       );
     };
-  }, [actionsSlot, resolvedActions, actionsClassName]);
+  }, [actionsSlot, actions, actionsClassName]);
 
   const renderSteps = useMemo(() => {
     if (stepsSlot) return stepsSlot;
@@ -257,13 +224,15 @@ export function ProcessStickySteps({
               step.className,
             )}
           >
-            <CornerIllustration className="absolute top-4 right-0 text-primary" />
+            <CornerIllustration className="absolute top-4 right-0" />
 
-            <div className={cn(
-              "flex size-12 items-center justify-center px-4 py-1 tracking-tighter",
-              getNestedCardBg(background, 'muted'),
-              getNestedCardTextColor(background)
-            )}>
+            <div
+              className={cn(
+                "flex size-12 items-center justify-center px-4 py-1 tracking-tighter",
+                getNestedCardBg(background, "muted"),
+                getNestedCardTextColor(background),
+              )}
+            >
               {step.step ?? `0${index + 1}`}
             </div>
             <div>
@@ -277,9 +246,9 @@ export function ProcessStickySteps({
                 ))}
               {step.description &&
                 (typeof step.description === "string" ? (
-                  <p className="text-muted-foreground">{step.description}</p>
+                  <p className="">{step.description}</p>
                 ) : (
-                  <div className="text-muted-foreground">{step.description}</div>
+                  <div className="">{step.description}</div>
                 ))}
             </div>
           </li>
@@ -304,28 +273,23 @@ export function ProcessStickySteps({
       >
         <div className="top-10 col-span-2 h-fit w-fit gap-3 space-y-7 py-8 lg:sticky">
           <div className="relative w-fit text-5xl font-semibold tracking-tight lg:text-7xl">
-            {resolvedHeading &&
-              (typeof resolvedHeading === "string" ? (
+            {heading &&
+              (typeof heading === "string" ? (
                 <h1 className={cn("w-fit", headingClassName)}>
-                  {resolvedHeading}
+                  {heading}
                 </h1>
               ) : (
-                <div className={headingClassName}>{resolvedHeading}</div>
+                <div className={headingClassName}>{heading}</div>
               ))}
             <DynamicIcon
               name="lucide/asterisk"
               size={40}
-              className="absolute -top-2 -right-2 text-primary md:size-10 lg:-right-14"
+              className="absolute -top-2 -right-2 md:size-10 lg:-right-14"
             />
           </div>
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "text-base text-muted-foreground",
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("text-base ", descriptionClassName)}>
                 {description}
               </p>
             ) : (

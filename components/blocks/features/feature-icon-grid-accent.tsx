@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -201,11 +201,11 @@ export function FeatureIconGridAccent({
               ))}
             {feature.description &&
               (typeof feature.description === "string" ? (
-                <p className="mt-2 text-muted-foreground">
+                <p className={cn("mt-2", getTextColor(background, 'muted'))}>
                   {feature.description}
                 </p>
               ) : (
-                <div className="mt-2 text-muted-foreground">
+                <div className={cn("mt-2", getTextColor(background, 'muted'))}>
                   {feature.description}
                 </div>
               ))}
@@ -213,7 +213,7 @@ export function FeatureIconGridAccent({
         </div>
       );
     });
-  }, [featuresSlot, features, cardClassName]);
+  }, [featuresSlot, features, cardClassName, background]);
 
   return (
     <Section

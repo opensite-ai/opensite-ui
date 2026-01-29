@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getNestedCardBg } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type {ActionConfig, StatItem, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -160,7 +160,7 @@ export function HeroMinimalCenteredDark({
     >
       <div className={cn("container flex flex-col items-center justify-center text-center", containerClassName)}>
         {badge && (
-          <div className={cn("inline-flex items-center gap-2 rounded-full border border-border/50 bg-muted/30 px-4 py-2 text-sm text-muted-foreground", badgeClassName)}>
+          <div className={cn("inline-flex items-center gap-2 rounded-full border border-border/50 px-4 py-2 text-sm", `${getNestedCardBg(background, "muted")}/30`, getTextColor(background, "muted"), badgeClassName)}>
             {showStatusDot && (
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75"></span>
@@ -189,7 +189,7 @@ export function HeroMinimalCenteredDark({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
+            <p className={cn("mt-6 max-w-2xl text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
               {description}
             </p>
           ) : (
@@ -202,7 +202,7 @@ export function HeroMinimalCenteredDark({
           </div>
         )}
         {(statsSlot || (stats && stats.length > 0)) && (
-          <div className={cn("mt-16 flex items-center gap-8 text-sm text-muted-foreground", statsClassName)}>
+          <div className={cn("mt-16 flex items-center gap-8 text-sm", getTextColor(background, "muted"), statsClassName)}>
             {renderStats}
           </div>
         )}

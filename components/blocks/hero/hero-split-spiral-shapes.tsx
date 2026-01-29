@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg } from "../../../lib/utils";
+import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -128,7 +128,7 @@ export function HeroSplitSpiralShapes({
             xmlns="http://www.w3.org/2000/svg"
             version="1.1"
             viewBox="0 0 800 800"
-            className="h-full w-full text-muted-foreground opacity-20"
+            className={cn("h-full w-full opacity-20", getTextColor(background, "muted"))}
           >
             {Array.from(Array(720).keys()).map((dot, index, array) => {
               const angle = 0.2 * index;
@@ -186,7 +186,7 @@ export function HeroSplitSpiralShapes({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("mb-8 max-w-xl text-muted-foreground lg:text-xl", descriptionClassName)}>
+                <p className={cn("mb-8 max-w-xl lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

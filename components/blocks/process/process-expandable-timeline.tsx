@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor, getBorderColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -191,16 +191,18 @@ export function ProcessExpandableTimeline({
             <button
               onClick={() => toggleExpand(index)}
               className={cn(
-                "group relative flex w-full items-start gap-6 border-b py-6 pl-16 text-left transition-colors hover:bg-muted/30",
+                "group relative flex w-full items-start gap-6 border-b py-6 pl-16 text-left transition-colors",
+                `hover:${getNestedCardBg(background, 'muted')}/30`,
                 stepItemClassName,
               )}
             >
               <div
                 className={cn(
-                  "absolute left-0 flex size-12 items-center justify-center rounded-full border-2 bg-background transition-colors",
+                  "absolute left-0 flex size-12 items-center justify-center rounded-full border-2 transition-colors",
+                  getNestedCardBg(background, 'card'),
                   expandedIndex === index
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border text-muted-foreground group-hover:border-primary",
+                    ? cn(getBorderColor(background, 'accent'), "bg-primary text-primary-foreground")
+                    : cn(getBorderColor(background, 'default'), getTextColor(background, 'muted'), `group-hover:${getBorderColor(background, 'accent')}`),
                   stepBadgeClassName,
                 )}
               >
@@ -209,17 +211,17 @@ export function ProcessExpandableTimeline({
                 </span>
               </div>
 
-              <CornerConnector className="absolute right-4 top-4 text-muted-foreground/30" />
+              <CornerConnector className={cn("absolute right-4 top-4", getTextColor(background, 'muted'), "opacity-30")} />
 
               <div className="flex-1 pr-12">
                 <div className="flex items-center gap-2">
                   {step.title &&
                     (typeof step.title === "string" ? (
-                      <h3 className="text-xl font-semibold tracking-tight transition-colors group-hover:text-primary">
+                      <h3 className={cn("text-xl font-semibold tracking-tight transition-colors", `group-hover:${getAccentColor(background)}`)}>
                         {step.title}
                       </h3>
                     ) : (
-                      <div className="text-xl font-semibold tracking-tight transition-colors group-hover:text-primary">
+                      <div className={cn("text-xl font-semibold tracking-tight transition-colors", `group-hover:${getAccentColor(background)}`)}>
                         {step.title}
                       </div>
                     ))}
@@ -230,16 +232,16 @@ export function ProcessExpandableTimeline({
                         : "lucide/chevron-down"
                     }
                     size={20}
-                    className="text-muted-foreground"
+                    className={getTextColor(background, 'muted')}
                   />
                 </div>
                 {step.description &&
                   (typeof step.description === "string" ? (
-                    <p className="mt-1 text-muted-foreground">
+                    <p className={cn("mt-1", getTextColor(background, 'muted'))}>
                       {step.description}
                     </p>
                   ) : (
-                    <div className="mt-1 text-muted-foreground">
+                    <div className={cn("mt-1", getTextColor(background, 'muted'))}>
                       {step.description}
                     </div>
                   ))}
@@ -264,11 +266,11 @@ export function ProcessExpandableTimeline({
                     )}
                   >
                     {typeof step.expandedContent === "string" ? (
-                      <p className="text-muted-foreground">
+                      <p className={getTextColor(background, 'muted')}>
                         {step.expandedContent}
                       </p>
                     ) : (
-                      <div className="text-muted-foreground">
+                      <div className={getTextColor(background, 'muted')}>
                         {step.expandedContent}
                       </div>
                     )}
@@ -309,7 +311,8 @@ export function ProcessExpandableTimeline({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-lg text-muted-foreground",
+                  "text-lg",
+                  getTextColor(background, 'muted'),
                   descriptionClassName,
                 )}
               >
@@ -323,7 +326,8 @@ export function ProcessExpandableTimeline({
         <div className={cn("relative", timelineClassName)}>
           <div
             className={cn(
-              "absolute left-6 top-0 bottom-0 w-px bg-border",
+              "absolute left-6 top-0 bottom-0 w-px",
+              getBorderColor(background, 'default'),
               timelineLineClassName,
             )}
           />

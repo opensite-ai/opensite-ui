@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -229,11 +229,11 @@ export function FeatureIntegrationCards({
             )}
             {integration.description && (
               typeof integration.description === "string" ? (
-                <p className={cn("text-sm text-muted-foreground md:text-base", integration.descriptionClassName)}>
+                <p className={cn("text-sm md:text-base", getTextColor(background, 'muted'), integration.descriptionClassName)}>
                   {integration.description}
                 </p>
               ) : (
-                <div className={cn("text-sm text-muted-foreground md:text-base", integration.descriptionClassName)}>
+                <div className={cn("text-sm md:text-base", getTextColor(background, 'muted'), integration.descriptionClassName)}>
                   {integration.description}
                 </div>
               )
@@ -285,9 +285,9 @@ export function FeatureIntegrationCards({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
+            <p className={cn(getTextColor(background, 'muted'), descriptionClassName)}>{description}</p>
           ) : (
-            <div className={cn("text-muted-foreground", descriptionClassName)}>{description}</div>
+            <div className={cn(getTextColor(background, 'muted'), descriptionClassName)}>{description}</div>
           )
         )}
       </div>

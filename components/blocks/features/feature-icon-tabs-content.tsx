@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getBorderColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
@@ -341,7 +341,8 @@ export function FeatureIconTabsContent({
                 key={tab.value}
                 value={tab.value}
                 className={cn(
-                  "flex shrink-0 items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
+                  "flex shrink-0 items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
+                  `data-[state=active]:${getBorderColor(background, 'accent')}`,
                   tabTriggerClassName,
                   tab.className,
                 )}
@@ -421,7 +422,8 @@ export function FeatureIconTabsContent({
                       (typeof content.description === "string" ? (
                         <p
                           className={cn(
-                            "text-muted-foreground lg:text-lg",
+                            "lg:text-lg",
+                            getTextColor(background, 'muted'),
                             content.descriptionClassName,
                           )}
                         >
@@ -430,7 +432,8 @@ export function FeatureIconTabsContent({
                       ) : (
                         <div
                           className={cn(
-                            "text-muted-foreground lg:text-lg",
+                            "lg:text-lg",
+                            getTextColor(background, 'muted'),
                             content.descriptionClassName,
                           )}
                         >
@@ -510,12 +513,12 @@ export function FeatureIconTabsContent({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("text-muted-foreground", descriptionClassName)}>
+              <p className={cn(getTextColor(background, 'muted'), descriptionClassName)}>
                 {description}
               </p>
             ) : (
               <div
-                className={cn("text-muted-foreground", descriptionClassName)}
+                className={cn(getTextColor(background, 'muted'), descriptionClassName)}
               >
                 {description}
               </div>

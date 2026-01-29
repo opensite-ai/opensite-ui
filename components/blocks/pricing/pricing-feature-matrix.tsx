@@ -13,6 +13,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../../ui/tooltip";
+import { Section } from "../../ui/section";
+import type { SectionBackground } from "../../../src/types";
 
 interface FeatureCategory {
   name: string;
@@ -41,6 +43,7 @@ export interface PricingFeatureMatrixProps {
   subtitle?: string;
   plans?: PricingPlan[];
   featureCategories?: FeatureCategory[];
+  background?: SectionBackground;
 }
 
 /**
@@ -67,6 +70,7 @@ export function PricingFeatureMatrix({
   subtitle,
   plans,
   featureCategories,
+  background = "default",
 }: PricingFeatureMatrixProps) {
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">("monthly");
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
@@ -97,30 +101,29 @@ export function PricingFeatureMatrix({
   }, []);
 
   return (
-    <section className={cn("py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
+    <Section background={background} className={className}>
+      <div className="mx-auto mb-12 max-w-2xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          {title}
+        </h2>
+        <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
 
-          <Tabs
-            value={billingPeriod}
-            onValueChange={(v) => setBillingPeriod(v as "monthly" | "yearly")}
-            className="mt-8"
-          >
-            <TabsList className="mx-auto">
-              <TabsTrigger value="monthly">Monthly</TabsTrigger>
-              <TabsTrigger value="yearly">
-                Yearly
-                <Badge variant="secondary" className="ml-2">
-                  -17%
-                </Badge>
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
-        </div>
+        <Tabs
+          value={billingPeriod}
+          onValueChange={(v) => setBillingPeriod(v as "monthly" | "yearly")}
+          className="mt-8"
+        >
+          <TabsList className="mx-auto">
+            <TabsTrigger value="monthly">Monthly</TabsTrigger>
+            <TabsTrigger value="yearly">
+              Yearly
+              <Badge variant="secondary" className="ml-2">
+                -17%
+              </Badge>
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div>
 
         {/* Plan Headers */}
         <div className="mb-8 grid grid-cols-4 gap-4">
@@ -217,9 +220,8 @@ export function PricingFeatureMatrix({
                 )}
               </div>
             ))}
-          </div>
-        </TooltipProvider>
-      </div>
-    </section>
+        </div>
+      </TooltipProvider>
+    </Section>
   );
 }

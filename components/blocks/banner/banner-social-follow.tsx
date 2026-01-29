@@ -6,7 +6,8 @@ import { useCallback, useMemo, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { ActionConfig, SectionBackground } from "../../../src/types";
 
 /**
  * Props for the BannerSocialFollow component
@@ -44,6 +45,11 @@ export interface BannerSocialFollowProps {
    * ARIA label for dismiss button
    */
   dismissAriaLabel?: string;
+  /**
+   * Background style variant for the section
+   * @default "primary"
+   */
+  background?: SectionBackground;
   /**
    * Additional CSS classes for the banner container
    */
@@ -95,6 +101,7 @@ export function BannerSocialFollow({
   onDismiss,
   dismissIcon,
   dismissAriaLabel,
+  background = "primary",
   className,
   containerClassName,
   iconClassName,
@@ -173,12 +180,7 @@ export function BannerSocialFollow({
   }
 
   return (
-    <div
-      className={cn(
-        "bg-primary text-primary-foreground",
-        className
-      )}
-    >
+    <Section background={background} spacing="none" className={className}>
       <div className={cn("max-w-7xl mx-auto px-3 py-3 flex items-center justify-center text-left md:text-center gap-2", containerClassName)}>
         {iconContent}
         {messageContent}
@@ -198,6 +200,6 @@ export function BannerSocialFollow({
           <span className="sr-only">{dismissLabel}</span>
         </Pressable>
       </div>
-    </div>
+    </Section>
   );
 }

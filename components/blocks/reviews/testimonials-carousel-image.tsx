@@ -6,9 +6,11 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import type {
   OptixFlowConfig,
   TestimonialItem,
+  SectionBackground,
 } from "../../../src/types";
 
 /**
@@ -82,6 +84,10 @@ export interface TestimonialsCarouselImageProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
 }
 
 /**

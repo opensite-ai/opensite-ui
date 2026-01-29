@@ -6,7 +6,8 @@ import { useCallback, useMemo, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { ActionConfig, SectionBackground } from "../../../src/types";
 
 /**
  * Props for the BannerAnnouncementDismissible component
@@ -44,6 +45,11 @@ export interface BannerAnnouncementDismissibleProps {
    * ARIA label for dismiss button
    */
   dismissAriaLabel?: string;
+  /**
+   * Background style variant for the section
+   * @default "default"
+   */
+  background?: SectionBackground;
   /**
    * Additional CSS classes for the banner container
    */
@@ -100,6 +106,7 @@ export function BannerAnnouncementDismissible({
   onDismiss,
   dismissIcon,
   dismissAriaLabel,
+  background = "default",
   className,
   containerClassName,
   contentClassName,
@@ -181,7 +188,7 @@ export function BannerAnnouncementDismissible({
   }
 
   return (
-    <div className={cn("bg-background border-b", className)}>
+    <Section background={background} spacing="none" className={cn("border-b", className)}>
       <div className={cn("max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-2", containerClassName)}>
         <div className={cn("flex items-center gap-4", contentClassName)}>
           {iconContent}
@@ -203,6 +210,6 @@ export function BannerAnnouncementDismissible({
           <span className="sr-only">{dismissLabel}</span>
         </Pressable>
       </div>
-    </div>
+    </Section>
   );
 }

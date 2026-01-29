@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor, getBorderColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -139,19 +139,19 @@ const StatusBadge = ({
     completed: {
       label: "Completed",
       badgeClassName:
-        "bg-success/10 text-success",
+        cn(getNestedCardBg(background, 'muted'), "text-success"),
       icon: "lucide/check-circle-2",
     },
     "in-progress": {
       label: "In Progress",
       badgeClassName:
-        "bg-primary/10 text-primary",
+        cn(getNestedCardBg(background, 'muted'), getAccentColor(background)),
       icon: "lucide/loader-2",
     },
     upcoming: {
       label: "Upcoming",
       badgeClassName:
-        cn(getNestedCardBg(background, 'muted'), getNestedCardTextColor(background)),
+        cn(getNestedCardBg(background, 'muted'), getTextColor(background, 'muted')),
       icon: "lucide/clock",
     },
   };
@@ -237,11 +237,11 @@ export function ProcessRoadmapTimeline({
                 >
                   {milestone.date &&
                     (typeof milestone.date === "string" ? (
-                      <span className="text-sm font-medium text-muted-foreground">
+                      <span className={cn("text-sm font-medium", getTextColor(background, 'muted'))}>
                         {milestone.date}
                       </span>
                     ) : (
-                      <div className="text-sm font-medium text-muted-foreground">
+                      <div className={cn("text-sm font-medium", getTextColor(background, 'muted'))}>
                         {milestone.date}
                       </div>
                     ))}
@@ -259,11 +259,11 @@ export function ProcessRoadmapTimeline({
                   ))}
                 {milestone.description &&
                   (typeof milestone.description === "string" ? (
-                    <p className="mb-4 text-muted-foreground">
+                    <p className={cn("mb-4", getTextColor(background, 'muted'))}>
                       {milestone.description}
                     </p>
                   ) : (
-                    <div className="mb-4 text-muted-foreground">
+                    <div className={cn("mb-4", getTextColor(background, 'muted'))}>
                       {milestone.description}
                     </div>
                   ))}
@@ -293,12 +293,13 @@ export function ProcessRoadmapTimeline({
 
             <div
               className={cn(
-                "absolute left-1/2 flex size-10 -translate-x-1/2 items-center justify-center rounded-full border-2 bg-background",
+                "absolute left-1/2 flex size-10 -translate-x-1/2 items-center justify-center rounded-full border-2",
+                getNestedCardBg(background, 'card'),
                 milestone.status === "completed"
-                  ? "border-success bg-success text-background"
+                  ? "border-success bg-success text-white"
                   : milestone.status === "in-progress"
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border text-muted-foreground",
+                    ? cn("border-primary bg-primary", getNestedCardTextColor(background))
+                    : cn(getBorderColor(background, 'default'), getTextColor(background, 'muted')),
                 milestoneNodeClassName,
               )}
             >
@@ -343,7 +344,8 @@ export function ProcessRoadmapTimeline({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mx-auto max-w-2xl text-lg text-muted-foreground",
+                  "mx-auto max-w-2xl text-lg",
+                  getTextColor(background, 'muted'),
                   descriptionClassName,
                 )}
               >
@@ -357,7 +359,7 @@ export function ProcessRoadmapTimeline({
         <div className={cn("relative mx-auto max-w-4xl", timelineClassName)}>
           <div
             className={cn(
-              "absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-border",
+              "absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-border/50",
               timelineLineClassName,
             )}
           />

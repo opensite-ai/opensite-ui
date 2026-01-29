@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
@@ -213,7 +213,8 @@ export function TeamBioBadges({
           </div>
           <p
             className={cn(
-              "text-sm font-medium text-primary",
+              "text-sm font-medium",
+              getAccentColor(background),
               memberRoleClassName,
             )}
           >
@@ -221,7 +222,8 @@ export function TeamBioBadges({
           </p>
           <p
             className={cn(
-              "mt-2 text-sm text-muted-foreground",
+              "mt-2 text-sm",
+              getTextColor(background, "muted"),
               memberBioClassName,
             )}
           >
@@ -230,7 +232,8 @@ export function TeamBioBadges({
           {member.social && (
             <div
               className={cn(
-                "mt-4 flex gap-3 text-muted-foreground",
+                "mt-4 flex gap-3",
+                getTextColor(background, "muted"),
                 socialLinksClassName,
               )}
             >
@@ -310,7 +313,8 @@ export function TeamBioBadges({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
+                "mb-8 max-w-3xl lg:text-xl",
+                getTextColor(background, "muted"),
                 descriptionClassName,
               )}
             >

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -184,7 +184,7 @@ export function HeroLogoCenteredScreenshot({
                 )}
                 {description && (
                   typeof description === "string" ? (
-                    <p className={cn("max-w-3xl text-muted-foreground lg:text-xl", descriptionClassName)}>
+                    <p className={cn("max-w-3xl lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                       {description}
                     </p>
                   ) : (

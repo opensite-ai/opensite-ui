@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -137,13 +137,13 @@ export function AboutStoryHero({
           teamInfo.title
         )}
         {typeof teamInfo.description === "string" ? (
-          <p className="mt-1 text-muted-foreground">{teamInfo.description}</p>
+          <p className={cn("mt-1", getTextColor(background, 'muted'))}>{teamInfo.description}</p>
         ) : (
           <div className="mt-1">{teamInfo.description}</div>
         )}
       </div>
     );
-  }, [teamInfoSlot, teamInfo, teamInfoClassName]);
+  }, [teamInfoSlot, teamInfo, teamInfoClassName, background]);
 
   return (
     <Section
@@ -165,7 +165,8 @@ export function AboutStoryHero({
             (typeof subtitle === "string" ? (
               <p
                 className={cn(
-                  "text-sm font-semibold uppercase tracking-wider text-primary",
+                  "text-sm font-semibold uppercase tracking-wider",
+                  getAccentColor(background),
                   subtitleClassName,
                 )}
               >
@@ -191,7 +192,8 @@ export function AboutStoryHero({
             (typeof content === "string" ? (
               <p
                 className={cn(
-                  "mt-6 text-lg text-muted-foreground whitespace-pre-line",
+                  "mt-6 text-lg whitespace-pre-line",
+                  getTextColor(background, 'muted'),
                   bodyClassName,
                 )}
               >

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
@@ -143,10 +143,6 @@ export interface LinkPageMinimalProfileProps {
    */
   footerClassName?: string;
   /**
-   * Theme variation: "light" or "dark"
-   */
-  theme?: "light" | "dark";
-  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -223,16 +219,14 @@ export function LinkPageMinimalProfile({
   socialLinkClassName,
   socialIconClassName,
   footerClassName,
-  theme = "light",
-  background,
+  background = "default",
   spacing,
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
 }: LinkPageMinimalProfileProps): React.JSX.Element {
-  const isDark = theme === "dark";
-  const resolvedBackground = background ?? (isDark ? "dark" : "white");
+  const resolvedBackground = background;
 
   const resolvedAvatar: ImageItem | undefined =
     avatar ||
@@ -288,7 +282,8 @@ export function LinkPageMinimalProfile({
             (typeof bio === "string" ? (
               <p
                 className={cn(
-                  "text-sm text-muted-foreground",
+                  "text-sm",
+                  getTextColor(resolvedBackground, 'muted'),
                   bioClassName,
                 )}
               >
@@ -300,7 +295,7 @@ export function LinkPageMinimalProfile({
         </div>
       </div>
     );
-  }, [profileSlot, resolvedAvatar, avatarClassName, optixFlowConfig, name, isDark, nameClassName, bio, bioClassName, headerClassName]);
+  }, [profileSlot, resolvedAvatar, avatarClassName, optixFlowConfig, name, resolvedBackground, nameClassName, bio, bioClassName, headerClassName]);
 
   const renderLinks = useMemo(() => {
     if (linksSlot) return linksSlot;
@@ -314,13 +309,14 @@ export function LinkPageMinimalProfile({
             icon,
             children,
             className: linkItemClassName,
+            iconName,
             ...pressableProps
           } = link;
           const iconElement =
             icon ||
-            (link.iconName ? (
+            (iconName ? (
               <DynamicIcon
-                name={link.iconName}
+                name={iconName}
                 size={18}
                 className={linkIconClassName}
               />
@@ -334,9 +330,7 @@ export function LinkPageMinimalProfile({
                   "flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors",
                   getNestedCardBg(resolvedBackground),
                   getNestedCardTextColor(resolvedBackground),
-                  isDark
-                    ? "hover:bg-muted/30"
-                    : "hover:bg-muted/80",
+                  "hover:opacity-80",
                   linkClassName,
                   linkItemClassName,
                 )}
@@ -354,9 +348,7 @@ export function LinkPageMinimalProfile({
                 "flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors",
                 getNestedCardBg(resolvedBackground),
                 getNestedCardTextColor(resolvedBackground),
-                isDark
-                  ? "hover:bg-muted/30"
-                  : "hover:bg-muted/80",
+                "hover:opacity-80",
                 linkClassName,
                 linkItemClassName,
               )}
@@ -378,7 +370,7 @@ export function LinkPageMinimalProfile({
         })}
       </div>
     );
-  }, [linksSlot, links, linksClassName, linkIconClassName, isDark, linkClassName, linkLabelClassName]);
+  }, [linksSlot, links, linksClassName, linkIconClassName, resolvedBackground, linkClassName, linkLabelClassName]);
 
   const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
@@ -392,11 +384,12 @@ export function LinkPageMinimalProfile({
         )}
       >
         {socialLinks.map((social, index) => {
+          const { iconName: socialIconName, ...socialRest } = social;
           const icon =
             social.icon ||
-            (social.iconName ? (
+            (socialIconName ? (
               <DynamicIcon
-                name={social.iconName}
+                name={socialIconName}
                 size={20}
                 className={socialIconClassName}
               />
@@ -413,9 +406,8 @@ export function LinkPageMinimalProfile({
               aria-label={ariaLabel}
               className={cn(
                 "rounded-full p-2 transition-colors",
-                isDark
-                  ? "text-muted-foreground hover:bg-muted/20"
-                  : "text-muted-foreground hover:bg-muted",
+                getTextColor(resolvedBackground, 'muted'),
+                "hover:opacity-80",
                 socialLinkClassName,
                 social.className,
               )}
@@ -426,7 +418,7 @@ export function LinkPageMinimalProfile({
         })}
       </div>
     );
-  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, isDark, socialLinkClassName]);
+  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, resolvedBackground, socialLinkClassName]);
 
   const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
@@ -452,7 +444,7 @@ export function LinkPageMinimalProfile({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          "text-muted-foreground/50",
+          getTextColor(resolvedBackground, 'subtle'),
           footerClassName,
           actionClassName,
         )}
@@ -467,13 +459,13 @@ export function LinkPageMinimalProfile({
         )}
       </Pressable>
     );
-  }, [footerSlot, footerAction, isDark, footerClassName]);
+  }, [footerSlot, footerAction, resolvedBackground, footerClassName]);
 
   return (
     <Section
       background={resolvedBackground}
       spacing={spacing}
-      className={cn(isDark ? "bg-foreground" : "bg-background", className)}
+      className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}

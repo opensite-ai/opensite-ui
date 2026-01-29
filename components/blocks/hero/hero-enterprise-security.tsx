@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -187,15 +187,15 @@ export function HeroEnterpriseSecurity({
     return (
       <div className={cn("mt-20 grid gap-8 md:grid-cols-3", featuresClassName)}>
         {features.map((feature, index) => (
-          <div key={index} className="rounded-2xl border border-border bg-card p-6 text-center">
-            <div className={cn("mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full", feature.iconBgClass || "bg-primary/10")}>
-              {feature.icon ?? <DynamicIcon name={feature.iconName || "lucide/check"} size={24} className={feature.iconColorClass || "text-primary"} />}
+          <div key={index} className={cn("rounded-2xl border border-border p-6 text-center", getNestedCardBg(background, "card"))}>
+            <div className={cn("mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full", feature.iconBgClass || `${getAccentColor(background)}/10`)}>
+              {feature.icon ?? <DynamicIcon name={feature.iconName || "lucide/check"} size={24} className={feature.iconColorClass || getAccentColor(background)} />}
             </div>
             <h3 className="mb-2 text-lg font-semibold ">
               {feature.title}
             </h3>
             {feature.description && (
-              <p className="text-sm text-muted-foreground">
+              <p className={cn("text-sm", getTextColor(background, "muted"))}>
                 {feature.description}
               </p>
             )}
@@ -251,7 +251,7 @@ export function HeroEnterpriseSecurity({
           )}
           {description && (
             typeof description === "string" ? (
-              <p className={cn("mt-6 text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
+              <p className={cn("mt-6 text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                 {description}
               </p>
             ) : (

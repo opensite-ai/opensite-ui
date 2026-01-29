@@ -21,10 +21,10 @@ describe("ProcessStickySteps", () => {
     },
   ];
 
-  it("renders title and description", () => {
+  it("renders heading and description", () => {
     render(
       <ProcessStickySteps
-        title="Our Methodology"
+        heading="Our Methodology"
         description="A step-by-step approach"
       />
     );
@@ -50,9 +50,11 @@ describe("ProcessStickySteps", () => {
     expect(screen.getByText("Implementing the solution")).toBeInTheDocument();
   });
 
-  it("renders CTA button when ctaText and ctaUrl provided", () => {
+  it("renders CTA button when actions provided", () => {
     render(
-      <ProcessStickySteps ctaText="Contact Us" ctaUrl="/contact" />
+      <ProcessStickySteps
+        actions={[{ label: "Contact Us", href: "/contact" }]}
+      />
     );
     expect(screen.getByText("Contact Us")).toBeInTheDocument();
   });
@@ -62,8 +64,8 @@ describe("ProcessStickySteps", () => {
     expect(screen.queryByText("Get in touch")).not.toBeInTheDocument();
   });
 
-  it("does not render CTA when ctaUrl is missing", () => {
-    render(<ProcessStickySteps ctaText="Contact" ctaUrl="" />);
+  it("does not render CTA when actions is undefined", () => {
+    render(<ProcessStickySteps />);
     expect(screen.queryByText("Contact")).not.toBeInTheDocument();
   });
 
@@ -93,7 +95,11 @@ describe("ProcessStickySteps", () => {
   });
 
   it("renders CTA as Pressable link", () => {
-    render(<ProcessStickySteps ctaText="Get Started" ctaUrl="/start" />);
+    render(
+      <ProcessStickySteps
+        actions={[{ label: "Get Started", href: "/start" }]}
+      />
+    );
     const link = screen.getByText("Get Started").closest("a");
     expect(link).toHaveAttribute("href", "/start");
   });

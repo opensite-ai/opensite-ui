@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -163,7 +163,7 @@ export function HeroGradientClientFocused({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("max-w-2xl text-muted-foreground max-lg:text-sm", descriptionClassName)}>
+            <p className={cn("max-w-2xl max-lg:text-sm", getTextColor(background, "muted"), descriptionClassName)}>
               {description}
             </p>
           ) : (

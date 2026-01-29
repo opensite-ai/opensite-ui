@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor, getBorderColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
@@ -211,7 +211,8 @@ export function TeamCompactGrid({
       <div
         key={member.id}
         className={cn(
-          "group rounded-lg border border-muted p-6 backdrop-blur-sm transition-all duration-300",
+          "group rounded-lg border p-6 backdrop-blur-sm transition-all duration-300",
+          getBorderColor(background, "muted"),
           getNestedCardBg(background, 'card'),
           getNestedCardTextColor(background),
           memberCardClassName,
@@ -220,7 +221,7 @@ export function TeamCompactGrid({
         <div className="relative mb-6">
           <Avatar className={cn("mx-auto h-20 w-20", avatarClassName)}>
             <AvatarImage src={member.avatar} alt={member.name} />
-            <AvatarFallback className="bg-linear-to-br from-primary/20 to-secondary/20 text-2xl font-bold text-primary">
+            <AvatarFallback className={cn("bg-linear-to-br from-primary/20 to-secondary/20 text-2xl font-bold", getAccentColor(background))}>
               {member.name
                 .split(" ")
                 .map((n) => n[0])
@@ -232,7 +233,8 @@ export function TeamCompactGrid({
         <div className="text-center">
           <h3
             className={cn(
-              "mb-1 text-lg font-semibold transition-colors group-hover:text-primary",
+              "mb-1 text-lg font-semibold transition-colors",
+              `group-hover:${getAccentColor(background)}`,
               memberNameClassName,
             )}
           >
@@ -240,7 +242,8 @@ export function TeamCompactGrid({
           </h3>
           <p
             className={cn(
-              "mb-2 text-sm font-medium text-primary",
+              "mb-2 text-sm font-medium",
+              getAccentColor(background),
               memberRoleClassName,
             )}
           >
@@ -278,7 +281,8 @@ export function TeamCompactGrid({
           (typeof ctaDescription === "string" ? (
             <p
               className={cn(
-                "mx-auto mb-6 max-w-2xl text-muted-foreground",
+                "mx-auto mb-6 max-w-2xl",
+                getTextColor(background, "muted"),
                 ctaDescriptionClassName,
               )}
             >
@@ -326,7 +330,8 @@ export function TeamCompactGrid({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mx-auto max-w-3xl text-xl leading-relaxed text-muted-foreground",
+                "mx-auto max-w-3xl text-xl leading-relaxed",
+                getTextColor(background, "muted"),
                 descriptionClassName,
               )}
             >

@@ -14,6 +14,7 @@ import {
   PatternBackground,
   type PatternName,
 } from "../../ui/pattern-background";
+import { Section } from "../../ui/section";
 import type {
   OptixFlowConfig,
   SectionBackground,

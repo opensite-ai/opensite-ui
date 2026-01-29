@@ -5,6 +5,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
+import type { SectionBackground } from "../../../src/types";
 
 /**
  * Time left object for countdown timer
@@ -51,6 +53,11 @@ export interface BannerDeliveryCountdownProps {
    * Custom render function for the timer
    */
   renderTimer?: (timeLeft: DeliveryCountdownTimeLeft) => React.ReactNode;
+  /**
+   * Background style variant for the section
+   * @default "muted"
+   */
+  background?: SectionBackground;
   /**
    * Additional CSS classes for the banner container
    */
@@ -105,6 +112,7 @@ export function BannerDeliveryCountdown({
   middleText,
   timerSlot,
   renderTimer,
+  background = "muted",
   className,
   containerClassName,
   contentClassName,
@@ -188,7 +196,7 @@ export function BannerDeliveryCountdown({
   }, [prefixText, timerContent, middleText, deliveryDateContent]);
 
   return (
-    <div className={cn("w-full bg-accent text-accent-foreground", className)}>
+    <Section background={background} spacing="none" className={cn("bg-accent text-accent-foreground", className)}>
       <div className={cn("container py-2.5", containerClassName)}>
         <div className={cn("flex flex-wrap items-center justify-center gap-3 text-sm", contentClassName)}>
           <div className={cn("flex items-center gap-2", messageClassName)}>
@@ -206,6 +214,6 @@ export function BannerDeliveryCountdown({
           </div>
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

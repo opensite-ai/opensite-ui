@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";

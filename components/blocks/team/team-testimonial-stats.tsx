@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Card, CardContent } from "../../ui/card";
 import { Img } from "@page-speed/img";
@@ -223,7 +223,8 @@ export function TeamTestimonialStats({
                   </h3>
                   <p
                     className={cn(
-                      "text-muted-foreground mt-1 text-sm",
+                      getTextColor(background, "muted"),
+                      "mt-1 text-sm",
                       memberRoleClassName,
                     )}
                   >
@@ -237,7 +238,7 @@ export function TeamTestimonialStats({
                   {Object.entries(member.stats).map(([key, value]) => (
                     <div key={key}>
                       <p className="text-2xl font-semibold">{value}</p>
-                      <p className="text-muted-foreground mt-1 text-xs capitalize">
+                      <p className={cn(getTextColor(background, "muted"), "mt-1 text-xs capitalize")}>
                         {key}
                       </p>
                     </div>
@@ -246,14 +247,15 @@ export function TeamTestimonialStats({
 
                 <blockquote
                   className={cn(
-                    "text-muted-foreground mt-4 border-l-2 pl-4 italic",
+                    getTextColor(background, "muted"),
+                    "mt-4 border-l-2 pl-4 italic",
                     testimonialClassName,
                   )}
                 >
                   <DynamicIcon
                     name="lucide/quote"
                     size={16}
-                    className="text-primary mb-2"
+                    className={cn(getAccentColor(background), "mb-2")}
                   />
                   {member.testimonial}
                 </blockquote>
@@ -345,7 +347,8 @@ export function TeamTestimonialStats({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-muted-foreground mt-1 text-lg",
+                getTextColor(background, "muted"),
+                "mt-1 text-lg",
                 descriptionClassName,
               )}
             >

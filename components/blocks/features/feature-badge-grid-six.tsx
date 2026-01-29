@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
@@ -220,11 +220,11 @@ export function FeatureBadgeGridSix({
             )}
             {feature.description && (
               typeof feature.description === "string" ? (
-                <p className={cn("text-sm text-muted-foreground md:text-base", feature.descriptionClassName)}>
+                <p className={cn("text-sm md:text-base", getTextColor(background, 'muted'), feature.descriptionClassName)}>
                   {feature.description}
                 </p>
               ) : (
-                <div className={cn("text-sm text-muted-foreground md:text-base", feature.descriptionClassName)}>
+                <div className={cn("text-sm md:text-base", getTextColor(background, 'muted'), feature.descriptionClassName)}>
                   {feature.description}
                 </div>
               )

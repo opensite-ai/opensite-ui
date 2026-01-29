@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useState } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -229,7 +229,10 @@ export function AboutStartupTeam({
               "block w-full text-left rounded-lg px-4 py-2 text-sm font-medium transition-colors",
               activeTab === link.value
                 ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-muted",
+                : cn(
+                    getTextColor(background, 'muted'),
+                    "hover:bg-muted",
+                  ),
             )}
           >
             {link.label}
@@ -279,7 +282,7 @@ export function AboutStartupTeam({
                 <DynamicIcon
                   name="lucide/user"
                   size={40}
-                  className="text-muted-foreground"
+                  className={cn(getTextColor(background, 'muted'))}
                 />
               </div>
             )}
@@ -291,7 +294,7 @@ export function AboutStartupTeam({
               ))}
             {member.role &&
               (typeof member.role === "string" ? (
-                <p className="text-sm text-muted-foreground">{member.role}</p>
+                <p className={cn("text-sm", getTextColor(background, 'muted'))}>{member.role}</p>
               ) : (
                 <div className="text-sm">{member.role}</div>
               ))}
@@ -302,7 +305,10 @@ export function AboutStartupTeam({
                     key={linkIdx}
                     href={link.url}
                     aria-label={link.label}
-                    className="text-muted-foreground hover:text-primary"
+                    className={cn(
+                      getTextColor(background, 'muted'),
+                      `hover:${getAccentColor(background)}`,
+                    )}
                   >
                     {link.icon}
                   </Pressable>
@@ -339,7 +345,11 @@ export function AboutStartupTeam({
                 "shrink-0 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
                 activeTab === link.value
                   ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80",
+                  : cn(
+                      "bg-muted",
+                      getTextColor(background, 'muted'),
+                      "hover:bg-muted/80",
+                    ),
               )}
             >
               {link.label}
@@ -388,7 +398,8 @@ export function AboutStartupTeam({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mt-6 text-lg text-muted-foreground whitespace-pre-line",
+                    "mt-6 text-lg whitespace-pre-line",
+                    getTextColor(background, 'muted'),
                     descriptionClassName,
                   )}
                 >

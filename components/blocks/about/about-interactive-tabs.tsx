@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor, getBorderColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -174,10 +174,15 @@ export function AboutInteractiveTabs({
                 "flex-shrink-0 whitespace-nowrap px-6 py-3 text-sm font-medium transition-colors",
                 activeTab === tab.id
                   ? cn(
-                      "border-b-2 border-primary text-primary",
+                      "border-b-2",
+                      getBorderColor(background, 'accent'),
+                      getAccentColor(background),
                       activeTabClassName,
                     )
-                  : "text-muted-foreground hover:text-primary",
+                  : cn(
+                      getTextColor(background, 'muted'),
+                      `hover:${getAccentColor(background)}`,
+                    ),
                 tabButtonClassName,
               )}
             >
@@ -208,7 +213,8 @@ export function AboutInteractiveTabs({
               {typeof activeContent.description === "string" ? (
                 <p
                   className={cn(
-                    "mt-4 text-lg text-muted-foreground",
+                    "mt-4 text-lg",
+                    getTextColor(background, 'muted'),
                     tabContentDescriptionClassName,
                   )}
                 >
@@ -278,7 +284,8 @@ export function AboutInteractiveTabs({
           (typeof subtitle === "string" ? (
             <p
               className={cn(
-                "mt-4 text-lg text-muted-foreground text-balance",
+                "mt-4 text-lg text-balance",
+                getTextColor(background, 'muted'),
                 subtitleClassName,
               )}
             >

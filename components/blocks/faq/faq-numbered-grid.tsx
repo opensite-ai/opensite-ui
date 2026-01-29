@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
@@ -154,7 +154,8 @@ export function FaqNumberedGrid({
               {typeof item.answer === "string" ? (
                 <p
                   className={cn(
-                    "text-muted-foreground text-sm",
+                    getTextColor(background, "muted"),
+                    "text-sm",
                     answerClassName,
                   )}
                 >
@@ -176,6 +177,7 @@ export function FaqNumberedGrid({
     numberClassName,
     questionClassName,
     answerClassName,
+    background,
   ]);
 
   return (
@@ -211,7 +213,8 @@ export function FaqNumberedGrid({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-muted-foreground lg:text-lg",
+                  getTextColor(background, "muted"),
+                  "lg:text-lg",
                   descriptionClassName,
                 )}
               >

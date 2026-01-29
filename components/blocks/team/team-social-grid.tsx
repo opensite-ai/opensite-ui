@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -192,7 +192,8 @@ export function TeamSocialGrid({
         </p>
         <p
           className={cn(
-            "text-center text-muted-foreground",
+            "text-center",
+            getTextColor(background, "muted"),
             memberRoleClassName,
           )}
         >
@@ -201,7 +202,8 @@ export function TeamSocialGrid({
         {member.social && (
           <div
             className={cn(
-              "mt-2 flex gap-2 text-muted-foreground",
+              "mt-2 flex gap-2",
+              getTextColor(background, "muted"),
               socialLinksClassName,
             )}
           >
@@ -269,7 +271,8 @@ export function TeamSocialGrid({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
+                "mb-8 max-w-3xl lg:text-xl",
+                getTextColor(background, "muted"),
                 descriptionClassName,
               )}
             >

@@ -4,6 +4,8 @@ import * as React from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
+import type { SectionBackground } from "../../../src/types";
 
 /**
  * Time left object for countdown timer
@@ -38,6 +40,11 @@ export interface BannerCountdownSaleProps {
    * Custom render function for the timer
    */
   renderTimer?: (timeLeft: CountdownTimeLeft) => React.ReactNode;
+  /**
+   * Background style variant for the section
+   * @default "primary"
+   */
+  background?: SectionBackground;
   /**
    * Additional CSS classes for the banner container
    */
@@ -94,6 +101,7 @@ export function BannerCountdownSale({
   description,
   timerSlot,
   renderTimer,
+  background = "primary",
   className,
   containerClassName,
   contentClassName,
@@ -185,7 +193,7 @@ export function BannerCountdownSale({
   }, [description, descriptionClassName]);
 
   return (
-    <div className={cn("w-full bg-destructive text-destructive-foreground", className)}>
+    <Section background={background} spacing="none" className={cn("bg-destructive text-destructive-foreground", className)}>
       <div className={cn("container py-2.5", containerClassName)}>
         <div className={cn("flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm", contentClassName)}>
           {messageContent}
@@ -193,6 +201,6 @@ export function BannerCountdownSale({
           {descriptionContent}
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

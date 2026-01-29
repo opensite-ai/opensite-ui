@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -181,7 +181,7 @@ export function HeroStatsSocialProof({
     return stats.map((stat, index) => (
       <div key={index} className={stat.className}>
         <div className="text-3xl font-bold ">{stat.value}</div>
-        {stat.label && <div className="text-sm text-muted-foreground">{stat.label}</div>}
+        {stat.label && <div className={cn("text-sm", getTextColor(background, "muted"))}>{stat.label}</div>}
       </div>
     ));
   }, [statsSlot, stats]);
@@ -204,7 +204,7 @@ export function HeroStatsSocialProof({
           )}
           <div>
             {statusCard.title && <div className="font-semibold ">{statusCard.title}</div>}
-            {statusCard.subtitle && <div className="text-sm text-muted-foreground">{statusCard.subtitle}</div>}
+            {statusCard.subtitle && <div className={cn("text-sm", getTextColor(background, "muted"))}>{statusCard.subtitle}</div>}
           </div>
         </div>
       </div>
@@ -223,7 +223,7 @@ export function HeroStatsSocialProof({
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
             {badge && (
-              <div className={cn("inline-flex w-fit items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary", badgeClassName)}>
+              <div className={cn("inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm font-medium", `${getAccentColor(background)}/10`, getAccentColor(background), badgeClassName)}>
                 {badgeIcon}
                 {typeof badge === "string" ? <span>{badge}</span> : badge}
               </div>
@@ -239,7 +239,7 @@ export function HeroStatsSocialProof({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>
+                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

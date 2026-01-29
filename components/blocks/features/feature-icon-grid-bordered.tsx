@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getAccentColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -169,7 +169,8 @@ export function FeatureIconGridBordered({
         {(feature.icon || feature.iconName) && (
           <span
             className={cn(
-              "mb-8 flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground md:size-12",
+              "mb-8 flex size-10 shrink-0 items-center justify-center rounded-full text-primary-foreground md:size-12",
+              getAccentColor(background),
               feature.iconClassName,
             )}
           >
@@ -186,7 +187,7 @@ export function FeatureIconGridBordered({
                 )}
               >
                 {feature.title}
-                <span className="absolute -left-px hidden h-6 w-px bg-primary md:inline-block"></span>
+                <span className={cn("absolute -left-px hidden h-6 w-px md:inline-block", getAccentColor(background))}></span>
               </h3>
             ) : (
               <div
@@ -196,7 +197,7 @@ export function FeatureIconGridBordered({
                 )}
               >
                 {feature.title}
-                <span className="absolute -left-px hidden h-6 w-px bg-primary md:inline-block"></span>
+                <span className={cn("absolute -left-px hidden h-6 w-px md:inline-block", getAccentColor(background))}></span>
               </div>
             ))}
           {feature.description &&
@@ -222,7 +223,7 @@ export function FeatureIconGridBordered({
         </div>
       </div>
     ));
-  }, [featuresSlot, features, cardClassName, renderIcon]);
+  }, [featuresSlot, features, cardClassName, renderIcon, background]);
 
   return (
     <Section

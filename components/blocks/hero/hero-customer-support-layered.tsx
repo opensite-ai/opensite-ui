@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getBorderColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import { Section } from "../../ui/section";
@@ -151,14 +151,14 @@ export function HeroCustomerSupportLayered({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("relative border-b border-muted pt-10", className)}
+      className={cn("relative border-b pt-10", getBorderColor(background, "muted"), className)}
     >
       <div className={cn("container", containerClassName)}>
         <div className="grid grid-cols-1 items-center gap-2 md:gap-4 lg:grid-cols-2">
           <div className={cn("flex w-full max-w-125 flex-col gap-9 lg:max-w-150 lg:py-[20%] xl:py-[26%]", contentClassName)}>
             {tagline && (
               typeof tagline === "string" ? (
-                <p className={cn("font-mono text-[clamp(0.875rem,0.875vw,1rem)] text-muted-foreground", taglineClassName)}>
+                <p className={cn("font-mono text-[clamp(0.875rem,0.875vw,1rem)]", getTextColor(background, "muted"), taglineClassName)}>
                   {tagline}
                 </p>
               ) : (
@@ -178,7 +178,7 @@ export function HeroCustomerSupportLayered({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-[clamp(1.125rem,1.125vw,1.4rem)] leading-normal text-muted-foreground", descriptionClassName)}>
+                <p className={cn("text-[clamp(1.125rem,1.125vw,1.4rem)] leading-normal", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

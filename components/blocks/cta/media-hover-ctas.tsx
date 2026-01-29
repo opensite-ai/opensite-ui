@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -155,7 +155,7 @@ export function MediaHoverCtas({
           : undefined;
       const baseBackgroundClassName = item.initialBackgroundColor
         ? "bg-[var(--media-hover-cta-bg)]"
-        : "bg-muted-foreground/10";
+        : getNestedCardBg(background, 'muted');
       const hoverBackgroundClassName = applyHoverBackground
         ? "group-hover:bg-[var(--media-hover-cta-hover-bg)]"
         : "";
@@ -192,7 +192,7 @@ export function MediaHoverCtas({
         </CardComponent>
       );
     });
-  }, [itemsSlot, resolvedItems, optixFlowConfig]);
+  }, [itemsSlot, resolvedItems, optixFlowConfig, background]);
 
   return (
     <Section

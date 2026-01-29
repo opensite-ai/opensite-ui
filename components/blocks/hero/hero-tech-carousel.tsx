@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import type { CarouselApi } from "../../ui/carousel";
 import {
@@ -205,7 +205,7 @@ export function HeroTechCarousel({
           )}
           {description && (
             typeof description === "string" ? (
-              <p className={cn("mx-auto mt-4 max-w-xl text-center text-lg text-muted-foreground", descriptionClassName)}>
+              <p className={cn("mx-auto mt-4 max-w-xl text-center text-lg", getTextColor(background, "muted"), descriptionClassName)}>
                 {description}
               </p>
             ) : (

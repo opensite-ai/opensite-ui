@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -151,11 +151,11 @@ export function HeroDigitalAgencyFullscreen({
     return (
       <div className={cn("flex items-center justify-between gap-4 rounded-lg bg-foreground/20 px-6 py-4 backdrop-blur-sm", footerClassName)}>
         <div className="flex items-center gap-3">
-          <div className="h-8 w-1 bg-primary"></div>
-          <div className="text-sm font-medium text-muted-foreground">
+          <div className={cn("h-8 w-1", getAccentColor(background))}></div>
+          <div className={cn("text-sm font-medium", getTextColor(background, "muted"))}>
             {footerLabel && (
               typeof footerLabel === "string" ? (
-                <p className="text-primary">{footerLabel}</p>
+                <p className={getAccentColor(background)}>{footerLabel}</p>
               ) : (
                 footerLabel
               )

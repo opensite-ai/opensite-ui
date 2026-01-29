@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import {
   Accordion,
   AccordionContent,
@@ -179,7 +179,7 @@ export function FaqGradientCategories({
                   <AccordionContent
                     className={cn("sm:mb-1 lg:mb-2", accordionContentClassName)}
                   >
-                    <div className="text-muted-foreground lg:text-lg">
+                    <div className={cn(getTextColor(background, "muted"), "lg:text-lg")}>
                       {item.answer}
                     </div>
                   </AccordionContent>
@@ -199,6 +199,7 @@ export function FaqGradientCategories({
     accordionItemClassName,
     accordionTriggerClassName,
     accordionContentClassName,
+    background,
   ]);
 
   return (
@@ -240,7 +241,8 @@ export function FaqGradientCategories({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "text-muted-foreground lg:text-lg",
+                    getTextColor(background, "muted"),
+                    "lg:text-lg",
                     descriptionClassName,
                   )}
                 >

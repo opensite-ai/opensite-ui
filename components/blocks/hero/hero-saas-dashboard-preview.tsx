@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -155,7 +155,7 @@ export function HeroSaasDashboardPreview({
           <DynamicIcon
             name={badgeIcon}
             size={16}
-            className="text-primary"
+            className={getAccentColor(background)}
           />
         )}
         {badgeText && <span>{badgeText}</span>}
@@ -190,7 +190,7 @@ export function HeroSaasDashboardPreview({
         </div>
         {emailForm.helperText && (
           typeof emailForm.helperText === "string" ? (
-            <p className="mt-4 text-sm text-muted-foreground">
+            <p className={cn("mt-4 text-sm", getTextColor(background, "muted"))}>
               {emailForm.helperText}
             </p>
           ) : (
@@ -222,7 +222,7 @@ export function HeroSaasDashboardPreview({
               <div className="h-3 w-3 rounded-full bg-success"></div>
             </div>
             {browserPreview.url && (
-              <div className="flex-1 text-center text-sm text-muted-foreground">
+              <div className={cn("flex-1 text-center text-sm", getTextColor(background, "muted"))}>
                 {browserPreview.url}
               </div>
             )}
@@ -264,7 +264,7 @@ export function HeroSaasDashboardPreview({
           )}
           {description && (
             typeof description === "string" ? (
-              <p className={cn("mt-6 text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
+              <p className={cn("mt-6 text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                 {description}
               </p>
             ) : (

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -231,7 +231,7 @@ export function HeroDesignShowcaseLogos({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-center text-xl text-muted-foreground", descriptionClassName)}>
+                <p className={cn("text-center text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                   {description}
                 </p>
               ) : (

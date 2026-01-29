@@ -5,6 +5,8 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { type ActionConfig } from "../../../src/types/blocks";
+import { Section } from "../../ui/section";
+import type { SectionBackground } from "../../../src/types";
 
 export interface ContactFloatingBannerProps {
   /**
@@ -55,6 +57,10 @@ export interface ContactFloatingBannerProps {
    * Additional CSS classes for the badge text
    */
   badgeClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
 }
 
 /**
@@ -86,6 +92,7 @@ export function ContactFloatingBanner({
   bannerContentClassName,
   messageClassName,
   badgeClassName,
+  background = "default",
 }: ContactFloatingBannerProps): React.JSX.Element {
   const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -114,7 +121,7 @@ export function ContactFloatingBanner({
   }, [actionsSlot, actions]);
 
   return (
-    <div className={cn("container relative mx-auto py-24 lg:py-32", className)}>
+    <Section background={background} spacing="lg" className={className}>
       {/* Floating Banner */}
       <div className={cn("pointer-events-none fixed inset-x-0 bottom-0 sm:flex sm:justify-center sm:px-6 sm:pb-5 lg:px-8", bannerClassName)}>
         <div className={cn("pointer-events-auto flex items-center justify-between gap-x-6 bg-primary px-6 py-2.5 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5", bannerContentClassName)}>
@@ -150,7 +157,7 @@ export function ContactFloatingBanner({
         </div>
       </div>
       {/* End of Floating Banner */}
-    </div>
+    </Section>
   );
 }
 

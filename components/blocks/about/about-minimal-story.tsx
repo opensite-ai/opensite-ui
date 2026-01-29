@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -126,17 +126,17 @@ export function AboutMinimalStory({
             optixFlowConfig={optixFlowConfig}
           />
         ) : (
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-2xl font-bold text-primary-foreground">
+          <div className={cn("flex h-16 w-16 items-center justify-center rounded-full text-2xl font-bold text-primary-foreground", getAccentColor(background))}>
             {author.name.charAt(0)}
           </div>
         )}
         <div>
           <p className="font-semibold">{author.name}</p>
-          <p className="text-sm text-muted-foreground">{author.role}</p>
+          <p className={cn("text-sm", getTextColor(background, 'muted'))}>{author.role}</p>
         </div>
       </div>
     );
-  }, [authorSlot, author, authorClassName, optixFlowConfig]);
+  }, [authorSlot, author, authorClassName, optixFlowConfig, background]);
 
   return (
     <Section
@@ -168,7 +168,8 @@ export function AboutMinimalStory({
           (typeof content === "string" ? (
             <p
               className={cn(
-                "mt-8 text-lg leading-relaxed text-muted-foreground whitespace-pre-line",
+                "mt-8 text-lg leading-relaxed whitespace-pre-line",
+                getTextColor(background, 'muted'),
                 bodyClassName,
               )}
             >

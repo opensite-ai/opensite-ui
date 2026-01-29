@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -147,7 +147,8 @@ export function AboutStoryGallery({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mt-6 text-lg text-muted-foreground whitespace-pre-line text-balance",
+                "mt-6 text-lg whitespace-pre-line text-balance",
+                getTextColor(background, 'muted'),
                 descriptionClassName,
               )}
             >

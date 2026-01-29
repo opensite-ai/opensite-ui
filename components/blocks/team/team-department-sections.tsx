@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Container } from "../../ui/container";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
@@ -189,7 +189,8 @@ export function TeamDepartmentSections({
               </span>
               <span
                 className={cn(
-                  "text-muted-foreground block text-xs",
+                  getTextColor(background, "muted"),
+                  "block text-xs",
                   memberRoleClassName,
                 )}
               >
@@ -200,7 +201,7 @@ export function TeamDepartmentSections({
         </div>
       </div>
     ));
-  }, [departmentsSlot, departments, departmentClassName, departmentNameClassName, membersGridClassName, memberCardClassName, memberAvatarClassName, optixFlowConfig, memberNameClassName, memberRoleClassName]);
+  }, [departmentsSlot, departments, departmentClassName, departmentNameClassName, membersGridClassName, memberCardClassName, memberAvatarClassName, optixFlowConfig, memberNameClassName, memberRoleClassName, background]);
 
   return (
     <Section

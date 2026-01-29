@@ -7,6 +7,8 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Card, CardContent } from "../../ui/card";
+import { Section } from "../../ui/section";
+import type { SectionBackground } from "../../../src/types";
 
 export interface ProjectZigzagLayoutItem {
   id: number;
@@ -24,6 +26,7 @@ export interface ProjectZigzagLayoutProps {
   subheading?: string;
   projects?: ProjectZigzagLayoutItem[];
   optixFlowConfig?: OptixFlowConfig;
+  background?: SectionBackground;
 }
 
 /**
@@ -42,10 +45,10 @@ export function ProjectZigzagLayout({
   subheading,
   projects,
   optixFlowConfig,
+  background = "default",
 }: ProjectZigzagLayoutProps) {
   return (
-    <div className={cn("bg-background py-16 md:py-24", className)}>
-      <div className="container mx-auto px-4 2xl:max-w-[1400px]">
+    <Section background={background} spacing="lg" className={className}>
         <div className="mb-16 text-center md:mb-24">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
             {heading}
@@ -122,7 +125,6 @@ export function ProjectZigzagLayout({
             </div>
           ))}
         </div>
-      </div>
-    </div>
+    </Section>
   );
 }

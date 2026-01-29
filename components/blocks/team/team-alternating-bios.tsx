@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -225,7 +225,8 @@ export function TeamAlternatingBios({
             </h3>
             <p
               className={cn(
-                "text-muted-foreground mt-1 text-lg",
+                getTextColor(background, "muted"),
+                "mt-1 text-lg",
                 memberRoleClassName,
               )}
             >
@@ -233,7 +234,7 @@ export function TeamAlternatingBios({
             </p>
           </div>
 
-          <p className={cn("text-muted-foreground", memberBioClassName)}>
+          <p className={cn(getTextColor(background, "muted"), memberBioClassName)}>
             {member.bio}
           </p>
 
@@ -321,7 +322,8 @@ export function TeamAlternatingBios({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-muted-foreground mt-1 text-lg",
+                getTextColor(background, "muted"),
+                "mt-1 text-lg",
                 descriptionClassName,
               )}
             >

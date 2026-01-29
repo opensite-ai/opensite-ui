@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Separator } from "../../ui/separator";
 import {
@@ -180,7 +180,7 @@ export function FaqBadgeSupport({
             <AccordionContent
               className={cn("sm:mb-1 lg:mb-2", accordionContentClassName)}
             >
-              <div className="text-muted-foreground lg:text-lg">
+              <div className={cn(getTextColor(background, "muted"), "lg:text-lg")}>
                 {item.answer}
               </div>
             </AccordionContent>
@@ -195,6 +195,7 @@ export function FaqBadgeSupport({
     accordionItemClassName,
     accordionTriggerClassName,
     accordionContentClassName,
+    background,
   ]);
 
   const supportSectionContent = useMemo(() => {
@@ -209,7 +210,7 @@ export function FaqBadgeSupport({
       >
         {supportText &&
           (typeof supportText === "string" ? (
-            <p className="text-muted-foreground">{supportText}</p>
+            <p className={getTextColor(background, "muted")}>{supportText}</p>
           ) : (
             supportText
           ))}
@@ -229,7 +230,7 @@ export function FaqBadgeSupport({
         )}
       </div>
     );
-  }, [supportSlot, supportText, supportAction, supportSectionClassName]);
+  }, [supportSlot, supportText, supportAction, supportSectionClassName, background]);
 
   return (
     <Section
@@ -272,7 +273,8 @@ export function FaqBadgeSupport({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-muted-foreground mt-6 text-base md:text-lg",
+                  getTextColor(background, "muted"),
+                  "mt-6 text-base md:text-lg",
                   descriptionClassName,
                 )}
               >

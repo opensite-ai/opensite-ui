@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -196,7 +196,8 @@ export function TeamLargeImages({
           </h3>
           <p
             className={cn(
-              "text-muted-foreground mt-1 text-sm",
+              getTextColor(background, "muted"),
+              "mt-1 text-sm",
               memberRoleClassName,
             )}
           >
@@ -204,7 +205,8 @@ export function TeamLargeImages({
           </p>
           <p
             className={cn(
-              "text-muted-foreground mt-3 text-sm",
+              getTextColor(background, "muted"),
+              "mt-3 text-sm",
               memberBioClassName,
             )}
           >
@@ -293,7 +295,8 @@ export function TeamLargeImages({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-muted-foreground mt-1 text-lg",
+                getTextColor(background, "muted"),
+                "mt-1 text-lg",
                 descriptionClassName,
               )}
             >

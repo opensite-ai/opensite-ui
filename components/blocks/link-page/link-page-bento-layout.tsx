@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
@@ -192,10 +192,6 @@ export interface LinkPageBentoLayoutProps {
    */
   footerClassName?: string;
   /**
-   * Theme variation: "light" or "dark"
-   */
-  theme?: "light" | "dark";
-  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -292,16 +288,14 @@ export function LinkPageBentoLayout({
   regularLinkIconClassName,
   regularLinkLabelClassName,
   footerClassName,
-  theme = "light",
-  background,
+  background = "white",
   spacing,
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
 }: LinkPageBentoLayoutProps): React.JSX.Element {
-  const isDark = theme === "dark";
-  const resolvedBackground = background ?? (isDark ? "dark" : "white");
+  const resolvedBackground = background;
 
   const resolvedAvatar: ImageItem | undefined =
     avatar ||
@@ -322,11 +316,12 @@ export function LinkPageBentoLayout({
     return (
       <div className={cn("flex items-center gap-2 pt-1", socialLinksClassName)}>
         {socialLinks.map((social, index) => {
+          const { iconName, ...socialPressableProps } = social;
           const icon =
             social.icon ||
-            (social.iconName ? (
+            (iconName ? (
               <DynamicIcon
-                name={social.iconName}
+                name={iconName}
                 size={18}
                 className={socialIconClassName}
               />
@@ -339,14 +334,13 @@ export function LinkPageBentoLayout({
           return (
             <Pressable
               key={social.id ?? index}
-              href={social.href}
+              {...socialPressableProps}
               aria-label={ariaLabel}
               className={cn(
                 "rounded-full p-2 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
-                isDark
-                  ? "text-muted-foreground hover:bg-muted/10"
-                  : "text-muted-foreground hover:bg-muted",
+                getTextColor(resolvedBackground, 'muted'),
+                "hover:opacity-80",
                 socialLinkClassName,
                 social.className,
               )}
@@ -357,7 +351,7 @@ export function LinkPageBentoLayout({
         })}
       </div>
     );
-  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, isDark, socialLinkClassName]);
+  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, resolvedBackground, socialLinkClassName]);
 
   const renderFeaturedLinks = useMemo(() => {
     if (featuredLinksSlot) return featuredLinksSlot;
@@ -371,6 +365,7 @@ export function LinkPageBentoLayout({
         children,
         className: linkClassName,
         featured: _featured, // Destructure to prevent passing to DOM
+        iconName,
         ...pressableProps
       } = link;
       const imageSource = link.image?.src ?? link.imageUrl;
@@ -378,9 +373,9 @@ export function LinkPageBentoLayout({
         link.image?.alt || (typeof label === "string" ? label : "");
       const iconElement =
         icon ||
-        (link.iconName ? (
+        (iconName ? (
           <DynamicIcon
-            name={link.iconName}
+            name={iconName}
             size={18}
             className={featuredLinkIconClassName}
           />
@@ -393,9 +388,7 @@ export function LinkPageBentoLayout({
             className={cn(
               "group relative aspect-4/3 overflow-hidden rounded-2xl transition-all duration-200",
               "hover:scale-[1.02] active:scale-[0.98]",
-              isDark
-                ? "border border-border/10 bg-muted/5"
-                : "border border-border bg-muted",
+              "border border-border bg-muted",
               featuredLinkClassName,
               linkClassName,
             )}
@@ -412,9 +405,7 @@ export function LinkPageBentoLayout({
           className={cn(
             "group relative aspect-4/3 overflow-hidden rounded-2xl transition-all duration-200",
             "hover:scale-[1.02] active:scale-[0.98]",
-            isDark
-              ? "border border-border/10 bg-muted/5"
-              : "border border-border bg-muted",
+            "border border-border bg-muted",
             featuredLinkClassName,
             linkClassName,
           )}
@@ -436,9 +427,7 @@ export function LinkPageBentoLayout({
               "absolute inset-0 transition-opacity",
               imageSource
                 ? "bg-linear-to-t from-black/80 via-black/40 to-transparent"
-                : isDark
-                  ? "bg-linear-to-t from-white/10 to-transparent"
-                  : "bg-linear-to-t from-neutral-200/50 to-transparent",
+                : "bg-linear-to-t from-neutral-200/50 to-transparent",
               featuredLinkOverlayClassName,
             )}
           />
@@ -467,7 +456,7 @@ export function LinkPageBentoLayout({
                     "mt-0.5 text-xs",
                     imageSource
                       ? "text-background/70"
-                      : "text-muted-foreground",
+                      : getTextColor(resolvedBackground, 'muted'),
                     featuredLinkDescriptionClassName,
                   )}
                 >
@@ -482,7 +471,7 @@ export function LinkPageBentoLayout({
         </Pressable>
       );
     });
-  }, [featuredLinksSlot, featuredLinks, isDark, featuredLinkClassName, featuredLinkImageClassName, optixFlowConfig, featuredLinkOverlayClassName, featuredLinkIconClassName, featuredLinkLabelClassName, featuredLinkDescriptionClassName]);
+  }, [featuredLinksSlot, featuredLinks, resolvedBackground, featuredLinkClassName, featuredLinkImageClassName, optixFlowConfig, featuredLinkOverlayClassName, featuredLinkIconClassName, featuredLinkLabelClassName, featuredLinkDescriptionClassName]);
 
   const renderRegularLinks = useMemo(() => {
     if (regularLinksSlot) return regularLinksSlot;
@@ -494,13 +483,14 @@ export function LinkPageBentoLayout({
         icon,
         children,
         className: linkClassName,
+        iconName,
         ...pressableProps
       } = link;
       const iconElement =
         icon ||
-        (link.iconName ? (
+        (iconName ? (
           <DynamicIcon
-            name={link.iconName}
+            name={iconName}
             size={20}
             className={regularLinkIconClassName}
           />
@@ -513,9 +503,7 @@ export function LinkPageBentoLayout({
             className={cn(
               "group flex items-center gap-3 rounded-xl p-3 transition-all duration-200",
               "hover:scale-[1.02] active:scale-[0.98]",
-              isDark
-                ? "border border-border/10 bg-muted/5 hover:bg-muted/10"
-                : "border border-border bg-muted/50 hover:bg-muted",
+              "border border-border bg-muted/50 hover:opacity-80",
               regularLinkClassName,
               linkClassName,
             )}
@@ -532,9 +520,7 @@ export function LinkPageBentoLayout({
           className={cn(
             "group flex items-center gap-3 rounded-xl p-3 transition-all duration-200",
             "hover:scale-[1.02] active:scale-[0.98]",
-            isDark
-              ? "border border-border/10 bg-muted/5 hover:bg-muted/10"
-              : "border border-border bg-muted/50 hover:bg-muted",
+            "border border-border bg-muted/50 hover:opacity-80",
             regularLinkClassName,
             linkClassName,
           )}
@@ -566,7 +552,7 @@ export function LinkPageBentoLayout({
         </Pressable>
       );
     });
-  }, [regularLinksSlot, regularLinks, isDark, regularLinkClassName, regularLinkIconWrapperClassName, regularLinkIconClassName, regularLinkLabelClassName]);
+  }, [regularLinksSlot, regularLinks, resolvedBackground, regularLinkClassName, regularLinkIconWrapperClassName, regularLinkIconClassName, regularLinkLabelClassName]);
 
   const renderLinks = useMemo(() => {
     if (linksSlot) return linksSlot;
@@ -604,8 +590,7 @@ export function LinkPageBentoLayout({
         {resolvedAvatar && (
           <div
             className={cn(
-              "h-20 w-20 overflow-hidden rounded-full",
-              isDark ? "ring-2 ring-white/20" : "ring-2 ring-neutral-200",
+              "h-20 w-20 overflow-hidden rounded-full ring-2 ring-neutral-200",
               avatarClassName,
             )}
           >
@@ -636,7 +621,8 @@ export function LinkPageBentoLayout({
             (typeof bio === "string" ? (
               <p
                 className={cn(
-                  "max-w-xs text-sm text-muted-foreground",
+                  "max-w-xs text-sm",
+                  getTextColor(resolvedBackground, 'muted'),
                   bioClassName,
                 )}
               >
@@ -650,7 +636,7 @@ export function LinkPageBentoLayout({
         {renderSocialLinks}
       </div>
     );
-  }, [profileSlot, resolvedAvatar, isDark, avatarClassName, optixFlowConfig, name, nameClassName, bio, bioClassName, renderSocialLinks, headerClassName]);
+  }, [profileSlot, resolvedAvatar, resolvedBackground, avatarClassName, optixFlowConfig, name, nameClassName, bio, bioClassName, renderSocialLinks, headerClassName]);
 
   const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
@@ -676,7 +662,8 @@ export function LinkPageBentoLayout({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          "text-muted-foreground/50",
+          getTextColor(resolvedBackground, 'muted'),
+          "opacity-50",
           footerClassName,
           actionClassName,
         )}
@@ -691,13 +678,13 @@ export function LinkPageBentoLayout({
         )}
       </Pressable>
     );
-  }, [footerSlot, footerAction, isDark, footerClassName]);
+  }, [footerSlot, footerAction, resolvedBackground, footerClassName]);
 
   return (
     <Section
       background={resolvedBackground}
       spacing={spacing}
-      className={cn(isDark ? "bg-foreground" : "bg-background", className)}
+      className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}

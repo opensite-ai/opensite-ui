@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { Fragment, useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor, getBorderColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -201,7 +201,7 @@ export function HeroSoftwareGrowthVideoDialog({
 
     return (
       <div className={cn("w-full py-[16%]", showcaseClassName)}>
-        <div className="border-muted2 relative aspect-[2.716981132/1] w-full border">
+        <div className={cn("relative aspect-[2.716981132/1] w-full border", getBorderColor(background, "muted"))}>
           {imageConfigs.map(({ index, className: posClassName, ratio }) => (
             <div key={index} className={posClassName}>
               <AspectRatio ratio={ratio}>
@@ -240,7 +240,7 @@ export function HeroSoftwareGrowthVideoDialog({
               )}
               {description && (
                 typeof description === "string" ? (
-                  <p className={cn("max-w-212.5 text-center text-lg leading-snug text-muted-foreground md:text-xl", descriptionClassName)}>
+                  <p className={cn("max-w-212.5 text-center text-lg leading-snug md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
                     {description}
                   </p>
                 ) : (

@@ -5,7 +5,8 @@ import { useMemo } from "react";
 
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { ActionConfig, SectionBackground } from "../../../src/types";
 
 /**
  * Props for the BannerPromoCta component
@@ -31,6 +32,11 @@ export interface BannerPromoCtaProps {
    * Custom slot for rendering actions (overrides actions array)
    */
   actionsSlot?: React.ReactNode;
+  /**
+   * Background style variant for the section
+   * @default "primary"
+   */
+  background?: SectionBackground;
   /**
    * Additional CSS classes for the banner container
    */
@@ -83,6 +89,7 @@ export function BannerPromoCta({
   separator,
   actions,
   actionsSlot,
+  background = "primary",
   className,
   containerClassName,
   contentClassName,
@@ -142,9 +149,7 @@ export function BannerPromoCta({
   }, [discount, discountClassName]);
 
   return (
-    <div
-      className={cn("w-full bg-primary text-primary-foreground", className)}
-    >
+    <Section background={background} spacing="none" className={className}>
       <div className={cn("container py-2.5", containerClassName)}>
         <div className={cn("flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center text-sm", contentClassName)}>
           {messageContent}
@@ -157,6 +162,6 @@ export function BannerPromoCta({
           )}
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

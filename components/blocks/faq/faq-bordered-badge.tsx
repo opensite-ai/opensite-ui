@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import {
   Accordion,
@@ -161,7 +161,7 @@ export function FaqBorderedBadge({
               {item.question}
             </AccordionTrigger>
             <AccordionContent
-              className={cn("text-muted-foreground", accordionContentClassName)}
+              className={cn(getTextColor(background, "muted"), accordionContentClassName)}
             >
               {item.answer}
             </AccordionContent>
@@ -176,6 +176,7 @@ export function FaqBorderedBadge({
     accordionItemClassName,
     accordionTriggerClassName,
     accordionContentClassName,
+    background,
   ]);
 
   return (
@@ -225,7 +226,8 @@ export function FaqBorderedBadge({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-muted-foreground max-w-2xl text-balance",
+                  getTextColor(background, "muted"),
+                  "max-w-2xl text-balance",
                   descriptionClassName,
                 )}
               >
