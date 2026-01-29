@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -95,82 +94,6 @@ export interface TestimonialsWallCompactProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: WallTestimonialItem[] = [
-  {
-    quote: "Game-changer for our team. Productivity up 50%!",
-    author: "Sarah Chen",
-    handle: "@sarahchen",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-    badge: "Featured",
-  },
-  {
-    quote: "Best tool I've used in years. Highly recommend.",
-    author: "Michael Torres",
-    handle: "@mtorres",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    quote: "Support team is incredible. Always there when needed.",
-    author: "Emily Watson",
-    handle: "@emilyw",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-  {
-    quote: "Clean UI, powerful features. Perfect combo.",
-    author: "David Kim",
-    handle: "@davidkim",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
-    badge: "Verified",
-  },
-  {
-    quote: "Switched from competitors. Never looking back.",
-    author: "Lisa Park",
-    handle: "@lisapark",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
-  },
-  {
-    quote: "ROI was visible in the first week. Amazing!",
-    author: "Alex Rivera",
-    handle: "@alexr",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar6,
-  },
-  {
-    quote: "Documentation is top-notch. Easy to get started.",
-    author: "Jordan Lee",
-    handle: "@jordanlee",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar7,
-  },
-  {
-    quote: "Our whole team adopted it instantly. Love it!",
-    author: "Maya Patel",
-    handle: "@mayap",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar8,
-    badge: "Power User",
-  },
-  {
-    quote: "Finally, a tool that just works. No fuss.",
-    author: "Chris Wong",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    quote: "Customer service responded in minutes. Impressed!",
-    author: "Emma Davis",
-    handle: "@emmad",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    quote: "Worth every penny. Quality is unmatched.",
-    author: "Ryan Miller",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-  {
-    quote: "Integrations work flawlessly. Saved us hours.",
-    author: "Sophie Brown",
-    handle: "@sophieb",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
-  },
-];
-
 /**
  * TestimonialsWallCompact - A dense wall of compact testimonial cards arranged in
  * a multi-column grid. Each card displays a short quote, author avatar, name, and
@@ -198,7 +121,7 @@ const DEFAULT_TESTIMONIALS: WallTestimonialItem[] = [
  * ```
  */
 export function TestimonialsWallCompact({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
   heading,
   description,
@@ -215,26 +138,27 @@ export function TestimonialsWallCompact({
   pattern,
   patternOpacity,
 }: TestimonialsWallCompactProps): React.JSX.Element {
-  const getAuthorName = (testimonial: WallTestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: WallTestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getAvatarSrc = (
+  const getAvatarSrc = useCallback((
     testimonial: WallTestimonialItem,
   ): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!testimonials || testimonials.length === 0) return null;
 
     return (
       <div
@@ -305,7 +229,7 @@ export function TestimonialsWallCompact({
         })}
       </div>
     );
-  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, authorClassName, quoteClassName]);
+  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, authorClassName, quoteClassName, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section

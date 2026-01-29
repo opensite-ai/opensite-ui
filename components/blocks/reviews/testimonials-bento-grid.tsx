@@ -1,13 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -96,50 +95,6 @@ export interface TestimonialsBentoGridProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: BentoTestimonialItem[] = [
-  {
-    quote:
-      "This platform has completely transformed how we approach our workflow. The intuitive design and powerful features have made our team significantly more productive. I can't imagine going back to our old tools.",
-    author: "Sarah Chen",
-    role: "Product Manager",
-    company: "TechCorp",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-    featured: true,
-  },
-  {
-    quote:
-      "The best investment we've made this year. ROI was visible within the first month.",
-    author: "Michael Torres",
-    role: "CEO",
-    company: "StartupXYZ",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    quote:
-      "Customer support is exceptional. They went above and beyond to help us with our specific needs.",
-    author: "Emily Watson",
-    role: "Operations Lead",
-    company: "GrowthCo",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-  {
-    quote:
-      "Simple, elegant, and powerful. Everything we needed in one package.",
-    author: "David Kim",
-    role: "CTO",
-    company: "InnovateLabs",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
-  },
-  {
-    quote:
-      "We've tried many solutions, but this one stands out for its reliability and ease of use.",
-    author: "Lisa Park",
-    role: "Engineering Manager",
-    company: "DevStudio",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
-  },
-];
-
 /**
  * TestimonialsBentoGrid - A modern bento-style grid layout featuring one large featured
  * testimonial card alongside smaller testimonial cards. The featured card spans multiple
@@ -168,7 +123,7 @@ const DEFAULT_TESTIMONIALS: BentoTestimonialItem[] = [
  * ```
  */
 export function TestimonialsBentoGrid({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
   heading,
   description,
@@ -186,29 +141,30 @@ export function TestimonialsBentoGrid({
   pattern,
   patternOpacity,
 }: TestimonialsBentoGridProps): React.JSX.Element {
-  const featured = testimonials.find((t) => t.featured) || testimonials[0];
-  const others = testimonials.filter((t) => t !== featured);
+  const featured = testimonials?.find((t) => t.featured) || testimonials?.[0];
+  const others = testimonials?.filter((t) => t !== featured) ?? [];
 
-  const getAuthorName = (testimonial: BentoTestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: BentoTestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getAvatarSrc = (
+  const getAvatarSrc = useCallback((
     testimonial: BentoTestimonialItem,
   ): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!featured) return null;
 
     const featuredAuthorName = getAuthorName(featured);
     const featuredAvatarSrc = getAvatarSrc(featured);
@@ -323,7 +279,7 @@ export function TestimonialsBentoGrid({
         })}
       </div>
     );
-  }, [testimonialsSlot, gridClassName, featuredCardClassName, quoteClassName, authorClassName, cardClassName, featured, others]);
+  }, [testimonialsSlot, gridClassName, featuredCardClassName, quoteClassName, authorClassName, cardClassName, featured, others, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section

@@ -1,13 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -113,30 +112,6 @@ export interface TestimonialsStatsHeaderProps {
 }
 
 
-const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
-  {
-    quote:
-      "The platform has revolutionized our workflow. We've seen a 40% increase in productivity since implementation.",
-    author: "Sarah Chen",
-    role: "Product Manager",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    quote:
-      "Outstanding support and an even better product. The team goes above and beyond to ensure our success.",
-    author: "Michael Torres",
-    role: "CEO",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    quote:
-      "Best investment we've made this year. The ROI was visible within the first month of using the platform.",
-    author: "Emily Watson",
-    role: "Operations Director",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-];
-
 /**
  * TestimonialsStatsHeader - A testimonial section featuring a prominent statistics
  * header followed by testimonial cards. The stats section displays key metrics in
@@ -169,7 +144,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
 export function TestimonialsStatsHeader({
   stats,
   statsSlot,
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
   heading,
   description,
@@ -188,25 +163,25 @@ export function TestimonialsStatsHeader({
   pattern,
   patternOpacity,
 }: TestimonialsStatsHeaderProps): React.JSX.Element {
-  const getAuthorName = (testimonial: TestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getAvatarSrc = (testimonial: TestimonialItem): string | undefined => {
+  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedStats = useMemo(() => {
     if (statsSlot) return statsSlot;
-    if (!stats) return null;
+    if (!stats || stats.length === 0) return null;
 
     return (
       <div
@@ -243,6 +218,7 @@ export function TestimonialsStatsHeader({
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!testimonials || testimonials.length === 0) return null;
 
     return (
       <div
@@ -309,7 +285,7 @@ export function TestimonialsStatsHeader({
         })}
       </div>
     );
-  }, [testimonialsSlot, testimonialsGridClassName, testimonials, cardClassName, quoteClassName, authorClassName]);
+  }, [testimonialsSlot, testimonialsGridClassName, testimonials, cardClassName, quoteClassName, authorClassName, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section

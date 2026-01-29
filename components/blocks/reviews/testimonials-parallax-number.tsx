@@ -77,27 +77,6 @@ export interface TestimonialsParallaxNumberProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
-  {
-    quote: "Transformed our entire creative process overnight.",
-    author: "Sarah Chen",
-    role: "Design Director",
-    company: "Linear",
-  },
-  {
-    quote: "The most elegant solution we've ever implemented.",
-    author: "Marcus Webb",
-    role: "Creative Lead",
-    company: "Vercel",
-  },
-  {
-    quote: "Pure craftsmanship in every single detail.",
-    author: "Elena Frost",
-    role: "Head of Product",
-    company: "Stripe",
-  },
-];
-
 /**
  * TestimonialsParallaxNumber - A premium testimonial section featuring an oversized
  * animated number with parallax mouse-tracking effect. The large index number responds
@@ -124,9 +103,9 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
  * ```
  */
 export function TestimonialsParallaxNumber({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
-  autoPlayInterval = 6000,
+  autoPlayInterval,
   verticalLabel,
   className,
   contentClassName,
@@ -141,6 +120,8 @@ export function TestimonialsParallaxNumber({
 }: TestimonialsParallaxNumberProps): React.JSX.Element {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const totalTestimonials = testimonials?.length ?? 0;
+  const effectiveAutoPlayInterval = autoPlayInterval ?? 6000;
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -152,7 +133,7 @@ export function TestimonialsParallaxNumber({
   const numberX = useTransform(x, [-200, 200], [-20, 20]);
   const numberY = useTransform(y, [-200, 200], [-10, 10]);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const rect = containerRef.current?.getBoundingClientRect();
     if (rect) {
       const centerX = rect.left + rect.width / 2;
@@ -160,44 +141,47 @@ export function TestimonialsParallaxNumber({
       mouseX.set(e.clientX - centerX);
       mouseY.set(e.clientY - centerY);
     }
-  };
+  }, [mouseX, mouseY]);
 
   const goNext = useCallback(() => {
-    setActiveIndex((prev) => (prev + 1) % testimonials.length);
-  }, [testimonials.length]);
+    if (totalTestimonials === 0) return;
+    setActiveIndex((prev) => (prev + 1) % totalTestimonials);
+  }, [totalTestimonials]);
 
   const goPrev = useCallback(() => {
+    if (totalTestimonials === 0) return;
     setActiveIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
+      (prev) => (prev - 1 + totalTestimonials) % totalTestimonials,
     );
-  }, [testimonials.length]);
+  }, [totalTestimonials]);
 
   useEffect(() => {
-    if (autoPlayInterval <= 0) return;
+    if (effectiveAutoPlayInterval <= 0 || totalTestimonials === 0) return;
 
-    const timer = setInterval(goNext, autoPlayInterval);
+    const timer = setInterval(goNext, effectiveAutoPlayInterval);
     return () => clearInterval(timer);
-  }, [autoPlayInterval, goNext]);
+  }, [effectiveAutoPlayInterval, goNext, totalTestimonials]);
 
-  const current = testimonials[activeIndex];
+  const current = testimonials?.[activeIndex];
 
-  const getAuthorName = (testimonial: TestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getQuoteText = (testimonial: TestimonialItem): string => {
+  const getQuoteText = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.quote === "string") return testimonial.quote;
     return "";
-  };
+  }, []);
 
-  const getCompanyName = (testimonial: TestimonialItem): string => {
+  const getCompanyName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.company === "string") return testimonial.company;
     return "";
-  };
+  }, []);
 
   const renderedTestimonial = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!current) return null;
 
     const authorName = getAuthorName(current);
     const quoteText = getQuoteText(current);
@@ -423,7 +407,7 @@ export function TestimonialsParallaxNumber({
         </div>
       </div>
     );
-  }, [testimonialsSlot, contentClassName, numberX, numberY, numberClassName, activeIndex, testimonials, verticalLabel, quoteClassName, authorClassName, current, navigationClassName, containerRef, handleMouseMove, goPrev, goNext]);
+  }, [testimonialsSlot, contentClassName, numberX, numberY, numberClassName, activeIndex, testimonials, verticalLabel, quoteClassName, authorClassName, current, navigationClassName, handleMouseMove, goPrev, goNext, totalTestimonials, getAuthorName, getQuoteText, getCompanyName]);
 
   return (
     <Section

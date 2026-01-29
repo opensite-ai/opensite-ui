@@ -1,13 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
@@ -104,58 +103,6 @@ export interface ReviewsListVerifiedProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_REVIEWS: ReviewItem[] = [
-  {
-    rating: 5,
-    title: "Exceeded my expectations",
-    content:
-      "I was a bit skeptical at first, but this product really delivered. The quality is outstanding and it arrived faster than expected. Would definitely recommend to anyone on the fence.",
-    author: "Sarah M.",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-    date: "Dec 10, 2024",
-    verified: true,
-  },
-  {
-    rating: 4,
-    title: "Great value for money",
-    content:
-      "Solid product overall. Does exactly what it's supposed to do. Took off one star because the packaging could be better, but the product itself is great.",
-    author: "James R.",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-    date: "Dec 8, 2024",
-    verified: true,
-  },
-  {
-    rating: 5,
-    title: "Perfect for everyday use",
-    content:
-      "I've been using this daily for a month now and it still looks and works like new. The build quality is impressive at this price point. Already bought one for my sister.",
-    author: "Emily K.",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-    date: "Dec 5, 2024",
-    verified: true,
-  },
-  {
-    rating: 4,
-    title: "Good but not perfect",
-    content:
-      "The product is nice and works well. My only minor complaint is that the color is slightly different from the photos, but it's still a great purchase overall.",
-    author: "Michael T.",
-    date: "Dec 2, 2024",
-    verified: false,
-  },
-  {
-    rating: 5,
-    title: "Best purchase I've made this year",
-    content:
-      "Absolutely love it! The attention to detail is remarkable. Customer service was also very helpful when I had questions. Five stars all around.",
-    author: "Lisa P.",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
-    date: "Nov 28, 2024",
-    verified: true,
-  },
-];
-
 function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
   return (
     <div className="flex items-center gap-0.5">
@@ -202,7 +149,7 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
  * ```
  */
 export function ReviewsListVerified({
-  reviews = DEFAULT_REVIEWS,
+  reviews,
   reviewsSlot,
   heading,
   verifiedPurchaseLabel,
@@ -217,23 +164,26 @@ export function ReviewsListVerified({
   pattern,
   patternOpacity,
 }: ReviewsListVerifiedProps): React.JSX.Element {
-  const averageRating =
-    reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
+  const totalReviews = reviews?.length ?? 0;
+  const averageRating = totalReviews > 0
+    ? (reviews?.reduce((sum, review) => sum + review.rating, 0) ?? 0) / totalReviews
+    : 0;
 
-  const getAuthorName = (review: ReviewItem): string => {
+  const getAuthorName = useCallback((review: ReviewItem): string => {
     if (typeof review.author === "string") return review.author;
     return "";
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedReviews = useMemo(() => {
     if (reviewsSlot) return reviewsSlot;
+    if (!reviews || reviews.length === 0) return null;
 
     return (
       <div className="space-y-0">
@@ -307,7 +257,7 @@ export function ReviewsListVerified({
         })}
       </div>
     );
-  }, [reviewsSlot, reviews, reviewClassName, contentClassName, authorClassName, verifiedPurchaseLabel]);
+  }, [reviewsSlot, reviews, reviewClassName, contentClassName, authorClassName, verifiedPurchaseLabel, getAuthorName, getInitials]);
 
   return (
     <Section
@@ -332,12 +282,14 @@ export function ReviewsListVerified({
             ) : (
               <div className={headingClassName}>{heading}</div>
             ))}
-          <div className="mt-2 flex items-center gap-3">
-            <StarRating rating={Math.round(averageRating)} size={20} />
-            <span className="text-sm text-muted-foreground">
-              {averageRating.toFixed(1)} out of 5 · {reviews.length} reviews
-            </span>
-          </div>
+          {totalReviews > 0 && (
+            <div className="mt-2 flex items-center gap-3">
+              <StarRating rating={Math.round(averageRating)} size={20} />
+              <span className="text-sm text-muted-foreground">
+                {averageRating.toFixed(1)} out of 5 · {totalReviews} reviews
+              </span>
+            </div>
+          )}
         </div>
 
         {renderedReviews}

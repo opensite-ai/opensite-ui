@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { AspectRatio } from "../../ui/aspect-ratio";
@@ -11,8 +11,6 @@ import { Separator } from "../../ui/separator";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   OptixFlowConfig,
@@ -141,69 +139,6 @@ export interface ReviewsImagesHelpfulProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DEFAULT_REVIEWS: ReviewWithImages[] = [
-  {
-    rating: 5,
-    title: "Absolutely stunning quality",
-    content:
-      "The craftsmanship on this is incredible. Photos don't do it justice - it looks even better in person. The material feels premium and the fit is perfect. I've already gotten so many compliments!",
-    author: "Sarah M.",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-    date: "Dec 10, 2024",
-    verified: true,
-    images: [imagePlaceholders[0], imagePlaceholders[1]],
-    helpful: 24,
-    variant: "Size M, Navy Blue",
-  },
-  {
-    rating: 4,
-    title: "Great product, minor sizing issue",
-    content:
-      "Love the quality and design. Runs slightly small so I'd recommend sizing up. Other than that, it's exactly what I was looking for. Fast shipping too!",
-    author: "James R.",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-    date: "Dec 8, 2024",
-    verified: true,
-    helpful: 18,
-    variant: "Size L, Black",
-  },
-  {
-    rating: 5,
-    title: "My new favorite!",
-    content:
-      "I've been searching for something like this for months. The attention to detail is amazing - from the stitching to the hardware, everything is top notch. Worth every penny.",
-    author: "Emily K.",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-    date: "Dec 5, 2024",
-    verified: true,
-    images: [imagePlaceholders[2]],
-    helpful: 31,
-    variant: "One Size, Cream",
-  },
-  {
-    rating: 5,
-    title: "Exceeded expectations",
-    content:
-      "Was hesitant to order online but so glad I did. The color is exactly as shown and the quality is exceptional. Customer service was also very responsive when I had questions about care instructions.",
-    author: "Michael T.",
-    date: "Dec 2, 2024",
-    verified: false,
-    helpful: 12,
-  },
-  {
-    rating: 4,
-    title: "Beautiful but pricey",
-    content:
-      "The product is gorgeous and well-made. I debated for a while because of the price, but ultimately happy with my purchase. Would love to see more color options in the future.",
-    author: "Lisa P.",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
-    date: "Nov 28, 2024",
-    verified: true,
-    images: [imagePlaceholders[3]],
-    helpful: 8,
-    variant: "Gold",
-  },
-];
 
 function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
   return (
@@ -255,7 +190,7 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
  * ```
  */
 export function ReviewsImagesHelpful({
-  reviews = DEFAULT_REVIEWS,
+  reviews,
   reviewsSlot,
   heading,
   writeReviewLabel,
@@ -276,11 +211,12 @@ export function ReviewsImagesHelpful({
 }: ReviewsImagesHelpfulProps): React.JSX.Element {
   const [helpfulClicked, setHelpfulClicked] = useState<Set<number>>(new Set());
 
-  const totalReviews = reviews.length;
-  const averageRating =
-    reviews.reduce((sum, review) => sum + review.rating, 0) / totalReviews;
+  const totalReviews = reviews?.length ?? 0;
+  const averageRating = totalReviews > 0
+    ? (reviews?.reduce((sum, review) => sum + review.rating, 0) ?? 0) / totalReviews
+    : 0;
 
-  const handleHelpful = (reviewIndex: number) => {
+  const handleHelpful = useCallback((reviewIndex: number) => {
     setHelpfulClicked((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(reviewIndex)) {
@@ -290,22 +226,23 @@ export function ReviewsImagesHelpful({
       }
       return newSet;
     });
-  };
+  }, []);
 
-  const getAuthorName = (review: ReviewWithImages): string => {
+  const getAuthorName = useCallback((review: ReviewWithImages): string => {
     if (typeof review.author === "string") return review.author;
     return "";
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedReviews = useMemo(() => {
     if (reviewsSlot) return reviewsSlot;
+    if (!reviews || reviews.length === 0) return null;
 
     return (
       <div className="space-y-0">
@@ -442,7 +379,7 @@ export function ReviewsImagesHelpful({
         })}
       </div>
     );
-  }, [reviewsSlot, reviews, reviewClassName, contentClassName, authorClassName, imagesClassName, helpfulClicked, optixFlowConfig, reportButtonLabel]);
+  }, [reviewsSlot, reviews, reviewClassName, contentClassName, authorClassName, imagesClassName, helpfulClicked, optixFlowConfig, reportButtonLabel, getAuthorName, getInitials, handleHelpful]);
 
   return (
     <Section
@@ -473,19 +410,23 @@ export function ReviewsImagesHelpful({
               ) : (
                 <div className={headingClassName}>{heading}</div>
               ))}
-            <div className="mt-2 flex items-center gap-2">
-              <StarRating rating={Math.round(averageRating)} size={20} />
-              <span className="text-lg font-semibold">
-                {averageRating.toFixed(1)}
-              </span>
-              <span className="text-sm text-muted-foreground">
-                ({totalReviews} reviews)
-              </span>
-            </div>
+            {totalReviews > 0 && (
+              <div className="mt-2 flex items-center gap-2">
+                <StarRating rating={Math.round(averageRating)} size={20} />
+                <span className="text-lg font-semibold">
+                  {averageRating.toFixed(1)}
+                </span>
+                <span className="text-sm text-muted-foreground">
+                  ({totalReviews} reviews)
+                </span>
+              </div>
+            )}
           </div>
-          <Pressable asButton variant="outline" onClick={onWriteReview}>
-            {writeReviewLabel}
-          </Pressable>
+          {(writeReviewLabel || onWriteReview) && (
+            <Pressable asButton variant="outline" onClick={onWriteReview}>
+              {writeReviewLabel}
+            </Pressable>
+          )}
         </div>
 
         {renderedReviews}

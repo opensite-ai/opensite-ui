@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -85,33 +84,6 @@ export interface TestimonialsCenteredAvatarsProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
-  {
-    quote:
-      "The platform has revolutionized how we handle our daily operations. It's intuitive, powerful, and the support team is always there when we need them.",
-    author: "Sarah Chen",
-    role: "Product Manager",
-    company: "TechCorp",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    quote:
-      "We've seen a 40% increase in productivity since implementing this solution. It's become an essential part of our workflow.",
-    author: "Michael Torres",
-    role: "Operations Director",
-    company: "GrowthCo",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    quote:
-      "The best investment we've made this year. The ROI was visible within the first month of implementation.",
-    author: "Emily Watson",
-    role: "CEO",
-    company: "StartupXYZ",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-];
-
 /**
  * TestimonialsCenteredAvatars - A centered testimonial section featuring a badge,
  * title, and a row of large overlapping avatars. Displays multiple testimonials
@@ -139,7 +111,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
  * ```
  */
 export function TestimonialsCenteredAvatars({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
   badge,
   heading,
@@ -157,24 +129,25 @@ export function TestimonialsCenteredAvatars({
   pattern,
   patternOpacity,
 }: TestimonialsCenteredAvatarsProps): React.JSX.Element {
-  const getAuthorName = (testimonial: TestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getAvatarSrc = (testimonial: TestimonialItem): string | undefined => {
+  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!testimonials || testimonials.length === 0) return null;
 
     return (
       <div className={cn("mt-12 space-y-8", testimonialsClassName)}>
@@ -253,25 +226,27 @@ export function TestimonialsCenteredAvatars({
             <div className={headingClassName}>{heading}</div>
           ))}
 
-        <div className={cn("mt-8 flex justify-center", avatarsClassName)}>
-          <div className="flex -space-x-4">
-            {testimonials.map((testimonial, index) => {
-              const authorName = getAuthorName(testimonial);
-              const avatarSrc = getAvatarSrc(testimonial);
-              return (
-                <Avatar
-                  key={index}
-                  className="size-16 border-4 border-background ring-2 ring-border md:size-20"
-                >
-                  <AvatarImage src={avatarSrc} alt={authorName} />
-                  <AvatarFallback className="text-lg">
-                    {getInitials(authorName)}
-                  </AvatarFallback>
-                </Avatar>
-              );
-            })}
+        {testimonials && testimonials.length > 0 && (
+          <div className={cn("mt-8 flex justify-center", avatarsClassName)}>
+            <div className="flex -space-x-4">
+              {testimonials.map((testimonial, index) => {
+                const authorName = getAuthorName(testimonial);
+                const avatarSrc = getAvatarSrc(testimonial);
+                return (
+                  <Avatar
+                    key={index}
+                    className="size-16 border-4 border-background ring-2 ring-border md:size-20"
+                  >
+                    <AvatarImage src={avatarSrc} alt={authorName} />
+                    <AvatarFallback className="text-lg">
+                      {getInitials(authorName)}
+                    </AvatarFallback>
+                  </Avatar>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         {renderedTestimonials}
       </div>

@@ -1,14 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   OptixFlowConfig,
@@ -88,15 +86,6 @@ export interface TestimonialsSplitImageProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DEFAULT_TESTIMONIAL: TestimonialItem = {
-  quote:
-    "Working with this team has been transformative for our business. Their expertise and dedication to quality have helped us achieve results we never thought possible. The attention to detail and commitment to excellence is evident in everything they do.",
-  author: "Sarah Chen",
-  role: "Chief Executive Officer",
-  company: "TechVentures Inc.",
-  avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-};
-
 /**
  * TestimonialsSplitImage - A two-column split layout testimonial featuring a large
  * image on one side and a prominent quote with author details on the other. The image
@@ -122,11 +111,11 @@ const DEFAULT_TESTIMONIAL: TestimonialItem = {
  * ```
  */
 export function TestimonialsSplitImage({
-  testimonial = DEFAULT_TESTIMONIAL,
+  testimonial,
   testimonialSlot,
   imageSrc,
   imageAlt,
-  imagePosition = "left",
+  imagePosition,
   className,
   gridClassName,
   imageClassName,
@@ -140,24 +129,27 @@ export function TestimonialsSplitImage({
   patternOpacity,
   optixFlowConfig,
 }: TestimonialsSplitImageProps): React.JSX.Element {
-  const getAuthorName = (): string => {
-    if (typeof testimonial.author === "string") return testimonial.author;
+  const effectiveImagePosition = imagePosition || "left";
+
+  const getAuthorName = useCallback((): string => {
+    if (typeof testimonial?.author === "string") return testimonial.author;
     return "";
-  };
+  }, [testimonial?.author]);
 
-  const getAvatarSrc = (): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  const getAvatarSrc = useCallback((): string | undefined => {
+    return testimonial?.avatarSrc || testimonial?.avatar?.src;
+  }, [testimonial?.avatarSrc, testimonial?.avatar?.src]);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
+    if (!testimonial) return null;
 
     const authorName = getAuthorName();
     const avatarSrc = getAvatarSrc();
@@ -166,7 +158,7 @@ export function TestimonialsSplitImage({
       <div
         className={cn(
           "space-y-6",
-          imagePosition === "right" && "lg:order-1",
+          effectiveImagePosition === "right" && "lg:order-1",
           contentClassName,
         )}
       >
@@ -218,7 +210,7 @@ export function TestimonialsSplitImage({
         </div>
       </div>
     );
-  }, [testimonialSlot, imagePosition, contentClassName, quoteIconClassName, testimonial.quote, quoteClassName, authorClassName, testimonial.author, testimonial.role, testimonial.company]);
+  }, [testimonialSlot, effectiveImagePosition, contentClassName, quoteIconClassName, testimonial, quoteClassName, authorClassName, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section
@@ -235,7 +227,7 @@ export function TestimonialsSplitImage({
           <div
             className={cn(
               "relative aspect-4/3 overflow-hidden rounded-2xl lg:aspect-square",
-              imagePosition === "right" && "lg:order-2",
+              effectiveImagePosition === "right" && "lg:order-2",
               imageClassName,
             )}
           >

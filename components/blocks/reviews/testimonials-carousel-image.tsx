@@ -6,7 +6,6 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   OptixFlowConfig,
   TestimonialItem,
@@ -85,33 +84,6 @@ export interface TestimonialsCarouselImageProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DEFAULT_TESTIMONIALS: CarouselTestimonialItem[] = [
-  {
-    quote:
-      "Working with this team has been an absolute game-changer for our business. Their expertise and dedication exceeded all our expectations.",
-    author: "Sarah Chen",
-    role: "CEO",
-    company: "TechVentures",
-    backgroundImage: imagePlaceholders[10],
-  },
-  {
-    quote:
-      "The level of professionalism and attention to detail is unmatched. They delivered exactly what we needed, on time and on budget.",
-    author: "Michael Torres",
-    role: "Founder",
-    company: "StartupLab",
-    backgroundImage: imagePlaceholders[11],
-  },
-  {
-    quote:
-      "I've worked with many agencies, but none have matched the quality and creativity that this team brings to every project.",
-    author: "Emily Watson",
-    role: "Marketing Director",
-    company: "GrowthCo",
-    backgroundImage: imagePlaceholders[12],
-  },
-];
-
 /**
  * TestimonialsCarouselImage - A full-width image carousel testimonial section with
  * large background images, overlay gradients, and navigation controls. Each slide
@@ -137,7 +109,7 @@ const DEFAULT_TESTIMONIALS: CarouselTestimonialItem[] = [
  * ```
  */
 export function TestimonialsCarouselImage({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
   height,
   overlayOpacity,
@@ -154,23 +126,27 @@ export function TestimonialsCarouselImage({
   optixFlowConfig,
 }: TestimonialsCarouselImageProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const totalTestimonials = testimonials?.length ?? 0;
 
   const goToPrevious = useCallback(() => {
+    if (totalTestimonials === 0) return;
     setCurrentIndex((prev) =>
-      prev === 0 ? testimonials.length - 1 : prev - 1
+      prev === 0 ? totalTestimonials - 1 : prev - 1
     );
-  }, [testimonials.length]);
+  }, [totalTestimonials]);
 
   const goToNext = useCallback(() => {
+    if (totalTestimonials === 0) return;
     setCurrentIndex((prev) =>
-      prev === testimonials.length - 1 ? 0 : prev + 1
+      prev === totalTestimonials - 1 ? 0 : prev + 1
     );
-  }, [testimonials.length]);
+  }, [totalTestimonials]);
 
-  const current = testimonials[currentIndex];
+  const current = testimonials?.[currentIndex];
 
   const renderedTestimonialContent = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!current) return null;
 
     return (
       <div className={cn("mx-auto max-w-4xl text-center text-white", contentClassName)}>
@@ -211,12 +187,12 @@ export function TestimonialsCarouselImage({
         </div>
       </div>
     );
-  }, [testimonialsSlot, contentClassName, quoteIconClassName, current.quote, quoteClassName, authorClassName, current.author, current.role, current.company]);
+  }, [testimonialsSlot, contentClassName, quoteIconClassName, current, quoteClassName, authorClassName]);
 
   return (
     <section className={cn("relative", height, className)}>
       <div className="absolute inset-0">
-        {current.backgroundImage && (
+        {current?.backgroundImage && (
           <Img
             src={current.backgroundImage}
             alt=""
@@ -246,7 +222,7 @@ export function TestimonialsCarouselImage({
           </Pressable>
 
           <div className={cn("flex gap-2", dotsClassName)}>
-            {testimonials.map((_, index) => (
+            {testimonials?.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}

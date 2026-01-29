@@ -1,13 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -97,51 +96,6 @@ export interface TestimonialsScrollingColumnsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DEFAULT_TESTIMONIALS: ScrollingColumnTestimonialItem[] = [
-  {
-    quote:
-      "This platform has completely transformed how we approach our daily operations. The intuitive design makes everything seamless.",
-    author: "Sarah Chen",
-    role: "Product Manager",
-    imageSrc: imagePlaceholders[40],
-  },
-  {
-    quote:
-      "The best investment we've made this year. Our team productivity has increased significantly since we started using it.",
-    author: "Michael Torres",
-    role: "CEO",
-    imageSrc: imagePlaceholders[41],
-  },
-  {
-    quote:
-      "Outstanding support and an exceptional product. The team goes above and beyond to ensure our success.",
-    author: "Emily Watson",
-    role: "Operations Director",
-    imageSrc: imagePlaceholders[42],
-  },
-  {
-    quote:
-      "Clean interface, powerful features, and excellent documentation. Everything a developer could ask for.",
-    author: "David Kim",
-    role: "Senior Developer",
-    imageSrc: imagePlaceholders[43],
-  },
-  {
-    quote:
-      "We've tried many solutions, but this one stands out for its reliability and ease of use.",
-    author: "Lisa Park",
-    role: "Engineering Manager",
-    imageSrc: imagePlaceholders[44],
-  },
-  {
-    quote:
-      "The attention to detail is impressive. Every feature feels thoughtfully designed and implemented.",
-    author: "Alex Rivera",
-    role: "Design Director",
-    imageSrc: imagePlaceholders[45],
-  },
-];
-
 const containerVariants = {
   hidden: {},
   visible: {
@@ -189,7 +143,7 @@ const itemVariants = {
  * ```
  */
 export function TestimonialsScrollingColumns({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
   heading,
   description,
@@ -207,15 +161,16 @@ export function TestimonialsScrollingColumns({
   patternOpacity,
   optixFlowConfig,
 }: TestimonialsScrollingColumnsProps): React.JSX.Element {
-  const getAuthorName = (
+  const getAuthorName = useCallback((
     testimonial: ScrollingColumnTestimonialItem,
   ): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!testimonials || testimonials.length === 0) return null;
 
     return (
       <motion.div
@@ -291,7 +246,7 @@ export function TestimonialsScrollingColumns({
         })}
       </motion.div>
     );
-  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, optixFlowConfig, quoteClassName, authorClassName]);
+  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, optixFlowConfig, quoteClassName, authorClassName, getAuthorName]);
 
   return (
     <Section

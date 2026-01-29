@@ -8,8 +8,6 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -87,36 +85,6 @@ export interface TestimonialsAnimatedSplitProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DEFAULT_TESTIMONIALS: AnimatedSplitTestimonialItem[] = [
-  {
-    quote:
-      "This platform has completely transformed how we approach our daily operations. The intuitive design and powerful features have made our team significantly more productive.",
-    author: "Sarah Chen",
-    role: "Product Manager",
-    company: "TechCorp",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-    image: imagePlaceholders[30],
-  },
-  {
-    quote:
-      "The best investment we've made this year. Our team adopted it instantly and the results speak for themselves. Customer satisfaction is at an all-time high.",
-    author: "Michael Torres",
-    role: "CEO",
-    company: "StartupXYZ",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-    image: imagePlaceholders[31],
-  },
-  {
-    quote:
-      "Outstanding support and an exceptional product. The team goes above and beyond to ensure our success. I couldn't recommend them more highly.",
-    author: "Emily Watson",
-    role: "Operations Director",
-    company: "GrowthCo",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-    image: imagePlaceholders[32],
-  },
-];
-
 /**
  * TestimonialsAnimatedSplit - An animated split-screen testimonial section with smooth
  * transitions powered by Framer Motion. Features a large image on one side and animated
@@ -144,9 +112,9 @@ const DEFAULT_TESTIMONIALS: AnimatedSplitTestimonialItem[] = [
  * ```
  */
 export function TestimonialsAnimatedSplit({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
-  autoPlayInterval = 6000,
+  autoPlayInterval,
   className,
   imageClassName,
   contentClassName,
@@ -160,46 +128,50 @@ export function TestimonialsAnimatedSplit({
   optixFlowConfig,
 }: TestimonialsAnimatedSplitProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const totalTestimonials = testimonials?.length ?? 0;
 
   const goToNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  }, [testimonials.length]);
+    if (totalTestimonials === 0) return;
+    setCurrentIndex((prev) => (prev + 1) % totalTestimonials);
+  }, [totalTestimonials]);
 
   const goToPrev = useCallback(() => {
+    if (totalTestimonials === 0) return;
     setCurrentIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
+      (prev) => (prev - 1 + totalTestimonials) % totalTestimonials,
     );
-  }, [testimonials.length]);
+  }, [totalTestimonials]);
 
   useEffect(() => {
-    if (autoPlayInterval <= 0) return;
+    if (!autoPlayInterval || autoPlayInterval <= 0) return;
 
     const interval = setInterval(goToNext, autoPlayInterval);
     return () => clearInterval(interval);
   }, [autoPlayInterval, goToNext]);
 
-  const current = testimonials[currentIndex];
+  const current = testimonials?.[currentIndex];
 
-  const getAuthorName = (testimonial: AnimatedSplitTestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: AnimatedSplitTestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getAvatarSrc = (
+  const getAvatarSrc = useCallback((
     testimonial: AnimatedSplitTestimonialItem,
   ): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonial = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!current) return null;
 
     const authorName = getAuthorName(current);
     const avatarSrc = getAvatarSrc(current);
@@ -324,7 +296,7 @@ export function TestimonialsAnimatedSplit({
         </div>
       </div>
     );
-  }, [testimonialsSlot, imageClassName, currentIndex, current, optixFlowConfig, contentClassName, quoteClassName, authorClassName, navigationClassName, testimonials, goToPrev, goToNext]);
+  }, [testimonialsSlot, imageClassName, currentIndex, current, optixFlowConfig, contentClassName, quoteClassName, authorClassName, navigationClassName, testimonials, goToPrev, goToNext, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section

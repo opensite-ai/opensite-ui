@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import {
@@ -12,7 +12,6 @@ import {
   CarouselPrevious,
 } from "../../ui/carousel";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -91,44 +90,6 @@ export interface TestimonialsQuoteCarouselProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
-  {
-    quote:
-      "Their collaborative approach and deep understanding of our industry resulted in a design that not only looks exceptional but performs brilliantly.",
-    author: "Daniel Ramirez",
-    role: "Product Director, NexGen",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    quote:
-      "The team's ability to translate complex requirements into clean, intuitive interfaces is remarkable. They're truly masters of their craft.",
-    author: "Sophia Chen",
-    role: "UX Director, Innovate AI",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    quote:
-      "Working with them was effortless. They brought fresh perspectives to challenges we'd been struggling with for months.",
-    author: "Marcus Johnson",
-    role: "CEO, Horizon Media",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-  {
-    quote:
-      "They didn't just meet our expectations - they redefined what we thought was possible. I cannot recommend them highly enough.",
-    author: "Olivia Thompson",
-    role: "Brand Manager, Elevate",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
-  },
-  {
-    quote:
-      "The strategic thinking behind their design decisions transformed our product. We saw immediate improvements in user engagement.",
-    author: "James Wilson",
-    role: "CTO, TechSphere",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
-  },
-];
-
 /**
  * TestimonialsQuoteCarousel - A horizontal carousel of testimonial cards with quote
  * styling and navigation controls. Each card displays a large quote mark, testimonial
@@ -155,7 +116,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
  * ```
  */
 export function TestimonialsQuoteCarousel({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
   heading,
   description,
@@ -173,21 +134,21 @@ export function TestimonialsQuoteCarousel({
   pattern,
   patternOpacity,
 }: TestimonialsQuoteCarouselProps): React.JSX.Element {
-  const getAuthorName = (testimonial: TestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getAvatarSrc = (testimonial: TestimonialItem): string | undefined => {
+  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedHeading = useMemo(() => {
     if (typeof heading === "string") {
@@ -206,6 +167,7 @@ export function TestimonialsQuoteCarousel({
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!testimonials || testimonials.length === 0) return null;
 
     return (
       <div className={cn("mx-auto max-w-5xl", carouselClassName)}>
@@ -299,7 +261,7 @@ export function TestimonialsQuoteCarousel({
         </Carousel>
       </div>
     );
-  }, [testimonialsSlot, carouselClassName, testimonials, cardClassName, quoteClassName, authorClassName, navigationClassName]);
+  }, [testimonialsSlot, carouselClassName, testimonials, cardClassName, quoteClassName, authorClassName, navigationClassName, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section

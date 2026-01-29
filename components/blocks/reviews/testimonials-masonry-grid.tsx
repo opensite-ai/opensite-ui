@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -81,63 +80,6 @@ export interface TestimonialsMasonryGridProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
-  {
-    quote:
-      "This platform has completely transformed how we approach our daily operations. The intuitive design and powerful features have made our team significantly more productive. I can't imagine going back to our old workflow.",
-    author: "Sarah Chen",
-    role: "Product Manager",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    quote: "Outstanding support and an exceptional product. Highly recommend!",
-    author: "Michael Torres",
-    role: "CEO",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    quote:
-      "The best investment we've made this year. Our team adopted it instantly and the results speak for themselves.",
-    author: "Emily Watson",
-    role: "Operations Director",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-  {
-    quote:
-      "Clean interface, powerful features, and excellent documentation. Everything a developer could ask for. The API is well-designed and the SDK makes integration a breeze.",
-    author: "David Kim",
-    role: "Senior Developer",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
-  },
-  {
-    quote: "Simple, elegant, and powerful. A game-changer for our workflow.",
-    author: "Lisa Park",
-    role: "Engineering Manager",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
-  },
-  {
-    quote:
-      "We've tried many solutions, but this one stands out for its reliability and ease of use. The customer support team is also incredibly responsive.",
-    author: "Alex Rivera",
-    role: "Design Director",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar6,
-  },
-  {
-    quote:
-      "Intuitive design that requires minimal training. Our onboarding time dropped significantly since we started using this platform.",
-    author: "Jordan Lee",
-    role: "HR Manager",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar7,
-  },
-  {
-    quote:
-      "The attention to detail is impressive. Every feature feels thoughtfully designed.",
-    author: "Maya Patel",
-    role: "UX Designer",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar8,
-  },
-];
-
 /**
  * TestimonialsMasonryGrid - A masonry-style grid layout for testimonials with varying
  * card heights based on content length. Cards are distributed across columns creating
@@ -164,7 +106,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
  * ```
  */
 export function TestimonialsMasonryGrid({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
   heading,
   description,
@@ -181,30 +123,31 @@ export function TestimonialsMasonryGrid({
   pattern,
   patternOpacity,
 }: TestimonialsMasonryGridProps): React.JSX.Element {
-  const columns = [
+  const columns = testimonials ? [
     testimonials.filter((_, i) => i % 3 === 0),
     testimonials.filter((_, i) => i % 3 === 1),
     testimonials.filter((_, i) => i % 3 === 2),
-  ];
+  ] : [];
 
-  const getAuthorName = (testimonial: TestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getAvatarSrc = (testimonial: TestimonialItem): string | undefined => {
+  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!testimonials || testimonials.length === 0) return null;
 
     return (
       <div
@@ -272,7 +215,7 @@ export function TestimonialsMasonryGrid({
         ))}
       </div>
     );
-  }, [testimonialsSlot, gridClassName, columns, cardClassName, quoteClassName, authorClassName]);
+  }, [testimonialsSlot, gridClassName, columns, cardClassName, quoteClassName, authorClassName, testimonials, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section
