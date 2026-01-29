@@ -168,7 +168,7 @@ export interface FeatureUtilityCardsGridProps {
 export function FeatureUtilityCardsGrid({
   label,
   labelIcon,
-  labelIconName = "lucide/square-dashed-mouse-pointer",
+  labelIconName,
   title,
   description,
   learnMoreAction,
@@ -190,11 +190,11 @@ export function FeatureUtilityCardsGrid({
   patternOpacity,
   patternClassName,
 }: FeatureUtilityCardsGridProps): React.JSX.Element {
-  const renderLabelIcon = () => {
+  const renderLabelIcon = useMemo(() => {
     if (labelIcon) return labelIcon;
     if (labelIconName) return <DynamicIcon name={labelIconName} size={20} className="text-primary" />;
-    return <DynamicIcon name="lucide/square-dashed-mouse-pointer" size={20} className="text-primary" />;
-  };
+    return null;
+  }, [labelIcon, labelIconName]);
 
   const learnMoreContent = useMemo(() => {
     if (learnMoreSlot) return learnMoreSlot;
@@ -227,7 +227,7 @@ export function FeatureUtilityCardsGrid({
     );
   }, [learnMoreSlot, learnMoreAction]);
 
-  const renderUtilityImage = (utility: FeatureUtilityCardsGridItem) => {
+  const renderUtilityImage = React.useCallback((utility: FeatureUtilityCardsGridItem) => {
     if (utility.imageSlot) return utility.imageSlot;
     if (utility.image) {
       return (
@@ -241,7 +241,7 @@ export function FeatureUtilityCardsGrid({
       );
     }
     return null;
-  };
+  }, [optixFlowConfig]);
 
   const utilitiesContent = useMemo(() => {
     if (utilitiesSlot) return utilitiesSlot;
@@ -268,7 +268,7 @@ export function FeatureUtilityCardsGrid({
         </div>
       </Card>
     ));
-  }, [utilitiesSlot, utilities, cardClassName, optixFlowConfig]);
+  }, [utilitiesSlot, utilities, cardClassName, renderUtilityImage]);
 
   return (
     <Section
@@ -280,39 +280,49 @@ export function FeatureUtilityCardsGrid({
       className={className}
       containerClassName={cn("max-w-7xl", containerClassName)}
     >
-      <div className={cn("flex items-center justify-between text-sm", headerClassName)}>
-        <div className={cn("flex items-center gap-1 text-muted-foreground", labelClassName)}>
-          {renderLabelIcon()}
-          {label && (
-            typeof label === "string" ? (
-              <p>{label}</p>
+      {(label || labelIcon || labelIconName || learnMoreSlot || learnMoreAction) && (
+        <>
+          <div className={cn("flex items-center justify-between text-sm", headerClassName)}>
+            {(label || labelIcon || labelIconName) && (
+              <div className={cn("flex items-center gap-1 text-muted-foreground", labelClassName)}>
+                {renderLabelIcon}
+                {label && (
+                  typeof label === "string" ? (
+                    <p>{label}</p>
+                  ) : (
+                    <div>{label}</div>
+                  )
+                )}
+              </div>
+            )}
+            {learnMoreContent}
+          </div>
+          <Separator className="mt-3 mb-8" />
+        </>
+      )}
+      {(title || description) && (
+        <div className="flex flex-col justify-between gap-6 md:flex-row">
+          {title && (
+            typeof title === "string" ? (
+              <h2 className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</h2>
             ) : (
-              <div>{label}</div>
+              <div className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("md:w-1/2", descriptionClassName)}>{description}</p>
+            ) : (
+              <div className={cn("md:w-1/2", descriptionClassName)}>{description}</div>
             )
           )}
         </div>
-        {learnMoreContent}
-      </div>
-      <Separator className="mt-3 mb-8" />
-      <div className="flex flex-col justify-between gap-6 md:flex-row">
-        {title && (
-          typeof title === "string" ? (
-            <h2 className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</h2>
-          ) : (
-            <div className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("md:w-1/2", descriptionClassName)}>{description}</p>
-          ) : (
-            <div className={cn("md:w-1/2", descriptionClassName)}>{description}</div>
-          )
-        )}
-      </div>
-      <div className={cn("mt-11 grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
-        {utilitiesContent}
-      </div>
+      )}
+      {(utilitiesSlot || (utilities && utilities.length > 0)) && (
+        <div className={cn("mt-11 grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+          {utilitiesContent}
+        </div>
+      )}
     </Section>
   );
 }

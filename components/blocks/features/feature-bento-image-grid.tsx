@@ -191,13 +191,13 @@ export function FeatureBentoImageGrid({
   patternOpacity,
   patternClassName,
 }: FeatureBentoImageGridProps): React.JSX.Element {
-  const renderItemIcon = useMemo(() => (item: FeatureBentoImageGridItem) => {
+  const renderItemIcon = React.useCallback((item: FeatureBentoImageGridItem) => {
     if (item.icon) return item.icon;
     if (item.iconName) return <DynamicIcon name={item.iconName} size={24} />;
     return null;
   }, []);
 
-  const renderItemImage = useMemo(() => (item: FeatureBentoImageGridItem, imageClassName?: string) => {
+  const renderItemImage = React.useCallback((item: FeatureBentoImageGridItem, imageClassName?: string) => {
     if (item.imageSlot) return item.imageSlot;
     if (item.imageSrc) {
       return (
@@ -213,16 +213,21 @@ export function FeatureBentoImageGrid({
     return null;
   }, [optixFlowConfig]);
 
-  const renderLargeCard = useMemo(() => (item: FeatureBentoImageGridItem) => {
+  const renderLargeCard = React.useCallback((item: FeatureBentoImageGridItem) => {
+    const iconContent = renderItemIcon(item);
+    const hasIconBadgeContent = iconContent || item.iconBadge;
+
     const cardContent = (
       <>
         {renderItemImage(item, "h-full max-h-[580px] w-full rounded-xl object-cover object-center")}
         <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-20 rounded-xl bg-linear-to-t from-primary to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
         <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
-          <span className={cn("ml-auto flex w-fit items-center gap-1 p-2.5 text-sm font-semibold text-background", item.iconBadgeClassName)}>
-            {renderItemIcon(item)}
-            {item.iconBadge}
-          </span>
+          {hasIconBadgeContent && (
+            <span className={cn("ml-auto flex w-fit items-center gap-1 p-2.5 text-sm font-semibold text-background", item.iconBadgeClassName)}>
+              {iconContent}
+              {item.iconBadge}
+            </span>
+          )}
           <div className="flex flex-col gap-5 text-background">
             {item.title && (
               typeof item.title === "string" ? (
@@ -264,7 +269,10 @@ export function FeatureBentoImageGrid({
     );
   }, [largeCardClassName, renderItemImage, renderItemIcon]);
 
-  const renderSmallCard = useMemo(() => (item: FeatureBentoImageGridItem, index: number) => {
+  const renderSmallCard = React.useCallback((item: FeatureBentoImageGridItem, index: number) => {
+    const iconContent = renderItemIcon(item);
+    const hasIconBadgeContent = iconContent || item.iconBadge;
+
     const cardContent = (
       <>
         {renderItemImage(item, cn(
@@ -273,10 +281,12 @@ export function FeatureBentoImageGrid({
         ))}
         <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 rounded-xl bg-linear-to-t from-primary to-transparent opacity-80 transition-transform duration-300 group-hover:translate-y-0"></div>
         <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
-          <span className={cn("ml-auto flex w-fit items-center gap-1 p-2.5 text-sm font-semibold text-background", item.iconBadgeClassName)}>
-            {renderItemIcon(item)}
-            {item.iconBadge}
-          </span>
+          {hasIconBadgeContent && (
+            <span className={cn("ml-auto flex w-fit items-center gap-1 p-2.5 text-sm font-semibold text-background", item.iconBadgeClassName)}>
+              {iconContent}
+              {item.iconBadge}
+            </span>
+          )}
           <div className="flex flex-col gap-5 text-background">
             {item.title && (
               typeof item.title === "string" ? (

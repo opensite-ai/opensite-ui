@@ -297,41 +297,53 @@ export function FeatureImageOverlayBadge({
             {actionsContent}
           </div>
         </div>
-        <div className={cn("relative rounded-xl", imageWrapperClassName)}>
-          {imageContent}
-          <div className={cn("absolute top-0 right-0 bottom-0 left-0 rounded-xl bg-linear-to-t from-primary via-transparent to-transparent", overlayClassName)}></div>
-          <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
-            <span className={cn("ml-auto flex w-fit items-center gap-2 rounded-full bg-background/30 px-4 py-2.5 text-sm font-semibold backdrop-blur-sm", avatarBadgeClassName)}>
-              <Avatar className="size-7 rounded-full">
-                <AvatarImage src={avatarSrc} alt="Avatar" />
-              </Avatar>
-              {avatarBadgeText}
-            </span>
-            <div className="flex flex-col gap-5 text-background">
-              {overlayTitle && (
-                typeof overlayTitle === "string" ? (
-                  <h4 className={cn("text-lg font-semibold lg:text-3xl", overlayTitleClassName)}>
-                    {overlayTitle}
-                  </h4>
-                ) : (
-                  <div className={cn("text-lg font-semibold lg:text-3xl", overlayTitleClassName)}>
-                    {overlayTitle}
-                  </div>
-                )
-              )}
-              {overlayLinkText && (
-                <Pressable
-                  href={overlayLinkUrl}
-                  onClick={overlayLinkOnClick}
-                  className="flex items-center gap-1 font-medium"
-                >
-                  {overlayLinkText}
-                  <DynamicIcon name="lucide/chevron-right" size={16} />
-                </Pressable>
-              )}
-            </div>
+        {imageContent && (
+          <div className={cn("relative rounded-xl", imageWrapperClassName)}>
+            {imageContent}
+            {(avatarSrc || avatarBadgeText || overlayTitle || overlayLinkText) && (
+              <>
+                <div className={cn("absolute top-0 right-0 bottom-0 left-0 rounded-xl bg-linear-to-t from-primary via-transparent to-transparent", overlayClassName)}></div>
+                <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
+                  {(avatarSrc || avatarBadgeText) && (
+                    <span className={cn("ml-auto flex w-fit items-center gap-2 rounded-full bg-background/30 px-4 py-2.5 text-sm font-semibold backdrop-blur-sm", avatarBadgeClassName)}>
+                      {avatarSrc && (
+                        <Avatar className="size-7 rounded-full">
+                          <AvatarImage src={avatarSrc} alt="Avatar" />
+                        </Avatar>
+                      )}
+                      {avatarBadgeText}
+                    </span>
+                  )}
+                  {(overlayTitle || overlayLinkText) && (
+                    <div className="flex flex-col gap-5 text-background">
+                      {overlayTitle && (
+                        typeof overlayTitle === "string" ? (
+                          <h4 className={cn("text-lg font-semibold lg:text-3xl", overlayTitleClassName)}>
+                            {overlayTitle}
+                          </h4>
+                        ) : (
+                          <div className={cn("text-lg font-semibold lg:text-3xl", overlayTitleClassName)}>
+                            {overlayTitle}
+                          </div>
+                        )
+                      )}
+                      {overlayLinkText && (
+                        <Pressable
+                          href={overlayLinkUrl}
+                          onClick={overlayLinkOnClick}
+                          className="flex items-center gap-1 font-medium"
+                        >
+                          {overlayLinkText}
+                          <DynamicIcon name="lucide/chevron-right" size={16} />
+                        </Pressable>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
           </div>
-        </div>
+        )}
       </div>
     </Section>
   );

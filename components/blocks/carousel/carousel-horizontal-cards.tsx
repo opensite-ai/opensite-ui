@@ -260,19 +260,21 @@ export function CarouselHorizontalCards({
           >
             <div
               className={cn(
-                "flex flex-row justify-start gap-4 pl-4",
+                "flex flex-row justify-start gap-2",
                 carouselClassName,
               )}
             >
               {items?.map((item, index) => (
                 <motion.div
                   key={item.id}
-                  className={cn(
-                    "rounded-lg last:pr-[5%] md:last:pr-[33%]",
-                  )}
+                  className={cn("rounded-lg last:pr-[5%] md:last:pr-[33%]")}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 * index, ease: "easeOut" }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.2 * index,
+                    ease: "easeOut",
+                  }}
                 >
                   <div
                     className={cn(
@@ -283,7 +285,9 @@ export function CarouselHorizontalCards({
                     <div className="overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm transition-shadow hover:shadow-md">
                       <Img
                         alt={
-                          typeof item.title === "string" ? item.title : `Card ${index + 1}`
+                          typeof item.title === "string"
+                            ? item.title
+                            : `Card ${index + 1}`
                         }
                         className={cn(
                           "aspect-video w-full object-cover transition-transform group-hover:scale-105",
@@ -363,7 +367,7 @@ export function CarouselHorizontalCards({
             onNext={scrollRight}
             canScrollPrevious={!isAtStart}
             canScrollNext={!isAtEnd}
-            className={cn("mr-0 md:mr-10", navigationClassName)}
+            className={cn("mr-0", navigationClassName)}
           />
         </div>
       </div>

@@ -51,11 +51,8 @@ General rule: `DynamicIcon` should receive a `name` like `"lucide/home"`, where 
 
 When source components reference concrete image or video URLs:
 
-1. **Use shared placeholder pools.**
-   - Logos: `logoPlaceholders` from `lib/mediaPlaceholders.ts`.
-   - Generic images: `imagePlaceholders` from `lib/mediaPlaceholders.ts`.
-   - Generic videos: `videoPlaceholders` from `lib/mediaPlaceholders.ts`.
-   - Branded / block‑specific assets: `blockBrandedIconsAndPlaceholders` from `lib/blockBrandedIconsAndPlaceholders.ts`.
+1. **Placeholder media.**
+   - Placeholder images/videos/et al are never to be used
 
 2. **Use the shared `<Img>` component, not raw `<img>` tags.**
    - Locate existing usages of `Img` in blocks and mirror the import path + usage.
@@ -112,4 +109,3 @@ When converting new source components into blocks:
 5. Wire the block into the semantic registry (ID, category, semantic tags, description).
 6. Run `pnpm test`, `pnpm type-check`, and then `pnpm generate:exports`.
 7. Before opening a PR, ensure your branch is rebased on the latest `master` (e.g. via `git pull --rebase`).
-

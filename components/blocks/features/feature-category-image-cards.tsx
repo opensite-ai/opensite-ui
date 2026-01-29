@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import {
@@ -174,7 +174,7 @@ export function FeatureCategoryImageCards({
   patternOpacity,
   patternClassName,
 }: FeatureCategoryImageCardsProps): React.JSX.Element {
-  const renderFeatureImage = (feature: FeatureCategoryImageCardsItem) => {
+  const renderFeatureImage = useCallback((feature: FeatureCategoryImageCardsItem) => {
     if (feature.imageSlot) return feature.imageSlot;
     if (feature.imageSrc) {
       return (
@@ -188,7 +188,7 @@ export function FeatureCategoryImageCards({
       );
     }
     return null;
-  };
+  }, [optixFlowConfig]);
 
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
@@ -225,7 +225,7 @@ export function FeatureCategoryImageCards({
         </CardContent>
       </Card>
     ));
-  }, [featuresSlot, features, cardClassName, optixFlowConfig]);
+  }, [featuresSlot, features, cardClassName, renderFeatureImage]);
 
   return (
     <Section

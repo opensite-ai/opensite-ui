@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -175,7 +175,7 @@ export function FeatureBadgeGridSix({
     return <Badge variant="secondary" className={badgeClassName}>{label}</Badge>;
   }, [badgeSlot, label, badgeClassName]);
 
-  const renderFeatureIcon = (feature: FeatureBadgeGridSixItem) => {
+  const renderFeatureIcon = useCallback((feature: FeatureBadgeGridSixItem) => {
     if (feature.icon) return feature.icon;
     if (feature.iconName) {
       return (
@@ -187,47 +187,53 @@ export function FeatureBadgeGridSix({
       );
     }
     return null;
-  };
+  }, []);
 
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
-    return features.map((feature, index) => (
-      <div
-        key={index}
-        className={cn("flex gap-6 space-y-4 rounded-lg md:block", cardClassName, feature.className)}
-      >
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent md:size-12">
-          {renderFeatureIcon(feature)}
-        </span>
-        <div>
-          {feature.heading && (
-            typeof feature.heading === "string" ? (
-              <h3 className={cn("font-medium md:mb-2 md:text-xl", feature.headingClassName)}>
-                {feature.heading}
-              </h3>
-            ) : (
-              <div className={cn("font-medium md:mb-2 md:text-xl", feature.headingClassName)}>
-                {feature.heading}
-              </div>
-            )
+    return features.map((feature, index) => {
+      const iconContent = renderFeatureIcon(feature);
+
+      return (
+        <div
+          key={index}
+          className={cn("flex gap-6 space-y-4 rounded-lg md:block", cardClassName, feature.className)}
+        >
+          {iconContent && (
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent md:size-12">
+              {iconContent}
+            </span>
           )}
-          {feature.description && (
-            typeof feature.description === "string" ? (
-              <p className={cn("text-sm text-muted-foreground md:text-base", feature.descriptionClassName)}>
-                {feature.description}
-              </p>
-            ) : (
-              <div className={cn("text-sm text-muted-foreground md:text-base", feature.descriptionClassName)}>
-                {feature.description}
-              </div>
-            )
-          )}
+          <div>
+            {feature.heading && (
+              typeof feature.heading === "string" ? (
+                <h3 className={cn("font-medium md:mb-2 md:text-xl", feature.headingClassName)}>
+                  {feature.heading}
+                </h3>
+              ) : (
+                <div className={cn("font-medium md:mb-2 md:text-xl", feature.headingClassName)}>
+                  {feature.heading}
+                </div>
+              )
+            )}
+            {feature.description && (
+              typeof feature.description === "string" ? (
+                <p className={cn("text-sm text-muted-foreground md:text-base", feature.descriptionClassName)}>
+                  {feature.description}
+                </p>
+              ) : (
+                <div className={cn("text-sm text-muted-foreground md:text-base", feature.descriptionClassName)}>
+                  {feature.description}
+                </div>
+              )
+            )}
+          </div>
         </div>
-      </div>
-    ));
-  }, [featuresSlot, features, cardClassName]);
+      );
+    });
+  }, [featuresSlot, features, cardClassName, renderFeatureIcon]);
 
   const actionContent = useMemo(() => {
     if (actionSlot) return actionSlot;

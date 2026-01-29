@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState , useMemo} from "react";
+import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -17,10 +17,7 @@ import {
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
-import {
-  logoPlaceholders,
-  imagePlaceholders,
-} from "../../../lib/mediaPlaceholders";
+import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -400,51 +397,54 @@ export const NavbarTabbedSections = ({
                 navClassName,
               )}
             >
-          <div className="flex items-center gap-8">
-            {renderLogo}
+              <div className="flex items-center gap-8">
+                {renderLogo}
 
-            <NavigationMenu className="hidden lg:flex">
-              <NavigationMenuList>{renderMenu}</NavigationMenuList>
-            </NavigationMenu>
-          </div>
-
-          <div
-            className={cn(
-              "hidden items-center gap-2 lg:flex",
-              actionsClassName,
-            )}
-          >
-            {renderAuthActions}
-          </div>
-
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="lg:hidden">
-              <Pressable
-                variant="ghost"
-                size="icon"
-                asButton
-                onClick={() => {}}
-              >
-                <DynamicIcon name="lucide/menu" size={20} />
-                <span className="sr-only">Toggle menu</span>
-              </Pressable>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] overflow-y-auto">
-              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <div className="flex flex-col gap-4 pt-8">
-                {renderMobileMenu}
-                <div
-                  className={cn(
-                    "mt-4 flex flex-col gap-2 border-t pt-4",
-                    actionsClassName,
-                  )}
-                >
-                  {renderAuthActions}
-                </div>
+                <NavigationMenu className="hidden lg:flex">
+                  <NavigationMenuList>{renderMenu}</NavigationMenuList>
+                </NavigationMenu>
               </div>
-            </SheetContent>
-          </Sheet>
-        </nav>
+
+              <div
+                className={cn(
+                  "hidden items-center gap-2 lg:flex",
+                  actionsClassName,
+                )}
+              >
+                {renderAuthActions}
+              </div>
+
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                <SheetTrigger asChild className="lg:hidden">
+                  <Pressable
+                    variant="ghost"
+                    size="icon"
+                    asButton
+                    onClick={() => {}}
+                  >
+                    <DynamicIcon name="lucide/menu" size={20} />
+                    <span className="sr-only">Toggle menu</span>
+                  </Pressable>
+                </SheetTrigger>
+                <SheetContent
+                  side="right"
+                  className="w-[300px] overflow-y-auto"
+                >
+                  <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                  <div className="flex flex-col gap-4 pt-8">
+                    {renderMobileMenu}
+                    <div
+                      className={cn(
+                        "mt-4 flex flex-col gap-2 border-t pt-4",
+                        actionsClassName,
+                      )}
+                    >
+                      {renderAuthActions}
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </nav>
           </div>
         </div>
       </div>

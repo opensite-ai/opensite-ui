@@ -137,73 +137,81 @@ export function FeatureCapabilitiesGrid({
   patternOpacity,
   patternClassName,
 }: FeatureCapabilitiesGridProps): React.JSX.Element {
-  const renderItemIcon = (item: FeatureCapabilitiesGridItem) => {
+  const renderItemIcon = React.useCallback((item: FeatureCapabilitiesGridItem) => {
     if (item.icon) return item.icon;
     if (item.iconName) return <DynamicIcon name={item.iconName} size={20} />;
-    return <DynamicIcon name="lucide/star" size={20} />;
-  };
+    return null;
+  }, []);
 
   const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
-    return items.map((item, index) => (
-      <Card
-        key={`${typeof item.title === "string" ? item.title : "item"}-${index}`}
-        className={cn("group relative overflow-visible border-white/10 bg-white/5 p-0 transition-colors duration-300 hover:border-white/20", cardClassName, item.className)}
-      >
-        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <div className="absolute -inset-px rounded-xl bg-linear-to-br from-white/10 via-white/5 to-transparent" />
-        </div>
+    return items.map((item, index) => {
+      const iconContent = renderItemIcon(item);
 
-        <div className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-tr from-white/0 to-white/0 transition-colors group-hover:from-white/3 group-hover:to-white/6" />
-
-        <div className="pointer-events-none absolute inset-0 hidden group-hover:block">
-          <div className="absolute -left-2 -top-2 h-3 w-3 bg-white" />
-          <div className="absolute -right-2 -top-2 h-3 w-3 bg-white" />
-          <div className="absolute -left-2 -bottom-2 h-3 w-3 bg-white" />
-          <div className="absolute -right-2 -bottom-2 h-3 w-3 bg-white" />
-        </div>
-
-        <CardHeader className="relative z-10 flex flex-row items-start gap-3 p-6">
-          <div className={cn("flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white", item.iconClassName)}>
-            {renderItemIcon(item)}
+      return (
+        <Card
+          key={`${typeof item.title === "string" ? item.title : "item"}-${index}`}
+          className={cn("group relative overflow-visible border-white/10 bg-white/5 p-0 transition-colors duration-300 hover:border-white/20", cardClassName, item.className)}
+        >
+          <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <div className="absolute -inset-px rounded-xl bg-linear-to-br from-white/10 via-white/5 to-transparent" />
           </div>
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              {item.title && (
-                typeof item.title === "string" ? (
-                  <CardTitle className={cn("text-lg font-medium text-white", item.titleClassName)}>
-                    {item.title}
-                  </CardTitle>
-                ) : (
-                  <div className={cn("text-lg font-medium text-white", item.titleClassName)}>
-                    {item.title}
-                  </div>
-                )
-              )}
-              {item.badge && (
-                <span className={cn("rounded-full border border-white/20 px-2 py-0.5 text-[10px] leading-none text-white/70", item.badgeClassName)}>
-                  {item.badge}
-                </span>
-              )}
+
+          <div className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-tr from-white/0 to-white/0 transition-colors group-hover:from-white/3 group-hover:to-white/6" />
+
+          <div className="pointer-events-none absolute inset-0 hidden group-hover:block">
+            <div className="absolute -left-2 -top-2 h-3 w-3 bg-white" />
+            <div className="absolute -right-2 -top-2 h-3 w-3 bg-white" />
+            <div className="absolute -left-2 -bottom-2 h-3 w-3 bg-white" />
+            <div className="absolute -right-2 -bottom-2 h-3 w-3 bg-white" />
+          </div>
+
+          <CardHeader className="relative z-10 flex flex-row items-start gap-3 p-6">
+            {iconContent && (
+              <div className={cn("flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white", item.iconClassName)}>
+                {iconContent}
+              </div>
+            )}
+            <div className="flex-1">
+              <div className="flex items-center gap-2">
+                {item.title && (
+                  typeof item.title === "string" ? (
+                    <CardTitle className={cn("text-lg font-medium text-white", item.titleClassName)}>
+                      {item.title}
+                    </CardTitle>
+                  ) : (
+                    <div className={cn("text-lg font-medium text-white", item.titleClassName)}>
+                      {item.title}
+                    </div>
+                  )
+                )}
+                {item.badge && (
+                  <span className={cn("rounded-full border border-white/20 px-2 py-0.5 text-[10px] leading-none text-white/70", item.badgeClassName)}>
+                    {item.badge}
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
-        </CardHeader>
+          </CardHeader>
 
-        <CardContent className={cn("relative z-10 px-6 pb-6 text-sm text-white/70", item.descriptionClassName)}>
-          {item.description}
-        </CardContent>
+          {item.description && (
+            <CardContent className={cn("relative z-10 px-6 pb-6 text-sm text-white/70", item.descriptionClassName)}>
+              {item.description}
+            </CardContent>
+          )}
 
-        <motion.div
-          className="pointer-events-none absolute inset-0 rounded-xl ring-0 ring-white/0"
-          initial={{ opacity: 0 }}
-          whileHover={{ opacity: 1 }}
-          transition={{ duration: 0.25 }}
-        />
-      </Card>
-    ));
-  }, [itemsSlot, items, cardClassName]);
+          <motion.div
+            className="pointer-events-none absolute inset-0 rounded-xl ring-0 ring-white/0"
+            initial={{ opacity: 0 }}
+            whileHover={{ opacity: 1 }}
+            transition={{ duration: 0.25 }}
+          />
+        </Card>
+      );
+    });
+  }, [itemsSlot, items, cardClassName, renderItemIcon]);
 
   return (
     <Section

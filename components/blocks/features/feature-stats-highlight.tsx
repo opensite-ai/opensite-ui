@@ -175,37 +175,28 @@ export function FeatureStatsHighlight({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      if (action.children) {
-        return (
-          <Pressable
-            key={index}
-            href={action.href}
-            onClick={action.onClick}
-            variant={action.variant}
-            size={action.size}
-            className={cn("mt-4 w-fit gap-2", action.className)}
-            aria-label={action["aria-label"]}
-            asButton
-          >
-            {action.children}
-          </Pressable>
-        );
-      }
-
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
-          href={action.href}
-          onClick={action.onClick}
-          variant={action.variant}
-          size={action.size}
-          className={cn("mt-4 w-fit gap-2", action.className)}
-          aria-label={action["aria-label"]}
+          className={cn("mt-4 w-fit gap-2", actionClassName)}
           asButton
+          {...pressableProps}
         >
-          {action.icon}
-          {action.label}
-          {action.iconAfter}
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
         </Pressable>
       );
     });
@@ -220,10 +211,14 @@ export function FeatureStatsHighlight({
         key={index}
         className={cn("flex flex-col gap-2 rounded-xl border bg-muted/30 p-6", statCardClassName, stat.className)}
       >
-        <span className={cn("text-4xl font-bold text-primary lg:text-5xl", stat.valueClassName)}>
-          {stat.value}
-        </span>
-        <span className={cn("text-muted-foreground", stat.labelClassName)}>{stat.label}</span>
+        {stat.value && (
+          <span className={cn("text-4xl font-bold text-primary lg:text-5xl", stat.valueClassName)}>
+            {stat.value}
+          </span>
+        )}
+        {stat.label && (
+          <span className={cn("text-muted-foreground", stat.labelClassName)}>{stat.label}</span>
+        )}
       </div>
     ));
   }, [statsSlot, stats, statCardClassName]);
@@ -259,13 +254,17 @@ export function FeatureStatsHighlight({
               <div className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</div>
             )
           )}
-          <div className={actionsClassName}>
-            {actionsContent}
+          {(actionsSlot || (actions && actions.length > 0)) && (
+            <div className={actionsClassName}>
+              {actionsContent}
+            </div>
+          )}
+        </div>
+        {(statsSlot || (stats && stats.length > 0)) && (
+          <div className={cn("grid grid-cols-2 gap-6", statsGridClassName)}>
+            {statsContent}
           </div>
-        </div>
-        <div className={cn("grid grid-cols-2 gap-6", statsGridClassName)}>
-          {statsContent}
-        </div>
+        )}
       </div>
     </Section>
   );

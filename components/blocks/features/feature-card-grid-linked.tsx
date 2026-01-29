@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -165,6 +165,22 @@ export function FeatureCardGridLinked({
   patternOpacity,
   patternClassName,
 }: FeatureCardGridLinkedProps): React.JSX.Element {
+  const renderImage = useCallback((feature: FeatureCardGridLinkedItem, imageAlt: string) => {
+    if (feature.imageSlot) return feature.imageSlot;
+    if (feature.image) {
+      return (
+        <Img
+          src={feature.image}
+          alt={imageAlt}
+          className="h-full w-full rounded-t-lg object-cover transition-opacity hover:opacity-80"
+          loading="lazy"
+          optixFlowConfig={optixFlowConfig}
+        />
+      );
+    }
+    return null;
+  }, [optixFlowConfig]);
+
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
@@ -172,22 +188,6 @@ export function FeatureCardGridLinked({
     return features.map((feature, index) => {
       const featureKey = feature.id || `feature-${index}`;
       const imageAlt = feature.imageAlt || (typeof feature.heading === "string" ? feature.heading : "Feature image");
-
-      const renderImage = () => {
-        if (feature.imageSlot) return feature.imageSlot;
-        if (feature.image) {
-          return (
-            <Img
-              src={feature.image}
-              alt={imageAlt}
-              className="h-full w-full rounded-t-lg object-cover transition-opacity hover:opacity-80"
-              loading="lazy"
-              optixFlowConfig={optixFlowConfig}
-            />
-          );
-        }
-        return null;
-      };
 
       return (
         <div
@@ -217,7 +217,7 @@ export function FeatureCardGridLinked({
             </div>
             <div className="md:1/3 w-2/5 shrink-0 rounded-r-lg border-l">
               <Pressable href={feature.url}>
-                {renderImage()}
+                {renderImage(feature, imageAlt)}
               </Pressable>
             </div>
           </div>
@@ -229,7 +229,7 @@ export function FeatureCardGridLinked({
         </div>
       );
     });
-  }, [featuresSlot, features, cardClassName, optixFlowConfig]);
+  }, [featuresSlot, features, cardClassName, renderImage]);
 
   return (
     <Section

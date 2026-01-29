@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -189,10 +189,10 @@ export function FeatureCarouselProgress({
     });
   }, [api, slidesLength]);
 
-  const renderSlideIcon = useMemo(() => (slide: FeatureCarouselProgressItem) => {
+  const renderSlideIcon = useCallback((slide: FeatureCarouselProgressItem) => {
     if (slide.icon) return slide.icon;
     if (slide.iconName) return <DynamicIcon name={slide.iconName} size={16} />;
-    return <DynamicIcon name="lucide/star" size={16} />;
+    return null;
   }, []);
 
   const slidesContent = useMemo(() => {
@@ -208,9 +208,11 @@ export function FeatureCarouselProgress({
           <Card className={cn(cardClassName, slide.className)}>
             <CardContent className="flex flex-col justify-center p-6">
               <div>
-                <span className={cn("mb-5 flex size-8 items-center justify-center rounded-full bg-accent lg:size-10", slide.iconClassName)}>
-                  {renderSlideIcon(slide)}
-                </span>
+                {(slide.icon || slide.iconName) && (
+                  <span className={cn("mb-5 flex size-8 items-center justify-center rounded-full bg-accent lg:size-10", slide.iconClassName)}>
+                    {renderSlideIcon(slide)}
+                  </span>
+                )}
                 {slide.title && (
                   typeof slide.title === "string" ? (
                     <p className={cn("text-xl font-semibold md:text-2xl lg:text-2xl", slide.titleClassName)}>

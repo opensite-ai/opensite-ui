@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -283,12 +283,16 @@ export function FeatureChecklistImage({
               <div className={cn("mt-1 text-muted-foreground md:mt-6", descriptionClassName)}>{description}</div>
             )
           )}
-          <div className={actionsClassName}>
-            {actionsContent}
-          </div>
-          <ul className={cn("mt-10 flex-wrap items-center gap-6 space-y-6 md:flex md:space-y-0", checklistClassName)}>
-            {checklistContent}
-          </ul>
+          {actionsContent && (
+            <div className={actionsClassName}>
+              {actionsContent}
+            </div>
+          )}
+          {checklistContent && (
+            <ul className={cn("mt-10 flex-wrap items-center gap-6 space-y-6 md:flex md:space-y-0", checklistClassName)}>
+              {checklistContent}
+            </ul>
+          )}
         </div>
       </div>
     </Section>

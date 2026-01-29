@@ -144,11 +144,11 @@ export function FeatureThreeColumnValues({
   patternOpacity,
   patternClassName,
 }: FeatureThreeColumnValuesProps): React.JSX.Element {
-  const renderValueIcon = (value: FeatureThreeColumnValuesItem) => {
+  const renderValueIcon = React.useCallback((value: FeatureThreeColumnValuesItem) => {
     if (value.icon) return value.icon;
     if (value.iconName) return <DynamicIcon name={value.iconName} size={24} />;
-    return <DynamicIcon name="lucide/star" size={24} />;
-  };
+    return null;
+  }, []);
 
   const valuesContent = useMemo(() => {
     if (valuesSlot) return valuesSlot;
@@ -156,9 +156,11 @@ export function FeatureThreeColumnValues({
 
     return values.map((value, index) => (
       <div key={index} className={cn("rounded-lg bg-accent p-5", cardClassName, value.className)}>
-        <span className={cn("mb-8 flex size-12 items-center justify-center rounded-full bg-background", value.iconClassName)}>
-          {renderValueIcon(value)}
-        </span>
+        {(value.icon || value.iconName) && (
+          <span className={cn("mb-8 flex size-12 items-center justify-center rounded-full bg-background", value.iconClassName)}>
+            {renderValueIcon(value)}
+          </span>
+        )}
         {value.title && (
           typeof value.title === "string" ? (
             <h3 className={cn("mb-2 text-xl font-medium", value.titleClassName)}>{value.title}</h3>
@@ -179,7 +181,7 @@ export function FeatureThreeColumnValues({
         )}
       </div>
     ));
-  }, [valuesSlot, values, cardClassName]);
+  }, [valuesSlot, values, cardClassName, renderValueIcon]);
 
   return (
     <Section
@@ -209,9 +211,11 @@ export function FeatureThreeColumnValues({
           <div className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</div>
         )
       )}
-      <div className={cn("mt-14 grid gap-6 lg:mt-20 lg:grid-cols-3", gridClassName)}>
-        {valuesContent}
-      </div>
+      {(valuesSlot || (values && values.length > 0)) && (
+        <div className={cn("mt-14 grid gap-6 lg:mt-20 lg:grid-cols-3", gridClassName)}>
+          {valuesContent}
+        </div>
+      )}
     </Section>
   );
 }

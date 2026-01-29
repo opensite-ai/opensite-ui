@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -217,17 +217,17 @@ export function FeatureChecklistThreeColumn({
   patternOpacity,
   patternClassName,
 }: FeatureChecklistThreeColumnProps): React.JSX.Element {
-  const getCheckItemContent = useMemo(() => (item: string | FeatureChecklistThreeColumnCheckItem) => {
+  const getCheckItemContent = useCallback((item: string | FeatureChecklistThreeColumnCheckItem) => {
     if (typeof item === "string") return item;
     return item.content;
   }, []);
 
-  const getCheckItemClassName = useMemo(() => (item: string | FeatureChecklistThreeColumnCheckItem) => {
+  const getCheckItemClassName = useCallback((item: string | FeatureChecklistThreeColumnCheckItem) => {
     if (typeof item === "string") return undefined;
     return item.className;
   }, []);
 
-  const renderChecklistColumn = useMemo(() => (
+  const renderChecklistColumn = useCallback((
     items: (string | FeatureChecklistThreeColumnCheckItem)[] | undefined,
     slot: React.ReactNode | undefined,
     gapClass: string
@@ -247,7 +247,7 @@ export function FeatureChecklistThreeColumn({
     );
   }, [checklistClassName, getCheckItemContent, getCheckItemClassName]);
 
-  const renderCardImage = useMemo(() => (card: FeatureChecklistThreeColumnCard) => {
+  const renderCardImage = useCallback((card: FeatureChecklistThreeColumnCard) => {
     if (card.imageSlot) return card.imageSlot;
     if (card.image) {
       return (
@@ -263,7 +263,7 @@ export function FeatureChecklistThreeColumn({
     return null;
   }, [optixFlowConfig]);
 
-  const renderCardLink = useMemo(() => (card: FeatureChecklistThreeColumnCard) => {
+  const renderCardLink = useCallback((card: FeatureChecklistThreeColumnCard) => {
     if (card.linkSlot) return card.linkSlot;
     if (!card.link) return null;
 
@@ -344,7 +344,7 @@ export function FeatureChecklistThreeColumn({
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
-      className={cn("py-16 sm:py-24 md:py-32", className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className={cn("grid gap-4 sm:grid-cols-2 sm:gap-8 md:gap-12 lg:grid-cols-3 lg:gap-16", headerGridClassName)}>

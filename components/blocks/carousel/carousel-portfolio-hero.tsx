@@ -150,7 +150,7 @@ export function CarouselPortfolioHero({
   actionsSlot,
   autoPlayInterval = 5000,
   className,
-  containerClassName,
+  containerClassName = "mx-auto w-full p-0 px-0 sm:px-0 lg:px-0 max-w-full relative z-10 h-full flex flex-col justify-center",
   contentClassName,
   tagClassName,
   titleClassName,
@@ -166,29 +166,54 @@ export function CarouselPortfolioHero({
   slideMediaBrightness = "50",
 }: CarouselPortfolioHeroProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = React.useState(0);
+  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  // Reset the autoplay interval
+  const resetInterval = React.useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % (slides?.length ?? 1));
+    }, autoPlayInterval);
+  }, [autoPlayInterval, slides?.length]);
 
   const goToNext = React.useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % (slides?.length ?? 1));
-  }, [slides?.length]);
+    resetInterval();
+  }, [slides?.length, resetInterval]);
 
   const goToPrev = React.useCallback(() => {
     setCurrentIndex(
       (prevIndex) =>
-        (prevIndex - 1 + (slides?.length ?? 1)) % (slides?.length ?? 1)
+        (prevIndex - 1 + (slides?.length ?? 1)) % (slides?.length ?? 1),
     );
-  }, [slides?.length]);
+    resetInterval();
+  }, [slides?.length, resetInterval]);
 
+  // Initialize autoplay
   React.useEffect(() => {
-    const interval = setInterval(goToNext, autoPlayInterval);
-    return () => clearInterval(interval);
-  }, [goToNext, autoPlayInterval]);
+    resetInterval();
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [resetInterval]);
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -217,42 +242,54 @@ export function CarouselPortfolioHero({
       className={cn("relative h-screen w-full overflow-hidden", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
       {/* Slide images with animation */}
-      {slidesSlot ? (
-        slidesSlot
-      ) : (
-        slides?.map((slide, index) => (
-          <div
-            key={slide.id}
-            className={cn(
-              "absolute inset-0 h-full w-full transition-opacity duration-1000",
-              index === currentIndex ? "opacity-100" : "opacity-0",
-              slide.className
-            )}
-          >
-                        <Img
-                          src={slide.image}
-                          alt={typeof slide.title === "string" ? slide.title : `Slide ${index + 1}`}
-                          className={cn(
-                            "h-full w-full object-cover",
-                            BRIGHTNESS_CLASS_MAP[slideMediaBrightness],
-                            slide.imageClassName
-                          )}
-                          optixFlowConfig={optixFlowConfig}
-                        />
-          </div>
-        ))
-      )}
+      {slidesSlot
+        ? slidesSlot
+        : slides?.map((slide, index) => (
+            <div
+              key={slide.id}
+              className={cn(
+                "absolute inset-0 h-full w-full transition-opacity duration-1000",
+                index === currentIndex ? "opacity-100" : "opacity-0",
+                slide.className,
+              )}
+            >
+              <Img
+                src={slide.image}
+                alt={
+                  typeof slide.title === "string"
+                    ? slide.title
+                    : `Slide ${index + 1}`
+                }
+                className={cn(
+                  "h-full w-full object-cover",
+                  BRIGHTNESS_CLASS_MAP[slideMediaBrightness],
+                  slide.imageClassName,
+                )}
+                optixFlowConfig={optixFlowConfig}
+              />
+            </div>
+          ))}
 
-            {/* Content */}
-            <div className={cn("relative z-10 flex h-full w-full flex-col justify-end px-6 pb-16 text-white md:px-8 lg:px-12", containerClassName)}>
-              <div className="container mx-auto">
-                <div className={cn("max-w-4xl", contentClassName)}>
+      {/* Content */}
+      <div
+        className={cn(
+          "relative z-10 flex h-full w-full flex-col justify-end px-6 pb-16 text-white md:px-8 lg:px-12",
+        )}
+      >
+        <div className="relative">
+          <div className={cn("max-w-4xl", contentClassName)}>
             {currentSlide?.tag && (
               <div className="mb-4">
                 {typeof currentSlide.tag === "string" ? (
-                  <span className={cn("inline-block rounded-full bg-primary px-3 py-1 text-sm font-medium", tagClassName)}>
+                  <span
+                    className={cn(
+                      "inline-block rounded-full bg-primary px-3 py-1 text-sm font-medium",
+                      tagClassName,
+                    )}
+                  >
                     {currentSlide.tag}
                   </span>
                 ) : (
@@ -261,30 +298,47 @@ export function CarouselPortfolioHero({
               </div>
             )}
 
-            {currentSlide?.title && (
-              typeof currentSlide.title === "string" ? (
-                <h1 className={cn("text-4xl font-bold sm:text-5xl md:text-6xl", titleClassName)}>
+            {currentSlide?.title &&
+              (typeof currentSlide.title === "string" ? (
+                <h1
+                  className={cn(
+                    "text-4xl font-bold sm:text-5xl md:text-6xl text-balance text-shadow",
+                    titleClassName,
+                  )}
+                >
                   {currentSlide.title}
                 </h1>
               ) : (
                 <div className={titleClassName}>{currentSlide.title}</div>
-              )
-            )}
+              ))}
 
-            {currentSlide?.description && (
-              typeof currentSlide.description === "string" ? (
-                <p className={cn("mt-4 text-lg text-white/80 sm:text-xl md:max-w-2xl", descriptionClassName)}>
+            {currentSlide?.description &&
+              (typeof currentSlide.description === "string" ? (
+                <p
+                  className={cn(
+                    "mt-4 text-lg text-white/80 sm:text-xl md:max-w-2xl  text-balance text-shadow",
+                    descriptionClassName,
+                  )}
+                >
                   {currentSlide.description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{currentSlide.description}</div>
-              )
-            )}
+                <div className={descriptionClassName}>
+                  {currentSlide.description}
+                </div>
+              ))}
 
-            <div className={cn("mt-8 flex items-center gap-4", actionsClassName)}>
+            <div
+              className={cn("mt-8 flex items-center gap-4", actionsClassName)}
+            >
               {renderActions()}
 
-              <div className={cn("ml-auto flex items-center gap-2", navigationClassName)}>
+              <div
+                className={cn(
+                  "ml-auto flex items-center gap-2",
+                  navigationClassName,
+                )}
+              >
                 <Pressable
                   variant="outline"
                   size="icon"
@@ -305,7 +359,9 @@ export function CarouselPortfolioHero({
                   <DynamicIcon name="lucide/chevron-right" size={20} />
                 </Pressable>
 
-                <div className={cn("ml-3 text-sm text-white/80", counterClassName)}>
+                <div
+                  className={cn("ml-3 text-sm text-white/80", counterClassName)}
+                >
                   {currentIndex + 1} / {slides?.length ?? 0}
                 </div>
               </div>
@@ -316,4 +372,3 @@ export function CarouselPortfolioHero({
     </Section>
   );
 }
-

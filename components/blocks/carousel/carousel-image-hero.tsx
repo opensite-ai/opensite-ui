@@ -17,9 +17,7 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -92,10 +90,6 @@ export interface CarouselImageHeroProps {
    */
   imageClassName?: string;
   /**
-   * Additional CSS classes for the navigation arrows
-   */
-  navigationClassName?: string;
-  /**
    * Additional CSS classes for the indicators
    */
   indicatorsClassName?: string;
@@ -128,20 +122,19 @@ export function CarouselImageHero({
   actions,
   actionsSlot,
   images,
-  autoPlayInterval = 5000,
+  autoPlayInterval = 7500,
   className,
-  containerClassName,
+  containerClassName = "mx-auto w-full max-w-7xl relative z-10 rounded-2xl overflow-hidden shadow-xl",
   contentClassName,
   badgeClassName,
   headingClassName,
   descriptionClassName,
   actionsClassName,
   imageClassName,
-  navigationClassName,
   indicatorsClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CarouselImageHeroProps): React.JSX.Element {
@@ -149,46 +142,45 @@ export function CarouselImageHero({
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (images?.length ?? 1));
+      setCurrentImageIndex(
+        (prevIndex) => (prevIndex + 1) % (images?.length ?? 1),
+      );
     }, autoPlayInterval);
 
     return () => clearInterval(interval);
   }, [images?.length, autoPlayInterval]);
 
-  const goToNextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (images?.length ?? 1));
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
   };
-
-  const goToPreviousImage = () => {
-    setCurrentImageIndex(
-      (prevIndex) => (prevIndex - 1 + (images?.length ?? 1)) % (images?.length ?? 1)
-    );
-  };
-
-    const renderActions = () => {
-      if (actionsSlot) return actionsSlot;
-      if (!actions || actions.length === 0) return null;
-
-      return actions.map((action, index) => {
-        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-        return (
-          <Pressable
-            key={index}
-            asButton
-            className={actionClassName}
-            {...pressableProps}
-          >
-            {children ?? (
-              <>
-                {icon}
-                {label}
-                {iconAfter}
-              </>
-            )}
-          </Pressable>
-        );
-      });
-    };
 
   return (
     <Section
@@ -197,6 +189,7 @@ export function CarouselImageHero({
       className={cn("relative min-h-[600px] overflow-hidden", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
       {/* Image Carousel */}
       <div className={cn("absolute inset-0", imageClassName)}>
@@ -205,7 +198,7 @@ export function CarouselImageHero({
             key={index}
             className={cn(
               "absolute inset-0 transition-opacity duration-1000",
-              index === currentImageIndex ? "opacity-100" : "opacity-0"
+              index === currentImageIndex ? "opacity-100" : "opacity-0",
             )}
           >
             <Img
@@ -218,82 +211,85 @@ export function CarouselImageHero({
           </div>
         ))}
 
-        {/* Navigation Arrows */}
-        <Pressable
-          onClick={goToPreviousImage}
-          asButton
-          variant="ghost"
-          size="icon"
-          className={cn("absolute left-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-background/30 p-2 backdrop-blur-sm transition-colors hover:bg-background/50 md:block", navigationClassName)}
-          aria-label="Previous image"
+        {/* Indicators */}
+        <div
+          className={cn(
+            "absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-3",
+            indicatorsClassName,
+          )}
         >
-          <DynamicIcon name="lucide/chevron-left" size={24} className="text-white" />
-        </Pressable>
-
-        <Pressable
-          onClick={goToNextImage}
-          asButton
-          variant="ghost"
-          size="icon"
-          className={cn("absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-background/30 p-2 backdrop-blur-sm transition-colors hover:bg-background/50 md:block", navigationClassName)}
-          aria-label="Next image"
-        >
-          <DynamicIcon name="lucide/chevron-right" size={24} className="text-white" />
-        </Pressable>
-
-                {/* Indicators */}
-                <div className={cn("absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-3", indicatorsClassName)}>
-                  {images?.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={cn(
-                        "flex h-3 w-3 items-center justify-center rounded-full transition-colors",
-                        index === currentImageIndex
-                          ? "bg-white"
-                          : "bg-white/50 hover:bg-white/80"
-                      )}
-                      aria-label={`Go to image ${index + 1}`}
-                    />
-                  ))}
-                </div>
+          {images?.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={cn(
+                "flex h-4 w-4 items-center justify-center rounded-full transition-colors",
+                index === currentImageIndex
+                  ? "bg-white"
+                  : "bg-white/50 hover:bg-white/80",
+              )}
+              aria-label={`Go to image ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
 
-            {/* Content */}
-            <div className={cn("container relative z-10 mx-auto flex min-h-[600px] flex-col items-center justify-center px-4 py-16 text-center md:px-6 md:py-20", containerClassName)}>
-              <div className={cn("max-w-4xl space-y-6", contentClassName)}>
+      {/* Content */}
+      <div
+        className={cn(
+          "relative z-10 mx-auto flex min-h-[600px] flex-col items-center justify-center px-4 py-16 text-center md:px-16 md:py-20",
+        )}
+      >
+        <div className={cn("max-w-4xl space-y-6", contentClassName)}>
           <div className="space-y-4">
-            {badge && (
-              typeof badge === "string" ? (
-                <div className={cn("inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm", badgeClassName)}>
+            {badge &&
+              (typeof badge === "string" ? (
+                <div
+                  className={cn(
+                    "inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm",
+                    badgeClassName,
+                  )}
+                >
                   <span>{badge}</span>
                 </div>
               ) : (
                 <div className={badgeClassName}>{badge}</div>
-              )
-            )}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-primary-foreground dark:text-primary sm:text-5xl md:text-6xl", headingClassName)}>
+              ))}
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "text-4xl font-bold sm:text-5xl md:text-6xl text-balance text-shadow",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-xl text-primary-foreground dark:text-primary", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-xl text-balance text-shadow",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
           </div>
 
           {(actionsSlot || (actions && actions.length > 0)) && (
-            <div className={cn("flex flex-col justify-center gap-4 sm:flex-row", actionsClassName)}>
+            <div
+              className={cn(
+                "flex flex-col justify-center gap-4 sm:flex-row",
+                actionsClassName,
+              )}
+            >
               {renderActions()}
             </div>
           )}
@@ -302,4 +298,3 @@ export function CarouselImageHero({
     </Section>
   );
 }
-

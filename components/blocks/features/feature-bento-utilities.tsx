@@ -169,7 +169,7 @@ export interface FeatureBentoUtilitiesProps {
  */
 export function FeatureBentoUtilities({
   label,
-  labelIconName = "lucide/square-dashed-mouse-pointer",
+  labelIconName,
   labelIcon,
   title,
   description,
@@ -192,7 +192,7 @@ export function FeatureBentoUtilities({
   patternOpacity,
   patternClassName,
 }: FeatureBentoUtilitiesProps): React.JSX.Element {
-  const renderCard = useMemo(() => (card: FeatureBentoUtilitiesCardItem, index: number) => {
+  const renderCard = React.useCallback((card: FeatureBentoUtilitiesCardItem, index: number) => {
     const hasImage = card.imageSrc || card.imageSlot;
     const cardClasses = cn(
       hasImage ? "overflow-hidden pt-0" : "p-6",
@@ -218,7 +218,7 @@ export function FeatureBentoUtilities({
 
     const renderTitle = () => {
       if (!card.title) return null;
-      
+
       const titleContent = (
         <>
           {card.title}
@@ -258,15 +258,17 @@ export function FeatureBentoUtilities({
     );
   }, [optixFlowConfig]);
 
-  const renderColumn = useMemo(() => (cards: FeatureBentoUtilitiesCardItem[] | undefined, slot: React.ReactNode | undefined) => {
+  const renderColumn = React.useCallback((cards: FeatureBentoUtilitiesCardItem[] | undefined, slot: React.ReactNode | undefined) => {
     if (slot) return slot;
     if (!cards || cards.length === 0) return null;
     return cards.map((card, index) => renderCard(card, index));
   }, [renderCard]);
 
-  const labelIconElement = useMemo(() => labelIcon ?? (
-    labelIconName ? <DynamicIcon name={labelIconName} size={20} /> : null
-  ), [labelIcon, labelIconName]);
+  const labelIconElement = useMemo(() => {
+    if (labelIcon) return labelIcon;
+    if (labelIconName) return <DynamicIcon name={labelIconName} size={20} />;
+    return null;
+  }, [labelIcon, labelIconName]);
 
   return (
     <Section
@@ -278,16 +280,18 @@ export function FeatureBentoUtilities({
       className={cn("bg-gray-50 dark:bg-background", className)}
       containerClassName={cn("max-w-7xl", containerClassName)}
     >
-      <div className={cn("flex items-center gap-2 text-muted-foreground", labelClassName)}>
-        {labelIconElement}
-        {label && (
-          typeof label === "string" ? (
-            <p className="text-sm">{label}</p>
-          ) : (
-            <div className="text-sm">{label}</div>
-          )
-        )}
-      </div>
+      {(labelIconElement || label) && (
+        <div className={cn("flex items-center gap-2 text-muted-foreground", labelClassName)}>
+          {labelIconElement}
+          {label && (
+            typeof label === "string" ? (
+              <p className="text-sm">{label}</p>
+            ) : (
+              <div className="text-sm">{label}</div>
+            )
+          )}
+        </div>
+      )}
       <Separator className="mt-3 mb-8" />
       <div className={cn("flex flex-col justify-between gap-6 md:flex-row", headerClassName)}>
         {title && (

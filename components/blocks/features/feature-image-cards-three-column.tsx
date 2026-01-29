@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -186,40 +186,41 @@ export function FeatureImageCardsThreeColumn({
   patternOpacity,
   patternClassName,
 }: FeatureImageCardsThreeColumnProps): React.JSX.Element {
+  const renderImage = useCallback((card: FeatureImageCardsThreeColumnItem, imageAlt: string) => {
+    if (card.imageSlot) return card.imageSlot;
+    if (!card.imageSrc) return null;
+
+    return (
+      <Img
+        src={card.imageSrc}
+        alt={imageAlt}
+        className="h-full max-h-[450px] w-full rounded-xl object-cover object-center"
+        loading="lazy"
+        optixFlowConfig={optixFlowConfig}
+      />
+    );
+  }, [optixFlowConfig]);
+
+  const renderBadgeIcon = useCallback((card: FeatureImageCardsThreeColumnItem) => {
+    if (card.avatarSrc) {
+      return (
+        <Avatar className="size-7 rounded-full">
+          <AvatarImage src={card.avatarSrc} alt="Avatar" />
+        </Avatar>
+      );
+    }
+    if (card.icon) return card.icon;
+    if (!card.iconName) return null;
+
+    return <DynamicIcon name={card.iconName} size={24} />;
+  }, []);
+
   const cardsContent = useMemo(() => {
     if (cardsSlot) return cardsSlot;
     if (!cards || cards.length === 0) return null;
 
     return cards.map((card, index) => {
       const imageAlt = card.imageAlt || (typeof card.title === "string" ? card.title : "Card image");
-
-      const renderImage = () => {
-        if (card.imageSlot) return card.imageSlot;
-        if (card.imageSrc) {
-          return (
-            <Img
-              src={card.imageSrc}
-              alt={imageAlt}
-              className="h-full max-h-[450px] w-full rounded-xl object-cover object-center"
-              loading="lazy"
-              optixFlowConfig={optixFlowConfig}
-            />
-          );
-        }
-        return null;
-      };
-
-      const renderBadgeIcon = () => {
-        if (card.avatarSrc) {
-          return (
-            <Avatar className="size-7 rounded-full">
-              <AvatarImage src={card.avatarSrc} alt="Avatar" />
-            </Avatar>
-          );
-        }
-        if (card.icon) return card.icon;
-        return <DynamicIcon name={card.iconName || "lucide/zap"} size={24} />;
-      };
 
       return (
         <Pressable
@@ -228,21 +229,23 @@ export function FeatureImageCardsThreeColumn({
           onClick={card.onClick}
           className={cn("group relative overflow-hidden rounded-xl", cardClassName, card.className)}
         >
-          {renderImage()}
+          {renderImage(card, imageAlt)}
           <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-20 rounded-xl bg-linear-to-t from-primary to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
           <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
-            <span
-              className={cn(
-                "ml-auto flex w-fit items-center gap-2 text-sm font-semibold",
-                card.avatarSrc
-                  ? "rounded-full bg-background/30 px-4 py-2.5 backdrop-blur-sm"
-                  : "rounded-full bg-primary px-4 py-2.5 text-background",
-                card.badgeClassName
-              )}
-            >
-              {renderBadgeIcon()}
-              {card.badgeText}
-            </span>
+            {(card.badgeText || card.avatarSrc || card.icon || card.iconName) && (
+              <span
+                className={cn(
+                  "ml-auto flex w-fit items-center gap-2 text-sm font-semibold",
+                  card.avatarSrc
+                    ? "rounded-full bg-background/30 px-4 py-2.5 backdrop-blur-sm"
+                    : "rounded-full bg-primary px-4 py-2.5 text-background",
+                  card.badgeClassName
+                )}
+              >
+                {renderBadgeIcon(card)}
+                {card.badgeText}
+              </span>
+            )}
             <div className="flex flex-col gap-5 text-background">
               {card.title && (
                 typeof card.title === "string" ? (
@@ -266,7 +269,7 @@ export function FeatureImageCardsThreeColumn({
         </Pressable>
       );
     });
-  }, [cardsSlot, cards, cardClassName, optixFlowConfig]);
+  }, [cardsSlot, cards, cardClassName, renderImage, renderBadgeIcon]);
 
   return (
     <Section

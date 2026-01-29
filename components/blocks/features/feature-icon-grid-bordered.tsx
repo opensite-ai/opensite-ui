@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -18,11 +18,11 @@ export interface FeatureIconGridBorderedItem {
    */
   iconName?: string;
   /**
-   * Feature title content
+   * Item title content
    */
   title?: React.ReactNode;
   /**
-   * Feature description content
+   * Item description content
    */
   description?: React.ReactNode;
   /**
@@ -53,11 +53,11 @@ export interface FeatureIconGridBorderedProps {
    */
   title?: React.ReactNode;
   /**
-   * Array of feature items to display
+   * Array of items to display
    */
   features?: FeatureIconGridBorderedItem[];
   /**
-   * Custom slot for rendering features (overrides features array)
+   * Custom slot for rendering items (overrides features array)
    */
   featuresSlot?: React.ReactNode;
   /**
@@ -81,7 +81,7 @@ export interface FeatureIconGridBorderedProps {
    */
   gridClassName?: string;
   /**
-   * Additional CSS classes for each feature card
+   * Additional CSS classes for each card
    */
   cardClassName?: string;
   /**
@@ -107,18 +107,18 @@ export interface FeatureIconGridBorderedProps {
 }
 
 /**
- * Feature Icon Grid Bordered - Four-column grid of features with icons and
+ * Feature Icon Grid Bordered - Four-column grid of items with icons and
  * dashed left borders creating a visual timeline effect.
  *
  * Layout: Four-column responsive grid with icon badges and dashed borders.
  * Key features: Icon badges in accent circles, dashed border separators, accent line indicators.
- * Best for: Why us sections, value propositions, capability highlights, process steps.
+ * Best for: Value propositions, capability highlights, process steps, benefits showcase.
  *
  * @example
  * ```tsx
  * <FeatureIconGridBordered
- *   label="Why Us?"
- *   title="A better way to build websites"
+ *   label="Why Choose Us?"
+ *   title="A better way to build"
  *   features={[
  *     { iconName: "lucide/timer", title: "Performance", description: "Fast and optimized" },
  *     { iconName: "lucide/zap", title: "Innovation", description: "Cutting-edge tech" },
@@ -143,57 +143,57 @@ export function FeatureIconGridBordered({
   patternOpacity,
   patternClassName,
 }: FeatureIconGridBorderedProps): React.JSX.Element {
+  const renderIcon = useCallback((feature: FeatureIconGridBorderedItem) => {
+    if (feature.icon) return feature.icon;
+    if (feature.iconName) {
+      return <DynamicIcon name={feature.iconName} size={20} className="md:size-6" />;
+    }
+    return null;
+  }, []);
+
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
-    return features.map((feature, index) => {
-      const renderIcon = () => {
-        if (feature.icon) return feature.icon;
-        if (feature.iconName) {
-          return <DynamicIcon name={feature.iconName} size={20} className="md:size-6" />;
-        }
-        return <DynamicIcon name="lucide/star" size={20} className="md:size-6" />;
-      };
-
-      return (
-        <div
-          key={index}
-          className={cn("relative flex gap-3 rounded-lg border-dashed md:block md:border-l md:p-5", cardClassName, feature.className)}
-        >
+    return features.map((feature, index) => (
+      <div
+        key={index}
+        className={cn("relative flex gap-3 rounded-lg border-dashed md:block md:border-l md:p-5", cardClassName, feature.className)}
+      >
+        {(feature.icon || feature.iconName) && (
           <span className={cn("mb-8 flex size-10 shrink-0 items-center justify-center rounded-full bg-accent md:size-12", feature.iconClassName)}>
-            {renderIcon()}
+            {renderIcon(feature)}
           </span>
-          <div>
-            {feature.title && (
-              typeof feature.title === "string" ? (
-                <h3 className={cn("font-medium md:mb-2 md:text-xl", feature.titleClassName)}>
-                  {feature.title}
-                  <span className="absolute -left-px hidden h-6 w-px bg-primary md:inline-block"></span>
-                </h3>
-              ) : (
-                <div className={cn("font-medium md:mb-2 md:text-xl", feature.titleClassName)}>
-                  {feature.title}
-                  <span className="absolute -left-px hidden h-6 w-px bg-primary md:inline-block"></span>
-                </div>
-              )
-            )}
-            {feature.description && (
-              typeof feature.description === "string" ? (
-                <p className={cn("text-sm text-muted-foreground md:text-base", feature.descriptionClassName)}>
-                  {feature.description}
-                </p>
-              ) : (
-                <div className={cn("text-sm text-muted-foreground md:text-base", feature.descriptionClassName)}>
-                  {feature.description}
-                </div>
-              )
-            )}
-          </div>
+        )}
+        <div>
+          {feature.title && (
+            typeof feature.title === "string" ? (
+              <h3 className={cn("font-medium md:mb-2 md:text-xl", feature.titleClassName)}>
+                {feature.title}
+                <span className="absolute -left-px hidden h-6 w-px bg-primary md:inline-block"></span>
+              </h3>
+            ) : (
+              <div className={cn("font-medium md:mb-2 md:text-xl", feature.titleClassName)}>
+                {feature.title}
+                <span className="absolute -left-px hidden h-6 w-px bg-primary md:inline-block"></span>
+              </div>
+            )
+          )}
+          {feature.description && (
+            typeof feature.description === "string" ? (
+              <p className={cn("text-sm text-muted-foreground md:text-base", feature.descriptionClassName)}>
+                {feature.description}
+              </p>
+            ) : (
+              <div className={cn("text-sm text-muted-foreground md:text-base", feature.descriptionClassName)}>
+                {feature.description}
+              </div>
+            )
+          )}
         </div>
-      );
-    });
-  }, [featuresSlot, features, cardClassName]);
+      </div>
+    ));
+  }, [featuresSlot, features, cardClassName, renderIcon]);
 
   return (
     <Section
@@ -219,9 +219,11 @@ export function FeatureIconGridBordered({
           <div className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</div>
         )
       )}
-      <div className={cn("mt-14 grid gap-6 md:grid-cols-2 lg:mt-20 lg:grid-cols-4", gridClassName)}>
-        {featuresContent}
-      </div>
+      {(featuresSlot || (features && features.length > 0)) && (
+        <div className={cn("mt-14 grid gap-6 md:grid-cols-2 lg:mt-20 lg:grid-cols-4", gridClassName)}>
+          {featuresContent}
+        </div>
+      )}
     </Section>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useCallback, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
@@ -94,7 +95,7 @@ interface ControlsProps {
   isNextDisabled: boolean;
 }
 
-const Controls = ({
+const Controls = React.memo(({
   handleNext,
   handlePrevious,
   isPreviousDisabled,
@@ -120,7 +121,7 @@ const Controls = ({
       </button>
     </div>
   );
-};
+});
 
 interface FeatureCardProps {
   feature: FeatureAnimatedCarouselItem;
@@ -128,8 +129,8 @@ interface FeatureCardProps {
   onClick: () => void;
 }
 
-const FeatureCard = ({ feature, isActive, onClick }: FeatureCardProps) => {
-  const variants = {
+const FeatureCard = React.memo(({ feature, isActive, onClick }: FeatureCardProps) => {
+  const variants = useMemo(() => ({
     initial: {
       opacity: 0,
     },
@@ -139,7 +140,7 @@ const FeatureCard = ({ feature, isActive, onClick }: FeatureCardProps) => {
     exit: {
       opacity: 0,
     },
-  };
+  }), []);
 
   return (
     <AnimatePresence mode="popLayout">
@@ -172,10 +173,13 @@ const FeatureCard = ({ feature, isActive, onClick }: FeatureCardProps) => {
             }}
             className="p-6 text-sm md:p-8 md:text-base"
           >
-            <p>
-              <span className="font-semibold">{feature.title}.</span>{" "}
-              <span>{feature.description}</span>
-            </p>
+            {(feature.title || feature.description) && (
+              <p>
+                {feature.title && <span className="font-semibold">{feature.title}.</span>}
+                {feature.title && feature.description && " "}
+                {feature.description && <span>{feature.description}</span>}
+              </p>
+            )}
           </motion.div>
         ) : (
           <motion.div
@@ -204,13 +208,13 @@ const FeatureCard = ({ feature, isActive, onClick }: FeatureCardProps) => {
               size={24}
               className="shrink-0"
             />
-            <p className="shrink-0 font-semibold">{feature.title}</p>
+            {feature.title && <p className="shrink-0 font-semibold">{feature.title}</p>}
           </motion.div>
         )}
       </motion.div>
     </AnimatePresence>
   );
-};
+});
 
 interface FeaturesDesktopProps {
   features: FeatureAnimatedCarouselItem[];
@@ -222,7 +226,7 @@ interface FeaturesDesktopProps {
   isNextDisabled: boolean;
 }
 
-const FeaturesDesktop = ({
+const FeaturesDesktop = React.memo(({
   features,
   handleNext,
   handlePrevious,
@@ -253,7 +257,7 @@ const FeaturesDesktop = ({
       </div>
     </div>
   );
-};
+});
 
 interface FeatureMobileProps {
   features: FeatureAnimatedCarouselItem[];
@@ -265,7 +269,7 @@ interface FeatureMobileProps {
   isNextDisabled: boolean;
 }
 
-const FeaturesMobile = ({
+const FeaturesMobile = React.memo(({
   features,
   handleNext,
   handlePrevious,
@@ -274,7 +278,7 @@ const FeaturesMobile = ({
   isPreviousDisabled,
   isNextDisabled,
 }: FeatureMobileProps) => {
-  const variants = {
+  const variants = useMemo(() => ({
     enter: (direction: number) => ({
       x: direction > 0 ? 100 : -100,
       opacity: 0,
@@ -287,7 +291,9 @@ const FeaturesMobile = ({
       x: direction < 0 ? 100 : -100,
       opacity: 0,
     }),
-  };
+  }), []);
+
+  const currentFeature = features[activeIndex];
 
   return (
     <div className="relative z-10 flex flex-col items-center gap-6 md:hidden">
@@ -315,12 +321,17 @@ const FeaturesMobile = ({
               }}
               className="absolute inset-0 flex items-center justify-center rounded-3xl bg-background p-4"
             >
-              <p className="text-center text-sm">
-                <span className="font-semibold">
-                  {features[activeIndex].title}.
-                </span>{" "}
-                <span>{features[activeIndex].description}</span>
-              </p>
+              {(currentFeature?.title || currentFeature?.description) && (
+                <p className="text-center text-sm">
+                  {currentFeature.title && (
+                    <span className="font-semibold">
+                      {currentFeature.title}.
+                    </span>
+                  )}
+                  {currentFeature.title && currentFeature.description && " "}
+                  {currentFeature.description && <span>{currentFeature.description}</span>}
+                </p>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>
@@ -335,7 +346,7 @@ const FeaturesMobile = ({
       </div>
     </div>
   );
-};
+});
 
 /**
  * Feature Animated Carousel - Interactive feature showcase with animated transitions
@@ -359,7 +370,7 @@ const FeaturesMobile = ({
  * ```
  */
 export function FeatureAnimatedCarousel({
-  features = [],
+  features,
   className,
   optixFlowConfig,
   background,
@@ -371,29 +382,29 @@ export function FeatureAnimatedCarousel({
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [direction, setDirection] = React.useState<1 | -1>(1);
 
-  const handleNext = () => {
-    if (activeIndex < features.length - 1) {
+  const handleNext = useCallback(() => {
+    if (features && activeIndex < features.length - 1) {
       setDirection(1);
       setActiveIndex(activeIndex + 1);
     }
-  };
+  }, [activeIndex, features]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     if (activeIndex > 0) {
       setDirection(-1);
       setActiveIndex(activeIndex - 1);
     }
-  };
+  }, [activeIndex]);
 
-  const handleFeatureClick = (index: number) => {
+  const handleFeatureClick = useCallback((index: number) => {
     setDirection(index > activeIndex ? 1 : -1);
     setActiveIndex(index);
-  };
+  }, [activeIndex]);
 
   const isPreviousDisabled = activeIndex === 0;
-  const isNextDisabled = activeIndex === features.length - 1;
+  const isNextDisabled = !features || activeIndex === features.length - 1;
 
-  const imageVariants = {
+  const imageVariants = useMemo(() => ({
     enter: (direction: number) => ({
       x: direction > 0 ? 300 : -300,
       opacity: 0,
@@ -406,7 +417,24 @@ export function FeatureAnimatedCarousel({
       x: direction < 0 ? 300 : -300,
       opacity: 0,
     }),
-  };
+  }), []);
+
+  if (!features || features.length === 0) {
+    return (
+      <Section
+        background={background}
+        spacing={spacing}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
+        patternClassName={patternClassName}
+        className={className}
+      >
+        <div className="relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl bg-muted p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]" />
+      </Section>
+    );
+  }
+
+  const currentFeature = features[activeIndex];
 
   return (
     <Section
@@ -418,59 +446,55 @@ export function FeatureAnimatedCarousel({
       className={className}
     >
       <div className="relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl bg-muted p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]">
-        {features && (
-          <FeaturesDesktop
-            features={features}
-            handleNext={handleNext}
-            handlePrevious={handlePrevious}
-            activeIndex={activeIndex}
-            handleFeatureClick={handleFeatureClick}
-            isPreviousDisabled={isPreviousDisabled}
-            isNextDisabled={isNextDisabled}
-          />
+        <FeaturesDesktop
+          features={features}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+          activeIndex={activeIndex}
+          handleFeatureClick={handleFeatureClick}
+          isPreviousDisabled={isPreviousDisabled}
+          isNextDisabled={isNextDisabled}
+        />
+        <FeaturesMobile
+          features={features}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+          activeIndex={activeIndex}
+          direction={direction}
+          isPreviousDisabled={isPreviousDisabled}
+          isNextDisabled={isNextDisabled}
+        />
+        {currentFeature?.image && (
+          <div className="relative flex-1 overflow-hidden rounded-2xl md:absolute md:right-8 md:top-8 md:bottom-8 md:w-1/2">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={activeIndex}
+                custom={direction}
+                variants={imageVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.2 },
+                }}
+                className="h-full w-full"
+              >
+                <Img
+                  src={currentFeature.image}
+                  alt={
+                    currentFeature.imageAlt ||
+                    (typeof currentFeature.title === "string"
+                      ? currentFeature.title
+                      : "Feature image")
+                  }
+                  className="h-full w-full object-cover"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
         )}
-        {features && (
-          <FeaturesMobile
-            features={features}
-            handleNext={handleNext}
-            handlePrevious={handlePrevious}
-            activeIndex={activeIndex}
-            direction={direction}
-            isPreviousDisabled={isPreviousDisabled}
-            isNextDisabled={isNextDisabled}
-          />
-        )}
-        <div className="relative flex-1 overflow-hidden rounded-2xl md:absolute md:right-8 md:top-8 md:bottom-8 md:w-1/2">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={activeIndex}
-              custom={direction}
-              variants={imageVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 },
-              }}
-              className="h-full w-full"
-            >
-              <Img
-                src={features ? features[activeIndex].image : undefined}
-                alt={
-                  features
-                    ? features[activeIndex].imageAlt ||
-                      (typeof features[activeIndex].title === "string"
-                        ? features[activeIndex].title
-                        : "Feature image")
-                    : undefined
-                }
-                className="h-full w-full object-cover"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
       </div>
     </Section>
   );

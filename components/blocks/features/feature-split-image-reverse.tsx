@@ -145,37 +145,23 @@ export function FeatureSplitImageReverse({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      if (action.children) {
-        return (
-          <Pressable
-            key={index}
-            href={action.href}
-            onClick={action.onClick}
-            variant={action.variant}
-            size={action.size}
-            className={action.className}
-            aria-label={action["aria-label"]}
-            asButton
-          >
-            {action.children}
-          </Pressable>
-        );
-      }
-
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
-        <Pressable
-          key={index}
-          href={action.href}
-          onClick={action.onClick}
-          variant={action.variant}
-          size={action.size}
-          className={action.className}
-          aria-label={action["aria-label"]}
-          asButton
-        >
-          {action.icon}
-          {action.label}
-          {action.iconAfter}
+        <Pressable key={index} className={actionClassName} asButton {...pressableProps}>
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
         </Pressable>
       );
     });
@@ -188,7 +174,7 @@ export function FeatureSplitImageReverse({
     return (
       <Img
         src={imageSrc}
-        alt={imageAlt || "Feature illustration"}
+        alt={imageAlt || ""}
         className={cn("max-h-96 w-full rounded-md object-cover", imageClassName)}
         loading="lazy"
         optixFlowConfig={optixFlowConfig}
@@ -231,9 +217,11 @@ export function FeatureSplitImageReverse({
               </div>
             )
           )}
-          <div className={cn("flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start", actionsClassName)}>
-            {actionsContent}
-          </div>
+          {(actionsSlot || (actions && actions.length > 0)) && (
+            <div className={cn("flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start", actionsClassName)}>
+              {actionsContent}
+            </div>
+          )}
         </div>
       </div>
     </Section>

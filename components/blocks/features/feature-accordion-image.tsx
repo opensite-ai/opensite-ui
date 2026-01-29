@@ -161,7 +161,7 @@ export function FeatureAccordionImage({
   description,
   items,
   itemsSlot,
-  defaultValue = "item-0",
+  defaultValue,
   className,
   containerClassName,
   headerClassName,
@@ -178,7 +178,7 @@ export function FeatureAccordionImage({
   patternOpacity,
   patternClassName,
 }: FeatureAccordionImageProps): React.JSX.Element {
-  const [activeItem, setActiveItem] = React.useState(defaultValue);
+  const [activeItem, setActiveItem] = React.useState(defaultValue || "item-0");
   const activeIndex = parseInt(activeItem.replace("item-", ""), 10) || 0;
   const currentImage = items?.[activeIndex] || items?.[0];
 
@@ -188,23 +188,28 @@ export function FeatureAccordionImage({
 
     return items.map((item, index) => (
       <AccordionItem key={index} value={`item-${index}`} className={item.className}>
-        <AccordionTrigger className={cn("text-left text-lg font-medium", item.triggerClassName)}>
-          {item.title}
-        </AccordionTrigger>
-        <AccordionContent className={cn("text-muted-foreground", item.contentClassName)}>
-          {item.content}
-        </AccordionContent>
+        {item.title && (
+          <AccordionTrigger className={cn("text-left text-lg font-medium", item.triggerClassName)}>
+            {item.title}
+          </AccordionTrigger>
+        )}
+        {item.content && (
+          <AccordionContent className={cn("text-muted-foreground", item.contentClassName)}>
+            {item.content}
+          </AccordionContent>
+        )}
       </AccordionItem>
     ));
   }, [itemsSlot, items]);
 
   const imageContent = useMemo(() => {
     if (currentImage?.imageSlot) return currentImage.imageSlot;
+    if (!currentImage?.imageSrc) return null;
 
     return (
       <Img
-        src={currentImage?.imageSrc || ""}
-        alt={currentImage?.imageAlt || ""}
+        src={currentImage.imageSrc}
+        alt={currentImage.imageAlt || ""}
         className={cn("h-full w-full object-cover transition-opacity duration-300", imageClassName)}
         loading="lazy"
         optixFlowConfig={optixFlowConfig}
@@ -222,44 +227,48 @@ export function FeatureAccordionImage({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("mb-12 text-center", headerClassName)}>
-        {title && (
-          typeof title === "string" ? (
-            <h2 className={cn("text-3xl font-semibold md:text-4xl lg:text-5xl", titleClassName)}>
-              {title}
-            </h2>
-          ) : (
-            <div className={cn("text-3xl font-semibold md:text-4xl lg:text-5xl", titleClassName)}>
-              {title}
-            </div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-4 text-muted-foreground lg:text-lg", descriptionClassName)}>
-              {description}
-            </p>
-          ) : (
-            <div className={cn("mt-4 text-muted-foreground lg:text-lg", descriptionClassName)}>
-              {description}
-            </div>
-          )
-        )}
-      </div>
-      <div className={cn("grid gap-10 lg:grid-cols-2 lg:gap-16", gridClassName)}>
-        <Accordion
-          type="single"
-          collapsible
-          value={activeItem}
-          onValueChange={setActiveItem}
-          className={cn("w-full", accordionClassName)}
-        >
-          {accordionItemsContent}
-        </Accordion>
-        <div className={cn("relative aspect-video overflow-hidden rounded-xl lg:aspect-square", imageWrapperClassName)}>
-          {imageContent}
+      {(title || description) && (
+        <div className={cn("mb-12 text-center", headerClassName)}>
+          {title && (
+            typeof title === "string" ? (
+              <h2 className={cn("text-3xl font-semibold md:text-4xl lg:text-5xl", titleClassName)}>
+                {title}
+              </h2>
+            ) : (
+              <div className={cn("text-3xl font-semibold md:text-4xl lg:text-5xl", titleClassName)}>
+                {title}
+              </div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mt-4 text-muted-foreground lg:text-lg", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mt-4 text-muted-foreground lg:text-lg", descriptionClassName)}>
+                {description}
+              </div>
+            )
+          )}
         </div>
-      </div>
+      )}
+      {(itemsSlot || (items && items.length > 0)) && (
+        <div className={cn("grid gap-10 lg:grid-cols-2 lg:gap-16", gridClassName)}>
+          <Accordion
+            type="single"
+            collapsible
+            value={activeItem}
+            onValueChange={setActiveItem}
+            className={cn("w-full", accordionClassName)}
+          >
+            {accordionItemsContent}
+          </Accordion>
+          <div className={cn("relative aspect-video overflow-hidden rounded-xl lg:aspect-square", imageWrapperClassName)}>
+            {imageContent}
+          </div>
+        </div>
+      )}
     </Section>
   );
 }

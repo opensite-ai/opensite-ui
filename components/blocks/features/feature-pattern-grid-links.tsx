@@ -1,11 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
-import { patternSvgs } from "../../../lib/patternSvgs";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -71,10 +70,6 @@ export interface FeaturePatternGridLinksProps {
    */
   featuresSlot?: React.ReactNode;
   /**
-   * Background pattern URL
-   */
-  patternUrl?: string;
-  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -132,7 +127,6 @@ export interface FeaturePatternGridLinksProps {
 export function FeaturePatternGridLinks({
   features,
   featuresSlot,
-  patternUrl = patternSvgs.dotPattern,
   className,
   containerClassName,
   gridClassName,
@@ -143,26 +137,29 @@ export function FeaturePatternGridLinks({
   patternOpacity,
   patternClassName,
 }: FeaturePatternGridLinksProps): React.JSX.Element {
-  const renderFeatureIcon = (feature: FeaturePatternGridLinksItem) => {
+  const renderFeatureIcon = useCallback((feature: FeaturePatternGridLinksItem) => {
     if (feature.icon) return feature.icon;
     if (feature.iconName) return <DynamicIcon name={feature.iconName} size={24} className={feature.iconClassName} />;
     return null;
-  };
+  }, []);
 
-  const renderFeatureLink = (feature: FeaturePatternGridLinksItem) => {
+  const renderFeatureLink = useCallback((feature: FeaturePatternGridLinksItem) => {
     if (feature.linkSlot) return feature.linkSlot;
-    if (!feature.link) return null;
+    if (!feature.link && !feature.linkLabel) return null;
+
+    const label = feature.linkLabel || (feature.link ? "Learn more" : null);
+    if (!label) return null;
 
     return (
       <Pressable
         href={feature.link}
         className={cn("flex items-center gap-2 text-sm font-medium", feature.linkClassName)}
       >
-        {feature.linkLabel || "Learn more"}
+        {label}
         <DynamicIcon name="lucide/chevron-right" size={16} />
       </Pressable>
     );
-  };
+  }, []);
 
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
@@ -197,7 +194,7 @@ export function FeaturePatternGridLinks({
         {renderFeatureLink(feature)}
       </div>
     ));
-  }, [featuresSlot, features, cardClassName]);
+  }, [featuresSlot, features, cardClassName, renderFeatureIcon, renderFeatureLink]);
 
   return (
     <Section
@@ -206,12 +203,8 @@ export function FeaturePatternGridLinks({
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
-      className={cn("bg-muted/30", className)}
+      className={className}
       containerClassName={containerClassName}
-      style={{
-        backgroundImage: `url(${patternUrl})`,
-        backgroundRepeat: "repeat",
-      }}
     >
       <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
         {featuresContent}

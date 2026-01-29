@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -26,7 +26,7 @@ export interface FeatureIconTabsContentTabContent {
    */
   description?: React.ReactNode;
   /**
-   * Array of action configurations for CTA buttons
+   * Array of action configurations for buttons
    */
   actions?: ActionConfig[];
   /**
@@ -191,29 +191,29 @@ export interface FeatureIconTabsContentProps {
 
 /**
  * Feature Icon Tabs Content - Tabbed interface with icon triggers and
- * content panels featuring images and CTAs.
+ * content panels featuring images and actions.
  *
  * Layout: Centered header with icon tabs, muted background content area.
- * Key features: Icon tab triggers, badge labels, CTA buttons, responsive images.
- * Best for: Feature categories, product tours, service breakdowns.
+ * Key features: Icon tab triggers, badge labels, action buttons, responsive images.
+ * Best for: Content categories, product tours, service breakdowns, multi-section showcases.
  *
  * @example
  * ```tsx
  * <FeatureIconTabsContent
- *   badge="Features"
- *   heading="A Collection of Components"
+ *   badge="Overview"
+ *   heading="Explore Our Offerings"
  *   tabs={[
  *     {
  *       value: "tab-1",
  *       iconName: "lucide/zap",
- *       label: "Boost Revenue",
+ *       label: "Performance",
  *       content: {
- *         badge: "Modern Tactics",
- *         title: "Make your site stand out",
- *         description: "Discover new web trends.",
- *         actions: [{ label: "See Plans", href: "#", variant: "default" }],
- *         imageSrc: "/feature.jpg",
- *         imageAlt: "Feature"
+ *         badge: "Speed",
+ *         title: "Lightning Fast",
+ *         description: "Optimized for performance.",
+ *         actions: [{ label: "Learn More", href: "#", variant: "default" }],
+ *         imageSrc: "/image.jpg",
+ *         imageAlt: "Performance"
  *       }
  *     },
  *   ]}
@@ -244,13 +244,13 @@ export function FeatureIconTabsContent({
   patternOpacity,
   patternClassName,
 }: FeatureIconTabsContentProps): React.JSX.Element {
-  const renderTabIcon = useMemo(() => (tab: FeatureIconTabsContentTab) => {
+  const renderTabIcon = useCallback((tab: FeatureIconTabsContentTab) => {
     if (tab.icon) return tab.icon;
     if (tab.iconName) return <DynamicIcon name={tab.iconName} size={16} />;
-    return <DynamicIcon name="lucide/star" size={16} />;
+    return null;
   }, []);
 
-  const renderTabContentActions = useMemo(() => (content: FeatureIconTabsContentTabContent) => {
+  const renderTabContentActions = useCallback((content: FeatureIconTabsContentTabContent) => {
     if (content.actionsSlot) return content.actionsSlot;
     if (!content.actions || content.actions.length === 0) return null;
 
@@ -291,7 +291,7 @@ export function FeatureIconTabsContent({
     });
   }, []);
 
-  const renderTabContentImage = useMemo(() => (content: FeatureIconTabsContentTabContent) => {
+  const renderTabContentImage = useCallback((content: FeatureIconTabsContentTabContent) => {
     if (content.imageSlot) return content.imageSlot;
     if (content.imageSrc) {
       return (
@@ -322,7 +322,7 @@ export function FeatureIconTabsContent({
               value={tab.value}
               className={cn("flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-muted-foreground data-[state=active]:bg-muted data-[state=active]:text-primary", tabTriggerClassName, tab.className)}
             >
-              {renderTabIcon(tab)}
+              {(tab.icon || tab.iconName) && renderTabIcon(tab)}
               {tab.label}
             </TabsTrigger>
           ))}
@@ -375,11 +375,13 @@ export function FeatureIconTabsContent({
                         </div>
                       )
                     )}
-                    {renderTabContentActions(content)}
+                    {(content.actionsSlot || (content.actions && content.actions.length > 0)) && renderTabContentActions(content)}
                   </div>
-                  <div className="relative h-[300px] w-full lg:h-[400px]">
-                    {renderTabContentImage(content)}
-                  </div>
+                  {(content.imageSlot || content.imageSrc) && (
+                    <div className="relative h-[300px] w-full lg:h-[400px]">
+                      {renderTabContentImage(content)}
+                    </div>
+                  )}
                 </TabsContent>
               );
             })}
@@ -399,27 +401,29 @@ export function FeatureIconTabsContent({
       className={className}
       containerClassName={cn("mx-auto", containerClassName)}
     >
-      <div className={cn("flex flex-col items-center gap-4 text-center", headerClassName)}>
-        {badge && <Badge variant="outline" className={badgeClassName}>{badge}</Badge>}
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("max-w-2xl text-3xl font-semibold md:text-4xl", headingClassName)}>
-              {heading}
-            </h1>
-          ) : (
-            <div className={cn("max-w-2xl text-3xl font-semibold md:text-4xl", headingClassName)}>
-              {heading}
-            </div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
-          ) : (
-            <div className={cn("text-muted-foreground", descriptionClassName)}>{description}</div>
-          )
-        )}
-      </div>
+      {(badge || heading || description) && (
+        <div className={cn("flex flex-col items-center gap-4 text-center", headerClassName)}>
+          {badge && <Badge variant="outline" className={badgeClassName}>{badge}</Badge>}
+          {heading && (
+            typeof heading === "string" ? (
+              <h1 className={cn("max-w-2xl text-3xl font-semibold md:text-4xl", headingClassName)}>
+                {heading}
+              </h1>
+            ) : (
+              <div className={cn("max-w-2xl text-3xl font-semibold md:text-4xl", headingClassName)}>
+                {heading}
+              </div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
+            ) : (
+              <div className={cn("text-muted-foreground", descriptionClassName)}>{description}</div>
+            )
+          )}
+        </div>
+      )}
       {tabsContent}
     </Section>
   );

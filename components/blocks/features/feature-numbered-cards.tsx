@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -178,7 +178,7 @@ export function FeatureNumberedCards({
   patternOpacity,
   patternClassName,
 }: FeatureNumberedCardsProps): React.JSX.Element {
-  const renderChecklistItems = (feature: FeatureNumberedCardsItem) => {
+  const renderChecklistItems = useCallback((feature: FeatureNumberedCardsItem) => {
     if (feature.checklistSlot) return feature.checklistSlot;
     if (!feature.checklistItems || feature.checklistItems.length === 0) return null;
 
@@ -203,7 +203,7 @@ export function FeatureNumberedCards({
         </li>
       );
     });
-  };
+  }, []);
 
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;

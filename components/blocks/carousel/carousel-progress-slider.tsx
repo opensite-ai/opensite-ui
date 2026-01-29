@@ -102,13 +102,17 @@ function SliderWrapper({ children, value, className }: SliderWrapperProps) {
   const { active } = useProgressSliderContext();
 
   return (
-    <AnimatePresence mode="popLayout">
+    <AnimatePresence mode="wait" initial={false}>
       {active === value && (
         <motion.div
           key={value}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{
+            duration: 0.4,
+            ease: [0.4, 0, 0.2, 1],
+          }}
           className={cn("", className)}
         >
           {children}
@@ -338,34 +342,36 @@ export function CarouselProgressSlider({
         <div className={cn("relative", containerClassName)}>
           <div className={cn("grid gap-8 lg:grid-cols-2", contentClassName)}>
                         {/* Content area */}
-                        <div className={cn("relative", imageClassName)}>
-                          {slidesSlot
-                            ? slidesSlot
-                            : slides?.map((slide) => (
-                                <SliderWrapper
-                                  key={slide.id}
-                                  value={slide.id}
-                                  className={cn("", slide.className)}
-                                >
-                                  <div className="aspect-video overflow-hidden rounded-lg">
-                                    <Img
-                                      src={slide.image}
-                                      alt={
-                                        typeof slide.title === "string"
-                                          ? slide.title
-                                          : `Slide ${slide.id}`
-                                      }
-                                      className={cn(
-                                        "h-full w-full object-cover",
-                                        slide.imageClassName,
-                                      )}
-                                      optixFlowConfig={optixFlowConfig}
-                                    />
-                                  </div>
-                                </SliderWrapper>
-                              ))}
+                        <div className={cn("relative min-h-[400px]", imageClassName)}>
+                          <div className="absolute inset-0">
+                            {slidesSlot
+                              ? slidesSlot
+                              : slides?.map((slide) => (
+                                  <SliderWrapper
+                                    key={slide.id}
+                                    value={slide.id}
+                                    className={cn("absolute inset-0", slide.className)}
+                                  >
+                                    <div className="aspect-video overflow-hidden rounded-lg">
+                                      <Img
+                                        src={slide.image}
+                                        alt={
+                                          typeof slide.title === "string"
+                                            ? slide.title
+                                            : `Slide ${slide.id}`
+                                        }
+                                        className={cn(
+                                          "h-full w-full object-cover",
+                                          slide.imageClassName,
+                                        )}
+                                        optixFlowConfig={optixFlowConfig}
+                                      />
+                                    </div>
+                                  </SliderWrapper>
+                                ))}
+                          </div>
                           {/* Play/Pause button */}
-                          <div className="mt-4 flex justify-center lg:justify-start">
+                          <div className="relative mt-4 flex justify-center lg:justify-start">
                             <Pressable
                               onClick={togglePause}
                               asButton

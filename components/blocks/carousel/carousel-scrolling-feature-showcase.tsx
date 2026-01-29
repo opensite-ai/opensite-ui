@@ -143,13 +143,13 @@ export function CarouselScrollingFeatureShowcase({
   featuresClassName,
   numberBadgeClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing = "md",
   pattern,
   patternOpacity,
 }: CarouselScrollingFeatureShowcaseProps): React.JSX.Element {
   const [activeFeature, setActiveFeature] = React.useState<string>(
-    features?.[0]?.id ?? ""
+    features?.[0]?.id ?? "",
   );
   const featureRefs = React.useRef<Map<string, HTMLDivElement>>(new Map());
 
@@ -203,30 +203,52 @@ export function CarouselScrollingFeatureShowcase({
       <div className={cn("container mx-auto px-4", containerClassName)}>
         {/* Header */}
         <div className={cn("mb-12 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {subheading && (
-            typeof subheading === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subheadingClassName)}>{subheading}</p>
+            ))}
+          {subheading &&
+            (typeof subheading === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subheadingClassName,
+                )}
+              >
+                {subheading}
+              </p>
             ) : (
-              <div className={cn("mt-4", subheadingClassName)}>{subheading}</div>
-            )
-          )}
+              <div className={cn("mt-4", subheadingClassName)}>
+                {subheading}
+              </div>
+            ))}
         </div>
 
         {/* Scrolling content */}
-        <div className={cn("grid gap-8 lg:grid-cols-2 lg:gap-12", contentClassName)}>
+        <div
+          className={cn(
+            "grid gap-8 lg:grid-cols-2 lg:gap-12",
+            contentClassName,
+          )}
+        >
           {/* Sticky image panel */}
           <div className="hidden lg:block">
             <div className="sticky top-24">
-              <div className={cn("aspect-video overflow-hidden rounded-xl bg-muted", imageClassName)}>
+              <div
+                className={cn(
+                  "aspect-video overflow-hidden rounded-xl bg-muted",
+                  imageClassName,
+                )}
+              >
                 <AnimatePresence mode="wait">
                   {activeFeatureData && (
                     <motion.div
@@ -239,8 +261,15 @@ export function CarouselScrollingFeatureShowcase({
                     >
                       <Img
                         src={activeFeatureData.image}
-                        alt={typeof activeFeatureData.title === "string" ? activeFeatureData.title : `Feature ${activeFeatureData.id}`}
-                        className={cn("h-full w-full object-cover", activeFeatureData.imageClassName)}
+                        alt={
+                          typeof activeFeatureData.title === "string"
+                            ? activeFeatureData.title
+                            : `Feature ${activeFeatureData.id}`
+                        }
+                        className={cn(
+                          "h-full w-full object-cover",
+                          activeFeatureData.imageClassName,
+                        )}
                         optixFlowConfig={optixFlowConfig}
                       />
                     </motion.div>
@@ -252,64 +281,73 @@ export function CarouselScrollingFeatureShowcase({
 
           {/* Feature descriptions */}
           <div className={cn("space-y-24 lg:space-y-32", featuresClassName)}>
-            {featuresSlot ? (
-              featuresSlot
-            ) : (
-              features?.map((feature, index) => (
-                <div
-                  key={feature.id}
-                  ref={setFeatureRef(feature.id)}
-                  data-feature-id={feature.id}
-                  className={cn(
-                    "scroll-mt-24 transition-opacity duration-300",
-                    activeFeature === feature.id
-                      ? "opacity-100"
-                      : "opacity-50",
-                    feature.className
-                  )}
-                >
-                  {/* Mobile image */}
-                  <div className="mb-6 lg:hidden">
-                    <div className="aspect-video overflow-hidden rounded-lg bg-muted">
-                      <Img
-                        src={feature.image}
-                        alt={typeof feature.title === "string" ? feature.title : `Feature ${feature.id}`}
-                        className={cn("h-full w-full object-cover", feature.imageClassName)}
-                        optixFlowConfig={optixFlowConfig}
-                      />
+            {featuresSlot
+              ? featuresSlot
+              : features?.map((feature, index) => (
+                  <div
+                    key={feature.id}
+                    ref={setFeatureRef(feature.id)}
+                    data-feature-id={feature.id}
+                    className={cn(
+                      "scroll-mt-24 transition-opacity duration-300",
+                      activeFeature === feature.id
+                        ? "opacity-100"
+                        : "opacity-50",
+                      feature.className,
+                    )}
+                  >
+                    {/* Mobile image */}
+                    <div className="mb-6 lg:hidden">
+                      <div className="aspect-video overflow-hidden rounded-lg bg-muted">
+                        <Img
+                          src={feature.image}
+                          alt={
+                            typeof feature.title === "string"
+                              ? feature.title
+                              : `Feature ${feature.id}`
+                          }
+                          className={cn(
+                            "h-full w-full object-cover",
+                            feature.imageClassName,
+                          )}
+                          optixFlowConfig={optixFlowConfig}
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="flex items-start gap-4">
-                    <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground", numberBadgeClassName)}>
-                      {index + 1}
-                    </div>
-                    <div>
-                      {feature.title && (
-                        typeof feature.title === "string" ? (
-                          <h3 className="text-2xl font-semibold">{feature.title}</h3>
-                        ) : (
-                          <div>{feature.title}</div>
-                        )
-                      )}
-                      {feature.description && (
-                        typeof feature.description === "string" ? (
-                          <p className="mt-4 text-lg text-muted-foreground">
-                            {feature.description}
-                          </p>
-                        ) : (
-                          <div className="mt-4">{feature.description}</div>
-                        )
-                      )}
+                    <div className="flex items-start gap-4">
+                      <div
+                        className={cn(
+                          "flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground",
+                          numberBadgeClassName,
+                        )}
+                      >
+                        {index + 1}
+                      </div>
+                      <div>
+                        {feature.title &&
+                          (typeof feature.title === "string" ? (
+                            <h3 className="text-2xl font-semibold">
+                              {feature.title}
+                            </h3>
+                          ) : (
+                            <div>{feature.title}</div>
+                          ))}
+                        {feature.description &&
+                          (typeof feature.description === "string" ? (
+                            <p className="mt-4 text-lg text-muted-foreground">
+                              {feature.description}
+                            </p>
+                          ) : (
+                            <div className="mt-4">{feature.description}</div>
+                          ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))
-            )}
+                ))}
           </div>
         </div>
       </div>
     </Section>
   );
 }
-

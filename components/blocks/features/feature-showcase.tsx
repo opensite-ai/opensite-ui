@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, useMemo, type ReactNode } from "react";
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import {
   Carousel,
   CarouselContent,
@@ -11,21 +14,77 @@ import {
 } from "../../ui/carousel";
 
 export interface FeatureShowcaseItem {
-  content: ReactNode;
-  mediaComponent: ReactNode;
+  /**
+   * Content to display (text, headings, etc.)
+   */
+  content?: ReactNode;
+  /**
+   * Media component to display (images, videos, etc.)
+   */
+  mediaComponent?: ReactNode;
 }
 
 export interface FeatureShowcaseProps {
-  items: FeatureShowcaseItem[];
+  /**
+   * Array of feature items to display in the carousel
+   */
+  items?: FeatureShowcaseItem[];
+  /**
+   * Optional header content above the carousel
+   */
   children?: ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the carousel
+   */
   carouselClassName?: string;
+  /**
+   * Additional CSS classes for each slide
+   */
   slideClassName?: string;
+  /**
+   * Additional CSS classes for the content area
+   */
   contentClassName?: string;
+  /**
+   * Additional CSS classes for the media area
+   */
   mediaClassName?: string;
+  /**
+   * Additional CSS classes for navigation arrows
+   */
   arrowClassName?: string;
+  /**
+   * Whether to equalize slide heights on mobile
+   */
   equalizeOnMobile?: boolean;
+  /**
+   * Whether to stretch media to fill available space on mobile
+   */
   stretchMediaOnMobile?: boolean;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -60,22 +119,35 @@ export function FeatureShowcase({
   contentClassName,
   mediaClassName,
   arrowClassName,
-  equalizeOnMobile = true,
-  stretchMediaOnMobile = true,
+  equalizeOnMobile,
+  stretchMediaOnMobile,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureShowcaseProps) {
-  const baseArrowClassName =
-    "bottom-4 top-auto size-12 translate-y-0 rounded-full border border-current bg-transparent text-current shadow-sm focus:ring-current focus:ring-offset-2 focus:ring-offset-transparent hover:bg-current/10 md:bottom-6";
+  const baseArrowClassName = useMemo(
+    () =>
+      "bottom-4 top-auto size-12 translate-y-0 rounded-full border border-current bg-transparent text-current shadow-sm focus:ring-current focus:ring-offset-2 focus:ring-offset-transparent hover:bg-current/10 md:bottom-6",
+    []
+  );
+
   const [mobileSlideHeight, setMobileSlideHeight] = useState<number | null>(
     null
   );
   const slideRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const mediaWrapperClassName =
-    equalizeOnMobile && stretchMediaOnMobile
-      ? "flex-1 min-h-0 md:flex-none"
-      : "";
+
+  const mediaWrapperClassName = useMemo(
+    () =>
+      equalizeOnMobile && stretchMediaOnMobile
+        ? "flex-1 min-h-0 md:flex-none"
+        : "",
+    [equalizeOnMobile, stretchMediaOnMobile]
+  );
 
   useEffect(() => {
-    if (!equalizeOnMobile) {
+    if (!equalizeOnMobile || !items || items.length === 0) {
       setMobileSlideHeight(null);
       return;
     }
@@ -116,11 +188,12 @@ export function FeatureShowcase({
       window.removeEventListener("resize", updateHeights);
       resizeObserver?.disconnect();
     };
-  }, [equalizeOnMobile, items.length]);
+  }, [equalizeOnMobile, items]);
 
-  return (
-    <div className={className}>
-      {children}
+  const carouselContent = useMemo(() => {
+    if (!items || items.length === 0) return null;
+
+    return (
       <Carousel className={carouselClassName}>
         <div className="pb-18 md:pb-24">
           <CarouselContent className="ease-in">
@@ -140,18 +213,22 @@ export function FeatureShowcase({
                     slideClassName
                   )}
                 >
-                  <div className={cn("w-full", contentClassName)}>
-                    {item.content}
-                  </div>
-                  <div
-                    className={cn(
-                      "w-full",
-                      mediaWrapperClassName,
-                      mediaClassName
-                    )}
-                  >
-                    {item.mediaComponent}
-                  </div>
+                  {item.content && (
+                    <div className={cn("w-full", contentClassName)}>
+                      {item.content}
+                    </div>
+                  )}
+                  {item.mediaComponent && (
+                    <div
+                      className={cn(
+                        "w-full",
+                        mediaWrapperClassName,
+                        mediaClassName
+                      )}
+                    >
+                      {item.mediaComponent}
+                    </div>
+                  )}
                 </div>
               </CarouselItem>
             ))}
@@ -164,6 +241,20 @@ export function FeatureShowcase({
           className={cn(baseArrowClassName, "right-4 md:right-6", arrowClassName)}
         />
       </Carousel>
-    </div>
+    );
+  }, [items, carouselClassName, equalizeOnMobile, mobileSlideHeight, slideClassName, contentClassName, mediaWrapperClassName, mediaClassName, baseArrowClassName, arrowClassName]);
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      {children}
+      {carouselContent}
+    </Section>
   );
 }

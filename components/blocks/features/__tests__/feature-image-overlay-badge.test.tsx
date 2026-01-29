@@ -40,12 +40,12 @@ describe("FeatureImageOverlayBadge", () => {
   });
 
   it("renders overlay title", () => {
-    render(<FeatureImageOverlayBadge overlayTitle="Custom Overlay Title" />);
+    render(<FeatureImageOverlayBadge imageSrc="/test.jpg" overlayTitle="Custom Overlay Title" />);
     expect(screen.getByText("Custom Overlay Title")).toBeInTheDocument();
   });
 
   it("renders avatar badge text", () => {
-    render(<FeatureImageOverlayBadge avatarBadgeText="Custom Avatar Badge" />);
+    render(<FeatureImageOverlayBadge imageSrc="/test.jpg" avatarBadgeText="Custom Avatar Badge" />);
     expect(screen.getByText("Custom Avatar Badge")).toBeInTheDocument();
   });
 

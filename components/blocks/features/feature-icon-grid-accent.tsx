@@ -212,34 +212,38 @@ export function FeatureIconGridAccent({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("flex w-full flex-col items-center", headerClassName)}>
-        <div className="flex flex-col items-center space-y-4 text-center sm:space-y-6 md:max-w-3xl md:text-center">
-          {label && (
-            typeof label === "string" ? (
-              <p className={cn("text-sm text-muted-foreground", labelClassName)}>{label}</p>
-            ) : (
-              <div className={labelClassName}>{label}</div>
-            )
-          )}
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-medium md:text-5xl", titleClassName)}>{title}</h2>
-            ) : (
-              <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground md:max-w-2xl", descriptionClassName)}>{description}</p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+      {(label || title || description) && (
+        <div className={cn("flex w-full flex-col items-center", headerClassName)}>
+          <div className="flex flex-col items-center space-y-4 text-center sm:space-y-6 md:max-w-3xl md:text-center">
+            {label && (
+              typeof label === "string" ? (
+                <p className={cn("text-sm text-muted-foreground", labelClassName)}>{label}</p>
+              ) : (
+                <div className={labelClassName}>{label}</div>
+              )
+            )}
+            {title && (
+              typeof title === "string" ? (
+                <h2 className={cn("text-3xl font-medium md:text-5xl", titleClassName)}>{title}</h2>
+              ) : (
+                <div className={titleClassName}>{title}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("text-muted-foreground md:max-w-2xl", descriptionClassName)}>{description}</p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
+          </div>
         </div>
-      </div>
-      <div className={cn("mx-auto mt-20 grid max-w-5xl gap-6 md:grid-cols-2", gridClassName)}>
-        {featuresContent}
-      </div>
+      )}
+      {featuresContent && (
+        <div className={cn("mx-auto mt-20 grid max-w-5xl gap-6 md:grid-cols-2", gridClassName)}>
+          {featuresContent}
+        </div>
+      )}
     </Section>
   );
 }

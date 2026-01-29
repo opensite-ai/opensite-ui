@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -18,11 +18,11 @@ export interface FeatureIconGridMutedItem {
    */
   iconName?: string;
   /**
-   * Feature title content
+   * Item title content
    */
   title?: React.ReactNode;
   /**
-   * Feature description content
+   * Item description content
    */
   description?: React.ReactNode;
   /**
@@ -53,11 +53,11 @@ export interface FeatureIconGridMutedProps {
    */
   description?: React.ReactNode;
   /**
-   * Array of feature items
+   * Array of items to display
    */
   features?: FeatureIconGridMutedItem[];
   /**
-   * Custom slot for rendering features (overrides features array)
+   * Custom slot for rendering items (overrides features array)
    */
   featuresSlot?: React.ReactNode;
   /**
@@ -111,20 +111,20 @@ export interface FeatureIconGridMutedProps {
 }
 
 /**
- * Feature Icon Grid Muted - Five-feature grid with muted background and
+ * Feature Icon Grid Muted - Five-column grid with muted background and
  * icon badges showcasing key capabilities.
  *
  * Layout: Muted background section with centered header and five-column grid.
  * Key features: Muted background, icon badges, centered text, responsive grid.
- * Best for: Key features, time-saving tools, capability highlights.
+ * Best for: Capability highlights, benefits showcase, service offerings.
  *
  * @example
  * ```tsx
  * <FeatureIconGridMuted
- *   title="Key Features That Save You Time"
- *   description="Explore tools specifically built to enhance your workflow."
+ *   title="Key Capabilities"
+ *   description="Explore tools built to enhance your workflow."
  *   features={[
- *     { iconName: "lucide/check-circle-2", title: "Instant Approvals", description: "Get quick approvals" },
+ *     { iconName: "lucide/check-circle-2", title: "Quick Processing", description: "Fast results" },
  *   ]}
  * />
  * ```
@@ -147,11 +147,11 @@ export function FeatureIconGridMuted({
   patternOpacity,
   patternClassName,
 }: FeatureIconGridMutedProps): React.JSX.Element {
-  const renderFeatureIcon = (feature: FeatureIconGridMutedItem) => {
+  const renderFeatureIcon = useCallback((feature: FeatureIconGridMutedItem) => {
     if (feature.icon) return feature.icon;
     if (feature.iconName) return <DynamicIcon name={feature.iconName} size={24} className={feature.iconClassName} />;
     return null;
-  };
+  }, []);
 
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
@@ -162,7 +162,7 @@ export function FeatureIconGridMuted({
         key={index}
         className={cn("flex flex-col gap-2.5 rounded-xl border bg-background p-7", cardClassName, feature.className)}
       >
-        {renderFeatureIcon(feature)}
+        {(feature.icon || feature.iconName) && renderFeatureIcon(feature)}
         {feature.title && (
           typeof feature.title === "string" ? (
             <h3 className={cn("font-semibold", feature.titleClassName)}>{feature.title}</h3>
@@ -183,7 +183,7 @@ export function FeatureIconGridMuted({
         )}
       </div>
     ));
-  }, [featuresSlot, features, cardClassName]);
+  }, [featuresSlot, features, cardClassName, renderFeatureIcon]);
 
   return (
     <Section
@@ -196,25 +196,29 @@ export function FeatureIconGridMuted({
       containerClassName={containerClassName}
     >
       <div className="flex flex-col gap-10">
-        <div className={cn("mx-auto flex max-w-xl flex-col gap-2.5 text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h1 className={cn("text-4xl font-semibold md:text-5xl", titleClassName)}>{title}</h1>
-            ) : (
-              <div className={cn("text-4xl font-semibold md:text-5xl", titleClassName)}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
-            ) : (
-              <div className={cn("text-muted-foreground", descriptionClassName)}>{description}</div>
-            )
-          )}
-        </div>
-        <div className={cn("mx-auto grid max-w-7xl gap-7 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5", gridClassName)}>
-          {featuresContent}
-        </div>
+        {(title || description) && (
+          <div className={cn("mx-auto flex max-w-xl flex-col gap-2.5 text-center", headerClassName)}>
+            {title && (
+              typeof title === "string" ? (
+                <h1 className={cn("text-4xl font-semibold md:text-5xl", titleClassName)}>{title}</h1>
+              ) : (
+                <div className={cn("text-4xl font-semibold md:text-5xl", titleClassName)}>{title}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
+              ) : (
+                <div className={cn("text-muted-foreground", descriptionClassName)}>{description}</div>
+              )
+            )}
+          </div>
+        )}
+        {(featuresSlot || (features && features.length > 0)) && (
+          <div className={cn("mx-auto grid max-w-7xl gap-7 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5", gridClassName)}>
+            {featuresContent}
+          </div>
+        )}
       </div>
     </Section>
   );

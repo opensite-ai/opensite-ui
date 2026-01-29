@@ -187,8 +187,8 @@ export function CarouselProductFeatureShowcase({
   actionsClassName,
   indicatorsClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CarouselProductFeatureShowcaseProps): React.JSX.Element {
@@ -207,7 +207,7 @@ export function CarouselProductFeatureShowcase({
   const goToPrev = () => {
     setDirection(-1);
     setActiveIndex(
-      (prev) => (prev - 1 + (features?.length ?? 1)) % (features?.length ?? 1)
+      (prev) => (prev - 1 + (features?.length ?? 1)) % (features?.length ?? 1),
     );
     setActiveColorIndex(0);
   };
@@ -236,34 +236,41 @@ export function CarouselProductFeatureShowcase({
   const currentImage =
     activeFeature?.colors?.[activeColorIndex]?.image || activeFeature?.image;
 
-    const renderActions = () => {
-      if (actionsSlot) return actionsSlot;
-      if (!actions || actions.length === 0) return null;
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
-      return (
-        <div className="mt-8 flex flex-wrap gap-3">
-          {actions.map((action, index) => {
-            const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-            return (
-              <Pressable
-                key={index}
-                asButton
-                className={actionClassName}
-                {...pressableProps}
-              >
-                {children ?? (
-                  <>
-                    {icon}
-                    {label}
-                    {iconAfter}
-                  </>
-                )}
-              </Pressable>
-            );
-          })}
-        </div>
-      );
-    };
+    return (
+      <div className="mt-8 flex flex-wrap gap-3">
+        {actions.map((action, index) => {
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={actionClassName}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
 
   return (
     <Section
@@ -273,34 +280,54 @@ export function CarouselProductFeatureShowcase({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container mx-auto px-4", containerClassName)}>
+      <div className={cn("relative", containerClassName)}>
         {/* Header */}
         <div className={cn("mb-12 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {subheading && (
-            typeof subheading === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subheadingClassName)}>{subheading}</p>
+            ))}
+          {subheading &&
+            (typeof subheading === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subheadingClassName,
+                )}
+              >
+                {subheading}
+              </p>
             ) : (
               <div className={subheadingClassName}>{subheading}</div>
-            )
-          )}
+            ))}
         </div>
 
         {/* Main content */}
         {featuresSlot ? (
           <div className={contentClassName}>{featuresSlot}</div>
         ) : (
-          <div className={cn("grid gap-8 lg:grid-cols-2 lg:gap-12", contentClassName)}>
+          <div
+            className={cn(
+              "grid gap-8 lg:grid-cols-2 lg:gap-12",
+              contentClassName,
+            )}
+          >
             {/* Image section */}
-            <div className={cn("relative aspect-square overflow-hidden rounded-2xl bg-muted lg:aspect-[4/3]", imageClassName)}>
+            <div
+              className={cn(
+                "relative aspect-square overflow-hidden rounded-2xl bg-muted lg:aspect-4/3 shadow-lg",
+                imageClassName,
+              )}
+            >
               <AnimatePresence initial={false} custom={direction} mode="wait">
                 <motion.div
                   key={`${activeIndex}-${activeColorIndex}`}
@@ -310,38 +337,48 @@ export function CarouselProductFeatureShowcase({
                   animate="center"
                   exit="exit"
                   transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className={cn("absolute inset-0", activeFeature?.imageClassName)}
+                  className={cn(
+                    "absolute inset-0",
+                    activeFeature?.imageClassName,
+                  )}
                 >
                   <Img
                     src={currentImage}
-                    alt={typeof activeFeature?.title === "string" ? activeFeature.title : `Feature ${activeIndex + 1}`}
+                    alt={
+                      typeof activeFeature?.title === "string"
+                        ? activeFeature.title
+                        : `Feature ${activeIndex + 1}`
+                    }
                     className="h-full w-full object-cover"
                     optixFlowConfig={optixFlowConfig}
                   />
                 </motion.div>
               </AnimatePresence>
 
-                            {/* Navigation arrows */}
-                            <div className={cn("absolute bottom-4 right-4 flex gap-2", navigationClassName)}>
-                              <Pressable
-                                onClick={goToPrev}
-                                asButton
-                                variant="outline"
-                                size="icon"
-                                className="flex h-10 w-10 items-center justify-center rounded-full border-border bg-background/90 text-foreground backdrop-blur-sm hover:bg-background"
-                              >
-                                <DynamicIcon name="lucide/chevron-left" size={20} />
-                              </Pressable>
-                              <Pressable
-                                onClick={goToNext}
-                                asButton
-                                variant="outline"
-                                size="icon"
-                                className="flex h-10 w-10 items-center justify-center rounded-full border-border bg-background/90 text-foreground backdrop-blur-sm hover:bg-background"
-                              >
-                                <DynamicIcon name="lucide/chevron-right" size={20} />
-                              </Pressable>
-                            </div>
+              {/* Navigation arrows */}
+              <div
+                className={cn(
+                  "absolute bottom-4 right-4 flex gap-2",
+                  navigationClassName,
+                )}
+              >
+                <Pressable
+                  onClick={goToPrev}
+                  asButton
+                  variant="outline"
+                  size="icon"
+                >
+                  <DynamicIcon name="lucide/chevron-left" size={20} />
+                </Pressable>
+                <Pressable
+                  onClick={goToNext}
+                  asButton
+                  variant="outline"
+                  size="icon"
+                >
+                  <DynamicIcon name="lucide/chevron-right" size={20} />
+                </Pressable>
+              </div>
             </div>
 
             {/* Content section */}
@@ -354,29 +391,29 @@ export function CarouselProductFeatureShowcase({
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {activeFeature?.title && (
-                    typeof activeFeature.title === "string" ? (
+                  {activeFeature?.title &&
+                    (typeof activeFeature.title === "string" ? (
                       <h3 className="text-2xl font-semibold md:text-3xl">
                         {activeFeature.title}
                       </h3>
                     ) : (
                       <div>{activeFeature.title}</div>
-                    )
-                  )}
-                  {activeFeature?.description && (
-                    typeof activeFeature.description === "string" ? (
+                    ))}
+                  {activeFeature?.description &&
+                    (typeof activeFeature.description === "string" ? (
                       <p className="mt-4 text-lg text-muted-foreground">
                         {activeFeature.description}
                       </p>
                     ) : (
                       <div className="mt-4">{activeFeature.description}</div>
-                    )
-                  )}
+                    ))}
 
                   {/* Color selectors */}
                   {activeFeature?.colors && activeFeature.colors.length > 0 && (
                     <div className={cn("mt-6", colorSelectorClassName)}>
-                      <p className="mb-3 text-sm font-medium">Available Colors</p>
+                      <p className="mb-3 text-sm font-medium">
+                        Available Colors
+                      </p>
                       <div className="flex gap-3">
                         {activeFeature.colors.map((color, index) => (
                           <button
@@ -386,7 +423,7 @@ export function CarouselProductFeatureShowcase({
                               "h-8 w-8 rounded-full border-2 transition-all",
                               activeColorIndex === index
                                 ? "border-primary ring-2 ring-primary ring-offset-2"
-                                : "border-transparent hover:border-muted-foreground"
+                                : "border-transparent hover:border-muted-foreground",
                             )}
                             style={{ backgroundColor: color.value }}
                             title={color.name}
@@ -396,9 +433,7 @@ export function CarouselProductFeatureShowcase({
                     </div>
                   )}
 
-                  <div className={actionsClassName}>
-                    {renderActions()}
-                  </div>
+                  <div className={actionsClassName}>{renderActions()}</div>
                 </motion.div>
               </AnimatePresence>
 
@@ -412,7 +447,7 @@ export function CarouselProductFeatureShowcase({
                       "h-2 rounded-full transition-all",
                       activeIndex === index
                         ? "w-8 bg-primary"
-                        : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                        : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50",
                     )}
                   />
                 ))}
@@ -424,4 +459,3 @@ export function CarouselProductFeatureShowcase({
     </Section>
   );
 }
-

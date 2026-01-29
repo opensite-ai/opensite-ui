@@ -219,7 +219,7 @@ export function FeatureTabbedContentImage({
   description,
   slides,
   slidesSlot,
-  defaultTab = "1",
+  defaultTab,
   className,
   containerClassName,
   headerClassName,
@@ -238,7 +238,7 @@ export function FeatureTabbedContentImage({
   patternOpacity,
   patternClassName,
 }: FeatureTabbedContentImageProps): React.JSX.Element {
-  const renderFeatures = useMemo(() => (slide: FeatureTabbedContentImageSlide) => {
+  const renderFeatures = React.useCallback((slide: FeatureTabbedContentImageSlide) => {
     if (slide.featuresSlot) return slide.featuresSlot;
     if (!slide.features || slide.features.length === 0) return null;
 
@@ -261,7 +261,7 @@ export function FeatureTabbedContentImage({
     });
   }, []);
 
-  const renderActions = useMemo(() => (slide: FeatureTabbedContentImageSlide) => {
+  const renderActions = React.useCallback((slide: FeatureTabbedContentImageSlide) => {
     if (slide.actionsSlot) return slide.actionsSlot;
     if (!slide.actions || slide.actions.length === 0) return null;
 
@@ -302,7 +302,7 @@ export function FeatureTabbedContentImage({
     });
   }, []);
 
-  const renderImage = useMemo(() => (slide: FeatureTabbedContentImageSlide) => {
+  const renderImage = React.useCallback((slide: FeatureTabbedContentImageSlide) => {
     if (slide.imageSlot) return slide.imageSlot;
     if (!slide.image) return null;
 
@@ -381,6 +381,13 @@ export function FeatureTabbedContentImage({
     );
   }, [slidesSlot, slides, tabsListClassName, tabTriggerClassName, tabContentClassName, contentGridClassName, renderFeatures, renderActions, renderImage]);
 
+  // Determine the default tab value
+  const effectiveDefaultTab = useMemo(() => {
+    if (defaultTab) return defaultTab;
+    if (slides && slides.length > 0) return slides[0].id.toString();
+    return "1";
+  }, [defaultTab, slides]);
+
   return (
     <Section
       background={background}
@@ -415,14 +422,16 @@ export function FeatureTabbedContentImage({
           )
         )}
       </div>
-      <div className={cn("mt-12", tabsWrapperClassName)}>
-        <Tabs
-          defaultValue={defaultTab}
-          className={cn("mx-auto flex w-fit flex-col items-center gap-8 md:gap-12", tabsClassName)}
-        >
-          {slidesContent}
-        </Tabs>
-      </div>
+      {(slidesSlot || (slides && slides.length > 0)) && (
+        <div className={cn("mt-12", tabsWrapperClassName)}>
+          <Tabs
+            defaultValue={effectiveDefaultTab}
+            className={cn("mx-auto flex w-fit flex-col items-center gap-8 md:gap-12", tabsClassName)}
+          >
+            {slidesContent}
+          </Tabs>
+        </div>
+      )}
     </Section>
   );
 }
