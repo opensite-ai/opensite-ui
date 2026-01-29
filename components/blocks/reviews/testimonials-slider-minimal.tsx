@@ -5,7 +5,6 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -68,30 +67,6 @@ export interface TestimonialsSliderMinimalProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
-  {
-    quote:
-      "This platform has completely transformed how our team collaborates. The intuitive interface and powerful features have made us significantly more productive.",
-    author: "Sarah Chen",
-    role: "Product Manager at TechCorp",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    quote:
-      "I've tried dozens of similar tools, but nothing comes close to the elegance and functionality of this solution. It's become indispensable to our workflow.",
-    author: "Michael Torres",
-    role: "CEO at StartupXYZ",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    quote:
-      "The customer support is exceptional. Any time we've had questions, the team has been incredibly responsive and helpful. Truly a pleasure to work with.",
-    author: "Emily Watson",
-    role: "Operations Lead at GrowthCo",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-];
-
 /**
  * TestimonialsSliderMinimal - A clean, auto-rotating testimonial slider with minimal
  * design. Features smooth fade transitions between testimonials, centered layout with
@@ -117,9 +92,9 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
  * ```
  */
 export function TestimonialsSliderMinimal({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
-  autoPlayInterval = 5000,
+  autoPlayInterval,
   className,
   contentClassName,
   quoteClassName,
@@ -133,6 +108,8 @@ export function TestimonialsSliderMinimal({
 }: TestimonialsSliderMinimalProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const totalTestimonials = testimonials?.length ?? 0;
+  const effectiveAutoPlayInterval = autoPlayInterval ?? 5000;
 
   const goToSlide = useCallback(
     (index: number) => {
@@ -147,36 +124,37 @@ export function TestimonialsSliderMinimal({
   );
 
   useEffect(() => {
-    if (autoPlayInterval <= 0) return;
+    if (effectiveAutoPlayInterval <= 0 || totalTestimonials === 0) return;
 
     const interval = setInterval(() => {
-      const nextIndex = (currentIndex + 1) % testimonials.length;
+      const nextIndex = (currentIndex + 1) % totalTestimonials;
       goToSlide(nextIndex);
-    }, autoPlayInterval);
+    }, effectiveAutoPlayInterval);
 
     return () => clearInterval(interval);
-  }, [currentIndex, autoPlayInterval, testimonials.length, goToSlide]);
+  }, [currentIndex, effectiveAutoPlayInterval, totalTestimonials, goToSlide]);
 
-  const current = testimonials[currentIndex];
+  const current = testimonials?.[currentIndex];
 
-  const getAuthorName = (testimonial: TestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getAvatarSrc = (testimonial: TestimonialItem): string | undefined => {
+  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonial = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!current) return null;
 
     const authorName = getAuthorName(current);
     const avatarSrc = getAvatarSrc(current);
@@ -229,7 +207,7 @@ export function TestimonialsSliderMinimal({
         </div>
       </div>
     );
-  }, [testimonialsSlot, isTransitioning, current.quote, quoteClassName, authorClassName, avatarClassName, current.author, current.role]);
+  }, [testimonialsSlot, isTransitioning, current, quoteClassName, authorClassName, avatarClassName, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section
@@ -242,21 +220,23 @@ export function TestimonialsSliderMinimal({
       <div className={cn("mx-auto max-w-3xl text-center", contentClassName)}>
         {renderedTestimonial}
 
-        <div className={cn("mt-8 flex justify-center gap-2", dotsClassName)}>
-          {testimonials.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={cn(
-                "size-2 rounded-full transition-all",
-                index === currentIndex
-                  ? "w-6 bg-primary"
-                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50",
-              )}
-              aria-label={`Go to testimonial ${index + 1}`}
-            />
-          ))}
-        </div>
+        {testimonials && testimonials.length > 0 && (
+          <div className={cn("mt-8 flex justify-center gap-2", dotsClassName)}>
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={cn(
+                  "size-2 rounded-full transition-all",
+                  index === currentIndex
+                    ? "w-6 bg-primary"
+                    : "bg-muted-foreground/30 hover:bg-muted-foreground/50",
+                )}
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </Section>
   );

@@ -1,14 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
@@ -105,57 +104,6 @@ export interface TestimonialsTwitterCardsProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: TwitterTestimonialItem[] = [
-  {
-    content:
-      "Just shipped our new landing page using @opensiteai components. Took us 2 hours instead of 2 weeks. The quality is incredible!",
-    author: "Sarah Chen",
-    handle: "@sarahchen",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-    twitterUrl: "https://twitter.com/sarahchen",
-  },
-  {
-    content:
-      "The attention to detail in these components is next level. Every interaction feels polished and professional.",
-    author: "Alex Rivera",
-    handle: "@alexrivera",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-    twitterUrl: "https://twitter.com/alexrivera",
-  },
-  {
-    content:
-      "Finally, a component library that doesn't require a PhD to customize. Clean code, great docs, amazing support.",
-    author: "Jordan Lee",
-    handle: "@jordanlee",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-    twitterUrl: "https://twitter.com/jordanlee",
-  },
-  {
-    content:
-      "Our design team is obsessed with the consistency across all components. Makes our job so much easier!",
-    author: "Maya Patel",
-    handle: "@mayapatel",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
-    twitterUrl: "https://twitter.com/mayapatel",
-  },
-  {
-    content:
-      "Switched from building everything from scratch to using Opensite AI. Best decision we made this quarter.",
-    author: "Chris Wong",
-    handle: "@chriswong",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
-    twitterUrl: "https://twitter.com/chriswong",
-  },
-  {
-    content:
-      "The semantic component system is genius. Our AI can now pick the perfect component every time.",
-    author: "Emma Davis",
-    handle: "@emmadavis",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar6,
-    twitterUrl: "https://twitter.com/emmadavis",
-  },
-];
-
 /**
  * TestimonialsTwitterCards - A grid of Twitter/X-style testimonial cards featuring
  * user content, profile avatars, handles, and links to original tweets. Each card
@@ -183,7 +131,7 @@ const DEFAULT_TESTIMONIALS: TwitterTestimonialItem[] = [
  * ```
  */
 export function TestimonialsTwitterCards({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
   heading,
   description,
@@ -200,20 +148,21 @@ export function TestimonialsTwitterCards({
   pattern,
   patternOpacity,
 }: TestimonialsTwitterCardsProps): React.JSX.Element {
-  const getAuthorName = (testimonial: TwitterTestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: TwitterTestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!testimonials || testimonials.length === 0) return null;
 
     return (
       <div
@@ -281,7 +230,7 @@ export function TestimonialsTwitterCards({
         })}
       </div>
     );
-  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, cardContentClassName, authorClassName]);
+  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, cardContentClassName, authorClassName, getAuthorName, getInitials]);
 
   return (
     <Section

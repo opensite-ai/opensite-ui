@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -91,56 +90,6 @@ export interface TestimonialsMiniDividersProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: MiniTestimonialItem[] = [
-  {
-    quote:
-      "Exceptional quality and outstanding customer service. Highly recommend!",
-    author: "Sarah Chen",
-    role: "Product Manager",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-    rating: 5,
-  },
-  {
-    quote:
-      "This solution has transformed how our team works. Incredible value.",
-    author: "Michael Torres",
-    role: "CEO",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-    rating: 5,
-  },
-  {
-    quote:
-      "Simple, elegant, and powerful. Everything we needed in one package.",
-    author: "Emily Watson",
-    role: "Operations Lead",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-    rating: 5,
-  },
-  {
-    quote: "The best investment we've made this year. ROI was immediate.",
-    author: "David Kim",
-    role: "CTO",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
-    rating: 5,
-  },
-  {
-    quote:
-      "Support team is always responsive and helpful. Great experience overall.",
-    author: "Lisa Park",
-    role: "Engineering Manager",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
-    rating: 4,
-  },
-  {
-    quote:
-      "Clean interface and intuitive design. Our team adopted it instantly.",
-    author: "Alex Rivera",
-    role: "Design Director",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar6,
-    rating: 5,
-  },
-];
-
 function StarRating({ rating, size = 14 }: { rating: number; size?: number }) {
   return (
     <div className="flex items-center gap-0.5">
@@ -187,7 +136,7 @@ function StarRating({ rating, size = 14 }: { rating: number; size?: number }) {
  * ```
  */
 export function TestimonialsMiniDividers({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
   heading,
   description,
@@ -204,26 +153,27 @@ export function TestimonialsMiniDividers({
   pattern,
   patternOpacity,
 }: TestimonialsMiniDividersProps): React.JSX.Element {
-  const getAuthorName = (testimonial: MiniTestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: MiniTestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getAvatarSrc = (
+  const getAvatarSrc = useCallback((
     testimonial: MiniTestimonialItem,
   ): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!testimonials || testimonials.length === 0) return null;
 
     return (
       <div
@@ -294,7 +244,7 @@ export function TestimonialsMiniDividers({
         })}
       </div>
     );
-  }, [testimonialsSlot, gridClassName, testimonials, itemClassName, quoteClassName, authorClassName]);
+  }, [testimonialsSlot, gridClassName, testimonials, itemClassName, quoteClassName, authorClassName, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section

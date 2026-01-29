@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -89,51 +88,6 @@ export interface TestimonialsMarqueeProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
-  {
-    quote:
-      "This platform has completely transformed how we work. The efficiency gains have been remarkable.",
-    author: "Sarah Chen",
-    role: "Product Manager",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    quote:
-      "The best investment we've made this year. Our team loves it and productivity is through the roof.",
-    author: "Michael Torres",
-    role: "CEO",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    quote:
-      "Incredible support team and an even better product. Highly recommend to anyone looking to scale.",
-    author: "Emily Watson",
-    role: "Operations Lead",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-  {
-    quote:
-      "Simple, elegant, and powerful. Everything we needed in one package. A game-changer for our workflow.",
-    author: "David Kim",
-    role: "CTO",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
-  },
-  {
-    quote:
-      "We've tried many solutions, but this one stands out for its reliability and ease of use.",
-    author: "Lisa Park",
-    role: "Engineering Manager",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
-  },
-  {
-    quote:
-      "The attention to detail is impressive. Every feature feels thoughtfully designed.",
-    author: "Alex Rivera",
-    role: "Design Director",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar6,
-  },
-];
-
 const speedMap = {
   slow: "60s",
   normal: "40s",
@@ -168,12 +122,12 @@ const speedMap = {
  * ```
  */
 export function TestimonialsMarquee({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
   heading,
   description,
-  speed = "normal",
-  pauseOnHover = true,
+  speed,
+  pauseOnHover,
   className,
   headerClassName,
   headingClassName,
@@ -187,26 +141,28 @@ export function TestimonialsMarquee({
   pattern,
   patternOpacity,
 }: TestimonialsMarqueeProps): React.JSX.Element {
-  const duplicatedTestimonials = [...testimonials, ...testimonials];
+  const duplicatedTestimonials = testimonials ? [...testimonials, ...testimonials] : [];
+  const effectiveSpeed = speed || "normal";
 
-  const getAuthorName = (testimonial: TestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getAvatarSrc = (testimonial: TestimonialItem): string | undefined => {
+  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!testimonials || testimonials.length === 0) return null;
 
     return (
       <div className={cn("relative", marqueeClassName)}>
@@ -216,13 +172,13 @@ export function TestimonialsMarquee({
         <div
           className={cn(
             "flex gap-4",
-            pauseOnHover && "[&:hover_.marquee-content]:pause",
+            pauseOnHover !== false && "[&:hover_.marquee-content]:pause",
           )}
         >
           <div
             className="marquee-content flex shrink-0 animate-marquee gap-4"
             style={{
-              animationDuration: speedMap[speed],
+              animationDuration: speedMap[effectiveSpeed],
             }}
           >
             {duplicatedTestimonials.map((testimonial, index) => {
@@ -285,7 +241,7 @@ export function TestimonialsMarquee({
         </div>
       </div>
     );
-  }, [testimonialsSlot, marqueeClassName, pauseOnHover, speed, duplicatedTestimonials, cardClassName, quoteClassName, authorClassName]);
+  }, [testimonialsSlot, marqueeClassName, pauseOnHover, effectiveSpeed, duplicatedTestimonials, cardClassName, quoteClassName, authorClassName, testimonials, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section

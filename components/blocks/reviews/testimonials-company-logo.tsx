@@ -6,8 +6,6 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   OptixFlowConfig,
@@ -91,13 +89,6 @@ export interface TestimonialsCompanyLogoProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DEFAULT_TESTIMONIAL: TestimonialItem = {
-  quote:
-    "Implementing this solution was the best decision we made this year. Our team productivity increased by 40% and customer satisfaction scores have never been higher. The support team is exceptional - they're always available and incredibly knowledgeable.",
-  author: "Jennifer Martinez",
-  role: "Chief Technology Officer",
-};
-
 /**
  * TestimonialsCompanyLogo - A prominent company testimonial section featuring a large
  * company logo, extended quote, author information, and an accompanying image. Designed
@@ -122,12 +113,12 @@ const DEFAULT_TESTIMONIAL: TestimonialItem = {
  * ```
  */
 export function TestimonialsCompanyLogo({
-  testimonial = DEFAULT_TESTIMONIAL,
+  testimonial,
   testimonialSlot,
   companyLogo,
   companyLogoAlt,
   imageSrc,
-  imageAlt = "Testimonial",
+  imageAlt,
   className,
   gridClassName,
   contentClassName,
@@ -143,6 +134,7 @@ export function TestimonialsCompanyLogo({
 }: TestimonialsCompanyLogoProps): React.JSX.Element {
   const renderedTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
+    if (!testimonial) return null;
 
     return (
       <div className={cn("space-y-8", contentClassName)}>
@@ -197,7 +189,7 @@ export function TestimonialsCompanyLogo({
         </div>
       </div>
     );
-  }, [testimonialSlot, contentClassName, companyLogo, companyLogoAlt, logoClassName, optixFlowConfig, testimonial.quote, quoteClassName, authorClassName, testimonial.author, testimonial.role]);
+  }, [testimonialSlot, contentClassName, companyLogo, companyLogoAlt, logoClassName, optixFlowConfig, testimonial, quoteClassName, authorClassName]);
 
   return (
     <Section

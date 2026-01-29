@@ -6,7 +6,6 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -69,33 +68,6 @@ export interface TestimonialsMinimalNumberedProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
-  {
-    quote:
-      "This platform has completely transformed how we approach our daily operations. The intuitive design and powerful features have made our team significantly more productive.",
-    author: "Sarah Chen",
-    role: "Design Director",
-    company: "Linear",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    quote:
-      "The most elegant solution we've ever implemented. Every detail has been thoughtfully considered, and the results speak for themselves.",
-    author: "Marcus Webb",
-    role: "Creative Lead",
-    company: "Vercel",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    quote:
-      "Pure craftsmanship in every single detail. The attention to quality is evident throughout the entire experience.",
-    author: "Elena Frost",
-    role: "Head of Product",
-    company: "Stripe",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-];
-
 /**
  * TestimonialsMinimalNumbered - A minimal testimonial slider featuring large numbered
  * indicators (01, 02, 03) that transition with the content. Displays one testimonial
@@ -122,9 +94,9 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
  * ```
  */
 export function TestimonialsMinimalNumbered({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
-  autoPlayInterval = 5000,
+  autoPlayInterval,
   className,
   contentClassName,
   numberClassName,
@@ -138,6 +110,8 @@ export function TestimonialsMinimalNumbered({
 }: TestimonialsMinimalNumberedProps): React.JSX.Element {
   const [active, setActive] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const totalTestimonials = testimonials?.length ?? 0;
+  const effectiveAutoPlayInterval = autoPlayInterval ?? 5000;
 
   const handleChange = useCallback(
     (index: number) => {
@@ -152,42 +126,45 @@ export function TestimonialsMinimalNumbered({
   );
 
   const handlePrev = useCallback(() => {
-    const newIndex = (active - 1 + testimonials.length) % testimonials.length;
+    if (totalTestimonials === 0) return;
+    const newIndex = (active - 1 + totalTestimonials) % totalTestimonials;
     handleChange(newIndex);
-  }, [active, testimonials.length, handleChange]);
+  }, [active, totalTestimonials, handleChange]);
 
   const handleNext = useCallback(() => {
-    const newIndex = (active + 1) % testimonials.length;
+    if (totalTestimonials === 0) return;
+    const newIndex = (active + 1) % totalTestimonials;
     handleChange(newIndex);
-  }, [active, testimonials.length, handleChange]);
+  }, [active, totalTestimonials, handleChange]);
 
   useEffect(() => {
-    if (autoPlayInterval <= 0) return;
+    if (effectiveAutoPlayInterval <= 0 || totalTestimonials === 0) return;
 
-    const interval = setInterval(handleNext, autoPlayInterval);
+    const interval = setInterval(handleNext, effectiveAutoPlayInterval);
     return () => clearInterval(interval);
-  }, [autoPlayInterval, handleNext]);
+  }, [effectiveAutoPlayInterval, handleNext, totalTestimonials]);
 
-  const current = testimonials[active];
+  const current = testimonials?.[active];
 
-  const getAuthorName = (testimonial: TestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getAvatarSrc = (testimonial: TestimonialItem): string | undefined => {
+  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonial = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!current) return null;
 
     const authorName = getAuthorName(current);
     const avatarSrc = getAvatarSrc(current);
@@ -268,7 +245,7 @@ export function TestimonialsMinimalNumbered({
         </div>
       </div>
     );
-  }, [testimonialsSlot, contentClassName, numberClassName, active, current, isTransitioning, quoteClassName, authorClassName]);
+  }, [testimonialsSlot, contentClassName, numberClassName, active, current, isTransitioning, quoteClassName, authorClassName, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section
@@ -288,28 +265,32 @@ export function TestimonialsMinimalNumbered({
           )}
         >
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-3">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleChange(index)}
-                  className="group relative py-4"
-                >
-                  <span
-                    className={cn(
-                      "block h-px transition-all duration-500 ease-out",
-                      index === active
-                        ? "w-12 bg-foreground"
-                        : "w-6 bg-foreground/20 group-hover:w-8 group-hover:bg-foreground/40",
-                    )}
-                  />
-                </button>
-              ))}
-            </div>
-            <span className="text-xs tracking-widest text-muted-foreground uppercase">
-              {String(active + 1).padStart(2, "0")} /{" "}
-              {String(testimonials.length).padStart(2, "0")}
-            </span>
+            {testimonials && testimonials.length > 0 && (
+              <>
+                <div className="flex items-center gap-3">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleChange(index)}
+                      className="group relative py-4"
+                    >
+                      <span
+                        className={cn(
+                          "block h-px transition-all duration-500 ease-out",
+                          index === active
+                            ? "w-12 bg-foreground"
+                            : "w-6 bg-foreground/20 group-hover:w-8 group-hover:bg-foreground/40",
+                        )}
+                      />
+                    </button>
+                  ))}
+                </div>
+                <span className="text-xs tracking-widest text-muted-foreground uppercase">
+                  {String(active + 1).padStart(2, "0")} /{" "}
+                  {String(testimonials.length).padStart(2, "0")}
+                </span>
+              </>
+            )}
           </div>
 
           <div className="flex items-center gap-1">

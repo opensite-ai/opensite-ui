@@ -1,13 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Card, CardContent, CardHeader } from "../../ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   OptixFlowConfig,
@@ -109,45 +108,6 @@ export interface TestimonialsLogoCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DEFAULT_TESTIMONIALS: LogoTestimonialItem[] = [
-  {
-    quote:
-      "This platform has transformed the way we develop web applications. The extensive collection of UI components and blocks has significantly accelerated our workflow. The flexibility to customize every aspect allows us to create unique user experiences.",
-    author: "Sarah Chen",
-    role: "Software Engineer",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-    companyLogo: blockBrandedIconsAndPlaceholders.fictionalCompanyLogo1,
-    companyLogoAlt: "TechCorp",
-  },
-  {
-    quote:
-      "Extraordinary and very practical. No need to break your head trying to figure things out. A real gold mine for developers who want to ship fast without sacrificing quality.",
-    author: "Michael Torres",
-    role: "Software Engineer",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-    companyLogo: blockBrandedIconsAndPlaceholders.fictionalCompanyLogo2,
-    companyLogoAlt: "StartupXYZ",
-  },
-  {
-    quote:
-      "Great work on the templates. This is one of the best component libraries I have seen so far! The attention to detail and the quality of the code is impressive.",
-    author: "Emily Watson",
-    role: "Creator",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-    companyLogo: blockBrandedIconsAndPlaceholders.fictionalCompanyLogo3,
-    companyLogoAlt: "GrowthCo",
-  },
-  {
-    quote:
-      "The best personal website template I have seen so far! Clean, modern, and incredibly well-documented. Made our development process so much smoother.",
-    author: "David Kim",
-    role: "Creator",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
-    companyLogo: blockBrandedIconsAndPlaceholders.fictionalCompanyLogo4,
-    companyLogoAlt: "DevStudio",
-  },
-];
-
 /**
  * TestimonialsLogoCards - A grid of testimonial cards featuring company logos in the
  * header. Each card displays a company logo, extended quote, and author information
@@ -176,7 +136,7 @@ const DEFAULT_TESTIMONIALS: LogoTestimonialItem[] = [
  * ```
  */
 export function TestimonialsLogoCards({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
   heading,
   description,
@@ -196,26 +156,27 @@ export function TestimonialsLogoCards({
   patternOpacity,
   optixFlowConfig,
 }: TestimonialsLogoCardsProps): React.JSX.Element {
-  const getAuthorName = (testimonial: LogoTestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: LogoTestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getAvatarSrc = (
+  const getAvatarSrc = useCallback((
     testimonial: LogoTestimonialItem,
   ): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!testimonials || testimonials.length === 0) return null;
 
     return (
       <div
@@ -296,7 +257,7 @@ export function TestimonialsLogoCards({
         })}
       </div>
     );
-  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, cardHeaderClassName, optixFlowConfig, cardContentClassName, quoteClassName, authorClassName]);
+  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, cardHeaderClassName, optixFlowConfig, cardContentClassName, quoteClassName, authorClassName, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section

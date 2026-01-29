@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -85,57 +84,6 @@ export interface TestimonialsSimpleGridProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
-  {
-    quote:
-      "The platform exceeded all our expectations. Implementation was smooth and the results were immediate.",
-    author: "Sarah Chen",
-    role: "Product Manager",
-    company: "TechCorp",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    quote:
-      "Outstanding customer support and a product that actually delivers on its promises. Rare combination!",
-    author: "Michael Torres",
-    role: "CEO",
-    company: "StartupXYZ",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    quote:
-      "We've seen a 50% increase in efficiency since switching. The ROI speaks for itself.",
-    author: "Emily Watson",
-    role: "Operations Director",
-    company: "GrowthCo",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-  {
-    quote:
-      "Clean interface, powerful features, and excellent documentation. Everything a developer could ask for.",
-    author: "David Kim",
-    role: "Senior Developer",
-    company: "DevStudio",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
-  },
-  {
-    quote:
-      "The best decision we made this quarter. Our team adopted it instantly and loves using it daily.",
-    author: "Lisa Park",
-    role: "Team Lead",
-    company: "InnovateLabs",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
-  },
-  {
-    quote:
-      "Intuitive design that requires minimal training. Our onboarding time dropped significantly.",
-    author: "Alex Rivera",
-    role: "HR Manager",
-    company: "PeopleCo",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar6,
-  },
-];
-
 /**
  * TestimonialsSimpleGrid - A clean, straightforward grid of testimonial cards with
  * configurable column count. Each card displays a quote, author avatar, name, role,
@@ -164,11 +112,11 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
  * ```
  */
 export function TestimonialsSimpleGrid({
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials,
   testimonialsSlot,
   heading,
   description,
-  columns = 3,
+  columns,
   className,
   headerClassName,
   headingClassName,
@@ -187,28 +135,30 @@ export function TestimonialsSimpleGrid({
     3: "sm:grid-cols-2 lg:grid-cols-3",
     4: "sm:grid-cols-2 lg:grid-cols-4",
   };
+  const effectiveColumns = columns || 3;
 
-  const getAuthorName = (testimonial: TestimonialItem): string => {
+  const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
-  };
+  }, []);
 
-  const getAvatarSrc = (testimonial: TestimonialItem): string | undefined => {
+  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
+    if (!testimonials || testimonials.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-6", gridCols[columns], gridClassName)}>
+      <div className={cn("grid gap-6", gridCols[effectiveColumns], gridClassName)}>
         {testimonials.map((testimonial, index) => {
           const authorName = getAuthorName(testimonial);
           const avatarSrc = getAvatarSrc(testimonial);
@@ -262,7 +212,7 @@ export function TestimonialsSimpleGrid({
         })}
       </div>
     );
-  }, [testimonialsSlot, gridCols, columns, gridClassName, testimonials, cardClassName, quoteClassName, authorClassName]);
+  }, [testimonialsSlot, gridCols, effectiveColumns, gridClassName, testimonials, cardClassName, quoteClassName, authorClassName, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section

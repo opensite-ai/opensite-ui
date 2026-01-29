@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -65,15 +64,6 @@ export interface TestimonialsLargeQuoteProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIAL: TestimonialItem = {
-  quote:
-    "This platform has fundamentally changed how we approach our work. The intuitive design, powerful features, and exceptional support have made it an indispensable part of our daily operations. I cannot recommend it highly enough to anyone looking to transform their workflow.",
-  author: "Sarah Chen",
-  role: "Chief Executive Officer",
-  company: "TechVentures Inc.",
-  avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-};
-
 /**
  * TestimonialsLargeQuote - A centered, single testimonial section featuring an oversized
  * quote with decorative quote icons. The large typography creates visual impact while
@@ -97,7 +87,7 @@ const DEFAULT_TESTIMONIAL: TestimonialItem = {
  * ```
  */
 export function TestimonialsLargeQuote({
-  testimonial = DEFAULT_TESTIMONIAL,
+  testimonial,
   testimonialSlot,
   className,
   contentClassName,
@@ -110,24 +100,25 @@ export function TestimonialsLargeQuote({
   pattern,
   patternOpacity,
 }: TestimonialsLargeQuoteProps): React.JSX.Element {
-  const getAuthorName = (): string => {
-    if (typeof testimonial.author === "string") return testimonial.author;
+  const getAuthorName = useCallback((): string => {
+    if (typeof testimonial?.author === "string") return testimonial.author;
     return "";
-  };
+  }, [testimonial?.author]);
 
-  const getAvatarSrc = (): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  };
+  const getAvatarSrc = useCallback((): string | undefined => {
+    return testimonial?.avatarSrc || testimonial?.avatar?.src;
+  }, [testimonial?.avatarSrc, testimonial?.avatar?.src]);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
+    if (!testimonial) return null;
 
     const authorName = getAuthorName();
     const avatarSrc = getAvatarSrc();
@@ -189,7 +180,7 @@ export function TestimonialsLargeQuote({
         </div>
       </div>
     );
-  }, [testimonialSlot, contentClassName, quoteIconClassName, testimonial.quote, quoteClassName, authorClassName, avatarClassName, testimonial.author, testimonial.role, testimonial.company]);
+  }, [testimonialSlot, contentClassName, quoteIconClassName, testimonial, quoteClassName, authorClassName, avatarClassName, getAuthorName, getAvatarSrc, getInitials]);
 
   return (
     <Section

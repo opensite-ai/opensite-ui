@@ -1,13 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
@@ -112,44 +111,6 @@ export interface TestimonialsGridAddReviewProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_REVIEWS: GridReviewItem[] = [
-  {
-    rating: 5,
-    content:
-      "Absolutely love this product! It has made my daily routine so much easier. Highly recommend to anyone looking for quality.",
-    author: "Sarah M.",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    rating: 5,
-    content:
-      "Best purchase I've made in a long time. The quality exceeded my expectations and the customer service was top-notch.",
-    author: "James R.",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    rating: 4,
-    content:
-      "Great product overall. Does exactly what it promises. Would buy again.",
-    author: "Emily K.",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-  {
-    rating: 5,
-    content:
-      "This has become an essential part of my workflow. Can't imagine going back to my old solution.",
-    author: "Michael T.",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
-  },
-  {
-    rating: 5,
-    content:
-      "Impressed by the attention to detail. You can tell a lot of thought went into designing this.",
-    author: "Lisa P.",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
-  },
-];
-
 function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
   return (
     <div className="flex items-center gap-0.5">
@@ -196,7 +157,7 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
  * ```
  */
 export function TestimonialsGridAddReview({
-  reviews = DEFAULT_REVIEWS,
+  reviews,
   reviewsSlot,
   heading,
   description,
@@ -216,17 +177,17 @@ export function TestimonialsGridAddReview({
   pattern,
   patternOpacity,
 }: TestimonialsGridAddReviewProps): React.JSX.Element {
-  const getAuthorName = (review: GridReviewItem): string => {
+  const getAuthorName = useCallback((review: GridReviewItem): string => {
     if (typeof review.author === "string") return review.author;
     return "";
-  };
+  }, []);
 
-  const getInitials = (name: string): string => {
+  const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
       .map((n) => n[0])
       .join("");
-  };
+  }, []);
 
   const renderedReviews = useMemo(() => {
     if (reviewsSlot) return reviewsSlot;
@@ -270,7 +231,7 @@ export function TestimonialsGridAddReview({
           </CardContent>
         </Card>
 
-        {reviews.map((review, index) => {
+        {reviews?.map((review, index) => {
           const authorName = getAuthorName(review);
           return (
             <Card key={index} className={cardClassName}>
@@ -304,7 +265,7 @@ export function TestimonialsGridAddReview({
         })}
       </div>
     );
-  }, [reviewsSlot, gridClassName, addReviewCardClassName, onAddReview, addReviewText, addReviewSubtext, reviews, cardClassName, authorClassName]);
+  }, [reviewsSlot, gridClassName, addReviewCardClassName, onAddReview, addReviewText, addReviewSubtext, reviews, cardClassName, authorClassName, getAuthorName, getInitials]);
 
   return (
     <Section
