@@ -85,10 +85,11 @@ describe("ListServiceCategoryTable", () => {
 
   it("renders offer color indicators", () => {
     const { container } = render(<ListServiceCategoryTable items={mockItems} />);
-    const greenIndicators = container.querySelectorAll(".bg-green-400");
-    const yellowIndicators = container.querySelectorAll(".bg-yellow-400");
-    expect(greenIndicators.length).toBeGreaterThan(0);
-    expect(yellowIndicators.length).toBeGreaterThan(0);
+    // Offer indicators now use semantic tokens: bg-accent, bg-primary, bg-secondary
+    const accentIndicators = container.querySelectorAll(".bg-accent");
+    const primaryIndicators = container.querySelectorAll(".bg-primary");
+    expect(accentIndicators.length).toBeGreaterThan(0);
+    expect(primaryIndicators.length).toBeGreaterThan(0);
   });
 
   it("renders items without icons", () => {

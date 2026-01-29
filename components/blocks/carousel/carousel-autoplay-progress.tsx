@@ -331,7 +331,7 @@ export function CarouselAutoplayProgress({
               className={cn(
                 "h-3 w-3 rounded-full border-2 border-border transition-colors duration-200",
                 index === selectedIndex
-                  ? "bg-foreground"
+                  ? "bg-primary"
                   : "bg-transparent hover:bg-muted"
               )}
             />
@@ -340,13 +340,13 @@ export function CarouselAutoplayProgress({
 
         <div
           className={cn(
-            "relative h-2 w-40 max-w-[90%] justify-self-center self-center overflow-hidden rounded-[1.8rem] border-2 border-border bg-background transition-opacity duration-300 ease-in-out",
+            "relative h-2 w-40 max-w-[90%] justify-self-center self-center overflow-hidden rounded-[1.8rem] border-2 border-border bg-muted transition-opacity duration-300 ease-in-out",
             showAutoplayProgress ? "opacity-100" : "opacity-0",
             progressClassName
           )}
         >
           <div
-            className="absolute bottom-0 top-0 -left-full w-full bg-foreground"
+            className="absolute bottom-0 top-0 -left-full w-full bg-primary"
             ref={progressNode}
             style={{
               animation: "autoplay-progress linear 1",

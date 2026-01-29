@@ -177,7 +177,6 @@ export function ListServiceCategoryTable({
               <DynamicIcon
                 name={item.icon}
                 size={24}
-                className="text-foreground"
               />
             )}
           </div>
@@ -196,9 +195,9 @@ export function ListServiceCategoryTable({
                 <span
                   className={cn(
                     "ml-1 block h-1.5 w-4 rounded-full md:hidden",
-                    item.offer === "Free" && "bg-yellow-400",
-                    item.offer === "Professional" && "bg-green-400",
-                    item.offer === "Enterprise" && "bg-blue-400",
+                    item.offer === "Free" && "bg-accent",
+                    item.offer === "Professional" && "bg-primary",
+                    item.offer === "Enterprise" && "bg-secondary",
                   )}
                 ></span>
               </div>
@@ -226,9 +225,9 @@ export function ListServiceCategoryTable({
             <span
               className={cn(
                 "block h-6 w-1.5 rounded-full",
-                item.offer === "Free" && "bg-yellow-400",
-                item.offer === "Professional" && "bg-green-400",
-                item.offer === "Enterprise" && "bg-blue-400",
+                item.offer === "Free" && "bg-accent",
+                item.offer === "Professional" && "bg-primary",
+                item.offer === "Enterprise" && "bg-secondary",
               )}
             ></span>
             {item.offer}
@@ -255,7 +254,7 @@ export function ListServiceCategoryTable({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "text-3xl font-bold text-foreground md:text-4xl",
+                  "text-3xl font-bold md:text-4xl",
                   headingClassName,
                 )}
               >

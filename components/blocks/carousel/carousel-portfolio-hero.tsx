@@ -342,7 +342,7 @@ export function CarouselPortfolioHero({
                 <Pressable
                   variant="outline"
                   size="icon"
-                  className="rounded-full border-background/40 bg-foreground/30 hover:bg-foreground/50"
+                  className="rounded-full border-foreground/40 bg-muted hover:bg-muted/80"
                   onClick={goToPrev}
                   asButton
                 >
@@ -352,7 +352,7 @@ export function CarouselPortfolioHero({
                 <Pressable
                   variant="outline"
                   size="icon"
-                  className="rounded-full border-background/40 bg-foreground/30 hover:bg-foreground/50"
+                  className="rounded-full border-foreground/40 bg-muted hover:bg-muted/80"
                   onClick={goToNext}
                   asButton
                 >

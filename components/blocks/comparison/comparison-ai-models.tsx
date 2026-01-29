@@ -189,18 +189,18 @@ export function ComparisonAiModels({
       let statusClass = "";
 
       if (status === "best") {
-        statusClass = "bg-green-50 text-success dark:bg-green-950/20";
+        statusClass = "bg-success/10 text-success";
       } else if (status === "worst") {
-        statusClass = "bg-red-50 text-destructive dark:bg-red-950/20";
+        statusClass = "bg-destructive/10 text-destructive";
       } else {
-        statusClass = "bg-muted/50 text-foreground";
+        statusClass = "bg-muted/50";
       }
 
       let hoverClass = "";
       if (hoveredModel === modelKey) {
-        if (modelKey === "modelA") hoverClass = "bg-red-50/80 dark:bg-red-950/30";
-        else if (modelKey === "modelB") hoverClass = "bg-blue-50/80 dark:bg-blue-950/30";
-        else if (modelKey === "modelC") hoverClass = "bg-green-50/80 dark:bg-green-950/30";
+        if (modelKey === "modelA") hoverClass = "bg-destructive/20";
+        else if (modelKey === "modelB") hoverClass = "bg-primary/20";
+        else if (modelKey === "modelC") hoverClass = "bg-success/20";
       }
 
       return cn(baseClass, statusClass, hoverClass);
@@ -214,11 +214,11 @@ export function ComparisonAiModels({
 
       if (hoveredModel === modelKey) {
         if (modelKey === "modelA")
-          return cn(baseClass, "bg-red-50/20 shadow-lg ring-2 ring-red-500/50 dark:bg-red-950/10");
+          return cn(baseClass, "bg-destructive/10 shadow-lg ring-2 ring-destructive/50");
         if (modelKey === "modelB")
-          return cn(baseClass, "bg-blue-50/20 shadow-lg ring-2 ring-blue-500/50 dark:bg-blue-950/10");
+          return cn(baseClass, "bg-primary/10 shadow-lg ring-2 ring-primary/50");
         if (modelKey === "modelC")
-          return cn(baseClass, "bg-green-50/20 shadow-lg ring-2 ring-green-500/50 dark:bg-green-950/10");
+          return cn(baseClass, "bg-success/10 shadow-lg ring-2 ring-success/50");
       }
 
       return baseClass;
@@ -240,9 +240,9 @@ export function ComparisonAiModels({
         <Table className={tableClassName}>
           <TableHeader>
             <TableRow className="border-border/50">
-              <TableHead className="font-semibold text-foreground">Metric</TableHead>
+              <TableHead className="font-semibold">Metric</TableHead>
               {Object.entries(models).map(([key, model]) => (
-                <TableHead key={key} className="text-center font-semibold text-foreground">
+                <TableHead key={key} className="text-center font-semibold">
                   <div className="flex items-center justify-center gap-2">
                     {model.icon && (
                       <Img
@@ -261,7 +261,7 @@ export function ComparisonAiModels({
           <TableBody>
             {comparisonData.map((row, index) => (
               <TableRow key={index} className="border-border/30 transition-colors hover:bg-muted/30">
-                <TableCell className="py-4 font-medium text-foreground">{row.metric}</TableCell>
+                <TableCell className="py-4 font-medium">{row.metric}</TableCell>
                 <TableCell
                   className={getCellClassName(row.modelA.status, "modelA")}
                   onMouseEnter={() => setHoveredModel("modelA")}
@@ -316,14 +316,14 @@ export function ComparisonAiModels({
     return (
       <div className={cn("relative mt-8 border border-border/50 bg-muted/20 p-6", analysisClassName)}>
         <div className="relative">
-          <h4 className="mb-4 font-mono text-sm font-semibold tracking-wider text-foreground uppercase">
+          <h4 className="mb-4 font-mono text-sm font-semibold tracking-wider uppercase">
             Technical Analysis
           </h4>
           <div className="space-y-3 font-mono text-xs text-muted-foreground">
             <div className="grid gap-2 md:grid-cols-3">
               {Object.entries(models).map(([key, model]) => (
                 <div key={key} className={getSummaryCardClassName(key)}>
-                  <div className="mb-1 font-medium text-foreground">{model.name}</div>
+                  <div className="mb-1 font-medium">{model.name}</div>
                   <div className="space-y-1">
                     {model.summary.map((item: string, idx: number) => (
                       <div key={idx}>• {item}</div>
@@ -333,7 +333,7 @@ export function ComparisonAiModels({
               ))}
             </div>
             <div className="mt-4 rounded border border-border/30 bg-background/50 p-3">
-              <div className="mb-2 font-medium text-foreground">Performance Summary</div>
+              <div className="mb-2 font-medium">Performance Summary</div>
               <div className="space-y-1">
                 <div>• {models.modelA.name}: Fastest response times with strong code generation</div>
                 <div>• {models.modelB.name}: Excellent reasoning capabilities and balanced performance</div>

@@ -184,7 +184,8 @@ describe("IndustriesBadgeListBordered", () => {
     const { container } = render(
       <IndustriesBadgeListBordered services={mockServices} />
     );
-    const mutedText = container.querySelectorAll(".text-muted-foreground");
-    expect(mutedText.length).toBeGreaterThan(0);
+    // Description text now inherits color from Section component
+    const descriptions = container.querySelectorAll("p.text-sm");
+    expect(descriptions.length).toBeGreaterThan(0);
   });
 });

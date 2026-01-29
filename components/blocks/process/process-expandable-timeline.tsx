@@ -235,11 +235,11 @@ export function ProcessExpandableTimeline({
                 </div>
                 {step.description &&
                   (typeof step.description === "string" ? (
-                    <p className="mt-1 text-foreground/50">
+                    <p className="mt-1 text-muted-foreground">
                       {step.description}
                     </p>
                   ) : (
-                    <div className="mt-1 text-foreground/50">
+                    <div className="mt-1 text-muted-foreground">
                       {step.description}
                     </div>
                   ))}
@@ -262,11 +262,11 @@ export function ProcessExpandableTimeline({
                     )}
                   >
                     {typeof step.expandedContent === "string" ? (
-                      <p className="text-foreground/70">
+                      <p className="text-muted-foreground">
                         {step.expandedContent}
                       </p>
                     ) : (
-                      <div className="text-foreground/70">
+                      <div className="text-muted-foreground">
                         {step.expandedContent}
                       </div>
                     )}
@@ -307,7 +307,7 @@ export function ProcessExpandableTimeline({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-lg text-foreground/50",
+                  "text-lg text-muted-foreground",
                   descriptionClassName,
                 )}
               >

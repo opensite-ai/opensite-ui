@@ -137,19 +137,19 @@ const StatusBadge = ({
     completed: {
       label: "Completed",
       badgeClassName:
-        "bg-success/10 text-success dark:bg-success/10 dark:text-success",
+        "bg-success/10 text-success",
       icon: "lucide/check-circle-2",
     },
     "in-progress": {
       label: "In Progress",
       badgeClassName:
-        "bg-primary/10 text-primary dark:bg-primary/10 dark:text-primary",
+        "bg-primary/10 text-primary",
       icon: "lucide/loader-2",
     },
     upcoming: {
       label: "Upcoming",
       badgeClassName:
-        "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400",
+        "bg-muted text-muted-foreground",
       icon: "lucide/clock",
     },
   };
@@ -255,11 +255,11 @@ export function ProcessRoadmapTimeline({
                   ))}
                 {milestone.description &&
                   (typeof milestone.description === "string" ? (
-                    <p className="mb-4 text-foreground/50">
+                    <p className="mb-4 text-muted-foreground">
                       {milestone.description}
                     </p>
                   ) : (
-                    <div className="mb-4 text-foreground/50">
+                    <div className="mb-4 text-muted-foreground">
                       {milestone.description}
                     </div>
                   ))}
@@ -287,7 +287,7 @@ export function ProcessRoadmapTimeline({
               className={cn(
                 "absolute left-1/2 flex size-10 -translate-x-1/2 items-center justify-center rounded-full border-2 bg-background",
                 milestone.status === "completed"
-                  ? "border-success bg-success text-white"
+                  ? "border-success bg-success text-background"
                   : milestone.status === "in-progress"
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-border text-muted-foreground",
@@ -335,7 +335,7 @@ export function ProcessRoadmapTimeline({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mx-auto max-w-2xl text-lg text-foreground/50",
+                  "mx-auto max-w-2xl text-lg text-muted-foreground",
                   descriptionClassName,
                 )}
               >

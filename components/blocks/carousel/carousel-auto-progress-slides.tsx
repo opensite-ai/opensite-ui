@@ -250,7 +250,7 @@ export function CarouselAutoProgressSlides({
           (typeof subheading === "string" ? (
             <p
               className={cn(
-                "mt-4 text-2xl text-foreground/50",
+                "mt-4 text-2xl text-muted-foreground",
                 subheadingClassName,
               )}
             >
@@ -273,7 +273,7 @@ export function CarouselAutoProgressSlides({
           asButton
           variant="ghost"
           size="icon"
-          className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-foreground/10 p-0.5 opacity-50 hover:bg-foreground/20 active:scale-95"
+          className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-muted p-0.5 opacity-50 hover:bg-muted/80 active:scale-95"
         >
           <DynamicIcon name="lucide/chevron-left" size={16} />
         </Pressable>
@@ -286,12 +286,12 @@ export function CarouselAutoProgressSlides({
               animate={{
                 width: index === currentIndex ? "30px" : "8px",
               }}
-              className="relative flex h-2 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-foreground/15 p-0.5 opacity-50"
+              className="relative flex h-2 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-muted p-0.5 opacity-50"
             >
               {currentIndex === index && (
                 <motion.div
                   style={{ clipPath }}
-                  className="absolute left-0 top-0 h-full w-full origin-left rounded-full bg-foreground"
+                  className="absolute left-0 top-0 h-full w-full origin-left rounded-full bg-primary"
                 />
               )}
             </motion.button>
@@ -302,7 +302,7 @@ export function CarouselAutoProgressSlides({
           asButton
           variant="ghost"
           size="icon"
-          className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-foreground/10 p-0.5 hover:bg-foreground/20 active:scale-95"
+          className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-muted p-0.5 hover:bg-muted/80 active:scale-95"
         >
           <DynamicIcon name="lucide/chevron-right" size={16} />
         </Pressable>
@@ -329,7 +329,7 @@ export function CarouselAutoProgressSlides({
               {typeof items?.[currentIndex]?.label === "string" && (
                 <p
                   className={cn(
-                    "mb-6 font-medium text-center text-lg text-foreground/50",
+                    "mb-6 font-medium text-center text-lg text-muted-foreground",
                     slideLabelClassName,
                   )}
                 >
@@ -338,7 +338,7 @@ export function CarouselAutoProgressSlides({
               )}
               <div
                 className={cn(
-                  "h-[550px] w-full overflow-hidden rounded-3xl bg-foreground/10 p-1",
+                  "h-[550px] w-full overflow-hidden rounded-3xl bg-muted p-1",
                   slideContainerClassName,
                 )}
               >

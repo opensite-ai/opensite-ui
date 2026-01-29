@@ -345,8 +345,8 @@ export function LinkPageBentoLayout({
                 "rounded-full p-2 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
                 isDark
-                  ? "text-neutral-500 hover:text-white hover:bg-white/10"
-                  : "text-muted-foreground hover:text-foreground hover:bg-neutral-100",
+                  ? "text-muted-foreground hover:bg-muted/10"
+                  : "text-muted-foreground hover:bg-muted",
                 socialLinkClassName,
                 social.className,
               )}
@@ -394,8 +394,8 @@ export function LinkPageBentoLayout({
               "group relative aspect-4/3 overflow-hidden rounded-2xl transition-all duration-200",
               "hover:scale-[1.02] active:scale-[0.98]",
               isDark
-                ? "border border-white/10 bg-white/5"
-                : "border border-neutral-200 bg-neutral-100",
+                ? "border border-border/10 bg-muted/5"
+                : "border border-border bg-muted",
               featuredLinkClassName,
               linkClassName,
             )}
@@ -413,8 +413,8 @@ export function LinkPageBentoLayout({
             "group relative aspect-4/3 overflow-hidden rounded-2xl transition-all duration-200",
             "hover:scale-[1.02] active:scale-[0.98]",
             isDark
-              ? "border border-white/10 bg-white/5"
-              : "border border-neutral-200 bg-neutral-100",
+              ? "border border-border/10 bg-muted/5"
+              : "border border-border bg-muted",
             featuredLinkClassName,
             linkClassName,
           )}
@@ -450,11 +450,7 @@ export function LinkPageBentoLayout({
                   <span
                     className={cn(
                       "text-sm font-semibold",
-                      imageSource
-                        ? "text-white"
-                        : isDark
-                          ? "text-white"
-                          : "text-foreground",
+                      imageSource && "text-background",
                       featuredLinkLabelClassName,
                     )}
                   >
@@ -470,10 +466,8 @@ export function LinkPageBentoLayout({
                   className={cn(
                     "mt-0.5 text-xs",
                     imageSource
-                      ? "text-white/70"
-                      : isDark
-                        ? "text-neutral-400"
-                        : "text-muted-foreground",
+                      ? "text-background/70"
+                      : "text-muted-foreground",
                     featuredLinkDescriptionClassName,
                   )}
                 >
@@ -520,8 +514,8 @@ export function LinkPageBentoLayout({
               "group flex items-center gap-3 rounded-xl p-3 transition-all duration-200",
               "hover:scale-[1.02] active:scale-[0.98]",
               isDark
-                ? "border border-white/10 bg-white/5 hover:bg-white/10"
-                : "border border-neutral-200 bg-neutral-50 hover:bg-neutral-100",
+                ? "border border-border/10 bg-muted/5 hover:bg-muted/10"
+                : "border border-border bg-muted/50 hover:bg-muted",
               regularLinkClassName,
               linkClassName,
             )}
@@ -539,8 +533,8 @@ export function LinkPageBentoLayout({
             "group flex items-center gap-3 rounded-xl p-3 transition-all duration-200",
             "hover:scale-[1.02] active:scale-[0.98]",
             isDark
-              ? "border border-white/10 bg-white/5 hover:bg-white/10"
-              : "border border-neutral-200 bg-neutral-50 hover:bg-neutral-100",
+              ? "border border-border/10 bg-muted/5 hover:bg-muted/10"
+              : "border border-border bg-muted/50 hover:bg-muted",
             regularLinkClassName,
             linkClassName,
           )}
@@ -549,7 +543,7 @@ export function LinkPageBentoLayout({
           <div
             className={cn(
               "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
-              isDark ? "bg-white/10" : "bg-white",
+              isDark ? "bg-muted/10" : "bg-card",
               regularLinkIconWrapperClassName,
             )}
           >
@@ -560,7 +554,6 @@ export function LinkPageBentoLayout({
               <span
                 className={cn(
                   "truncate text-sm font-medium",
-                  isDark ? "text-white" : "text-foreground",
                   regularLinkLabelClassName,
                 )}
               >
@@ -630,7 +623,6 @@ export function LinkPageBentoLayout({
               <h1
                 className={cn(
                   "text-xl font-bold",
-                  isDark ? "text-white" : "text-foreground",
                   nameClassName,
                 )}
               >
@@ -643,8 +635,7 @@ export function LinkPageBentoLayout({
             (typeof bio === "string" ? (
               <p
                 className={cn(
-                  "max-w-xs text-sm",
-                  isDark ? "text-neutral-400" : "text-muted-foreground",
+                  "max-w-xs text-sm text-muted-foreground",
                   bioClassName,
                 )}
               >
@@ -684,7 +675,7 @@ export function LinkPageBentoLayout({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          isDark ? "text-neutral-600" : "text-muted-foreground/50",
+          "text-muted-foreground/50",
           footerClassName,
           actionClassName,
         )}
@@ -705,7 +696,7 @@ export function LinkPageBentoLayout({
     <Section
       background={resolvedBackground}
       spacing={spacing}
-      className={cn(isDark ? "bg-neutral-950" : "bg-white", className)}
+      className={cn(isDark ? "bg-foreground" : "bg-background", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}

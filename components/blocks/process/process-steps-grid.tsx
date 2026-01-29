@@ -187,11 +187,11 @@ export function ProcessStepsGrid({
                 ))}
               {step.description &&
                 (typeof step.description === "string" ? (
-                  <p className="text-foreground/50 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     {step.description}
                   </p>
                 ) : (
-                  <div className="text-foreground/50 leading-relaxed">
+                  <div className="text-muted-foreground leading-relaxed">
                     {step.description}
                   </div>
                 ))}
@@ -229,7 +229,7 @@ export function ProcessStepsGrid({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mx-auto max-w-2xl text-lg text-foreground/50",
+                  "mx-auto max-w-2xl text-lg text-muted-foreground",
                   descriptionClassName,
                 )}
               >

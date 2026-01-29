@@ -376,7 +376,6 @@ export function CarouselAnimatedSections({
                       onClick={currentSection?.ctaOnClick}
                       asButton
                       size="lg"
-                      className="bg-background text-foreground hover:bg-background/90"
                     >
                       {currentSection?.ctaText}
                       <DynamicIcon
@@ -406,8 +405,8 @@ export function CarouselAnimatedSections({
             className={cn(
               "h-3 w-3 rounded-full border-2 transition-all",
               currentIndex === index
-                ? "scale-125 border-background bg-background"
-                : "border-background/50 bg-transparent hover:border-background",
+                ? "scale-125 border-foreground bg-foreground"
+                : "border-foreground/50 bg-transparent hover:border-foreground",
             )}
             aria-label={`Go to section ${index + 1}`}
           />
@@ -427,7 +426,7 @@ export function CarouselAnimatedSections({
           variant="ghost"
           size="icon"
           disabled={currentIndex === 0}
-          className="rounded-full border border-background/30 hover:bg-background/10 disabled:opacity-30"
+          className="rounded-full border border-foreground/30 hover:bg-foreground/10 disabled:opacity-30"
         >
           <DynamicIcon name="lucide/chevron-up" size={20} />
         </Pressable>
@@ -437,7 +436,7 @@ export function CarouselAnimatedSections({
           variant="ghost"
           size="icon"
           disabled={currentIndex === (sections?.length ?? 0) - 1}
-          className="rounded-full border border-background/30 hover:bg-background/10 disabled:opacity-30"
+          className="rounded-full border border-foreground/30 hover:bg-foreground/10 disabled:opacity-30"
         >
           <DynamicIcon name="lucide/chevron-down" size={20} />
         </Pressable>

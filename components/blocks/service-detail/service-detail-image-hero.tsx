@@ -203,14 +203,14 @@ export function ServiceDetailImageHero({
       >
         <div className="absolute inset-0">{renderHeroImage()}</div>
         <div
-          className={cn("absolute inset-0 bg-black/50", heroOverlayClassName)}
+          className={cn("absolute inset-0 bg-primary/90", heroOverlayClassName)}
         />
 
         <div className="relative z-10 container text-center">
           {title && (
             <h1
               className={cn(
-                "text-4xl font-medium tracking-tight text-white md:text-5xl lg:text-6xl",
+                "text-4xl font-medium tracking-tight text-primary-foreground md:text-5xl lg:text-6xl",
                 titleClassName,
               )}
             >

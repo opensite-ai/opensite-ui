@@ -221,7 +221,7 @@ export function CaseStudyProseSidebar({
         </div>
         <div className="overflow-hidden text-xs text-muted-foreground md:text-sm">
           {detail.href ? (
-            <Pressable href={detail.href} className="underline hover:text-foreground">
+            <Pressable href={detail.href} className="underline">
               {detail.value}
             </Pressable>
           ) : (

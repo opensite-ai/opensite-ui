@@ -204,7 +204,7 @@ function CircularProgressIndicator({
         fill="none"
         stroke="currentColor"
         strokeWidth={strokeWidth}
-        className="text-gray-200 dark:text-gray-800"
+        className="text-muted"
       />
       {/* Foreground circle */}
       <circle

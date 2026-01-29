@@ -376,7 +376,7 @@ export function CarouselProgressSlider({
                     asButton
                     variant="outline"
                     size="icon"
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-background/80 backdrop-blur-sm"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/80 backdrop-blur-sm"
                     aria-label={isPaused ? "Play" : "Pause"}
                   >
                     <DynamicIcon

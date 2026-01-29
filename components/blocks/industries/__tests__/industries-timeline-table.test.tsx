@@ -97,7 +97,8 @@ describe("IndustriesTimelineTable", () => {
       <IndustriesTimelineTable projects={mockProjects} />
     );
     const section = container.querySelector("section");
-    expect(section?.className).toContain("py-20");
+    // Default spacing is now "py-6 md:py-32"
+    expect(section?.className).toContain("py-6");
   });
 
   it("renders container with max-w-7xl", () => {

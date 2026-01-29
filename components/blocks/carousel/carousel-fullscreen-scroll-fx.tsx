@@ -220,8 +220,8 @@ export function CarouselFullscreenScrollFx({
             className={cn(
               "h-3 w-3 rounded-full border-2 transition-all",
               activeIndex === index
-                ? "scale-125 border-background bg-background"
-                : "border-background/50 bg-transparent hover:border-background",
+                ? "scale-125 border-foreground bg-foreground"
+                : "border-foreground/50 bg-transparent hover:border-foreground",
             )}
             aria-label={`Go to ${typeof slide.title === "string" ? slide.title : `Slide ${index + 1}`}`}
           />
@@ -233,7 +233,7 @@ export function CarouselFullscreenScrollFx({
         <button
           onClick={() => scrollToSlide(activeIndex + 1)}
           className={cn(
-            "fixed bottom-8 left-1/2 z-50 -translate-x-1/2 cursor-pointer transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-background/50 focus-visible:ring-offset-2 focus-visible:ring-offset-foreground rounded-lg p-2",
+            "fixed bottom-8 left-1/2 z-50 -translate-x-1/2 cursor-pointer transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-lg p-2",
             scrollIndicatorClassName,
           )}
           aria-label="Scroll to next slide"
@@ -242,7 +242,7 @@ export function CarouselFullscreenScrollFx({
             <span className="text-xs uppercase tracking-widest opacity-50">
               Scroll
             </span>
-            <div className="h-12 w-px animate-pulse bg-linear-to-b from-background/50 to-transparent" />
+            <div className="h-12 w-px animate-pulse bg-linear-to-b from-foreground/50 to-transparent" />
           </div>
         </button>
       )}

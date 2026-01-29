@@ -191,7 +191,7 @@ export function ComparisonFeatureCards({
                 <DynamicIcon
                   name="lucide/circle-check-big"
                   size={20}
-                  className="shrink-0 text-emerald-700"
+                  className="shrink-0 text-success"
                 />
               ) : (
                 <DynamicIcon

@@ -562,11 +562,11 @@ const ResourceCard = ({
             )}
             <div className="w-full max-w-[20rem]">
               {typeof summary === "string" ? (
-                <p className="text-sm leading-[1.4] font-medium text-foreground">
+                <p className="text-sm leading-[1.4] font-medium">
                   {summary}
                 </p>
               ) : (
-                <div className="text-sm leading-[1.4] font-medium text-foreground">
+                <div className="text-sm leading-[1.4] font-medium">
                   {summary}
                 </div>
               )}
@@ -695,7 +695,7 @@ export function ResourceListHeroFilter({
                 )}
                 {description && (
                   typeof description === "string" ? (
-                    <p className={cn("text-xl leading-[1.4] font-semibold text-foreground", descriptionClassName)}>
+                    <p className={cn("text-xl leading-[1.4] font-semibold", descriptionClassName)}>
                       {description}
                     </p>
                   ) : (

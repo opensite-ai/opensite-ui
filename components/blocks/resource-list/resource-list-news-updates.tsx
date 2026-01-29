@@ -223,7 +223,7 @@ export function ResourceListNewsUpdates({
                 <>
                   <br />
                   {typeof subtitle === "string" ? (
-                    <span className={cn("text-primary/50", subtitleClassName)}>
+                    <span className={cn("text-muted-foreground", subtitleClassName)}>
                       {subtitle}
                     </span>
                   ) : (

@@ -499,7 +499,6 @@ export function LinkPageNewsletterSocial({
               <h1
                 className={cn(
                   "text-2xl font-bold",
-                  isDark ? "text-white" : "text-foreground",
                   nameClassName,
                 )}
               >
@@ -512,8 +511,7 @@ export function LinkPageNewsletterSocial({
             (typeof bio === "string" ? (
               <p
                 className={cn(
-                  "max-w-xs text-sm",
-                  isDark ? "text-neutral-400" : "text-muted-foreground",
+                  "max-w-xs text-sm text-muted-foreground",
                   bioClassName,
                 )}
               >
@@ -562,8 +560,8 @@ export function LinkPageNewsletterSocial({
                 "rounded-full p-2.5 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
                 isDark
-                  ? "bg-white/10 text-white hover:bg-white/20"
-                  : "bg-neutral-100 text-foreground hover:bg-neutral-200",
+                  ? "bg-muted/10 hover:bg-muted/20"
+                  : "bg-muted hover:bg-muted/80",
                 socialLinkClassName,
                 social.className,
               )}
@@ -600,7 +598,7 @@ export function LinkPageNewsletterSocial({
               className={cn(
                 "w-full",
                 isDark &&
-                  "border-white/20 bg-white/10 text-white placeholder:text-white/50",
+                  "border-border/20 bg-muted/10 placeholder:text-muted-foreground/50",
                 inputClassName,
               )}
               aria-label={emailPlaceholder || "Email address"}
@@ -644,8 +642,8 @@ export function LinkPageNewsletterSocial({
         className={cn(
           "space-y-4 rounded-2xl p-6",
           isDark
-            ? "border border-white/10 bg-white/5"
-            : "border border-neutral-200 bg-white shadow-sm",
+            ? "border border-border/10 bg-muted/5"
+            : "border border-border bg-card shadow-sm",
           newsletterCardClassName,
         )}
       >
@@ -655,7 +653,6 @@ export function LinkPageNewsletterSocial({
               <h2
                 className={cn(
                   "text-lg font-semibold",
-                  isDark ? "text-white" : "text-foreground",
                   newsletterHeadingClassName,
                 )}
               >
@@ -670,8 +667,7 @@ export function LinkPageNewsletterSocial({
             (typeof newsletterDescription === "string" ? (
               <p
                 className={cn(
-                  "text-sm",
-                  isDark ? "text-neutral-400" : "text-muted-foreground",
+                  "text-sm text-muted-foreground",
                   newsletterDescriptionClassName,
                 )}
               >
@@ -728,8 +724,8 @@ export function LinkPageNewsletterSocial({
                   "flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200",
                   "hover:scale-[1.02] active:scale-[0.98]",
                   isDark
-                    ? "border border-white/10 bg-white/5 text-white hover:bg-white/10"
-                    : "border border-neutral-200 bg-white text-foreground hover:bg-neutral-50",
+                    ? "border border-border/10 bg-muted/5 hover:bg-muted/10"
+                    : "border border-border bg-card hover:bg-muted/50",
                   linkClassName,
                   linkItemClassName,
                 )}
@@ -747,8 +743,8 @@ export function LinkPageNewsletterSocial({
                 "flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200",
                 "hover:scale-[1.02] active:scale-[0.98]",
                 isDark
-                  ? "border border-white/10 bg-white/5 text-white hover:bg-white/10"
-                  : "border border-neutral-200 bg-white text-foreground hover:bg-neutral-50",
+                  ? "border border-border/10 bg-muted/5 hover:bg-muted/10"
+                  : "border border-border bg-card hover:bg-muted/50",
                 linkClassName,
                 linkItemClassName,
               )}
@@ -772,7 +768,7 @@ export function LinkPageNewsletterSocial({
                 ))}
               <span
                 className={cn(
-                  isDark ? "text-neutral-600" : "text-muted-foreground",
+                  "text-muted-foreground",
                   linkChevronClassName,
                 )}
               >
@@ -809,7 +805,7 @@ export function LinkPageNewsletterSocial({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          isDark ? "text-neutral-600" : "text-muted-foreground/50",
+          "text-muted-foreground/50",
           footerClassName,
           actionClassName,
         )}
@@ -831,7 +827,7 @@ export function LinkPageNewsletterSocial({
       background={resolvedBackground}
       spacing={spacing}
       className={cn(
-        isDark ? "bg-neutral-950" : "bg-linear-to-b from-white to-neutral-50",
+        isDark ? "bg-foreground" : "bg-gradient-to-b from-background to-muted/30",
         className,
       )}
       pattern={pattern}

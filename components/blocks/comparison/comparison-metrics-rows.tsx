@@ -174,11 +174,11 @@ export function ComparisonMetricsRows({
               <h3 className="col-span-4 mt-2 text-base font-bold md:col-span-2 md:text-lg">{row.title}</h3>
 
               <div className="col-span-2 flex flex-col md:col-span-3">
-                <div className="ml-0 transition-colors group-hover:text-foreground md:ml-32 lg:ml-40 xl:ml-48 2xl:ml-56">
-                  <p className="mb-1 flex items-baseline text-2xl font-bold text-foreground md:mb-2 md:text-5xl">
+                <div className="ml-0 transition-colors md:ml-32 lg:ml-40 xl:ml-48 2xl:ml-56">
+                  <p className="mb-1 flex items-baseline text-2xl font-bold md:mb-2 md:text-5xl">
                     {row.optionA.value}
                     {row.optionA.unit && (
-                      <sup className="ml-0.5 text-xs text-foreground md:text-sm">{row.optionA.unit}</sup>
+                      <sup className="ml-0.5 text-xs md:text-sm">{row.optionA.unit}</sup>
                     )}
                   </p>
                   <p className="text-xs leading-tight text-muted-foreground md:text-sm md:leading-normal">
@@ -188,11 +188,11 @@ export function ComparisonMetricsRows({
               </div>
 
               <div className="col-span-2 flex flex-col md:col-span-3">
-                <div className="ml-0 transition-colors group-hover:text-accent-foreground md:ml-32 lg:ml-40 xl:ml-48 2xl:ml-56">
-                  <p className="mb-1 flex items-baseline text-2xl font-bold text-foreground md:mb-2 md:text-5xl">
+                <div className="ml-0 transition-colors md:ml-32 lg:ml-40 xl:ml-48 2xl:ml-56">
+                  <p className="mb-1 flex items-baseline text-2xl font-bold md:mb-2 md:text-5xl">
                     {row.optionB.value}
                     {row.optionB.unit && (
-                      <sup className="ml-0.5 text-xs text-foreground md:text-sm">{row.optionB.unit}</sup>
+                      <sup className="ml-0.5 text-xs md:text-sm">{row.optionB.unit}</sup>
                     )}
                   </p>
                   <p className="text-xs leading-tight text-muted-foreground md:text-sm md:leading-normal">

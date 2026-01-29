@@ -165,7 +165,7 @@ export function ComparisonFeatureGrid({
             className={cn("flex flex-col items-start text-left sm:flex-row sm:items-center", gridRowClassName)}
           >
             <div className="flex w-full items-center justify-start px-6 pt-4 sm:w-16 sm:justify-center sm:py-4">
-              <DynamicIcon name={row.icon} size={20} className="text-gray-500" />
+              <DynamicIcon name={row.icon} size={20} className="text-muted-foreground" />
               <span className="ml-3 text-base font-medium sm:hidden">{row.label}</span>
             </div>
             <div className="w-full flex-1 px-6 pb-2 sm:py-4">

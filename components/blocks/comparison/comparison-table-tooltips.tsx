@@ -204,7 +204,7 @@ export function ComparisonTableTooltips({
             )}
           </TableRow>
         </TableHeader>
-        <TableBody className="text-foreground">
+        <TableBody>
           {rows.map((row, idx) => (
             <TableRow key={idx}>
               <TableCell className={cn("px-6 py-4", tableCellClassName)}>{row.feature}</TableCell>

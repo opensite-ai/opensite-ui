@@ -311,7 +311,7 @@ export function CaseStudiesStatsCard({
             )}
             {summary && (
               typeof summary === "string" ? (
-                <p className={cn("text-base font-medium text-foreground", summaryClassName)}>
+                <p className={cn("text-base font-medium", summaryClassName)}>
                   {summary}
                 </p>
               ) : (

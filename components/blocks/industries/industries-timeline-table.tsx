@@ -173,7 +173,7 @@ export function IndustriesTimelineTable({
     return typeof heading === "string" ? (
       <h2
         className={cn(
-          "mb-8 text-3xl font-bold text-foreground lg:text-4xl",
+          "mb-8 text-3xl font-bold lg:text-4xl",
           headingClassName,
         )}
       >
@@ -227,7 +227,7 @@ export function IndustriesTimelineTable({
                 </div>
                 <div className="order-1 col-span-1 grid grid-cols-2 gap-8 border-b border-muted-foreground/20 p-5 transition-all duration-300 md:order-2 md:col-span-2 md:p-10 md:pr-0 md:pl-0 lg:group-hover:border-transparent">
                   <div className="flex items-center">
-                    <span className="ml-0 pl-0 text-xl font-medium text-secondary transition-all duration-300 md:text-2xl lg:text-foreground lg:group-hover:pl-2 lg:group-hover:text-secondary">
+                    <span className="ml-0 pl-0 text-xl font-medium text-secondary transition-all duration-300 md:text-2xl lg:group-hover:pl-2 lg:group-hover:text-secondary">
                       {project.name}
                     </span>
                   </div>
@@ -248,7 +248,7 @@ export function IndustriesTimelineTable({
                 loading="lazy"
                 optixFlowConfig={optixFlowConfig}
               />
-              <div className="absolute inset-0 z-2 bg-black/20 opacity-100 transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100" />
+              <div className="absolute inset-0 z-2 bg-foreground/20 opacity-100 transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100" />
             </div>
           </Pressable>
         ))}

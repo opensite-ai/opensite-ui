@@ -348,7 +348,7 @@ export function ArticleChaptersAuthorComponent({
                 className={cn(
                   "flex items-center gap-3 text-sm transition-colors",
                   isActive
-                    ? "font-medium text-foreground"
+                    ? "font-medium"
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >

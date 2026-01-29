@@ -230,7 +230,7 @@ export function ListSearchableGrid({
                 (typeof item.title === "string" ? (
                   <h3
                     className={cn(
-                      "text-lg font-semibold text-foreground",
+                      "text-lg font-semibold",
                       cardTitleClassName,
                     )}
                   >
@@ -262,7 +262,7 @@ export function ListSearchableGrid({
                 <span
                   key={tag}
                   className={cn(
-                    "rounded-full bg-muted/60 px-3 py-1 text-xs text-foreground",
+                    "rounded-full bg-muted/60 px-3 py-1 text-xs",
                     cardTagClassName,
                   )}
                 >
@@ -307,7 +307,7 @@ export function ListSearchableGrid({
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-bold text-foreground md:text-4xl",
+                "text-3xl font-bold md:text-4xl",
                 headingClassName,
               )}
             >

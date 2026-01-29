@@ -227,8 +227,8 @@ export function StatsIconCards({
                 className={cn(
                   "mt-1 flex items-center text-sm font-medium",
                   stat.isPositive !== false
-                    ? "text-emerald-500"
-                    : "text-rose-500",
+                    ? "text-success"
+                    : "text-destructive",
                   statGrowthClassName,
                 )}
               >

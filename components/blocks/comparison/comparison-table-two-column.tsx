@@ -177,7 +177,7 @@ export function ComparisonTableTwoColumn({
               ) : (
                 optionALabel &&
                 (typeof optionALabel === "string" ? (
-                  <span className="text-lg font-semibold text-success">{optionALabel}</span>
+                  <span className="text-lg font-semibold">{optionALabel}</span>
                 ) : (
                   optionALabel
                 ))
@@ -194,7 +194,7 @@ export function ComparisonTableTwoColumn({
               ) : (
                 optionBLabel &&
                 (typeof optionBLabel === "string" ? (
-                  <span className="text-lg font-semibold text-destructive">{optionBLabel}</span>
+                  <span className="text-lg font-semibold">{optionBLabel}</span>
                 ) : (
                   optionBLabel
                 ))

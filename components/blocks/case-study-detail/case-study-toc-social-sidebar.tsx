@@ -476,7 +476,7 @@ export function CaseStudyTocSocialSidebar({
           >
             <h2 className="font-semibold">{detail.label}</h2>
             {detail.href ? (
-              <Pressable href={detail.href} className="mt-1 text-sm text-muted-foreground underline hover:text-foreground">
+              <Pressable href={detail.href} className="mt-1 text-sm text-muted-foreground underline">
                 {detail.value}
               </Pressable>
             ) : (

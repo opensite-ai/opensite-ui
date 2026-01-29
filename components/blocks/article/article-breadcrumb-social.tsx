@@ -381,7 +381,7 @@ export function ArticleBreadcrumbSocialComponent({
                 className={cn(
                   "block text-sm transition-colors",
                   isActive
-                    ? "font-medium text-foreground"
+                    ? "font-medium"
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >

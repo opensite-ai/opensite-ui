@@ -297,16 +297,16 @@ export function ListFeatureComparison({
             >
               <thead className={cn("bg-muted/50", tableHeaderClassName)}>
                 <tr>
-                  <th className="text-foreground px-6 py-3 text-left text-sm font-semibold">
+                  <th className="px-6 py-3 text-left text-sm font-semibold">
                     {planHeaders.feature}
                   </th>
-                  <th className="text-foreground px-6 py-3 text-center text-sm font-semibold">
+                  <th className="px-6 py-3 text-center text-sm font-semibold">
                     {planHeaders.basic}
                   </th>
-                  <th className="text-foreground px-6 py-3 text-center text-sm font-semibold">
+                  <th className="px-6 py-3 text-center text-sm font-semibold">
                     {planHeaders.pro}
                   </th>
-                  <th className="text-foreground px-6 py-3 text-center text-sm font-semibold">
+                  <th className="px-6 py-3 text-center text-sm font-semibold">
                     {planHeaders.enterprise}
                   </th>
                 </tr>
@@ -319,7 +319,7 @@ export function ListFeatureComparison({
               >
                 {features.map((feature, index) => (
                   <tr key={index} className={tableRowClassName}>
-                    <td className="text-foreground px-6 py-4 text-sm whitespace-nowrap">
+                    <td className="px-6 py-4 text-sm whitespace-nowrap">
                       {feature.name}
                     </td>
                     <td className="px-6 py-4 text-center text-sm whitespace-nowrap">
@@ -446,7 +446,7 @@ export function ListFeatureComparison({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-foreground mx-auto max-w-4xl text-base text-balance sm:text-lg",
+                "mx-auto max-w-4xl text-base text-balance sm:text-lg",
                 descriptionClassName,
               )}
             >

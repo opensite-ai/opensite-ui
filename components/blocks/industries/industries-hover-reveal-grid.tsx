@@ -161,7 +161,7 @@ export function IndustriesHoverRevealGrid({
     return typeof heading === "string" ? (
       <h2
         className={cn(
-          "mb-8 text-3xl font-medium text-foreground",
+          "mb-8 text-3xl font-medium",
           headingClassName,
         )}
       >
@@ -219,12 +219,12 @@ export function IndustriesHoverRevealGrid({
                     optixFlowConfig={optixFlowConfig}
                   />
                 </div>
-                <h3 className="absolute bottom-10 text-lg font-medium text-foreground">
+                <h3 className="absolute bottom-10 text-lg font-medium">
                   {industry.name}
                 </h3>
               </motion.div>
               <motion.div
-                className="absolute inset-0 z-10 bg-black"
+                className="absolute inset-0 z-10 bg-foreground"
                 variants={{
                   initial: { y: "100%" },
                   hover: { y: "0%" },
@@ -238,7 +238,7 @@ export function IndustriesHoverRevealGrid({
                   hover: { opacity: 1, y: 0 },
                 }}
                 transition={{ duration: 0.4, ease: easeTransition }}
-                className="absolute inset-0 z-20 flex min-h-120 items-center justify-center p-8 text-white lg:min-h-144 xl:min-h-112"
+                className="absolute inset-0 z-20 flex min-h-120 items-center justify-center p-8 text-background lg:min-h-144 xl:min-h-112"
               >
                 <div className="space-y-3">
                   {industryLabel && (

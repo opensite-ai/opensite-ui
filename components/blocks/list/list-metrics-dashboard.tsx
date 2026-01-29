@@ -310,11 +310,11 @@ export function ListMetricsDashboard({
           <div
             className={cn(
               "flex h-8 w-8 items-center justify-center rounded-full",
-              metric.status === "positive" && "bg-success/10 text-success",
+              metric.status === "positive" && "bg-primary/10 text-primary",
               metric.status === "negative" &&
                 "bg-destructive/10 text-destructive",
               metric.status === "warning" && "bg-accent text-accent-foreground",
-              metric.status === "neutral" && "bg-primary/10 text-primary",
+              metric.status === "neutral" && "bg-muted text-muted-foreground",
             )}
           >
             {metric.icon && <DynamicIcon name={metric.icon} size={16} />}
@@ -356,10 +356,10 @@ export function ListMetricsDashboard({
               <div
                 className={cn(
                   "flex items-center text-xs",
-                  metric.status === "positive" && "text-success",
+                  metric.status === "positive" && "text-primary",
                   metric.status === "negative" && "text-destructive",
                   metric.status === "warning" && "text-accent-foreground",
-                  metric.status === "neutral" && "text-primary",
+                  metric.status === "neutral" && "text-muted-foreground",
                 )}
               >
                 {metric.changePercentage > 0 ? (

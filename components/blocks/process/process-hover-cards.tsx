@@ -182,11 +182,11 @@ const ProcessCard = ({
               ))}
             {step.description &&
               (typeof step.description === "string" ? (
-                <p className="max-w-md text-foreground/50">
+                <p className="max-w-md text-muted-foreground">
                   {step.description}
                 </p>
               ) : (
-                <div className="max-w-md text-foreground/50">
+                <div className="max-w-md text-muted-foreground">
                   {step.description}
                 </div>
               ))}
@@ -271,7 +271,7 @@ export function ProcessHoverCards({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-lg text-foreground/50",
+                  "text-lg text-muted-foreground",
                   descriptionClassName,
                 )}
               >

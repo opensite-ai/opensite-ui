@@ -185,7 +185,7 @@ export function BannerCountdownSale({
   }, [description, descriptionClassName]);
 
   return (
-    <div className={cn("w-full bg-destructive text-white", className)}>
+    <div className={cn("w-full bg-destructive text-destructive-foreground", className)}>
       <div className={cn("container py-2.5", containerClassName)}>
         <div className={cn("flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm", contentClassName)}>
           {messageContent}

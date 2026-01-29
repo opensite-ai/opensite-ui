@@ -277,7 +277,7 @@ export function ResourceDetailWhitepaperSidebar({
             </h3>
           </div>
           <div className="p-5">
-            <div className="gap-4 text-lg leading-snug font-semibold text-foreground">
+            <div className="gap-4 text-lg font-semibold leading-snug">
               {sidebar?.resourceTitle &&
                 (typeof sidebar.resourceTitle === "string" ? (
                   <p>{sidebar.resourceTitle}</p>
@@ -302,14 +302,16 @@ export function ResourceDetailWhitepaperSidebar({
                   }}
                 />
                 <div className="border-t border-border p-3">
-                  <button
-                    type="button"
+                  <Pressable
+                    asButton
                     onClick={handleOpenFullViewer}
-                    className="flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                    variant="default"
+                    size="sm"
+                    className="w-full"
                   >
                     <DynamicIcon name="lucide/maximize-2" size={16} />
                     {viewFullDocumentLabel ?? "View Full Document"}
-                  </button>
+                  </Pressable>
                 </div>
               </div>
             )}

@@ -147,21 +147,21 @@ export function ComparisonTableTabs({
   const renderStatusIcon = React.useCallback((status: AttributeValue["status"]) => {
     if (status === "positive") {
       return (
-        <span className="flex size-8 items-center justify-center rounded-full border border-green-200 bg-green-100">
-          <DynamicIcon name="lucide/circle-check" size={16} className="text-green-700" />
+        <span className="flex size-8 items-center justify-center rounded-full border bg-success/10">
+          <DynamicIcon name="lucide/circle-check" size={16} className="text-success" />
         </span>
       );
     }
     if (status === "negative") {
       return (
-        <span className="flex size-8 items-center justify-center rounded-full border border-red-200 bg-red-100">
-          <DynamicIcon name="lucide/circle-x" size={16} className="text-red-700" />
+        <span className="flex size-8 items-center justify-center rounded-full border bg-destructive/10">
+          <DynamicIcon name="lucide/circle-x" size={16} className="text-destructive" />
         </span>
       );
     }
     return (
-      <span className="flex size-8 items-center justify-center rounded-full border border-amber-200 bg-amber-100">
-        <DynamicIcon name="lucide/circle-minus" size={16} className="text-amber-700" />
+      <span className="flex size-8 items-center justify-center rounded-full border bg-accent/10">
+        <DynamicIcon name="lucide/circle-minus" size={16} className="text-accent" />
       </span>
     );
   }, []);
@@ -191,7 +191,7 @@ export function ComparisonTableTabs({
               <TableRow>
                 <TableHead
                   className={cn(
-                    "sticky top-0 mb-24 w-1/4 bg-background p-5 text-base font-medium text-primary after:absolute after:right-0 after:-bottom-px after:left-0 after:h-px after:bg-border",
+                    "sticky top-0 mb-24 w-1/4 bg-background p-5 text-base font-medium after:absolute after:right-0 after:-bottom-px after:left-0 after:h-px after:bg-border",
                     tableHeaderClassName
                   )}
                 >
@@ -201,7 +201,7 @@ export function ComparisonTableTabs({
                   <TableHead
                     key={idx}
                     className={cn(
-                      "sticky top-0 mb-24 w-1/4 bg-background p-5 text-center text-base font-medium text-primary after:absolute after:right-0 after:-bottom-px after:left-0 after:h-px after:bg-border md:table-cell",
+                      "sticky top-0 mb-24 w-1/4 bg-background p-5 text-center text-base font-medium after:absolute after:right-0 after:-bottom-px after:left-0 after:h-px after:bg-border md:table-cell",
                       model.name !== selectedTab ? "hidden" : "",
                       tableHeaderClassName
                     )}

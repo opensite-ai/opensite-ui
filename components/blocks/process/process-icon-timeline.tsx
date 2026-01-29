@@ -169,7 +169,7 @@ export function ProcessIconTimeline({
           >
             <div
               className={cn(
-                "absolute left-0 flex size-12 items-center justify-center rounded-full text-white lg:left-1/2 lg:-translate-x-1/2",
+                "absolute left-0 flex size-12 items-center justify-center rounded-full text-primary-foreground lg:left-1/2 lg:-translate-x-1/2",
                 step.badgeColor || "bg-primary",
                 stepBadgeClassName,
               )}
@@ -203,11 +203,11 @@ export function ProcessIconTimeline({
                   ))}
                 {step.description &&
                   (typeof step.description === "string" ? (
-                    <p className="mb-4 text-foreground/50">
+                    <p className="mb-4 text-muted-foreground">
                       {step.description}
                     </p>
                   ) : (
-                    <div className="mb-4 text-foreground/50">
+                    <div className="mb-4 text-muted-foreground">
                       {step.description}
                     </div>
                   ))}
@@ -265,7 +265,7 @@ export function ProcessIconTimeline({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-lg text-foreground/50",
+                  "text-lg text-muted-foreground",
                   descriptionClassName,
                 )}
               >

@@ -275,7 +275,6 @@ export function LinkPageMinimalProfile({
               <h1
                 className={cn(
                   "text-xl font-semibold",
-                  isDark ? "text-white" : "text-foreground",
                   nameClassName,
                 )}
               >
@@ -288,8 +287,7 @@ export function LinkPageMinimalProfile({
             (typeof bio === "string" ? (
               <p
                 className={cn(
-                  "text-sm",
-                  isDark ? "text-neutral-400" : "text-muted-foreground",
+                  "text-sm text-muted-foreground",
                   bioClassName,
                 )}
               >
@@ -334,8 +332,8 @@ export function LinkPageMinimalProfile({
                 className={cn(
                   "flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors",
                   isDark
-                    ? "bg-neutral-800 text-white hover:bg-neutral-700"
-                    : "bg-neutral-100 text-foreground hover:bg-neutral-200",
+                    ? "bg-muted/20 hover:bg-muted/30"
+                    : "bg-muted hover:bg-muted/80",
                   linkClassName,
                   linkItemClassName,
                 )}
@@ -352,8 +350,8 @@ export function LinkPageMinimalProfile({
               className={cn(
                 "flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors",
                 isDark
-                  ? "bg-neutral-800 text-white hover:bg-neutral-700"
-                  : "bg-neutral-100 text-foreground hover:bg-neutral-200",
+                  ? "bg-muted/20 hover:bg-muted/30"
+                  : "bg-muted hover:bg-muted/80",
                 linkClassName,
                 linkItemClassName,
               )}
@@ -411,8 +409,8 @@ export function LinkPageMinimalProfile({
               className={cn(
                 "rounded-full p-2 transition-colors",
                 isDark
-                  ? "text-neutral-400 hover:text-white hover:bg-neutral-800"
-                  : "text-muted-foreground hover:text-foreground hover:bg-neutral-100",
+                  ? "text-muted-foreground hover:bg-muted/20"
+                  : "text-muted-foreground hover:bg-muted",
                 socialLinkClassName,
                 social.className,
               )}
@@ -449,7 +447,7 @@ export function LinkPageMinimalProfile({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          isDark ? "text-neutral-600" : "text-muted-foreground/50",
+          "text-muted-foreground/50",
           footerClassName,
           actionClassName,
         )}
@@ -470,7 +468,7 @@ export function LinkPageMinimalProfile({
     <Section
       background={resolvedBackground}
       spacing={spacing}
-      className={cn(isDark ? "bg-neutral-900" : "bg-white", className)}
+      className={cn(isDark ? "bg-foreground" : "bg-background", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}

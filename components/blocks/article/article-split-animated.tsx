@@ -207,7 +207,7 @@ export function ArticleSplitAnimatedComponent({
       <Pressable
         href={categoryHref}
         className={cn(
-          "inline-block rounded-full bg-white/20 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/30",
+          "inline-block rounded-full bg-primary/20 px-3 py-1 text-sm font-medium text-primary-foreground backdrop-blur-sm transition-colors hover:bg-primary/30",
           categoryClassName
         )}
       >

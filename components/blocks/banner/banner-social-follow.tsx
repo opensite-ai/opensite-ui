@@ -175,7 +175,7 @@ export function BannerSocialFollow({
   return (
     <div
       className={cn(
-        "bg-gradient-to-r from-pink-500 to-rose-500 text-white",
+        "bg-primary text-primary-foreground",
         className
       )}
     >

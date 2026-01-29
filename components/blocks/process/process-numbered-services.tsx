@@ -248,11 +248,11 @@ export function ProcessNumberedServices({
                 ))}
               {service.description &&
                 (typeof service.description === "string" ? (
-                  <p className="text-foreground/50 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     {service.description}
                   </p>
                 ) : (
-                  <div className="text-foreground/50 leading-relaxed">
+                  <div className="text-muted-foreground leading-relaxed">
                     {service.description}
                   </div>
                 ))}
@@ -316,7 +316,7 @@ export function ProcessNumberedServices({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-lg text-foreground/50",
+                  "text-lg text-muted-foreground",
                   descriptionClassName,
                 )}
               >

@@ -219,21 +219,21 @@ export function ResourceDetailDocumentSidebar({
           {breadcrumbs?.map((crumb, index) => (
             <React.Fragment key={index}>
               <BreadcrumbItem>
-                {crumb.isCurrentPage ? (
+                {!crumb.href ? (
                   <BreadcrumbPage>
                     {typeof crumb.label === "string"
                       ? crumb.label
                       : crumb.label}
                   </BreadcrumbPage>
                 ) : (
-                  <BreadcrumbLink href={crumb.href || "#"}>
-                    {index === 0
-                      ? (crumb.icon ?? (
-                          <DynamicIcon name="lucide/home" size={16} />
-                        ))
-                      : typeof crumb.label === "string"
-                        ? crumb.label
-                        : crumb.label}
+                  <BreadcrumbLink href={crumb.href}>
+                    {index === 0 ? (
+                      <DynamicIcon name="lucide/home" size={16} />
+                    ) : typeof crumb.label === "string" ? (
+                      crumb.label
+                    ) : (
+                      crumb.label
+                    )}
                   </BreadcrumbLink>
                 )}
               </BreadcrumbItem>

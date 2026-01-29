@@ -294,7 +294,6 @@ export function LinkPageGridCards({
               <h1
                 className={cn(
                   "text-2xl font-bold",
-                  isDark ? "text-white" : "text-foreground",
                   nameClassName,
                 )}
               >
@@ -307,8 +306,7 @@ export function LinkPageGridCards({
             (typeof bio === "string" ? (
               <p
                 className={cn(
-                  "text-sm",
-                  isDark ? "text-neutral-400" : "text-muted-foreground",
+                  "text-sm text-muted-foreground",
                   bioClassName,
                 )}
               >
@@ -357,8 +355,8 @@ export function LinkPageGridCards({
                 "rounded-lg p-2 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
                 isDark
-                  ? "bg-white/5 text-neutral-400 hover:bg-white/10 hover:text-white"
-                  : "bg-white text-muted-foreground hover:bg-neutral-100 hover:text-foreground",
+                  ? "bg-muted/5 text-muted-foreground hover:bg-muted/10"
+                  : "bg-card text-muted-foreground hover:bg-muted",
                 socialLinkClassName,
                 social.className,
               )}
@@ -410,8 +408,8 @@ export function LinkPageGridCards({
                   "group flex flex-col items-center gap-2 rounded-xl p-4 transition-all duration-200",
                   "hover:scale-[1.03] active:scale-[0.97]",
                   isDark
-                    ? "border border-white/10 bg-white/5 hover:bg-white/10"
-                    : "border border-neutral-200 bg-white shadow-sm hover:bg-white hover:shadow-md",
+                    ? "border border-border/10 bg-muted/5 hover:bg-muted/10"
+                    : "border border-border bg-card shadow-sm hover:shadow-md",
                   cardClassName,
                   linkClassName,
                 )}
@@ -429,8 +427,8 @@ export function LinkPageGridCards({
                 "group flex flex-col items-center gap-2 rounded-xl p-4 transition-all duration-200",
                 "hover:scale-[1.03] active:scale-[0.97]",
                 isDark
-                  ? "border border-white/10 bg-white/5 hover:bg-white/10"
-                  : "border border-neutral-200 bg-white shadow-sm hover:bg-white hover:shadow-md",
+                  ? "border border-border/10 bg-muted/5 hover:bg-muted/10"
+                  : "border border-border bg-card shadow-sm hover:shadow-md",
                 cardClassName,
                 linkClassName,
               )}
@@ -440,8 +438,8 @@ export function LinkPageGridCards({
                 className={cn(
                   "flex h-12 w-12 items-center justify-center rounded-xl transition-colors",
                   isDark
-                    ? "bg-white/10 group-hover:bg-white/20"
-                    : "bg-neutral-100 group-hover:bg-neutral-200",
+                    ? "bg-muted/10 group-hover:bg-muted/20"
+                    : "bg-muted group-hover:bg-muted/80",
                   cardIconWrapperClassName,
                 )}
               >
@@ -453,7 +451,6 @@ export function LinkPageGridCards({
                     <span
                       className={cn(
                         "block text-sm font-medium",
-                        isDark ? "text-white" : "text-foreground",
                         cardLabelClassName,
                       )}
                     >
@@ -466,8 +463,7 @@ export function LinkPageGridCards({
                   (typeof description === "string" ? (
                     <span
                       className={cn(
-                        "block text-xs",
-                        isDark ? "text-neutral-500" : "text-muted-foreground",
+                        "block text-xs text-muted-foreground",
                         cardDescriptionClassName,
                       )}
                     >
@@ -510,7 +506,7 @@ export function LinkPageGridCards({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          isDark ? "text-neutral-600" : "text-muted-foreground/50",
+          "text-muted-foreground/50",
           footerClassName,
           actionClassName,
         )}
@@ -531,7 +527,7 @@ export function LinkPageGridCards({
     <Section
       background={resolvedBackground}
       spacing={spacing}
-      className={cn(isDark ? "bg-neutral-950" : "bg-neutral-50", className)}
+      className={cn(isDark ? "bg-foreground" : "bg-muted/30", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}

@@ -4,7 +4,6 @@ import * as React from "react";
 import { useState, useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type {
@@ -203,7 +202,12 @@ export function HeroSplitGeometricShapes({
     if (!images || images.length === 0) return null;
 
     return (
-      <div className={cn("flex flex-col items-center justify-center", imagesClassName)}>
+      <div
+        className={cn(
+          "flex flex-col items-center justify-center",
+          imagesClassName,
+        )}
+      >
         <div className="relative aspect-7/8 h-full w-full">
           {images.map((image, index) => {
             const src = typeof image === "string" ? image : image.src;
@@ -211,7 +215,8 @@ export function HeroSplitGeometricShapes({
               typeof image === "string"
                 ? "Gallery image"
                 : image.alt || "Gallery image";
-            const itemClass = typeof image === "string" ? undefined : image.className;
+            const itemClass =
+              typeof image === "string" ? undefined : image.className;
 
             // Position classes for masonry layout matching the original rectangle positions
             const positionClasses = [
@@ -255,7 +260,14 @@ export function HeroSplitGeometricShapes({
         </div>
       </div>
     );
-  }, [imagesSlot, images, imagesClassName, imageClassName, optixFlowConfig, handleImageClick]);
+  }, [
+    imagesSlot,
+    images,
+    imagesClassName,
+    imageClassName,
+    optixFlowConfig,
+    handleImageClick,
+  ]);
 
   return (
     <Section

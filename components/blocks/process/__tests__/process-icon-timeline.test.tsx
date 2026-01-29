@@ -64,8 +64,13 @@ describe("ProcessIconTimeline", () => {
 
   it("renders icon badges with custom colors", () => {
     const { container } = render(<ProcessIconTimeline steps={mockSteps} />);
-    const badges = container.querySelectorAll(".rounded-full.text-white");
-    expect(badges.length).toBe(3);
+    // Icon badges still support custom badgeColor prop
+    const blueBadge = container.querySelector(".bg-blue-500");
+    const purpleBadge = container.querySelector(".bg-purple-500");
+    const greenBadge = container.querySelector(".bg-green-500");
+    expect(blueBadge).toBeInTheDocument();
+    expect(purpleBadge).toBeInTheDocument();
+    expect(greenBadge).toBeInTheDocument();
   });
 
   it("renders with empty steps array", () => {

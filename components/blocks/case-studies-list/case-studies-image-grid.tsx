@@ -172,7 +172,7 @@ export function CaseStudiesImageGrid({
           loading="lazy"
           optixFlowConfig={optixFlowConfig}
         />
-        <div className={cn("absolute inset-0 bg-linear-to-t from-black/80 to-black/10", overlayClassName)}></div>
+        <div className={cn("absolute inset-0 bg-linear-to-t from-foreground/80 to-foreground/10", overlayClassName)}></div>
         <Img
           src={item.logo}
           alt="Company logo"
@@ -181,7 +181,7 @@ export function CaseStudiesImageGrid({
           optixFlowConfig={optixFlowConfig}
         />
         {typeof item.title === "string" ? (
-          <h2 className={cn("isolate max-w-sm text-lg font-semibold text-white lg:text-xl lg:font-semibold", titleClassName)}>
+          <h2 className={cn("isolate max-w-sm text-lg font-semibold text-background lg:text-xl lg:font-semibold", titleClassName)}>
             {item.title}
           </h2>
         ) : (

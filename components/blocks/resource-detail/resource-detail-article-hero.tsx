@@ -167,7 +167,7 @@ export interface ResourceDetailArticleHeroProps {
   /**
    * Hero section pattern
    */
-  heropattern?: PatternName | undefined;
+  heroPattern?: PatternName | undefined;
   /**
    * Hero section pattern opacity
    */
@@ -187,7 +187,7 @@ export interface ResourceDetailArticleHeroProps {
   /**
    * Content section pattern
    */
-  contentpattern?: PatternName | undefined;
+  contentPattern?: PatternName | undefined;
   /**
    * Content section pattern opacity
    */
@@ -428,7 +428,7 @@ export function ResourceDetailArticleHero({
                 (typeof blog.title === "string" ? (
                   <h1
                     className={cn(
-                      "text-3xl leading-tight font-medium",
+                      "text-3xl font-medium leading-tight",
                       titleClassName,
                     )}
                   >
@@ -466,7 +466,7 @@ export function ResourceDetailArticleHero({
         <div className="mx-auto md:max-w-2xl xl:max-w-5xl">
           <div
             className={cn(
-              "prose max-w-none pb-16 prose-headings:text-foreground prose-p:text-muted-foreground prose-blockquote:border-l-primary prose-blockquote:text-muted-foreground prose-strong:text-foreground prose-em:text-foreground prose-ol:text-muted-foreground prose-ul:text-muted-foreground prose-li:text-muted-foreground",
+              "prose max-w-none pb-16 prose-p:text-muted-foreground prose-blockquote:border-l-primary prose-blockquote:text-muted-foreground prose-ol:text-muted-foreground prose-ul:text-muted-foreground prose-li:text-muted-foreground",
               contentClassName,
             )}
           >

@@ -200,11 +200,11 @@ export function ProcessMissionPrinciples({
                 ))}
               {principle.description &&
                 (typeof principle.description === "string" ? (
-                  <p className="text-foreground/50 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     {principle.description}
                   </p>
                 ) : (
-                  <div className="text-foreground/50 leading-relaxed">
+                  <div className="text-muted-foreground leading-relaxed">
                     {principle.description}
                   </div>
                 ))}
@@ -257,7 +257,7 @@ export function ProcessMissionPrinciples({
             (typeof missionDescription === "string" ? (
               <p
                 className={cn(
-                  "text-lg text-foreground/50 leading-relaxed",
+                  "text-lg text-muted-foreground leading-relaxed",
                   missionDescriptionClassName,
                 )}
               >

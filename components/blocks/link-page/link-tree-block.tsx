@@ -470,7 +470,6 @@ export function LinkTreeBlock({
               <h1
                 className={cn(
                   "text-2xl font-bold tracking-tight",
-                  isDark ? "text-white" : "text-foreground",
                   nameClassName,
                 )}
               >
@@ -483,8 +482,7 @@ export function LinkTreeBlock({
             (typeof brandTagline === "string" ? (
               <p
                 className={cn(
-                  "max-w-xs text-balance text-sm",
-                  isDark ? "text-white/70" : "text-muted-foreground",
+                  "max-w-xs text-balance text-sm text-muted-foreground",
                   taglineClassName,
                 )}
               >
@@ -539,10 +537,10 @@ export function LinkTreeBlock({
                   isFeatured
                     ? "bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
                     : isDark
-                      ? "border border-white/10 bg-white/10 text-white hover:bg-white/20"
+                      ? "border border-border/10 bg-muted/10 hover:bg-muted/20"
                       : isGlass
-                        ? "border border-white/30 bg-white/60 text-foreground backdrop-blur-sm hover:bg-white/80"
-                        : "border border-border bg-card text-card-foreground hover:bg-accent",
+                        ? "border border-border/30 bg-card/60 backdrop-blur-sm hover:bg-card/80"
+                        : "border border-border bg-card hover:bg-accent",
                   linkClassName,
                   isFeatured ? featuredLinkClassName : null,
                   linkItemClassName,
@@ -563,10 +561,10 @@ export function LinkTreeBlock({
                 isFeatured
                   ? "bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
                   : isDark
-                    ? "border border-white/10 bg-white/10 text-white hover:bg-white/20"
+                    ? "border border-border/10 bg-muted/10 hover:bg-muted/20"
                     : isGlass
-                      ? "border border-white/30 bg-white/60 text-foreground backdrop-blur-sm hover:bg-white/80"
-                      : "border border-border bg-card text-card-foreground hover:bg-accent",
+                      ? "border border-border/30 bg-card/60 backdrop-blur-sm hover:bg-card/80"
+                      : "border border-border bg-card hover:bg-accent",
                 linkClassName,
                 isFeatured ? featuredLinkClassName : null,
                 linkItemClassName,
@@ -596,9 +594,7 @@ export function LinkTreeBlock({
                         "mt-0.5 block truncate text-xs",
                         isFeatured
                           ? "text-primary-foreground/70"
-                          : isDark
-                            ? "text-white/60"
-                            : "text-muted-foreground",
+                          : "text-muted-foreground",
                         linkDescriptionClassName,
                       )}
                     >
@@ -627,9 +623,7 @@ export function LinkTreeBlock({
                   "shrink-0 transition-transform group-hover:translate-x-0.5",
                   isFeatured
                     ? "text-primary-foreground/70"
-                    : isDark
-                      ? "text-white/50"
-                      : "text-muted-foreground",
+                    : "text-muted-foreground",
                   linkChevronClassName,
                 )}
               />
@@ -652,8 +646,7 @@ export function LinkTreeBlock({
           (typeof mediaGalleryTitle === "string" ? (
             <h3
               className={cn(
-                "text-center text-sm font-medium",
-                isDark ? "text-white/70" : "text-muted-foreground",
+                "text-center text-sm font-medium text-muted-foreground",
                 mediaGalleryTitleClassName,
               )}
             >
@@ -731,7 +724,7 @@ export function LinkTreeBlock({
                     name="lucide/play"
                     size={24}
                     className={cn(
-                      "text-white opacity-0 transition-opacity group-hover:opacity-100",
+                      "text-background opacity-0 transition-opacity group-hover:opacity-100",
                       mediaGalleryPlayIconClassName,
                     )}
                   />
@@ -779,9 +772,9 @@ export function LinkTreeBlock({
                 "flex h-12 w-12 items-center justify-center rounded-full p-2.5 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
                 isDark
-                  ? "bg-white/10 text-white hover:bg-white/20"
+                  ? "bg-muted/10 hover:bg-muted/20"
                   : isGlass
-                    ? "bg-white/60 backdrop-blur-sm hover:bg-white/80"
+                    ? "bg-card/60 backdrop-blur-sm hover:bg-card/80"
                     : "bg-muted hover:bg-accent",
                 socialLinkClassName,
                 social.className,
@@ -819,7 +812,7 @@ export function LinkTreeBlock({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          isDark ? "text-white/40" : "text-muted-foreground/60",
+          "text-muted-foreground/60",
           footerClassName,
           actionClassName,
         )}
@@ -842,9 +835,9 @@ export function LinkTreeBlock({
       spacing={spacing}
       className={cn(
         theme === "dark"
-          ? "bg-neutral-950"
+          ? "bg-foreground"
           : theme === "glass"
-            ? "bg-linear-to-br from-pink-100 via-purple-50 to-blue-100"
+            ? "bg-gradient-to-br from-muted/50 via-background to-muted/30"
             : "bg-muted/30",
         className,
       )}

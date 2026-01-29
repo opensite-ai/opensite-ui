@@ -172,11 +172,11 @@ const FeaturedPostComponent = ({
             {badgeText}
           </Badge>
           {typeof title === "string" ? (
-            <h2 className="text-2xl leading-[1.2] font-normal text-foreground md:text-[2.5rem] xl:text-[3.125rem]">
+            <h2 className="text-2xl leading-[1.2] font-normal md:text-[2.5rem] xl:text-[3.125rem]">
               {title}
             </h2>
           ) : (
-            <div className="text-2xl leading-[1.2] font-normal text-foreground md:text-[2.5rem] xl:text-[3.125rem]">
+            <div className="text-2xl leading-[1.2] font-normal md:text-[2.5rem] xl:text-[3.125rem]">
               {title}
             </div>
           )}
@@ -277,20 +277,20 @@ export function ResourceListFeaturedArticles({
             href={article.link}
             key={index}
             className={cn(
-              "block w-full hover:bg-foreground/10",
+              "block w-full hover:bg-muted/50",
               article.className,
             )}
           >
-            <div className="flex flex-col items-baseline justify-between gap-2 border-t py-6 text-foreground md:flex-row">
-              <div className="basis-1/4 font-medium">
+            <div className="flex flex-col items-baseline justify-between gap-2 border-t py-6 md:flex-row">
+              <div className="basis-1/4 font-medium text-muted-foreground">
                 {typeof article.date === "string" ? article.date : article.date}
               </div>
-              <div className="basis-1/4">
+              <div className="basis-1/4 text-muted-foreground">
                 {typeof article.category === "string"
                   ? article.category
                   : article.category}
               </div>
-              <div className="basis-1/2 text-muted-foreground">
+              <div className="basis-1/2">
                 {typeof article.title === "string"
                   ? article.title
                   : article.title}

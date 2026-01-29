@@ -224,7 +224,6 @@ export function ListAchievementsShowcase({
                     <DynamicIcon
                       name={item.icon}
                       size={24}
-                      className="text-foreground"
                     />
                   )}
                 </span>

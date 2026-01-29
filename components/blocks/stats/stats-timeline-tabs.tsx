@@ -286,8 +286,8 @@ export function StatsTimelineTabs({
                         className={cn(
                           "flex items-center rounded-full px-2 py-1 text-xs font-medium",
                           isPositive
-                            ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400"
-                            : "bg-rose-50 text-rose-600 dark:bg-rose-950 dark:text-rose-400",
+                            ? "bg-success/10 text-success"
+                            : "bg-destructive/10 text-destructive",
                         )}
                       >
                         <DynamicIcon

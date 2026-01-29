@@ -322,7 +322,7 @@ export function CarouselMultiStepShowcase({
                                 ? "bg-primary-foreground text-primary"
                                 : isCompleted
                                   ? "bg-primary-foreground text-primary"
-                                  : "bg-background",
+                                  : "bg-muted",
                             )}
                           >
                             {isCompleted ? (

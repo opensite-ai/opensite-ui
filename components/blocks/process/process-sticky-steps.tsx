@@ -273,9 +273,9 @@ export function ProcessStickySteps({
                 ))}
               {step.description &&
                 (typeof step.description === "string" ? (
-                  <p className="text-foreground/50">{step.description}</p>
+                  <p className="text-muted-foreground">{step.description}</p>
                 ) : (
-                  <div className="text-foreground/50">{step.description}</div>
+                  <div className="text-muted-foreground">{step.description}</div>
                 ))}
             </div>
           </li>
@@ -318,7 +318,7 @@ export function ProcessStickySteps({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-base text-foreground/50",
+                  "text-base text-muted-foreground",
                   descriptionClassName,
                 )}
               >

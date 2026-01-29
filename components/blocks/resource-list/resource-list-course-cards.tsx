@@ -221,7 +221,7 @@ export function ResourceListCourseCards({
                   <div className="text-2xl font-bold">{course.title}</div>
                 )}
 
-                <div className="space-y-2 text-sm text-foreground/90">
+                <div className="space-y-2 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <DynamicIcon name="lucide/users" size={16} />
                     <span>

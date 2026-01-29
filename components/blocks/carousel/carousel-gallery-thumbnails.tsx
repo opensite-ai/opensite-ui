@@ -266,7 +266,7 @@ export function CarouselGalleryThumbnails({
         {/* Caption */}
         <div
           className={cn(
-            "absolute bottom-0 left-0 right-0 bg-linear-to-t from-foreground/90 to-transparent pt-12 md:pt-24 p-4 md:p-10 font-semibold text-sm text-background text-shadow",
+            "absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/90 to-transparent pt-12 md:pt-24 p-4 md:p-10 font-semibold text-sm text-white text-shadow",
             captionClassName,
           )}
         >
