@@ -202,7 +202,7 @@ export function FeatureBadgeGridSix({
           className={cn("flex gap-6 space-y-4 rounded-lg md:block", cardClassName, feature.className)}
         >
           {iconContent && (
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent md:size-12">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground md:size-12">
               {iconContent}
             </span>
           )}

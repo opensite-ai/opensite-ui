@@ -16,7 +16,11 @@ import {
 } from "../../ui/breadcrumb";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
-import type { SocialLinkItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleBreadcrumbSection {
@@ -72,10 +76,6 @@ export interface ArticleBreadcrumbSocialProps {
    * Additional CSS classes for the TOC container
    */
   tocClassName?: string;
-  /**
-   * Additional CSS classes for the share buttons container
-   */
-  shareClassName?: string;
   /**
    * Breadcrumb navigation items
    */
@@ -134,25 +134,10 @@ export interface ArticleBreadcrumbSocialProps {
   /**
    * Render callback for section links (overrides default rendering)
    */
-  renderSectionLink?: (section: ArticleBreadcrumbSection, isActive: boolean) => React.ReactNode;
-  /**
-   * Social share links
-   */
-  socialLinks?: SocialLinkItem[];
-  /**
-   * @deprecated Use socialLinks instead
-   * Share URLs object (backward compatibility)
-   */
-  shareUrls?: {
-    twitter?: string;
-    facebook?: string;
-    linkedin?: string;
-    instagram?: string;
-  };
-  /**
-   * Custom slot for rendering share buttons (overrides socialLinks)
-   */
-  shareSlot?: React.ReactNode;
+  renderSectionLink?: (
+    section: ArticleBreadcrumbSection,
+    isActive: boolean,
+  ) => React.ReactNode;
   /**
    * Hero image source URL
    */
@@ -209,7 +194,6 @@ export function ArticleBreadcrumbSocialComponent({
   authorClassName,
   heroImageClassName,
   tocClassName,
-  shareClassName,
   breadcrumbs,
   breadcrumbsSlot,
   currentPage,
@@ -224,9 +208,6 @@ export function ArticleBreadcrumbSocialComponent({
   sections,
   tocSlot,
   renderSectionLink,
-  socialLinks: socialLinksProp,
-  shareUrls,
-  shareSlot,
   heroImageSrc,
   heroImageAlt,
   heroMediaSlot,
@@ -235,41 +216,18 @@ export function ArticleBreadcrumbSocialComponent({
   enableBackToTop,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
 }: ArticleBreadcrumbSocialProps) {
-  const author = authorProp ?? (authorName ? { name: authorName, image: authorImage, role: authorRole } : undefined);
-
-  const platformLabels: Record<string, string> = {
-    twitter: "Twitter",
-    x: "X",
-    facebook: "Facebook",
-    linkedin: "LinkedIn",
-    instagram: "Instagram",
-    github: "GitHub",
-  };
-
-  // Map platform names to simple-icons (brand icons) - lucide doesn't have social brand icons
-  const socialIconMap: Record<string, string> = {
-    twitter: "simple-icons/x", // Twitter is now X
-    x: "simple-icons/x",
-    facebook: "simple-icons/facebook",
-    linkedin: "simple-icons/linkedin",
-    instagram: "simple-icons/instagram",
-    github: "simple-icons/github",
-  };
-
-  const socialLinks = socialLinksProp ?? (shareUrls ? Object.entries(shareUrls).filter(([, href]) => href).map(([platform, href]) => ({
-    platform,
-    href: href!,
-    icon: <DynamicIcon name={socialIconMap[platform] || `simple-icons/${platform}`} size={16} />,
-    "aria-label": `Share on ${platformLabels[platform] || platform.charAt(0).toUpperCase() + platform.slice(1)}`,
-    className: undefined,
-  } as const)) : []);
+  const author =
+    authorProp ??
+    (authorName
+      ? { name: authorName, image: authorImage, role: authorRole }
+      : undefined);
 
   const [activeSection, setActiveSection] = React.useState<string>(
-    sections?.[0]?.id || ""
+    sections?.[0]?.id || "",
   );
   const [showBackToTop, setShowBackToTop] = React.useState(false);
 
@@ -284,7 +242,7 @@ export function ArticleBreadcrumbSocialComponent({
           }
         });
       },
-      { rootMargin: "-20% 0px -80% 0px" }
+      { rootMargin: "-20% 0px -80% 0px" },
     );
 
     sections.forEach((section) => {
@@ -354,7 +312,12 @@ export function ArticleBreadcrumbSocialComponent({
     if (!author) return null;
 
     return (
-      <div className={cn("mt-6 flex items-center gap-4 not-prose", authorClassName)}>
+      <div
+        className={cn(
+          "mt-6 flex items-center gap-4 not-prose",
+          authorClassName,
+        )}
+      >
         <Avatar className="h-12 w-12">
           <AvatarImage src={author.image} />
           <AvatarFallback>{author.name?.charAt(0) || "A"}</AvatarFallback>
@@ -379,11 +342,20 @@ export function ArticleBreadcrumbSocialComponent({
       <Img
         src={heroImageSrc}
         alt={heroImageAlt}
-        className={cn("my-8 aspect-video w-full rounded-lg object-cover", heroImageClassName)}
+        className={cn(
+          "my-8 aspect-video w-full rounded-lg object-cover",
+          heroImageClassName,
+        )}
         optixFlowConfig={optixFlowConfig}
       />
     );
-  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
+  }, [
+    heroMediaSlot,
+    heroImageSrc,
+    heroImageAlt,
+    heroImageClassName,
+    optixFlowConfig,
+  ]);
 
   const tocContent = React.useMemo(() => {
     if (tocSlot) return tocSlot;
@@ -396,7 +368,11 @@ export function ArticleBreadcrumbSocialComponent({
           {sections.map((section) => {
             const isActive = activeSection === section.id;
             if (renderSectionLink) {
-              return <React.Fragment key={section.id}>{renderSectionLink(section, isActive)}</React.Fragment>;
+              return (
+                <React.Fragment key={section.id}>
+                  {renderSectionLink(section, isActive)}
+                </React.Fragment>
+              );
             }
             return (
               <Pressable
@@ -406,7 +382,7 @@ export function ArticleBreadcrumbSocialComponent({
                   "block text-sm transition-colors",
                   isActive
                     ? "font-medium text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {section.title}
@@ -417,32 +393,6 @@ export function ArticleBreadcrumbSocialComponent({
       </div>
     );
   }, [tocSlot, sections, activeSection, renderSectionLink, tocClassName]);
-
-  const shareButtonsContent = React.useMemo(() => {
-    if (shareSlot) return shareSlot;
-    if (!socialLinks || socialLinks.length === 0) return null;
-
-    return (
-      <div className={cn("rounded-lg border p-4", shareClassName)}>
-        <h3 className="mb-4 text-sm font-semibold">Share this article</h3>
-        <div className="flex gap-2">
-          {socialLinks.map((link, index) => (
-            <Pressable
-              key={index}
-              href={link.href}
-              className={cn(
-                "flex h-9 w-9 items-center justify-center rounded-md border hover:bg-muted",
-                link.className
-              )}
-              aria-label={link["aria-label"]}
-            >
-              {link.icon}
-            </Pressable>
-          ))}
-        </div>
-      </div>
-    );
-  }, [shareSlot, socialLinks, shareClassName]);
 
   return (
     <Section
@@ -457,16 +407,25 @@ export function ArticleBreadcrumbSocialComponent({
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
           {children && (
-            <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
-              {title && (
-                typeof title === "string" ? (
-                  <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
+            <article
+              className={cn(
+                "prose max-w-none dark:prose-invert",
+                articleClassName,
+              )}
+            >
+              {title &&
+                (typeof title === "string" ? (
+                  <h1
+                    className={cn(
+                      "text-4xl font-bold tracking-tight md:text-5xl",
+                      titleClassName,
+                    )}
+                  >
                     {title}
                   </h1>
                 ) : (
                   <div className={titleClassName}>{title}</div>
-                )
-              )}
+                ))}
 
               {authorContent}
 
@@ -475,20 +434,12 @@ export function ArticleBreadcrumbSocialComponent({
               {heroMediaContent}
 
               {children}
-
-              {/* Mobile share section - hidden on desktop where sidebar shows */}
-              {shareButtonsContent && (
-                <div className="not-prose mt-8 lg:hidden">
-                  {shareButtonsContent}
-                </div>
-              )}
             </article>
           )}
 
           <aside className={cn("hidden lg:block", sidebarClassName)}>
             <div className="sticky top-8 space-y-6">
               {tocContent}
-              {shareButtonsContent}
             </div>
           </aside>
         </div>

@@ -289,7 +289,7 @@ export function FeatureChecklistThreeColumn({
           {card.badge && (
             <Badge
               variant="outline"
-              className={cn("absolute top-5 left-5 bg-primary-foreground", card.badgeClassName)}
+              className={cn("absolute top-5 left-5 bg-background", card.badgeClassName)}
             >
               {card.badge}
             </Badge>

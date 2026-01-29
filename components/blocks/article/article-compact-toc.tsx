@@ -15,11 +15,7 @@ import {
 } from "../../ui/breadcrumb";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "../../ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import type {
   OptixFlowConfig,
   SocialLinkItem,
@@ -208,7 +204,7 @@ export function ArticleCompactTocComponent({
   enableTocTracking = true,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
 }: ArticleCompactTocProps) {

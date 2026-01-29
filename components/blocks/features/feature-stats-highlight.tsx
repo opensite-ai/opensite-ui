@@ -209,10 +209,10 @@ export function FeatureStatsHighlight({
     return stats.map((stat, index) => (
       <div
         key={index}
-        className={cn("flex flex-col gap-2 rounded-xl border bg-muted/30 p-6", statCardClassName, stat.className)}
+        className={cn("flex flex-col gap-2 rounded-xl border bg-card p-6", statCardClassName, stat.className)}
       >
         {stat.value && (
-          <span className={cn("text-4xl font-bold text-primary lg:text-5xl", stat.valueClassName)}>
+          <span className={cn("text-4xl font-bold lg:text-5xl", stat.valueClassName)}>
             {stat.value}
           </span>
         )}

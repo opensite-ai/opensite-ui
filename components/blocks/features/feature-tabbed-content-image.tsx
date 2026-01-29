@@ -9,7 +9,12 @@ import { Img } from "@page-speed/img";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureTabbedContentImageFeatureItem {
   /**
@@ -233,40 +238,68 @@ export function FeatureTabbedContentImage({
   contentGridClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
 }: FeatureTabbedContentImageProps): React.JSX.Element {
-  const renderFeatures = React.useCallback((slide: FeatureTabbedContentImageSlide) => {
-    if (slide.featuresSlot) return slide.featuresSlot;
-    if (!slide.features || slide.features.length === 0) return null;
+  const renderFeatures = React.useCallback(
+    (slide: FeatureTabbedContentImageSlide) => {
+      if (slide.featuresSlot) return slide.featuresSlot;
+      if (!slide.features || slide.features.length === 0) return null;
 
-    return slide.features.map((feature, index) => {
-      const isString = typeof feature === "string";
-      const content = isString ? feature : feature.content;
-      const iconElement = isString ? (
-        <DynamicIcon name="lucide/check-circle-2" size={16} />
-      ) : (
-        feature.icon ?? (feature.iconName ? <DynamicIcon name={feature.iconName} size={16} /> : <DynamicIcon name="lucide/check-circle-2" size={16} />)
-      );
-      const itemClassName = isString ? undefined : feature.className;
+      return slide.features.map((feature, index) => {
+        const isString = typeof feature === "string";
+        const content = isString ? feature : feature.content;
+        const iconElement = isString ? (
+          <DynamicIcon name="lucide/check-circle-2" size={16} />
+        ) : (
+          (feature.icon ??
+          (feature.iconName ? (
+            <DynamicIcon name={feature.iconName} size={16} />
+          ) : (
+            <DynamicIcon name="lucide/check-circle-2" size={16} />
+          )))
+        );
+        const itemClassName = isString ? undefined : feature.className;
 
-      return (
-        <li key={index} className={cn("flex items-center gap-2", itemClassName)}>
-          {iconElement}
-          <span className="font-medium">{content}</span>
-        </li>
-      );
-    });
-  }, []);
+        return (
+          <li
+            key={index}
+            className={cn("flex items-center gap-2", itemClassName)}
+          >
+            {iconElement}
+            <span className="font-medium">{content}</span>
+          </li>
+        );
+      });
+    },
+    [],
+  );
 
-  const renderActions = React.useCallback((slide: FeatureTabbedContentImageSlide) => {
-    if (slide.actionsSlot) return slide.actionsSlot;
-    if (!slide.actions || slide.actions.length === 0) return null;
+  const renderActions = React.useCallback(
+    (slide: FeatureTabbedContentImageSlide) => {
+      if (slide.actionsSlot) return slide.actionsSlot;
+      if (!slide.actions || slide.actions.length === 0) return null;
 
-    return slide.actions.map((action, index) => {
-      if (action.children) {
+      return slide.actions.map((action, index) => {
+        if (action.children) {
+          return (
+            <Pressable
+              key={index}
+              href={action.href}
+              onClick={action.onClick}
+              variant={action.variant}
+              size={action.size}
+              className={cn("mt-8", action.className)}
+              aria-label={action["aria-label"]}
+              asButton
+            >
+              {action.children}
+            </Pressable>
+          );
+        }
+
         return (
           <Pressable
             key={index}
@@ -278,46 +311,40 @@ export function FeatureTabbedContentImage({
             aria-label={action["aria-label"]}
             asButton
           >
-            {action.children}
+            {action.icon}
+            {action.label}
+            {action.iconAfter}
           </Pressable>
         );
-      }
+      });
+    },
+    [],
+  );
+
+  const renderImage = React.useCallback(
+    (slide: FeatureTabbedContentImageSlide) => {
+      if (slide.imageSlot) return slide.imageSlot;
+      if (!slide.image) return null;
+
+      const imageAlt =
+        slide.imageAlt ||
+        (typeof slide.title === "string" ? slide.title : "Tab content image");
 
       return (
-        <Pressable
-          key={index}
-          href={action.href}
-          onClick={action.onClick}
-          variant={action.variant}
-          size={action.size}
-          className={cn("mt-8", action.className)}
-          aria-label={action["aria-label"]}
-          asButton
-        >
-          {action.icon}
-          {action.label}
-          {action.iconAfter}
-        </Pressable>
+        <Img
+          src={slide.image}
+          alt={imageAlt}
+          className={cn(
+            "order-first max-h-[400px] w-full rounded-lg object-cover md:order-last",
+            slide.imageClassName,
+          )}
+          loading="lazy"
+          optixFlowConfig={optixFlowConfig}
+        />
       );
-    });
-  }, []);
-
-  const renderImage = React.useCallback((slide: FeatureTabbedContentImageSlide) => {
-    if (slide.imageSlot) return slide.imageSlot;
-    if (!slide.image) return null;
-
-    const imageAlt = slide.imageAlt || (typeof slide.title === "string" ? slide.title : "Tab content image");
-
-    return (
-      <Img
-        src={slide.image}
-        alt={imageAlt}
-        className={cn("order-first max-h-[400px] w-full rounded-lg object-cover md:order-last", slide.imageClassName)}
-        loading="lazy"
-        optixFlowConfig={optixFlowConfig}
-      />
-    );
-  }, [optixFlowConfig]);
+    },
+    [optixFlowConfig],
+  );
 
   const slidesContent = useMemo(() => {
     if (slidesSlot) return slidesSlot;
@@ -330,7 +357,10 @@ export function FeatureTabbedContentImage({
             <TabsTrigger
               key={slide.id}
               value={slide.id.toString()}
-              className={cn("text-sm hover:bg-background md:text-base", tabTriggerClassName)}
+              className={cn(
+                "text-sm hover:bg-background md:text-base",
+                tabTriggerClassName,
+              )}
             >
               {slide.tabName}
             </TabsTrigger>
@@ -342,32 +372,62 @@ export function FeatureTabbedContentImage({
             key={slide.id}
             className={cn("max-w-5xl", tabContentClassName)}
           >
-            <div className={cn("grid grid-cols-1 items-center gap-10 md:grid-cols-2", contentGridClassName, slide.className)}>
+            <div
+              className={cn(
+                "grid grid-cols-1 items-center gap-10 md:grid-cols-2",
+                contentGridClassName,
+                slide.className,
+              )}
+            >
               <div>
-                {slide.title && (
-                  typeof slide.title === "string" ? (
-                    <h2 className={cn("mb-4 text-2xl font-semibold lg:text-4xl", slide.titleClassName)}>
+                {slide.title &&
+                  (typeof slide.title === "string" ? (
+                    <h2
+                      className={cn(
+                        "mb-4 text-2xl font-semibold lg:text-4xl",
+                        slide.titleClassName,
+                      )}
+                    >
                       {slide.title}
                     </h2>
                   ) : (
-                    <div className={cn("mb-4 text-2xl font-semibold lg:text-4xl", slide.titleClassName)}>
+                    <div
+                      className={cn(
+                        "mb-4 text-2xl font-semibold lg:text-4xl",
+                        slide.titleClassName,
+                      )}
+                    >
                       {slide.title}
                     </div>
-                  )
-                )}
-                {slide.description && (
-                  typeof slide.description === "string" ? (
-                    <p className={cn("text-muted-foreground lg:text-xl", slide.descriptionClassName)}>
+                  ))}
+                {slide.description &&
+                  (typeof slide.description === "string" ? (
+                    <p
+                      className={cn(
+                        "text-muted-foreground lg:text-xl",
+                        slide.descriptionClassName,
+                      )}
+                    >
                       {slide.description}
                     </p>
                   ) : (
-                    <div className={cn("text-muted-foreground lg:text-xl", slide.descriptionClassName)}>
+                    <div
+                      className={cn(
+                        "text-muted-foreground lg:text-xl",
+                        slide.descriptionClassName,
+                      )}
+                    >
                       {slide.description}
                     </div>
-                  )
-                )}
-                {(slide.features && slide.features.length > 0) || slide.featuresSlot ? (
-                  <ul className={cn("mt-8 grid grid-cols-1 gap-2 lg:grid-cols-2", slide.featuresClassName)}>
+                  ))}
+                {(slide.features && slide.features.length > 0) ||
+                slide.featuresSlot ? (
+                  <ul
+                    className={cn(
+                      "mt-8 grid grid-cols-1 gap-2 lg:grid-cols-2",
+                      slide.featuresClassName,
+                    )}
+                  >
                     {renderFeatures(slide)}
                   </ul>
                 ) : null}
@@ -379,7 +439,17 @@ export function FeatureTabbedContentImage({
         ))}
       </>
     );
-  }, [slidesSlot, slides, tabsListClassName, tabTriggerClassName, tabContentClassName, contentGridClassName, renderFeatures, renderActions, renderImage]);
+  }, [
+    slidesSlot,
+    slides,
+    tabsListClassName,
+    tabTriggerClassName,
+    tabContentClassName,
+    contentGridClassName,
+    renderFeatures,
+    renderActions,
+    renderImage,
+  ]);
 
   // Determine the default tab value
   const effectiveDefaultTab = useMemo(() => {
@@ -398,35 +468,61 @@ export function FeatureTabbedContentImage({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto flex max-w-3xl flex-col items-center gap-6", headerClassName)}>
-        {title && (
-          typeof title === "string" ? (
-            <h2 className={cn("text-center text-3xl font-semibold lg:text-5xl", titleClassName)}>
+      <div
+        className={cn(
+          "mx-auto flex max-w-3xl flex-col items-center gap-6",
+          headerClassName,
+        )}
+      >
+        {title &&
+          (typeof title === "string" ? (
+            <h2
+              className={cn(
+                "text-center text-3xl font-semibold lg:text-5xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h2>
           ) : (
-            <div className={cn("text-center text-3xl font-semibold lg:text-5xl", titleClassName)}>
+            <div
+              className={cn(
+                "text-center text-3xl font-semibold lg:text-5xl",
+                titleClassName,
+              )}
+            >
               {title}
             </div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("text-center text-balance text-muted-foreground lg:text-xl", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "text-center text-balance text-muted-foreground lg:text-xl",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("text-center text-balance text-muted-foreground lg:text-xl", descriptionClassName)}>
+            <div
+              className={cn(
+                "text-center text-balance text-muted-foreground lg:text-xl",
+                descriptionClassName,
+              )}
+            >
               {description}
             </div>
-          )
-        )}
+          ))}
       </div>
       {(slidesSlot || (slides && slides.length > 0)) && (
         <div className={cn("mt-12", tabsWrapperClassName)}>
           <Tabs
             defaultValue={effectiveDefaultTab}
-            className={cn("mx-auto flex w-fit flex-col items-center gap-8 md:gap-12", tabsClassName)}
+            className={cn(
+              "mx-auto flex w-fit flex-col items-center gap-8 md:gap-12",
+              tabsClassName,
+            )}
           >
             {slidesContent}
           </Tabs>

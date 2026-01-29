@@ -7,7 +7,11 @@ import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureCardGridLinkedItem {
   /**
@@ -160,26 +164,29 @@ export function FeatureCardGridLinked({
   cardClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
 }: FeatureCardGridLinkedProps): React.JSX.Element {
-  const renderImage = useCallback((feature: FeatureCardGridLinkedItem, imageAlt: string) => {
-    if (feature.imageSlot) return feature.imageSlot;
-    if (feature.image) {
-      return (
-        <Img
-          src={feature.image}
-          alt={imageAlt}
-          className="h-full w-full rounded-t-lg object-cover transition-opacity hover:opacity-80"
-          loading="lazy"
-          optixFlowConfig={optixFlowConfig}
-        />
-      );
-    }
-    return null;
-  }, [optixFlowConfig]);
+  const renderImage = useCallback(
+    (feature: FeatureCardGridLinkedItem, imageAlt: string) => {
+      if (feature.imageSlot) return feature.imageSlot;
+      if (feature.image) {
+        return (
+          <Img
+            src={feature.image}
+            alt={imageAlt}
+            className="h-full w-full rounded-t-lg object-cover transition-opacity hover:opacity-80"
+            loading="lazy"
+            optixFlowConfig={optixFlowConfig}
+          />
+        );
+      }
+      return null;
+    },
+    [optixFlowConfig],
+  );
 
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
@@ -187,28 +194,51 @@ export function FeatureCardGridLinked({
 
     return features.map((feature, index) => {
       const featureKey = feature.id || `feature-${index}`;
-      const imageAlt = feature.imageAlt || (typeof feature.heading === "string" ? feature.heading : "Feature image");
+      const imageAlt =
+        feature.imageAlt ||
+        (typeof feature.heading === "string"
+          ? feature.heading
+          : "Feature image");
 
       return (
         <div
           key={featureKey}
-          className={cn("flex flex-col justify-between rounded-lg bg-muted", cardClassName, feature.className)}
+          className={cn(
+            "flex flex-col justify-between rounded-lg bg-muted border",
+            cardClassName,
+            feature.className,
+          )}
         >
           <div className="flex justify-between gap-10 border-b">
             <div className="flex flex-col justify-between gap-8 py-6 pl-4 md:gap-14 md:py-10 md:pl-8 lg:justify-normal">
               {feature.label && (
-                <span className={cn("font-mono text-xs text-muted-foreground", feature.labelClassName)}>
+                <span
+                  className={cn(
+                    "font-bold text-xs uppercase opacity-75",
+                    feature.labelClassName,
+                  )}
+                >
                   {feature.label}
                 </span>
               )}
               {feature.heading && (
                 <Pressable href={feature.url}>
                   {typeof feature.heading === "string" ? (
-                    <h3 className={cn("text-2xl transition-all hover:text-primary hover:opacity-80 sm:text-3xl lg:text-4xl", feature.headingClassName)}>
+                    <h3
+                      className={cn(
+                        "text-xl transition-all hover:opacity-80 md:text-2xl font-semibold leading-snug tracking-tighter",
+                        feature.headingClassName,
+                      )}
+                    >
                       {feature.heading}
                     </h3>
                   ) : (
-                    <div className={cn("text-2xl transition-all hover:text-primary hover:opacity-80 sm:text-3xl lg:text-4xl", feature.headingClassName)}>
+                    <div
+                      className={cn(
+                        "text-xl transition-all hover:opacity-80 md:text-2xl font-semibold leading-snug tracking-tighter",
+                        feature.headingClassName,
+                      )}
+                    >
                       {feature.heading}
                     </div>
                   )}
@@ -222,7 +252,12 @@ export function FeatureCardGridLinked({
             </div>
           </div>
           {feature.description && (
-            <p className={cn("p-4 text-muted-foreground md:p-8", feature.descriptionClassName)}>
+            <p
+              className={cn(
+                "p-4 text-muted-foreground md:p-8",
+                feature.descriptionClassName,
+              )}
+            >
               {feature.description}
             </p>
           )}
@@ -242,13 +277,28 @@ export function FeatureCardGridLinked({
       containerClassName={containerClassName}
     >
       {title && (
-        <div className={cn("mx-auto mb-16 max-w-3xl text-center", titleWrapperClassName)}>
+        <div
+          className={cn(
+            "mx-auto mb-16 max-w-3xl text-center",
+            titleWrapperClassName,
+          )}
+        >
           {typeof title === "string" ? (
-            <h2 className={cn("text-4xl font-medium text-pretty lg:text-5xl", titleClassName)}>
+            <h2
+              className={cn(
+                "text-4xl font-medium text-pretty lg:text-5xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h2>
           ) : (
-            <div className={cn("text-4xl font-medium text-pretty lg:text-5xl", titleClassName)}>
+            <div
+              className={cn(
+                "text-4xl font-medium text-pretty lg:text-5xl",
+                titleClassName,
+              )}
+            >
               {title}
             </div>
           )}

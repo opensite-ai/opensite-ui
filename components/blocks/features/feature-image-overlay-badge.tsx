@@ -10,7 +10,12 @@ import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureImageOverlayBadgeProps {
   /**
@@ -200,7 +205,7 @@ export function FeatureImageOverlayBadge({
   overlayTitleClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -253,7 +258,10 @@ export function FeatureImageOverlayBadge({
         <Img
           src={imageSrc}
           alt={imageAlt || "Feature illustration"}
-          className={cn("rounded-xl object-cover md:aspect-video lg:aspect-auto", imageClassName)}
+          className={cn(
+            "rounded-2xl object-cover md:aspect-video lg:aspect-auto w-full h-auto",
+            imageClassName,
+          )}
           loading="lazy"
           optixFlowConfig={optixFlowConfig}
         />
@@ -272,40 +280,79 @@ export function FeatureImageOverlayBadge({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("grid place-items-center gap-10 lg:grid-cols-2", gridClassName)}>
+      <div
+        className={cn(
+          "grid place-items-center gap-10 lg:grid-cols-2",
+          gridClassName,
+        )}
+      >
         <div className={cn("flex flex-col gap-5", contentClassName)}>
           {badge && (
-            <Badge variant="outline" className={cn("w-fit bg-background", badgeClassName)}>
+            <Badge variant="outline" className={cn("", badgeClassName)}>
               {badge}
             </Badge>
           )}
-          {title && (
-            typeof title === "string" ? (
-              <h3 className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</h3>
+          {title &&
+            (typeof title === "string" ? (
+              <h3
+                className={cn(
+                  "text-3xl font-semibold lg:text-4xl leading-snug text-balance",
+                  titleClassName,
+                )}
+              >
+                {title}
+              </h3>
             ) : (
-              <div className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</p>
+              <div
+                className={cn(
+                  "text-3xl font-semibold lg:text-5xl",
+                  titleClassName,
+                )}
+              >
+                {title}
+              </div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p className={cn("lg:text-lg", descriptionClassName)}>
+                {description}
+              </p>
             ) : (
-              <div className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</div>
-            )
-          )}
-          <div className={actionsClassName}>
+              <div className={cn("lg:text-lg", descriptionClassName)}>
+                {description}
+              </div>
+            ))}
+          <div
+            className={cn(
+              "flex items-center gap-4 flex-wrap",
+              actionsClassName,
+            )}
+          >
             {actionsContent}
           </div>
         </div>
         {imageContent && (
-          <div className={cn("relative rounded-xl", imageWrapperClassName)}>
+          <div className={cn("relative rounded-2xl", imageWrapperClassName)}>
             {imageContent}
-            {(avatarSrc || avatarBadgeText || overlayTitle || overlayLinkText) && (
+            {(avatarSrc ||
+              avatarBadgeText ||
+              overlayTitle ||
+              overlayLinkText) && (
               <>
-                <div className={cn("absolute top-0 right-0 bottom-0 left-0 rounded-xl bg-linear-to-t from-primary via-transparent to-transparent", overlayClassName)}></div>
-                <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
+                <div
+                  className={cn(
+                    "absolute top-0 right-0 bottom-0 left-0 rounded-2xl bg-linear-to-t from-black via-black/20 to-transparent",
+                    overlayClassName,
+                  )}
+                ></div>
+                <div className="absolute top-0 flex h-full w-full flex-col justify-between pt-4 pr-4 pl-4 pb-8 md:pt-7 md:bpr-7 md:pl-7 md:pb-7 rounded-2xl">
                   {(avatarSrc || avatarBadgeText) && (
-                    <span className={cn("ml-auto flex w-fit items-center gap-2 rounded-full bg-background/30 px-4 py-2.5 text-sm font-semibold backdrop-blur-sm", avatarBadgeClassName)}>
+                    <span
+                      className={cn(
+                        "ml-auto flex w-fit items-center gap-2 rounded-full bg-background/30 px-4 py-2.5 text-sm font-semibold backdrop-blur-sm shadow-xl",
+                        avatarBadgeClassName,
+                      )}
+                    >
                       {avatarSrc && (
                         <Avatar className="size-7 rounded-full">
                           <AvatarImage src={avatarSrc} alt="Avatar" />
@@ -315,26 +362,34 @@ export function FeatureImageOverlayBadge({
                     </span>
                   )}
                   {(overlayTitle || overlayLinkText) && (
-                    <div className="flex flex-col gap-5 text-background">
-                      {overlayTitle && (
-                        typeof overlayTitle === "string" ? (
-                          <h4 className={cn("text-lg font-semibold lg:text-3xl", overlayTitleClassName)}>
+                    <div className="flex flex-col gap-5">
+                      {overlayTitle &&
+                        (typeof overlayTitle === "string" ? (
+                          <h4
+                            className={cn(
+                              "text-lg font-semibold lg:text-3xl",
+                              overlayTitleClassName,
+                            )}
+                          >
                             {overlayTitle}
                           </h4>
                         ) : (
-                          <div className={cn("text-lg font-semibold lg:text-3xl", overlayTitleClassName)}>
+                          <div
+                            className={cn(
+                              "text-lg font-semibold lg:text-3xl",
+                              overlayTitleClassName,
+                            )}
+                          >
                             {overlayTitle}
                           </div>
-                        )
-                      )}
+                        ))}
                       {overlayLinkText && (
                         <Pressable
                           href={overlayLinkUrl}
                           onClick={overlayLinkOnClick}
-                          className="flex items-center gap-1 font-medium"
                         >
                           {overlayLinkText}
-                          <DynamicIcon name="lucide/chevron-right" size={16} />
+                          <DynamicIcon name="lucide/chevron-right" size={18} />
                         </Pressable>
                       )}
                     </div>

@@ -8,7 +8,12 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureChecklistItem {
   /**
@@ -168,7 +173,7 @@ export function FeatureChecklistImage({
   checklistClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -222,7 +227,10 @@ export function FeatureChecklistImage({
       <Img
         src={imageSrc}
         alt={imageAlt || "Feature illustration"}
-        className={cn("max-h-96 w-full rounded-lg object-cover md:max-h-[500px] md:w-1/2", imageClassName)}
+        className={cn(
+          "max-h-96 w-full rounded-lg object-cover md:max-h-[500px] md:w-1/2",
+          imageClassName,
+        )}
         loading="lazy"
         optixFlowConfig={optixFlowConfig}
       />
@@ -239,12 +247,20 @@ export function FeatureChecklistImage({
       const iconElement = isString ? (
         <DynamicIcon name="lucide/circle-check-big" size={16} />
       ) : (
-        item.icon ?? (item.iconName ? <DynamicIcon name={item.iconName} size={16} /> : <DynamicIcon name="lucide/circle-check-big" size={16} />)
+        (item.icon ??
+        (item.iconName ? (
+          <DynamicIcon name={item.iconName} size={16} />
+        ) : (
+          <DynamicIcon name="lucide/circle-check-big" size={16} />
+        )))
       );
       const itemClassName = isString ? undefined : item.className;
 
       return (
-        <li key={index} className={cn("flex items-center gap-3", itemClassName)}>
+        <li
+          key={index}
+          className={cn("flex items-center gap-3", itemClassName)}
+        >
           {iconElement}
           {content}
         </li>
@@ -262,34 +278,71 @@ export function FeatureChecklistImage({
       className={className}
       containerClassName={cn("max-w-6xl", containerClassName)}
     >
-      <div className={cn("flex flex-col gap-12 md:flex-row", contentWrapperClassName)}>
+      <div
+        className={cn(
+          "flex flex-col gap-12 md:flex-row",
+          contentWrapperClassName,
+        )}
+      >
         {imageContent}
         <div className={cn("lg:p-10", contentClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-medium text-balance md:text-5xl", titleClassName)}>
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-medium text-balance md:text-5xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
-              <div className={cn("text-3xl font-medium text-balance md:text-5xl", titleClassName)}>
+              <div
+                className={cn(
+                  "text-3xl font-medium text-balance md:text-5xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-1 text-muted-foreground md:mt-6", descriptionClassName)}>{description}</p>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-1 text-muted-foreground md:mt-6",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
             ) : (
-              <div className={cn("mt-1 text-muted-foreground md:mt-6", descriptionClassName)}>{description}</div>
-            )
-          )}
+              <div
+                className={cn(
+                  "mt-1 text-muted-foreground md:mt-6",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </div>
+            ))}
           {actionsContent && (
-            <div className={actionsClassName}>
+            <div
+              className={cn(
+                "flex flex-wrap items-center gap-2",
+                actionsClassName,
+              )}
+            >
               {actionsContent}
             </div>
           )}
           {checklistContent && (
-            <ul className={cn("mt-10 flex-wrap items-center gap-6 space-y-6 md:flex md:space-y-0", checklistClassName)}>
+            <ul
+              className={cn(
+                "mt-10 flex-wrap items-center gap-6 space-y-6 md:flex md:space-y-0",
+                checklistClassName,
+              )}
+            >
               {checklistContent}
             </ul>
           )}

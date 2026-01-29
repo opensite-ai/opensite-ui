@@ -209,7 +209,7 @@ export function FeatureCarouselProgress({
             <CardContent className="flex flex-col justify-center p-6">
               <div>
                 {(slide.icon || slide.iconName) && (
-                  <span className={cn("mb-5 flex size-8 items-center justify-center rounded-full bg-accent lg:size-10", slide.iconClassName)}>
+                  <span className={cn("mb-5 flex size-8 items-center justify-center rounded-full bg-primary text-primary-foreground lg:size-10", slide.iconClassName)}>
                     {renderSlideIcon(slide)}
                   </span>
                 )}

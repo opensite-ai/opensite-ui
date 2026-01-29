@@ -138,7 +138,7 @@ export function FeatureIconGridBordered({
   gridClassName,
   cardClassName,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -146,7 +146,9 @@ export function FeatureIconGridBordered({
   const renderIcon = useCallback((feature: FeatureIconGridBorderedItem) => {
     if (feature.icon) return feature.icon;
     if (feature.iconName) {
-      return <DynamicIcon name={feature.iconName} size={20} className="md:size-6" />;
+      return (
+        <DynamicIcon name={feature.iconName} size={20} className="md:size-6" />
+      );
     }
     return null;
   }, []);
@@ -158,38 +160,65 @@ export function FeatureIconGridBordered({
     return features.map((feature, index) => (
       <div
         key={index}
-        className={cn("relative flex gap-3 rounded-lg border-dashed md:block md:border-l md:p-5", cardClassName, feature.className)}
+        className={cn(
+          "relative flex gap-3 rounded-lg border-dashed md:block md:border-l md:p-5",
+          cardClassName,
+          feature.className,
+        )}
       >
         {(feature.icon || feature.iconName) && (
-          <span className={cn("mb-8 flex size-10 shrink-0 items-center justify-center rounded-full bg-accent md:size-12", feature.iconClassName)}>
+          <span
+            className={cn(
+              "mb-8 flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground md:size-12",
+              feature.iconClassName,
+            )}
+          >
             {renderIcon(feature)}
           </span>
         )}
         <div>
-          {feature.title && (
-            typeof feature.title === "string" ? (
-              <h3 className={cn("font-medium md:mb-2 md:text-xl", feature.titleClassName)}>
+          {feature.title &&
+            (typeof feature.title === "string" ? (
+              <h3
+                className={cn(
+                  "font-medium md:mb-2 md:text-xl",
+                  feature.titleClassName,
+                )}
+              >
                 {feature.title}
                 <span className="absolute -left-px hidden h-6 w-px bg-primary md:inline-block"></span>
               </h3>
             ) : (
-              <div className={cn("font-medium md:mb-2 md:text-xl", feature.titleClassName)}>
+              <div
+                className={cn(
+                  "font-medium md:mb-2 md:text-xl",
+                  feature.titleClassName,
+                )}
+              >
                 {feature.title}
                 <span className="absolute -left-px hidden h-6 w-px bg-primary md:inline-block"></span>
               </div>
-            )
-          )}
-          {feature.description && (
-            typeof feature.description === "string" ? (
-              <p className={cn("text-sm text-muted-foreground md:text-base", feature.descriptionClassName)}>
+            ))}
+          {feature.description &&
+            (typeof feature.description === "string" ? (
+              <p
+                className={cn(
+                  "text-sm md:text-base",
+                  feature.descriptionClassName,
+                )}
+              >
                 {feature.description}
               </p>
             ) : (
-              <div className={cn("text-sm text-muted-foreground md:text-base", feature.descriptionClassName)}>
+              <div
+                className={cn(
+                  "text-sm md:text-base",
+                  feature.descriptionClassName,
+                )}
+              >
                 {feature.description}
               </div>
-            )
-          )}
+            ))}
         </div>
       </div>
     ));
@@ -205,22 +234,33 @@ export function FeatureIconGridBordered({
       className={className}
       containerClassName={containerClassName}
     >
-      {label && (
-        typeof label === "string" ? (
-          <p className={cn("mb-4 text-xs text-muted-foreground", labelClassName)}>{label}</p>
+      {label &&
+        (typeof label === "string" ? (
+          <p className={cn("mb-4 text-xs ", labelClassName)}>{label}</p>
         ) : (
-          <div className={cn("mb-4 text-xs text-muted-foreground", labelClassName)}>{label}</div>
-        )
-      )}
-      {title && (
-        typeof title === "string" ? (
-          <h2 className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</h2>
+          <div className={cn("mb-4 text-xs ", labelClassName)}>{label}</div>
+        ))}
+      {title &&
+        (typeof title === "string" ? (
+          <h2
+            className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}
+          >
+            {title}
+          </h2>
         ) : (
-          <div className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</div>
-        )
-      )}
+          <div
+            className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}
+          >
+            {title}
+          </div>
+        ))}
       {(featuresSlot || (features && features.length > 0)) && (
-        <div className={cn("mt-14 grid gap-6 md:grid-cols-2 lg:mt-20 lg:grid-cols-4", gridClassName)}>
+        <div
+          className={cn(
+            "mt-14 grid gap-6 md:grid-cols-2 lg:mt-20 lg:grid-cols-4",
+            gridClassName,
+          )}
+        >
           {featuresContent}
         </div>
       )}

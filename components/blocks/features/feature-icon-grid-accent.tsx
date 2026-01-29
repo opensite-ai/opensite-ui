@@ -6,7 +6,11 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { FeatureItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureIconGridAccentItem {
   /**
@@ -159,43 +163,52 @@ export function FeatureIconGridAccent({
     if (!features || features.length === 0) return null;
 
     return features.map((feature, index) => {
-      const iconElement = feature.icon ?? (
-        feature.iconName ? <DynamicIcon name={feature.iconName} size={24} /> : null
-      );
+      const iconElement =
+        feature.icon ??
+        (feature.iconName ? (
+          <DynamicIcon name={feature.iconName} size={24} />
+        ) : null);
 
       return (
         <div
           key={index}
           className={cn(
-            "flex flex-col justify-between rounded-lg bg-accent p-6 md:min-h-[300px] md:p-8",
+            "flex flex-col justify-between rounded-lg p-6 md:min-h-[300px] md:p-8",
             cardClassName,
-            feature.className
+            feature.className,
           )}
         >
           {iconElement && (
-            <span className={cn("mb-6 flex size-11 items-center justify-center rounded-full bg-background", feature.iconClassName)}>
+            <span
+              className={cn(
+                "mb-6 flex size-11 items-center justify-center rounded-full",
+                feature.iconClassName,
+              )}
+            >
               {iconElement}
             </span>
           )}
           <div>
-            {feature.title && (
-              typeof feature.title === "string" ? (
+            {feature.title &&
+              (typeof feature.title === "string" ? (
                 <h3 className="text-lg font-medium md:text-2xl">
                   {feature.title}
                 </h3>
               ) : (
-                <div className="text-lg font-medium md:text-2xl">{feature.title}</div>
-              )
-            )}
-            {feature.description && (
-              typeof feature.description === "string" ? (
+                <div className="text-lg font-medium md:text-2xl">
+                  {feature.title}
+                </div>
+              ))}
+            {feature.description &&
+              (typeof feature.description === "string" ? (
                 <p className="mt-2 text-muted-foreground">
                   {feature.description}
                 </p>
               ) : (
-                <div className="mt-2 text-muted-foreground">{feature.description}</div>
-              )
-            )}
+                <div className="mt-2 text-muted-foreground">
+                  {feature.description}
+                </div>
+              ))}
           </div>
         </div>
       );
@@ -213,34 +226,52 @@ export function FeatureIconGridAccent({
       containerClassName={containerClassName}
     >
       {(label || title || description) && (
-        <div className={cn("flex w-full flex-col items-center", headerClassName)}>
+        <div
+          className={cn("flex w-full flex-col items-center", headerClassName)}
+        >
           <div className="flex flex-col items-center space-y-4 text-center sm:space-y-6 md:max-w-3xl md:text-center">
-            {label && (
-              typeof label === "string" ? (
-                <p className={cn("text-sm text-muted-foreground", labelClassName)}>{label}</p>
+            {label &&
+              (typeof label === "string" ? (
+                <p className={cn("text-sm", labelClassName)}>{label}</p>
               ) : (
                 <div className={labelClassName}>{label}</div>
-              )
-            )}
-            {title && (
-              typeof title === "string" ? (
-                <h2 className={cn("text-3xl font-medium md:text-5xl", titleClassName)}>{title}</h2>
+              ))}
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-3xl font-medium md:text-5xl text-balance",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
               ) : (
                 <div className={titleClassName}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-muted-foreground md:max-w-2xl", descriptionClassName)}>{description}</p>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "md:max-w-2xl text-balance",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
           </div>
         </div>
       )}
       {featuresContent && (
-        <div className={cn("mx-auto mt-20 grid max-w-5xl gap-6 md:grid-cols-2", gridClassName)}>
+        <div
+          className={cn(
+            "mx-auto mt-20 grid max-w-5xl gap-6 md:grid-cols-2",
+            gridClassName,
+          )}
+        >
           {featuresContent}
         </div>
       )}

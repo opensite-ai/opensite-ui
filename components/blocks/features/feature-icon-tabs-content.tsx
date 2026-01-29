@@ -10,7 +10,12 @@ import { Img } from "@page-speed/img";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureIconTabsContentTabContent {
   /**
@@ -239,7 +244,7 @@ export function FeatureIconTabsContent({
   tabContentClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -250,12 +255,29 @@ export function FeatureIconTabsContent({
     return null;
   }, []);
 
-  const renderTabContentActions = useCallback((content: FeatureIconTabsContentTabContent) => {
-    if (content.actionsSlot) return content.actionsSlot;
-    if (!content.actions || content.actions.length === 0) return null;
+  const renderTabContentActions = useCallback(
+    (content: FeatureIconTabsContentTabContent) => {
+      if (content.actionsSlot) return content.actionsSlot;
+      if (!content.actions || content.actions.length === 0) return null;
 
-    return content.actions.map((action, index) => {
-      if (action.children) {
+      return content.actions.map((action, index) => {
+        if (action.children) {
+          return (
+            <Pressable
+              key={index}
+              href={action.href}
+              onClick={action.onClick}
+              variant={action.variant}
+              size={action.size}
+              className={cn("mt-2.5 w-fit gap-2", action.className)}
+              aria-label={action["aria-label"]}
+              asButton
+            >
+              {action.children}
+            </Pressable>
+          );
+        }
+
         return (
           <Pressable
             key={index}
@@ -267,45 +289,37 @@ export function FeatureIconTabsContent({
             aria-label={action["aria-label"]}
             asButton
           >
-            {action.children}
+            {action.icon}
+            {action.label}
+            {action.iconAfter}
           </Pressable>
         );
+      });
+    },
+    [],
+  );
+
+  const renderTabContentImage = useCallback(
+    (content: FeatureIconTabsContentTabContent) => {
+      if (content.imageSlot) return content.imageSlot;
+      if (content.imageSrc) {
+        return (
+          <Img
+            src={content.imageSrc}
+            alt={content.imageAlt || "Tab content image"}
+            className={cn(
+              "h-full w-full rounded-xl object-cover",
+              content.imageClassName,
+            )}
+            loading="lazy"
+            optixFlowConfig={optixFlowConfig}
+          />
+        );
       }
-
-      return (
-        <Pressable
-          key={index}
-          href={action.href}
-          onClick={action.onClick}
-          variant={action.variant}
-          size={action.size}
-          className={cn("mt-2.5 w-fit gap-2", action.className)}
-          aria-label={action["aria-label"]}
-          asButton
-        >
-          {action.icon}
-          {action.label}
-          {action.iconAfter}
-        </Pressable>
-      );
-    });
-  }, []);
-
-  const renderTabContentImage = useCallback((content: FeatureIconTabsContentTabContent) => {
-    if (content.imageSlot) return content.imageSlot;
-    if (content.imageSrc) {
-      return (
-        <Img
-          src={content.imageSrc}
-          alt={content.imageAlt || "Tab content image"}
-          className={cn("h-full w-full rounded-xl object-cover", content.imageClassName)}
-          loading="lazy"
-          optixFlowConfig={optixFlowConfig}
-        />
-      );
-    }
-    return null;
-  }, [optixFlowConfig]);
+      return null;
+    },
+    [optixFlowConfig],
+  );
 
   const tabsContent = useMemo(() => {
     if (tabsSlot) return tabsSlot;
@@ -315,24 +329,44 @@ export function FeatureIconTabsContent({
 
     return (
       <Tabs defaultValue={activeDefaultTab} className="mt-8">
-        <TabsList className={cn("container flex flex-col items-center justify-center gap-4 bg-transparent sm:flex-row md:gap-10", tabsListClassName)}>
-          {tabs.map((tab) => (
-            <TabsTrigger
-              key={tab.value}
-              value={tab.value}
-              className={cn("flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-muted-foreground data-[state=active]:bg-muted data-[state=active]:text-primary", tabTriggerClassName, tab.className)}
-            >
-              {(tab.icon || tab.iconName) && renderTabIcon(tab)}
-              {tab.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-        <div className={cn("mx-auto mt-8 max-w-7xl rounded-2xl bg-muted/70 p-6 lg:p-16", contentWrapperClassName)}>
+        <div className="container overflow-x-auto px-4 pb-2 md:px-6">
+          <TabsList
+            className={cn(
+              "inline-flex w-auto min-w-full items-center justify-start gap-2 bg-transparent md:justify-center md:gap-4",
+              tabsListClassName,
+            )}
+          >
+            {tabs.map((tab) => (
+              <TabsTrigger
+                key={tab.value}
+                value={tab.value}
+                className={cn(
+                  "flex shrink-0 items-center gap-2 rounded-lg border border-border bg-background px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
+                  tabTriggerClassName,
+                  tab.className,
+                )}
+              >
+                {(tab.icon || tab.iconName) && renderTabIcon(tab)}
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+        <div
+          className={cn(
+            "mx-auto mt-8 max-w-7xl rounded-2xl bg-muted/70 p-6 lg:p-16",
+            contentWrapperClassName,
+          )}
+        >
           <div className="relative">
             {tabs.map((tab) => {
               if (tab.contentSlot) {
                 return (
-                  <TabsContent key={tab.value} value={tab.value} className={tabContentClassName}>
+                  <TabsContent
+                    key={tab.value}
+                    value={tab.value}
+                    className={tabContentClassName}
+                  >
                     {tab.contentSlot}
                   </TabsContent>
                 );
@@ -345,37 +379,67 @@ export function FeatureIconTabsContent({
                 <TabsContent
                   key={tab.value}
                   value={tab.value}
-                  className={cn("grid place-items-start gap-20 lg:grid-cols-2 lg:gap-10", tabContentClassName, content.className)}
+                  className={cn(
+                    "grid place-items-start gap-20 lg:grid-cols-2 lg:gap-10",
+                    tabContentClassName,
+                    content.className,
+                  )}
                 >
                   <div className="flex flex-col gap-5">
                     {content.badge && (
-                      <Badge variant="outline" className={cn("w-fit bg-background", content.badgeClassName)}>
+                      <Badge
+                        variant="outline"
+                        className={cn(
+                          "w-fit bg-background",
+                          content.badgeClassName,
+                        )}
+                      >
                         {content.badge}
                       </Badge>
                     )}
-                    {content.title && (
-                      typeof content.title === "string" ? (
-                        <h3 className={cn("text-3xl font-semibold lg:text-5xl", content.titleClassName)}>
+                    {content.title &&
+                      (typeof content.title === "string" ? (
+                        <h3
+                          className={cn(
+                            "text-3xl font-semibold lg:text-5xl",
+                            content.titleClassName,
+                          )}
+                        >
                           {content.title}
                         </h3>
                       ) : (
-                        <div className={cn("text-3xl font-semibold lg:text-5xl", content.titleClassName)}>
+                        <div
+                          className={cn(
+                            "text-3xl font-semibold lg:text-5xl",
+                            content.titleClassName,
+                          )}
+                        >
                           {content.title}
                         </div>
-                      )
-                    )}
-                    {content.description && (
-                      typeof content.description === "string" ? (
-                        <p className={cn("text-muted-foreground lg:text-lg", content.descriptionClassName)}>
+                      ))}
+                    {content.description &&
+                      (typeof content.description === "string" ? (
+                        <p
+                          className={cn(
+                            "text-muted-foreground lg:text-lg",
+                            content.descriptionClassName,
+                          )}
+                        >
                           {content.description}
                         </p>
                       ) : (
-                        <div className={cn("text-muted-foreground lg:text-lg", content.descriptionClassName)}>
+                        <div
+                          className={cn(
+                            "text-muted-foreground lg:text-lg",
+                            content.descriptionClassName,
+                          )}
+                        >
                           {content.description}
                         </div>
-                      )
-                    )}
-                    {(content.actionsSlot || (content.actions && content.actions.length > 0)) && renderTabContentActions(content)}
+                      ))}
+                    {(content.actionsSlot ||
+                      (content.actions && content.actions.length > 0)) &&
+                      renderTabContentActions(content)}
                   </div>
                   {(content.imageSlot || content.imageSrc) && (
                     <div className="relative h-[300px] w-full lg:h-[400px]">
@@ -389,7 +453,18 @@ export function FeatureIconTabsContent({
         </div>
       </Tabs>
     );
-  }, [tabsSlot, tabs, defaultTab, tabsListClassName, tabTriggerClassName, contentWrapperClassName, tabContentClassName, renderTabIcon, renderTabContentActions, renderTabContentImage]);
+  }, [
+    tabsSlot,
+    tabs,
+    defaultTab,
+    tabsListClassName,
+    tabTriggerClassName,
+    contentWrapperClassName,
+    tabContentClassName,
+    renderTabIcon,
+    renderTabContentActions,
+    renderTabContentImage,
+  ]);
 
   return (
     <Section
@@ -402,26 +477,49 @@ export function FeatureIconTabsContent({
       containerClassName={cn("mx-auto", containerClassName)}
     >
       {(badge || heading || description) && (
-        <div className={cn("flex flex-col items-center gap-4 text-center", headerClassName)}>
-          {badge && <Badge variant="outline" className={badgeClassName}>{badge}</Badge>}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("max-w-2xl text-3xl font-semibold md:text-4xl", headingClassName)}>
+        <div
+          className={cn(
+            "flex flex-col items-center gap-4 text-center",
+            headerClassName,
+          )}
+        >
+          {badge && (
+            <Badge variant="outline" className={badgeClassName}>
+              {badge}
+            </Badge>
+          )}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "max-w-2xl text-3xl font-semibold md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
-              <div className={cn("max-w-2xl text-3xl font-semibold md:text-4xl", headingClassName)}>
+              <div
+                className={cn(
+                  "max-w-2xl text-3xl font-semibold md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p className={cn("text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
             ) : (
-              <div className={cn("text-muted-foreground", descriptionClassName)}>{description}</div>
-            )
-          )}
+              <div
+                className={cn("text-muted-foreground", descriptionClassName)}
+              >
+                {description}
+              </div>
+            ))}
         </div>
       )}
       {tabsContent}

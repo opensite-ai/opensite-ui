@@ -7,7 +7,12 @@ import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureSplitImageProps {
   /**
@@ -135,7 +140,7 @@ export function FeatureSplitImage({
   imageClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -154,7 +159,12 @@ export function FeatureSplitImage({
         ...pressableProps
       } = action;
       return (
-        <Pressable key={index} className={actionClassName} asButton {...pressableProps}>
+        <Pressable
+          key={index}
+          className={actionClassName}
+          asButton
+          {...pressableProps}
+        >
           {children ?? (
             <>
               {icon}
@@ -175,7 +185,10 @@ export function FeatureSplitImage({
       <Img
         src={imageSrc}
         alt={imageAlt || ""}
-        className={cn("max-h-96 w-full rounded-md object-cover", imageClassName)}
+        className={cn(
+          "max-h-96 w-full rounded-md object-cover",
+          imageClassName,
+        )}
         loading="lazy"
         optixFlowConfig={optixFlowConfig}
       />
@@ -192,32 +205,62 @@ export function FeatureSplitImage({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("grid items-center gap-8 lg:grid-cols-2", gridClassName)}>
-        <div className={cn("flex flex-col items-center text-center lg:items-start lg:text-left", contentClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("my-6 mt-0 text-4xl font-semibold text-balance lg:text-5xl", titleClassName)}>
+      <div
+        className={cn("grid items-center gap-8 lg:grid-cols-2", gridClassName)}
+      >
+        <div
+          className={cn(
+            "flex flex-col items-center text-center lg:items-start lg:text-left",
+            contentClassName,
+          )}
+        >
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "my-6 mt-0 text-4xl font-semibold text-balance lg:text-5xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
-              <div className={cn("my-6 mt-0 text-4xl font-semibold text-balance lg:text-5xl", titleClassName)}>
+              <div
+                className={cn(
+                  "my-6 mt-0 text-4xl font-semibold text-balance lg:text-5xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mb-8 max-w-xl text-muted-foreground lg:text-lg", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mb-8 max-w-xl text-muted-foreground lg:text-lg",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
-              <div className={cn("mb-8 max-w-xl text-muted-foreground lg:text-lg", descriptionClassName)}>
+              <div
+                className={cn(
+                  "mb-8 max-w-xl text-muted-foreground lg:text-lg",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </div>
-            )
-          )}
+            ))}
           {(actionsSlot || (actions && actions.length > 0)) && (
-            <div className={cn("flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start", actionsClassName)}>
+            <div
+              className={cn(
+                "flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start",
+                actionsClassName,
+              )}
+            >
               {actionsContent}
             </div>
           )}

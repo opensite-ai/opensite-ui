@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { useEffect, useRef, useState, useMemo, type ReactNode } from "react";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
@@ -9,9 +10,9 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+  type CarouselApi,
 } from "../../ui/carousel";
+import { CarouselPagination } from "../../ui/carousel-pagination";
 
 export interface FeatureShowcaseItem {
   /**
@@ -53,10 +54,6 @@ export interface FeatureShowcaseProps {
    * Additional CSS classes for the media area
    */
   mediaClassName?: string;
-  /**
-   * Additional CSS classes for navigation arrows
-   */
-  arrowClassName?: string;
   /**
    * Whether to equalize slide heights on mobile
    */
@@ -118,7 +115,6 @@ export function FeatureShowcase({
   slideClassName,
   contentClassName,
   mediaClassName,
-  arrowClassName,
   equalizeOnMobile,
   stretchMediaOnMobile,
   background,
@@ -127,11 +123,25 @@ export function FeatureShowcase({
   patternOpacity,
   patternClassName,
 }: FeatureShowcaseProps) {
-  const baseArrowClassName = useMemo(
-    () =>
-      "bottom-4 top-auto size-12 translate-y-0 rounded-full border border-current bg-transparent text-current shadow-sm focus:ring-current focus:ring-offset-2 focus:ring-offset-transparent hover:bg-current/10 md:bottom-6",
-    [],
-  );
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [canScrollPrevious, setCanScrollPrevious] = React.useState(false);
+  const [canScrollNext, setCanScrollNext] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    const updateScrollState = () => {
+      setCanScrollPrevious(api.canScrollPrev());
+      setCanScrollNext(api.canScrollNext());
+    };
+
+    updateScrollState();
+    api.on("select", updateScrollState);
+
+    return () => {
+      api.off("select", updateScrollState);
+    };
+  }, [api]);
 
   const [mobileSlideHeight, setMobileSlideHeight] = useState<number | null>(
     null,
@@ -192,7 +202,7 @@ export function FeatureShowcase({
     if (!items || items.length === 0) return null;
 
     return (
-      <Carousel className={carouselClassName}>
+      <Carousel className={carouselClassName} setApi={setApi}>
         <div className="pb-18 md:pb-24">
           <CarouselContent className="ease-in">
             {items.map((item, itemIndex) => (
@@ -232,11 +242,13 @@ export function FeatureShowcase({
             ))}
           </CarouselContent>
         </div>
-        <CarouselPrevious
-          className={cn(baseArrowClassName, "right-16", arrowClassName)}
-        />
-        <CarouselNext
-          className={cn(baseArrowClassName, "right-0", arrowClassName)}
+        <CarouselPagination
+          onPrevious={() => api?.scrollPrev()}
+          onNext={() => api?.scrollNext()}
+          canScrollPrevious={canScrollPrevious}
+          canScrollNext={canScrollNext}
+          className="absolute bottom-4 right-0 md:bottom-6"
+          buttonClassName="size-12 rounded-full border border-current bg-transparent text-current shadow-sm hover:bg-current/10"
         />
       </Carousel>
     );
@@ -249,8 +261,9 @@ export function FeatureShowcase({
     contentClassName,
     mediaWrapperClassName,
     mediaClassName,
-    baseArrowClassName,
-    arrowClassName,
+    api,
+    canScrollPrevious,
+    canScrollNext,
   ]);
 
   return (

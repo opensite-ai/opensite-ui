@@ -7,7 +7,11 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureNumberedCardsChecklistItem {
   /**
@@ -178,39 +182,58 @@ export function FeatureNumberedCards({
   patternOpacity,
   patternClassName,
 }: FeatureNumberedCardsProps): React.JSX.Element {
-  const renderChecklistItems = useCallback((feature: FeatureNumberedCardsItem) => {
-    if (feature.checklistSlot) return feature.checklistSlot;
-    if (!feature.checklistItems || feature.checklistItems.length === 0) return null;
+  const renderChecklistItems = useCallback(
+    (feature: FeatureNumberedCardsItem) => {
+      if (feature.checklistSlot) return feature.checklistSlot;
+      if (!feature.checklistItems || feature.checklistItems.length === 0)
+        return null;
 
-    return feature.checklistItems.map((item, itemIndex) => {
-      const isString = typeof item === "string";
-      const content = isString ? item : item.content;
-      const iconElement = isString ? (
-        <DynamicIcon
-          name="lucide/check-circle"
-          size={16}
-          className="mt-0.5 shrink-0 sm:mt-1"
-        />
-      ) : (
-        item.icon ?? (item.iconName ? <DynamicIcon name={item.iconName} size={16} className="mt-0.5 shrink-0 sm:mt-1" /> : <DynamicIcon name="lucide/check-circle" size={16} className="mt-0.5 shrink-0 sm:mt-1" />)
-      );
-      const itemClassName = isString ? undefined : item.className;
+      return feature.checklistItems.map((item, itemIndex) => {
+        const isString = typeof item === "string";
+        const content = isString ? item : item.content;
+        const iconElement = isString ? (
+          <DynamicIcon
+            name="lucide/check-circle"
+            size={16}
+            className="mt-0.5 shrink-0 sm:mt-1"
+          />
+        ) : (
+          (item.icon ??
+          (item.iconName ? (
+            <DynamicIcon
+              name={item.iconName}
+              size={16}
+              className="mt-0.5 shrink-0 sm:mt-1"
+            />
+          ) : (
+            <DynamicIcon
+              name="lucide/check-circle"
+              size={16}
+              className="mt-0.5 shrink-0 sm:mt-1"
+            />
+          )))
+        );
+        const itemClassName = isString ? undefined : item.className;
 
-      return (
-        <li key={itemIndex} className={cn("flex gap-x-3", itemClassName)}>
-          {iconElement}
-          <p className="text-sm md:text-base">{content}</p>
-        </li>
-      );
-    });
-  }, []);
+        return (
+          <li key={itemIndex} className={cn("flex gap-x-3", itemClassName)}>
+            {iconElement}
+            <p className="text-sm md:text-base">{content}</p>
+          </li>
+        );
+      });
+    },
+    [],
+  );
 
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
     return features.map((feature, index) => {
-      const imageAlt = feature.imageAlt || (typeof feature.title === "string" ? feature.title : "Feature image");
+      const imageAlt =
+        feature.imageAlt ||
+        (typeof feature.title === "string" ? feature.title : "Feature image");
 
       const renderImage = () => {
         if (feature.imageSlot) return feature.imageSlot;
@@ -219,7 +242,7 @@ export function FeatureNumberedCards({
             <Img
               src={feature.image}
               alt={imageAlt}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover rounded-tr-lg rounded-tl-lg md:rounded-tl-0 rounded-br-0 md:rounded-br-lg"
               loading="lazy"
               optixFlowConfig={optixFlowConfig}
             />
@@ -229,46 +252,101 @@ export function FeatureNumberedCards({
       };
 
       return (
-        <div key={index} className={cn("grid rounded-lg border md:grid-cols-2", cardClassName, feature.className)}>
-          <div className={cn("flex flex-col px-6 py-8 lg:px-8 lg:py-12 xl:px-12 xl:py-20", feature.contentClassName)}>
-            {feature.title && (
-              typeof feature.title === "string" ? (
-                <h3 className={cn("mb-3 text-2xl font-medium sm:mb-5 md:text-3xl lg:text-4xl", titleClassName)}>
+        <div
+          key={index}
+          className={cn(
+            "grid rounded-lg border md:grid-cols-2",
+            cardClassName,
+            feature.className,
+          )}
+        >
+          <div
+            className={cn(
+              "flex flex-col px-6 py-8 lg:px-8 lg:py-12 xl:px-12 xl:py-20",
+              feature.contentClassName,
+            )}
+          >
+            {feature.title &&
+              (typeof feature.title === "string" ? (
+                <h3
+                  className={cn(
+                    "mb-3 text-2xl font-medium sm:mb-5 md:text-3xl lg:text-4xl",
+                    titleClassName,
+                  )}
+                >
                   {feature.title}
                 </h3>
               ) : (
-                <div className={cn("mb-3 text-2xl font-medium sm:mb-5 md:text-3xl lg:text-4xl", titleClassName)}>
+                <div
+                  className={cn(
+                    "mb-3 text-2xl font-medium sm:mb-5 md:text-3xl lg:text-4xl",
+                    titleClassName,
+                  )}
+                >
                   {feature.title}
                 </div>
-              )
-            )}
-            {feature.description && (
-              typeof feature.description === "string" ? (
-                <div className={cn("mb-8 text-sm text-muted-foreground sm:mb-10 md:text-base", descriptionClassName)}>
+              ))}
+            {feature.description &&
+              (typeof feature.description === "string" ? (
+                <div
+                  className={cn(
+                    "mb-8 text-sm sm:mb-10 md:text-base",
+                    descriptionClassName,
+                  )}
+                >
                   {feature.description}
                 </div>
               ) : (
-                <div className={cn("mb-8 text-sm text-muted-foreground sm:mb-10 md:text-base", descriptionClassName)}>
+                <div
+                  className={cn(
+                    "mb-8 text-sm sm:mb-10 md:text-base",
+                    descriptionClassName,
+                  )}
+                >
                   {feature.description}
                 </div>
-              )
-            )}
-            {(feature.checklistItems && feature.checklistItems.length > 0) || feature.checklistSlot ? (
-              <ul className={cn("mt-auto space-y-2 sm:space-y-3", checklistClassName)}>
+              ))}
+            {(feature.checklistItems && feature.checklistItems.length > 0) ||
+            feature.checklistSlot ? (
+              <ul
+                className={cn(
+                  "mt-auto space-y-2 sm:space-y-3",
+                  checklistClassName,
+                )}
+              >
                 {renderChecklistItems(feature)}
               </ul>
             ) : null}
           </div>
-          <div className={cn("relative order-first max-h-80 md:order-last md:max-h-[500px]", feature.imageWrapperClassName)}>
+          <div
+            className={cn(
+              "relative order-first max-h-80 md:order-last md:max-h-[500px]",
+              feature.imageWrapperClassName,
+            )}
+          >
             {renderImage()}
-            <span className={cn("absolute top-5 left-5 flex size-6 items-center justify-center rounded-sm bg-primary font-mono text-xs text-primary-foreground md:top-10 md:left-10", badgeClassName)}>
+            <span
+              className={cn(
+                "absolute top-5 left-5 flex size-6 items-center justify-center rounded-sm bg-primary font-mono text-xs text-primary-foreground md:top-10 md:left-10",
+                badgeClassName,
+              )}
+            >
               {String(index + 1).padStart(2, "0")}
             </span>
           </div>
         </div>
       );
     });
-  }, [featuresSlot, features, cardClassName, titleClassName, descriptionClassName, checklistClassName, badgeClassName, optixFlowConfig]);
+  }, [
+    featuresSlot,
+    features,
+    cardClassName,
+    titleClassName,
+    descriptionClassName,
+    checklistClassName,
+    badgeClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -280,7 +358,12 @@ export function FeatureNumberedCards({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("space-y-10 rounded-lg border py-10 md:px-4", cardsWrapperClassName)}>
+      <div
+        className={cn(
+          "space-y-4 md:space-y-10 rounded-lg border-none md:border md:bg-background p-0 md:p-10",
+          cardsWrapperClassName,
+        )}
+      >
         {featuresContent}
       </div>
     </Section>

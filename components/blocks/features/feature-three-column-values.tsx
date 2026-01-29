@@ -139,46 +139,78 @@ export function FeatureThreeColumnValues({
   gridClassName,
   cardClassName,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
 }: FeatureThreeColumnValuesProps): React.JSX.Element {
-  const renderValueIcon = React.useCallback((value: FeatureThreeColumnValuesItem) => {
-    if (value.icon) return value.icon;
-    if (value.iconName) return <DynamicIcon name={value.iconName} size={24} />;
-    return null;
-  }, []);
+  const renderValueIcon = React.useCallback(
+    (value: FeatureThreeColumnValuesItem) => {
+      if (value.icon) return value.icon;
+      if (value.iconName)
+        return <DynamicIcon name={value.iconName} size={24} />;
+      return null;
+    },
+    [],
+  );
 
   const valuesContent = useMemo(() => {
     if (valuesSlot) return valuesSlot;
     if (!values || values.length === 0) return null;
 
     return values.map((value, index) => (
-      <div key={index} className={cn("rounded-lg bg-accent p-5", cardClassName, value.className)}>
+      <div
+        key={index}
+        className={cn(
+          "rounded-lg bg-accent p-5",
+          cardClassName,
+          value.className,
+        )}
+      >
         {(value.icon || value.iconName) && (
-          <span className={cn("mb-8 flex size-12 items-center justify-center rounded-full bg-background", value.iconClassName)}>
+          <span
+            className={cn(
+              "mb-8 flex size-12 items-center justify-center rounded-full bg-background",
+              value.iconClassName,
+            )}
+          >
             {renderValueIcon(value)}
           </span>
         )}
-        {value.title && (
-          typeof value.title === "string" ? (
-            <h3 className={cn("mb-2 text-xl font-medium", value.titleClassName)}>{value.title}</h3>
+        {value.title &&
+          (typeof value.title === "string" ? (
+            <h3
+              className={cn("mb-2 text-xl font-medium", value.titleClassName)}
+            >
+              {value.title}
+            </h3>
           ) : (
-            <div className={cn("mb-2 text-xl font-medium", value.titleClassName)}>{value.title}</div>
-          )
-        )}
-        {value.description && (
-          typeof value.description === "string" ? (
-            <p className={cn("leading-7 text-muted-foreground", value.descriptionClassName)}>
+            <div
+              className={cn("mb-2 text-xl font-medium", value.titleClassName)}
+            >
+              {value.title}
+            </div>
+          ))}
+        {value.description &&
+          (typeof value.description === "string" ? (
+            <p
+              className={cn(
+                "leading-7 text-muted-foreground",
+                value.descriptionClassName,
+              )}
+            >
               {value.description}
             </p>
           ) : (
-            <div className={cn("leading-7 text-muted-foreground", value.descriptionClassName)}>
+            <div
+              className={cn(
+                "leading-7 text-muted-foreground",
+                value.descriptionClassName,
+              )}
+            >
               {value.description}
             </div>
-          )
-        )}
+          ))}
       </div>
     ));
   }, [valuesSlot, values, cardClassName, renderValueIcon]);
@@ -193,26 +225,47 @@ export function FeatureThreeColumnValues({
       className={className}
       containerClassName={containerClassName}
     >
-      {label && (
-        typeof label === "string" ? (
-          <p className={cn("mb-4 text-sm text-muted-foreground lg:text-base", labelClassName)}>
+      {label &&
+        (typeof label === "string" ? (
+          <p
+            className={cn(
+              "mb-4 text-sm text-muted-foreground lg:text-base",
+              labelClassName,
+            )}
+          >
             {label}
           </p>
         ) : (
-          <div className={cn("mb-4 text-sm text-muted-foreground lg:text-base", labelClassName)}>
+          <div
+            className={cn(
+              "mb-4 text-sm text-muted-foreground lg:text-base",
+              labelClassName,
+            )}
+          >
             {label}
           </div>
-        )
-      )}
-      {title && (
-        typeof title === "string" ? (
-          <h2 className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</h2>
+        ))}
+      {title &&
+        (typeof title === "string" ? (
+          <h2
+            className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}
+          >
+            {title}
+          </h2>
         ) : (
-          <div className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</div>
-        )
-      )}
+          <div
+            className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}
+          >
+            {title}
+          </div>
+        ))}
       {(valuesSlot || (values && values.length > 0)) && (
-        <div className={cn("mt-14 grid gap-6 lg:mt-20 lg:grid-cols-3", gridClassName)}>
+        <div
+          className={cn(
+            "mt-14 grid gap-6 lg:mt-20 lg:grid-cols-3",
+            gridClassName,
+          )}
+        >
           {valuesContent}
         </div>
       )}

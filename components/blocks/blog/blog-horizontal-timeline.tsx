@@ -137,7 +137,10 @@ export function BlogHorizontalTimelineComponent({
             </div>
           )}
           <Card
-            className={cn("w-full border-none shadow-none", postCardClassName)}
+            className={cn(
+              "w-full border-none shadow-none pt-0 pb-6 md:pt-6 md:pb-6",
+              postCardClassName,
+            )}
           >
             <CardContent className="p-0">
               <div
@@ -165,9 +168,9 @@ export function BlogHorizontalTimelineComponent({
                     </p>
                   )}
                   {readText && (
-                    <Pressable href={postHref} asButton variant="link">
+                    <Pressable href={postHref} asButton variant="ghost">
                       {readText}
-                      <DynamicIcon name="lucide/arrow-right" size={20} />
+                      <DynamicIcon name="lucide/arrow-up-right" size={20} />
                     </Pressable>
                   )}
                 </div>
@@ -210,7 +213,9 @@ export function BlogHorizontalTimelineComponent({
             <div className={cn("mb-12", headingClassName)}>{heading}</div>
           ))}
 
-        <div className={cn("flex flex-col", postsClassName)}>{renderPosts}</div>
+        <div className={cn("flex flex-col gap-0 md:gap-20", postsClassName)}>
+          {renderPosts}
+        </div>
       </div>
     </Section>
   );

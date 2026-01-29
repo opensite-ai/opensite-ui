@@ -7,7 +7,11 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleSidebarStickyProps {
@@ -146,7 +150,7 @@ export function ArticleSidebarStickyComponent({
   children,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
 }: ArticleSidebarStickyProps) {
@@ -157,7 +161,10 @@ export function ArticleSidebarStickyComponent({
     return (
       <Pressable
         href={backHref}
-        className={cn("inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground", backLinkClassName)}
+        className={cn(
+          "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground",
+          backLinkClassName,
+        )}
       >
         {backIcon ?? <DynamicIcon name="lucide/chevron-left" size={16} />}
         {backText}
@@ -165,33 +172,46 @@ export function ArticleSidebarStickyComponent({
     );
   }, [backLinkSlot, backHref, backText, backIcon, backLinkClassName]);
 
-  const renderAuthor = React.useCallback((isMobile = false) => {
-    if (authorSlot) return authorSlot;
-    if (!authorName) return null;
+  const renderAuthor = React.useCallback(
+    (isMobile = false) => {
+      if (authorSlot) return authorSlot;
+      if (!authorName) return null;
 
-    const avatarSize = isMobile ? "h-8 w-8" : "h-10 w-10";
+      const avatarSize = isMobile ? "h-8 w-8" : "h-10 w-10";
 
-    return (
-      <div className={cn("flex items-center gap-3", authorClassName)}>
-        <Avatar className={avatarSize}>
-          <AvatarImage src={authorImage} />
-          <AvatarFallback>{authorName.charAt(0)}</AvatarFallback>
-        </Avatar>
-        <div>
-          {authorHref ? (
-            <Pressable href={authorHref} className="text-sm font-medium hover:underline">
-              {authorName}
-            </Pressable>
-          ) : (
-            <p className="text-sm font-medium">{authorName}</p>
-          )}
-          {publishDate && (
-            <p className="text-xs text-muted-foreground">{publishDate}</p>
-          )}
+      return (
+        <div className={cn("flex items-center gap-3", authorClassName)}>
+          <Avatar className={avatarSize}>
+            <AvatarImage src={authorImage} />
+            <AvatarFallback>{authorName.charAt(0)}</AvatarFallback>
+          </Avatar>
+          <div>
+            {authorHref ? (
+              <Pressable
+                href={authorHref}
+                className="text-sm font-medium hover:underline"
+              >
+                {authorName}
+              </Pressable>
+            ) : (
+              <p className="text-sm font-medium">{authorName}</p>
+            )}
+            {publishDate && (
+              <p className="text-xs text-muted-foreground">{publishDate}</p>
+            )}
+          </div>
         </div>
-      </div>
-    );
-  }, [authorSlot, authorName, authorImage, authorHref, publishDate, authorClassName]);
+      );
+    },
+    [
+      authorSlot,
+      authorName,
+      authorImage,
+      authorHref,
+      publishDate,
+      authorClassName,
+    ],
+  );
 
   const heroMediaContent = React.useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
@@ -201,11 +221,20 @@ export function ArticleSidebarStickyComponent({
       <Img
         src={heroImageSrc}
         alt={heroImageAlt}
-        className={cn("my-8 aspect-video w-full rounded-lg object-cover", heroImageClassName)}
+        className={cn(
+          "my-8 aspect-video w-full rounded-lg object-cover",
+          heroImageClassName,
+        )}
         optixFlowConfig={optixFlowConfig}
       />
     );
-  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
+  }, [
+    heroMediaSlot,
+    heroImageSrc,
+    heroImageAlt,
+    heroImageClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -220,27 +249,30 @@ export function ArticleSidebarStickyComponent({
           <aside className={cn("hidden lg:block", sidebarClassName)}>
             <div className="sticky top-8 space-y-6">
               {backLinkContent}
-              <div className="space-y-4">
-                {renderAuthor(false)}
-              </div>
+              <div className="space-y-4">{renderAuthor(false)}</div>
             </div>
           </aside>
-          <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
-            <div className="mb-8 lg:hidden">
-              {backLinkContent}
-            </div>
-            {title && (
-              typeof title === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
+          <article
+            className={cn(
+              "prose max-w-none dark:prose-invert",
+              articleClassName,
+            )}
+          >
+            <div className="mb-8 lg:hidden">{backLinkContent}</div>
+            {title &&
+              (typeof title === "string" ? (
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight md:text-5xl",
+                    titleClassName,
+                  )}
+                >
                   {title}
                 </h1>
               ) : (
                 <div className={titleClassName}>{title}</div>
-              )
-            )}
-            <div className="not-prose mt-4 lg:hidden">
-              {renderAuthor(true)}
-            </div>
+              ))}
+            <div className="not-prose mt-4 lg:hidden">{renderAuthor(true)}</div>
             {heroMediaContent}
             {children}
           </article>
