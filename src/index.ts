@@ -28,4 +28,10 @@ export * from "../lib/hooks";
 export type * from "./types/index";
 
 // Re-export utilities
-export { cn } from "../lib/utils";
+export {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+  type NestedCardVariant,
+  type NestedCardBgOptions,
+} from "../lib/utils";

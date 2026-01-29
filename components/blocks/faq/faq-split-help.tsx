@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import {
   Accordion,
   AccordionContent,
@@ -194,7 +198,9 @@ export function FaqSplitHelp({
     return (
       <div
         className={cn(
-          "mt-8 md:mt-16 flex flex-col items-center gap-4 rounded-lg bg-muted p-6 text-center md:flex-row md:justify-between md:text-left lg:p-8",
+          "mt-8 md:mt-16 flex flex-col items-center gap-4 rounded-lg p-6 text-center md:flex-row md:justify-between md:text-left lg:p-8",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
           helpSectionClassName,
         )}
       >
@@ -234,6 +240,7 @@ export function FaqSplitHelp({
     helpDescription,
     helpAction,
     helpSectionClassName,
+    background,
   ]);
 
   return (
