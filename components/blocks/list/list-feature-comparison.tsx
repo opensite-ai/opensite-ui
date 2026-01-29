@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -295,7 +295,7 @@ export function ListFeatureComparison({
                 tableClassName,
               )}
             >
-              <thead className={cn("bg-muted/50", tableHeaderClassName)}>
+              <thead className={cn(getNestedCardBg(background), getNestedCardTextColor(background), tableHeaderClassName)}>
                 <tr>
                   <th className="px-6 py-3 text-left text-sm font-semibold">
                     {planHeaders.feature}

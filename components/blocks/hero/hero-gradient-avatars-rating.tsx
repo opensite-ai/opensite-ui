@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarImage } from "../../ui/avatar";
@@ -257,7 +257,7 @@ export function HeroGradientAvatarsRating({
     return (
       <div className={cn("relative grid gap-4 lg:grid-cols-2", imagesClassName)}>
         {images[0] && (
-          <div className="relative aspect-3/4 w-full overflow-hidden rounded-lg bg-muted">
+          <div className={cn("relative aspect-3/4 w-full overflow-hidden rounded-lg", getNestedCardBg(background))}>
             <Img
               src={images[0].src}
               alt={images[0].alt}
@@ -267,7 +267,7 @@ export function HeroGradientAvatarsRating({
           </div>
         )}
         {images[1] && (
-          <div className="relative aspect-3/4 w-full overflow-hidden rounded-lg bg-muted lg:mt-8">
+          <div className={cn("relative aspect-3/4 w-full overflow-hidden rounded-lg lg:mt-8", getNestedCardBg(background))}>
             <Img
               src={images[1].src}
               alt={images[1].alt}

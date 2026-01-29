@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import type {
@@ -133,7 +133,7 @@ function ParallaxSection({
         <motion.div
           style={{ y }}
           className={cn(
-            "relative aspect-4/3 overflow-hidden rounded-2xl bg-muted",
+            "relative aspect-4/3 overflow-hidden rounded-2xl",
             index % 2 === 1 && "lg:order-1",
           )}
         >

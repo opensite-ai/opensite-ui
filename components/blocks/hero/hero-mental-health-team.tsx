@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import type {ImageItem, OptixFlowConfig, TestimonialItem, SectionBackground, SectionSpacing} from "../../../src/types";
 import { Section } from "../../ui/section";
@@ -144,7 +144,11 @@ export function HeroMentalHealthTeam({
     const avatarSrc = testimonial.avatarSrc ?? (testimonial.avatar?.src);
     return (
       <div className="col-[1/3] row-[3/4] w-full md:col-[1/3] md:row-[2/3]">
-        <div className="flex h-full min-h-37.5 flex-col gap-3 overflow-hidden rounded-3xl bg-muted p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8">
+        <div className={cn(
+          "flex h-full min-h-37.5 flex-col gap-3 overflow-hidden rounded-3xl p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background)
+        )}>
           {avatarSrc && (
             <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl md:h-30 md:w-30">
               <Img

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -183,7 +183,7 @@ export function AboutSplitHero({
       case "dark":
         return "bg-foreground text-background";
       case "gray":
-        return "bg-muted";
+        return cn(getNestedCardBg(background), getNestedCardTextColor(background));
       case "white":
         return "bg-background";
       default:

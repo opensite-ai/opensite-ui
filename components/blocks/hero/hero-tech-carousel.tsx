@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import type { CarouselApi } from "../../ui/carousel";
 import {
@@ -213,7 +213,11 @@ export function HeroTechCarousel({
             )
           )}
           {technologies && technologies.length > 0 && (
-            <div className="mx-auto mt-8 mb-12 flex h-[60px] w-fit items-center gap-2 rounded-md bg-muted px-4 py-2 text-center">
+            <div className={cn(
+              "mx-auto mt-8 mb-12 flex h-[60px] w-fit items-center gap-2 rounded-md px-4 py-2 text-center",
+              getNestedCardBg(background),
+              getNestedCardTextColor(background)
+            )}>
               <div
                 className={cn(
                   "flex items-center gap-2 transition-opacity duration-300",

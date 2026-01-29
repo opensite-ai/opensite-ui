@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
@@ -194,7 +194,9 @@ export function TestimonialsStatsHeader({
           <div
             key={index}
             className={cn(
-              "rounded-lg bg-muted/50 p-6 text-center",
+              "rounded-lg p-6 text-center",
+              getNestedCardBg(background),
+              getNestedCardTextColor(background),
               statItemClassName,
             )}
           >

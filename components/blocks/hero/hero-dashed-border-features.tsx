@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -132,7 +132,11 @@ export function HeroDashedBorderFeatures({
     return (
       <Pressable
         href={announcementHref}
-        className="mx-auto mb-4 flex w-fit items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm"
+        className={cn(
+          "mx-auto mb-4 flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background)
+        )}
       >
         <Badge>{badgeText}</Badge>
         {announcementText}
@@ -197,7 +201,11 @@ export function HeroDashedBorderFeatures({
           index === 1 && "border-x"
         )}
       >
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-sm lg:size-12 lg:text-base">
+        <span className={cn(
+          "flex size-10 shrink-0 items-center justify-center rounded-md text-sm lg:size-12 lg:text-base",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background)
+        )}>
           {feature.icon ?? <DynamicIcon name={feature.iconName || "lucide/check"} size={20} />}
         </span>
         {feature.title}

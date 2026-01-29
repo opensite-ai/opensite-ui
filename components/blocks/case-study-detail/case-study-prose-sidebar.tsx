@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
@@ -247,7 +247,7 @@ export function CaseStudyProseSidebar({
 
     return (
       <aside className={cn("lg:max-w-[300px]", sidebarClassName)}>
-        <div className={cn("flex flex-col items-start rounded-lg border border-border bg-accent py-6 md:py-8", sidebarCardClassName)}>
+        <div className={cn("flex flex-col items-start rounded-lg border border-border py-6 md:py-8", getNestedCardBg(background, "accent"), getNestedCardTextColor(background), sidebarCardClassName)}>
           {logoContent}
           {detailsContent}
         </div>

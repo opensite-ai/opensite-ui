@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -323,7 +323,9 @@ export function ServicesListSplitChecklist({
 
         <div
           className={cn(
-            "flex flex-col justify-center rounded-xl border bg-card p-8 shadow-sm",
+            "flex flex-col justify-center rounded-xl border p-8 shadow-sm",
+            getNestedCardBg(background, 'card'),
+            getNestedCardTextColor(background),
             checklistClassName,
           )}
         >

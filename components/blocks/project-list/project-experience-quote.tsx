@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent } from "../../ui/card";
@@ -180,7 +180,11 @@ export function ProjectExperienceQuote({
               </ul>
             </div>
 
-            <div className="bg-muted/50 mt-auto rounded-lg p-4">
+            <div className={cn(
+              "mt-auto rounded-lg p-4",
+              getNestedCardBg(background),
+              getNestedCardTextColor(background)
+            )}>
               <div className="mb-2 flex items-center gap-2">
                 <DynamicIcon
                   name="lucide/quote"

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -168,7 +168,9 @@ export function IndustriesBadgeListBordered({
       <Badge
         variant="outline"
         className={cn(
-          "mb-4 rounded-none border-0 bg-muted p-2  uppercase",
+          "mb-4 rounded-none border-0 p-2 uppercase",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
           badgeClassName,
         )}
       >

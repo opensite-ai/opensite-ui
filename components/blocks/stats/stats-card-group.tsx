@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -220,14 +220,18 @@ export function StatsCardGroup({
             />
           ))}
           {avatars.length > 4 && (
-            <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-muted text-xs font-medium">
+            <div className={cn(
+              "flex h-8 w-8 items-center justify-center rounded-full border-2 border-background text-xs font-medium",
+              getNestedCardBg(background, 'muted'),
+              getNestedCardTextColor(background)
+            )}>
               +{avatars.length - 4}
             </div>
           )}
         </div>
       );
     },
-    [avatarsSlot, avatars, avatarsClassName, optixFlowConfig],
+    [avatarsSlot, avatars, background, avatarsClassName, optixFlowConfig],
   );
 
   // Memoized stats rendering
@@ -284,7 +288,12 @@ export function StatsCardGroup({
     >
       <div className={cn("mx-auto max-w-4xl", containerClassName)}>
         {(statsSlot || (stats && stats.length > 0)) && (
-          <div className={cn("rounded-xl border bg-card p-8", cardClassName)}>
+          <div className={cn(
+            "rounded-xl border p-8",
+            getNestedCardBg(background, 'card'),
+            getNestedCardTextColor(background),
+            cardClassName
+          )}>
             <div className={cn("grid gap-8 md:grid-cols-3", statsClassName)}>
               {statsContent}
             </div>

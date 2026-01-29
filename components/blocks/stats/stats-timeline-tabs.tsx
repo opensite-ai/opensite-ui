@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -256,7 +256,9 @@ export function StatsTimelineTabs({
                   <div
                     key={index}
                     className={cn(
-                      "rounded-lg border bg-card p-6 transition-shadow hover:shadow-md",
+                      "rounded-lg border p-6 transition-shadow hover:shadow-md",
+                      getNestedCardBg(background, 'card'),
+                      getNestedCardTextColor(background),
                       stat.className,
                       statCardClassName,
                     )}
@@ -318,6 +320,7 @@ export function StatsTimelineTabs({
   }, [
     tabsSlot,
     periods,
+    background,
     effectiveDefaultPeriod,
     tabsClassName,
     tabsListClassName,

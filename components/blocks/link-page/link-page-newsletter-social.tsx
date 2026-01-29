@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
@@ -559,9 +559,11 @@ export function LinkPageNewsletterSocial({
               className={cn(
                 "rounded-full p-2.5 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
+                getNestedCardBg(resolvedBackground),
+                getNestedCardTextColor(resolvedBackground),
                 isDark
-                  ? "bg-muted/10 hover:bg-muted/20"
-                  : "bg-muted hover:bg-muted/80",
+                  ? "hover:bg-muted/20"
+                  : "hover:bg-muted/80",
                 socialLinkClassName,
                 social.className,
               )}

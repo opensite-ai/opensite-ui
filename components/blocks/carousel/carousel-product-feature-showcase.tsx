@@ -17,7 +17,7 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -324,7 +324,8 @@ export function CarouselProductFeatureShowcase({
             {/* Image section */}
             <div
               className={cn(
-                "relative aspect-square overflow-hidden rounded-2xl bg-muted lg:aspect-4/3 shadow-lg",
+                "relative aspect-square overflow-hidden rounded-2xl lg:aspect-4/3 shadow-lg",
+                getNestedCardBg(background),
                 imageClassName,
               )}
             >

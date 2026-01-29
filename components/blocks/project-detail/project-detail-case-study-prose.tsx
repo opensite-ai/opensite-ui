@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import type {
@@ -155,7 +155,11 @@ export function ProjectDetailCaseStudyProse(
           className={cn("mb-16 space-y-6", headerClassName)}
         >
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1 font-medium">
+            <span className={cn(
+              "rounded-full px-3 py-1 font-medium",
+              getNestedCardBg(background),
+              getNestedCardTextColor(background)
+            )}>
               {category}
             </span>
             <span>{year}</span>
@@ -194,7 +198,7 @@ export function ProjectDetailCaseStudyProse(
         <motion.div {...fadeInUp} className="mb-16">
           <div
             className={cn(
-              "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+              "relative aspect-video overflow-hidden rounded-2xl",
               heroImageClassName,
             )}
           >

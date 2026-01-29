@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput, Select, TextArea, Radio } from "../../ui/form-inputs";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card, CardContent } from "../../ui/card";
@@ -710,7 +710,7 @@ export function ContactCatering({
                 </div>
               </div>
 
-              <div className="rounded-lg border bg-muted/50 p-4">
+              <div className={cn("rounded-lg border p-4", getNestedCardBg(background, "subtle"), getNestedCardTextColor(background))}>
                 <div className="flex gap-3">
                   <DynamicIcon
                     name="lucide/chef-hat"

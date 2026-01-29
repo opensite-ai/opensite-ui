@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useState, useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Img } from "@page-speed/img";
@@ -236,7 +236,7 @@ export function HeroBusinessCarouselDots({
                     onClick={() => api?.scrollTo(index)}
                     className={cn(
                       "h-2 w-2 rounded-full transition-colors",
-                      current === index + 1 ? "bg-primary" : "bg-muted"
+                      current === index + 1 ? "bg-primary" : getNestedCardBg(background)
                     )}
                   />
                 ))}

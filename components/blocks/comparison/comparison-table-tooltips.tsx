@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import {
   Table,
   TableBody,
@@ -193,7 +193,12 @@ export function ComparisonTableTooltips({
           <TableRow>
             <TableHead className={tableHeaderClassName}></TableHead>
             {optionALabel && (
-              <TableHead className={cn("bg-muted px-6 py-4 font-semibold", tableHeaderClassName)}>
+              <TableHead className={cn(
+                "px-6 py-4 font-semibold",
+                getNestedCardBg(background),
+                getNestedCardTextColor(background),
+                tableHeaderClassName
+              )}>
                 {optionALabel}
               </TableHead>
             )}
@@ -208,7 +213,12 @@ export function ComparisonTableTooltips({
           {rows.map((row, idx) => (
             <TableRow key={idx}>
               <TableCell className={cn("px-6 py-4", tableCellClassName)}>{row.feature}</TableCell>
-              <TableCell className={cn("bg-muted px-6 py-4", tableCellClassName)}>
+              <TableCell className={cn(
+                "px-6 py-4",
+                getNestedCardBg(background),
+                getNestedCardTextColor(background),
+                tableCellClassName
+              )}>
                 {renderCellContent(row.optionA, true)}
               </TableCell>
               <TableCell className={cn("px-6 py-4", tableCellClassName)}>

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -336,7 +336,7 @@ export function ArticleTocSidebarComponent({
     if (!ctaTitle && !ctaDescription && (!ctaActions || ctaActions.length === 0)) return null;
 
     return (
-      <div className={cn("rounded-lg border bg-muted/50 p-4", ctaClassName)}>
+      <div className={cn("rounded-lg border p-4", getNestedCardBg(background, "subtle"), getNestedCardTextColor(background), ctaClassName)}>
         {ctaTitle && (
           typeof ctaTitle === "string" ? (
             <h3 className="mb-2 text-sm font-semibold">{ctaTitle}</h3>

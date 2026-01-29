@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -391,7 +391,10 @@ export function CommunityInitiatives({
                         isEven ? "md:order-2" : "md:order-1",
                       )}
                     >
-                      <Card className="flex h-full min-h-[280px] w-full items-center justify-center bg-muted/30">
+                      <Card className={cn(
+                        "flex h-full min-h-[280px] w-full items-center justify-center",
+                        getNestedCardBg(background, 'subtle'),
+                      )}>
                         <CardContent className="p-6 text-center">
                           <DynamicIcon
                             name={initiative.icon}
@@ -479,7 +482,10 @@ export function CommunityInitiatives({
 
       <div className={cn("mt-20 text-center", ctaClassName)}>
         {ctaBadgeText && (
-          <div className="mb-8 inline-flex items-center justify-center rounded-full bg-muted p-1">
+          <div className={cn(
+            "mb-8 inline-flex items-center justify-center rounded-full p-1",
+            getNestedCardBg(background),
+          )}>
             <Badge className="rounded-full bg-primary px-4 py-1 text-primary-foreground">
               {ctaBadgeText}
             </Badge>

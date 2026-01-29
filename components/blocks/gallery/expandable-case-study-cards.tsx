@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useState, useCallback, useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -281,11 +281,10 @@ export function ExpandableCaseStudyCards({
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
-            <div className="absolute top-[50%] left-[50%] flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-accent max-lg:hidden">
+            <div className={cn("absolute top-[50%] left-[50%] flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full max-lg:hidden", getNestedCardBg(background, 'accent'), getNestedCardTextColor(background))}>
               <DynamicIcon
                 name="lucide/plus"
                 size={32}
-                className="text-accent-foreground"
               />
             </div>
             <div className="absolute inset-x-0 bottom-0 hidden h-[50%] bg-linear-to-t from-primary from-50% to-transparent lg:block"></div>
@@ -331,7 +330,7 @@ export function ExpandableCaseStudyCards({
                 <div className="text-base font-medium lg:text-lg">
                   {item.title}
                 </div>
-                <div className="flex size-8 items-center justify-center rounded-full bg-background text-foreground transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 lg:size-10">
+                <div className={cn("flex size-8 items-center justify-center rounded-full transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 lg:size-10", getNestedCardBg(background, 'card'), getNestedCardTextColor(background))}>
                   <DynamicIcon name="lucide/arrow-up-right" size={20} />
                 </div>
               </div>

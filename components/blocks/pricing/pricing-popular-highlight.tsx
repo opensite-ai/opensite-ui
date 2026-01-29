@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useState, useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Switch } from "../../ui/switch";
@@ -420,7 +420,7 @@ export function PricingPopularHighlight({
               className={cn(
                 "relative flex flex-col rounded-2xl border p-6 transition-all",
                 plan.isPopular
-                  ? "z-10 border-primary bg-card shadow-xl md:-my-4 md:scale-105 md:p-8"
+                  ? cn("z-10 border-primary shadow-xl md:-my-4 md:scale-105 md:p-8", getNestedCardBg(background, "card"), getNestedCardTextColor(background))
                   : "border-border",
                 cardClassName,
                 plan.isPopular ? popularCardClassName : null,

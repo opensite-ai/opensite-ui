@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -120,7 +120,12 @@ export function ServiceDetailSidebarRelated({
     if (!serviceIcon) return null;
 
     return (
-      <div className={cn("rounded-lg bg-muted p-4", serviceIconClassName)}>
+      <div className={cn(
+        "rounded-lg p-4",
+        getNestedCardBg(background),
+        getNestedCardTextColor(background),
+        serviceIconClassName
+      )}>
         <Img
           src={serviceIcon.src}
           alt={serviceIcon.alt}
@@ -200,7 +205,12 @@ export function ServiceDetailSidebarRelated({
     if (!stats || stats.length === 0) return null;
 
     return (
-      <div className={cn("rounded-lg bg-muted/50 p-6", statsClassName)}>
+      <div className={cn(
+        "rounded-lg p-6",
+        getNestedCardBg(background),
+        getNestedCardTextColor(background),
+        statsClassName
+      )}>
         {statsTitle && (
           <h3 className={cn("mb-6 text-lg font-semibold", statsTitleClassName)}>
             {typeof statsTitle === "string" ? statsTitle : statsTitle}
@@ -251,7 +261,12 @@ export function ServiceDetailSidebarRelated({
 
     return (
       <div
-        className={cn("rounded-lg bg-muted/50 p-6", relatedServicesClassName)}
+        className={cn(
+          "rounded-lg p-6",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
+          relatedServicesClassName
+        )}
       >
         {relatedServicesTitle && (
           <h3

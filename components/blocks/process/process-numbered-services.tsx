@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -270,7 +270,11 @@ export function ProcessNumberedServices({
                   {service.capabilities.map((capability, cIndex) => (
                     <div
                       key={cIndex}
-                      className="flex items-center gap-3 rounded-lg bg-muted/50 px-4 py-3"
+                      className={cn(
+                        "flex items-center gap-3 rounded-lg px-4 py-3",
+                        getNestedCardBg(background, 'muted'),
+                        getNestedCardTextColor(background)
+                      )}
                     >
                       <DynamicIcon
                         name="lucide/check-circle-2"
@@ -287,7 +291,7 @@ export function ProcessNumberedServices({
         ))}
       </div>
     );
-  }, [servicesSlot, services, servicesClassName, serviceItemClassName, serviceBadgeClassName, capabilitiesClassName, renderServiceAction]);
+  }, [servicesSlot, services, background, servicesClassName, serviceItemClassName, serviceBadgeClassName, capabilitiesClassName, renderServiceAction]);
 
   return (
     <Section

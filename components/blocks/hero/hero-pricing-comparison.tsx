@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -151,7 +151,9 @@ export function HeroPricingComparison({
           <div
             key={index}
             className={cn(
-              "rounded-2xl bg-card p-8",
+              "rounded-2xl p-8",
+              getNestedCardBg(background, 'card'),
+              getNestedCardTextColor(background),
               plan.isPopular ? "relative border-2 border-primary" : "border border-border"
             )}
           >

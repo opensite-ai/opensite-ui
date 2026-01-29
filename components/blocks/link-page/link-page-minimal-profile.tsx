@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
@@ -256,7 +256,8 @@ export function LinkPageMinimalProfile({
         {resolvedAvatar && (
           <div
             className={cn(
-              "h-20 w-20 overflow-hidden rounded-full bg-muted",
+              "h-20 w-20 overflow-hidden rounded-full",
+              getNestedCardBg(resolvedBackground),
               avatarClassName,
             )}
           >
@@ -331,9 +332,11 @@ export function LinkPageMinimalProfile({
                 key={link.id ?? index}
                 className={cn(
                   "flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors",
+                  getNestedCardBg(resolvedBackground),
+                  getNestedCardTextColor(resolvedBackground),
                   isDark
-                    ? "bg-muted/20 hover:bg-muted/30"
-                    : "bg-muted hover:bg-muted/80",
+                    ? "hover:bg-muted/30"
+                    : "hover:bg-muted/80",
                   linkClassName,
                   linkItemClassName,
                 )}
@@ -349,9 +352,11 @@ export function LinkPageMinimalProfile({
               key={link.id ?? index}
               className={cn(
                 "flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors",
+                getNestedCardBg(resolvedBackground),
+                getNestedCardTextColor(resolvedBackground),
                 isDark
-                  ? "bg-muted/20 hover:bg-muted/30"
-                  : "bg-muted hover:bg-muted/80",
+                  ? "hover:bg-muted/30"
+                  : "hover:bg-muted/80",
                 linkClassName,
                 linkItemClassName,
               )}

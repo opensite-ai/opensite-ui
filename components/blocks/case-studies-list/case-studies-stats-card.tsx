@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -285,8 +285,8 @@ export function CaseStudiesStatsCard({
       patternOpacity={patternOpacity}
     >
       <div className={cn("container", containerClassName)}>
-        <div className={cn("flex w-full flex-col items-stretch justify-between gap-10 rounded-lg bg-muted p-10 lg:flex-row", cardClassName)}>
-          <div className={cn("flex w-full max-w-120 flex-col gap-10 rounded-lg bg-background p-5", leftColumnClassName)}>
+        <div className={cn("flex w-full flex-col items-stretch justify-between gap-10 rounded-lg p-10 lg:flex-row", getNestedCardBg(background), cardClassName)}>
+          <div className={cn("flex w-full max-w-120 flex-col gap-10 rounded-lg p-5", getNestedCardBg(background, "card"), getNestedCardTextColor(background), leftColumnClassName)}>
             <div className={cn("max-w-19.5", logoClassName)}>
               <Img
                 src={companyLogo}

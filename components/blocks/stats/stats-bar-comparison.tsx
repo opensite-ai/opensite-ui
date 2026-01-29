@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -251,7 +251,9 @@ export function StatsBarComparison({
       <div
         key={groupIndex}
         className={cn(
-          "rounded-xl border bg-card p-6",
+          "rounded-xl border p-6",
+          getNestedCardBg(background, 'card'),
+          getNestedCardTextColor(background),
           group.className,
           groupCardClassName,
         )}
@@ -279,7 +281,8 @@ export function StatsBarComparison({
               </div>
               <div
                 className={cn(
-                  "h-3 w-full overflow-hidden rounded-full bg-muted",
+                  "h-3 w-full overflow-hidden rounded-full",
+                  getNestedCardBg(background, 'muted'),
                   barTrackClassName,
                 )}
               >
@@ -302,6 +305,7 @@ export function StatsBarComparison({
   }, [
     comparisonsSlot,
     comparisons,
+    background,
     isVisible,
     groupCardClassName,
     groupTitleClassName,

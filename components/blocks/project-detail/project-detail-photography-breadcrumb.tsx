@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -205,7 +205,7 @@ export function ProjectDetailPhotographyBreadcrumb(
           >
             <div
               className={cn(
-                "relative aspect-4/3 overflow-hidden rounded-2xl bg-muted mb-6",
+                "relative aspect-4/3 overflow-hidden rounded-2xl mb-6",
                 heroImageClassName,
               )}
             >
@@ -231,7 +231,7 @@ export function ProjectDetailPhotographyBreadcrumb(
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="relative aspect-square overflow-hidden rounded-xl bg-muted"
+                    className="relative aspect-square overflow-hidden rounded-xl"
                   >
                     <Img
                       src={image.src}

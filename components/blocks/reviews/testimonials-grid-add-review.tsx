@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
@@ -206,7 +206,10 @@ export function TestimonialsGridAddReview({
           )}
           onClick={onAddReview}
         >
-          <CardContent className="flex flex-col items-center gap-3 py-12 text-center">
+          <CardContent className={cn(
+            "flex flex-col items-center gap-3 py-12 text-center",
+            getNestedCardTextColor(background)
+          )}>
             <div className="flex size-12 items-center justify-center rounded-full bg-primary/10">
               <DynamicIcon
                 name="lucide/plus"

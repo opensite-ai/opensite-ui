@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -174,7 +174,9 @@ export function ProcessMissionPrinciples({
           <div
             key={index}
             className={cn(
-              "group relative rounded-lg border bg-card p-6 transition-shadow hover:shadow-md",
+              "group relative rounded-lg border p-6 transition-shadow hover:shadow-md",
+              getNestedCardBg(background, 'card'),
+              getNestedCardTextColor(background),
               principleCardClassName,
               principle.className,
             )}
@@ -213,7 +215,7 @@ export function ProcessMissionPrinciples({
         ))}
       </div>
     );
-  }, [principlesSlot, principles, principlesGridClassName, principleCardClassName, principleBadgeClassName]);
+  }, [principlesSlot, principles, background, principlesGridClassName, principleCardClassName, principleBadgeClassName]);
 
   return (
     <Section

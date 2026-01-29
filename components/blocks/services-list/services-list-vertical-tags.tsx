@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -163,7 +163,9 @@ export function ServicesListVerticalTags({
             <div className="shrink-0">
               <div
                 className={cn(
-                  "flex h-12 w-12 items-center justify-center rounded-lg bg-muted",
+                  "flex h-12 w-12 items-center justify-center rounded-lg",
+                  getNestedCardBg(background),
+                  getNestedCardTextColor(background),
                   iconClassName,
                 )}
               >
@@ -192,7 +194,11 @@ export function ServicesListVerticalTags({
                   {service.items.map((item, itemIndex) => (
                     <span
                       key={itemIndex}
-                      className="inline-flex items-center rounded-full bg-muted px-3 py-1 text-xs font-medium"
+                      className={cn(
+                        "inline-flex items-center rounded-full px-3 py-1 text-xs font-medium",
+                        getNestedCardBg(background),
+                        getNestedCardTextColor(background),
+                      )}
                     >
                       {typeof item === "string" ? item : item}
                     </span>

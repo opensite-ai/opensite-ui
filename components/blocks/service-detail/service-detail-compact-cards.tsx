@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -126,7 +126,12 @@ export function ServiceDetailCompactCards({
 
     return (
       <div
-        className={cn("shrink-0 rounded-lg bg-muted p-4", serviceIconClassName)}
+        className={cn(
+          "shrink-0 rounded-lg p-4",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
+          serviceIconClassName
+        )}
       >
         <Img
           src={serviceIcon.src}

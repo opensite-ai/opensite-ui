@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -149,7 +149,11 @@ export function ComparisonImageCards({
   const renderCard = React.useCallback(
     (option: OptionCard) => (
       <div className={cn("relative h-full", cardClassName)}>
-        <div className="relative aspect-4/5 min-h-[400px] overflow-hidden rounded-2xl bg-accent sm:aspect-[0.9] sm:min-h-[480px] sm:rounded-3xl md:min-h-[520px]">
+        <div className={cn(
+          "relative aspect-4/5 min-h-[400px] overflow-hidden rounded-2xl sm:aspect-[0.9] sm:min-h-[480px] sm:rounded-3xl md:min-h-[520px]",
+          getNestedCardBg(background, 'accent'),
+          getNestedCardTextColor(background)
+        )}>
           <Img
             src={option.image}
             alt={option.imageAlt || option.title}

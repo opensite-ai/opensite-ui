@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -587,7 +587,9 @@ export function PricingCollapsiblePlans({
           {isMenuOpen && (
             <div
               className={cn(
-                "mt-2 rounded-lg border bg-card shadow-lg",
+                "mt-2 rounded-lg border shadow-lg",
+                getNestedCardBg(background, "card"),
+                getNestedCardTextColor(background),
                 dropdownClassName,
               )}
             >

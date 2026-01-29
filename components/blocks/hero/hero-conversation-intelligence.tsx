@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
@@ -183,7 +183,11 @@ export function HeroConversationIntelligence({
             <div className={cn("relative z-10 mx-auto flex max-w-220 flex-col gap-7", contentClassName)}>
               <h1 className={cn("text-center text-5xl leading-[1.294] font-semibold sm:text-[3.75rem] md:text-[4.25rem]", headingClassName)}>
                 {headingPrimary}{" "}
-                <span className="relative text-nowrap after:absolute after:top-1/2 after:left-0 after:z-[-1] after:block after:h-[65%] after:w-full after:-translate-y-1/3 after:bg-muted after:content-['']">
+                <span className={cn(
+                  "relative text-nowrap",
+                  `after:absolute after:top-1/2 after:left-0 after:z-[-1] after:block after:h-[65%] after:w-full after:-translate-y-1/3 after:content-['']`,
+                  `after:${getNestedCardBg(background)}`
+                )}>
                   {headingHighlight}
                 </span>
               </h1>

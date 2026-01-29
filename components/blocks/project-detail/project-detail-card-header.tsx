@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import type {
@@ -150,7 +150,9 @@ export function ProjectDetailCardHeader(
         <motion.div
           {...fadeInUp}
           className={cn(
-            "mb-16 rounded-3xl border border-border bg-muted/30 p-8 md:p-12",
+            "mb-16 rounded-3xl border border-border p-8 md:p-12",
+            getNestedCardBg(background),
+            getNestedCardTextColor(background),
             cardClassName,
           )}
         >
@@ -201,7 +203,7 @@ export function ProjectDetailCardHeader(
 
             <div
               className={cn(
-                "relative aspect-4/3 overflow-hidden rounded-2xl bg-muted",
+                "relative aspect-4/3 overflow-hidden rounded-2xl",
                 heroImageClassName,
               )}
             >
@@ -228,7 +230,7 @@ export function ProjectDetailCardHeader(
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative aspect-4/3 overflow-hidden rounded-2xl bg-muted"
+                className="relative aspect-4/3 overflow-hidden rounded-2xl"
               >
                 <Img
                   src={image.src}

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -143,6 +143,7 @@ interface FeaturedPostComponentProps {
   badgeClassName?: string;
   buttonClassName?: string;
   optixFlowConfig?: OptixFlowConfig;
+  background?: SectionBackground;
 }
 
 const FeaturedPostComponent = ({
@@ -155,11 +156,14 @@ const FeaturedPostComponent = ({
   badgeClassName,
   buttonClassName,
   optixFlowConfig,
+  background,
 }: FeaturedPostComponentProps) => {
   return (
     <div
       className={cn(
-        "flex flex-col justify-between gap-10 rounded-2xl bg-muted p-10 xl:flex-row",
+        "flex flex-col justify-between gap-10 rounded-2xl p-10 xl:flex-row",
+        getNestedCardBg(background),
+        getNestedCardTextColor(background),
         className,
       )}
     >
@@ -262,9 +266,10 @@ export function ResourceListFeaturedArticles({
         buttonText={featuredButtonText}
         buttonClassName={featuredButtonClassName}
         optixFlowConfig={optixFlowConfig}
+        background={background}
       />
     );
-  }, [featuredPostSlot, featuredPost, featuredPostClassName, featuredBadgeText, featuredBadgeClassName, featuredButtonText, featuredButtonClassName, optixFlowConfig]);
+  }, [featuredPostSlot, featuredPost, featuredPostClassName, featuredBadgeText, featuredBadgeClassName, featuredButtonText, featuredButtonClassName, optixFlowConfig, background]);
 
   const renderedArticles = useMemo(() => {
     if (articlesSlot) return articlesSlot;

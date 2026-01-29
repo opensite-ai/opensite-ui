@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -229,7 +229,9 @@ export function AboutExpandableValues({
           <div
             key={value.id}
             className={cn(
-              "group overflow-hidden rounded-xl border bg-card text-card-foreground transition-all duration-300",
+              "group overflow-hidden rounded-xl border transition-all duration-300",
+              getNestedCardBg(background, 'card'),
+              getNestedCardTextColor(background),
               expandedValue === value.id
                 ? "col-span-1 shadow-lg md:col-span-2 lg:col-span-3"
                 : "",
@@ -274,7 +276,10 @@ export function AboutExpandableValues({
             {expandedValue === value.id && (
               <div className="space-y-6 px-6 pb-6">
                 {value.longDescription && (
-                  <div className="rounded-lg bg-muted/50 p-4">
+                  <div className={cn(
+                    "rounded-lg p-4",
+                    getNestedCardBg(background, 'subtle'),
+                  )}>
                     {typeof value.longDescription === "string" ? (
                       <p className="text-muted-foreground">
                         {value.longDescription}
@@ -378,7 +383,9 @@ export function AboutExpandableValues({
 
       <div
         className={cn(
-          "relative mt-8 rounded-lg bg-accent/50 p-8",
+          "relative mt-8 rounded-lg p-8",
+          getNestedCardBg(background, 'accent'),
+          getNestedCardTextColor(background),
           ctaClassName,
         )}
       >

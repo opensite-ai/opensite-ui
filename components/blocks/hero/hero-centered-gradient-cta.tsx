@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -166,7 +166,12 @@ export function HeroCenteredGradientCta({
       <div className={cn("pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(120,119,198,0.3),transparent)]", gradientClassName)} />
       <div className={cn("container relative z-10 flex flex-col items-center text-center", containerClassName)}>
         {badge && (
-          <div className={cn("inline-flex items-center gap-2 rounded-full border border-border/50 bg-muted/50 px-4 py-2 text-sm text-muted-foreground", badgeClassName)}>
+          <div className={cn(
+            "inline-flex items-center gap-2 rounded-full border border-border/50 px-4 py-2 text-sm",
+            getNestedCardBg(background, 'muted'),
+            getNestedCardTextColor(background),
+            badgeClassName
+          )}>
             {badgeIcon}
             {typeof badge === "string" ? <span>{badge}</span> : badge}
           </div>

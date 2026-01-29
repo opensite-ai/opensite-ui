@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -153,7 +153,11 @@ export function ProjectDetailListRelated(
           className={cn("mb-16 max-w-3xl", headerClassName)}
         >
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1 font-medium">
+            <span className={cn(
+              "rounded-full px-3 py-1 font-medium",
+              getNestedCardBg(background),
+              getNestedCardTextColor(background)
+            )}>
               {category}
             </span>
             <span>{year}</span>
@@ -201,7 +205,7 @@ export function ProjectDetailListRelated(
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative aspect-4/3 overflow-hidden rounded-xl bg-muted"
+              className="relative aspect-4/3 overflow-hidden rounded-xl"
             >
               <Img
                 src={image.src}
@@ -236,7 +240,7 @@ export function ProjectDetailListRelated(
                       href={project.href}
                       className="group flex items-center gap-6 rounded-xl border border-border p-4 transition-colors hover:bg-muted/50"
                     >
-                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-muted">
+                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg">
                         <Img
                           src={project.src}
                           alt={project.alt || "Related project"}
@@ -260,7 +264,7 @@ export function ProjectDetailListRelated(
                     </Pressable>
                   ) : (
                     <div className="flex items-center gap-6 rounded-xl border border-border p-4">
-                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-muted">
+                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg">
                         <Img
                           src={project.src}
                           alt={project.alt || "Related project"}

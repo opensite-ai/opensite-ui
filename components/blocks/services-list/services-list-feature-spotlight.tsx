@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card } from "../../ui/card";
@@ -250,7 +250,11 @@ export function ServicesListFeatureSpotlight({
                     ))}
                   {feature.badges && (
                     <div className="flex flex-wrap gap-2">
-                      <span className="rounded-full bg-muted/60 px-3 py-1 text-xs">
+                      <span className={cn(
+                        "rounded-full px-3 py-1 text-xs",
+                        getNestedCardBg(background),
+                        getNestedCardTextColor(background),
+                      )}>
                         {feature.badges[0]}
                       </span>
                       <span className="rounded-full bg-primary/10 px-3 py-1 text-xs text-primary">

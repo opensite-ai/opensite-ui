@@ -22,7 +22,7 @@ import {
   useMotionValue,
   type Variants,
 } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -273,7 +273,7 @@ export function CarouselAutoProgressSlides({
           asButton
           variant="ghost"
           size="icon"
-          className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-muted p-0.5 opacity-50 hover:bg-muted/80 active:scale-95"
+          className={cn("flex size-6 cursor-pointer items-center justify-center rounded-full p-0.5 opacity-50 active:scale-95", getNestedCardBg(background), getNestedCardTextColor(background))}
         >
           <DynamicIcon name="lucide/chevron-left" size={16} />
         </Pressable>
@@ -286,7 +286,7 @@ export function CarouselAutoProgressSlides({
               animate={{
                 width: index === currentIndex ? "30px" : "8px",
               }}
-              className="relative flex h-2 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-muted p-0.5 opacity-50"
+              className={cn("relative flex h-2 cursor-pointer items-center justify-center overflow-hidden rounded-full p-0.5 opacity-50", getNestedCardBg(background))}
             >
               {currentIndex === index && (
                 <motion.div
@@ -302,7 +302,7 @@ export function CarouselAutoProgressSlides({
           asButton
           variant="ghost"
           size="icon"
-          className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-muted p-0.5 hover:bg-muted/80 active:scale-95"
+          className={cn("flex size-6 cursor-pointer items-center justify-center rounded-full p-0.5 active:scale-95", getNestedCardBg(background), getNestedCardTextColor(background))}
         >
           <DynamicIcon name="lucide/chevron-right" size={16} />
         </Pressable>
@@ -338,7 +338,8 @@ export function CarouselAutoProgressSlides({
               )}
               <div
                 className={cn(
-                  "h-[550px] w-full overflow-hidden rounded-3xl bg-muted p-1",
+                  "h-[550px] w-full overflow-hidden rounded-3xl p-1",
+                  getNestedCardBg(background),
                   slideContainerClassName,
                 )}
               >

@@ -15,7 +15,7 @@
  */
 
 import * as React from "react";
-import { BRIGHTNESS_CLASS_MAP, cn } from "../../../lib/utils";
+import { BRIGHTNESS_CLASS_MAP, cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -342,7 +342,7 @@ export function CarouselPortfolioHero({
                 <Pressable
                   variant="outline"
                   size="icon"
-                  className="rounded-full border-foreground/40 bg-muted hover:bg-muted/80"
+                  className={cn("rounded-full border-foreground/40", getNestedCardBg(background), getNestedCardTextColor(background))}
                   onClick={goToPrev}
                   asButton
                 >

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
@@ -213,7 +213,9 @@ export function FeatureStatsHighlight({
       <div
         key={index}
         className={cn(
-          "flex flex-col gap-2 rounded-xl border bg-card p-6",
+          "flex flex-col gap-2 rounded-xl border p-6",
+          getNestedCardBg(background, 'card'),
+          getNestedCardTextColor(background),
           statCardClassName,
           stat.className,
         )}

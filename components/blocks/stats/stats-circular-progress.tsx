@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Section } from "../../ui/section";
@@ -341,7 +341,9 @@ export function StatsCircularProgress({
                   <div
                     key={index}
                     className={cn(
-                      "flex flex-col items-center justify-center rounded-xl border bg-card p-6",
+                      "flex flex-col items-center justify-center rounded-xl border p-6",
+                      getNestedCardBg(background, 'card'),
+                      getNestedCardTextColor(background),
                       stat.className,
                       statCardClassName,
                     )}
@@ -395,6 +397,7 @@ export function StatsCircularProgress({
   }, [
     categoriesSlot,
     categories,
+    background,
     category,
     tabsClassName,
     statsClassName,

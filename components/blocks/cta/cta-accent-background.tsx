@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -151,7 +151,9 @@ export function CtaAccentBackground({
       <div className={cn("container", containerClassName)}>
         <div
           className={cn(
-            "rounded-lg bg-accent p-8 md:rounded-xl lg:p-12",
+            "rounded-lg p-8 md:rounded-xl lg:p-12",
+            getNestedCardBg(background, "accent"),
+            getNestedCardTextColor(background),
             cardClassName,
           )}
         >

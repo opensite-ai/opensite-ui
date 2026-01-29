@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -188,7 +188,9 @@ export function LogosPartnerGridSidebar({
       <div
         key={index}
         className={cn(
-          "flex items-center justify-center rounded-lg border border-border bg-card p-6 transition-colors hover:bg-accent",
+          "flex items-center justify-center rounded-lg border border-border p-6 transition-colors hover:bg-accent",
+          getNestedCardBg(background, 'card'),
+          getNestedCardTextColor(background),
           partnerCardClassName,
           partner.className,
         )}

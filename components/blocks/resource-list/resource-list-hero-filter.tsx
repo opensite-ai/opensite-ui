@@ -5,7 +5,7 @@ import { Fragment, useCallback, useMemo, useState } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -673,7 +673,12 @@ export function ResourceListHeroFilter({
   return (
     <section className={cn("pb-32", className)}>
       <div
-        className={cn("bg-muted bg-repeat", heroClassName)}
+        className={cn(
+          "bg-repeat",
+          getNestedCardBg(undefined),
+          getNestedCardTextColor(undefined),
+          heroClassName
+        )}
         style={{
           backgroundImage: `url('${heroPatternUrl ?? patternSvgs.dotPattern2}')`,
           backgroundSize: heroPatternSize,

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
@@ -174,7 +174,9 @@ export function TestimonialsWallCompact({
             <div
               key={index}
               className={cn(
-                "rounded-lg border bg-card p-4 transition-shadow hover:shadow-md",
+                "rounded-lg border p-4 transition-shadow hover:shadow-md",
+                getNestedCardBg(background, 'card'),
+                getNestedCardTextColor(background),
                 cardClassName,
               )}
             >

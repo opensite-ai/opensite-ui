@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -173,9 +173,9 @@ export function HeroSpiralPatternCards({
               })}
             </svg>
           </div>
-          <div className="absolute inset-0 z-5 m-auto flex aspect-29/36 w-4/5 max-w-[16rem] translate-x-[-75%] translate-y-[10%] scale-[0.85] rotate-[-15deg] justify-center rounded-lg border border-border bg-accent opacity-60 md:w-85 md:max-w-85"></div>
-          <div className="absolute inset-0 z-10 m-auto flex aspect-29/36 w-4/5 max-w-[16rem] translate-x-[-40%] translate-y-[5%] scale-[0.9] rotate-[-7deg] justify-center rounded-lg border border-border bg-accent opacity-80 md:w-85 md:max-w-85"></div>
-          <div className="absolute inset-0 z-20 m-auto flex aspect-29/36 w-4/5 max-w-[16rem] justify-center rounded-lg border border-border bg-accent md:w-85 md:max-w-85"></div>
+          <div className={cn("absolute inset-0 z-5 m-auto flex aspect-29/36 w-4/5 max-w-[16rem] translate-x-[-75%] translate-y-[10%] scale-[0.85] rotate-[-15deg] justify-center rounded-lg border border-border opacity-60 md:w-85 md:max-w-85", getNestedCardBg(background, 'accent'))}></div>
+          <div className={cn("absolute inset-0 z-10 m-auto flex aspect-29/36 w-4/5 max-w-[16rem] translate-x-[-40%] translate-y-[5%] scale-[0.9] rotate-[-7deg] justify-center rounded-lg border border-border opacity-80 md:w-85 md:max-w-85", getNestedCardBg(background, 'accent'))}></div>
+          <div className={cn("absolute inset-0 z-20 m-auto flex aspect-29/36 w-4/5 max-w-[16rem] justify-center rounded-lg border border-border md:w-85 md:max-w-85", getNestedCardBg(background, 'accent'))}></div>
         </div>
       </div>
     </Section>

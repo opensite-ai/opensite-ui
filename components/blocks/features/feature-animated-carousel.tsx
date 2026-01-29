@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useCallback, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -429,7 +429,11 @@ export function FeatureAnimatedCarousel({
         patternClassName={patternClassName}
         className={className}
       >
-        <div className="relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl bg-muted p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]" />
+        <div className={cn(
+          "relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background)
+        )} />
       </Section>
     );
   }
@@ -445,7 +449,11 @@ export function FeatureAnimatedCarousel({
       patternClassName={patternClassName}
       className={className}
     >
-      <div className="relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl bg-muted p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]">
+      <div className={cn(
+        "relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]",
+        getNestedCardBg(background),
+        getNestedCardTextColor(background)
+      )}>
         <FeaturesDesktop
           features={features}
           handleNext={handleNext}

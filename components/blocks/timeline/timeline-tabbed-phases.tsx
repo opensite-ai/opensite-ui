@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -298,7 +298,7 @@ export function TimelineTabbedPhases({
                 className="relative z-20 col-span-1"
               >
                 <Card className="group h-110 w-full rounded-3xl border border-border bg-background p-2 shadow-none">
-                  <CardContent className="size-full rounded-2xl border-2 border-background bg-muted">
+                  <CardContent className={cn("size-full rounded-2xl border-2 border-background", getNestedCardBg(background))}>
                     <Img
                       src={phase.imageSrc}
                       alt={phase.imageAlt}

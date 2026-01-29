@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -248,7 +248,12 @@ export function FooterContactCard({
                         <Pressable
                           href={social.href}
                           aria-label={social.label}
-                          className={cn("flex size-12 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground", socialLinkClassName)}
+                          className={cn(
+                            "flex size-12 items-center justify-center rounded-full transition-colors hover:bg-primary hover:text-primary-foreground",
+                            getNestedCardBg(background),
+                            getNestedCardTextColor(background),
+                            socialLinkClassName
+                          )}
                         >
                           <DynamicIcon name={social.icon} size={20} />
                         </Pressable>

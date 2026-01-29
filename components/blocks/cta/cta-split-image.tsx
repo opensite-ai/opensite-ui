@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -241,7 +241,11 @@ export function CtaSplitImage({
       patternOpacity={patternOpacity}
     >
       <div className={cn("container", containerClassName)}>
-        <div className="flex w-full flex-col overflow-hidden rounded-lg bg-muted md:rounded-xl lg:flex-row lg:items-center">
+        <div className={cn(
+          "flex w-full flex-col overflow-hidden rounded-lg md:rounded-xl lg:flex-row lg:items-center",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background)
+        )}>
           {imageLeft ? (
             <>
               {imageContent}

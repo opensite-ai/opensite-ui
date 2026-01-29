@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
@@ -300,7 +300,9 @@ export function TeamFilterableSearch({
       <div
         key={member.id}
         className={cn(
-          "group rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:shadow-lg",
+          "group rounded-xl border border-border p-6 transition-all duration-300 hover:shadow-lg",
+          getNestedCardBg(background, 'card'),
+          getNestedCardTextColor(background),
           memberCardClassName,
         )}
       >
@@ -385,6 +387,7 @@ export function TeamFilterableSearch({
   }, [
     membersSlot,
     filteredMembers,
+    background,
     memberCardClassName,
     avatarClassName,
     memberNameClassName,

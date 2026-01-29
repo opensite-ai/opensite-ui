@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -146,7 +146,11 @@ export function HeroSaasDashboardPreview({
     if (badgeSlot) return badgeSlot;
 
     return (
-      <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 text-sm">
+      <div className={cn(
+        "inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm",
+        getNestedCardBg(background, 'muted'),
+        getNestedCardTextColor(background)
+      )}>
         {badgeIcon && (
           <DynamicIcon
             name={badgeIcon}
@@ -204,8 +208,14 @@ export function HeroSaasDashboardPreview({
     return (
       <div className={cn("relative mt-20", previewClassName)}>
         <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent z-10 pointer-events-none"></div>
-        <div className="overflow-hidden rounded-xl border border-border bg-muted/30 shadow-2xl">
-          <div className="flex items-center gap-2 border-b border-border bg-muted/50 px-4 py-3">
+        <div className={cn(
+          "overflow-hidden rounded-xl border border-border shadow-2xl",
+          getNestedCardBg(background, 'muted')
+        )}>
+          <div className={cn(
+            "flex items-center gap-2 border-b border-border px-4 py-3",
+            getNestedCardBg(background, 'muted')
+          )}>
             <div className="flex gap-1.5">
               <div className="h-3 w-3 rounded-full bg-destructive"></div>
               <div className="h-3 w-3 rounded-full bg-accent"></div>

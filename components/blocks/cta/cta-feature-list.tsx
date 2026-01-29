@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -227,7 +227,9 @@ export function CtaFeatureList({
       <div className={cn("container", containerClassName)}>
         <div
           className={cn(
-            "relative rounded-xl border border-border bg-accent px-6 py-8 2xl:grid 2xl:grid-cols-2 2xl:px-14 2xl:py-10",
+            "relative rounded-xl border border-border px-6 py-8 2xl:grid 2xl:grid-cols-2 2xl:px-14 2xl:py-10",
+            getNestedCardBg(background, "accent"),
+            getNestedCardTextColor(background),
             cardClassName
           )}
         >

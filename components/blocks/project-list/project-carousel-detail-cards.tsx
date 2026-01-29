@@ -4,7 +4,7 @@ import * as React from "react";
 import { useEffect, useState, useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
@@ -143,7 +143,9 @@ export function ProjectCarouselDetailCards({
       <CarouselItem key={project.id} className="basis-auto pl-8">
         <div
           className={cn(
-            "w-[600px] space-y-5 rounded-2xl border border-border bg-card p-6 shadow-sm",
+            "w-[600px] space-y-5 rounded-2xl border border-border p-6 shadow-sm",
+            getNestedCardBg(background, "card"),
+            getNestedCardTextColor(background),
             cardClassName,
           )}
         >

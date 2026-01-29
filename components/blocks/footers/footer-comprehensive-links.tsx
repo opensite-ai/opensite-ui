@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -10,6 +10,7 @@ import {
   type PatternName,
 } from "../../ui/pattern-background";
 import { Container } from "../../ui/container";
+import type { SectionBackground } from "../../../src/types";
 
 export interface FooterComprehensiveLinksLink {
   label: string;
@@ -99,6 +100,10 @@ export interface FooterComprehensiveLinksProps {
    */
   className?: string;
   /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: {
@@ -141,6 +146,7 @@ export function FooterComprehensiveLinks({
   patternOpacity,
   className,
   optixFlowConfig,
+  background = "white",
 }: FooterComprehensiveLinksProps): React.JSX.Element {
   const year = useMemo(() => new Date().getFullYear(), []);
   const copyrightText =
@@ -283,7 +289,11 @@ export function FooterComprehensiveLinks({
                           aria-label={
                             link.label || `Follow us on ${link.platform}`
                           }
-                          className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-muted/80 hover:text-primary"
+                          className={cn(
+                            "flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-muted/80 hover:text-primary",
+                            getNestedCardBg(background),
+                            getNestedCardTextColor(background)
+                          )}
                         >
                           <DynamicIcon
                             name={socialIconMap[link.platform]}

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
@@ -204,7 +204,9 @@ export function ServiceDetailSidebarStats({
     return (
       <div
         className={cn(
-          "rounded-lg bg-muted/50 p-6 lg:sticky lg:top-8",
+          "rounded-lg p-6 lg:sticky lg:top-8",
+          getNestedCardBg(bodyBackground),
+          getNestedCardTextColor(bodyBackground),
           statsClassName,
         )}
       >

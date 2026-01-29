@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -135,7 +135,11 @@ export function HeroAnnouncementBadge({
             className={cn("mb-4 max-w-full text-sm font-normal lg:mb-10 lg:py-2 lg:pr-5 lg:pl-2", badgeClassName)}
           >
             {badgeIcon && (
-              <span className="mr-2 flex size-8 shrink-0 items-center justify-center rounded-full bg-accent">
+              <span className={cn(
+                "mr-2 flex size-8 shrink-0 items-center justify-center rounded-full",
+                getNestedCardBg(background, 'accent'),
+                getNestedCardTextColor(background)
+              )}>
                 {badgeIcon}
               </span>
             )}

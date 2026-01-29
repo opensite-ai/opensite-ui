@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useState, useCallback, useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -771,11 +771,13 @@ export function LinkTreeBlock({
               className={cn(
                 "flex h-12 w-12 items-center justify-center rounded-full p-2.5 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
+                getNestedCardBg(resolvedBackground),
+                getNestedCardTextColor(resolvedBackground),
                 isDark
-                  ? "bg-muted/10 hover:bg-muted/20"
+                  ? "hover:bg-muted/20"
                   : isGlass
-                    ? "bg-card/60 backdrop-blur-sm hover:bg-card/80"
-                    : "bg-muted hover:bg-accent",
+                    ? "backdrop-blur-sm hover:bg-card/80"
+                    : "hover:bg-accent",
                 socialLinkClassName,
                 social.className,
               )}

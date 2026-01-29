@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import type {
@@ -90,7 +90,7 @@ function ImageBlock({
       viewport={{ once: true, margin: "-100px" }}
       className="group relative mb-8 last:mb-0"
     >
-      <div className="relative aspect-4/5 overflow-hidden rounded-2xl bg-muted">
+      <div className="relative aspect-4/5 overflow-hidden rounded-2xl">
         {src ? (
           <Img
             src={src}
@@ -117,6 +117,7 @@ function ProjectCard({
   index,
   href,
   optixFlowConfig,
+  background,
 }: {
   title: React.ReactNode;
   category: React.ReactNode;
@@ -125,6 +126,7 @@ function ProjectCard({
   index: number;
   href?: string;
   optixFlowConfig?: OptixFlowConfig;
+  background?: SectionBackground;
 }) {
   const content = (
     <motion.div
@@ -141,9 +143,15 @@ function ProjectCard({
           className="h-full w-full object-cover transition-transform duration-400 group-hover:scale-110"
           optixFlowConfig={optixFlowConfig}
         />
-        <div className="absolute inset-0 bg-muted/40 transition-all duration-300 group-hover:bg-muted/20" />
+        <div className={cn(
+          "absolute inset-0 transition-all duration-300",
+          `${getNestedCardBg(background)}/40 group-hover:${getNestedCardBg(background)}/20`
+        )} />
         <div className="absolute inset-0 flex flex-col justify-between p-6">
-          <span className="self-start border border-muted bg-background text-xs font-medium px-2 py-1 rounded">
+          <span className={cn(
+            "self-start border text-xs font-medium px-2 py-1 rounded",
+            `border-${getNestedCardBg(background).replace('bg-', '')} bg-background`
+          )}>
             {category}
           </span>
           <h3 className="text-2xl font-semibold opacity-70">
@@ -232,7 +240,11 @@ export function ProjectDetailSidebarSticky(
                   <p className="text-xl text-muted-foreground">{subtitle}</p>
                 )}
                 <div className="flex items-center gap-4">
-                  <span className="rounded-3xl bg-muted px-4 py-1 text-xs font-medium">
+                  <span className={cn(
+                    "rounded-3xl px-4 py-1 text-xs font-medium",
+                    getNestedCardBg(background),
+                    getNestedCardTextColor(background)
+                  )}>
                     {category}
                   </span>
                   <span className="rounded-3xl border border-border px-3 text-sm text-muted-foreground">
@@ -299,6 +311,7 @@ export function ProjectDetailSidebarSticky(
                   href={project.href}
                   index={index}
                   optixFlowConfig={optixFlowConfig}
+                  background={background}
                 />
               ))}
             </div>

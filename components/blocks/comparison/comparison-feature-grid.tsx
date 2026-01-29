@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -149,7 +149,9 @@ export function ComparisonFeatureGrid({
         {(optionALabel || optionBLabel) && (
           <div
             className={cn(
-              "hidden rounded-t-lg bg-muted text-left text-base font-semibold text-foreground sm:flex",
+              "hidden rounded-t-lg text-left text-base font-semibold text-foreground sm:flex",
+              getNestedCardBg(background),
+              getNestedCardTextColor(background),
               gridHeaderClassName
             )}
           >

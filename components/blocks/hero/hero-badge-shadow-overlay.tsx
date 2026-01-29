@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -133,7 +133,11 @@ export function HeroBadgeShadowOverlay({
           {(announcementBadge || announcementText) && (
             <Pressable
               href={announcementHref}
-              className={cn("flex items-center gap-2 rounded-full px-2 py-1 text-sm transition-colors hover:bg-muted", announcementClassName)}
+              className={cn(
+                "flex items-center gap-2 rounded-full px-2 py-1 text-sm transition-colors",
+                `hover:${getNestedCardBg(background)}`,
+                announcementClassName
+              )}
             >
               {announcementBadge && <Badge>{announcementBadge}</Badge>}
               {announcementText}

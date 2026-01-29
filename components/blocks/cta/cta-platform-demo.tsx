@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -186,7 +186,9 @@ export function CtaPlatformDemo({
       <div className={cn("container overflow-hidden", containerClassName)}>
         <div
           className={cn(
-            "relative mx-auto flex max-w-7xl flex-col justify-between gap-6 overflow-hidden rounded-xl border bg-muted/50 md:flex-row",
+            "relative mx-auto flex max-w-7xl flex-col justify-between gap-6 overflow-hidden rounded-xl border md:flex-row",
+            getNestedCardBg(background),
+            getNestedCardTextColor(background),
             cardClassName,
           )}
         >

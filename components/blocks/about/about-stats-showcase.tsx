@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -256,7 +256,10 @@ export function AboutStatsShowcase({
     if (!logos || logos.length === 0) return null;
 
     return (
-      <div className="bg-muted/50 py-24">
+      <div className={cn(
+        "py-24",
+        getNestedCardBg(background, 'subtle'),
+      )}>
         <div className="container flex flex-col items-center gap-11">
           {logosTitle &&
             (typeof logosTitle === "string" ? (
@@ -336,7 +339,11 @@ export function AboutStatsShowcase({
                 />
               )}
               {benefit.stat && (
-                <div className="flex flex-col justify-center rounded-xl bg-muted p-8">
+                <div className={cn(
+                  "flex flex-col justify-center rounded-xl p-8",
+                  getNestedCardBg(background),
+                  getNestedCardTextColor(background),
+                )}>
                   {benefit.stat.value &&
                     (typeof benefit.stat.value === "string" ? (
                       <p className="mb-2 text-4xl font-medium">

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Card, CardContent } from "../../ui/card";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -375,7 +375,12 @@ export function StatsImpactGrid({
       targetPercent !== undefined;
 
     return (
-      <div className={cn("mb-16 rounded-xl bg-muted p-8", comparisonClassName)}>
+      <div className={cn(
+        "mb-16 rounded-xl p-8",
+        getNestedCardBg(background, 'muted'),
+        getNestedCardTextColor(background),
+        comparisonClassName
+      )}>
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,240px)] md:items-start md:gap-12">
           <div>
             {comparisonHeading &&
@@ -456,6 +461,7 @@ export function StatsImpactGrid({
   }, [
     comparisonSlot,
     hasComparisonContent,
+    background,
     comparisonHeading,
     comparisonDescription,
     baselineValue,

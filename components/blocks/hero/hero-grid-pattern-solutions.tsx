@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -131,7 +131,11 @@ export function HeroGridPatternSolutions({
     return (
       <Pressable
         href={badgeHref}
-        className="mx-auto mb-4 flex w-fit items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm"
+        className={cn(
+          "mx-auto mb-4 flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background)
+        )}
       >
         {badgeText}
         <DynamicIcon name="lucide/arrow-right" size={16} />

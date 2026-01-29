@@ -16,7 +16,7 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -311,7 +311,7 @@ export function CarouselMultiStepShowcase({
                               ? "bg-primary text-primary-foreground"
                               : isCompleted
                                 ? "bg-primary text-primary-foreground"
-                                : "bg-muted text-muted-foreground hover:bg-muted/80",
+                                : cn(getNestedCardBg(background), getNestedCardTextColor(background)),
                             step.className,
                           )}
                         >
@@ -345,7 +345,8 @@ export function CarouselMultiStepShowcase({
         {/* Progress bar */}
         <div
           className={cn(
-            "mx-auto mb-12 h-1 max-w-2xl overflow-hidden rounded-full bg-muted",
+            "mx-auto mb-12 h-1 max-w-2xl overflow-hidden rounded-full",
+            getNestedCardBg(background),
             progressClassName,
           )}
         >
@@ -369,7 +370,8 @@ export function CarouselMultiStepShowcase({
           {/* Image */}
           <div
             className={cn(
-              "relative aspect-video overflow-hidden rounded-xl bg-muted",
+              "relative aspect-video overflow-hidden rounded-xl",
+              getNestedCardBg(background),
               imageClassName,
             )}
           >

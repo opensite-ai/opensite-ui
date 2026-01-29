@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -332,7 +332,9 @@ export function AboutMissionPrinciples({
 
       <div
         className={cn(
-          "mt-6 md:mt-24 rounded-lg bg-muted p-8 lg:p-12",
+          "mt-6 md:mt-24 rounded-lg p-8 lg:p-12",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
           visionClassName,
         )}
       >

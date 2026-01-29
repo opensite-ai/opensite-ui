@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -192,7 +192,7 @@ export function ServicesListMasonry({
                   "flex h-12 w-12 shrink-0 items-center justify-center rounded-lg",
                   service.featured
                     ? "bg-primary text-primary-foreground"
-                    : "bg-muted",
+                    : cn(getNestedCardBg(background), getNestedCardTextColor(background)),
                   iconClassName,
                 )}
               >

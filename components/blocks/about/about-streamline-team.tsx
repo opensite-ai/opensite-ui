@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -287,7 +287,9 @@ export function AboutStreamlineTeam({
 
       <div
         className={cn(
-          "mt-6 md:mt-32 rounded-2xl bg-muted p-8 md:p-16",
+          "mt-6 md:mt-32 rounded-2xl p-8 md:p-16",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
           teamSectionClassName,
         )}
       >

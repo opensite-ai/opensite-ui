@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -169,7 +169,9 @@ export function ServicesListCenteredIcons({
           >
             <div
               className={cn(
-                "mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-muted transition-colors group-hover:bg-foreground group-hover:text-background",
+                "mx-auto flex h-16 w-16 items-center justify-center rounded-full transition-colors group-hover:bg-foreground group-hover:text-background",
+                getNestedCardBg(background),
+                getNestedCardTextColor(background),
                 iconClassName,
               )}
             >

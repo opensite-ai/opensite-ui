@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -475,7 +475,7 @@ export function ListMetricsDashboard({
                       <TabsTrigger
                         key={category.value}
                         value={category.value}
-                        className="data-[state=active]:bg-muted rounded-none data-[state=active]:shadow-none"
+                        className={cn("rounded-none data-[state=active]:shadow-none", `data-[state=active]:${getNestedCardBg(background)}`)}
                       >
                         {category.label}
                       </TabsTrigger>

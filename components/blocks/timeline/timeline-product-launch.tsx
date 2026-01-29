@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Progress } from "../../ui/progress";
 import { Section } from "../../ui/section";
@@ -204,7 +204,9 @@ export function TimelineProductLaunch({
         </div>
         <div
           className={cn(
-            "mt-8 flex flex-col gap-6 rounded-xl border border-border bg-card p-4 sm:p-8 lg:p-11",
+            "mt-8 flex flex-col gap-6 rounded-xl border border-border p-4 sm:p-8 lg:p-11",
+            getNestedCardBg(background, "card"),
+            getNestedCardTextColor(background),
             cardClassName,
           )}
         >

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Card, CardContent } from "../../ui/card";
 import { Separator } from "../../ui/separator";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -240,7 +240,7 @@ export function TimelineHorizontalIcons({
                     )}
                   >
                     <div className="flex size-10 items-center justify-center rounded-lg border border-border bg-background p-[5px]">
-                      <div className="flex size-full items-center justify-center rounded-md border border-border bg-muted">
+                      <div className={cn("flex size-full items-center justify-center rounded-md border border-border", getNestedCardBg(background))}>
                         <DynamicIcon name={phase.icon} size={16} />
                       </div>
                     </div>

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -432,7 +432,11 @@ export function CtaCaseStudyTestimonial({
             {statsContent}
 
             {(companyLogo || companyName || industryBadge || companyDetails) && (
-              <Card className="mt-6 rounded-lg border bg-muted/40 p-4">
+              <Card className={cn(
+                "mt-6 rounded-lg border p-4",
+                getNestedCardBg(background),
+                getNestedCardTextColor(background)
+              )}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     {companyLogo && (

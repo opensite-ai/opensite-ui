@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Form, useForm, Field } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -383,7 +383,9 @@ export function CtaAppDownloadNewsletter({
 
           <div
             className={cn(
-              "flex flex-col justify-center rounded-2xl border bg-card p-8 lg:p-12",
+              "flex flex-col justify-center rounded-2xl border p-8 lg:p-12",
+              getNestedCardBg(background, "card"),
+              getNestedCardTextColor(background),
               newsletterCardClassName,
             )}
           >

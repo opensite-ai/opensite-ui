@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -153,9 +153,10 @@ const StepperContent = React.memo<{
   };
   imageClassName?: string;
   descriptionClassName?: string;
-}>(({ step, optixFlowConfig, imageClassName, descriptionClassName }) => {
+  background?: SectionBackground;
+}>(({ step, optixFlowConfig, imageClassName, descriptionClassName, background }) => {
   return (
-    <div className="my-4 flex min-h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl bg-muted p-6 text-center">
+    <div className={cn("my-4 flex min-h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl p-6 text-center", getNestedCardBg(background), getNestedCardTextColor(background))}>
       <motion.div
         key={step.imageSrc}
         initial={{ opacity: 0, y: -10 }}
@@ -317,6 +318,7 @@ export function TimelineStepperAnimated({
             optixFlowConfig={optixFlowConfig}
             imageClassName={imageClassName}
             descriptionClassName={descriptionClassName}
+            background={background}
           />
         </div>
         <div className={navButtonsClassName}>

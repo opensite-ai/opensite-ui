@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -148,7 +148,9 @@ export function CtaStackedCards({
     >
       <div
         className={cn(
-          "max-w-full overflow-hidden border-y border-border bg-accent pt-10 md:pt-16 lg:pt-20",
+          "max-w-full overflow-hidden border-y border-border pt-10 md:pt-16 lg:pt-20",
+          getNestedCardBg(background, "accent"),
+          getNestedCardTextColor(background),
           innerClassName,
         )}
       >

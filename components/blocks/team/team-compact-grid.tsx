@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
@@ -211,7 +211,9 @@ export function TeamCompactGrid({
       <div
         key={member.id}
         className={cn(
-          "group rounded-lg border border-muted bg-card/50 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-muted",
+          "group rounded-lg border border-muted p-6 backdrop-blur-sm transition-all duration-300",
+          getNestedCardBg(background, 'card'),
+          getNestedCardTextColor(background),
           memberCardClassName,
         )}
       >
@@ -253,7 +255,7 @@ export function TeamCompactGrid({
         </div>
       </div>
     ));
-  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName, departmentBadgeClassName]);
+  }, [membersSlot, members, background, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName, departmentBadgeClassName]);
 
   const renderCta = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;

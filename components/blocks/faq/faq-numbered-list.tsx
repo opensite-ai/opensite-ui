@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -139,7 +139,9 @@ export function FaqNumberedList({
           >
             <span
               className={cn(
-                "bg-muted flex size-10 shrink-0 items-center justify-center rounded-lg text-md font-semibold",
+                "flex size-10 shrink-0 items-center justify-center rounded-lg text-md font-semibold",
+                getNestedCardBg(background),
+                getNestedCardTextColor(background),
                 numberClassName,
               )}
             >

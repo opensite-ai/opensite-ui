@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -128,9 +128,11 @@ export interface ProcessRoadmapTimelineProps {
 
 const StatusBadge = ({
   status,
+  background,
   className,
 }: {
   status: MilestoneStatus;
+  background?: SectionBackground;
   className?: string;
 }) => {
   const config = {
@@ -149,7 +151,7 @@ const StatusBadge = ({
     upcoming: {
       label: "Upcoming",
       badgeClassName:
-        "bg-muted text-muted-foreground",
+        cn(getNestedCardBg(background, 'muted'), getNestedCardTextColor(background)),
       icon: "lucide/clock",
     },
   };
@@ -220,7 +222,9 @@ export function ProcessRoadmapTimeline({
             >
               <div
                 className={cn(
-                  "rounded-lg border bg-card p-6 shadow-sm transition-shadow hover:shadow-md",
+                  "rounded-lg border p-6 shadow-sm transition-shadow hover:shadow-md",
+                  getNestedCardBg(background, 'card'),
+                  getNestedCardTextColor(background),
                   milestone.status === "in-progress" && "border-primary/50",
                   milestoneCardClassName,
                 )}
@@ -241,7 +245,7 @@ export function ProcessRoadmapTimeline({
                         {milestone.date}
                       </div>
                     ))}
-                  <StatusBadge status={milestone.status} />
+                  <StatusBadge status={milestone.status} background={background} />
                 </div>
                 {milestone.title &&
                   (typeof milestone.title === "string" ? (
@@ -273,7 +277,11 @@ export function ProcessRoadmapTimeline({
                     {milestone.features.map((feature, fIndex) => (
                       <span
                         key={fIndex}
-                        className="rounded bg-muted px-2 py-1 text-xs text-muted-foreground"
+                        className={cn(
+                          "rounded px-2 py-1 text-xs",
+                          getNestedCardBg(background, 'muted'),
+                          getNestedCardTextColor(background)
+                        )}
                       >
                         {feature}
                       </span>
@@ -306,7 +314,7 @@ export function ProcessRoadmapTimeline({
         ))}
       </div>
     );
-  }, [milestonesSlot, milestones, milestoneCardClassName, milestoneNodeClassName]);
+  }, [milestonesSlot, milestones, background, milestoneCardClassName, milestoneNodeClassName]);
 
   return (
     <Section

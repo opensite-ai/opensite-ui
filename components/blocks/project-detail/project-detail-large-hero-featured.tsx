@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import type {
@@ -261,7 +261,7 @@ export function ProjectDetailLargeHeroFeatured(
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="relative aspect-video overflow-hidden rounded-2xl bg-muted"
+                    className="relative aspect-video overflow-hidden rounded-2xl"
                   >
                     <Img
                       src={image.src}

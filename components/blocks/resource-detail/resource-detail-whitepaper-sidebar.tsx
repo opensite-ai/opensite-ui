@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -266,8 +266,15 @@ export function ResourceDetailWhitepaperSidebar({
 
     return (
       <aside className={cn("flex flex-col gap-2", sidebarClassName)}>
-        <div className="mb-6 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
-          <div className="border-b border-border bg-muted/50 px-5 py-4">
+        <div className={cn(
+          "mb-6 overflow-hidden rounded-lg border border-border shadow-sm",
+          getNestedCardBg(background, 'card'),
+          getNestedCardTextColor(background)
+        )}>
+          <div className={cn(
+            "border-b border-border px-5 py-4",
+            getNestedCardBg(background)
+          )}>
             <h3 className="flex items-center text-sm font-semibold">
               {sidebar?.resourceTypeIcon}
               {sidebar?.resourceType &&
@@ -287,7 +294,10 @@ export function ResourceDetailWhitepaperSidebar({
             </div>
 
             {showPdfPreview && sidebar?.pdfUrl && (
-              <div className="mt-4 overflow-hidden rounded-lg border border-border bg-muted/30">
+              <div className={cn(
+                "mt-4 overflow-hidden rounded-lg border border-border",
+                getNestedCardBg(background)
+              )}>
                 <PDFViewer
                   url={sidebar.pdfUrl}
                   height={sidebar.pdfPreviewHeight ?? "300px"}
@@ -318,8 +328,15 @@ export function ResourceDetailWhitepaperSidebar({
           </div>
         </div>
 
-        <div className="mb-6 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
-          <div className="border-b border-border bg-muted/50 px-5 py-4">
+        <div className={cn(
+          "mb-6 overflow-hidden rounded-lg border border-border shadow-sm",
+          getNestedCardBg(background, 'card'),
+          getNestedCardTextColor(background)
+        )}>
+          <div className={cn(
+            "border-b border-border px-5 py-4",
+            getNestedCardBg(background)
+          )}>
             <h3 className="flex items-center text-sm font-semibold">
               {sidebar?.downloadOptionsIcon}
               {sidebar?.downloadOptionsTitle &&
@@ -360,8 +377,15 @@ export function ResourceDetailWhitepaperSidebar({
           </div>
         </div>
 
-        <div className="mb-6 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
-          <div className="border-b border-border bg-muted/50 px-5 py-4">
+        <div className={cn(
+          "mb-6 overflow-hidden rounded-lg border border-border shadow-sm",
+          getNestedCardBg(background, 'card'),
+          getNestedCardTextColor(background)
+        )}>
+          <div className={cn(
+            "border-b border-border px-5 py-4",
+            getNestedCardBg(background)
+          )}>
             <h3 className="flex items-center text-sm font-semibold">
               {sidebar?.shareIcon}
               {sidebar?.shareTitle &&
@@ -386,7 +410,8 @@ export function ResourceDetailWhitepaperSidebar({
                     <li key={index}>
                       <Pressable
                         className={cn(
-                          "flex size-10 items-center justify-center rounded-full border border-border bg-muted/50 transition-colors hover:bg-muted",
+                          "flex size-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted",
+                          getNestedCardBg(background),
                           actionClassName,
                         )}
                         {...pressableProps}

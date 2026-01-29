@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import type {
@@ -222,7 +222,7 @@ export function ProjectDetailHeroMetadata(
           <motion.div
             variants={fadeInUp}
             className={cn(
-              "relative aspect-video overflow-hidden rounded-lg bg-muted/30",
+              "relative aspect-video overflow-hidden rounded-lg",
               heroImageClassName,
             )}
           >

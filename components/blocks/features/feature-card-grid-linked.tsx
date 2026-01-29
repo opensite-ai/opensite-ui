@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -204,7 +204,9 @@ export function FeatureCardGridLinked({
         <div
           key={featureKey}
           className={cn(
-            "flex flex-col justify-between rounded-lg bg-muted border",
+            "flex flex-col justify-between rounded-lg border",
+            getNestedCardBg(background),
+            getNestedCardTextColor(background),
             cardClassName,
             feature.className,
           )}

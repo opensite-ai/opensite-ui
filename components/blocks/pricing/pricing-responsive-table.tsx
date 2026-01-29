@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useState, useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
@@ -179,7 +179,7 @@ export function PricingResponsiveTable({
           <div className="overflow-hidden rounded-lg border">
             <table className="w-full">
               <thead>
-                <tr className="border-b bg-muted/50">
+                <tr className={cn("border-b", getNestedCardBg(background), getNestedCardTextColor(background))}>
                   <th className="p-4 text-left font-medium">Features</th>
                   {plans.map((plan, index) => (
                     <th key={index} className="p-4 text-center">

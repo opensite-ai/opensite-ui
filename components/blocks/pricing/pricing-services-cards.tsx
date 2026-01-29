@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -407,7 +407,7 @@ export function PricingServicesCards({
                       "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl",
                       plan.isHighlighted
                         ? "bg-primary text-primary-foreground"
-                        : "bg-muted text-muted-foreground",
+                        : cn(getNestedCardBg(background), "text-muted-foreground"),
                       planIconWrapperClassName,
                       plan.iconWrapperClassName,
                     )}

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { FeatureItem, StatItem, SectionBackground, SectionSpacing } from "../../../src/types";
@@ -108,7 +108,11 @@ export function AboutStatsSidebar({
     return (
       <div className={cn("grid gap-6 sm:grid-cols-2", statsClassName)}>
         {stats.map((stat, idx) => (
-          <div key={idx} className="rounded-xl border bg-card p-6">
+          <div key={idx} className={cn(
+            "rounded-xl border p-6",
+            getNestedCardBg(background, 'card'),
+            getNestedCardTextColor(background),
+          )}>
             {stat.icon}
             {typeof stat.value === "string" ? (
               <p className="mt-4 text-4xl font-bold">{stat.value}</p>

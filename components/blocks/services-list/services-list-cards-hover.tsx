@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -176,7 +176,9 @@ export function ServicesListCardsHover({
           <div
             key={index}
             className={cn(
-              "group relative overflow-hidden rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary hover:shadow-lg",
+              "group relative overflow-hidden rounded-xl border border-border p-6 transition-all duration-300 hover:border-primary hover:shadow-lg",
+              getNestedCardBg(background, 'card'),
+              getNestedCardTextColor(background),
               cardClassName,
               service.className,
             )}

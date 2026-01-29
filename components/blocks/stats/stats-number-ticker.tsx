@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -201,6 +201,7 @@ function TickerStatItem({
   stat,
   duration,
   isVisible,
+  background,
   cardClassName,
   valueClassName,
   labelClassName,
@@ -209,6 +210,7 @@ function TickerStatItem({
   stat: TickerStat;
   duration: number;
   isVisible: boolean;
+  background?: SectionBackground;
   cardClassName?: string;
   valueClassName?: string;
   labelClassName?: string;
@@ -219,7 +221,13 @@ function TickerStatItem({
   const displayValue = useNumberTicker(stat.value, duration, isVisible, decimals);
 
   return (
-    <div className={cn("rounded-xl border bg-card p-6 transition-shadow hover:shadow-md", stat.className, cardClassName)}>
+    <div className={cn(
+      "rounded-xl border p-6 transition-shadow hover:shadow-md",
+      getNestedCardBg(background, 'card'),
+      getNestedCardTextColor(background),
+      stat.className,
+      cardClassName
+    )}>
       <div className={cn("mb-2 text-4xl font-bold tabular-nums md:text-5xl", valueClassName)}>
         {stat.prefix}
         {displayValue}
@@ -322,6 +330,7 @@ export function StatsNumberTicker({
             stat={stat}
             duration={animationDuration}
             isVisible={isVisible}
+            background={background}
             cardClassName={statCardClassName}
             valueClassName={statValueClassName}
             labelClassName={statLabelClassName}
@@ -330,7 +339,7 @@ export function StatsNumberTicker({
         ))}
       </div>
     );
-  }, [statsSlot, stats, animationDuration, isVisible, statsGridClassName, statCardClassName, statValueClassName, statLabelClassName, statDescriptionClassName]);
+  }, [statsSlot, stats, background, animationDuration, isVisible, statsGridClassName, statCardClassName, statValueClassName, statLabelClassName, statDescriptionClassName]);
 
   // Check if header has any content
   const hasHeaderContent = !!(badge || badgeSlot || heading || description);

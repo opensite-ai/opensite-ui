@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
@@ -130,7 +130,9 @@ export function ProjectFeaturedCarousel({
       <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
         <div
           className={cn(
-            "group h-full overflow-hidden rounded-xl border bg-card",
+            "group h-full overflow-hidden rounded-xl border",
+            getNestedCardBg(background, "card"),
+            getNestedCardTextColor(background),
             cardClassName,
           )}
         >

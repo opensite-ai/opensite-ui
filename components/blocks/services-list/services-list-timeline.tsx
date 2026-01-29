@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -212,7 +212,9 @@ export function ServicesListTimeline({
               >
                 <div
                   className={cn(
-                    "rounded-xl border border-border bg-card p-6 transition-shadow hover:shadow-md",
+                    "rounded-xl border border-border p-6 transition-shadow hover:shadow-md",
+                    getNestedCardBg(background, 'card'),
+                    getNestedCardTextColor(background),
                     index % 2 === 0 ? "md:mr-4" : "md:ml-4",
                     cardClassName,
                     service.className,
@@ -265,7 +267,11 @@ export function ServicesListTimeline({
                       {service.deliverables.map((deliverable, delIndex) => (
                         <span
                           key={delIndex}
-                          className="inline-flex items-center rounded-full border border-border bg-muted/50 px-2.5 py-0.5 text-xs"
+                          className={cn(
+                            "inline-flex items-center rounded-full border border-border px-2.5 py-0.5 text-xs",
+                            getNestedCardBg(background, 'subtle'),
+                            getNestedCardTextColor(background),
+                          )}
                         >
                           <DynamicIcon
                             name="lucide/check"

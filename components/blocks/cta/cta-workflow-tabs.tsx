@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -245,7 +245,9 @@ export function CtaWorkflowTabs({
         <div className="mb-8 flex justify-center">
           <div
             className={cn(
-              "inline-flex rounded-lg border bg-muted p-1",
+              "inline-flex rounded-lg border p-1",
+              getNestedCardBg(background),
+              getNestedCardTextColor(background),
               tabButtonsClassName,
             )}
           >

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import {
   Accordion,
@@ -202,7 +202,9 @@ export function ServicesListAccordion({
               <div className="flex items-center gap-4 text-left">
                 <div
                   className={cn(
-                    "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted",
+                    "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
+                    getNestedCardBg(background),
+                    getNestedCardTextColor(background),
                     iconClassName,
                   )}
                 >
@@ -284,7 +286,11 @@ export function ServicesListAccordion({
                         typeof deliverable === "string" ? (
                           <span
                             key={delIndex}
-                            className="inline-flex items-center rounded-full bg-muted px-3 py-1 text-xs font-medium"
+                            className={cn(
+                              "inline-flex items-center rounded-full px-3 py-1 text-xs font-medium",
+                              getNestedCardBg(background),
+                              getNestedCardTextColor(background),
+                            )}
                           >
                             {deliverable}
                           </span>

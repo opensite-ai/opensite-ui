@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -207,7 +207,7 @@ export function ProjectDetailTabbedCaseStudy(
         <motion.div {...fadeInUp} className="mb-16">
           <div
             className={cn(
-              "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+              "relative aspect-video overflow-hidden rounded-2xl",
               heroImageClassName,
             )}
           >
@@ -301,7 +301,7 @@ export function ProjectDetailTabbedCaseStudy(
                 {section.image && (
                   <div
                     className={cn(
-                      "relative aspect-4/3 overflow-hidden rounded-2xl bg-muted",
+                      "relative aspect-4/3 overflow-hidden rounded-2xl",
                       section.imagePosition === "left" && "lg:order-1",
                     )}
                   >
@@ -323,7 +323,9 @@ export function ProjectDetailTabbedCaseStudy(
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.3 }}
             className={cn(
-              "mt-24 rounded-2xl bg-muted/30 p-8 md:p-12",
+              "mt-24 rounded-2xl p-8 md:p-12",
+              getNestedCardBg(background),
+              getNestedCardTextColor(background),
               testimonialClassName,
             )}
           >
@@ -332,7 +334,7 @@ export function ProjectDetailTabbedCaseStudy(
             </blockquote>
             <div className="mt-6 flex items-center gap-4">
               {testimonial.avatar && (
-                <div className="h-12 w-12 overflow-hidden rounded-full bg-muted">
+                <div className="h-12 w-12 overflow-hidden rounded-full">
                   <Img
                     src={testimonial.avatar}
                     alt={

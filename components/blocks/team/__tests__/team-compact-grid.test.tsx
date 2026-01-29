@@ -157,7 +157,7 @@ describe("TeamCompactGrid", () => {
     const cards = container.querySelectorAll(".group");
     expect(cards.length).toBe(mockMembers.length);
     cards.forEach((card) => {
-      expect(card.className).toContain("hover:bg-muted");
+      expect(card.className).toContain("bg-card");
     });
   });
 

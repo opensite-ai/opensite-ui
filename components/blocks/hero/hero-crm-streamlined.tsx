@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -182,7 +182,7 @@ export function HeroCrmStreamlined({
                   className={cn("relative z-20 h-full w-full object-cover object-center", image.className)}
                   optixFlowConfig={optixFlowConfig}
                 />
-                <div className="absolute top-0 left-25 z-10 aspect-[1.378254211/1] h-full w-225 bg-muted" />
+                <div className={cn("absolute top-0 left-25 z-10 aspect-[1.378254211/1] h-full w-225", getNestedCardBg(background))} />
               </div>
             ) : null}
           </div>

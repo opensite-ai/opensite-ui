@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -187,7 +187,11 @@ export function HeroMobileAppDownload({
     if (badgeSlot) return badgeSlot;
 
     return (
-      <div className="inline-flex w-fit items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground">
+      <div className={cn(
+        "inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm font-medium",
+        getNestedCardBg(background, 'accent'),
+        getNestedCardTextColor(background)
+      )}>
         {badgeIcon && <DynamicIcon name={badgeIcon} size={16} />}
         <span>{badgeText}</span>
       </div>
@@ -243,7 +247,11 @@ export function HeroMobileAppDownload({
     if (!notification) return null;
 
     return (
-      <div className="absolute -right-8 top-1/4 w-48 rounded-2xl bg-background p-4 shadow-lg">
+      <div className={cn(
+        "absolute -right-8 top-1/4 w-48 rounded-2xl p-4 shadow-lg",
+        getNestedCardBg(background, 'card'),
+        getNestedCardTextColor(background)
+      )}>
         <div className="flex items-center gap-3">
           {notification.icon && (
             <div className={cn("flex h-10 w-10 items-center justify-center rounded-full", notification.iconBgClass)}>

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -216,7 +216,11 @@ export function FooterSimpleCentered({
                 )}
               >
                 {logo?.src && (
-                  <div className="flex size-12 items-center justify-center rounded-lg border border-border bg-accent p-2">
+                  <div className={cn(
+                    "flex size-12 items-center justify-center rounded-lg border border-border p-2",
+                    getNestedCardBg(background, 'accent'),
+                    getNestedCardTextColor(background)
+                  )}>
                     <Img
                       src={logo.src}
                       alt={logo?.alt}

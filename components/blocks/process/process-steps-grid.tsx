@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -154,7 +154,9 @@ export function ProcessStepsGrid({
           <div
             key={index}
             className={cn(
-              "group relative overflow-hidden rounded-lg border bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg",
+              "group relative overflow-hidden rounded-lg border p-8 transition-all hover:border-primary/50 hover:shadow-lg",
+              getNestedCardBg(background, 'card'),
+              getNestedCardTextColor(background),
               stepCardClassName,
               step.className,
             )}
@@ -200,7 +202,7 @@ export function ProcessStepsGrid({
         ))}
       </div>
     );
-  }, [stepsSlot, steps, stepsGridClassName, stepCardClassName, stepIconClassName]);
+  }, [stepsSlot, steps, background, stepsGridClassName, stepCardClassName, stepIconClassName]);
 
   return (
     <Section

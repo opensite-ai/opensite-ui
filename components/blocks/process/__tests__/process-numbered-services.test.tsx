@@ -116,7 +116,7 @@ describe("ProcessNumberedServices", () => {
     const { container } = render(
       <ProcessNumberedServices services={mockServices} />
     );
-    const capabilityItems = container.querySelectorAll(".rounded-lg.bg-muted\\/50");
+    const capabilityItems = container.querySelectorAll(".rounded-lg.bg-muted");
     expect(capabilityItems.length).toBe(6);
   });
 

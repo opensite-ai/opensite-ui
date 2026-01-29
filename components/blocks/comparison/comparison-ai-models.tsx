@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import {
@@ -314,7 +314,12 @@ export function ComparisonAiModels({
     if (!models) return null;
 
     return (
-      <div className={cn("relative mt-8 border border-border/50 bg-muted/20 p-6", analysisClassName)}>
+      <div className={cn(
+        "relative mt-8 border border-border/50 p-6",
+        getNestedCardBg(background),
+        getNestedCardTextColor(background),
+        analysisClassName
+      )}>
         <div className="relative">
           <h4 className="mb-4 font-mono text-sm font-semibold tracking-wider uppercase">
             Technical Analysis

@@ -16,7 +16,7 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { CarouselPagination } from "../../ui/carousel-pagination";
 import { Pressable } from "../../../lib/Pressable";
@@ -282,7 +282,7 @@ export function CarouselHorizontalCards({
                       item.className,
                     )}
                   >
-                    <div className="overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm transition-shadow hover:shadow-md">
+                    <div className={cn("overflow-hidden rounded-lg border shadow-sm transition-shadow hover:shadow-md", getNestedCardBg(background, 'card'), getNestedCardTextColor(background))}>
                       <Img
                         alt={
                           typeof item.title === "string"

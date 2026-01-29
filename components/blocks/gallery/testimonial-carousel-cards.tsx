@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useState, useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -393,7 +393,8 @@ export function TestimonialCarouselCards({
 
           <div
             className={cn(
-              "absolute bottom-4 left-1/2 h-0.5 w-60 -translate-x-1/2 rounded bg-muted",
+              "absolute bottom-4 left-1/2 h-0.5 w-60 -translate-x-1/2 rounded",
+              getNestedCardBg(background),
               progressClassName,
             )}
           >

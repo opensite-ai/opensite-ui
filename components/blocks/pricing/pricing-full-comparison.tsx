@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Switch } from "../../ui/switch";
@@ -489,7 +489,7 @@ export function PricingFullComparison({
           <tbody>
             {categories.map((category) => (
               <React.Fragment key={String(category)}>
-                <tr className={cn("bg-muted/50", categoryRowClassName)}>
+                <tr className={cn(getNestedCardBg(background), getNestedCardTextColor(background), categoryRowClassName)}>
                   <td
                     colSpan={plans.length + 1}
                     className="p-3 text-sm font-semibold"

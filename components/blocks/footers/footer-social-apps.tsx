@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -133,7 +133,11 @@ export function FooterSocialApps({
     return socialLinks.map((social, idx) => (
       <li key={idx} className="font-medium">
         <Pressable href={social.href} aria-label={social.label}>
-          <span className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary">
+          <span className={cn(
+            "flex size-12 items-center justify-center rounded-full transition-colors hover:text-primary",
+            getNestedCardBg(background),
+            getNestedCardTextColor(background)
+          )}>
             <DynamicIcon name={social.icon} size={24} />
           </span>
         </Pressable>
@@ -147,7 +151,11 @@ export function FooterSocialApps({
     return appLinks.map((app, idx) => (
       <li key={idx} className="font-medium">
         <Pressable href={app.href} aria-label={app.label}>
-          <span className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary">
+          <span className={cn(
+            "flex size-12 items-center justify-center rounded-full transition-colors hover:text-primary",
+            getNestedCardBg(background),
+            getNestedCardTextColor(background)
+          )}>
             <DynamicIcon name={app.icon} size={24} />
           </span>
         </Pressable>

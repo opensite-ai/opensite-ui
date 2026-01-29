@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
@@ -147,7 +147,12 @@ export function ComparisonLegacyModern({
 
     return (
       <>
-        <div className={cn("rounded-3xl bg-muted p-6 lg:rounded-r-none lg:p-12", legacyColumnClassName)}>
+        <div className={cn(
+          "rounded-3xl p-6 lg:rounded-r-none lg:p-12",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
+          legacyColumnClassName
+        )}>
           {legacyTitle &&
             (typeof legacyTitle === "string" ? (
               <h3 className="text-2xl font-medium">{legacyTitle}</h3>

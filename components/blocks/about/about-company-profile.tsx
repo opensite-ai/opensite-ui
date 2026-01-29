@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -201,7 +201,9 @@ export function AboutCompanyProfile({
     return (
       <div
         className={cn(
-          "flex flex-col justify-between gap-6 rounded-xl bg-muted p-7 md:w-1/2 lg:w-auto",
+          "flex flex-col justify-between gap-6 rounded-xl p-7 md:w-1/2 lg:w-auto",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
           breakoutClassName,
         )}
       >
@@ -391,7 +393,9 @@ export function AboutCompanyProfile({
       {companiesContent}
       <div
         className={cn(
-          "relative overflow-hidden rounded-xl bg-muted p-7 md:p-16",
+          "relative overflow-hidden rounded-xl p-7 md:p-16",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
           achievementsClassName,
         )}
       >

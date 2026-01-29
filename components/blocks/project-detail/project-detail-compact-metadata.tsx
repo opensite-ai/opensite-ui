@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import type {
@@ -172,7 +172,7 @@ export function ProjectDetailCompactMetadata(
         <motion.div {...fadeInUp} className="mb-12">
           <div
             className={cn(
-              "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+              "relative aspect-video overflow-hidden rounded-2xl",
               heroImageClassName,
             )}
           >
@@ -203,7 +203,9 @@ export function ProjectDetailCompactMetadata(
           <motion.div {...fadeInUp} transition={{ duration: 0.6, delay: 0.2 }}>
             <div
               className={cn(
-                "rounded-xl border border-border bg-muted/30 p-6",
+                "rounded-xl border border-border p-6",
+                getNestedCardBg(background),
+                getNestedCardTextColor(background),
                 metadataClassName,
               )}
             >
@@ -241,7 +243,7 @@ export function ProjectDetailCompactMetadata(
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative aspect-square overflow-hidden rounded-xl bg-muted"
+                  className="group relative aspect-square overflow-hidden rounded-xl"
                 >
                   <Img
                     src={image.src}

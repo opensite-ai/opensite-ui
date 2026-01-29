@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -173,7 +173,9 @@ export function TimelineAIWorkflowCards({
               <div
                 key={index}
                 className={cn(
-                  "relative my-12 overflow-hidden rounded-lg bg-muted px-8 py-16 shadow-none sm:px-12 sm:py-24 lg:px-16 lg:py-32",
+                  "relative my-12 overflow-hidden rounded-lg px-8 py-16 shadow-none sm:px-12 sm:py-24 lg:px-16 lg:py-32",
+                  getNestedCardBg(background),
+                  getNestedCardTextColor(background),
                   cardClassName,
                 )}
               >

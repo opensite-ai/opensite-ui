@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { Section } from "../../ui/section";
@@ -224,7 +224,7 @@ export function TimelineScrollStickyImage({
                   sectionClassName,
                 )}
               >
-                <div className="block rounded-2xl border bg-muted p-4 md:hidden">
+                <div className={cn("block rounded-2xl border p-4 md:hidden", getNestedCardBg(background))}>
                   <Img
                     src={section.image}
                     alt={
@@ -286,7 +286,8 @@ export function TimelineScrollStickyImage({
               <div
                 key={index}
                 className={cn(
-                  "absolute inset-0 flex h-full items-center justify-center rounded-2xl border bg-muted p-4 transition-opacity duration-200",
+                  "absolute inset-0 flex h-full items-center justify-center rounded-2xl border p-4 transition-opacity duration-200",
+                  getNestedCardBg(background),
                   index === safeActiveIndex ? "opacity-100" : "opacity-0",
                 )}
               >

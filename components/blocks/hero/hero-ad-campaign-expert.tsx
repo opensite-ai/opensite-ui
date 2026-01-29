@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
@@ -186,7 +186,7 @@ export function HeroAdCampaignExpert({
               <AspectRatio ratio={2} className="relative">
                 <AspectRatio
                   ratio={1}
-                  className="absolute w-full rounded-full bg-muted"
+                  className={cn("absolute w-full rounded-full", getNestedCardBg(background))}
                 />
               </AspectRatio>
             </div>

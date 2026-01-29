@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import type {
@@ -163,7 +163,11 @@ export function ProjectDetailExhibitionSidebar(
             className={cn("lg:col-span-2", headerClassName)}
           >
             <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
-              <span className="rounded-full bg-muted px-3 py-1 font-medium">
+              <span className={cn(
+                "rounded-full px-3 py-1 font-medium",
+                getNestedCardBg(background),
+                getNestedCardTextColor(background)
+              )}>
                 {category}
               </span>
               <span>{year}</span>
@@ -193,7 +197,7 @@ export function ProjectDetailExhibitionSidebar(
 
             <div
               className={cn(
-                "mt-8 relative aspect-video overflow-hidden rounded-2xl bg-muted",
+                "mt-8 relative aspect-video overflow-hidden rounded-2xl",
                 heroImageClassName,
               )}
             >
@@ -222,7 +226,9 @@ export function ProjectDetailExhibitionSidebar(
           >
             <div
               className={cn(
-                "rounded-xl border border-border bg-muted/30 p-6",
+                "rounded-xl border border-border p-6",
+                getNestedCardBg(background),
+                getNestedCardTextColor(background),
                 sidebarClassName,
               )}
             >
@@ -280,7 +286,7 @@ export function ProjectDetailExhibitionSidebar(
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative aspect-square overflow-hidden rounded-xl bg-muted"
+                className="relative aspect-square overflow-hidden rounded-xl"
               >
                 <Img
                   src={image.src}

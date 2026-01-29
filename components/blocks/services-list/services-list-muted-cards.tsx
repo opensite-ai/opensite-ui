@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -163,7 +163,9 @@ export function ServicesListMutedCards({
           <div
             key={index}
             className={cn(
-              "space-y-6 rounded-xl bg-muted p-8",
+              "space-y-6 rounded-xl p-8",
+              getNestedCardBg(background),
+              getNestedCardTextColor(background),
               cardClassName,
               service.className,
             )}

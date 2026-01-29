@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
@@ -543,7 +543,8 @@ export function LinkPageBentoLayout({
           <div
             className={cn(
               "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
-              isDark ? "bg-muted/10" : "bg-card",
+              getNestedCardBg(resolvedBackground, 'card'),
+              getNestedCardTextColor(resolvedBackground),
               regularLinkIconWrapperClassName,
             )}
           >

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
@@ -404,7 +404,8 @@ export function AboutStoryExpertise({
 
       <div
         className={cn(
-          "mt-20 rounded-3xl bg-muted/30 p-8 md:p-12",
+          "mt-20 rounded-3xl p-8 md:p-12",
+          getNestedCardBg(background, 'subtle'),
           expertiseSectionClassName,
         )}
       >

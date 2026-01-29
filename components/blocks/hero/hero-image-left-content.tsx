@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -167,7 +167,7 @@ export function HeroImageLeftContent({
     >
       <div className={cn("container", containerClassName)}>
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
-          <div className={cn("flex justify-end bg-muted", imageContainerClassName)}>
+          <div className={cn("flex justify-end", getNestedCardBg(background), imageContainerClassName)}>
             {imageSrc && (
               <Img
                 src={imageSrc}

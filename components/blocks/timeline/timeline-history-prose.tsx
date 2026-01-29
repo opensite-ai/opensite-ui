@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Card, CardContent } from "../../ui/card";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";

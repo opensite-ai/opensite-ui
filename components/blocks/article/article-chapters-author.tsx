@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -352,7 +352,7 @@ export function ArticleChaptersAuthorComponent({
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-xs">
+                <span className={cn("flex h-6 w-6 items-center justify-center rounded-full text-xs", getNestedCardBg(background), getNestedCardTextColor(background))}>
                   {chapter.number}
                 </span>
                 {chapter.title}
@@ -486,7 +486,9 @@ export function ArticleChaptersAuthorComponent({
     return (
       <div
         className={cn(
-          "mt-12 rounded-lg border bg-muted/50 p-6 not-prose",
+          "mt-12 rounded-lg border p-6 not-prose",
+          getNestedCardBg(background, "subtle"),
+          getNestedCardTextColor(background),
           conclusionClassName,
         )}
       >

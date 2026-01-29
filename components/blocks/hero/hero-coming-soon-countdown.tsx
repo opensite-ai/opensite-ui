@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Input } from "../../ui/input";
@@ -144,7 +144,11 @@ export function HeroComingSoonCountdown({
 
     return countdownItems.map((item) => (
       <div key={item.label} className="flex flex-col items-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-muted/50 text-3xl font-bold md:h-24 md:w-24 md:text-5xl">
+        <div className={cn(
+          "flex h-16 w-16 items-center justify-center rounded-xl text-3xl font-bold md:h-24 md:w-24 md:text-5xl",
+          getNestedCardBg(background, 'muted'),
+          getNestedCardTextColor(background)
+        )}>
           {item.value}
         </div>
         <span className="mt-2 text-sm text-muted-foreground">{item.label}</span>
@@ -206,7 +210,12 @@ export function HeroComingSoonCountdown({
     >
       <div className={cn("container flex flex-col items-center justify-center text-center", containerClassName)}>
         {(badgeText || badgeIcon) && (
-          <div className={cn("inline-flex items-center gap-2 rounded-full border border-border/50 bg-muted/30 px-4 py-2 text-sm text-muted-foreground", badgeClassName)}>
+          <div className={cn(
+            "inline-flex items-center gap-2 rounded-full border border-border/50 px-4 py-2 text-sm",
+            getNestedCardBg(background, 'muted'),
+            getNestedCardTextColor(background),
+            badgeClassName
+          )}>
             {badgeIcon && <DynamicIcon name={badgeIcon} size={16} className="text-primary" />}
             <span>{badgeText}</span>
           </div>

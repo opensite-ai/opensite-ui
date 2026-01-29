@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Fragment, useCallback, useMemo, useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { AspectRatio } from "../../ui/aspect-ratio";
@@ -486,7 +486,9 @@ export function BlogFilteredResultsComponent({
     >
       <div
         className={cn(
-          "bg-muted bg-size-[3.125rem_3.125rem] bg-repeat rounded-2xl shadow-xl",
+          "bg-size-[3.125rem_3.125rem] bg-repeat rounded-2xl shadow-xl",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
           heroClassName,
         )}
       >

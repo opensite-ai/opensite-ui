@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -150,7 +150,11 @@ export function HeroTherapyTestimonialGrid({
 
     return (
       <div className="col-[1/2] row-[3/4] md:col-[1/2] md:row-[2/3]">
-        <div className="flex h-full min-h-37.5 flex-col gap-3 overflow-hidden rounded-3xl bg-muted p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8">
+        <div className={cn(
+          "flex h-full min-h-37.5 flex-col gap-3 overflow-hidden rounded-3xl p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background)
+        )}>
           {testimonial.avatar && (
             <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl md:h-30 md:w-30">
               <Img
@@ -200,7 +204,7 @@ export function HeroTherapyTestimonialGrid({
         </div>
         {renderTestimonial}
         <div className="row-[4/5] md:col-[2/3] md:row-[2/3]">
-          <div className="h-full w-full overflow-hidden rounded-2xl bg-muted">
+          <div className={cn("h-full w-full overflow-hidden rounded-2xl", getNestedCardBg(background))}>
             <Img
               src={images[2].src}
               alt={images[2].alt}

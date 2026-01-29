@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -227,7 +227,12 @@ export function FooterSocialNewsletter({
                       {socialLinks.map((social, idx) => (
                         <li key={idx} className="font-medium">
                           <Pressable href={social.href} aria-label={social.label}>
-                            <span className={cn("flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary", socialLinkClassName)}>
+                            <span className={cn(
+                              "flex size-12 items-center justify-center rounded-full transition-colors hover:text-primary",
+                              getNestedCardBg(background),
+                              getNestedCardTextColor(background),
+                              socialLinkClassName
+                            )}>
                               <DynamicIcon name={social.icon} size={24} />
                             </span>
                           </Pressable>

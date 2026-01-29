@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import type {
@@ -112,7 +112,7 @@ function RevealImage({
     >
       <motion.div
         style={{ clipPath }}
-        className="relative aspect-4/3 overflow-hidden rounded-2xl bg-muted"
+        className="relative aspect-4/3 overflow-hidden rounded-2xl"
       >
         <motion.div style={{ y }} className="h-full w-full">
           <Img
@@ -215,7 +215,11 @@ export function ProjectDetailMaskReveal(
           className={cn("mb-16 max-w-3xl", headerClassName)}
         >
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1 font-medium">
+            <span className={cn(
+              "rounded-full px-3 py-1 font-medium",
+              getNestedCardBg(background),
+              getNestedCardTextColor(background)
+            )}>
               {category}
             </span>
             <span>{year}</span>
@@ -245,7 +249,7 @@ export function ProjectDetailMaskReveal(
         <motion.div {...fadeInUp} className="mb-16">
           <div
             className={cn(
-              "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+              "relative aspect-video overflow-hidden rounded-2xl",
               heroImageClassName,
             )}
           >

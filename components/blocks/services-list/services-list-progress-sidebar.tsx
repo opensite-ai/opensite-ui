@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -208,7 +208,7 @@ export function ServicesListProgressSidebar({
                     ? "bg-success/10 text-success dark:bg-success/10 dark:text-success"
                     : service.progress && service.progress > 0
                       ? "bg-primary/10 text-primary"
-                      : "bg-muted text-muted-foreground",
+                      : cn(getNestedCardBg(background), "text-muted-foreground"),
                   iconClassName,
                 )}
               >
@@ -253,7 +253,10 @@ export function ServicesListProgressSidebar({
                   ))}
                 {typeof service.progress === "number" && (
                   <div className="mt-4">
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+                    <div className={cn(
+                      "h-2 w-full overflow-hidden rounded-full",
+                      getNestedCardBg(background),
+                    )}>
                       <div
                         className={cn(
                           "h-full rounded-full transition-all",

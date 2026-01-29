@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -165,7 +165,12 @@ export function ServicesListIconGrid({
             )}
           >
             <div className="flex items-center gap-4">
-              <div className={cn("rounded-full bg-muted p-3", iconClassName)}>
+              <div className={cn(
+                "rounded-full p-3",
+                getNestedCardBg(background),
+                getNestedCardTextColor(background),
+                iconClassName
+              )}>
                 {renderServiceIcon(service)}
               </div>
               {service.title &&

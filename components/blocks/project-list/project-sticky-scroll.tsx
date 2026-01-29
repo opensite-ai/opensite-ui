@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useScroll, motion } from "framer-motion";
 
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
@@ -197,7 +197,9 @@ export function ProjectStickyScroll({
         <div
           style={{ background: backgroundGradient }}
           className={cn(
-            "hidden lg:block h-60 w-80 rounded-md bg-card sticky top-10 overflow-hidden",
+            "hidden lg:block h-60 w-80 rounded-md sticky top-10 overflow-hidden",
+            getNestedCardBg(background, "card"),
+            getNestedCardTextColor(background),
             contentClassName,
           )}
         >

@@ -15,7 +15,7 @@
  */
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -211,7 +211,7 @@ export function CarouselImageHero({
       containerClassName={containerClassName}
     >
       {/* Image Carousel */}
-      <div className={cn("absolute inset-0 bg-muted", imageClassName)}>
+      <div className={cn("absolute inset-0", getNestedCardBg(background), imageClassName)}>
         {images?.map((image, index) => (
           <div
             key={index}

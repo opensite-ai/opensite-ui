@@ -16,7 +16,7 @@
 
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -245,7 +245,8 @@ export function CarouselScrollingFeatureShowcase({
             <div className="sticky top-24">
               <div
                 className={cn(
-                  "aspect-video overflow-hidden rounded-xl bg-muted",
+                  "aspect-video overflow-hidden rounded-xl",
+                  getNestedCardBg(background),
                   imageClassName,
                 )}
               >

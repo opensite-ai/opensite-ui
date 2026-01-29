@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
@@ -283,7 +283,11 @@ export function TeamExpertiseCards({
               <Badge
                 key={index}
                 variant="secondary"
-                className="bg-muted/50 px-2 py-1 text-xs"
+                className={cn(
+                  "px-2 py-1 text-xs",
+                  getNestedCardBg(background, 'muted'),
+                  getNestedCardTextColor(background)
+                )}
               >
                 {skill}
               </Badge>
@@ -292,7 +296,7 @@ export function TeamExpertiseCards({
         </CardContent>
       </Card>
     ));
-  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName, departmentBadgeClassName, memberDescriptionClassName, expertiseClassName]);
+  }, [membersSlot, members, background, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName, departmentBadgeClassName, memberDescriptionClassName, expertiseClassName]);
 
   const renderCta = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;

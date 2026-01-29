@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -125,7 +125,9 @@ export function AboutStoryHero({
     return (
       <div
         className={cn(
-          "mt-6 md:mt-8 rounded-2xl bg-muted p-6",
+          "mt-6 md:mt-8 rounded-2xl p-6",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
           teamInfoClassName,
         )}
       >

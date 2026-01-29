@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -214,7 +214,11 @@ export function ServicesListNumberedSteps({
                     {step.items.map((item, itemIndex) => (
                       <span
                         key={itemIndex}
-                        className="inline-flex items-center rounded-full border border-border bg-muted/50 px-3 py-1 text-sm"
+                        className={cn(
+                          "inline-flex items-center rounded-full border border-border px-3 py-1 text-sm",
+                          getNestedCardBg(background, 'subtle'),
+                          getNestedCardTextColor(background),
+                        )}
                       >
                         <DynamicIcon
                           name="lucide/check"

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Input } from "../../ui/input";
 import { Card } from "../../ui/card";
@@ -262,7 +262,9 @@ export function ListSearchableGrid({
                 <span
                   key={tag}
                   className={cn(
-                    "rounded-full bg-muted/60 px-3 py-1 text-xs",
+                    "rounded-full px-3 py-1 text-xs",
+                    getNestedCardBg(background),
+                    getNestedCardTextColor(background),
                     cardTagClassName,
                   )}
                 >

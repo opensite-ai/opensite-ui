@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useState, useCallback, useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -243,7 +243,9 @@ export function CarouselBadgeCards({
         <a
           href={item.href}
           className={cn(
-            "group flex flex-col justify-between rounded-xl bg-muted p-6",
+            "group flex flex-col justify-between rounded-xl p-6",
+            getNestedCardBg(background),
+            getNestedCardTextColor(background),
             item.className,
             cardClassName,
           )}

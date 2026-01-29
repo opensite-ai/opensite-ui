@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -186,7 +186,9 @@ export function ProcessIconTimeline({
             >
               <div
                 className={cn(
-                  "rounded-lg border bg-card p-6 shadow-sm",
+                  "rounded-lg border p-6 shadow-sm",
+                  getNestedCardBg(background, 'card'),
+                  getNestedCardTextColor(background),
                   index % 2 === 0 ? "lg:mr-12" : "lg:ml-12",
                   stepCardClassName,
                 )}
@@ -221,7 +223,11 @@ export function ProcessIconTimeline({
                     {step.highlights.map((highlight, hIndex) => (
                       <span
                         key={hIndex}
-                        className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground"
+                        className={cn(
+                          "rounded-full px-3 py-1 text-xs font-medium",
+                          getNestedCardBg(background, 'muted'),
+                          getNestedCardTextColor(background)
+                        )}
                       >
                         {highlight}
                       </span>
@@ -236,7 +242,7 @@ export function ProcessIconTimeline({
         ))}
       </div>
     );
-  }, [stepsSlot, steps, stepBadgeClassName, stepCardClassName]);
+  }, [stepsSlot, steps, background, stepBadgeClassName, stepCardClassName]);
 
   return (
     <Section

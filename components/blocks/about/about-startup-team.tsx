@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -271,7 +271,11 @@ export function AboutStartupTeam({
                 optixFlowConfig={optixFlowConfig}
               />
             ) : (
-              <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-muted">
+              <div className={cn(
+                "mx-auto flex h-24 w-24 items-center justify-center rounded-full",
+                getNestedCardBg(background),
+                getNestedCardTextColor(background),
+              )}>
                 <DynamicIcon
                   name="lucide/user"
                   size={40}

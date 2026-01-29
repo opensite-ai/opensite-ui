@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -259,7 +259,11 @@ export function ProcessStickySteps({
           >
             <CornerIllustration className="absolute top-4 right-0 text-primary" />
 
-            <div className="flex size-12 items-center justify-center bg-muted px-4 py-1 tracking-tighter">
+            <div className={cn(
+              "flex size-12 items-center justify-center px-4 py-1 tracking-tighter",
+              getNestedCardBg(background, 'muted'),
+              getNestedCardTextColor(background)
+            )}>
               {step.step ?? `0${index + 1}`}
             </div>
             <div>
@@ -282,7 +286,7 @@ export function ProcessStickySteps({
         ))}
       </ul>
     );
-  }, [stepsSlot, steps, stepsClassName, stepItemClassName]);
+  }, [stepsSlot, steps, background, stepsClassName, stepItemClassName]);
 
   return (
     <Section

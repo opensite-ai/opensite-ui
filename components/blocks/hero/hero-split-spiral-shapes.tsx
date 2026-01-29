@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -148,9 +148,9 @@ export function HeroSplitSpiralShapes({
             })}
           </svg>
         </div>
-        <div className="absolute top-[10%] left-[8%] flex aspect-5/6 w-[38%] justify-center rounded-lg border border-border bg-accent"></div>
-        <div className="absolute top-[20%] right-[12%] flex aspect-square w-[20%] justify-center rounded-lg border border-border bg-accent"></div>
-        <div className="absolute right-[24%] bottom-[24%] flex aspect-5/6 w-[38%] justify-center rounded-lg border border-border bg-accent"></div>
+        <div className={cn("absolute top-[10%] left-[8%] flex aspect-5/6 w-[38%] justify-center rounded-lg border border-border", getNestedCardBg(background, 'accent'))}></div>
+        <div className={cn("absolute top-[20%] right-[12%] flex aspect-square w-[20%] justify-center rounded-lg border border-border", getNestedCardBg(background, 'accent'))}></div>
+        <div className={cn("absolute right-[24%] bottom-[24%] flex aspect-5/6 w-[38%] justify-center rounded-lg border border-border", getNestedCardBg(background, 'accent'))}></div>
       </div>
     );
   }, [shapesSlot]);

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { startTransition, useEffect, useState, useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import type { CarouselApi } from "../../ui/carousel";
@@ -228,13 +228,16 @@ export function CarouselIconSidebar({
     return (
       <div
         className={cn(
-          "flex h-full flex-col gap-8 rounded-lg bg-muted px-8 py-16",
+          "flex h-full flex-col gap-8 rounded-lg px-8 py-16",
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
           sidebarClassName,
         )}
       >
         <div
           className={cn(
-            "flex h-12 w-12 items-center justify-center rounded-lg bg-background shadow-lg ring-1 ring-border",
+            "flex h-12 w-12 items-center justify-center rounded-lg shadow-lg ring-1 ring-border",
+            getNestedCardBg(background, 'card'),
             iconClassName,
           )}
         >

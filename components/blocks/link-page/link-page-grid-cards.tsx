@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
@@ -437,9 +437,11 @@ export function LinkPageGridCards({
               <div
                 className={cn(
                   "flex h-12 w-12 items-center justify-center rounded-xl transition-colors",
+                  getNestedCardBg(resolvedBackground),
+                  getNestedCardTextColor(resolvedBackground),
                   isDark
-                    ? "bg-muted/10 group-hover:bg-muted/20"
-                    : "bg-muted group-hover:bg-muted/80",
+                    ? "group-hover:bg-muted/20"
+                    : "group-hover:bg-muted/80",
                   cardIconWrapperClassName,
                 )}
               >

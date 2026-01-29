@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useState, useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
@@ -279,7 +279,7 @@ export function HeroSplitGeometricShapes({
       containerClassName={containerClassName}
     >
       <div className={cn("flex flex-col items-center")}>
-        <div className="2xl:w-[calc(min(100vw-2*theme(container.padding),100%+8rem))] w-full overflow-clip rounded-lg bg-muted">
+        <div className={cn("2xl:w-[calc(min(100vw-2*theme(container.padding),100%+8rem))] w-full overflow-clip rounded-lg", getNestedCardBg(background))}>
           <div className="grid items-center gap-0 md:gap-8 lg:grid-cols-2">
             <div
               className={cn(

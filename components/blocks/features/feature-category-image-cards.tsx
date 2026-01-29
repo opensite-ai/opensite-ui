@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import {
   Card,
@@ -195,7 +195,13 @@ export function FeatureCategoryImageCards({
     if (!features || features.length === 0) return null;
 
     return features.map((feature, index) => (
-      <Card key={index} className={cn("border-none bg-muted/60", cardClassName, feature.className)}>
+      <Card key={index} className={cn(
+        "border-none",
+        getNestedCardBg(background),
+        getNestedCardTextColor(background),
+        cardClassName,
+        feature.className
+      )}>
         <CardHeader className="text-center">
           {feature.title && (
             typeof feature.title === "string" ? (

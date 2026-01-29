@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -140,7 +140,11 @@ export function HeroEnterpriseSecurity({
     if (!badgeText && !badgeIcon) return null;
 
     return (
-      <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 text-sm">
+      <div className={cn(
+        "inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm",
+        getNestedCardBg(background, 'muted'),
+        getNestedCardTextColor(background)
+      )}>
         {badgeIcon && <DynamicIcon name={badgeIcon} size={16} className="text-success" />}
         <span>{badgeText}</span>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
@@ -203,7 +203,7 @@ export function ServicesListFeaturedHighlight({
                   "rounded-lg p-3",
                   service.featured
                     ? "bg-primary text-primary-foreground"
-                    : "bg-muted",
+                    : cn(getNestedCardBg(background), getNestedCardTextColor(background)),
                 )}
               >
                 {renderServiceIcon(service)}

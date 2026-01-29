@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
@@ -140,7 +140,9 @@ export function ProjectHorizontalCards({
       <div
         key={index}
         className={cn(
-          "bg-card overflow-hidden rounded-xl border shadow-sm transition-all hover:shadow-md",
+          "overflow-hidden rounded-xl border shadow-sm transition-all hover:shadow-md",
+          getNestedCardBg(background, "card"),
+          getNestedCardTextColor(background),
           cardClassName,
         )}
       >

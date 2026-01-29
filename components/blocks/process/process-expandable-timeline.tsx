@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -257,7 +257,9 @@ export function ProcessExpandableTimeline({
                 >
                   <div
                     className={cn(
-                      "border-b bg-muted/20 py-6 pl-16 pr-6",
+                      "border-b py-6 pl-16 pr-6",
+                      getNestedCardBg(background, 'muted'),
+                      getNestedCardTextColor(background),
                       expandedContentClassName,
                     )}
                   >
@@ -278,7 +280,7 @@ export function ProcessExpandableTimeline({
         ))}
       </div>
     );
-  }, [stepsSlot, steps, stepItemClassName, stepBadgeClassName, expandedContentClassName, expandedIndex, toggleExpand]);
+  }, [stepsSlot, steps, background, stepItemClassName, stepBadgeClassName, expandedContentClassName, expandedIndex, toggleExpand]);
 
   return (
     <Section

@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -232,7 +232,11 @@ export function ProjectDetailArchitectureCarousel(
 
         <motion.header {...fadeInUp} className={cn("mb-16", headerClassName)}>
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1 font-medium">
+            <span className={cn(
+              "rounded-full px-3 py-1 font-medium",
+              getNestedCardBg(background),
+              getNestedCardTextColor(background)
+            )}>
               {category}
             </span>
             <span>{year}</span>
@@ -264,7 +268,7 @@ export function ProjectDetailArchitectureCarousel(
         <motion.div {...fadeInUp} className="mb-16">
           <div
             className={cn(
-              "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+              "relative aspect-video overflow-hidden rounded-2xl",
               heroImageClassName,
             )}
           >
@@ -370,7 +374,7 @@ export function ProjectDetailArchitectureCarousel(
               <div className="relative">
                 <div
                   className={cn(
-                    "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+                    "relative aspect-video overflow-hidden rounded-2xl",
                     enableLightbox && "cursor-pointer",
                   )}
                   onClick={() => handleImageClick(currentSlide)}
@@ -474,7 +478,7 @@ export function ProjectDetailArchitectureCarousel(
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-16"
           >
-            <div className="relative aspect-video overflow-hidden rounded-2xl bg-muted">
+            <div className="relative aspect-video overflow-hidden rounded-2xl">
               <video
                 src={videoUrl}
                 poster={videoPoster}
@@ -494,7 +498,10 @@ export function ProjectDetailArchitectureCarousel(
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-16"
           >
-            <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            <div className={cn(
+              "overflow-hidden rounded-2xl border border-border",
+              getNestedCardBg(background, 'card')
+            )}>
               <PDFViewer
                 url={pdfUrl}
                 height="600px"
@@ -554,7 +561,7 @@ export function ProjectDetailArchitectureCarousel(
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative aspect-4/3 overflow-hidden rounded-xl bg-muted"
+                className="relative aspect-4/3 overflow-hidden rounded-xl"
               >
                 <Img
                   src={image.src || imagePlaceholders[53 + index]}

@@ -18,7 +18,7 @@ import * as React from "react";
 import type { EmblaCarouselType, EmblaOptionsType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -340,7 +340,8 @@ export function CarouselAutoplayProgress({
 
         <div
           className={cn(
-            "relative h-2 w-40 max-w-[90%] justify-self-center self-center overflow-hidden rounded-[1.8rem] border-2 border-border bg-muted transition-opacity duration-300 ease-in-out",
+            "relative h-2 w-40 max-w-[90%] justify-self-center self-center overflow-hidden rounded-[1.8rem] border-2 border-border transition-opacity duration-300 ease-in-out",
+            getNestedCardBg(background),
             showAutoplayProgress ? "opacity-100" : "opacity-0",
             progressClassName
           )}

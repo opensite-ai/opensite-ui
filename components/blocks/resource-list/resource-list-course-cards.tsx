@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -309,10 +309,22 @@ export function ResourceListCourseCards({
                     course.gradient,
                   )}
                 >
-                  <div className="col-start-1 row-start-1 flex aspect-square w-24 origin-top-left -rotate-6 rounded-md border border-border bg-muted/50 shadow-lg transition duration-500 ease-out group-hover:scale-[1.1] group-hover:-rotate-2 lg:w-32"></div>
-                  <div className="col-start-1 row-start-1 flex aspect-square w-24 origin-top-left rotate-[-8deg] rounded-md border border-border bg-muted/50 transition duration-500 ease-out group-hover:scale-[1.1] group-hover:rotate-[-8deg] lg:w-32"></div>
-                  <div className="relative col-start-1 row-start-1 flex aspect-square w-24 origin-top-left rotate-[-10deg] rounded-md border border-border bg-card shadow-lg transition duration-500 ease-out group-hover:scale-[1.1] group-hover:rotate-[-14deg] lg:w-32">
-                    <div className="m-4 h-4 w-4 rounded-full bg-muted shadow-inner"></div>
+                  <div className={cn(
+                    "col-start-1 row-start-1 flex aspect-square w-24 origin-top-left -rotate-6 rounded-md border border-border shadow-lg transition duration-500 ease-out group-hover:scale-[1.1] group-hover:-rotate-2 lg:w-32",
+                    getNestedCardBg(background)
+                  )}></div>
+                  <div className={cn(
+                    "col-start-1 row-start-1 flex aspect-square w-24 origin-top-left rotate-[-8deg] rounded-md border border-border transition duration-500 ease-out group-hover:scale-[1.1] group-hover:rotate-[-8deg] lg:w-32",
+                    getNestedCardBg(background)
+                  )}></div>
+                  <div className={cn(
+                    "relative col-start-1 row-start-1 flex aspect-square w-24 origin-top-left rotate-[-10deg] rounded-md border border-border shadow-lg transition duration-500 ease-out group-hover:scale-[1.1] group-hover:rotate-[-14deg] lg:w-32",
+                    getNestedCardBg(background, 'card')
+                  )}>
+                    <div className={cn(
+                      "m-4 h-4 w-4 rounded-full shadow-inner",
+                      getNestedCardBg(background)
+                    )}></div>
                     <div className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-md">
                       <Img
                         src={course.image}

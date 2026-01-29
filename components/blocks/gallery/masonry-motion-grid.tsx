@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
@@ -236,7 +236,8 @@ export function MasonryMotionGrid({
           }}
           key={index}
           className={cn(
-            "w-full overflow-hidden rounded-2xl bg-muted cursor-pointer transition-transform hover:scale-[1.02] hover:shadow-lg",
+            "w-full overflow-hidden rounded-2xl cursor-pointer transition-transform hover:scale-[1.02] hover:shadow-lg",
+            getNestedCardBg(background),
             imageWrapperClassName,
           )}
           style={{ height: image.height }}
@@ -287,7 +288,8 @@ export function MasonryMotionGrid({
           }}
           key={index}
           className={cn(
-            "w-full overflow-hidden rounded-2xl bg-muted cursor-pointer transition-transform hover:scale-[1.02] hover:shadow-lg",
+            "w-full overflow-hidden rounded-2xl cursor-pointer transition-transform hover:scale-[1.02] hover:shadow-lg",
+            getNestedCardBg(background),
             imageWrapperClassName,
           )}
           style={{ height: image.height }}

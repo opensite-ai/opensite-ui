@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -355,7 +355,8 @@ export function AboutVisionGallery({
       {hasCtaSection && (
         <div
           className={cn(
-            "mx-auto flex max-w-5xl flex-col items-center justify-between gap-8 rounded-2xl bg-muted/50 p-14 text-center md:flex-row md:text-left",
+            "mx-auto flex max-w-5xl flex-col items-center justify-between gap-8 rounded-2xl p-14 text-center md:flex-row md:text-left",
+            getNestedCardBg(background, 'subtle'),
             ctaClassName,
           )}
         >

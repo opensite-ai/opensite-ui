@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -289,7 +289,11 @@ export function StatsGrowthTimeline({
               {/* Content */}
               <div className="ml-6 flex flex-col items-start md:ml-0 md:w-1/2 md:px-8">
                 {milestone.year && (
-                  <div className="mb-4 inline-flex h-9 w-20 items-center justify-center rounded-full bg-muted text-sm font-semibold">
+                  <div className={cn(
+                    "mb-4 inline-flex h-9 w-20 items-center justify-center rounded-full text-sm font-semibold",
+                    getNestedCardBg(background, 'muted'),
+                    getNestedCardTextColor(background)
+                  )}>
                     {milestone.year}
                   </div>
                 )}
@@ -339,6 +343,7 @@ export function StatsGrowthTimeline({
   }, [
     milestonesSlot,
     milestones,
+    background,
     timelineClassName,
     milestoneClassName,
     renderMilestoneIcon,
@@ -351,7 +356,12 @@ export function StatsGrowthTimeline({
 
     return (
       <div
-        className={cn("mt-24 rounded-lg bg-muted p-8", currentStatsClassName)}
+        className={cn(
+          "mt-24 rounded-lg p-8",
+          getNestedCardBg(background, 'muted'),
+          getNestedCardTextColor(background),
+          currentStatsClassName
+        )}
       >
         {currentStatsHeading &&
           (typeof currentStatsHeading === "string" ? (
@@ -380,6 +390,7 @@ export function StatsGrowthTimeline({
   }, [
     currentStatsSlot,
     currentStats,
+    background,
     currentStatsHeading,
     currentStatsClassName,
   ]);

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -191,7 +191,11 @@ export function HeroStatsSocialProof({
     if (!statusCard) return null;
 
     return (
-      <div className="absolute -bottom-6 -left-6 rounded-xl bg-background p-4 shadow-lg">
+      <div className={cn(
+        "absolute -bottom-6 -left-6 rounded-xl p-4 shadow-lg",
+        getNestedCardBg(background, 'card'),
+        getNestedCardTextColor(background)
+      )}>
         <div className="flex items-center gap-3">
           {statusCard.icon && (
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-success/10">
@@ -255,7 +259,7 @@ export function HeroStatsSocialProof({
           </div>
           <div className="relative">
             {imageSrc && (
-              <div className={cn("aspect-square overflow-hidden rounded-2xl bg-muted", imageClassName)}>
+              <div className={cn("aspect-square overflow-hidden rounded-2xl", getNestedCardBg(background), imageClassName)}>
                 <Img
                   src={imageSrc}
                   alt={imageAlt}

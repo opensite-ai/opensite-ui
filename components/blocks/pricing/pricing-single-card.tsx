@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Separator } from "../../ui/separator";
@@ -372,7 +372,9 @@ export function PricingSingleCard({
       <div className={cn("mx-auto max-w-2xl", containerClassName)}>
         <div
           className={cn(
-            "rounded-2xl border bg-card p-8 shadow-lg md:p-12",
+            "rounded-2xl border p-8 shadow-lg md:p-12",
+            getNestedCardBg(background, "card"),
+            getNestedCardTextColor(background),
             cardClassName,
           )}
         >

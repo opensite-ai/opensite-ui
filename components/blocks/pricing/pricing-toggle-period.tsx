@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -580,7 +580,9 @@ export function PricingTogglePeriod({
                       {period.badge && (
                         <span
                           className={cn(
-                            "ml-1.5 rounded-full bg-accent px-2 py-0.5 text-xs text-accent-foreground",
+                            "ml-1.5 rounded-full px-2 py-0.5 text-xs",
+                            getNestedCardBg(background, "accent"),
+                            "text-accent-foreground",
                             period.badgeClassName,
                           )}
                         >

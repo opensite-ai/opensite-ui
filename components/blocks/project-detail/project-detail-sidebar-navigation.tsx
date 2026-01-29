@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import type {
@@ -181,8 +181,8 @@ export function ProjectDetailSidebarNavigation(
                     className={cn(
                       "block w-full text-left px-3 py-2 text-sm font-medium rounded-lg transition-colors",
                       activeSection === section.id
-                        ? "bg-muted text-foreground"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
+                        ? `${getNestedCardBg(background)} text-foreground`
+                        : `text-muted-foreground hover:text-foreground hover:${getNestedCardBg(background)}/50`,
                     )}
                   >
                     {section.title}
@@ -258,7 +258,7 @@ export function ProjectDetailSidebarNavigation(
             >
               <div
                 className={cn(
-                  "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+                  "relative aspect-video overflow-hidden rounded-2xl",
                   heroImageClassName,
                 )}
               >

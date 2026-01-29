@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -169,7 +169,7 @@ export function TimelineAlternatingDiagonal({
       return (
         <Badge
           variant="outline"
-          className="w-fit gap-1 bg-card px-3 text-sm font-normal tracking-tight shadow-sm"
+          className={cn("w-fit gap-1 px-3 text-sm font-normal tracking-tight shadow-sm", getNestedCardBg(background, "card"), getNestedCardTextColor(background))}
         >
           <DynamicIcon name={badge.icon} size={16} />
           <span>{badge.text}</span>
@@ -252,8 +252,8 @@ export function TimelineAlternatingDiagonal({
                   </p>
                 </div>
                 <div className="z-[-1] size-fit -translate-y-5 bg-background p-4 max-lg:-translate-x-4">
-                  <div className="rounded-[10px] border bg-card p-[5px] shadow-md">
-                    <div className="size-fit rounded-md border bg-muted p-1">
+                  <div className={cn("rounded-[10px] border p-[5px] shadow-md", getNestedCardBg(background, "card"))}>
+                    <div className={cn("size-fit rounded-md border p-1", getNestedCardBg(background))}>
                       <DynamicIcon name={item.icon} size={16} />
                     </div>
                   </div>
