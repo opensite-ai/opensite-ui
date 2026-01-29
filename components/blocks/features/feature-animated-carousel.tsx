@@ -7,7 +7,11 @@ import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureAnimatedCarouselItem {
   /**
@@ -188,14 +192,18 @@ const FeatureCard = ({ feature, isActive, onClick }: FeatureCardProps) => {
             }}
             className={cn(
               "flex h-fit shrink-0 items-center gap-4 text-sm md:py-3.5 md:pr-6 md:pl-3 md:text-base",
-              !isActive && "h-0 w-0 md:h-auto md:w-auto"
+              !isActive && "h-0 w-0 md:h-auto md:w-auto",
             )}
             style={{
               height: "auto",
               lineHeight: "normal",
             }}
           >
-            <DynamicIcon name="lucide/plus-circle" size={24} className="shrink-0" />
+            <DynamicIcon
+              name="lucide/plus-circle"
+              size={24}
+              className="shrink-0"
+            />
             <p className="shrink-0 font-semibold">{feature.title}</p>
           </motion.div>
         )}
@@ -351,7 +359,7 @@ const FeaturesMobile = ({
  * ```
  */
 export function FeatureAnimatedCarousel({
-  features,
+  features = [],
   className,
   optixFlowConfig,
   background,
@@ -410,24 +418,28 @@ export function FeatureAnimatedCarousel({
       className={className}
     >
       <div className="relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl bg-muted p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]">
-        <FeaturesDesktop
-          features={features}
-          handleNext={handleNext}
-          handlePrevious={handlePrevious}
-          activeIndex={activeIndex}
-          handleFeatureClick={handleFeatureClick}
-          isPreviousDisabled={isPreviousDisabled}
-          isNextDisabled={isNextDisabled}
-        />
-        <FeaturesMobile
-          features={features}
-          handleNext={handleNext}
-          handlePrevious={handlePrevious}
-          activeIndex={activeIndex}
-          direction={direction}
-          isPreviousDisabled={isPreviousDisabled}
-          isNextDisabled={isNextDisabled}
-        />
+        {features && (
+          <FeaturesDesktop
+            features={features}
+            handleNext={handleNext}
+            handlePrevious={handlePrevious}
+            activeIndex={activeIndex}
+            handleFeatureClick={handleFeatureClick}
+            isPreviousDisabled={isPreviousDisabled}
+            isNextDisabled={isNextDisabled}
+          />
+        )}
+        {features && (
+          <FeaturesMobile
+            features={features}
+            handleNext={handleNext}
+            handlePrevious={handlePrevious}
+            activeIndex={activeIndex}
+            direction={direction}
+            isPreviousDisabled={isPreviousDisabled}
+            isNextDisabled={isNextDisabled}
+          />
+        )}
         <div className="relative flex-1 overflow-hidden rounded-2xl md:absolute md:right-8 md:top-8 md:bottom-8 md:w-1/2">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
@@ -443,12 +455,19 @@ export function FeatureAnimatedCarousel({
               }}
               className="h-full w-full"
             >
-                <Img
-                  src={features[activeIndex].image}
-                  alt={features[activeIndex].imageAlt || (typeof features[activeIndex].title === "string" ? features[activeIndex].title : "Feature image")}
-                  className="h-full w-full object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
+              <Img
+                src={features ? features[activeIndex].image : undefined}
+                alt={
+                  features
+                    ? features[activeIndex].imageAlt ||
+                      (typeof features[activeIndex].title === "string"
+                        ? features[activeIndex].title
+                        : "Feature image")
+                    : undefined
+                }
+                className="h-full w-full object-cover"
+                optixFlowConfig={optixFlowConfig}
+              />
             </motion.div>
           </AnimatePresence>
         </div>
