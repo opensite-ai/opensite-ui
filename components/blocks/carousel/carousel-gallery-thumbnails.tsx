@@ -19,7 +19,6 @@ import { BRIGHTNESS_CLASS_MAP, cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -137,30 +136,30 @@ export function CarouselGalleryThumbnails({
   autoPlayInterval = 5000,
   showThumbnails = true,
   className,
-  containerClassName,
+  containerClassName = "mx-auto w-full px-4 md:px-10 lg:px-16 max-w-full relative z-10",
   slideClassName,
   navigationClassName,
   captionClassName,
   thumbnailsClassName,
   thumbnailClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing = "sm",
   pattern,
   patternOpacity,
-  slideMediaBrightness = "50",
+  slideMediaBrightness = "100",
 }: CarouselGalleryThumbnailsProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const prevSlide = React.useCallback(() => {
     setCurrentIndex((prev) =>
-      prev === 0 ? (images?.length ?? 0) - 1 : prev - 1
+      prev === 0 ? (images?.length ?? 0) - 1 : prev - 1,
     );
   }, [images?.length]);
 
   const nextSlide = React.useCallback(() => {
     setCurrentIndex((prev) =>
-      prev === (images?.length ?? 0) - 1 ? 0 : prev + 1
+      prev === (images?.length ?? 0) - 1 ? 0 : prev + 1,
     );
   }, [images?.length]);
 
@@ -196,45 +195,56 @@ export function CarouselGalleryThumbnails({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
       {/* Main carousel */}
-      <div className={cn("relative overflow-hidden rounded-lg", containerClassName)}>
-        <div className={cn("relative aspect-video w-full overflow-hidden", slideClassName)}>
-          {imagesSlot ? (
-            imagesSlot
-          ) : (
-            images?.map((image, index) => (
-              <div
-                key={`slide-${index}`}
-                className={cn(
-                  "absolute inset-0 transform transition-all duration-500 ease-in-out",
-                  index === currentIndex
-                    ? "translate-x-0 opacity-100"
-                    : index < currentIndex
-                      ? "-translate-x-full opacity-0"
-                      : "translate-x-full opacity-0",
-                  image.className
-                )}
-              >
-                                <Img
-                                  src={image.src}
-                                  alt={typeof image.alt === "string" ? image.alt : `Image ${index + 1}`}
-                                  className={cn(
-                                    "h-full w-full object-cover",
-                                    BRIGHTNESS_CLASS_MAP[slideMediaBrightness],
-                                    image.imageClassName
-                                  )}
-                                  optixFlowConfig={optixFlowConfig}
-                                />
-              </div>
-            ))
+      <div className={cn("relative overflow-hidden rounded-2xl")}>
+        <div
+          className={cn(
+            "relative aspect-video w-full overflow-hidden",
+            slideClassName,
           )}
+        >
+          {imagesSlot
+            ? imagesSlot
+            : images?.map((image, index) => (
+                <div
+                  key={`slide-${index}`}
+                  className={cn(
+                    "absolute inset-0 transform transition-all duration-500 ease-in-out",
+                    index === currentIndex
+                      ? "translate-x-0 opacity-100"
+                      : index < currentIndex
+                        ? "-translate-x-full opacity-0"
+                        : "translate-x-full opacity-0",
+                    image.className,
+                  )}
+                >
+                  <Img
+                    src={image.src}
+                    alt={
+                      typeof image.alt === "string"
+                        ? image.alt
+                        : `Image ${index + 1}`
+                    }
+                    className={cn(
+                      "h-full w-full object-cover",
+                      BRIGHTNESS_CLASS_MAP[slideMediaBrightness],
+                      image.imageClassName,
+                    )}
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                </div>
+              ))}
         </div>
 
         {/* Navigation buttons */}
         <Pressable
           size="icon"
-          className={cn("absolute left-2 top-1/2 -translate-y-1/2", navigationClassName)}
+          className={cn(
+            "absolute left-2 top-1/2 -translate-y-1/2",
+            navigationClassName,
+          )}
           onClick={prevSlide}
           asButton
         >
@@ -243,7 +253,10 @@ export function CarouselGalleryThumbnails({
 
         <Pressable
           size="icon"
-          className={cn("absolute right-2 top-1/2 -translate-y-1/2", navigationClassName)}
+          className={cn(
+            "absolute right-2 top-1/2 -translate-y-1/2",
+            navigationClassName,
+          )}
           onClick={nextSlide}
           asButton
         >
@@ -251,20 +264,29 @@ export function CarouselGalleryThumbnails({
         </Pressable>
 
         {/* Caption */}
-        <div className={cn("absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-sm text-white", captionClassName)}>
-          {images?.[currentIndex].alt && (
-            typeof images?.[currentIndex].alt === "string" ? (
+        <div
+          className={cn(
+            "absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/90 to-transparent pt-12 md:pt-24 p-4 md:p-10 font-semibold text-sm text-white text-shadow",
+            captionClassName,
+          )}
+        >
+          {images?.[currentIndex].alt &&
+            (typeof images?.[currentIndex].alt === "string" ? (
               images?.[currentIndex].alt
             ) : (
               <div>{images?.[currentIndex].alt}</div>
-            )
-          )}
+            ))}
         </div>
       </div>
 
       {/* Thumbnails */}
       {showThumbnails && (
-        <div className={cn("mt-4 flex gap-2 overflow-x-auto px-2 py-2", thumbnailsClassName)}>
+        <div
+          className={cn(
+            "mt-4 flex justify-center gap-2 overflow-x-auto px-2 py-2",
+            thumbnailsClassName,
+          )}
+        >
           {images?.map((image, index) => (
             <button
               key={`thumb-${index}`}
@@ -273,7 +295,7 @@ export function CarouselGalleryThumbnails({
                 index === currentIndex
                   ? "ring-2 ring-primary ring-offset-2"
                   : "opacity-70 hover:opacity-100",
-                thumbnailClassName
+                thumbnailClassName,
               )}
               onClick={() => setCurrentIndex(index)}
             >
@@ -290,4 +312,3 @@ export function CarouselGalleryThumbnails({
     </Section>
   );
 }
-

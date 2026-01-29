@@ -228,6 +228,38 @@ export function CarouselFullscreenScrollFx({
         ))}
       </div>
 
+      {/* Fixed scroll indicator - outside slides container */}
+      {slides && slides.length > 1 && activeIndex < slides.length - 1 && (
+        <button
+          onClick={() => scrollToSlide(activeIndex + 1)}
+          className={cn(
+            "fixed bottom-8 left-1/2 z-50 -translate-x-1/2 cursor-pointer transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg p-2",
+            scrollIndicatorClassName,
+          )}
+          aria-label="Scroll to next slide"
+        >
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-xs uppercase tracking-widest text-white/50">
+              Scroll
+            </span>
+            <div className="h-12 w-px animate-pulse bg-linear-to-b from-white/50 to-transparent" />
+          </div>
+        </button>
+      )}
+
+      {/* Fixed slide counter - outside slides container */}
+      {slides && slides.length > 0 && (
+        <div
+          className={cn(
+            "fixed bottom-8 right-8 z-50 text-sm text-white/50",
+            counterClassName,
+          )}
+        >
+          {String(activeIndex + 1).padStart(2, "0")} /{" "}
+          {String(slides.length).padStart(2, "0")}
+        </div>
+      )}
+
       {/* Vertical scroll container */}
       <div
         ref={scrollContainerRef}
@@ -362,36 +394,6 @@ export function CarouselFullscreenScrollFx({
                         {renderActions}
                       </div>
                     )}
-                  </div>
-
-                  {/* Scroll indicator - clickable to scroll to next slide */}
-                  {index < (slides?.length ?? 0) - 1 && (
-                    <button
-                      onClick={() => scrollToSlide(index + 1)}
-                      className={cn(
-                        "absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg p-2",
-                        scrollIndicatorClassName,
-                      )}
-                      aria-label="Scroll to next slide"
-                    >
-                      <div className="flex flex-col items-center gap-2">
-                        <span className="text-xs uppercase tracking-widest text-white/50">
-                          Scroll
-                        </span>
-                        <div className="h-12 w-px animate-pulse bg-linear-to-b from-white/50 to-transparent" />
-                      </div>
-                    </button>
-                  )}
-
-                  {/* Slide counter */}
-                  <div
-                    className={cn(
-                      "absolute bottom-8 right-8 text-sm text-white/50",
-                      counterClassName,
-                    )}
-                  >
-                    {String(index + 1).padStart(2, "0")} /{" "}
-                    {String(slides?.length ?? 0).padStart(2, "0")}
                   </div>
                 </div>
               );

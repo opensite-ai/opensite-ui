@@ -154,10 +154,20 @@ export function CarouselHorizontalCards({
   const [isAtStart, setIsAtStart] = React.useState(true);
   const [isAtEnd, setIsAtEnd] = React.useState(false);
 
+  const getCardWidth = React.useCallback(() => {
+    // Match the responsive card widths from the component
+    if (typeof window === "undefined") return 320;
+    if (window.innerWidth >= 1024) return 400; // lg breakpoint
+    if (window.innerWidth >= 640) return 360; // sm breakpoint
+    return 320;
+  }, []);
+
   const scroll = (direction: "left" | "right") => {
     if (carouselRef.current) {
-      const { scrollLeft, clientWidth } = carouselRef.current;
-      const scrollAmount = clientWidth * 0.8;
+      const { scrollLeft } = carouselRef.current;
+      const cardWidth = getCardWidth();
+      const gap = 16; // space-x-4 = 1rem = 16px
+      const scrollAmount = cardWidth + gap;
       const newScrollLeft =
         direction === "left"
           ? scrollLeft - scrollAmount
@@ -199,7 +209,10 @@ export function CarouselHorizontalCards({
     return items.map((item, index) => (
       <motion.div
         key={item.id}
-        className={cn("group w-[320px] shrink-0 sm:w-[360px] lg:w-[400px]", item.className)}
+        className={cn(
+          "group w-[320px] shrink-0 snap-start sm:w-[360px] lg:w-[400px]",
+          item.className
+        )}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -289,32 +302,52 @@ export function CarouselHorizontalCards({
         <div className="relative">
           <div
             ref={carouselRef}
-            className={cn("scrollbar-hide flex w-full space-x-4 overflow-x-auto pb-4", carouselClassName)}
+            className={cn(
+              "scrollbar-hide flex w-full space-x-4 overflow-x-auto pb-4",
+              "snap-x snap-mandatory scroll-pl-0",
+              carouselClassName
+            )}
           >
             {renderItems()}
           </div>
 
           {/* Navigation Buttons */}
-                    {!isAtStart && (
-                      <Pressable
-                        onClick={() => scroll("left")}
-                        className={cn("absolute left-0 top-1/2 z-10 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border bg-background/60 text-foreground shadow-md backdrop-blur-sm transition-opacity hover:bg-background/80", navigationClassName)}
-                        aria-label="Scroll left"
-                        asButton
-                      >
-                        <DynamicIcon name="lucide/chevron-left" size={20} />
-                      </Pressable>
-                    )}
-                    {!isAtEnd && (
-                      <Pressable
-                        onClick={() => scroll("right")}
-                        className={cn("absolute right-0 top-1/2 z-10 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border bg-background/60 text-foreground shadow-md backdrop-blur-sm transition-opacity hover:bg-background/80", navigationClassName)}
-                        aria-label="Scroll right"
-                        asButton
-                      >
-                        <DynamicIcon name="lucide/chevron-right" size={20} />
-                      </Pressable>
-                    )}
+          {!isAtStart && (
+            <Pressable
+              onClick={() => scroll("left")}
+              className={cn(
+                "absolute left-4 top-1/2 z-10 -translate-y-1/2",
+                "flex h-12 w-12 items-center justify-center",
+                "rounded-full border border-border/50 bg-background shadow-lg",
+                "text-foreground transition-all duration-200",
+                "hover:bg-accent hover:shadow-xl hover:scale-105",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                navigationClassName
+              )}
+              aria-label="Scroll left"
+              asButton
+            >
+              <DynamicIcon name="lucide/chevron-left" size={24} />
+            </Pressable>
+          )}
+          {!isAtEnd && (
+            <Pressable
+              onClick={() => scroll("right")}
+              className={cn(
+                "absolute right-4 top-1/2 z-10 -translate-y-1/2",
+                "flex h-12 w-12 items-center justify-center",
+                "rounded-full border border-border/50 bg-background shadow-lg",
+                "text-foreground transition-all duration-200",
+                "hover:bg-accent hover:shadow-xl hover:scale-105",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                navigationClassName
+              )}
+              aria-label="Scroll right"
+              asButton
+            >
+              <DynamicIcon name="lucide/chevron-right" size={24} />
+            </Pressable>
+          )}
         </div>
       </div>
     </Section>
