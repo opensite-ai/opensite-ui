@@ -157,7 +157,7 @@ export function ContactHelpCenter({
           <DynamicIcon name={item.icon} size={20} />
         </div>
         <div>
-          <p className="font-semibold text-foreground">{item.title}</p>
+          <p className="font-semibold">{item.title}</p>
           {item.subtitle ? (
             <p className="text-sm text-muted-foreground">{item.subtitle}</p>
           ) : null}
@@ -200,7 +200,7 @@ export function ContactHelpCenter({
                 (typeof heading === "string" ? (
                   <h2
                     className={cn(
-                      "text-3xl font-bold text-foreground md:text-4xl",
+                      "text-3xl font-bold md:text-4xl",
                       headingClassName,
                     )}
                   >
@@ -234,7 +234,7 @@ export function ContactHelpCenter({
                 typeof cardTitle === "string" ? (
                   <h3
                     className={cn(
-                      "text-xl font-bold text-foreground",
+                      "text-xl font-bold",
                       cardTitleClassName,
                     )}
                   >

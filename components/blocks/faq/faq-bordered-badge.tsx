@@ -212,7 +212,7 @@ export function FaqBorderedBadge({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "max-w-2xl text-3xl font-semibold md:text-4xl",
+                  "max-w-2xl text-3xl font-semibold md:text-4xl text-balance",
                   headingClassName,
                 )}
               >
@@ -225,7 +225,7 @@ export function FaqBorderedBadge({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-muted-foreground max-w-2xl",
+                  "text-muted-foreground max-w-2xl text-balance",
                   descriptionClassName,
                 )}
               >

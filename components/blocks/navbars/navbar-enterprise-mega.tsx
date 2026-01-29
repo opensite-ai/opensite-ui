@@ -581,7 +581,7 @@ const DesktopMenuItem = ({
   if (hasDropdown) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
-        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground data-[state=open]:bg-muted/50 data-[state=open]:text-foreground">
+        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {item.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="rounded-xl! border-0! p-0!">
@@ -602,7 +602,7 @@ const DesktopMenuItem = ({
     <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
       <NavigationMenuLink
         href={item.href}
-        className="h-auto bg-transparent px-3 py-2 font-normal text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground"
+        className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted"
       >
         {item.label}
       </NavigationMenuLink>
@@ -778,7 +778,7 @@ const SolutionsMenu = ({
                 <NavigationMenuLink
                   key={subpage.id}
                   href={subpage.href}
-                  className="group flex flex-row items-center space-x-4 text-left text-foreground/85 hover:text-foreground lg:space-x-4 lg:border-0"
+                  className="group flex flex-row items-center space-x-4 text-left lg:space-x-4 lg:border-0"
                 >
                   <DynamicIcon name={subpage.icon} size={16} />
                   <div className="flex-1 text-sm font-medium">
@@ -874,10 +874,10 @@ const ProductsMenu = ({
                     />
                   </div>
                   <div className="flex-1">
-                    <div className="text-sm font-medium text-foreground/85 group-hover:text-foreground">
+                    <div className="text-sm font-medium">
                       {product.title}
                     </div>
-                    <p className="mt-1 text-xs text-muted-foreground group-hover:text-foreground">
+                    <p className="mt-1 text-xs text-muted-foreground">
                       {product.description}
                     </p>
                   </div>
@@ -969,10 +969,10 @@ const GlobalMenu = ({
                       <DynamicIcon name={feature.icon} size={20} />
                     </div>
                     <div className="flex-1">
-                      <div className="text-sm font-medium text-foreground/85 group-hover:text-foreground">
+                      <div className="text-sm font-medium">
                         {feature.title}
                       </div>
-                      <p className="mt-1 text-xs text-muted-foreground group-hover:text-foreground">
+                      <p className="mt-1 text-xs text-muted-foreground">
                         {feature.description}
                       </p>
                     </div>
@@ -1011,7 +1011,7 @@ const GlobalMenu = ({
                   <NavigationMenuLink
                     key={location.title}
                     href={location.href}
-                    className="group flex flex-row items-center space-x-4 text-left text-foreground/85 hover:text-foreground lg:space-x-4 lg:border-0 lg:py-0"
+                    className="group flex flex-row items-center space-x-4 text-left lg:space-x-4 lg:border-0 lg:py-0"
                   >
                     <div className="flex size-4 items-center justify-center">
                       {location.icon}
@@ -1100,10 +1100,10 @@ const PartnersMenu = ({
             <div className="flex items-start p-6 text-left">
               <DynamicIcon name={card.icon} size={32} />
               <div className="ml-4">
-                <div className="mt-auto mb-1 text-sm font-bold text-foreground/85 hover:text-foreground">
+                <div className="mt-auto mb-1 text-sm font-bold">
                   {card.title}
                 </div>
-                <p className="text-xs text-muted-foreground group-hover:text-foreground">
+                <p className="text-xs text-muted-foreground">
                   {card.description}
                 </p>
               </div>
@@ -1208,7 +1208,7 @@ const ResourcesMenu = ({
                 <NavigationMenuLink
                   key={topic.id}
                   href={topic.href}
-                  className="group flex flex-row items-center gap-3 text-foreground/85 hover:text-foreground"
+                  className="group flex flex-row items-center gap-3"
                 >
                   <DynamicIcon name={topic.icon} size={16} />
                   <span className="text-sm font-medium">{topic.title}</span>

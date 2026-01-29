@@ -228,11 +228,11 @@ export function ServicesListFeatureSpotlight({
                         ))}
                       {feature.title &&
                         (typeof feature.title === "string" ? (
-                          <h3 className="mt-1 text-2xl font-bold text-foreground">
+                          <h3 className="mt-1 text-2xl font-bold">
                             {feature.title}
                           </h3>
                         ) : (
-                          <div className="mt-1 text-2xl font-bold text-foreground">
+                          <div className="mt-1 text-2xl font-bold">
                             {feature.title}
                           </div>
                         ))}
@@ -250,7 +250,7 @@ export function ServicesListFeatureSpotlight({
                     ))}
                   {feature.badges && (
                     <div className="flex flex-wrap gap-2">
-                      <span className="rounded-full bg-muted/60 px-3 py-1 text-xs text-foreground">
+                      <span className="rounded-full bg-muted/60 px-3 py-1 text-xs">
                         {feature.badges[0]}
                       </span>
                       <span className="rounded-full bg-primary/10 px-3 py-1 text-xs text-primary">
@@ -294,7 +294,7 @@ export function ServicesListFeatureSpotlight({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "mt-3 text-3xl font-bold text-foreground md:text-4xl",
+                  "mt-3 text-3xl font-bold md:text-4xl",
                   headingClassName,
                 )}
               >

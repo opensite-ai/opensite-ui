@@ -78,7 +78,7 @@ export function ProjectZigzagLayout({
                 <div className="absolute top-4 right-4">
                   <Badge
                     variant="secondary"
-                    className="bg-black/60 text-white backdrop-blur-sm"
+                    className="bg-foreground/60 text-background backdrop-blur-sm"
                   >
                     {project.category}
                   </Badge>

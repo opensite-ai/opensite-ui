@@ -113,7 +113,7 @@ export function HeroHiringAnimatedText({
     if (headingSlot) return headingSlot;
 
     return (
-      <h1 className={cn("text-4xl leading-9 font-bold text-foreground lg:text-5xl lg:leading-12! xl:text-7xl xl:leading-22!", headingClassName)}>
+      <h1 className={cn("text-4xl leading-9 font-bold lg:text-5xl lg:leading-12! xl:text-7xl xl:leading-22!", headingClassName)}>
         <div className="mb-2">{headingPrefix}</div>
         {animatedTexts && animatedTexts.length > 0 && (
           <div className="relative h-[calc(2.25rem*3)] md:h-9 lg:h-12 xl:h-22">
@@ -201,7 +201,7 @@ export function HeroHiringAnimatedText({
           <div className="flex flex-col gap-8">
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-lg text-foreground lg:text-2xl", descriptionClassName)}>
+                <p className={cn("text-lg lg:text-2xl", descriptionClassName)}>
                   {description}
                 </p>
               ) : (

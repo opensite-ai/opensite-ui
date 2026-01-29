@@ -160,14 +160,14 @@ export function HeroPricingComparison({
                 <Badge>{plan.popularBadge}</Badge>
               </div>
             )}
-            <h3 className="text-lg font-semibold text-foreground">{plan.name}</h3>
+            <h3 className="text-lg font-semibold ">{plan.name}</h3>
             {plan.description && (
               <p className="mt-2 text-sm text-muted-foreground">
                 {plan.description}
               </p>
             )}
             <div className="mt-6">
-              <span className="text-4xl font-bold text-foreground">{plan.price}</span>
+              <span className="text-4xl font-bold ">{plan.price}</span>
               {plan.pricePeriod && (
                 <span className="text-muted-foreground">{plan.pricePeriod}</span>
               )}
@@ -211,11 +211,11 @@ export function HeroPricingComparison({
           {renderBadge}
           {heading && (
             typeof heading === "string" ? (
-              <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+              <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+              <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                 {heading}
               </h1>
             )

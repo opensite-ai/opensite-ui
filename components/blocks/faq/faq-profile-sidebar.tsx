@@ -250,7 +250,7 @@ export function FaqProfileSidebar({
               src={profileImage}
               alt={typeof profileName === "string" ? profileName : "Profile"}
               className={cn(
-                "size-16 rounded-full object-cover",
+                "size-16 rounded-xl object-cover shadow-md",
                 profileImageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
@@ -361,7 +361,7 @@ export function FaqProfileSidebar({
                   (typeof heading === "string" ? (
                     <h2
                       className={cn(
-                        "mb-3 text-3xl font-semibold md:mb-4 lg:text-4xl",
+                        "mb-3 text-xl font-semibold md:mb-4 lg:text-2xl",
                         headingClassName,
                       )}
                     >

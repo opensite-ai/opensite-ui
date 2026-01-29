@@ -181,7 +181,7 @@ export function HeroConversationIntelligence({
         <div className="flex flex-col gap-24">
           <div>
             <div className={cn("relative z-10 mx-auto flex max-w-220 flex-col gap-7", contentClassName)}>
-              <h1 className={cn("text-center text-5xl leading-[1.294] font-semibold text-foreground sm:text-[3.75rem] md:text-[4.25rem]", headingClassName)}>
+              <h1 className={cn("text-center text-5xl leading-[1.294] font-semibold sm:text-[3.75rem] md:text-[4.25rem]", headingClassName)}>
                 {headingPrimary}{" "}
                 <span className="relative text-nowrap after:absolute after:top-1/2 after:left-0 after:z-[-1] after:block after:h-[65%] after:w-full after:-translate-y-1/3 after:bg-muted after:content-['']">
                   {headingHighlight}

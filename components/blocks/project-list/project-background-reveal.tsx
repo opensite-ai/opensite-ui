@@ -150,7 +150,7 @@ export function ProjectBackgroundReveal({
           backgroundImage: `url(${project.image})`,
         }}
       >
-        <div className="relative z-10 flex flex-col gap-7 text-white/80 transition-colors duration-300 ease-out group-hover:text-white lg:flex-row">
+        <div className="relative z-10 flex flex-col gap-7 text-background/80 transition-colors duration-300 ease-out group-hover:text-background lg:flex-row">
           <div className="flex gap-1 text-2xl font-bold">
             <span>/</span>
             <span>{String(idx + 1).padStart(2, "0")}</span>
@@ -181,7 +181,7 @@ export function ProjectBackgroundReveal({
             </div>
           </div>
         </div>
-        <div className="absolute inset-0 z-0 bg-black/80 backdrop-blur-sm transition-all duration-300 ease-out group-hover:bg-black/50 group-hover:backdrop-blur-none" />
+        <div className="absolute inset-0 z-0 bg-foreground/80 backdrop-blur-sm transition-all duration-300 ease-out group-hover:bg-foreground/50 group-hover:backdrop-blur-none" />
       </Pressable>
     ));
   }, [projectsSlot, projects, cardClassName]);

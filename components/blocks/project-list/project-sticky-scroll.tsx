@@ -146,7 +146,7 @@ export function ProjectStickyScroll({
           animate={{
             opacity: activeCard === index ? 1 : 0.3,
           }}
-          className={cn("text-2xl font-bold text-slate-100", titleClassName)}
+          className={cn("text-2xl font-bold text-muted-foreground", titleClassName)}
         >
           {item.title}
         </motion.h2>
@@ -158,7 +158,7 @@ export function ProjectStickyScroll({
             opacity: activeCard === index ? 1 : 0.3,
           }}
           className={cn(
-            "text-kg text-slate-300 max-w-sm mt-10",
+            "text-kg text-muted-foreground max-w-sm mt-10",
             descriptionClassName,
           )}
         >
@@ -197,7 +197,7 @@ export function ProjectStickyScroll({
         <div
           style={{ background: backgroundGradient }}
           className={cn(
-            "hidden lg:block h-60 w-80 rounded-md bg-white sticky top-10 overflow-hidden",
+            "hidden lg:block h-60 w-80 rounded-md bg-card sticky top-10 overflow-hidden",
             contentClassName,
           )}
         >

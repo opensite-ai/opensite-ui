@@ -203,14 +203,14 @@ export function TestimonialsScrollingColumns({
                     optixFlowConfig={optixFlowConfig}
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/40 to-transparent" />
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-left text-white">
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-left text-background">
                 <DynamicIcon
                   name="lucide/quote"
                   size={32}
-                  className="mb-4 text-white/40"
+                  className="mb-4 text-background/40"
                 />
                 {testimonial.quote &&
                   (typeof testimonial.quote === "string" ? (
@@ -234,7 +234,7 @@ export function TestimonialsScrollingColumns({
                         : null)}
                     {testimonial.role &&
                       (typeof testimonial.role === "string" ? (
-                        <span className="ml-1 text-white/60">
+                        <span className="ml-1 text-background/60">
                           , {testimonial.role}
                         </span>
                       ) : null)}

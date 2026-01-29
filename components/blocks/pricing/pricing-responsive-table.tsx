@@ -95,7 +95,7 @@ export function PricingResponsiveTable({
             <span
               className={cn(
                 "text-sm font-medium",
-                !isYearly ? "text-foreground" : "text-muted-foreground"
+                !isYearly ? "" : "text-muted-foreground"
               )}
             >
               Monthly
@@ -104,7 +104,7 @@ export function PricingResponsiveTable({
             <span
               className={cn(
                 "text-sm font-medium",
-                isYearly ? "text-foreground" : "text-muted-foreground"
+                isYearly ? "" : "text-muted-foreground"
               )}
             >
               Yearly

@@ -176,7 +176,7 @@ export function ProjectDetailLargeHeroFeatured(
               {typeof title === "string" ? (
                 <h1
                   className={cn(
-                    "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                     titleClassName,
                   )}
                 >
@@ -187,7 +187,7 @@ export function ProjectDetailLargeHeroFeatured(
               )}
               {subtitle &&
                 (typeof subtitle === "string" ? (
-                  <p className="mt-6 text-xl text-foreground/80">{subtitle}</p>
+                  <p className="mt-6 text-xl text-muted-foreground">{subtitle}</p>
                 ) : (
                   <div className="mt-6">{subtitle}</div>
                 ))}
@@ -210,7 +210,7 @@ export function ProjectDetailLargeHeroFeatured(
                     <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
                       {detail.label}
                     </h3>
-                    <p className="mt-2 text-lg font-medium text-foreground">
+                    <p className="mt-2 text-lg font-medium">
                       {detail.value}
                     </p>
                   </div>
@@ -227,7 +227,7 @@ export function ProjectDetailLargeHeroFeatured(
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                   >
                     {typeof section.title === "string" ? (
-                      <h2 className="mb-6 text-2xl font-semibold text-foreground">
+                      <h2 className="mb-6 text-2xl font-semibold">
                         {section.title}
                       </h2>
                     ) : (

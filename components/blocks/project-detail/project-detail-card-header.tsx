@@ -159,7 +159,7 @@ export function ProjectDetailCardHeader(
               className={cn("flex flex-col justify-center", headerClassName)}
             >
               <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
-                <span className="rounded-full bg-background px-3 py-1 font-medium text-foreground">
+                <span className="rounded-full bg-background px-3 py-1 font-medium">
                   {category}
                 </span>
                 <span>{year}</span>
@@ -170,7 +170,7 @@ export function ProjectDetailCardHeader(
               {typeof title === "string" ? (
                 <h1
                   className={cn(
-                    "text-4xl font-bold tracking-tight text-foreground md:text-5xl",
+                    "text-4xl font-bold tracking-tight md:text-5xl",
                     titleClassName,
                   )}
                 >

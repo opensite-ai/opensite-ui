@@ -205,7 +205,7 @@ export function CtaHeroFeatureCards({
               size={action.size}
               className={cn(
                 isOutlineOnDark &&
-                  "border-white/30 bg-white/10 text-white hover:bg-white/20",
+                  "border-background/30 bg-background/10 text-background hover:bg-background/20",
                 action.className,
               )}
               aria-label={action["aria-label"]}
@@ -297,11 +297,11 @@ export function CtaHeroFeatureCards({
             />
             <div
               className={cn(
-                "absolute inset-0 flex items-center justify-center bg-black/40",
+                "absolute inset-0 flex items-center justify-center bg-foreground/40",
                 overlayClassName,
               )}
             >
-              <div className="max-w-2xl p-8 text-center text-white">
+              <div className="max-w-2xl p-8 text-center text-background">
                 {heading && (
                   typeof heading === "string" ? (
                     <h2

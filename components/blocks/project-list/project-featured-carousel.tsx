@@ -142,7 +142,7 @@ export function ProjectFeaturedCarousel({
               optixFlowConfig={optixFlowConfig}
             />
             <div className="absolute top-4 left-4">
-              <Badge variant="secondary" className="bg-white/90">
+              <Badge variant="secondary" className="bg-card/90">
                 {project.category}
               </Badge>
             </div>

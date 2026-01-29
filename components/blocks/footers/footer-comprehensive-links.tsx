@@ -148,7 +148,7 @@ export function FooterComprehensiveLinks({
   return (
     <footer
       className={cn(
-        "relative overflow-hidden bg-zinc-950 text-white",
+        "relative overflow-hidden",
         className,
       )}
     >
@@ -172,10 +172,10 @@ export function FooterComprehensiveLinks({
                     </Pressable>
                   )}
                   {tagline && (
-                    <p className="text-sm font-medium text-white">{tagline}</p>
+                    <p className="text-sm font-medium">{tagline}</p>
                   )}
                   {summary && (
-                    <p className="text-sm leading-relaxed text-white/70">
+                    <p className="text-sm leading-relaxed text-muted-foreground">
                       {summary}
                     </p>
                   )}
@@ -186,7 +186,7 @@ export function FooterComprehensiveLinks({
             {linkColumns && linkColumns.length > 0 && linkColumns.map((column) => (
               <div key={column.title} className="lg:col-span-2">
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sm font-semibold text-white">
+                  <h3 className="text-sm font-semibold">
                     {column.title}
                   </h3>
                   <ul className="flex flex-col gap-2.5">
@@ -194,7 +194,7 @@ export function FooterComprehensiveLinks({
                       <li key={link.href}>
                         <Pressable
                           href={link.href}
-                          className="text-sm text-white/60 transition-colors hover:text-white"
+                          className="text-sm text-muted-foreground transition-colors hover:text-primary"
                         >
                           {link.label}
                         </Pressable>
@@ -209,7 +209,7 @@ export function FooterComprehensiveLinks({
               <div className="flex flex-col gap-6 lg:col-span-3">
                 {contact ? (
                   <div className="flex flex-col gap-4">
-                    <h3 className="text-sm font-semibold text-white">
+                    <h3 className="text-sm font-semibold">
                       Contact
                     </h3>
                     <ul className="flex flex-col gap-3">
@@ -217,12 +217,12 @@ export function FooterComprehensiveLinks({
                         <li>
                           <Pressable
                             href={contact.email}
-                            className="group flex items-center gap-2.5 text-sm text-white/60 transition-colors hover:text-white"
+                            className="group flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-primary"
                           >
                             <DynamicIcon
                               name="lucide/mail"
                               size={16}
-                              className="text-white/50 transition-colors group-hover:text-white/80"
+                              className="text-muted-foreground transition-colors group-hover:text-primary"
                             />
                             <span className="underline underline-offset-2">
                               {contact.email}
@@ -234,12 +234,12 @@ export function FooterComprehensiveLinks({
                         <li>
                           <Pressable
                             href={contact.phone}
-                            className="group flex items-center gap-2.5 text-sm text-white/60 transition-colors hover:text-white"
+                            className="group flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-primary"
                           >
                             <DynamicIcon
                               name="lucide/phone"
                               size={16}
-                              className="text-white/50 transition-colors group-hover:text-white/80"
+                              className="text-muted-foreground transition-colors group-hover:text-primary"
                             />
                             <span className="underline underline-offset-2">
                               {contact.phone}
@@ -253,12 +253,12 @@ export function FooterComprehensiveLinks({
                             href={`https://maps.google.com/?q=${encodeURIComponent(
                               contact.address,
                             )}`}
-                            className="group flex items-start gap-2.5 text-sm text-white/60 transition-colors hover:text-white"
+                            className="group flex items-start gap-2.5 text-sm text-muted-foreground transition-colors hover:text-primary"
                           >
                             <DynamicIcon
                               name="lucide/map-pin"
                               size={16}
-                              className="mt-0.5 text-white/50 transition-colors group-hover:text-white/80"
+                              className="mt-0.5 text-muted-foreground transition-colors group-hover:text-primary"
                             />
                             <span className="underline underline-offset-2">
                               {contact.address}
@@ -272,7 +272,7 @@ export function FooterComprehensiveLinks({
 
                 {(socialLinks?.length ?? 0) > 0 ? (
                   <div className="flex flex-col gap-4">
-                    <h3 className="text-sm font-semibold text-white">
+                    <h3 className="text-sm font-semibold">
                       Follow Us
                     </h3>
                     <div className="flex items-center gap-3">
@@ -283,7 +283,7 @@ export function FooterComprehensiveLinks({
                           aria-label={
                             link.label || `Follow us on ${link.platform}`
                           }
-                          className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                          className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-muted/80 hover:text-primary"
                         >
                           <DynamicIcon
                             name={socialIconMap[link.platform]}
@@ -299,9 +299,9 @@ export function FooterComprehensiveLinks({
           </div>
 
           {(articleLinks?.length ?? 0) > 0 ? (
-            <div className="border-t border-white/10 pt-8">
+            <div className="border-t pt-8">
               <div className="flex flex-col gap-4">
-                <h3 className="text-sm font-semibold text-white">
+                <h3 className="text-sm font-semibold">
                   {articleSectionTitle}
                 </h3>
                 <div className="grid grid-cols-1 gap-x-8 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -309,7 +309,7 @@ export function FooterComprehensiveLinks({
                     <Pressable
                       key={link.href}
                       href={link.href}
-                      className="truncate text-sm text-white/60 transition-colors hover:text-white"
+                      className="truncate text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
                       {link.label}
                     </Pressable>
@@ -320,16 +320,16 @@ export function FooterComprehensiveLinks({
           ) : null}
         </div>
 
-        <div className="mt-10 border-t border-white/10 pt-8">
+        <div className="mt-10 border-t pt-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="text-sm text-white/50">{copyrightText}</p>
+            <p className="text-sm text-muted-foreground">{copyrightText}</p>
             {(bottomLinks?.length ?? 0) > 0 ? (
               <div className="flex items-center gap-4 sm:gap-6">
                 {bottomLinks?.map((link) => (
                   <Pressable
                     key={link.href}
                     href={link.href}
-                    className="text-sm text-white/50 underline underline-offset-2 transition-colors hover:text-white/80"
+                    className="text-sm text-muted-foreground underline underline-offset-2 transition-colors hover:text-primary"
                   >
                     {link.label}
                   </Pressable>

@@ -206,7 +206,7 @@ export const NavbarTransparentOverlay = ({
             <span
               className={cn(
                 "text-lg font-semibold transition-colors duration-300",
-                !isScrolled && !isOpen ? "text-white" : "text-foreground",
+                !isScrolled && !isOpen ? "text-background" : "",
               )}
             >
               {logo.title}
@@ -232,8 +232,8 @@ export const NavbarTransparentOverlay = ({
                 navigationMenuTriggerStyle(),
                 "bg-transparent transition-colors duration-300",
                 !isScrolled
-                  ? "text-white/90 hover:text-white hover:bg-white/10"
-                  : "text-foreground/80 hover:text-foreground",
+                  ? "text-background/90 hover:text-background hover:bg-background/10"
+                  : "",
               )}
             >
               <Pressable href={item.url}>
@@ -273,9 +273,9 @@ export const NavbarTransparentOverlay = ({
           className={cn(
             "transition-colors duration-300",
             !isScrolled && isGhost
-              ? "text-white hover:text-white hover:bg-white/10"
+              ? "text-background hover:text-background hover:bg-background/10"
               : !isScrolled && !isGhost
-                ? "bg-white text-black hover:bg-white/90"
+                ? "bg-background text-foreground hover:bg-background/90"
                 : "",
             actionClassName,
           )}

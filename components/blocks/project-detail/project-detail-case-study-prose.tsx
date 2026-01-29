@@ -166,7 +166,7 @@ export function ProjectDetailCaseStudyProse(
           {typeof title === "string" ? (
             <h1
               className={cn(
-                "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                 titleClassName,
               )}
             >
@@ -213,7 +213,7 @@ export function ProjectDetailCaseStudyProse(
               Overview
             </h2>
             {typeof overview === "string" ? (
-              <p className="text-lg leading-relaxed text-foreground">
+              <p className="text-lg leading-relaxed">
                 {overview}
               </p>
             ) : (
@@ -231,7 +231,7 @@ export function ProjectDetailCaseStudyProse(
               className={section.className}
             >
               {typeof section.title === "string" ? (
-                <h2 className="mb-6 text-2xl font-semibold text-foreground">
+                <h2 className="mb-6 text-2xl font-semibold">
                   {section.title}
                 </h2>
               ) : (

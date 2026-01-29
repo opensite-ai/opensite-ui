@@ -191,7 +191,7 @@ export function AboutLocationInfoHero({
             key={index}
             href={action.href}
             onClick={action.onClick}
-            className="h-auto text-sm font-semibold uppercase tracking-wider text-foreground underline decoration-2 underline-offset-8 transition hover:no-underline"
+            className="h-auto text-sm font-semibold uppercase tracking-wider underline decoration-2 underline-offset-8 transition hover:no-underline"
           >
             {action.label}
           </Pressable>
@@ -220,7 +220,7 @@ export function AboutLocationInfoHero({
                 section.label
               ))}
             {section.hours && section.hours.length > 0 && (
-              <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-foreground">
+              <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm">
                 {section.hours.map((item, itemIndex) => (
                   <div key={itemIndex} className="flex flex-col">
                     {item.day &&
@@ -320,7 +320,7 @@ export function AboutLocationInfoHero({
               (typeof headline === "string" ? (
                 <h2
                   className={cn(
-                    "text-balance text-3xl font-bold uppercase leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl",
+                    "text-balance text-3xl font-bold uppercase leading-tight tracking-tight md:text-4xl lg:text-5xl",
                     headlineClassName,
                   )}
                 >
@@ -337,7 +337,7 @@ export function AboutLocationInfoHero({
                 {address ? (
                   <div
                     className={cn(
-                      "flex items-center gap-3 text-sm text-foreground",
+                      "flex items-center gap-3 text-sm",
                       addressClassName,
                     )}
                   >
@@ -359,7 +359,7 @@ export function AboutLocationInfoHero({
                 {phone ? (
                   <div
                     className={cn(
-                      "flex items-center gap-3 text-sm text-foreground",
+                      "flex items-center gap-3 text-sm",
                       phoneClassName,
                     )}
                   >

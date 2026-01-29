@@ -155,7 +155,7 @@ export function ProjectDetailHeroMetadata(
               {typeof title === "string" ? (
                 <h1
                   className={cn(
-                    "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                     titleClassName,
                   )}
                 >
@@ -192,17 +192,17 @@ export function ProjectDetailHeroMetadata(
                 <span className="font-medium text-muted-foreground">
                   CATEGORY
                 </span>
-                <span className="font-medium text-foreground">{category}</span>
+                <span className="font-medium">{category}</span>
               </div>
               <div className="flex items-center justify-between border-b border-border pb-3">
                 <span className="font-medium text-muted-foreground">
                   CLIENT
                 </span>
-                <span className="font-medium text-foreground">{client}</span>
+                <span className="font-medium">{client}</span>
               </div>
               <div className="flex items-center justify-between border-b border-border pb-3">
                 <span className="font-medium text-muted-foreground">YEAR</span>
-                <span className="font-medium text-foreground">{year}</span>
+                <span className="font-medium">{year}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="font-medium text-muted-foreground">

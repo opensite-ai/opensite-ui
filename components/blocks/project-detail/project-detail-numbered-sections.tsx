@@ -152,7 +152,7 @@ export function ProjectDetailNumberedSections(
 
         <motion.header {...fadeInUp} className={cn("mb-16", headerClassName)}>
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
+            <span className="rounded-full bg-muted px-3 py-1 font-medium">
               {category}
             </span>
             <span>{year}</span>
@@ -161,7 +161,7 @@ export function ProjectDetailNumberedSections(
           {typeof title === "string" ? (
             <h1
               className={cn(
-                "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                 titleClassName,
               )}
             >
@@ -226,7 +226,7 @@ export function ProjectDetailNumberedSections(
                       {section.number}
                     </span>
                     {typeof section.title === "string" ? (
-                      <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
+                      <h2 className="text-2xl font-semibold md:text-3xl">
                         {section.title}
                       </h2>
                     ) : (

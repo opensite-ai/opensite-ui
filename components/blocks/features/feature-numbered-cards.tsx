@@ -360,7 +360,7 @@ export function FeatureNumberedCards({
     >
       <div
         className={cn(
-          "space-y-4 md:space-y-10 rounded-lg border-none md:border md:bg-background p-0 md:p-10",
+          "space-y-4 md:space-y-10 rounded-lg border-none md:border p-0 md:p-10",
           cardsWrapperClassName,
         )}
       >

@@ -152,7 +152,7 @@ export function ProjectDetailCompactMetadata(
           {typeof title === "string" ? (
             <h1
               className={cn(
-                "text-4xl font-bold tracking-tight text-foreground md:text-5xl",
+                "text-4xl font-bold tracking-tight md:text-5xl",
                 titleClassName,
               )}
             >
@@ -217,7 +217,7 @@ export function ProjectDetailCompactMetadata(
                     className="flex justify-between text-sm"
                   >
                     <span className="text-muted-foreground">{item.label}</span>
-                    <span className="font-medium text-foreground">
+                    <span className="font-medium">
                       {item.value}
                     </span>
                   </div>

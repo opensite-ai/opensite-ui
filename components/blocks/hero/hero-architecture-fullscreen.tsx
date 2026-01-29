@@ -118,7 +118,7 @@ export function HeroArchitectureFullscreen({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(
-        "dark relative h-svh max-h-[1400px] w-full overflow-hidden bg-cover bg-center bg-no-repeat font-poppins after:absolute after:top-0 after:left-0 after:block after:h-full after:w-full after:bg-black/65 after:content-['']",
+        "dark relative h-svh max-h-[1400px] w-full overflow-hidden bg-cover bg-center bg-no-repeat font-poppins after:absolute after:top-0 after:left-0 after:block after:h-full after:w-full after:bg-foreground/65 after:content-['']",
         className
       )}
       style={{ backgroundImage: backgroundImage ? `url('${backgroundImage}')` : undefined }}
@@ -137,7 +137,7 @@ export function HeroArchitectureFullscreen({
             )}
             {heading && (
               typeof heading === "string" ? (
-                <h1 className={cn("text-3xl leading-snug! text-foreground md:text-4xl lg:text-6xl", headingClassName)}>
+                <h1 className={cn("text-3xl leading-snug! md:text-4xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               ) : (

@@ -203,11 +203,11 @@ export function HeroVideoDialogGradient({
             <div className="flex flex-col items-center gap-6">
               {heading && (
                 typeof heading === "string" ? (
-                  <h1 className={cn("max-w-[920px] text-center text-4xl leading-tight font-semibold text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
+                  <h1 className={cn("max-w-[920px] text-center text-4xl leading-tight font-semibold md:text-6xl lg:text-7xl", headingClassName)}>
                     {heading}
                   </h1>
                 ) : (
-                  <h1 className={cn("max-w-[920px] text-center text-4xl leading-tight font-semibold text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
+                  <h1 className={cn("max-w-[920px] text-center text-4xl leading-tight font-semibold md:text-6xl lg:text-7xl", headingClassName)}>
                     {heading}
                   </h1>
                 )

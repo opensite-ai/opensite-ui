@@ -196,8 +196,8 @@ export function ServicesListExpandableCards({
               >
                 <motion.div
                   className={cn(
-                    "relative h-full w-full overflow-hidden rounded-3xl bg-gray-900",
-                    service.theme === "dark" ? "bg-gray-100" : "bg-gray-900",
+                    "relative h-full w-full overflow-hidden rounded-3xl",
+                    service.theme === "dark" ? "bg-background" : "bg-foreground",
                   )}
                   layoutId={
                     enableLayoutAnimations
@@ -248,8 +248,8 @@ export function ServicesListExpandableCards({
                       className={cn(
                         "text-sm font-medium uppercase md:text-base",
                         service.theme === "dark"
-                          ? "text-gray-900"
-                          : "text-white",
+                          ? "text-foreground"
+                          : "text-background",
                       )}
                     >
                       {service.category}
@@ -258,8 +258,8 @@ export function ServicesListExpandableCards({
                       className={cn(
                         "mt-2 text-balance font-sans text-xl font-semibold md:text-3xl",
                         service.theme === "dark"
-                          ? "text-gray-900"
-                          : "text-white",
+                          ? "text-foreground"
+                          : "text-background",
                       )}
                     >
                       {service.title}
@@ -321,8 +321,8 @@ export function ServicesListExpandableCards({
                   className={cn(
                     "text-sm font-medium uppercase md:text-base",
                     openServiceData.theme === "dark"
-                      ? "text-gray-900"
-                      : "text-white",
+                      ? "text-foreground"
+                      : "text-background",
                   )}
                 >
                   {openServiceData.category}
@@ -331,8 +331,8 @@ export function ServicesListExpandableCards({
                   className={cn(
                     "mt-2 text-balance font-sans text-2xl font-semibold md:text-4xl",
                     openServiceData.theme === "dark"
-                      ? "text-gray-900"
-                      : "text-white",
+                      ? "text-foreground"
+                      : "text-background",
                   )}
                 >
                   {openServiceData.title}

@@ -143,10 +143,10 @@ function ProjectCard({
         />
         <div className="absolute inset-0 bg-muted/40 transition-all duration-300 group-hover:bg-muted/20" />
         <div className="absolute inset-0 flex flex-col justify-between p-6">
-          <span className="self-start border border-muted bg-background text-xs font-medium text-foreground px-2 py-1 rounded">
+          <span className="self-start border border-muted bg-background text-xs font-medium px-2 py-1 rounded">
             {category}
           </span>
-          <h3 className="text-2xl font-semibold text-foreground opacity-70">
+          <h3 className="text-2xl font-semibold opacity-70">
             {title}
           </h3>
         </div>
@@ -219,7 +219,7 @@ export function ProjectDetailSidebarSticky(
                 {typeof title === "string" ? (
                   <h1
                     className={cn(
-                      "text-5xl font-bold tracking-tight text-foreground md:text-6xl",
+                      "text-5xl font-bold tracking-tight md:text-6xl",
                       titleClassName,
                     )}
                   >
@@ -232,7 +232,7 @@ export function ProjectDetailSidebarSticky(
                   <p className="text-xl text-muted-foreground">{subtitle}</p>
                 )}
                 <div className="flex items-center gap-4">
-                  <span className="rounded-3xl bg-muted px-4 py-1 text-xs font-medium text-foreground">
+                  <span className="rounded-3xl bg-muted px-4 py-1 text-xs font-medium">
                     {category}
                   </span>
                   <span className="rounded-3xl border border-border px-3 text-sm text-muted-foreground">
@@ -248,7 +248,7 @@ export function ProjectDetailSidebarSticky(
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mt-5 space-y-3 md:sticky md:bottom-9"
             >
-              <h3 className="text-sm font-medium tracking-wider text-foreground uppercase">
+              <h3 className="text-sm font-medium tracking-wider uppercase">
                 ABOUT
               </h3>
               {typeof description === "string" ? (
@@ -282,7 +282,7 @@ export function ProjectDetailSidebarSticky(
           <div className={cn("mt-32", relatedProjectsClassName)}>
             {relatedProjectsTitle &&
               (typeof relatedProjectsTitle === "string" ? (
-                <h3 className="mb-6 text-sm font-medium tracking-wider text-foreground uppercase">
+                <h3 className="mb-6 text-sm font-medium tracking-wider uppercase">
                   {relatedProjectsTitle}
                 </h3>
               ) : (

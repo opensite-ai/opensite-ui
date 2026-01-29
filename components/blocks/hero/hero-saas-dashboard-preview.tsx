@@ -243,11 +243,11 @@ export function HeroSaasDashboardPreview({
           {renderBadge}
           {heading && (
             typeof heading === "string" ? (
-              <h1 className={cn("mt-8 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+              <h1 className={cn("mt-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("mt-8 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+              <h1 className={cn("mt-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                 {heading}
               </h1>
             )

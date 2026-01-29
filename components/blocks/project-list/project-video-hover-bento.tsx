@@ -154,10 +154,10 @@ const VideoSection: React.FC<VideoSectionProps> = ({
         Your browser does not support the video tag.
       </video>
 
-      <div className="absolute inset-0 bg-black/30 transition-all duration-500 group-hover:bg-black/20" />
+      <div className="absolute inset-0 bg-foreground/30 transition-all duration-500 group-hover:bg-foreground/20" />
 
       <div className="absolute inset-0 bottom-12 flex items-end">
-        <div className="px-6 text-left text-white sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <div className="px-6 text-left text-background sm:px-8 md:px-12 lg:px-16 xl:px-20">
           <p className="mb-2 text-xs font-medium tracking-wider uppercase opacity-80 sm:mb-3 sm:text-sm md:mb-4 md:text-base">
             {studioName}
           </p>

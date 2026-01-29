@@ -180,7 +180,7 @@ export function CtaBackgroundIconBadge({
           cardClassName,
         )}
         style={backgroundImage ? {
-          backgroundImage: `linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)), url('${backgroundImage}')`,
+          backgroundImage: `linear-gradient(hsl(var(--foreground) / 0.6), hsl(var(--foreground) / 0.6)), url('${backgroundImage}')`,
         } : undefined}
       >
         <div className={cn("container", containerClassName)}>

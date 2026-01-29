@@ -180,7 +180,7 @@ export function HeroStatsSocialProof({
 
     return stats.map((stat, index) => (
       <div key={index} className={stat.className}>
-        <div className="text-3xl font-bold text-foreground">{stat.value}</div>
+        <div className="text-3xl font-bold ">{stat.value}</div>
         {stat.label && <div className="text-sm text-muted-foreground">{stat.label}</div>}
       </div>
     ));
@@ -199,7 +199,7 @@ export function HeroStatsSocialProof({
             </div>
           )}
           <div>
-            {statusCard.title && <div className="font-semibold text-foreground">{statusCard.title}</div>}
+            {statusCard.title && <div className="font-semibold ">{statusCard.title}</div>}
             {statusCard.subtitle && <div className="text-sm text-muted-foreground">{statusCard.subtitle}</div>}
           </div>
         </div>
@@ -226,7 +226,7 @@ export function HeroStatsSocialProof({
             )}
             {heading && (
               typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               ) : (

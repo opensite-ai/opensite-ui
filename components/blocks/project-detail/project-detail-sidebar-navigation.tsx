@@ -198,17 +198,17 @@ export function ProjectDetailSidebarNavigation(
               >
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Category</span>
-                  <span className="font-medium text-foreground">
+                  <span className="font-medium">
                     {category}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Client</span>
-                  <span className="font-medium text-foreground">{client}</span>
+                  <span className="font-medium">{client}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Year</span>
-                  <span className="font-medium text-foreground">{year}</span>
+                  <span className="font-medium">{year}</span>
                 </div>
               </div>
             </div>
@@ -224,7 +224,7 @@ export function ProjectDetailSidebarNavigation(
               {typeof title === "string" ? (
                 <h1
                   className={cn(
-                    "text-4xl font-bold tracking-tight text-foreground md:text-5xl",
+                    "text-4xl font-bold tracking-tight md:text-5xl",
                     titleClassName,
                   )}
                 >
@@ -283,7 +283,7 @@ export function ProjectDetailSidebarNavigation(
                   className={cn("scroll-mt-24", section.className)}
                 >
                   {typeof section.title === "string" ? (
-                    <h2 className="mb-6 text-2xl font-semibold text-foreground">
+                    <h2 className="mb-6 text-2xl font-semibold">
                       {section.title}
                     </h2>
                   ) : (

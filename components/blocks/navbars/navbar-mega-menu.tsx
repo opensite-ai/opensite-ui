@@ -160,7 +160,7 @@ const DesktopMenuItem = ({
   if (layout === "animated-image-preview" && link.links) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`}>
-        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground data-[state=open]:bg-muted/50 data-[state=open]:text-foreground">
+        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {link.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="rounded-2xl! p-0!">
@@ -223,7 +223,7 @@ const DesktopMenuItem = ({
   if (layout === "simple-grid" && link.links) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`}>
-        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground data-[state=open]:bg-muted/50 data-[state=open]:text-foreground">
+        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {link.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="min-w-[700px] p-6">
@@ -277,7 +277,7 @@ const DesktopMenuItem = ({
   if (layout === "list-with-icons" && link.links) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`}>
-        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground data-[state=open]:bg-muted/50 data-[state=open]:text-foreground">
+        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {link.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="min-w-[400px] p-4">

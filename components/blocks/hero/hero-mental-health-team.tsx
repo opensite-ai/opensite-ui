@@ -156,10 +156,10 @@ export function HeroMentalHealthTeam({
             </div>
           )}
           <div className="flex h-full w-full flex-col justify-between gap-2">
-            <p className="text-lg font-medium text-foreground">
+            <p className="text-lg font-medium ">
               &quot;{testimonial.quote}&quot;
             </p>
-            <p className="text-foreground">{testimonial.author}</p>
+            <p className="">{testimonial.author}</p>
           </div>
         </div>
       </div>
@@ -192,18 +192,18 @@ export function HeroMentalHealthTeam({
         <div className={cn("mx-auto mb-24 flex max-w-[900px] flex-col items-center gap-3", headerClassName)}>
           {subtitle && (
             typeof subtitle === "string" ? (
-              <p className="text-center text-foreground">{subtitle}</p>
+              <p className="text-center ">{subtitle}</p>
             ) : (
               subtitle
             )
           )}
           {heading && (
             typeof heading === "string" ? (
-              <h1 className={cn("text-center text-4xl leading-tight font-medium text-foreground sm:text-5xl md:text-6xl", headingClassName)}>
+              <h1 className={cn("text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl", headingClassName)}>
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("text-center text-4xl leading-tight font-medium text-foreground sm:text-5xl md:text-6xl", headingClassName)}>
+              <h1 className={cn("text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl", headingClassName)}>
                 {heading}
               </h1>
             )

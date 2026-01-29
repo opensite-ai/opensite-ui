@@ -426,7 +426,7 @@ const DesktopMenuItem = ({
   if (item.links) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
-        <NavigationMenuTrigger className="bg-transparent px-3 py-2 text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground data-[state=open]:bg-muted/50 data-[state=open]:text-foreground">
+        <NavigationMenuTrigger className="bg-transparent px-3 py-2 hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {item.title}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="rounded-2xl! p-0!">
@@ -484,7 +484,7 @@ const DesktopMenuItem = ({
     <NavigationMenuItem
       key={`desktop-menu-item-${index}`}
       value={`${index}`}
-      className={`${navigationMenuTriggerStyle()} bg-transparent text-foreground/80 hover:bg-muted hover:text-foreground`}
+      className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-muted`}
     >
       <NavigationMenuLink href={item.url}>{item.title}</NavigationMenuLink>
     </NavigationMenuItem>
@@ -526,7 +526,7 @@ const MobileNavigationMenu = ({
             )}
             key={`mobile-menu-item-${index}`}
           >
-            <div className="text-xs text-foreground/60 uppercase">
+            <div className="text-xs text-muted-foreground uppercase">
               {item.title}
             </div>
             <ul className="flex flex-col gap-3">
@@ -556,7 +556,7 @@ const MobileNavigationMenu = ({
 
     return (
       <div className="col-span-2 flex flex-col gap-4">
-        <div className="text-xs text-foreground/60 uppercase">SOCIAL</div>
+        <div className="text-xs text-muted-foreground uppercase">SOCIAL</div>
         <div className="flex gap-4">
           {socialLinks.map((link, index) => (
             <Pressable

@@ -164,7 +164,7 @@ export function ProjectDetailSplitMaterials(
 
         <motion.header {...fadeInUp} className={cn("mb-16", headerClassName)}>
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
+            <span className="rounded-full bg-muted px-3 py-1 font-medium">
               {category}
             </span>
             <span>{year}</span>
@@ -175,7 +175,7 @@ export function ProjectDetailSplitMaterials(
           {typeof title === "string" ? (
             <h1
               className={cn(
-                "text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl",
+                "text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl",
                 titleClassName,
               )}
             >
@@ -246,7 +246,7 @@ export function ProjectDetailSplitMaterials(
                         <td className="px-4 py-3 text-sm font-medium text-muted-foreground">
                           {spec.label}
                         </td>
-                        <td className="px-4 py-3 text-sm text-foreground text-right">
+                        <td className="px-4 py-3 text-sm text-right">
                           {spec.value}
                         </td>
                       </tr>
@@ -264,7 +264,7 @@ export function ProjectDetailSplitMaterials(
                 {materials?.map((material) => (
                   <span
                     key={material}
-                    className="rounded-full border border-border px-3 py-1 text-sm text-foreground"
+                    className="rounded-full border border-border px-3 py-1 text-sm"
                   >
                     {material}
                   </span>

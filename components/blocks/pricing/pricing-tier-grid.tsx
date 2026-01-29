@@ -416,9 +416,7 @@ export function PricingTierGrid({
                     <h3
                       className={cn(
                         "mt-2 text-xl font-semibold",
-                        isFeatured
-                          ? "text-primary-foreground"
-                          : "text-foreground",
+                        isFeatured ? "text-primary-foreground" : "",
                         tierNameClassName,
                       )}
                     >
@@ -452,9 +450,7 @@ export function PricingTierGrid({
                   <span
                     className={cn(
                       "text-4xl font-bold",
-                      isFeatured
-                        ? "text-primary-foreground"
-                        : "text-foreground",
+                      isFeatured ? "text-primary-foreground" : "",
                       priceClassName,
                     )}
                   >

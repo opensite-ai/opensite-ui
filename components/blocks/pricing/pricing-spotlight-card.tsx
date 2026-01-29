@@ -369,7 +369,7 @@ export function PricingSpotlightCard({
 
           <div
             className={cn(
-              "relative rounded-2xl border bg-card p-8 shadow-2xl md:p-10",
+              "relative rounded-2xl border p-8 shadow-2xl md:p-10",
               cardClassName,
             )}
           >

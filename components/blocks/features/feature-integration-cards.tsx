@@ -247,7 +247,7 @@ export function FeatureIntegrationCards({
           <Pressable
             key={index}
             href={integration.link}
-            className={cn("flex flex-col gap-4 rounded-xl border p-6 transition-colors duration-300 hover:bg-muted/60", cardClassName, integration.className)}
+            className={cn("flex flex-col gap-4 rounded-xl border p-6 transition-colors duration-300", cardClassName, integration.className)}
           >
             {cardContent}
           </Pressable>
@@ -257,7 +257,7 @@ export function FeatureIntegrationCards({
       return (
         <div
           key={index}
-          className={cn("flex flex-col gap-4 rounded-xl border p-6 transition-colors duration-300 hover:bg-muted/60", cardClassName, integration.className)}
+          className={cn("flex flex-col gap-4 rounded-xl border p-6 transition-colors duration-300", cardClassName, integration.className)}
         >
           {cardContent}
         </div>

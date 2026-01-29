@@ -185,7 +185,7 @@ export function HeroEcommerceProductShowcase({
           <React.Fragment key={index}>
             {index > 0 && <div className="h-12 w-px bg-border"></div>}
             <div className="text-center">
-              <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+              <div className="text-2xl font-bold ">{stat.value}</div>
               <div className="text-sm text-muted-foreground">{stat.label}</div>
             </div>
           </React.Fragment>
@@ -265,11 +265,11 @@ export function HeroEcommerceProductShowcase({
             {renderBadge}
             {heading && (
               typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               )

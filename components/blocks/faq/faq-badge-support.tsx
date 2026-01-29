@@ -220,8 +220,11 @@ export function FaqBadgeSupport({
             variant={supportAction.variant}
             size={supportAction.size}
             className={supportAction.className}
+            asButton={supportAction.asButton}
           >
             {supportAction.children ?? supportAction.label}
+            {supportAction.icon && supportAction.icon}
+            {supportAction.iconAfter && supportAction.iconAfter}
           </Pressable>
         )}
       </div>

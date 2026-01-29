@@ -515,7 +515,7 @@ export function PricingColumnsToggle({
               <span
                 className={cn(
                   "text-sm font-medium transition-colors",
-                  !isAnnual ? "text-foreground" : "text-muted-foreground",
+                  isAnnual ? "text-muted-foreground" : "",
                   toggleLabelClassName,
                 )}
               >
@@ -542,7 +542,7 @@ export function PricingColumnsToggle({
               <span
                 className={cn(
                   "text-sm font-medium transition-colors",
-                  isAnnual ? "text-foreground" : "text-muted-foreground",
+                  !isAnnual ? "text-muted-foreground" : "",
                   toggleLabelClassName,
                 )}
               >

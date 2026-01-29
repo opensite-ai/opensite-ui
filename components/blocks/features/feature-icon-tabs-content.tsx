@@ -341,7 +341,7 @@ export function FeatureIconTabsContent({
                 key={tab.value}
                 value={tab.value}
                 className={cn(
-                  "flex shrink-0 items-center gap-2 rounded-lg border border-border bg-background px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
+                  "flex shrink-0 items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
                   tabTriggerClassName,
                   tab.className,
                 )}
@@ -354,7 +354,7 @@ export function FeatureIconTabsContent({
         </div>
         <div
           className={cn(
-            "mx-auto mt-8 max-w-7xl rounded-2xl bg-muted/70 p-6 lg:p-16",
+            "mx-auto mt-8 max-w-7xl rounded-2xl p-6 lg:p-16",
             contentWrapperClassName,
           )}
         >
@@ -390,7 +390,7 @@ export function FeatureIconTabsContent({
                       <Badge
                         variant="outline"
                         className={cn(
-                          "w-fit bg-background",
+                          "w-fit",
                           content.badgeClassName,
                         )}
                       >

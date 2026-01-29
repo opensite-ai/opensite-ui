@@ -6,7 +6,6 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -161,7 +160,7 @@ export function IndustriesTimelineTable({
   projectsClassName,
   itemClassName,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -255,7 +254,13 @@ export function IndustriesTimelineTable({
         ))}
       </div>
     );
-  }, [projectsSlot, projects, projectsClassName, itemClassName, optixFlowConfig]);
+  }, [
+    projectsSlot,
+    projects,
+    projectsClassName,
+    itemClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section

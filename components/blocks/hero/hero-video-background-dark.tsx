@@ -154,11 +154,11 @@ export function HeroVideoBackgroundDark({
         )}
         {heading && (
           typeof heading === "string" ? (
-            <h1 className={cn("text-5xl font-bold text-foreground lg:text-[4.2rem]", headingClassName)}>
+            <h1 className={cn("text-5xl font-bold lg:text-[4.2rem]", headingClassName)}>
               {heading}
             </h1>
           ) : (
-            <h1 className={cn("text-5xl font-bold text-foreground lg:text-[4.2rem]", headingClassName)}>
+            <h1 className={cn("text-5xl font-bold lg:text-[4.2rem]", headingClassName)}>
               {heading}
             </h1>
           )

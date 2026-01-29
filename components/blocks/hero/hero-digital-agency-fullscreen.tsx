@@ -149,7 +149,7 @@ export function HeroDigitalAgencyFullscreen({
 
     const { className: footerActionClassName, ...footerActionProps } = footerAction;
     return (
-      <div className={cn("flex items-center justify-between gap-4 rounded-lg bg-black/20 px-6 py-4 backdrop-blur-sm", footerClassName)}>
+      <div className={cn("flex items-center justify-between gap-4 rounded-lg bg-foreground/20 px-6 py-4 backdrop-blur-sm", footerClassName)}>
         <div className="flex items-center gap-3">
           <div className="h-8 w-1 bg-primary"></div>
           <div className="text-sm font-medium text-muted-foreground">
@@ -201,18 +201,18 @@ export function HeroDigitalAgencyFullscreen({
           <div className={cn("mx-auto flex max-w-125 flex-1 flex-col items-center justify-center gap-7 sm:max-w-150 md:max-w-200", contentClassName)}>
             {heading && (
               typeof heading === "string" ? (
-                <h1 className={cn("text-center text-4xl leading-tight font-medium text-foreground sm:text-5xl md:text-6xl", headingClassName)}>
+                <h1 className={cn("text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-center text-4xl leading-tight font-medium text-foreground sm:text-5xl md:text-6xl", headingClassName)}>
+                <h1 className={cn("text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               )
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-center text-lg text-balance text-foreground md:text-2xl", descriptionClassName)}>
+                <p className={cn("text-center text-lg text-balance md:text-2xl", descriptionClassName)}>
                   {description}
                 </p>
               ) : (

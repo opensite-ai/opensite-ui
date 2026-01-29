@@ -147,7 +147,7 @@ export function HeroSoftwareGrowthVideoDialog({
       label: "Get Started Now",
       href: "#",
       variant: "outline",
-      className: "group block h-fit w-fit overflow-hidden rounded-full px-5 py-2 text-center text-base text-foreground",
+      className: "group block h-fit w-fit overflow-hidden rounded-full px-5 py-2 text-center text-base ",
     },
   ];
 
@@ -229,11 +229,11 @@ export function HeroSoftwareGrowthVideoDialog({
             <div className="flex flex-col items-center justify-center gap-8">
               {heading && (
                 typeof heading === "string" ? (
-                  <h1 className={cn("max-w-[1000px] text-center text-[3.125rem] leading-none text-foreground md:text-[4.25rem] lg:text-[5.5rem]", headingClassName)}>
+                  <h1 className={cn("max-w-[1000px] text-center text-[3.125rem] leading-none md:text-[4.25rem] lg:text-[5.5rem]", headingClassName)}>
                     {heading}
                   </h1>
                 ) : (
-                  <h1 className={cn("max-w-[1000px] text-center text-[3.125rem] leading-none text-foreground md:text-[4.25rem] lg:text-[5.5rem]", headingClassName)}>
+                  <h1 className={cn("max-w-[1000px] text-center text-[3.125rem] leading-none md:text-[4.25rem] lg:text-[5.5rem]", headingClassName)}>
                     {heading}
                   </h1>
                 )

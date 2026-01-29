@@ -215,7 +215,7 @@ export function ProjectDetailMaskReveal(
           className={cn("mb-16 max-w-3xl", headerClassName)}
         >
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
+            <span className="rounded-full bg-muted px-3 py-1 font-medium">
               {category}
             </span>
             <span>{year}</span>
@@ -224,7 +224,7 @@ export function ProjectDetailMaskReveal(
           {typeof title === "string" ? (
             <h1
               className={cn(
-                "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                 titleClassName,
               )}
             >

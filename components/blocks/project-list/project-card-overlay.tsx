@@ -125,7 +125,7 @@ const ProjectCard = ({
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       className={cn(
-        "group relative cursor-pointer overflow-hidden rounded-3xl bg-black shadow-2xl",
+        "group relative cursor-pointer overflow-hidden rounded-3xl bg-foreground shadow-2xl",
         className,
       )}
     >
@@ -137,29 +137,29 @@ const ProjectCard = ({
           optixFlowConfig={optixFlowConfig}
         />
 
-        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-foreground/80 via-foreground/20 to-transparent" />
 
         <div className="absolute top-4 left-4">
-          <span className="inline-block rounded-full border border-white/20 bg-black/50 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
+          <span className="inline-block rounded-full border border-border/20 bg-foreground/50 px-3 py-1.5 text-xs font-semibold text-background backdrop-blur-sm">
             {project.category}
           </span>
         </div>
 
         <div className="absolute top-4 right-4 translate-x-2 transform opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/30 bg-white/20 backdrop-blur-sm">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full border border-border/30 bg-card/20 backdrop-blur-sm">
             <DynamicIcon
               name="lucide/arrow-up-right"
               size={16}
-              className="text-white"
+              className="text-background"
             />
           </div>
         </div>
 
         <div className="absolute right-4 bottom-4 left-4">
-          <h3 className="mb-1 text-2xl font-bold tracking-tight text-white md:text-3xl">
+          <h3 className="mb-1 text-2xl font-bold tracking-tight text-background md:text-3xl">
             {project.title}
           </h3>
-          <p className="text-sm text-white/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <p className="text-sm text-background/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             {project.description}
           </p>
         </div>

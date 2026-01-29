@@ -237,8 +237,8 @@ export function FeatureImageCardsThreeColumn({
                 className={cn(
                   "ml-auto flex w-fit items-center gap-2 text-sm font-semibold",
                   card.avatarSrc
-                    ? "rounded-full bg-background/30 px-4 py-2.5 backdrop-blur-sm"
-                    : "rounded-full bg-primary px-4 py-2.5 text-background",
+                    ? "rounded-full bg-foreground/30 px-4 py-2.5 backdrop-blur-sm"
+                    : "rounded-full bg-primary px-4 py-2.5 text-primary-foreground",
                   card.badgeClassName
                 )}
               >
@@ -246,7 +246,7 @@ export function FeatureImageCardsThreeColumn({
                 {card.badgeText}
               </span>
             )}
-            <div className="flex flex-col gap-5 text-background">
+            <div className="flex flex-col gap-5">
               {card.title && (
                 typeof card.title === "string" ? (
                   <h4 className={cn("text-2xl font-semibold lg:text-3xl", card.titleClassName)}>

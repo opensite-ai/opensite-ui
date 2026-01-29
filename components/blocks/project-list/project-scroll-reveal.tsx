@@ -177,14 +177,14 @@ const ProjectItem = ({
           />
         </motion.div>
         <motion.div
-          className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent"
+          className="absolute inset-0 bg-linear-to-t from-foreground/80 via-foreground/40 to-transparent"
           initial={{ opacity: 0.6 }}
           animate={{ opacity: hoveredIndex === index ? 0.8 : 0.6 }}
           transition={{ duration: 0.4 }}
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-background">
           <motion.div
-            className="flex items-center gap-2 text-sm text-white/80 lg:mb-4"
+            className="flex items-center gap-2 text-sm text-background/80 lg:mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: hoveredIndex === index ? -5 : 0 }}
             transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
@@ -227,7 +227,7 @@ const ProjectItem = ({
               position: "absolute",
               pointerEvents: "none",
             }}
-            className="z-20 flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white shadow-lg backdrop-blur-sm"
+            className="z-20 flex h-12 w-12 items-center justify-center rounded-full border border-border/30 bg-card/20 text-background shadow-lg backdrop-blur-sm"
           >
             <motion.div
               transition={{

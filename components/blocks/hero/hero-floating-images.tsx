@@ -239,11 +239,10 @@ export function HeroFloatingImages({
           zoomIndicatorClassName,
         )}
       >
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 shadow-lg">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-background/90 shadow-lg">
           <DynamicIcon
             name={zoomIconName}
             size={20}
-            className="text-gray-900"
           />
         </div>
       </div>
@@ -276,7 +275,7 @@ export function HeroFloatingImages({
           )}
           optixFlowConfig={optixFlowConfig}
         />
-        <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/20" />
+        <div className="absolute inset-0 bg-foreground/0 transition-colors group-hover:bg-foreground/20" />
         {enableLightbox && zoomIndicator}
       </button>
     );
@@ -321,7 +320,7 @@ export function HeroFloatingImages({
             )}
             optixFlowConfig={optixFlowConfig}
           />
-          <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/20" />
+          <div className="absolute inset-0 bg-foreground/0 transition-colors group-hover:bg-foreground/20" />
           {enableLightbox && (
             <div
               className={cn(
@@ -329,11 +328,10 @@ export function HeroFloatingImages({
                 zoomIndicatorClassName,
               )}
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-lg">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-background/90 shadow-lg">
                 <DynamicIcon
                   name={zoomIconName}
                   size={16}
-                  className="text-gray-900"
                 />
               </div>
             </div>

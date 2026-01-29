@@ -134,7 +134,7 @@ export function FaqRoundedCards({
             key={item.id}
             value={item.id}
             className={cn(
-              "rounded-xl border border-border/60 bg-card px-5 shadow-sm transition-shadow hover:shadow-md data-[state=open]:shadow-md",
+              "rounded-xl border border-border/60 px-5 shadow-sm transition-shadow hover:shadow-md data-[state=open]:shadow-md",
               accordionItemClassName,
             )}
           >
@@ -147,10 +147,7 @@ export function FaqRoundedCards({
               {item.question}
             </AccordionTrigger>
             <AccordionContent
-              className={cn(
-                "pb-4 text-muted-foreground",
-                accordionContentClassName,
-              )}
+              className={cn("pb-4 ", accordionContentClassName)}
             >
               {item.answer}
             </AccordionContent>
@@ -205,12 +202,7 @@ export function FaqRoundedCards({
               <div className={descriptionClassName}>{description}</div>
             ))}
         </div>
-        <div
-          className={cn(
-            "mx-auto mt-10 max-w-3xl",
-            cardsWrapperClassName,
-          )}
-        >
+        <div className={cn("mx-auto mt-10 max-w-3xl", cardsWrapperClassName)}>
           {itemsContent}
         </div>
       </div>

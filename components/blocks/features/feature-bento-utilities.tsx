@@ -277,7 +277,7 @@ export function FeatureBentoUtilities({
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
-      className={cn("bg-gray-50 dark:bg-background", className)}
+      className={cn("bg-muted/60", className)}
       containerClassName={cn("max-w-7xl", containerClassName)}
     >
       {(labelIconElement || label) && (

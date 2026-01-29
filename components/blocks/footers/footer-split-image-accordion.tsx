@@ -363,7 +363,7 @@ export function FooterSplitImageAccordion({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("bg-muted", className)}
+      className={className}
     >
       <div className={cn("grid grid-cols-1 lg:grid-cols-2", gridClassName)}>
         {footerData?.image?.src && (

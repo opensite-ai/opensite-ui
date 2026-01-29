@@ -213,7 +213,7 @@ export function HeroStartupLaunchCta({
           />
         )}
         <div>
-          {badgeCard.title && <div className="font-semibold text-foreground">{badgeCard.title}</div>}
+          {badgeCard.title && <div className="font-semibold ">{badgeCard.title}</div>}
           {badgeCard.subtitle && <div className="text-sm text-muted-foreground">{badgeCard.subtitle}</div>}
         </div>
       </div>
@@ -239,7 +239,7 @@ export function HeroStartupLaunchCta({
             )}
             {heading && (
               typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               ) : (

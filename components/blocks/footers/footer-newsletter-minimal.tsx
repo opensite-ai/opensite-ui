@@ -236,7 +236,7 @@ export function FooterNewsletterMinimal({
       <li key={idx}>
         <Pressable
           href={item.href}
-          className={cn("tracking-tight text-foreground hover:text-foreground/30", navLinkClassName)}
+          className={cn("tracking-tight hover:text-muted-foreground", navLinkClassName)}
         >
           {item.label}
         </Pressable>
@@ -251,13 +251,13 @@ export function FooterNewsletterMinimal({
       <li key={item.label}>
         <Pressable
           href={item.href}
-          className={cn("group flex items-center gap-1 tracking-tight text-foreground hover:text-foreground/30", socialLinkClassName)}
+          className={cn("group flex items-center gap-1 tracking-tight hover:text-muted-foreground", socialLinkClassName)}
         >
           {item.label}{" "}
           <DynamicIcon
             name="lucide/arrow-up-right"
             size={14}
-            className="text-foreground group-hover:text-muted-foreground/50"
+            className="group-hover:text-muted-foreground/50"
           />
         </Pressable>
       </li>
@@ -271,7 +271,7 @@ export function FooterNewsletterMinimal({
       <li key={item.label}>
         <Pressable
           href={item.href}
-          className={cn("group flex items-center gap-1 tracking-tight text-foreground hover:text-foreground/30", footerLinkClassName)}
+          className={cn("group flex items-center gap-1 tracking-tight hover:text-muted-foreground", footerLinkClassName)}
         >
           {item.label}
         </Pressable>
@@ -431,7 +431,7 @@ export function FooterNewsletterMinimal({
             {attributionText && attributionHref && (
               <Pressable
                 href={attributionHref}
-                className="mt-2 inline-block hover:text-foreground"
+                className="mt-2 inline-block hover:text-primary"
                 target="_blank"
                 rel="noopener noreferrer"
               >

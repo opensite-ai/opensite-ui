@@ -530,7 +530,7 @@ export function PricingTwoColumnBasic({
                   "rounded-md px-4 py-2 text-sm font-medium transition-colors",
                   billingPeriod === "monthly"
                     ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground",
+                    : "text-muted-foreground hover:",
                   toggleButtonClassName,
                   billingPeriod === "monthly"
                     ? toggleButtonActiveClassName
@@ -545,7 +545,7 @@ export function PricingTwoColumnBasic({
                   "rounded-md px-4 py-2 text-sm font-medium transition-colors",
                   billingPeriod === "yearly"
                     ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground",
+                    : "text-muted-foreground hover:",
                   toggleButtonClassName,
                   billingPeriod === "yearly"
                     ? toggleButtonActiveClassName

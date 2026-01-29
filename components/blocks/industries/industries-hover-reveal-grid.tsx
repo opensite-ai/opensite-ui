@@ -7,7 +7,6 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -149,7 +148,7 @@ export function IndustriesHoverRevealGrid({
   gridClassName,
   itemClassName,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -278,7 +277,14 @@ export function IndustriesHoverRevealGrid({
         ))}
       </div>
     );
-  }, [industriesSlot, industries, industryLabel, gridClassName, itemClassName, optixFlowConfig]);
+  }, [
+    industriesSlot,
+    industries,
+    industryLabel,
+    gridClassName,
+    itemClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section

@@ -142,7 +142,7 @@ export function HeroFeatureCardsGrid({
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
               {feature.icon ?? <DynamicIcon name={feature.iconName || "lucide/check"} size={24} />}
             </div>
-            <h3 className="mb-2 text-lg font-semibold text-foreground">
+            <h3 className="mb-2 text-lg font-semibold ">
               {feature.title}
             </h3>
             {feature.description && (
@@ -168,11 +168,11 @@ export function HeroFeatureCardsGrid({
         <div className={cn("mx-auto max-w-3xl text-center", contentClassName)}>
           {heading && (
             typeof heading === "string" ? (
-              <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+              <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+              <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                 {heading}
               </h1>
             )

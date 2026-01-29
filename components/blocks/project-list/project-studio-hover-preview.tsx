@@ -172,15 +172,15 @@ export function ProjectStudioHoverPreview({
             optixFlowConfig={optixFlowConfig}
           />
 
-          <div className="absolute inset-0 rounded-lg bg-black/0 transition-all duration-500 group-hover:bg-black/10" />
+          <div className="absolute inset-0 rounded-lg bg-foreground/0 transition-all duration-500 group-hover:bg-foreground/10" />
         </div>
 
         <div className="mt-4 flex justify-between gap-0.5">
-          <h3 className="text-sm leading-tight font-medium transition-colors duration-300 group-hover:text-neutral-800 md:text-base">
+          <h3 className="text-sm leading-tight font-medium transition-colors duration-300 md:text-base">
             {project.title}
           </h3>
           <div className="flex flex-col items-end">
-            <p className="text-sm text-neutral-600">{project.year}</p>
+            <p className="text-sm text-muted-foreground">{project.year}</p>
             <p className="text-sm text-muted-foreground">{project.type}</p>
           </div>
         </div>
@@ -252,11 +252,11 @@ export function ProjectStudioHoverPreview({
                 className="pointer-events-none absolute top-0 left-0 z-9999 select-none"
               >
                 <div className="relative">
-                  <div className="absolute inset-0 rounded-xl border border-white/10 bg-black/95 shadow-2xl shadow-black/30 backdrop-blur-md" />
+                  <div className="absolute inset-0 rounded-xl border border-border/10 bg-foreground/95 shadow-2xl shadow-foreground/30 backdrop-blur-md" />
 
-                  <div className="relative flex items-center gap-3 px-3 py-3 text-sm font-medium whitespace-nowrap text-white">
+                  <div className="relative flex items-center gap-3 px-3 py-3 text-sm font-medium whitespace-nowrap text-background">
                     <span className="text-base">{tooltipLabel ?? "Explore"}</span>
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full border border-white/30 bg-white/10">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full border border-border/30 bg-card/10">
                       <motion.span
                         animate={{ x: [0, 2, 0] }}
                         transition={{
@@ -271,7 +271,7 @@ export function ProjectStudioHoverPreview({
                     </div>
                   </div>
 
-                  <div className="absolute inset-0 scale-105 rounded-2xl bg-white/5 blur-sm" />
+                  <div className="absolute inset-0 scale-105 rounded-2xl bg-card/5 blur-sm" />
                 </div>
               </motion.div>
             )}

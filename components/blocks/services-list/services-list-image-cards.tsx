@@ -231,25 +231,25 @@ export function ServicesListImageCards({
                 optixFlowConfig={optixFlowConfig}
               />
             )}
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-foreground/80 via-foreground/40 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-6">
               {service.title &&
                 (typeof service.title === "string" ? (
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl font-bold text-background">
                     {service.title}
                   </h3>
                 ) : (
-                  <div className="text-xl font-bold text-white">
+                  <div className="text-xl font-bold text-background">
                     {service.title}
                   </div>
                 ))}
               {service.description &&
                 (typeof service.description === "string" ? (
-                  <p className="mt-2 text-sm text-white/80">
+                  <p className="mt-2 text-sm text-background/80">
                     {service.description}
                   </p>
                 ) : (
-                  <div className="mt-2 text-sm text-white/80">
+                  <div className="mt-2 text-sm text-background/80">
                     {service.description}
                   </div>
                 ))}
@@ -257,7 +257,7 @@ export function ServicesListImageCards({
                 <Pressable
                   href={service.ctaUrl}
                   onClick={service.ctaOnClick}
-                  className="mt-4 inline-flex items-center text-sm font-medium text-white hover:underline"
+                  className="mt-4 inline-flex items-center text-sm font-medium text-background hover:underline"
                 >
                   {service.ctaText}
                   <DynamicIcon

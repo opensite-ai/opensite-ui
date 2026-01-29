@@ -195,7 +195,7 @@ export function TestimonialsParallaxNumber({
       >
         <motion.div
           className={cn(
-            "pointer-events-none absolute -left-8 top-1/2 -translate-y-1/2 select-none text-[20rem] font-bold leading-none tracking-tighter text-foreground/[0.03]",
+            "pointer-events-none absolute -left-8 top-1/2 -translate-y-1/2 select-none text-[20rem] font-bold leading-none tracking-tighter text-muted-foreground/[0.05]",
             numberClassName,
           )}
           style={{ x: numberX, y: numberY }}
@@ -231,7 +231,7 @@ export function TestimonialsParallaxNumber({
 
             <div className="relative mt-8 h-32 w-px bg-border">
               <motion.div
-                className="absolute left-0 top-0 w-full origin-top bg-foreground"
+                className="absolute left-0 top-0 w-full origin-top bg-primary"
                 animate={{
                   height: `${((activeIndex + 1) / testimonials.length) * 100}%`,
                 }}
@@ -310,7 +310,7 @@ export function TestimonialsParallaxNumber({
                   className={cn("flex items-center gap-4", authorClassName)}
                 >
                   <motion.div
-                    className="h-px w-8 bg-foreground"
+                    className="h-px w-8 bg-primary"
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{ duration: 0.6, delay: 0.3 }}
@@ -350,7 +350,7 @@ export function TestimonialsParallaxNumber({
                     height="18"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="relative z-10 text-foreground transition-colors group-hover:text-foreground/70"
+                    className="relative z-10 text-muted-foreground transition-colors group-hover:text-foreground"
                   >
                     <path
                       d="M10 12L6 8L10 4"
@@ -372,7 +372,7 @@ export function TestimonialsParallaxNumber({
                     height="18"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="relative z-10 text-foreground transition-colors group-hover:text-foreground/70"
+                    className="relative z-10 text-muted-foreground transition-colors group-hover:text-foreground"
                   >
                     <path
                       d="M6 4L10 8L6 12"

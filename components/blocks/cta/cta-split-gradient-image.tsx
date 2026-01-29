@@ -236,7 +236,7 @@ export function CtaSplitGradientImage({
           </div>
           {imageSrc && (
             <div className={cn("relative w-full pl-4 sm:pl-0", imageClassName)}>
-              <div className="absolute -bottom-8 -left-8 -z-10 h-4/5 w-4/5 rounded-tl-2xl rounded-br-2xl bg-stone-900/20 blur-2xl"></div>
+              <div className="absolute -bottom-8 -left-8 -z-10 h-4/5 w-4/5 rounded-tl-2xl rounded-br-2xl bg-foreground/20 blur-2xl"></div>
               <Img
                 src={imageSrc}
                 alt={imageAlt}

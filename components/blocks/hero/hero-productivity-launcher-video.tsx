@@ -195,7 +195,7 @@ export function HeroProductivityLauncherVideo({
     return (
       <Pressable
         href={secondaryCta.href}
-        className="group relative mt-10 flex h-8 items-center gap-3 overflow-hidden rounded-full border border-border/50 bg-background px-3 py-1 text-sm font-medium text-white"
+        className="group relative mt-10 flex h-8 items-center gap-3 overflow-hidden rounded-full border border-border/50 bg-background px-3 py-1 text-sm font-medium"
       >
         {secondaryCta.primaryText && <span>{secondaryCta.primaryText}</span>}
         {secondaryCta.secondaryText && (
@@ -242,11 +242,11 @@ export function HeroProductivityLauncherVideo({
             <div className="max-w-100 sm:max-w-135">
               {heading && (
                 typeof heading === "string" ? (
-                  <h1 className={cn("text-center text-4xl leading-tight font-semibold text-foreground [text-shadow:0_4px_4px_rgba(0,0,0,0.15)] sm:text-5xl md:text-[4rem]", headingClassName)}>
+                  <h1 className={cn("text-center text-4xl leading-tight font-semibold [text-shadow:0_4px_4px_rgba(0,0,0,0.15)] sm:text-5xl md:text-[4rem]", headingClassName)}>
                     {heading}
                   </h1>
                 ) : (
-                  <h1 className={cn("text-center text-4xl leading-tight font-semibold text-foreground [text-shadow:0_4px_4px_rgba(0,0,0,0.15)] sm:text-5xl md:text-[4rem]", headingClassName)}>
+                  <h1 className={cn("text-center text-4xl leading-tight font-semibold [text-shadow:0_4px_4px_rgba(0,0,0,0.15)] sm:text-5xl md:text-[4rem]", headingClassName)}>
                     {heading}
                   </h1>
                 )

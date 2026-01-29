@@ -168,7 +168,7 @@ export function AboutDeveloperProfile({
         href={link.href}
         aria-label={link["aria-label"]}
         className={cn(
-          "text-muted-foreground hover:text-foreground",
+          "text-muted-foreground hover:text-primary",
           link.className,
         )}
       >

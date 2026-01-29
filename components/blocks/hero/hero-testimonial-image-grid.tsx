@@ -277,11 +277,11 @@ export function HeroTestimonialImageGrid({
             <div className="flex flex-col gap-4 lg:gap-8">
               {heading && (
                 typeof heading === "string" ? (
-                  <h1 className={cn("leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight text-foreground lg:text-5xl xl:text-7xl", headingClassName)}>
+                  <h1 className={cn("leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight lg:text-5xl xl:text-7xl", headingClassName)}>
                     {heading}
                   </h1>
                 ) : (
-                  <h1 className={cn("leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight text-foreground lg:text-5xl xl:text-7xl", headingClassName)}>
+                  <h1 className={cn("leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight lg:text-5xl xl:text-7xl", headingClassName)}>
                     {heading}
                   </h1>
                 )

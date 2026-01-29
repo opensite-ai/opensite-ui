@@ -185,7 +185,7 @@ export function CtaEnterpriseDarkFeatures({
               size={action.size}
               className={cn(
                 isOutlineOnDark &&
-                  "border-white/30 text-white hover:bg-white/10",
+                  "border-background/30 text-background hover:bg-background/10",
                 action.className,
               )}
               aria-label={action["aria-label"]}
@@ -220,13 +220,13 @@ export function CtaEnterpriseDarkFeatures({
             className={cn("flex items-center gap-3", feature.className)}
           >
             {(feature.icon || feature.iconName) && (
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-background/10">
                 {feature.icon ??
                   (feature.iconName && (
                     <DynamicIcon
                       name={feature.iconName}
                       size={16}
-                      className="text-white"
+                      className="text-background"
                     />
                   ))}
               </div>
@@ -249,7 +249,7 @@ export function CtaEnterpriseDarkFeatures({
       <div className={cn("container", containerClassName)}>
         <div
           className={cn(
-            "relative overflow-hidden rounded-2xl bg-slate-900 p-8 text-white md:p-12 lg:p-16",
+            "relative overflow-hidden rounded-2xl bg-foreground p-8 text-background md:p-12 lg:p-16",
             cardClassName,
           )}
         >
@@ -273,7 +273,7 @@ export function CtaEnterpriseDarkFeatures({
                 typeof description === "string" ? (
                   <p
                     className={cn(
-                      "mb-8 text-lg text-slate-300",
+                      "mb-8 text-lg text-background/80",
                       descriptionClassName,
                     )}
                   >

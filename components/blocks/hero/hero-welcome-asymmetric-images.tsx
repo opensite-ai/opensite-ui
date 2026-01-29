@@ -4,7 +4,6 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 
 import type { ActionConfig, ImageItem } from "../../../src/types/blocks";
@@ -173,28 +172,46 @@ export function HeroWelcomeAsymmetricImages({
       <div className={cn("container", containerClassName)}>
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row xl:gap-20">
           <div className="flex w-full flex-col items-start text-left">
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("mb-8 text-4xl font-normal text-pretty md:text-7xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "mb-8 text-4xl font-normal text-pretty md:text-7xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("mb-8 text-4xl font-normal text-pretty md:text-7xl", headingClassName)}>
+                <h1
+                  className={cn(
+                    "mb-8 text-4xl font-normal text-pretty md:text-7xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mb-12 max-w-[70%] text-xl font-normal text-muted-foreground", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mb-12 max-w-[70%] text-xl font-normal text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
-                <div className={cn("mb-12 max-w-[70%] text-xl font-normal text-muted-foreground", descriptionClassName)}>
+                <div
+                  className={cn(
+                    "mb-12 max-w-[70%] text-xl font-normal text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </div>
-              )
-            )}
+              ))}
             {renderActions}
           </div>
           {renderImages}

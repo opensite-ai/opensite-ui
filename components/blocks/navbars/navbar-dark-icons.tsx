@@ -223,7 +223,7 @@ export const NavbarDarkIcons = ({
         )}
         {logo.title &&
           (typeof logo.title === "string" ? (
-            <span className="hidden text-foreground md:inline-block">
+            <span className="hidden md:inline-block">
               {logo.title}
             </span>
           ) : (
@@ -374,7 +374,7 @@ const DesktopMenuItem = ({ item, index }: DesktopMenuItemProps) => {
   if (item.links) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
-        <NavigationMenuTrigger className="h-fit bg-transparent font-normal text-foreground focus:bg-transparent! data-[active=true]:bg-transparent!">
+        <NavigationMenuTrigger className="h-fit bg-transparent font-normal focus:bg-transparent! data-[active=true]:bg-transparent!">
           {item.title}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="rounded-xl! p-0!">
@@ -394,7 +394,7 @@ const DesktopMenuItem = ({ item, index }: DesktopMenuItemProps) => {
     <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
       <NavigationMenuLink
         href={item.url}
-        className={`${navigationMenuTriggerStyle()} h-fit bg-transparent font-normal text-foreground`}
+        className={`${navigationMenuTriggerStyle()} h-fit bg-transparent font-normal`}
       >
         {item.title}
       </NavigationMenuLink>
@@ -424,7 +424,7 @@ const MenuSubLink = ({ link }: MenuSubLinkProps) => {
             />
           ) : null}
           <div className="flex flex-col gap-1.5">
-            <h3 className="text-sm leading-none text-foreground">
+            <h3 className="text-sm leading-none">
               {link.label}
             </h3>
             <p className="text-sm leading-[1.2] text-muted-foreground/80">
@@ -583,7 +583,7 @@ const GithubStars = ({ repoUrl }: GithubStarsProps) => {
     <Pressable
       variant="ghost"
       asButton
-      className="flex items-center gap-1.5 bg-muted text-foreground"
+      className="flex items-center gap-1.5 bg-muted"
       href={repoUrl}
     >
       <svg width="20" height="20" viewBox="0 0 20 20">

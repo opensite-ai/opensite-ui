@@ -126,7 +126,7 @@ export function HeroPresentationPlatformVideo({
     if (videoSlot) return videoSlot;
 
     return (
-      <div className={cn("relative hidden h-[720px] w-[45%] overflow-hidden rounded-l-full bg-black lg:block", videoClassName)}>
+      <div className={cn("relative hidden h-[720px] w-[45%] overflow-hidden rounded-l-full bg-foreground lg:block", videoClassName)}>
         <video
           autoPlay
           loop
@@ -152,7 +152,7 @@ export function HeroPresentationPlatformVideo({
       <div className={cn("flex flex-col gap-5 px-[10%] lg:w-[50%] lg:pr-0", contentClassName)}>
         {subtitle && (
           typeof subtitle === "string" ? (
-            <p className="font-light text-foreground uppercase">
+            <p className="font-light uppercase">
               {subtitle}
             </p>
           ) : (
@@ -161,18 +161,18 @@ export function HeroPresentationPlatformVideo({
         )}
         {heading && (
           typeof heading === "string" ? (
-            <h1 className={cn("text-5xl font-medium text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
+            <h1 className={cn("text-5xl font-medium md:text-6xl lg:text-7xl", headingClassName)}>
               {heading}
             </h1>
           ) : (
-            <h1 className={cn("text-5xl font-medium text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
+            <h1 className={cn("text-5xl font-medium md:text-6xl lg:text-7xl", headingClassName)}>
               {heading}
             </h1>
           )
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("my-8 text-foreground md:text-xl", descriptionClassName)}>
+            <p className={cn("my-8 md:text-xl", descriptionClassName)}>
               {description}
             </p>
           ) : (

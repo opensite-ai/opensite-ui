@@ -145,13 +145,13 @@ export function HeroAdCampaignExpert({
           <div className={cn("relative flex flex-col items-start gap-8 pb-20 lg:w-1/2", contentClassName)}>
             {(heading || headingHighlight) && (
               typeof heading === "string" ? (
-                <h2 className={cn("text-3xl leading-tight font-bold tracking-tighter text-foreground lg:text-5xl", headingClassName)}>
+                <h2 className={cn("text-3xl leading-tight font-bold tracking-tighter lg:text-5xl", headingClassName)}>
                   {heading}
                 </h2>
               ) : heading ? (
                 <div className={headingClassName}>{heading}</div>
               ) : headingHighlight ? (
-                <h2 className={cn("text-3xl leading-tight font-bold tracking-tighter text-foreground lg:text-5xl", headingClassName)}>
+                <h2 className={cn("text-3xl leading-tight font-bold tracking-tighter lg:text-5xl", headingClassName)}>
                   Your ad campaigns excel with{" "}
                   <span className="border-muted2 border-b-2">{headingHighlight}</span>,
                   delivering optimized performance.
@@ -160,7 +160,7 @@ export function HeroAdCampaignExpert({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-lg text-foreground", descriptionClassName)}>
+                <p className={cn("text-lg", descriptionClassName)}>
                   {description}
                 </p>
               ) : (

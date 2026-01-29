@@ -184,7 +184,7 @@ export function CtaVideoBackgroundHero({
               size={action.size}
               className={cn(
                 !isFirstAction &&
-                  "border-white/30 text-white hover:bg-white/10",
+                  "border-background/30 text-background hover:bg-background/10",
                 action.className,
               )}
               aria-label={action["aria-label"]}
@@ -267,14 +267,14 @@ export function CtaVideoBackgroundHero({
           )}
           <div
             className={cn(
-              "absolute inset-0 bg-linear-to-t from-black/80 via-black/50 to-black/30",
+              "absolute inset-0 bg-linear-to-t from-foreground/80 via-foreground/50 to-foreground/30",
               overlayClassName,
             )}
           />
           <div className="relative z-10 flex h-full items-center justify-center">
             <div
               className={cn(
-                "max-w-2xl p-8 text-center text-white",
+                "max-w-2xl p-8 text-center text-background",
                 contentClassName,
               )}
             >

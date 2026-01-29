@@ -81,7 +81,7 @@ export function PricingSplitLayout({
 
           {/* Right - Pricing Card */}
           <div className="flex items-center justify-center lg:justify-end">
-            <div className="w-full max-w-md rounded-2xl border bg-card p-8 shadow-lg">
+            <div className="w-full max-w-md rounded-2xl border p-8 shadow-lg">
               <div className="text-center">
                 <h3 className="text-xl font-semibold">Pro Plan</h3>
                 <div className="mt-4">

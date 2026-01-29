@@ -185,7 +185,7 @@ export function FooterCtaSocial({
             <p className={cn("pt-2 text-sm text-muted-foreground md:text-base", emailClassName)}>
               <Pressable
                 href={`mailto:${email}`}
-                className="transition-colors hover:text-foreground"
+                className="transition-colors hover:text-primary"
               >
                 {email}
               </Pressable>
@@ -201,7 +201,7 @@ export function FooterCtaSocial({
             {attributionHref && attributionText && (
               <Pressable
                 href={attributionHref}
-                className="mt-2 inline-block hover:text-foreground"
+                className="mt-2 inline-block hover:text-primary"
                 target="_blank"
                 rel="noopener noreferrer"
               >

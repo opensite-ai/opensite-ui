@@ -229,7 +229,7 @@ export function AboutStartupTeam({
               "block w-full text-left rounded-lg px-4 py-2 text-sm font-medium transition-colors",
               activeTab === link.value
                 ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                : "text-muted-foreground hover:bg-muted",
             )}
           >
             {link.label}
@@ -298,7 +298,7 @@ export function AboutStartupTeam({
                     key={linkIdx}
                     href={link.url}
                     aria-label={link.label}
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-muted-foreground hover:text-primary"
                   >
                     {link.icon}
                   </Pressable>
@@ -335,7 +335,7 @@ export function AboutStartupTeam({
                 "shrink-0 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
                 activeTab === link.value
                   ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground",
+                  : "bg-muted text-muted-foreground hover:bg-muted/80",
               )}
             >
               {link.label}

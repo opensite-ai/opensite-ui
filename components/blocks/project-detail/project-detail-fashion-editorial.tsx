@@ -154,7 +154,7 @@ export function ProjectDetailFashionEditorial(
 
         <motion.header {...fadeInUp} className={cn("mb-16", headerClassName)}>
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
+            <span className="rounded-full bg-muted px-3 py-1 font-medium">
               {category}
             </span>
             <span>{year}</span>
@@ -163,7 +163,7 @@ export function ProjectDetailFashionEditorial(
           {typeof title === "string" ? (
             <h1
               className={cn(
-                "text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl uppercase",
+                "text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl uppercase",
                 titleClassName,
               )}
             >
@@ -230,7 +230,7 @@ export function ProjectDetailFashionEditorial(
                   <span className="text-sm text-muted-foreground">
                     {credit.role}
                   </span>
-                  <span className="text-sm font-medium text-foreground">
+                  <span className="text-sm font-medium">
                     {credit.name}
                   </span>
                 </div>

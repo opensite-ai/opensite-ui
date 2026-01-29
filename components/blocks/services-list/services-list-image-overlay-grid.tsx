@@ -217,25 +217,25 @@ export function ServicesListImageOverlayGrid({
                 optixFlowConfig={optixFlowConfig}
               />
             )}
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80 transition-opacity group-hover:opacity-100" />
+            <div className="absolute inset-0 bg-linear-to-t from-foreground/80 via-foreground/20 to-transparent opacity-80 transition-opacity group-hover:opacity-100" />
             <div className="absolute inset-x-0 bottom-0 p-4 md:p-6">
               {service.title &&
                 (typeof service.title === "string" ? (
-                  <h3 className="text-lg font-bold text-white md:text-xl">
+                  <h3 className="text-lg font-bold text-background md:text-xl">
                     {service.title}
                   </h3>
                 ) : (
-                  <div className="text-lg font-bold text-white md:text-xl">
+                  <div className="text-lg font-bold text-background md:text-xl">
                     {service.title}
                   </div>
                 ))}
               {service.description &&
                 (typeof service.description === "string" ? (
-                  <p className="mt-1 text-sm text-white/80 opacity-0 transition-opacity group-hover:opacity-100">
+                  <p className="mt-1 text-sm text-background/80 opacity-0 transition-opacity group-hover:opacity-100">
                     {service.description}
                   </p>
                 ) : (
-                  <div className="mt-1 text-sm text-white/80 opacity-0 transition-opacity group-hover:opacity-100">
+                  <div className="mt-1 text-sm text-background/80 opacity-0 transition-opacity group-hover:opacity-100">
                     {service.description}
                   </div>
                 ))}

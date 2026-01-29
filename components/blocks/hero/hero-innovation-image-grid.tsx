@@ -111,11 +111,11 @@ export function HeroInnovationImageGrid({
         {children ?? (
           <>
             {icon}
-            <div className="font-medium text-white">{label}</div>
+            <div className="font-medium text-background">{label}</div>
             <div className="relative h-6 w-7 overflow-hidden">
               <div className="absolute top-0 left-0 flex -translate-x-1/2 items-center transition-all duration-500 group-hover:translate-x-0">
-                <DynamicIcon name="lucide/move-right" size={24} className="fill-white px-1" />
-                <DynamicIcon name="lucide/move-right" size={24} className="fill-white px-1" />
+                <DynamicIcon name="lucide/move-right" size={24} className="fill-background px-1" />
+                <DynamicIcon name="lucide/move-right" size={24} className="fill-background px-1" />
               </div>
             </div>
             {iconAfter}

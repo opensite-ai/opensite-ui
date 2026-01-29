@@ -185,7 +185,7 @@ export function ProjectDetailSculptureShowcase(
           >
             <div className="space-y-6">
               <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-                <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
+                <span className="rounded-full bg-muted px-3 py-1 font-medium">
                   {category}
                 </span>
                 <span>{year}</span>
@@ -194,7 +194,7 @@ export function ProjectDetailSculptureShowcase(
               {typeof title === "string" ? (
                 <h1
                   className={cn(
-                    "text-4xl font-bold tracking-tight text-foreground md:text-5xl",
+                    "text-4xl font-bold tracking-tight md:text-5xl",
                     titleClassName,
                   )}
                 >
@@ -235,25 +235,25 @@ export function ProjectDetailSculptureShowcase(
                   <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
                     Artist
                   </h3>
-                  <p className="mt-1 text-foreground">{artist}</p>
+                  <p className="mt-1">{artist}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
                     Materials
                   </h3>
-                  <p className="mt-1 text-foreground">{materials}</p>
+                  <p className="mt-1">{materials}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
                     Dimensions
                   </h3>
-                  <p className="mt-1 text-foreground">{dimensions}</p>
+                  <p className="mt-1">{dimensions}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
                     Location
                   </h3>
-                  <p className="mt-1 text-foreground">{location}</p>
+                  <p className="mt-1">{location}</p>
                 </div>
               </div>
             </div>

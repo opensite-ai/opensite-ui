@@ -108,7 +108,7 @@ export function FaqStaticList({
               <div className={questionClassName}>{item.question}</div>
             )}
             {typeof item.answer === "string" ? (
-              <p className={cn("text-muted-foreground", answerClassName)}>
+              <p className={cn("leading-snug", answerClassName)}>
                 {item.answer}
               </p>
             ) : (

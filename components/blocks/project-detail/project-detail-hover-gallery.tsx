@@ -146,7 +146,7 @@ export function ProjectDetailHoverGallery(
           className={cn("mb-16 max-w-3xl", headerClassName)}
         >
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
+            <span className="rounded-full bg-muted px-3 py-1 font-medium">
               {category}
             </span>
             <span>{year}</span>
@@ -157,7 +157,7 @@ export function ProjectDetailHoverGallery(
           {typeof title === "string" ? (
             <h1
               className={cn(
-                "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                 titleClassName,
               )}
             >
@@ -211,7 +211,7 @@ export function ProjectDetailHoverGallery(
               <div className="absolute inset-x-0 bottom-0 p-6 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                 {image.title &&
                   (typeof image.title === "string" ? (
-                    <h3 className="text-lg font-semibold text-foreground">
+                    <h3 className="text-lg font-semibold">
                       {image.title}
                     </h3>
                   ) : (

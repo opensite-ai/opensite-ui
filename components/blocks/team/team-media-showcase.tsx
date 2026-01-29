@@ -165,7 +165,7 @@ const TeamMemberBackgroundImageCard = React.forwardRef<
           optixFlowConfig={optixFlowConfig}
         />
 
-        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-foreground/80 via-foreground/20 to-transparent"></div>
 
         {children}
       </div>
@@ -246,7 +246,7 @@ export function TeamMediaShowcase({
                   member.name.trim() !== "" && (
                     <h4
                       className={cn(
-                        "text-3xl font-bold text-white",
+                        "text-3xl font-bold text-background",
                         memberNameClassName,
                       )}
                     >
@@ -258,7 +258,7 @@ export function TeamMediaShowcase({
                   member.role.trim() !== "" && (
                     <p
                       className={cn(
-                        "text-sm text-white/80",
+                        "text-sm text-background/80",
                         memberRoleClassName,
                       )}
                     >
@@ -300,7 +300,7 @@ export function TeamMediaShowcase({
             (typeof listEyebrow === "string" && listEyebrow.trim() !== "" ? (
               <div
                 className={cn(
-                  "text-md pt-8 uppercase text-dark-charcoal/70 tracking-[0.2em] font-semibold",
+                  "text-md pt-8 uppercase text-muted-foreground tracking-[0.2em] font-semibold",
                   eyebrowClassName,
                 )}
               >

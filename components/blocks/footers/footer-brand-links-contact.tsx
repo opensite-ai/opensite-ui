@@ -180,7 +180,7 @@ export function FooterBrandLinksContact({
 
     return linkGroups.map((group) => (
       <div key={group.title} className={cn(linkGroupClassName)}>
-        <h3 className={cn("mb-6 text-sm font-semibold uppercase tracking-wider text-foreground", linkGroupTitleClassName)}>
+        <h3 className={cn("mb-6 text-sm font-semibold uppercase tracking-wider", linkGroupTitleClassName)}>
           {group.title}
         </h3>
         <ul className={cn("space-y-3", linkListClassName)}>
@@ -188,7 +188,7 @@ export function FooterBrandLinksContact({
             <li key={linkIdx}>
               <Pressable
                 href={link.href}
-                className={cn("text-sm text-muted-foreground transition-colors hover:text-foreground", linkItemClassName)}
+                className={cn("text-sm text-muted-foreground transition-colors hover:text-primary", linkItemClassName)}
               >
                 {link.label}
               </Pressable>
@@ -211,12 +211,12 @@ export function FooterBrandLinksContact({
           {item.href ? (
             <Pressable
               href={item.href}
-              className="text-sm font-medium text-foreground transition-colors hover:text-muted-foreground"
+              className="text-sm font-medium transition-colors hover:text-muted-foreground"
             >
               {item.label}
             </Pressable>
           ) : (
-            <p className="text-sm font-medium text-foreground">{item.label}</p>
+            <p className="text-sm font-medium">{item.label}</p>
           )}
         </div>
       </div>
@@ -267,12 +267,12 @@ export function FooterBrandLinksContact({
               />
             )}
             {tagline && (
-              <p className={cn("mb-4 text-base text-white/80", taglineClassName)}>
+              <p className={cn("mb-4 text-base", taglineClassName)}>
                 {tagline}
               </p>
             )}
             {description && (
-              <p className={cn("text-sm text-white/60", descriptionClassName)}>
+              <p className={cn("text-sm text-muted-foreground", descriptionClassName)}>
                 {description}
               </p>
             )}
@@ -284,7 +284,7 @@ export function FooterBrandLinksContact({
             {contactTitle && (
               <h3
                 className={cn(
-                  "text-lg font-semibold text-white",
+                  "text-lg font-semibold",
                   linkGroupTitleClassName,
                 )}
               >
@@ -294,7 +294,7 @@ export function FooterBrandLinksContact({
             {contactItemsContent && (
               <ul
                 className={cn(
-                  "mt-4 space-y-3 text-sm text-white/70",
+                  "mt-4 space-y-3 text-sm text-muted-foreground",
                   linkListClassName,
                 )}
               >
@@ -305,7 +305,7 @@ export function FooterBrandLinksContact({
             {socialLinks && socialLinks.length > 0 && (
               <div className={cn("mt-8", socialSectionClassName)}>
                 {socialTitle && (
-                  <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
+                  <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                     {socialTitle}
                   </h4>
                 )}
@@ -319,7 +319,7 @@ export function FooterBrandLinksContact({
 
         <div
           className={cn(
-            "mt-12 border-t border-white/10 pt-8 text-sm text-white/60",
+            "mt-12 border-t pt-8 text-sm text-muted-foreground",
             bottomBarClassName,
           )}
         >

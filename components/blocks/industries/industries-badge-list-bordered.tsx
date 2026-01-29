@@ -5,7 +5,6 @@ import { useMemo } from "react";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -155,7 +154,7 @@ export function IndustriesBadgeListBordered({
   servicesClassName,
   itemClassName,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -169,7 +168,7 @@ export function IndustriesBadgeListBordered({
       <Badge
         variant="outline"
         className={cn(
-          "mb-4 rounded-none border-0 bg-muted p-2 text-primary uppercase",
+          "mb-4 rounded-none border-0 bg-muted p-2  uppercase",
           badgeClassName,
         )}
       >
@@ -215,7 +214,7 @@ export function IndustriesBadgeListBordered({
           >
             <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-12 md:items-center md:gap-8">
               <div className="order-2 md:order-0 md:col-span-4">
-                <h3 className="text-lg font-semibold text-foreground md:text-xl">
+                <h3 className="text-lg font-semibold  md:text-xl">
                   {service.title}
                 </h3>
               </div>
@@ -229,7 +228,7 @@ export function IndustriesBadgeListBordered({
                 />
               </div>
               <div className="order-3 md:order-0 md:col-span-6">
-                <p className="text-sm leading-relaxed text-muted-foreground">
+                <p className="text-sm leading-relaxed ">
                   {service.description}
                 </p>
               </div>
@@ -238,7 +237,13 @@ export function IndustriesBadgeListBordered({
         ))}
       </div>
     );
-  }, [servicesSlot, services, servicesClassName, itemClassName, optixFlowConfig]);
+  }, [
+    servicesSlot,
+    services,
+    servicesClassName,
+    itemClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -251,7 +256,7 @@ export function IndustriesBadgeListBordered({
     >
       <div className={containerClassName}>
         {(badgeSlot || badge || headingSlot || heading) && (
-          <div className={cn("mb-16", headerClassName)}>
+          <div className={cn("mb-6 md:mb-16", headerClassName)}>
             {renderBadge}
             {renderHeading}
           </div>

@@ -230,7 +230,7 @@ export function TeamGridAnimated({
 
         <h3
           className={cn(
-            "relative z-10 mt-4 text-xl font-semibold text-foreground",
+            "relative z-10 mt-4 text-xl font-semibold",
             memberNameClassName,
           )}
         >

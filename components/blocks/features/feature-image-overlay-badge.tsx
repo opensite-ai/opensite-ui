@@ -341,7 +341,7 @@ export function FeatureImageOverlayBadge({
               <>
                 <div
                   className={cn(
-                    "absolute top-0 right-0 bottom-0 left-0 rounded-2xl bg-linear-to-t from-black via-black/20 to-transparent",
+                    "absolute top-0 right-0 bottom-0 left-0 rounded-2xl bg-linear-to-t from-foreground via-foreground/20 to-transparent",
                     overlayClassName,
                   )}
                 ></div>
@@ -349,7 +349,7 @@ export function FeatureImageOverlayBadge({
                   {(avatarSrc || avatarBadgeText) && (
                     <span
                       className={cn(
-                        "ml-auto flex w-fit items-center gap-2 rounded-full bg-background/30 px-4 py-2.5 text-sm font-semibold backdrop-blur-sm shadow-xl",
+                        "ml-auto flex w-fit items-center gap-2 rounded-full bg-foreground/30 px-4 py-2.5 text-sm font-semibold backdrop-blur-sm shadow-xl",
                         avatarBadgeClassName,
                       )}
                     >

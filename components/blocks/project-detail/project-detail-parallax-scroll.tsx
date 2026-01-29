@@ -115,7 +115,7 @@ function ParallaxSection({
         className={cn(index % 2 === 1 && "lg:order-2")}
       >
         {typeof title === "string" ? (
-          <h2 className="mb-6 text-2xl font-semibold text-foreground md:text-3xl">
+          <h2 className="mb-6 text-2xl font-semibold md:text-3xl">
             {title}
           </h2>
         ) : (
@@ -257,8 +257,8 @@ export function ProjectDetailParallaxScroll(
               style={{ opacity: heroOpacity }}
               className={cn("max-w-4xl", headerClassName)}
             >
-              <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-foreground/70">
-                <span className="rounded-full border border-foreground/20 px-3 py-1">
+              <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
+                <span className="rounded-full border border-border px-3 py-1">
                   {category}
                 </span>
                 <span>{year}</span>
@@ -267,7 +267,7 @@ export function ProjectDetailParallaxScroll(
               {typeof title === "string" ? (
                 <h1
                   className={cn(
-                    "text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl",
+                    "text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl",
                     titleClassName,
                   )}
                 >
@@ -279,7 +279,7 @@ export function ProjectDetailParallaxScroll(
 
               {subtitle &&
                 (typeof subtitle === "string" ? (
-                  <p className="mt-6 text-xl text-foreground/80">{subtitle}</p>
+                  <p className="mt-6 text-xl text-muted-foreground">{subtitle}</p>
                 ) : (
                   <div className="mt-6">{subtitle}</div>
                 ))}

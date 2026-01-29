@@ -153,7 +153,7 @@ export function HeroPortfolioCreative({
         )}
         <div>
           {profile.name && (
-            <h2 className="text-lg font-semibold text-foreground">
+            <h2 className="text-lg font-semibold ">
               {profile.name}
             </h2>
           )}
@@ -206,7 +206,7 @@ export function HeroPortfolioCreative({
           <Pressable
             key={index}
             href={link.href}
-            className={cn("text-muted-foreground hover:text-foreground", link.className)}
+            className={cn("text-muted-foreground hover:", link.className)}
           >
             {link.icon ?? (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
           </Pressable>
@@ -285,11 +285,11 @@ export function HeroPortfolioCreative({
             {renderProfile}
             {heading && (
               typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               )

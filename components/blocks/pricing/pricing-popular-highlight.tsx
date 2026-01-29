@@ -549,7 +549,7 @@ export function PricingPopularHighlight({
               <span
                 className={cn(
                   "text-sm font-medium",
-                  !isAnnual ? "text-foreground" : "text-muted-foreground",
+                  isAnnual ? "text-muted-foreground" : "",
                   toggleLabelClassName,
                 )}
               >
@@ -561,7 +561,7 @@ export function PricingPopularHighlight({
               <span
                 className={cn(
                   "text-sm font-medium",
-                  isAnnual ? "text-foreground" : "text-muted-foreground",
+                  !isAnnual ? "text-muted-foreground" : "",
                   toggleLabelClassName,
                 )}
               >

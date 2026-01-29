@@ -227,7 +227,7 @@ export function ServicesListHeroCards({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-foreground/90 via-foreground/50 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 p-8">
           {featuredService.badge &&
             (typeof featuredService.badge === "string" ? (
@@ -237,21 +237,21 @@ export function ServicesListHeroCards({
             ))}
           {featuredService.title &&
             (typeof featuredService.title === "string" ? (
-              <h3 className="text-2xl font-bold text-white md:text-3xl">
+              <h3 className="text-2xl font-bold text-background md:text-3xl">
                 {featuredService.title}
               </h3>
             ) : (
-              <div className="text-2xl font-bold text-white md:text-3xl">
+              <div className="text-2xl font-bold text-background md:text-3xl">
                 {featuredService.title}
               </div>
             ))}
           {featuredService.description &&
             (typeof featuredService.description === "string" ? (
-              <p className="mt-3 text-white/80">
+              <p className="mt-3 text-background/80">
                 {featuredService.description}
               </p>
             ) : (
-              <div className="mt-3 text-white/80">
+              <div className="mt-3 text-background/80">
                 {featuredService.description}
               </div>
             ))}
@@ -297,23 +297,23 @@ export function ServicesListHeroCards({
                 optixFlowConfig={optixFlowConfig}
               />
             )}
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-foreground/80 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-4">
               {service.title &&
                 (typeof service.title === "string" ? (
-                  <h4 className="font-semibold text-white">{service.title}</h4>
+                  <h4 className="font-semibold text-background">{service.title}</h4>
                 ) : (
-                  <div className="font-semibold text-white">
+                  <div className="font-semibold text-background">
                     {service.title}
                   </div>
                 ))}
               {service.description &&
                 (typeof service.description === "string" ? (
-                  <p className="mt-1 text-xs text-white/70">
+                  <p className="mt-1 text-xs text-background/70">
                     {service.description}
                   </p>
                 ) : (
-                  <div className="mt-1 text-xs text-white/70">
+                  <div className="mt-1 text-xs text-background/70">
                     {service.description}
                   </div>
                 ))}

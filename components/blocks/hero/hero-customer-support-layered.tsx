@@ -167,11 +167,11 @@ export function HeroCustomerSupportLayered({
             )}
             {heading && (
               typeof heading === "string" ? (
-                <h1 className={cn("text-[clamp(3.5rem,calc(6.5vw+2.3rem),9.5rem)] leading-[0.85] tracking-[-0.03em] text-foreground", headingClassName)}>
+                <h1 className={cn("text-[clamp(3.5rem,calc(6.5vw+2.3rem),9.5rem)] leading-[0.85] tracking-[-0.03em] ", headingClassName)}>
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-[clamp(3.5rem,calc(6.5vw+2.3rem),9.5rem)] leading-[0.85] tracking-[-0.03em] text-foreground", headingClassName)}>
+                <h1 className={cn("text-[clamp(3.5rem,calc(6.5vw+2.3rem),9.5rem)] leading-[0.85] tracking-[-0.03em] ", headingClassName)}>
                   {heading}
                 </h1>
               )

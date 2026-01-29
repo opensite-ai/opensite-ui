@@ -177,7 +177,7 @@ export function AboutInteractiveTabs({
                       "border-b-2 border-primary text-primary",
                       activeTabClassName,
                     )
-                  : "text-muted-foreground hover:text-foreground",
+                  : "text-muted-foreground hover:text-primary",
                 tabButtonClassName,
               )}
             >

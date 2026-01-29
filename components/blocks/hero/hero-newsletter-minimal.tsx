@@ -167,7 +167,7 @@ export function HeroNewsletterMinimal({
       <div className={cn("container flex flex-col items-center justify-center text-center", containerClassName)}>
         {heading && (
           typeof heading === "string" ? (
-            <h1 className={cn("max-w-3xl text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
+            <h1 className={cn("max-w-3xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl", headingClassName)}>
               {heading}
             </h1>
           ) : (

@@ -161,7 +161,7 @@ export function AboutNetworkSpotlight({
     return (
       <ul className={cn("mt-6 space-y-3", highlightsClassName)}>
         {highlights.map((item, index) => (
-          <li key={index} className="flex items-start gap-3 text-white/80">
+          <li key={index} className="flex items-start gap-3 text-background/80">
             <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary/20 text-primary">
               <DynamicIcon name="lucide/check" size={14} />
             </span>
@@ -206,7 +206,7 @@ export function AboutNetworkSpotlight({
     return (
       <div
         className={cn(
-          "rounded-2xl border border-primary/40 bg-black/80 p-5 backdrop-blur-sm",
+          "rounded-2xl border border-primary/40 bg-foreground/80 p-5 backdrop-blur-sm",
           spotlightCardClassName,
         )}
       >
@@ -223,7 +223,7 @@ export function AboutNetworkSpotlight({
               spotlightCard.label
             )}
             {typeof spotlightCard.title === "string" ? (
-              <h3 className="text-lg font-bold text-white">
+              <h3 className="text-lg font-bold text-background">
                 {spotlightCard.title}
               </h3>
             ) : (
@@ -232,7 +232,7 @@ export function AboutNetworkSpotlight({
           </div>
         </div>
         {typeof spotlightCard.description === "string" ? (
-          <p className="text-sm text-white/80">{spotlightCard.description}</p>
+          <p className="text-sm text-background/80">{spotlightCard.description}</p>
         ) : (
           spotlightCard.description
         )}
@@ -299,7 +299,7 @@ export function AboutNetworkSpotlight({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "mt-2 text-3xl font-bold text-white md:text-4xl",
+                  "mt-2 text-3xl font-bold text-background md:text-4xl",
                   headingClassName,
                 )}
               >
@@ -312,7 +312,7 @@ export function AboutNetworkSpotlight({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mt-4 text-lg text-white/80",
+                  "mt-4 text-lg text-background/80",
                   descriptionClassName,
                 )}
               >

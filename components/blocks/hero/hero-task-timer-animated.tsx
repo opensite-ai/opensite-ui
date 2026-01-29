@@ -98,7 +98,7 @@ export function HeroTaskTimerAnimated({
       label: "Download for Windows",
       href: "#",
       variant: "link",
-      className: "flex items-center gap-2 text-lg font-semibold text-foreground",
+      className: "flex items-center gap-2 text-lg font-semibold ",
       iconAfter: <DynamicIcon name="lucide/arrow-right" size={20} />,
     },
   ];
@@ -198,11 +198,11 @@ export function HeroTaskTimerAnimated({
       <div className={cn("flex flex-col gap-10 lg:w-[80%] lg:self-center", headerClassName)}>
         {heading && (
           typeof heading === "string" ? (
-            <h1 className={cn("max-w-2xl text-6xl font-bold tracking-tight text-foreground md:text-7xl lg:text-8xl", headingClassName)}>
+            <h1 className={cn("max-w-2xl text-6xl font-bold tracking-tight md:text-7xl lg:text-8xl", headingClassName)}>
               {heading}
             </h1>
           ) : (
-            <h1 className={cn("max-w-2xl text-6xl font-bold tracking-tight text-foreground md:text-7xl lg:text-8xl", headingClassName)}>
+            <h1 className={cn("max-w-2xl text-6xl font-bold tracking-tight md:text-7xl lg:text-8xl", headingClassName)}>
               {heading}
             </h1>
           )

@@ -154,7 +154,7 @@ export function HeroCrmStreamlined({
               )}
               {heading && (
                 typeof heading === "string" ? (
-                  <h1 className={cn("mb-2 text-4xl leading-snug! font-medium text-black lg:text-5xl", headingClassName)}>
+                  <h1 className={cn("mb-2 text-4xl leading-snug! font-medium lg:text-5xl", headingClassName)}>
                     {heading}
                   </h1>
                 ) : (
@@ -163,7 +163,7 @@ export function HeroCrmStreamlined({
               )}
               {description && (
                 typeof description === "string" ? (
-                  <p className={cn("mb-2 text-lg text-black/80", descriptionClassName)}>
+                  <p className={cn("mb-2 text-lg opacity-80", descriptionClassName)}>
                     {description}
                   </p>
                 ) : (

@@ -149,7 +149,7 @@ export function TestimonialsCarouselImage({
     if (!current) return null;
 
     return (
-      <div className={cn("mx-auto max-w-4xl text-center text-white", contentClassName)}>
+      <div className={cn("mx-auto max-w-4xl text-center text-background", contentClassName)}>
         <DynamicIcon
           name="lucide/quote"
           size={48}
@@ -201,7 +201,7 @@ export function TestimonialsCarouselImage({
           />
         )}
         <div
-          className="absolute inset-0 bg-black"
+          className="absolute inset-0 bg-foreground"
           style={{ opacity: overlayOpacity }}
         />
       </div>

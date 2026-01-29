@@ -405,7 +405,7 @@ const DesktopMenuItem = ({
   if (hasDropdown) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
-        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground data-[state=open]:bg-muted/50 data-[state=open]:text-foreground">
+        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {item.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="hidden rounded-xl! border-0! p-0! xl:block">
@@ -423,7 +423,7 @@ const DesktopMenuItem = ({
     <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
       <NavigationMenuLink
         href={item.href}
-        className={`${navigationMenuTriggerStyle()} bg-transparent px-3 py-2 hover:bg-muted focus:bg-muted h-fit font-normal text-foreground/80`}
+        className={`${navigationMenuTriggerStyle()} bg-transparent px-3 py-2 hover:bg-muted focus:bg-muted h-fit font-normal`}
       >
         {item.label}
       </NavigationMenuLink>
@@ -724,8 +724,8 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
           ) : null}
         </div>
         <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold text-white">{link.label}</div>
-          <div className="font-medium text-white/80">{link.description}</div>
+          <div className="text-lg font-semibold text-background">{link.label}</div>
+          <div className="font-medium text-background/80">{link.description}</div>
         </div>
       </div>
       <Img

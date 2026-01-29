@@ -173,9 +173,7 @@ export function FaqSplitHelp({
             <AccordionContent
               className={cn("sm:mb-1 lg:mb-2", accordionContentClassName)}
             >
-              <div className="text-muted-foreground lg:text-lg">
-                {item.answer}
-              </div>
+              <div className=" lg:text-lg">{item.answer}</div>
             </AccordionContent>
           </AccordionItem>
         ))}
@@ -209,7 +207,7 @@ export function FaqSplitHelp({
             ))}
           {helpDescription &&
             (typeof helpDescription === "string" ? (
-              <p className="text-muted-foreground mt-1">{helpDescription}</p>
+              <p className="mt-1">{helpDescription}</p>
             ) : (
               helpDescription
             ))}
@@ -221,8 +219,11 @@ export function FaqSplitHelp({
             variant={helpAction.variant}
             size={helpAction.size}
             className={helpAction.className}
+            asButton={helpAction.asButton}
           >
             {helpAction.children ?? helpAction.label}
+            {helpAction.icon && helpAction.icon}
+            {helpAction.iconAfter && helpAction.iconAfter}
           </Pressable>
         )}
       </div>
@@ -262,12 +263,7 @@ export function FaqSplitHelp({
               ))}
             {description &&
               (typeof description === "string" ? (
-                <p
-                  className={cn(
-                    "text-muted-foreground lg:text-lg",
-                    descriptionClassName,
-                  )}
-                >
+                <p className={cn("lg:text-lg", descriptionClassName)}>
                   {description}
                 </p>
               ) : (

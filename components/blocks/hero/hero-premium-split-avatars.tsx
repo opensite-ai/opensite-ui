@@ -141,7 +141,7 @@ export function HeroPremiumSplitAvatars({
     if (brandSlot) return brandSlot;
 
     return (
-      <h1 className="text-4xl text-foreground">
+      <h1 className="text-4xl ">
         {brandName}{" "}
         {brandSuffix && (
           <span className="bg-linear-to-tr from-foreground to-muted bg-clip-text text-transparent">
@@ -186,7 +186,7 @@ export function HeroPremiumSplitAvatars({
         </div>
         {socialProofText && (
           typeof socialProofText === "string" ? (
-            <span className="text-xs text-foreground lg:text-sm">
+            <span className="text-xs lg:text-sm">
               {socialProofText}
             </span>
           ) : (
@@ -225,18 +225,18 @@ export function HeroPremiumSplitAvatars({
           <div>
             {heading && (
               typeof heading === "string" ? (
-                <h2 className={cn("text-4xl text-foreground lg:text-6xl", headingClassName)}>
+                <h2 className={cn("text-4xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h2>
               ) : (
-                <h2 className={cn("text-4xl text-foreground lg:text-6xl", headingClassName)}>
+                <h2 className={cn("text-4xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h2>
               )
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("mt-2.5 text-foreground lg:text-xl", descriptionClassName)}>
+                <p className={cn("mt-2.5 lg:text-xl", descriptionClassName)}>
                   {description}
                 </p>
               ) : (

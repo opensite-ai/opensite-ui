@@ -160,7 +160,7 @@ export function FooterSimpleCentered({
               <Pressable
                 href={link.href}
                 className={cn(
-                  "text-sm text-muted-foreground transition-colors hover:text-foreground",
+                  "text-sm text-muted-foreground transition-colors hover:text-primary",
                   sitemapLinkClassName
                 )}
               >
@@ -182,7 +182,7 @@ export function FooterSimpleCentered({
         <Pressable
           href={link.href}
           className={cn(
-            "text-sm text-muted-foreground transition-colors hover:text-foreground",
+            "text-sm text-muted-foreground transition-colors hover:text-primary",
             bottomLinkClassName
           )}
         >

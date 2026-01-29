@@ -152,8 +152,8 @@ export function ProjectDetailFullscreenHero(
             transition={{ duration: 0.8, delay: 0.2 }}
             className="pb-16"
           >
-            <div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-foreground/70">
-              <span className="rounded-full border border-foreground/20 px-3 py-1">
+            <div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-muted-foreground">
+              <span className="rounded-full border border-border px-3 py-1">
                 {category}
               </span>
               <span>{year}</span>
@@ -164,7 +164,7 @@ export function ProjectDetailFullscreenHero(
             {typeof title === "string" ? (
               <h1
                 className={cn(
-                  "text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl",
+                  "text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl",
                   titleClassName,
                 )}
               >
@@ -177,7 +177,7 @@ export function ProjectDetailFullscreenHero(
               (typeof subtitle === "string" ? (
                 <p
                   className={cn(
-                    "mt-4 max-w-xl text-xl text-foreground/80",
+                    "mt-4 max-w-xl text-xl text-muted-foreground",
                     subtitleClassName,
                   )}
                 >
@@ -208,7 +208,7 @@ export function ProjectDetailFullscreenHero(
               className={section.className}
             >
               {typeof section.title === "string" ? (
-                <h2 className="mb-6 text-2xl font-semibold text-foreground">
+                <h2 className="mb-6 text-2xl font-semibold">
                   {section.title}
                 </h2>
               ) : (

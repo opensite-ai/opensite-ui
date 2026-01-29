@@ -357,7 +357,7 @@ export function AboutMissionPrinciples({
               (typeof visionDescription === "string" ? (
                 <p
                   className={cn(
-                    "mb-4 text-foreground/80",
+                    "mb-4 text-muted-foreground",
                     visionDescriptionClassName,
                   )}
                 >

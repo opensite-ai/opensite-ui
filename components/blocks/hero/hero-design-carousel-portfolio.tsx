@@ -160,7 +160,7 @@ export function HeroDesignCarouselPortfolio({
     return (
       <div className={cn("hidden items-center gap-6 lg:flex", featuresClassName)}>
         {features.map((feature, index) => (
-          <div key={index} className="flex items-center gap-1.5 text-foreground">
+          <div key={index} className="flex items-center gap-1.5 ">
             {feature.icon ?? <DynamicIcon name={feature.iconName || "lucide/check-circle"} size={24} />}
             <span>{feature.title}</span>
           </div>
@@ -265,22 +265,22 @@ export function HeroDesignCarouselPortfolio({
             <div className="flex flex-1 flex-col gap-4">
               {heading && (
                 typeof heading === "string" ? (
-                  <h1 className={cn("max-w-6xl text-4xl tracking-tighter text-foreground lg:text-7xl xl:text-9xl", headingClassName)}>
+                  <h1 className={cn("max-w-6xl text-4xl tracking-tighter lg:text-7xl xl:text-9xl", headingClassName)}>
                     {heading}
                   </h1>
                 ) : (
-                  <h1 className={cn("max-w-6xl text-4xl tracking-tighter text-foreground lg:text-7xl xl:text-9xl", headingClassName)}>
+                  <h1 className={cn("max-w-6xl text-4xl tracking-tighter lg:text-7xl xl:text-9xl", headingClassName)}>
                     {heading}
                   </h1>
                 )
               )}
               {description && (
                 typeof description === "string" ? (
-                  <p className={cn("text-lg text-foreground lg:text-2xl", descriptionClassName)}>
+                  <p className={cn("text-lg lg:text-2xl", descriptionClassName)}>
                     {description}
                   </p>
                 ) : (
-                  <p className={cn("text-lg text-foreground lg:text-2xl", descriptionClassName)}>
+                  <p className={cn("text-lg lg:text-2xl", descriptionClassName)}>
                     {description}
                   </p>
                 )

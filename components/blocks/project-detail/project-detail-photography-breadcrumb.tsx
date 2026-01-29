@@ -117,7 +117,7 @@ export function ProjectDetailPhotographyBreadcrumb(
                       {item.label}
                     </Pressable>
                   ) : (
-                    <span className="font-medium text-foreground">
+                    <span className="font-medium">
                       {item.label}
                     </span>
                   )}
@@ -147,7 +147,7 @@ export function ProjectDetailPhotographyBreadcrumb(
                 {typeof title === "string" ? (
                   <h1
                     className={cn(
-                      "text-3xl font-bold tracking-tight text-foreground md:text-4xl",
+                      "text-3xl font-bold tracking-tight md:text-4xl",
                       titleClassName,
                     )}
                   >
@@ -169,19 +169,19 @@ export function ProjectDetailPhotographyBreadcrumb(
               <div className="space-y-3 border-t border-border pt-6">
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Category</span>
-                  <span className="font-medium text-foreground">
+                  <span className="font-medium">
                     {category}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Photographer</span>
-                  <span className="font-medium text-foreground">
+                  <span className="font-medium">
                     {photographer}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Year</span>
-                  <span className="font-medium text-foreground">{year}</span>
+                  <span className="font-medium">{year}</span>
                 </div>
               </div>
 

@@ -133,7 +133,7 @@ export function ProjectAlternatingMotion({
             {project.title}
           </h3>
           <div>
-            <p className="mb-3 max-w-sm text-sm font-medium text-foreground">
+            <p className="mb-3 max-w-sm text-sm font-medium">
               {project.description}
             </p>
             <Badge variant="outline" className="px-3 py-2">

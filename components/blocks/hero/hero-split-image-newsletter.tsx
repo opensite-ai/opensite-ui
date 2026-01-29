@@ -180,11 +180,11 @@ export function HeroSplitImageNewsletter({
         <div className={cn("flex flex-col gap-8 lg:w-1/2", contentClassName)}>
           {heading && (
             typeof heading === "string" ? (
-              <h1 className={cn("text-5xl font-bold text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
+              <h1 className={cn("text-5xl font-bold md:text-6xl lg:text-7xl", headingClassName)}>
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("text-5xl font-bold text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
+              <h1 className={cn("text-5xl font-bold md:text-6xl lg:text-7xl", headingClassName)}>
                 {heading}
               </h1>
             )

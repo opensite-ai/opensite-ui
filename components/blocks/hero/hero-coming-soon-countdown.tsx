@@ -144,7 +144,7 @@ export function HeroComingSoonCountdown({
 
     return countdownItems.map((item) => (
       <div key={item.label} className="flex flex-col items-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-muted/50 text-3xl font-bold text-foreground md:h-24 md:w-24 md:text-5xl">
+        <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-muted/50 text-3xl font-bold md:h-24 md:w-24 md:text-5xl">
           {item.value}
         </div>
         <span className="mt-2 text-sm text-muted-foreground">{item.label}</span>
@@ -190,7 +190,7 @@ export function HeroComingSoonCountdown({
       <Pressable
         key={index}
         href={link.href}
-        className={cn("text-muted-foreground hover:text-foreground", link.className)}
+        className={cn("text-muted-foreground hover:opacity-80", link.className)}
       >
         {link.icon ?? (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
       </Pressable>
@@ -213,7 +213,7 @@ export function HeroComingSoonCountdown({
         )}
         {heading && (
           typeof heading === "string" ? (
-            <h1 className={cn("mt-8 max-w-3xl text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
+            <h1 className={cn("mt-8 max-w-3xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl", headingClassName)}>
               {heading}
             </h1>
           ) : (

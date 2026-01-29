@@ -361,7 +361,7 @@ export function PricingFourTierToggle({
                     <span
                       className={cn(
                         "text-sm",
-                        isIncluded ? "text-foreground" : "text-muted-foreground",
+                        !isIncluded ? "text-muted-foreground" : "",
                         featureTextClassName,
                         feature.textClassName,
                       )}
@@ -372,7 +372,7 @@ export function PricingFourTierToggle({
                     <div
                       className={cn(
                         "text-sm",
-                        isIncluded ? "text-foreground" : "text-muted-foreground",
+                        !isIncluded ? "text-muted-foreground" : "",
                         featureTextClassName,
                         feature.textClassName,
                       )}
@@ -569,7 +569,7 @@ export function PricingFourTierToggle({
               htmlFor="billing-toggle"
               className={cn(
                 "text-sm font-medium",
-                !isAnnual ? "text-foreground" : "text-muted-foreground",
+                isAnnual ? "text-muted-foreground" : "",
                 toggleLabelClassName,
               )}
             >
@@ -584,7 +584,7 @@ export function PricingFourTierToggle({
               htmlFor="billing-toggle"
               className={cn(
                 "text-sm font-medium",
-                isAnnual ? "text-foreground" : "text-muted-foreground",
+                !isAnnual ? "text-muted-foreground" : "",
                 toggleLabelClassName,
               )}
             >

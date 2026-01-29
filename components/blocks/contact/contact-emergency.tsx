@@ -490,7 +490,7 @@ export function ContactEmergency({
 
                     <div className="flex items-center justify-between text-sm text-muted-foreground">
                       <span>Expected response:</span>
-                      <span className="font-medium text-foreground">
+                      <span className="font-medium">
                         {selectedPriority?.response}
                       </span>
                     </div>

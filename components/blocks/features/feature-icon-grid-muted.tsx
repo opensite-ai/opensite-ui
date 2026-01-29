@@ -160,7 +160,7 @@ export function FeatureIconGridMuted({
     return features.map((feature, index) => (
       <div
         key={index}
-        className={cn("flex flex-col gap-2.5 rounded-xl border bg-background p-7", cardClassName, feature.className)}
+        className={cn("flex flex-col gap-2.5 rounded-xl border p-7", cardClassName, feature.className)}
       >
         {(feature.icon || feature.iconName) && renderFeatureIcon(feature)}
         {feature.title && (
@@ -192,7 +192,7 @@ export function FeatureIconGridMuted({
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
-      className={cn("bg-muted/60", className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className="flex flex-col gap-10">

@@ -581,7 +581,7 @@ export function PricingFullComparison({
             <span
               className={cn(
                 "text-sm font-medium",
-                !isYearly ? "text-foreground" : "text-muted-foreground",
+                isYearly ? "text-muted-foreground" : "",
                 toggleLabelClassName,
               )}
             >
@@ -591,7 +591,7 @@ export function PricingFullComparison({
             <span
               className={cn(
                 "text-sm font-medium",
-                isYearly ? "text-foreground" : "text-muted-foreground",
+                !isYearly ? "text-muted-foreground" : "",
                 toggleLabelClassName,
               )}
             >

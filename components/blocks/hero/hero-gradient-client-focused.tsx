@@ -152,11 +152,11 @@ export function HeroGradientClientFocused({
       <div className={cn("container flex flex-col items-center gap-5", containerClassName)}>
         {heading && (
           typeof heading === "string" ? (
-            <h1 className={cn("max-w-2xl text-7xl font-medium text-foreground max-lg:text-5xl", headingClassName)}>
+            <h1 className={cn("max-w-2xl text-7xl font-medium max-lg:text-5xl", headingClassName)}>
               {heading}
             </h1>
           ) : (
-            <h1 className={cn("max-w-2xl text-7xl font-medium text-foreground max-lg:text-5xl", headingClassName)}>
+            <h1 className={cn("max-w-2xl text-7xl font-medium max-lg:text-5xl", headingClassName)}>
               {heading}
             </h1>
           )

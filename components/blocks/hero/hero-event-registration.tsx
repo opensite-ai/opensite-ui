@@ -199,7 +199,7 @@ export function HeroEventRegistration({
       <div className={cn("grid grid-cols-3 gap-4 pt-4", statsClassName)}>
         {stats.map((stat, index) => (
           <div key={index} className="text-center">
-            <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+            <div className="text-2xl font-bold ">{stat.value}</div>
             <div className="text-sm text-muted-foreground">{stat.label}</div>
           </div>
         ))}
@@ -224,7 +224,7 @@ export function HeroEventRegistration({
           <div>
             {locationLabel && (
               typeof locationLabel === "string" ? (
-                <div className="font-semibold text-foreground">{locationLabel}</div>
+                <div className="font-semibold ">{locationLabel}</div>
               ) : (
                 locationLabel
               )
@@ -275,11 +275,11 @@ export function HeroEventRegistration({
             {renderBadge}
             {heading && (
               typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               )

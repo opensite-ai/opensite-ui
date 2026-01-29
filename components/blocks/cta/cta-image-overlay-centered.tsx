@@ -182,7 +182,7 @@ export function CtaImageOverlayCentered({
           viewport={{ once: true }}
           transition={{ duration: 0.35 }}
           className={cn(
-            "relative px-6 py-16 text-center text-white md:px-10",
+            "relative px-6 py-16 text-center text-background md:px-10",
             contentClassName,
           )}
         >
@@ -201,7 +201,7 @@ export function CtaImageOverlayCentered({
             typeof description === "string" ? (
               <p
                 className={cn(
-                  "mx-auto mt-4 max-w-2xl text-lg text-white/80",
+                  "mx-auto mt-4 max-w-2xl text-lg text-background/80",
                   descriptionClassName,
                 )}
               >

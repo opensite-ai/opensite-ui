@@ -173,13 +173,13 @@ export function HeroCenteredGradientCta({
         )}
         {(heading || headingHighlight) && (
           typeof heading === "string" ? (
-            <h1 className={cn("mt-8 max-w-4xl text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
+            <h1 className={cn("mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl", headingClassName)}>
               {heading}
             </h1>
           ) : heading ? (
             <div className={headingClassName}>{heading}</div>
           ) : headingHighlight ? (
-            <h1 className={cn("mt-8 max-w-4xl text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
+            <h1 className={cn("mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl", headingClassName)}>
               Build something{" "}
               <span className="bg-linear-to-r from-primary to-purple-600 bg-clip-text text-transparent">
                 {headingHighlight}

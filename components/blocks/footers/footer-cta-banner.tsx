@@ -273,7 +273,7 @@ export function FooterCtaBanner({
                     <Pressable
                       href={social.href}
                       aria-label={social.label}
-                      className={cn("text-muted-foreground transition-colors hover:text-foreground", socialLinkClassName)}
+                      className={cn("text-muted-foreground transition-colors hover:text-primary", socialLinkClassName)}
                     >
                       <DynamicIcon name={social.icon} size={20} />
                     </Pressable>
@@ -291,7 +291,7 @@ export function FooterCtaBanner({
                     <li key={linkIdx}>
                       <Pressable
                         href={link.href}
-                        className={cn("hover:text-foreground", navLinkClassName)}
+                        className={cn("hover:text-primary", navLinkClassName)}
                       >
                         {link.name}
                       </Pressable>
@@ -308,7 +308,7 @@ export function FooterCtaBanner({
               <p>{copyrightText}</p>
               <Pressable
                 href={attributionHref}
-                className="hover:text-foreground"
+                className="hover:text-primary"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -318,7 +318,7 @@ export function FooterCtaBanner({
             <ul className={cn("flex gap-4", legalLinksClassName)}>
               {legalLinks?.map((link, idx) => (
                 <li key={idx}>
-                  <Pressable href={link.href} className={cn("hover:text-foreground", legalLinkClassName)}>
+                  <Pressable href={link.href} className={cn("hover:text-primary", legalLinkClassName)}>
                     {link.name}
                   </Pressable>
                 </li>

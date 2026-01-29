@@ -109,7 +109,7 @@ export function ProjectShowcaseAlternating({
         )}
       >
         <div className="order-2 lg:order-1 lg:col-span-4">
-          <h2 className="mb-4 font-sans text-base font-bold tracking-wider text-foreground uppercase md:text-base">
+          <h2 className="mb-4 font-sans text-base font-bold tracking-wider uppercase md:text-base">
             {project.title}
           </h2>
           <p className="max-w-sm font-sans text-sm leading-relaxed text-muted-foreground md:text-base">

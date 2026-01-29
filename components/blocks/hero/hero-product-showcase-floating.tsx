@@ -226,7 +226,7 @@ export function HeroProductShowcaseFloating({
             </div>
           )}
           <div>
-            <div className="text-2xl font-bold text-foreground">
+            <div className="text-2xl font-bold ">
               {floatingStat.value}
             </div>
             <div className="text-xs text-muted-foreground">{floatingStat.label}</div>
@@ -257,7 +257,7 @@ export function HeroProductShowcaseFloating({
             </div>
           )}
           <div className="text-sm">
-            <div className="font-semibold text-foreground">{userCount.count}</div>
+            <div className="font-semibold ">{userCount.count}</div>
             <div className="text-muted-foreground">{userCount.label}</div>
           </div>
         </div>
@@ -302,11 +302,11 @@ export function HeroProductShowcaseFloating({
             {renderBadge}
             {heading && (
               typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               )

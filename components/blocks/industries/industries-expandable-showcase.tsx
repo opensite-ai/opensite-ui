@@ -7,7 +7,6 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -160,7 +159,7 @@ export function IndustriesExpandableShowcase({
   desktopClassName,
   itemClassName,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -220,10 +219,8 @@ export function IndustriesExpandableShowcase({
                     {contractor.category}
                   </span>
                 </div>
-                <h3 className="text-lg leading-tight text-muted-foreground">
-                  {contractor.title}
-                </h3>
-                <span className="inline-flex items-center p-0 text-sm font-medium text-primary hover:text-primary/80">
+                <h3 className="text-lg leading-tight ">{contractor.title}</h3>
+                <span className="inline-flex items-center p-0 text-sm font-medium ">
                   <DynamicIcon
                     name="lucide/corner-down-right"
                     size={12}
@@ -271,10 +268,10 @@ export function IndustriesExpandableShowcase({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                       >
-                        <h3 className="text-lg leading-tight text-muted-foreground">
+                        <h3 className="text-lg leading-tight ">
                           {contractor.title}
                         </h3>
-                        <span className="inline-flex items-center p-0 text-sm font-medium text-primary hover:text-primary/80">
+                        <span className="inline-flex items-center p-0 text-sm font-medium ">
                           <DynamicIcon
                             name="lucide/corner-down-right"
                             size={12}
@@ -317,7 +314,15 @@ export function IndustriesExpandableShowcase({
         </div>
       </>
     );
-  }, [contractorsSlot, contractors, mobileClassName, desktopClassName, itemClassName, activeContractor, optixFlowConfig]);
+  }, [
+    contractorsSlot,
+    contractors,
+    mobileClassName,
+    desktopClassName,
+    itemClassName,
+    activeContractor,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -330,7 +335,7 @@ export function IndustriesExpandableShowcase({
     >
       <div className={containerClassName}>
         {(headingSlot || heading) && (
-          <div className={cn("mb-12", headingWrapperClassName)}>
+          <div className={cn("mb-6 md:mb-12", headingWrapperClassName)}>
             {renderHeading}
           </div>
         )}

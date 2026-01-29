@@ -253,7 +253,7 @@ export const NavbarFeatureGrid = ({
                           className="rounded-md p-3 transition-colors hover:bg-muted/70"
                         >
                           <div>
-                            <p className="mb-1 font-semibold text-foreground">
+                            <p className="mb-1 font-semibold">
                               {feature.title}
                             </p>
                             <p className="text-sm text-muted-foreground">
@@ -307,7 +307,7 @@ export const NavbarFeatureGrid = ({
                               className="rounded-md p-3 transition-colors hover:bg-muted/70"
                             >
                               <div>
-                                <p className="mb-1 font-semibold text-foreground">
+                                <p className="mb-1 font-semibold">
                                   {feature.title}
                                 </p>
                                 <p className="text-sm text-muted-foreground">

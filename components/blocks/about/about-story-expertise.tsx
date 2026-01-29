@@ -258,7 +258,7 @@ export function AboutStoryExpertise({
               ))}
             {highlight.title &&
               (typeof highlight.title === "string" ? (
-                <h3 className="text-lg font-bold text-foreground">
+                <h3 className="text-lg font-bold">
                   {highlight.title}
                 </h3>
               ) : (
@@ -304,7 +304,7 @@ export function AboutStoryExpertise({
             <div>
               {area.title &&
                 (typeof area.title === "string" ? (
-                  <h4 className="text-lg font-bold text-foreground">
+                  <h4 className="text-lg font-bold">
                     {area.title}
                   </h4>
                 ) : (
@@ -359,7 +359,7 @@ export function AboutStoryExpertise({
               (typeof heading === "string" ? (
                 <h2
                   className={cn(
-                    "mt-2 text-3xl font-bold text-foreground md:text-4xl",
+                    "mt-2 text-3xl font-bold md:text-4xl",
                     headingClassName,
                   )}
                 >
@@ -416,7 +416,7 @@ export function AboutStoryExpertise({
             (typeof expertiseHeading === "string" ? (
               <h3
                 className={cn(
-                  "mt-2 text-2xl font-bold text-foreground md:text-3xl",
+                  "mt-2 text-2xl font-bold md:text-3xl",
                   expertiseHeadingClassName,
                 )}
               >

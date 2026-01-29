@@ -153,7 +153,7 @@ export function HeroBusinessOperationsMosaic({
           <div className={cn("flex w-full max-w-125 flex-col gap-14 lg:max-w-full", contentClassName)}>
             {heading && (
               typeof heading === "string" ? (
-                <h1 className={cn("font-serif text-6xl text-foreground lg:text-7xl xl:text-[5rem]", headingClassName)}>
+                <h1 className={cn("font-serif text-6xl lg:text-7xl xl:text-[5rem]", headingClassName)}>
                   {heading}
                 </h1>
               ) : (
@@ -162,7 +162,7 @@ export function HeroBusinessOperationsMosaic({
             )}
             {subheading && (
               typeof subheading === "string" ? (
-                <p className={cn("font-montserrat text-2xl leading-snug text-foreground lg:text-3xl xl:text-4xl", subheadingClassName)}>
+                <p className={cn("font-montserrat text-2xl leading-snug lg:text-3xl xl:text-4xl", subheadingClassName)}>
                   {subheading}
                 </p>
               ) : (

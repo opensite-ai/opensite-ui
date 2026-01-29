@@ -139,7 +139,6 @@ export interface ReviewsImagesHelpfulProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-
 function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
   return (
     <div className="flex items-center gap-0.5">
@@ -204,7 +203,7 @@ export function ReviewsImagesHelpful({
   imagesClassName,
   onWriteReview,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -212,9 +211,11 @@ export function ReviewsImagesHelpful({
   const [helpfulClicked, setHelpfulClicked] = useState<Set<number>>(new Set());
 
   const totalReviews = reviews?.length ?? 0;
-  const averageRating = totalReviews > 0
-    ? (reviews?.reduce((sum, review) => sum + review.rating, 0) ?? 0) / totalReviews
-    : 0;
+  const averageRating =
+    totalReviews > 0
+      ? (reviews?.reduce((sum, review) => sum + review.rating, 0) ?? 0) /
+        totalReviews
+      : 0;
 
   const handleHelpful = useCallback((reviewIndex: number) => {
     setHelpfulClicked((prev) => {
@@ -379,7 +380,20 @@ export function ReviewsImagesHelpful({
         })}
       </div>
     );
-  }, [reviewsSlot, reviews, reviewClassName, contentClassName, authorClassName, imagesClassName, helpfulClicked, optixFlowConfig, reportButtonLabel, getAuthorName, getInitials, handleHelpful]);
+  }, [
+    reviewsSlot,
+    reviews,
+    reviewClassName,
+    contentClassName,
+    authorClassName,
+    imagesClassName,
+    helpfulClicked,
+    optixFlowConfig,
+    reportButtonLabel,
+    getAuthorName,
+    getInitials,
+    handleHelpful,
+  ]);
 
   return (
     <Section

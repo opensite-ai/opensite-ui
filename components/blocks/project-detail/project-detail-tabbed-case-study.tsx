@@ -187,7 +187,7 @@ export function ProjectDetailTabbedCaseStudy(
           {typeof title === "string" ? (
             <h1
               className={cn(
-                "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                 titleClassName,
               )}
             >
@@ -284,7 +284,7 @@ export function ProjectDetailTabbedCaseStudy(
                   )}
                 >
                   {typeof section.title === "string" ? (
-                    <h2 className="mb-6 text-2xl font-semibold text-foreground">
+                    <h2 className="mb-6 text-2xl font-semibold">
                       {section.title}
                     </h2>
                   ) : (
@@ -327,7 +327,7 @@ export function ProjectDetailTabbedCaseStudy(
               testimonialClassName,
             )}
           >
-            <blockquote className="text-xl leading-relaxed text-foreground md:text-2xl">
+            <blockquote className="text-xl leading-relaxed md:text-2xl">
               "{testimonial.quote}"
             </blockquote>
             <div className="mt-6 flex items-center gap-4">
@@ -346,7 +346,7 @@ export function ProjectDetailTabbedCaseStudy(
                 </div>
               )}
               <div>
-                <p className="font-medium text-foreground">
+                <p className="font-medium">
                   {testimonial.author}
                 </p>
                 <p className="text-sm text-muted-foreground">
@@ -379,7 +379,7 @@ export function ProjectDetailTabbedCaseStudy(
                       className="text-muted-foreground"
                     />
                   )}
-                  <span className="text-sm font-medium text-foreground">
+                  <span className="text-sm font-medium">
                     {tool.name}
                   </span>
                 </div>

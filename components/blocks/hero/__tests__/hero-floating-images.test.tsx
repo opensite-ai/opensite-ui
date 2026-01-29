@@ -247,8 +247,8 @@ describe("HeroFloatingImages", () => {
     ];
     const { container } = render(<HeroFloatingImages images={images} />);
 
-    // Check for the zoom indicator container (the white circular button with icon)
-    const zoomIndicators = container.querySelectorAll(".rounded-full.bg-white\\/90");
+    // Check for the zoom indicator container (the circular button with icon)
+    const zoomIndicators = container.querySelectorAll(".rounded-full.bg-background\\/90");
     expect(zoomIndicators.length).toBeGreaterThan(0);
   });
 

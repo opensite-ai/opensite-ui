@@ -242,7 +242,7 @@ export function AboutMissionFeatures({
                   className="absolute inset-0 size-full object-cover"
                   optixFlowConfig={optixFlowConfig}
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/50 to-black/30" />
+                <div className="absolute inset-0 bg-linear-to-t from-foreground/80 via-foreground/50 to-foreground/30" />
               </>
             )}
             <div className="relative z-10">
@@ -250,7 +250,7 @@ export function AboutMissionFeatures({
                 (typeof missionLabel === "string" ? (
                   <p
                     className={cn(
-                      "text-sm font-semibold text-white",
+                      "text-sm font-semibold text-background",
                       missionLabelClassName,
                     )}
                   >
@@ -265,7 +265,7 @@ export function AboutMissionFeatures({
                 (typeof missionText === "string" ? (
                   <p
                     className={cn(
-                      "text-lg font-medium text-white",
+                      "text-lg font-medium text-background",
                       missionTextClassName,
                     )}
                   >

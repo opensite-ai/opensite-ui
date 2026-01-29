@@ -150,15 +150,15 @@ export function ProjectFilterableThreeColumn({
             optixFlowConfig={optixFlowConfig}
           />
 
-          <motion.div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 p-8 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+          <motion.div className="absolute inset-0 flex flex-col items-center justify-center bg-foreground/60 p-8 text-background opacity-0 transition-opacity duration-200 group-hover:opacity-100">
             <motion.div className="translate-y-5 text-center opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-              <p className="mb-4 text-xs font-medium tracking-widest text-gray-300">
+              <p className="mb-4 text-xs font-medium tracking-widest text-muted-foreground">
                 {item.category}
               </p>
               <h3 className="mb-4 text-2xl font-light tracking-wide">
                 {item.title}
               </h3>
-              <p className="max-w-xs text-sm leading-relaxed text-gray-200">
+              <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
                 {item.description}
               </p>
             </motion.div>
@@ -192,7 +192,7 @@ export function ProjectFilterableThreeColumn({
                   "text-sm font-medium tracking-wider transition-colors duration-300 hover:text-foreground",
                   activeFilter === category
                     ? "border-b-2 border-border pb-1 text-foreground"
-                    : "text-gray-500",
+                    : "text-muted-foreground",
                   filterButtonClassName,
                 )}
               >
@@ -217,7 +217,7 @@ export function ProjectFilterableThreeColumn({
               animate={{ opacity: 1 }}
               className="py-16 text-center"
             >
-              <p className="text-lg text-gray-500">
+              <p className="text-lg text-muted-foreground">
                 No items found for "{activeFilter}" category.
               </p>
             </motion.div>

@@ -151,7 +151,7 @@ export function ProjectDetailGridGallery(
           className={cn("mb-16 max-w-3xl", headerClassName)}
         >
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
+            <span className="rounded-full bg-muted px-3 py-1 font-medium">
               {category}
             </span>
             <span>{year}</span>
@@ -162,7 +162,7 @@ export function ProjectDetailGridGallery(
           {typeof title === "string" ? (
             <h1
               className={cn(
-                "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                 titleClassName,
               )}
             >
@@ -187,7 +187,7 @@ export function ProjectDetailGridGallery(
                 About the Work
               </h2>
               {typeof description === "string" ? (
-                <p className="text-lg leading-relaxed text-foreground">
+                <p className="text-lg leading-relaxed">
                   {description}
                 </p>
               ) : (
@@ -232,7 +232,7 @@ export function ProjectDetailGridGallery(
                 {image.caption && (
                   <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-background/80 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     {typeof image.caption === "string" ? (
-                      <p className="text-sm text-foreground">{image.caption}</p>
+                      <p className="text-sm">{image.caption}</p>
                     ) : (
                       image.caption
                     )}
@@ -271,7 +271,7 @@ export function ProjectDetailGridGallery(
                   {image.caption && (
                     <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-background/80 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       {typeof image.caption === "string" ? (
-                        <p className="text-sm text-foreground">
+                        <p className="text-sm">
                           {image.caption}
                         </p>
                       ) : (

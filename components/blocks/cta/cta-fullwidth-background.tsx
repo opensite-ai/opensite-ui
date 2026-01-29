@@ -166,7 +166,7 @@ export function CtaFullwidthBackground({
             backgroundClassName,
           )}
           style={backgroundImage ? {
-            backgroundImage: `linear-gradient(rgba(0,0,0,${overlayOpacity}),rgba(0,0,0,0)), url('${backgroundImage}')`,
+            backgroundImage: `linear-gradient(hsl(var(--foreground) / ${overlayOpacity}), hsl(var(--foreground) / 0)), url('${backgroundImage}')`,
           } : undefined}
         >
           <div

@@ -728,7 +728,7 @@ export const NavbarPlatformResources = ({
                     <NavigationMenuItem
                       key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
                     >
-                      <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-foreground/60 hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground">
+                      <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent">
                         {link.label}
                       </NavigationMenuTrigger>
                       {renderDropdownContent(link)}

@@ -174,11 +174,11 @@ export function HeroUiLibraryShowcase({
         <div className="flex max-w-[880px] flex-col items-center gap-6">
           {heading && (
             typeof heading === "string" ? (
-              <h1 className={cn("text-4xl tracking-tighter text-foreground capitalize md:text-5xl lg:text-6xl", headingClassName)}>
+              <h1 className={cn("text-4xl tracking-tighter capitalize md:text-5xl lg:text-6xl", headingClassName)}>
                 <p>{heading}</p>
               </h1>
             ) : (
-              <h1 className={cn("text-4xl tracking-tighter text-foreground capitalize md:text-5xl lg:text-6xl", headingClassName)}>
+              <h1 className={cn("text-4xl tracking-tighter capitalize md:text-5xl lg:text-6xl", headingClassName)}>
                 {heading}
               </h1>
             )

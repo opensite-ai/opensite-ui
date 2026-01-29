@@ -220,11 +220,11 @@ export function HeroDesignShowcaseLogos({
           <div className="flex max-w-[920px] flex-col items-center gap-6">
             {heading && (
               typeof heading === "string" ? (
-                <h1 className={cn("mb-6 text-center text-[2.75rem] leading-tight font-semibold text-foreground md:text-[3.5rem] lg:text-[4.375rem]", headingClassName)}>
+                <h1 className={cn("mb-6 text-center text-[2.75rem] leading-tight font-semibold md:text-[3.5rem] lg:text-[4.375rem]", headingClassName)}>
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("mb-6 text-center text-[2.75rem] leading-tight font-semibold text-foreground md:text-[3.5rem] lg:text-[4.375rem]", headingClassName)}>
+                <h1 className={cn("mb-6 text-center text-[2.75rem] leading-tight font-semibold md:text-[3.5rem] lg:text-[4.375rem]", headingClassName)}>
                   {heading}
                 </h1>
               )

@@ -153,24 +153,24 @@ export function FeatureCapabilitiesGrid({
       return (
         <Card
           key={`${typeof item.title === "string" ? item.title : "item"}-${index}`}
-          className={cn("group relative overflow-visible border-white/10 bg-white/5 p-0 transition-colors duration-300 hover:border-white/20", cardClassName, item.className)}
+          className={cn("group relative overflow-visible border-border/10 bg-background/5 p-0 transition-colors duration-300 hover:border-border/20", cardClassName, item.className)}
         >
           <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <div className="absolute -inset-px rounded-xl bg-linear-to-br from-white/10 via-white/5 to-transparent" />
+            <div className="absolute -inset-px rounded-xl bg-linear-to-br from-background/10 via-background/5 to-transparent" />
           </div>
 
-          <div className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-tr from-white/0 to-white/0 transition-colors group-hover:from-white/3 group-hover:to-white/6" />
+          <div className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-tr from-background/0 to-background/0 transition-colors group-hover:from-background/3 group-hover:to-background/6" />
 
           <div className="pointer-events-none absolute inset-0 hidden group-hover:block">
-            <div className="absolute -left-2 -top-2 h-3 w-3 bg-white" />
-            <div className="absolute -right-2 -top-2 h-3 w-3 bg-white" />
-            <div className="absolute -left-2 -bottom-2 h-3 w-3 bg-white" />
-            <div className="absolute -right-2 -bottom-2 h-3 w-3 bg-white" />
+            <div className="absolute -left-2 -top-2 h-3 w-3 bg-background" />
+            <div className="absolute -right-2 -top-2 h-3 w-3 bg-background" />
+            <div className="absolute -left-2 -bottom-2 h-3 w-3 bg-background" />
+            <div className="absolute -right-2 -bottom-2 h-3 w-3 bg-background" />
           </div>
 
           <CardHeader className="relative z-10 flex flex-row items-start gap-3 p-6">
             {iconContent && (
-              <div className={cn("flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white", item.iconClassName)}>
+              <div className={cn("flex h-10 w-10 items-center justify-center rounded-xl border border-border/15 bg-background/5", item.iconClassName)}>
                 {iconContent}
               </div>
             )}
@@ -178,17 +178,17 @@ export function FeatureCapabilitiesGrid({
               <div className="flex items-center gap-2">
                 {item.title && (
                   typeof item.title === "string" ? (
-                    <CardTitle className={cn("text-lg font-medium text-white", item.titleClassName)}>
+                    <CardTitle className={cn("text-lg font-medium", item.titleClassName)}>
                       {item.title}
                     </CardTitle>
                   ) : (
-                    <div className={cn("text-lg font-medium text-white", item.titleClassName)}>
+                    <div className={cn("text-lg font-medium", item.titleClassName)}>
                       {item.title}
                     </div>
                   )
                 )}
                 {item.badge && (
-                  <span className={cn("rounded-full border border-white/20 px-2 py-0.5 text-[10px] leading-none text-white/70", item.badgeClassName)}>
+                  <span className={cn("rounded-full border border-border/20 px-2 py-0.5 text-[10px] leading-none text-muted-foreground", item.badgeClassName)}>
                     {item.badge}
                   </span>
                 )}
@@ -197,13 +197,13 @@ export function FeatureCapabilitiesGrid({
           </CardHeader>
 
           {item.description && (
-            <CardContent className={cn("relative z-10 px-6 pb-6 text-sm text-white/70", item.descriptionClassName)}>
+            <CardContent className={cn("relative z-10 px-6 pb-6 text-sm text-muted-foreground", item.descriptionClassName)}>
               {item.description}
             </CardContent>
           )}
 
           <motion.div
-            className="pointer-events-none absolute inset-0 rounded-xl ring-0 ring-white/0"
+            className="pointer-events-none absolute inset-0 rounded-xl ring-0 ring-border/0"
             initial={{ opacity: 0 }}
             whileHover={{ opacity: 1 }}
             transition={{ duration: 0.25 }}
@@ -220,7 +220,7 @@ export function FeatureCapabilitiesGrid({
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
-      className={cn("bg-foreground py-16 text-background", className)}
+      className={className}
       containerClassName={containerClassName}
     >
       {eyebrow && (

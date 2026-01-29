@@ -168,7 +168,7 @@ export function FeaturePatternGridLinks({
     return features.map((feature, index) => (
       <div
         key={index}
-        className={cn("flex flex-col gap-10 rounded-lg border bg-background p-8", cardClassName, feature.className)}
+        className={cn("flex flex-col gap-10 rounded-lg border p-8", cardClassName, feature.className)}
       >
         <div>
           {renderFeatureIcon(feature)}

@@ -147,7 +147,7 @@ export function FooterAnimatedSocial({
       >
         <Pressable
           href={link.href}
-          className={cn("group flex items-center gap-2 py-2 text-foreground transition-colors hover:text-foreground/80", socialLinkClassName)}
+          className={cn("group flex items-center gap-2 py-2 transition-colors hover:text-muted-foreground", socialLinkClassName)}
         >
           <span className="text-xl font-medium">
             {link.name}
@@ -182,7 +182,7 @@ export function FooterAnimatedSocial({
             >
               <div className={cn("space-y-8", leftColumnClassName)}>
                 <motion.div variants={itemVariants} className="space-y-6">
-                  <h2 className={cn("text-4xl leading-tight font-bold text-foreground lg:text-5xl", headingClassName)}>
+                  <h2 className={cn("text-4xl leading-tight font-bold lg:text-5xl", headingClassName)}>
                     {heading}
                   </h2>
                   <p className={cn("max-w-md text-lg leading-relaxed text-muted-foreground", descriptionClassName)}>
@@ -234,7 +234,7 @@ export function FooterAnimatedSocial({
                   <span className="text-muted-foreground">
                     <motion.a
                       href={attributionHref}
-                      className="underline underline-offset-4 transition-colors hover:text-foreground"
+                      className="underline underline-offset-4 transition-colors hover:text-primary"
                       whileHover={{ scale: 1.05 }}
                       transition={{
                         type: "spring",

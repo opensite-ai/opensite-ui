@@ -163,7 +163,7 @@ export function ProjectDetailExhibitionSidebar(
             className={cn("lg:col-span-2", headerClassName)}
           >
             <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
-              <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
+              <span className="rounded-full bg-muted px-3 py-1 font-medium">
                 {category}
               </span>
               <span>{year}</span>
@@ -174,7 +174,7 @@ export function ProjectDetailExhibitionSidebar(
             {typeof title === "string" ? (
               <h1
                 className={cn(
-                  "text-4xl font-bold tracking-tight text-foreground md:text-5xl",
+                  "text-4xl font-bold tracking-tight md:text-5xl",
                   titleClassName,
                 )}
               >
@@ -237,7 +237,7 @@ export function ProjectDetailExhibitionSidebar(
                   >
                     {exhibition.href ? (
                       <Pressable href={exhibition.href} className="block group">
-                        <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
+                        <h3 className="font-medium group-hover:text-primary transition-colors">
                           {exhibition.title}
                         </h3>
                         <p className="mt-1 text-sm text-muted-foreground">
@@ -249,7 +249,7 @@ export function ProjectDetailExhibitionSidebar(
                       </Pressable>
                     ) : (
                       <div>
-                        <h3 className="font-medium text-foreground">
+                        <h3 className="font-medium">
                           {exhibition.title}
                         </h3>
                         <p className="mt-1 text-sm text-muted-foreground">

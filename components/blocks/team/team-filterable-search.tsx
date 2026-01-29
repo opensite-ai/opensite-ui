@@ -352,7 +352,7 @@ export function TeamFilterableSearch({
                 {member.social.github && (
                   <Pressable
                     href={member.social.github}
-                    className="hover:text-foreground transition-colors"
+                    className="transition-colors"
                     aria-label={`${member.name}'s GitHub`}
                   >
                     <DynamicIcon name="lucide/github" size={16} />
@@ -361,7 +361,7 @@ export function TeamFilterableSearch({
                 {member.social.twitter && (
                   <Pressable
                     href={member.social.twitter}
-                    className="hover:text-foreground transition-colors"
+                    className="transition-colors"
                     aria-label={`${member.name}'s Twitter`}
                   >
                     <DynamicIcon name="lucide/twitter" size={16} />
@@ -370,7 +370,7 @@ export function TeamFilterableSearch({
                 {member.social.linkedin && (
                   <Pressable
                     href={member.social.linkedin}
-                    className="hover:text-foreground transition-colors"
+                    className="transition-colors"
                     aria-label={`${member.name}'s LinkedIn`}
                   >
                     <DynamicIcon name="lucide/linkedin" size={16} />

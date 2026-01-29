@@ -232,7 +232,7 @@ export function ProjectDetailArchitectureCarousel(
 
         <motion.header {...fadeInUp} className={cn("mb-16", headerClassName)}>
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
+            <span className="rounded-full bg-muted px-3 py-1 font-medium">
               {category}
             </span>
             <span>{year}</span>
@@ -243,7 +243,7 @@ export function ProjectDetailArchitectureCarousel(
           {typeof title === "string" ? (
             <h1
               className={cn(
-                "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                 titleClassName,
               )}
             >
@@ -400,7 +400,7 @@ export function ProjectDetailArchitectureCarousel(
                     optixFlowConfig={optixFlowConfig}
                   />
                   {enableLightbox && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors hover:bg-black/20">
+                    <div className="absolute inset-0 flex items-center justify-center bg-foreground/0 transition-colors hover:bg-foreground/20">
                       <div className="rounded-full bg-background/80 p-3 opacity-0 transition-opacity group-hover:opacity-100 hover:opacity-100">
                         <DynamicIcon name="lucide/maximize-2" size={24} />
                       </div>
@@ -523,7 +523,7 @@ export function ProjectDetailArchitectureCarousel(
             {sections.map((section, index) => (
               <div key={index}>
                 {typeof section.title === "string" ? (
-                  <h2 className="mb-4 text-2xl font-semibold text-foreground">
+                  <h2 className="mb-4 text-2xl font-semibold">
                     {section.title}
                   </h2>
                 ) : (

@@ -201,7 +201,7 @@ export function ProjectCarouselMinimal({
               variant="outline"
               onClick={() => carouselApi?.scrollPrev()}
               disabled={!canScrollPrev}
-              className="pointer-events-auto ml-4 h-10 w-10 rounded-full border-gray-200 bg-white/90 hover:bg-white"
+              className="pointer-events-auto ml-4 h-10 w-10 rounded-full border-border bg-card/90 hover:bg-card"
             >
               <DynamicIcon name="lucide/arrow-left" size={16} />
             </Pressable>
@@ -210,7 +210,7 @@ export function ProjectCarouselMinimal({
               variant="outline"
               onClick={() => carouselApi?.scrollNext()}
               disabled={!canScrollNext}
-              className="pointer-events-auto mr-4 h-10 w-10 rounded-full border-gray-200 bg-white/90 hover:bg-white"
+              className="pointer-events-auto mr-4 h-10 w-10 rounded-full border-border bg-card/90 hover:bg-card"
             >
               <DynamicIcon name="lucide/arrow-right" size={16} />
             </Pressable>

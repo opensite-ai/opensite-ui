@@ -152,7 +152,7 @@ export function HeroBillingPlatformLogos({
             {children ?? (
               <>
                 {icon}
-                <p className="font-mono text-sm font-medium text-foreground uppercase">
+                <p className="font-mono text-sm font-medium uppercase">
                   {label}
                 </p>
                 {iconAfter}
@@ -200,7 +200,7 @@ export function HeroBillingPlatformLogos({
             <div className="flex flex-col gap-3">
               {heading && (
                 typeof heading === "string" ? (
-                  <h1 className={cn("text-4xl leading-tight text-foreground md:text-5xl lg:text-[3.5rem]", headingClassName)}>
+                  <h1 className={cn("text-4xl leading-tight md:text-5xl lg:text-[3.5rem]", headingClassName)}>
                     {heading}
                   </h1>
                 ) : (
@@ -209,7 +209,7 @@ export function HeroBillingPlatformLogos({
               )}
               {description && (
                 typeof description === "string" ? (
-                  <p className={cn("mb-5 text-lg text-foreground", descriptionClassName)}>
+                  <p className={cn("mb-5 text-lg", descriptionClassName)}>
                     {description}
                   </p>
                 ) : (
@@ -274,7 +274,7 @@ export function HeroBillingPlatformLogos({
       <div className={cn("flex flex-col items-center justify-center gap-8 pt-28", logosClassName)}>
         {logosTagline && (
           typeof logosTagline === "string" ? (
-            <p className="px-5 text-center font-mono text-sm font-medium text-foreground uppercase">
+            <p className="px-5 text-center font-mono text-sm font-medium uppercase">
               {logosTagline}
             </p>
           ) : (

@@ -116,7 +116,7 @@ export function HeroFullscreenBackgroundImage({
   return (
     <Section
       className={cn(
-        "dark relative flex h-svh max-h-[1400px] w-svw overflow-hidden bg-cover bg-center bg-no-repeat font-sans after:absolute after:top-0 after:left-0 after:z-10 after:h-full after:w-full after:bg-black/20 after:content-[''] md:h-svh",
+        "dark relative flex h-svh max-h-[1400px] w-svw overflow-hidden bg-cover bg-center bg-no-repeat font-sans after:absolute after:top-0 after:left-0 after:z-10 after:h-full after:w-full after:bg-foreground/20 after:content-[''] md:h-svh",
         className
       )}
       style={{ backgroundImage: `url('${backgroundImage}')` }}
@@ -124,7 +124,7 @@ export function HeroFullscreenBackgroundImage({
       <div className={cn("relative z-30 m-auto flex max-w-185 flex-col items-center justify-center gap-6 px-5", contentClassName)}>
         {heading && (
           typeof heading === "string" ? (
-            <h1 className={cn("text-center font-serif text-4xl leading-tight text-foreground md:text-6xl xl:text-[4.4rem]", headingClassName)}>
+            <h1 className={cn("text-center font-serif text-4xl leading-tight md:text-6xl xl:text-[4.4rem]", headingClassName)}>
               {heading}
             </h1>
           ) : (
@@ -133,7 +133,7 @@ export function HeroFullscreenBackgroundImage({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("text-center text-base text-foreground", descriptionClassName)}>
+            <p className={cn("text-center text-base ", descriptionClassName)}>
               {description}
             </p>
           ) : (

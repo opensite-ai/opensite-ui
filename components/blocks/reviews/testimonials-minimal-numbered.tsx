@@ -151,9 +151,12 @@ export function TestimonialsMinimalNumbered({
     return "";
   }, []);
 
-  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  }, []);
+  const getAvatarSrc = useCallback(
+    (testimonial: TestimonialItem): string | undefined => {
+      return testimonial.avatarSrc || testimonial.avatar?.src;
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -173,7 +176,7 @@ export function TestimonialsMinimalNumbered({
       <div className={cn("flex items-start gap-8", contentClassName)}>
         <span
           className={cn(
-            "text-8xl font-light leading-none text-foreground/10 select-none transition-all duration-500 md:text-9xl",
+            "text-8xl font-light leading-none select-none transition-all duration-500 md:text-9xl",
             numberClassName,
           )}
           style={{ fontFeatureSettings: '"tnum"' }}
@@ -217,7 +220,7 @@ export function TestimonialsMinimalNumbered({
             )}
           >
             <div className="flex items-center gap-4">
-              <Avatar className="size-12 ring-2 ring-foreground/10">
+              <Avatar className="size-12 ring-2">
                 <AvatarImage src={avatarSrc} alt={authorName} />
                 <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
               </Avatar>
@@ -228,13 +231,13 @@ export function TestimonialsMinimalNumbered({
                   ) : (
                     current.author
                   ))}
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm">
                   {current.role &&
                     (typeof current.role === "string" ? current.role : null)}
                   {current.company &&
                     (typeof current.company === "string" ? (
                       <>
-                        <span className="mx-2 text-foreground/20">/</span>
+                        <span className="mx-2 ">/</span>
                         <span>{current.company}</span>
                       </>
                     ) : null)}
@@ -245,7 +248,19 @@ export function TestimonialsMinimalNumbered({
         </div>
       </div>
     );
-  }, [testimonialsSlot, contentClassName, numberClassName, active, current, isTransitioning, quoteClassName, authorClassName, getAuthorName, getAvatarSrc, getInitials]);
+  }, [
+    testimonialsSlot,
+    contentClassName,
+    numberClassName,
+    active,
+    current,
+    isTransitioning,
+    quoteClassName,
+    authorClassName,
+    getAuthorName,
+    getAvatarSrc,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -277,15 +292,13 @@ export function TestimonialsMinimalNumbered({
                       <span
                         className={cn(
                           "block h-px transition-all duration-500 ease-out",
-                          index === active
-                            ? "w-12 bg-foreground"
-                            : "w-6 bg-foreground/20 group-hover:w-8 group-hover:bg-foreground/40",
+                          index === active ? "w-12 " : "w-6  group-hover:w-8 ",
                         )}
                       />
                     </button>
                   ))}
                 </div>
-                <span className="text-xs tracking-widest text-muted-foreground uppercase">
+                <span className="text-xs tracking-widest  uppercase">
                   {String(active + 1).padStart(2, "0")} /{" "}
                   {String(testimonials.length).padStart(2, "0")}
                 </span>
@@ -296,13 +309,13 @@ export function TestimonialsMinimalNumbered({
           <div className="flex items-center gap-1">
             <button
               onClick={handlePrev}
-              className="rounded-full p-2 text-foreground/40 transition-all duration-300 hover:bg-foreground/5 hover:text-foreground"
+              className="rounded-full p-2 transition-all duration-300 "
             >
               <DynamicIcon name="lucide/chevron-left" size={20} />
             </button>
             <button
               onClick={handleNext}
-              className="rounded-full p-2 text-foreground/40 transition-all duration-300 hover:bg-foreground/5 hover:text-foreground"
+              className="rounded-full p-2  transition-all duration-300 "
             >
               <DynamicIcon name="lucide/chevron-right" size={20} />
             </button>

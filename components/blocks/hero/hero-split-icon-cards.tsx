@@ -168,7 +168,7 @@ export function HeroSplitIconCards({
                   <DynamicIcon name={item.icon} size={24} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-foreground">
+                  <h3 className="text-lg font-bold ">
                     {item.title}
                   </h3>
                   {item.subtitle ? (
@@ -218,11 +218,11 @@ export function HeroSplitIconCards({
               )}
               {heading && (
                 typeof heading === "string" ? (
-                  <h2 className={cn("text-3xl font-bold text-foreground md:text-4xl", headingClassName)}>
+                  <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
                     {heading}
                   </h2>
                 ) : (
-                  <h2 className={cn("text-3xl font-bold text-foreground md:text-4xl", headingClassName)}>
+                  <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
                     {heading}
                   </h2>
                 )

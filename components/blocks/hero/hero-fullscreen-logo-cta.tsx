@@ -151,18 +151,18 @@ export function HeroFullscreenLogoCta({
           <div className={cn("flex w-full flex-col gap-8 md:w-2/3", contentClassName)}>
             {heading && (
               typeof heading === "string" ? (
-                <h1 className={cn("text-6xl font-medium text-foreground md:text-[5.8rem]", headingClassName)}>
+                <h1 className={cn("text-6xl font-medium md:text-[5.8rem]", headingClassName)}>
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-6xl font-medium text-foreground md:text-[5.8rem]", headingClassName)}>
+                <h1 className={cn("text-6xl font-medium md:text-[5.8rem]", headingClassName)}>
                   {heading}
                 </h1>
               )
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-xl text-foreground md:text-2xl", descriptionClassName)}>
+                <p className={cn("text-xl md:text-2xl", descriptionClassName)}>
                   {description}
                 </p>
               ) : (

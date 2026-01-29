@@ -153,7 +153,7 @@ export function ProjectInteractiveHoverReveal({
             className="object-cover transition-transform duration-500 group-hover:scale-110"
             optixFlowConfig={optixFlowConfig}
           />
-          <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-black/30 opacity-80 transition-opacity duration-300 group-hover:opacity-90" />
+          <div className="absolute inset-0 bg-linear-to-t from-foreground/90 via-foreground/60 to-foreground/30 opacity-80 transition-opacity duration-300 group-hover:opacity-90" />
         </div>
 
         <div
@@ -161,10 +161,10 @@ export function ProjectInteractiveHoverReveal({
             hoveredIndex === index ? "opacity-0" : "opacity-100"
           }`}
         >
-          <div className="text-sm font-medium tracking-wider text-white uppercase">
+          <div className="text-sm font-medium tracking-wider text-background uppercase">
             {project.category}
           </div>
-          <h3 className="text-xl font-bold text-white drop-shadow-md">
+          <h3 className="text-xl font-bold text-background drop-shadow-md">
             {project.title}
           </h3>
         </div>
@@ -174,16 +174,16 @@ export function ProjectInteractiveHoverReveal({
             hoveredIndex === index ? "opacity-100" : "translate-y-4 opacity-0"
           }`}
         >
-          <div className="text-sm font-medium tracking-wider text-white uppercase">
+          <div className="text-sm font-medium tracking-wider text-background uppercase">
             {project.category}
           </div>
-          <h3 className="mb-2 text-xl font-bold text-white drop-shadow-md">
+          <h3 className="mb-2 text-xl font-bold text-background drop-shadow-md">
             {project.title}
           </h3>
-          <p className="mb-3 text-sm font-medium text-white drop-shadow">
+          <p className="mb-3 text-sm font-medium text-background drop-shadow">
             {project.description}
           </p>
-          <span className="inline-flex items-center text-sm font-medium text-white drop-shadow">
+          <span className="inline-flex items-center text-sm font-medium text-background drop-shadow">
             {projectLinkLabel ?? "View Project"}{" "}
             {projectLinkIcon ?? (projectLinkIconName ? (
               <DynamicIcon name={projectLinkIconName} size={14} className="ml-1" />

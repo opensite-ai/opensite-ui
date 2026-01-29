@@ -168,7 +168,7 @@ export function HeroOverlayCtaGrid({
     if (!badgeText) return null;
 
     return (
-      <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-6 py-2 text-sm font-semibold uppercase tracking-[0.2em]">
+      <div className="inline-flex items-center gap-2 rounded-full border border-background/30 bg-background/15 px-6 py-2 text-sm font-semibold uppercase tracking-[0.2em]">
         {badgeIcon ? <DynamicIcon name={badgeIcon} size={18} /> : null}
         {badgeText}
       </div>
@@ -212,7 +212,7 @@ export function HeroOverlayCtaGrid({
                 <DynamicIcon name={card.icon} size={22} />
               </div>
               <div className="min-w-0">
-                <p className="text-base font-semibold text-foreground">
+                <p className="text-base font-semibold ">
                   {card.label}
                 </p>
                 <p className="text-sm text-muted-foreground">{card.subtitle}</p>
@@ -266,7 +266,7 @@ export function HeroOverlayCtaGrid({
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mx-auto max-w-3xl text-center text-balance text-white"
+          className="mx-auto max-w-3xl text-center text-balance text-background"
         >
           {renderBadge}
           {heading &&
@@ -293,7 +293,7 @@ export function HeroOverlayCtaGrid({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mt-5 text-lg text-white/80 md:text-xl",
+                  "mt-5 text-lg text-background/80 md:text-xl",
                   descriptionClassName
                 )}
               >
@@ -302,7 +302,7 @@ export function HeroOverlayCtaGrid({
             ) : (
               <div
                 className={cn(
-                  "mt-5 text-lg text-white/80 md:text-xl",
+                  "mt-5 text-lg text-background/80 md:text-xl",
                   descriptionClassName
                 )}
               >

@@ -251,7 +251,7 @@ export function HeroMobileAppDownload({
             </div>
           )}
           <div>
-            {notification.title && <div className="font-semibold text-foreground">{notification.title}</div>}
+            {notification.title && <div className="font-semibold ">{notification.title}</div>}
             {notification.subtitle && <div className="text-xs text-muted-foreground">{notification.subtitle}</div>}
           </div>
         </div>
@@ -292,11 +292,11 @@ export function HeroMobileAppDownload({
             {renderBadge}
             {heading && (
               typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                   {heading}
                 </h1>
               )
