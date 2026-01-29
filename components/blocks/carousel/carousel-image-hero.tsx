@@ -124,7 +124,7 @@ export function CarouselImageHero({
   images,
   autoPlayInterval = 7500,
   className,
-  containerClassName = "mx-auto w-full max-w-7xl relative z-10 rounded-2xl overflow-hidden shadow-xl",
+  containerClassName = "mx-none md:mx-auto w-screen md:w-full max-w-screen md:max-w-7xl relative z-10 rounded-none md:rounded-2xl overflow-hidden shadow-none md:shadow-xl",
   contentClassName,
   badgeClassName,
   headingClassName,
@@ -134,21 +134,37 @@ export function CarouselImageHero({
   indicatorsClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-0 md:py-32",
   pattern,
   patternOpacity,
 }: CarouselImageHeroProps): React.JSX.Element {
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  const goToNext = React.useCallback(() => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (images?.length ?? 1));
+  }, [images?.length]);
+
+  const resetInterval = React.useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    intervalRef.current = setInterval(goToNext, autoPlayInterval);
+  }, [goToNext, autoPlayInterval]);
+
+  const goToSlide = React.useCallback((index: number) => {
+    setCurrentImageIndex(index);
+    resetInterval();
+  }, [resetInterval]);
 
   React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex(
-        (prevIndex) => (prevIndex + 1) % (images?.length ?? 1),
-      );
-    }, autoPlayInterval);
-
-    return () => clearInterval(interval);
-  }, [images?.length, autoPlayInterval]);
+    resetInterval();
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [resetInterval]);
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
@@ -186,13 +202,16 @@ export function CarouselImageHero({
     <Section
       background={background}
       spacing={spacing}
-      className={cn("relative min-h-[600px] overflow-hidden", className)}
+      className={cn(
+        "relative min-h-screen md:min-h-[600px] overflow-hidden",
+        className,
+      )}
       pattern={pattern}
       patternOpacity={patternOpacity}
       containerClassName={containerClassName}
     >
       {/* Image Carousel */}
-      <div className={cn("absolute inset-0", imageClassName)}>
+      <div className={cn("absolute inset-0 bg-black", imageClassName)}>
         {images?.map((image, index) => (
           <div
             key={index}
@@ -221,7 +240,7 @@ export function CarouselImageHero({
           {images?.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentImageIndex(index)}
+              onClick={() => goToSlide(index)}
               className={cn(
                 "flex h-4 w-4 items-center justify-center rounded-full transition-colors",
                 index === currentImageIndex
