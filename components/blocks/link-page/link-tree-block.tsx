@@ -469,7 +469,7 @@ export function LinkTreeBlock({
             (typeof brandTagline === "string" ? (
               <p
                 className={cn(
-                  "max-w-xs text-balance text-sm text-muted-foreground",
+                  "max-w-xs text-balance text-sm",
                   taglineClassName,
                 )}
               >
@@ -585,9 +585,7 @@ export function LinkTreeBlock({
                     <span
                       className={cn(
                         "mt-0.5 block truncate text-xs",
-                        isFeatured
-                          ? "text-primary-foreground/70"
-                          : "text-muted-foreground",
+                        isFeatured ? "text-primary-foreground/70" : "",
                         linkDescriptionClassName,
                       )}
                     >
@@ -614,9 +612,7 @@ export function LinkTreeBlock({
                 size={16}
                 className={cn(
                   "shrink-0 transition-transform group-hover:translate-x-0.5",
-                  isFeatured
-                    ? "text-primary-foreground/70"
-                    : "text-muted-foreground",
+                  isFeatured ? "text-primary-foreground/70" : "",
                   linkChevronClassName,
                 )}
               />
@@ -671,7 +667,7 @@ export function LinkTreeBlock({
               className={cn(
                 "group relative aspect-square overflow-hidden rounded-lg cursor-pointer",
                 "transition-all duration-200 hover:scale-[1.02]",
-                "ring-1 ring-border",
+                "ring-1",
                 mediaGalleryItemClassName,
                 item.className,
               )}
@@ -790,7 +786,6 @@ export function LinkTreeBlock({
               className={cn(
                 "flex h-12 w-12 items-center justify-center rounded-full p-2.5 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
-                "bg-muted text-foreground",
                 socialLinkClassName,
                 social.className,
               )}

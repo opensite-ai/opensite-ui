@@ -585,9 +585,9 @@ const DesktopMenuItem = ({
         <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {item.label}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="rounded-xl! border-0! p-0! left-0! right-0!">
-          <div className="w-full px-8 pt-6 pb-12 max-w-screen-2xl mx-auto">
-            <div className="w-full">
+        <NavigationMenuContent className="!rounded-xl !border-0 !p-0">
+          <div className="w-dvw px-8 pt-6 pb-12">
+            <div className="container">
               {renderDropdownContent(
                 { ...item, layout: effectiveLayout },
                 optixFlowConfig,
