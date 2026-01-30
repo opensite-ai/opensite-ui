@@ -332,9 +332,7 @@ const DesktopMenuItem = ({
   if (link.href) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`}>
-        <NavigationMenuLink href={link.href}>
-          {link.label}
-        </NavigationMenuLink>
+        <NavigationMenuLink href={link.href}>{link.label}</NavigationMenuLink>
       </NavigationMenuItem>
     );
   }
@@ -453,17 +451,23 @@ export const NavbarMegaMenu = ({
     return (
       <Pressable
         href={logo.url || "/"}
-        className={cn("flex items-center gap-2", logoClassName)}
+        className={cn("flex items-center h-16 py-2", logoClassName)}
       >
         <Img
           src={logo.desktopSrc}
-          className={cn("hidden h-7 dark:invert md:block", logo.className)}
+          className={cn(
+            "hidden h-full w-auto object-contain dark:invert md:block",
+            logo.className,
+          )}
           alt={logo.alt || "Logo"}
           optixFlowConfig={optixFlowConfig}
         />
         <Img
           src={logo.mobileSrc}
-          className={cn("h-7 dark:invert md:hidden", logo.className)}
+          className={cn(
+            "h-full w-auto object-contain dark:invert md:hidden",
+            logo.className,
+          )}
           alt={logo.alt || "Logo"}
           optixFlowConfig={optixFlowConfig}
         />
@@ -513,7 +517,7 @@ export const NavbarMegaMenu = ({
 
   const navWrapperClasses = cn(
     "flex w-full items-center justify-between gap-12 py-4",
-    layoutVariant === "floatingBar" && "pr-4 pl-8"
+    layoutVariant === "floatingBar" && "pr-4 pl-8",
   );
 
   return (
@@ -536,145 +540,148 @@ export const NavbarMegaMenu = ({
               )}
             >
               <div className={navWrapperClasses}>
-              {/* Logo */}
-              <div>
-                {(!open || submenuIndex === null) && renderLogo()}
-                {open && submenuIndex !== null && (
+                {/* Logo */}
+                <div>
+                  {(!open || submenuIndex === null) && renderLogo()}
+                  {open && submenuIndex !== null && (
+                    <Pressable
+                      variant="outline"
+                      asButton
+                      onClick={() => setSubmenuIndex(null)}
+                    >
+                      Back
+                      <DynamicIcon
+                        name="lucide/chevron-left"
+                        size={16}
+                        className="ml-2"
+                      />
+                    </Pressable>
+                  )}
+                </div>
+
+                <NavigationMenuList
+                  className={cn("hidden lg:flex", navigationMenuListClassName)}
+                >
+                  {menuLinks?.map((link, index) => {
+                    if (hasDropdownItems(link)) {
+                      return (
+                        <DesktopMenuItem
+                          key={`menu-link-${index}`}
+                          link={link}
+                          index={index}
+                          optixFlowConfig={optixFlowConfig}
+                        />
+                      );
+                    }
+
+                    if (!link.href) {
+                      return null;
+                    }
+
+                    return (
+                      <NavigationMenuItem key={`menu-link-${index}`}>
+                        <NavigationMenuLink href={link.href}>
+                          {link.label}
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
+                    );
+                  })}
+                </NavigationMenuList>
+
+                <div
+                  className={cn(
+                    "hidden items-center gap-2 lg:flex",
+                    actionsClassName,
+                  )}
+                >
+                  {renderActions()}
+                </div>
+
+                <div className="flex items-center gap-4 lg:hidden">
                   <Pressable
                     variant="outline"
+                    size="icon"
                     asButton
-                    onClick={() => setSubmenuIndex(null)}
+                    aria-label="Main Menu"
+                    onClick={() => {
+                      if (open) {
+                        setOpen(false);
+                        setSubmenuIndex(null);
+                      } else {
+                        setOpen(true);
+                      }
+                    }}
                   >
-                    Back
-                    <DynamicIcon
-                      name="lucide/chevron-left"
-                      size={16}
-                      className="ml-2"
-                    />
+                    {!open && <DynamicIcon name="lucide/menu" size={16} />}
+                    {open && <DynamicIcon name="lucide/x" size={16} />}
                   </Pressable>
-                )}
+                </div>
               </div>
 
-            <NavigationMenuList
-              className={cn("hidden lg:flex", navigationMenuListClassName)}
-            >
-              {menuLinks?.map((link, index) => {
-                if (hasDropdownItems(link)) {
-                  return (
-                    <DesktopMenuItem
-                      key={`menu-link-${index}`}
-                      link={link}
-                      index={index}
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  );
-                }
+              {/* Mobile Menu (Root) */}
+              {open && submenuIndex === null && (
+                <div
+                  className={cn(
+                    "fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden",
+                    mobileMenuClassName,
+                  )}
+                >
+                  <div>
+                    {menuLinks?.map((link, index) => {
+                      if (hasDropdownItems(link)) {
+                        return (
+                          <button
+                            key={`mobile-menu-link-${index}`}
+                            type="button"
+                            className="flex w-full items-center border-b border-border px-8 py-7 text-left"
+                            onClick={() => setSubmenuIndex(index)}
+                          >
+                            <span className="flex-1">{link.label}</span>
+                            <span className="shrink-0">
+                              <DynamicIcon
+                                name="lucide/chevron-right"
+                                size={16}
+                              />
+                            </span>
+                          </button>
+                        );
+                      }
 
-                if (!link.href) {
-                  return null;
-                }
+                      if (!link.href) {
+                        return null;
+                      }
 
-                return (
-                  <NavigationMenuItem key={`menu-link-${index}`}>
-                    <NavigationMenuLink href={link.href}>
-                      {link.label}
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                );
-              })}
-            </NavigationMenuList>
-
-            <div
-              className={cn(
-                "hidden items-center gap-2 lg:flex",
-                actionsClassName,
+                      return (
+                        <Pressable
+                          key={`mobile-menu-link-${index}`}
+                          href={link.href}
+                          className="flex w-full items-center border-b border-border px-8 py-7 text-left"
+                        >
+                          <span className="flex-1">{link.label}</span>
+                        </Pressable>
+                      );
+                    })}
+                  </div>
+                  <div
+                    className={cn(
+                      "mx-8 mt-auto flex flex-col gap-4 py-12",
+                      actionsClassName,
+                    )}
+                  >
+                    {renderActions()}
+                  </div>
+                </div>
               )}
-            >
-              {renderActions()}
-            </div>
 
-            <div className="flex items-center gap-4 lg:hidden">
-              <Pressable
-                variant="outline"
-                size="icon"
-                asButton
-                aria-label="Main Menu"
-                onClick={() => {
-                  if (open) {
-                    setOpen(false);
-                    setSubmenuIndex(null);
-                  } else {
-                    setOpen(true);
-                  }
-                }}
-              >
-                {!open && <DynamicIcon name="lucide/menu" size={16} />}
-                {open && <DynamicIcon name="lucide/x" size={16} />}
-              </Pressable>
-            </div>
-          </div>
-
-          {/* Mobile Menu (Root) */}
-          {open && submenuIndex === null && (
-            <div
-              className={cn(
-                "fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden",
-                mobileMenuClassName,
+              {/* Mobile Menu > Dropdown */}
+              {open && activeSubmenu && hasDropdownItems(activeSubmenu) && (
+                <MobileSubmenu
+                  submenu={activeSubmenu}
+                  mobileMenuClassName={mobileMenuClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
               )}
-            >
-              <div>
-                {menuLinks?.map((link, index) => {
-                  if (hasDropdownItems(link)) {
-                    return (
-                      <button
-                        key={`mobile-menu-link-${index}`}
-                        type="button"
-                        className="flex w-full items-center border-b border-border px-8 py-7 text-left"
-                        onClick={() => setSubmenuIndex(index)}
-                      >
-                        <span className="flex-1">{link.label}</span>
-                        <span className="shrink-0">
-                          <DynamicIcon name="lucide/chevron-right" size={16} />
-                        </span>
-                      </button>
-                    );
-                  }
-
-                  if (!link.href) {
-                    return null;
-                  }
-
-                  return (
-                    <Pressable
-                      key={`mobile-menu-link-${index}`}
-                      href={link.href}
-                      className="flex w-full items-center border-b border-border px-8 py-7 text-left"
-                    >
-                      <span className="flex-1">{link.label}</span>
-                    </Pressable>
-                  );
-                })}
-              </div>
-              <div
-                className={cn(
-                  "mx-8 mt-auto flex flex-col gap-4 py-12",
-                  actionsClassName,
-                )}
-              >
-                {renderActions()}
-              </div>
-            </div>
-          )}
-
-          {/* Mobile Menu > Dropdown */}
-          {open && activeSubmenu && hasDropdownItems(activeSubmenu) && (
-            <MobileSubmenu
-              submenu={activeSubmenu}
-              mobileMenuClassName={mobileMenuClassName}
-              optixFlowConfig={optixFlowConfig}
-            />
-          )}
-        </NavigationMenu>
+            </NavigationMenu>
           </div>
         </div>
       </div>

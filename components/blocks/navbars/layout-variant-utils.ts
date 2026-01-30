@@ -16,7 +16,7 @@ export function getNavbarLayoutClasses(
   customClasses?: {
     className?: string;
     containerClassName?: string;
-  }
+  },
 ) {
   const isFloatingBar = layoutVariant === "floatingBar";
   const isFullWidthLinks = layoutVariant === "fullScreenFullWidthLinks";
@@ -27,20 +27,21 @@ export function getNavbarLayoutClasses(
     sectionClasses: cn(
       "inset-x-0 z-20",
       isFloatingBar ? "sticky top-4" : "top-0",
-      customClasses?.className
+      customClasses?.className,
     ),
 
     // Outer container wrapper (only for floating bar - this containerizes the entire navbar)
     containerWrapperClasses: cn(
       "w-full",
-      isFloatingBar && "mx-auto w-full px-2 sm:px-4 lg:px-8 max-w-7xl relative z-10"
+      isFloatingBar &&
+        "mx-auto w-full px-2 sm:px-4 lg:px-8 max-w-7xl relative z-10",
     ),
 
     // Inner container classes (only for fullScreenContainerizedLinks - this containerizes the content inside the navbar)
     innerContainerClasses: cn(
       isContainerizedLinks && "container",
       isFullWidthLinks && "mx-auto w-full px-2 sm:px-4 lg:px-8",
-      customClasses?.containerClassName
+      customClasses?.containerClassName,
     ),
 
     // Navigation wrapper classes (for border and shadow)
@@ -48,7 +49,7 @@ export function getNavbarLayoutClasses(
       "w-full",
       isFloatingBar
         ? "border border-border/50 shadow-sm rounded-full"
-        : "border-b border-border/50 shadow-sm"
+        : "border-b border-border/50 shadow-sm  flex justify-center",
     ),
 
     // Section container configuration for full-width navbars
@@ -56,6 +57,6 @@ export function getNavbarLayoutClasses(
     sectionContainerMaxWidth: "full" as const,
 
     // Spacing adjustment for Section component
-    spacingOverride: isFloatingBar ? "none" as const : undefined,
+    spacingOverride: isFloatingBar ? ("none" as const) : undefined,
   };
 }

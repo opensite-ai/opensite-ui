@@ -2,11 +2,15 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+  getTextColor,
+} from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -339,7 +343,7 @@ export function LinkPageBentoLayout({
               className={cn(
                 "rounded-full p-2 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
-                getTextColor(resolvedBackground, 'muted'),
+                getTextColor(resolvedBackground, "muted"),
                 "hover:opacity-80",
                 socialLinkClassName,
                 social.className,
@@ -351,7 +355,14 @@ export function LinkPageBentoLayout({
         })}
       </div>
     );
-  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, resolvedBackground, socialLinkClassName]);
+  }, [
+    socialLinksSlot,
+    socialLinks,
+    socialLinksClassName,
+    socialIconClassName,
+    resolvedBackground,
+    socialLinkClassName,
+  ]);
 
   const renderFeaturedLinks = useMemo(() => {
     if (featuredLinksSlot) return featuredLinksSlot;
@@ -456,7 +467,7 @@ export function LinkPageBentoLayout({
                     "mt-0.5 text-xs",
                     imageSource
                       ? "text-background/70"
-                      : getTextColor(resolvedBackground, 'muted'),
+                      : getTextColor(resolvedBackground, "muted"),
                     featuredLinkDescriptionClassName,
                   )}
                 >
@@ -471,7 +482,18 @@ export function LinkPageBentoLayout({
         </Pressable>
       );
     });
-  }, [featuredLinksSlot, featuredLinks, resolvedBackground, featuredLinkClassName, featuredLinkImageClassName, optixFlowConfig, featuredLinkOverlayClassName, featuredLinkIconClassName, featuredLinkLabelClassName, featuredLinkDescriptionClassName]);
+  }, [
+    featuredLinksSlot,
+    featuredLinks,
+    resolvedBackground,
+    featuredLinkClassName,
+    featuredLinkImageClassName,
+    optixFlowConfig,
+    featuredLinkOverlayClassName,
+    featuredLinkIconClassName,
+    featuredLinkLabelClassName,
+    featuredLinkDescriptionClassName,
+  ]);
 
   const renderRegularLinks = useMemo(() => {
     if (regularLinksSlot) return regularLinksSlot;
@@ -529,7 +551,7 @@ export function LinkPageBentoLayout({
           <div
             className={cn(
               "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
-              getNestedCardBg(resolvedBackground, 'card'),
+              getNestedCardBg(resolvedBackground, "card"),
               getNestedCardTextColor(resolvedBackground),
               regularLinkIconWrapperClassName,
             )}
@@ -552,7 +574,15 @@ export function LinkPageBentoLayout({
         </Pressable>
       );
     });
-  }, [regularLinksSlot, regularLinks, resolvedBackground, regularLinkClassName, regularLinkIconWrapperClassName, regularLinkIconClassName, regularLinkLabelClassName]);
+  }, [
+    regularLinksSlot,
+    regularLinks,
+    resolvedBackground,
+    regularLinkClassName,
+    regularLinkIconWrapperClassName,
+    regularLinkIconClassName,
+    regularLinkLabelClassName,
+  ]);
 
   const renderLinks = useMemo(() => {
     if (linksSlot) return linksSlot;
@@ -575,7 +605,19 @@ export function LinkPageBentoLayout({
         )}
       </div>
     );
-  }, [linksSlot, links, linksClassName, featuredLinksSlot, featuredLinks, featuredLinksClassName, renderFeaturedLinks, regularLinksSlot, regularLinks, regularLinksClassName, renderRegularLinks]);
+  }, [
+    linksSlot,
+    links,
+    linksClassName,
+    featuredLinksSlot,
+    featuredLinks,
+    featuredLinksClassName,
+    renderFeaturedLinks,
+    regularLinksSlot,
+    regularLinks,
+    regularLinksClassName,
+    renderRegularLinks,
+  ]);
 
   const renderProfile = useMemo(() => {
     if (profileSlot) return profileSlot;
@@ -606,14 +648,7 @@ export function LinkPageBentoLayout({
         <div className="space-y-1">
           {name &&
             (typeof name === "string" ? (
-              <h1
-                className={cn(
-                  "text-xl font-bold",
-                  nameClassName,
-                )}
-              >
-                {name}
-              </h1>
+              <h1 className={cn("text-xl font-bold", nameClassName)}>{name}</h1>
             ) : (
               <div className={nameClassName}>{name}</div>
             ))}
@@ -622,7 +657,7 @@ export function LinkPageBentoLayout({
               <p
                 className={cn(
                   "max-w-xs text-sm",
-                  getTextColor(resolvedBackground, 'muted'),
+                  getTextColor(resolvedBackground, "muted"),
                   bioClassName,
                 )}
               >
@@ -636,7 +671,19 @@ export function LinkPageBentoLayout({
         {renderSocialLinks}
       </div>
     );
-  }, [profileSlot, resolvedAvatar, resolvedBackground, avatarClassName, optixFlowConfig, name, nameClassName, bio, bioClassName, renderSocialLinks, headerClassName]);
+  }, [
+    profileSlot,
+    resolvedAvatar,
+    resolvedBackground,
+    avatarClassName,
+    optixFlowConfig,
+    name,
+    nameClassName,
+    bio,
+    bioClassName,
+    renderSocialLinks,
+    headerClassName,
+  ]);
 
   const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
@@ -662,7 +709,7 @@ export function LinkPageBentoLayout({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          getTextColor(resolvedBackground, 'muted'),
+          getTextColor(resolvedBackground, "muted"),
           "opacity-50",
           footerClassName,
           actionClassName,

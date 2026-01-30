@@ -2,13 +2,7 @@
 
 import * as React from "react";
 import { useState, useCallback, useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-  getTextColor,
-  getBorderColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -475,8 +469,7 @@ export function LinkTreeBlock({
             (typeof brandTagline === "string" ? (
               <p
                 className={cn(
-                  "max-w-xs text-balance text-sm",
-                  getTextColor(resolvedBackground, 'muted'),
+                  "max-w-xs text-balance text-sm text-muted-foreground",
                   taglineClassName,
                 )}
               >
@@ -499,7 +492,6 @@ export function LinkTreeBlock({
     verifiedIcon,
     verifiedIconClassName,
     brandName,
-    resolvedBackground,
     nameClassName,
     brandTagline,
     taglineClassName,
@@ -595,7 +587,7 @@ export function LinkTreeBlock({
                         "mt-0.5 block truncate text-xs",
                         isFeatured
                           ? "text-primary-foreground/70"
-                          : getTextColor(resolvedBackground, 'muted'),
+                          : "text-muted-foreground",
                         linkDescriptionClassName,
                       )}
                     >
@@ -624,7 +616,7 @@ export function LinkTreeBlock({
                   "shrink-0 transition-transform group-hover:translate-x-0.5",
                   isFeatured
                     ? "text-primary-foreground/70"
-                    : getTextColor(resolvedBackground, 'muted'),
+                    : "text-muted-foreground",
                   linkChevronClassName,
                 )}
               />
@@ -638,7 +630,6 @@ export function LinkTreeBlock({
     links,
     linksClassName,
     linkIconClassName,
-    resolvedBackground,
     linkClassName,
     featuredLinkClassName,
     linkLabelClassName,
@@ -680,8 +671,7 @@ export function LinkTreeBlock({
               className={cn(
                 "group relative aspect-square overflow-hidden rounded-lg cursor-pointer",
                 "transition-all duration-200 hover:scale-[1.02]",
-                "ring-1",
-                getBorderColor(resolvedBackground, 'muted'),
+                "ring-1 ring-border",
                 mediaGalleryItemClassName,
                 item.className,
               )}
@@ -800,8 +790,7 @@ export function LinkTreeBlock({
               className={cn(
                 "flex h-12 w-12 items-center justify-center rounded-full p-2.5 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
-                getNestedCardBg(resolvedBackground),
-                getNestedCardTextColor(resolvedBackground),
+                "bg-muted text-foreground",
                 socialLinkClassName,
                 social.className,
               )}
@@ -817,7 +806,6 @@ export function LinkTreeBlock({
     socialLinks,
     socialLinksClassName,
     socialIconClassName,
-    resolvedBackground,
     socialLinkClassName,
   ]);
 

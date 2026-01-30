@@ -554,6 +554,7 @@ export const NavbarEnterpriseMega = ({
       </Section>
       <MobileNavigationMenu
         open={open}
+        setOpen={setOpen}
         menuLinks={menuLinks ?? []}
         actionsClassName={actionsClassName}
         actions={actions}
@@ -584,9 +585,9 @@ const DesktopMenuItem = ({
         <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {item.label}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="rounded-xl! border-0! p-0!">
-          <div className="w-dvw px-8 pt-6 pb-12">
-            <div className="container">
+        <NavigationMenuContent className="rounded-xl! border-0! p-0! left-0! right-0!">
+          <div className="w-full px-8 pt-6 pb-12 max-w-screen-2xl mx-auto">
+            <div className="w-full">
               {renderDropdownContent(
                 { ...item, layout: effectiveLayout },
                 optixFlowConfig,
@@ -705,7 +706,7 @@ const SolutionsMenu = ({
               {featuredHeroCard.description}
             </p>
           </div>
-          <div className="relative aspect-2/1 overflow-clip rounded-t pl-6 lg:max-w-64 lg:pl-0 xl:max-w-96">
+          <div className="relative aspect-2/1 overflow-clip rounded-t pl-6 lg:max-w-80 lg:pl-0 xl:max-w-[30rem]">
             <Img
               src={featuredHeroCard.image}
               alt={featuredHeroCard.title}
@@ -812,7 +813,7 @@ const ProductsMenu = ({
 }: ProductsMenuProps) => (
   <div className="grid gap-y-12 lg:flex lg:space-x-8">
     {featuredHeroCard && (
-      <div className="w-full shrink-0 lg:max-w-[18rem]">
+      <div className="w-full shrink-0 lg:max-w-[24rem]">
         <Pressable
           href={featuredHeroCard.href}
           className={cn(
@@ -823,7 +824,7 @@ const ProductsMenu = ({
           )}
         >
           <div className="relative z-10 flex w-full flex-col text-left">
-            <div className="relative flex aspect-2/1 max-h-44 w-full flex-1 justify-center">
+            <div className="relative flex aspect-2/1 max-h-64 w-full flex-1 justify-center">
               <Img
                 src={featuredHeroCard.image}
                 alt={featuredHeroCard.title}
@@ -865,11 +866,11 @@ const ProductsMenu = ({
                   href={product.href}
                   className="group flex flex-row items-center space-x-6 border-b border-border py-5 text-left sm:py-7 lg:space-x-4 lg:border-0 lg:py-2"
                 >
-                  <div className="relative flex aspect-square w-6 shrink-0 items-center justify-center overflow-clip rounded md:size-9 md:p-2">
+                  <div className="relative flex aspect-square w-16 shrink-0 items-center justify-center overflow-clip rounded md:size-20 md:p-2">
                     <Img
                       src={product.image}
                       alt={product.title}
-                      className="dark:invert"
+                      className="object-cover"
                       optixFlowConfig={optixFlowConfig}
                     />
                   </div>
@@ -1296,6 +1297,7 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
 
 interface MobileNavigationMenuProps {
   open: boolean;
+  setOpen: (open: boolean) => void;
   menuLinks: IMenuLink[];
   actionsClassName?: string;
   actions?: ActionConfig[];
@@ -1305,6 +1307,7 @@ interface MobileNavigationMenuProps {
 
 const MobileNavigationMenu = ({
   open,
+  setOpen,
   menuLinks,
   actionsClassName,
   actions,
@@ -1343,11 +1346,11 @@ const MobileNavigationMenu = ({
     });
   }, [actionsSlot, actions]);
   return (
-    <Sheet open={open}>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
         aria-describedby={undefined}
         side="top"
-        className="inset-0 z-998 h-dvh w-full bg-background pt-16 [&>button]:hidden"
+        className="inset-0 z-998 h-dvh w-full bg-background pt-16"
       >
         <div className="h-full overflow-y-auto pt-4 pb-20">
           <div className="container">
