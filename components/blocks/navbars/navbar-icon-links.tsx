@@ -13,7 +13,13 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "../../ui/navigation-menu";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../../ui/sheet";
 import {
   Tooltip,
   TooltipContent,
@@ -176,8 +182,11 @@ export const NavbarIconLinks = ({
           <Tooltip>
             <TooltipTrigger asChild>
               <Pressable
-                asButton
-                className={actionClassName}
+                className={cn(
+                  "flex h-10 w-10 items-center justify-center rounded-md transition-colors",
+                  "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+                  actionClassName,
+                )}
                 {...pressableProps}
               >
                 {children ?? (
@@ -231,120 +240,144 @@ export const NavbarIconLinks = ({
       <div className={containerWrapperClasses}>
         <div className={navWrapperClasses}>
           <div className={innerContainerClasses}>
+            {/* Desktop Menu */}
             <nav
               className={cn(
-                "flex items-center justify-between py-3",
+                "hidden items-center justify-between py-3 lg:flex",
                 navClassName,
               )}
             >
-          <div className="flex items-center gap-6">
-            <NavbarLogo
-              logo={logo}
-              logoSlot={logoSlot}
-              logoClassName={logoClassName}
-              optixFlowConfig={optixFlowConfig}
-            />
+              <div className="flex items-center gap-6">
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
 
-            <TooltipProvider delayDuration={0}>
-              <NavigationMenu
-                className={cn("hidden lg:flex", navigationMenuClassName)}
-              >
-                <NavigationMenuList className="gap-1">
-                  {navItemsSlot
-                    ? navItemsSlot
-                    : renderNavItems?.map((item, index) => (
-                        <NavigationMenuItem key={index}>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <NavigationMenuLink asChild>
-                                <Pressable
-                                  href={item.url}
-                                  onClick={() => setActiveItem(item.title)}
-                                  className={cn(
-                                    "flex h-10 w-10 items-center justify-center rounded-md transition-colors",
-                                    activeItem === item.title
-                                      ? "bg-accent text-accent-foreground"
-                                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
-                                  )}
-                                >
-                                  <DynamicIcon name={item.icon} size={20} />
-                                  <span className="sr-only">{item.title}</span>
-                                </Pressable>
-                              </NavigationMenuLink>
-                            </TooltipTrigger>
-                            <TooltipContent side="bottom">
-                              <p>{item.title}</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </NavigationMenuItem>
-                      ))}
-                </NavigationMenuList>
-              </NavigationMenu>
-            </TooltipProvider>
-          </div>
-
-          <div
-            className={cn(
-              "hidden items-center gap-2 lg:flex",
-              actionsClassName,
-            )}
-          >
-            {renderAuthActions}
-          </div>
-
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="lg:hidden">
-              <Pressable
-                variant="ghost"
-                size="icon"
-                asButton
-                onClick={() => {}}
-              >
-                <DynamicIcon name="lucide/menu" size={20} />
-                <span className="sr-only">Toggle menu</span>
-              </Pressable>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[280px]">
-              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <div className="flex flex-col gap-4 pt-8">
-                {navItemsSlot
-                  ? navItemsSlot
-                  : renderNavItems?.map((item, index) => (
-                      <Pressable
-                        key={index}
-                        href={item.url}
-                        onClick={() => {
-                          setActiveItem(item.title);
-                          setIsOpen(false);
-                        }}
-                        className={cn(
-                          "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                          activeItem === item.title
-                            ? "bg-accent text-accent-foreground"
-                            : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
-                        )}
-                      >
-                        <DynamicIcon name={item.icon} size={18} />
-                        {item.title}
-                      </Pressable>
-                    ))}
-                <div className="mt-4 border-t pt-4">
-                  {authActions?.map((action, index) => (
-                    <Pressable
-                      key={index}
-                      href={action.href}
-                      className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {action.icon}
-                      {action.label}
-                    </Pressable>
-                  ))}
-                </div>
+                <TooltipProvider delayDuration={0}>
+                  <NavigationMenu
+                    className={cn("flex", navigationMenuClassName)}
+                  >
+                    <NavigationMenuList className="gap-1">
+                      {navItemsSlot
+                        ? navItemsSlot
+                        : renderNavItems?.map((item, index) => (
+                            <NavigationMenuItem key={index}>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <NavigationMenuLink asChild>
+                                    <Pressable
+                                      href={item.url}
+                                      onClick={() => setActiveItem(item.title)}
+                                      className={cn(
+                                        "flex h-10 w-10 items-center justify-center rounded-md transition-colors",
+                                        activeItem === item.title
+                                          ? "bg-accent text-accent-foreground"
+                                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+                                      )}
+                                    >
+                                      <DynamicIcon name={item.icon} size={20} />
+                                      <span className="sr-only">{item.title}</span>
+                                    </Pressable>
+                                  </NavigationMenuLink>
+                                </TooltipTrigger>
+                                <TooltipContent side="bottom">
+                                  <p>{item.title}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </NavigationMenuItem>
+                          ))}
+                    </NavigationMenuList>
+                  </NavigationMenu>
+                </TooltipProvider>
               </div>
-            </SheetContent>
-          </Sheet>
-        </nav>
+
+              <div
+                className={cn(
+                  "flex items-center gap-2",
+                  actionsClassName,
+                )}
+              >
+                {renderAuthActions}
+              </div>
+            </nav>
+
+            {/* Mobile Menu */}
+            <div className="block py-3 lg:hidden">
+              <div className="flex items-center justify-between">
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
+                <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                  <SheetTrigger asChild>
+                    <Pressable
+                      variant="outline"
+                      size="icon"
+                      asButton
+                      onClick={() => {}}
+                    >
+                      <DynamicIcon name="lucide/menu" size={16} />
+                    </Pressable>
+                  </SheetTrigger>
+                  <SheetContent className="overflow-y-auto">
+                    <SheetHeader>
+                      <SheetTitle>
+                        <NavbarLogo
+                          logo={logo}
+                          logoSlot={logoSlot}
+                          logoClassName={logoClassName}
+                          optixFlowConfig={optixFlowConfig}
+                        />
+                      </SheetTitle>
+                    </SheetHeader>
+                    <div className="flex flex-col gap-6 p-4">
+                      <div className="flex flex-col gap-4">
+                        {navItemsSlot
+                          ? navItemsSlot
+                          : renderNavItems?.map((item, index) => (
+                              <Pressable
+                                key={index}
+                                href={item.url}
+                                onClick={() => {
+                                  setActiveItem(item.title);
+                                  setIsOpen(false);
+                                }}
+                                className={cn(
+                                  "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                                  activeItem === item.title
+                                    ? "bg-accent text-accent-foreground"
+                                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+                                )}
+                              >
+                                <DynamicIcon name={item.icon} size={18} />
+                                {item.title}
+                              </Pressable>
+                            ))}
+                      </div>
+                      <div className="border-t pt-4">
+                        <div className="flex flex-col gap-3">
+                          {authActions?.map((action, index) => (
+                            <Pressable
+                              key={index}
+                              href={action.href}
+                              className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                              onClick={() => setIsOpen(false)}
+                            >
+                              {action.icon}
+                              {action.label}
+                            </Pressable>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
+            </div>
           </div>
         </div>
       </div>

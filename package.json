@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -3185,6 +3185,11 @@
       "types": "./dist/navbar-logo.d.ts",
       "import": "./dist/navbar-logo.js",
       "require": "./dist/navbar-logo.cjs"
+    },
+    "./components/navbar-mega-menus": {
+      "types": "./dist/navbar-mega-menus.d.ts",
+      "import": "./dist/navbar-mega-menus.js",
+      "require": "./dist/navbar-mega-menus.cjs"
     },
     "./components/navigation-menu": {
       "types": "./dist/navigation-menu.d.ts",

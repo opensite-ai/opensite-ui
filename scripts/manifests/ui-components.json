@@ -168,6 +168,13 @@
   }
 ,
   {
+    "path": "./components/navbar-mega-menus",
+    "types": "./dist/navbar-mega-menus.d.ts",
+    "import": "./dist/navbar-mega-menus.js",
+    "require": "./dist/navbar-mega-menus.cjs"
+  }
+,
+  {
     "path": "./components/navigation-menu",
     "types": "./dist/navigation-menu.d.ts",
     "import": "./dist/navigation-menu.js",
