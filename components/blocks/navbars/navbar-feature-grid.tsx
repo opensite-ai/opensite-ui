@@ -20,13 +20,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "../../ui/navigation-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "../../ui/sheet";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
 import { NavbarLogo } from "../../ui/navbar-logo";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -148,6 +142,7 @@ export const NavbarFeatureGrid = ({
   patternOpacity,
   optixFlowConfig,
 }: NavbarFeatureGridProps) => {
+  const [open, setOpen] = React.useState(false);
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
@@ -247,76 +242,67 @@ export const NavbarFeatureGrid = ({
               >
                 {renderAuthActions}
               </div>
-              <Sheet>
-                <SheetTrigger asChild className="lg:hidden">
-                  <Pressable
-                    variant="outline"
-                    size="icon"
-                    asButton
-                    onClick={() => {}}
-                  >
-                    <DynamicIcon name="lucide/menu" size={16} />
-                  </Pressable>
-                </SheetTrigger>
-                <SheetContent side="top" className="max-h-screen overflow-auto">
-                  <SheetHeader>
-                    <SheetTitle>
-                      <NavbarLogo
-                        logo={logo}
-                        logoSlot={logoSlot}
-                        logoClassName={logoClassName}
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                    </SheetTitle>
-                  </SheetHeader>
-                  <div className="flex flex-col p-4">
-                    {features && features.length > 0 && (
-                      <Accordion
-                        type="single"
-                        collapsible
-                        className="mt-4 mb-2"
-                      >
-                        <AccordionItem
-                          value="solutions"
-                          className="border-none"
-                        >
-                          <AccordionTrigger className="text-base hover:no-underline">
-                            Features
-                          </AccordionTrigger>
-                          <AccordionContent>
-                            <div className="grid md:grid-cols-2">
-                              {features.map((feature, index) => (
-                                <Pressable
-                                  href={feature.href}
-                                  key={index}
-                                  className="rounded-md p-3 transition-colors hover:bg-muted/70"
-                                >
-                                  <div>
-                                    <p className="mb-1 font-semibold">
-                                      {feature.title}
-                                    </p>
-                                    <p className="text-sm text-muted-foreground">
-                                      {feature.description}
-                                    </p>
-                                  </div>
-                                </Pressable>
-                              ))}
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      </Accordion>
-                    )}
-                    <div
-                      className={cn(
-                        "mt-6 flex flex-col gap-4",
-                        actionsClassName,
-                      )}
+              <Pressable
+                variant="outline"
+                size="icon"
+                asButton
+                className="lg:hidden"
+                onClick={() => setOpen(!open)}
+              >
+                <DynamicIcon name="lucide/menu" size={16} />
+              </Pressable>
+              <NavbarMobileMenu
+                open={open}
+                onClose={() => setOpen(false)}
+                title="Mobile Navigation"
+              >
+                <div className="max-w-screen-sm mx-auto">
+                  {features && features.length > 0 && (
+                    <Accordion
+                      type="single"
+                      collapsible
+                      className="mb-2"
                     >
-                      {renderAuthActions}
-                    </div>
+                      <AccordionItem
+                        value="solutions"
+                        className="border-none"
+                      >
+                        <AccordionTrigger className="text-base hover:no-underline">
+                          Features
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <div className="grid md:grid-cols-2">
+                            {features.map((feature, index) => (
+                              <Pressable
+                                href={feature.href}
+                                key={index}
+                                className="rounded-md p-3 transition-colors hover:bg-muted/70"
+                              >
+                                <div>
+                                  <p className="mb-1 font-semibold">
+                                    {feature.title}
+                                  </p>
+                                  <p className="text-sm text-muted-foreground">
+                                    {feature.description}
+                                  </p>
+                                </div>
+                              </Pressable>
+                            ))}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  )}
+                  <div
+                    className={cn(
+                      "mt-6 flex flex-col gap-4",
+                      actionsClassName,
+                    )}
+                  >
+                    {renderAuthActions}
                   </div>
-                </SheetContent>
-              </Sheet>
+                </div>
+              </NavbarMobileMenu>
             </nav>
           </div>
         </div>

@@ -22,7 +22,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -324,20 +324,22 @@ export const NavbarSidebarMobile = ({
                 {renderAuthActions()}
               </div>
 
-              <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                <SheetTrigger asChild className="lg:hidden">
-                  <Pressable
-                    variant="outline"
-                    size="icon"
-                    asButton
-                    onClick={() => {}}
-                  >
-                    <DynamicIcon name="lucide/menu" size={20} />
-                    <span className="sr-only">Toggle menu</span>
-                  </Pressable>
-                </SheetTrigger>
-                <SheetContent side="left" className="w-[300px] sm:w-[350px]">
-                  <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+              <Pressable
+                variant="outline"
+                size="icon"
+                asButton
+                className="lg:hidden"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <DynamicIcon name="lucide/menu" size={20} />
+                <span className="sr-only">Toggle menu</span>
+              </Pressable>
+              <NavbarMobileMenu
+                open={isOpen}
+                onClose={() => setIsOpen(false)}
+                title="Navigation Menu"
+              >
+                <div className="max-w-screen-sm mx-auto">
                   <div className="flex h-full flex-col">
                     <div className="flex items-center justify-between border-b pb-4">
                       <NavbarLogo
@@ -417,8 +419,8 @@ export const NavbarSidebarMobile = ({
                       </div>
                     </div>
                   </div>
-                </SheetContent>
-              </Sheet>
+                </div>
+              </NavbarMobileMenu>
             </nav>
           </div>
         </div>

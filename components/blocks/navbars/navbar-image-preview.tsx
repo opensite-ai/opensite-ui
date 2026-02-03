@@ -17,7 +17,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
-import { Sheet, SheetContent, SheetTitle, SheetClose } from "../../ui/sheet";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -584,40 +584,21 @@ const MobileNavigationMenu = ({
   }, [authActionsSlot, authActions]);
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetContent
-        aria-describedby={undefined}
-        side="top"
-        className="inset-0 z-600 h-dvh w-full bg-primary text-primary-foreground [&>button]:hidden"
-      >
-        <div className="flex-1 overflow-y-auto">
-          <div className="container pb-12">
-            <div className="absolute -m-px h-px w-px overflow-hidden border-0 mask-clip-border p-0 text-nowrap whitespace-nowrap">
-              <SheetTitle className="text-primary">
-                Mobile Navigation
-              </SheetTitle>
-            </div>
-            <div className="flex justify-end pt-5">
-              <SheetClose asChild>
-                <Pressable
-                  size="icon"
-                  asButton
-                  className="size-9 rounded-full bg-muted/20 hover:bg-muted/20"
-                  onClick={() => setOpen(false)}
-                >
-                  <DynamicIcon name="lucide/x" size={22} />
-                </Pressable>
-              </SheetClose>
-            </div>
-            <div className="flex h-full flex-col justify-between gap-30 pt-24">
-              {renderMobileNavigation}
-              {renderSocialLinks}
-              {renderMobileAuthActions}
-            </div>
-          </div>
+    <NavbarMobileMenu
+      open={open}
+      onClose={() => setOpen(false)}
+      title="Mobile Navigation"
+      className="bg-primary text-primary-foreground"
+      contentClassName="pt-24 pb-12"
+    >
+      <div className="max-w-screen-sm mx-auto">
+        <div className="flex h-full flex-col justify-between gap-30">
+          {renderMobileNavigation}
+          {renderSocialLinks}
+          {renderMobileAuthActions}
         </div>
-      </SheetContent>
-    </Sheet>
+      </div>
+    </NavbarMobileMenu>
   );
 };
 

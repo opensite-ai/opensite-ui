@@ -16,7 +16,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -341,25 +341,26 @@ export const NavbarStickyCompact = ({
                 {renderAuthActions}
               </div>
 
-              <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                <SheetTrigger asChild className="lg:hidden">
-                  <Pressable
-                    variant="ghost"
-                    size={isScrolled ? "sm" : "icon"}
-                    asButton
-                    onClick={() => {}}
-                    className="transition-all duration-300"
-                  >
-                    <DynamicIcon
-                      name="lucide/menu"
-                      size={isScrolled ? 18 : 20}
-                    />
-                    <span className="sr-only">Toggle menu</span>
-                  </Pressable>
-                </SheetTrigger>
-                <SheetContent side="right" className="w-[280px]">
-                  <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-                  <div className="flex flex-col gap-4 pt-8">
+              <Pressable
+                variant="ghost"
+                size={isScrolled ? "sm" : "icon"}
+                asButton
+                className="lg:hidden transition-all duration-300"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <DynamicIcon
+                  name="lucide/menu"
+                  size={isScrolled ? 18 : 20}
+                />
+                <span className="sr-only">Toggle menu</span>
+              </Pressable>
+              <NavbarMobileMenu
+                open={isOpen}
+                onClose={() => setIsOpen(false)}
+                title="Navigation Menu"
+              >
+                <div className="max-w-screen-sm mx-auto">
+                  <div className="flex flex-col gap-4">
                     {renderMobileMenu}
                     <div
                       className={cn(
@@ -370,8 +371,8 @@ export const NavbarStickyCompact = ({
                       {renderAuthActions}
                     </div>
                   </div>
-                </SheetContent>
-              </Sheet>
+                </div>
+              </NavbarMobileMenu>
             </nav>
           </div>
         </div>

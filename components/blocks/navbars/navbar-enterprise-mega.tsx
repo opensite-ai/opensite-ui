@@ -652,7 +652,7 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
         <div className="space-y-4">
           {item.solutionCards?.map((solution) => (
             <div key={solution.id} className="space-y-2">
-              <Pressable href={solution.href} className="text-sm font-medium">
+              <Pressable href={solution.href} className="mb-2 text-sm font-medium">
                 {solution.title}
               </Pressable>
               {solution.subpages.map((subpage) => (
@@ -776,10 +776,7 @@ const MobileNavigationMenu = ({
       contentClassName="pt-4 pb-20"
     >
       <div className="max-w-screen-sm mx-auto">
-        <div className={cn("flex flex-col gap-4", actionsClassName)}>
-          {renderActions}
-        </div>
-        <Accordion type="multiple" className="mt-6 w-full">
+        <Accordion type="multiple" className="w-full">
           {menuLinks.map((item, index) => {
             const hasDropdown = Boolean(item.layout);
 
@@ -815,6 +812,9 @@ const MobileNavigationMenu = ({
             );
           })}
         </Accordion>
+        <div className={cn("mt-6 flex flex-col gap-4", actionsClassName)}>
+          {renderActions}
+        </div>
       </div>
     </NavbarMobileMenu>
   );

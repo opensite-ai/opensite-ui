@@ -20,13 +20,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "../../ui/navigation-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "../../ui/sheet";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
 import { NavbarLogo } from "../../ui/navbar-logo";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -249,6 +243,7 @@ export const NavbarDropdownMenu = ({
   patternOpacity,
   optixFlowConfig,
 }: NavbarDropdownMenuProps) => {
+  const [open, setOpen] = React.useState(false);
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
@@ -355,47 +350,37 @@ export const NavbarDropdownMenu = ({
                   logoClassName={logoClassName}
                   optixFlowConfig={optixFlowConfig}
                 />
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <Pressable
-                      variant="outline"
-                      size="icon"
-                      asButton
-                      onClick={() => {}}
-                    >
-                      <DynamicIcon name="lucide/menu" size={16} />
-                    </Pressable>
-                  </SheetTrigger>
-                  <SheetContent className="overflow-y-auto">
-                    <SheetHeader>
-                      <SheetTitle>
-                        <NavbarLogo
-                          logo={logo}
-                          logoSlot={logoSlot}
-                          logoClassName={logoClassName}
-                          optixFlowConfig={optixFlowConfig}
-                        />
-                      </SheetTitle>
-                    </SheetHeader>
-                    <div className="flex flex-col gap-6 p-4">
-                      <Accordion
-                        type="single"
-                        collapsible
-                        className="flex w-full flex-col gap-4"
-                      >
-                        {renderMobileMenu}
-                      </Accordion>
-
-                      <div
-                        className={cn("flex flex-col gap-3", actionsClassName)}
-                      >
-                        {renderAuthActions}
-                      </div>
-                    </div>
-                  </SheetContent>
-                </Sheet>
+                <Pressable
+                  variant="outline"
+                  size="icon"
+                  asButton
+                  onClick={() => setOpen(!open)}
+                >
+                  <DynamicIcon name="lucide/menu" size={16} />
+                </Pressable>
               </div>
             </div>
+            <NavbarMobileMenu
+              open={open}
+              onClose={() => setOpen(false)}
+              title="Mobile Navigation"
+            >
+              <div className="max-w-screen-sm mx-auto">
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="flex w-full flex-col gap-4"
+                >
+                  {renderMobileMenu}
+                </Accordion>
+
+                <div
+                  className={cn("mt-6 flex flex-col gap-3", actionsClassName)}
+                >
+                  {renderAuthActions}
+                </div>
+              </div>
+            </NavbarMobileMenu>
           </div>
         </div>
       </div>

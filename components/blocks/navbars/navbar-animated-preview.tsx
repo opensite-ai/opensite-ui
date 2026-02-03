@@ -29,7 +29,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
-import { Sheet, SheetContent, SheetTitle } from "../../ui/sheet";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
 import { Separator } from "../../ui/separator";
 import { Badge } from "../../ui/badge";
 import { AspectRatio } from "../../ui/aspect-ratio";
@@ -352,6 +352,7 @@ export const NavbarAnimatedPreview = ({
             </NavigationMenu>
             <MobileNavigationMenu
               open={open}
+              setOpen={setOpen}
               menuLinks={menuLinks ?? []}
               actions={actions}
               actionsSlot={actionsSlot}
@@ -764,6 +765,7 @@ NavLink.displayName = "NavLink";
 
 interface MobileNavigationMenuProps {
   open: boolean;
+  setOpen: (open: boolean) => void;
   menuLinks: IMenuLink[];
   actions?: ActionConfig[];
   actionsSlot?: React.ReactNode;
@@ -771,6 +773,7 @@ interface MobileNavigationMenuProps {
 
 const MobileNavigationMenu = ({
   open,
+  setOpen,
   menuLinks,
   actions,
   actionsSlot,
@@ -808,31 +811,21 @@ const MobileNavigationMenu = ({
   }, [actionsSlot, actions]);
 
   return (
-    <Sheet open={open}>
-      <SheetContent
-        aria-describedby={undefined}
-        side="top"
-        className="inset-0 z-998 h-dvh w-full bg-background pt-20 [&>button]:hidden"
-      >
-        <div className="flex-1 overflow-y-auto">
-          <div className="container py-8">
-            <div className="absolute -m-px h-px w-px overflow-hidden border-0 mask-clip-border p-0 text-nowrap whitespace-nowrap">
-              <SheetTitle className="text-primary">
-                Mobile Navigation
-              </SheetTitle>
-            </div>
-            <div className="flex min-h-full flex-col gap-6">
-              <Accordion type="multiple" className="w-full">
-                {menuLinks.map((item, index) =>
-                  renderMobileMenuItem(item, index),
-                )}
-              </Accordion>
-              <div className="flex flex-col gap-2">{renderMobileActions}</div>
-            </div>
-          </div>
-        </div>
-      </SheetContent>
-    </Sheet>
+    <NavbarMobileMenu
+      open={open}
+      onClose={() => setOpen(false)}
+      title="Mobile Navigation"
+      contentClassName="pt-4 pb-20"
+    >
+      <div className="max-w-screen-sm mx-auto">
+        <Accordion type="multiple" className="w-full">
+          {menuLinks.map((item, index) =>
+            renderMobileMenuItem(item, index),
+          )}
+        </Accordion>
+        <div className="mt-6 flex flex-col gap-2">{renderMobileActions}</div>
+      </div>
+    </NavbarMobileMenu>
   );
 };
 

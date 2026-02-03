@@ -59,7 +59,9 @@ describe("NavbarDropdownMenu", () => {
 
   it("renders mobile menu trigger button", () => {
     const { container } = render(<NavbarDropdownMenu menu={mockMenu} />);
-    const menuButton = container.querySelector("[data-slot='sheet-trigger']");
+    // Look for button in mobile menu container (lg:hidden)
+    const mobileContainer = container.querySelector(".lg\\:hidden");
+    const menuButton = mobileContainer?.querySelector("button");
     expect(menuButton).toBeInTheDocument();
   });
 

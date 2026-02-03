@@ -12,13 +12,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "../../ui/navigation-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "../../ui/sheet";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
 import {
   Tooltip,
   TooltipContent,
@@ -304,72 +298,62 @@ export const NavbarIconLinks = ({
                   logoClassName={logoClassName}
                   optixFlowConfig={optixFlowConfig}
                 />
-                <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                  <SheetTrigger asChild>
-                    <Pressable
-                      variant="outline"
-                      size="icon"
-                      asButton
-                      onClick={() => {}}
-                    >
-                      <DynamicIcon name="lucide/menu" size={16} />
-                    </Pressable>
-                  </SheetTrigger>
-                  <SheetContent className="overflow-y-auto">
-                    <SheetHeader>
-                      <SheetTitle>
-                        <NavbarLogo
-                          logo={logo}
-                          logoSlot={logoSlot}
-                          logoClassName={logoClassName}
-                          optixFlowConfig={optixFlowConfig}
-                        />
-                      </SheetTitle>
-                    </SheetHeader>
-                    <div className="flex flex-col gap-6 p-4">
-                      <div className="flex flex-col gap-4">
-                        {navItemsSlot
-                          ? navItemsSlot
-                          : renderNavItems?.map((item, index) => (
-                              <Pressable
-                                key={index}
-                                href={item.url}
-                                onClick={() => {
-                                  setActiveItem(item.title);
-                                  setIsOpen(false);
-                                }}
-                                className={cn(
-                                  "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                                  activeItem === item.title
-                                    ? "bg-accent text-accent-foreground"
-                                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
-                                )}
-                              >
-                                <DynamicIcon name={item.icon} size={18} />
-                                {item.title}
-                              </Pressable>
-                            ))}
-                      </div>
-                      <div className="border-t pt-4">
-                        <div className="flex flex-col gap-3">
-                          {authActions?.map((action, index) => (
-                            <Pressable
-                              key={index}
-                              href={action.href}
-                              className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                              onClick={() => setIsOpen(false)}
-                            >
-                              {action.icon}
-                              {action.label}
-                            </Pressable>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </SheetContent>
-                </Sheet>
+                <Pressable
+                  variant="outline"
+                  size="icon"
+                  asButton
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  <DynamicIcon name="lucide/menu" size={16} />
+                </Pressable>
               </div>
             </div>
+            <NavbarMobileMenu
+              open={isOpen}
+              onClose={() => setIsOpen(false)}
+              title="Mobile Navigation"
+            >
+              <div className="max-w-screen-sm mx-auto">
+                <div className="flex flex-col gap-4">
+                  {navItemsSlot
+                    ? navItemsSlot
+                    : renderNavItems?.map((item, index) => (
+                        <Pressable
+                          key={index}
+                          href={item.url}
+                          onClick={() => {
+                            setActiveItem(item.title);
+                            setIsOpen(false);
+                          }}
+                          className={cn(
+                            "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                            activeItem === item.title
+                              ? "bg-accent text-accent-foreground"
+                              : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+                          )}
+                        >
+                          <DynamicIcon name={item.icon} size={18} />
+                          {item.title}
+                        </Pressable>
+                      ))}
+                </div>
+                <div className="border-t pt-4 mt-6">
+                  <div className="flex flex-col gap-3">
+                    {authActions?.map((action, index) => (
+                      <Pressable
+                        key={index}
+                        href={action.href}
+                        className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {action.icon}
+                        {action.label}
+                      </Pressable>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </NavbarMobileMenu>
           </div>
         </div>
       </div>

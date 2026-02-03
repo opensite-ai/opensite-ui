@@ -87,7 +87,7 @@ export const NavbarMobileMenu = ({
       {/* Scrollable content area */}
       <div
         className={cn(
-          "h-full overflow-y-auto pt-16 pb-8 px-4 sm:px-6",
+          "h-full overflow-y-auto pt-20 pb-8 px-4 sm:px-6",
           contentClassName,
         )}
       >

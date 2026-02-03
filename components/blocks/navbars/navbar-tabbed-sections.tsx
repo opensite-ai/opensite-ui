@@ -16,7 +16,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "../../ui/navigation-menu";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -207,7 +207,7 @@ export const NavbarTabbedSections = ({
                     <TabsTrigger
                       key={tab.id}
                       value={tab.id}
-                      className="rounded-none border-b-2 border-transparent px-4 pb-3 pt-2 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                      className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-b-primary hover:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                     >
                       <div className="flex items-center gap-2">
                         {tab.icon && <DynamicIcon name={tab.icon} size={16} />}
@@ -225,10 +225,10 @@ export const NavbarTabbedSections = ({
                         <NavigationMenuLink key={linkIndex} asChild>
                           <Pressable
                             href={link.url}
-                            className="flex items-start gap-3 rounded-md p-3 hover:bg-accent"
+                            className="flex items-start gap-3 rounded-md p-3 hover:bg-muted"
                           >
                             {link.icon && (
-                              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border bg-background">
+                              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-muted bg-background">
                                 <DynamicIcon name={link.icon} size={16} />
                               </div>
                             )}
@@ -237,9 +237,7 @@ export const NavbarTabbedSections = ({
                                 {link.title}
                               </div>
                               {link.description && (
-                                <p className="text-xs text-muted-foreground">
-                                  {link.description}
-                                </p>
+                                <p className="text-xs">{link.description}</p>
                               )}
                             </div>
                           </Pressable>
@@ -389,24 +387,23 @@ export const NavbarTabbedSections = ({
                 {renderAuthActions}
               </div>
 
-              <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                <SheetTrigger asChild className="lg:hidden">
-                  <Pressable
-                    variant="ghost"
-                    size="icon"
-                    asButton
-                    onClick={() => {}}
-                  >
-                    <DynamicIcon name="lucide/menu" size={20} />
-                    <span className="sr-only">Toggle menu</span>
-                  </Pressable>
-                </SheetTrigger>
-                <SheetContent
-                  side="right"
-                  className="w-[300px] overflow-y-auto"
-                >
-                  <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-                  <div className="flex flex-col gap-4 pt-8">
+              <Pressable
+                variant="ghost"
+                size="icon"
+                asButton
+                className="lg:hidden"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <DynamicIcon name="lucide/menu" size={20} />
+                <span className="sr-only">Toggle menu</span>
+              </Pressable>
+              <NavbarMobileMenu
+                open={isOpen}
+                onClose={() => setIsOpen(false)}
+                title="Navigation Menu"
+              >
+                <div className="max-w-screen-sm mx-auto">
+                  <div className="flex flex-col gap-4">
                     {renderMobileMenu}
                     <div
                       className={cn(
@@ -417,8 +414,8 @@ export const NavbarTabbedSections = ({
                       {renderAuthActions}
                     </div>
                   </div>
-                </SheetContent>
-              </Sheet>
+                </div>
+              </NavbarMobileMenu>
             </nav>
           </div>
         </div>
