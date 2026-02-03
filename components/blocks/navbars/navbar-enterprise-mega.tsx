@@ -561,9 +561,9 @@ const DesktopMenuItem = ({
         <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {item.label}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="!rounded-xl !border-0 !p-0 overflow-visible">
-          <div className="w-dvw max-w-screen-2xl px-8 pt-6 pb-12">
-            <div className="container mx-auto">
+        <NavigationMenuContent className="!rounded-xl !border-0 !p-0">
+          <div className="w-screen">
+            <div className="mx-auto max-w-7xl px-6 py-8">
               {renderDropdownContent(
                 { ...item, layout: effectiveLayout },
                 optixFlowConfig,
@@ -652,41 +652,41 @@ const SolutionsMenu = ({
   featuredHeroCard,
   optixFlowConfig,
 }: SolutionsMenuProps) => (
-  <div className="grid max-w-full gap-8 sm:grid-cols-2">
+  <div className="grid gap-6 sm:grid-cols-2">
     {featuredHeroCard && (
       <Pressable
         href={featuredHeroCard.href}
         className={cn(
-          "group relative flex h-full flex-row overflow-hidden rounded-lg px-0 pt-8 text-primary-foreground lg:rounded-xl lg:px-6",
+          "group relative flex h-full overflow-hidden rounded-lg text-primary-foreground",
           featuredHeroCard.variant === "accent"
             ? "bg-accent text-accent-foreground"
             : "bg-primary",
         )}
       >
-        <div className="relative flex w-full flex-col space-y-8 text-left md:space-y-6 lg:w-full lg:flex-row lg:justify-between lg:space-y-0 lg:space-x-6 xl:space-x-8">
-          <div className="relative flex flex-col px-6 lg:mb-6 lg:px-0 lg:flex-1">
+        <div className="flex w-full flex-col items-start gap-4 p-6 lg:flex-row lg:items-center lg:gap-6">
+          <div className="flex flex-1 flex-col justify-center">
             {featuredHeroCard.subtitle && (
-              <span className="mb-4 text-xs font-medium tracking-wider uppercase md:mb-6">
+              <span className="mb-3 text-xs font-medium tracking-wider uppercase">
                 {featuredHeroCard.subtitle}
               </span>
             )}
-            <div className="mt-auto flex items-center space-x-1 text-base font-semibold">
+            <div className="flex items-center gap-2 text-base font-semibold">
               {featuredHeroCard.title}
               <DynamicIcon
                 name="lucide/arrow-right"
                 size={18}
-                className="ml-1 transition-transform group-hover:translate-x-1"
+                className="transition-transform group-hover:translate-x-1"
               />
             </div>
-            <p className="mt-3 text-sm leading-relaxed text-primary-foreground/85">
+            <p className="mt-2 text-sm leading-relaxed text-primary-foreground/85">
               {featuredHeroCard.description}
             </p>
           </div>
-          <div className="relative aspect-2/1 overflow-clip rounded-t pl-6 lg:max-w-64 lg:shrink-0 lg:pl-0 xl:max-w-72">
+          <div className="relative w-full shrink-0 overflow-hidden rounded lg:w-48 xl:w-56">
             <Img
               src={featuredHeroCard.image}
               alt={featuredHeroCard.title}
-              className="aspect-2/1 h-full w-full translate-y-px object-cover object-center"
+              className="aspect-video w-full object-cover"
               optixFlowConfig={optixFlowConfig}
             />
           </div>
@@ -695,18 +695,18 @@ const SolutionsMenu = ({
     )}
 
     {platformItems.length > 0 && (
-      <div className="order-last mt-3 sm:order-0 sm:mt-0 sm:py-2 md:p-6">
-        <div className="mb-4 text-left leading-none md:col-span-2 lg:col-span-4 lg:mb-6">
-          <strong className="text-left text-xs font-medium tracking-wider text-muted-foreground uppercase">
+      <div>
+        <div className="mb-4 text-left">
+          <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
             Developer Platform
           </strong>
         </div>
-        <div className="grid w-full gap-4 lg:grid-cols-2">
+        <div className="grid gap-3 lg:grid-cols-2">
           {platformItems.map((technology) => (
             <NavigationMenuLink
               key={technology.id}
               href={technology.href}
-              className="group flex w-full flex-row items-center gap-4 hover:bg-muted rounded-lg p-2 -ml-2"
+              className="group -ml-2 flex items-center gap-3 rounded-lg p-2 hover:bg-muted"
             >
               <DynamicIcon name={technology.icon} size={16} />
               <div className="flex-1 text-sm font-medium">
@@ -724,25 +724,25 @@ const SolutionsMenu = ({
     )}
 
     {solutionCards.length > 0 && (
-      <div className="col-span-full grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+      <div className="col-span-full mt-2 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {solutionCards.map((solution) => (
           <div
             key={solution.id}
-            className="flex flex-col rounded-md border border-border p-5"
+            className="flex flex-col rounded-lg border border-border p-4"
           >
-            <div className="border-b border-border pb-4">
+            <div className="border-b border-border pb-3">
               <Pressable
                 href={solution.href}
                 className="group flex flex-col text-left"
               >
-                <div className="flex items-center">
+                <div className="flex items-center gap-1">
                   <strong className="text-sm font-medium">
                     {solution.title}
                   </strong>
                   <DynamicIcon
                     name="lucide/arrow-right"
                     size={16}
-                    className="ml-1 transition-transform group-hover:translate-x-1"
+                    className="transition-transform group-hover:translate-x-1"
                   />
                 </div>
                 <p className="mt-1 text-xs text-muted-foreground">
@@ -750,12 +750,12 @@ const SolutionsMenu = ({
                 </p>
               </Pressable>
             </div>
-            <menu className="mt-6 grid w-full gap-y-4">
+            <menu className="mt-4 grid gap-3">
               {solution.subpages.map((subpage) => (
                 <NavigationMenuLink
                   key={subpage.id}
                   href={subpage.href}
-                  className="group flex w-full flex-row items-center space-x-4 text-left hover:bg-muted rounded-lg p-2 -ml-2 lg:space-x-4 lg:border-0"
+                  className="group -ml-2 flex items-center gap-3 rounded-lg p-2 text-left hover:bg-muted"
                 >
                   <DynamicIcon name={subpage.icon} size={16} />
                   <div className="flex-1 text-sm font-medium">
@@ -787,62 +787,60 @@ const ProductsMenu = ({
   featuredHeroCard,
   optixFlowConfig,
 }: ProductsMenuProps) => (
-  <div className="grid max-w-full gap-y-12 lg:flex lg:space-x-8">
+  <div className="flex flex-col gap-8 lg:flex-row">
     {featuredHeroCard && (
-      <div className="w-full shrink-0 lg:max-w-[24rem]">
+      <div className="w-full shrink-0 lg:w-80">
         <Pressable
           href={featuredHeroCard.href}
           className={cn(
-            "group relative flex h-full flex-row overflow-hidden rounded-lg px-0 text-primary-foreground lg:rounded-xl",
+            "group relative flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
             featuredHeroCard.variant === "accent"
               ? "bg-accent text-accent-foreground"
               : "bg-primary",
           )}
         >
-          <div className="relative z-10 flex w-full flex-col text-left">
-            <div className="relative flex aspect-2/1 max-h-48 w-full flex-1 justify-center">
-              <Img
-                src={featuredHeroCard.image}
-                alt={featuredHeroCard.title}
-                className="h-full w-full object-cover object-center"
-                optixFlowConfig={optixFlowConfig}
+          <div className="relative aspect-video w-full overflow-hidden">
+            <Img
+              src={featuredHeroCard.image}
+              alt={featuredHeroCard.title}
+              className="h-full w-full object-cover"
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
+          <div className="flex flex-col p-6">
+            <div className="flex items-center gap-2 text-base font-semibold">
+              {featuredHeroCard.title}
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={18}
+                className="transition-transform group-hover:translate-x-1"
               />
             </div>
-            <div className="relative z-20 flex flex-col rounded-b-xl bg-primary p-6">
-              <div className="flex items-center space-x-1 text-base font-semibold">
-                {featuredHeroCard.title}
-                <DynamicIcon
-                  name="lucide/arrow-right"
-                  size={18}
-                  className="ml-1 transition-transform group-hover:translate-x-1"
-                />
-              </div>
-              <p className="mt-3 text-sm leading-relaxed text-primary-foreground/85">
-                {featuredHeroCard.description}
-              </p>
-            </div>
+            <p className="mt-2 text-sm leading-relaxed text-primary-foreground/85">
+              {featuredHeroCard.description}
+            </p>
           </div>
         </Pressable>
       </div>
     )}
 
     {productCategories.length > 0 && (
-      <div className="grid w-full gap-y-12 overflow-hidden lg:gap-y-6">
+      <div className="flex flex-1 flex-col gap-8">
         {productCategories.map((category) => (
-          <div key={category.title} className="grid w-full gap-y-2 lg:gap-y-6">
-            <div className="border-border text-left lg:border-b lg:pb-3">
-              <strong className="text-left text-xs font-medium tracking-wider text-muted-foreground uppercase">
+          <div key={category.title} className="flex flex-col gap-4">
+            <div className="border-b border-border pb-2 text-left">
+              <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
                 {category.title}
               </strong>
             </div>
-            <menu className="grid w-full auto-cols-fr md:grid-cols-3 md:gap-x-5 lg:gap-y-7">
+            <menu className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {category.products.map((product) => (
                 <NavigationMenuLink
                   key={product.id}
                   href={product.href}
-                  className="group flex w-full flex-row items-center space-x-4 border-b border-border py-5 text-left hover:bg-muted rounded-lg px-2 -ml-2 sm:py-7 lg:border-0 lg:py-2"
+                  className="group -ml-2 flex items-center gap-4 rounded-lg p-2 text-left hover:bg-muted"
                 >
-                  <div className="relative flex aspect-square w-16 shrink-0 items-center justify-center overflow-clip rounded md:size-16">
+                  <div className="relative flex size-14 shrink-0 items-center justify-center overflow-hidden rounded">
                     <Img
                       src={product.image}
                       alt={product.title}
@@ -854,7 +852,7 @@ const ProductsMenu = ({
                     <div className="text-sm font-medium">
                       {product.title}
                     </div>
-                    <p className="mt-1 text-xs text-muted-foreground">
+                    <p className="mt-0.5 text-xs text-muted-foreground">
                       {product.description}
                     </p>
                   </div>
@@ -886,70 +884,68 @@ const GlobalMenu = ({
   featuredHeroCard,
   optixFlowConfig,
 }: GlobalMenuProps) => (
-  <div className="max-w-full overflow-hidden">
-    <div className="space-y-6 lg:flex lg:space-y-0 lg:space-x-8">
+  <div>
+    <div className="flex flex-col gap-6 lg:flex-row">
       {featuredHeroCard && (
-        <div className="w-full shrink-0 lg:max-w-[18rem]">
+        <div className="w-full shrink-0 lg:w-72">
           <Pressable
             href={featuredHeroCard.href}
             className={cn(
-              "group relative flex h-full flex-row overflow-hidden rounded-lg p-0 text-primary-foreground lg:rounded-xl",
+              "group relative flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
               featuredHeroCard.variant === "accent"
                 ? "bg-accent text-accent-foreground"
                 : "bg-primary",
             )}
           >
-            <div className="relative z-10 flex w-full flex-col-reverse text-left lg:flex-col">
-              <div className="relative flex aspect-4/3 max-h-48 w-full flex-1 justify-center">
-                <Img
-                  src={featuredHeroCard.image}
-                  alt={featuredHeroCard.title}
-                  className="h-full w-full object-cover object-center"
-                  optixFlowConfig={optixFlowConfig}
+            <div className="relative aspect-[4/3] w-full overflow-hidden">
+              <Img
+                src={featuredHeroCard.image}
+                alt={featuredHeroCard.title}
+                className="h-full w-full object-cover"
+                optixFlowConfig={optixFlowConfig}
+              />
+            </div>
+            <div className="flex flex-col p-6">
+              <div className="flex items-center gap-2 text-base font-semibold">
+                {featuredHeroCard.title}
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={18}
+                  className="transition-transform group-hover:translate-x-1"
                 />
               </div>
-              <div className="relative z-20 flex flex-col rounded-b-xl bg-primary p-6">
-                <div className="flex items-center space-x-1 text-base font-semibold">
-                  {featuredHeroCard.title}
-                  <DynamicIcon
-                    name="lucide/arrow-right"
-                    size={18}
-                    className="ml-1 transition-transform group-hover:translate-x-1"
-                  />
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-primary-foreground/85">
-                  {featuredHeroCard.description}
-                </p>
-              </div>
+              <p className="mt-2 text-sm leading-relaxed text-primary-foreground/85">
+                {featuredHeroCard.description}
+              </p>
             </div>
           </Pressable>
         </div>
       )}
 
       {featureCategories.length > 0 && (
-        <div className="grid w-full gap-y-12 overflow-hidden lg:gap-y-6">
+        <div className="flex flex-1 flex-col gap-8">
           {featureCategories.map((category) => (
-            <div key={category.title} className="grid w-full gap-y-2 lg:gap-y-6">
-              <div className="border-border text-left lg:border-b lg:pb-3">
-                <strong className="text-left text-xs font-medium tracking-wider text-muted-foreground uppercase">
+            <div key={category.title} className="flex flex-col gap-4">
+              <div className="border-b border-border pb-2 text-left">
+                <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
                   {category.title}
                 </strong>
               </div>
-              <menu className="grid w-full auto-cols-fr md:grid-cols-3 md:gap-x-6 lg:gap-y-6">
+              <menu className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {category.features.map((feature) => (
                   <NavigationMenuLink
                     key={feature.id}
                     href={feature.href}
-                    className="group flex w-full flex-row items-center space-x-4 border-b border-border py-5 text-left hover:bg-muted rounded-lg px-2 -ml-2 sm:py-7 lg:border-0 lg:py-0"
+                    className="group -ml-2 flex items-center gap-3 rounded-lg p-2 text-left hover:bg-muted"
                   >
-                    <div className="flex aspect-square size-9 shrink-0 items-center justify-center">
+                    <div className="flex size-9 shrink-0 items-center justify-center">
                       <DynamicIcon name={feature.icon} size={20} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium">
                         {feature.title}
                       </div>
-                      <p className="mt-1 text-xs text-muted-foreground">
+                      <p className="mt-0.5 text-xs text-muted-foreground">
                         {feature.description}
                       </p>
                     </div>
@@ -969,26 +965,26 @@ const GlobalMenu = ({
 
     {regions.length > 0 && (
       <div className="mt-8">
-        <div className="mb-6 border-border pb-1 text-left lg:border-b">
-          <strong className="text-left text-xs font-medium tracking-wider text-muted-foreground uppercase">
+        <div className="mb-4 border-b border-border pb-2 text-left">
+          <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
             Popular Locations
           </strong>
         </div>
-        <div className="grid w-full gap-6 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-4">
           {regions.map((region) => (
             <div
               key={region.title}
-              className="flex w-full flex-col space-y-6 rounded-md border border-border p-6 lg:border-0 lg:p-0"
+              className="flex flex-col gap-4"
             >
-              <div className="text-left text-xs text-muted-foreground">
+              <div className="text-left text-xs font-medium text-muted-foreground">
                 {region.title}
               </div>
-              <menu className="grid w-full gap-y-3 border-t border-border pt-6 lg:border-0 lg:pt-0">
+              <menu className="grid gap-2">
                 {region.locations.map((location) => (
                   <NavigationMenuLink
                     key={location.title}
                     href={location.href}
-                    className="group flex w-full flex-row items-center space-x-4 text-left hover:bg-muted rounded-lg p-2 -ml-2 lg:space-x-4 lg:border-0 lg:py-0"
+                    className="group -ml-2 flex items-center gap-3 rounded-lg p-2 text-left hover:bg-muted"
                   >
                     <div className="flex size-4 shrink-0 items-center justify-center">
                       {location.icon}
@@ -1023,67 +1019,60 @@ const PartnersMenu = ({
   featuredHeroCard,
   optixFlowConfig,
 }: PartnersMenuProps) => (
-  <div className="grid max-w-full gap-y-6 md:grid-cols-2 md:gap-x-6 lg:grid-cols-4">
+  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-[2fr_1fr]">
     {featuredHeroCard && (
-      <div className="md:col-span-2">
+      <div>
         <Pressable
           href={featuredHeroCard.href}
           className={cn(
-            "group relative flex h-full flex-row overflow-hidden rounded-lg p-0 text-primary-foreground lg:rounded-xl",
+            "group relative flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
             featuredHeroCard.variant === "accent"
               ? "bg-accent text-accent-foreground"
               : "bg-primary",
           )}
         >
-          <div className="relative z-10 flex w-full flex-col-reverse text-left">
-            <div className="relative z-20 flex flex-col px-6 pt-6 pb-56 md:pt-40 md:pb-6">
-              <div className="mt-auto flex items-center space-x-1 text-base font-semibold">
-                {featuredHeroCard.title}
-                <DynamicIcon
-                  name="lucide/arrow-right"
-                  size={18}
-                  className="ml-1 transition-transform group-hover:translate-x-1"
-                />
-              </div>
-              <p className="mt-3 text-sm leading-relaxed">{featuredHeroCard.description}</p>
-            </div>
-            <div
+          <div className="relative aspect-video w-full overflow-hidden">
+            <Img
+              src={featuredHeroCard.image}
+              alt={featuredHeroCard.title}
               className={cn(
-                "absolute inset-0 top-[32%] md:top-0",
-                featuredHeroCard.imagePosition === "background" &&
-                  "bg-accent invert",
+                "h-full w-full object-cover",
+                featuredHeroCard.imagePosition === "background" && "invert"
               )}
-            >
-              <Img
-                src={featuredHeroCard.image}
-                alt={featuredHeroCard.title}
-                className="object-fit h-full w-full object-top-right opacity-100 md:h-2/3 md:object-top"
-                optixFlowConfig={optixFlowConfig}
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
+          <div className="flex flex-col p-6">
+            <div className="flex items-center gap-2 text-base font-semibold">
+              {featuredHeroCard.title}
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={18}
+                className="transition-transform group-hover:translate-x-1"
               />
             </div>
+            <p className="mt-2 text-sm leading-relaxed">{featuredHeroCard.description}</p>
           </div>
         </Pressable>
       </div>
     )}
 
     {partnerCards.length > 0 && (
-      <div className="grid w-full gap-4 md:col-span-2 lg:col-span-2">
+      <div className="flex flex-col gap-4">
         {partnerCards.map((card) => (
           <NavigationMenuLink
             key={card.title}
             href={card.href}
-            className="group flex w-full flex-row items-center rounded-lg border border-border hover:bg-muted lg:rounded-xl"
+            className="group flex items-start gap-4 rounded-lg border border-border p-4 hover:bg-muted"
           >
-            <div className="flex w-full items-start p-6 text-left">
-              <DynamicIcon name={card.icon} size={32} className="shrink-0" />
-              <div className="ml-4 flex-1 min-w-0">
-                <div className="mt-auto mb-1 text-sm font-bold">
-                  {card.title}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  {card.description}
-                </p>
+            <DynamicIcon name={card.icon} size={32} className="shrink-0" />
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-bold">
+                {card.title}
               </div>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                {card.description}
+              </p>
             </div>
           </NavigationMenuLink>
         ))}
@@ -1103,65 +1092,62 @@ const ResourcesMenu = ({
   topicGroups,
   featuredHeroCard,
 }: ResourcesMenuProps) => (
-  <div className="grid max-w-full gap-8 lg:grid-cols-3">
+  <div className="grid gap-6 lg:grid-cols-[280px_1fr_200px]">
     {featuredHeroCard && (
-      <div className="lg:col-span-1">
+      <div>
         <Pressable
           href={featuredHeroCard.href}
           className={cn(
-            "group relative flex h-full flex-row overflow-hidden rounded-lg p-0 text-primary-foreground lg:rounded-xl",
+            "group relative flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
             featuredHeroCard.variant === "accent"
               ? "bg-accent text-accent-foreground"
               : "bg-primary",
           )}
         >
-          <div className="relative z-10 flex w-full flex-col-reverse text-left">
-            <div className="relative z-20 flex flex-col px-6 pt-6 pb-56 md:pt-40 md:pb-6">
-              <div className="mt-auto flex items-center space-x-1 text-base font-semibold">
-                {featuredHeroCard.title}
-                <DynamicIcon
-                  name="lucide/arrow-right"
-                  size={18}
-                  className="ml-1 transition-transform group-hover:translate-x-1"
-                />
-              </div>
-              <p className="mt-3 text-sm leading-relaxed">{featuredHeroCard.description}</p>
-            </div>
-            <div className="absolute inset-0">
-              <Img
-                src={featuredHeroCard.image}
-                alt={featuredHeroCard.title}
-                className="h-full w-full object-cover object-center invert"
+          <div className="relative aspect-[4/3] w-full overflow-hidden">
+            <Img
+              src={featuredHeroCard.image}
+              alt={featuredHeroCard.title}
+              className="h-full w-full object-cover invert"
+            />
+          </div>
+          <div className="flex flex-col p-6">
+            <div className="flex items-center gap-2 text-base font-semibold">
+              {featuredHeroCard.title}
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={18}
+                className="transition-transform group-hover:translate-x-1"
               />
             </div>
-            <div className="absolute inset-x-0 top-0 z-10 h-[60%] bg-[linear-gradient(hsl(var(--color-primary))_50%,transparent)] md:top-auto md:bottom-[-10%] md:h-[50%] md:bg-[linear-gradient(transparent,hsl(var(--color-primary))_50%)]"></div>
+            <p className="mt-2 text-sm leading-relaxed">{featuredHeroCard.description}</p>
           </div>
         </Pressable>
       </div>
     )}
 
     {resourceItems.length > 0 && (
-      <div className={cn(featuredHeroCard ? "lg:col-span-1" : "lg:col-span-2", "overflow-hidden")}>
-        <div className="mb-6 text-left">
+      <div>
+        <div className="mb-4 text-left">
           <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
             Resources
           </strong>
         </div>
-        <div className="grid w-full gap-4 md:grid-cols-2 lg:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {resourceItems.map((resource) => (
             <NavigationMenuLink
               key={resource.id}
               href={resource.href}
-              className="group flex w-full flex-row items-start gap-4 rounded-lg border border-border p-4 hover:bg-muted"
+              className="group -ml-2 flex items-start gap-3 rounded-lg border border-border p-3 hover:bg-muted"
             >
               <DynamicIcon
                 name={resource.icon}
                 size={20}
-                className="mt-1 shrink-0"
+                className="mt-0.5 shrink-0"
               />
               <div className="flex-1 min-w-0">
                 <div className="text-sm font-medium">{resource.title}</div>
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-0.5 text-xs text-muted-foreground">
                   {resource.description}
                 </p>
               </div>
@@ -1172,20 +1158,20 @@ const ResourcesMenu = ({
     )}
 
     {topicGroups.length > 0 && (
-      <div className="lg:col-span-1">
+      <div>
         {topicGroups.map((group) => (
-          <div key={group.title} className="mb-8 last:mb-0">
-            <div className="mb-4 text-left">
+          <div key={group.title} className="mb-6 last:mb-0">
+            <div className="mb-3 text-left">
               <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
                 {group.title}
               </strong>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2">
               {group.topics.map((topic) => (
                 <NavigationMenuLink
                   key={topic.id}
                   href={topic.href}
-                  className="group flex flex-row items-center gap-3 hover:bg-muted rounded-lg p-2 -ml-2"
+                  className="group -ml-2 flex items-center gap-2 rounded-lg p-2 hover:bg-muted"
                 >
                   <DynamicIcon name={topic.icon} size={16} className="shrink-0" />
                   <span className="flex-1 text-sm font-medium">{topic.title}</span>
