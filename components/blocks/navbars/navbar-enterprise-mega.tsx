@@ -564,13 +564,11 @@ const DesktopMenuItem = ({
         <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {item.label}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="!rounded-xl !border-0">
-          <div className="w-full max-w-6xl p-6">
-            {renderDropdownContent(
-              { ...item, layout: effectiveLayout },
-              optixFlowConfig,
-            )}
-          </div>
+        <NavigationMenuContent className="!rounded-xl !border-0 !p-6">
+          {renderDropdownContent(
+            { ...item, layout: effectiveLayout },
+            optixFlowConfig,
+          )}
         </NavigationMenuContent>
       </NavigationMenuItem>
     );
@@ -653,7 +651,7 @@ const SolutionsMenu = ({
   featuredHeroCard,
   optixFlowConfig,
 }: SolutionsMenuProps) => (
-  <div className="grid grid-cols-2 gap-4">
+  <div className="grid min-w-[1100px] grid-cols-2 gap-4">
     {featuredHeroCard && (
       <div className="col-span-1">
         <Pressable
@@ -780,7 +778,7 @@ const ProductsMenu = ({
   featuredHeroCard,
   optixFlowConfig,
 }: ProductsMenuProps) => (
-  <div className="grid grid-cols-[320px_1fr] gap-6">
+  <div className="grid min-w-[1000px] grid-cols-[320px_1fr] gap-6">
     {featuredHeroCard && (
       <div className="col-span-1">
         <Pressable
@@ -872,7 +870,7 @@ const GlobalMenu = ({
   featuredHeroCard,
   optixFlowConfig,
 }: GlobalMenuProps) => (
-  <div>
+  <div className="min-w-[1000px]">
     <div className="grid grid-cols-[280px_1fr] gap-6">
       {featuredHeroCard && (
         <div className="col-span-1">
@@ -997,7 +995,7 @@ const PartnersMenu = ({
   featuredHeroCard,
   optixFlowConfig,
 }: PartnersMenuProps) => (
-  <div className="grid grid-cols-[2fr_1fr] gap-6">
+  <div className="grid min-w-[900px] grid-cols-[2fr_1fr] gap-6">
     {featuredHeroCard && (
       <div className="col-span-1">
         <Pressable
@@ -1070,7 +1068,7 @@ const ResourcesMenu = ({
   topicGroups,
   featuredHeroCard,
 }: ResourcesMenuProps) => (
-  <div className="grid grid-cols-[280px_1fr_220px] gap-6">
+  <div className="grid min-w-[1000px] grid-cols-[280px_1fr_220px] gap-6">
     {featuredHeroCard && (
       <div className="col-span-1">
         <Pressable
