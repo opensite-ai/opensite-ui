@@ -1,11 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { useState, useRef, useEffect , useMemo} from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import {
   NavigationMenu,
@@ -15,7 +14,6 @@ import {
 } from "../../ui/navigation-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { NavbarLogo } from "../../ui/navbar-logo";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -225,9 +223,7 @@ const MobileNav = ({
               </li>
             ))}
             {(actionsSlot || (actions && actions.length > 0)) && (
-              <li className="flex flex-col gap-3 px-7 py-2">
-                {renderActions}
-              </li>
+              <li className="flex flex-col gap-3 px-7 py-2">{renderActions}</li>
             )}
           </ul>
         </PopoverContent>
@@ -252,10 +248,7 @@ export const NavbarSimpleLinks = ({
   navigationMenuClassName,
   menuListClassName,
   actionsClassName,
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   logoClassName,
   navItems,
@@ -375,55 +368,52 @@ export const NavbarSimpleLinks = ({
         <div className={navWrapperClasses}>
           <div className={innerContainerClasses}>
             <nav
-              className={cn(
-                "flex items-center justify-between",
-                navClassName,
-              )}
+              className={cn("flex items-center justify-between", navClassName)}
             >
-          <NavbarLogo
-            logo={logo}
-            logoSlot={logoSlot}
-            logoClassName={logoClassName}
-            optixFlowConfig={optixFlowConfig}
-          />
+              <NavbarLogo
+                logo={logo}
+                logoSlot={logoSlot}
+                logoClassName={logoClassName}
+                optixFlowConfig={optixFlowConfig}
+              />
 
-          <NavigationMenu
-            className={cn("hidden lg:block", navigationMenuClassName)}
-          >
-            <NavigationMenuList
-              ref={menuRef}
-              className={cn(
-                "flex items-center gap-6 rounded-4xl px-8 py-3",
-                menuListClassName,
-              )}
-            >
-              {renderNavItems}
-              <div
-                ref={indicatorRef}
-                className="absolute bottom-2 flex h-1 items-center justify-center px-2 transition-all duration-300"
+              <NavigationMenu
+                className={cn("hidden lg:block", navigationMenuClassName)}
               >
-                <div className="h-0.5 w-full rounded-t-none bg-foreground transition-all duration-300" />
+                <NavigationMenuList
+                  ref={menuRef}
+                  className={cn(
+                    "flex items-center gap-6 rounded-4xl px-8 py-3",
+                    menuListClassName,
+                  )}
+                >
+                  {renderNavItems}
+                  <div
+                    ref={indicatorRef}
+                    className="absolute bottom-2 flex h-1 items-center justify-center px-2 transition-all duration-300"
+                  >
+                    <div className="h-0.5 w-full rounded-t-none bg-foreground transition-all duration-300" />
+                  </div>
+                </NavigationMenuList>
+              </NavigationMenu>
+
+              <MobileNav
+                navItems={navItems ?? []}
+                activeItem={activeItem}
+                setActiveItem={setActiveItem}
+                actions={actions}
+                actionsSlot={actionsSlot}
+              />
+
+              <div
+                className={cn(
+                  "hidden items-center gap-2 lg:flex",
+                  actionsClassName,
+                )}
+              >
+                {renderActions}
               </div>
-            </NavigationMenuList>
-          </NavigationMenu>
-
-          <MobileNav
-            navItems={navItems ?? []}
-            activeItem={activeItem}
-            setActiveItem={setActiveItem}
-            actions={actions}
-            actionsSlot={actionsSlot}
-          />
-
-          <div
-            className={cn(
-              "hidden items-center gap-2 lg:flex",
-              actionsClassName,
-            )}
-          >
-            {renderActions}
-          </div>
-        </nav>
+            </nav>
           </div>
         </div>
       </div>

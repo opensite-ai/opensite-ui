@@ -5,7 +5,6 @@ import { Fragment, useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import {
   Accordion,
@@ -20,14 +19,9 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
-import { Sheet, SheetContent, SheetTitle } from "../../ui/sheet";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
 import { NavbarLogo } from "../../ui/navbar-logo";
-import {
-  logoPlaceholders,
-  imagePlaceholders,
-} from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -390,10 +384,7 @@ export const NavbarEnterpriseMega = ({
   navigationMenuClassName,
   actionsClassName,
   logoClassName,
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   menuLinks,
   actions,
@@ -495,52 +486,54 @@ export const NavbarEnterpriseMega = ({
                   optixFlowConfig={optixFlowConfig}
                 />
                 <NavigationMenu
-              className={cn(
-                "hidden lg:flex [&>div:last-child]:left-1/2 [&>div:last-child]:-translate-x-1/2",
-                navigationMenuClassName
-              )}
-              viewport={true}
-            >
-              <NavigationMenuList>
-                {menuLinks?.map((item, index) => (
-                  <DesktopMenuItem
-                    key={`desktop-link-${index}`}
-                    item={item}
-                    index={index}
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
-            <div className={cn("flex items-center gap-3", actionsClassName)}>
-              <div className="hidden lg:flex lg:items-center lg:gap-3">
-                {renderActions}
-              </div>
-              <div className="lg:hidden">
-                <Pressable
-                  className="size-11"
-                  variant="ghost"
-                  size="icon"
-                  asButton
-                  onClick={handleMobileMenu}
-                >
-                  {open ? (
-                    <DynamicIcon
-                      name="lucide/x"
-                      size={22}
-                      className="stroke-foreground"
-                    />
-                  ) : (
-                    <DynamicIcon
-                      name="lucide/menu"
-                      size={22}
-                      className="stroke-foreground"
-                    />
+                  className={cn(
+                    "hidden lg:flex [&>div:last-child]:left-1/2 [&>div:last-child]:-translate-x-1/2",
+                    navigationMenuClassName,
                   )}
-                </Pressable>
-              </div>
-            </div>
-          </nav>
+                  viewport={true}
+                >
+                  <NavigationMenuList>
+                    {menuLinks?.map((item, index) => (
+                      <DesktopMenuItem
+                        key={`desktop-link-${index}`}
+                        item={item}
+                        index={index}
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    ))}
+                  </NavigationMenuList>
+                </NavigationMenu>
+                <div
+                  className={cn("flex items-center gap-3", actionsClassName)}
+                >
+                  <div className="hidden lg:flex lg:items-center lg:gap-3">
+                    {renderActions}
+                  </div>
+                  <div className="lg:hidden">
+                    <Pressable
+                      className="size-11"
+                      variant="ghost"
+                      size="icon"
+                      asButton
+                      onClick={handleMobileMenu}
+                    >
+                      {open ? (
+                        <DynamicIcon
+                          name="lucide/x"
+                          size={22}
+                          className="stroke-foreground"
+                        />
+                      ) : (
+                        <DynamicIcon
+                          name="lucide/menu"
+                          size={22}
+                          className="stroke-foreground"
+                        />
+                      )}
+                    </Pressable>
+                  </div>
+                </div>
+              </nav>
             </div>
           </div>
         </div>
@@ -774,67 +767,56 @@ const MobileNavigationMenu = ({
       );
     });
   }, [actionsSlot, actions]);
+
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetContent
-        aria-describedby={undefined}
-        side="top"
-        className="inset-0 z-998 h-dvh w-full bg-background pt-16"
-      >
-        <div className="h-full overflow-y-auto pt-4 pb-20">
-          <div className="container">
-            <div className="absolute -m-px h-px w-px overflow-hidden border-0 mask-clip-border p-0 text-nowrap whitespace-nowrap">
-              <SheetTitle className="text-primary">
-                Mobile Navigation
-              </SheetTitle>
-            </div>
-            <div className={cn("flex flex-col gap-4", actionsClassName)}>
-              {renderActions}
-            </div>
-            <Accordion type="multiple" className="mt-6 w-full">
-              {menuLinks.map((item, index) => {
-                const hasDropdown = Boolean(item.layout);
-
-                if (hasDropdown) {
-                  return (
-                    <AccordionItem
-                      key={
-                        typeof item.label === "string"
-                          ? item.label
-                          : `nav-${index}`
-                      }
-                      value={`nav-${index}`}
-                      className="border-b-0"
-                    >
-                      <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
-                        {item.label}
-                      </AccordionTrigger>
-                      <AccordionContent className="max-h-[60dvh] overflow-y-auto">
-                        {renderMobileDropdownContent(item)}
-                      </AccordionContent>
-                    </AccordionItem>
-                  );
-                }
-
-                return (
-                  <Pressable
-                    key={
-                      typeof item.label === "string"
-                        ? item.label
-                        : `nav-${index}`
-                    }
-                    href={item.href}
-                    className="flex h-15 items-center text-base font-normal text-foreground"
-                  >
-                    {item.label}
-                  </Pressable>
-                );
-              })}
-            </Accordion>
-          </div>
+    <NavbarMobileMenu
+      open={open}
+      onClose={() => setOpen(false)}
+      title="Mobile Navigation"
+      contentClassName="pt-4 pb-20"
+    >
+      <div className="max-w-screen-sm mx-auto">
+        <div className={cn("flex flex-col gap-4", actionsClassName)}>
+          {renderActions}
         </div>
-      </SheetContent>
-    </Sheet>
+        <Accordion type="multiple" className="mt-6 w-full">
+          {menuLinks.map((item, index) => {
+            const hasDropdown = Boolean(item.layout);
+
+            if (hasDropdown) {
+              return (
+                <AccordionItem
+                  key={
+                    typeof item.label === "string" ? item.label : `nav-${index}`
+                  }
+                  value={`nav-${index}`}
+                  className="border-b-0"
+                >
+                  <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
+                    {item.label}
+                  </AccordionTrigger>
+                  <AccordionContent className="max-h-[60dvh] overflow-y-auto">
+                    {renderMobileDropdownContent(item)}
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            }
+
+            return (
+              <Pressable
+                key={
+                  typeof item.label === "string" ? item.label : `nav-${index}`
+                }
+                href={item.href}
+                className="flex h-15 items-center text-base font-normal text-foreground"
+              >
+                {item.label}
+              </Pressable>
+            );
+          })}
+        </Accordion>
+      </div>
+    </NavbarMobileMenu>
   );
 };
 

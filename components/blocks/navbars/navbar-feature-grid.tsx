@@ -28,7 +28,6 @@ import {
   SheetTrigger,
 } from "../../ui/sheet";
 import { NavbarLogo } from "../../ui/navbar-logo";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -137,10 +136,7 @@ export const NavbarFeatureGrid = ({
   navigationMenuClassName,
   actionsClassName,
   logoClassName,
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   features,
   authActions,
@@ -212,78 +208,17 @@ export const NavbarFeatureGrid = ({
                 logoClassName={logoClassName}
                 optixFlowConfig={optixFlowConfig}
               />
-          <NavigationMenu
-            className={cn("hidden lg:block", navigationMenuClassName)}
-          >
-            <NavigationMenuList>
-              {features && features.length > 0 && (
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>Features</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="grid w-[600px] grid-cols-2 p-3">
-                      {features.map((feature, index) => (
-                        <NavigationMenuLink
-                          href={feature.href}
-                          key={index}
-                          className="rounded-md p-3 transition-colors hover:bg-muted/70"
-                        >
-                          <div>
-                            <p className="mb-1 font-semibold">
-                              {feature.title}
-                            </p>
-                            <p className="text-sm text-muted-foreground">
-                              {feature.description}
-                            </p>
-                          </div>
-                        </NavigationMenuLink>
-                      ))}
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              )}
-            </NavigationMenuList>
-          </NavigationMenu>
-          <div
-            className={cn(
-              "hidden items-center gap-4 lg:flex",
-              actionsClassName,
-            )}
-          >
-            {renderAuthActions}
-          </div>
-          <Sheet>
-            <SheetTrigger asChild className="lg:hidden">
-              <Pressable
-                variant="outline"
-                size="icon"
-                asButton
-                onClick={() => {}}
+              <NavigationMenu
+                className={cn("hidden lg:block", navigationMenuClassName)}
               >
-                <DynamicIcon name="lucide/menu" size={16} />
-              </Pressable>
-            </SheetTrigger>
-            <SheetContent side="top" className="max-h-screen overflow-auto">
-              <SheetHeader>
-                <SheetTitle>
-                  <NavbarLogo
-                    logo={logo}
-                    logoSlot={logoSlot}
-                    logoClassName={logoClassName}
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </SheetTitle>
-              </SheetHeader>
-              <div className="flex flex-col p-4">
-                {features && features.length > 0 && (
-                  <Accordion type="single" collapsible className="mt-4 mb-2">
-                    <AccordionItem value="solutions" className="border-none">
-                      <AccordionTrigger className="text-base hover:no-underline">
-                        Features
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="grid md:grid-cols-2">
+                <NavigationMenuList>
+                  {features && features.length > 0 && (
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>Features</NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <div className="grid w-[600px] grid-cols-2 p-3">
                           {features.map((feature, index) => (
-                            <Pressable
+                            <NavigationMenuLink
                               href={feature.href}
                               key={index}
                               className="rounded-md p-3 transition-colors hover:bg-muted/70"
@@ -296,22 +231,93 @@ export const NavbarFeatureGrid = ({
                                   {feature.description}
                                 </p>
                               </div>
-                            </Pressable>
+                            </NavigationMenuLink>
                           ))}
                         </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  )}
+                </NavigationMenuList>
+              </NavigationMenu>
+              <div
+                className={cn(
+                  "hidden items-center gap-4 lg:flex",
+                  actionsClassName,
                 )}
-                <div
-                  className={cn("mt-6 flex flex-col gap-4", actionsClassName)}
-                >
-                  {renderAuthActions}
-                </div>
+              >
+                {renderAuthActions}
               </div>
-            </SheetContent>
-          </Sheet>
-        </nav>
+              <Sheet>
+                <SheetTrigger asChild className="lg:hidden">
+                  <Pressable
+                    variant="outline"
+                    size="icon"
+                    asButton
+                    onClick={() => {}}
+                  >
+                    <DynamicIcon name="lucide/menu" size={16} />
+                  </Pressable>
+                </SheetTrigger>
+                <SheetContent side="top" className="max-h-screen overflow-auto">
+                  <SheetHeader>
+                    <SheetTitle>
+                      <NavbarLogo
+                        logo={logo}
+                        logoSlot={logoSlot}
+                        logoClassName={logoClassName}
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    </SheetTitle>
+                  </SheetHeader>
+                  <div className="flex flex-col p-4">
+                    {features && features.length > 0 && (
+                      <Accordion
+                        type="single"
+                        collapsible
+                        className="mt-4 mb-2"
+                      >
+                        <AccordionItem
+                          value="solutions"
+                          className="border-none"
+                        >
+                          <AccordionTrigger className="text-base hover:no-underline">
+                            Features
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <div className="grid md:grid-cols-2">
+                              {features.map((feature, index) => (
+                                <Pressable
+                                  href={feature.href}
+                                  key={index}
+                                  className="rounded-md p-3 transition-colors hover:bg-muted/70"
+                                >
+                                  <div>
+                                    <p className="mb-1 font-semibold">
+                                      {feature.title}
+                                    </p>
+                                    <p className="text-sm text-muted-foreground">
+                                      {feature.description}
+                                    </p>
+                                  </div>
+                                </Pressable>
+                              ))}
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
+                    )}
+                    <div
+                      className={cn(
+                        "mt-6 flex flex-col gap-4",
+                        actionsClassName,
+                      )}
+                    >
+                      {renderAuthActions}
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </nav>
           </div>
         </div>
       </div>

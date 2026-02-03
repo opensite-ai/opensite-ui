@@ -22,7 +22,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "../../ui/navigation-menu";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -195,10 +194,7 @@ export const NavbarPlatformResources = ({
   actionsClassName,
   logoClassName,
   mobileMenuClassName,
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   menuLinks,
   actions,
@@ -689,174 +685,174 @@ export const NavbarPlatformResources = ({
             <NavigationMenu
               className={cn("min-w-full", navigationMenuClassName)}
             >
-          <div className="flex w-full items-center justify-between gap-12 py-4">
-            <NavbarLogo
-              logo={logo}
-              logoSlot={logoSlot}
-              logoClassName={logoClassName}
-              optixFlowConfig={optixFlowConfig}
-            />
-            <NavigationMenuList
-              className={cn("hidden lg:flex", navigationMenuListClassName)}
-            >
-              {menuLinks?.map((link, index) => {
-                if (hasDropdownItems(link)) {
-                  return (
-                    <NavigationMenuItem
-                      key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
-                    >
-                      <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent">
-                        {link.label}
-                      </NavigationMenuTrigger>
-                      {renderDropdownContent(link)}
-                    </NavigationMenuItem>
-                  );
-                }
+              <div className="flex w-full items-center justify-between gap-12 py-4">
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
+                <NavigationMenuList
+                  className={cn("hidden lg:flex", navigationMenuListClassName)}
+                >
+                  {menuLinks?.map((link, index) => {
+                    if (hasDropdownItems(link)) {
+                      return (
+                        <NavigationMenuItem
+                          key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
+                        >
+                          <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent">
+                            {link.label}
+                          </NavigationMenuTrigger>
+                          {renderDropdownContent(link)}
+                        </NavigationMenuItem>
+                      );
+                    }
 
-                if (!link.href) {
-                  return null;
-                }
+                    if (!link.href) {
+                      return null;
+                    }
 
-                return (
-                  <NavigationMenuItem
-                    key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
-                  >
-                    <NavigationMenuLink
-                      href={link.href}
-                      className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
-                    >
-                      {link.label}
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                );
-              })}
-            </NavigationMenuList>
-            <div
-              className={cn(
-                "hidden items-center gap-4 lg:flex",
-                actionsClassName,
-              )}
-            >
-              {renderActions}
-            </div>
-            <div className="flex items-center gap-4 lg:hidden">
-              <Pressable
-                variant="outline"
-                size="icon"
-                asButton
-                aria-label="Main Menu"
-                onClick={() => setOpen(!open)}
-              >
-                {!open && <DynamicIcon name="lucide/menu" size={16} />}
-                {open && <DynamicIcon name="lucide/x" size={16} />}
-              </Pressable>
-            </div>
-          </div>
-
-          {/* Mobile Menu */}
-          {open && (
-            <div
-              className={cn(
-                "absolute inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden",
-                mobileMenuClassName,
-              )}
-            >
-              <Accordion type="single" collapsible className="w-full">
-                {menuLinks?.map((link, index) => {
-                  if (hasDropdownItems(link)) {
                     return (
-                      <AccordionItem
+                      <NavigationMenuItem
                         key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
-                        value={`menu-${index}`}
-                        className="border-b-2 border-dashed"
                       >
-                        <AccordionTrigger className="px-2 py-4 text-left hover:no-underline">
+                        <NavigationMenuLink
+                          href={link.href}
+                          className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
+                        >
                           {link.label}
-                        </AccordionTrigger>
-                        <AccordionContent className="px-2 pb-4">
-                          <div className="space-y-3">
-                            {link.links?.map((item, itemIndex) => (
-                              <Pressable
-                                key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
-                                href={getLinkUrl(item)}
-                                className="group flex items-start gap-4 rounded-lg p-2 hover:bg-muted"
-                              >
-                                {item.image && (
-                                  <div className="h-10 w-10 overflow-hidden rounded-md border border-border">
-                                    <Img
-                                      src={item.image}
-                                      alt={
-                                        typeof item.label === "string"
-                                          ? item.label
-                                          : "Menu item"
-                                      }
-                                      className="h-full w-full object-cover object-center"
-                                      optixFlowConfig={optixFlowConfig}
-                                    />
-                                  </div>
-                                )}
-                                {!item.image &&
-                                  (item.icon || item.iconName) && (
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
-                                      {item.icon ? (
-                                        item.icon
-                                      ) : item.iconName ? (
-                                        <DynamicIcon
-                                          name={item.iconName}
-                                          size={16}
-                                        />
-                                      ) : null}
-                                    </div>
-                                  )}
-                                <div className="flex-1">
-                                  <div className="text-sm font-medium text-foreground">
-                                    {item.label}
-                                  </div>
-                                  {item.description && (
-                                    <div className="text-xs text-muted-foreground">
-                                      {item.description}
-                                    </div>
-                                  )}
-                                </div>
-                              </Pressable>
-                            ))}
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
                     );
-                  }
-
-                  if (!link.href) {
-                    return null;
-                  }
-
-                  return (
-                    <div
-                      key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
-                      className="border-b-2 border-dashed"
-                    >
-                      <Pressable
-                        href={link.href}
-                        className="flex w-full items-center px-2 py-4 text-left text-sm font-medium"
-                      >
-                        {link.label}
-                      </Pressable>
-                    </div>
-                  );
-                })}
-              </Accordion>
-
-              <div
-                className={cn(
-                  "mx-8 mt-auto flex flex-col gap-4 py-12",
-                  actionsClassName,
-                )}
-              >
-                {renderActions}
+                  })}
+                </NavigationMenuList>
+                <div
+                  className={cn(
+                    "hidden items-center gap-4 lg:flex",
+                    actionsClassName,
+                  )}
+                >
+                  {renderActions}
+                </div>
+                <div className="flex items-center gap-4 lg:hidden">
+                  <Pressable
+                    variant="outline"
+                    size="icon"
+                    asButton
+                    aria-label="Main Menu"
+                    onClick={() => setOpen(!open)}
+                  >
+                    {!open && <DynamicIcon name="lucide/menu" size={16} />}
+                    {open && <DynamicIcon name="lucide/x" size={16} />}
+                  </Pressable>
+                </div>
               </div>
-            </div>
-          )}
-        </NavigationMenu>
+
+              {/* Mobile Menu */}
+              {open && (
+                <div
+                  className={cn(
+                    "absolute inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden",
+                    mobileMenuClassName,
+                  )}
+                >
+                  <Accordion type="single" collapsible className="w-full">
+                    {menuLinks?.map((link, index) => {
+                      if (hasDropdownItems(link)) {
+                        return (
+                          <AccordionItem
+                            key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
+                            value={`menu-${index}`}
+                            className="border-b-2 border-dashed"
+                          >
+                            <AccordionTrigger className="px-2 py-4 text-left hover:no-underline">
+                              {link.label}
+                            </AccordionTrigger>
+                            <AccordionContent className="px-2 pb-4">
+                              <div className="space-y-3">
+                                {link.links?.map((item, itemIndex) => (
+                                  <Pressable
+                                    key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
+                                    href={getLinkUrl(item)}
+                                    className="group flex items-start gap-4 rounded-lg p-2 hover:bg-muted"
+                                  >
+                                    {item.image && (
+                                      <div className="h-10 w-10 overflow-hidden rounded-md border border-border">
+                                        <Img
+                                          src={item.image}
+                                          alt={
+                                            typeof item.label === "string"
+                                              ? item.label
+                                              : "Menu item"
+                                          }
+                                          className="h-full w-full object-cover object-center"
+                                          optixFlowConfig={optixFlowConfig}
+                                        />
+                                      </div>
+                                    )}
+                                    {!item.image &&
+                                      (item.icon || item.iconName) && (
+                                        <div className="flex h-10 w-10 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
+                                          {item.icon ? (
+                                            item.icon
+                                          ) : item.iconName ? (
+                                            <DynamicIcon
+                                              name={item.iconName}
+                                              size={16}
+                                            />
+                                          ) : null}
+                                        </div>
+                                      )}
+                                    <div className="flex-1">
+                                      <div className="text-sm font-medium text-foreground">
+                                        {item.label}
+                                      </div>
+                                      {item.description && (
+                                        <div className="text-xs text-muted-foreground">
+                                          {item.description}
+                                        </div>
+                                      )}
+                                    </div>
+                                  </Pressable>
+                                ))}
+                              </div>
+                            </AccordionContent>
+                          </AccordionItem>
+                        );
+                      }
+
+                      if (!link.href) {
+                        return null;
+                      }
+
+                      return (
+                        <div
+                          key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
+                          className="border-b-2 border-dashed"
+                        >
+                          <Pressable
+                            href={link.href}
+                            className="flex w-full items-center px-2 py-4 text-left text-sm font-medium"
+                          >
+                            {link.label}
+                          </Pressable>
+                        </div>
+                      );
+                    })}
+                  </Accordion>
+
+                  <div
+                    className={cn(
+                      "mx-8 mt-auto flex flex-col gap-4 py-12",
+                      actionsClassName,
+                    )}
+                  >
+                    {renderActions}
+                  </div>
+                </div>
+              )}
+            </NavigationMenu>
           </div>
         </div>
       </div>

@@ -34,10 +34,6 @@ import { Separator } from "../../ui/separator";
 import { Badge } from "../../ui/badge";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import { NavbarLogo } from "../../ui/navbar-logo";
-import {
-  logoPlaceholders,
-  imagePlaceholders,
-} from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -185,10 +181,7 @@ export const NavbarAnimatedPreview = ({
   navClassName,
   navigationMenuClassName,
   actionsClassName,
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   logoClassName,
   menuLinks,
@@ -523,7 +516,7 @@ const AnimatedImagePreviewDropdown = ({
             }`}
           >
             <Img
-              src={link.image || imagePlaceholders[0]}
+              src={link.image}
               alt={typeof link.label === "string" ? link.label : ""}
               className="size-full object-cover object-left-top"
               optixFlowConfig={optixFlowConfig}
@@ -668,7 +661,7 @@ const FeaturedImageLink = ({
                   className="overflow-hidden rounded-lg bg-muted"
                 >
                   <Img
-                    src={link.image || imagePlaceholders[0]}
+                    src={link.image}
                     alt={typeof link.label === "string" ? link.label : ""}
                     className="size-full object-cover object-left-top"
                     optixFlowConfig={optixFlowConfig}
@@ -716,7 +709,7 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
         </div>
       </div>
       <Img
-        src={link.background || imagePlaceholders[0]}
+        src={link.background}
         alt={typeof link.label === "string" ? link.label : ""}
         className="absolute top-0 left-0 size-full object-cover object-left-top opacity-90 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
         optixFlowConfig={optixFlowConfig}

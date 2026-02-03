@@ -17,7 +17,6 @@ import {
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -89,22 +88,6 @@ export interface NavbarSplitCtaProps {
    */
   menuSlot?: React.ReactNode;
   /**
-   * Primary CTA configuration (deprecated - use authActions instead)
-   * @deprecated
-   */
-  primaryCta?: {
-    label: string;
-    url: string;
-  };
-  /**
-   * Secondary CTA configuration (deprecated - use authActions instead)
-   * @deprecated
-   */
-  secondaryCta?: {
-    label: string;
-    url: string;
-  };
-  /**
    * Authentication action configurations
    */
   authActions?: ActionConfig[];
@@ -148,16 +131,11 @@ export interface NavbarSplitCtaProps {
  * and services that want to emphasize both login/signup or demo/trial actions.
  */
 export const NavbarSplitCta = ({
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   logoClassName,
   menu,
   menuSlot,
-  primaryCta,
-  secondaryCta,
   authActions,
   authActionsSlot,
   className,
@@ -174,46 +152,11 @@ export const NavbarSplitCta = ({
 }: NavbarSplitCtaProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Support legacy primaryCta/secondaryCta props
-  const finalAuthActions =
-    authActions ||
-    (primaryCta || secondaryCta
-      ? [
-          ...(secondaryCta
-            ? [
-                {
-                  label: secondaryCta.label,
-                  href: secondaryCta.url,
-                  variant: "outline" as const,
-                  size: "default" as const,
-                },
-              ]
-            : []),
-          ...(primaryCta
-            ? [
-                {
-                  label: primaryCta.label,
-                  href: primaryCta.url,
-                  variant: "default" as const,
-                  size: "default" as const,
-                  iconAfter: (
-                    <DynamicIcon
-                      name="lucide/arrow-right"
-                      size={16}
-                      className="ml-1"
-                    />
-                  ),
-                },
-              ]
-            : []),
-        ]
-      : []);
-
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
-    if (!finalAuthActions || finalAuthActions.length === 0) return null;
+    if (!authActions || authActions.length === 0) return null;
 
-    return finalAuthActions.map((action, index) => {
+    return authActions.map((action, index) => {
       const {
         label,
         icon,
@@ -239,7 +182,7 @@ export const NavbarSplitCta = ({
         </Pressable>
       );
     });
-  }, [authActionsSlot, finalAuthActions]);
+  }, [authActionsSlot, authActions]);
 
   const renderMenu = useMemo((): MenuItem[] | null => {
     if (menuSlot) return null;
@@ -278,144 +221,148 @@ export const NavbarSplitCta = ({
                 navClassName,
               )}
             >
-          <div className="flex items-center gap-8">
-            <NavbarLogo
-              logo={logo}
-              logoSlot={logoSlot}
-              logoClassName={logoClassName}
-              optixFlowConfig={optixFlowConfig}
-            />
+              <div className="flex items-center gap-8">
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
 
-            <NavigationMenu
-              className={cn("hidden lg:flex", navigationMenuClassName)}
-            >
-              <NavigationMenuList>
-                {menuSlot
-                  ? menuSlot
-                  : renderMenu?.map((item, index) =>
-                      item.items ? (
-                        <NavigationMenuItem key={index}>
-                          <NavigationMenuTrigger>
-                            {item.title}
-                          </NavigationMenuTrigger>
-                          <NavigationMenuContent>
-                            <ul className="w-[280px] p-2">
-                              {item.items.map((subItem, subIndex) => (
-                                <li key={subIndex}>
-                                  <NavigationMenuLink asChild>
+                <NavigationMenu
+                  className={cn("hidden lg:flex", navigationMenuClassName)}
+                >
+                  <NavigationMenuList>
+                    {menuSlot
+                      ? menuSlot
+                      : renderMenu?.map((item, index) =>
+                          item.items ? (
+                            <NavigationMenuItem key={index}>
+                              <NavigationMenuTrigger>
+                                {item.title}
+                              </NavigationMenuTrigger>
+                              <NavigationMenuContent>
+                                <ul className="w-[280px] p-2">
+                                  {item.items.map((subItem, subIndex) => (
+                                    <li key={subIndex}>
+                                      <NavigationMenuLink asChild>
+                                        <Pressable
+                                          href={subItem.url}
+                                          className="flex items-start gap-3 rounded-md p-3 hover:bg-accent"
+                                        >
+                                          {subItem.icon && (
+                                            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border bg-background">
+                                              <DynamicIcon
+                                                name={subItem.icon}
+                                                size={16}
+                                              />
+                                            </div>
+                                          )}
+                                          <div>
+                                            <div className="text-sm font-medium">
+                                              {subItem.title}
+                                            </div>
+                                            {subItem.description && (
+                                              <p className="text-xs text-muted-foreground">
+                                                {subItem.description}
+                                              </p>
+                                            )}
+                                          </div>
+                                        </Pressable>
+                                      </NavigationMenuLink>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </NavigationMenuContent>
+                            </NavigationMenuItem>
+                          ) : (
+                            <NavigationMenuItem key={index}>
+                              <NavigationMenuLink
+                                asChild
+                                className={navigationMenuTriggerStyle()}
+                              >
+                                <Pressable href={item.url}>
+                                  {item.title}
+                                </Pressable>
+                              </NavigationMenuLink>
+                            </NavigationMenuItem>
+                          ),
+                        )}
+                  </NavigationMenuList>
+                </NavigationMenu>
+              </div>
+
+              <div
+                className={cn(
+                  "hidden items-center gap-3 lg:flex",
+                  actionsClassName,
+                )}
+              >
+                {renderAuthActions}
+              </div>
+
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                <SheetTrigger asChild className="lg:hidden">
+                  <Pressable
+                    variant="ghost"
+                    size="icon"
+                    asButton
+                    onClick={() => {}}
+                  >
+                    <DynamicIcon name="lucide/menu" size={20} />
+                    <span className="sr-only">Toggle menu</span>
+                  </Pressable>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[300px]">
+                  <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                  <div className="flex flex-col gap-6 pt-8">
+                    <div className="flex flex-col gap-2">
+                      {renderAuthActions}
+                    </div>
+                    <div className="border-t pt-4">
+                      {menuSlot
+                        ? menuSlot
+                        : renderMenu?.map((item, index) =>
+                            item.items ? (
+                              <div key={index} className="mb-4">
+                                <div className="mb-2 text-sm font-medium text-muted-foreground">
+                                  {item.title}
+                                </div>
+                                <div className="flex flex-col gap-1 pl-2">
+                                  {item.items.map((subItem, subIndex) => (
                                     <Pressable
+                                      key={subIndex}
                                       href={subItem.url}
-                                      className="flex items-start gap-3 rounded-md p-3 hover:bg-accent"
+                                      className="flex items-center gap-2 rounded-md py-2 text-sm"
+                                      onClick={() => setIsOpen(false)}
                                     >
                                       {subItem.icon && (
-                                        <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border bg-background">
-                                          <DynamicIcon
-                                            name={subItem.icon}
-                                            size={16}
-                                          />
-                                        </div>
+                                        <DynamicIcon
+                                          name={subItem.icon}
+                                          size={14}
+                                        />
                                       )}
-                                      <div>
-                                        <div className="text-sm font-medium">
-                                          {subItem.title}
-                                        </div>
-                                        {subItem.description && (
-                                          <p className="text-xs text-muted-foreground">
-                                            {subItem.description}
-                                          </p>
-                                        )}
-                                      </div>
+                                      {subItem.title}
                                     </Pressable>
-                                  </NavigationMenuLink>
-                                </li>
-                              ))}
-                            </ul>
-                          </NavigationMenuContent>
-                        </NavigationMenuItem>
-                      ) : (
-                        <NavigationMenuItem key={index}>
-                          <NavigationMenuLink
-                            asChild
-                            className={navigationMenuTriggerStyle()}
-                          >
-                            <Pressable href={item.url}>{item.title}</Pressable>
-                          </NavigationMenuLink>
-                        </NavigationMenuItem>
-                      ),
-                    )}
-              </NavigationMenuList>
-            </NavigationMenu>
-          </div>
-
-          <div
-            className={cn(
-              "hidden items-center gap-3 lg:flex",
-              actionsClassName,
-            )}
-          >
-            {renderAuthActions}
-          </div>
-
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="lg:hidden">
-              <Pressable
-                variant="ghost"
-                size="icon"
-                asButton
-                onClick={() => {}}
-              >
-                <DynamicIcon name="lucide/menu" size={20} />
-                <span className="sr-only">Toggle menu</span>
-              </Pressable>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px]">
-              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <div className="flex flex-col gap-6 pt-8">
-                <div className="flex flex-col gap-2">{renderAuthActions}</div>
-                <div className="border-t pt-4">
-                  {menuSlot
-                    ? menuSlot
-                    : renderMenu?.map((item, index) =>
-                        item.items ? (
-                          <div key={index} className="mb-4">
-                            <div className="mb-2 text-sm font-medium text-muted-foreground">
-                              {item.title}
-                            </div>
-                            <div className="flex flex-col gap-1 pl-2">
-                              {item.items.map((subItem, subIndex) => (
-                                <Pressable
-                                  key={subIndex}
-                                  href={subItem.url}
-                                  className="flex items-center gap-2 rounded-md py-2 text-sm"
-                                  onClick={() => setIsOpen(false)}
-                                >
-                                  {subItem.icon && (
-                                    <DynamicIcon
-                                      name={subItem.icon}
-                                      size={14}
-                                    />
-                                  )}
-                                  {subItem.title}
-                                </Pressable>
-                              ))}
-                            </div>
-                          </div>
-                        ) : (
-                          <Pressable
-                            key={index}
-                            href={item.url}
-                            className="block py-2 text-sm font-medium"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {item.title}
-                          </Pressable>
-                        ),
-                      )}
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
-        </nav>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : (
+                              <Pressable
+                                key={index}
+                                href={item.url}
+                                className="block py-2 text-sm font-medium"
+                                onClick={() => setIsOpen(false)}
+                              >
+                                {item.title}
+                              </Pressable>
+                            ),
+                          )}
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </nav>
           </div>
         </div>
       </div>

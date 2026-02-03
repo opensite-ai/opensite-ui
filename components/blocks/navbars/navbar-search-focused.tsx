@@ -15,7 +15,6 @@ import {
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -149,10 +148,7 @@ export const NavbarSearchFocused = ({
   navClassName,
   navigationMenuClassName,
   actionsClassName,
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   logoClassName,
   navItems,
@@ -287,70 +283,72 @@ export const NavbarSearchFocused = ({
                 navClassName,
               )}
             >
-          <NavbarLogo
-            logo={logo}
-            logoSlot={logoSlot}
-            logoClassName={logoClassName}
-            optixFlowConfig={optixFlowConfig}
-          />
+              <NavbarLogo
+                logo={logo}
+                logoSlot={logoSlot}
+                logoClassName={logoClassName}
+                optixFlowConfig={optixFlowConfig}
+              />
 
-          <NavigationMenu
-            className={cn("hidden lg:flex", navigationMenuClassName)}
-          >
-            {renderNavigation(navItems?.slice(0, 2) ?? [])}
-          </NavigationMenu>
-
-          <NavigationMenu
-            className={cn("hidden lg:flex", navigationMenuClassName)}
-          >
-            {renderNavigation(navItems?.slice(2) ?? [])}
-          </NavigationMenu>
-
-          <div
-            className={cn(
-              "hidden shrink-0 items-center gap-2 lg:flex",
-              actionsClassName,
-            )}
-          >
-            {renderAuthActions}
-          </div>
-
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="lg:hidden">
-              <Pressable
-                variant="ghost"
-                size="icon"
-                asButton
-                onClick={() => {}}
+              <NavigationMenu
+                className={cn("hidden lg:flex", navigationMenuClassName)}
               >
-                <DynamicIcon name="lucide/menu" size={20} />
-                <span className="sr-only">Toggle menu</span>
-              </Pressable>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[280px]">
-              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <div className="flex flex-col gap-6 pt-8">
-                <div className="flex flex-col gap-2">
-                  {navItems?.map((item, index) => (
-                    <Pressable
-                      key={index}
-                      href={item.url}
-                      className="flex items-center gap-2 rounded-md py-2 text-base font-medium"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.icon ??
-                        (item.iconName && (
-                          <DynamicIcon name={item.iconName} size={16} />
-                        ))}
-                      {item.title}
-                    </Pressable>
-                  ))}
-                </div>
-                <div className="border-t pt-4">{renderMobileMenuActions}</div>
+                {renderNavigation(navItems?.slice(0, 2) ?? [])}
+              </NavigationMenu>
+
+              <NavigationMenu
+                className={cn("hidden lg:flex", navigationMenuClassName)}
+              >
+                {renderNavigation(navItems?.slice(2) ?? [])}
+              </NavigationMenu>
+
+              <div
+                className={cn(
+                  "hidden shrink-0 items-center gap-2 lg:flex",
+                  actionsClassName,
+                )}
+              >
+                {renderAuthActions}
               </div>
-            </SheetContent>
-          </Sheet>
-        </nav>
+
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                <SheetTrigger asChild className="lg:hidden">
+                  <Pressable
+                    variant="ghost"
+                    size="icon"
+                    asButton
+                    onClick={() => {}}
+                  >
+                    <DynamicIcon name="lucide/menu" size={20} />
+                    <span className="sr-only">Toggle menu</span>
+                  </Pressable>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[280px]">
+                  <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                  <div className="flex flex-col gap-6 pt-8">
+                    <div className="flex flex-col gap-2">
+                      {navItems?.map((item, index) => (
+                        <Pressable
+                          key={index}
+                          href={item.url}
+                          className="flex items-center gap-2 rounded-md py-2 text-base font-medium"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {item.icon ??
+                            (item.iconName && (
+                              <DynamicIcon name={item.iconName} size={16} />
+                            ))}
+                          {item.title}
+                        </Pressable>
+                      ))}
+                    </div>
+                    <div className="border-t pt-4">
+                      {renderMobileMenuActions}
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </nav>
           </div>
         </div>
       </div>

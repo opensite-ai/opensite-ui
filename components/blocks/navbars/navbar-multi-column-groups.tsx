@@ -23,7 +23,6 @@ import {
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle } from "../../ui/sheet";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -159,10 +158,7 @@ export const NavbarMultiColumnGroups = ({
   navClassName,
   navigationMenuClassName,
   actionsClassName,
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   logoClassName,
   navigation,
@@ -285,50 +281,50 @@ export const NavbarMultiColumnGroups = ({
                 navClassName,
               )}
             >
-          <div className="flex items-center gap-8">
-            <NavbarLogo
-              logo={logo}
-              logoSlot={logoSlot}
-              logoClassName={logoClassName}
-              optixFlowConfig={optixFlowConfig}
-            />
-            <NavigationMenu
-              className={cn("hidden xl:flex", navigationMenuClassName)}
-              viewport={false}
-            >
-              {renderNavigation}
-            </NavigationMenu>
-          </div>
-          <div
-            className={cn(
-              "hidden items-center gap-3 xl:flex",
-              actionsClassName,
-            )}
-          >
-            {renderAuthActions}
-          </div>
-          <div className="xl:hidden">
-            <Pressable
-              className="size-11"
-              variant="ghost"
-              asButton
-              onClick={handleMobileMenu}
-            >
-              {open ? (
-                <DynamicIcon
-                  name="lucide/x"
-                  size={22}
-                  className="stroke-foreground"
+              <div className="flex items-center gap-8">
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
                 />
-              ) : (
-                <DynamicIcon
-                  name="lucide/menu"
-                  size={22}
-                  className="stroke-foreground"
-                />
-              )}
-            </Pressable>
-          </div>
+                <NavigationMenu
+                  className={cn("hidden xl:flex", navigationMenuClassName)}
+                  viewport={false}
+                >
+                  {renderNavigation}
+                </NavigationMenu>
+              </div>
+              <div
+                className={cn(
+                  "hidden items-center gap-3 xl:flex",
+                  actionsClassName,
+                )}
+              >
+                {renderAuthActions}
+              </div>
+              <div className="xl:hidden">
+                <Pressable
+                  className="size-11"
+                  variant="ghost"
+                  asButton
+                  onClick={handleMobileMenu}
+                >
+                  {open ? (
+                    <DynamicIcon
+                      name="lucide/x"
+                      size={22}
+                      className="stroke-foreground"
+                    />
+                  ) : (
+                    <DynamicIcon
+                      name="lucide/menu"
+                      size={22}
+                      className="stroke-foreground"
+                    />
+                  )}
+                </Pressable>
+              </div>
             </div>
           </div>
         </div>

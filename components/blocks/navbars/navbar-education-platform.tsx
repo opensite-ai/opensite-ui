@@ -24,10 +24,6 @@ import {
 } from "../../ui/navigation-menu";
 import { Separator } from "../../ui/separator";
 import { NavbarLogo } from "../../ui/navbar-logo";
-import {
-  logoPlaceholders,
-  imagePlaceholders,
-} from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -114,6 +110,14 @@ export interface NavbarEducationPlatformProps {
    */
   company?: CompanyItem[];
   /**
+   * Featured image for "Latest Updates" section in Products menu
+   */
+  featuredImage?: {
+    src: string;
+    alt?: string;
+    href?: string;
+  };
+  /**
    * Authentication action configurations
    */
   authActions?: ActionConfig[];
@@ -164,14 +168,12 @@ export const NavbarEducationPlatform = ({
   actionsClassName,
   logoClassName,
   mobileMenuClassName,
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   features,
   docs,
   company,
+  featuredImage,
   authActions,
   authActionsSlot,
   layoutVariant = "fullScreenContainerizedLinks",
@@ -225,10 +227,7 @@ export const NavbarEducationPlatform = ({
     <Section
       background={background}
       spacing={spacingOverride ?? spacing}
-      className={cn(
-        isOpen && "border-b-0",
-        sectionClasses,
-      )}
+      className={cn(isOpen && "border-b-0", sectionClasses)}
       pattern={pattern}
       patternOpacity={patternOpacity}
       containerClassName={sectionContainerClassName}
@@ -243,182 +242,188 @@ export const NavbarEducationPlatform = ({
                 navClassName,
               )}
             >
-          <div className="flex flex-1 items-center gap-9">
-            <NavbarLogo
-              logo={logo}
-              logoSlot={logoSlot}
-              logoClassName={logoClassName}
-              optixFlowConfig={optixFlowConfig}
-            />
-            <div
-              className={cn(
-                "hidden items-center gap-1.5 lg:flex",
-                navigationMenuClassName,
-              )}
-            >
-              <NavigationMenu delayDuration={0}>
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>Products</NavigationMenuTrigger>
-                    <NavigationMenuContent className="p-0">
-                      <div className="flex">
-                        <div className="p-4">
-                          <p className="mb-3 text-[10px] text-muted-foreground uppercase">
-                            TOOLS
-                          </p>
-                          {features?.map((feature) => (
-                            <NavigationMenuLink key={feature.title} asChild>
-                              <Pressable
-                                href={feature.link}
-                                className="group flex cursor-pointer flex-row gap-3"
-                              >
-                                <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-border bg-background">
-                                  <DynamicIcon name={feature.icon} size={20} />
-                                </span>
-                                <div className="flex flex-col">
-                                  <span className="flex items-center gap-0.5 text-sm font-medium whitespace-nowrap">
-                                    {feature.title}
-                                    <DynamicIcon
-                                      name="lucide/chevron-right"
-                                      size={16}
-                                      className="text-primary! opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
-                                    />
-                                  </span>
-                                  <p className="text-xs whitespace-nowrap text-muted-foreground">
-                                    {feature.description}
+              <div className="flex flex-1 items-center gap-9">
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
+                <div
+                  className={cn(
+                    "hidden items-center gap-1.5 lg:flex",
+                    navigationMenuClassName,
+                  )}
+                >
+                  <NavigationMenu delayDuration={0}>
+                    <NavigationMenuList>
+                      <NavigationMenuItem>
+                        <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+                        <NavigationMenuContent className="p-0">
+                          <div className="flex">
+                            <div className="p-4">
+                              <p className="mb-3 text-[10px] text-muted-foreground uppercase">
+                                TOOLS
+                              </p>
+                              {features?.map((feature) => (
+                                <NavigationMenuLink key={feature.title} asChild>
+                                  <Pressable
+                                    href={feature.link}
+                                    className="group flex cursor-pointer flex-row gap-3"
+                                  >
+                                    <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-border bg-background">
+                                      <DynamicIcon
+                                        name={feature.icon}
+                                        size={20}
+                                      />
+                                    </span>
+                                    <div className="flex flex-col">
+                                      <span className="flex items-center gap-0.5 text-sm font-medium whitespace-nowrap">
+                                        {feature.title}
+                                        <DynamicIcon
+                                          name="lucide/chevron-right"
+                                          size={16}
+                                          className="text-primary! opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
+                                        />
+                                      </span>
+                                      <p className="text-xs whitespace-nowrap text-muted-foreground">
+                                        {feature.description}
+                                      </p>
+                                    </div>
+                                  </Pressable>
+                                </NavigationMenuLink>
+                              ))}
+                            </div>
+                            <Separator
+                              orientation="vertical"
+                              className="data-[orientation=vertical]:h-auto"
+                            />
+                            <div className="p-4">
+                              <p className="mb-3 text-[10px] text-muted-foreground uppercase">
+                                QUICK START
+                              </p>
+                              <div></div>
+                              {featuredImage && (
+                                <>
+                                  <p className="mt-5 mb-3 text-[10px] text-muted-foreground uppercase">
+                                    LATEST UPDATES
                                   </p>
-                                </div>
-                              </Pressable>
-                            </NavigationMenuLink>
-                          ))}
-                        </div>
-                        <Separator
-                          orientation="vertical"
-                          className="data-[orientation=vertical]:h-auto"
-                        />
-                        <div className="p-4">
-                          <p className="mb-3 text-[10px] text-muted-foreground uppercase">
-                            QUICK START
-                          </p>
-                          <div>
+                                  <NavigationMenuLink asChild>
+                                    <Pressable href={featuredImage.href || "#"}>
+                                      <div className="rounded-lg bg-primary p-3">
+                                        <Img
+                                          src={featuredImage.src}
+                                          alt={featuredImage.alt || "Featured update"}
+                                          className="aspect-video min-w-52 rounded-md object-cover"
+                                          optixFlowConfig={optixFlowConfig}
+                                        />
+                                      </div>
+                                    </Pressable>
+                                  </NavigationMenuLink>
+                                </>
+                              )}
+                            </div>
                           </div>
-                          <p className="mt-5 mb-3 text-[10px] text-muted-foreground uppercase">
-                            LATEST UPDATES
-                          </p>
-                          <NavigationMenuLink asChild>
-                            <Pressable href="#">
-                              <div className="rounded-lg bg-primary p-3">
-                                <Img
-                                  src={imagePlaceholders[0]}
-                                  alt="placeholder"
-                                  className="aspect-video min-w-52 rounded-md object-cover"
-                                  optixFlowConfig={optixFlowConfig}
-                                />
+                        </NavigationMenuContent>
+                      </NavigationMenuItem>
+                      <NavigationMenuItem>
+                        <NavigationMenuTrigger>Support</NavigationMenuTrigger>
+                        <NavigationMenuContent className="p-0">
+                          <div className="flex">
+                            <div className="p-4">
+                              <p className="mb-3 text-[10px] text-muted-foreground uppercase">
+                                GUIDES
+                              </p>
+                              {docs?.map((doc) => (
+                                <NavigationMenuLink key={doc.title} asChild>
+                                  <Pressable
+                                    href={doc.link}
+                                    className="group flex flex-row gap-3"
+                                  >
+                                    <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-border bg-background">
+                                      <DynamicIcon name={doc.icon} size={20} />
+                                    </span>
+                                    <div className="flex flex-col">
+                                      <span className="flex items-center gap-0.5 text-sm font-medium whitespace-nowrap">
+                                        {doc.title}
+                                        <DynamicIcon
+                                          name="lucide/chevron-right"
+                                          size={16}
+                                          className="text-primary! opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
+                                        />
+                                      </span>
+                                      <p className="text-xs whitespace-nowrap text-muted-foreground">
+                                        {doc.description}
+                                      </p>
+                                    </div>
+                                  </Pressable>
+                                </NavigationMenuLink>
+                              ))}
+                            </div>
+                            <Separator
+                              orientation="vertical"
+                              className="data-[orientation=vertical]:h-auto"
+                            />
+                            <div className="p-4">
+                              <p className="mb-3 text-[10px] text-muted-foreground uppercase">
+                                ABOUT US
+                              </p>
+                              <div>
+                                {company?.map((item) => (
+                                  <NavigationMenuLink key={item.title} asChild>
+                                    <Pressable
+                                      href={item.link}
+                                      className="flex flex-row items-center gap-3"
+                                    >
+                                      <DynamicIcon name={item.icon} size={16} />
+                                      <span className="text-sm font-medium whitespace-nowrap">
+                                        {item.title}
+                                      </span>
+                                    </Pressable>
+                                  </NavigationMenuLink>
+                                ))}
                               </div>
-                            </Pressable>
-                          </NavigationMenuLink>
-                        </div>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>Support</NavigationMenuTrigger>
-                    <NavigationMenuContent className="p-0">
-                      <div className="flex">
-                        <div className="p-4">
-                          <p className="mb-3 text-[10px] text-muted-foreground uppercase">
-                            GUIDES
-                          </p>
-                          {docs?.map((doc) => (
-                            <NavigationMenuLink key={doc.title} asChild>
-                              <Pressable
-                                href={doc.link}
-                                className="group flex flex-row gap-3"
-                              >
-                                <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-border bg-background">
-                                  <DynamicIcon name={doc.icon} size={20} />
-                                </span>
-                                <div className="flex flex-col">
-                                  <span className="flex items-center gap-0.5 text-sm font-medium whitespace-nowrap">
-                                    {doc.title}
-                                    <DynamicIcon
-                                      name="lucide/chevron-right"
-                                      size={16}
-                                      className="text-primary! opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
-                                    />
-                                  </span>
-                                  <p className="text-xs whitespace-nowrap text-muted-foreground">
-                                    {doc.description}
-                                  </p>
-                                </div>
-                              </Pressable>
-                            </NavigationMenuLink>
-                          ))}
-                        </div>
-                        <Separator
-                          orientation="vertical"
-                          className="data-[orientation=vertical]:h-auto"
-                        />
-                        <div className="p-4">
-                          <p className="mb-3 text-[10px] text-muted-foreground uppercase">
-                            ABOUT US
-                          </p>
-                          <div>
-                            {company?.map((item) => (
-                              <NavigationMenuLink key={item.title} asChild>
-                                <Pressable
-                                  href={item.link}
-                                  className="flex flex-row items-center gap-3"
-                                >
-                                  <DynamicIcon name={item.icon} size={16} />
-                                  <span className="text-sm font-medium whitespace-nowrap">
-                                    {item.title}
-                                  </span>
-                                </Pressable>
-                              </NavigationMenuLink>
-                            ))}
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <NavigationMenuLink
-                      asChild
-                      className={navigationMenuTriggerStyle()}
-                    >
-                      <Pressable href="#">About</Pressable>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-            </div>
-          </div>
+                        </NavigationMenuContent>
+                      </NavigationMenuItem>
+                      <NavigationMenuItem>
+                        <NavigationMenuLink
+                          asChild
+                          className={navigationMenuTriggerStyle()}
+                        >
+                          <Pressable href="#">About</Pressable>
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
+                    </NavigationMenuList>
+                  </NavigationMenu>
+                </div>
+              </div>
 
-          <div
-            className={cn(
-              "hidden items-center gap-2 lg:flex",
-              actionsClassName,
-            )}
-          >
-            {renderAuthActions}
-          </div>
+              <div
+                className={cn(
+                  "hidden items-center gap-2 lg:flex",
+                  actionsClassName,
+                )}
+              >
+                {renderAuthActions}
+              </div>
 
-          <Pressable
-            variant="outline"
-            size="icon"
-            asButton
-            className="lg:hidden"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? (
-              <DynamicIcon name="lucide/x" size={20} />
-            ) : (
-              <DynamicIcon name="lucide/menu" size={20} />
-            )}
-            <span className="sr-only">Toggle menu</span>
-          </Pressable>
-        </nav>
+              <Pressable
+                variant="outline"
+                size="icon"
+                asButton
+                className="lg:hidden"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                {isOpen ? (
+                  <DynamicIcon name="lucide/x" size={20} />
+                ) : (
+                  <DynamicIcon name="lucide/menu" size={20} />
+                )}
+                <span className="sr-only">Toggle menu</span>
+              </Pressable>
+            </nav>
           </div>
         </div>
       </div>

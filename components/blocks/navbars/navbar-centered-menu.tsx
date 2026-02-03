@@ -28,7 +28,6 @@ import {
   SheetTrigger,
 } from "../../ui/sheet";
 import { NavbarLogo } from "../../ui/navbar-logo";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -237,10 +236,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
  * trigger elements for a balanced visual appearance.
  */
 export const NavbarCenteredMenu = ({
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   logoClassName,
   menu,

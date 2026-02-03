@@ -23,7 +23,6 @@ import {
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -146,10 +145,7 @@ export interface NavbarSidebarMobileProps {
  * mobile navigation experience.
  */
 export const NavbarSidebarMobile = ({
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   logoClassName,
   menu,
@@ -250,175 +246,180 @@ export const NavbarSidebarMobile = ({
                 navClassName,
               )}
             >
-          <div className="flex items-center gap-8">
-            <NavbarLogo
-              logo={logo}
-              logoSlot={logoSlot}
-              logoClassName={logoClassName}
-              optixFlowConfig={optixFlowConfig}
-            />
+              <div className="flex items-center gap-8">
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
 
-            <NavigationMenu
-              className={cn("hidden lg:flex", navigationMenuClassName)}
-            >
-              <NavigationMenuList>
-                {menuSlot
-                  ? menuSlot
-                  : renderMenu()?.map((item, index) =>
-                      item.items ? (
-                        <NavigationMenuItem key={index}>
-                          <NavigationMenuTrigger>
-                            {item.title}
-                          </NavigationMenuTrigger>
-                          <NavigationMenuContent>
-                            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
-                              {item.items.map((subItem, subIndex) => (
-                                <li key={subIndex}>
-                                  <NavigationMenuLink asChild>
-                                    <Pressable
-                                      href={subItem.url}
-                                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                    >
-                                      <div className="flex items-center gap-2">
-                                        {subItem.icon && (
-                                          <DynamicIcon
-                                            name={subItem.icon}
-                                            size={16}
-                                          />
-                                        )}
-                                        <div className="text-sm font-medium leading-none">
-                                          {subItem.title}
-                                        </div>
-                                      </div>
-                                      {subItem.description && (
-                                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                          {subItem.description}
-                                        </p>
-                                      )}
-                                    </Pressable>
-                                  </NavigationMenuLink>
-                                </li>
-                              ))}
-                            </ul>
-                          </NavigationMenuContent>
-                        </NavigationMenuItem>
-                      ) : (
-                        <NavigationMenuItem key={index}>
-                          <NavigationMenuLink
-                            asChild
-                            className={navigationMenuTriggerStyle()}
-                          >
-                            <Pressable href={item.url}>{item.title}</Pressable>
-                          </NavigationMenuLink>
-                        </NavigationMenuItem>
-                      ),
-                    )}
-              </NavigationMenuList>
-            </NavigationMenu>
-          </div>
-
-          <div
-            className={cn(
-              "hidden items-center gap-2 lg:flex",
-              actionsClassName,
-            )}
-          >
-            {renderAuthActions()}
-          </div>
-
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="lg:hidden">
-              <Pressable
-                variant="outline"
-                size="icon"
-                asButton
-                onClick={() => {}}
-              >
-                <DynamicIcon name="lucide/menu" size={20} />
-                <span className="sr-only">Toggle menu</span>
-              </Pressable>
-            </SheetTrigger>
-            <SheetContent side="left" className="w-[300px] sm:w-[350px]">
-              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <div className="flex h-full flex-col">
-                <div className="flex items-center justify-between border-b pb-4">
-                  <NavbarLogo
-                    logo={logo}
-                    logoSlot={logoSlot}
-                    logoClassName={logoClassName}
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </div>
-
-                <div className="flex-1 overflow-y-auto py-4">
-                  <Accordion type="single" collapsible className="w-full">
+                <NavigationMenu
+                  className={cn("hidden lg:flex", navigationMenuClassName)}
+                >
+                  <NavigationMenuList>
                     {menuSlot
                       ? menuSlot
                       : renderMenu()?.map((item, index) =>
                           item.items ? (
-                            <AccordionItem key={index} value={`item-${index}`}>
-                              <AccordionTrigger className="text-base hover:no-underline">
+                            <NavigationMenuItem key={index}>
+                              <NavigationMenuTrigger>
                                 {item.title}
-                              </AccordionTrigger>
-                              <AccordionContent>
-                                <div className="flex flex-col space-y-2 pl-4">
+                              </NavigationMenuTrigger>
+                              <NavigationMenuContent>
+                                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
                                   {item.items.map((subItem, subIndex) => (
-                                    <Pressable
-                                      key={subIndex}
-                                      href={subItem.url}
-                                      className="flex items-center gap-2 rounded-md py-2 text-sm text-muted-foreground hover:text-foreground"
-                                      onClick={() => setIsOpen(false)}
-                                    >
-                                      {subItem.icon && (
-                                        <DynamicIcon
-                                          name={subItem.icon}
-                                          size={14}
-                                        />
-                                      )}
-                                      {subItem.title}
-                                    </Pressable>
+                                    <li key={subIndex}>
+                                      <NavigationMenuLink asChild>
+                                        <Pressable
+                                          href={subItem.url}
+                                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                        >
+                                          <div className="flex items-center gap-2">
+                                            {subItem.icon && (
+                                              <DynamicIcon
+                                                name={subItem.icon}
+                                                size={16}
+                                              />
+                                            )}
+                                            <div className="text-sm font-medium leading-none">
+                                              {subItem.title}
+                                            </div>
+                                          </div>
+                                          {subItem.description && (
+                                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                              {subItem.description}
+                                            </p>
+                                          )}
+                                        </Pressable>
+                                      </NavigationMenuLink>
+                                    </li>
                                   ))}
-                                </div>
-                              </AccordionContent>
-                            </AccordionItem>
+                                </ul>
+                              </NavigationMenuContent>
+                            </NavigationMenuItem>
                           ) : (
-                            <div key={index} className="border-b py-4">
-                              <Pressable
-                                href={item.url}
-                                className="text-base font-medium"
-                                onClick={() => setIsOpen(false)}
+                            <NavigationMenuItem key={index}>
+                              <NavigationMenuLink
+                                asChild
+                                className={navigationMenuTriggerStyle()}
                               >
-                                {item.title}
-                              </Pressable>
-                            </div>
+                                <Pressable href={item.url}>
+                                  {item.title}
+                                </Pressable>
+                              </NavigationMenuLink>
+                            </NavigationMenuItem>
                           ),
                         )}
-                  </Accordion>
-                </div>
-
-                <div className="border-t pt-4">
-                  <div className="flex flex-col gap-2">
-                    {renderAuthActions()}
-                  </div>
-                  <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
-                    {mobileExtraLinksSlot
-                      ? mobileExtraLinksSlot
-                      : renderMobileExtraLinks()?.map((link, index) => (
-                          <Pressable
-                            key={index}
-                            href={link.url}
-                            className="text-xs text-muted-foreground hover:text-foreground"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {link.title}
-                          </Pressable>
-                        ))}
-                  </div>
-                </div>
+                  </NavigationMenuList>
+                </NavigationMenu>
               </div>
-            </SheetContent>
-          </Sheet>
-        </nav>
+
+              <div
+                className={cn(
+                  "hidden items-center gap-2 lg:flex",
+                  actionsClassName,
+                )}
+              >
+                {renderAuthActions()}
+              </div>
+
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                <SheetTrigger asChild className="lg:hidden">
+                  <Pressable
+                    variant="outline"
+                    size="icon"
+                    asButton
+                    onClick={() => {}}
+                  >
+                    <DynamicIcon name="lucide/menu" size={20} />
+                    <span className="sr-only">Toggle menu</span>
+                  </Pressable>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[300px] sm:w-[350px]">
+                  <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                  <div className="flex h-full flex-col">
+                    <div className="flex items-center justify-between border-b pb-4">
+                      <NavbarLogo
+                        logo={logo}
+                        logoSlot={logoSlot}
+                        logoClassName={logoClassName}
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    </div>
+
+                    <div className="flex-1 overflow-y-auto py-4">
+                      <Accordion type="single" collapsible className="w-full">
+                        {menuSlot
+                          ? menuSlot
+                          : renderMenu()?.map((item, index) =>
+                              item.items ? (
+                                <AccordionItem
+                                  key={index}
+                                  value={`item-${index}`}
+                                >
+                                  <AccordionTrigger className="text-base hover:no-underline">
+                                    {item.title}
+                                  </AccordionTrigger>
+                                  <AccordionContent>
+                                    <div className="flex flex-col space-y-2 pl-4">
+                                      {item.items.map((subItem, subIndex) => (
+                                        <Pressable
+                                          key={subIndex}
+                                          href={subItem.url}
+                                          className="flex items-center gap-2 rounded-md py-2 text-sm text-muted-foreground hover:text-foreground"
+                                          onClick={() => setIsOpen(false)}
+                                        >
+                                          {subItem.icon && (
+                                            <DynamicIcon
+                                              name={subItem.icon}
+                                              size={14}
+                                            />
+                                          )}
+                                          {subItem.title}
+                                        </Pressable>
+                                      ))}
+                                    </div>
+                                  </AccordionContent>
+                                </AccordionItem>
+                              ) : (
+                                <div key={index} className="border-b py-4">
+                                  <Pressable
+                                    href={item.url}
+                                    className="text-base font-medium"
+                                    onClick={() => setIsOpen(false)}
+                                  >
+                                    {item.title}
+                                  </Pressable>
+                                </div>
+                              ),
+                            )}
+                      </Accordion>
+                    </div>
+
+                    <div className="border-t pt-4">
+                      <div className="flex flex-col gap-2">
+                        {renderAuthActions()}
+                      </div>
+                      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+                        {mobileExtraLinksSlot
+                          ? mobileExtraLinksSlot
+                          : renderMobileExtraLinks()?.map((link, index) => (
+                              <Pressable
+                                key={index}
+                                href={link.url}
+                                className="text-xs text-muted-foreground hover:text-foreground"
+                                onClick={() => setIsOpen(false)}
+                              >
+                                {link.title}
+                              </Pressable>
+                            ))}
+                      </div>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </nav>
           </div>
         </div>
       </div>

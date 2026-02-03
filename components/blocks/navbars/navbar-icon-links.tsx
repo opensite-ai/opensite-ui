@@ -1,11 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { useState , useMemo} from "react";
+import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import {
   NavigationMenu,
@@ -27,7 +26,6 @@ import {
   TooltipTrigger,
 } from "../../ui/tooltip";
 import { NavbarLogo } from "../../ui/navbar-logo";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -139,10 +137,7 @@ export interface NavbarIconLinksProps {
  * with the navigation structure.
  */
 export const NavbarIconLinks = ({
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   logoClassName,
   navItems,
@@ -278,7 +273,9 @@ export const NavbarIconLinks = ({
                                       )}
                                     >
                                       <DynamicIcon name={item.icon} size={20} />
-                                      <span className="sr-only">{item.title}</span>
+                                      <span className="sr-only">
+                                        {item.title}
+                                      </span>
                                     </Pressable>
                                   </NavigationMenuLink>
                                 </TooltipTrigger>
@@ -293,12 +290,7 @@ export const NavbarIconLinks = ({
                 </TooltipProvider>
               </div>
 
-              <div
-                className={cn(
-                  "flex items-center gap-2",
-                  actionsClassName,
-                )}
-              >
+              <div className={cn("flex items-center gap-2", actionsClassName)}>
                 {renderAuthActions}
               </div>
             </nav>

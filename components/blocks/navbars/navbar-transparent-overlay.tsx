@@ -14,7 +14,6 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -136,10 +135,7 @@ export const NavbarTransparentOverlay = ({
   navClassName,
   navigationMenuClassName,
   actionsClassName,
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   logoClassName,
   navItems,
@@ -322,70 +318,72 @@ export const NavbarTransparentOverlay = ({
         >
           <div className={innerContainerClasses}>
             <div className="flex h-16 items-center justify-between">
-            <NavbarLogo
-              logo={logo}
-              logoSlot={logoSlot}
-              logoClassName={cn(
-                "z-50",
-                !isScrolled && !isOpen && "[&_img]:brightness-0 [&_img]:invert [&_span]:text-background",
-                logoClassName,
-              )}
-              optixFlowConfig={optixFlowConfig}
-            />
-
-            <NavigationMenu
-              className={cn("hidden lg:flex", navigationMenuClassName)}
-            >
-              {renderNavigation}
-            </NavigationMenu>
-
-            <div
-              className={cn(
-                "hidden items-center gap-2 lg:flex",
-                actionsClassName,
-              )}
-            >
-              {renderAuthActions}
-            </div>
-
-            <button
-              onClick={toggleMenu}
-              className={cn(
-                "z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden",
-              )}
-              aria-label="Toggle menu"
-            >
-              <span
-                className={cn(
-                  "h-0.5 w-6 transition-all duration-300",
-                  isOpen
-                    ? "translate-y-2 rotate-45 bg-foreground"
-                    : isScrolled
-                      ? "bg-foreground"
-                      : "bg-white",
+              <NavbarLogo
+                logo={logo}
+                logoSlot={logoSlot}
+                logoClassName={cn(
+                  "z-50",
+                  !isScrolled &&
+                    !isOpen &&
+                    "[&_img]:brightness-0 [&_img]:invert [&_span]:text-background",
+                  logoClassName,
                 )}
+                optixFlowConfig={optixFlowConfig}
               />
-              <span
+
+              <NavigationMenu
+                className={cn("hidden lg:flex", navigationMenuClassName)}
+              >
+                {renderNavigation}
+              </NavigationMenu>
+
+              <div
                 className={cn(
-                  "h-0.5 w-6 transition-all duration-300",
-                  isOpen
-                    ? "opacity-0"
-                    : isScrolled
-                      ? "bg-foreground"
-                      : "bg-white",
+                  "hidden items-center gap-2 lg:flex",
+                  actionsClassName,
                 )}
-              />
-              <span
+              >
+                {renderAuthActions}
+              </div>
+
+              <button
+                onClick={toggleMenu}
                 className={cn(
-                  "h-0.5 w-6 transition-all duration-300",
-                  isOpen
-                    ? "-translate-y-2 -rotate-45 bg-foreground"
-                    : isScrolled
-                      ? "bg-foreground"
-                      : "bg-white",
+                  "z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden",
                 )}
-              />
-            </button>
+                aria-label="Toggle menu"
+              >
+                <span
+                  className={cn(
+                    "h-0.5 w-6 transition-all duration-300",
+                    isOpen
+                      ? "translate-y-2 rotate-45 bg-foreground"
+                      : isScrolled
+                        ? "bg-foreground"
+                        : "bg-white",
+                  )}
+                />
+                <span
+                  className={cn(
+                    "h-0.5 w-6 transition-all duration-300",
+                    isOpen
+                      ? "opacity-0"
+                      : isScrolled
+                        ? "bg-foreground"
+                        : "bg-white",
+                  )}
+                />
+                <span
+                  className={cn(
+                    "h-0.5 w-6 transition-all duration-300",
+                    isOpen
+                      ? "-translate-y-2 -rotate-45 bg-foreground"
+                      : isScrolled
+                        ? "bg-foreground"
+                        : "bg-white",
+                  )}
+                />
+              </button>
             </div>
           </div>
         </nav>

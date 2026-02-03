@@ -124,6 +124,11 @@
     "import": "./dist/navbar-mega-menus.js",
     "require": "./dist/navbar-mega-menus.cjs"
   },
+  "./components/navbar-mobile-menu": {
+    "types": "./dist/navbar-mobile-menu.d.ts",
+    "import": "./dist/navbar-mobile-menu.js",
+    "require": "./dist/navbar-mobile-menu.cjs"
+  },
   "./components/navigation-menu": {
     "types": "./dist/navigation-menu.d.ts",
     "import": "./dist/navigation-menu.js",

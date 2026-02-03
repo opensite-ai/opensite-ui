@@ -18,10 +18,6 @@ import {
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle, SheetClose } from "../../ui/sheet";
-import {
-  logoPlaceholders,
-  imagePlaceholders,
-} from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -171,10 +167,7 @@ export const NavbarImagePreview = ({
   navClassName,
   navigationMenuClassName,
   actionsClassName,
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   logoClassName,
   navigation,
@@ -321,33 +314,35 @@ export const NavbarImagePreview = ({
                 navClassName,
               )}
             >
-            <NavbarLogo
-              logo={logo}
-              logoSlot={logoSlot}
-              logoClassName={logoClassName}
-              optixFlowConfig={optixFlowConfig}
-            />
-            <NavigationMenu
-              className={cn(
-                "hidden lg:flex [&>div:nth-child(2)]:left-1/2 [&>div:nth-child(2)]:-translate-x-1/2",
-                navigationMenuClassName,
-              )}
-            >
-              {renderNavigation}
-            </NavigationMenu>
-            <div className={cn("flex items-center gap-3.5", actionsClassName)}>
-              {renderAuthActions}
-              <div className="lg:hidden">
-                <Pressable
-                  variant="ghost"
-                  size="icon"
-                  asButton
-                  onClick={handleMobileMenu}
-                >
-                  <DynamicIcon name="lucide/menu" size={22} />
-                </Pressable>
+              <NavbarLogo
+                logo={logo}
+                logoSlot={logoSlot}
+                logoClassName={logoClassName}
+                optixFlowConfig={optixFlowConfig}
+              />
+              <NavigationMenu
+                className={cn(
+                  "hidden lg:flex [&>div:nth-child(2)]:left-1/2 [&>div:nth-child(2)]:-translate-x-1/2",
+                  navigationMenuClassName,
+                )}
+              >
+                {renderNavigation}
+              </NavigationMenu>
+              <div
+                className={cn("flex items-center gap-3.5", actionsClassName)}
+              >
+                {renderAuthActions}
+                <div className="lg:hidden">
+                  <Pressable
+                    variant="ghost"
+                    size="icon"
+                    asButton
+                    onClick={handleMobileMenu}
+                  >
+                    <DynamicIcon name="lucide/menu" size={22} />
+                  </Pressable>
+                </div>
               </div>
-            </div>
             </div>
           </div>
         </div>
@@ -416,7 +411,7 @@ const DesktopMenuItem = ({
                       imagesRef.current[linkIndex] = el;
                     }
                   }}
-                  src={link.image || imagePlaceholders[0]}
+                  src={link.image}
                   alt={typeof link.label === "string" ? link.label : ""}
                   className={`absolute top-0 left-0 h-full w-full object-cover transition-opacity duration-300 ${
                     linkIndex === 0 ? "opacity-100" : "opacity-0"

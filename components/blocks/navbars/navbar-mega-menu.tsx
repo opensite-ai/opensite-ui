@@ -274,7 +274,9 @@ const DesktopMenuItem = ({
                           </div>
                         )}
                         <div className="flex-1">
-                          <div className="text-sm font-medium">{item.label}</div>
+                          <div className="text-sm font-medium">
+                            {item.label}
+                          </div>
                           {item.description && (
                             <div className="text-sm font-normal text-muted-foreground">
                               {item.description}
@@ -361,7 +363,10 @@ const DesktopMenuItem = ({
                   )}
                   <ul className="flex flex-col gap-1">
                     {(group.links || []).map((item, itemIndex) => (
-                      <li key={`list-item-${groupIndex}-${itemIndex}`} className="w-full">
+                      <li
+                        key={`list-item-${groupIndex}-${itemIndex}`}
+                        className="w-full"
+                      >
                         <NavigationMenuLink
                           href={getLinkUrl(item)}
                           className="flex w-full items-start gap-3 rounded-lg p-3 hover:bg-muted"
@@ -390,7 +395,9 @@ const DesktopMenuItem = ({
                             </div>
                           )}
                           <div className="flex-1">
-                            <div className="text-sm font-medium">{item.label}</div>
+                            <div className="text-sm font-medium">
+                              {item.label}
+                            </div>
                             {item.description && (
                               <div className="text-xs text-muted-foreground">
                                 {item.description}
@@ -552,9 +559,7 @@ export const NavbarMegaMenu = ({
   actionsClassName,
   logoClassName,
   mobileMenuClassName,
-  logo = {
-    url: "/",
-  },
+  logo,
   logoSlot,
   menuLinks,
   actions,
@@ -573,7 +578,7 @@ export const NavbarMegaMenu = ({
   const hasDropdownItems = (link: IMenuLink) =>
     Boolean(
       (link.links && link.links.length > 0) ||
-        (link.dropdownGroups && link.dropdownGroups.length > 0)
+      (link.dropdownGroups && link.dropdownGroups.length > 0),
     );
 
   const renderActions = () => {

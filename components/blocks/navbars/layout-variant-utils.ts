@@ -39,8 +39,8 @@ export function getNavbarLayoutClasses(
 
     // Inner container classes (only for fullScreenContainerizedLinks - this containerizes the content inside the navbar)
     innerContainerClasses: cn(
-      isContainerizedLinks && "container",
-      isFullWidthLinks && "mx-auto w-full px-2 sm:px-4 lg:px-8",
+      isContainerizedLinks && "container px-4 sm:px-6 lg:px-8",
+      isFullWidthLinks && "mx-auto w-full px-4 sm:px-6 lg:px-8",
       customClasses?.containerClassName,
     ),
 

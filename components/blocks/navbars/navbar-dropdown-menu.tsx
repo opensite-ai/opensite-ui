@@ -5,7 +5,6 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import {
   Accordion,
@@ -28,7 +27,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../../ui/sheet";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import { NavbarLogo } from "../../ui/navbar-logo";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -231,10 +229,7 @@ const renderMobileMenuItem = (
  * The dropdown menus display icons and descriptions for each submenu item.
  */
 export const NavbarDropdownMenu = ({
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   logoClassName,
   menu,

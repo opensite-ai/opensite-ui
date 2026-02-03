@@ -10,7 +10,6 @@ import {
   SocialLinkIcon,
   type SocialPlatformName,
 } from "../../ui/social-link-icon";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   OptixFlowConfig,
@@ -131,10 +130,7 @@ export interface NavbarFullscreenMenuProps {
  * for smooth transitions. Perfect for creative agencies, portfolios, and artistic websites.
  */
 export const NavbarFullscreenMenu = ({
-  logo = {
-    url: "/",
-    src: logoPlaceholders.darkHorizontalLogo,
-  },
+  logo,
   logoSlot,
   logoClassName,
   menuItems,

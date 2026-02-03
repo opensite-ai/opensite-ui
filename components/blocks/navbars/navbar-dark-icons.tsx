@@ -5,7 +5,6 @@ import { useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import {
   Accordion,
@@ -24,7 +23,6 @@ import {
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle } from "../../ui/sheet";
 import { NavbarLogo } from "../../ui/navbar-logo";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -155,10 +153,7 @@ export const NavbarDarkIcons = ({
   navClassName,
   navigationMenuClassName,
   actionsClassName,
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   logoClassName,
   navigation,
@@ -287,45 +282,45 @@ export const NavbarDarkIcons = ({
                 navClassName,
               )}
             >
-            <NavbarLogo
-              logo={logo}
-              logoSlot={logoSlot}
-              logoClassName={logoClassName}
-              optixFlowConfig={optixFlowConfig}
-            />
-            <NavigationMenu
-              className={cn("hidden lg:flex", navigationMenuClassName)}
-              viewport={false}
-            >
-              {renderNavigation}
-            </NavigationMenu>
-            <div className={cn("flex items-center gap-4", actionsClassName)}>
-              {renderGithubStars}
-              {renderAuthActions}
-              <div className="lg:hidden">
-                <Pressable
-                  variant="ghost"
-                  size="icon"
-                  asButton
-                  onClick={handleMobileMenu}
-                >
-                  {open ? (
-                    <DynamicIcon
-                      name="lucide/x"
-                      size={22}
-                      className="stroke-foreground"
-                    />
-                  ) : (
-                    <DynamicIcon
-                      name="lucide/menu"
-                      size={22}
-                      className="stroke-foreground"
-                    />
-                  )}
-                </Pressable>
+              <NavbarLogo
+                logo={logo}
+                logoSlot={logoSlot}
+                logoClassName={logoClassName}
+                optixFlowConfig={optixFlowConfig}
+              />
+              <NavigationMenu
+                className={cn("hidden lg:flex", navigationMenuClassName)}
+                viewport={false}
+              >
+                {renderNavigation}
+              </NavigationMenu>
+              <div className={cn("flex items-center gap-4", actionsClassName)}>
+                {renderGithubStars}
+                {renderAuthActions}
+                <div className="lg:hidden">
+                  <Pressable
+                    variant="ghost"
+                    size="icon"
+                    asButton
+                    onClick={handleMobileMenu}
+                  >
+                    {open ? (
+                      <DynamicIcon
+                        name="lucide/x"
+                        size={22}
+                        className="stroke-foreground"
+                      />
+                    ) : (
+                      <DynamicIcon
+                        name="lucide/menu"
+                        size={22}
+                        className="stroke-foreground"
+                      />
+                    )}
+                  </Pressable>
+                </div>
               </div>
-            </div>
-          </nav>
+            </nav>
           </div>
         </div>
       </div>
@@ -398,9 +393,7 @@ const MenuSubLink = ({ link }: MenuSubLinkProps) => {
             />
           ) : null}
           <div className="flex flex-col gap-1.5">
-            <h3 className="text-sm leading-none">
-              {link.label}
-            </h3>
+            <h3 className="text-sm leading-none">{link.label}</h3>
             <p className="text-sm leading-[1.2] text-muted-foreground/80">
               {link.description}
             </p>

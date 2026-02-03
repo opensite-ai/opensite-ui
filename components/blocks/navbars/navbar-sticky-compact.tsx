@@ -17,7 +17,6 @@ import {
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -127,10 +126,7 @@ export interface NavbarStickyCompactProps {
  * vertical space is valuable.
  */
 export const NavbarStickyCompact = ({
-  logo = {
-    url: "/",
-    src: logoPlaceholders.logoMark,
-  },
+  logo,
   logoSlot,
   logoClassName,
   menu,
@@ -319,59 +315,64 @@ export const NavbarStickyCompact = ({
                 navClassName,
               )}
             >
-          <NavbarLogo
-            logo={logo}
-            logoSlot={logoSlot}
-            logoClassName={cn(
-              isScrolled ? "[&_img]:h-6 [&_span]:text-base" : "[&_img]:h-8 [&_span]:text-lg",
-              "[&_img]:transition-all [&_img]:duration-300 [&_span]:transition-all [&_span]:duration-300",
-              logoClassName,
-            )}
-            optixFlowConfig={optixFlowConfig}
-          />
+              <NavbarLogo
+                logo={logo}
+                logoSlot={logoSlot}
+                logoClassName={cn(
+                  isScrolled
+                    ? "[&_img]:h-6 [&_span]:text-base"
+                    : "[&_img]:h-8 [&_span]:text-lg",
+                  "[&_img]:transition-all [&_img]:duration-300 [&_span]:transition-all [&_span]:duration-300",
+                  logoClassName,
+                )}
+                optixFlowConfig={optixFlowConfig}
+              />
 
-          <NavigationMenu className="hidden lg:flex">
-            <NavigationMenuList>{renderMenu}</NavigationMenuList>
-          </NavigationMenu>
+              <NavigationMenu className="hidden lg:flex">
+                <NavigationMenuList>{renderMenu}</NavigationMenuList>
+              </NavigationMenu>
 
-          <div
-            className={cn(
-              "hidden items-center gap-2 lg:flex",
-              actionsClassName,
-            )}
-          >
-            {renderAuthActions}
-          </div>
-
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="lg:hidden">
-              <Pressable
-                variant="ghost"
-                size={isScrolled ? "sm" : "icon"}
-                asButton
-                onClick={() => {}}
-                className="transition-all duration-300"
+              <div
+                className={cn(
+                  "hidden items-center gap-2 lg:flex",
+                  actionsClassName,
+                )}
               >
-                <DynamicIcon name="lucide/menu" size={isScrolled ? 18 : 20} />
-                <span className="sr-only">Toggle menu</span>
-              </Pressable>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[280px]">
-              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <div className="flex flex-col gap-4 pt-8">
-                {renderMobileMenu}
-                <div
-                  className={cn(
-                    "mt-4 flex flex-col gap-2 border-t pt-4",
-                    actionsClassName,
-                  )}
-                >
-                  {renderAuthActions}
-                </div>
+                {renderAuthActions}
               </div>
-            </SheetContent>
-          </Sheet>
-        </nav>
+
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                <SheetTrigger asChild className="lg:hidden">
+                  <Pressable
+                    variant="ghost"
+                    size={isScrolled ? "sm" : "icon"}
+                    asButton
+                    onClick={() => {}}
+                    className="transition-all duration-300"
+                  >
+                    <DynamicIcon
+                      name="lucide/menu"
+                      size={isScrolled ? 18 : 20}
+                    />
+                    <span className="sr-only">Toggle menu</span>
+                  </Pressable>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[280px]">
+                  <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                  <div className="flex flex-col gap-4 pt-8">
+                    {renderMobileMenu}
+                    <div
+                      className={cn(
+                        "mt-4 flex flex-col gap-2 border-t pt-4",
+                        actionsClassName,
+                      )}
+                    >
+                      {renderAuthActions}
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </nav>
           </div>
         </div>
       </div>
