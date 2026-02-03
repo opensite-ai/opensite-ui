@@ -1,8 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { Fragment, useState, useEffect, useRef, forwardRef, useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  Fragment,
+  useState,
+  useEffect,
+  useRef,
+  forwardRef,
+  useMemo,
+} from "react";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -287,8 +294,8 @@ export const NavbarAnimatedPreview = ({
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
   const navWrapperClasses = cn(
-    "h-20 max-w-full after:absolute after:inset-0 after:z-998 after:block after:size-full after:bg-background after:content-[''] [&>div:last-child>div]:mt-0 [&>div:last-child>div]:animate-none [&>div:last-child>div]:rounded-none [&>div:last-child>div]:border-0 [&>div:last-child>div]:shadow-[0px_-1px_0px_0px_rgba(0,0,0,0.05),0px_0px_0px_1px_rgba(17,26,37,0.05),0px_2px_5px_0px_rgba(16,25,36,0.1),0px_5px_20px_0px_rgba(16,25,36,0.1)]!",
-    navigationMenuClassName
+    "h-full max-w-full after:absolute after:inset-0 after:z-998 after:block after:size-full after:content-[''] [&>div:last-child>div]:mt-0 [&>div:last-child>div]:animate-none [&>div:last-child>div]:rounded-none [&>div:last-child>div]:border-0 [&>div:last-child>div]:shadow-[0px_-1px_0px_0px_rgba(0,0,0,0.05),0px_0px_0px_1px_rgba(17,26,37,0.05),0px_2px_5px_0px_rgba(16,25,36,0.1),0px_5px_20px_0px_rgba(16,25,36,0.1)]!",
+    navigationMenuClassName,
   );
 
   return (
@@ -700,8 +707,12 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
           ) : null}
         </div>
         <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold text-background">{link.label}</div>
-          <div className="font-medium text-background/80">{link.description}</div>
+          <div className="text-lg font-semibold text-background">
+            {link.label}
+          </div>
+          <div className="font-medium text-background/80">
+            {link.description}
+          </div>
         </div>
       </div>
       <Img

@@ -7,6 +7,7 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -161,33 +162,6 @@ export const NavbarTabbedSections = ({
   optixFlowConfig,
 }: NavbarTabbedSectionsProps) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("flex items-center gap-2", logoClassName)}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            className={cn("h-8", logo.className)}
-            alt={logo.alt || "Logo"}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="text-lg font-semibold">{logo.title}</span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
 
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
@@ -398,7 +372,12 @@ export const NavbarTabbedSections = ({
               )}
             >
               <div className="flex items-center gap-8">
-                {renderLogo}
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
 
                 <NavigationMenu className="hidden lg:flex">
                   <NavigationMenuList>{renderMenu}</NavigationMenuList>

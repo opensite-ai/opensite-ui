@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect , useMemo} from "react";
+import { useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -180,44 +180,6 @@ export const NavbarTransparentOverlay = ({
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("z-50 flex items-center gap-2", logoClassName)}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            alt={logo.alt || "Logo"}
-            className={cn(
-              "h-8 transition-all duration-300",
-              !isScrolled && !isOpen && "brightness-0 invert",
-              logo.className,
-            )}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span
-              className={cn(
-                "text-lg font-semibold transition-colors duration-300",
-                !isScrolled && !isOpen ? "text-background" : "",
-              )}
-            >
-              {logo.title}
-            </span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, isScrolled, isOpen, optixFlowConfig]);
-
   const renderNavigation = useMemo(() => {
     if (navigationSlot) return navigationSlot;
     if (!navItems || navItems.length === 0) return null;
@@ -360,7 +322,16 @@ export const NavbarTransparentOverlay = ({
         >
           <div className={innerContainerClasses}>
             <div className="flex h-16 items-center justify-between">
-            {renderLogo}
+            <NavbarLogo
+              logo={logo}
+              logoSlot={logoSlot}
+              logoClassName={cn(
+                "z-50",
+                !isScrolled && !isOpen && "[&_img]:brightness-0 [&_img]:invert [&_span]:text-background",
+                logoClassName,
+              )}
+              optixFlowConfig={optixFlowConfig}
+            />
 
             <NavigationMenu
               className={cn("hidden lg:flex", navigationMenuClassName)}

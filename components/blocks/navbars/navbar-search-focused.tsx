@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useState , useMemo} from "react";
+import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -173,35 +173,6 @@ export const NavbarSearchFocused = ({
 }: NavbarSearchFocusedProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("flex shrink-0 items-center gap-2", logoClassName)}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            alt={logo.alt || "Logo"}
-            className={cn("h-8", logo.className)}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="hidden text-lg font-semibold sm:inline-block">
-              {logo.title}
-            </span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
-
   const renderNavigation = (items: NavItem[]) => {
     if (navigationSlot) return navigationSlot;
     if (!items || items.length === 0) return null;
@@ -316,7 +287,12 @@ export const NavbarSearchFocused = ({
                 navClassName,
               )}
             >
-          {renderLogo}
+          <NavbarLogo
+            logo={logo}
+            logoSlot={logoSlot}
+            logoClassName={logoClassName}
+            optixFlowConfig={optixFlowConfig}
+          />
 
           <NavigationMenu
             className={cn("hidden lg:flex", navigationMenuClassName)}

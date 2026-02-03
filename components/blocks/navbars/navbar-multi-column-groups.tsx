@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect , useMemo} from "react";
+import { useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import {
   Accordion,
   AccordionContent,
@@ -206,36 +206,6 @@ export const NavbarMultiColumnGroups = ({
     setOpen(!open);
   };
 
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn(
-          "flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter",
-          logoClassName,
-        )}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            alt={logo.alt || "Logo"}
-            className={cn("inline-block size-6", logo.className)}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="hidden md:inline-block">{logo.title}</span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
-
   const renderNavigation = useMemo(() => {
     if (navigationSlot) return navigationSlot;
     if (!navigation || navigation.length === 0) return null;
@@ -316,7 +286,12 @@ export const NavbarMultiColumnGroups = ({
               )}
             >
           <div className="flex items-center gap-8">
-            {renderLogo}
+            <NavbarLogo
+              logo={logo}
+              logoSlot={logoSlot}
+              logoClassName={logoClassName}
+              optixFlowConfig={optixFlowConfig}
+            />
             <NavigationMenu
               className={cn("hidden xl:flex", navigationMenuClassName)}
               viewport={false}

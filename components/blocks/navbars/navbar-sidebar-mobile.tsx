@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useState , useMemo} from "react";
+import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import {
   Accordion,
   AccordionContent,
@@ -172,33 +172,6 @@ export const NavbarSidebarMobile = ({
 }: NavbarSidebarMobileProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const renderLogo = () => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("flex items-center gap-2", logoClassName)}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            className={cn("h-8", logo.className)}
-            alt={logo.alt || "Logo"}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="text-lg font-semibold">{logo.title}</span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  };
-
   const renderAuthActions = () => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
@@ -278,7 +251,12 @@ export const NavbarSidebarMobile = ({
               )}
             >
           <div className="flex items-center gap-8">
-            {renderLogo()}
+            <NavbarLogo
+              logo={logo}
+              logoSlot={logoSlot}
+              logoClassName={logoClassName}
+              optixFlowConfig={optixFlowConfig}
+            />
 
             <NavigationMenu
               className={cn("hidden lg:flex", navigationMenuClassName)}
@@ -364,7 +342,12 @@ export const NavbarSidebarMobile = ({
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex h-full flex-col">
                 <div className="flex items-center justify-between border-b pb-4">
-                  {renderLogo()}
+                  <NavbarLogo
+                    logo={logo}
+                    logoSlot={logoSlot}
+                    logoClassName={logoClassName}
+                    optixFlowConfig={optixFlowConfig}
+                  />
                 </div>
 
                 <div className="flex-1 overflow-y-auto py-4">

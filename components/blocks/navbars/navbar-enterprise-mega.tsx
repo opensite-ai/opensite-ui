@@ -481,8 +481,11 @@ export const NavbarEnterpriseMega = ({
                   optixFlowConfig={optixFlowConfig}
                 />
                 <NavigationMenu
-              className={cn("hidden lg:flex", navigationMenuClassName)}
-              viewport={false}
+              className={cn(
+                "hidden lg:flex [&>div:last-child]:left-1/2 [&>div:last-child]:-translate-x-1/2",
+                navigationMenuClassName
+              )}
+              viewport={true}
             >
               <NavigationMenuList>
                 {menuLinks?.map((item, index) => (
@@ -561,14 +564,12 @@ const DesktopMenuItem = ({
         <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {item.label}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="!rounded-xl !border-0 !p-0">
-          <div className="w-screen">
-            <div className="mx-auto max-w-7xl px-6 py-8">
-              {renderDropdownContent(
-                { ...item, layout: effectiveLayout },
-                optixFlowConfig,
-              )}
-            </div>
+        <NavigationMenuContent className="!rounded-xl !border-0">
+          <div className="w-full max-w-6xl p-6">
+            {renderDropdownContent(
+              { ...item, layout: effectiveLayout },
+              optixFlowConfig,
+            )}
           </div>
         </NavigationMenuContent>
       </NavigationMenuItem>
@@ -652,71 +653,68 @@ const SolutionsMenu = ({
   featuredHeroCard,
   optixFlowConfig,
 }: SolutionsMenuProps) => (
-  <div className="grid gap-6 sm:grid-cols-2">
+  <div className="grid grid-cols-2 gap-4">
     {featuredHeroCard && (
-      <Pressable
-        href={featuredHeroCard.href}
-        className={cn(
-          "group relative flex h-full overflow-hidden rounded-lg text-primary-foreground",
-          featuredHeroCard.variant === "accent"
-            ? "bg-accent text-accent-foreground"
-            : "bg-primary",
-        )}
-      >
-        <div className="flex w-full flex-col items-start gap-4 p-6 lg:flex-row lg:items-center lg:gap-6">
-          <div className="flex flex-1 flex-col justify-center">
+      <div className="col-span-1">
+        <Pressable
+          href={featuredHeroCard.href}
+          className={cn(
+            "group flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
+            featuredHeroCard.variant === "accent"
+              ? "bg-accent text-accent-foreground"
+              : "bg-primary",
+          )}
+        >
+          <div className="flex flex-1 flex-col justify-between p-5">
             {featuredHeroCard.subtitle && (
-              <span className="mb-3 text-xs font-medium tracking-wider uppercase">
+              <span className="mb-2 text-xs font-medium tracking-wider uppercase">
                 {featuredHeroCard.subtitle}
               </span>
             )}
-            <div className="flex items-center gap-2 text-base font-semibold">
-              {featuredHeroCard.title}
-              <DynamicIcon
-                name="lucide/arrow-right"
-                size={18}
-                className="transition-transform group-hover:translate-x-1"
-              />
+            <div>
+              <div className="flex items-center gap-1.5 text-base font-semibold">
+                {featuredHeroCard.title}
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="transition-transform group-hover:translate-x-1"
+                />
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-primary-foreground/85">
+                {featuredHeroCard.description}
+              </p>
             </div>
-            <p className="mt-2 text-sm leading-relaxed text-primary-foreground/85">
-              {featuredHeroCard.description}
-            </p>
           </div>
-          <div className="relative w-full shrink-0 overflow-hidden rounded lg:w-48 xl:w-56">
+          <div className="relative aspect-video w-full overflow-hidden">
             <Img
               src={featuredHeroCard.image}
               alt={featuredHeroCard.title}
-              className="aspect-video w-full object-cover"
+              className="h-full w-full object-cover"
               optixFlowConfig={optixFlowConfig}
             />
           </div>
-        </div>
-      </Pressable>
+        </Pressable>
+      </div>
     )}
 
     {platformItems.length > 0 && (
-      <div>
-        <div className="mb-4 text-left">
+      <div className="col-span-1">
+        <div className="mb-3 text-left">
           <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
             Developer Platform
           </strong>
         </div>
-        <div className="grid gap-3 lg:grid-cols-2">
+        <div className="grid grid-cols-2 gap-2">
           {platformItems.map((technology) => (
             <NavigationMenuLink
               key={technology.id}
               href={technology.href}
-              className="group -ml-2 flex items-center gap-3 rounded-lg p-2 hover:bg-muted"
+              className="group flex items-center gap-2 rounded-lg p-2 hover:bg-muted"
             >
-              <DynamicIcon name={technology.icon} size={16} />
-              <div className="flex-1 text-sm font-medium">
+              <DynamicIcon name={technology.icon} size={16} className="shrink-0" />
+              <div className="min-w-0 flex-1 text-sm font-medium">
                 {technology.title}
               </div>
-              <DynamicIcon
-                name="lucide/arrow-right"
-                size={16}
-                className="transition-transform group-hover:translate-x-1 lg:hidden"
-              />
             </NavigationMenuLink>
           ))}
         </div>
@@ -724,11 +722,11 @@ const SolutionsMenu = ({
     )}
 
     {solutionCards.length > 0 && (
-      <div className="col-span-full mt-2 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="col-span-2 mt-2 grid grid-cols-4 gap-3">
         {solutionCards.map((solution) => (
           <div
             key={solution.id}
-            className="flex flex-col rounded-lg border border-border p-4"
+            className="col-span-1 flex flex-col rounded-lg border border-border p-4"
           >
             <div className="border-b border-border pb-3">
               <Pressable
@@ -741,8 +739,8 @@ const SolutionsMenu = ({
                   </strong>
                   <DynamicIcon
                     name="lucide/arrow-right"
-                    size={16}
-                    className="transition-transform group-hover:translate-x-1"
+                    size={14}
+                    className="shrink-0 transition-transform group-hover:translate-x-1"
                   />
                 </div>
                 <p className="mt-1 text-xs text-muted-foreground">
@@ -750,22 +748,17 @@ const SolutionsMenu = ({
                 </p>
               </Pressable>
             </div>
-            <menu className="mt-4 grid gap-3">
+            <menu className="mt-3 grid gap-2">
               {solution.subpages.map((subpage) => (
                 <NavigationMenuLink
                   key={subpage.id}
                   href={subpage.href}
-                  className="group -ml-2 flex items-center gap-3 rounded-lg p-2 text-left hover:bg-muted"
+                  className="group flex items-center gap-2 rounded-lg p-2 text-left hover:bg-muted"
                 >
-                  <DynamicIcon name={subpage.icon} size={16} />
-                  <div className="flex-1 text-sm font-medium">
+                  <DynamicIcon name={subpage.icon} size={14} className="shrink-0" />
+                  <div className="min-w-0 flex-1 text-sm font-medium">
                     {subpage.title}
                   </div>
-                  <DynamicIcon
-                    name="lucide/arrow-right"
-                    size={16}
-                    className="transition-transform group-hover:translate-x-1 lg:hidden"
-                  />
                 </NavigationMenuLink>
               ))}
             </menu>
@@ -787,13 +780,13 @@ const ProductsMenu = ({
   featuredHeroCard,
   optixFlowConfig,
 }: ProductsMenuProps) => (
-  <div className="flex flex-col gap-8 lg:flex-row">
+  <div className="grid grid-cols-[320px_1fr] gap-6">
     {featuredHeroCard && (
-      <div className="w-full shrink-0 lg:w-80">
+      <div className="col-span-1">
         <Pressable
           href={featuredHeroCard.href}
           className={cn(
-            "group relative flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
+            "group flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
             featuredHeroCard.variant === "accent"
               ? "bg-accent text-accent-foreground"
               : "bg-primary",
@@ -807,12 +800,12 @@ const ProductsMenu = ({
               optixFlowConfig={optixFlowConfig}
             />
           </div>
-          <div className="flex flex-col p-6">
-            <div className="flex items-center gap-2 text-base font-semibold">
+          <div className="flex flex-col p-5">
+            <div className="flex items-center gap-1.5 text-base font-semibold">
               {featuredHeroCard.title}
               <DynamicIcon
                 name="lucide/arrow-right"
-                size={18}
+                size={16}
                 className="transition-transform group-hover:translate-x-1"
               />
             </div>
@@ -825,22 +818,22 @@ const ProductsMenu = ({
     )}
 
     {productCategories.length > 0 && (
-      <div className="flex flex-1 flex-col gap-8">
+      <div className="col-span-1 flex flex-col gap-6">
         {productCategories.map((category) => (
-          <div key={category.title} className="flex flex-col gap-4">
+          <div key={category.title} className="flex flex-col gap-3">
             <div className="border-b border-border pb-2 text-left">
               <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
                 {category.title}
               </strong>
             </div>
-            <menu className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <menu className="grid grid-cols-3 gap-3">
               {category.products.map((product) => (
                 <NavigationMenuLink
                   key={product.id}
                   href={product.href}
-                  className="group -ml-2 flex items-center gap-4 rounded-lg p-2 text-left hover:bg-muted"
+                  className="group col-span-1 flex items-center gap-3 rounded-lg p-3 text-left hover:bg-muted"
                 >
-                  <div className="relative flex size-14 shrink-0 items-center justify-center overflow-hidden rounded">
+                  <div className="relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded">
                     <Img
                       src={product.image}
                       alt={product.title}
@@ -848,7 +841,7 @@ const ProductsMenu = ({
                       optixFlowConfig={optixFlowConfig}
                     />
                   </div>
-                  <div className="flex-1 min-w-0">
+                  <div className="min-w-0 flex-1">
                     <div className="text-sm font-medium">
                       {product.title}
                     </div>
@@ -856,11 +849,6 @@ const ProductsMenu = ({
                       {product.description}
                     </p>
                   </div>
-                  <DynamicIcon
-                    name="lucide/arrow-right"
-                    size={16}
-                    className="shrink-0 transition-transform group-hover:translate-x-1 lg:hidden"
-                  />
                 </NavigationMenuLink>
               ))}
             </menu>
@@ -885,13 +873,13 @@ const GlobalMenu = ({
   optixFlowConfig,
 }: GlobalMenuProps) => (
   <div>
-    <div className="flex flex-col gap-6 lg:flex-row">
+    <div className="grid grid-cols-[280px_1fr] gap-6">
       {featuredHeroCard && (
-        <div className="w-full shrink-0 lg:w-72">
+        <div className="col-span-1">
           <Pressable
             href={featuredHeroCard.href}
             className={cn(
-              "group relative flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
+              "group flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
               featuredHeroCard.variant === "accent"
                 ? "bg-accent text-accent-foreground"
                 : "bg-primary",
@@ -905,12 +893,12 @@ const GlobalMenu = ({
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
-            <div className="flex flex-col p-6">
-              <div className="flex items-center gap-2 text-base font-semibold">
+            <div className="flex flex-col p-5">
+              <div className="flex items-center gap-1.5 text-base font-semibold">
                 {featuredHeroCard.title}
                 <DynamicIcon
                   name="lucide/arrow-right"
-                  size={18}
+                  size={16}
                   className="transition-transform group-hover:translate-x-1"
                 />
               </div>
@@ -923,25 +911,25 @@ const GlobalMenu = ({
       )}
 
       {featureCategories.length > 0 && (
-        <div className="flex flex-1 flex-col gap-8">
+        <div className="col-span-1 flex flex-col gap-6">
           {featureCategories.map((category) => (
-            <div key={category.title} className="flex flex-col gap-4">
+            <div key={category.title} className="flex flex-col gap-3">
               <div className="border-b border-border pb-2 text-left">
                 <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
                   {category.title}
                 </strong>
               </div>
-              <menu className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <menu className="grid grid-cols-3 gap-3">
                 {category.features.map((feature) => (
                   <NavigationMenuLink
                     key={feature.id}
                     href={feature.href}
-                    className="group -ml-2 flex items-center gap-3 rounded-lg p-2 text-left hover:bg-muted"
+                    className="group col-span-1 flex items-center gap-2 rounded-lg p-2 text-left hover:bg-muted"
                   >
-                    <div className="flex size-9 shrink-0 items-center justify-center">
-                      <DynamicIcon name={feature.icon} size={20} />
+                    <div className="flex size-8 shrink-0 items-center justify-center">
+                      <DynamicIcon name={feature.icon} size={18} />
                     </div>
-                    <div className="flex-1 min-w-0">
+                    <div className="min-w-0 flex-1">
                       <div className="text-sm font-medium">
                         {feature.title}
                       </div>
@@ -949,11 +937,6 @@ const GlobalMenu = ({
                         {feature.description}
                       </p>
                     </div>
-                    <DynamicIcon
-                      name="lucide/arrow-right"
-                      size={16}
-                      className="shrink-0 transition-transform group-hover:translate-x-1 lg:hidden"
-                    />
                   </NavigationMenuLink>
                 ))}
               </menu>
@@ -964,39 +947,34 @@ const GlobalMenu = ({
     </div>
 
     {regions.length > 0 && (
-      <div className="mt-8">
-        <div className="mb-4 border-b border-border pb-2 text-left">
+      <div className="mt-6">
+        <div className="mb-3 border-b border-border pb-2 text-left">
           <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
             Popular Locations
           </strong>
         </div>
-        <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-4 gap-4">
           {regions.map((region) => (
             <div
               key={region.title}
-              className="flex flex-col gap-4"
+              className="col-span-1 flex flex-col gap-3"
             >
               <div className="text-left text-xs font-medium text-muted-foreground">
                 {region.title}
               </div>
-              <menu className="grid gap-2">
+              <menu className="grid gap-1.5">
                 {region.locations.map((location) => (
                   <NavigationMenuLink
                     key={location.title}
                     href={location.href}
-                    className="group -ml-2 flex items-center gap-3 rounded-lg p-2 text-left hover:bg-muted"
+                    className="group flex items-center gap-2 rounded-lg p-2 text-left hover:bg-muted"
                   >
                     <div className="flex size-4 shrink-0 items-center justify-center">
                       {location.icon}
                     </div>
-                    <div className="flex-1 min-w-0 text-sm font-medium">
+                    <div className="min-w-0 flex-1 text-sm font-medium">
                       {location.title}
                     </div>
-                    <DynamicIcon
-                      name="lucide/arrow-right"
-                      size={16}
-                      className="shrink-0 transition-transform group-hover:translate-x-1 lg:hidden"
-                    />
                   </NavigationMenuLink>
                 ))}
               </menu>
@@ -1019,13 +997,13 @@ const PartnersMenu = ({
   featuredHeroCard,
   optixFlowConfig,
 }: PartnersMenuProps) => (
-  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-[2fr_1fr]">
+  <div className="grid grid-cols-[2fr_1fr] gap-6">
     {featuredHeroCard && (
-      <div>
+      <div className="col-span-1">
         <Pressable
           href={featuredHeroCard.href}
           className={cn(
-            "group relative flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
+            "group flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
             featuredHeroCard.variant === "accent"
               ? "bg-accent text-accent-foreground"
               : "bg-primary",
@@ -1042,12 +1020,12 @@ const PartnersMenu = ({
               optixFlowConfig={optixFlowConfig}
             />
           </div>
-          <div className="flex flex-col p-6">
-            <div className="flex items-center gap-2 text-base font-semibold">
+          <div className="flex flex-col p-5">
+            <div className="flex items-center gap-1.5 text-base font-semibold">
               {featuredHeroCard.title}
               <DynamicIcon
                 name="lucide/arrow-right"
-                size={18}
+                size={16}
                 className="transition-transform group-hover:translate-x-1"
               />
             </div>
@@ -1058,15 +1036,15 @@ const PartnersMenu = ({
     )}
 
     {partnerCards.length > 0 && (
-      <div className="flex flex-col gap-4">
+      <div className="col-span-1 flex flex-col gap-3">
         {partnerCards.map((card) => (
           <NavigationMenuLink
             key={card.title}
             href={card.href}
-            className="group flex items-start gap-4 rounded-lg border border-border p-4 hover:bg-muted"
+            className="group flex items-start gap-3 rounded-lg border border-border p-4 hover:bg-muted"
           >
-            <DynamicIcon name={card.icon} size={32} className="shrink-0" />
-            <div className="flex-1 min-w-0">
+            <DynamicIcon name={card.icon} size={28} className="shrink-0" />
+            <div className="min-w-0 flex-1">
               <div className="text-sm font-bold">
                 {card.title}
               </div>
@@ -1092,13 +1070,13 @@ const ResourcesMenu = ({
   topicGroups,
   featuredHeroCard,
 }: ResourcesMenuProps) => (
-  <div className="grid gap-6 lg:grid-cols-[280px_1fr_200px]">
+  <div className="grid grid-cols-[280px_1fr_220px] gap-6">
     {featuredHeroCard && (
-      <div>
+      <div className="col-span-1">
         <Pressable
           href={featuredHeroCard.href}
           className={cn(
-            "group relative flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
+            "group flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
             featuredHeroCard.variant === "accent"
               ? "bg-accent text-accent-foreground"
               : "bg-primary",
@@ -1111,12 +1089,12 @@ const ResourcesMenu = ({
               className="h-full w-full object-cover invert"
             />
           </div>
-          <div className="flex flex-col p-6">
-            <div className="flex items-center gap-2 text-base font-semibold">
+          <div className="flex flex-col p-5">
+            <div className="flex items-center gap-1.5 text-base font-semibold">
               {featuredHeroCard.title}
               <DynamicIcon
                 name="lucide/arrow-right"
-                size={18}
+                size={16}
                 className="transition-transform group-hover:translate-x-1"
               />
             </div>
@@ -1127,25 +1105,25 @@ const ResourcesMenu = ({
     )}
 
     {resourceItems.length > 0 && (
-      <div>
-        <div className="mb-4 text-left">
+      <div className="col-span-1">
+        <div className="mb-3 text-left">
           <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
             Resources
           </strong>
         </div>
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid grid-cols-2 gap-3">
           {resourceItems.map((resource) => (
             <NavigationMenuLink
               key={resource.id}
               href={resource.href}
-              className="group -ml-2 flex items-start gap-3 rounded-lg border border-border p-3 hover:bg-muted"
+              className="group col-span-1 flex items-start gap-3 rounded-lg border border-border p-3 hover:bg-muted"
             >
               <DynamicIcon
                 name={resource.icon}
-                size={20}
+                size={18}
                 className="mt-0.5 shrink-0"
               />
-              <div className="flex-1 min-w-0">
+              <div className="min-w-0 flex-1">
                 <div className="text-sm font-medium">{resource.title}</div>
                 <p className="mt-0.5 text-xs text-muted-foreground">
                   {resource.description}
@@ -1158,23 +1136,23 @@ const ResourcesMenu = ({
     )}
 
     {topicGroups.length > 0 && (
-      <div>
+      <div className="col-span-1">
         {topicGroups.map((group) => (
-          <div key={group.title} className="mb-6 last:mb-0">
+          <div key={group.title} className="mb-5 last:mb-0">
             <div className="mb-3 text-left">
               <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
                 {group.title}
               </strong>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {group.topics.map((topic) => (
                 <NavigationMenuLink
                   key={topic.id}
                   href={topic.href}
-                  className="group -ml-2 flex items-center gap-2 rounded-lg p-2 hover:bg-muted"
+                  className="group flex items-center gap-2 rounded-lg p-2 hover:bg-muted"
                 >
-                  <DynamicIcon name={topic.icon} size={16} className="shrink-0" />
-                  <span className="flex-1 text-sm font-medium">{topic.title}</span>
+                  <DynamicIcon name={topic.icon} size={14} className="shrink-0" />
+                  <span className="min-w-0 flex-1 text-sm font-medium">{topic.title}</span>
                 </NavigationMenuLink>
               ))}
             </div>

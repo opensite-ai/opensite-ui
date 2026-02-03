@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect , useMemo} from "react";
+import { useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -160,44 +160,6 @@ export const NavbarStickyCompact = ({
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("flex items-center gap-2", logoClassName)}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            className={cn(
-              "transition-all duration-300",
-              isScrolled ? "h-6" : "h-8",
-              logo.className,
-            )}
-            alt={logo.alt || "Logo"}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span
-              className={cn(
-                "font-semibold transition-all duration-300",
-                isScrolled ? "text-base" : "text-lg",
-              )}
-            >
-              {logo.title}
-            </span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, isScrolled, optixFlowConfig]);
 
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
@@ -357,7 +319,16 @@ export const NavbarStickyCompact = ({
                 navClassName,
               )}
             >
-          {renderLogo}
+          <NavbarLogo
+            logo={logo}
+            logoSlot={logoSlot}
+            logoClassName={cn(
+              isScrolled ? "[&_img]:h-6 [&_span]:text-base" : "[&_img]:h-8 [&_span]:text-lg",
+              "[&_img]:transition-all [&_img]:duration-300 [&_span]:transition-all [&_span]:duration-300",
+              logoClassName,
+            )}
+            optixFlowConfig={optixFlowConfig}
+          />
 
           <NavigationMenu className="hidden lg:flex">
             <NavigationMenuList>{renderMenu}</NavigationMenuList>
