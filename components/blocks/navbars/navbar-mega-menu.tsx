@@ -7,6 +7,7 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -444,37 +445,6 @@ export const NavbarMegaMenu = ({
   const activeSubmenu =
     submenuIndex !== null ? menuLinks?.[submenuIndex] : null;
 
-  const renderLogo = () => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("flex items-center h-16 py-2", logoClassName)}
-      >
-        <Img
-          src={logo.desktopSrc}
-          className={cn(
-            "hidden h-full w-auto object-contain dark:invert md:block",
-            logo.className,
-          )}
-          alt={logo.alt || "Logo"}
-          optixFlowConfig={optixFlowConfig}
-        />
-        <Img
-          src={logo.mobileSrc}
-          className={cn(
-            "h-full w-auto object-contain dark:invert md:hidden",
-            logo.className,
-          )}
-          alt={logo.alt || "Logo"}
-          optixFlowConfig={optixFlowConfig}
-        />
-      </Pressable>
-    );
-  };
-
   const hasDropdownItems = (link: IMenuLink) =>
     Boolean(link.links?.length || link.dropdownGroups?.length);
 
@@ -542,7 +512,14 @@ export const NavbarMegaMenu = ({
               <div className={navWrapperClasses}>
                 {/* Logo */}
                 <div>
-                  {(!open || submenuIndex === null) && renderLogo()}
+                  {(!open || submenuIndex === null) && (
+                    <NavbarLogo
+                      logo={logo}
+                      logoSlot={logoSlot}
+                      logoClassName={logoClassName}
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  )}
                   {open && submenuIndex !== null && (
                     <Pressable
                       variant="outline"

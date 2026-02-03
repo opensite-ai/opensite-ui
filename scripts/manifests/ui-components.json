@@ -161,6 +161,13 @@
   }
 ,
   {
+    "path": "./components/navbar-logo",
+    "types": "./dist/navbar-logo.d.ts",
+    "import": "./dist/navbar-logo.js",
+    "require": "./dist/navbar-logo.cjs"
+  }
+,
+  {
     "path": "./components/navigation-menu",
     "types": "./dist/navigation-menu.d.ts",
     "import": "./dist/navigation-menu.js",

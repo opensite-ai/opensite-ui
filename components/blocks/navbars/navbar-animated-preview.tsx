@@ -26,6 +26,7 @@ import { Sheet, SheetContent, SheetTitle } from "../../ui/sheet";
 import { Separator } from "../../ui/separator";
 import { Badge } from "../../ui/badge";
 import { AspectRatio } from "../../ui/aspect-ratio";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import {
   logoPlaceholders,
   imagePlaceholders,
@@ -222,36 +223,6 @@ export const NavbarAnimatedPreview = ({
     setOpen(!open);
   };
 
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn(
-          "flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter",
-          logoClassName,
-        )}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            alt={logo.alt || "Logo"}
-            className={cn("inline-block size-6", logo.className)}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="hidden md:inline-block">{logo.title}</span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
-
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
@@ -342,7 +313,12 @@ export const NavbarAnimatedPreview = ({
                   "relative z-999 grid w-full grid-cols-2 items-center justify-between gap-8 xl:grid-cols-3",
                 )}
               >
-                {renderLogo}
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
                 <div className={cn("hidden xl:flex", navClassName)}>
                   {renderNavigation}
                 </div>

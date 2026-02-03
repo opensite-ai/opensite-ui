@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useState , useMemo} from "react";
+import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -147,35 +148,6 @@ export const NavbarFullscreenMenu = ({
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("flex items-center gap-2", logoClassName)}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            className={cn("h-9", logo.className)}
-            alt={logo.alt || "Logo"}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="text-lg font-semibold tracking-tighter">
-              {logo.title}
-            </span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
-
   const renderMenuItems = useMemo(() => {
     if (menuSlot) return menuSlot;
     if (!menuItems || menuItems.length === 0) return null;
@@ -247,7 +219,14 @@ export const NavbarFullscreenMenu = ({
                 headerClassName,
               )}
             >
-          <div className="z-50">{renderLogo}</div>
+          <div className="z-50">
+            <NavbarLogo
+              logo={logo}
+              logoSlot={logoSlot}
+              logoClassName={logoClassName}
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
 
           <div className="z-50">
             <button

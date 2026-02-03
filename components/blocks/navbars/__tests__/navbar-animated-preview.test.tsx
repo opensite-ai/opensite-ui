@@ -255,13 +255,27 @@ describe("NavbarAnimatedPreview", () => {
           src: "/custom-logo.png",
           alt: "Custom Logo",
           url: "/home",
-          title: "My Company",
         }}
         menuLinks={[]}
       />
     );
 
+    // When logo.src is provided, only the image is rendered (not the title)
     expect(screen.getByAltText("Custom Logo")).toBeInTheDocument();
+  });
+
+  it("renders with text logo when no src provided", () => {
+    render(
+      <NavbarAnimatedPreview
+        logo={{
+          title: "My Company",
+          url: "/home",
+        }}
+        menuLinks={[]}
+      />
+    );
+
+    // When no logo.src is provided, the title is rendered as text
     expect(screen.getByText("My Company")).toBeInTheDocument();
   });
 

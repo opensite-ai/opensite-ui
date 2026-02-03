@@ -14,6 +14,7 @@ import {
   NavigationMenuList,
 } from "../../ui/navigation-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -295,35 +296,6 @@ export const NavbarSimpleLinks = ({
     return () => window.removeEventListener("resize", updateIndicator);
   }, [activeItem]);
 
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("flex items-center gap-2", logoClassName)}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            className={cn("max-h-8 w-8", logo.className)}
-            alt={logo.alt || "Logo"}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="text-lg font-semibold tracking-tighter">
-              {logo.title}
-            </span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
-
   const renderNavItems = useMemo(() => {
     if (navItemsSlot) return navItemsSlot;
     if (!navItems || navItems.length === 0) return null;
@@ -408,7 +380,12 @@ export const NavbarSimpleLinks = ({
                 navClassName,
               )}
             >
-          {renderLogo}
+          <NavbarLogo
+            logo={logo}
+            logoSlot={logoSlot}
+            logoClassName={logoClassName}
+            optixFlowConfig={optixFlowConfig}
+          />
 
           <NavigationMenu
             className={cn("hidden lg:block", navigationMenuClassName)}

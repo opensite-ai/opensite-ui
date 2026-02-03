@@ -23,6 +23,7 @@ import {
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
 import { Separator } from "../../ui/separator";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import {
   logoPlaceholders,
   imagePlaceholders,
@@ -182,33 +183,6 @@ export const NavbarEducationPlatform = ({
 }: NavbarEducationPlatformProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("flex items-center gap-2", logoClassName)}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            alt={logo.alt || "Logo"}
-            className={cn("h-8 dark:invert", logo.className)}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="text-lg font-semibold">{logo.title}</span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
-
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
@@ -270,7 +244,12 @@ export const NavbarEducationPlatform = ({
               )}
             >
           <div className="flex flex-1 items-center gap-9">
-            {renderLogo}
+            <NavbarLogo
+              logo={logo}
+              logoSlot={logoSlot}
+              logoClassName={logoClassName}
+              optixFlowConfig={optixFlowConfig}
+            />
             <div
               className={cn(
                 "hidden items-center gap-1.5 lg:flex",

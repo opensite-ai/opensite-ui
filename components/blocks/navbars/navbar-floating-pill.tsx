@@ -5,7 +5,7 @@ import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import { Section } from "../../ui/section";
 import {
   NavigationMenu,
@@ -153,35 +153,6 @@ export const NavbarFloatingPill = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("flex shrink-0 items-center gap-2", logoClassName)}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            className={cn("w-10", logo.className)}
-            alt={logo.alt || "Logo"}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="text-lg font-semibold tracking-tighter">
-              {logo.title}
-            </span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
-
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
@@ -256,7 +227,12 @@ export const NavbarFloatingPill = ({
                 pillWrapperClassName,
               )}
             >
-          {renderLogo}
+          <NavbarLogo
+            logo={logo}
+            logoSlot={logoSlot}
+            logoClassName={logoClassName}
+            optixFlowConfig={optixFlowConfig}
+          />
 
           {/* Desktop Navigation */}
           <NavigationMenu

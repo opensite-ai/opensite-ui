@@ -23,6 +23,7 @@ import {
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle } from "../../ui/sheet";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import {
   logoPlaceholders,
   imagePlaceholders,
@@ -412,36 +413,6 @@ export const NavbarEnterpriseMega = ({
     setOpen(!open);
   };
 
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn(
-          "flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter",
-          logoClassName,
-        )}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            alt={logo.alt || "Logo"}
-            className={cn("inline-block size-6", logo.className)}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="hidden md:inline-block">{logo.title}</span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
-
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
@@ -503,8 +474,13 @@ export const NavbarEnterpriseMega = ({
                   navClassName,
                 )}
               >
-            {renderLogo}
-            <NavigationMenu
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
+                <NavigationMenu
               className={cn("hidden lg:flex", navigationMenuClassName)}
               viewport={false}
             >

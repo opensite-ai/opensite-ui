@@ -1,12 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { useState , useMemo} from "react";
+import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import {
   Accordion,
   AccordionContent,
@@ -209,35 +210,6 @@ export const NavbarPlatformResources = ({
   optixFlowConfig,
 }: NavbarPlatformResourcesProps) => {
   const [open, setOpen] = useState(false);
-
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("flex items-center gap-2", logoClassName)}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            className={cn("max-h-8", logo.className)}
-            alt={logo.alt || "Logo"}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="text-lg font-semibold tracking-tighter">
-              {logo.title}
-            </span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
 
   const hasDropdownItems = (link: IMenuLink) =>
     Boolean(link.links?.length || link.dropdownGroups?.length);
@@ -718,7 +690,12 @@ export const NavbarPlatformResources = ({
               className={cn("min-w-full", navigationMenuClassName)}
             >
           <div className="flex w-full items-center justify-between gap-12 py-4">
-            {renderLogo}
+            <NavbarLogo
+              logo={logo}
+              logoSlot={logoSlot}
+              logoClassName={logoClassName}
+              optixFlowConfig={optixFlowConfig}
+            />
             <NavigationMenuList
               className={cn("hidden lg:flex", navigationMenuListClassName)}
             >

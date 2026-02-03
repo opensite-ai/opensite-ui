@@ -6,7 +6,6 @@ import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import {
   Accordion,
@@ -28,6 +27,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../../ui/sheet";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -260,36 +260,6 @@ export const NavbarCenteredMenu = ({
   patternOpacity,
   optixFlowConfig,
 }: NavbarCenteredMenuProps) => {
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("flex items-center gap-2", logoClassName)}
-      >
-        {logo.src ? (
-          <Img
-            src={logo.src}
-            className={cn("max-h-8", logo.className)}
-            alt={logo.alt || "Logo"}
-            optixFlowConfig={optixFlowConfig}
-          />
-        ) : (
-          logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="text-lg font-semibold tracking-tighter">
-              {logo.title}
-            </span>
-          ) : (
-            logo.title
-          ))
-        )}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
-
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
@@ -368,7 +338,12 @@ export const NavbarCenteredMenu = ({
               )}
             >
               {/* Logo */}
-              {renderLogo}
+              <NavbarLogo
+                logo={logo}
+                logoSlot={logoSlot}
+                logoClassName={logoClassName}
+                optixFlowConfig={optixFlowConfig}
+              />
               <div className="flex items-center gap-6">
                 <div className="flex items-center">
                   <NavigationMenuWithoutViewport
@@ -388,7 +363,12 @@ export const NavbarCenteredMenu = ({
             {/* Mobile Menu */}
             <div className={cn("block lg:hidden", mobileNavClassName)}>
               <div className="flex items-center justify-between">
-                {renderLogo}
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
                 <Sheet>
                   <SheetTrigger asChild>
                     <Pressable
@@ -402,7 +382,14 @@ export const NavbarCenteredMenu = ({
                   </SheetTrigger>
                   <SheetContent className="overflow-y-auto">
                     <SheetHeader>
-                      <SheetTitle>{renderLogo}</SheetTitle>
+                      <SheetTitle>
+                        <NavbarLogo
+                          logo={logo}
+                          logoSlot={logoSlot}
+                          logoClassName={logoClassName}
+                          optixFlowConfig={optixFlowConfig}
+                        />
+                      </SheetTitle>
                     </SheetHeader>
                     <div className="flex flex-col gap-6 p-4">
                       <Accordion

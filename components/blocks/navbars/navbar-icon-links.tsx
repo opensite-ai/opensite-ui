@@ -20,6 +20,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../../ui/tooltip";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -157,33 +158,6 @@ export const NavbarIconLinks = ({
   const [activeItem, setActiveItem] = useState(navItems?.[0]?.title || "");
   const [isOpen, setIsOpen] = useState(false);
 
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("flex items-center gap-2", logoClassName)}
-      >
-        {logo.src && (
-          <Img
-            src={logo.src}
-            className={cn("h-8", logo.className)}
-            alt={logo.alt || "Logo"}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-        {logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="text-lg font-semibold">{logo.title}</span>
-          ) : (
-            logo.title
-          ))}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
-
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
@@ -264,7 +238,12 @@ export const NavbarIconLinks = ({
               )}
             >
           <div className="flex items-center gap-6">
-            {renderLogo}
+            <NavbarLogo
+              logo={logo}
+              logoSlot={logoSlot}
+              logoClassName={logoClassName}
+              optixFlowConfig={optixFlowConfig}
+            />
 
             <TooltipProvider delayDuration={0}>
               <NavigationMenu

@@ -29,6 +29,7 @@ import {
   SheetTrigger,
 } from "../../ui/sheet";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import { NavbarLogo } from "../../ui/navbar-logo";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -253,36 +254,6 @@ export const NavbarDropdownMenu = ({
   patternOpacity,
   optixFlowConfig,
 }: NavbarDropdownMenuProps) => {
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    return (
-      <Pressable
-        href={logo.url || "/"}
-        className={cn("flex items-center gap-2", logoClassName)}
-      >
-        {logo.src ? (
-          <Img
-            src={logo.src}
-            className={cn("max-h-8 dark:invert", logo.className)}
-            alt={logo.alt || "Logo"}
-            optixFlowConfig={optixFlowConfig}
-          />
-        ) : (
-          logo.title &&
-          (typeof logo.title === "string" ? (
-            <span className="text-lg font-semibold tracking-tighter">
-              {logo.title}
-            </span>
-          ) : (
-            logo.title
-          ))
-        )}
-      </Pressable>
-    );
-  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
-
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
@@ -362,7 +333,12 @@ export const NavbarDropdownMenu = ({
             >
               <div className="flex items-center gap-6">
                 {/* Logo */}
-                {renderLogo}
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
                 <div className="flex items-center">
                   <NavigationMenu className={navigationMenuClassName}>
                     <NavigationMenuList>{renderMenu}</NavigationMenuList>
@@ -378,7 +354,12 @@ export const NavbarDropdownMenu = ({
             <div className={cn("block lg:hidden", mobileNavClassName)}>
               <div className="flex items-center justify-between">
                 {/* Logo */}
-                {renderLogo}
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
                 <Sheet>
                   <SheetTrigger asChild>
                     <Pressable
@@ -392,7 +373,14 @@ export const NavbarDropdownMenu = ({
                   </SheetTrigger>
                   <SheetContent className="overflow-y-auto">
                     <SheetHeader>
-                      <SheetTitle>{renderLogo}</SheetTitle>
+                      <SheetTitle>
+                        <NavbarLogo
+                          logo={logo}
+                          logoSlot={logoSlot}
+                          logoClassName={logoClassName}
+                          optixFlowConfig={optixFlowConfig}
+                        />
+                      </SheetTitle>
                     </SheetHeader>
                     <div className="flex flex-col gap-6 p-4">
                       <Accordion
