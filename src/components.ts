@@ -43,6 +43,12 @@ export {
 export { DynamicIcon } from "../components/ui/dynamic-icon";
 export { CarouselPagination } from "../components/ui/carousel-pagination";
 export type { CarouselPaginationProps } from "../components/ui/carousel-pagination";
+export { SocialLinkIcon } from "../components/ui/social-link-icon";
+export type {
+  SocialLinkIconProps,
+  SocialPlatformName,
+  SocialLinkIconDynamicIconProps,
+} from "../components/ui/social-link-icon";
 
 // Navigation components
 export { Pressable } from "../lib/Pressable";

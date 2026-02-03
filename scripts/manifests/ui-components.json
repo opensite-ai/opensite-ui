@@ -224,6 +224,13 @@
   }
 ,
   {
+    "path": "./components/social-link-icon",
+    "types": "./dist/social-link-icon.d.ts",
+    "import": "./dist/social-link-icon.js",
+    "require": "./dist/social-link-icon.cjs"
+  }
+,
+  {
     "path": "./components/switch",
     "types": "./dist/switch.d.ts",
     "import": "./dist/switch.js",

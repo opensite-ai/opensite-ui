@@ -707,7 +707,7 @@ const SolutionsMenu = ({
             <NavigationMenuLink
               key={technology.id}
               href={technology.href}
-              className="group flex items-center gap-2 rounded-lg p-2 hover:bg-muted"
+              className="group !flex !w-full items-center gap-2 rounded-lg p-2 hover:bg-muted"
             >
               <DynamicIcon name={technology.icon} size={16} className="shrink-0" />
               <div className="min-w-0 flex-1 text-sm font-medium">
@@ -724,7 +724,7 @@ const SolutionsMenu = ({
         {solutionCards.map((solution) => (
           <div
             key={solution.id}
-            className="col-span-1 flex flex-col rounded-lg border border-border p-4"
+            className="col-span-1 flex w-full flex-col rounded-lg border border-border p-4"
           >
             <div className="border-b border-border pb-3">
               <Pressable
@@ -751,7 +751,7 @@ const SolutionsMenu = ({
                 <NavigationMenuLink
                   key={subpage.id}
                   href={subpage.href}
-                  className="group flex items-center gap-2 rounded-lg p-2 text-left hover:bg-muted"
+                  className="group !flex !w-full items-center gap-2 rounded-lg p-2 text-left hover:bg-muted"
                 >
                   <DynamicIcon name={subpage.icon} size={14} className="shrink-0" />
                   <div className="min-w-0 flex-1 text-sm font-medium">
@@ -829,7 +829,7 @@ const ProductsMenu = ({
                 <NavigationMenuLink
                   key={product.id}
                   href={product.href}
-                  className="group col-span-1 flex items-center gap-3 rounded-lg p-3 text-left hover:bg-muted"
+                  className="group col-span-1 !flex !w-full items-center gap-3 rounded-lg p-3 text-left hover:bg-muted"
                 >
                   <div className="relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded">
                     <Img
@@ -922,7 +922,7 @@ const GlobalMenu = ({
                   <NavigationMenuLink
                     key={feature.id}
                     href={feature.href}
-                    className="group col-span-1 flex items-center gap-2 rounded-lg p-2 text-left hover:bg-muted"
+                    className="group col-span-1 !flex !w-full items-center gap-2 rounded-lg p-2 text-left hover:bg-muted"
                   >
                     <div className="flex size-8 shrink-0 items-center justify-center">
                       <DynamicIcon name={feature.icon} size={18} />
@@ -955,7 +955,7 @@ const GlobalMenu = ({
           {regions.map((region) => (
             <div
               key={region.title}
-              className="col-span-1 flex flex-col gap-3"
+              className="col-span-1 flex w-full flex-col gap-3"
             >
               <div className="text-left text-xs font-medium text-muted-foreground">
                 {region.title}
@@ -965,7 +965,7 @@ const GlobalMenu = ({
                   <NavigationMenuLink
                     key={location.title}
                     href={location.href}
-                    className="group flex items-center gap-2 rounded-lg p-2 text-left hover:bg-muted"
+                    className="group !flex !w-full items-center gap-2 rounded-lg p-2 text-left hover:bg-muted"
                   >
                     <div className="flex size-4 shrink-0 items-center justify-center">
                       {location.icon}
@@ -1039,7 +1039,7 @@ const PartnersMenu = ({
           <NavigationMenuLink
             key={card.title}
             href={card.href}
-            className="group flex items-start gap-3 rounded-lg border border-border p-4 hover:bg-muted"
+            className="group !flex !w-full items-start gap-3 rounded-lg border border-border p-4 hover:bg-muted"
           >
             <DynamicIcon name={card.icon} size={28} className="shrink-0" />
             <div className="min-w-0 flex-1">
@@ -1114,7 +1114,7 @@ const ResourcesMenu = ({
             <NavigationMenuLink
               key={resource.id}
               href={resource.href}
-              className="group col-span-1 flex items-start gap-3 rounded-lg border border-border p-3 hover:bg-muted"
+              className="group col-span-1 !flex !w-full items-start gap-3 rounded-lg border border-border p-3 hover:bg-muted"
             >
               <DynamicIcon
                 name={resource.icon}
@@ -1147,7 +1147,7 @@ const ResourcesMenu = ({
                 <NavigationMenuLink
                   key={topic.id}
                   href={topic.href}
-                  className="group flex items-center gap-2 rounded-lg p-2 hover:bg-muted"
+                  className="group !flex !w-full items-center gap-2 rounded-lg p-2 hover:bg-muted"
                 >
                   <DynamicIcon name={topic.icon} size={14} className="shrink-0" />
                   <span className="min-w-0 flex-1 text-sm font-medium">{topic.title}</span>

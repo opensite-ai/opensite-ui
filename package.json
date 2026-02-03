@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -3225,6 +3225,11 @@
       "types": "./dist/sheet.d.ts",
       "import": "./dist/sheet.js",
       "require": "./dist/sheet.cjs"
+    },
+    "./components/social-link-icon": {
+      "types": "./dist/social-link-icon.d.ts",
+      "import": "./dist/social-link-icon.js",
+      "require": "./dist/social-link-icon.cjs"
     },
     "./components/switch": {
       "types": "./dist/switch.d.ts",

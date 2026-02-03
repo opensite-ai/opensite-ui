@@ -4,9 +4,12 @@ import * as React from "react";
 import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import { NavbarLogo } from "../../ui/navbar-logo";
+import {
+  SocialLinkIcon,
+  type SocialPlatformName,
+} from "../../ui/social-link-icon";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -25,13 +28,16 @@ interface MenuItem {
   href: string;
 }
 
-interface SocialLink {
-  label: string;
+/**
+ * Social link configuration for fullscreen menu
+ */
+export interface NavbarFullscreenMenuSocialLink {
+  /** Social platform name - determines which icon to display */
+  platformName: SocialPlatformName;
+  /** URL to the social profile */
   href: string;
-  /** Optional React icon component */
-  icon?: React.ReactNode;
-  /** Icon name in format: prefix/name (e.g., "simple-icons/twitter") */
-  iconName?: string;
+  /** Optional label for accessibility (defaults to platform name) */
+  label?: string;
 }
 
 /**
@@ -85,7 +91,7 @@ export interface NavbarFullscreenMenuProps {
   /**
    * Social links displayed at bottom of fullscreen menu
    */
-  socialLinks?: SocialLink[];
+  socialLinks?: NavbarFullscreenMenuSocialLink[];
   /**
    * Custom slot for social links (overrides socialLinks array)
    */
@@ -184,21 +190,15 @@ export const NavbarFullscreenMenu = ({
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
-    return socialLinks.map((link, index) => (
-      <Pressable
-        key={link.label}
+    return socialLinks.map((link) => (
+      <SocialLinkIcon
+        key={link.platformName}
+        platformName={link.platformName}
         href={link.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group flex items-center gap-2 text-muted-foreground transition-all duration-300 hover:text-foreground hover:translate-x-1"
-        style={{ animationDelay: `${0.8 + index * 0.1}s` }}
-        aria-label={typeof link.label === "string" ? link.label : undefined}
-      >
-        {link.icon ?? (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
-        {!link.icon && !link.iconName && (
-          <span className="font-mono text-sm tracking-wider">{link.label}</span>
-        )}
-      </Pressable>
+        label={link.label}
+        iconSize={24}
+        className="text-muted-foreground transition-all duration-300 hover:text-foreground hover:scale-110"
+      />
     ));
   }, [socialLinksSlot, socialLinks]);
 
@@ -295,7 +295,7 @@ export const NavbarFullscreenMenu = ({
 
             <div
               className={cn(
-                "flex flex-col items-center gap-6 sm:flex-row sm:gap-10 animate-in slide-in-from-bottom-4 fade-in",
+                "flex flex-row flex-wrap items-center justify-center gap-6 animate-in slide-in-from-bottom-4 fade-in",
                 socialLinksClassName,
               )}
               style={{ animationDelay: "0.7s", animationFillMode: "both" }}
