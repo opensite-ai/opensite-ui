@@ -220,77 +220,84 @@ const DesktopMenuItem = ({
     );
   }
 
-  // Simple Grid Layout
-  if (layout === "simple-grid" && link.links) {
+  // Simple Grid Layout - with dropdownGroups support
+  if (layout === "simple-grid" && (link.links || link.dropdownGroups)) {
+    // Flatten dropdownGroups into a single links array if using dropdownGroups
+    const allLinks = link.dropdownGroups
+      ? link.dropdownGroups.flatMap((group) => group.links || [])
+      : link.links || [];
+
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`}>
         <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {link.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="min-w-[700px] p-6">
-          <div className="grid auto-rows-fr grid-cols-1 gap-4 sm:grid-cols-2">
-            {link.links.map((item, itemIndex) => (
-              <NavigationMenuLink
-                key={`grid-item-${itemIndex}`}
-                href={getLinkUrl(item)}
-                className="flex w-full flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-muted hover:text-foreground"
-              >
-                {item.image && (
-                  <div className="h-20 w-20 shrink-0 overflow-hidden rounded-md border border-border">
-                    <Img
-                      src={item.image}
-                      alt={
-                        typeof item.label === "string"
-                          ? item.label
-                          : "Menu item"
-                      }
-                      className="h-full w-full object-cover object-center"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </div>
-                )}
-                {!item.image && (item.icon || item.iconName) && (
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
-                    {item.icon ? (
-                      item.icon
-                    ) : item.iconName ? (
-                      <DynamicIcon name={item.iconName} size={20} />
-                    ) : null}
-                  </div>
-                )}
-                <div className="flex-1">
-                  <div className="text-sm font-medium">{item.label}</div>
-                  {item.description && (
-                    <div className="text-sm font-normal text-muted-foreground">
-                      {item.description}
+          {link.dropdownGroups ? (
+            // Render with group headers
+            <div className="space-y-6">
+              {link.dropdownGroups.map((group, groupIndex) => (
+                <div key={`group-${groupIndex}`}>
+                  {group.label && (
+                    <div className="mb-3 text-xs font-medium tracking-wider uppercase text-muted-foreground">
+                      {group.label}
                     </div>
                   )}
+                  <div className="grid auto-rows-fr grid-cols-1 gap-4 sm:grid-cols-2">
+                    {(group.links || []).map((item, itemIndex) => (
+                      <NavigationMenuLink
+                        key={`grid-item-${groupIndex}-${itemIndex}`}
+                        href={getLinkUrl(item)}
+                        className="flex w-full flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-muted hover:text-foreground"
+                      >
+                        {item.image && (
+                          <div className="h-20 w-20 shrink-0 overflow-hidden rounded-md border border-border">
+                            <Img
+                              src={item.image}
+                              alt={
+                                typeof item.label === "string"
+                                  ? item.label
+                                  : "Menu item"
+                              }
+                              className="h-full w-full object-cover object-center"
+                              optixFlowConfig={optixFlowConfig}
+                            />
+                          </div>
+                        )}
+                        {!item.image && (item.icon || item.iconName) && (
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
+                            {item.icon ? (
+                              item.icon
+                            ) : item.iconName ? (
+                              <DynamicIcon name={item.iconName} size={20} />
+                            ) : null}
+                          </div>
+                        )}
+                        <div className="flex-1">
+                          <div className="text-sm font-medium">{item.label}</div>
+                          {item.description && (
+                            <div className="text-sm font-normal text-muted-foreground">
+                              {item.description}
+                            </div>
+                          )}
+                        </div>
+                      </NavigationMenuLink>
+                    ))}
+                  </div>
                 </div>
-              </NavigationMenuLink>
-            ))}
-          </div>
-        </NavigationMenuContent>
-      </NavigationMenuItem>
-    );
-  }
-
-  // List with Icons Layout
-  if (layout === "list-with-icons" && link.links) {
-    return (
-      <NavigationMenuItem key={`desktop-menu-item-${index}`}>
-        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
-          {link.label}
-        </NavigationMenuTrigger>
-        <NavigationMenuContent className="min-w-[400px] p-4">
-          <ul className="flex flex-col gap-1">
-            {link.links.map((item, itemIndex) => (
-              <li key={`list-item-${itemIndex}`} className="w-full">
+              ))}
+            </div>
+          ) : (
+            // Render without groups
+            <div className="grid auto-rows-fr grid-cols-1 gap-4 sm:grid-cols-2">
+              {allLinks.map((item, itemIndex) => (
                 <NavigationMenuLink
+                  key={`grid-item-${itemIndex}`}
                   href={getLinkUrl(item)}
-                  className="flex w-full items-start gap-3 rounded-lg p-3 hover:bg-muted"
+                  className="flex w-full flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-muted hover:text-foreground"
                 >
                   {item.image && (
-                    <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md border border-border">
+                    <div className="h-20 w-20 shrink-0 overflow-hidden rounded-md border border-border">
                       <Img
                         src={item.image}
                         alt={
@@ -304,26 +311,144 @@ const DesktopMenuItem = ({
                     </div>
                   )}
                   {!item.image && (item.icon || item.iconName) && (
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-muted/40 text-muted-foreground">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
                       {item.icon ? (
                         item.icon
                       ) : item.iconName ? (
-                        <DynamicIcon name={item.iconName} size={16} />
+                        <DynamicIcon name={item.iconName} size={20} />
                       ) : null}
                     </div>
                   )}
                   <div className="flex-1">
                     <div className="text-sm font-medium">{item.label}</div>
                     {item.description && (
-                      <div className="text-xs text-muted-foreground">
+                      <div className="text-sm font-normal text-muted-foreground">
                         {item.description}
                       </div>
                     )}
                   </div>
                 </NavigationMenuLink>
-              </li>
-            ))}
-          </ul>
+              ))}
+            </div>
+          )}
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    );
+  }
+
+  // List with Icons Layout - with dropdownGroups support
+  if (layout === "list-with-icons" && (link.links || link.dropdownGroups)) {
+    // Flatten dropdownGroups into a single links array if using dropdownGroups
+    const allLinks = link.dropdownGroups
+      ? link.dropdownGroups.flatMap((group) => group.links || [])
+      : link.links || [];
+
+    return (
+      <NavigationMenuItem key={`desktop-menu-item-${index}`}>
+        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
+          {link.label}
+        </NavigationMenuTrigger>
+        <NavigationMenuContent className="min-w-[400px] p-4">
+          {link.dropdownGroups ? (
+            // Render with group headers
+            <div className="space-y-4">
+              {link.dropdownGroups.map((group, groupIndex) => (
+                <div key={`group-${groupIndex}`}>
+                  {group.label && (
+                    <div className="mb-2 text-xs font-medium tracking-wider uppercase text-muted-foreground">
+                      {group.label}
+                    </div>
+                  )}
+                  <ul className="flex flex-col gap-1">
+                    {(group.links || []).map((item, itemIndex) => (
+                      <li key={`list-item-${groupIndex}-${itemIndex}`} className="w-full">
+                        <NavigationMenuLink
+                          href={getLinkUrl(item)}
+                          className="flex w-full items-start gap-3 rounded-lg p-3 hover:bg-muted"
+                        >
+                          {item.image && (
+                            <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md border border-border">
+                              <Img
+                                src={item.image}
+                                alt={
+                                  typeof item.label === "string"
+                                    ? item.label
+                                    : "Menu item"
+                                }
+                                className="h-full w-full object-cover object-center"
+                                optixFlowConfig={optixFlowConfig}
+                              />
+                            </div>
+                          )}
+                          {!item.image && (item.icon || item.iconName) && (
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-muted/40 text-muted-foreground">
+                              {item.icon ? (
+                                item.icon
+                              ) : item.iconName ? (
+                                <DynamicIcon name={item.iconName} size={16} />
+                              ) : null}
+                            </div>
+                          )}
+                          <div className="flex-1">
+                            <div className="text-sm font-medium">{item.label}</div>
+                            {item.description && (
+                              <div className="text-xs text-muted-foreground">
+                                {item.description}
+                              </div>
+                            )}
+                          </div>
+                        </NavigationMenuLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          ) : (
+            // Render without groups
+            <ul className="flex flex-col gap-1">
+              {allLinks.map((item, itemIndex) => (
+                <li key={`list-item-${itemIndex}`} className="w-full">
+                  <NavigationMenuLink
+                    href={getLinkUrl(item)}
+                    className="flex w-full items-start gap-3 rounded-lg p-3 hover:bg-muted"
+                  >
+                    {item.image && (
+                      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md border border-border">
+                        <Img
+                          src={item.image}
+                          alt={
+                            typeof item.label === "string"
+                              ? item.label
+                              : "Menu item"
+                          }
+                          className="h-full w-full object-cover object-center"
+                          optixFlowConfig={optixFlowConfig}
+                        />
+                      </div>
+                    )}
+                    {!item.image && (item.icon || item.iconName) && (
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-muted/40 text-muted-foreground">
+                        {item.icon ? (
+                          item.icon
+                        ) : item.iconName ? (
+                          <DynamicIcon name={item.iconName} size={16} />
+                        ) : null}
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <div className="text-sm font-medium">{item.label}</div>
+                      {item.description && (
+                        <div className="text-xs text-muted-foreground">
+                          {item.description}
+                        </div>
+                      )}
+                    </div>
+                  </NavigationMenuLink>
+                </li>
+              ))}
+            </ul>
+          )}
         </NavigationMenuContent>
       </NavigationMenuItem>
     );
@@ -446,7 +571,10 @@ export const NavbarMegaMenu = ({
     submenuIndex !== null ? menuLinks?.[submenuIndex] : null;
 
   const hasDropdownItems = (link: IMenuLink) =>
-    Boolean(link.links?.length || link.dropdownGroups?.length);
+    Boolean(
+      (link.links && link.links.length > 0) ||
+        (link.dropdownGroups && link.dropdownGroups.length > 0)
+    );
 
   const renderActions = () => {
     if (!actions || actions.length === 0) return null;
