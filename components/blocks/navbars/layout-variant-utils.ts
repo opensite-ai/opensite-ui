@@ -46,7 +46,7 @@ export function getNavbarLayoutClasses(
 
     // Navigation wrapper classes (for border and shadow)
     navWrapperClasses: cn(
-      "w-full",
+      "w-full h-16 items-center",
       isFloatingBar
         ? "border border-border/50 shadow-sm rounded-full"
         : "border-b border-border/50 shadow-sm  flex justify-center",
@@ -57,6 +57,6 @@ export function getNavbarLayoutClasses(
     sectionContainerMaxWidth: "full" as const,
 
     // Spacing adjustment for Section component
-    spacingOverride: isFloatingBar ? ("none" as const) : undefined,
+    spacingOverride: isFloatingBar ? ("none" as const) : "py-0 md:py-0",
   };
 }

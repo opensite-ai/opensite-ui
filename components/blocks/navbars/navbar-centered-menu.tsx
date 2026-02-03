@@ -196,9 +196,7 @@ const renderMenuItem = (item: MenuItem) => {
 
   return (
     <NavigationMenuItem key={item.title}>
-      <NavigationMenuLink href={item.url}>
-        {item.title}
-      </NavigationMenuLink>
+      <NavigationMenuLink href={item.url}>{item.title}</NavigationMenuLink>
     </NavigationMenuItem>
   );
 };
@@ -271,22 +269,23 @@ export const NavbarCenteredMenu = ({
         href={logo.url || "/"}
         className={cn("flex items-center gap-2", logoClassName)}
       >
-        {logo.src && (
+        {logo.src ? (
           <Img
             src={logo.src}
             className={cn("max-h-8", logo.className)}
             alt={logo.alt || "Logo"}
             optixFlowConfig={optixFlowConfig}
           />
-        )}
-        {logo.title &&
+        ) : (
+          logo.title &&
           (typeof logo.title === "string" ? (
             <span className="text-lg font-semibold tracking-tighter">
               {logo.title}
             </span>
           ) : (
             logo.title
-          ))}
+          ))
+        )}
       </Pressable>
     );
   }, [logoSlot, logo, logoClassName, optixFlowConfig]);
@@ -363,62 +362,67 @@ export const NavbarCenteredMenu = ({
           <div className={innerContainerClasses}>
             {/* Desktop Menu */}
             <nav
-              className={cn("hidden justify-between lg:flex", desktopNavClassName)}
+              className={cn(
+                "hidden justify-between lg:flex",
+                desktopNavClassName,
+              )}
             >
-          {/* Logo */}
-          {renderLogo}
-          <div className="flex items-center gap-6">
-            <div className="flex items-center">
-              <NavigationMenuWithoutViewport
-                className={navigationMenuClassName}
-              >
-                <NavigationMenuList className="relative">
-                  {renderMenu}
-                </NavigationMenuList>
-              </NavigationMenuWithoutViewport>
-            </div>
-          </div>
-          <div className={cn("flex gap-2", actionsClassName)}>
-            {renderAuthActions}
-          </div>
-        </nav>
-
-          {/* Mobile Menu */}
-          <div className={cn("block lg:hidden", mobileNavClassName)}>
-            <div className="flex items-center justify-between">
+              {/* Logo */}
               {renderLogo}
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Pressable
-                    variant="outline"
-                    size="icon"
-                    asButton
-                    onClick={() => {}}
+              <div className="flex items-center gap-6">
+                <div className="flex items-center">
+                  <NavigationMenuWithoutViewport
+                    className={navigationMenuClassName}
                   >
-                    <DynamicIcon name="lucide/menu" size={16} />
-                  </Pressable>
-                </SheetTrigger>
-                <SheetContent className="overflow-y-auto">
-                  <SheetHeader>
-                    <SheetTitle>{renderLogo}</SheetTitle>
-                  </SheetHeader>
-                  <div className="flex flex-col gap-6 p-4">
-                    <Accordion
-                      type="single"
-                      collapsible
-                      className="flex w-full flex-col gap-4"
-                    >
-                      {renderMobileMenu}
-                    </Accordion>
+                    <NavigationMenuList className="relative">
+                      {renderMenu}
+                    </NavigationMenuList>
+                  </NavigationMenuWithoutViewport>
+                </div>
+              </div>
+              <div className={cn("flex gap-2", actionsClassName)}>
+                {renderAuthActions}
+              </div>
+            </nav>
 
-                    <div className={cn("flex flex-col gap-3", actionsClassName)}>
-                      {renderAuthActions}
+            {/* Mobile Menu */}
+            <div className={cn("block lg:hidden", mobileNavClassName)}>
+              <div className="flex items-center justify-between">
+                {renderLogo}
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Pressable
+                      variant="outline"
+                      size="icon"
+                      asButton
+                      onClick={() => {}}
+                    >
+                      <DynamicIcon name="lucide/menu" size={16} />
+                    </Pressable>
+                  </SheetTrigger>
+                  <SheetContent className="overflow-y-auto">
+                    <SheetHeader>
+                      <SheetTitle>{renderLogo}</SheetTitle>
+                    </SheetHeader>
+                    <div className="flex flex-col gap-6 p-4">
+                      <Accordion
+                        type="single"
+                        collapsible
+                        className="flex w-full flex-col gap-4"
+                      >
+                        {renderMobileMenu}
+                      </Accordion>
+
+                      <div
+                        className={cn("flex flex-col gap-3", actionsClassName)}
+                      >
+                        {renderAuthActions}
+                      </div>
                     </div>
-                  </div>
-                </SheetContent>
-              </Sheet>
+                  </SheetContent>
+                </Sheet>
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
