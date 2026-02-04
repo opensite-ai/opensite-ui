@@ -560,7 +560,7 @@ const GroupedLinksImageDropdown = ({
   optixFlowConfig,
 }: GroupedLinksImageDropdownProps) => {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-8">
       <GroupLinks groupLinks={groupLinks} />
       <FeaturedImageLink link={imageLink} optixFlowConfig={optixFlowConfig} />
     </div>
@@ -592,7 +592,7 @@ const GroupLinks = ({ groupLinks }: GroupLinksProps) => {
 
   let linkIndex = 0;
   return (
-    <div className="flex items-center justify-between gap-4">
+    <div className="flex items-center gap-4">
       {groupLinks.map((group, index1) => (
         <div key={`group-link-${index1}`}>
           <div className="mb-4 text-xs">{group.label}</div>
@@ -671,7 +671,7 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
   return (
     <Pressable
       href={getLinkUrl(link)}
-      className="group relative flex w-full overflow-hidden rounded-xl bg-muted px-8 py-12"
+      className="group relative flex w-full overflow-hidden rounded-xl bg-muted px-4 pt-12 pb-4"
     >
       <div className="relative z-10 flex w-full items-center gap-6">
         <div className="flex size-12 shrink-0 rounded-lg border bg-background shadow-lg">
@@ -820,26 +820,28 @@ const renderMobileMenuItem = (item: IMenuLink, index: number) => {
         </AccordionTrigger>
         <AccordionContent className="flex flex-col gap-6 p-2">
           {item.featuredLinks && (
-            <div className="flex flex-col gap-2 p-2">
+            <div className="flex flex-col gap-4 p-2">
               {item.featuredLinks.map((link, idx) => (
                 <NavLink key={`default-nav-link-${idx}`} link={link} />
               ))}
             </div>
           )}
           {item.links && (
-            <div className="flex flex-col gap-2 p-2">
+            <div className="flex flex-col gap-4 p-2">
               {item.links.map((link, idx) => (
                 <NavLink key={`default-nav-link-${idx}`} link={link} />
               ))}
             </div>
           )}
           {item.groupLinks && (
-            <div className="flex flex-col gap-2 p-2">
+            <div className="flex flex-col gap-4 p-2">
               {item.groupLinks.map((group, groupIdx) => (
-                <div className="mb-8 last:mb-0" key={`group-link-${groupIdx}`}>
-                  <div className="mb-4 text-xs text-muted-foreground">
-                    {group.label}
-                  </div>
+                <div className="relative" key={`group-link-${groupIdx}`}>
+                  {group.label && (
+                    <div className="mb-4 text-xs text-muted-foreground">
+                      {group.label}
+                    </div>
+                  )}
                   <ul className="flex flex-col gap-2">
                     {group.links.map((link, linkIdx) => (
                       <li key={`group-link-${groupIdx}-${linkIdx}`}>

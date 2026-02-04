@@ -654,7 +654,7 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
             <div key={solution.id} className="space-y-2">
               <Pressable
                 href={solution.href}
-                className="block pb-2 text-sm font-medium"
+                className="block pt-4 text-sm font-medium"
               >
                 {solution.title}
               </Pressable>

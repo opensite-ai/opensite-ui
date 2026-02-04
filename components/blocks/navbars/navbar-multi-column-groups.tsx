@@ -483,10 +483,15 @@ const MobileNavigationMenu = ({
                     </AccordionTrigger>
                     <AccordionContent className="overflow-x-none">
                       {item.groups.map((group, groupIndex) => (
-                        <div key={`mobile-group-${groupIndex}`} className="mb-4">
-                          <p className="mb-2 px-4 text-[10px] text-muted-foreground uppercase">
-                            {group.title}
-                          </p>
+                        <div
+                          key={`mobile-group-${groupIndex}`}
+                          className="mb-4"
+                        >
+                          {group.title && (
+                            <p className="mt-4 px-4 text-xs font-semibold text-muted-foreground uppercase">
+                              {group.title}
+                            </p>
+                          )}
                           {group.links.map((link, linkIndex) => (
                             <Pressable
                               key={`mobile-link-${groupIndex}-${linkIndex}`}
