@@ -465,6 +465,7 @@ const MobileNavigationMenu = ({
       title="Mobile Navigation"
       className={cn("bg-black/95", mobileMenuClassName)}
       contentClassName="flex flex-col items-center justify-center"
+      closeContainerClassName="bg-black/95"
     >
       <div className="flex h-full flex-col items-center justify-center">
         <nav className="flex flex-col items-center gap-8">

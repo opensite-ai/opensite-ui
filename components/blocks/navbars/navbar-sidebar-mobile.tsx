@@ -285,6 +285,7 @@ export const NavbarSidebarMobile = ({
 
                   <NavigationMenu
                     className={cn("hidden lg:flex", navigationMenuClassName)}
+                    viewport={false}
                   >
                     <NavigationMenuList>
                       {menuSlot

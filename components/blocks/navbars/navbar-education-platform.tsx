@@ -404,7 +404,11 @@ const DesktopMenuItem = ({
                   </p>
                   <div className="space-y-1">
                     {group.links.map((link) => (
-                      <NavigationMenuLink key={link.title} asChild>
+                      <NavigationMenuLink
+                        key={link.title}
+                        asChild
+                        className="w-full"
+                      >
                         <Pressable
                           href={link.href}
                           className="group flex cursor-pointer flex-row gap-3"
@@ -420,7 +424,7 @@ const DesktopMenuItem = ({
                               <DynamicIcon
                                 name="lucide/chevron-right"
                                 size={16}
-                                className="text-primary! opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
+                                className="opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
                               />
                             </span>
                             {link.description && (
@@ -441,7 +445,7 @@ const DesktopMenuItem = ({
                             <Img
                               src={group.featuredImage.src}
                               alt={group.featuredImage.alt || "Featured image"}
-                              className="aspect-video w-full max-w-[240px] rounded-md object-cover object-center"
+                              className="aspect-video w-full max-w-60 rounded-md object-cover object-center"
                               optixFlowConfig={optixFlowConfig}
                             />
                           </div>
@@ -549,15 +553,20 @@ const MobileNavigationMenu = ({
                     </AccordionTrigger>
                     <AccordionContent className="overflow-x-none">
                       {item.groups.map((group, groupIndex) => (
-                        <div key={`mobile-group-${groupIndex}`} className="mb-4">
-                          <p className="mb-2 px-4 text-[10px] text-muted-foreground uppercase">
-                            {group.label}
-                          </p>
+                        <div
+                          key={`mobile-group-${groupIndex}`}
+                          className="mb-4"
+                        >
+                          {group.label && (
+                            <p className="block mt-4 mb-2 px-4 text-[10px] text-muted-foreground uppercase">
+                              {group.label}
+                            </p>
+                          )}
                           {group.links.map((link) => (
                             <Pressable
                               key={link.title}
                               href={link.href}
-                              className="flex min-h-12 items-center gap-2 rounded-lg px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
+                              className="flex min-h-12 items-center gap-2 rounded-lg pl-6 pr-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
                               onClick={onClose}
                             >
                               {link.icon && (

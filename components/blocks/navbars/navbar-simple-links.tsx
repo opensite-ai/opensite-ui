@@ -359,8 +359,8 @@ export const NavbarSimpleLinks = ({
       open={isOpen}
       onClose={handleMobileMenuClose}
       navItems={navItems ?? []}
-      mobileActions={mobileActions}
-      mobileActionsSlot={mobileActionsSlot}
+      mobileActions={mobileActions ?? actions}
+      mobileActionsSlot={mobileActionsSlot ?? actionsSlot}
       mobileMenuClassName={mobileMenuClassName}
     />
     </>

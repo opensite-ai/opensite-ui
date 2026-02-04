@@ -328,8 +328,8 @@ export const NavbarMultiColumnGroups = ({
         open={open}
         setOpen={setOpen}
         navigation={navigation ?? []}
-        authActions={mobileAuthActions}
-        authActionsSlot={mobileAuthActionsSlot}
+        authActions={mobileAuthActions ?? authActions}
+        authActionsSlot={mobileAuthActionsSlot ?? authActionsSlot}
       />
     </>
   );

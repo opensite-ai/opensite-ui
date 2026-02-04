@@ -8,6 +8,12 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import { NavbarLogo } from "../../ui/navbar-logo";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../ui/accordion";
+import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
@@ -243,43 +249,6 @@ export const NavbarStickyCompact = ({
     );
   }, [menuSlot, menu, isScrolled]);
 
-  const renderMobileMenu = useMemo(() => {
-    if (menuSlot) return menuSlot;
-    if (!menu || menu.length === 0) return null;
-
-    return menu.map((item, index) =>
-      item.items ? (
-        <div key={index} className="space-y-2">
-          <div className="text-sm font-medium text-muted-foreground">
-            {item.title}
-          </div>
-          <div className="flex flex-col gap-1 pl-2">
-            {item.items.map((subItem, subIndex) => (
-              <Pressable
-                key={subIndex}
-                href={subItem.url}
-                className="flex items-center gap-2 rounded-md py-2 text-sm hover:text-foreground"
-                onClick={() => setIsOpen(false)}
-              >
-                {subItem.icon && <DynamicIcon name={subItem.icon} size={14} />}
-                {subItem.title}
-              </Pressable>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <Pressable
-          key={index}
-          href={item.url}
-          className="text-sm font-medium"
-          onClick={() => setIsOpen(false)}
-        >
-          {item.title}
-        </Pressable>
-      ),
-    );
-  }, [menuSlot, menu]);
-
   // Get layout classes based on variant
   const {
     sectionClasses,
@@ -292,92 +261,195 @@ export const NavbarStickyCompact = ({
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
   return (
-    <Section
-      background={background}
-      spacing={spacingOverride ?? spacing}
-      className={cn(
-        sectionClasses,
-        "fixed top-0 left-0 z-50 w-full bg-background/95 backdrop-blur-sm transition-all duration-300",
-        isScrolled ? "shadow-sm" : "",
-      )}
-      pattern={pattern}
-      patternOpacity={patternOpacity}
-      containerClassName={sectionContainerClassName}
-      containerMaxWidth={sectionContainerMaxWidth}
-    >
-      <div className={containerWrapperClasses}>
-        <div className={navWrapperClasses}>
-          <div className={innerContainerClasses}>
-            <nav
-              className={cn(
-                "flex items-center justify-between transition-all duration-300",
-                isScrolled ? "h-14" : "h-16",
-                navClassName,
-              )}
-            >
-              <NavbarLogo
-                logo={logo}
-                logoSlot={logoSlot}
-                logoClassName={cn(
-                  isScrolled
-                    ? "[&_img]:h-6 [&_span]:text-base"
-                    : "[&_img]:h-8 [&_span]:text-lg",
-                  "[&_img]:transition-all [&_img]:duration-300 [&_span]:transition-all [&_span]:duration-300",
-                  logoClassName,
-                )}
-                optixFlowConfig={optixFlowConfig}
-              />
-
-              <NavigationMenu className="hidden lg:flex">
-                <NavigationMenuList>{renderMenu}</NavigationMenuList>
-              </NavigationMenu>
-
-              <div
+    <>
+      <Section
+        background={background}
+        spacing={spacingOverride ?? spacing}
+        className={cn(
+          sectionClasses,
+          "fixed top-0 left-0 z-50 w-full bg-background/95 backdrop-blur-sm transition-all duration-300",
+          isScrolled ? "shadow-sm" : "",
+        )}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
+        containerClassName={sectionContainerClassName}
+        containerMaxWidth={sectionContainerMaxWidth}
+      >
+        <div className={containerWrapperClasses}>
+          <div className={navWrapperClasses}>
+            <div className={innerContainerClasses}>
+              <nav
                 className={cn(
-                  "hidden items-center gap-2 lg:flex",
-                  actionsClassName,
+                  "flex items-center justify-between transition-all duration-300",
+                  isScrolled ? "h-14" : "h-16",
+                  navClassName,
                 )}
               >
-                {renderAuthActions}
-              </div>
-
-              <Pressable
-                variant="ghost"
-                size={isScrolled ? "sm" : "icon"}
-                asButton
-                className="lg:hidden transition-all duration-300"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                <DynamicIcon
-                  name="lucide/menu"
-                  size={isScrolled ? 18 : 20}
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={cn(
+                    isScrolled
+                      ? "[&_img]:h-6 [&_span]:text-base"
+                      : "[&_img]:h-8 [&_span]:text-lg",
+                    "[&_img]:transition-all [&_img]:duration-300 [&_span]:transition-all [&_span]:duration-300",
+                    logoClassName,
+                  )}
+                  optixFlowConfig={optixFlowConfig}
                 />
-                <span className="sr-only">Toggle menu</span>
-              </Pressable>
-              <NavbarMobileMenu
-                open={isOpen}
-                onClose={() => setIsOpen(false)}
-                title="Navigation Menu"
-              >
-                <div className="max-w-screen-sm mx-auto">
-                  <div className="flex flex-col gap-4">
-                    {renderMobileMenu}
-                    <div
-                      className={cn(
-                        "mt-4 flex flex-col gap-2 border-t pt-4",
-                        actionsClassName,
-                      )}
-                    >
-                      {renderAuthActions}
-                    </div>
-                  </div>
+
+                <NavigationMenu className="hidden lg:flex" viewport={false}>
+                  <NavigationMenuList>{renderMenu}</NavigationMenuList>
+                </NavigationMenu>
+
+                <div
+                  className={cn(
+                    "hidden items-center gap-2 lg:flex",
+                    actionsClassName,
+                  )}
+                >
+                  {renderAuthActions}
                 </div>
-              </NavbarMobileMenu>
-            </nav>
+
+                <Pressable
+                  variant="ghost"
+                  size={isScrolled ? "sm" : "icon"}
+                  asButton
+                  className="lg:hidden transition-all duration-300"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  <DynamicIcon
+                    name="lucide/menu"
+                    size={isScrolled ? 18 : 20}
+                  />
+                  <span className="sr-only">Toggle menu</span>
+                </Pressable>
+              </nav>
+            </div>
           </div>
         </div>
+      </Section>
+      <MobileNavigationMenu
+        open={isOpen}
+        setOpen={setIsOpen}
+        menu={menu ?? []}
+        menuSlot={menuSlot}
+        authActions={authActions}
+        authActionsSlot={authActionsSlot}
+      />
+    </>
+  );
+};
+
+interface MobileNavigationMenuProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  menu: MenuItem[];
+  menuSlot?: React.ReactNode;
+  authActions?: ActionConfig[];
+  authActionsSlot?: React.ReactNode;
+}
+
+const MobileNavigationMenu = ({
+  open,
+  setOpen,
+  menu,
+  menuSlot,
+  authActions,
+  authActionsSlot,
+}: MobileNavigationMenuProps) => {
+  const handleClose = () => setOpen(false);
+
+  const renderMobileAuthActions = useMemo(() => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return (
+      <div className="mt-6 flex flex-col gap-4">
+        {authActions.map((action, index) => {
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={cn("w-full", actionClassName)}
+              onClick={handleClose}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
       </div>
-    </Section>
+    );
+  }, [authActionsSlot, authActions]);
+
+  return (
+    <NavbarMobileMenu open={open} onClose={handleClose} title="Navigation Menu">
+      <div className="max-w-screen-sm mx-auto">
+        <div className="flex flex-col gap-6">
+          <Accordion type="multiple" className="w-full">
+            {menuSlot
+              ? menuSlot
+              : menu.map((item, index) =>
+                  item.items ? (
+                    <AccordionItem
+                      key={`nav-item-${index}`}
+                      value={`nav-${index}`}
+                      className="border-b-0"
+                    >
+                      <AccordionTrigger className="h-15 items-center p-0 px-4! text-base leading-[3.75] font-normal text-muted-foreground hover:bg-muted hover:no-underline">
+                        {item.title}
+                      </AccordionTrigger>
+                      <AccordionContent className="overflow-x-none">
+                        {item.items.map((subItem, subIndex) => (
+                          <Pressable
+                            key={`mobile-link-${index}-${subIndex}`}
+                            href={subItem.url}
+                            className="flex min-h-12 items-center gap-2 rounded-lg px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
+                            onClick={handleClose}
+                          >
+                            {subItem.icon && (
+                              <DynamicIcon
+                                name={subItem.icon}
+                                size={16}
+                                className="stroke-muted-foreground"
+                              />
+                            )}
+                            {subItem.title}
+                          </Pressable>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ) : (
+                    <Pressable
+                      key={`nav-link-${index}`}
+                      href={item.url}
+                      className="flex h-15 items-center rounded-md p-0 px-4 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all hover:bg-muted focus-visible:ring-4 focus-visible:outline-1"
+                      onClick={handleClose}
+                    >
+                      {item.title}
+                    </Pressable>
+                  ),
+                )}
+          </Accordion>
+          {renderMobileAuthActions}
+        </div>
+      </div>
+    </NavbarMobileMenu>
   );
 };
 

@@ -18,6 +18,8 @@ export interface NavbarMobileMenuProps {
   className?: string;
   /** Additional CSS classes for the content wrapper */
   contentClassName?: string;
+  /** Optional CSS classes for the close container wrapper */
+  closeContainerClassName?: string;
   /** Title for accessibility (screen readers only) */
   title?: string;
 }
@@ -42,6 +44,7 @@ export const NavbarMobileMenu = ({
   children,
   className,
   contentClassName,
+  closeContainerClassName = "",
   title = "Mobile Navigation",
 }: NavbarMobileMenuProps) => {
   // Prevent body scroll when menu is open
@@ -73,7 +76,12 @@ export const NavbarMobileMenu = ({
       </div>
 
       {/* Close button */}
-      <div className="absolute top-0 left-0 right-0 p-4 bg-background flex justify-end items-center z-10 w-screen">
+      <div
+        className={cn(
+          closeContainerClassName,
+          "absolute top-0 left-0 right-0 p-4 bg-background flex justify-end items-center z-10 w-screen",
+        )}
+      >
         <button
           onClick={onClose}
           className="flex size-10 items-center justify-center rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
