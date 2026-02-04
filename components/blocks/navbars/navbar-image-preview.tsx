@@ -331,7 +331,9 @@ export const NavbarImagePreview = ({
               <div
                 className={cn("flex items-center gap-3.5", actionsClassName)}
               >
-                {renderAuthActions}
+                <div className="hidden lg:flex lg:items-center lg:gap-3.5">
+                  {renderAuthActions}
+                </div>
                 <div className="lg:hidden">
                   <Pressable
                     variant="ghost"
@@ -350,7 +352,7 @@ export const NavbarImagePreview = ({
       <MobileNavigationMenu
         open={open}
         setOpen={setOpen}
-        mobileNavigation={mobileNavigation ?? []}
+        mobileNavigation={mobileNavigation ?? navigation ?? []}
         mobileNavigationSlot={mobileNavigationSlot}
         socialLinks={socialLinks ?? []}
         socialLinksSlot={socialLinksSlot}

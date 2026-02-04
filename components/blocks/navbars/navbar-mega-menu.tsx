@@ -16,6 +16,13 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "../../ui/navigation-menu";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../ui/accordion";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -474,76 +481,6 @@ const DesktopMenuItem = ({
 };
 
 /**
- * Mobile submenu component with layout-based rendering
- */
-interface MobileSubmenuProps {
-  submenu: IMenuLink;
-  mobileMenuClassName?: string;
-  optixFlowConfig?: OptixFlowConfig;
-}
-
-const MobileSubmenu = ({
-  submenu,
-  mobileMenuClassName,
-  optixFlowConfig,
-}: MobileSubmenuProps) => {
-  // Use unified links array
-  const items = submenu.links || [];
-
-  return (
-    <div
-      className={cn(
-        "fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden",
-        mobileMenuClassName,
-      )}
-    >
-      <div className="px-8 py-3.5 text-xs tracking-widest text-muted-foreground uppercase">
-        {submenu.label}
-      </div>
-      {items.map((item, index) => {
-        return (
-          <Pressable
-            key={`mobile-item-${index}`}
-            href={getLinkUrl(item)}
-            className="flex items-start gap-4 border-b border-border px-8 py-5"
-          >
-            {item.image && (
-              <div className="h-10 w-10 overflow-hidden rounded-md border border-border">
-                <Img
-                  src={item.image}
-                  alt={
-                    typeof item.label === "string" ? item.label : "Menu item"
-                  }
-                  className="h-full w-full object-cover object-center"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </div>
-            )}
-            {!item.image && (item.icon || item.iconName) && (
-              <div className="flex h-10 w-10 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
-                {item.icon ? (
-                  item.icon
-                ) : item.iconName ? (
-                  <DynamicIcon name={item.iconName} size={16} />
-                ) : null}
-              </div>
-            )}
-            <div>
-              <div className="text-base">{item.label}</div>
-              {item.description && (
-                <div className="text-sm text-muted-foreground">
-                  {item.description}
-                </div>
-              )}
-            </div>
-          </Pressable>
-        );
-      })}
-    </div>
-  );
-};
-
-/**
  * NavbarMegaMenu - A comprehensive navigation bar with rich mega-menu dropdowns.
  *
  * Features grouped dropdown menus for complex site structures or simple links.
@@ -571,9 +508,6 @@ export const NavbarMegaMenu = ({
   optixFlowConfig,
 }: NavbarMegaMenuProps) => {
   const [open, setOpen] = useState(false);
-  const [submenuIndex, setSubmenuIndex] = useState<number | null>(null);
-  const activeSubmenu =
-    submenuIndex !== null ? menuLinks?.[submenuIndex] : null;
 
   const hasDropdownItems = (link: IMenuLink) =>
     Boolean(
@@ -645,28 +579,12 @@ export const NavbarMegaMenu = ({
               <div className={navWrapperClasses}>
                 {/* Logo */}
                 <div>
-                  {(!open || submenuIndex === null) && (
-                    <NavbarLogo
-                      logo={logo}
-                      logoSlot={logoSlot}
-                      logoClassName={logoClassName}
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  )}
-                  {open && submenuIndex !== null && (
-                    <Pressable
-                      variant="outline"
-                      asButton
-                      onClick={() => setSubmenuIndex(null)}
-                    >
-                      Back
-                      <DynamicIcon
-                        name="lucide/chevron-left"
-                        size={16}
-                        className="ml-2"
-                      />
-                    </Pressable>
-                  )}
+                  <NavbarLogo
+                    logo={logo}
+                    logoSlot={logoSlot}
+                    logoClassName={logoClassName}
+                    optixFlowConfig={optixFlowConfig}
+                  />
                 </div>
 
                 <NavigationMenuList
@@ -713,14 +631,7 @@ export const NavbarMegaMenu = ({
                     size="icon"
                     asButton
                     aria-label="Main Menu"
-                    onClick={() => {
-                      if (open) {
-                        setOpen(false);
-                        setSubmenuIndex(null);
-                      } else {
-                        setOpen(true);
-                      }
-                    }}
+                    onClick={() => setOpen(!open)}
                   >
                     {!open && <DynamicIcon name="lucide/menu" size={16} />}
                     {open && <DynamicIcon name="lucide/x" size={16} />}
@@ -728,32 +639,47 @@ export const NavbarMegaMenu = ({
                 </div>
               </div>
 
-              {/* Mobile Menu (Root) */}
-              {open && submenuIndex === null && (
-                <div
-                  className={cn(
-                    "fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden",
-                    mobileMenuClassName,
-                  )}
-                >
-                  <div>
+              <NavbarMobileMenu
+                open={open}
+                onClose={() => setOpen(false)}
+                title="Mobile Navigation"
+                contentClassName="pt-10 pb-20"
+              >
+                <div className="max-w-screen-sm mx-auto">
+                  <Accordion type="multiple" className="w-full">
                     {menuLinks?.map((link, index) => {
                       if (hasDropdownItems(link)) {
+                        const items = link.links || [];
                         return (
-                          <button
+                          <AccordionItem
                             key={`mobile-menu-link-${index}`}
-                            type="button"
-                            className="flex w-full items-center border-b border-border px-8 py-7 text-left"
-                            onClick={() => setSubmenuIndex(index)}
+                            value={`menu-${index}`}
+                            className="border-b-0"
                           >
-                            <span className="flex-1">{link.label}</span>
-                            <span className="shrink-0">
-                              <DynamicIcon
-                                name="lucide/chevron-right"
-                                size={16}
-                              />
-                            </span>
-                          </button>
+                            <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
+                              {link.label}
+                            </AccordionTrigger>
+                            <AccordionContent className="overflow-x-none">
+                              {items.map((item, itemIndex) => (
+                                <Pressable
+                                  key={`mobile-link-${index}-${itemIndex}`}
+                                  href={getLinkUrl(item)}
+                                  className="flex items-center gap-2 pl-4 text-sm text-muted-foreground hover:text-foreground"
+                                >
+                                  {(item.icon || item.iconName) &&
+                                    (item.icon ? (
+                                      item.icon
+                                    ) : item.iconName ? (
+                                      <DynamicIcon
+                                        name={item.iconName}
+                                        size={14}
+                                      />
+                                    ) : null)}
+                                  {item.label}
+                                </Pressable>
+                              ))}
+                            </AccordionContent>
+                          </AccordionItem>
                         );
                       }
 
@@ -765,32 +691,21 @@ export const NavbarMegaMenu = ({
                         <Pressable
                           key={`mobile-menu-link-${index}`}
                           href={link.href}
-                          className="flex w-full items-center border-b border-border px-8 py-7 text-left"
+                          className="flex h-15 items-center text-base font-normal text-foreground"
                         >
-                          <span className="flex-1">{link.label}</span>
+                          {link.label}
                         </Pressable>
                       );
                     })}
-                  </div>
+                  </Accordion>
+
                   <div
-                    className={cn(
-                      "mx-8 mt-auto flex flex-col gap-4 py-12",
-                      actionsClassName,
-                    )}
+                    className={cn("mt-6 flex flex-col gap-4", actionsClassName)}
                   >
                     {renderActions()}
                   </div>
                 </div>
-              )}
-
-              {/* Mobile Menu > Dropdown */}
-              {open && activeSubmenu && hasDropdownItems(activeSubmenu) && (
-                <MobileSubmenu
-                  submenu={activeSubmenu}
-                  mobileMenuClassName={mobileMenuClassName}
-                  optixFlowConfig={optixFlowConfig}
-                />
-              )}
+              </NavbarMobileMenu>
             </NavigationMenu>
           </div>
         </div>

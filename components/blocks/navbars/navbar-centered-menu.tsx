@@ -201,12 +201,12 @@ const renderMobileMenuItem = (item: MenuItem) => {
         <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
           {item.title}
         </AccordionTrigger>
-        <AccordionContent className="max-h-[60dvh] overflow-y-auto space-y-2">
+        <AccordionContent className="overflow-x-none">
           {item.items.map((subItem) => (
             <Pressable
               key={subItem.title}
               href={subItem.url}
-              className="flex items-center gap-2 pl-4 text-sm text-muted-foreground hover:text-foreground"
+              className="flex items-center gap-2 pl-2 text-sm text-muted-foreground hover:text-foreground"
             >
               {subItem.icon && <DynamicIcon name={subItem.icon} size={14} />}
               {subItem.title}

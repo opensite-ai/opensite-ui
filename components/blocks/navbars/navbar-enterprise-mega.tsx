@@ -649,7 +649,7 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
   switch (item.layout) {
     case "solutions-with-platform":
       return (
-        <div className="space-y-4">
+        <div className="relative">
           {item.solutionCards?.map((solution) => (
             <div key={solution.id} className="space-y-2">
               <Pressable
@@ -794,7 +794,7 @@ const MobileNavigationMenu = ({
                   <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
                     {item.label}
                   </AccordionTrigger>
-                  <AccordionContent className="max-h-[60dvh] overflow-y-auto">
+                  <AccordionContent className="overflow-x-none">
                     {renderMobileDropdownContent(item)}
                   </AccordionContent>
                 </AccordionItem>

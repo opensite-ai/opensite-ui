@@ -1,14 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  Fragment,
-  useState,
-  useEffect,
-  useRef,
-  forwardRef,
-  useMemo,
-} from "react";
+import { useState, useEffect, useRef, forwardRef, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -292,75 +285,69 @@ export const NavbarAnimatedPreview = ({
   );
 
   return (
-    <Section
-      background={background}
-      spacing={spacingOverride ?? spacing}
-      className={cn(
-        "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center",
-        sectionClasses,
-      )}
-      pattern={pattern}
-      patternOpacity={patternOpacity}
-      containerClassName={sectionContainerClassName}
-      containerMaxWidth={sectionContainerMaxWidth}
-    >
-      <div className={containerWrapperClasses}>
-        <div className={baseNavWrapperClasses}>
-          <div className={innerContainerClasses}>
-            <NavigationMenu className={navWrapperClasses}>
-              <div
-                className={cn(
-                  "relative z-999 grid w-full grid-cols-2 items-center justify-between gap-8 xl:grid-cols-3",
-                )}
-              >
-                <NavbarLogo
-                  logo={logo}
-                  logoSlot={logoSlot}
-                  logoClassName={logoClassName}
-                  optixFlowConfig={optixFlowConfig}
-                />
-                <div className={cn("hidden xl:flex", navClassName)}>
-                  {renderNavigation}
-                </div>
-                <div className={cn("justify-self-end", actionsClassName)}>
-                  <div className="hidden xl:block">{renderActions}</div>
-                  <div className="xl:hidden">
-                    <Pressable
-                      className="size-11"
-                      variant="ghost"
-                      size="icon"
-                      asButton
-                      onClick={handleMobileMenu}
-                    >
-                      {open ? (
-                        <DynamicIcon
-                          name="lucide/x"
-                          size={22}
-                          className="stroke-foreground"
-                        />
-                      ) : (
+    <>
+      <Section
+        background={background}
+        spacing={spacingOverride ?? spacing}
+        className={cn(
+          "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center",
+          sectionClasses,
+        )}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
+        containerClassName={sectionContainerClassName}
+        containerMaxWidth={sectionContainerMaxWidth}
+      >
+        <div className={containerWrapperClasses}>
+          <div className={baseNavWrapperClasses}>
+            <div className={innerContainerClasses}>
+              <NavigationMenu className={navWrapperClasses}>
+                <div
+                  className={cn(
+                    "relative z-999 grid w-full grid-cols-2 items-center justify-between gap-8 xl:grid-cols-3",
+                  )}
+                >
+                  <NavbarLogo
+                    logo={logo}
+                    logoSlot={logoSlot}
+                    logoClassName={logoClassName}
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                  <div className={cn("hidden xl:flex", navClassName)}>
+                    {renderNavigation}
+                  </div>
+                  <div className={cn("justify-self-end", actionsClassName)}>
+                    <div className="hidden xl:block">{renderActions}</div>
+                    <div className="xl:hidden">
+                      <Pressable
+                        className="size-11"
+                        variant="ghost"
+                        size="icon"
+                        asButton
+                        onClick={handleMobileMenu}
+                      >
                         <DynamicIcon
                           name="lucide/menu"
                           size={22}
                           className="stroke-foreground"
                         />
-                      )}
-                    </Pressable>
+                      </Pressable>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </NavigationMenu>
-            <MobileNavigationMenu
-              open={open}
-              setOpen={setOpen}
-              menuLinks={menuLinks ?? []}
-              actions={actions}
-              actionsSlot={actionsSlot}
-            />
+              </NavigationMenu>
+            </div>
           </div>
         </div>
-      </div>
-    </Section>
+      </Section>
+      <MobileNavigationMenu
+        open={open}
+        setOpen={setOpen}
+        menuLinks={menuLinks ?? []}
+        actions={actions}
+        actionsSlot={actionsSlot}
+      />
+    </>
   );
 };
 

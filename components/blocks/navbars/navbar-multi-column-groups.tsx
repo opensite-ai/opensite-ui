@@ -263,72 +263,67 @@ export const NavbarMultiColumnGroups = ({
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
   return (
-    <Section
-      background={background}
-      spacing={spacingOverride ?? spacing}
-      className={sectionClasses}
-      pattern={pattern}
-      patternOpacity={patternOpacity}
-      containerClassName={sectionContainerClassName}
-      containerMaxWidth={sectionContainerMaxWidth}
-    >
-      <div className={containerWrapperClasses}>
-        <div className={navWrapperClasses}>
-          <div className={innerContainerClasses}>
-            <div
-              className={cn(
-                "flex items-center justify-between gap-8",
-                navClassName,
-              )}
-            >
-              <div className="flex items-center gap-8">
-                <NavbarLogo
-                  logo={logo}
-                  logoSlot={logoSlot}
-                  logoClassName={logoClassName}
-                  optixFlowConfig={optixFlowConfig}
-                />
-                <NavigationMenu
-                  className={cn("hidden xl:flex", navigationMenuClassName)}
-                  viewport={false}
-                >
-                  {renderNavigation}
-                </NavigationMenu>
-              </div>
+    <>
+      <Section
+        background={background}
+        spacing={spacingOverride ?? spacing}
+        className={sectionClasses}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
+        containerClassName={sectionContainerClassName}
+        containerMaxWidth={sectionContainerMaxWidth}
+      >
+        <div className={containerWrapperClasses}>
+          <div className={navWrapperClasses}>
+            <div className={innerContainerClasses}>
               <div
                 className={cn(
-                  "hidden items-center gap-3 xl:flex",
-                  actionsClassName,
+                  "flex items-center justify-between gap-8",
+                  navClassName,
                 )}
               >
-                {renderAuthActions}
-              </div>
-              <div className="xl:hidden">
-                <Pressable
-                  className="size-11"
-                  variant="ghost"
-                  asButton
-                  onClick={handleMobileMenu}
+                <div className="flex items-center gap-8">
+                  <NavbarLogo
+                    logo={logo}
+                    logoSlot={logoSlot}
+                    logoClassName={logoClassName}
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                  <NavigationMenu
+                    className={cn("hidden xl:flex", navigationMenuClassName)}
+                    viewport={false}
+                  >
+                    {renderNavigation}
+                  </NavigationMenu>
+                </div>
+                <div
+                  className={cn(
+                    "hidden items-center gap-3 xl:flex",
+                    actionsClassName,
+                  )}
                 >
-                  {open ? (
-                    <DynamicIcon
-                      name="lucide/x"
-                      size={22}
-                      className="stroke-foreground"
-                    />
-                  ) : (
+                  {renderAuthActions}
+                </div>
+                <div className="xl:hidden">
+                  <Pressable
+                    className="size-11"
+                    variant="ghost"
+                    size="icon"
+                    asButton
+                    onClick={handleMobileMenu}
+                  >
                     <DynamicIcon
                       name="lucide/menu"
                       size={22}
                       className="stroke-foreground"
                     />
-                  )}
-                </Pressable>
+                  </Pressable>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Section>
       <MobileNavigationMenu
         open={open}
         setOpen={setOpen}
@@ -336,7 +331,7 @@ export const NavbarMultiColumnGroups = ({
         authActions={mobileAuthActions}
         authActionsSlot={mobileAuthActionsSlot}
       />
-    </Section>
+    </>
   );
 };
 
@@ -467,7 +462,6 @@ const MobileNavigationMenu = ({
       open={open}
       onClose={() => setOpen(false)}
       title="Mobile Navigation"
-      className="dark"
     >
       <div className="max-w-screen-sm mx-auto">
         <div className="flex flex-col gap-6">
@@ -492,13 +486,13 @@ const renderMobileMenuItem = (item: MenuItem, index: number) => {
         <AccordionTrigger className="h-15 items-center p-0 px-4! text-base leading-[3.75] font-normal text-muted-foreground hover:bg-muted hover:no-underline">
           {item.title}
         </AccordionTrigger>
-        <AccordionContent className="max-h-[60dvh] overflow-x-auto">
+        <AccordionContent className="overflow-x-none">
           {item.groups.flatMap((group, groupIndex) =>
             group.links.map((link, linkIndex) => (
               <Pressable
                 key={`mobile-link-${groupIndex}-${linkIndex}`}
                 href={link.url}
-                className="flex h-12 items-center gap-2 rounded-lg px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
+                className="flex min-h-12 items-center gap-2 rounded-lg px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
               >
                 {link.icon ? (
                   link.icon

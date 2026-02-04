@@ -280,23 +280,19 @@ export const NavbarFeatureGrid = ({
                   <Accordion type="multiple" className="w-full">
                     {features && features.length > 0 && (
                       <AccordionItem value="features" className="border-b-0">
-                        <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
+                        <AccordionTrigger className="h-15 items-center text-base font-normal hover:no-underline">
                           Features
                         </AccordionTrigger>
-                        <AccordionContent className="max-h-[60dvh] overflow-y-auto space-y-2">
+                        <AccordionContent className="overflow-x-none">
                           {features.map((feature, index) => (
                             <Pressable
                               href={feature.href}
                               key={index}
-                              className="flex items-start gap-2 pl-4 text-sm text-muted-foreground hover:text-foreground"
+                              className="flex items-start gap-2 pl-4 text-sm"
                             >
-                              <div>
-                                <p className="mb-1 font-semibold">
-                                  {feature.title}
-                                </p>
-                                <p className="text-sm text-muted-foreground">
-                                  {feature.description}
-                                </p>
+                              <div className="space-y-2">
+                                <p className="font-semibold">{feature.title}</p>
+                                <p className="text-sm">{feature.description}</p>
                               </div>
                             </Pressable>
                           ))}
@@ -307,7 +303,7 @@ export const NavbarFeatureGrid = ({
                       <Pressable
                         key={index}
                         href={item.url}
-                        className="flex h-15 items-center text-base font-normal text-foreground"
+                        className="flex h-15 items-center text-base font-normal"
                       >
                         {item.title}
                       </Pressable>

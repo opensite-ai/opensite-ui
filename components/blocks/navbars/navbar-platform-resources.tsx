@@ -217,50 +217,39 @@ export const NavbarPlatformResources = ({
     // Simple list layout (default)
     if (layout === "simple-list") {
       return (
-        <NavigationMenuContent className="min-w-[640px] p-4">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <NavigationMenuContent className="w-[400px] p-3">
+          <ul className="space-y-1">
             {link.links?.map((item, itemIndex) => (
-              <NavigationMenuLink
+              <li
                 key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
-                href={getLinkUrl(item)}
-                className="flex flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-accent hover:text-accent-foreground"
               >
-                {item.image && (
-                  <div className="h-12 w-12 overflow-hidden rounded-md border border-border">
-                    <Img
-                      src={item.image}
-                      alt={
-                        typeof item.label === "string"
-                          ? item.label
-                          : "Menu item"
-                      }
-                      className="h-full w-full object-cover object-center"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </div>
-                )}
-                {!item.image && (item.icon || item.iconName) && (
-                  <div className="flex h-12 w-12 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
+                <NavigationMenuLink
+                  href={getLinkUrl(item)}
+                  className="group/link flex-row gap-2 px-3 py-2 transition-colors duration-200"
+                >
+                  <div className="flex size-8 shrink-0 rounded-lg border duration-400 fade-in group-hover/link:bg-background">
                     {item.icon ? (
                       item.icon
                     ) : item.iconName ? (
-                      <DynamicIcon name={item.iconName} size={18} />
+                      <DynamicIcon
+                        name={item.iconName}
+                        size={16}
+                        className="m-auto group-hover/link:stroke-black"
+                      />
                     ) : null}
                   </div>
-                )}
-                <div>
-                  <div className="text-sm font-medium text-foreground">
-                    {item.label}
+                  <div className="flex flex-col gap-0.5">
+                    <div className="text-sm font-medium">{item.label}</div>
+                    {item.description && (
+                      <div className="text-xs text-muted-foreground group-hover/link:text-foreground">
+                        {item.description}
+                      </div>
+                    )}
                   </div>
-                  {item.description && (
-                    <div className="text-sm font-normal text-muted-foreground">
-                      {item.description}
-                    </div>
-                  )}
-                </div>
-              </NavigationMenuLink>
+                </NavigationMenuLink>
+              </li>
             ))}
-          </div>
+          </ul>
         </NavigationMenuContent>
       );
     }
@@ -768,7 +757,7 @@ export const NavbarPlatformResources = ({
                             <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
                               {link.label}
                             </AccordionTrigger>
-                            <AccordionContent className="max-h-[60dvh] overflow-y-auto space-y-4">
+                            <AccordionContent className="overflow-x-none">
                               {link.links?.map((item, itemIndex) => (
                                 <Pressable
                                   key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
