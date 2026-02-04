@@ -9,7 +9,12 @@ import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { Badge } from "@/src";
 
 export interface FeatureImageCardsThreeColumnItem {
   /**
@@ -108,6 +113,10 @@ export interface FeatureImageCardsThreeColumnProps {
    */
   descriptionClassName?: string;
   /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
    * Additional CSS classes for the grid
    */
   gridClassName?: string;
@@ -171,6 +180,7 @@ export interface FeatureImageCardsThreeColumnProps {
 export function FeatureImageCardsThreeColumn({
   title,
   description,
+  headerClassName,
   cards,
   cardsSlot,
   className,
@@ -186,83 +196,105 @@ export function FeatureImageCardsThreeColumn({
   patternOpacity,
   patternClassName,
 }: FeatureImageCardsThreeColumnProps): React.JSX.Element {
-  const renderImage = useCallback((card: FeatureImageCardsThreeColumnItem, imageAlt: string) => {
-    if (card.imageSlot) return card.imageSlot;
-    if (!card.imageSrc) return null;
+  const renderImage = useCallback(
+    (card: FeatureImageCardsThreeColumnItem, imageAlt: string) => {
+      if (card.imageSlot) return card.imageSlot;
+      if (!card.imageSrc) return null;
 
-    return (
-      <Img
-        src={card.imageSrc}
-        alt={imageAlt}
-        className="h-full max-h-[450px] w-full rounded-xl object-cover object-center"
-        loading="lazy"
-        optixFlowConfig={optixFlowConfig}
-      />
-    );
-  }, [optixFlowConfig]);
-
-  const renderBadgeIcon = useCallback((card: FeatureImageCardsThreeColumnItem) => {
-    if (card.avatarSrc) {
       return (
-        <Avatar className="size-7 rounded-full">
-          <AvatarImage src={card.avatarSrc} alt="Avatar" />
-        </Avatar>
+        <Img
+          src={card.imageSrc}
+          alt={imageAlt}
+          className="h-full max-h-[450px] w-full rounded-xl object-cover object-center"
+          loading="lazy"
+          optixFlowConfig={optixFlowConfig}
+        />
       );
-    }
-    if (card.icon) return card.icon;
-    if (!card.iconName) return null;
+    },
+    [optixFlowConfig],
+  );
 
-    return <DynamicIcon name={card.iconName} size={24} />;
-  }, []);
+  const renderBadgeIcon = useCallback(
+    (card: FeatureImageCardsThreeColumnItem) => {
+      if (card.avatarSrc) {
+        return (
+          <Avatar className="size-7 rounded-full">
+            <AvatarImage src={card.avatarSrc} alt="Avatar" />
+          </Avatar>
+        );
+      }
+      if (card.icon) return card.icon;
+      if (!card.iconName) return null;
+
+      return <DynamicIcon name={card.iconName} size={24} />;
+    },
+    [],
+  );
 
   const cardsContent = useMemo(() => {
     if (cardsSlot) return cardsSlot;
     if (!cards || cards.length === 0) return null;
 
     return cards.map((card, index) => {
-      const imageAlt = card.imageAlt || (typeof card.title === "string" ? card.title : "Card image");
+      const imageAlt =
+        card.imageAlt ||
+        (typeof card.title === "string" ? card.title : "Card image");
 
       return (
         <Pressable
           key={index}
           href={card.link}
           onClick={card.onClick}
-          className={cn("group relative overflow-hidden rounded-xl", cardClassName, card.className)}
+          className={cn(
+            "group relative overflow-hidden rounded-xl",
+            cardClassName,
+            card.className,
+          )}
         >
           {renderImage(card, imageAlt)}
-          <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-20 rounded-xl bg-linear-to-t from-primary to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
-          <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
-            {(card.badgeText || card.avatarSrc || card.icon || card.iconName) && (
-              <span
-                className={cn(
-                  "ml-auto flex w-fit items-center gap-2 text-sm font-semibold",
-                  card.avatarSrc
-                    ? "rounded-full bg-foreground/30 px-4 py-2.5 backdrop-blur-sm"
-                    : "rounded-full bg-primary px-4 py-2.5 text-primary-foreground",
-                  card.badgeClassName
-                )}
-              >
+          <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-20 rounded-xl bg-linear-to-t from-black to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
+          <div className="absolute top-0 flex h-full w-full flex-col justify-between p-4 md:p-6">
+            {(card.badgeText ||
+              card.avatarSrc ||
+              card.icon ||
+              card.iconName) && (
+              <Badge variant="default" className={cn(card.badgeClassName)}>
                 {renderBadgeIcon(card)}
                 {card.badgeText}
-              </span>
+              </Badge>
             )}
             <div className="flex flex-col gap-5">
-              {card.title && (
-                typeof card.title === "string" ? (
-                  <h4 className={cn("text-2xl font-semibold lg:text-3xl", card.titleClassName)}>
+              {card.title &&
+                (typeof card.title === "string" ? (
+                  <h3
+                    className={cn(
+                      "text-xl md:text-2xl font-semibold",
+                      card.titleClassName,
+                    )}
+                  >
                     {card.title}
-                  </h4>
+                  </h3>
                 ) : (
-                  <div className={cn("text-2xl font-semibold lg:text-3xl", card.titleClassName)}>
+                  <div
+                    className={cn(
+                      "text-xl md:text-2xl font-semibold",
+                      card.titleClassName,
+                    )}
+                  >
                     {card.title}
                   </div>
-                )
-              )}
-              {card.linkText && (
-                <p className={cn("flex items-center gap-1 font-medium", card.linkClassName)}>
+                ))}
+              {card.linkText && card.link && (
+                <Pressable
+                  className={cn(
+                    "font-bold text-xs uppercase",
+                    card.linkClassName,
+                  )}
+                  href={card.link}
+                >
                   {card.linkText}
-                  <DynamicIcon name="lucide/chevron-right" size={16} />
-                </p>
+                  <DynamicIcon name="lucide/arrow-up-right" size={18} />
+                </Pressable>
               )}
             </div>
           </div>
@@ -281,22 +313,52 @@ export function FeatureImageCardsThreeColumn({
       className={className}
       containerClassName={containerClassName}
     >
-      {title && (
-        typeof title === "string" ? (
-          <h1 className={cn("mb-4 text-center text-4xl font-semibold", titleClassName)}>{title}</h1>
-        ) : (
-          <div className={cn("mb-4 text-center text-4xl font-semibold", titleClassName)}>{title}</div>
-        )
-      )}
-      {description && (
-        typeof description === "string" ? (
-          <p className={cn("text-center", getTextColor(background, 'muted'), descriptionClassName)}>{description}</p>
-        ) : (
-          <div className={cn("text-center", getTextColor(background, 'muted'), descriptionClassName)}>{description}</div>
-        )
-      )}
-      <div className={cn("grid gap-5 pt-14 xl:grid-cols-3", gridClassName)}>
-        {cardsContent}
+      <div className="flex flex-col space-y-6 md:space-y-16">
+        {title || description ? (
+          <div className={cn("flex flex-col gap-6 text-left", headerClassName)}>
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl max-w-lg md:max-w-md",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
+              ) : (
+                <div
+                  className={cn(
+                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl max-w-lg md:max-w-md",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn("max-w-lg md:max-w-md", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div
+                  className={cn("max-w-lg md:max-w-md", descriptionClassName)}
+                >
+                  {description}
+                </div>
+              ))}
+          </div>
+        ) : null}
+
+        <div
+          className={cn(
+            "grid gap-4 md:gap-4 grid-cols-1 md:grid-cols-3",
+            gridClassName,
+          )}
+        >
+          {cardsContent}
+        </div>
       </div>
     </Section>
   );
