@@ -373,7 +373,7 @@ const DesktopMenuItem = ({
           {item.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="hidden rounded-xl! border-0! p-0! xl:block">
-          <div className="w-[calc(100vw-2rem)] max-w-7xl animate-[fade-in-slide-down_0.35s_cubic-bezier(0.33,1,0.68,1)_forwards] px-8 pt-6 pb-12">
+          <div className="w-[calc(100vw-2rem)] max-w-6xl animate-[fade-in-slide-down_0.35s_cubic-bezier(0.33,1,0.68,1)_forwards] px-8 pt-6 pb-12">
             {renderDropdownContent(item, optixFlowConfig)}
           </div>
         </NavigationMenuContent>
