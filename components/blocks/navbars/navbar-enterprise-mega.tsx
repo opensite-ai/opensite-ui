@@ -571,7 +571,7 @@ const DesktopMenuItem = ({
         <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {item.label}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="!rounded-xl !border-0 !p-6">
+        <NavigationMenuContent className="rounded-xl! border-0! p-4!">
           {renderDropdownContent(
             { ...item, layout: effectiveLayout },
             optixFlowConfig,
@@ -649,7 +649,7 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
   switch (item.layout) {
     case "solutions-with-platform":
       return (
-        <div className="relative">
+        <div className="flex flex-col space-y-2">
           {item.solutionCards?.map((solution) => (
             <div key={solution.id} className="space-y-2">
               <Pressable
@@ -680,7 +680,7 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
               <Pressable
                 key={product.id}
                 href={product.href}
-                className="flex items-center gap-2 text-sm text-muted-foreground"
+                className="flex items-center pl-4 gap-2 text-sm text-muted-foreground"
               >
                 {product.title}
               </Pressable>
@@ -695,7 +695,7 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
             <Pressable
               key={resource.id}
               href={resource.href}
-              className="flex items-center gap-2 text-sm text-muted-foreground"
+              className="flex items-center pl-4 gap-2 text-sm text-muted-foreground"
             >
               <DynamicIcon name={resource.icon} size={14} />
               {resource.title}
@@ -814,7 +814,7 @@ const MobileNavigationMenu = ({
             );
           })}
         </Accordion>
-        <div className={cn("mt-6 flex flex-col gap-4", actionsClassName)}>
+        <div className={cn("mt-4 flex flex-col gap-4", actionsClassName)}>
           {renderActions}
         </div>
       </div>

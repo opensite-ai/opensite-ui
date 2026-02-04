@@ -9,6 +9,12 @@ import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import { NavbarLogo } from "../../ui/navbar-logo";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../ui/accordion";
+import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
@@ -485,52 +491,23 @@ const MobileNavigationMenu = ({
   authActions,
   authActionsSlot,
 }: MobileNavigationMenuProps) => {
-  const renderMobileNavigation = useMemo(() => {
-    if (mobileNavigationSlot) return mobileNavigationSlot;
-    if (!mobileNavigation || mobileNavigation.length === 0) return null;
-
-    return (
-      <div className="grid w-full grid-cols-1 gap-x-4 gap-y-10">
-        {mobileNavigation.map((item, index) => (
-          <div
-            className={cn("flex flex-col gap-4 ", item.className)}
-            key={`mobile-menu-item-${index}`}
-          >
-            <div className="text-xs uppercase">{item.title}</div>
-            <ul className="flex flex-col gap-3">
-              {item.links?.map((link, i) => (
-                <li key={`mobile-nav-link-${i}`}>
-                  <Pressable
-                    href={getLinkUrl(link)}
-                    className={cn(
-                      "leading-normal font-medium",
-                      index === 0 ? "" : "text-base",
-                    )}
-                  >
-                    {link.label}
-                  </Pressable>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    );
-  }, [mobileNavigationSlot, mobileNavigation]);
+  const handleClose = () => setOpen(false);
 
   const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
     return (
-      <div className="col-span-2 flex flex-col gap-4">
-        <div className="text-xs uppercase">SOCIAL</div>
-        <div className="flex gap-4">
+      <div className="flex flex-col gap-4 mt-6">
+        <div className="px-4 text-[10px] text-muted-foreground uppercase">
+          SOCIAL
+        </div>
+        <div className="flex gap-4 px-4">
           {socialLinks.map((link, index) => (
             <Pressable
               key={`social-link-${index}`}
               href={link.url}
-              className=""
+              onClick={handleClose}
             >
               {link.icon ??
                 (link.iconName && (
@@ -542,14 +519,14 @@ const MobileNavigationMenu = ({
         </div>
       </div>
     );
-  }, [socialLinksSlot, socialLinks]);
+  }, [socialLinksSlot, socialLinks, handleClose]);
 
   const renderMobileAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-4 mt-6">
         {authActions.map((action, index) => {
           const {
             label,
@@ -564,6 +541,7 @@ const MobileNavigationMenu = ({
               key={index}
               asButton
               className={cn("w-full", actionClassName)}
+              onClick={handleClose}
               {...pressableProps}
             >
               {children ?? (
@@ -578,17 +556,78 @@ const MobileNavigationMenu = ({
         })}
       </div>
     );
-  }, [authActionsSlot, authActions]);
+  }, [authActionsSlot, authActions, handleClose]);
+
+  // If custom slot is provided, use it
+  if (mobileNavigationSlot) {
+    return (
+      <NavbarMobileMenu open={open} onClose={handleClose} title="Mobile Navigation">
+        <div className="max-w-screen-sm mx-auto">
+          <div className="flex flex-col gap-6">
+            {mobileNavigationSlot}
+            {renderSocialLinks}
+            {renderMobileAuthActions}
+          </div>
+        </div>
+      </NavbarMobileMenu>
+    );
+  }
 
   return (
-    <NavbarMobileMenu
-      open={open}
-      onClose={() => setOpen(false)}
-      title="Mobile Navigation"
-    >
+    <NavbarMobileMenu open={open} onClose={handleClose} title="Mobile Navigation">
       <div className="max-w-screen-sm mx-auto">
-        <div className="flex h-full flex-col justify-between gap-30">
-          {renderMobileNavigation}
+        <div className="flex flex-col gap-6">
+          <Accordion type="multiple" className="w-full">
+            {mobileNavigation.map((item, index) => {
+              // If the item has links, render as accordion
+              if (item.links && item.links.length > 0) {
+                return (
+                  <AccordionItem
+                    key={`nav-item-${index}`}
+                    value={`nav-${index}`}
+                    className="border-b-0"
+                  >
+                    <AccordionTrigger className="h-15 items-center p-0 px-4! text-base leading-[3.75] font-normal text-muted-foreground hover:bg-muted hover:no-underline">
+                      {item.title}
+                    </AccordionTrigger>
+                    <AccordionContent className="overflow-x-none">
+                      {item.links.map((link, linkIndex) => (
+                        <Pressable
+                          key={`mobile-link-${linkIndex}`}
+                          href={getLinkUrl(link)}
+                          className="flex min-h-12 items-center gap-2 rounded-lg px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
+                          onClick={handleClose}
+                        >
+                          {link.icon ? (
+                            link.icon
+                          ) : link.iconName ? (
+                            <DynamicIcon
+                              name={link.iconName}
+                              size={16}
+                              className="stroke-muted-foreground"
+                            />
+                          ) : null}
+                          {link.label}
+                        </Pressable>
+                      ))}
+                    </AccordionContent>
+                  </AccordionItem>
+                );
+              }
+
+              // Simple link item (no dropdown)
+              return (
+                <Pressable
+                  key={`nav-link-${index}`}
+                  href={item.url}
+                  className="flex h-15 items-center rounded-md p-0 px-4 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all hover:bg-muted focus-visible:ring-4 focus-visible:outline-1"
+                  onClick={handleClose}
+                >
+                  {item.title}
+                </Pressable>
+              );
+            })}
+          </Accordion>
           {renderSocialLinks}
           {renderMobileAuthActions}
         </div>

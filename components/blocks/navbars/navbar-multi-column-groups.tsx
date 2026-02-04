@@ -421,12 +421,14 @@ const MobileNavigationMenu = ({
   authActions,
   authActionsSlot,
 }: MobileNavigationMenuProps) => {
+  const handleClose = () => setOpen(false);
+
   const renderMobileAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
     return (
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 mt-6">
         {authActions.map((action, index) => {
           const {
             label,
@@ -441,6 +443,7 @@ const MobileNavigationMenu = ({
               key={index}
               asButton
               className={cn("w-full", actionClassName)}
+              onClick={handleClose}
               {...pressableProps}
             >
               {children ?? (
@@ -455,67 +458,78 @@ const MobileNavigationMenu = ({
         })}
       </div>
     );
-  }, [authActionsSlot, authActions]);
+  }, [authActionsSlot, authActions, handleClose]);
 
   return (
     <NavbarMobileMenu
       open={open}
-      onClose={() => setOpen(false)}
+      onClose={handleClose}
       title="Mobile Navigation"
     >
       <div className="max-w-screen-sm mx-auto">
-        <div className="flex flex-col gap-4">
-          {navigation.map((item, index) => renderMobileMenuItem(item, index))}
+        <div className="flex flex-col gap-6">
+          <Accordion type="multiple" className="w-full">
+            {navigation.map((item, index) => {
+              // If the item has groups, render as accordion
+              if (item.groups && item.groups.length > 0) {
+                return (
+                  <AccordionItem
+                    key={`nav-item-${index}`}
+                    value={`nav-${index}`}
+                    className="border-b-0"
+                  >
+                    <AccordionTrigger className="h-15 items-center p-0 px-4! text-base leading-[3.75] font-normal text-muted-foreground hover:bg-muted hover:no-underline">
+                      {item.title}
+                    </AccordionTrigger>
+                    <AccordionContent className="overflow-x-none">
+                      {item.groups.map((group, groupIndex) => (
+                        <div key={`mobile-group-${groupIndex}`} className="mb-4">
+                          <p className="mb-2 px-4 text-[10px] text-muted-foreground uppercase">
+                            {group.title}
+                          </p>
+                          {group.links.map((link, linkIndex) => (
+                            <Pressable
+                              key={`mobile-link-${groupIndex}-${linkIndex}`}
+                              href={link.url}
+                              className="flex min-h-12 items-center gap-2 rounded-lg px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
+                              onClick={handleClose}
+                            >
+                              {link.icon ? (
+                                link.icon
+                              ) : link.iconName ? (
+                                <DynamicIcon
+                                  name={link.iconName}
+                                  size={16}
+                                  className="stroke-muted-foreground"
+                                />
+                              ) : null}
+                              {link.label}
+                            </Pressable>
+                          ))}
+                        </div>
+                      ))}
+                    </AccordionContent>
+                  </AccordionItem>
+                );
+              }
+
+              // Simple link item
+              return (
+                <Pressable
+                  key={`nav-link-${index}`}
+                  href={item.url}
+                  className="flex h-15 items-center rounded-md p-0 px-4 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all hover:bg-muted focus-visible:ring-4 focus-visible:outline-1"
+                  onClick={handleClose}
+                >
+                  {item.title}
+                </Pressable>
+              );
+            })}
+          </Accordion>
           {renderMobileAuthActions}
         </div>
       </div>
     </NavbarMobileMenu>
-  );
-};
-
-const renderMobileMenuItem = (item: MenuItem, index: number) => {
-  if (item.groups) {
-    return (
-      <Accordion type="single" key={`nav-item-${index}`} className="w-full">
-        <AccordionItem value={`nav-${index}`} className="border-b-0">
-          <AccordionTrigger className="h-15 items-center p-0 px-4! text-base leading-[3.75] font-normal text-muted-foreground hover:bg-muted hover:no-underline">
-            {item.title}
-          </AccordionTrigger>
-          <AccordionContent className="overflow-x-none">
-            {item.groups.flatMap((group, groupIndex) =>
-              group.links.map((link, linkIndex) => (
-                <Pressable
-                  key={`mobile-link-${groupIndex}-${linkIndex}`}
-                  href={link.url}
-                  className="flex min-h-12 items-center gap-2 rounded-lg px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
-                >
-                  {link.icon ? (
-                    link.icon
-                  ) : link.iconName ? (
-                    <DynamicIcon
-                      name={link.iconName}
-                      size={16}
-                      className="stroke-muted-foreground"
-                    />
-                  ) : null}
-                  {link.label}
-                </Pressable>
-              )),
-            )}
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    );
-  }
-
-  return (
-    <Pressable
-      key={`nav-link-${index}`}
-      href={item.url}
-      className="flex h-15 items-center rounded-md p-0 px-4 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all hover:bg-muted focus-visible:ring-4 focus-visible:outline-1 nth-last-1:border-0"
-    >
-      {item.title}
-    </Pressable>
   );
 };
 
