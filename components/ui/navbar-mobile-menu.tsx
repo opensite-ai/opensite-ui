@@ -87,10 +87,13 @@ export const NavbarMobileMenu = ({
       >
         <button
           onClick={onClose}
-          className="flex size-10 items-center justify-center rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
+          className={cn(
+            "flex size-10 items-center justify-center rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none",
+            closeIconClassName,
+          )}
           aria-label="Close mobile menu"
         >
-          <DynamicIcon name="lucide/x" className={cn("size-4", closeIconClassName)} />
+          <DynamicIcon name="lucide/x" className="size-4" />
           <span className="sr-only">Close</span>
         </button>
       </div>

@@ -685,7 +685,7 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
             />
           ) : null}
         </div>
-        <div className="flex flex-col gap-2 text-white text-shadow-lg">
+        <div className="flex flex-col  text-white text-shadow-lg">
           <div className="text-lg font-semibold">{link.label}</div>
           <div className="font-medium">{link.description}</div>
         </div>
@@ -818,23 +818,23 @@ const renderMobileMenuItem = (item: IMenuLink, index: number) => {
         <AccordionTrigger className="h-10 items-center text-base font-normal text-foreground hover:no-underline">
           {item.label}
         </AccordionTrigger>
-        <AccordionContent className="flex flex-col py-6 px-4">
+        <AccordionContent className="flex flex-col py-6 px-0">
           {item.featuredLinks && (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               {item.featuredLinks.map((link, idx) => (
                 <NavLink key={`default-nav-link-${idx}`} link={link} />
               ))}
             </div>
           )}
           {item.links && (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               {item.links.map((link, idx) => (
                 <NavLink key={`default-nav-link-${idx}`} link={link} />
               ))}
             </div>
           )}
           {item.groupLinks && (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               {item.groupLinks.map((group, groupIdx) => (
                 <div className="relative" key={`group-link-${groupIdx}`}>
                   {group.label && (
