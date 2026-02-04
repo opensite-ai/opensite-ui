@@ -198,12 +198,19 @@ const renderMobileMenuItem = (item: MenuItem) => {
   if (item.items) {
     return (
       <AccordionItem key={item.title} value={item.title} className="border-b-0">
-        <AccordionTrigger className="text-md py-0 font-semibold hover:no-underline">
+        <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
           {item.title}
         </AccordionTrigger>
-        <AccordionContent className="mt-2">
+        <AccordionContent className="max-h-[60dvh] overflow-y-auto space-y-2">
           {item.items.map((subItem) => (
-            <SubMenuLink key={subItem.title} item={subItem} />
+            <Pressable
+              key={subItem.title}
+              href={subItem.url}
+              className="flex items-center gap-2 pl-4 text-sm text-muted-foreground hover:text-foreground"
+            >
+              {subItem.icon && <DynamicIcon name={subItem.icon} size={14} />}
+              {subItem.title}
+            </Pressable>
           ))}
         </AccordionContent>
       </AccordionItem>
@@ -214,7 +221,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
     <Pressable
       key={item.title}
       href={item.url}
-      className="text-md font-semibold"
+      className="flex h-15 items-center text-base font-normal text-foreground"
     >
       {item.title}
     </Pressable>
@@ -374,18 +381,18 @@ export const NavbarCenteredMenu = ({
               open={open}
               onClose={() => setOpen(false)}
               title="Mobile Navigation"
+              contentClassName="pt-10 pb-20"
             >
               <div className="max-w-screen-sm mx-auto">
                 <Accordion
-                  type="single"
-                  collapsible
-                  className="flex w-full flex-col gap-4"
+                  type="multiple"
+                  className="w-full"
                 >
                   {renderMobileMenu}
                 </Accordion>
 
                 <div
-                  className={cn("mt-6 flex flex-col gap-3", actionsClassName)}
+                  className={cn("mt-6 flex flex-col gap-4", actionsClassName)}
                 >
                   {renderAuthActions}
                 </div>

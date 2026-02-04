@@ -212,7 +212,7 @@ export const NavbarFloatingPill = ({
       <div className={containerWrapperClasses}>
         <nav
           className={cn(
-            "absolute top-5 left-1/2 z-50 w-[min(90%,700px)] -translate-x-1/2 rounded-full bg-background/70 backdrop-blur-md lg:top-12",
+            "absolute border top-4 left-1/2 z-50 w-[min(90%,700px)] -translate-x-1/2 rounded-full bg-background/70 backdrop-blur-md lg:top-6",
             navWrapperClasses,
           )}
         >

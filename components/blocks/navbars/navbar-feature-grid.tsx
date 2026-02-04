@@ -41,6 +41,11 @@ interface FeatureItem {
   href: string;
 }
 
+export interface MenuItem {
+  title: string;
+  url: string;
+}
+
 /**
  * Props for the NavbarFeatureGrid component
  */
@@ -81,6 +86,10 @@ export interface NavbarFeatureGridProps {
    * Features for Features dropdown
    */
   features?: FeatureItem[];
+  /**
+   * Additional menu items (simple links without dropdowns)
+   */
+  menu?: MenuItem[];
   /**
    * Authentication action configurations
    */
@@ -133,6 +142,7 @@ export const NavbarFeatureGrid = ({
   logo,
   logoSlot,
   features,
+  menu,
   authActions,
   authActionsSlot,
   layoutVariant = "fullScreenContainerizedLinks",
@@ -232,6 +242,16 @@ export const NavbarFeatureGrid = ({
                       </NavigationMenuContent>
                     </NavigationMenuItem>
                   )}
+                  {menu?.map((item, index) => (
+                    <NavigationMenuItem key={index}>
+                      <NavigationMenuLink
+                        href={item.url}
+                        className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted"
+                      >
+                        {item.title}
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  ))}
                 </NavigationMenuList>
               </NavigationMenu>
               <div
@@ -255,44 +275,48 @@ export const NavbarFeatureGrid = ({
                 open={open}
                 onClose={() => setOpen(false)}
                 title="Mobile Navigation"
+                contentClassName="pt-10 pb-20"
               >
                 <div className="max-w-screen-sm mx-auto">
-                  {features && features.length > 0 && (
-                    <Accordion
-                      type="single"
-                      collapsible
-                      className="mb-2"
-                    >
+                  <Accordion type="multiple" className="w-full">
+                    {features && features.length > 0 && (
                       <AccordionItem
-                        value="solutions"
-                        className="border-none"
+                        value="features"
+                        className="border-b-0"
                       >
-                        <AccordionTrigger className="text-base hover:no-underline">
+                        <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
                           Features
                         </AccordionTrigger>
-                        <AccordionContent>
-                          <div className="grid md:grid-cols-2">
-                            {features.map((feature, index) => (
-                              <Pressable
-                                href={feature.href}
-                                key={index}
-                                className="rounded-md p-3 transition-colors hover:bg-muted/70"
-                              >
-                                <div>
-                                  <p className="mb-1 font-semibold">
-                                    {feature.title}
-                                  </p>
-                                  <p className="text-sm text-muted-foreground">
-                                    {feature.description}
-                                  </p>
-                                </div>
-                              </Pressable>
-                            ))}
-                          </div>
+                        <AccordionContent className="max-h-[60dvh] overflow-y-auto space-y-2">
+                          {features.map((feature, index) => (
+                            <Pressable
+                              href={feature.href}
+                              key={index}
+                              className="flex items-start gap-2 pl-4 text-sm text-muted-foreground hover:text-foreground"
+                            >
+                              <div>
+                                <p className="mb-1 font-semibold">
+                                  {feature.title}
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  {feature.description}
+                                </p>
+                              </div>
+                            </Pressable>
+                          ))}
                         </AccordionContent>
                       </AccordionItem>
-                    </Accordion>
-                  )}
+                    )}
+                    {menu?.map((item, index) => (
+                      <Pressable
+                        key={index}
+                        href={item.url}
+                        className="flex h-15 items-center text-base font-normal text-foreground"
+                      >
+                        {item.title}
+                      </Pressable>
+                    ))}
+                  </Accordion>
                   <div
                     className={cn(
                       "mt-6 flex flex-col gap-4",

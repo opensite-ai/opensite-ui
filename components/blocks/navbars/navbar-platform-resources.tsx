@@ -22,6 +22,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "../../ui/navigation-menu";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -749,74 +750,45 @@ export const NavbarPlatformResources = ({
                 </div>
               </div>
 
-              {/* Mobile Menu */}
-              {open && (
-                <div
-                  className={cn(
-                    "absolute inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden",
-                    mobileMenuClassName,
-                  )}
-                >
-                  <Accordion type="single" collapsible className="w-full">
+              <NavbarMobileMenu
+                open={open}
+                onClose={() => setOpen(false)}
+                title="Mobile Navigation"
+                contentClassName="pt-10 pb-20"
+              >
+                <div className="max-w-screen-sm mx-auto">
+                  <Accordion type="multiple" className="w-full">
                     {menuLinks?.map((link, index) => {
                       if (hasDropdownItems(link)) {
                         return (
                           <AccordionItem
                             key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
                             value={`menu-${index}`}
-                            className="border-b-2 border-dashed"
+                            className="border-b-0"
                           >
-                            <AccordionTrigger className="px-2 py-4 text-left hover:no-underline">
+                            <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
                               {link.label}
                             </AccordionTrigger>
-                            <AccordionContent className="px-2 pb-4">
-                              <div className="space-y-3">
-                                {link.links?.map((item, itemIndex) => (
-                                  <Pressable
-                                    key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
-                                    href={getLinkUrl(item)}
-                                    className="group flex items-start gap-4 rounded-lg p-2 hover:bg-muted"
-                                  >
-                                    {item.image && (
-                                      <div className="h-10 w-10 overflow-hidden rounded-md border border-border">
-                                        <Img
-                                          src={item.image}
-                                          alt={
-                                            typeof item.label === "string"
-                                              ? item.label
-                                              : "Menu item"
-                                          }
-                                          className="h-full w-full object-cover object-center"
-                                          optixFlowConfig={optixFlowConfig}
-                                        />
-                                      </div>
-                                    )}
-                                    {!item.image &&
-                                      (item.icon || item.iconName) && (
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
-                                          {item.icon ? (
-                                            item.icon
-                                          ) : item.iconName ? (
-                                            <DynamicIcon
-                                              name={item.iconName}
-                                              size={16}
-                                            />
-                                          ) : null}
-                                        </div>
-                                      )}
-                                    <div className="flex-1">
-                                      <div className="text-sm font-medium text-foreground">
-                                        {item.label}
-                                      </div>
-                                      {item.description && (
-                                        <div className="text-xs text-muted-foreground">
-                                          {item.description}
-                                        </div>
-                                      )}
-                                    </div>
-                                  </Pressable>
-                                ))}
-                              </div>
+                            <AccordionContent className="max-h-[60dvh] overflow-y-auto space-y-2">
+                              {link.links?.map((item, itemIndex) => (
+                                <Pressable
+                                  key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
+                                  href={getLinkUrl(item)}
+                                  className="flex items-center gap-2 pl-4 text-sm text-muted-foreground hover:text-foreground"
+                                >
+                                  {(item.icon || item.iconName) && (
+                                    item.icon ? (
+                                      item.icon
+                                    ) : item.iconName ? (
+                                      <DynamicIcon
+                                        name={item.iconName}
+                                        size={14}
+                                      />
+                                    ) : null
+                                  )}
+                                  {item.label}
+                                </Pressable>
+                              ))}
                             </AccordionContent>
                           </AccordionItem>
                         );
@@ -827,31 +799,27 @@ export const NavbarPlatformResources = ({
                       }
 
                       return (
-                        <div
+                        <Pressable
                           key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
-                          className="border-b-2 border-dashed"
+                          href={link.href}
+                          className="flex h-15 items-center text-base font-normal text-foreground"
                         >
-                          <Pressable
-                            href={link.href}
-                            className="flex w-full items-center px-2 py-4 text-left text-sm font-medium"
-                          >
-                            {link.label}
-                          </Pressable>
-                        </div>
+                          {link.label}
+                        </Pressable>
                       );
                     })}
                   </Accordion>
 
                   <div
                     className={cn(
-                      "mx-8 mt-auto flex flex-col gap-4 py-12",
+                      "mt-6 flex flex-col gap-4",
                       actionsClassName,
                     )}
                   >
                     {renderActions}
                   </div>
                 </div>
-              )}
+              </NavbarMobileMenu>
             </NavigationMenu>
           </div>
         </div>

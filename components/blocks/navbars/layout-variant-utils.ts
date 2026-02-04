@@ -33,8 +33,7 @@ export function getNavbarLayoutClasses(
     // Outer container wrapper (only for floating bar - this containerizes the entire navbar)
     containerWrapperClasses: cn(
       "w-full",
-      isFloatingBar &&
-        "mx-auto w-full px-2 sm:px-4 lg:px-8 max-w-7xl relative z-10",
+      isFloatingBar && "mx-auto container relative z-10 px-0 sm:px-0 lg:px-0",
     ),
 
     // Inner container classes (only for fullScreenContainerizedLinks - this containerizes the content inside the navbar)
