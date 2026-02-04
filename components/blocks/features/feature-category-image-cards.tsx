@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import {
   Card,
@@ -14,7 +14,11 @@ import {
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureCategoryImageCardsItem {
   /**
@@ -160,7 +164,7 @@ export function FeatureCategoryImageCards({
   features,
   featuresSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   badgeClassName,
   titleClassName,
@@ -169,62 +173,75 @@ export function FeatureCategoryImageCards({
   cardClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
 }: FeatureCategoryImageCardsProps): React.JSX.Element {
-  const renderFeatureImage = useCallback((feature: FeatureCategoryImageCardsItem) => {
-    if (feature.imageSlot) return feature.imageSlot;
-    if (feature.imageSrc) {
-      return (
-        <Img
-          src={feature.imageSrc}
-          alt={feature.imageAlt || "Feature image"}
-          className={cn("w-full rounded-xl object-cover", feature.imageClassName)}
-          loading="lazy"
-          optixFlowConfig={optixFlowConfig}
-        />
-      );
-    }
-    return null;
-  }, [optixFlowConfig]);
+  const renderFeatureImage = useCallback(
+    (feature: FeatureCategoryImageCardsItem) => {
+      if (feature.imageSlot) return feature.imageSlot;
+      if (feature.imageSrc) {
+        return (
+          <Img
+            src={feature.imageSrc}
+            alt={feature.imageAlt || "Feature image"}
+            className={cn(
+              "w-full rounded-xl object-cover",
+              feature.imageClassName,
+            )}
+            loading="lazy"
+            optixFlowConfig={optixFlowConfig}
+          />
+        );
+      }
+      return null;
+    },
+    [optixFlowConfig],
+  );
 
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
     return features.map((feature, index) => (
-      <Card key={index} className={cn(
-        "border-none",
-        getNestedCardBg(background),
-        getNestedCardTextColor(background),
-        cardClassName,
-        feature.className
-      )}>
+      <Card
+        key={index}
+        className={cn("border-none", cardClassName, feature.className)}
+      >
         <CardHeader className="text-center">
-          {feature.title && (
-            typeof feature.title === "string" ? (
-              <CardTitle className={cn("text-lg font-semibold md:text-2xl", feature.titleClassName)}>
+          {feature.title &&
+            (typeof feature.title === "string" ? (
+              <CardTitle
+                className={cn(
+                  "text-lg font-semibold md:text-2xl",
+                  feature.titleClassName,
+                )}
+              >
                 {feature.title}
               </CardTitle>
             ) : (
-              <div className={cn("text-lg font-semibold md:text-2xl", feature.titleClassName)}>
+              <div
+                className={cn(
+                  "text-lg font-semibold md:text-2xl",
+                  feature.titleClassName,
+                )}
+              >
                 {feature.title}
               </div>
-            )
-          )}
-          {feature.category && (
-            typeof feature.category === "string" ? (
-              <CardDescription className={cn("md:text-lg", getTextColor(background, 'muted'), feature.categoryClassName)}>
+            ))}
+          {feature.category &&
+            (typeof feature.category === "string" ? (
+              <CardDescription
+                className={cn("md:text-lg", feature.categoryClassName)}
+              >
                 {feature.category}
               </CardDescription>
             ) : (
-              <div className={cn("md:text-lg", getTextColor(background, 'muted'), feature.categoryClassName)}>
+              <div className={cn("md:text-lg", feature.categoryClassName)}>
                 {feature.category}
               </div>
-            )
-          )}
+            ))}
         </CardHeader>
         <CardContent className="px-7 pb-7">
           {renderFeatureImage(feature)}
@@ -243,28 +260,54 @@ export function FeatureCategoryImageCards({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("flex flex-col items-center justify-center gap-4 text-center", headerClassName)}>
-        {badge && <Badge variant="outline" className={badgeClassName}>{badge}</Badge>}
-        {title && (
-          typeof title === "string" ? (
-            <h1 className={cn("text-3xl font-semibold md:text-5xl", titleClassName)}>{title}</h1>
-          ) : (
-            <div className={cn("text-3xl font-semibold md:text-5xl", titleClassName)}>{title}</div>
-          )
+      <div
+        className={cn(
+          "flex flex-col items-center justify-center gap-4 text-center",
+          headerClassName,
         )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("max-w-2xl md:text-lg", getTextColor(background, 'muted'), descriptionClassName)}>
+      >
+        {badge && (
+          <Badge variant="outline" className={badgeClassName}>
+            {badge}
+          </Badge>
+        )}
+        {title &&
+          (typeof title === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-semibold md:text-5xl",
+                titleClassName,
+              )}
+            >
+              {title}
+            </h2>
+          ) : (
+            <div
+              className={cn(
+                "text-3xl font-semibold md:text-5xl",
+                titleClassName,
+              )}
+            >
+              {title}
+            </div>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p className={cn("max-w-2xl md:text-lg", descriptionClassName)}>
               {description}
             </p>
           ) : (
-            <div className={cn("max-w-2xl md:text-lg", getTextColor(background, 'muted'), descriptionClassName)}>
+            <div className={cn("max-w-2xl md:text-lg", descriptionClassName)}>
               {description}
             </div>
-          )
-        )}
+          ))}
       </div>
-      <div className={cn("mx-auto mt-20 grid max-w-7xl gap-7 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+      <div
+        className={cn(
+          "mx-auto mt-20 grid max-w-7xl gap-7 md:grid-cols-2 lg:grid-cols-3",
+          gridClassName,
+        )}
+      >
         {featuresContent}
       </div>
     </Section>

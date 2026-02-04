@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -259,30 +259,16 @@ export function FeatureIconGridMuted({
               ))}
             {description &&
               (typeof description === "string" ? (
-                <p
-                  className={cn(
-                    getTextColor(background, "muted"),
-                    descriptionClassName,
-                  )}
-                >
-                  {description}
-                </p>
+                <p className={cn(descriptionClassName)}>{description}</p>
               ) : (
-                <div
-                  className={cn(
-                    getTextColor(background, "muted"),
-                    descriptionClassName,
-                  )}
-                >
-                  {description}
-                </div>
+                <div className={cn(descriptionClassName)}>{description}</div>
               ))}
           </div>
         )}
         {(featuresSlot || (features && features.length > 0)) && (
           <div
             className={cn(
-              "mx-auto grid w-full gap-4 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5",
+              "mx-auto mt-20 grid max-w-7xl gap-7 md:grid-cols-2 lg:grid-cols-3",
               gridClassName,
             )}
           >

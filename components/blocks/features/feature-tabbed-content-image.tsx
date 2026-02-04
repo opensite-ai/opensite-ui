@@ -226,7 +226,7 @@ export function FeatureTabbedContentImage({
   slidesSlot,
   defaultTab,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   titleClassName,
   descriptionClassName,
@@ -266,10 +266,12 @@ export function FeatureTabbedContentImage({
         return (
           <li
             key={index}
-            className={cn("flex items-center gap-2", itemClassName)}
+            className={cn("flex items-start gap-2", itemClassName)}
           >
-            {iconElement}
-            <span className="font-medium">{content}</span>
+            <div className="flex items-center justify-center mt-1.5">
+              {iconElement}
+            </div>
+            <span className="font-base">{content}</span>
           </li>
         );
       });
@@ -381,7 +383,7 @@ export function FeatureTabbedContentImage({
                   (typeof slide.title === "string" ? (
                     <h2
                       className={cn(
-                        "mb-4 text-2xl font-semibold lg:text-4xl",
+                        "mb-4 text-xl font-semibold md:text-2xl",
                         slide.titleClassName,
                       )}
                     >
@@ -390,7 +392,7 @@ export function FeatureTabbedContentImage({
                   ) : (
                     <div
                       className={cn(
-                        "mb-4 text-2xl font-semibold lg:text-4xl",
+                        "mb-4 text-xl font-semibold md:text-2xl",
                         slide.titleClassName,
                       )}
                     >
@@ -399,15 +401,11 @@ export function FeatureTabbedContentImage({
                   ))}
                 {slide.description &&
                   (typeof slide.description === "string" ? (
-                    <p
-                      className={cn(" lg:text-xl", slide.descriptionClassName)}
-                    >
+                    <p className={cn("text-md", slide.descriptionClassName)}>
                       {slide.description}
                     </p>
                   ) : (
-                    <div
-                      className={cn("lg:text-xl", slide.descriptionClassName)}
-                    >
+                    <div className={cn("text-md", slide.descriptionClassName)}>
                       {slide.description}
                     </div>
                   ))}
@@ -415,7 +413,7 @@ export function FeatureTabbedContentImage({
                 slide.featuresSlot ? (
                   <ul
                     className={cn(
-                      "mt-8 grid grid-cols-1 gap-2 lg:grid-cols-2",
+                      "mt-8 grid grid-cols-1 gap-4",
                       slide.featuresClassName,
                     )}
                   >
@@ -459,66 +457,57 @@ export function FeatureTabbedContentImage({
       className={className}
       containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "mx-auto flex max-w-3xl flex-col items-center gap-6",
-          headerClassName,
-        )}
-      >
-        {title &&
-          (typeof title === "string" ? (
-            <h2
-              className={cn(
-                "text-center text-3xl font-semibold lg:text-5xl",
-                titleClassName,
-              )}
-            >
-              {title}
-            </h2>
-          ) : (
-            <div
-              className={cn(
-                "text-center text-3xl font-semibold lg:text-5xl",
-                titleClassName,
-              )}
-            >
-              {title}
-            </div>
-          ))}
-        {description &&
-          (typeof description === "string" ? (
-            <p
-              className={cn(
-                "text-center text-balance  lg:text-xl",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-          ) : (
-            <div
-              className={cn(
-                "text-center text-balance  lg:text-xl",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </div>
-          ))}
-      </div>
-      {(slidesSlot || (slides && slides.length > 0)) && (
-        <div className={cn("mt-12", tabsWrapperClassName)}>
-          <Tabs
-            defaultValue={effectiveDefaultTab}
+      <div className="flex flex-col gap-10">
+        {(title || description) && (
+          <div
             className={cn(
-              "mx-auto flex w-fit flex-col items-center gap-8 md:gap-12",
-              tabsClassName,
+              "mx-auto flex max-w-full md:max-w-md text-balance flex-col gap-2.5 text-center",
+              headerClassName,
             )}
           >
-            {slidesContent}
-          </Tabs>
-        </div>
-      )}
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-4xl font-semibold md:text-5xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
+              ) : (
+                <div
+                  className={cn(
+                    "text-4xl font-semibold md:text-5xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn(descriptionClassName)}>{description}</p>
+              ) : (
+                <div className={cn(descriptionClassName)}>{description}</div>
+              ))}
+          </div>
+        )}
+
+        {(slidesSlot || (slides && slides.length > 0)) && (
+          <div className={cn("relative", tabsWrapperClassName)}>
+            <Tabs
+              defaultValue={effectiveDefaultTab}
+              className={cn(
+                "mx-auto flex w-fit flex-col items-center gap-8 md:gap-12",
+                tabsClassName,
+              )}
+            >
+              {slidesContent}
+            </Tabs>
+          </div>
+        )}
+      </div>
     </Section>
   );
 }

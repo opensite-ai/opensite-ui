@@ -604,18 +604,6 @@ export function FeatureAnimatedCarousel({
           />
           {currentFeature?.image && (
             <div className="relative w-full h-[250px] md:h-auto md:absolute md:right-8 md:top-8 md:bottom-8 md:w-1/2">
-              {/* Mobile icon link - positioned at top right of image */}
-              {currentFeature.href && (
-                <div className="absolute top-4 right-4 z-10 rounded-full h-fit w-fit shadow-md hover:shadow-2xl flex items-center justify-center md:hidden">
-                  <Pressable
-                    href={currentFeature.href}
-                    size="icon-lg"
-                    className="bg-primary text-primary-foreground"
-                  >
-                    <DynamicIcon name="lucide/arrow-up-right" />
-                  </Pressable>
-                </div>
-              )}
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
                   key={activeIndex}
@@ -628,8 +616,20 @@ export function FeatureAnimatedCarousel({
                     x: { type: "spring", stiffness: 300, damping: 30 },
                     opacity: { duration: 0.3 },
                   }}
-                  className="h-full w-full shadow-xl overflow-hidden rounded-2xl"
+                  className="relative h-full w-full shadow-xl overflow-hidden rounded-2xl"
                 >
+                  {/* Mobile icon link - positioned at top right of image, inside motion.div to animate with image */}
+                  {currentFeature.href && (
+                    <div className="absolute top-4 right-4 z-10 rounded-full h-fit w-fit shadow-md hover:shadow-2xl flex items-center justify-center md:hidden">
+                      <Pressable
+                        href={currentFeature.href}
+                        size="icon-lg"
+                        className="bg-primary text-primary-foreground"
+                      >
+                        <DynamicIcon name="lucide/arrow-up-right" />
+                      </Pressable>
+                    </div>
+                  )}
                   <Img
                     src={currentFeature.image}
                     alt={
