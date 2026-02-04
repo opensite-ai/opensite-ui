@@ -373,7 +373,7 @@ const DesktopMenuItem = ({
           {item.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="hidden rounded-xl! border-0! p-0! xl:block">
-          <div className="w-dvw animate-[fade-in-slide-down_0.35s_cubic-bezier(0.33,1,0.68,1)_forwards] px-8 pt-6 pb-12">
+          <div className="w-full animate-[fade-in-slide-down_0.35s_cubic-bezier(0.33,1,0.68,1)_forwards] px-8 pt-6 pb-12">
             <div className="container">
               {renderDropdownContent(item, optixFlowConfig)}
             </div>
@@ -592,9 +592,9 @@ const GroupLinks = ({ groupLinks }: GroupLinksProps) => {
 
   let linkIndex = 0;
   return (
-    <div className="flex items-center gap-4 w-full">
+    <div className="flex items-start gap-4 w-full">
       {groupLinks.map((group, index1) => (
-        <div key={`group-link-${index1}`}>
+        <div key={`group-link-${index1}`} className="flex-1">
           <div className="mb-4 text-xs">{group.label}</div>
           <ul className="flex flex-col gap-4 w-full">
             {group.links.map((link, index2) => {

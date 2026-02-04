@@ -391,7 +391,7 @@ const MobileNavigationMenu = ({
   return (
     <NavbarMobileMenu open={open} onClose={handleClose} title="Navigation Menu">
       <div className="max-w-screen-sm mx-auto">
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-0">
           <Accordion type="multiple" className="w-full">
             {menuSlot
               ? menuSlot

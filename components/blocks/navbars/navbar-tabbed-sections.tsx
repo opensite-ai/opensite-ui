@@ -215,7 +215,7 @@ export const NavbarTabbedSections = ({
                     <TabsTrigger
                       key={tab.id}
                       value={tab.id}
-                      className="-mb-2 rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-b-primary data-[state=active]:text-primary hover:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                      className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-b-primary data-[state=active]:text-primary hover:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                     >
                       <div className="flex items-center gap-2">
                         {tab.icon && <DynamicIcon name={tab.icon} size={16} />}
@@ -233,11 +233,11 @@ export const NavbarTabbedSections = ({
                         <NavigationMenuLink
                           key={linkIndex}
                           asChild
-                          className="w-full"
+                          className="w-full justify-start"
                         >
                           <Pressable
                             href={link.url}
-                            className="w-full flex items-start gap-3 rounded-md p-3 hover:bg-muted"
+                            className="w-full flex items-start justify-start gap-3 rounded-md p-3 hover:bg-muted"
                           >
                             {link.icon && (
                               <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border bg-background">

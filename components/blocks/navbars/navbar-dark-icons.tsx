@@ -465,7 +465,7 @@ const MobileNavigationMenu = ({
       className="dark"
     >
       <div className="max-w-screen-sm mx-auto">
-        <div className="flex h-full flex-col justify-between gap-20">
+        <div className="flex h-full flex-col justify-between gap-4">
           <Accordion type="multiple" className="w-full">
             {navigation.map((item, index) => renderMobileMenuItem(item, index))}
           </Accordion>
@@ -498,7 +498,7 @@ const renderMobileMenuItem = (item: MenuItem, index: number) => {
     <Pressable
       key={`nav-link-${index}`}
       href={item.url}
-      className="flex h-15 items-center border-b p-0 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all focus-visible:ring-4 focus-visible:outline-1 nth-last-1:border-0"
+      className="flex h-15 items-center border-b p-0 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all focus-visible:ring-4 focus-visible:outline-1"
     >
       {item.title}
     </Pressable>

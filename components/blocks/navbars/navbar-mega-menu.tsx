@@ -648,7 +648,15 @@ export const NavbarMegaMenu = ({
                   <Accordion type="multiple" className="w-full">
                     {menuLinks?.map((link, index) => {
                       if (hasDropdownItems(link)) {
-                        const items = link.links || [];
+                        // Support both link.links and link.dropdownGroups
+                        const hasGroups =
+                          link.dropdownGroups && link.dropdownGroups.length > 0;
+                        const items = hasGroups
+                          ? link.dropdownGroups!.flatMap(
+                              (group) => group.links || [],
+                            )
+                          : link.links || [];
+
                         return (
                           <AccordionItem
                             key={`mobile-menu-link-${index}`}
@@ -659,24 +667,63 @@ export const NavbarMegaMenu = ({
                               {link.label}
                             </AccordionTrigger>
                             <AccordionContent className="overflow-x-none">
-                              {items.map((item, itemIndex) => (
-                                <Pressable
-                                  key={`mobile-link-${index}-${itemIndex}`}
-                                  href={getLinkUrl(item)}
-                                  className="flex items-center gap-2 pl-4 text-sm text-muted-foreground hover:text-foreground"
-                                >
-                                  {(item.icon || item.iconName) &&
-                                    (item.icon ? (
-                                      item.icon
-                                    ) : item.iconName ? (
-                                      <DynamicIcon
-                                        name={item.iconName}
-                                        size={14}
-                                      />
-                                    ) : null)}
-                                  {item.label}
-                                </Pressable>
-                              ))}
+                              {hasGroups
+                                ? // Render with group headers
+                                  link.dropdownGroups!.map(
+                                    (group, groupIndex) => (
+                                      <div
+                                        key={`mobile-group-${groupIndex}`}
+                                        className="mb-4"
+                                      >
+                                        {group.label && (
+                                          <div className="mb-2 pl-4 text-xs font-medium tracking-wider uppercase text-muted-foreground">
+                                            {group.label}
+                                          </div>
+                                        )}
+                                        {(group.links || []).map(
+                                          (item, itemIndex) => (
+                                            <Pressable
+                                              key={`mobile-group-link-${groupIndex}-${itemIndex}`}
+                                              href={getLinkUrl(item)}
+                                              onClick={() => setOpen(false)}
+                                              className="flex items-center gap-2 rounded-md px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+                                            >
+                                              {(item.icon || item.iconName) &&
+                                                (item.icon ? (
+                                                  item.icon
+                                                ) : item.iconName ? (
+                                                  <DynamicIcon
+                                                    name={item.iconName}
+                                                    size={14}
+                                                  />
+                                                ) : null)}
+                                              {item.label}
+                                            </Pressable>
+                                          ),
+                                        )}
+                                      </div>
+                                    ),
+                                  )
+                                : // Render flat list
+                                  items.map((item, itemIndex) => (
+                                    <Pressable
+                                      key={`mobile-link-${index}-${itemIndex}`}
+                                      href={getLinkUrl(item)}
+                                      onClick={() => setOpen(false)}
+                                      className="flex items-center gap-2 rounded-md px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+                                    >
+                                      {(item.icon || item.iconName) &&
+                                        (item.icon ? (
+                                          item.icon
+                                        ) : item.iconName ? (
+                                          <DynamicIcon
+                                            name={item.iconName}
+                                            size={14}
+                                          />
+                                        ) : null)}
+                                      {item.label}
+                                    </Pressable>
+                                  ))}
                             </AccordionContent>
                           </AccordionItem>
                         );
@@ -690,6 +737,7 @@ export const NavbarMegaMenu = ({
                         <Pressable
                           key={`mobile-menu-link-${index}`}
                           href={link.href}
+                          onClick={() => setOpen(false)}
                           className="flex h-15 items-center text-base font-normal text-foreground"
                         >
                           {link.label}

@@ -221,12 +221,12 @@ export const NavbarFeatureGrid = ({
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Features</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <div className="grid w-[600px] grid-cols-2 p-3">
+                        <div className="grid w-[600px] grid-cols-2 space-x-4 space-y-2 p-3">
                           {features.map((feature, index) => (
                             <NavigationMenuLink
                               href={feature.href}
                               key={index}
-                              className="rounded-md p-3 transition-colors hover:bg-muted/70"
+                              className="w-full justify-start rounded-md p-3 transition-colors hover:bg-muted/70"
                             >
                               <div>
                                 <p className="mb-1 font-semibold">
