@@ -144,6 +144,10 @@ export interface BlurVignetteGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 interface BlurVignetteProps {
@@ -269,6 +273,7 @@ export function BlurVignetteGrid({
   images,
   imagesSlot,
   vignetteConfig,
+  containerClassName = "px-4 sm:px-4 md:px-6 lg:px-8",
   gridColumns = 5,
   gridGap = "gap-4",
   className,
@@ -276,7 +281,7 @@ export function BlurVignetteGrid({
   itemClassName,
   imageClassName,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -336,44 +341,49 @@ export function BlurVignetteGrid({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      {title || description ? (
-        <div className="flex flex-col gap-4 mb-16">
-          {title &&
-            (typeof title === "string" ? (
-              <h2
-                className={cn(
-                  "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl text-balance",
-                  titleClassName,
-                )}
-              >
-                {title}
-              </h2>
-            ) : (
-              <div className={titleClassName}>{title}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p className={cn("max-w-lg text-balance", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div
-                className={cn("max-w-lg text-balance", descriptionClassName)}
-              >
-                {description}
-              </div>
-            ))}
+      <div className="flex flex-col space-y-6 md:space-y-16">
+        {title || description ? (
+          <div className="flex flex-col gap-4">
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl text-balance",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
+              ) : (
+                <div className={titleClassName}>{title}</div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn("max-w-lg text-balance", descriptionClassName)}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div
+                  className={cn("max-w-lg text-balance", descriptionClassName)}
+                >
+                  {description}
+                </div>
+              ))}
+          </div>
+        ) : null}
+        <div
+          className={cn(
+            `grid grid-cols-1 md:grid-cols-${gridColumns}`,
+            gridGap,
+            gridClassName,
+          )}
+        >
+          {imagesContent}
         </div>
-      ) : null}
-      <div
-        className={cn(
-          `grid grid-cols-1 md:grid-cols-${gridColumns}`,
-          gridGap,
-          gridClassName,
-        )}
-      >
-        {imagesContent}
       </div>
     </Section>
   );

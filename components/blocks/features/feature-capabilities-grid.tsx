@@ -131,13 +131,13 @@ export function FeatureCapabilitiesGrid({
   items,
   itemsSlot,
   className,
-  containerClassName,
+  containerClassName = "px-4 sm:px-4 md:px-6 lg:px-8",
+  spacing = "py-6 md:py-32",
   eyebrowClassName,
   headingClassName,
   gridClassName,
   cardClassName,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -162,7 +162,7 @@ export function FeatureCapabilitiesGrid({
         <Card
           key={`${typeof item.title === "string" ? item.title : "item"}-${index}`}
           className={cn(
-            "group relative overflow-visible border-border/10 bg-background/5 p-0 transition-colors duration-300 hover:border-border/20",
+            "group relative rounded-md overflow-visible border-border/10 bg-background/5 p-0 transition-colors duration-300 hover:border-border/20",
             cardClassName,
             item.className,
           )}
@@ -255,18 +255,19 @@ export function FeatureCapabilitiesGrid({
       patternClassName={patternClassName}
       className={className}
       containerClassName={containerClassName}
+      containerMaxWidth="lg"
     >
       <div className="flex flex-col space-y-6 md:space-y-16">
         {eyebrow || heading ? (
-          <div className="flex flex-col">
+          <div className="flex flex-col space-y-4 md:space-y-6">
             {eyebrow &&
               (typeof eyebrow === "string" ? (
-                <p className={cn("text-xs tracking-widest", eyebrowClassName)}>
+                <p className={cn("text-sm tracking-widest", eyebrowClassName)}>
                   {eyebrow}
                 </p>
               ) : (
                 <div
-                  className={cn("text-xs tracking-widest", eyebrowClassName)}
+                  className={cn("text-sm tracking-widest", eyebrowClassName)}
                 >
                   {eyebrow}
                 </div>
@@ -275,7 +276,7 @@ export function FeatureCapabilitiesGrid({
               (typeof heading === "string" ? (
                 <h2
                   className={cn(
-                    "mt-3 text-4xl font-semibold tracking-tight sm:text-5xl",
+                    "text-4xl font-semibold sm:text-5xl",
                     headingClassName,
                   )}
                 >
@@ -284,7 +285,7 @@ export function FeatureCapabilitiesGrid({
               ) : (
                 <div
                   className={cn(
-                    "mt-3 text-4xl font-semibold tracking-tight sm:text-5xl",
+                    "text-4xl font-semibold sm:text-5xl",
                     headingClassName,
                   )}
                 >

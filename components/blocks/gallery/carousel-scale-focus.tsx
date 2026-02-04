@@ -345,12 +345,13 @@ export function CarouselScaleFocus({
             onNext={scrollNext}
             canScrollPrevious={canScrollPrevious}
             canScrollNext={canScrollNext}
-            iconSize={24}
+            size="xl"
+            mobileSize="md"
             className={cn(
-              "mt-6 justify-center md:mt-0 md:absolute md:inset-x-0 md:top-1/2 md:-translate-y-1/2 md:pointer-events-none",
+              "mt-6 justify-end md:mt-0 md:absolute md:inset-x-0 md:top-1/2 md:-translate-y-1/2 md:pointer-events-none",
               controlsClassName,
             )}
-            buttonClassName="size-10 md:size-14 bg-primary text-primary-foreground hover:bg-primary/90 pointer-events-auto md:absolute md:-left-25 lg:-left-39.75 [&:last-child]:md:left-auto [&:last-child]:md:-right-25 [&:last-child]:lg:-right-39.75"
+            buttonClassName="bg-primary text-primary-foreground hover:bg-primary/90 pointer-events-auto md:absolute md:-left-25 lg:-left-39.75 [&:last-child]:md:left-auto [&:last-child]:md:-right-25 [&:last-child]:lg:-right-39.75"
           />
         </div>
 
