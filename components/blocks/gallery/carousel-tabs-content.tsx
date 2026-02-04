@@ -268,7 +268,12 @@ export function CarouselTabsContent({
     if (tabsSlot) return tabsSlot;
 
     return (
-      <div className={cn("relative flex min-w-0 flex-1 overflow-x-auto scrollbar-hide", tabsClassName)}>
+      <div
+        className={cn(
+          "relative flex min-w-0 flex-1 overflow-x-auto scrollbar-hide",
+          tabsClassName,
+        )}
+      >
         <div className="relative flex h-auto flex-nowrap gap-2 md:gap-4">
           {items?.map((item, idx) => (
             <button
@@ -322,23 +327,26 @@ export function CarouselTabsContent({
       >
         <div
           className={cn(
-            "grid h-full max-w-4xl gap-10 bg-background rounded-xl border border-border p-6 shadow-sm select-none sm:p-10 md:max-h-[450px] md:grid-cols-2 lg:gap-20",
+            "grid h-full max-w-4xl gap-6 bg-background rounded-xl border border-border p-4 md:p-6 shadow-sm select-none sm:p-10 md:max-h-[450px] md:grid-cols-2 md:gap-20",
             cardClassName,
           )}
         >
           <div className="flex flex-col justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-medium sm:text-4xl">{item.title}</h2>
-              <div className="mt-4 text-sm text-muted-foreground sm:mt-6">
-                {item.description}
-              </div>
+              <h3 className="text-xl font-medium md:text-4xl">{item.title}</h3>
+              {item.description && (
+                <div className="mt-2 text-sm text-muted-foreground md:mt-6">
+                  {item.description}
+                </div>
+              )}
             </div>
-            {typeof item.note === "string" ? (
-              <p className="mt-4 text-xs text-muted-foreground sm:mt-6">
+            {!item.note ? null : typeof item.note === "string" &&
+              item.note?.length > 0 ? (
+              <p className="mt-0 text-xs text-muted-foreground md:mt-6">
                 {item.note}
               </p>
             ) : (
-              <div className="mt-4 text-xs text-muted-foreground sm:mt-6">
+              <div className="mt-0 text-xs text-muted-foreground md:mt-6">
                 {item.note}
               </div>
             )}
@@ -387,9 +395,10 @@ export function CarouselTabsContent({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={cn("overflow-hidden", className)}
+      containerClassName="px-4"
     >
       {title || description ? (
-        <div className="flex flex-col gap-4 mb-6 md:mb-16">
+        <div className="flex flex-col gap-4 mb-10 md:mb-16">
           {title &&
             (typeof title === "string" ? (
               <h2

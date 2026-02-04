@@ -189,7 +189,7 @@ export function AutoScrollCarousel({
       <div className="flex text-left">
         <Pressable
           className={cn(
-            "font-medium flex items-center text-lg px-0",
+            "font-medium flex items-center text-lg px-0 text-primary",
             actionClass,
             actionClassName,
           )}
@@ -201,7 +201,7 @@ export function AutoScrollCarousel({
               {label}
               {iconAfter ?? (
                 <DynamicIcon
-                  name="lucide/move-right"
+                  name="lucide/arrow-up-right"
                   size={24}
                   className="ml-2 inline"
                 />

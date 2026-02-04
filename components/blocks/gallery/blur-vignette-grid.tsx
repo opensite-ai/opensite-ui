@@ -161,7 +161,7 @@ function BlurVignette({
   radius = "24px",
   inset = "16px",
   transitionLength = "32px",
-  blur = "8px",
+  blur = "3px",
 }: BlurVignetteProps) {
   return (
     <motion.div
@@ -176,7 +176,7 @@ function BlurVignette({
         y: 0,
       }}
       viewport={{ once: true, amount: 0.2 }}
-      className={`group relative cursor-pointer overflow-hidden rounded-[2.5rem] ${className}`}
+      className={`group relative cursor-pointer overflow-hidden rounded-2xl shadow-xl ${className}`}
     >
       <style>
         {`
@@ -222,6 +222,7 @@ function BlurVignette({
             -webkit-mask-repeat: no-repeat;
             opacity: 0;
             transition: opacity 0.3s ease;
+            filter: brightness(0.5);
         }
 
         .blur-vignette.active {
@@ -285,7 +286,7 @@ export function BlurVignetteGrid({
     radius = "24px",
     inset = "10px",
     transitionLength = "100px",
-    blur = "8px",
+    blur = "3px",
   } = vignetteConfig || {};
 
   const imagesContent = useMemo(() => {
@@ -307,12 +308,7 @@ export function BlurVignetteGrid({
         )}
       >
         <Img
-          width={200}
-          height={200}
-          className={cn(
-            "size-full rounded-[2.5rem] object-cover",
-            imageClassName,
-          )}
+          className={cn("size-full  object-cover", imageClassName)}
           src={image.src}
           alt={image.alt}
           loading="lazy"

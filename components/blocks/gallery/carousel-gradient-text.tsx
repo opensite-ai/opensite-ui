@@ -228,14 +228,14 @@ export function CarouselGradientText({
         <Pressable
           href={item.href}
           className={cn(
-            "relative aspect-4/5 max-h-[500px] rounded-2xl",
+            "relative flex aspect-4/5 max-h-[500px] rounded-2xl",
             item.className,
             cardClassName,
           )}
         >
           <div
             className={cn(
-              "absolute inset-0 rounded-2xl bg-linear-to-b from-black to-transparent to-40% dark:from-background",
+              "absolute inset-0 rounded-2xl bg-linear-to-b from-black to-transparent to-50% dark:from-background",
               gradientClassName,
             )}
           />
@@ -280,6 +280,7 @@ export function CarouselGradientText({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={cn("overflow-hidden", className)}
+      containerClassName="px-4"
     >
       <Carousel setApi={setApi} className={carouselClassName}>
         <div
@@ -315,7 +316,7 @@ export function CarouselGradientText({
             ) : null}
             <div
               className={cn(
-                "mt-8 hidden items-center gap-4 md:flex",
+                "mt-8 hidden items-center gap-2 md:flex",
                 controlsClassName,
               )}
             >
@@ -336,7 +337,7 @@ export function CarouselGradientText({
       </Carousel>
       <div
         className={cn(
-          "mt-8 flex items-center lg:ml-[50%]",
+          "mt-4 md:mt-8 flex items-center lg:ml-[50%]",
           indicatorsClassName,
         )}
       >
@@ -345,7 +346,7 @@ export function CarouselGradientText({
             key={index}
             className={cn(
               "flex h-8 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-muted-foreground/15 text-xs font-semibold whitespace-nowrap transition-all duration-300",
-              index + 1 === current ? "w-fit px-4" : "m-4 size-4",
+              index + 1 === current ? "w-fit px-4" : "my-4 mx-2 md:mx-4 size-4",
             )}
             onClick={() => api && api.scrollTo(index)}
           >

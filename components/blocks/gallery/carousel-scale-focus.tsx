@@ -275,6 +275,7 @@ export function CarouselScaleFocus({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={cn("overflow-hidden", className)}
+      containerClassName="px-6 sm:px-6 md:px-8 lg:px-8"
     >
       <div className="md:px-45">
         {title || description ? (

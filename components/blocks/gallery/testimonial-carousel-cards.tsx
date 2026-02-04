@@ -53,6 +53,14 @@ export interface TestimonialCarouselItem {
    * Additional CSS classes for the item
    */
   className?: string;
+  /**
+   * Optional href for the testimonial
+   */
+  href?: string;
+  /**
+   * Optional avatar for testimonial
+   */
+  avatar?: string;
 }
 
 export interface TestimonialCarouselCardsProps {
@@ -328,12 +336,42 @@ export function TestimonialCarouselCards({
 
           <div
             className={cn(
-              "relative flex w-full flex-col items-start justify-end rounded-2xl bg-background p-6 text-foreground lg:h-[460px] lg:w-[400px] lg:p-8",
+              "relative flex w-full flex-col items-start justify-end overflow-hidden rounded-2xl bg-background p-6 text-foreground lg:h-[460px] lg:w-[400px] lg:p-8",
               quotePanelClassName,
             )}
           >
-            <p className="text-lg font-semibold">{testimonial.quote}</p>
-            <p className="mt-4 text-lg font-medium">{testimonial.author}</p>
+            <p className="text-lg font-base italic line-clamp-12 lg:line-clamp-14">
+              {testimonial.quote}
+            </p>
+
+            <div className="mt-4 flex shrink-0 items-center">
+              {testimonial.avatar && (
+                <Img
+                  src={testimonial.avatar}
+                  alt={
+                    testimonial.author
+                      ? (testimonial.author as string)
+                      : "Testimonial avatar"
+                  }
+                  loading="lazy"
+                  className="size-12 rounded-xl shadow-lg mr-2"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              )}
+
+              <div className="text-md font-medium">{testimonial.author}</div>
+            </div>
+
+            {testimonial.href && (
+              <div className="mt-2">
+                <Pressable
+                  href={testimonial.href}
+                  className="font-semibold text-left uppercase"
+                >
+                  Read Review
+                </Pressable>
+              </div>
+            )}
           </div>
         </div>
       </CarouselItem>

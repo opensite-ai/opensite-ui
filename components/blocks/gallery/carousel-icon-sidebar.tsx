@@ -258,7 +258,7 @@ export function CarouselIconSidebar({
     return (
       <div
         className={cn(
-          "flex h-full flex-col gap-8 rounded-lg p-8",
+          "flex h-full flex-row md:flex-col gap-4 md:gap-8 rounded-lg p-4 md:p-8",
           getNestedCardBg(background),
           getNestedCardTextColor(background),
           sidebarClassName,
@@ -266,43 +266,55 @@ export function CarouselIconSidebar({
       >
         <div
           className={cn(
-            "flex h-12 w-12 items-center justify-center rounded-lg shadow-lg ring-1 ring-border",
+            "flex h-fit w-fit p-3 items-center justify-center rounded-lg shadow-lg ring-1 ring-border bg-card",
             getNestedCardBg(background, "card"),
             iconClassName,
           )}
         >
           <DynamicIcon name={activeItem.icon} size={24} />
         </div>
-        <div className="flex flex-col gap-4">
-          {typeof activeItem.title === "string" ? (
-            <h2 className={cn("text-3xl font-medium", titleClassName)}>
-              {activeItem.title}
-            </h2>
-          ) : (
-            <div className={cn("text-3xl font-medium", titleClassName)}>
-              {activeItem.title}
-            </div>
-          )}
-          {typeof activeItem.description === "string" ? (
-            <p
-              className={cn(
-                "mb-4 text-base text-muted-foreground",
-                descriptionClassName,
-              )}
-            >
-              {activeItem.description}
-            </p>
-          ) : (
-            <div
-              className={cn(
-                "mb-4 text-base text-muted-foreground",
-                descriptionClassName,
-              )}
-            >
-              {activeItem.description}
-            </div>
-          )}
-          <div className={cn("flex items-center gap-4", controlsClassName)}>
+        <div className="flex flex-col justify-between h-full gap-4">
+          <div className="flex flex-col gap-2 md:gap-4">
+            {typeof activeItem.title === "string" ? (
+              <h3
+                className={cn(
+                  "text-xl md:text-2xl font-medium",
+                  titleClassName,
+                )}
+              >
+                {activeItem.title}
+              </h3>
+            ) : (
+              <div
+                className={cn(
+                  "text-xl md:text-2xl font-medium",
+                  titleClassName,
+                )}
+              >
+                {activeItem.title}
+              </div>
+            )}
+            {typeof activeItem.description === "string" ? (
+              <p
+                className={cn(
+                  "mb-4 text-base text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {activeItem.description}
+              </p>
+            ) : (
+              <div
+                className={cn(
+                  "mb-4 text-base text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {activeItem.description}
+              </div>
+            )}
+          </div>
+          <div className={cn("flex items-center gap-2", controlsClassName)}>
             <CarouselPrevious className="relative top-0 right-0 left-0 translate-x-0 translate-y-0 p-5 transition-all duration-200 hover:bg-foreground hover:text-background" />
             <CarouselNext className="relative top-0 right-0 left-0 translate-x-0 translate-y-0 p-5 transition-all duration-200 hover:bg-foreground hover:text-background" />
           </div>
@@ -371,7 +383,7 @@ export function CarouselIconSidebar({
       className={className}
     >
       {title || description ? (
-        <div className="flex flex-col gap-4 mb-6 md:mb-16">
+        <div className="flex flex-col gap-4 mb-6 md:mb-16 px-4 md:px-0">
           {title &&
             (typeof title === "string" ? (
               <h2
@@ -409,19 +421,13 @@ export function CarouselIconSidebar({
       ) : null}
 
       <Carousel setApi={setApi} className={cn("w-full", carouselClassName)}>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
-          <div className="hidden md:visible md:col-span-2">
-            {sidebarContent}
-          </div>
+        <div className="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-5">
+          <div className="md:col-span-2">{sidebarContent}</div>
 
           <div className="h-full md:col-span-3">
-            <CarouselContent className={carouselContentClassName}>
+            <CarouselContent className={cn("h-full", carouselContentClassName)}>
               {itemsContent}
             </CarouselContent>
-          </div>
-
-          <div className="visible md:hidden md:col-span-2">
-            {sidebarContent}
           </div>
         </div>
       </Carousel>
