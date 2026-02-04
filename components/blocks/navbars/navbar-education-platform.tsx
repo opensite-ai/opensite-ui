@@ -361,8 +361,8 @@ export const NavbarEducationPlatform = ({
         open={isOpen}
         onClose={handleMobileMenuClose}
         menu={menu ?? []}
-        mobileAuthActions={mobileAuthActions}
-        mobileAuthActionsSlot={mobileAuthActionsSlot}
+        mobileAuthActions={mobileAuthActions ?? authActions}
+        mobileAuthActionsSlot={mobileAuthActionsSlot ?? authActionsSlot}
         mobileMenuClassName={mobileMenuClassName}
       />
     </>

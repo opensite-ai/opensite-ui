@@ -209,7 +209,7 @@ export const NavbarTabbedSections = ({
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <Tabs defaultValue={item.tabs[0]?.id} className="w-[600px]">
-              <div className="border-b-2 px-4 pt-2">
+              <div className="px-4 pt-2">
                 <TabsList className="h-auto bg-transparent p-0">
                   {item.tabs.map((tab) => (
                     <TabsTrigger
