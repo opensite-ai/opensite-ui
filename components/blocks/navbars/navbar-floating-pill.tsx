@@ -134,8 +134,8 @@ export const NavbarFloatingPill = ({
   menuSlot,
   authActions,
   authActionsSlot,
-  className,
-  containerClassName,
+  className = "px-4 md:px-0",
+  containerClassName = "container px-0 sm:px-0 lg:px-0",
   pillWrapperClassName,
   navigationMenuClassName,
   actionsClassName,
@@ -212,7 +212,7 @@ export const NavbarFloatingPill = ({
       <div className={containerWrapperClasses}>
         <nav
           className={cn(
-            "absolute border top-4 left-1/2 z-50 w-[min(90%,700px)] -translate-x-1/2 rounded-full bg-background/70 backdrop-blur-md lg:top-6",
+            "container absolute border top-4 left-1/2 z-50 w-[min(90%,700px)] -translate-x-1/2 rounded-full bg-background/70 backdrop-blur-md lg:top-6",
             navWrapperClasses,
           )}
         >

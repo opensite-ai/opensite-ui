@@ -815,13 +815,10 @@ const MobileNavigationMenu = ({
       open={open}
       onClose={() => setOpen(false)}
       title="Mobile Navigation"
-      contentClassName="pt-4 pb-20"
     >
       <div className="max-w-screen-sm mx-auto">
         <Accordion type="multiple" className="w-full">
-          {menuLinks.map((item, index) =>
-            renderMobileMenuItem(item, index),
-          )}
+          {menuLinks.map((item, index) => renderMobileMenuItem(item, index))}
         </Accordion>
         <div className="mt-6 flex flex-col gap-2">{renderMobileActions}</div>
       </div>

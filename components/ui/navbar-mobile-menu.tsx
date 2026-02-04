@@ -60,7 +60,7 @@ export const NavbarMobileMenu = ({
   return (
     <div
       className={cn(
-        "fixed inset-0 z-[998] flex flex-col bg-background",
+        "fixed inset-0 z-998 flex flex-col bg-background",
         "animate-in slide-in-from-top duration-300",
         "data-[state=closed]:animate-out data-[state=closed]:slide-out-to-top data-[state=closed]:duration-300",
         className,

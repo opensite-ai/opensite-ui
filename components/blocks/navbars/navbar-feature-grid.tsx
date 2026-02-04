@@ -275,15 +275,11 @@ export const NavbarFeatureGrid = ({
                 open={open}
                 onClose={() => setOpen(false)}
                 title="Mobile Navigation"
-                contentClassName="pt-10 pb-20"
               >
                 <div className="max-w-screen-sm mx-auto">
                   <Accordion type="multiple" className="w-full">
                     {features && features.length > 0 && (
-                      <AccordionItem
-                        value="features"
-                        className="border-b-0"
-                      >
+                      <AccordionItem value="features" className="border-b-0">
                         <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
                           Features
                         </AccordionTrigger>
@@ -318,10 +314,7 @@ export const NavbarFeatureGrid = ({
                     ))}
                   </Accordion>
                   <div
-                    className={cn(
-                      "mt-6 flex flex-col gap-4",
-                      actionsClassName,
-                    )}
+                    className={cn("mt-6 flex flex-col gap-4", actionsClassName)}
                   >
                     {renderAuthActions}
                   </div>

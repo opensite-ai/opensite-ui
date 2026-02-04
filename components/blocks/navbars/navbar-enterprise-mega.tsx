@@ -652,7 +652,10 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
         <div className="space-y-4">
           {item.solutionCards?.map((solution) => (
             <div key={solution.id} className="space-y-2">
-              <Pressable href={solution.href} className="mb-2 text-sm font-medium">
+              <Pressable
+                href={solution.href}
+                className="block pb-2 text-sm font-medium"
+              >
                 {solution.title}
               </Pressable>
               {solution.subpages.map((subpage) => (
@@ -773,7 +776,6 @@ const MobileNavigationMenu = ({
       open={open}
       onClose={() => setOpen(false)}
       title="Mobile Navigation"
-      contentClassName="pt-10 pb-20"
     >
       <div className="max-w-screen-sm mx-auto">
         <Accordion type="multiple" className="w-full">

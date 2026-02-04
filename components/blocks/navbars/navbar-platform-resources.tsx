@@ -754,7 +754,6 @@ export const NavbarPlatformResources = ({
                 open={open}
                 onClose={() => setOpen(false)}
                 title="Mobile Navigation"
-                contentClassName="pt-10 pb-20"
               >
                 <div className="max-w-screen-sm mx-auto">
                   <Accordion type="multiple" className="w-full">
@@ -769,23 +768,22 @@ export const NavbarPlatformResources = ({
                             <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
                               {link.label}
                             </AccordionTrigger>
-                            <AccordionContent className="max-h-[60dvh] overflow-y-auto space-y-2">
+                            <AccordionContent className="max-h-[60dvh] overflow-y-auto space-y-4">
                               {link.links?.map((item, itemIndex) => (
                                 <Pressable
                                   key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
                                   href={getLinkUrl(item)}
                                   className="flex items-center gap-2 pl-4 text-sm text-muted-foreground hover:text-foreground"
                                 >
-                                  {(item.icon || item.iconName) && (
-                                    item.icon ? (
+                                  {(item.icon || item.iconName) &&
+                                    (item.icon ? (
                                       item.icon
                                     ) : item.iconName ? (
                                       <DynamicIcon
                                         name={item.iconName}
                                         size={14}
                                       />
-                                    ) : null
-                                  )}
+                                    ) : null)}
                                   {item.label}
                                 </Pressable>
                               ))}
@@ -811,10 +809,7 @@ export const NavbarPlatformResources = ({
                   </Accordion>
 
                   <div
-                    className={cn(
-                      "mt-6 flex flex-col gap-4",
-                      actionsClassName,
-                    )}
+                    className={cn("mt-6 flex flex-col gap-4", actionsClassName)}
                   >
                     {renderActions}
                   </div>

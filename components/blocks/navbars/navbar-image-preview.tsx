@@ -588,8 +588,6 @@ const MobileNavigationMenu = ({
       open={open}
       onClose={() => setOpen(false)}
       title="Mobile Navigation"
-      className="bg-primary text-primary-foreground"
-      contentClassName="pt-24 pb-12"
     >
       <div className="max-w-screen-sm mx-auto">
         <div className="flex h-full flex-col justify-between gap-30">
