@@ -195,13 +195,15 @@ const FeatureCard = React.memo(
             borderRadius: "24px",
           }}
           className={cn(
-            "relative flex items-start gap-4 overflow-hidden bg-background text-foreground md:w-fit md:max-w-sm",
-            isActive ? "shadow-xl" : "cursor-pointer shadow-none",
+            "relative flex items-start gap-4 bg-background text-foreground md:w-fit md:max-w-sm",
+            isActive
+              ? "shadow-xl overflow-visible"
+              : "cursor-pointer shadow-none hover:shadow-xl transition-shadow duration-500 overflow-hidden",
           )}
           onClick={onClick}
         >
           {isActive && feature.href && (
-            <div className="absolute bottom-4 right-4 bg-background rounded-full h-fit w-fit p-2 flex items-center justify-center">
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-background rounded-full h-fit w-fit p-2 flex items-center justify-center z-10">
               <Pressable
                 href={feature.href}
                 size="icon-lg"
@@ -578,7 +580,7 @@ export function FeatureAnimatedCarousel({
 
         <div
           className={cn(
-            "relative flex min-h-full md:min-h-[500px] flex-col-reverse gap-6 md:gap-8 bg-muted overflow-hidden rounded-3xl p-4 md:p-6 md:flex-row md:items-center lg:p-12 lg:min-h-[600px]",
+            "relative flex min-h-full md:min-h-[500px] flex-col-reverse gap-5 md:gap-8 bg-muted overflow-hidden rounded-3xl p-4 md:p-6 md:flex-row md:items-center lg:p-12 lg:min-h-[600px]",
             blockCardClassName,
           )}
         >
@@ -601,10 +603,10 @@ export function FeatureAnimatedCarousel({
             isNextDisabled={isNextDisabled}
           />
           {currentFeature?.image && (
-            <div className="relative w-full h-[250px] md:h-auto overflow-hidden rounded-2xl md:absolute md:right-8 md:top-8 md:bottom-8 md:w-1/2 shadow-xl">
+            <div className="relative w-full h-[250px] md:h-auto md:absolute md:right-8 md:top-8 md:bottom-8 md:w-1/2">
               {/* Mobile icon link - positioned at top right of image */}
               {currentFeature.href && (
-                <div className="absolute top-4 right-4 z-10 bg-background rounded-full h-fit w-fit p-2 flex items-center justify-center md:hidden">
+                <div className="absolute top-4 right-4 z-10 rounded-full h-fit w-fit shadow-md hover:shadow-2xl flex items-center justify-center md:hidden">
                   <Pressable
                     href={currentFeature.href}
                     size="icon-lg"
@@ -624,9 +626,9 @@ export function FeatureAnimatedCarousel({
                   exit="exit"
                   transition={{
                     x: { type: "spring", stiffness: 300, damping: 30 },
-                    opacity: { duration: 0.2 },
+                    opacity: { duration: 0.3 },
                   }}
-                  className="h-full w-full"
+                  className="h-full w-full shadow-xl overflow-hidden rounded-2xl"
                 >
                   <Img
                     src={currentFeature.image}
