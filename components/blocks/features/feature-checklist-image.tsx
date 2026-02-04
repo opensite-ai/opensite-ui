@@ -273,7 +273,7 @@ export function FeatureChecklistImage({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
-      containerClassName={cn("max-w-6xl", containerClassName)}
+      containerClassName={containerClassName}
     >
       <div
         className={cn(
@@ -284,7 +284,7 @@ export function FeatureChecklistImage({
         {imageContent}
         <div
           className={cn(
-            "px-4 md:px-6 lg:px-10 py-4 md:py-4 lg:py-0",
+            "px-0 md:px-6 lg:px-10 py-4 md:py-0 flex flex-col gap-6 md:gap-10",
             contentClassName,
           )}
         >
@@ -310,18 +310,18 @@ export function FeatureChecklistImage({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("mt-1 md:mt-6", descriptionClassName)}>
+              <p className={cn("relative", descriptionClassName)}>
                 {description}
               </p>
             ) : (
-              <div className={cn("mt-1 md:mt-6", descriptionClassName)}>
+              <div className={cn("relative", descriptionClassName)}>
                 {description}
               </div>
             ))}
           {actionsContent && (
             <div
               className={cn(
-                "flex flex-wrap items-center gap-4 md:gap-2",
+                "flex flex-wrap items-center gap-4",
                 actionsClassName,
               )}
             >
@@ -331,7 +331,7 @@ export function FeatureChecklistImage({
           {checklistContent && (
             <ul
               className={cn(
-                "mt-10 flex-wrap items-center gap-6 space-y-6 md:flex md:space-y-0",
+                "flex-wrap items-center space-y-2 md:flex",
                 checklistClassName,
               )}
             >

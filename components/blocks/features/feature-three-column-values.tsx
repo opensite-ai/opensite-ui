@@ -7,6 +7,7 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { Pressable } from "@/src";
 
 export interface FeatureThreeColumnValuesItem {
   /**
@@ -41,6 +42,10 @@ export interface FeatureThreeColumnValuesItem {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /**
+   * Optional href for the item
+   */
+  href?: string;
 }
 
 export interface FeatureThreeColumnValuesProps {
@@ -161,42 +166,52 @@ export function FeatureThreeColumnValues({
     return values.map((value, index) => (
       <div
         key={index}
-        className={cn("rounded-lg p-5", cardClassName, value.className)}
+        className={cn(
+          "relative flex h-full flex-col justify-between gap-6 rounded-lg p-5 bg-card text-card-foreground shadow-lg border",
+          cardClassName,
+          value.className,
+        )}
       >
         {(value.icon || value.iconName) && (
-          <span
+          <div
             className={cn(
-              "mb-8 flex size-12 items-center justify-center rounded-full ",
+              "flex size-fit p-3 items-center justify-center rounded-full border",
               value.iconClassName,
             )}
           >
             {renderValueIcon(value)}
-          </span>
+          </div>
         )}
-        {value.title &&
-          (typeof value.title === "string" ? (
-            <h3
-              className={cn("mb-2 text-xl font-medium", value.titleClassName)}
-            >
-              {value.title}
-            </h3>
-          ) : (
-            <div
-              className={cn("mb-2 text-xl font-medium", value.titleClassName)}
-            >
-              {value.title}
-            </div>
-          ))}
-        {value.description &&
-          (typeof value.description === "string" ? (
-            <p className={cn("leading-7 ", value.descriptionClassName)}>
-              {value.description}
-            </p>
-          ) : (
-            <div className={cn("leading-7", value.descriptionClassName)}>
-              {value.description}
-            </div>
-          ))}
+        <div className="flex flex-1 flex-col justify-end gap-2">
+          {value.title &&
+            (typeof value.title === "string" ? (
+              <Pressable
+                href={value.href}
+                className={cn(
+                  "font-medium md:mb-2 text-xl",
+                  value.titleClassName,
+                )}
+              >
+                {value.title}
+              </Pressable>
+            ) : (
+              <div
+                className={cn("mb-2 text-xl font-medium", value.titleClassName)}
+              >
+                {value.title}
+              </div>
+            ))}
+          {value.description &&
+            (typeof value.description === "string" ? (
+              <p className={cn("leading-7 ", value.descriptionClassName)}>
+                {value.description}
+              </p>
+            ) : (
+              <div className={cn("leading-7", value.descriptionClassName)}>
+                {value.description}
+              </div>
+            ))}
+        </div>
       </div>
     ));
   }, [valuesSlot, values, cardClassName, renderValueIcon]);
@@ -211,40 +226,49 @@ export function FeatureThreeColumnValues({
       className={className}
       containerClassName={containerClassName}
     >
-      {label &&
-        (typeof label === "string" ? (
-          <p className={cn("mb-4 text-sm lg:text-base", labelClassName)}>
-            {label}
-          </p>
-        ) : (
-          <div className={cn("mb-4 text-sm lg:text-base", labelClassName)}>
-            {label}
+      <div className="flex flex-col space-y-6 md:space-y-16">
+        {label || title ? (
+          <div className="flex flex-col space-y-4">
+            {label &&
+              (typeof label === "string" ? (
+                <p className={cn("text-sm", labelClassName)}>{label}</p>
+              ) : (
+                <div className={cn("text-sm", labelClassName)}>{label}</div>
+              ))}
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-3xl font-medium lg:text-4xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
+              ) : (
+                <div
+                  className={cn(
+                    "text-3xl font-medium lg:text-4xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </div>
+              ))}
           </div>
-        ))}
-      {title &&
-        (typeof title === "string" ? (
-          <h2
-            className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}
-          >
-            {title}
-          </h2>
-        ) : (
+        ) : null}
+
+        {(valuesSlot || (values && values.length > 0)) && (
           <div
-            className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}
+            className={cn(
+              "grid gap-6 grid-cols-1 md:grid-cols-3",
+              gridClassName,
+            )}
           >
-            {title}
+            {valuesContent}
           </div>
-        ))}
-      {(valuesSlot || (values && values.length > 0)) && (
-        <div
-          className={cn(
-            "mt-14 grid gap-6 lg:mt-20 lg:grid-cols-3",
-            gridClassName,
-          )}
-        >
-          {valuesContent}
-        </div>
-      )}
+        )}
+      </div>
     </Section>
   );
 }

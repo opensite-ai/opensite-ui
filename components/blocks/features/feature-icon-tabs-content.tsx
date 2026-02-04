@@ -233,7 +233,7 @@ export function FeatureIconTabsContent({
   tabsSlot,
   defaultTab,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   badgeClassName,
   headingClassName,
@@ -329,10 +329,10 @@ export function FeatureIconTabsContent({
 
     return (
       <Tabs defaultValue={activeDefaultTab} className="mt-8">
-        <div className="container overflow-x-auto px-4 pb-2 md:px-6">
+        <div className="container overflow-x-auto px-4 pb-2 md:px-6 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-border/50 hover:scrollbar-thumb-border md:overflow-x-visible [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border/30">
           <TabsList
             className={cn(
-              "inline-flex w-auto min-w-full items-center justify-start gap-2 bg-transparent md:justify-center md:gap-4",
+              "inline-flex w-auto items-center justify-start gap-2 bg-transparent md:w-full md:justify-center md:gap-4 h-auto! p-0!",
               tabsListClassName,
             )}
           >
@@ -341,8 +341,8 @@ export function FeatureIconTabsContent({
                 key={tab.value}
                 value={tab.value}
                 className={cn(
-                  "flex shrink-0 items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
-                  `data-[state=active]:${getBorderColor(background, 'accent')}`,
+                  "flex h-auto! w-auto! flex-none items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
+                  `data-[state=active]:${getBorderColor(background, "accent")}`,
                   tabTriggerClassName,
                   tab.className,
                 )}
@@ -353,12 +353,7 @@ export function FeatureIconTabsContent({
             ))}
           </TabsList>
         </div>
-        <div
-          className={cn(
-            "mx-auto mt-8 max-w-7xl rounded-2xl p-6 lg:p-16",
-            contentWrapperClassName,
-          )}
-        >
+        <div className={cn("py-6 lg:py-16", contentWrapperClassName)}>
           <div className="relative">
             {tabs.map((tab) => {
               if (tab.contentSlot) {
@@ -390,10 +385,7 @@ export function FeatureIconTabsContent({
                     {content.badge && (
                       <Badge
                         variant="outline"
-                        className={cn(
-                          "w-fit",
-                          content.badgeClassName,
-                        )}
+                        className={cn("w-fit", content.badgeClassName)}
                       >
                         {content.badge}
                       </Badge>
@@ -423,7 +415,7 @@ export function FeatureIconTabsContent({
                         <p
                           className={cn(
                             "lg:text-lg",
-                            getTextColor(background, 'muted'),
+                            getTextColor(background, "muted"),
                             content.descriptionClassName,
                           )}
                         >
@@ -433,7 +425,7 @@ export function FeatureIconTabsContent({
                         <div
                           className={cn(
                             "lg:text-lg",
-                            getTextColor(background, 'muted'),
+                            getTextColor(background, "muted"),
                             content.descriptionClassName,
                           )}
                         >
@@ -477,55 +469,55 @@ export function FeatureIconTabsContent({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
-      containerClassName={cn("mx-auto", containerClassName)}
+      containerClassName={containerClassName}
     >
-      {(badge || heading || description) && (
-        <div
-          className={cn(
-            "flex flex-col items-center gap-4 text-center",
-            headerClassName,
-          )}
-        >
-          {badge && (
-            <Badge variant="outline" className={badgeClassName}>
-              {badge}
-            </Badge>
-          )}
-          {heading &&
-            (typeof heading === "string" ? (
-              <h1
-                className={cn(
-                  "max-w-2xl text-3xl font-semibold md:text-4xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
-            ) : (
-              <div
-                className={cn(
-                  "max-w-2xl text-3xl font-semibold md:text-4xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p className={cn(getTextColor(background, 'muted'), descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div
-                className={cn(getTextColor(background, 'muted'), descriptionClassName)}
-              >
-                {description}
-              </div>
-            ))}
-        </div>
-      )}
-      {tabsContent}
+      <div className="flex flex-col space-y-6 md:space-y-16">
+        {(badge || heading || description) && (
+          <div
+            className={cn(
+              "flex flex-col items-center gap-4 text-center",
+              headerClassName,
+            )}
+          >
+            {badge && (
+              <Badge variant="outline" className={badgeClassName}>
+                {badge}
+              </Badge>
+            )}
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "max-w-2xl text-3xl font-semibold md:text-4xl text-balance",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h1>
+              ) : (
+                <div
+                  className={cn(
+                    "max-w-2xl text-3xl font-semibold md:text-4xl text-balance",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn("text-balance", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("text-balance", descriptionClassName)}>
+                  {description}
+                </div>
+              ))}
+          </div>
+        )}
+        {tabsContent}
+      </div>
     </Section>
   );
 }

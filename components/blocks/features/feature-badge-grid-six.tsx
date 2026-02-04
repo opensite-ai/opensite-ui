@@ -8,7 +8,11 @@ import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureBadgeGridSixItem {
   /**
@@ -156,7 +160,8 @@ export function FeatureBadgeGridSix({
   action,
   actionSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   headerClassName,
   badgeClassName,
   titleClassName,
@@ -164,7 +169,6 @@ export function FeatureBadgeGridSix({
   cardClassName,
   actionContainerClassName,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -172,7 +176,11 @@ export function FeatureBadgeGridSix({
   const badgeContent = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!label) return null;
-    return <Badge variant="secondary" className={badgeClassName}>{label}</Badge>;
+    return (
+      <Badge variant="secondary" className={badgeClassName}>
+        {label}
+      </Badge>
+    );
   }, [badgeSlot, label, badgeClassName]);
 
   const renderFeatureIcon = useCallback((feature: FeatureBadgeGridSixItem) => {
@@ -199,36 +207,60 @@ export function FeatureBadgeGridSix({
       return (
         <div
           key={index}
-          className={cn("flex gap-6 space-y-4 rounded-lg md:block", cardClassName, feature.className)}
+          className={cn(
+            "flex gap-6 space-y-4 rounded-lg md:block",
+            cardClassName,
+            feature.className,
+          )}
         >
           {iconContent && (
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground md:size-12">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-card text-card-foreground md:size-12 shadow-sm border">
               {iconContent}
             </span>
           )}
           <div>
-            {feature.heading && (
-              typeof feature.heading === "string" ? (
-                <h3 className={cn("font-medium md:mb-2 md:text-xl", feature.headingClassName)}>
+            {feature.heading &&
+              (typeof feature.heading === "string" ? (
+                <h3
+                  className={cn(
+                    "font-medium md:mb-2 md:text-xl",
+                    feature.headingClassName,
+                  )}
+                >
                   {feature.heading}
                 </h3>
               ) : (
-                <div className={cn("font-medium md:mb-2 md:text-xl", feature.headingClassName)}>
+                <div
+                  className={cn(
+                    "font-medium md:mb-2 md:text-xl",
+                    feature.headingClassName,
+                  )}
+                >
                   {feature.heading}
                 </div>
-              )
-            )}
-            {feature.description && (
-              typeof feature.description === "string" ? (
-                <p className={cn("text-sm md:text-base", getTextColor(background, 'muted'), feature.descriptionClassName)}>
+              ))}
+            {feature.description &&
+              (typeof feature.description === "string" ? (
+                <p
+                  className={cn(
+                    "text-sm md:text-base",
+                    getTextColor(background, "muted"),
+                    feature.descriptionClassName,
+                  )}
+                >
                   {feature.description}
                 </p>
               ) : (
-                <div className={cn("text-sm md:text-base", getTextColor(background, 'muted'), feature.descriptionClassName)}>
+                <div
+                  className={cn(
+                    "text-sm md:text-base",
+                    getTextColor(background, "muted"),
+                    feature.descriptionClassName,
+                  )}
+                >
                   {feature.description}
                 </div>
-              )
-            )}
+              ))}
           </div>
         </div>
       );
@@ -282,30 +314,48 @@ export function FeatureBadgeGridSix({
       className={className}
       containerClassName={containerClassName}
     >
-      {(label || badgeSlot || title) && (
-        <div className={cn("mb-12 flex max-w-3xl flex-col gap-4", headerClassName)}>
-          {badgeContent}
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-medium md:text-4xl lg:text-5xl", titleClassName)}>
-                {title}
-              </h2>
-            ) : (
-              <div className={cn("text-3xl font-medium md:text-4xl lg:text-5xl", titleClassName)}>
-                {title}
-              </div>
-            )
+      <div className="flex flex-col space-y-6 md:space-y-16">
+        {(label || badgeSlot || title) && (
+          <div className={cn("flex flex-col gap-4", headerClassName)}>
+            {badgeContent}
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-2xl font-bold md:text-3xl lg:text-4xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
+              ) : (
+                <div
+                  className={cn(
+                    "text-2xl font-bold md:text-3xl lg:text-4xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </div>
+              ))}
+          </div>
+        )}
+        <div
+          className={cn(
+            "grid gap-6 md:gap-12 grid-cols-1 md:grid-cols-2",
+            gridClassName,
           )}
+        >
+          {featuresContent}
         </div>
-      )}
-      <div className={cn("grid gap-12 md:grid-cols-2", gridClassName)}>
-        {featuresContent}
+        {(action || actionSlot) && (
+          <div
+            className={cn("mt-8 flex justify-center", actionContainerClassName)}
+          >
+            {actionContent}
+          </div>
+        )}
       </div>
-      {(action || actionSlot) && (
-        <div className={cn("mt-16 flex justify-center", actionContainerClassName)}>
-          {actionContent}
-        </div>
-      )}
     </Section>
   );
 }

@@ -282,7 +282,7 @@ export function FeatureNumberedCards({
   );
 
   const cardImg = useCallback((feature: FeatureNumberedCardsItem) => {
-    if (!feature.image || !feature.imageSlot) return null;
+    if (!feature.image && !feature.imageSlot) return null;
 
     if (feature.imageSlot) return feature.imageSlot;
 

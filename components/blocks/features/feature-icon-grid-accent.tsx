@@ -145,7 +145,7 @@ export function FeatureIconGridAccent({
   features,
   featuresSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-6 lg:px-8",
   headerClassName,
   labelClassName,
   titleClassName,
@@ -153,7 +153,7 @@ export function FeatureIconGridAccent({
   gridClassName,
   cardClassName,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -201,11 +201,11 @@ export function FeatureIconGridAccent({
               ))}
             {feature.description &&
               (typeof feature.description === "string" ? (
-                <p className={cn("mt-2", getTextColor(background, 'muted'))}>
+                <p className={cn("mt-2", getTextColor(background, "muted"))}>
                   {feature.description}
                 </p>
               ) : (
-                <div className={cn("mt-2", getTextColor(background, 'muted'))}>
+                <div className={cn("mt-2", getTextColor(background, "muted"))}>
                   {feature.description}
                 </div>
               ))}
@@ -225,56 +225,58 @@ export function FeatureIconGridAccent({
       className={className}
       containerClassName={containerClassName}
     >
-      {(label || title || description) && (
-        <div
-          className={cn("flex w-full flex-col items-center", headerClassName)}
-        >
-          <div className="flex flex-col items-center space-y-4 text-center sm:space-y-6 md:max-w-3xl md:text-center">
-            {label &&
-              (typeof label === "string" ? (
-                <p className={cn("text-sm", labelClassName)}>{label}</p>
-              ) : (
-                <div className={labelClassName}>{label}</div>
-              ))}
-            {title &&
-              (typeof title === "string" ? (
-                <h2
-                  className={cn(
-                    "text-3xl font-medium md:text-5xl text-balance",
-                    titleClassName,
-                  )}
-                >
-                  {title}
-                </h2>
-              ) : (
-                <div className={titleClassName}>{title}</div>
-              ))}
-            {description &&
-              (typeof description === "string" ? (
-                <p
-                  className={cn(
-                    "md:max-w-2xl text-balance",
-                    descriptionClassName,
-                  )}
-                >
-                  {description}
-                </p>
-              ) : (
-                <div className={descriptionClassName}>{description}</div>
-              ))}
+      <div className="flex flex-col space-y-6 md:space-y-16">
+        {(label || title || description) && (
+          <div
+            className={cn("flex w-full flex-col items-center", headerClassName)}
+          >
+            <div className="flex flex-col items-center space-y-4 text-center sm:space-y-6 md:max-w-3xl md:text-center">
+              {label &&
+                (typeof label === "string" ? (
+                  <p className={cn("text-sm", labelClassName)}>{label}</p>
+                ) : (
+                  <div className={labelClassName}>{label}</div>
+                ))}
+              {title &&
+                (typeof title === "string" ? (
+                  <h2
+                    className={cn(
+                      "text-3xl font-medium md:text-5xl text-balance",
+                      titleClassName,
+                    )}
+                  >
+                    {title}
+                  </h2>
+                ) : (
+                  <div className={titleClassName}>{title}</div>
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "md:max-w-2xl text-balance",
+                      descriptionClassName,
+                    )}
+                  >
+                    {description}
+                  </p>
+                ) : (
+                  <div className={descriptionClassName}>{description}</div>
+                ))}
+            </div>
           </div>
-        </div>
-      )}
-      {featuresContent && (
-        <div
-          className={cn(
-            "mx-auto mt-20 grid max-w-5xl gap-6 md:grid-cols-2",
-            gridClassName,
-          )}
-        >
-          {featuresContent}
-        </div>
-      )}
+        )}
+        {featuresContent && (
+          <div
+            className={cn(
+              "mx-auto grid max-w-5xl gap-6 md:grid-cols-2",
+              gridClassName,
+            )}
+          >
+            {featuresContent}
+          </div>
+        )}
+      </div>
     </Section>
   );
 }

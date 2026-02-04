@@ -184,14 +184,14 @@ export function FeatureImageCardsThreeColumn({
   cards,
   cardsSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   titleClassName,
   descriptionClassName,
   gridClassName,
   cardClassName,
   optixFlowConfig,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -205,7 +205,7 @@ export function FeatureImageCardsThreeColumn({
         <Img
           src={card.imageSrc}
           alt={imageAlt}
-          className="h-full max-h-[450px] w-full rounded-xl object-cover object-center"
+          className="h-full max-h-[450px] min-h-80 w-full rounded-xl object-cover object-center"
           loading="lazy"
           optixFlowConfig={optixFlowConfig}
         />
@@ -226,7 +226,7 @@ export function FeatureImageCardsThreeColumn({
       if (card.icon) return card.icon;
       if (!card.iconName) return null;
 
-      return <DynamicIcon name={card.iconName} size={24} />;
+      return <DynamicIcon name={card.iconName} size={18} />;
     },
     [],
   );
@@ -252,23 +252,26 @@ export function FeatureImageCardsThreeColumn({
           )}
         >
           {renderImage(card, imageAlt)}
-          <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-20 rounded-xl bg-linear-to-t from-black to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
+          <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-0 md:translate-y-20 rounded-xl bg-linear-to-t from-black to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
           <div className="absolute top-0 flex h-full w-full flex-col justify-between p-4 md:p-6">
             {(card.badgeText ||
               card.avatarSrc ||
               card.icon ||
               card.iconName) && (
-              <Badge variant="default" className={cn(card.badgeClassName)}>
+              <Badge
+                variant="default"
+                className={cn("py-1 px-4", card.badgeClassName)}
+              >
                 {renderBadgeIcon(card)}
                 {card.badgeText}
               </Badge>
             )}
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-2 md:gap-4">
               {card.title &&
                 (typeof card.title === "string" ? (
                   <h3
                     className={cn(
-                      "text-xl md:text-2xl font-semibold",
+                      "text-lg md:text-xl font-semibold",
                       card.titleClassName,
                     )}
                   >
@@ -277,7 +280,7 @@ export function FeatureImageCardsThreeColumn({
                 ) : (
                   <div
                     className={cn(
-                      "text-xl md:text-2xl font-semibold",
+                      "text-lg md:text-xl font-semibold",
                       card.titleClassName,
                     )}
                   >
@@ -285,16 +288,15 @@ export function FeatureImageCardsThreeColumn({
                   </div>
                 ))}
               {card.linkText && card.link && (
-                <Pressable
+                <div
                   className={cn(
-                    "font-bold text-xs uppercase",
+                    "font-bold text-xs uppercase flex items-center gap-2",
                     card.linkClassName,
                   )}
-                  href={card.link}
                 >
                   {card.linkText}
                   <DynamicIcon name="lucide/arrow-up-right" size={18} />
-                </Pressable>
+                </div>
               )}
             </div>
           </div>

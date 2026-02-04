@@ -137,12 +137,12 @@ export function FeatureIconGridBordered({
   features,
   featuresSlot,
   className,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   labelClassName,
   titleClassName,
   gridClassName,
   cardClassName,
   background,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
@@ -166,23 +166,22 @@ export function FeatureIconGridBordered({
       <div
         key={index}
         className={cn(
-          "relative flex gap-3 rounded-none border-dashed md:block md:border-l md:p-5",
+          "relative flex h-full flex-col justify-between gap-6 rounded-none border-dashed px-3 md:border-l md:px-5",
           cardClassName,
           feature.className,
         )}
       >
         {(feature.icon || feature.iconName) && (
-          <span
+          <div
             className={cn(
-              "mb-8 flex size-10 shrink-0 items-center justify-center rounded-full text-primary-foreground md:size-16",
-              getAccentColor(background),
+              "flex size-10 shrink-0 items-center justify-center rounded-lg md:size-12 text-accent-foreground bg-primary shadow-xl",
               feature.iconClassName,
             )}
           >
             {renderIcon(feature)}
-          </span>
+          </div>
         )}
-        <div>
+        <div className="flex flex-1 flex-col justify-end gap-2">
           {feature.title &&
             (typeof feature.title === "string" ? (
               <Pressable
@@ -272,6 +271,7 @@ export function FeatureIconGridBordered({
               ))}
           </div>
         ) : null}
+
         {(featuresSlot || (features && features.length > 0)) && (
           <div
             className={cn(

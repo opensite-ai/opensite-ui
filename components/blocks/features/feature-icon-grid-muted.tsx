@@ -268,7 +268,7 @@ export function FeatureIconGridMuted({
         {(featuresSlot || (features && features.length > 0)) && (
           <div
             className={cn(
-              "mx-auto mt-20 grid max-w-7xl gap-7 md:grid-cols-2 lg:grid-cols-3",
+              "mx-auto grid max-w-full md:max-w-7xl gap-4 md:gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
               gridClassName,
             )}
           >

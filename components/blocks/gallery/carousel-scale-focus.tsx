@@ -126,6 +126,10 @@ export interface CarouselScaleFocusProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -165,7 +169,8 @@ export function CarouselScaleFocus({
   indicatorClassName,
   startIndex = 1,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -288,7 +293,7 @@ export function CarouselScaleFocus({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={cn("overflow-hidden", className)}
-      containerClassName="px-6 sm:px-6 md:px-8 lg:px-8"
+      containerClassName={containerClassName}
     >
       <div className="md:px-45">
         {title || description ? (
