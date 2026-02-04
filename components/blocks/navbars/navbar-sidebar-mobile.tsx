@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -168,7 +168,35 @@ export const NavbarSidebarMobile = ({
 }: NavbarSidebarMobileProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const renderAuthActions = () => {
+  const MOBILE_BREAKPOINT = 1024;
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleResize = () => {
+      if (window.innerWidth > MOBILE_BREAKPOINT) {
+        setIsOpen(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+
+  const handleMobileMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
     if (!authActions || authActions.length === 0) return null;
 
@@ -198,7 +226,7 @@ export const NavbarSidebarMobile = ({
         </Pressable>
       );
     });
-  };
+  }, [authActionsSlot, authActions]);
 
   const renderMenu = (): MenuItem[] | null => {
     if (menuSlot) return null;
@@ -228,204 +256,269 @@ export const NavbarSidebarMobile = ({
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
   return (
-    <Section
-      background={background}
-      spacing={spacingOverride ?? spacing}
-      className={sectionClasses}
-      pattern={pattern}
-      patternOpacity={patternOpacity}
-      containerClassName={sectionContainerClassName}
-      containerMaxWidth={sectionContainerMaxWidth}
-    >
-      <div className={containerWrapperClasses}>
-        <div className={navWrapperClasses}>
-          <div className={innerContainerClasses}>
-            <nav
-              className={cn(
-                "flex items-center justify-between py-4",
-                navClassName,
-              )}
-            >
-              <div className="flex items-center gap-8">
-                <NavbarLogo
-                  logo={logo}
-                  logoSlot={logoSlot}
-                  logoClassName={logoClassName}
-                  optixFlowConfig={optixFlowConfig}
-                />
-
-                <NavigationMenu
-                  className={cn("hidden lg:flex", navigationMenuClassName)}
-                >
-                  <NavigationMenuList>
-                    {menuSlot
-                      ? menuSlot
-                      : renderMenu()?.map((item, index) =>
-                          item.items ? (
-                            <NavigationMenuItem key={index}>
-                              <NavigationMenuTrigger>
-                                {item.title}
-                              </NavigationMenuTrigger>
-                              <NavigationMenuContent>
-                                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
-                                  {item.items.map((subItem, subIndex) => (
-                                    <li key={subIndex}>
-                                      <NavigationMenuLink asChild>
-                                        <Pressable
-                                          href={subItem.url}
-                                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                        >
-                                          <div className="flex items-center gap-2">
-                                            {subItem.icon && (
-                                              <DynamicIcon
-                                                name={subItem.icon}
-                                                size={16}
-                                              />
-                                            )}
-                                            <div className="text-sm font-medium leading-none">
-                                              {subItem.title}
-                                            </div>
-                                          </div>
-                                          {subItem.description && (
-                                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                              {subItem.description}
-                                            </p>
-                                          )}
-                                        </Pressable>
-                                      </NavigationMenuLink>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </NavigationMenuContent>
-                            </NavigationMenuItem>
-                          ) : (
-                            <NavigationMenuItem key={index}>
-                              <NavigationMenuLink
-                                asChild
-                                className={navigationMenuTriggerStyle()}
-                              >
-                                <Pressable href={item.url}>
-                                  {item.title}
-                                </Pressable>
-                              </NavigationMenuLink>
-                            </NavigationMenuItem>
-                          ),
-                        )}
-                  </NavigationMenuList>
-                </NavigationMenu>
-              </div>
-
-              <div
+    <>
+      <Section
+        background={background}
+        spacing={spacingOverride ?? spacing}
+        className={sectionClasses}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
+        containerClassName={sectionContainerClassName}
+        containerMaxWidth={sectionContainerMaxWidth}
+      >
+        <div className={containerWrapperClasses}>
+          <div className={navWrapperClasses}>
+            <div className={innerContainerClasses}>
+              <nav
                 className={cn(
-                  "hidden items-center gap-2 lg:flex",
-                  actionsClassName,
+                  "flex items-center justify-between py-4",
+                  navClassName,
                 )}
               >
-                {renderAuthActions()}
-              </div>
+                <div className="flex items-center gap-8">
+                  <NavbarLogo
+                    logo={logo}
+                    logoSlot={logoSlot}
+                    logoClassName={logoClassName}
+                    optixFlowConfig={optixFlowConfig}
+                  />
 
-              <Pressable
-                variant="outline"
-                size="icon"
-                asButton
-                className="lg:hidden"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                <DynamicIcon name="lucide/menu" size={20} />
-                <span className="sr-only">Toggle menu</span>
-              </Pressable>
-              <NavbarMobileMenu
-                open={isOpen}
-                onClose={() => setIsOpen(false)}
-                title="Navigation Menu"
-              >
-                <div className="max-w-screen-sm mx-auto">
-                  <div className="flex h-full flex-col">
-                    <div className="flex items-center justify-between border-b pb-4">
-                      <NavbarLogo
-                        logo={logo}
-                        logoSlot={logoSlot}
-                        logoClassName={logoClassName}
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                    </div>
-
-                    <div className="flex-1 overflow-y-auto py-4">
-                      <Accordion type="single" collapsible className="w-full">
-                        {menuSlot
-                          ? menuSlot
-                          : renderMenu()?.map((item, index) =>
-                              item.items ? (
-                                <AccordionItem
-                                  key={index}
-                                  value={`item-${index}`}
+                  <NavigationMenu
+                    className={cn("hidden lg:flex", navigationMenuClassName)}
+                  >
+                    <NavigationMenuList>
+                      {menuSlot
+                        ? menuSlot
+                        : renderMenu()?.map((item, index) =>
+                            item.items ? (
+                              <NavigationMenuItem key={index}>
+                                <NavigationMenuTrigger>
+                                  {item.title}
+                                </NavigationMenuTrigger>
+                                <NavigationMenuContent>
+                                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
+                                    {item.items.map((subItem, subIndex) => (
+                                      <li key={subIndex}>
+                                        <NavigationMenuLink asChild>
+                                          <Pressable
+                                            href={subItem.url}
+                                            className="block w-full select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted focus:bg-muted"
+                                          >
+                                            <div className="flex items-center gap-2">
+                                              {subItem.icon && (
+                                                <DynamicIcon
+                                                  name={subItem.icon}
+                                                  size={16}
+                                                />
+                                              )}
+                                              <div className="text-sm font-medium leading-none">
+                                                {subItem.title}
+                                              </div>
+                                            </div>
+                                            {subItem.description && (
+                                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                                {subItem.description}
+                                              </p>
+                                            )}
+                                          </Pressable>
+                                        </NavigationMenuLink>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </NavigationMenuContent>
+                              </NavigationMenuItem>
+                            ) : (
+                              <NavigationMenuItem key={index}>
+                                <NavigationMenuLink
+                                  asChild
+                                  className={navigationMenuTriggerStyle()}
                                 >
-                                  <AccordionTrigger className="text-base hover:no-underline">
-                                    {item.title}
-                                  </AccordionTrigger>
-                                  <AccordionContent>
-                                    <div className="flex flex-col space-y-2 pl-4">
-                                      {item.items.map((subItem, subIndex) => (
-                                        <Pressable
-                                          key={subIndex}
-                                          href={subItem.url}
-                                          className="flex items-center gap-2 rounded-md py-2 text-sm text-muted-foreground hover:text-foreground"
-                                          onClick={() => setIsOpen(false)}
-                                        >
-                                          {subItem.icon && (
-                                            <DynamicIcon
-                                              name={subItem.icon}
-                                              size={14}
-                                            />
-                                          )}
-                                          {subItem.title}
-                                        </Pressable>
-                                      ))}
-                                    </div>
-                                  </AccordionContent>
-                                </AccordionItem>
-                              ) : (
-                                <div key={index} className="border-b py-4">
-                                  <Pressable
-                                    href={item.url}
-                                    className="text-base font-medium"
-                                    onClick={() => setIsOpen(false)}
-                                  >
+                                  <Pressable href={item.url}>
                                     {item.title}
                                   </Pressable>
-                                </div>
-                              ),
-                            )}
-                      </Accordion>
-                    </div>
-
-                    <div className="border-t pt-4">
-                      <div className="flex flex-col gap-2">
-                        {renderAuthActions()}
-                      </div>
-                      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
-                        {mobileExtraLinksSlot
-                          ? mobileExtraLinksSlot
-                          : renderMobileExtraLinks()?.map((link, index) => (
-                              <Pressable
-                                key={index}
-                                href={link.url}
-                                className="text-xs text-muted-foreground hover:text-foreground"
-                                onClick={() => setIsOpen(false)}
-                              >
-                                {link.title}
-                              </Pressable>
-                            ))}
-                      </div>
-                    </div>
-                  </div>
+                                </NavigationMenuLink>
+                              </NavigationMenuItem>
+                            ),
+                          )}
+                    </NavigationMenuList>
+                  </NavigationMenu>
                 </div>
-              </NavbarMobileMenu>
-            </nav>
+
+                <div
+                  className={cn(
+                    "hidden items-center gap-2 lg:flex",
+                    actionsClassName,
+                  )}
+                >
+                  {renderAuthActions}
+                </div>
+
+                <div className="lg:hidden">
+                  <Pressable
+                    className="size-11"
+                    variant="ghost"
+                    size="icon"
+                    asButton
+                    onClick={handleMobileMenu}
+                  >
+                    <DynamicIcon
+                      name="lucide/menu"
+                      size={22}
+                      className="stroke-foreground"
+                    />
+                  </Pressable>
+                </div>
+              </nav>
+            </div>
           </div>
         </div>
+      </Section>
+      <MobileNavigationMenu
+        open={isOpen}
+        setOpen={setIsOpen}
+        menu={menu ?? []}
+        menuSlot={menuSlot}
+        authActions={authActions}
+        authActionsSlot={authActionsSlot}
+        mobileExtraLinks={mobileExtraLinks}
+        mobileExtraLinksSlot={mobileExtraLinksSlot}
+      />
+    </>
+  );
+};
+
+interface MobileNavigationMenuProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  menu: MenuItem[];
+  menuSlot?: React.ReactNode;
+  authActions?: ActionConfig[];
+  authActionsSlot?: React.ReactNode;
+  mobileExtraLinks?: { title: string; url: string }[];
+  mobileExtraLinksSlot?: React.ReactNode;
+}
+
+const MobileNavigationMenu = ({
+  open,
+  setOpen,
+  menu,
+  menuSlot,
+  authActions,
+  authActionsSlot,
+  mobileExtraLinks,
+  mobileExtraLinksSlot,
+}: MobileNavigationMenuProps) => {
+  const renderMobileAuthActions = useMemo(() => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return (
+      <div className="flex flex-col gap-4">
+        {authActions.map((action, index) => {
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={cn("w-full", actionClassName)}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
       </div>
-    </Section>
+    );
+  }, [authActionsSlot, authActions]);
+
+  const renderMobileExtraLinks = useMemo(() => {
+    if (mobileExtraLinksSlot) return mobileExtraLinksSlot;
+    if (!mobileExtraLinks || mobileExtraLinks.length === 0) return null;
+
+    return (
+      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+        {mobileExtraLinks.map((link, index) => (
+          <Pressable
+            key={index}
+            href={link.url}
+            className="text-xs text-muted-foreground hover:text-foreground"
+          >
+            {link.title}
+          </Pressable>
+        ))}
+      </div>
+    );
+  }, [mobileExtraLinksSlot, mobileExtraLinks]);
+
+  return (
+    <NavbarMobileMenu
+      open={open}
+      onClose={() => setOpen(false)}
+      title="Navigation Menu"
+    >
+      <div className="max-w-screen-sm mx-auto">
+        <div className="flex flex-col gap-6">
+          <Accordion type="single" collapsible className="w-full">
+            {menuSlot
+              ? menuSlot
+              : menu.map((item, index) =>
+                  item.items ? (
+                    <AccordionItem
+                      key={`nav-item-${index}`}
+                      value={`nav-${index}`}
+                      className="border-b-0"
+                    >
+                      <AccordionTrigger className="h-15 items-center p-0 px-4! text-base leading-[3.75] font-normal text-muted-foreground hover:bg-muted hover:no-underline">
+                        {item.title}
+                      </AccordionTrigger>
+                      <AccordionContent className="overflow-x-none">
+                        {item.items.map((subItem, subIndex) => (
+                          <Pressable
+                            key={`mobile-link-${index}-${subIndex}`}
+                            href={subItem.url}
+                            className="flex min-h-12 items-center gap-2 rounded-lg px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
+                          >
+                            {subItem.icon && (
+                              <DynamicIcon
+                                name={subItem.icon}
+                                size={16}
+                                className="stroke-muted-foreground"
+                              />
+                            )}
+                            {subItem.title}
+                          </Pressable>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ) : (
+                    <Pressable
+                      key={`nav-link-${index}`}
+                      href={item.url}
+                      className="flex h-15 items-center rounded-md p-0 px-4 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all hover:bg-muted focus-visible:ring-4 focus-visible:outline-1 nth-last-1:border-0"
+                    >
+                      {item.title}
+                    </Pressable>
+                  ),
+                )}
+          </Accordion>
+          {renderMobileAuthActions}
+          {renderMobileExtraLinks}
+        </div>
+      </div>
+    </NavbarMobileMenu>
   );
 };
 

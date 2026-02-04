@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -24,6 +24,7 @@ import {
 } from "../../ui/navigation-menu";
 import { Separator } from "../../ui/separator";
 import { NavbarLogo } from "../../ui/navbar-logo";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -37,24 +38,54 @@ import { getNavbarLayoutClasses } from "./layout-variant-utils";
 // Re-export LogoConfig for backward compatibility
 export type { LogoConfig };
 
-interface FeatureItem {
+/**
+ * Link item for menu groups
+ */
+export interface MenuLinkItem {
+  /** Display title */
   title: string;
-  description: string;
-  icon: string;
-  link: string;
+  /** Optional description */
+  description?: string;
+  /** Icon name for DynamicIcon */
+  icon?: string;
+  /** Link URL */
+  href: string;
 }
 
-interface DocItem {
-  title: string;
-  description: string;
-  icon: string;
-  link: string;
+/**
+ * Featured image configuration for menu groups
+ */
+export interface MenuFeaturedImage {
+  /** Image source URL */
+  src: string;
+  /** Alt text for the image */
+  alt?: string;
+  /** Link URL when clicking the image */
+  href?: string;
 }
 
-interface CompanyItem {
-  title: string;
-  icon: string;
-  link: string;
+/**
+ * Group of links within a dropdown menu
+ */
+export interface MenuGroup {
+  /** Group label/title displayed above the links */
+  label: string;
+  /** Links within this group */
+  links: MenuLinkItem[];
+  /** Optional featured image for this group */
+  featuredImage?: MenuFeaturedImage;
+}
+
+/**
+ * Menu item configuration - can be a simple link or a dropdown with groups
+ */
+export interface MenuItem {
+  /** Display label for the menu item */
+  label: React.ReactNode;
+  /** Direct link URL (for non-dropdown items) */
+  href?: string;
+  /** Dropdown groups (if provided, creates a dropdown menu) */
+  groups?: MenuGroup[];
 }
 
 /**
@@ -98,25 +129,13 @@ export interface NavbarEducationPlatformProps {
    */
   logoSlot?: React.ReactNode;
   /**
-   * Features for Products menu
+   * Navigation menu items - can be simple links or dropdowns with grouped links
    */
-  features?: FeatureItem[];
+  menu?: MenuItem[];
   /**
-   * Documentation items for Support menu
+   * Custom slot for navigation menu (overrides menu array)
    */
-  docs?: DocItem[];
-  /**
-   * Company items for Support menu
-   */
-  company?: CompanyItem[];
-  /**
-   * Featured image for "Latest Updates" section in Products menu
-   */
-  featuredImage?: {
-    src: string;
-    alt?: string;
-    href?: string;
-  };
+  menuSlot?: React.ReactNode;
   /**
    * Authentication action configurations
    */
@@ -125,6 +144,14 @@ export interface NavbarEducationPlatformProps {
    * Custom slot for auth actions (overrides authActions array)
    */
   authActionsSlot?: React.ReactNode;
+  /**
+   * Mobile authentication action configurations
+   */
+  mobileAuthActions?: ActionConfig[];
+  /**
+   * Custom slot for mobile auth actions (overrides mobileAuthActions array)
+   */
+  mobileAuthActionsSlot?: React.ReactNode;
   /**
    * Background style for the section
    */
@@ -151,14 +178,16 @@ export interface NavbarEducationPlatformProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
+const MOBILE_BREAKPOINT = 1024;
+
 /**
- * NavbarEducationPlatform - A comprehensive navigation bar designed for education and LMS platforms.
+ * NavbarEducationPlatform - A flexible navigation bar designed for education and LMS platforms.
  *
- * Features two main dropdown menus: Products (with tools and quick start sections) and Support
- * (with guides and about us sections). Products dropdown includes a featured image card for
- * latest updates. Each menu item displays an icon, title, and description with hover animations.
- * Mobile view uses accordion navigation with categorized sections. Ideal for e-learning platforms,
- * course management systems, and educational technology products.
+ * Features configurable dropdown menus with grouped links. Each menu item can be a simple link
+ * or a dropdown with multiple groups, where each group can optionally include a featured image.
+ * Each menu item displays an icon, title, and description with hover animations.
+ * Mobile view uses accordion navigation with the shared NavbarMobileMenu component.
+ * Ideal for e-learning platforms, course management systems, and educational technology products.
  */
 export const NavbarEducationPlatform = ({
   className,
@@ -170,12 +199,12 @@ export const NavbarEducationPlatform = ({
   mobileMenuClassName,
   logo,
   logoSlot,
-  features,
-  docs,
-  company,
-  featuredImage,
+  menu,
+  menuSlot,
   authActions,
   authActionsSlot,
+  mobileAuthActions,
+  mobileAuthActionsSlot,
   layoutVariant = "fullScreenContainerizedLinks",
   background,
   spacing,
@@ -184,6 +213,42 @@ export const NavbarEducationPlatform = ({
   optixFlowConfig,
 }: NavbarEducationPlatformProps) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleResize = () => {
+      if (window.innerWidth > MOBILE_BREAKPOINT) {
+        setIsOpen(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleMobileMenuClose = () => {
+    setIsOpen(false);
+  };
+
+  const renderNavigation = useMemo(() => {
+    if (menuSlot) return menuSlot;
+    if (!menu || menu.length === 0) return null;
+
+    return (
+      <NavigationMenuList>
+        {menu.map((item, index) => (
+          <DesktopMenuItem
+            key={`desktop-link-${index}`}
+            item={item}
+            index={index}
+            optixFlowConfig={optixFlowConfig}
+          />
+        ))}
+      </NavigationMenuList>
+    );
+  }, [menuSlot, menu, optixFlowConfig]);
 
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
@@ -224,334 +289,311 @@ export const NavbarEducationPlatform = ({
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
   return (
-    <Section
-      background={background}
-      spacing={spacingOverride ?? spacing}
-      className={cn(isOpen && "border-b-0", sectionClasses)}
-      pattern={pattern}
-      patternOpacity={patternOpacity}
-      containerClassName={sectionContainerClassName}
-      containerMaxWidth={sectionContainerMaxWidth}
-    >
-      <div className={containerWrapperClasses}>
-        <div className={navWrapperClasses}>
-          <div className={innerContainerClasses}>
-            <nav
-              className={cn(
-                "flex items-center justify-between py-4",
-                navClassName,
-              )}
-            >
-              <div className="flex flex-1 items-center gap-9">
-                <NavbarLogo
-                  logo={logo}
-                  logoSlot={logoSlot}
-                  logoClassName={logoClassName}
-                  optixFlowConfig={optixFlowConfig}
-                />
+    <>
+      <Section
+        background={background}
+        spacing={spacingOverride ?? spacing}
+        className={sectionClasses}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
+        containerClassName={sectionContainerClassName}
+        containerMaxWidth={sectionContainerMaxWidth}
+      >
+        <div className={containerWrapperClasses}>
+          <div className={navWrapperClasses}>
+            <div className={innerContainerClasses}>
+              <nav
+                className={cn(
+                  "flex items-center justify-between py-4",
+                  navClassName,
+                )}
+              >
+                <div className="flex flex-1 items-center gap-9">
+                  <NavbarLogo
+                    logo={logo}
+                    logoSlot={logoSlot}
+                    logoClassName={logoClassName}
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                  <div
+                    className={cn(
+                      "hidden items-center gap-1.5 lg:flex",
+                      navigationMenuClassName,
+                    )}
+                  >
+                    <NavigationMenu delayDuration={0} viewport={false}>
+                      {renderNavigation}
+                    </NavigationMenu>
+                  </div>
+                </div>
+
                 <div
                   className={cn(
-                    "hidden items-center gap-1.5 lg:flex",
-                    navigationMenuClassName,
+                    "hidden items-center gap-2 lg:flex",
+                    actionsClassName,
                   )}
                 >
-                  <NavigationMenu delayDuration={0}>
-                    <NavigationMenuList>
-                      <NavigationMenuItem>
-                        <NavigationMenuTrigger>Products</NavigationMenuTrigger>
-                        <NavigationMenuContent className="p-0">
-                          <div className="flex">
-                            <div className="p-4">
-                              <p className="mb-3 text-[10px] text-muted-foreground uppercase">
-                                TOOLS
-                              </p>
-                              {features?.map((feature) => (
-                                <NavigationMenuLink key={feature.title} asChild>
-                                  <Pressable
-                                    href={feature.link}
-                                    className="group flex cursor-pointer flex-row gap-3"
-                                  >
-                                    <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-border bg-background">
-                                      <DynamicIcon
-                                        name={feature.icon}
-                                        size={20}
-                                      />
-                                    </span>
-                                    <div className="flex flex-col">
-                                      <span className="flex items-center gap-0.5 text-sm font-medium whitespace-nowrap">
-                                        {feature.title}
-                                        <DynamicIcon
-                                          name="lucide/chevron-right"
-                                          size={16}
-                                          className="text-primary! opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
-                                        />
-                                      </span>
-                                      <p className="text-xs whitespace-nowrap text-muted-foreground">
-                                        {feature.description}
-                                      </p>
-                                    </div>
-                                  </Pressable>
-                                </NavigationMenuLink>
-                              ))}
-                            </div>
-                            <Separator
-                              orientation="vertical"
-                              className="data-[orientation=vertical]:h-auto"
-                            />
-                            <div className="p-4">
-                              <p className="mb-3 text-[10px] text-muted-foreground uppercase">
-                                QUICK START
-                              </p>
-                              <div></div>
-                              {featuredImage && (
-                                <>
-                                  <p className="mt-5 mb-3 text-[10px] text-muted-foreground uppercase">
-                                    LATEST UPDATES
-                                  </p>
-                                  <NavigationMenuLink asChild>
-                                    <Pressable href={featuredImage.href || "#"}>
-                                      <div className="rounded-lg bg-primary p-3">
-                                        <Img
-                                          src={featuredImage.src}
-                                          alt={featuredImage.alt || "Featured update"}
-                                          className="aspect-video min-w-52 rounded-md object-cover"
-                                          optixFlowConfig={optixFlowConfig}
-                                        />
-                                      </div>
-                                    </Pressable>
-                                  </NavigationMenuLink>
-                                </>
-                              )}
-                            </div>
-                          </div>
-                        </NavigationMenuContent>
-                      </NavigationMenuItem>
-                      <NavigationMenuItem>
-                        <NavigationMenuTrigger>Support</NavigationMenuTrigger>
-                        <NavigationMenuContent className="p-0">
-                          <div className="flex">
-                            <div className="p-4">
-                              <p className="mb-3 text-[10px] text-muted-foreground uppercase">
-                                GUIDES
-                              </p>
-                              {docs?.map((doc) => (
-                                <NavigationMenuLink key={doc.title} asChild>
-                                  <Pressable
-                                    href={doc.link}
-                                    className="group flex flex-row gap-3"
-                                  >
-                                    <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-border bg-background">
-                                      <DynamicIcon name={doc.icon} size={20} />
-                                    </span>
-                                    <div className="flex flex-col">
-                                      <span className="flex items-center gap-0.5 text-sm font-medium whitespace-nowrap">
-                                        {doc.title}
-                                        <DynamicIcon
-                                          name="lucide/chevron-right"
-                                          size={16}
-                                          className="text-primary! opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
-                                        />
-                                      </span>
-                                      <p className="text-xs whitespace-nowrap text-muted-foreground">
-                                        {doc.description}
-                                      </p>
-                                    </div>
-                                  </Pressable>
-                                </NavigationMenuLink>
-                              ))}
-                            </div>
-                            <Separator
-                              orientation="vertical"
-                              className="data-[orientation=vertical]:h-auto"
-                            />
-                            <div className="p-4">
-                              <p className="mb-3 text-[10px] text-muted-foreground uppercase">
-                                ABOUT US
-                              </p>
-                              <div>
-                                {company?.map((item) => (
-                                  <NavigationMenuLink key={item.title} asChild>
-                                    <Pressable
-                                      href={item.link}
-                                      className="flex flex-row items-center gap-3"
-                                    >
-                                      <DynamicIcon name={item.icon} size={16} />
-                                      <span className="text-sm font-medium whitespace-nowrap">
-                                        {item.title}
-                                      </span>
-                                    </Pressable>
-                                  </NavigationMenuLink>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        </NavigationMenuContent>
-                      </NavigationMenuItem>
-                      <NavigationMenuItem>
-                        <NavigationMenuLink
-                          asChild
-                          className={navigationMenuTriggerStyle()}
-                        >
-                          <Pressable href="#">About</Pressable>
-                        </NavigationMenuLink>
-                      </NavigationMenuItem>
-                    </NavigationMenuList>
-                  </NavigationMenu>
+                  {renderAuthActions}
                 </div>
-              </div>
 
-              <div
-                className={cn(
-                  "hidden items-center gap-2 lg:flex",
-                  actionsClassName,
-                )}
-              >
-                {renderAuthActions}
-              </div>
-
-              <Pressable
-                variant="outline"
-                size="icon"
-                asButton
-                className="lg:hidden"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                {isOpen ? (
-                  <DynamicIcon name="lucide/x" size={20} />
-                ) : (
-                  <DynamicIcon name="lucide/menu" size={20} />
-                )}
-                <span className="sr-only">Toggle menu</span>
-              </Pressable>
-            </nav>
-          </div>
-        </div>
-      </div>
-
-      {isOpen && (
-        <div
-          className={cn(
-            "border-t bg-background lg:hidden",
-            mobileMenuClassName,
-          )}
-        >
-          <div className={cn("container", containerClassName)}>
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="learning-hub">
-                <AccordionTrigger className="pr-2.5 text-base font-medium hover:no-underline">
-                  Products
-                </AccordionTrigger>
-                <AccordionContent>
-                  <div className="space-y-5">
-                    <div>
-                      <p className="mb-3 text-[10px] text-muted-foreground uppercase">
-                        TOOLS
-                      </p>
-                      <div className="space-y-5">
-                        {features?.map((feature) => (
-                          <Pressable
-                            key={feature.title}
-                            href={feature.link}
-                            className="group flex cursor-pointer flex-row gap-3 rounded-md transition-colors"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            <span className="flex size-8 shrink-0 items-center justify-center rounded-md border border-border bg-background">
-                              <DynamicIcon name={feature.icon} size={16} />
-                            </span>
-                            <div className="flex min-w-0 flex-col">
-                              <span className="text-sm leading-tight font-medium">
-                                {feature.title}
-                              </span>
-                              <p className="text-xs leading-tight text-muted-foreground">
-                                {feature.description}
-                              </p>
-                            </div>
-                          </Pressable>
-                        ))}
-                      </div>
-                    </div>
-                    <Separator />
-                    <div>
-                      <p className="mb-3 text-[10px] text-muted-foreground uppercase">
-                        QUICK START
-                      </p>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="support" className="last:border-b">
-                <AccordionTrigger className="pr-2.5 text-base font-medium hover:no-underline">
-                  Support
-                </AccordionTrigger>
-                <AccordionContent>
-                  <div className="space-y-4">
-                    <div>
-                      <p className="mb-3 text-[10px] text-muted-foreground uppercase">
-                        GUIDES
-                      </p>
-                      <div className="space-y-5">
-                        {docs?.map((doc) => (
-                          <Pressable
-                            key={doc.title}
-                            href={doc.link}
-                            className="group flex cursor-pointer flex-row gap-3 rounded-md transition-colors"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            <span className="flex size-8 shrink-0 items-center justify-center rounded-md border border-border bg-background">
-                              <DynamicIcon name={doc.icon} size={16} />
-                            </span>
-                            <div className="flex min-w-0 flex-col">
-                              <span className="text-sm leading-tight font-medium">
-                                {doc.title}
-                              </span>
-                              <p className="text-xs leading-tight text-muted-foreground">
-                                {doc.description}
-                              </p>
-                            </div>
-                          </Pressable>
-                        ))}
-                      </div>
-                    </div>
-                    <Separator />
-                    <div>
-                      <p className="mb-3 text-[10px] text-muted-foreground uppercase">
-                        ABOUT US
-                      </p>
-                      <div className="space-y-5">
-                        {company?.map((item) => (
-                          <Pressable
-                            key={item.title}
-                            href={item.link}
-                            className="flex cursor-pointer flex-row items-center gap-3 rounded-md transition-colors"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            <DynamicIcon name={item.icon} size={16} />
-                            <span className="text-sm font-medium">
-                              {item.title}
-                            </span>
-                          </Pressable>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-
-            <div className="space-y-2">
-              <Pressable
-                href="#"
-                className="block border-b border-border py-4 pr-3 text-base font-medium transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </Pressable>
+                <div className="lg:hidden">
+                  <Pressable
+                    className="size-11"
+                    variant="ghost"
+                    size="icon"
+                    asButton
+                    onClick={() => setIsOpen(!isOpen)}
+                  >
+                    <DynamicIcon
+                      name="lucide/menu"
+                      size={22}
+                      className="stroke-foreground"
+                    />
+                  </Pressable>
+                </div>
+              </nav>
             </div>
           </div>
         </div>
-      )}
-    </Section>
+      </Section>
+
+      <MobileNavigationMenu
+        open={isOpen}
+        onClose={handleMobileMenuClose}
+        menu={menu ?? []}
+        mobileAuthActions={mobileAuthActions}
+        mobileAuthActionsSlot={mobileAuthActionsSlot}
+        mobileMenuClassName={mobileMenuClassName}
+      />
+    </>
+  );
+};
+
+/**
+ * Desktop menu item component
+ */
+interface DesktopMenuItemProps {
+  item: MenuItem;
+  index: number;
+  optixFlowConfig?: OptixFlowConfig;
+}
+
+const DesktopMenuItem = ({
+  item,
+  index,
+  optixFlowConfig,
+}: DesktopMenuItemProps) => {
+  // If the item has groups, render as dropdown
+  if (item.groups && item.groups.length > 0) {
+    return (
+      <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
+        <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
+        <NavigationMenuContent className="p-0">
+          <div className="flex">
+            {item.groups.map((group, groupIndex) => (
+              <React.Fragment key={`group-${groupIndex}`}>
+                {groupIndex > 0 && (
+                  <Separator
+                    orientation="vertical"
+                    className="data-[orientation=vertical]:h-auto"
+                  />
+                )}
+                <div className="p-4">
+                  <p className="mb-3 text-[10px] text-muted-foreground uppercase">
+                    {group.label}
+                  </p>
+                  <div className="space-y-1">
+                    {group.links.map((link) => (
+                      <NavigationMenuLink key={link.title} asChild>
+                        <Pressable
+                          href={link.href}
+                          className="group flex cursor-pointer flex-row gap-3"
+                        >
+                          {link.icon && (
+                            <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-border bg-background">
+                              <DynamicIcon name={link.icon} size={20} />
+                            </span>
+                          )}
+                          <div className="flex flex-col">
+                            <span className="flex items-center gap-0.5 text-sm font-medium whitespace-nowrap">
+                              {link.title}
+                              <DynamicIcon
+                                name="lucide/chevron-right"
+                                size={16}
+                                className="text-primary! opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
+                              />
+                            </span>
+                            {link.description && (
+                              <p className="text-xs whitespace-nowrap text-muted-foreground">
+                                {link.description}
+                              </p>
+                            )}
+                          </div>
+                        </Pressable>
+                      </NavigationMenuLink>
+                    ))}
+                  </div>
+                  {group.featuredImage && (
+                    <div className="mt-4">
+                      <NavigationMenuLink asChild>
+                        <Pressable href={group.featuredImage.href || "#"}>
+                          <div className="rounded-lg bg-muted p-3">
+                            <Img
+                              src={group.featuredImage.src}
+                              alt={group.featuredImage.alt || "Featured image"}
+                              className="aspect-video w-full max-w-[240px] rounded-md object-cover object-center"
+                              optixFlowConfig={optixFlowConfig}
+                            />
+                          </div>
+                        </Pressable>
+                      </NavigationMenuLink>
+                    </div>
+                  )}
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    );
+  }
+
+  // Simple link item (no dropdown)
+  return (
+    <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
+      <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+        <Pressable href={item.href}>{item.label}</Pressable>
+      </NavigationMenuLink>
+    </NavigationMenuItem>
+  );
+};
+
+/**
+ * Mobile navigation menu component
+ */
+interface MobileNavigationMenuProps {
+  open: boolean;
+  onClose: () => void;
+  menu: MenuItem[];
+  mobileAuthActions?: ActionConfig[];
+  mobileAuthActionsSlot?: React.ReactNode;
+  mobileMenuClassName?: string;
+}
+
+const MobileNavigationMenu = ({
+  open,
+  onClose,
+  menu,
+  mobileAuthActions,
+  mobileAuthActionsSlot,
+  mobileMenuClassName,
+}: MobileNavigationMenuProps) => {
+  const renderMobileAuthActions = useMemo(() => {
+    if (mobileAuthActionsSlot) return mobileAuthActionsSlot;
+    if (!mobileAuthActions || mobileAuthActions.length === 0) return null;
+
+    return (
+      <div className="flex flex-col gap-4">
+        {mobileAuthActions.map((action, index) => {
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={cn("w-full", actionClassName)}
+              onClick={onClose}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  }, [mobileAuthActionsSlot, mobileAuthActions, onClose]);
+
+  return (
+    <NavbarMobileMenu
+      open={open}
+      onClose={onClose}
+      title="Mobile Navigation"
+      className={mobileMenuClassName}
+    >
+      <div className="max-w-screen-sm mx-auto">
+        <div className="flex flex-col gap-6">
+          <Accordion type="multiple" className="w-full">
+            {menu.map((item, index) => {
+              // If the item has groups, render as accordion
+              if (item.groups && item.groups.length > 0) {
+                return (
+                  <AccordionItem
+                    key={`nav-item-${index}`}
+                    value={`nav-${index}`}
+                    className="border-b-0"
+                  >
+                    <AccordionTrigger className="h-15 items-center p-0 px-4! text-base leading-[3.75] font-normal text-muted-foreground hover:bg-muted hover:no-underline">
+                      {item.label}
+                    </AccordionTrigger>
+                    <AccordionContent className="overflow-x-none">
+                      {item.groups.map((group, groupIndex) => (
+                        <div key={`mobile-group-${groupIndex}`} className="mb-4">
+                          <p className="mb-2 px-4 text-[10px] text-muted-foreground uppercase">
+                            {group.label}
+                          </p>
+                          {group.links.map((link) => (
+                            <Pressable
+                              key={link.title}
+                              href={link.href}
+                              className="flex min-h-12 items-center gap-2 rounded-lg px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
+                              onClick={onClose}
+                            >
+                              {link.icon && (
+                                <DynamicIcon
+                                  name={link.icon}
+                                  size={16}
+                                  className="stroke-muted-foreground"
+                                />
+                              )}
+                              {link.title}
+                            </Pressable>
+                          ))}
+                        </div>
+                      ))}
+                    </AccordionContent>
+                  </AccordionItem>
+                );
+              }
+
+              // Simple link item
+              return (
+                <Pressable
+                  key={`nav-link-${index}`}
+                  href={item.href}
+                  className="flex h-15 items-center rounded-md p-0 px-4 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all hover:bg-muted focus-visible:ring-4 focus-visible:outline-1"
+                  onClick={onClose}
+                >
+                  {item.label}
+                </Pressable>
+              );
+            })}
+          </Accordion>
+          {renderMobileAuthActions}
+        </div>
+      </div>
+    </NavbarMobileMenu>
   );
 };
 

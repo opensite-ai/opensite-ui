@@ -12,8 +12,8 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "../../ui/navigation-menu";
-import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { NavbarLogo } from "../../ui/navbar-logo";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -64,6 +64,10 @@ export interface NavbarSimpleLinksProps {
    */
   actionsClassName?: string;
   /**
+   * Additional CSS classes for the mobile menu
+   */
+  mobileMenuClassName?: string;
+  /**
    * Logo configuration
    */
   logo?: LogoConfig;
@@ -96,6 +100,14 @@ export interface NavbarSimpleLinksProps {
    */
   actionsSlot?: React.ReactNode;
   /**
+   * Mobile-specific action configurations
+   */
+  mobileActions?: ActionConfig[];
+  /**
+   * Custom slot for mobile actions (overrides mobileActions array)
+   */
+  mobileActionsSlot?: React.ReactNode;
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -121,124 +133,15 @@ export interface NavbarSimpleLinksProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-interface MobileNavProps {
-  navItems: NavItem[];
-  activeItem: string;
-  setActiveItem: (item: string) => void;
-  actions?: ActionConfig[];
-  actionsSlot?: React.ReactNode;
-}
-
-const AnimatedHamburger = ({ isOpen }: { isOpen: boolean }) => {
-  return (
-    <div className="group relative size-full">
-      <div className="absolute flex size-full items-center justify-center">
-        <DynamicIcon
-          name="lucide/menu"
-          size={24}
-          className={`absolute text-muted-foreground transition-all duration-300 group-hover:text-foreground ${
-            isOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100"
-          }`}
-        />
-        <DynamicIcon
-          name="lucide/x"
-          size={24}
-          className={`absolute text-muted-foreground transition-all duration-300 group-hover:text-foreground ${
-            isOpen ? "rotate-0 opacity-100" : "-rotate-90 opacity-0"
-          }`}
-        />
-      </div>
-    </div>
-  );
-};
-
-const MobileNav = ({
-  navItems,
-  activeItem,
-  setActiveItem,
-  actions,
-  actionsSlot,
-}: MobileNavProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const {
-        label,
-        icon,
-        iconAfter,
-        children,
-        className: actionClassName,
-        ...pressableProps
-      } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
-
-  return (
-    <div className="flex h-full items-center lg:hidden">
-      <Popover open={isOpen} onOpenChange={setIsOpen}>
-        <PopoverTrigger asChild>
-          <Pressable variant="ghost" size="icon" asButton onClick={() => {}}>
-            <AnimatedHamburger isOpen={isOpen} />
-          </Pressable>
-        </PopoverTrigger>
-
-        <PopoverContent
-          align="end"
-          className="relative top-4 -right-4 block w-[calc(100vw-32px)] overflow-hidden rounded-xl p-0 sm:top-auto sm:right-auto sm:w-80 lg:hidden"
-        >
-          <ul className="w-full bg-background py-4 text-foreground">
-            {navItems.map((navItem, idx) => (
-              <li key={idx}>
-                <Pressable
-                  href={navItem.link}
-                  onClick={() => setActiveItem(navItem.name)}
-                  className={`flex items-center border-l-[3px] px-6 py-4 text-sm font-medium text-foreground transition-all duration-75 ${
-                    activeItem === navItem.name
-                      ? "border-foreground text-foreground"
-                      : "border-transparent text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {navItem.name}
-                </Pressable>
-              </li>
-            ))}
-            {(actionsSlot || (actions && actions.length > 0)) && (
-              <li className="flex flex-col gap-3 px-7 py-2">{renderActions}</li>
-            )}
-          </ul>
-        </PopoverContent>
-      </Popover>
-    </div>
-  );
-};
+const MOBILE_BREAKPOINT = 1024;
 
 /**
  * NavbarSimpleLinks - A minimal navigation bar with animated active indicator.
  *
  * Features a clean, simple design with horizontal navigation links and an animated
  * underline indicator that slides to show the active item. Desktop view shows all
- * links inline with a smooth sliding indicator. Mobile view uses a popover menu
- * with a left border indicator for the active item. Perfect for simple marketing
+ * links inline with a smooth sliding indicator. Mobile view uses the shared
+ * NavbarMobileMenu component with a fullscreen overlay. Perfect for simple marketing
  * sites and portfolios.
  */
 export const NavbarSimpleLinks = ({
@@ -248,6 +151,7 @@ export const NavbarSimpleLinks = ({
   navigationMenuClassName,
   menuListClassName,
   actionsClassName,
+  mobileMenuClassName,
   logo,
   logoSlot,
   logoClassName,
@@ -256,6 +160,8 @@ export const NavbarSimpleLinks = ({
   defaultActiveItem,
   actions,
   actionsSlot,
+  mobileActions,
+  mobileActionsSlot,
   layoutVariant = "fullScreenContainerizedLinks",
   background,
   spacing,
@@ -266,9 +172,26 @@ export const NavbarSimpleLinks = ({
   const [activeItem, setActiveItem] = useState(
     defaultActiveItem || navItems?.[0]?.name || "",
   );
+  const [isOpen, setIsOpen] = useState(false);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
 
+  // Close mobile menu on resize to desktop
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleResize = () => {
+      if (window.innerWidth > MOBILE_BREAKPOINT) {
+        setIsOpen(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Update active indicator position
   useEffect(() => {
     const updateIndicator = () => {
       const activeEl = document.querySelector(
@@ -288,6 +211,10 @@ export const NavbarSimpleLinks = ({
 
     return () => window.removeEventListener("resize", updateIndicator);
   }, [activeItem]);
+
+  const handleMobileMenuClose = () => {
+    setIsOpen(false);
+  };
 
   const renderNavItems = useMemo(() => {
     if (navItemsSlot) return navItemsSlot;
@@ -355,6 +282,7 @@ export const NavbarSimpleLinks = ({
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
   return (
+    <>
     <Section
       background={background}
       spacing={spacingOverride ?? spacing}
@@ -397,13 +325,21 @@ export const NavbarSimpleLinks = ({
                 </NavigationMenuList>
               </NavigationMenu>
 
-              <MobileNav
-                navItems={navItems ?? []}
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
-                actions={actions}
-                actionsSlot={actionsSlot}
-              />
+              <div className="lg:hidden">
+                <Pressable
+                  className="size-11"
+                  variant="ghost"
+                  size="icon"
+                  asButton
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  <DynamicIcon
+                    name="lucide/menu"
+                    size={22}
+                    className="stroke-foreground"
+                  />
+                </Pressable>
+              </div>
 
               <div
                 className={cn(
@@ -418,6 +354,101 @@ export const NavbarSimpleLinks = ({
         </div>
       </div>
     </Section>
+
+    <MobileNavigationMenu
+      open={isOpen}
+      onClose={handleMobileMenuClose}
+      navItems={navItems ?? []}
+      mobileActions={mobileActions}
+      mobileActionsSlot={mobileActionsSlot}
+      mobileMenuClassName={mobileMenuClassName}
+    />
+    </>
+  );
+};
+
+/**
+ * Mobile navigation menu component for simple links navbar
+ */
+interface MobileNavigationMenuProps {
+  open: boolean;
+  onClose: () => void;
+  navItems: NavItem[];
+  mobileActions?: ActionConfig[];
+  mobileActionsSlot?: React.ReactNode;
+  mobileMenuClassName?: string;
+}
+
+const MobileNavigationMenu = ({
+  open,
+  onClose,
+  navItems,
+  mobileActions,
+  mobileActionsSlot,
+  mobileMenuClassName,
+}: MobileNavigationMenuProps) => {
+  const renderMobileActions = useMemo(() => {
+    if (mobileActionsSlot) return mobileActionsSlot;
+    if (!mobileActions || mobileActions.length === 0) return null;
+
+    return (
+      <div className="flex flex-col gap-4 px-4">
+        {mobileActions.map((action, index) => {
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={cn("w-full", actionClassName)}
+              onClick={onClose}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  }, [mobileActionsSlot, mobileActions, onClose]);
+
+  return (
+    <NavbarMobileMenu
+      open={open}
+      onClose={onClose}
+      title="Navigation"
+      className={mobileMenuClassName}
+    >
+      <div className="max-w-screen-sm mx-auto">
+        <div className="flex flex-col gap-6">
+          <nav className="flex flex-col">
+            {navItems.map((item, index) => (
+              <Pressable
+                key={`nav-link-${index}`}
+                href={item.link}
+                className="flex h-15 items-center rounded-md px-4 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all hover:bg-muted focus-visible:ring-4 focus-visible:outline-1"
+                onClick={onClose}
+              >
+                {item.name}
+              </Pressable>
+            ))}
+          </nav>
+          {renderMobileActions}
+        </div>
+      </div>
+    </NavbarMobileMenu>
   );
 };
 

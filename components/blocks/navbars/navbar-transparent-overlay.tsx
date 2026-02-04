@@ -7,6 +7,11 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import { NavbarLogo } from "../../ui/navbar-logo";
+import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
+import {
+  SocialLinkIcon,
+  type SocialPlatformName,
+} from "../../ui/social-link-icon";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -35,6 +40,18 @@ export interface NavItem {
 }
 
 /**
+ * Social link configuration for transparent overlay navbar
+ */
+export interface NavbarTransparentOverlaySocialLink {
+  /** Social platform name - determines which icon to display */
+  platformName: SocialPlatformName;
+  /** URL to the social profile */
+  href: string;
+  /** Optional label for accessibility (defaults to platform name) */
+  label?: string;
+}
+
+/**
  * Props for the NavbarTransparentOverlay component
  */
 export interface NavbarTransparentOverlayProps {
@@ -58,6 +75,14 @@ export interface NavbarTransparentOverlayProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /**
+   * Additional CSS classes for the mobile menu
+   */
+  mobileMenuClassName?: string;
+  /**
+   * Additional CSS classes for the social links container
+   */
+  socialLinksClassName?: string;
   /**
    * Logo configuration
    */
@@ -94,6 +119,14 @@ export interface NavbarTransparentOverlayProps {
    * Custom slot for mobile auth actions (overrides mobileAuthActions array)
    */
   mobileAuthActionsSlot?: React.ReactNode;
+  /**
+   * Social links displayed in mobile menu
+   */
+  socialLinks?: NavbarTransparentOverlaySocialLink[];
+  /**
+   * Custom slot for social links (overrides socialLinks array)
+   */
+  socialLinksSlot?: React.ReactNode;
   /**
    * Background style for the section
    */
@@ -135,6 +168,8 @@ export const NavbarTransparentOverlay = ({
   navClassName,
   navigationMenuClassName,
   actionsClassName,
+  mobileMenuClassName,
+  socialLinksClassName,
   logo,
   logoSlot,
   logoClassName,
@@ -144,6 +179,8 @@ export const NavbarTransparentOverlay = ({
   authActionsSlot,
   mobileAuthActions,
   mobileAuthActionsSlot,
+  socialLinks,
+  socialLinksSlot,
   layoutVariant = "fullScreenContainerizedLinks",
   background,
   spacing,
@@ -166,15 +203,7 @@ export const NavbarTransparentOverlay = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    document.body.style.overflow = isOpen ? "hidden" : "auto";
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isOpen]);
-
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const handleMobileMenuClose = () => setIsOpen(false);
 
   const renderNavigation = useMemo(() => {
     if (navigationSlot) return navigationSlot;
@@ -251,6 +280,135 @@ export const NavbarTransparentOverlay = ({
     });
   }, [authActionsSlot, authActions, isScrolled]);
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
+  return (
+    <>
+      <Section
+        background={background}
+        spacing={spacingOverride ?? spacing}
+        className={sectionClasses}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
+        containerClassName={sectionContainerClassName}
+        containerMaxWidth={sectionContainerMaxWidth}
+      >
+        <div className={containerWrapperClasses}>
+          <nav
+            className={cn(
+              "fixed top-0 left-0 z-50 w-full transition-all duration-300",
+              isScrolled
+                ? "bg-background/95 shadow-sm backdrop-blur-sm"
+                : "bg-transparent",
+              navWrapperClasses,
+              navClassName,
+            )}
+          >
+            <div className={innerContainerClasses}>
+              <div className="flex h-16 items-center justify-between">
+                <NavbarLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  logoClassName={cn(
+                    "z-50",
+                    !isScrolled &&
+                      !isOpen &&
+                      "[&_img]:brightness-0 [&_img]:invert [&_span]:text-background",
+                    logoClassName,
+                  )}
+                  optixFlowConfig={optixFlowConfig}
+                />
+
+                <NavigationMenu
+                  className={cn("hidden lg:flex", navigationMenuClassName)}
+                >
+                  {renderNavigation}
+                </NavigationMenu>
+
+                <div
+                  className={cn(
+                    "hidden items-center gap-2 lg:flex",
+                    actionsClassName,
+                  )}
+                >
+                  {renderAuthActions}
+                </div>
+
+                <div className="lg:hidden">
+                  <Pressable
+                    variant="ghost"
+                    size="icon"
+                    asButton
+                    aria-label="Open menu"
+                    onClick={() => setIsOpen(true)}
+                    className={cn(
+                      "size-11",
+                      !isScrolled && "hover:bg-white/10",
+                    )}
+                  >
+                    <DynamicIcon
+                      name="lucide/menu"
+                      size={16}
+                      className={cn(
+                        isScrolled ? "stroke-foreground" : "stroke-white",
+                      )}
+                    />
+                  </Pressable>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </Section>
+
+      <MobileNavigationMenu
+        open={isOpen}
+        onClose={handleMobileMenuClose}
+        navItems={navItems}
+        mobileAuthActions={mobileAuthActions}
+        mobileAuthActionsSlot={mobileAuthActionsSlot}
+        socialLinks={socialLinks}
+        socialLinksSlot={socialLinksSlot}
+        mobileMenuClassName={mobileMenuClassName}
+        socialLinksClassName={socialLinksClassName}
+      />
+    </>
+  );
+};
+
+/**
+ * Mobile navigation menu component for NavbarTransparentOverlay
+ */
+const MobileNavigationMenu = ({
+  open,
+  onClose,
+  navItems,
+  mobileAuthActions,
+  mobileAuthActionsSlot,
+  socialLinks,
+  socialLinksSlot,
+  mobileMenuClassName,
+  socialLinksClassName,
+}: {
+  open: boolean;
+  onClose: () => void;
+  navItems?: NavItem[];
+  mobileAuthActions?: ActionConfig[];
+  mobileAuthActionsSlot?: React.ReactNode;
+  socialLinks?: NavbarTransparentOverlaySocialLink[];
+  socialLinksSlot?: React.ReactNode;
+  mobileMenuClassName?: string;
+  socialLinksClassName?: string;
+}) => {
   const renderMobileAuthActions = useMemo(() => {
     if (mobileAuthActionsSlot) return mobileAuthActionsSlot;
     if (!mobileAuthActions || mobileAuthActions.length === 0) return null;
@@ -269,7 +427,7 @@ export const NavbarTransparentOverlay = ({
           key={index}
           asButton
           className={cn("min-w-[200px]", actionClassName)}
-          onClick={() => setIsOpen(false)}
+          onClick={onClose}
           {...pressableProps}
         >
           {children ?? (
@@ -282,162 +440,68 @@ export const NavbarTransparentOverlay = ({
         </Pressable>
       );
     });
-  }, [mobileAuthActionsSlot, mobileAuthActions]);
+  }, [mobileAuthActionsSlot, mobileAuthActions, onClose]);
 
-  // Get layout classes based on variant
-  const {
-    sectionClasses,
-    containerWrapperClasses,
-    innerContainerClasses,
-    navWrapperClasses,
-    sectionContainerClassName,
-    sectionContainerMaxWidth,
-    spacingOverride,
-  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+  const renderSocialLinks = useMemo(() => {
+    if (socialLinksSlot) return socialLinksSlot;
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return socialLinks.map((link) => (
+      <SocialLinkIcon
+        key={link.platformName}
+        platformName={link.platformName}
+        href={link.href}
+        label={link.label}
+        iconSize={24}
+        className="text-white/70 transition-all duration-300 hover:text-white hover:scale-110"
+      />
+    ));
+  }, [socialLinksSlot, socialLinks]);
 
   return (
-    <Section
-      background={background}
-      spacing={spacingOverride ?? spacing}
-      className={sectionClasses}
-      pattern={pattern}
-      patternOpacity={patternOpacity}
-      containerClassName={sectionContainerClassName}
-      containerMaxWidth={sectionContainerMaxWidth}
+    <NavbarMobileMenu
+      open={open}
+      onClose={onClose}
+      title="Mobile Navigation"
+      className={cn("bg-black/95", mobileMenuClassName)}
+      contentClassName="flex flex-col items-center justify-center"
     >
-      <div className={containerWrapperClasses}>
-        <nav
-          className={cn(
-            "fixed top-0 left-0 z-50 w-full transition-all duration-300",
-            isScrolled
-              ? "bg-background/95 shadow-sm backdrop-blur-sm"
-              : "bg-transparent",
-            navWrapperClasses,
-            navClassName,
-          )}
-        >
-          <div className={innerContainerClasses}>
-            <div className="flex h-16 items-center justify-between">
-              <NavbarLogo
-                logo={logo}
-                logoSlot={logoSlot}
-                logoClassName={cn(
-                  "z-50",
-                  !isScrolled &&
-                    !isOpen &&
-                    "[&_img]:brightness-0 [&_img]:invert [&_span]:text-background",
-                  logoClassName,
-                )}
-                optixFlowConfig={optixFlowConfig}
-              />
-
-              <NavigationMenu
-                className={cn("hidden lg:flex", navigationMenuClassName)}
-              >
-                {renderNavigation}
-              </NavigationMenu>
-
-              <div
-                className={cn(
-                  "hidden items-center gap-2 lg:flex",
-                  actionsClassName,
-                )}
-              >
-                {renderAuthActions}
-              </div>
-
-              <button
-                onClick={toggleMenu}
-                className={cn(
-                  "z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden",
-                )}
-                aria-label="Toggle menu"
-              >
-                <span
-                  className={cn(
-                    "h-0.5 w-6 transition-all duration-300",
-                    isOpen
-                      ? "translate-y-2 rotate-45 bg-foreground"
-                      : isScrolled
-                        ? "bg-foreground"
-                        : "bg-white",
-                  )}
-                />
-                <span
-                  className={cn(
-                    "h-0.5 w-6 transition-all duration-300",
-                    isOpen
-                      ? "opacity-0"
-                      : isScrolled
-                        ? "bg-foreground"
-                        : "bg-white",
-                  )}
-                />
-                <span
-                  className={cn(
-                    "h-0.5 w-6 transition-all duration-300",
-                    isOpen
-                      ? "-translate-y-2 -rotate-45 bg-foreground"
-                      : isScrolled
-                        ? "bg-foreground"
-                        : "bg-white",
-                  )}
-                />
-              </button>
-            </div>
-          </div>
+      <div className="flex h-full flex-col items-center justify-center">
+        <nav className="flex flex-col items-center gap-8">
+          {navItems?.map((item, index) => (
+            <Pressable
+              key={index}
+              href={item.url}
+              className="text-3xl font-medium text-white transition-all duration-300 hover:text-white/80"
+              onClick={onClose}
+            >
+              {item.icon ??
+                (item.iconName && (
+                  <DynamicIcon name={item.iconName} size={24} />
+                ))}
+              {item.title}
+            </Pressable>
+          ))}
         </nav>
-      </div>
 
-      <div
-        className={cn(
-          "fixed inset-0 z-40 bg-background transition-all duration-500 lg:hidden",
-          isOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none",
-        )}
-      >
-        <div className="flex h-full flex-col items-center justify-center">
-          <nav className="flex flex-col items-center gap-8">
-            {navItems?.map((item, index) => (
-              <Pressable
-                key={index}
-                href={item.url}
-                className={cn(
-                  "text-3xl font-medium text-foreground transition-all duration-300",
-                  isOpen
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-4 opacity-0",
-                )}
-                style={{
-                  transitionDelay: isOpen ? `${index * 100}ms` : "0ms",
-                }}
-                onClick={() => setIsOpen(false)}
-              >
-                {item.icon ??
-                  (item.iconName && (
-                    <DynamicIcon name={item.iconName} size={24} />
-                  ))}
-                {item.title}
-              </Pressable>
-            ))}
-          </nav>
-          <div
-            className={cn(
-              "mt-12 flex flex-col items-center gap-4 transition-all duration-300",
-              isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
-            )}
-            style={{
-              transitionDelay: isOpen
-                ? `${(navItems?.length ?? 0) * 100}ms`
-                : "0ms",
-            }}
-          >
+        {renderMobileAuthActions && (
+          <div className="mt-12 flex flex-col items-center gap-4">
             {renderMobileAuthActions}
           </div>
-        </div>
+        )}
+
+        {renderSocialLinks && (
+          <div
+            className={cn(
+              "mt-12 flex flex-row flex-wrap items-center justify-center gap-6",
+              socialLinksClassName,
+            )}
+          >
+            {renderSocialLinks}
+          </div>
+        )}
       </div>
-    </Section>
+    </NavbarMobileMenu>
   );
 };
 

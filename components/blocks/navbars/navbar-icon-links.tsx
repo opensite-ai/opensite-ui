@@ -171,6 +171,7 @@ export const NavbarIconLinks = ({
           <Tooltip>
             <TooltipTrigger asChild>
               <Pressable
+                size="icon"
                 className={cn(
                   "flex h-10 w-10 items-center justify-center rounded-md transition-colors",
                   "text-muted-foreground hover:bg-accent hover:text-accent-foreground",

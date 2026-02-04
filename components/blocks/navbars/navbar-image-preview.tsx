@@ -438,7 +438,7 @@ const DesktopMenuItem = ({
                         <h3 className="text-sm leading-normal font-medium">
                           {link.label}
                         </h3>
-                        <p className="text-xs leading-normal text-muted-foreground">
+                        <p className="text-xs leading-normal">
                           {link.description}
                         </p>
                       </div>
@@ -490,26 +490,21 @@ const MobileNavigationMenu = ({
     if (!mobileNavigation || mobileNavigation.length === 0) return null;
 
     return (
-      <div className="grid w-full grid-cols-2 gap-x-4 gap-y-10">
+      <div className="grid w-full grid-cols-1 gap-x-4 gap-y-10">
         {mobileNavigation.map((item, index) => (
           <div
-            className={cn(
-              "flex flex-col gap-4 text-primary-foreground",
-              item.className,
-            )}
+            className={cn("flex flex-col gap-4 ", item.className)}
             key={`mobile-menu-item-${index}`}
           >
-            <div className="text-xs text-muted-foreground uppercase">
-              {item.title}
-            </div>
+            <div className="text-xs uppercase">{item.title}</div>
             <ul className="flex flex-col gap-3">
               {item.links?.map((link, i) => (
                 <li key={`mobile-nav-link-${i}`}>
                   <Pressable
                     href={getLinkUrl(link)}
                     className={cn(
-                      "text-primary-foreground leading-normal font-medium",
-                      index === 0 ? "text-2xl" : "text-base",
+                      "leading-normal font-medium",
+                      index === 0 ? "" : "text-base",
                     )}
                   >
                     {link.label}
@@ -529,13 +524,13 @@ const MobileNavigationMenu = ({
 
     return (
       <div className="col-span-2 flex flex-col gap-4">
-        <div className="text-xs text-muted-foreground uppercase">SOCIAL</div>
+        <div className="text-xs uppercase">SOCIAL</div>
         <div className="flex gap-4">
           {socialLinks.map((link, index) => (
             <Pressable
               key={`social-link-${index}`}
               href={link.url}
-              className="text-primary-foreground"
+              className=""
             >
               {link.icon ??
                 (link.iconName && (

@@ -317,8 +317,8 @@ export const NavbarSplitCta = ({
                 title="Navigation Menu"
               >
                 <div className="max-w-screen-sm mx-auto">
-                  <div className="flex flex-col gap-6">
-                    <div className="border-t pt-4">
+                  <div className="flex flex-col gap-4">
+                    <div className="pt-0">
                       {menuSlot
                         ? menuSlot
                         : renderMenu?.map((item, index) =>

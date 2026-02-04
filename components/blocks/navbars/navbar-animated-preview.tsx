@@ -476,8 +476,8 @@ const AnimatedImagePreviewDropdown = ({
   if (!links) return null;
 
   return (
-    <div className="grid grid-cols-2 gap-8">
-      <ul className="grid grid-cols-2 gap-8">
+    <div className="grid grid-cols-2 gap-4">
+      <ul className="grid grid-cols-2 gap-4">
         {links.map((link, index) => (
           <NavLink
             key={`default-nav-link-${index}`}
@@ -529,7 +529,7 @@ const FeaturedCardsGridDropdown = ({
 }: FeaturedCardsGridDropdownProps) => {
   return (
     <div>
-      <div className="flex gap-8 pb-8">
+      <div className="flex gap-4 pb-8">
         {featuredLinks?.map((link, index) => (
           <FeaturedLink
             key={`desktop-featured-link-${index}`}
@@ -560,7 +560,7 @@ const GroupedLinksImageDropdown = ({
   optixFlowConfig,
 }: GroupedLinksImageDropdownProps) => {
   return (
-    <div className="grid grid-cols-2 gap-8">
+    <div className="grid grid-cols-2 gap-4">
       <GroupLinks groupLinks={groupLinks} />
       <FeaturedImageLink link={imageLink} optixFlowConfig={optixFlowConfig} />
     </div>
@@ -592,13 +592,11 @@ const GroupLinks = ({ groupLinks }: GroupLinksProps) => {
 
   let linkIndex = 0;
   return (
-    <div className="grid grid-cols-2 gap-8">
+    <div className="flex items-center justify-between gap-4">
       {groupLinks.map((group, index1) => (
         <div key={`group-link-${index1}`}>
-          <div className="mb-4 text-xs text-muted-foreground">
-            {group.label}
-          </div>
-          <ul className="flex flex-col gap-8">
+          <div className="mb-4 text-xs">{group.label}</div>
+          <ul className="flex flex-col gap-4">
             {group.links.map((link, index2) => {
               const idx = linkIndex++;
               return (
@@ -641,7 +639,7 @@ const FeaturedImageLink = ({
         >
           <div className="size-full">
             <Badge className="absolute top-2 left-2">New</Badge>
-            <div className="flex w-full flex-col items-center justify-center gap-8 pt-10">
+            <div className="flex w-full flex-col items-center justify-center gap-4 pt-10">
               <div className="text-2xl font-semibold">{link.label}</div>
               <div className="w-[80%]">
                 <AspectRatio
@@ -651,7 +649,7 @@ const FeaturedImageLink = ({
                   <Img
                     src={link.image}
                     alt={typeof link.label === "string" ? link.label : ""}
-                    className="size-full object-cover object-left-top"
+                    className="size-full object-cover object-center"
                     optixFlowConfig={optixFlowConfig}
                   />
                 </AspectRatio>
@@ -673,7 +671,7 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
   return (
     <Pressable
       href={getLinkUrl(link)}
-      className="group relative flex w-full overflow-hidden rounded-xl bg-muted px-8 py-7"
+      className="group relative flex w-full overflow-hidden rounded-xl bg-muted px-8 py-12"
     >
       <div className="relative z-10 flex w-full items-center gap-6">
         <div className="flex size-12 shrink-0 rounded-lg border bg-background shadow-lg">
@@ -683,23 +681,19 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
             <DynamicIcon
               name={link.iconName}
               size={20}
-              className="m-auto stroke-foreground"
+              className="m-auto stroke-white"
             />
           ) : null}
         </div>
-        <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold text-background">
-            {link.label}
-          </div>
-          <div className="font-medium text-background/80">
-            {link.description}
-          </div>
+        <div className="flex flex-col gap-2 text-white text-shadow-lg">
+          <div className="text-lg font-semibold">{link.label}</div>
+          <div className="font-medium">{link.description}</div>
         </div>
       </div>
       <Img
         src={link.background}
         alt={typeof link.label === "string" ? link.label : ""}
-        className="absolute top-0 left-0 size-full object-cover object-left-top opacity-90 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
+        className="absolute top-0 left-0 size-full brightness-50 object-cover object-center opacity-90 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
         optixFlowConfig={optixFlowConfig}
       />
     </Pressable>

@@ -673,6 +673,7 @@ export const NavbarPlatformResources = ({
         <div className={navWrapperClasses}>
           <div className={innerContainerClasses}>
             <NavigationMenu
+              viewport={false}
               className={cn("min-w-full", navigationMenuClassName)}
             >
               <div className="flex w-full items-center justify-between gap-12 py-4">
@@ -691,7 +692,7 @@ export const NavbarPlatformResources = ({
                         <NavigationMenuItem
                           key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
                         >
-                          <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent">
+                          <NavigationMenuTrigger className="h-auto bg-transparent px-4 py-2 font-normal hover:bg-muted focus:bg-transparent data-[state=open]:bg-transparent">
                             {link.label}
                           </NavigationMenuTrigger>
                           {renderDropdownContent(link)}
@@ -709,7 +710,7 @@ export const NavbarPlatformResources = ({
                       >
                         <NavigationMenuLink
                           href={link.href}
-                          className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
+                          className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
                         >
                           {link.label}
                         </NavigationMenuLink>
@@ -757,7 +758,7 @@ export const NavbarPlatformResources = ({
                             <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
                               {link.label}
                             </AccordionTrigger>
-                            <AccordionContent className="overflow-x-none">
+                            <AccordionContent className="overflow-x-none space-y-4">
                               {link.links?.map((item, itemIndex) => (
                                 <Pressable
                                   key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
