@@ -12,13 +12,8 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { CarouselApi } from "../../ui/carousel";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "../../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
+import { CarouselPagination } from "../../ui/carousel-pagination";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -181,22 +176,40 @@ export function CarouselScaleFocus({
   const [count, setCount] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [canScrollPrevious, setCanScrollPrevious] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
 
   useEffect(() => {
     if (!api) {
       return;
     }
 
-    startTransition(() => {
-      setCount(api.scrollSnapList().length);
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-
-    api.on("select", () => {
+    const updateState = () => {
       startTransition(() => {
+        setCount(api.scrollSnapList().length);
         setCurrent(api.selectedScrollSnap() + 1);
+        setCanScrollPrevious(api.canScrollPrev());
+        setCanScrollNext(api.canScrollNext());
       });
-    });
+    };
+
+    updateState();
+
+    api.on("select", updateState);
+    api.on("reInit", updateState);
+
+    return () => {
+      api.off("select", updateState);
+      api.off("reInit", updateState);
+    };
+  }, [api]);
+
+  const scrollPrevious = useCallback(() => {
+    api?.scrollPrev();
+  }, [api]);
+
+  const scrollNext = useCallback(() => {
+    api?.scrollNext();
   }, [api]);
 
   const lightboxItems: LightboxItem[] = useMemo(() => {
@@ -310,44 +323,34 @@ export function CarouselScaleFocus({
           </div>
         ) : null}
 
-        <Carousel
-          className={cn(
-            "mx-auto w-full max-w-200 [&>div:nth-child(1)]:md:overflow-visible",
-            carouselClassName,
-          )}
-          setApi={setApi}
-          opts={{
-            startIndex,
-          }}
-        >
-          <CarouselContent className={carouselContentClassName}>
-            {imagesContent}
-          </CarouselContent>
-          <div className={cn("mt-4 hidden md:block", controlsClassName)}>
-            <CarouselPrevious
-              className="size-10 max-[767px]:static max-[767px]:translate-y-0 md:-left-25 md:size-14 lg:-left-39.75 lg:size-14 [&>svg]:size-6!"
-              variant="default"
-            />
-            <CarouselNext
-              className="size-10 max-[767px]:static max-[767px]:translate-y-0 md:-right-25 md:size-14 lg:-right-39.75 lg:size-14 [&>svg]:size-6!"
-              variant="default"
-            />
-          </div>
-        </Carousel>
-        {/* Mobile arrow navigation - shown only on mobile */}
-        <div
-          className={cn(
-            "mt-10 flex items-center justify-center gap-4 md:hidden",
-            controlsClassName,
-          )}
-        >
-          <CarouselPrevious
-            className="static translate-x-0 translate-y-0 size-10"
-            variant="default"
-          />
-          <CarouselNext
-            className="static translate-x-0 translate-y-0 size-10"
-            variant="default"
+        <div className="relative">
+          <Carousel
+            className={cn(
+              "mx-auto w-full max-w-200 [&>div:nth-child(1)]:md:overflow-visible",
+              carouselClassName,
+            )}
+            setApi={setApi}
+            opts={{
+              startIndex,
+            }}
+          >
+            <CarouselContent className={carouselContentClassName}>
+              {imagesContent}
+            </CarouselContent>
+          </Carousel>
+
+          {/* Arrow navigation - responsive layout */}
+          <CarouselPagination
+            onPrevious={scrollPrevious}
+            onNext={scrollNext}
+            canScrollPrevious={canScrollPrevious}
+            canScrollNext={canScrollNext}
+            iconSize={24}
+            className={cn(
+              "mt-6 justify-center md:mt-0 md:absolute md:inset-x-0 md:top-1/2 md:-translate-y-1/2 md:pointer-events-none",
+              controlsClassName,
+            )}
+            buttonClassName="size-10 md:size-14 bg-primary text-primary-foreground hover:bg-primary/90 pointer-events-auto md:absolute md:-left-25 lg:-left-39.75 [&:last-child]:md:left-auto [&:last-child]:md:-right-25 [&:last-child]:lg:-right-39.75"
           />
         </div>
 

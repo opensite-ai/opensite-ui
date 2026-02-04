@@ -12,8 +12,15 @@ vi.mock("../../../ui/carousel", () => ({
   Carousel: ({ children }: { children: React.ReactNode }) => <div data-testid="carousel">{children}</div>,
   CarouselContent: ({ children }: { children: React.ReactNode }) => <div data-testid="carousel-content">{children}</div>,
   CarouselItem: ({ children }: { children: React.ReactNode }) => <div data-testid="carousel-item">{children}</div>,
-  CarouselNext: () => <button data-testid="carousel-next">Next</button>,
-  CarouselPrevious: () => <button data-testid="carousel-prev">Prev</button>,
+}));
+
+vi.mock("../../../ui/carousel-pagination", () => ({
+  CarouselPagination: ({ onPrevious, onNext }: { onPrevious: () => void; onNext: () => void }) => (
+    <div data-testid="carousel-pagination">
+      <button data-testid="carousel-prev" onClick={onPrevious}>Prev</button>
+      <button data-testid="carousel-next" onClick={onNext}>Next</button>
+    </div>
+  ),
 }));
 
 vi.mock("../../../lib/mediaPlaceholders", () => ({
@@ -42,9 +49,10 @@ describe("CarouselScaleFocus", () => {
 
   it("renders carousel navigation", () => {
     render(<CarouselScaleFocus />);
-    // There are two sets of navigation buttons (mobile and desktop)
-    expect(screen.getAllByTestId("carousel-next").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByTestId("carousel-prev").length).toBeGreaterThanOrEqual(1);
+    // CarouselPagination provides unified navigation for mobile and desktop
+    expect(screen.getByTestId("carousel-pagination")).toBeInTheDocument();
+    expect(screen.getByTestId("carousel-next")).toBeInTheDocument();
+    expect(screen.getByTestId("carousel-prev")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

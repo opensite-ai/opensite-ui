@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -3307,6 +3307,7 @@
     "dev": "tsup --watch",
     "test": "vitest",
     "test:ci": "./scripts/test-ci-silent.sh",
+    "test:f": "./scripts/test-failures-only.sh",
     "type-check": "tsc --noEmit",
     "size": "bash -c 'size-limit --silent 2>/dev/null'",
     "generate:exports": "bash scripts/generate-all-exports.sh && node scripts/merge-exports.js && node scripts/create-organized-exports.js",
