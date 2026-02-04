@@ -199,7 +199,7 @@ export function FeatureAccordionImage({
         {item.title && (
           <AccordionTrigger
             className={cn(
-              "text-left text-lg font-medium",
+              "text-left text-md md:text-lg font-medium",
               item.triggerClassName,
             )}
           >
@@ -248,11 +248,11 @@ export function FeatureAccordionImage({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="flex flex-col space-y-6 md:space-y-16">
+      <div className="flex flex-col items-center space-y-6 md:space-y-16">
         {(title || description) && (
           <div
             className={cn(
-              "text-center max-w-full md:max-w-md text-balance",
+              "text-left md:text-center max-w-full md:max-w-md text-balance",
               headerClassName,
             )}
           >
@@ -260,7 +260,7 @@ export function FeatureAccordionImage({
               (typeof title === "string" ? (
                 <h2
                   className={cn(
-                    "text-xl font-semibold md:text-2xl lg:text-3xl",
+                    "text-2xl font-semibold md:text-3xl lg:text-4xl",
                     titleClassName,
                   )}
                 >

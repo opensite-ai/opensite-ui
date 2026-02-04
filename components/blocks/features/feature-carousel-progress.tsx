@@ -331,12 +331,20 @@ export function FeatureCarouselProgress({
               ))}
             {description &&
               (typeof description === "string" ? (
-                <p className={cn("max-w-lg md:max-w-md", descriptionClassName)}>
+                <p
+                  className={cn(
+                    "max-w-lg md:max-w-md text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div
-                  className={cn("max-w-lg md:max-w-md", descriptionClassName)}
+                  className={cn(
+                    "max-w-lg md:max-w-md text-balance",
+                    descriptionClassName,
+                  )}
                 >
                   {description}
                 </div>

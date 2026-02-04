@@ -92,6 +92,10 @@ export interface FeatureAnimatedCarouselProps {
    */
   contentClassName?: string;
   /**
+   * CSS classes for the block's card container
+   */
+  blockCardClassName?: string;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -201,7 +205,7 @@ const FeatureCard = React.memo(
               <Pressable
                 href={feature.href}
                 size="icon-lg"
-                className="text-foreground"
+                className="bg-primary text-primary-foreground"
               >
                 <DynamicIcon name="lucide/arrow-up-right" />
               </Pressable>
@@ -391,7 +395,7 @@ const FeaturesMobile = React.memo(
           {/* Vertical navigation buttons on right */}
           <div className="flex flex-col justify-center gap-2">
             <button
-              className="rounded-full border bg-background/50 p-2 hover:bg-background disabled:opacity-50"
+              className="rounded-full border p-2 flex items-center justify-center disabled:opacity-50 h-fit w-fit bg-card text-card-foreground"
               onClick={handlePrevious}
               disabled={isPreviousDisabled}
               type="button"
@@ -399,7 +403,7 @@ const FeaturesMobile = React.memo(
               <DynamicIcon name="lucide/chevron-up" size={20} />
             </button>
             <button
-              className="rounded-full border bg-background/50 p-2 hover:bg-background disabled:opacity-50"
+              className="rounded-full border p-2 flex items-center justify-center disabled:opacity-50 h-fit w-fit bg-card text-card-foreground"
               onClick={handleNext}
               disabled={isNextDisabled}
               type="button"
@@ -447,6 +451,7 @@ export function FeatureAnimatedCarousel({
   patternOpacity,
   patternClassName,
   headerClassName,
+  blockCardClassName,
   spacing = "py-12 md:py-32",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: FeatureAnimatedCarouselProps) {
@@ -509,9 +514,7 @@ export function FeatureAnimatedCarousel({
       >
         <div
           className={cn(
-            "relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]",
-            getNestedCardBg(background),
-            getNestedCardTextColor(background),
+            "relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl bg-muted p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]",
           )}
         />
       </Section>
@@ -528,10 +531,16 @@ export function FeatureAnimatedCarousel({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
       <div className="flex flex-col space-y-6 md:space-y-16">
         {title || description ? (
-          <div className={cn("flex flex-col gap-6 text-left", headerClassName)}>
+          <div
+            className={cn(
+              "flex flex-col gap-4 md:gap-6 text-left",
+              headerClassName,
+            )}
+          >
             {title &&
               (typeof title === "string" ? (
                 <h2
@@ -569,7 +578,8 @@ export function FeatureAnimatedCarousel({
 
         <div
           className={cn(
-            "relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]",
+            "relative flex min-h-full md:min-h-[500px] flex-col-reverse gap-6 md:gap-8 bg-muted overflow-hidden rounded-3xl p-4 md:p-6 md:flex-row md:items-center lg:p-12 lg:min-h-[600px]",
+            blockCardClassName,
           )}
         >
           <FeaturesDesktop
@@ -598,7 +608,7 @@ export function FeatureAnimatedCarousel({
                   <Pressable
                     href={currentFeature.href}
                     size="icon-lg"
-                    className="text-foreground"
+                    className="bg-primary text-primary-foreground"
                   >
                     <DynamicIcon name="lucide/arrow-up-right" />
                   </Pressable>
