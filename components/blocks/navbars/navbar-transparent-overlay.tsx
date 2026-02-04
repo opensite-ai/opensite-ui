@@ -353,15 +353,10 @@ export const NavbarTransparentOverlay = ({
                     className={cn(
                       "size-11",
                       !isScrolled && "hover:bg-white/10",
+                      isScrolled ? "text-foreground" : "text-white",
                     )}
                   >
-                    <DynamicIcon
-                      name="lucide/menu"
-                      size={16}
-                      className={cn(
-                        isScrolled ? "stroke-foreground" : "stroke-white",
-                      )}
-                    />
+                    <DynamicIcon name="lucide/menu" size={16} />
                   </Pressable>
                 </div>
               </div>

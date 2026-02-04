@@ -26,7 +26,7 @@ export function getNavbarLayoutClasses(
     // Section wrapper classes - always full width for non-floating variants
     sectionClasses: cn(
       "inset-x-0 z-20",
-      isFloatingBar ? "sticky top-4" : "top-0",
+      isFloatingBar ? "sticky top-4" : "fixed top-0",
       customClasses?.className,
     ),
 
