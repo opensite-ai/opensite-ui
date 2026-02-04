@@ -9,6 +9,12 @@ import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import { NavbarLogo } from "../../ui/navbar-logo";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../ui/accordion";
+import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
@@ -198,16 +204,18 @@ export const NavbarTabbedSections = ({
     return menu.map((item, index) =>
       item.tabs ? (
         <NavigationMenuItem key={index}>
-          <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
+          <NavigationMenuTrigger className="bg-transparent hover:bg-muted">
+            {item.title}
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
             <Tabs defaultValue={item.tabs[0]?.id} className="w-[600px]">
-              <div className="border-b px-4 pt-2">
+              <div className="border-b-2 px-4 pt-2">
                 <TabsList className="h-auto bg-transparent p-0">
                   {item.tabs.map((tab) => (
                     <TabsTrigger
                       key={tab.id}
                       value={tab.id}
-                      className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-b-primary hover:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                      className="-mb-2 rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-b-primary data-[state=active]:text-primary hover:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                     >
                       <div className="flex items-center gap-2">
                         {tab.icon && <DynamicIcon name={tab.icon} size={16} />}
@@ -220,15 +228,19 @@ export const NavbarTabbedSections = ({
               {item.tabs.map((tab) => (
                 <TabsContent key={tab.id} value={tab.id} className="mt-0 p-4">
                   <div className="flex gap-6">
-                    <div className="flex-1 space-y-1">
+                    <div className="flex-1 grid grid-cols-2 space-y-2 space-x-4">
                       {tab.links.map((link, linkIndex) => (
-                        <NavigationMenuLink key={linkIndex} asChild>
+                        <NavigationMenuLink
+                          key={linkIndex}
+                          asChild
+                          className="w-full"
+                        >
                           <Pressable
                             href={link.url}
-                            className="flex items-start gap-3 rounded-md p-3 hover:bg-muted"
+                            className="w-full flex items-start gap-3 rounded-md p-3 hover:bg-muted"
                           >
                             {link.icon && (
-                              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-muted bg-background">
+                              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border bg-background">
                                 <DynamicIcon name={link.icon} size={16} />
                               </div>
                             )}
@@ -296,42 +308,75 @@ export const NavbarTabbedSections = ({
     if (menuSlot) return menuSlot;
     if (!menu || menu.length === 0) return null;
 
-    return menu.map((item, index) =>
-      item.tabs ? (
-        <div key={index} className="space-y-3">
-          <div className="text-sm font-semibold">{item.title}</div>
-          {item.tabs.map((tab) => (
-            <div key={tab.id} className="space-y-1 pl-2">
-              <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-                {tab.icon && <DynamicIcon name={tab.icon} size={14} />}
-                {tab.title}
-              </div>
-              <div className="flex flex-col gap-1 pl-4">
-                {tab.links.map((link, linkIndex) => (
-                  <Pressable
-                    key={linkIndex}
-                    href={link.url}
-                    className="flex items-center gap-2 rounded-md py-1.5 text-sm"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {link.icon && <DynamicIcon name={link.icon} size={14} />}
-                    {link.title}
-                  </Pressable>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <Pressable
-          key={index}
-          href={item.url}
-          className="text-sm font-medium"
-          onClick={() => setIsOpen(false)}
-        >
-          {item.title}
-        </Pressable>
-      ),
+    return (
+      <Accordion type="multiple" className="w-full">
+        {menu.map((item, index) => {
+          // If item has tabs, render as accordion
+          if (item.tabs && item.tabs.length > 0) {
+            return (
+              <AccordionItem
+                key={`nav-item-${index}`}
+                value={`nav-${index}`}
+                className="border-b-0"
+              >
+                <AccordionTrigger className="h-15 items-center p-0 px-4! text-base leading-[3.75] font-normal text-muted-foreground hover:bg-muted hover:no-underline">
+                  {item.title}
+                </AccordionTrigger>
+                <AccordionContent className="overflow-x-none pb-4">
+                  {/* Nested accordion for each tab */}
+                  <Accordion type="multiple" className="w-full pl-4">
+                    {item.tabs.map((tab) => (
+                      <AccordionItem
+                        key={tab.id}
+                        value={tab.id}
+                        className="border-b-0"
+                      >
+                        <AccordionTrigger className="h-12 items-center p-0 px-4! text-sm leading-[3] font-medium text-muted-foreground hover:bg-muted hover:no-underline">
+                          <div className="flex items-center gap-2">
+                            {tab.icon && (
+                              <DynamicIcon name={tab.icon} size={14} />
+                            )}
+                            {tab.title}
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="overflow-x-none">
+                          <div className="flex flex-col gap-1 pl-4">
+                            {tab.links.map((link, linkIndex) => (
+                              <Pressable
+                                key={linkIndex}
+                                href={link.url}
+                                className="flex items-center gap-2 rounded-md px-4 py-2 text-sm hover:bg-muted"
+                                onClick={() => setIsOpen(false)}
+                              >
+                                {link.icon && (
+                                  <DynamicIcon name={link.icon} size={14} />
+                                )}
+                                {link.title}
+                              </Pressable>
+                            ))}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </AccordionContent>
+              </AccordionItem>
+            );
+          }
+
+          // Simple link item
+          return (
+            <Pressable
+              key={`nav-link-${index}`}
+              href={item.url}
+              className="flex h-15 items-center px-4 text-base font-normal text-muted-foreground hover:bg-muted"
+              onClick={() => setIsOpen(false)}
+            >
+              {item.title}
+            </Pressable>
+          );
+        })}
+      </Accordion>
     );
   }, [menuSlot, menu]);
 

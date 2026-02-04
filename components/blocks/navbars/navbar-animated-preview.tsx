@@ -592,11 +592,11 @@ const GroupLinks = ({ groupLinks }: GroupLinksProps) => {
 
   let linkIndex = 0;
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 w-full">
       {groupLinks.map((group, index1) => (
         <div key={`group-link-${index1}`}>
           <div className="mb-4 text-xs">{group.label}</div>
-          <ul className="flex flex-col gap-4">
+          <ul className="flex flex-col gap-4 w-full">
             {group.links.map((link, index2) => {
               const idx = linkIndex++;
               return (

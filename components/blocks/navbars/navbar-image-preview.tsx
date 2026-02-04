@@ -305,13 +305,7 @@ export const NavbarImagePreview = ({
       containerClassName={sectionContainerClassName}
       containerMaxWidth={sectionContainerMaxWidth}
     >
-      <div
-        className={cn(
-          "fixed top-0 z-500 w-full bg-transparent transition-colors duration-500",
-          containerWrapperClasses,
-        )}
-        ref={navRef}
-      >
+      <div className={cn("z-500 w-full", containerWrapperClasses)} ref={navRef}>
         <div className={navWrapperClasses}>
           <div className={innerContainerClasses}>
             <div
@@ -561,7 +555,11 @@ const MobileNavigationMenu = ({
   // If custom slot is provided, use it
   if (mobileNavigationSlot) {
     return (
-      <NavbarMobileMenu open={open} onClose={handleClose} title="Mobile Navigation">
+      <NavbarMobileMenu
+        open={open}
+        onClose={handleClose}
+        title="Mobile Navigation"
+      >
         <div className="max-w-screen-sm mx-auto">
           <div className="flex flex-col gap-6">
             {mobileNavigationSlot}
@@ -574,7 +572,11 @@ const MobileNavigationMenu = ({
   }
 
   return (
-    <NavbarMobileMenu open={open} onClose={handleClose} title="Mobile Navigation">
+    <NavbarMobileMenu
+      open={open}
+      onClose={handleClose}
+      title="Mobile Navigation"
+    >
       <div className="max-w-screen-sm mx-auto">
         <div className="flex flex-col gap-6">
           <Accordion type="multiple" className="w-full">

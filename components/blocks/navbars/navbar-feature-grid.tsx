@@ -283,14 +283,14 @@ export const NavbarFeatureGrid = ({
                         <AccordionTrigger className="h-15 items-center text-base font-normal hover:no-underline">
                           Features
                         </AccordionTrigger>
-                        <AccordionContent className="overflow-x-none">
+                        <AccordionContent className="overflow-x-none space-y-4">
                           {features.map((feature, index) => (
                             <Pressable
                               href={feature.href}
                               key={index}
                               className="flex items-start gap-2 pl-4 text-sm"
                             >
-                              <div className="space-y-2">
+                              <div className="space-y-0">
                                 <p className="font-semibold">{feature.title}</p>
                                 <p className="text-sm">{feature.description}</p>
                               </div>

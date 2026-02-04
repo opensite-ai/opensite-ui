@@ -206,7 +206,7 @@ export const NavbarStickyCompact = ({
         <NavigationMenuItem key={index}>
           <NavigationMenuTrigger
             className={cn(
-              "transition-all duration-300",
+              "transition-all duration-300 bg-transparent hover:bg-muted",
               isScrolled ? "h-8 text-sm" : "h-10",
             )}
           >
@@ -219,7 +219,7 @@ export const NavbarStickyCompact = ({
                   <NavigationMenuLink asChild>
                     <Pressable
                       href={subItem.url}
-                      className="flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-accent"
+                      className="flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-muted"
                     >
                       {subItem.icon && (
                         <DynamicIcon name={subItem.icon} size={16} />
@@ -238,7 +238,7 @@ export const NavbarStickyCompact = ({
             asChild
             className={cn(
               navigationMenuTriggerStyle(),
-              "transition-all duration-300",
+              "transition-all duration-300 bg-transparent hover:bg-muted",
               isScrolled ? "h-8 text-sm" : "h-10",
             )}
           >

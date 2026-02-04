@@ -358,7 +358,7 @@ export const NavbarSplitCta = ({
                             ),
                           )}
                     </div>
-                    <div className="flex flex-col gap-2 mt-6">
+                    <div className="flex flex-col gap-4 mt-0">
                       {renderAuthActions}
                     </div>
                   </div>

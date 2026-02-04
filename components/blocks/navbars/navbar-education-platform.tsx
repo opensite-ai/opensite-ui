@@ -411,7 +411,7 @@ const DesktopMenuItem = ({
                       >
                         <Pressable
                           href={link.href}
-                          className="group flex cursor-pointer flex-row gap-3"
+                          className="group flex cursor-pointer justify-start! flex-row gap-3"
                         >
                           {link.icon && (
                             <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-border bg-background">

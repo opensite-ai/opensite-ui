@@ -643,7 +643,6 @@ export const NavbarMegaMenu = ({
                 open={open}
                 onClose={() => setOpen(false)}
                 title="Mobile Navigation"
-                contentClassName="pt-10 pb-20"
               >
                 <div className="max-w-screen-sm mx-auto">
                   <Accordion type="multiple" className="w-full">
