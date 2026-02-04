@@ -248,7 +248,7 @@ export function AutoScrollCarousel({
     >
       <div
         className={cn(
-          "mb-12 grid grid-cols-1 gap-x-12 gap-y-6 md:mb-16 md:grid-cols-2 md:gap-x-24",
+          "mb-12 grid grid-cols-1 gap-x-12 gap-y-6 md:mb-16 md:grid-cols-2 md:gap-x-24 px-6 md:px-0",
           headerClassName,
         )}
       >
@@ -257,7 +257,7 @@ export function AutoScrollCarousel({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "text-3xl font-bold md:text-4xl",
+                  "text-3xl font-bold md:text-4xl text-balance",
                   headingClassName,
                 )}
               >

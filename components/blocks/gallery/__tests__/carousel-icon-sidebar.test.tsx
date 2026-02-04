@@ -46,8 +46,9 @@ describe("CarouselIconSidebar", () => {
       },
     ];
     render(<CarouselIconSidebar items={items} />);
-    expect(screen.getByText("Elegant Design")).toBeInTheDocument();
-    expect(screen.getByText("Beautiful interfaces that users love")).toBeInTheDocument();
+    // Component renders sidebar twice (desktop + mobile), so use getAllByText
+    expect(screen.getAllByText("Elegant Design").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Beautiful interfaces that users love").length).toBeGreaterThan(0);
   });
 
   it("renders carousel navigation", () => {
@@ -60,8 +61,9 @@ describe("CarouselIconSidebar", () => {
       },
     ];
     render(<CarouselIconSidebar items={items} />);
-    expect(screen.getByTestId("carousel-next")).toBeInTheDocument();
-    expect(screen.getByTestId("carousel-prev")).toBeInTheDocument();
+    // Component renders navigation twice (desktop + mobile), so use getAllByTestId
+    expect(screen.getAllByTestId("carousel-next").length).toBeGreaterThan(0);
+    expect(screen.getAllByTestId("carousel-prev").length).toBeGreaterThan(0);
   });
 
   it("applies custom className", () => {

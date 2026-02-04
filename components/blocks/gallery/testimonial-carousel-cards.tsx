@@ -358,7 +358,7 @@ export function TestimonialCarouselCards({
       className={className}
       containerClassName="px-4 md:px-2 lg:px-2"
     >
-      <div className="flex flex-col items-start justify-between gap-4 lg:flex-row ">
+      <div className="flex flex-col items-start justify-between gap-6 md:gap-4 lg:flex-row">
         {sidebarContent}
 
         <div className="relative w-full overflow-hidden pb-12 lg:flex-1">
