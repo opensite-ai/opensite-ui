@@ -258,7 +258,7 @@ export function CarouselIconSidebar({
     return (
       <div
         className={cn(
-          "flex h-full flex-col gap-8 rounded-lg px-8 py-16",
+          "flex h-full flex-col gap-8 rounded-lg p-8",
           getNestedCardBg(background),
           getNestedCardTextColor(background),
           sidebarClassName,
@@ -371,7 +371,7 @@ export function CarouselIconSidebar({
       className={className}
     >
       {title || description ? (
-        <div className="flex flex-col gap-4 mb-16">
+        <div className="flex flex-col gap-4 mb-6 md:mb-16">
           {title &&
             (typeof title === "string" ? (
               <h2
@@ -387,12 +387,20 @@ export function CarouselIconSidebar({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("max-w-lg text-balance", sectionDescriptionClassName)}>
+              <p
+                className={cn(
+                  "max-w-lg text-balance",
+                  sectionDescriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div
-                className={cn("max-w-lg text-balance", sectionDescriptionClassName)}
+                className={cn(
+                  "max-w-lg text-balance",
+                  sectionDescriptionClassName,
+                )}
               >
                 {description}
               </div>
@@ -402,12 +410,18 @@ export function CarouselIconSidebar({
 
       <Carousel setApi={setApi} className={cn("w-full", carouselClassName)}>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
-          <div className="md:col-span-2">{sidebarContent}</div>
+          <div className="hidden md:visible md:col-span-2">
+            {sidebarContent}
+          </div>
 
           <div className="h-full md:col-span-3">
             <CarouselContent className={carouselContentClassName}>
               {itemsContent}
             </CarouselContent>
+          </div>
+
+          <div className="visible md:hidden md:col-span-2">
+            {sidebarContent}
           </div>
         </div>
       </Carousel>

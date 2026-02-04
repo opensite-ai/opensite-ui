@@ -203,7 +203,7 @@ export function ExpandableCaseStudyCards({
         key={item.id}
         data-state={selection === item.id ? "open" : "closed"}
         className={cn(
-          'group max-lg:w-full max-lg:flex-1 max-md:h-[200px] md:max-lg:aspect-1336/420 lg:transform-gpu lg:transition-all lg:data-[state="closed"]:w-[20%] lg:data-[state="closed"]:duration-500 lg:data-[state="open"]:w-[60%] lg:data-[state="open"]:duration-400',
+          "group h-[280px] w-full lg:h-auto lg:w-auto lg:transform-gpu lg:transition-all lg:data-[state=closed]:w-[20%] lg:data-[state=closed]:duration-500 lg:data-[state=open]:w-[60%] lg:data-[state=open]:duration-400",
           item.className,
           cardClassName,
         )}
@@ -216,7 +216,7 @@ export function ExpandableCaseStudyCards({
           className="relative block h-full w-full overflow-hidden rounded-xl"
         >
           {/* Full-bleed background image */}
-          <div className='absolute inset-0 lg:group-data-[state="closed"]:blur-sm lg:transition-[filter] lg:duration-500'>
+          <div className='absolute inset-0 lg:group-data-[state=closed]:blur-xs lg:transition-[filter] lg:duration-500'>
             <Img
               src={item.image}
               alt={
@@ -234,8 +234,8 @@ export function ExpandableCaseStudyCards({
           </div>
           {/* Black gradient from bottom for text readability */}
           <div className="absolute inset-x-0 bottom-0 h-[70%] bg-linear-to-t from-black/90 from-30% to-transparent"></div>
-          {/* Content area - positioned at bottom */}
-          <div className='absolute inset-0 flex flex-col justify-end p-4 pb-5 transition-opacity delay-200 duration-500 lg:group-data-[state="closed"]:opacity-0'>
+          {/* Content area - positioned at bottom, always visible on mobile */}
+          <div className='absolute inset-0 flex flex-col justify-end p-4 pb-5 lg:transition-opacity lg:delay-200 lg:duration-500 lg:group-data-[state=closed]:opacity-0'>
             {/* Badges - above content */}
             {item.badges && item.badges.length > 0 && (
               <div
@@ -245,7 +245,11 @@ export function ExpandableCaseStudyCards({
                 )}
               >
                 {item.badges.map((badge, idx) => (
-                  <Badge key={idx} variant="secondary" className={badgeClassName}>
+                  <Badge
+                    key={idx}
+                    variant="secondary"
+                    className={badgeClassName}
+                  >
                     {badge}
                   </Badge>
                 ))}
@@ -259,7 +263,10 @@ export function ExpandableCaseStudyCards({
                     <Img
                       src={item.logo}
                       alt={item.logoAlt || item.company || "Logo"}
-                      className={cn("h-6 max-w-[120px] object-contain object-left invert lg:h-8 lg:max-w-[150px]", logoClassName)}
+                      className={cn(
+                        "h-6 max-w-[120px] object-contain object-left invert lg:h-8 lg:max-w-[150px]",
+                        logoClassName,
+                      )}
                       loading="lazy"
                       optixFlowConfig={optixFlowConfig}
                     />
@@ -274,9 +281,7 @@ export function ExpandableCaseStudyCards({
                   </div>
                 )}
               </div>
-              <div
-                className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 lg:size-10"
-              >
+              <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 lg:size-10">
                 <DynamicIcon name="lucide/arrow-up-right" size={20} />
               </div>
             </div>

@@ -268,8 +268,8 @@ export function CarouselTabsContent({
     if (tabsSlot) return tabsSlot;
 
     return (
-      <div className={cn("relative  flex", tabsClassName)}>
-        <div className="relative flex h-auto gap-2 md:gap-4">
+      <div className={cn("relative flex min-w-0 flex-1 overflow-x-auto scrollbar-hide", tabsClassName)}>
+        <div className="relative flex h-auto flex-nowrap gap-2 md:gap-4">
           {items?.map((item, idx) => (
             <button
               key={idx}
@@ -278,7 +278,7 @@ export function CarouselTabsContent({
               }}
               onClick={() => setCurrent(item.category)}
               className={cn(
-                "text-base transition-all duration-700 ease-out px-3 py-1.5 rounded-sm",
+                "text-base transition-all duration-700 ease-out px-3 py-1.5 rounded-sm whitespace-nowrap flex-shrink-0",
                 current === item.category
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground",
@@ -389,7 +389,7 @@ export function CarouselTabsContent({
       className={cn("overflow-hidden", className)}
     >
       {title || description ? (
-        <div className="flex flex-col gap-4 mb-16">
+        <div className="flex flex-col gap-4 mb-6 md:mb-16">
           {title &&
             (typeof title === "string" ? (
               <h2

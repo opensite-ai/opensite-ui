@@ -382,7 +382,7 @@ export function CarouselIconTabs({
       {headerContent}
       <Carousel
         setApi={setApi}
-        className={cn("flex flex-col gap-10", carouselClassName)}
+        className={cn("flex flex-col gap-4 md:gap-10", carouselClassName)}
       >
         <CarouselContent className={carouselContentClassName}>
           {sectionsContent}

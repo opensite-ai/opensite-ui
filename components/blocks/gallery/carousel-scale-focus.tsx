@@ -278,7 +278,7 @@ export function CarouselScaleFocus({
     >
       <div className="md:px-45">
         {title || description ? (
-          <div className="flex flex-col gap-4 mb-16">
+          <div className="flex flex-col gap-4 mb-6 md:mb-16 text-center">
             {title &&
               (typeof title === "string" ? (
                 <h2

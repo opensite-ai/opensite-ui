@@ -378,9 +378,10 @@ export function MasonryMotionGrid({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName="px-4"
     >
       {title || description ? (
-        <div className="flex flex-col gap-4 mb-16">
+        <div className="flex flex-col gap-4 mb-6 md:mb-16">
           {title &&
             (typeof title === "string" ? (
               <h2

@@ -303,13 +303,13 @@ export function TestimonialCarouselCards({
       <CarouselItem
         key={testimonial.id}
         className={cn(
-          "min-w-[800px] flex-1",
+          "min-w-full flex-1 lg:min-w-[800px]",
           itemClassName,
           testimonial.className,
         )}
       >
-        <div className="flex gap-2">
-          <div className="h-[460px] w-[400px]">
+        <div className="flex flex-col gap-2 lg:flex-row">
+          <div className="h-[200px] w-full lg:h-[460px] lg:w-[400px]">
             <Img
               src={testimonial.image}
               alt={
@@ -318,7 +318,7 @@ export function TestimonialCarouselCards({
                   : testimonial.imageAlt || "Testimonial image"
               }
               className={cn(
-                "aspect-square h-full w-full rounded-2xl object-cover",
+                "h-full w-full rounded-2xl object-cover",
                 imageClassName,
               )}
               loading="lazy"
@@ -328,7 +328,8 @@ export function TestimonialCarouselCards({
 
           <div
             className={cn(
-              "relative bg-background text-foreground flex h-[460px] w-[400px] flex-col items-start justify-end rounded-2xl p-8",
+              "relative flex w-full flex-col items-start justify-end rounded-2xl bg-background p-6 text-foreground lg:h-[460px] lg:w-[400px] lg:p-8",
+              quotePanelClassName,
             )}
           >
             <p className="text-lg font-semibold">{testimonial.quote}</p>
@@ -355,7 +356,7 @@ export function TestimonialCarouselCards({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
-      containerClassName="px-4"
+      containerClassName="px-4 md:px-2 lg:px-2"
     >
       <div className="flex flex-col items-start justify-between gap-4 lg:flex-row ">
         {sidebarContent}

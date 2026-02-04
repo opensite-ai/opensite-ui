@@ -19,6 +19,7 @@ import type {
   SectionSpacing,
   OptixFlowConfig,
 } from "../../../src/types";
+import { Pressable } from "@/src";
 
 /**
  * Item configuration for carousel gradient text cards.
@@ -44,6 +45,10 @@ export interface CarouselGradientTextItem {
    * Additional CSS classes for the card
    */
   className?: string;
+  /**
+   * href for the card
+   */
+  href?: string;
 }
 
 export interface CarouselGradientTextProps {
@@ -220,7 +225,8 @@ export function CarouselGradientText({
 
     return items.map((item, idx) => (
       <CarouselItem className={cn("w-fit", itemClassName)} key={idx}>
-        <div
+        <Pressable
+          href={item.href}
           className={cn(
             "relative aspect-4/5 max-h-[500px] rounded-2xl",
             item.className,
@@ -248,14 +254,12 @@ export function CarouselGradientText({
             optixFlowConfig={optixFlowConfig}
           />
           <div className="absolute inset-0 p-8">
-            <p className="text-sm font-semibold text-background/50 dark:text-foreground/50">
-              <span className="mr-1 text-background dark:text-foreground">
-                {item.title}.
-              </span>
-              {item.description}
-            </p>
+            <div className="text-sm font-semibold text-white/70">
+              <div className="mr-1 text-white">{item.title}.</div>
+              <div>{item.description}</div>
+            </div>
           </div>
-        </div>
+        </Pressable>
       </CarouselItem>
     ));
   }, [
@@ -300,15 +304,11 @@ export function CarouselGradientText({
             )}
             {tagline ? (
               typeof tagline === "string" ? (
-                <p
-                  className={cn("mt-8 text-xl text-primary", taglineClassName)}
-                >
+                <p className={cn("mt-2 md:mt-8 text-xl", taglineClassName)}>
                   {tagline}
                 </p>
               ) : (
-                <div
-                  className={cn("mt-8 text-xl text-primary", taglineClassName)}
-                >
+                <div className={cn("mt-2 md:mt-8 text-xl", taglineClassName)}>
                   {tagline}
                 </div>
               )

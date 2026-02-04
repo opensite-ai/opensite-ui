@@ -266,7 +266,7 @@ export function InteriorCarousel({
       className={className}
     >
       {heading || description ? (
-        <div className="flex flex-col gap-4 mb-16">
+        <div className="flex flex-col gap-4 mb-6 md:mb-16 px-6 md:px-8">
           {heading &&
             (typeof heading === "string" ? (
               <h2
@@ -295,7 +295,7 @@ export function InteriorCarousel({
         </div>
       ) : null}
 
-      <div className="relative">
+      <div className="px-6 md:px-0">
         <Carousel
           opts={{
             align: "start",
