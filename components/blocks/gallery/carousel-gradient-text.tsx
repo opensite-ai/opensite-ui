@@ -229,7 +229,7 @@ export function CarouselGradientText({
         >
           <div
             className={cn(
-              "absolute inset-0 rounded-2xl bg-linear-to-b from-primary to-transparent to-40% dark:from-background",
+              "absolute inset-0 rounded-2xl bg-linear-to-b from-black to-transparent to-40% dark:from-background",
               gradientClassName,
             )}
           />
@@ -293,7 +293,7 @@ export function CarouselGradientText({
                 )}
               >
                 {heading} <br />{" "}
-                <span className={cn("text-primary/40", subheadingClassName)}>
+                <span className={cn("text-primary", subheadingClassName)}>
                   {subheading}
                 </span>
               </h2>
@@ -345,7 +345,7 @@ export function CarouselGradientText({
             key={index}
             className={cn(
               "flex h-8 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-muted-foreground/15 text-xs font-semibold whitespace-nowrap transition-all duration-300",
-              index + 1 === current ? "w-32" : "m-4 size-4",
+              index + 1 === current ? "w-fit px-4" : "m-4 size-4",
             )}
             onClick={() => api && api.scrollTo(index)}
           >

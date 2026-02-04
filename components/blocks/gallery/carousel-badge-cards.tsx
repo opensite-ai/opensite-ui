@@ -220,7 +220,7 @@ export function CarouselBadgeCards({
         <a
           href={item.href}
           className={cn(
-            "group flex flex-col justify-between rounded-xl p-6 w-full",
+            "group flex flex-col justify-between rounded-xl p-6 w-full h-full",
             getNestedCardBg(background),
             getNestedCardTextColor(background),
             item.className,

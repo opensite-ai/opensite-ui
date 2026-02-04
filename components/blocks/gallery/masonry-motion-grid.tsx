@@ -38,6 +38,22 @@ export interface MasonryMotionGridImage {
 
 export interface MasonryMotionGridProps {
   /**
+   * Main title content
+   */
+  title?: React.ReactNode;
+  /**
+   * Description text below title
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
    * Images for column 1
    */
   column1Images?: MasonryMotionGridImage[];
@@ -141,6 +157,10 @@ export interface MasonryMotionGridProps {
  * ```
  */
 export function MasonryMotionGrid({
+  title,
+  description,
+  titleClassName,
+  descriptionClassName,
   column1Images,
   column2Images,
   column3Images,
@@ -359,6 +379,44 @@ export function MasonryMotionGrid({
       patternClassName={patternClassName}
       className={className}
     >
+      {title || description ? (
+        <div className="flex flex-col gap-4">
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl",
+                  titleClassName,
+                )}
+              >
+                {title}
+              </h2>
+            ) : (
+              <div className={titleClassName}>{title}</div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "max-w-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div
+                className={cn(
+                  "max-w-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </div>
+            ))}
+        </div>
+      ) : null}
+
       {renderGrid()}
 
       {lightboxOpen && (

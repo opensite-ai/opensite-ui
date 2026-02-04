@@ -1,13 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  useEffect,
-  useRef,
-  useState,
-  useMemo,
-  useCallback,
-} from "react";
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
@@ -62,6 +56,22 @@ export interface CarouselTabsContentItem {
 }
 
 export interface CarouselTabsContentProps {
+  /**
+   * Main title content
+   */
+  title?: React.ReactNode;
+  /**
+   * Description text below title
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
   /**
    * Array of content items to display
    */
@@ -165,6 +175,10 @@ export interface CarouselTabsContentProps {
  * ```
  */
 export function CarouselTabsContent({
+  title,
+  description,
+  titleClassName,
+  descriptionClassName,
   items,
   itemsSlot,
   tabsSlot,
@@ -254,8 +268,8 @@ export function CarouselTabsContent({
     if (tabsSlot) return tabsSlot;
 
     return (
-      <div className={cn("relative mb-8 flex justify-center", tabsClassName)}>
-        <div className="relative flex h-auto gap-6 bg-background">
+      <div className={cn("relative  flex", tabsClassName)}>
+        <div className="relative flex h-auto gap-2 md:gap-4">
           {items?.map((item, idx) => (
             <button
               key={idx}
@@ -287,7 +301,15 @@ export function CarouselTabsContent({
         </div>
       </div>
     );
-  }, [tabsSlot, tabsClassName, items, current, tabClassName, indicatorClassName, indicatorStyle]);
+  }, [
+    tabsSlot,
+    tabsClassName,
+    items,
+    current,
+    tabClassName,
+    indicatorClassName,
+    indicatorStyle,
+  ]);
 
   const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
@@ -300,7 +322,7 @@ export function CarouselTabsContent({
       >
         <div
           className={cn(
-            "grid h-full max-w-4xl gap-10 rounded-xl border border-border p-6 shadow-sm select-none sm:p-10 md:max-h-[450px] md:grid-cols-2 lg:gap-20",
+            "grid h-full max-w-4xl gap-10 bg-background rounded-xl border border-border p-6 shadow-sm select-none sm:p-10 md:max-h-[450px] md:grid-cols-2 lg:gap-20",
             cardClassName,
           )}
         >
@@ -366,6 +388,44 @@ export function CarouselTabsContent({
       patternClassName={patternClassName}
       className={cn("overflow-hidden", className)}
     >
+      {title || description ? (
+        <div className="flex flex-col gap-4">
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl",
+                  titleClassName,
+                )}
+              >
+                {title}
+              </h2>
+            ) : (
+              <div className={titleClassName}>{title}</div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "max-w-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div
+                className={cn(
+                  "max-w-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </div>
+            ))}
+        </div>
+      ) : null}
+
       <Carousel
         setApi={setApi}
         className={cn(
@@ -373,7 +433,7 @@ export function CarouselTabsContent({
           carouselClassName,
         )}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex mb-8 items-center justify-between">
           {tabsContent}
           <div
             className={cn(

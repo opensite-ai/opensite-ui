@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useState, useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
-import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -67,6 +66,22 @@ export interface BlurVignetteConfig {
 }
 
 export interface BlurVignetteGridProps {
+  /**
+   * Main title content
+   */
+  title?: React.ReactNode;
+  /**
+   * Description text below title
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
   /**
    * Array of images to display in the grid
    */
@@ -146,7 +161,7 @@ function BlurVignette({
   radius = "24px",
   inset = "16px",
   transitionLength = "32px",
-  blur = "21px",
+  blur = "8px",
 }: BlurVignetteProps) {
   return (
     <motion.div
@@ -161,7 +176,7 @@ function BlurVignette({
         y: 0,
       }}
       viewport={{ once: true, amount: 0.2 }}
-      className={`group relative cursor-pointer overflow-hidden ${className}`}
+      className={`group relative cursor-pointer overflow-hidden rounded-[2.5rem] ${className}`}
     >
       <style>
         {`
@@ -246,6 +261,10 @@ function BlurVignette({
  * ```
  */
 export function BlurVignetteGrid({
+  title,
+  description,
+  titleClassName,
+  descriptionClassName,
   images,
   imagesSlot,
   vignetteConfig,
@@ -262,37 +281,12 @@ export function BlurVignetteGrid({
   patternClassName,
   optixFlowConfig,
 }: BlurVignetteGridProps): React.JSX.Element {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-
   const {
     radius = "24px",
     inset = "10px",
     transitionLength = "100px",
-    blur = "15px",
+    blur = "8px",
   } = vignetteConfig || {};
-
-  const lightboxItems: LightboxItem[] = useMemo(
-    () =>
-      (images ?? []).map((img, index) => ({
-        id: `vignette-image-${index}`,
-        type: "image" as const,
-        src: img.src,
-        alt: img.alt,
-        download: true,
-        share: true,
-      })),
-    [images],
-  );
-
-  const handleImageClick = useCallback((index: number) => {
-    setLightboxIndex(index);
-    setLightboxOpen(true);
-  }, []);
-
-  const handleLightboxClose = useCallback(() => {
-    setLightboxOpen(false);
-  }, []);
 
   const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
@@ -306,38 +300,24 @@ export function BlurVignetteGrid({
         transitionLength={transitionLength}
         blur={blur}
         className={cn(
-          `col-span-${image.colSpan}`,
+          `md:col-span-${image.colSpan}`,
           image.height,
-          "rounded-[2.5rem] cursor-pointer",
           image.className,
           itemClassName,
         )}
       >
-        <div
-          onClick={() => handleImageClick(index)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              handleImageClick(index);
-            }
-          }}
-          aria-label={`View ${image.alt} in lightbox`}
-        >
-          <Img
-            width={200}
-            height={200}
-            className={cn(
-              "size-full rounded-[2.5rem] object-cover",
-              imageClassName,
-            )}
-            src={image.src}
-            alt={image.alt}
-            loading="lazy"
-            optixFlowConfig={optixFlowConfig}
-          />
-        </div>
+        <Img
+          width={200}
+          height={200}
+          className={cn(
+            "size-full rounded-[2.5rem] object-cover",
+            imageClassName,
+          )}
+          src={image.src}
+          alt={image.alt}
+          loading="lazy"
+          optixFlowConfig={optixFlowConfig}
+        />
       </BlurVignette>
     ));
   }, [
@@ -350,7 +330,6 @@ export function BlurVignetteGrid({
     itemClassName,
     imageClassName,
     optixFlowConfig,
-    handleImageClick,
   ]);
 
   return (
@@ -362,32 +341,49 @@ export function BlurVignetteGrid({
       patternClassName={patternClassName}
       className={className}
     >
+      {title || description ? (
+        <div className="flex flex-col gap-4">
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl",
+                  titleClassName,
+                )}
+              >
+                {title}
+              </h2>
+            ) : (
+              <div className={titleClassName}>{title}</div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "max-w-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div
+                className={cn(
+                  "max-w-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </div>
+            ))}
+        </div>
+      ) : null}
+
       <div
-        className={cn(`grid grid-cols-${gridColumns}`, gridGap, gridClassName)}
+        className={cn(`grid grid-cols-1 md:grid-cols-${gridColumns}`, gridGap, gridClassName)}
       >
         {imagesContent}
       </div>
-
-      {lightboxOpen && (
-        <Lightbox
-          items={lightboxItems}
-          initialIndex={lightboxIndex}
-          layout="horizontal"
-          controls={{
-            navigation: true,
-            thumbnails: true,
-            download: true,
-            share: true,
-            fullscreen: true,
-            captions: true,
-            counter: true,
-          }}
-          onClose={handleLightboxClose}
-          enableKeyboardShortcuts={true}
-          closeOnEscape={true}
-          closeOnBackdropClick={true}
-        />
-      )}
     </Section>
   );
 }

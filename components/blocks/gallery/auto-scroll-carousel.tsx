@@ -187,8 +187,10 @@ export function AutoScrollCarousel({
     } = action;
     return (
       <Pressable
+        variant="link"
+        asButton
         className={cn(
-          "font-medium hover:underline",
+          "font-medium flex items-center",
           actionClass,
           actionClassName,
         )}
@@ -273,7 +275,7 @@ export function AutoScrollCarousel({
           ))}
         {actionContent}
       </div>
-      <div className="w-full -mx-4 sm:-mx-6 lg:-mx-8">
+      <div className="w-full">
         <div className="max-w-screen overflow-x-hidden">
           <Carousel
             opts={{

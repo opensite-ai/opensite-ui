@@ -47,6 +47,22 @@ export interface CarouselScaleFocusImage {
 
 export interface CarouselScaleFocusProps {
   /**
+   * Main title content
+   */
+  title?: React.ReactNode;
+  /**
+   * Description text below title
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
    * Array of images to display
    */
   images?: CarouselScaleFocusImage[];
@@ -138,6 +154,10 @@ export interface CarouselScaleFocusProps {
  * ```
  */
 export function CarouselScaleFocus({
+  title,
+  description,
+  titleClassName,
+  descriptionClassName,
   images,
   imagesSlot,
   className,
@@ -257,6 +277,44 @@ export function CarouselScaleFocus({
       className={cn("overflow-hidden", className)}
     >
       <div className="md:px-45">
+        {title || description ? (
+          <div className="flex flex-col gap-4">
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
+              ) : (
+                <div className={titleClassName}>{title}</div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "max-w-lg text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div
+                  className={cn(
+                    "max-w-lg text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </div>
+              ))}
+          </div>
+        ) : null}
+
         <Carousel
           className={cn(
             "mx-auto w-full max-w-200 [&>div:nth-child(1)]:md:overflow-visible",

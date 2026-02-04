@@ -236,7 +236,7 @@ export function InteriorCarousel({
               src={src}
               alt={alt}
               className={cn(
-                "aspect-[4/5] w-full rounded-xl object-cover transition-opacity hover:opacity-90",
+                "aspect-4/5 w-full rounded-xl object-cover transition-opacity hover:opacity-90",
                 imageClassName,
                 itemClass,
               )}
@@ -265,23 +265,31 @@ export function InteriorCarousel({
       patternClassName={patternClassName}
       className={className}
     >
-      <h2
-        className={cn(
-          "mb-4 text-center text-4xl font-semibold",
-          headingClassName,
-        )}
-      >
-        {heading}
-      </h2>
-      <p
-        className={cn(
-          "text-center text-sm text-muted-foreground",
-          descriptionClassName,
-        )}
-      >
-        {descriptionContent}
-      </p>
-      <div className="mt-10">
+      {heading || descriptionContent ? (
+        <div className="mb-10">
+          {heading && (
+            <h2
+              className={cn(
+                "mb-4 text-center text-4xl font-semibold",
+                headingClassName,
+              )}
+            >
+              {heading}
+            </h2>
+          )}
+          {descriptionContent && (
+            <p
+              className={cn(
+                "text-center text-sm text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
+              {descriptionContent}
+            </p>
+          )}
+        </div>
+      ) : null}
+      <div className="relative">
         <Carousel
           opts={{
             align: "start",

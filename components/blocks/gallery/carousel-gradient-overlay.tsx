@@ -250,7 +250,7 @@ export function CarouselGradientOverlay({
                 gradientClassName,
               )}
             />
-            <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-6 text-white-foreground md:p-8">
+            <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-4 text-white md:p-8">
               <div className="mb-2 pt-4 text-xl font-semibold md:mb-3 md:pt-4 lg:pt-4">
                 {item.title}
               </div>

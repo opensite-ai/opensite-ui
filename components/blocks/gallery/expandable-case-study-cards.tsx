@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useCallback, useMemo } from "react";
+import { useState, useMemo } from "react";
 import {
   cn,
   getNestedCardBg,
@@ -10,7 +10,6 @@ import {
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -198,44 +197,6 @@ export function ExpandableCaseStudyCards({
   optixFlowConfig,
 }: ExpandableCaseStudyCardsProps): React.JSX.Element {
   const [selection, setSelection] = useState(items?.[0]?.id);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-
-  const lightboxItems: LightboxItem[] = useMemo(() => {
-    if (!items) return [];
-    // All images first, then all logos
-    const imageItems = items.map((item) => ({
-      id: `image-${item.id}`,
-      type: "image" as const,
-      src: item.image,
-      alt:
-        typeof item.title === "string"
-          ? item.title
-          : item.imageAlt || "Case study image",
-      download: true,
-      share: true,
-    }));
-    const logoItems = items
-      .filter((item) => item.logo)
-      .map((item) => ({
-        id: `logo-${item.id}`,
-        type: "image" as const,
-        src: item.logo!,
-        alt: item.logoAlt || item.company || "Logo",
-        download: true,
-        share: true,
-      }));
-    return [...imageItems, ...logoItems];
-  }, [items]);
-
-  const handleImageClick = useCallback((index: number) => {
-    setLightboxIndex(index);
-    setLightboxOpen(true);
-  }, []);
-
-  const handleLightboxClose = useCallback(() => {
-    setLightboxOpen(false);
-  }, []);
 
   const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
@@ -260,21 +221,7 @@ export function ExpandableCaseStudyCards({
         >
           <div className='absolute -inset-[50%] hidden h-[200%] w-[200%] md:block lg:group-data-[state="closed"]:blur-sm'>
             <div className="absolute top-[calc(25%+40px)] aspect-square h-[calc(50%+40px)] max-lg:right-[calc(50%+40px)] lg:right-[50%]">
-              <div
-                className="h-full w-full overflow-clip rounded-xl cursor-pointer"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleImageClick(itemIndex);
-                }}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    handleImageClick(itemIndex);
-                  }
-                }}
-              >
+              <div className="h-full w-full overflow-clip rounded-xl">
                 <Img
                   src={item.image}
                   alt={
@@ -291,34 +238,7 @@ export function ExpandableCaseStudyCards({
                 />
               </div>
             </div>
-            {item.logo && (
-              <div
-                className="absolute inset-y-[25%] left-[50%] flex aspect-389/420 h-[50%] items-center justify-center max-lg:hidden cursor-pointer"
-                onClick={(e) => {
-                  e.preventDefault();
-                  // Logo index: all images first, then logos in order
-                  const logoIndex = items.length + items.slice(0, itemIndex + 1).filter(i => i.logo).length - 1;
-                  handleImageClick(logoIndex);
-                }}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    const logoIndex = items.length + items.slice(0, itemIndex + 1).filter(i => i.logo).length - 1;
-                    handleImageClick(logoIndex);
-                  }
-                }}
-              >
-                <Img
-                  src={item.logo}
-                  alt={item.logoAlt || item.company || "Logo"}
-                  className={cn("h-8 invert", logoClassName)}
-                  loading="lazy"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </div>
-            )}
+
             <div
               className={cn(
                 "absolute top-[50%] left-[50%] flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full max-lg:hidden",
@@ -331,9 +251,20 @@ export function ExpandableCaseStudyCards({
             <div className="absolute inset-x-0 bottom-0 hidden h-[50%] bg-linear-to-t from-primary from-50% to-transparent lg:block"></div>
           </div>
           <div className="relative flex flex-col justify-between gap-4 md:absolute md:inset-0 md:max-lg:inset-x-[50%] md:max-lg:w-[50%]">
-            <div className='flex flex-col gap-2 p-4 pt-6 transition-all delay-200 duration-500 lg:group-data-[state="closed"]:opacity-0'>
+            <div className='flex flex-col gap-3 p-4 pt-6 transition-all delay-200 duration-500 lg:group-data-[state="closed"]:opacity-0'>
               <div className="flex items-start justify-between gap-2">
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-2">
+                  {item.logo && (
+                    <div className="mb-1">
+                      <Img
+                        src={item.logo}
+                        alt={item.logoAlt || item.company || "Logo"}
+                        className={cn("h-6 max-w-[120px] object-contain object-left lg:h-8 lg:max-w-[150px]", logoClassName)}
+                        loading="lazy"
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    </div>
+                  )}
                   <div className="text-base font-medium lg:text-lg">
                     {item.title}
                   </div>
@@ -379,7 +310,6 @@ export function ExpandableCaseStudyCards({
     badgesClassName,
     badgeClassName,
     optixFlowConfig,
-    handleImageClick,
     background,
   ]);
 
@@ -402,27 +332,6 @@ export function ExpandableCaseStudyCards({
       >
         {itemsContent}
       </div>
-
-      {lightboxOpen && (
-        <Lightbox
-          items={lightboxItems}
-          initialIndex={lightboxIndex}
-          layout="horizontal"
-          controls={{
-            navigation: true,
-            thumbnails: true,
-            download: true,
-            share: true,
-            fullscreen: true,
-            captions: true,
-            counter: true,
-          }}
-          onClose={handleLightboxClose}
-          enableKeyboardShortcuts={true}
-          closeOnEscape={true}
-          closeOnBackdropClick={true}
-        />
-      )}
     </Section>
   );
 }
