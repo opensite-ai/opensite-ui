@@ -46,7 +46,9 @@ describe("NavbarSimpleLinks", () => {
 
   it("renders mobile menu trigger button", () => {
     const { container } = render(<NavbarSimpleLinks navItems={mockNavItems} />);
-    const menuButton = container.querySelector("[data-slot='popover-trigger']");
+    // Mobile menu now uses a Pressable button with menu icon
+    const mobileContainer = container.querySelector(".lg\\:hidden");
+    const menuButton = mobileContainer?.querySelector("button");
     expect(menuButton).toBeInTheDocument();
   });
 
@@ -92,8 +94,9 @@ describe("NavbarSimpleLinks", () => {
 
   it("shows mobile menu button on small screens", () => {
     const { container } = render(<NavbarSimpleLinks navItems={mockNavItems} />);
-    // Mobile menu uses popover trigger
-    const mobileButton = container.querySelector("[data-slot='popover-trigger']");
+    // Mobile menu now uses a Pressable button
+    const mobileContainer = container.querySelector(".lg\\:hidden");
+    const mobileButton = mobileContainer?.querySelector("button");
     expect(mobileButton).toBeInTheDocument();
   });
 
