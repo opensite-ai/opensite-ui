@@ -197,7 +197,7 @@ const FeatureCard = React.memo(
           onClick={onClick}
         >
           {isActive && feature.href && (
-            <div className="absolute bg-background rounded-full h-fit w-fit p-2 flex items-center justify-center">
+            <div className="absolute bottom-4 right-4 bg-background rounded-full h-fit w-fit p-2 flex items-center justify-center">
               <Pressable
                 href={feature.href}
                 size="icon-lg"
@@ -356,17 +356,11 @@ const FeaturesMobile = React.memo(
     const currentFeature = features[activeIndex];
 
     return (
-      <div className="relative z-10 flex flex-col items-center gap-6 md:hidden">
-        <div className="flex w-full items-center justify-between gap-4">
-          <button
-            className="rounded-full border bg-background/50 p-2 hover:bg-background disabled:opacity-50"
-            onClick={handlePrevious}
-            disabled={isPreviousDisabled}
-            type="button"
-          >
-            <DynamicIcon name="lucide/chevron-left" size={24} />
-          </button>
-          <div className="relative h-24 w-full overflow-hidden">
+      <div className="relative z-10 flex flex-col gap-4 md:hidden">
+        {/* Content row with text on left and vertical navigation on right */}
+        <div className="flex w-full items-stretch gap-4">
+          {/* Text content - left aligned */}
+          <div className="flex-1 overflow-hidden">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={activeIndex}
@@ -379,32 +373,40 @@ const FeaturesMobile = React.memo(
                   x: { type: "spring", stiffness: 300, damping: 30 },
                   opacity: { duration: 0.2 },
                 }}
-                className="absolute inset-0 flex items-center justify-center rounded-3xl bg-background p-4"
+                className="rounded-3xl bg-background p-4 text-left"
               >
                 {(currentFeature?.title || currentFeature?.description) && (
-                  <p className="text-center text-sm">
+                  <div className="text-sm">
                     {currentFeature.title && (
-                      <span className="font-semibold">
-                        {currentFeature.title}.
-                      </span>
+                      <p className="font-semibold">{currentFeature.title}</p>
                     )}
-                    {currentFeature.title && currentFeature.description && " "}
                     {currentFeature.description && (
-                      <span>{currentFeature.description}</span>
+                      <p className="mt-1">{currentFeature.description}</p>
                     )}
-                  </p>
+                  </div>
                 )}
               </motion.div>
             </AnimatePresence>
           </div>
-          <button
-            className="rounded-full border bg-background/50 p-2 hover:bg-background disabled:opacity-50"
-            onClick={handleNext}
-            disabled={isNextDisabled}
-            type="button"
-          >
-            <DynamicIcon name="lucide/chevron-right" size={24} />
-          </button>
+          {/* Vertical navigation buttons on right */}
+          <div className="flex flex-col justify-center gap-2">
+            <button
+              className="rounded-full border bg-background/50 p-2 hover:bg-background disabled:opacity-50"
+              onClick={handlePrevious}
+              disabled={isPreviousDisabled}
+              type="button"
+            >
+              <DynamicIcon name="lucide/chevron-up" size={20} />
+            </button>
+            <button
+              className="rounded-full border bg-background/50 p-2 hover:bg-background disabled:opacity-50"
+              onClick={handleNext}
+              disabled={isNextDisabled}
+              type="button"
+            >
+              <DynamicIcon name="lucide/chevron-down" size={20} />
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -441,11 +443,11 @@ export function FeatureAnimatedCarousel({
   className,
   optixFlowConfig,
   background,
-  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
   headerClassName,
+  spacing = "py-12 md:py-32",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: FeatureAnimatedCarouselProps) {
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -589,7 +591,19 @@ export function FeatureAnimatedCarousel({
             isNextDisabled={isNextDisabled}
           />
           {currentFeature?.image && (
-            <div className="relative flex-1 overflow-hidden rounded-2xl md:absolute md:right-8 md:top-8 md:bottom-8 md:w-1/2 shadow-xl">
+            <div className="relative w-full h-[250px] md:h-auto overflow-hidden rounded-2xl md:absolute md:right-8 md:top-8 md:bottom-8 md:w-1/2 shadow-xl">
+              {/* Mobile icon link - positioned at top right of image */}
+              {currentFeature.href && (
+                <div className="absolute top-4 right-4 z-10 bg-background rounded-full h-fit w-fit p-2 flex items-center justify-center md:hidden">
+                  <Pressable
+                    href={currentFeature.href}
+                    size="icon-lg"
+                    className="text-foreground"
+                  >
+                    <DynamicIcon name="lucide/arrow-up-right" />
+                  </Pressable>
+                </div>
+              )}
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
                   key={activeIndex}

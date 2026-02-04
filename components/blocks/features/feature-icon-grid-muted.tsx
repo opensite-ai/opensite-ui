@@ -7,6 +7,7 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { Pressable } from "@/src";
 
 export interface FeatureIconGridMutedItem {
   /**
@@ -41,6 +42,10 @@ export interface FeatureIconGridMutedItem {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /**
+   * Optional href for the item
+   */
+  href?: string;
 }
 
 export interface FeatureIconGridMutedProps {
@@ -135,21 +140,28 @@ export function FeatureIconGridMuted({
   features,
   featuresSlot,
   className,
-  containerClassName,
   headerClassName,
   titleClassName,
   descriptionClassName,
   gridClassName,
   cardClassName,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
+  spacing = "py-12 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: FeatureIconGridMutedProps): React.JSX.Element {
   const renderFeatureIcon = useCallback((feature: FeatureIconGridMutedItem) => {
     if (feature.icon) return feature.icon;
-    if (feature.iconName) return <DynamicIcon name={feature.iconName} size={24} className={feature.iconClassName} />;
+    if (feature.iconName)
+      return (
+        <DynamicIcon
+          name={feature.iconName}
+          size={24}
+          className={feature.iconClassName}
+        />
+      );
     return null;
   }, []);
 
@@ -160,27 +172,49 @@ export function FeatureIconGridMuted({
     return features.map((feature, index) => (
       <div
         key={index}
-        className={cn("flex flex-col gap-2.5 rounded-xl border p-7", cardClassName, feature.className)}
+        className={cn(
+          "flex flex-col gap-2.5 rounded-xl border p-7 bg-muted text-muted-foreground",
+          cardClassName,
+          feature.className,
+        )}
       >
-        {(feature.icon || feature.iconName) && renderFeatureIcon(feature)}
-        {feature.title && (
-          typeof feature.title === "string" ? (
-            <h3 className={cn("font-semibold", feature.titleClassName)}>{feature.title}</h3>
-          ) : (
-            <div className={cn("font-semibold", feature.titleClassName)}>{feature.title}</div>
-          )
-        )}
-        {feature.description && (
-          typeof feature.description === "string" ? (
-            <p className={cn("text-sm", getTextColor(background, 'muted'), feature.descriptionClassName)}>
-              {feature.description}
-            </p>
-          ) : (
-            <div className={cn("text-sm", getTextColor(background, 'muted'), feature.descriptionClassName)}>
-              {feature.description}
-            </div>
-          )
-        )}
+        <div className="flex flex-col gap-6 md:gap-12">
+          {(feature.icon || feature.iconName) && renderFeatureIcon(feature)}
+
+          <div className="flex flex-col gap-2 md:gap-4">
+            {feature.title &&
+              (typeof feature.title === "string" ? (
+                <Pressable
+                  href={feature.href}
+                  className={cn(
+                    "font-medium text-xl text-muted-foreground",
+                    feature.titleClassName,
+                  )}
+                >
+                  {feature.title}
+                </Pressable>
+              ) : (
+                <div
+                  className={cn(
+                    "font-medium text-xl text-muted-foreground",
+                    feature.titleClassName,
+                  )}
+                >
+                  {feature.title}
+                </div>
+              ))}
+            {feature.description &&
+              (typeof feature.description === "string" ? (
+                <p className={cn("text-sm", feature.descriptionClassName)}>
+                  {feature.description}
+                </p>
+              ) : (
+                <div className={cn("text-sm", feature.descriptionClassName)}>
+                  {feature.description}
+                </div>
+              ))}
+          </div>
+        </div>
       </div>
     ));
   }, [featuresSlot, features, cardClassName, renderFeatureIcon]);
@@ -197,25 +231,61 @@ export function FeatureIconGridMuted({
     >
       <div className="flex flex-col gap-10">
         {(title || description) && (
-          <div className={cn("mx-auto flex max-w-xl flex-col gap-2.5 text-center", headerClassName)}>
-            {title && (
-              typeof title === "string" ? (
-                <h1 className={cn("text-4xl font-semibold md:text-5xl", titleClassName)}>{title}</h1>
-              ) : (
-                <div className={cn("text-4xl font-semibold md:text-5xl", titleClassName)}>{title}</div>
-              )
+          <div
+            className={cn(
+              "mx-auto flex max-w-full md:max-w-md text-balance flex-col gap-2.5 text-center",
+              headerClassName,
             )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn(getTextColor(background, 'muted'), descriptionClassName)}>{description}</p>
+          >
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-4xl font-semibold md:text-5xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
               ) : (
-                <div className={cn(getTextColor(background, 'muted'), descriptionClassName)}>{description}</div>
-              )
-            )}
+                <div
+                  className={cn(
+                    "text-4xl font-semibold md:text-5xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    getTextColor(background, "muted"),
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div
+                  className={cn(
+                    getTextColor(background, "muted"),
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </div>
+              ))}
           </div>
         )}
         {(featuresSlot || (features && features.length > 0)) && (
-          <div className={cn("mx-auto grid max-w-7xl gap-7 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5", gridClassName)}>
+          <div
+            className={cn(
+              "mx-auto grid w-full gap-4 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5",
+              gridClassName,
+            )}
+          >
             {featuresContent}
           </div>
         )}
