@@ -3,12 +3,13 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Card, CardHeader, CardTitle, CardContent } from "../../ui/card";
+import { Card, CardHeader, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { Pressable } from "@/src";
 
 export interface FeatureCapabilitiesGridItem {
   /**
@@ -51,6 +52,10 @@ export interface FeatureCapabilitiesGridItem {
    * Additional CSS classes for the badge
    */
   badgeClassName?: string;
+  /**
+   * Optional href for the item
+   */
+  href?: string;
 }
 
 export interface FeatureCapabilitiesGridProps {
@@ -137,11 +142,14 @@ export function FeatureCapabilitiesGrid({
   patternOpacity,
   patternClassName,
 }: FeatureCapabilitiesGridProps): React.JSX.Element {
-  const renderItemIcon = React.useCallback((item: FeatureCapabilitiesGridItem) => {
-    if (item.icon) return item.icon;
-    if (item.iconName) return <DynamicIcon name={item.iconName} size={20} />;
-    return null;
-  }, []);
+  const renderItemIcon = React.useCallback(
+    (item: FeatureCapabilitiesGridItem) => {
+      if (item.icon) return item.icon;
+      if (item.iconName) return <DynamicIcon name={item.iconName} size={20} />;
+      return null;
+    },
+    [],
+  );
 
   const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
@@ -153,7 +161,11 @@ export function FeatureCapabilitiesGrid({
       return (
         <Card
           key={`${typeof item.title === "string" ? item.title : "item"}-${index}`}
-          className={cn("group relative overflow-visible border-border/10 bg-background/5 p-0 transition-colors duration-300 hover:border-border/20", cardClassName, item.className)}
+          className={cn(
+            "group relative overflow-visible border-border/10 bg-background/5 p-0 transition-colors duration-300 hover:border-border/20",
+            cardClassName,
+            item.className,
+          )}
         >
           <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             <div className="absolute -inset-px rounded-xl bg-linear-to-br from-background/10 via-background/5 to-transparent" />
@@ -170,34 +182,55 @@ export function FeatureCapabilitiesGrid({
 
           <CardHeader className="relative z-10 flex flex-row items-start gap-3 p-6">
             {iconContent && (
-              <div className={cn("flex h-10 w-10 items-center justify-center rounded-xl border border-border/15 bg-background/5", item.iconClassName)}>
+              <div
+                className={cn(
+                  "flex h-10 w-10 items-center justify-center rounded-xl border border-border/15 bg-background/5",
+                  item.iconClassName,
+                )}
+              >
                 {iconContent}
               </div>
             )}
-            <div className="flex-1">
+            <Pressable
+              href={item.href}
+              className="flex-1 h-full flex items-center"
+            >
               <div className="flex items-center gap-2">
-                {item.title && (
-                  typeof item.title === "string" ? (
-                    <CardTitle className={cn("text-lg font-medium", item.titleClassName)}>
+                {item.title &&
+                  (typeof item.title === "string" ? (
+                    <h3
+                      className={cn("text-lg font-medium", item.titleClassName)}
+                    >
                       {item.title}
-                    </CardTitle>
+                    </h3>
                   ) : (
-                    <div className={cn("text-lg font-medium", item.titleClassName)}>
+                    <div
+                      className={cn("text-lg font-medium", item.titleClassName)}
+                    >
                       {item.title}
                     </div>
-                  )
-                )}
+                  ))}
                 {item.badge && (
-                  <span className={cn("rounded-full border border-border/20 px-2 py-0.5 text-[10px] leading-none", getTextColor(background, 'muted'), item.badgeClassName)}>
+                  <span
+                    className={cn(
+                      "rounded-full border border-border/20 px-2 py-0.5 text-[10px] leading-none",
+                      item.badgeClassName,
+                    )}
+                  >
                     {item.badge}
                   </span>
                 )}
               </div>
-            </div>
+            </Pressable>
           </CardHeader>
 
           {item.description && (
-            <CardContent className={cn("relative z-10 px-6 pb-6 text-sm", getTextColor(background, 'muted'), item.descriptionClassName)}>
+            <CardContent
+              className={cn(
+                "relative z-10 px-6 pb-6 text-sm",
+                item.descriptionClassName,
+              )}
+            >
               {item.description}
             </CardContent>
           )}
@@ -223,31 +256,52 @@ export function FeatureCapabilitiesGrid({
       className={className}
       containerClassName={containerClassName}
     >
-      {eyebrow && (
-        typeof eyebrow === "string" ? (
-          <p className={cn("text-xs tracking-widest", getTextColor(background, 'muted'), eyebrowClassName)}>
-            {eyebrow}
-          </p>
-        ) : (
-          <div className={cn("text-xs tracking-widest", getTextColor(background, 'muted'), eyebrowClassName)}>
-            {eyebrow}
+      <div className="flex flex-col space-y-6 md:space-y-16">
+        {eyebrow || heading ? (
+          <div className="flex flex-col">
+            {eyebrow &&
+              (typeof eyebrow === "string" ? (
+                <p className={cn("text-xs tracking-widest", eyebrowClassName)}>
+                  {eyebrow}
+                </p>
+              ) : (
+                <div
+                  className={cn("text-xs tracking-widest", eyebrowClassName)}
+                >
+                  {eyebrow}
+                </div>
+              ))}
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mt-3 text-4xl font-semibold tracking-tight sm:text-5xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div
+                  className={cn(
+                    "mt-3 text-4xl font-semibold tracking-tight sm:text-5xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </div>
+              ))}
           </div>
-        )
-      )}
-      {heading && (
-        typeof heading === "string" ? (
-          <h2 className={cn("mt-3 text-4xl font-semibold tracking-tight sm:text-5xl", headingClassName)}>
-            {heading}
-          </h2>
-        ) : (
-          <div className={cn("mt-3 text-4xl font-semibold tracking-tight sm:text-5xl", headingClassName)}>
-            {heading}
-          </div>
-        )
-      )}
+        ) : null}
 
-      <div className={cn("mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3", gridClassName)}>
-        {itemsContent}
+        <div
+          className={cn(
+            "grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3",
+            gridClassName,
+          )}
+        >
+          {itemsContent}
+        </div>
       </div>
     </Section>
   );

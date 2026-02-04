@@ -60,7 +60,7 @@ export interface BlurVignetteConfig {
   transitionLength?: string;
   /**
    * Blur intensity
-   * @default "15px"
+   * @default "3px"
    */
   blur?: string;
 }
@@ -223,18 +223,18 @@ function BlurVignette({
             opacity: 0;
             transition: opacity 0.3s ease;
             filter: brightness(0.5);
-        }
+          }
 
-        .blur-vignette.active {
-        opacity: 1;
-        }
+          .blur-vignette.active {
+            opacity: 1;
+          }
 
-        .group:hover .blur-vignette {
-        opacity: 0;
-        }
+          .group:hover .blur-vignette {
+            opacity: 0;
+          }
         `}
       </style>
-      <div className="blur-vignette active" />
+      <div className="blur-vignette active rounded-2xl" />
       {children}
     </motion.div>
   );
@@ -257,7 +257,7 @@ function BlurVignette({
  *     { src: "/images/photo-1.jpg", alt: "Photo 1", colSpan: 2, height: "h-82" },
  *     { src: "/images/photo-2.jpg", alt: "Photo 2", colSpan: 3, height: "h-82" }
  *   ]}
- *   vignetteConfig={{ radius: "24px", blur: "15px" }}
+ *   vignetteConfig={{ radius: "24px", blur: "3px" }}
  * />
  * ```
  */

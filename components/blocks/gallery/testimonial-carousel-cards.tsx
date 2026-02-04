@@ -263,7 +263,7 @@ export function TestimonialCarouselCards({
 
         <div
           className={cn(
-            "hidden justify-start gap-4 lg:flex",
+            "justify-start gap-2 flex mt-4 md:mt-0",
             controlsClassName,
           )}
         >
@@ -316,7 +316,7 @@ export function TestimonialCarouselCards({
           testimonial.className,
         )}
       >
-        <div className="flex flex-col gap-2 lg:flex-row">
+        <div className="flex flex-col gap-0 lg:flex-row lg:gap-2">
           <div className="h-[200px] w-full lg:h-[460px] lg:w-[400px]">
             <Img
               src={testimonial.image}
@@ -326,7 +326,7 @@ export function TestimonialCarouselCards({
                   : testimonial.imageAlt || "Testimonial image"
               }
               className={cn(
-                "h-full w-full rounded-2xl object-cover",
+                "h-full w-full rounded-t-2xl rounded-b-none lg:rounded-2xl object-cover",
                 imageClassName,
               )}
               loading="lazy"
@@ -336,7 +336,7 @@ export function TestimonialCarouselCards({
 
           <div
             className={cn(
-              "relative flex w-full flex-col items-start justify-end overflow-hidden rounded-2xl bg-background p-6 text-foreground lg:h-[460px] lg:w-[400px] lg:p-8",
+              "relative flex w-full flex-col items-start justify-end overflow-hidden rounded-b-2xl rounded-t-none lg:rounded-2xl bg-background p-6 text-foreground lg:h-[460px] lg:w-[400px] lg:p-8",
               quotePanelClassName,
             )}
           >
@@ -396,7 +396,7 @@ export function TestimonialCarouselCards({
       className={className}
       containerClassName="px-4 md:px-2 lg:px-2"
     >
-      <div className="flex flex-col items-start justify-between gap-6 md:gap-4 lg:flex-row">
+      <div className="flex flex-col items-start justify-between gap-6 lg:flex-row">
         {sidebarContent}
 
         <div className="relative w-full overflow-hidden pb-12 lg:flex-1">
@@ -415,7 +415,7 @@ export function TestimonialCarouselCards({
 
           <div
             className={cn(
-              "absolute bottom-4 left-1/2 h-0.5 w-60 -translate-x-1/2 rounded",
+              "absolute bottom-4 left-1/2 hidden h-0.5 w-60 -translate-x-1/2 rounded md:block",
               getNestedCardBg(background),
               progressClassName,
             )}

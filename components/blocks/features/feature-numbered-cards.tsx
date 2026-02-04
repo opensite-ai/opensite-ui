@@ -8,10 +8,12 @@ import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
+  ActionConfig,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { Pressable } from "@/src";
 
 export interface FeatureNumberedCardsChecklistItem {
   /**
@@ -73,9 +75,25 @@ export interface FeatureNumberedCardsItem {
    * Additional CSS classes for the image wrapper
    */
   imageWrapperClassName?: string;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
 }
 
 export interface FeatureNumberedCardsProps {
+  /**
+   * Feature title content
+   */
+  title?: React.ReactNode;
+  /**
+   * Feature description content
+   */
+  description?: React.ReactNode;
   /**
    * Array of numbered feature cards
    */
@@ -165,10 +183,12 @@ export interface FeatureNumberedCardsProps {
  * ```
  */
 export function FeatureNumberedCards({
+  title,
+  description,
   features,
   featuresSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:mx-6 lg:px-8",
   cardsWrapperClassName,
   cardClassName,
   titleClassName,
@@ -177,7 +197,7 @@ export function FeatureNumberedCards({
   badgeClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -226,6 +246,41 @@ export function FeatureNumberedCards({
     [],
   );
 
+  const actionsContent = useCallback(
+    (args: { actions?: ActionConfig[]; actionsSlot?: React.ReactNode }) => {
+      if (args?.actionsSlot) return args.actionsSlot;
+      if (!args?.actions || args.actions.length === 0) return null;
+
+      return args.actions.map((action, index) => {
+        const {
+          label,
+          icon,
+          iconAfter,
+          children,
+          className: actionClassName,
+          ...pressableProps
+        } = action;
+        return (
+          <Pressable
+            key={index}
+            asButton
+            className={actionClassName}
+            {...pressableProps}
+          >
+            {children ?? (
+              <>
+                {icon}
+                {label}
+                {iconAfter}
+              </>
+            )}
+          </Pressable>
+        );
+      });
+    },
+    [],
+  );
+
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
@@ -255,14 +310,14 @@ export function FeatureNumberedCards({
         <div
           key={index}
           className={cn(
-            "grid rounded-lg border md:grid-cols-2",
+            "grid rounded-lg border md:grid-cols-2 bg-background text-foreground",
             cardClassName,
             feature.className,
           )}
         >
           <div
             className={cn(
-              "flex flex-col px-6 py-8 lg:px-8 lg:py-12 xl:px-12 xl:py-20",
+              "flex flex-col px-4 py-4 lg:px-8 lg:py-12 xl:px-12 xl:py-20",
               feature.contentClassName,
             )}
           >
@@ -270,7 +325,7 @@ export function FeatureNumberedCards({
               (typeof feature.title === "string" ? (
                 <h3
                   className={cn(
-                    "mb-3 text-2xl font-medium sm:mb-5 md:text-3xl lg:text-4xl",
+                    "mb-3 text-lg font-medium sm:mb-5 md:text-xl lg:text-2xl",
                     titleClassName,
                   )}
                 >
@@ -279,7 +334,7 @@ export function FeatureNumberedCards({
               ) : (
                 <div
                   className={cn(
-                    "mb-3 text-2xl font-medium sm:mb-5 md:text-3xl lg:text-4xl",
+                    "mb-3 text-lg font-medium sm:mb-5 md:text-xl lg:text-2xl",
                     titleClassName,
                   )}
                 >
@@ -317,6 +372,18 @@ export function FeatureNumberedCards({
                 {renderChecklistItems(feature)}
               </ul>
             ) : null}
+
+            {actionsContent({
+              actions: feature.actions,
+              actionsSlot: feature.actionsSlot,
+            }) && (
+              <div className="flex items-center flex-wrap gap-4 md:gap-2">
+                {actionsContent({
+                  actions: feature.actions,
+                  actionsSlot: feature.actionsSlot,
+                })}
+              </div>
+            )}
           </div>
           <div
             className={cn(
@@ -358,13 +425,47 @@ export function FeatureNumberedCards({
       className={className}
       containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "space-y-4 md:space-y-10 rounded-lg border-none md:border p-0 md:p-10",
-          cardsWrapperClassName,
-        )}
-      >
-        {featuresContent}
+      <div className="flex flex-col space-y-6 md:space-y-16">
+        {title || description ? (
+          <div className="flex flex-col gap-4">
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl text-balance",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
+              ) : (
+                <div className={titleClassName}>{title}</div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn("max-w-lg text-balance", descriptionClassName)}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div
+                  className={cn("max-w-lg text-balance", descriptionClassName)}
+                >
+                  {description}
+                </div>
+              ))}
+          </div>
+        ) : null}
+
+        <div
+          className={cn(
+            "space-y-4 md:space-y-10 rounded-lg border-none md:border p-0 md:p-10",
+            cardsWrapperClassName,
+          )}
+        >
+          {featuresContent}
+        </div>
       </div>
     </Section>
   );

@@ -334,9 +334,27 @@ export function CarouselScaleFocus({
             />
           </div>
         </Carousel>
+        {/* Mobile arrow navigation - shown only on mobile */}
         <div
           className={cn(
-            "mx-auto mt-10 flex w-full max-w-135.75 items-center justify-center",
+            "mt-10 flex items-center justify-center gap-4 md:hidden",
+            controlsClassName,
+          )}
+        >
+          <CarouselPrevious
+            className="static translate-x-0 translate-y-0 size-10"
+            variant="default"
+          />
+          <CarouselNext
+            className="static translate-x-0 translate-y-0 size-10"
+            variant="default"
+          />
+        </div>
+
+        {/* Dot indicators - hidden on mobile, shown on md and above */}
+        <div
+          className={cn(
+            "mx-auto mt-10 hidden w-full max-w-135.75 items-center justify-center md:flex",
             indicatorsClassName,
           )}
         >

@@ -285,7 +285,7 @@ export function CarouselGradientText({
       <Carousel setApi={setApi} className={carouselClassName}>
         <div
           className={cn(
-            "grid gap-8 md:gap-4 lg:grid-cols-2 [&>div[data-slot=carousel-content]]:overflow-visible [&>div[data-slot=carousel-content]]:[clip-path:inset(-100vw_-100vw_-100vw_0)]",
+            "grid gap-4 lg:grid-cols-2 [&>div[data-slot=carousel-content]]:overflow-visible [&>div[data-slot=carousel-content]]:[clip-path:inset(-100vw_-100vw_-100vw_0)]",
             headerClassName,
           )}
         >
@@ -315,10 +315,7 @@ export function CarouselGradientText({
               )
             ) : null}
             <div
-              className={cn(
-                "mt-8 hidden items-center gap-2 md:flex",
-                controlsClassName,
-              )}
+              className={cn("mt-8 items-center gap-2 flex", controlsClassName)}
             >
               <CarouselPrevious className="static size-12 translate-x-0 translate-y-0" />
               <CarouselNext className="static size-12 translate-x-0 translate-y-0" />
@@ -337,7 +334,7 @@ export function CarouselGradientText({
       </Carousel>
       <div
         className={cn(
-          "mt-4 md:mt-8 flex items-center lg:ml-[50%]",
+          "mt-4 md:mt-8 flex items-center lg:ml-[50%] max-w-full overflow-x-auto scrollbar-hide",
           indicatorsClassName,
         )}
       >
@@ -345,7 +342,7 @@ export function CarouselGradientText({
           <span
             key={index}
             className={cn(
-              "flex h-8 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-muted-foreground/15 text-xs font-semibold whitespace-nowrap transition-all duration-300",
+              "flex h-8 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-muted-foreground/15 text-xs font-semibold whitespace-nowrap transition-all duration-300",
               index + 1 === current ? "w-fit px-4" : "my-4 mx-2 md:mx-4 size-4",
             )}
             onClick={() => api && api.scrollTo(index)}

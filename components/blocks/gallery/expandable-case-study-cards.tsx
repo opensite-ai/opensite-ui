@@ -216,7 +216,7 @@ export function ExpandableCaseStudyCards({
           className="relative block h-full w-full overflow-hidden rounded-xl"
         >
           {/* Full-bleed background image */}
-          <div className='absolute inset-0 lg:group-data-[state=closed]:blur-xs lg:transition-[filter] lg:duration-500'>
+          <div className="absolute inset-0 lg:group-data-[state=closed]:blur-xs lg:transition-[filter] lg:duration-500">
             <Img
               src={item.image}
               alt={
@@ -235,7 +235,7 @@ export function ExpandableCaseStudyCards({
           {/* Black gradient from bottom for text readability */}
           <div className="absolute inset-x-0 bottom-0 h-[70%] bg-linear-to-t from-black/90 from-30% to-transparent"></div>
           {/* Content area - positioned at bottom, always visible on mobile */}
-          <div className='absolute inset-0 flex flex-col justify-end p-4 pb-5 lg:transition-opacity lg:delay-200 lg:duration-500 lg:group-data-[state=closed]:opacity-0'>
+          <div className="absolute inset-0 flex flex-col justify-end p-4 pb-5 lg:transition-opacity lg:delay-200 lg:duration-500 lg:group-data-[state=closed]:opacity-0">
             {/* Badges - above content */}
             {item.badges && item.badges.length > 0 && (
               <div
@@ -312,6 +312,7 @@ export function ExpandableCaseStudyCards({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName="px-6 sm:px-6 md:px-6 lg:px-8"
     >
       <div
         className={cn(

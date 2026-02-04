@@ -7,6 +7,7 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { Pressable } from "@/src";
 
 export interface FeatureIconGridBorderedItem {
   /**
@@ -41,6 +42,10 @@ export interface FeatureIconGridBorderedItem {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /**
+   * Optional href for the item
+   */
+  href?: string;
 }
 
 export interface FeatureIconGridBorderedProps {
@@ -132,13 +137,13 @@ export function FeatureIconGridBordered({
   features,
   featuresSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   labelClassName,
   titleClassName,
   gridClassName,
   cardClassName,
   background,
-  spacing = "py-6 md:py-32",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -161,7 +166,7 @@ export function FeatureIconGridBordered({
       <div
         key={index}
         className={cn(
-          "relative flex gap-3 rounded-lg border-dashed md:block md:border-l md:p-5",
+          "relative flex gap-3 rounded-none border-dashed md:block md:border-l md:p-5",
           cardClassName,
           feature.className,
         )}
@@ -169,7 +174,7 @@ export function FeatureIconGridBordered({
         {(feature.icon || feature.iconName) && (
           <span
             className={cn(
-              "mb-8 flex size-10 shrink-0 items-center justify-center rounded-full text-primary-foreground md:size-12",
+              "mb-8 flex size-10 shrink-0 items-center justify-center rounded-full text-primary-foreground md:size-16",
               getAccentColor(background),
               feature.iconClassName,
             )}
@@ -180,24 +185,23 @@ export function FeatureIconGridBordered({
         <div>
           {feature.title &&
             (typeof feature.title === "string" ? (
-              <h3
+              <Pressable
+                href={feature.href}
                 className={cn(
-                  "font-medium md:mb-2 md:text-xl",
+                  "font-medium md:mb-2 text-xl",
                   feature.titleClassName,
                 )}
               >
                 {feature.title}
-                <span className={cn("absolute -left-px hidden h-6 w-px md:inline-block", getAccentColor(background))}></span>
-              </h3>
+              </Pressable>
             ) : (
               <div
                 className={cn(
-                  "font-medium md:mb-2 md:text-xl",
+                  "font-medium md:mb-2 text-xl",
                   feature.titleClassName,
                 )}
               >
                 {feature.title}
-                <span className={cn("absolute -left-px hidden h-6 w-px md:inline-block", getAccentColor(background))}></span>
               </div>
             ))}
           {feature.description &&
@@ -235,36 +239,50 @@ export function FeatureIconGridBordered({
       className={className}
       containerClassName={containerClassName}
     >
-      {label &&
-        (typeof label === "string" ? (
-          <p className={cn("mb-4 text-xs ", labelClassName)}>{label}</p>
-        ) : (
-          <div className={cn("mb-4 text-xs ", labelClassName)}>{label}</div>
-        ))}
-      {title &&
-        (typeof title === "string" ? (
-          <h2
-            className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}
-          >
-            {title}
-          </h2>
-        ) : (
-          <div
-            className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}
-          >
-            {title}
+      <div className="flex flex-col space-y-6 md:space-y-16">
+        {label || title ? (
+          <div className="flex flex-col">
+            {label &&
+              (typeof label === "string" ? (
+                <p className={cn("mb-4 text-sm", labelClassName)}>{label}</p>
+              ) : (
+                <div className={cn("mb-4 text-sm", labelClassName)}>
+                  {label}
+                </div>
+              ))}
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-3xl font-medium lg:text-4xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
+              ) : (
+                <div
+                  className={cn(
+                    "text-3xl font-medium lg:text-4xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </div>
+              ))}
           </div>
-        ))}
-      {(featuresSlot || (features && features.length > 0)) && (
-        <div
-          className={cn(
-            "mt-14 grid gap-6 md:grid-cols-2 lg:mt-20 lg:grid-cols-4",
-            gridClassName,
-          )}
-        >
-          {featuresContent}
-        </div>
-      )}
+        ) : null}
+        {(featuresSlot || (features && features.length > 0)) && (
+          <div
+            className={cn(
+              "grid gap-6 md:grid-cols-2 lg:grid-cols-4",
+              gridClassName,
+            )}
+          >
+            {featuresContent}
+          </div>
+        )}
+      </div>
     </Section>
   );
 }

@@ -163,7 +163,7 @@ export function FeatureChecklistImage({
   checklistItems,
   checklistSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:mx-6 lg:px-8",
   contentWrapperClassName,
   imageClassName,
   contentClassName,
@@ -191,7 +191,7 @@ export function FeatureChecklistImage({
             onClick={action.onClick}
             variant={action.variant}
             size={action.size}
-            className={cn("mt-6", action.className)}
+            className={cn("", action.className)}
             aria-label={action["aria-label"]}
             asButton
           >
@@ -207,7 +207,7 @@ export function FeatureChecklistImage({
           onClick={action.onClick}
           variant={action.variant}
           size={action.size}
-          className={cn("mt-6", action.className)}
+          className={cn("", action.className)}
           aria-label={action["aria-label"]}
           asButton
         >
@@ -228,7 +228,7 @@ export function FeatureChecklistImage({
         src={imageSrc}
         alt={imageAlt || "Feature illustration"}
         className={cn(
-          "max-h-96 w-full rounded-lg object-cover md:max-h-[500px] md:w-1/2",
+          "max-h-96 w-full rounded-lg object-cover md:max-h-[500px] md:w-1/2 shadow-xl",
           imageClassName,
         )}
         loading="lazy"
@@ -257,11 +257,8 @@ export function FeatureChecklistImage({
       const itemClassName = isString ? undefined : item.className;
 
       return (
-        <li
-          key={index}
-          className={cn("flex items-center gap-3", itemClassName)}
-        >
-          {iconElement}
+        <li key={index} className={cn("flex items-start gap-3", itemClassName)}>
+          <div className="mt-1">{iconElement}</div>
           {content}
         </li>
       );
@@ -280,17 +277,22 @@ export function FeatureChecklistImage({
     >
       <div
         className={cn(
-          "flex flex-col gap-12 md:flex-row",
+          "flex flex-col gap-6 md:gap-12 md:flex-row",
           contentWrapperClassName,
         )}
       >
         {imageContent}
-        <div className={cn("lg:p-10", contentClassName)}>
+        <div
+          className={cn(
+            "px-4 md:px-6 lg:px-10 py-4 md:py-4 lg:py-0",
+            contentClassName,
+          )}
+        >
           {title &&
             (typeof title === "string" ? (
               <h2
                 className={cn(
-                  "text-3xl font-medium text-balance md:text-5xl",
+                  "text-xl font-semibold text-balance md:text-2xl lg:text-3xl",
                   titleClassName,
                 )}
               >
@@ -299,7 +301,7 @@ export function FeatureChecklistImage({
             ) : (
               <div
                 className={cn(
-                  "text-3xl font-medium text-balance md:text-5xl",
+                  "text-xl font-semibold text-balance md:text-2xl lg:text-3xl",
                   titleClassName,
                 )}
               >
@@ -308,30 +310,18 @@ export function FeatureChecklistImage({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "mt-1 md:mt-6",
-                  getTextColor(background, 'muted'),
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("mt-1 md:mt-6", descriptionClassName)}>
                 {description}
               </p>
             ) : (
-              <div
-                className={cn(
-                  "mt-1 md:mt-6",
-                  getTextColor(background, 'muted'),
-                  descriptionClassName,
-                )}
-              >
+              <div className={cn("mt-1 md:mt-6", descriptionClassName)}>
                 {description}
               </div>
             ))}
           {actionsContent && (
             <div
               className={cn(
-                "flex flex-wrap items-center gap-2",
+                "flex flex-wrap items-center gap-4 md:gap-2",
                 actionsClassName,
               )}
             >
