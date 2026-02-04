@@ -192,9 +192,9 @@ function BlurVignette({
             --r: max(var(--transition-length), calc(var(--radius) - var(--inset)));
             --corner-size: calc(var(--r) + var(--inset)) calc(var(--r) + var(--inset));
             --corner-gradient: transparent 0px,
-              transparent calc(var(--r) - var(--transition-length)), 
+              transparent calc(var(--r) - var(--transition-length)),
               black var(--r);
-            --fill-gradient: black, 
+            --fill-gradient: black,
               black var(--inset),
               transparent calc(var(--inset) + var(--transition-length)),
               transparent calc(100% - var(--transition-length) - var(--inset)),
@@ -207,21 +207,21 @@ function BlurVignette({
               radial-gradient(at bottom left, var(--corner-gradient)),
               radial-gradient(at top left, var(--corner-gradient)),
               radial-gradient(at top right, var(--corner-gradient));
-            -webkit-mask-size: 100% var(--fill-narrow-size), 
+            -webkit-mask-size: 100% var(--fill-narrow-size),
               var(--fill-narrow-size) 100%,
-              var(--corner-size), 
-              var(--corner-size), 
+              var(--corner-size),
+              var(--corner-size),
               var(--corner-size),
               var(--corner-size);
-            -webkit-mask-position: 0 var(--fill-farther-position), 
+            -webkit-mask-position: 0 var(--fill-farther-position),
               var(--fill-farther-position) 0,
-              0 0, 
-              100% 0, 
-              100% 100%, 
+              0 0,
+              100% 0,
+              100% 100%,
               0 100%;
             -webkit-mask-repeat: no-repeat;
             opacity: 0;
-            transition: opacity 0.3s ease;    
+            transition: opacity 0.3s ease;
         }
 
         .blur-vignette.active {
@@ -342,12 +342,12 @@ export function BlurVignetteGrid({
       className={className}
     >
       {title || description ? (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 mb-16">
           {title &&
             (typeof title === "string" ? (
               <h2
                 className={cn(
-                  "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl",
+                  "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl text-balance",
                   titleClassName,
                 )}
               >
@@ -358,29 +358,24 @@ export function BlurVignetteGrid({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "max-w-lg text-muted-foreground",
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("max-w-lg text-balance", descriptionClassName)}>
                 {description}
               </p>
             ) : (
               <div
-                className={cn(
-                  "max-w-lg text-muted-foreground",
-                  descriptionClassName,
-                )}
+                className={cn("max-w-lg text-balance", descriptionClassName)}
               >
                 {description}
               </div>
             ))}
         </div>
       ) : null}
-
       <div
-        className={cn(`grid grid-cols-1 md:grid-cols-${gridColumns}`, gridGap, gridClassName)}
+        className={cn(
+          `grid grid-cols-1 md:grid-cols-${gridColumns}`,
+          gridGap,
+          gridClassName,
+        )}
       >
         {imagesContent}
       </div>

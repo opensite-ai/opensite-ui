@@ -54,7 +54,8 @@ describe("TestimonialCarouselCards", () => {
       },
     ];
     render(<TestimonialCarouselCards items={items} />);
-    expect(screen.getByText("@testuser")).toBeInTheDocument();
+    // Username is used as alt text for the image, not as visible text
+    expect(screen.getByAltText("@testuser")).toBeInTheDocument();
     expect(screen.getByText("Great service!")).toBeInTheDocument();
     expect(screen.getByText("John Doe")).toBeInTheDocument();
   });

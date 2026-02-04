@@ -2,11 +2,7 @@
 
 import * as React from "react";
 import { useState, useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -217,84 +213,72 @@ export function ExpandableCaseStudyCards({
       >
         <a
           href={item.href}
-          className="relative block h-full w-full overflow-hidden rounded-xl bg-primary text-primary-foreground dark:bg-card"
+          className="relative block h-full w-full overflow-hidden rounded-xl"
         >
-          <div className='absolute -inset-[50%] hidden h-[200%] w-[200%] md:block lg:group-data-[state="closed"]:blur-sm'>
-            <div className="absolute top-[calc(25%+40px)] aspect-square h-[calc(50%+40px)] max-lg:right-[calc(50%+40px)] lg:right-[50%]">
-              <div className="h-full w-full overflow-clip rounded-xl">
-                <Img
-                  src={item.image}
-                  alt={
-                    typeof item.title === "string"
-                      ? item.title
-                      : item.imageAlt || "Case study image"
-                  }
-                  className={cn(
-                    "h-full w-full object-cover object-center",
-                    imageClassName,
-                  )}
-                  loading="lazy"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </div>
-            </div>
-
-            <div
+          {/* Full-bleed background image */}
+          <div className='absolute inset-0 lg:group-data-[state="closed"]:blur-sm lg:transition-[filter] lg:duration-500'>
+            <Img
+              src={item.image}
+              alt={
+                typeof item.title === "string"
+                  ? item.title
+                  : item.imageAlt || "Case study image"
+              }
               className={cn(
-                "absolute top-[50%] left-[50%] flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full max-lg:hidden",
-                getNestedCardBg(background, "accent"),
-                getNestedCardTextColor(background),
+                "h-full w-full object-cover object-center",
+                imageClassName,
               )}
-            >
-              <DynamicIcon name="lucide/plus" size={32} />
-            </div>
-            <div className="absolute inset-x-0 bottom-0 hidden h-[50%] bg-linear-to-t from-primary from-50% to-transparent lg:block"></div>
+              loading="lazy"
+              optixFlowConfig={optixFlowConfig}
+            />
           </div>
-          <div className="relative flex flex-col justify-between gap-4 md:absolute md:inset-0 md:max-lg:inset-x-[50%] md:max-lg:w-[50%]">
-            <div className='flex flex-col gap-3 p-4 pt-6 transition-all delay-200 duration-500 lg:group-data-[state="closed"]:opacity-0'>
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex flex-col gap-2">
-                  {item.logo && (
-                    <div className="mb-1">
-                      <Img
-                        src={item.logo}
-                        alt={item.logoAlt || item.company || "Logo"}
-                        className={cn("h-6 max-w-[120px] object-contain object-left lg:h-8 lg:max-w-[150px]", logoClassName)}
-                        loading="lazy"
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                    </div>
-                  )}
-                  <div className="text-base font-medium lg:text-lg">
-                    {item.title}
-                  </div>
-                  {item.description && (
-                    <div className="text-sm text-primary-foreground/70">
-                      {item.description}
-                    </div>
-                  )}
-                </div>
-                <div
-                  className={cn(
-                    "flex size-8 shrink-0 items-center justify-center rounded-full text-foreground transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 lg:size-10",
-                    getNestedCardBg(background, "card"),
-                  )}
-                >
-                  <DynamicIcon name="lucide/arrow-up-right" size={20} />
-                </div>
+          {/* Black gradient from bottom for text readability */}
+          <div className="absolute inset-x-0 bottom-0 h-[70%] bg-linear-to-t from-black/90 from-30% to-transparent"></div>
+          {/* Content area - positioned at bottom */}
+          <div className='absolute inset-0 flex flex-col justify-end p-4 pb-5 transition-opacity delay-200 duration-500 lg:group-data-[state="closed"]:opacity-0'>
+            {/* Badges - above content */}
+            {item.badges && item.badges.length > 0 && (
+              <div
+                className={cn(
+                  "mb-3 flex flex-wrap items-center gap-2",
+                  badgesClassName,
+                )}
+              >
+                {item.badges.map((badge, idx) => (
+                  <Badge key={idx} variant="secondary" className={badgeClassName}>
+                    {badge}
+                  </Badge>
+                ))}
               </div>
-            </div>
-            <div
-              className={cn(
-                'flex h-20 items-center gap-2 px-4 pb-4 transition-opacity delay-200 duration-500 lg:group-data-[state="closed"]:opacity-0',
-                badgesClassName,
-              )}
-            >
-              {item.badges?.map((badge, idx) => (
-                <Badge key={idx} variant="secondary" className={badgeClassName}>
-                  {badge}
-                </Badge>
-              ))}
+            )}
+            {/* Logo, title, description, and arrow */}
+            <div className="flex items-end justify-between gap-3">
+              <div className="flex flex-col gap-1.5">
+                {item.logo && (
+                  <div className="mb-1">
+                    <Img
+                      src={item.logo}
+                      alt={item.logoAlt || item.company || "Logo"}
+                      className={cn("h-6 max-w-[120px] object-contain object-left invert lg:h-8 lg:max-w-[150px]", logoClassName)}
+                      loading="lazy"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </div>
+                )}
+                <div className="text-base font-medium text-white lg:text-lg">
+                  {item.title}
+                </div>
+                {item.description && (
+                  <div className="text-sm text-white/80">
+                    {item.description}
+                  </div>
+                )}
+              </div>
+              <div
+                className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 lg:size-10"
+              >
+                <DynamicIcon name="lucide/arrow-up-right" size={20} />
+              </div>
             </div>
           </div>
         </a>

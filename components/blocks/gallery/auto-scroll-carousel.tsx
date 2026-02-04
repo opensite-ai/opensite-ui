@@ -186,30 +186,32 @@ export function AutoScrollCarousel({
       ...pressableProps
     } = action;
     return (
-      <Pressable
-        variant="link"
-        asButton
-        className={cn(
-          "font-medium flex items-center",
-          actionClass,
-          actionClassName,
-        )}
-        {...pressableProps}
-      >
-        {children ?? (
-          <>
-            {icon}
-            {label}
-            {iconAfter ?? (
-              <DynamicIcon
-                name="lucide/move-right"
-                size={20}
-                className="ml-2 inline"
-              />
-            )}
-          </>
-        )}
-      </Pressable>
+      <div className="flex text-left">
+        <Pressable
+          variant="link"
+          asButton
+          className={cn(
+            "font-medium flex items-center text-xl",
+            actionClass,
+            actionClassName,
+          )}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter ?? (
+                <DynamicIcon
+                  name="lucide/move-right"
+                  size={20}
+                  className="ml-2 inline"
+                />
+              )}
+            </>
+          )}
+        </Pressable>
+      </div>
     );
   }, [actionSlot, action, actionClassName]);
 
@@ -255,14 +257,14 @@ export function AutoScrollCarousel({
         <div className="flex flex-col gap-8 md:gap-12">
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <h2
                 className={cn(
                   "text-3xl font-bold md:text-4xl",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
             ))}

@@ -358,7 +358,7 @@ export function CarouselGradientOverlay({
           </Pressable>
         </div>
       </div>
-      <div className="w-full -mx-4 sm:-mx-6 lg:-mx-8">
+      <div className="w-full -mx-4">
         <Carousel
           setApi={setCarouselApi}
           opts={{

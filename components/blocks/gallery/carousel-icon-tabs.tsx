@@ -1,7 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { startTransition, useEffect, useState, useMemo, useCallback } from "react";
+import {
+  startTransition,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -249,13 +255,13 @@ export function CarouselIconTabs({
     return (
       <div
         className={cn(
-          "mb-20 flex flex-col items-center justify-center gap-8",
+          "mb-8 md:mb-20 flex flex-col items-center justify-center gap-8",
           headerClassName,
         )}
       >
         {heading &&
           (typeof heading === "string" ? (
-            <h1 className={cn("text-4xl", headingClassName)}>{heading}</h1>
+            <h2 className={cn("text-4xl", headingClassName)}>{heading}</h2>
           ) : (
             <div className={cn("text-4xl", headingClassName)}>{heading}</div>
           ))}
@@ -269,7 +275,14 @@ export function CarouselIconTabs({
         )}
       </div>
     );
-  }, [headerSlot, headerClassName, heading, headingClassName, badge, badgeClassName]);
+  }, [
+    headerSlot,
+    headerClassName,
+    heading,
+    headingClassName,
+    badge,
+    badgeClassName,
+  ]);
 
   const sectionsContent = useMemo(() => {
     if (sectionsSlot) return sectionsSlot;
@@ -288,7 +301,7 @@ export function CarouselIconTabs({
               : item.alt || "Tab image"
           }
           className={cn(
-            "aspect-square h-full w-full object-cover md:aspect-2/1 cursor-pointer transition-transform hover:scale-[1.02]",
+            "aspect-square h-full w-full object-cover md:aspect-2/1 cursor-pointer rounded-xl shadow-xl",
             imageClassName,
           )}
           loading="lazy"
@@ -312,7 +325,14 @@ export function CarouselIconTabs({
         </div>
       </CarouselItem>
     ));
-  }, [sectionsSlot, sections, itemClassName, imageClassName, optixFlowConfig, handleImageClick]);
+  }, [
+    sectionsSlot,
+    sections,
+    itemClassName,
+    imageClassName,
+    optixFlowConfig,
+    handleImageClick,
+  ]);
 
   const tabsContent = useMemo(() => {
     if (!sections || sections.length === 0) return null;

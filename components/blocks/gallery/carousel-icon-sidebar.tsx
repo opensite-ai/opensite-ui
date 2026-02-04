@@ -1,8 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { startTransition, useEffect, useState, useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  startTransition,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import type { CarouselApi } from "../../ui/carousel";
@@ -54,6 +64,14 @@ export interface CarouselIconSidebarItem {
 
 export interface CarouselIconSidebarProps {
   /**
+   * Section title (displayed above the carousel)
+   */
+  title?: React.ReactNode;
+  /**
+   * Section description (displayed above the carousel)
+   */
+  description?: React.ReactNode;
+  /**
    * Array of items to display
    */
   items?: CarouselIconSidebarItem[];
@@ -70,6 +88,14 @@ export interface CarouselIconSidebarProps {
    */
   className?: string;
   /**
+   * Additional CSS classes for the section title
+   */
+  sectionTitleClassName?: string;
+  /**
+   * Additional CSS classes for the section description
+   */
+  sectionDescriptionClassName?: string;
+  /**
    * Additional CSS classes for the sidebar panel
    */
   sidebarClassName?: string;
@@ -78,11 +104,11 @@ export interface CarouselIconSidebarProps {
    */
   iconClassName?: string;
   /**
-   * Additional CSS classes for the title
+   * Additional CSS classes for the sidebar item title
    */
   titleClassName?: string;
   /**
-   * Additional CSS classes for the description
+   * Additional CSS classes for the sidebar item description
    */
   descriptionClassName?: string;
   /**
@@ -155,10 +181,14 @@ export interface CarouselIconSidebarProps {
  * ```
  */
 export function CarouselIconSidebar({
+  title,
+  description,
   items,
   itemsSlot,
   sidebarSlot,
   className,
+  sectionTitleClassName,
+  sectionDescriptionClassName,
   sidebarClassName,
   iconClassName,
   titleClassName,
@@ -237,7 +267,7 @@ export function CarouselIconSidebar({
         <div
           className={cn(
             "flex h-12 w-12 items-center justify-center rounded-lg shadow-lg ring-1 ring-border",
-            getNestedCardBg(background, 'card'),
+            getNestedCardBg(background, "card"),
             iconClassName,
           )}
         >
@@ -295,7 +325,7 @@ export function CarouselIconSidebar({
 
     return items.map((image, index) => (
       <CarouselItem key={index} className={cn("h-full", itemClassName)}>
-        <div className={cn("aspect-2/1 h-full w-full", image.className)}>
+        <div className={cn("h-full w-full", image.className)}>
           <Img
             src={image.src}
             alt={
@@ -304,7 +334,7 @@ export function CarouselIconSidebar({
                 : image.alt || "Carousel image"
             }
             className={cn(
-              "h-full w-full rounded-lg object-cover cursor-pointer transition-transform hover:scale-[1.02]",
+              "h-full w-full rounded-lg object-cover cursor-pointer",
               imageClassName,
             )}
             loading="lazy"
@@ -322,7 +352,14 @@ export function CarouselIconSidebar({
         </div>
       </CarouselItem>
     ));
-  }, [itemsSlot, items, itemClassName, imageClassName, optixFlowConfig, handleImageClick]);
+  }, [
+    itemsSlot,
+    items,
+    itemClassName,
+    imageClassName,
+    optixFlowConfig,
+    handleImageClick,
+  ]);
 
   return (
     <Section
@@ -333,6 +370,36 @@ export function CarouselIconSidebar({
       patternClassName={patternClassName}
       className={className}
     >
+      {title || description ? (
+        <div className="flex flex-col gap-4 mb-16">
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl text-balance",
+                  sectionTitleClassName,
+                )}
+              >
+                {title}
+              </h2>
+            ) : (
+              <div className={sectionTitleClassName}>{title}</div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p className={cn("max-w-lg text-balance", sectionDescriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div
+                className={cn("max-w-lg text-balance", sectionDescriptionClassName)}
+              >
+                {description}
+              </div>
+            ))}
+        </div>
+      ) : null}
+
       <Carousel setApi={setApi} className={cn("w-full", carouselClassName)}>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
           <div className="md:col-span-2">{sidebarContent}</div>

@@ -250,14 +250,7 @@ export function TestimonialCarouselCards({
           >
             {heading}
           </h2>
-          <p
-            className={cn(
-              "text-lg text-muted-foreground",
-              descriptionClassName,
-            )}
-          >
-            {description}
-          </p>
+          <p className={cn("text-md", descriptionClassName)}>{description}</p>
         </div>
 
         <div
@@ -335,21 +328,10 @@ export function TestimonialCarouselCards({
 
           <div
             className={cn(
-              "relative flex h-[460px] w-[400px] flex-col items-start justify-end rounded-2xl p-8",
-              testimonial.bgColor,
-              quotePanelClassName,
+              "relative bg-background text-foreground flex h-[460px] w-[400px] flex-col items-start justify-end rounded-2xl p-8",
             )}
           >
-            <Badge
-              className={cn(
-                "mb-auto bg-background px-4 py-2",
-                badgeClassName,
-              )}
-            >
-              {testimonial.username}
-            </Badge>
-            <span className="-rotate-[4deg] text-7xl leading-none">&quot;</span>
-            <p className="text-xl font-semibold">{testimonial.quote}</p>
+            <p className="text-lg font-semibold">{testimonial.quote}</p>
             <p className="mt-4 text-lg font-medium">{testimonial.author}</p>
           </div>
         </div>
@@ -373,8 +355,9 @@ export function TestimonialCarouselCards({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName="px-4"
     >
-      <div className="flex flex-col items-start justify-between gap-6 px-4 lg:flex-row lg:px-10">
+      <div className="flex flex-col items-start justify-between gap-4 lg:flex-row ">
         {sidebarContent}
 
         <div className="relative w-full overflow-hidden pb-12 lg:flex-1">

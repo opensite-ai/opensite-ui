@@ -294,7 +294,7 @@ export function CarouselBadgeCards({
     >
       <div
         className={cn(
-          "mb-8 flex items-end justify-between md:mb-14 lg:mb-16",
+          "mb-8 flex items-end justify-between md:mb-14 lg:mb-16 px-6 md:px-0",
           headerClassName,
         )}
       >

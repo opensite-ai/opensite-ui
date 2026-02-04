@@ -265,30 +265,36 @@ export function InteriorCarousel({
       patternClassName={patternClassName}
       className={className}
     >
-      {heading || descriptionContent ? (
-        <div className="mb-10">
-          {heading && (
-            <h2
-              className={cn(
-                "mb-4 text-center text-4xl font-semibold",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h2>
-          )}
-          {descriptionContent && (
-            <p
-              className={cn(
-                "text-center text-sm text-muted-foreground",
-                descriptionClassName,
-              )}
-            >
-              {descriptionContent}
-            </p>
-          )}
+      {heading || description ? (
+        <div className="flex flex-col gap-4 mb-16">
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl text-balance",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            ))}
+          {descriptionContent &&
+            (typeof description === "string" ? (
+              <p className={cn("max-w-lg text-balance", descriptionClassName)}>
+                {descriptionContent}
+              </p>
+            ) : (
+              <div
+                className={cn("max-w-lg text-balance", descriptionClassName)}
+              >
+                {descriptionContent}
+              </div>
+            ))}
         </div>
       ) : null}
+
       <div className="relative">
         <Carousel
           opts={{

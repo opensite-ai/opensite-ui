@@ -380,12 +380,12 @@ export function MasonryMotionGrid({
       className={className}
     >
       {title || description ? (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 mb-16">
           {title &&
             (typeof title === "string" ? (
               <h2
                 className={cn(
-                  "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl",
+                  "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl text-balance",
                   titleClassName,
                 )}
               >
@@ -396,20 +396,12 @@ export function MasonryMotionGrid({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "max-w-lg text-muted-foreground",
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("max-w-lg text-balance", descriptionClassName)}>
                 {description}
               </p>
             ) : (
               <div
-                className={cn(
-                  "max-w-lg text-muted-foreground",
-                  descriptionClassName,
-                )}
+                className={cn("max-w-lg text-balance", descriptionClassName)}
               >
                 {description}
               </div>
