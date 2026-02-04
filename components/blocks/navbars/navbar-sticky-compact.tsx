@@ -288,13 +288,7 @@ export const NavbarStickyCompact = ({
                 <NavbarLogo
                   logo={logo}
                   logoSlot={logoSlot}
-                  logoClassName={cn(
-                    isScrolled
-                      ? "[&_img]:h-6 [&_span]:text-base"
-                      : "[&_img]:h-8 [&_span]:text-lg",
-                    "[&_img]:transition-all [&_img]:duration-300 [&_span]:transition-all [&_span]:duration-300",
-                    logoClassName,
-                  )}
+                  logoClassName={logoClassName}
                   optixFlowConfig={optixFlowConfig}
                 />
 
@@ -318,10 +312,7 @@ export const NavbarStickyCompact = ({
                   className="lg:hidden transition-all duration-300"
                   onClick={() => setIsOpen(!isOpen)}
                 >
-                  <DynamicIcon
-                    name="lucide/menu"
-                    size={isScrolled ? 18 : 20}
-                  />
+                  <DynamicIcon name="lucide/menu" size={isScrolled ? 18 : 20} />
                   <span className="sr-only">Toggle menu</span>
                 </Pressable>
               </nav>

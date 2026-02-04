@@ -304,7 +304,7 @@ export const NavbarAnimatedPreview = ({
               <NavigationMenu className={navWrapperClasses}>
                 <div
                   className={cn(
-                    "relative z-999 grid w-full grid-cols-2 items-center justify-between gap-8 xl:grid-cols-3",
+                    "relative z-999 flex w-full items-center justify-between gap-4",
                   )}
                 >
                   <NavbarLogo
@@ -671,7 +671,7 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
   return (
     <Pressable
       href={getLinkUrl(link)}
-      className="group relative flex w-full overflow-hidden rounded-xl bg-muted px-4 pt-12 pb-4"
+      className="group relative flex w-full overflow-hidden rounded-xl bg-muted px-4 pt-24 pb-4"
     >
       <div className="relative z-10 flex w-full items-center gap-6">
         <div className="flex size-12 shrink-0 rounded-lg border bg-background shadow-lg">
@@ -818,23 +818,23 @@ const renderMobileMenuItem = (item: IMenuLink, index: number) => {
         <AccordionTrigger className="h-10 items-center text-base font-normal text-foreground hover:no-underline">
           {item.label}
         </AccordionTrigger>
-        <AccordionContent className="flex flex-col gap-6 p-2">
+        <AccordionContent className="flex flex-col py-6 px-4">
           {item.featuredLinks && (
-            <div className="flex flex-col gap-4 p-2">
+            <div className="flex flex-col gap-2">
               {item.featuredLinks.map((link, idx) => (
                 <NavLink key={`default-nav-link-${idx}`} link={link} />
               ))}
             </div>
           )}
           {item.links && (
-            <div className="flex flex-col gap-4 p-2">
+            <div className="flex flex-col gap-2">
               {item.links.map((link, idx) => (
                 <NavLink key={`default-nav-link-${idx}`} link={link} />
               ))}
             </div>
           )}
           {item.groupLinks && (
-            <div className="flex flex-col gap-4 p-2">
+            <div className="flex flex-col gap-2">
               {item.groupLinks.map((group, groupIdx) => (
                 <div className="relative" key={`group-link-${groupIdx}`}>
                   {group.label && (
