@@ -165,7 +165,7 @@ export function FeatureChecklistImage({
   checklistItems,
   checklistSlot,
   className,
-  containerClassName = "px-6 sm:px-6 md:mx-6 lg:px-8",
+  containerClassName = "px-6 sm:px-6 md:px-6 lg:px-8",
   contentWrapperClassName,
   imageClassName,
   contentClassName,

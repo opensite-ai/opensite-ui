@@ -12,7 +12,11 @@ import {
 } from "../../ui/accordion";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureAccordionImageItem {
   /**
@@ -163,7 +167,7 @@ export function FeatureAccordionImage({
   itemsSlot,
   defaultValue,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   titleClassName,
   descriptionClassName,
@@ -187,14 +191,28 @@ export function FeatureAccordionImage({
     if (!items || items.length === 0) return null;
 
     return items.map((item, index) => (
-      <AccordionItem key={index} value={`item-${index}`} className={item.className}>
+      <AccordionItem
+        key={index}
+        value={`item-${index}`}
+        className={item.className}
+      >
         {item.title && (
-          <AccordionTrigger className={cn("text-left text-lg font-medium", item.triggerClassName)}>
+          <AccordionTrigger
+            className={cn(
+              "text-left text-lg font-medium",
+              item.triggerClassName,
+            )}
+          >
             {item.title}
           </AccordionTrigger>
         )}
         {item.content && (
-          <AccordionContent className={cn(getTextColor(background, 'muted'), item.contentClassName)}>
+          <AccordionContent
+            className={cn(
+              getTextColor(background, "muted"),
+              item.contentClassName,
+            )}
+          >
             {item.content}
           </AccordionContent>
         )}
@@ -210,7 +228,10 @@ export function FeatureAccordionImage({
       <Img
         src={currentImage.imageSrc}
         alt={currentImage.imageAlt || ""}
-        className={cn("h-full w-full object-cover transition-opacity duration-300", imageClassName)}
+        className={cn(
+          "h-full w-full object-cover transition-opacity duration-300",
+          imageClassName,
+        )}
         loading="lazy"
         optixFlowConfig={optixFlowConfig}
       />
@@ -227,48 +248,73 @@ export function FeatureAccordionImage({
       className={className}
       containerClassName={containerClassName}
     >
-      {(title || description) && (
-        <div className={cn("mb-12 text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-semibold md:text-4xl lg:text-5xl", titleClassName)}>
-                {title}
-              </h2>
-            ) : (
-              <div className={cn("text-3xl font-semibold md:text-4xl lg:text-5xl", titleClassName)}>
-                {title}
-              </div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-4 lg:text-lg", getTextColor(background, 'muted'), descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={cn("mt-4 lg:text-lg", getTextColor(background, 'muted'), descriptionClassName)}>
-                {description}
-              </div>
-            )
-          )}
-        </div>
-      )}
-      {(itemsSlot || (items && items.length > 0)) && (
-        <div className={cn("grid gap-10 lg:grid-cols-2 lg:gap-16", gridClassName)}>
-          <Accordion
-            type="single"
-            collapsible
-            value={activeItem}
-            onValueChange={setActiveItem}
-            className={cn("w-full", accordionClassName)}
+      <div className="flex flex-col space-y-6 md:space-y-16">
+        {(title || description) && (
+          <div
+            className={cn(
+              "text-center max-w-full md:max-w-md text-balance",
+              headerClassName,
+            )}
           >
-            {accordionItemsContent}
-          </Accordion>
-          <div className={cn("relative aspect-video overflow-hidden rounded-xl lg:aspect-square", imageWrapperClassName)}>
-            {imageContent}
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-xl font-semibold md:text-2xl lg:text-3xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
+              ) : (
+                <div
+                  className={cn(
+                    "text-xl font-semibold md:text-2xl lg:text-3xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn("mt-4 lg:text-lg", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mt-4 lg:text-lg", descriptionClassName)}>
+                  {description}
+                </div>
+              ))}
           </div>
-        </div>
-      )}
+        )}
+        {(itemsSlot || (items && items.length > 0)) && (
+          <div
+            className={cn(
+              "grid gap-10 lg:grid-cols-2 lg:gap-16",
+              gridClassName,
+            )}
+          >
+            <Accordion
+              type="single"
+              collapsible
+              value={activeItem}
+              onValueChange={setActiveItem}
+              className={cn("w-full", accordionClassName)}
+            >
+              {accordionItemsContent}
+            </Accordion>
+            <div
+              className={cn(
+                "relative aspect-video overflow-hidden rounded-xl shadow-xl lg:aspect-square",
+                imageWrapperClassName,
+              )}
+            >
+              {imageContent}
+            </div>
+          </div>
+        )}
+      </div>
     </Section>
   );
 }

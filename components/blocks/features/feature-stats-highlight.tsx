@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
@@ -158,7 +162,7 @@ export function FeatureStatsHighlight({
   stats,
   statsSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-6 lg:px-8",
   gridClassName,
   contentClassName,
   badgeClassName,
@@ -168,7 +172,7 @@ export function FeatureStatsHighlight({
   statsGridClassName,
   statCardClassName,
   background,
-  spacing = "py-6 md:py-32",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -213,9 +217,7 @@ export function FeatureStatsHighlight({
       <div
         key={index}
         className={cn(
-          "flex flex-col gap-2 rounded-xl border p-6",
-          getNestedCardBg(background, 'card'),
-          getNestedCardTextColor(background),
+          "flex flex-col gap-2 rounded-xl border p-4 md:p-6 bg-card text-card-foreground h-full justify-between",
           statCardClassName,
           stat.className,
         )}
@@ -223,7 +225,7 @@ export function FeatureStatsHighlight({
         {stat.value && (
           <span
             className={cn(
-              "text-4xl font-bold lg:text-5xl",
+              "text-3xl font-bold lg:text-4xl xl:text-5xl",
               stat.valueClassName,
             )}
           >
@@ -231,7 +233,14 @@ export function FeatureStatsHighlight({
           </span>
         )}
         {stat.label && (
-          <span className={cn("", stat.labelClassName)}>{stat.label}</span>
+          <span
+            className={cn(
+              "uppercase font-bold text-sm opacity-60",
+              stat.labelClassName,
+            )}
+          >
+            {stat.label}
+          </span>
         )}
       </div>
     ));
@@ -252,7 +261,7 @@ export function FeatureStatsHighlight({
       >
         <div className={cn("flex flex-col gap-5", contentClassName)}>
           {badge && (
-            <Badge variant="outline" className={cn("w-fit", badgeClassName)}>
+            <Badge variant="default" className={cn("", badgeClassName)}>
               {badge}
             </Badge>
           )}
@@ -291,7 +300,12 @@ export function FeatureStatsHighlight({
           )}
         </div>
         {(statsSlot || (stats && stats.length > 0)) && (
-          <div className={cn("grid grid-cols-2 gap-6", statsGridClassName)}>
+          <div
+            className={cn(
+              "grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6",
+              statsGridClassName,
+            )}
+          >
             {statsContent}
           </div>
         )}

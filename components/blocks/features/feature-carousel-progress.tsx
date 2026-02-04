@@ -176,7 +176,7 @@ export function FeatureCarouselProgress({
   slides,
   slidesSlot,
   className,
-  containerClassName = "px-6 sm:px-6 md:mx-6 lg:px-8",
+  containerClassName = "mx-0 w-full relative z-10 max-w-full px-6 sm:px-6 md:mx-0 lg:px-8",
   headerClassName,
   badgeClassName,
   carouselClassName,
@@ -184,7 +184,7 @@ export function FeatureCarouselProgress({
   progressClassName,
   cardClassName,
   background,
-  spacing = "py-6 md:py-32",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -221,7 +221,11 @@ export function FeatureCarouselProgress({
       >
         <div className="p-1 h-auto md:h-full">
           <Card
-            className={cn("h-auto md:h-full", cardClassName, slide.className)}
+            className={cn(
+              "h-auto md:h-full py-0",
+              cardClassName,
+              slide.className,
+            )}
           >
             <CardContent className="flex flex-col justify-center p-6 h-full">
               <div className="flex flex-col h-full justify-between">
@@ -235,7 +239,7 @@ export function FeatureCarouselProgress({
                     {renderSlideIcon(slide)}
                   </span>
                 )}
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-2">
                   {slide.title &&
                     (typeof slide.title === "string" ? (
                       <Pressable
@@ -261,7 +265,7 @@ export function FeatureCarouselProgress({
                     (typeof slide.description === "string" ? (
                       <p
                         className={cn(
-                          "pt-2 text-card-foreground",
+                          "text-card-foreground",
                           slide.descriptionClassName,
                         )}
                       >
@@ -270,7 +274,7 @@ export function FeatureCarouselProgress({
                     ) : (
                       <div
                         className={cn(
-                          "pt-2 text-card-foreground",
+                          "text-card-foreground",
                           slide.descriptionClassName,
                         )}
                       >
@@ -299,14 +303,17 @@ export function FeatureCarouselProgress({
       <div className="flex flex-col space-y-6 md:space-y-16">
         {badge || title || description ? (
           <div
-            className={cn("flex flex-col items-center gap-6", headerClassName)}
+            className={cn(
+              "flex flex-col items-center gap-6 text-center",
+              headerClassName,
+            )}
           >
             {badge && <Badge className={badgeClassName}>{badge}</Badge>}
             {title &&
               (typeof title === "string" ? (
                 <h2
                   className={cn(
-                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl",
+                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl max-w-lg md:max-w-md",
                     titleClassName,
                   )}
                 >
@@ -315,7 +322,7 @@ export function FeatureCarouselProgress({
               ) : (
                 <div
                   className={cn(
-                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl",
+                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl max-w-lg md:max-w-md",
                     titleClassName,
                   )}
                 >
@@ -324,11 +331,13 @@ export function FeatureCarouselProgress({
               ))}
             {description &&
               (typeof description === "string" ? (
-                <p className={cn("mt-1 md:mt-6", descriptionClassName)}>
+                <p className={cn("max-w-lg md:max-w-md", descriptionClassName)}>
                   {description}
                 </p>
               ) : (
-                <div className={cn("mt-1 md:mt-6", descriptionClassName)}>
+                <div
+                  className={cn("max-w-lg md:max-w-md", descriptionClassName)}
+                >
                   {description}
                 </div>
               ))}

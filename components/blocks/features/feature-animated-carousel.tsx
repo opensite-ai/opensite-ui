@@ -3,7 +3,11 @@
 import * as React from "react";
 import { useCallback, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -13,6 +17,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { Pressable } from "@/src";
 
 export interface FeatureAnimatedCarouselItem {
   /**
@@ -39,9 +44,33 @@ export interface FeatureAnimatedCarouselItem {
    * Additional CSS classes for the item
    */
   className?: string;
+  /**
+   * Optional href for item
+   */
+  href?: string;
 }
 
 export interface FeatureAnimatedCarouselProps {
+  /**
+   * Main heading content
+   */
+  title?: React.ReactNode;
+  /**
+   * Supporting description content
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
   /**
    * Array of feature items to display
    */
@@ -95,33 +124,35 @@ interface ControlsProps {
   isNextDisabled: boolean;
 }
 
-const Controls = React.memo(({
-  handleNext,
-  handlePrevious,
-  isPreviousDisabled,
-  isNextDisabled,
-}: ControlsProps) => {
-  return (
-    <div className="hidden flex-col items-start gap-8 lg:flex">
-      <button
-        className="rounded-full border bg-background/50 p-2 hover:bg-background disabled:opacity-50"
-        onClick={handlePrevious}
-        disabled={isPreviousDisabled}
-        type="button"
-      >
-        <DynamicIcon name="lucide/chevron-up" size={24} />
-      </button>
-      <button
-        className="rounded-full border bg-background/50 p-2 hover:bg-background disabled:opacity-50"
-        onClick={handleNext}
-        disabled={isNextDisabled}
-        type="button"
-      >
-        <DynamicIcon name="lucide/chevron-down" size={24} />
-      </button>
-    </div>
-  );
-});
+const Controls = React.memo(
+  ({
+    handleNext,
+    handlePrevious,
+    isPreviousDisabled,
+    isNextDisabled,
+  }: ControlsProps) => {
+    return (
+      <div className="hidden flex-col items-start gap-8 lg:flex">
+        <button
+          className="rounded-full border p-2 flex items-center justify-center disabled:opacity-50 h-fit w-fit bg-card text-card-foreground"
+          onClick={handlePrevious}
+          disabled={isPreviousDisabled}
+          type="button"
+        >
+          <DynamicIcon name="lucide/chevron-up" size={24} />
+        </button>
+        <button
+          className="rounded-full border p-2 flex items-center justify-center disabled:opacity-50 h-fit w-fit bg-card text-card-foreground"
+          onClick={handleNext}
+          disabled={isNextDisabled}
+          type="button"
+        >
+          <DynamicIcon name="lucide/chevron-down" size={24} />
+        </button>
+      </div>
+    );
+  },
+);
 
 interface FeatureCardProps {
   feature: FeatureAnimatedCarouselItem;
@@ -129,92 +160,115 @@ interface FeatureCardProps {
   onClick: () => void;
 }
 
-const FeatureCard = React.memo(({ feature, isActive, onClick }: FeatureCardProps) => {
-  const variants = useMemo(() => ({
-    initial: {
-      opacity: 0,
-    },
-    animate: {
-      opacity: 1,
-    },
-    exit: {
-      opacity: 0,
-    },
-  }), []);
+const FeatureCard = React.memo(
+  ({ feature, isActive, onClick }: FeatureCardProps) => {
+    const variants = useMemo(
+      () => ({
+        initial: {
+          opacity: 0,
+        },
+        animate: {
+          opacity: 1,
+        },
+        exit: {
+          opacity: 0,
+        },
+      }),
+      [],
+    );
 
-  return (
-    <AnimatePresence mode="popLayout">
-      <motion.div
-        layout
-        transition={{
-          layout: {
-            duration: 0.4,
-            ease: "easeOut",
-          },
-        }}
-        style={{
-          borderRadius: "24px",
-        }}
-        className="flex cursor-pointer items-start gap-4 overflow-hidden bg-background md:w-fit md:max-w-sm"
-        onClick={onClick}
-      >
-        {isActive ? (
-          <motion.div
-            layout
-            variants={variants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            key={`feature-description-active-${feature.title}`}
-            transition={{
+    return (
+      <AnimatePresence mode="popLayout">
+        <motion.div
+          layout
+          transition={{
+            layout: {
               duration: 0.4,
-              delay: 0.3,
               ease: "easeOut",
-            }}
-            className="p-6 text-sm md:p-8 md:text-base"
-          >
-            {(feature.title || feature.description) && (
-              <p>
-                {feature.title && <span className="font-semibold">{feature.title}.</span>}
-                {feature.title && feature.description && " "}
-                {feature.description && <span>{feature.description}</span>}
-              </p>
-            )}
-          </motion.div>
-        ) : (
-          <motion.div
-            layout
-            variants={variants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            key={`feature-description-inactive-${feature.title}`}
-            transition={{
-              duration: 0.4,
-              delay: 0.2,
-              ease: "easeOut",
-            }}
-            className={cn(
-              "flex h-fit shrink-0 items-center gap-4 text-sm md:py-3.5 md:pr-6 md:pl-3 md:text-base",
-              !isActive && "h-0 w-0 md:h-auto md:w-auto",
-            )}
-            style={{
-              height: "auto",
-              lineHeight: "normal",
-            }}
-          >
-            <DynamicIcon
-              name="lucide/plus-circle"
-              size={24}
-              className="shrink-0"
-            />
-            {feature.title && <p className="shrink-0 font-semibold">{feature.title}</p>}
-          </motion.div>
-        )}
-      </motion.div>
-    </AnimatePresence>
-  );
-});
+            },
+          }}
+          style={{
+            borderRadius: "24px",
+          }}
+          className={cn(
+            "relative flex items-start gap-4 overflow-hidden bg-background text-foreground md:w-fit md:max-w-sm",
+            isActive ? "shadow-xl" : "cursor-pointer shadow-none",
+          )}
+          onClick={onClick}
+        >
+          {isActive && feature.href && (
+            <div className="absolute bg-background rounded-full h-fit w-fit p-2 flex items-center justify-center">
+              <Pressable
+                href={feature.href}
+                size="icon-lg"
+                className="text-foreground"
+              >
+                <DynamicIcon name="lucide/arrow-up-right" />
+              </Pressable>
+            </div>
+          )}
+          {isActive ? (
+            <motion.div
+              layout
+              variants={variants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              key={`feature-description-active-${feature.title}`}
+              transition={{
+                duration: 0.4,
+                delay: 0.3,
+                ease: "easeOut",
+              }}
+              className="p-6 text-sm md:p-8 md:text-base"
+            >
+              {(feature.title || feature.description) && (
+                <p>
+                  {feature.title && (
+                    <span className="font-semibold">{feature.title}.</span>
+                  )}
+                  {feature.title && feature.description && " "}
+                  {feature.description && <span>{feature.description}</span>}
+                </p>
+              )}
+            </motion.div>
+          ) : (
+            <motion.div
+              layout
+              variants={variants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              key={`feature-description-inactive-${feature.title}`}
+              transition={{
+                duration: 0.4,
+                delay: 0.2,
+                ease: "easeOut",
+              }}
+              className={cn(
+                "flex h-fit shrink-0 items-center gap-4 text-sm md:py-3.5 md:pr-6 md:pl-3 md:text-base",
+                !isActive && "h-0 w-0 md:h-auto md:w-auto",
+              )}
+              style={{
+                height: "auto",
+                lineHeight: "normal",
+              }}
+            >
+              <DynamicIcon
+                name="lucide/plus-circle"
+                size={24}
+                className="shrink-0"
+              />
+              {feature.title && (
+                <p className="shrink-0 font-semibold">{feature.title}</p>
+              )}
+            </motion.div>
+          )}
+        </motion.div>
+      </AnimatePresence>
+    );
+  },
+);
 
 interface FeaturesDesktopProps {
   features: FeatureAnimatedCarouselItem[];
@@ -226,38 +280,40 @@ interface FeaturesDesktopProps {
   isNextDisabled: boolean;
 }
 
-const FeaturesDesktop = React.memo(({
-  features,
-  handleNext,
-  handlePrevious,
-  activeIndex,
-  handleFeatureClick,
-  isPreviousDisabled,
-  isNextDisabled,
-}: FeaturesDesktopProps) => {
-  return (
-    <div className="relative z-10 hidden items-center gap-8 md:flex">
-      <Controls
-        handleNext={handleNext}
-        handlePrevious={handlePrevious}
-        isPreviousDisabled={isPreviousDisabled}
-        isNextDisabled={isNextDisabled}
-      />
-      <div className="flex flex-col gap-4">
-        {features.map((feature, index) => {
-          return (
-            <FeatureCard
-              key={`feature-card-${index}`}
-              feature={feature}
-              isActive={index === activeIndex}
-              onClick={() => handleFeatureClick(index)}
-            />
-          );
-        })}
+const FeaturesDesktop = React.memo(
+  ({
+    features,
+    handleNext,
+    handlePrevious,
+    activeIndex,
+    handleFeatureClick,
+    isPreviousDisabled,
+    isNextDisabled,
+  }: FeaturesDesktopProps) => {
+    return (
+      <div className="relative z-10 hidden items-center gap-8 md:flex">
+        <Controls
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+          isPreviousDisabled={isPreviousDisabled}
+          isNextDisabled={isNextDisabled}
+        />
+        <div className="flex flex-col gap-4">
+          {features.map((feature, index) => {
+            return (
+              <FeatureCard
+                key={`feature-card-${index}`}
+                feature={feature}
+                isActive={index === activeIndex}
+                onClick={() => handleFeatureClick(index)}
+              />
+            );
+          })}
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  },
+);
 
 interface FeatureMobileProps {
   features: FeatureAnimatedCarouselItem[];
@@ -269,84 +325,91 @@ interface FeatureMobileProps {
   isNextDisabled: boolean;
 }
 
-const FeaturesMobile = React.memo(({
-  features,
-  handleNext,
-  handlePrevious,
-  activeIndex,
-  direction,
-  isPreviousDisabled,
-  isNextDisabled,
-}: FeatureMobileProps) => {
-  const variants = useMemo(() => ({
-    enter: (direction: number) => ({
-      x: direction > 0 ? 100 : -100,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 100 : -100,
-      opacity: 0,
-    }),
-  }), []);
+const FeaturesMobile = React.memo(
+  ({
+    features,
+    handleNext,
+    handlePrevious,
+    activeIndex,
+    direction,
+    isPreviousDisabled,
+    isNextDisabled,
+  }: FeatureMobileProps) => {
+    const variants = useMemo(
+      () => ({
+        enter: (direction: number) => ({
+          x: direction > 0 ? 100 : -100,
+          opacity: 0,
+        }),
+        center: {
+          x: 0,
+          opacity: 1,
+        },
+        exit: (direction: number) => ({
+          x: direction < 0 ? 100 : -100,
+          opacity: 0,
+        }),
+      }),
+      [],
+    );
 
-  const currentFeature = features[activeIndex];
+    const currentFeature = features[activeIndex];
 
-  return (
-    <div className="relative z-10 flex flex-col items-center gap-6 md:hidden">
-      <div className="flex w-full items-center justify-between gap-4">
-        <button
-          className="rounded-full border bg-background/50 p-2 hover:bg-background disabled:opacity-50"
-          onClick={handlePrevious}
-          disabled={isPreviousDisabled}
-          type="button"
-        >
-          <DynamicIcon name="lucide/chevron-left" size={24} />
-        </button>
-        <div className="relative h-24 w-full overflow-hidden">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={activeIndex}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 },
-              }}
-              className="absolute inset-0 flex items-center justify-center rounded-3xl bg-background p-4"
-            >
-              {(currentFeature?.title || currentFeature?.description) && (
-                <p className="text-center text-sm">
-                  {currentFeature.title && (
-                    <span className="font-semibold">
-                      {currentFeature.title}.
-                    </span>
-                  )}
-                  {currentFeature.title && currentFeature.description && " "}
-                  {currentFeature.description && <span>{currentFeature.description}</span>}
-                </p>
-              )}
-            </motion.div>
-          </AnimatePresence>
+    return (
+      <div className="relative z-10 flex flex-col items-center gap-6 md:hidden">
+        <div className="flex w-full items-center justify-between gap-4">
+          <button
+            className="rounded-full border bg-background/50 p-2 hover:bg-background disabled:opacity-50"
+            onClick={handlePrevious}
+            disabled={isPreviousDisabled}
+            type="button"
+          >
+            <DynamicIcon name="lucide/chevron-left" size={24} />
+          </button>
+          <div className="relative h-24 w-full overflow-hidden">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={activeIndex}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.2 },
+                }}
+                className="absolute inset-0 flex items-center justify-center rounded-3xl bg-background p-4"
+              >
+                {(currentFeature?.title || currentFeature?.description) && (
+                  <p className="text-center text-sm">
+                    {currentFeature.title && (
+                      <span className="font-semibold">
+                        {currentFeature.title}.
+                      </span>
+                    )}
+                    {currentFeature.title && currentFeature.description && " "}
+                    {currentFeature.description && (
+                      <span>{currentFeature.description}</span>
+                    )}
+                  </p>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          <button
+            className="rounded-full border bg-background/50 p-2 hover:bg-background disabled:opacity-50"
+            onClick={handleNext}
+            disabled={isNextDisabled}
+            type="button"
+          >
+            <DynamicIcon name="lucide/chevron-right" size={24} />
+          </button>
         </div>
-        <button
-          className="rounded-full border bg-background/50 p-2 hover:bg-background disabled:opacity-50"
-          onClick={handleNext}
-          disabled={isNextDisabled}
-          type="button"
-        >
-          <DynamicIcon name="lucide/chevron-right" size={24} />
-        </button>
       </div>
-    </div>
-  );
-});
+    );
+  },
+);
 
 /**
  * Feature Animated Carousel - Interactive feature showcase with animated transitions
@@ -370,14 +433,20 @@ const FeaturesMobile = React.memo(({
  * ```
  */
 export function FeatureAnimatedCarousel({
+  title,
+  description,
+  titleClassName,
+  descriptionClassName,
   features,
   className,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
+  headerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: FeatureAnimatedCarouselProps) {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [direction, setDirection] = React.useState<1 | -1>(1);
@@ -396,28 +465,34 @@ export function FeatureAnimatedCarousel({
     }
   }, [activeIndex]);
 
-  const handleFeatureClick = useCallback((index: number) => {
-    setDirection(index > activeIndex ? 1 : -1);
-    setActiveIndex(index);
-  }, [activeIndex]);
+  const handleFeatureClick = useCallback(
+    (index: number) => {
+      setDirection(index > activeIndex ? 1 : -1);
+      setActiveIndex(index);
+    },
+    [activeIndex],
+  );
 
   const isPreviousDisabled = activeIndex === 0;
   const isNextDisabled = !features || activeIndex === features.length - 1;
 
-  const imageVariants = useMemo(() => ({
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0,
+  const imageVariants = useMemo(
+    () => ({
+      enter: (direction: number) => ({
+        x: direction > 0 ? 300 : -300,
+        opacity: 0,
+      }),
+      center: {
+        x: 0,
+        opacity: 1,
+      },
+      exit: (direction: number) => ({
+        x: direction < 0 ? 300 : -300,
+        opacity: 0,
+      }),
     }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 300 : -300,
-      opacity: 0,
-    }),
-  }), []);
+    [],
+  );
 
   if (!features || features.length === 0) {
     return (
@@ -428,12 +503,15 @@ export function FeatureAnimatedCarousel({
         patternOpacity={patternOpacity}
         patternClassName={patternClassName}
         className={className}
+        containerClassName={containerClassName}
       >
-        <div className={cn(
-          "relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background)
-        )} />
+        <div
+          className={cn(
+            "relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]",
+            getNestedCardBg(background),
+            getNestedCardTextColor(background),
+          )}
+        />
       </Section>
     );
   }
@@ -449,60 +527,99 @@ export function FeatureAnimatedCarousel({
       patternClassName={patternClassName}
       className={className}
     >
-      <div className={cn(
-        "relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]",
-        getNestedCardBg(background),
-        getNestedCardTextColor(background)
-      )}>
-        <FeaturesDesktop
-          features={features}
-          handleNext={handleNext}
-          handlePrevious={handlePrevious}
-          activeIndex={activeIndex}
-          handleFeatureClick={handleFeatureClick}
-          isPreviousDisabled={isPreviousDisabled}
-          isNextDisabled={isNextDisabled}
-        />
-        <FeaturesMobile
-          features={features}
-          handleNext={handleNext}
-          handlePrevious={handlePrevious}
-          activeIndex={activeIndex}
-          direction={direction}
-          isPreviousDisabled={isPreviousDisabled}
-          isNextDisabled={isNextDisabled}
-        />
-        {currentFeature?.image && (
-          <div className="relative flex-1 overflow-hidden rounded-2xl md:absolute md:right-8 md:top-8 md:bottom-8 md:w-1/2">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={activeIndex}
-                custom={direction}
-                variants={imageVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 },
-                }}
-                className="h-full w-full"
-              >
-                <Img
-                  src={currentFeature.image}
-                  alt={
-                    currentFeature.imageAlt ||
-                    (typeof currentFeature.title === "string"
-                      ? currentFeature.title
-                      : "Feature image")
-                  }
-                  className="h-full w-full object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </motion.div>
-            </AnimatePresence>
+      <div className="flex flex-col space-y-6 md:space-y-16">
+        {title || description ? (
+          <div className={cn("flex flex-col gap-6 text-left", headerClassName)}>
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl max-w-lg md:max-w-md",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
+              ) : (
+                <div
+                  className={cn(
+                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl max-w-lg md:max-w-md",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn("max-w-lg md:max-w-md", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div
+                  className={cn("max-w-lg md:max-w-md", descriptionClassName)}
+                >
+                  {description}
+                </div>
+              ))}
           </div>
-        )}
+        ) : null}
+
+        <div
+          className={cn(
+            "relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]",
+          )}
+        >
+          <FeaturesDesktop
+            features={features}
+            handleNext={handleNext}
+            handlePrevious={handlePrevious}
+            activeIndex={activeIndex}
+            handleFeatureClick={handleFeatureClick}
+            isPreviousDisabled={isPreviousDisabled}
+            isNextDisabled={isNextDisabled}
+          />
+          <FeaturesMobile
+            features={features}
+            handleNext={handleNext}
+            handlePrevious={handlePrevious}
+            activeIndex={activeIndex}
+            direction={direction}
+            isPreviousDisabled={isPreviousDisabled}
+            isNextDisabled={isNextDisabled}
+          />
+          {currentFeature?.image && (
+            <div className="relative flex-1 overflow-hidden rounded-2xl md:absolute md:right-8 md:top-8 md:bottom-8 md:w-1/2 shadow-xl">
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={activeIndex}
+                  custom={direction}
+                  variants={imageVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.2 },
+                  }}
+                  className="h-full w-full"
+                >
+                  <Img
+                    src={currentFeature.image}
+                    alt={
+                      currentFeature.imageAlt ||
+                      (typeof currentFeature.title === "string"
+                        ? currentFeature.title
+                        : "Feature image")
+                    }
+                    className="h-full w-full object-cover"
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          )}
+        </div>
       </div>
     </Section>
   );

@@ -188,7 +188,7 @@ export function FeatureNumberedCards({
   features,
   featuresSlot,
   className,
-  containerClassName = "px-6 sm:px-6 md:mx-6 lg:px-8",
+  containerClassName = "px-6 sm:px-6 md:px-6 lg:px-8",
   cardsWrapperClassName,
   cardClassName,
   titleClassName,
