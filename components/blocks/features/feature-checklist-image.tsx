@@ -155,6 +155,8 @@ export interface FeatureChecklistImageProps {
 export function FeatureChecklistImage({
   title,
   description,
+  titleClassName,
+  descriptionClassName,
   imageSrc,
   imageAlt,
   imageSlot,
@@ -167,8 +169,6 @@ export function FeatureChecklistImage({
   contentWrapperClassName,
   imageClassName,
   contentClassName,
-  titleClassName,
-  descriptionClassName,
   actionsClassName,
   checklistClassName,
   optixFlowConfig,

@@ -42,8 +42,9 @@ describe("CarouselScaleFocus", () => {
 
   it("renders carousel navigation", () => {
     render(<CarouselScaleFocus />);
-    expect(screen.getByTestId("carousel-next")).toBeInTheDocument();
-    expect(screen.getByTestId("carousel-prev")).toBeInTheDocument();
+    // There are two sets of navigation buttons (mobile and desktop)
+    expect(screen.getAllByTestId("carousel-next").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByTestId("carousel-prev").length).toBeGreaterThanOrEqual(1);
   });
 
   it("applies custom className", () => {

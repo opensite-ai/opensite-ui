@@ -281,31 +281,33 @@ export function FeatureNumberedCards({
     [],
   );
 
+  const cardImg = useCallback((feature: FeatureNumberedCardsItem) => {
+    if (!feature.image || !feature.imageSlot) return null;
+
+    if (feature.imageSlot) return feature.imageSlot;
+
+    const imageAlt =
+      feature.imageAlt ||
+      (typeof feature.title === "string" ? feature.title : "Feature image");
+
+    return (
+      <div className="overflow-hidden h-full w-full rounded-t-lg rounded-b-none md:rounded-t-none md:rounded-l-none md:rounded-r-lg">
+        <Img
+          src={feature.image}
+          alt={imageAlt}
+          className="h-full w-full object-cover"
+          loading="lazy"
+          optixFlowConfig={optixFlowConfig}
+        />
+      </div>
+    );
+  }, []);
+
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
     return features.map((feature, index) => {
-      const imageAlt =
-        feature.imageAlt ||
-        (typeof feature.title === "string" ? feature.title : "Feature image");
-
-      const renderImage = () => {
-        if (feature.imageSlot) return feature.imageSlot;
-        if (feature.image) {
-          return (
-            <Img
-              src={feature.image}
-              alt={imageAlt}
-              className="h-full w-full object-cover rounded-tr-lg rounded-tl-lg md:rounded-tl-0 rounded-br-0 md:rounded-br-lg"
-              loading="lazy"
-              optixFlowConfig={optixFlowConfig}
-            />
-          );
-        }
-        return null;
-      };
-
       return (
         <div
           key={index}
@@ -391,7 +393,7 @@ export function FeatureNumberedCards({
               feature.imageWrapperClassName,
             )}
           >
-            {renderImage()}
+            {cardImg(feature)}
             <span
               className={cn(
                 "absolute top-5 left-5 flex size-6 items-center justify-center rounded-sm bg-primary font-mono text-xs text-primary-foreground md:top-10 md:left-10",

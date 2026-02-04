@@ -2,7 +2,12 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+  getTextColor,
+} from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -70,6 +75,10 @@ export interface FeatureCardGridLinkedProps {
    */
   title?: React.ReactNode;
   /**
+   * Feature description content
+   */
+  description?: React.ReactNode;
+  /**
    * Array of feature cards
    */
   features?: FeatureCardGridLinkedItem[];
@@ -93,6 +102,10 @@ export interface FeatureCardGridLinkedProps {
    * Additional CSS classes for the title
    */
   titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
   /**
    * Additional CSS classes for the grid
    */
@@ -154,17 +167,19 @@ export interface FeatureCardGridLinkedProps {
  */
 export function FeatureCardGridLinked({
   title,
+  description,
   features,
   featuresSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:mx-6 lg:px-8",
   titleWrapperClassName,
   titleClassName,
+  descriptionClassName,
   gridClassName,
   cardClassName,
   optixFlowConfig,
   background,
-  spacing = "py-6 md:py-32",
+  spacing = "py-8 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -211,8 +226,8 @@ export function FeatureCardGridLinked({
             feature.className,
           )}
         >
-          <div className="flex justify-between gap-10 border-b">
-            <div className="flex flex-col justify-between gap-8 py-6 pl-4 md:gap-14 md:py-10 md:pl-8 lg:justify-normal">
+          <div className="flex justify-between gap-4 md:gap-10 border-b">
+            <div className="flex flex-col justify-between gap-8 py-4 pl-4 md:gap-14 md:py-10 md:pl-8 lg:justify-normal">
               {feature.label && (
                 <span
                   className={cn(
@@ -228,7 +243,7 @@ export function FeatureCardGridLinked({
                   {typeof feature.heading === "string" ? (
                     <h3
                       className={cn(
-                        "text-xl transition-all hover:opacity-80 md:text-2xl font-semibold leading-snug tracking-tighter",
+                        "text-lg md:text-xl transition-all hover:opacity-80 lg:text-2xl font-semibold leading-snug ",
                         feature.headingClassName,
                       )}
                     >
@@ -237,7 +252,7 @@ export function FeatureCardGridLinked({
                   ) : (
                     <div
                       className={cn(
-                        "text-xl transition-all hover:opacity-80 md:text-2xl font-semibold leading-snug tracking-tighter",
+                        "text-lg md:text-xl transition-all hover:opacity-80 lg:text-2xl font-semibold leading-snug ",
                         feature.headingClassName,
                       )}
                     >
@@ -257,7 +272,7 @@ export function FeatureCardGridLinked({
             <p
               className={cn(
                 "p-4 md:p-8",
-                getTextColor(background, 'muted'),
+                getTextColor(background, "muted"),
                 feature.descriptionClassName,
               )}
             >
@@ -279,36 +294,44 @@ export function FeatureCardGridLinked({
       className={className}
       containerClassName={containerClassName}
     >
-      {title && (
+      <div className="flex flex-col space-y-6 md:space-y-16">
+        {title || description ? (
+          <div className="flex flex-col gap-4">
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl text-balance",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
+              ) : (
+                <div className={titleClassName}>{title}</div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn("max-w-lg text-balance", descriptionClassName)}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div
+                  className={cn("max-w-lg text-balance", descriptionClassName)}
+                >
+                  {description}
+                </div>
+              ))}
+          </div>
+        ) : null}
+
         <div
-          className={cn(
-            "mx-auto mb-16 max-w-3xl text-center",
-            titleWrapperClassName,
-          )}
+          className={cn("grid gap-4 md:gap-8 lg:grid-cols-2", gridClassName)}
         >
-          {typeof title === "string" ? (
-            <h2
-              className={cn(
-                "text-4xl font-medium text-pretty lg:text-5xl",
-                titleClassName,
-              )}
-            >
-              {title}
-            </h2>
-          ) : (
-            <div
-              className={cn(
-                "text-4xl font-medium text-pretty lg:text-5xl",
-                titleClassName,
-              )}
-            >
-              {title}
-            </div>
-          )}
+          {featuresContent}
         </div>
-      )}
-      <div className={cn("grid gap-8 lg:grid-cols-2", gridClassName)}>
-        {featuresContent}
       </div>
     </Section>
   );
