@@ -1,8 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState, useCallback, useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { useEffect, useState, useMemo } from "react";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -10,7 +14,6 @@ import type { CarouselApi } from "../../ui/carousel";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -189,8 +192,6 @@ export function CarouselBadgeCards({
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     if (!carouselApi) {
@@ -207,35 +208,11 @@ export function CarouselBadgeCards({
     };
   }, [carouselApi]);
 
-  const lightboxItems: LightboxItem[] = useMemo(
-    () =>
-      (items ?? []).map((item, index) => ({
-        id: `badge-card-${index}`,
-        type: "image" as const,
-        src: item.image,
-        alt: typeof item.title === "string" ? item.title : item.imageAlt || "Card image",
-        download: true,
-        share: true,
-      })),
-    [items],
-  );
-
-  const handleImageClick = useCallback((index: number, e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setLightboxIndex(index);
-    setLightboxOpen(true);
-  }, []);
-
-  const handleLightboxClose = useCallback(() => {
-    setLightboxOpen(false);
-  }, []);
-
   const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
-    return items.map((item, index) => (
+    return items.map((item) => (
       <CarouselItem
         key={item.id}
         className={cn("max-w-[320px] pl-5 lg:max-w-[360px]", itemClassName)}
@@ -243,7 +220,7 @@ export function CarouselBadgeCards({
         <a
           href={item.href}
           className={cn(
-            "group flex flex-col justify-between rounded-xl p-6",
+            "group flex flex-col justify-between rounded-xl p-6 w-full",
             getNestedCardBg(background),
             getNestedCardTextColor(background),
             item.className,
@@ -253,19 +230,7 @@ export function CarouselBadgeCards({
           <div>
             <div className="flex aspect-3/2 overflow-clip rounded-xl">
               <div className="flex-1">
-                <div
-                  className="relative h-full w-full origin-bottom transition duration-300 group-hover:scale-105 cursor-pointer"
-                  onClick={(e) => handleImageClick(index, e)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      handleImageClick(index, e as any);
-                    }
-                  }}
-                  aria-label={`View ${typeof item.title === "string" ? item.title : "image"} in lightbox`}
-                >
+                <div className="relative h-full w-full origin-bottom transition duration-300 group-hover:scale-105">
                   <Img
                     src={item.image}
                     alt={
@@ -315,7 +280,7 @@ export function CarouselBadgeCards({
     imageClassName,
     optixFlowConfig,
     readMoreText,
-    handleImageClick,
+    background,
   ]);
 
   return (
@@ -337,7 +302,7 @@ export function CarouselBadgeCards({
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl",
+                "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl",
                 headingClassName,
               )}
             >
@@ -393,27 +358,6 @@ export function CarouselBadgeCards({
           </CarouselContent>
         </Carousel>
       </div>
-
-      {lightboxOpen && (
-        <Lightbox
-          items={lightboxItems}
-          initialIndex={lightboxIndex}
-          layout="horizontal"
-          controls={{
-            navigation: true,
-            thumbnails: true,
-            download: true,
-            share: true,
-            fullscreen: true,
-            captions: true,
-            counter: true,
-          }}
-          onClose={handleLightboxClose}
-          enableKeyboardShortcuts={true}
-          closeOnEscape={true}
-          closeOnBackdropClick={true}
-        />
-      )}
     </Section>
   );
 }

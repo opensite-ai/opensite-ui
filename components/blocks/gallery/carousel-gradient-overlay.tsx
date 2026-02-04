@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -9,7 +9,6 @@ import type { CarouselApi } from "../../ui/carousel";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -200,8 +199,6 @@ export function CarouselGradientOverlay({
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     if (!carouselApi) {
@@ -219,36 +216,11 @@ export function CarouselGradientOverlay({
     };
   }, [carouselApi]);
 
-  const lightboxItems: LightboxItem[] = useMemo(
-    () =>
-      (items ?? []).map((item, idx) => ({
-        id: `carousel-image-${idx}`,
-        type: "image" as const,
-        src: item.image,
-        alt:
-          typeof item.title === "string"
-            ? item.title
-            : item.imageAlt || "Card image",
-        download: true,
-        share: true,
-      })),
-    [items],
-  );
-
-  const handleImageClick = useCallback((index: number) => {
-    setLightboxIndex(index);
-    setLightboxOpen(true);
-  }, []);
-
-  const handleLightboxClose = useCallback(() => {
-    setLightboxOpen(false);
-  }, []);
-
   const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
-    return items.map((item, index) => (
+    return items.map((item) => (
       <CarouselItem
         key={item.id}
         className={cn("max-w-[320px] pl-5 lg:max-w-[360px]", itemClassName)}
@@ -266,31 +238,19 @@ export function CarouselGradientOverlay({
                   : item.imageAlt || "Card image"
               }
               className={cn(
-                "absolute h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105 cursor-pointer",
+                "absolute h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105",
                 imageClassName,
               )}
               loading="lazy"
               optixFlowConfig={optixFlowConfig}
-              onClick={(e) => {
-                e.preventDefault();
-                handleImageClick(index);
-              }}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  handleImageClick(index);
-                }
-              }}
             />
             <div
               className={cn(
-                "absolute inset-0 h-full bg-linear-to-t from-primary from-20% to-transparent mix-blend-multiply",
+                "absolute inset-0 h-full bg-linear-to-t from-black from-20% to-transparent mix-blend-multiply",
                 gradientClassName,
               )}
             />
-            <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-6 text-primary-foreground md:p-8">
+            <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-6 text-white-foreground md:p-8">
               <div className="mb-2 pt-4 text-xl font-semibold md:mb-3 md:pt-4 lg:pt-4">
                 {item.title}
               </div>
@@ -320,7 +280,6 @@ export function CarouselGradientOverlay({
     imageClassName,
     gradientClassName,
     optixFlowConfig,
-    handleImageClick,
     readMoreText,
   ]);
 
@@ -344,7 +303,7 @@ export function CarouselGradientOverlay({
             (typeof title === "string" ? (
               <h2
                 className={cn(
-                  "text-3xl font-medium md:text-4xl lg:text-5xl",
+                  "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl",
                   titleClassName,
                 )}
               >
@@ -436,27 +395,6 @@ export function CarouselGradientOverlay({
           ))}
         </div>
       </div>
-
-      {lightboxOpen && (
-        <Lightbox
-          items={lightboxItems}
-          initialIndex={lightboxIndex}
-          layout="horizontal"
-          controls={{
-            navigation: true,
-            thumbnails: true,
-            download: true,
-            share: true,
-            fullscreen: true,
-            captions: true,
-            counter: true,
-          }}
-          onClose={handleLightboxClose}
-          enableKeyboardShortcuts={true}
-          closeOnEscape={true}
-          closeOnBackdropClick={true}
-        />
-      )}
     </Section>
   );
 }

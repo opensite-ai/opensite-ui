@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { useState, useCallback, useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -28,6 +32,10 @@ export interface ExpandableCaseStudyItem {
    */
   title: React.ReactNode;
   /**
+   * Optional description for the case study
+   */
+  description?: React.ReactNode;
+  /**
    * Link URL for the case study
    */
   href: string;
@@ -40,9 +48,9 @@ export interface ExpandableCaseStudyItem {
    */
   imageAlt?: string;
   /**
-   * Company logo source URL
+   * Company logo source URL (optional)
    */
-  logo: string;
+  logo?: string;
   /**
    * Alt text for the logo
    */
@@ -50,7 +58,7 @@ export interface ExpandableCaseStudyItem {
   /**
    * Company name
    */
-  company: string;
+  company?: string;
   /**
    * Array of badge labels
    */
@@ -62,6 +70,14 @@ export interface ExpandableCaseStudyItem {
 }
 
 export interface ExpandableCaseStudyCardsProps {
+  /**
+   * Section title (displayed above cards)
+   */
+  title?: string;
+  /**
+   * Section description/subtitle (displayed above cards)
+   */
+  description?: string;
   /**
    * Array of case study items to display
    */
@@ -128,28 +144,43 @@ export interface ExpandableCaseStudyCardsProps {
  * ExpandableCaseStudyCards displays case study cards that expand on hover.
  *
  * Features a horizontal row of cards where the hovered card expands to 60% width
- * while others shrink to 20%. Each card shows a background image, company logo,
- * badges, and a title with an arrow icon. Ideal for showcasing portfolio items,
+ * while others shrink to 20%. Each card shows a background image, title with optional
+ * description, badges, and an arrow icon. Ideal for showcasing portfolio items,
  * case studies, or featured projects with visual emphasis on the selected item.
  *
  * @example
  * ```tsx
  * <ExpandableCaseStudyCards
+ *   title="Our Work"
+ *   description="Featured case studies"
  *   items={[
  *     {
  *       id: "1",
  *       title: "E-commerce Platform Redesign",
+ *       description: "A complete overhaul of the shopping experience",
  *       href: "/case-studies/ecommerce",
  *       image: "/images/case-1.jpg",
- *       logo: "/logos/client-1.svg",
- *       company: "TechCorp",
  *       badges: ["E-commerce", "UX Design"]
+ *     },
+ *     {
+ *       id: "2",
+ *       title: "Mobile App Launch",
+ *       description: "Cross-platform development for iOS and Android",
+ *       href: "/case-studies/mobile-app",
+ *       image: "/images/case-2.jpg",
+ *       logo: "/logos/client-2.svg",
+ *       company: "TechCorp",
+ *       badges: ["Mobile", "React Native"]
  *     }
  *   ]}
+ *   background="gray"
+ *   spacing="lg"
  * />
  * ```
  */
 export function ExpandableCaseStudyCards({
+  title,
+  description,
   items,
   itemsSlot,
   className,
@@ -172,27 +203,29 @@ export function ExpandableCaseStudyCards({
 
   const lightboxItems: LightboxItem[] = useMemo(() => {
     if (!items) return [];
-    return items.flatMap((item) => [
-      {
-        id: `image-${item.id}`,
-        type: "image" as const,
-        src: item.image,
-        alt:
-          typeof item.title === "string"
-            ? item.title
-            : item.imageAlt || "Case study image",
-        download: true,
-        share: true,
-      },
-      {
+    // All images first, then all logos
+    const imageItems = items.map((item) => ({
+      id: `image-${item.id}`,
+      type: "image" as const,
+      src: item.image,
+      alt:
+        typeof item.title === "string"
+          ? item.title
+          : item.imageAlt || "Case study image",
+      download: true,
+      share: true,
+    }));
+    const logoItems = items
+      .filter((item) => item.logo)
+      .map((item) => ({
         id: `logo-${item.id}`,
         type: "image" as const,
-        src: item.logo,
-        alt: item.logoAlt || item.company,
+        src: item.logo!,
+        alt: item.logoAlt || item.company || "Logo",
         download: true,
         share: true,
-      },
-    ]);
+      }));
+    return [...imageItems, ...logoItems];
   }, [items]);
 
   const handleImageClick = useCallback((index: number) => {
@@ -231,14 +264,14 @@ export function ExpandableCaseStudyCards({
                 className="h-full w-full overflow-clip rounded-xl cursor-pointer"
                 onClick={(e) => {
                   e.preventDefault();
-                  handleImageClick(itemIndex * 2);
+                  handleImageClick(itemIndex);
                 }}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    handleImageClick(itemIndex * 2);
+                    handleImageClick(itemIndex);
                   }
                 }}
               >
@@ -258,41 +291,71 @@ export function ExpandableCaseStudyCards({
                 />
               </div>
             </div>
-            <div
-              className="absolute inset-y-[25%] left-[50%] flex aspect-389/420 h-[50%] items-center justify-center max-lg:hidden cursor-pointer"
-              onClick={(e) => {
-                e.preventDefault();
-                handleImageClick(itemIndex * 2 + 1);
-              }}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
+            {item.logo && (
+              <div
+                className="absolute inset-y-[25%] left-[50%] flex aspect-389/420 h-[50%] items-center justify-center max-lg:hidden cursor-pointer"
+                onClick={(e) => {
                   e.preventDefault();
-                  handleImageClick(itemIndex * 2 + 1);
-                }
-              }}
+                  // Logo index: all images first, then logos in order
+                  const logoIndex = items.length + items.slice(0, itemIndex + 1).filter(i => i.logo).length - 1;
+                  handleImageClick(logoIndex);
+                }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    const logoIndex = items.length + items.slice(0, itemIndex + 1).filter(i => i.logo).length - 1;
+                    handleImageClick(logoIndex);
+                  }
+                }}
+              >
+                <Img
+                  src={item.logo}
+                  alt={item.logoAlt || item.company || "Logo"}
+                  className={cn("h-8 invert", logoClassName)}
+                  loading="lazy"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </div>
+            )}
+            <div
+              className={cn(
+                "absolute top-[50%] left-[50%] flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full max-lg:hidden",
+                getNestedCardBg(background, "accent"),
+                getNestedCardTextColor(background),
+              )}
             >
-              <Img
-                src={item.logo}
-                alt={item.logoAlt || item.company}
-                className={cn("h-8 invert", logoClassName)}
-                loading="lazy"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </div>
-            <div className={cn("absolute top-[50%] left-[50%] flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full max-lg:hidden", getNestedCardBg(background, 'accent'), getNestedCardTextColor(background))}>
-              <DynamicIcon
-                name="lucide/plus"
-                size={32}
-              />
+              <DynamicIcon name="lucide/plus" size={32} />
             </div>
             <div className="absolute inset-x-0 bottom-0 hidden h-[50%] bg-linear-to-t from-primary from-50% to-transparent lg:block"></div>
           </div>
           <div className="relative flex flex-col justify-between gap-4 md:absolute md:inset-0 md:max-lg:inset-x-[50%] md:max-lg:w-[50%]">
+            <div className='flex flex-col gap-2 p-4 pt-6 transition-all delay-200 duration-500 lg:group-data-[state="closed"]:opacity-0'>
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex flex-col gap-1">
+                  <div className="text-base font-medium lg:text-lg">
+                    {item.title}
+                  </div>
+                  {item.description && (
+                    <div className="text-sm text-primary-foreground/70">
+                      {item.description}
+                    </div>
+                  )}
+                </div>
+                <div
+                  className={cn(
+                    "flex size-8 shrink-0 items-center justify-center rounded-full text-foreground transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 lg:size-10",
+                    getNestedCardBg(background, "card"),
+                  )}
+                >
+                  <DynamicIcon name="lucide/arrow-up-right" size={20} />
+                </div>
+              </div>
+            </div>
             <div
               className={cn(
-                'flex h-20 items-center gap-2 p-4 transition-opacity delay-200 duration-500 lg:group-data-[state="closed"]:opacity-0',
+                'flex h-20 items-center gap-2 px-4 pb-4 transition-opacity delay-200 duration-500 lg:group-data-[state="closed"]:opacity-0',
                 badgesClassName,
               )}
             >
@@ -301,39 +364,6 @@ export function ExpandableCaseStudyCards({
                   {badge}
                 </Badge>
               ))}
-            </div>
-            <div className='flex flex-col gap-2 p-4 transition-all delay-200 duration-500 lg:group-data-[state="closed"]:translate-y-4 lg:group-data-[state="closed"]:opacity-0'>
-              <div
-                className="lg:hidden cursor-pointer"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleImageClick(itemIndex * 2 + 1);
-                }}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    handleImageClick(itemIndex * 2 + 1);
-                  }
-                }}
-              >
-                <Img
-                  src={item.logo}
-                  alt={item.logoAlt || item.company}
-                  className={cn("h-5 invert lg:h-6", logoClassName)}
-                  loading="lazy"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </div>
-              <div className="flex items-center justify-between gap-2">
-                <div className="text-base font-medium lg:text-lg">
-                  {item.title}
-                </div>
-                <div className={cn("flex size-8 items-center justify-center rounded-full transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 lg:size-10", getNestedCardBg(background, 'card'), getNestedCardTextColor(background))}>
-                  <DynamicIcon name="lucide/arrow-up-right" size={20} />
-                </div>
-              </div>
             </div>
           </div>
         </a>
@@ -350,10 +380,13 @@ export function ExpandableCaseStudyCards({
     badgeClassName,
     optixFlowConfig,
     handleImageClick,
+    background,
   ]);
 
   return (
     <Section
+      title={title}
+      subtitle={description}
       background={background}
       spacing={spacing}
       pattern={pattern}

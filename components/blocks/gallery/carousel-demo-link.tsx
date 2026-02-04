@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -9,7 +9,6 @@ import type { CarouselApi } from "../../ui/carousel";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -195,8 +194,6 @@ export function CarouselDemoLink({
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     if (!carouselApi) {
@@ -212,30 +209,6 @@ export function CarouselDemoLink({
       carouselApi.off("select", updateSelection);
     };
   }, [carouselApi]);
-
-  const lightboxItems: LightboxItem[] = useMemo(
-    () =>
-      (items ?? []).map((item, index) => ({
-        id: `demo-card-${index}`,
-        type: "image" as const,
-        src: item.image,
-        alt: typeof item.title === "string" ? item.title : item.imageAlt || "Card image",
-        download: true,
-        share: true,
-      })),
-    [items],
-  );
-
-  const handleImageClick = useCallback((index: number, e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setLightboxIndex(index);
-    setLightboxOpen(true);
-  }, []);
-
-  const handleLightboxClose = useCallback(() => {
-    setLightboxOpen(false);
-  }, []);
 
   const demoActionContent = useMemo(() => {
     if (demoActionSlot) return demoActionSlot;
@@ -282,7 +255,11 @@ export function CarouselDemoLink({
     return items.map((item, index) => (
       <CarouselItem
         key={item.id}
-        className={cn("ml-8 md:max-w-[452px]", itemClassName)}
+        className={cn(
+          "basis-[85%] md:basis-auto md:max-w-[452px]",
+          index === 0 ? "ml-0" : "ml-4 md:ml-6",
+          itemClassName,
+        )}
       >
         <a
           href={item.url}
@@ -295,19 +272,7 @@ export function CarouselDemoLink({
           <div>
             <div className="flex aspect-3/2 overflow-clip rounded-xl">
               <div className="flex-1">
-                <div
-                  className="relative h-full w-full origin-bottom transition duration-300 group-hover:scale-105 cursor-pointer"
-                  onClick={(e) => handleImageClick(index, e)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      handleImageClick(index, e as any);
-                    }
-                  }}
-                  aria-label={`View ${typeof item.title === "string" ? item.title : "image"} in lightbox`}
-                >
+                <div className="relative h-full w-full origin-bottom transition duration-300 group-hover:scale-105">
                   <Img
                     src={item.image}
                     alt={
@@ -345,16 +310,7 @@ export function CarouselDemoLink({
         </a>
       </CarouselItem>
     ));
-  }, [
-    itemsSlot,
-    items,
-    itemClassName,
-    cardClassName,
-    imageClassName,
-    optixFlowConfig,
-    readMoreText,
-    handleImageClick,
-  ]);
+  }, [itemsSlot, items, itemClassName, cardClassName, imageClassName, optixFlowConfig, readMoreText]);
 
   return (
     <Section
@@ -419,7 +375,7 @@ export function CarouselDemoLink({
           </Pressable>
         </div>
       </div>
-      <div className="w-full max-w-full -mx-4 sm:-mx-6 lg:-mx-8">
+      <div className="w-full">
         <Carousel
           setApi={setCarouselApi}
           opts={{
@@ -429,42 +385,15 @@ export function CarouselDemoLink({
               },
             },
           }}
-          className={cn(
-            "relative w-full max-w-full md:-left-4",
-            carouselClassName,
-          )}
+          className={cn("relative w-full", carouselClassName)}
         >
           <CarouselContent
-            className={cn(
-              "hide-scrollbar w-full max-w-full md:-mr-4 md:ml-8 2xl:mr-[max(0rem,calc(50vw-700px-1rem))] 2xl:ml-[max(8rem,calc(50vw-700px+1rem))]",
-              carouselContentClassName,
-            )}
+            className={cn("hide-scrollbar w-full", carouselContentClassName)}
           >
             {itemsContent}
           </CarouselContent>
         </Carousel>
       </div>
-
-      {lightboxOpen && (
-        <Lightbox
-          items={lightboxItems}
-          initialIndex={lightboxIndex}
-          layout="horizontal"
-          controls={{
-            navigation: true,
-            thumbnails: true,
-            download: true,
-            share: true,
-            fullscreen: true,
-            captions: true,
-            counter: true,
-          }}
-          onClose={handleLightboxClose}
-          enableKeyboardShortcuts={true}
-          closeOnEscape={true}
-          closeOnBackdropClick={true}
-        />
-      )}
     </Section>
   );
 }
