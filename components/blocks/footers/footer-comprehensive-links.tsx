@@ -1,17 +1,22 @@
 "use client";
 
-import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
 import {
   PatternBackground,
   type PatternName,
 } from "../../ui/pattern-background";
 import { Section } from "../../ui/section";
-import type { SectionBackground } from "../../../src/types";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { FooterSocialLink } from "./types";
 
 export interface FooterComprehensiveLinksLink {
@@ -72,13 +77,9 @@ export interface FooterComprehensiveLinksProps {
    */
   socialLinks?: FooterSocialLink[];
   /**
-   * Copyright text
+   * Brand/company name for the copyright notice
    */
   copyright?: string;
-  /**
-   * Company name for fallback copyright text
-   */
-  companyName?: string;
   /**
    * Bottom bar links
    */
@@ -95,6 +96,12 @@ export interface FooterComprehensiveLinksProps {
    * Additional CSS classes for the footer
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
   /**
    * Section background variant
    */
@@ -125,66 +132,58 @@ export function FooterComprehensiveLinks({
   contact,
   socialLinks,
   copyright,
-  companyName,
   bottomLinks,
   pattern,
   patternOpacity,
   className,
   optixFlowConfig,
-  background = "white",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
+  background,
 }: FooterComprehensiveLinksProps): React.JSX.Element {
-  const year = useMemo(() => new Date().getFullYear(), []);
-  const copyrightText =
-    copyright || `© ${year} ${companyName || ""}. All rights reserved.`;
   return (
     <Section
       background={background}
-      spacing="lg"
+      spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
-      containerClassName="relative z-10"
+      containerClassName={containerClassName}
     >
-        <div className="grid grid-cols-1 gap-10 lg:gap-12">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-12">
-            {(logoSrc || tagline || summary) && (
-              <div className="sm:col-span-2 lg:col-span-3">
-                <div className="flex flex-col gap-4">
-                  {logoSrc && (
-                    <Pressable href={logoHref || "/"} className="inline-flex w-fit">
-                      <Img
-                        src={logoSrc}
-                        alt={logoAlt || "Logo"}
-                        className="h-9 w-auto"
-                        loading="eager"
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                    </Pressable>
-                  )}
-                  {tagline && (
-                    <p className="text-sm font-medium">{tagline}</p>
-                  )}
-                  {summary && (
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      {summary}
-                    </p>
-                  )}
-                </div>
-              </div>
+      {(logoSrc || tagline || summary) && (
+        <div className="flex items-center flex-col mb-20">
+          <div className="max-w-full md:max-w-md flex flex-col gap-4 items-center text-center text-balance">
+            {logoSrc && (
+              <Pressable href={logoHref || "/"} className="flex w-fit">
+                <Img
+                  src={logoSrc}
+                  alt={logoAlt || "Logo"}
+                  className="h-auto md:h-24 w-40 max-w-lg md:w-auto object-contain"
+                  loading="lazy"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </Pressable>
             )}
+            {tagline && <p className="text-xl font-medium">{tagline}</p>}
+            {summary && <p className="text-sm leading-relaxed">{summary}</p>}
+          </div>
+        </div>
+      )}
 
-            {linkColumns && linkColumns.length > 0 && linkColumns.map((column) => (
+      <div className="grid grid-cols-1 gap-10 lg:gap-12">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-12">
+          {linkColumns &&
+            linkColumns.length > 0 &&
+            linkColumns.map((column) => (
               <div key={column.title} className="lg:col-span-2">
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sm font-semibold">
-                    {column.title}
-                  </h3>
+                  <h3 className="text-sm font-semibold">{column.title}</h3>
                   <ul className="flex flex-col gap-2.5">
                     {column.links.map((link) => (
                       <li key={link.href}>
                         <Pressable
                           href={link.href}
-                          className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                          className="text-sm transition-colors "
                         >
                           {link.label}
                         </Pressable>
@@ -195,138 +194,138 @@ export function FooterComprehensiveLinks({
               </div>
             ))}
 
-            {contact || (socialLinks?.length ?? 0) > 0 ? (
-              <div className="flex flex-col gap-6 lg:col-span-3">
-                {contact ? (
-                  <div className="flex flex-col gap-4">
-                    <h3 className="text-sm font-semibold">
-                      Contact
-                    </h3>
-                    <ul className="flex flex-col gap-3">
-                      {contact.email ? (
-                        <li>
-                          <Pressable
-                            href={contact.email}
-                            className="group flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-primary"
-                          >
-                            <DynamicIcon
-                              name="lucide/mail"
-                              size={16}
-                              className="text-muted-foreground transition-colors group-hover:text-primary"
-                            />
-                            <span className="underline underline-offset-2">
-                              {contact.email}
-                            </span>
-                          </Pressable>
-                        </li>
-                      ) : null}
-                      {contact.phone ? (
-                        <li>
-                          <Pressable
-                            href={contact.phone}
-                            className="group flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-primary"
-                          >
-                            <DynamicIcon
-                              name="lucide/phone"
-                              size={16}
-                              className="text-muted-foreground transition-colors group-hover:text-primary"
-                            />
-                            <span className="underline underline-offset-2">
-                              {contact.phone}
-                            </span>
-                          </Pressable>
-                        </li>
-                      ) : null}
-                      {contact.address ? (
-                        <li>
-                          <Pressable
-                            href={`https://maps.google.com/?q=${encodeURIComponent(
-                              contact.address,
-                            )}`}
-                            className="group flex items-start gap-2.5 text-sm text-muted-foreground transition-colors hover:text-primary"
-                          >
-                            <DynamicIcon
-                              name="lucide/map-pin"
-                              size={16}
-                              className="mt-0.5 text-muted-foreground transition-colors group-hover:text-primary"
-                            />
-                            <span className="underline underline-offset-2">
-                              {contact.address}
-                            </span>
-                          </Pressable>
-                        </li>
-                      ) : null}
-                    </ul>
-                  </div>
-                ) : null}
-
-                {(socialLinks?.length ?? 0) > 0 ? (
-                  <div className="flex flex-col gap-4">
-                    <h3 className="text-sm font-semibold">
-                      Follow Us
-                    </h3>
-                    <div className="flex items-center gap-3">
-                      {socialLinks?.map((link, idx) => (
-                        <SocialLinkIcon
-                          key={idx}
-                          href={link.href}
-                          label={link.label}
-                          iconNameOverride={link.iconNameOverride}
-                          iconSize={16}
-                          className={cn(
-                            "flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-muted/80 hover:text-primary",
-                            getNestedCardBg(background),
-                            getNestedCardTextColor(background)
-                          )}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-            ) : null}
-          </div>
-
-          {(articleLinks?.length ?? 0) > 0 ? (
-            <div className="border-t pt-8">
-              <div className="flex flex-col gap-4">
-                <h3 className="text-sm font-semibold">
-                  {articleSectionTitle}
-                </h3>
-                <div className="grid grid-cols-1 gap-x-8 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {articleLinks?.map((link) => (
-                    <Pressable
-                      key={link.href}
-                      href={link.href}
-                      className="truncate text-sm text-muted-foreground transition-colors hover:text-primary"
-                    >
-                      {link.label}
-                    </Pressable>
-                  ))}
+          {contact || (socialLinks?.length ?? 0) > 0 ? (
+            <div className="flex flex-col gap-12 col-span-2 lg:col-span-12 w-full">
+              {contact ? (
+                <div className="flex flex-col gap-4">
+                  <h3 className="text-sm font-semibold">Contact</h3>
+                  <ul className="flex flex-col gap-3">
+                    {contact.email ? (
+                      <li>
+                        <Pressable
+                          href={contact.email}
+                          className="group flex items-center gap-2.5 text-sm transition-colors "
+                        >
+                          <DynamicIcon
+                            name="lucide/mail"
+                            size={16}
+                            className=" "
+                          />
+                          <span className="underline underline-offset-2">
+                            {contact.email}
+                          </span>
+                        </Pressable>
+                      </li>
+                    ) : null}
+                    {contact.phone ? (
+                      <li>
+                        <Pressable
+                          href={contact.phone}
+                          className="group flex items-center gap-2.5 text-sm "
+                        >
+                          <DynamicIcon
+                            name="lucide/phone"
+                            size={16}
+                            className=""
+                          />
+                          <span className="underline underline-offset-2">
+                            {contact.phone}
+                          </span>
+                        </Pressable>
+                      </li>
+                    ) : null}
+                    {contact.address ? (
+                      <li>
+                        <Pressable
+                          href={`https://maps.google.com/?q=${encodeURIComponent(
+                            contact.address,
+                          )}`}
+                          className="group flex items-start gap-2.5 text-sm "
+                        >
+                          <DynamicIcon
+                            name="lucide/map-pin"
+                            size={16}
+                            className="mt-0.5 "
+                          />
+                          <span className="underline underline-offset-2">
+                            {contact.address}
+                          </span>
+                        </Pressable>
+                      </li>
+                    ) : null}
+                  </ul>
                 </div>
-              </div>
+              ) : null}
+
+              {(socialLinks?.length ?? 0) > 0 ? (
+                <div className="flex flex-col gap-4">
+                  <h3 className="text-sm font-semibold">Follow Us</h3>
+                  <div className="flex items-center gap-3">
+                    {socialLinks?.map((link, idx) => (
+                      <SocialLinkIcon
+                        key={idx}
+                        href={link.href}
+                        label={link.label}
+                        iconNameOverride={link.iconNameOverride}
+                        iconSize={18}
+                        className={cn(
+                          "flex size-fit p-2 items-center justify-center rounded-lg transition-shadow bg-muted border shadow-sm hover:shadow-lg",
+                        )}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </div>
           ) : null}
         </div>
 
-        <div className="mt-10 border-t pt-8">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="text-sm text-muted-foreground">{copyrightText}</p>
-            {(bottomLinks?.length ?? 0) > 0 ? (
-              <div className="flex items-center gap-4 sm:gap-6">
-                {bottomLinks?.map((link) => (
+        {(articleLinks?.length ?? 0) > 0 ? (
+          <div className="border-t pt-14 pb-8">
+            <div className="flex flex-col gap-4">
+              <h3 className="text-sm font-semibold">{articleSectionTitle}</h3>
+              <div className="grid grid-cols-1 gap-x-8 gap-y-6 md:gap-y-2.5 sm:grid-cols-2 lg:grid-cols-3">
+                {articleLinks?.map((link) => (
                   <Pressable
                     key={link.href}
                     href={link.href}
-                    className="text-sm text-muted-foreground underline underline-offset-2 transition-colors hover:text-primary"
+                    className="truncate text-sm "
                   >
                     {link.label}
                   </Pressable>
                 ))}
               </div>
-            ) : null}
+            </div>
           </div>
+        ) : null}
+      </div>
+
+      <div className="mt-10 border-t pt-8">
+        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+          <div className="flex flex-wrap items-center gap-4 text-sm">
+            <FooterCopyright copyright={copyright} />
+            <BrandAttribution
+              internalBrandSlug="open_site_ai"
+              optionIndex={6}
+              variant="span"
+              linkClassName="underline underline-offset-4 "
+            />
+          </div>
+          {(bottomLinks?.length ?? 0) > 0 ? (
+            <div className="flex items-center gap-4 sm:gap-6">
+              {bottomLinks?.map((link) => (
+                <Pressable
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm  underline underline-offset-2 "
+                >
+                  {link.label}
+                </Pressable>
+              ))}
+            </div>
+          ) : null}
         </div>
+      </div>
     </Section>
   );
 }

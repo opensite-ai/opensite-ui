@@ -1,12 +1,13 @@
 "use client";
 
-import { useMemo } from "react";
 import {
   cn,
   getNestedCardBg,
   getNestedCardTextColor,
 } from "../../../lib/utils";
 import { FooterLogo } from "../../ui/footer-logo";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
@@ -71,12 +72,8 @@ export interface FooterSocialNewsletterProps {
   privacyLinkUrl?: string;
   /** Privacy consent text */
   privacyConsentText?: React.ReactNode;
-  /** Copyright text */
-  copyright?: React.ReactNode;
-  /** Attribution text */
-  attributionText?: React.ReactNode;
-  /** Attribution link URL */
-  attributionHref?: string;
+  /** Brand/company name for the copyright notice */
+  copyright?: string;
   /** Additional CSS classes for the section wrapper */
   className?: string;
   /** Additional CSS classes for the content wrapper */
@@ -147,8 +144,6 @@ export function FooterSocialNewsletter({
   privacyLinkUrl,
   privacyConsentText,
   copyright,
-  attributionText,
-  attributionHref,
   className,
   contentClassName,
   logoWrapperClassName,
@@ -174,10 +169,6 @@ export function FooterSocialNewsletter({
   patternOpacity,
   optixFlowConfig,
 }: FooterSocialNewsletterProps): React.JSX.Element {
-  const currentYear = useMemo(() => new Date().getFullYear(), []);
-  const copyrightText =
-    copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
-
   return (
     <Section
       background={background}
@@ -324,19 +315,17 @@ export function FooterSocialNewsletter({
           >
             <div
               className={cn(
-                "flex flex-col gap-2 md:flex-row md:items-center md:gap-4",
+                "flex flex-col gap-2 text-muted-foreground md:flex-row md:items-center md:gap-4",
                 copyrightClassName,
               )}
             >
-              <p>{copyrightText}</p>
-              {attributionText && (
-                <Pressable
-                  href={attributionHref || "https://opensite.ai"}
-                  className="hover:text-primary"
-                >
-                  {attributionText}
-                </Pressable>
-              )}
+              <FooterCopyright copyright={copyright} />
+              <BrandAttribution
+                internalBrandSlug="open_site_ai"
+                optionIndex={7}
+                variant="span"
+                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+              />
             </div>
           </div>
         </footer>

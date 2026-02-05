@@ -6,6 +6,8 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
 import { Section } from "../../ui/section";
 import type { FooterSocialLink } from "./types";
@@ -65,12 +67,8 @@ export interface FooterBrandLinksContactProps {
   socialLinks?: FooterSocialLink[];
   /** Bottom bar links */
   legalLinks?: FooterBrandLinksContactLegalLink[];
-  /** Attribution label in the bottom bar */
-  attributionText?: React.ReactNode;
-  /** Attribution link URL */
-  attributionHref?: string;
-  /** Copyright text */
-  copyright?: React.ReactNode;
+  /** Brand/company name for the copyright notice */
+  copyright?: string;
   /** Contact section title */
   contactTitle?: React.ReactNode;
   /** Social section title */
@@ -136,8 +134,6 @@ export function FooterBrandLinksContact({
   contactItems,
   socialLinks,
   legalLinks,
-  attributionText,
-  attributionHref,
   copyright,
   contactTitle,
   socialTitle,
@@ -170,7 +166,12 @@ export function FooterBrandLinksContact({
 
     return linkGroups.map((group) => (
       <div key={group.title} className={cn(linkGroupClassName)}>
-        <h3 className={cn("mb-6 text-sm font-semibold uppercase tracking-wider", linkGroupTitleClassName)}>
+        <h3
+          className={cn(
+            "mb-6 text-sm font-semibold uppercase tracking-wider",
+            linkGroupTitleClassName,
+          )}
+        >
           {group.title}
         </h3>
         <ul className={cn("space-y-3", linkListClassName)}>
@@ -178,7 +179,10 @@ export function FooterBrandLinksContact({
             <li key={linkIdx}>
               <Pressable
                 href={link.href}
-                className={cn("text-sm text-muted-foreground transition-colors hover:text-primary", linkItemClassName)}
+                className={cn(
+                  "text-sm text-muted-foreground transition-colors hover:text-primary",
+                  linkItemClassName,
+                )}
               >
                 {link.label}
               </Pressable>
@@ -187,13 +191,22 @@ export function FooterBrandLinksContact({
         </ul>
       </div>
     ));
-  }, [linkGroups, linkGroupClassName, linkGroupTitleClassName, linkListClassName, linkItemClassName]);
+  }, [
+    linkGroups,
+    linkGroupClassName,
+    linkGroupTitleClassName,
+    linkListClassName,
+    linkItemClassName,
+  ]);
 
-  const contactItemsContent = useMemo(() => {
+  const contactItemsContent = React.useMemo(() => {
     if (!contactItems || contactItems.length === 0) return null;
 
     return contactItems.map((item, idx) => (
-      <div key={idx} className={cn("flex items-start gap-4", contactItemClassName)}>
+      <div
+        key={idx}
+        className={cn("flex items-start gap-4", contactItemClassName)}
+      >
         <div className="shrink-0">
           <DynamicIcon name={item.icon} size={20} className="text-primary" />
         </div>
@@ -262,7 +275,12 @@ export function FooterBrandLinksContact({
               </p>
             )}
             {description && (
-              <p className={cn("text-sm text-muted-foreground", descriptionClassName)}>
+              <p
+                className={cn(
+                  "text-sm text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             )}
@@ -273,10 +291,7 @@ export function FooterBrandLinksContact({
           <div className={cn(contactColumnClassName)}>
             {contactTitle && (
               <h3
-                className={cn(
-                  "text-lg font-semibold",
-                  linkGroupTitleClassName,
-                )}
+                className={cn("text-lg font-semibold", linkGroupTitleClassName)}
               >
                 {contactTitle}
               </h3>
@@ -299,9 +314,7 @@ export function FooterBrandLinksContact({
                     {socialTitle}
                   </h4>
                 )}
-                <div className="mt-3 flex gap-4">
-                  {socialLinksContent}
-                </div>
+                <div className="mt-3 flex gap-4">{socialLinksContent}</div>
               </div>
             )}
           </div>
@@ -314,30 +327,37 @@ export function FooterBrandLinksContact({
           )}
         >
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            {copyright && <p className={cn(copyrightClassName)}>{copyright}</p>}
+            <div
+              className={cn(
+                "flex flex-wrap items-center gap-4",
+                copyrightClassName,
+              )}
+            >
+              <FooterCopyright copyright={copyright} />
+              <BrandAttribution
+                internalBrandSlug="open_site_ai"
+                optionIndex={5}
+                variant="span"
+                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+              />
+            </div>
             <div
               className={cn(
                 "flex flex-wrap items-center gap-4",
                 legalLinksClassName,
               )}
             >
-              {attributionHref && attributionText && (
-                <Pressable
-                  href={attributionHref}
-                  className="underline transition-colors hover:text-primary"
-                >
-                  {attributionText}
-                </Pressable>
-              )}
-              {legalLinks && legalLinks.length > 0 && legalLinks.map((link) => (
-                <Pressable
-                  key={link.href}
-                  href={link.href}
-                  className="underline transition-colors hover:text-primary"
-                >
-                  {link.label}
-                </Pressable>
-              ))}
+              {legalLinks &&
+                legalLinks.length > 0 &&
+                legalLinks.map((link, idx: number) => (
+                  <Pressable
+                    key={idx}
+                    href={link.href}
+                    className="underline transition-colors hover:text-primary"
+                  >
+                    {link.label}
+                  </Pressable>
+                ))}
             </div>
           </div>
         </div>

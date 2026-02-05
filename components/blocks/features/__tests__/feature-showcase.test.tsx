@@ -15,12 +15,11 @@ describe("FeatureShowcase", () => {
     },
   ];
 
-  it("renders all feature items correctly", () => {
+  it("renders active feature item correctly", () => {
     render(<FeatureShowcase items={mockItems} />);
+    // With crossfade, only the active item (first by default) is visible
     expect(screen.getByText("Feature 1 Content")).toBeInTheDocument();
-    expect(screen.getByText("Feature 2 Content")).toBeInTheDocument();
     expect(screen.getByAltText("Feature 1")).toBeInTheDocument();
-    expect(screen.getByAltText("Feature 2")).toBeInTheDocument();
   });
 
   it("renders with empty items array", () => {
@@ -45,10 +44,12 @@ describe("FeatureShowcase", () => {
     expect(screen.getByText("Feature Showcase Title")).toBeInTheDocument();
   });
 
-  it("renders carousel with correct number of items", () => {
+  it("renders carousel with navigation for multiple items", () => {
     const { container } = render(<FeatureShowcase items={mockItems} />);
-    const carouselItems = container.querySelectorAll('[role="group"]');
-    expect(carouselItems.length).toBe(2);
+    // With crossfade, only one item is shown at a time, but navigation buttons are present
+    const buttons = container.querySelectorAll('button[aria-label]');
+    // Should have at least 2 buttons (prev/next) - duplicated for mobile and desktop
+    expect(buttons.length).toBeGreaterThanOrEqual(2);
   });
 
   it("renders navigation buttons", () => {
@@ -62,38 +63,36 @@ describe("FeatureShowcase", () => {
     const { container } = render(
       <FeatureShowcase items={mockItems} carouselClassName="custom-carousel" />
     );
-    const carousel = container.querySelector('[data-slot="carousel"]');
-    expect(carousel?.className).toContain("custom-carousel");
+    // The carouselClassName is applied to the wrapper div with class "relative"
+    const carousel = container.querySelector('.custom-carousel');
+    expect(carousel).toBeInTheDocument();
   });
 
-  it("applies custom slideClassName to all slides", () => {
+  it("applies custom slideClassName to active slide", () => {
     const { container } = render(
       <FeatureShowcase items={mockItems} slideClassName="custom-slide" />
     );
-    const slides = container.querySelectorAll('[role="group"] > div');
-    slides.forEach((slide) => {
-      expect(slide.className).toContain("custom-slide");
-    });
+    // With crossfade, only the active slide is rendered
+    const slide = container.querySelector('.custom-slide');
+    expect(slide).toBeInTheDocument();
   });
 
-  it("applies custom contentClassName to content areas", () => {
+  it("applies custom contentClassName to content area", () => {
     const { container } = render(
       <FeatureShowcase items={mockItems} contentClassName="custom-content" />
     );
-    const contentAreas = container.querySelectorAll('[role="group"] > div > div:first-child');
-    contentAreas.forEach((content) => {
-      expect(content.className).toContain("custom-content");
-    });
+    // With crossfade, only the active content area is rendered
+    const content = container.querySelector('.custom-content');
+    expect(content).toBeInTheDocument();
   });
 
-  it("applies custom mediaClassName to media areas", () => {
+  it("applies custom mediaClassName to media area", () => {
     const { container } = render(
       <FeatureShowcase items={mockItems} mediaClassName="custom-media" />
     );
-    const mediaAreas = container.querySelectorAll('[role="group"] > div > div:last-child');
-    mediaAreas.forEach((media) => {
-      expect(media.className).toContain("custom-media");
-    });
+    // With crossfade, only the active media area is rendered
+    const media = container.querySelector('.custom-media');
+    expect(media).toBeInTheDocument();
   });
 
   it("renders CarouselPagination component", () => {
@@ -129,9 +128,9 @@ describe("FeatureShowcase", () => {
 
   it("applies default responsive layout classes", () => {
     const { container } = render(<FeatureShowcase items={mockItems} />);
-    const slideContent = container.querySelector('[role="group"] > div');
-    expect(slideContent?.className).toContain("flex");
-    expect(slideContent?.className).toContain("flex-col");
+    // Find the slide content div with flex classes
+    const slideContent = container.querySelector('.flex.flex-col-reverse');
+    expect(slideContent).toBeInTheDocument();
     expect(slideContent?.className).toContain("md:flex-row");
   });
 
@@ -171,15 +170,15 @@ describe("FeatureShowcase", () => {
     );
 
     const wrapper = container.firstChild as HTMLElement;
-    const carousel = container.querySelector('[data-slot="carousel"]');
-    const slide = container.querySelector('[role="group"] > div');
-    const contentArea = container.querySelector('[role="group"] > div > div:first-child');
-    const mediaArea = container.querySelector('[role="group"] > div > div:last-child');
+    const carousel = container.querySelector('.carousel-custom');
+    const slide = container.querySelector('.slide-custom');
+    const contentArea = container.querySelector('.content-custom');
+    const mediaArea = container.querySelector('.media-custom');
 
     expect(wrapper.className).toContain("outer-custom");
-    expect(carousel?.className).toContain("carousel-custom");
-    expect(slide?.className).toContain("slide-custom");
-    expect(contentArea?.className).toContain("content-custom");
-    expect(mediaArea?.className).toContain("media-custom");
+    expect(carousel).toBeInTheDocument();
+    expect(slide).toBeInTheDocument();
+    expect(contentArea).toBeInTheDocument();
+    expect(mediaArea).toBeInTheDocument();
   });
 });

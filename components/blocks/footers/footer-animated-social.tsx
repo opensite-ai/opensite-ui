@@ -5,6 +5,8 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -25,12 +27,8 @@ export interface FooterAnimatedSocialProps {
   ctaUrl?: string;
   /** Social media links */
   socialLinks?: FooterSocialLink[];
-  /** Copyright text */
-  copyright?: React.ReactNode;
-  /** Attribution text */
-  attributionText?: React.ReactNode;
-  /** Attribution link URL */
-  attributionHref?: string;
+  /** Brand/company name for the copyright notice */
+  copyright?: string;
   /** Additional CSS classes for the section wrapper */
   className?: string;
   /** Additional CSS classes for the content wrapper */
@@ -102,8 +100,6 @@ export function FooterAnimatedSocial({
   ctaUrl,
   socialLinks,
   copyright,
-  attributionText,
-  attributionHref,
   className,
   contentClassName,
   layoutClassName,
@@ -211,26 +207,15 @@ export function FooterAnimatedSocial({
                 variants={itemVariants}
                 className={cn("flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center", copyrightClassName)}
               >
-                {copyright && (
-                  <p className="text-sm text-muted-foreground">{copyright}</p>
-                )}
+                <FooterCopyright copyright={copyright} className="text-sm text-muted-foreground" />
 
-                <div className="flex items-center gap-6 text-sm">
-                  <span className="text-muted-foreground">
-                    <motion.a
-                      href={attributionHref}
-                      className="underline underline-offset-4 transition-colors hover:text-primary"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20,
-                      }}
-                      target="_blank"
-                    >
-                      {attributionText}
-                    </motion.a>
-                  </span>
+                <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                  <BrandAttribution
+                    internalBrandSlug="open_site_ai"
+                    optionIndex={2}
+                    variant="span"
+                    linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+                  />
                 </div>
               </motion.div>
             </motion.div>

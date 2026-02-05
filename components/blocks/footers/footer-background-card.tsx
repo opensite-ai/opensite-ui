@@ -4,6 +4,8 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
@@ -81,12 +83,8 @@ export interface FooterBackgroundCardProps {
   contact?: FooterBackgroundCardContact;
   /** Menu items */
   menuItems?: FooterBackgroundCardMenuItem[];
-  /** Copyright text */
-  copyright?: React.ReactNode;
-  /** Attribution text */
-  attributionText?: React.ReactNode;
-  /** Attribution link URL */
-  attributionHref?: string;
+  /** Brand/company name for the copyright notice */
+  copyright?: string;
   /** Bottom links */
   bottomLinks?: FooterBackgroundCardLink[];
   /** Additional CSS classes for the section wrapper */
@@ -155,8 +153,6 @@ export function FooterBackgroundCard({
   contact,
   menuItems,
   copyright,
-  attributionText,
-  attributionHref,
   bottomLinks,
   className,
   cardClassName,
@@ -181,9 +177,6 @@ export function FooterBackgroundCard({
   patternOpacity,
   optixFlowConfig,
 }: FooterBackgroundCardProps): React.JSX.Element {
-  const currentYear = useMemo(() => new Date().getFullYear(), []);
-  const copyrightText = copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
-
   const sectionStyle = useMemo(
     () => backgroundImage ? { backgroundImage: `url('${backgroundImage}')` } : undefined,
     [backgroundImage]
@@ -281,17 +274,13 @@ export function FooterBackgroundCard({
 
         <div className={cn("mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row", bottomClassName)}>
           <div className={cn("flex flex-col gap-2 text-sm text-muted-foreground md:flex-row md:items-center md:gap-4", copyrightClassName)}>
-            <p>{copyrightText}</p>
-            {attributionText && (
-              <Pressable
-                href={attributionHref || "https://opensite.ai"}
-                className="hover:text-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {attributionText}
-              </Pressable>
-            )}
+            <FooterCopyright copyright={copyright} />
+            <BrandAttribution
+              internalBrandSlug="open_site_ai"
+              optionIndex={3}
+              variant="span"
+              linkClassName="hover:text-primary"
+            />
           </div>
           {bottomLinks && bottomLinks.length > 0 && (
             <div className={cn("flex gap-4", bottomLinksClassName)}>

@@ -2,9 +2,11 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { FooterLogo } from "../../ui/footer-logo";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
@@ -103,12 +105,9 @@ export function FooterSocialApps({
     return sections.map((section, sectionIdx) => (
       <div key={sectionIdx}>
         <h3 className="mb-4 font-bold">{section.title}</h3>
-        <ul className="space-y-4 text-muted-foreground">
+        <ul className="space-y-4">
           {section.links.map((link, linkIdx) => (
-            <li
-              key={linkIdx}
-              className="font-medium hover:text-primary"
-            >
+            <li key={linkIdx} className="font-medium ">
               <Pressable href={link.href}>{link.name}</Pressable>
             </li>
           ))}
@@ -128,9 +127,7 @@ export function FooterSocialApps({
           iconNameOverride={social.iconNameOverride}
           iconSize={24}
           className={cn(
-            "flex size-12 items-center justify-center rounded-full transition-colors hover:text-primary",
-            getNestedCardBg(background),
-            getNestedCardTextColor(background)
+            "flex size-12 items-center justify-center rounded-full transition-colors",
           )}
         />
       </li>
@@ -143,11 +140,11 @@ export function FooterSocialApps({
     return appLinks.map((app, idx) => (
       <li key={idx} className="font-medium">
         <Pressable href={app.href} aria-label={app.label}>
-          <span className={cn(
-            "flex size-12 items-center justify-center rounded-full transition-colors hover:text-primary",
-            getNestedCardBg(background),
-            getNestedCardTextColor(background)
-          )}>
+          <span
+            className={cn(
+              "flex size-12 items-center justify-center rounded-full transition-colors",
+            )}
+          >
             <DynamicIcon name={app.icon} size={24} />
           </span>
         </Pressable>
@@ -181,24 +178,23 @@ export function FooterSocialApps({
                 {sectionsContent}
               </div>
             )}
-            {((socialLinks && socialLinks.length > 0) || (appLinks && appLinks.length > 0)) && (
+            {((socialLinks && socialLinks.length > 0) ||
+              (appLinks && appLinks.length > 0)) && (
               <div className="flex flex-col gap-6">
                 {socialLinks && socialLinks.length > 0 && (
                   <div>
                     {socialLabel && (
                       <p className="mb-3 font-bold">{socialLabel}</p>
                     )}
-                    <ul className="flex items-center gap-2 text-muted-foreground">
+                    <ul className="flex items-center gap-2">
                       {socialLinksContent}
                     </ul>
                   </div>
                 )}
                 {appLinks && appLinks.length > 0 && (
                   <div>
-                    {appLabel && (
-                      <p className="mb-3 font-bold">{appLabel}</p>
-                    )}
-                    <ul className="flex items-center gap-2 text-muted-foreground">
+                    {appLabel && <p className="mb-3 font-bold">{appLabel}</p>}
+                    <ul className="flex items-center gap-2">
                       {appLinksContent}
                     </ul>
                   </div>
@@ -206,13 +202,19 @@ export function FooterSocialApps({
               </div>
             )}
           </div>
-          {copyright && (
-            <div className="mt-24 border-t pt-8">
-              <div className="flex flex-col justify-between gap-4 text-center text-sm font-medium text-muted-foreground md:flex-row md:text-left">
-                <p>{copyright}</p>
+          <div className="mt-24 border-t pt-8">
+            <div className="flex flex-col justify-between gap-4 text-center text-sm font-medium text-muted-foreground md:flex-row md:text-left">
+              <div className="flex flex-wrap items-center gap-4">
+                <FooterCopyright copyright={copyright} />
+                <BrandAttribution
+                  internalBrandSlug="open_site_ai"
+                  optionIndex={6}
+                  variant="span"
+                  linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+                />
               </div>
             </div>
-          )}
+          </div>
         </footer>
       </div>
     </Section>

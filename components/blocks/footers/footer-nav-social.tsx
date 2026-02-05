@@ -5,6 +5,8 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { FooterLogo } from "../../ui/footer-logo";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { Section } from "../../ui/section";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -66,12 +68,8 @@ export interface FooterNavSocialProps {
   newsletterButtonText?: React.ReactNode;
   /** Social section title */
   socialTitle?: React.ReactNode;
-  /** Copyright text */
-  copyright?: React.ReactNode;
-  /** Attribution text */
-  attributionText?: React.ReactNode;
-  /** Attribution link URL */
-  attributionHref?: string;
+  /** Brand/company name for the copyright notice */
+  copyright?: string;
   /** Legal links */
   legalLinks?: FooterNavSocialNavLink[];
   /** Additional CSS classes for the section wrapper */
@@ -152,8 +150,6 @@ export function FooterNavSocial({
   newsletterButtonText,
   socialTitle,
   copyright,
-  attributionText,
-  attributionHref,
   legalLinks,
   className,
   contentClassName,
@@ -304,17 +300,13 @@ export function FooterNavSocial({
 
           <div className={cn("mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm text-muted-foreground md:flex-row md:items-center", bottomClassName)}>
             <div className={cn("flex flex-col gap-2 md:flex-row md:items-center md:gap-4", copyrightClassName)}>
-              {copyright && <p>{copyright}</p>}
-              {attributionText && attributionHref && (
-                <Pressable
-                  href={attributionHref}
-                  className="hover:text-primary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {attributionText}
-                </Pressable>
-              )}
+              <FooterCopyright copyright={copyright} />
+              <BrandAttribution
+                internalBrandSlug="open_site_ai"
+                optionIndex={1}
+                variant="span"
+                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+              />
             </div>
             {legalLinksContent && (
               <ul className={cn("flex gap-4", legalLinksClassName)}>

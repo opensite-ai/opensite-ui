@@ -7,6 +7,8 @@ import { TextInput } from "../../ui/form-inputs";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { Pressable } from "../../../lib/Pressable";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
 import {
@@ -53,12 +55,8 @@ export interface FooterNewsletterMinimalProps {
   newsletterPlaceholder?: string;
   /** Brand text displayed at the bottom */
   brandText?: React.ReactNode;
-  /** Copyright text */
-  copyright?: React.ReactNode;
-  /** Attribution text */
-  attributionText?: React.ReactNode;
-  /** Attribution link URL */
-  attributionHref?: string;
+  /** Brand/company name for the copyright notice */
+  copyright?: string;
   /** Location text */
   location?: React.ReactNode;
   /** Additional CSS classes for the section wrapper */
@@ -188,8 +186,6 @@ export function FooterNewsletterMinimal({
   newsletterPlaceholder,
   brandText,
   copyright,
-  attributionText,
-  attributionHref,
   location,
   className,
   contentClassName,
@@ -413,21 +409,16 @@ export function FooterNewsletterMinimal({
             </motion.div>
           </div>
         )}
-        {(copyright || attributionText) && (
-          <div className={cn("mt-8 text-center text-sm text-muted-foreground", copyrightClassName)}>
-            {copyright && <p>{copyright}</p>}
-            {attributionText && attributionHref && (
-              <Pressable
-                href={attributionHref}
-                className="mt-2 inline-block hover:text-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {attributionText}
-              </Pressable>
-            )}
-          </div>
-        )}
+        <div className={cn("mt-8 text-center text-sm text-muted-foreground", copyrightClassName)}>
+          <FooterCopyright copyright={copyright} />
+          <BrandAttribution
+            internalBrandSlug="open_site_ai"
+            optionIndex={4}
+            variant="div"
+            containerClassName="mt-2"
+            linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+          />
+        </div>
       </div>
     </Section>
   );

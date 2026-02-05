@@ -7,6 +7,8 @@ import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { FooterLogo } from "../../ui/footer-logo";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
 import type { FooterSocialLink } from "./types";
@@ -390,20 +392,24 @@ export function FooterNewsletterContact({
           </div>
         )}
 
-        {copyright && (
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <p className="text-muted-foreground max-md:text-xs">{copyright}</p>
-            <Pressable
-              href="#top"
-              variant="outline"
-              size="icon"
-              asButton
-              aria-label="Back to top"
-            >
-              <DynamicIcon name="lucide/chevron-up" size={16} />
-            </Pressable>
-          </div>
-        )}
+        <div className="flex flex-wrap items-center justify-center gap-3 text-muted-foreground max-md:text-xs">
+          <FooterCopyright copyright={copyright} />
+          <BrandAttribution
+            internalBrandSlug="open_site_ai"
+            optionIndex={2}
+            variant="span"
+            linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+          />
+          <Pressable
+            href="#top"
+            variant="outline"
+            size="icon"
+            asButton
+            aria-label="Back to top"
+          >
+            <DynamicIcon name="lucide/chevron-up" size={16} />
+          </Pressable>
+        </div>
       </div>
     </Section>
   );

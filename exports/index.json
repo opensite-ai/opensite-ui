@@ -43,9 +43,9 @@
     "utils": "./exports/utils.json"
   },
   "stats": {
-    "totalExports": 654,
+    "totalExports": 656,
     "coreExports": 2,
-    "uiComponentExports": 41,
+    "uiComponentExports": 43,
     "hooksExports": 2,
     "blockExports": 583,
     "utilExports": 3

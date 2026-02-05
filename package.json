@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "1.3.9",
+  "version": "1.4.0",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -2991,6 +2991,11 @@
       "import": "./dist/bento-grid.js",
       "require": "./dist/bento-grid.cjs"
     },
+    "./components/brand-attribution": {
+      "types": "./dist/brand-attribution.d.ts",
+      "import": "./dist/brand-attribution.js",
+      "require": "./dist/brand-attribution.cjs"
+    },
     "./components/breadcrumb": {
       "types": "./dist/breadcrumb.d.ts",
       "import": "./dist/breadcrumb.js",
@@ -3045,6 +3050,11 @@
       "types": "./dist/dynamic-icon.d.ts",
       "import": "./dist/dynamic-icon.js",
       "require": "./dist/dynamic-icon.cjs"
+    },
+    "./components/footer-copyright": {
+      "types": "./dist/footer-copyright.d.ts",
+      "import": "./dist/footer-copyright.js",
+      "require": "./dist/footer-copyright.cjs"
     },
     "./components/footer-logo": {
       "types": "./dist/footer-logo.d.ts",

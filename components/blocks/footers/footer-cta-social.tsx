@@ -4,6 +4,8 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
@@ -29,12 +31,8 @@ export interface FooterCtaSocialProps {
   email?: string;
   /** Social links */
   socialLinks?: FooterSocialLink[];
-  /** Copyright text */
-  copyright?: React.ReactNode;
-  /** Attribution text */
-  attributionText?: React.ReactNode;
-  /** Attribution link URL */
-  attributionHref?: string;
+  /** Brand/company name for the copyright notice */
+  copyright?: string;
   /** Additional CSS classes for the section wrapper */
   className?: string;
   /** Additional CSS classes for the content wrapper */
@@ -90,8 +88,6 @@ export function FooterCtaSocial({
   email,
   socialLinks,
   copyright,
-  attributionText,
-  attributionHref,
   className,
   contentClassName,
   containerClassName,
@@ -182,21 +178,15 @@ export function FooterCtaSocial({
           )}
 
           <div className={cn("mt-8 border-t pt-8 text-sm text-muted-foreground", bottomClassName)}>
-            {copyright && (
-              <p className={cn(copyrightClassName)}>
-                {copyright}
-              </p>
-            )}
-            {attributionHref && attributionText && (
-              <Pressable
-                href={attributionHref}
-                className="mt-2 inline-block hover:text-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {attributionText}
-              </Pressable>
-            )}
+            <div className={cn("flex flex-col gap-2", copyrightClassName)}>
+              <FooterCopyright copyright={copyright} />
+              <BrandAttribution
+                internalBrandSlug="open_site_ai"
+                optionIndex={9}
+                variant="span"
+                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+              />
+            </div>
           </div>
         </div>
       </div>

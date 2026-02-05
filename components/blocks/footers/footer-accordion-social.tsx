@@ -5,6 +5,8 @@ import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { Pressable } from "../../../lib/Pressable";
 import { FooterLogo } from "../../ui/footer-logo";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import {
   isValidEmail,
@@ -70,7 +72,7 @@ export interface FooterAccordionSocialProps {
     url: string;
   };
   /**
-   * Copyright text
+   * Brand/company name for the copyright notice
    */
   copyright?: string;
   /**
@@ -285,7 +287,15 @@ export function FooterAccordionSocial({
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-6 border-t pt-8">
-          <p className="text-sm text-muted-foreground">{copyright}</p>
+          <div className="flex flex-col gap-2 text-sm text-muted-foreground md:flex-row md:items-center md:gap-4">
+            <FooterCopyright copyright={copyright} />
+            <BrandAttribution
+              internalBrandSlug="open_site_ai"
+              optionIndex={1}
+              variant="span"
+              linkClassName="hover:text-primary"
+            />
+          </div>
           {socialLinks && socialLinks.length > 0 && (
             <ul className="flex flex-wrap gap-4">
               {socialLinks.map((social, idx) => (

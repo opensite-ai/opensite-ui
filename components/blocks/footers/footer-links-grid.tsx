@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { FooterLogo } from "../../ui/footer-logo";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -38,12 +39,8 @@ export interface FooterLinksGridProps {
   tagline?: string;
   /** Navigation menu sections */
   menuItems?: FooterLinksGridMenuItem[];
-  /** Copyright text - use {year} placeholder for dynamic year */
+  /** Brand/company name for the copyright notice */
   copyright?: string;
-  /** Attribution text */
-  attributionText?: string;
-  /** Attribution link URL */
-  attributionHref?: string;
   /** Bottom links (terms, privacy, etc.) */
   bottomLinks?: {
     text: string;
@@ -81,8 +78,6 @@ export function FooterLinksGrid({
   tagline,
   menuItems,
   copyright,
-  attributionText,
-  attributionHref,
   bottomLinks,
   background,
   pattern,
@@ -91,8 +86,6 @@ export function FooterLinksGrid({
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "py-6 md:py-32",
 }: FooterLinksGridProps): React.JSX.Element {
-  const currentYear = useMemo(() => new Date().getFullYear(), []);
-  const copyrightText = copyright ?? `© ${currentYear}`;
 
   return (
     <Section
@@ -134,15 +127,13 @@ export function FooterLinksGrid({
         </div>
         <div className="mt-24 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium md:flex-row md:items-center">
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
-            <p>{copyrightText}</p>
-            {attributionText && (
-              <Pressable
-                href={attributionHref || "https://opensite.ai"}
-                className="hover:text-primary"
-              >
-                {attributionText}
-              </Pressable>
-            )}
+            <FooterCopyright copyright={copyright} />
+            <BrandAttribution
+              internalBrandSlug="open_site_ai"
+              optionIndex={0}
+              variant="span"
+              linkClassName="hover:text-primary"
+            />
           </div>
           {bottomLinks && bottomLinks.length > 0 && (
             <ul className="flex gap-4">

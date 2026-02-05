@@ -3,6 +3,8 @@
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { FooterLogo } from "../../ui/footer-logo";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
@@ -52,10 +54,8 @@ export interface FooterNewsletterGridProps {
   privacyLinkText?: string;
   /** Privacy policy URL */
   privacyLinkUrl?: string;
-  /** Copyright text */
+  /** Brand/company name for the copyright notice */
   copyright?: string;
-  /** Attribution text */
-  attribution?: string;
   /** Section background variant */
   background?: SectionBackground;
   /** Section spacing variant */
@@ -202,11 +202,17 @@ export function FooterNewsletterGrid({
               </div>
             )}
           </div>
-          {copyright && (
-            <div className="mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground lg:flex-row lg:items-center lg:text-left">
-              <p>{copyright}</p>
+          <div className="mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground lg:flex-row lg:items-center lg:text-left">
+            <div className="flex flex-wrap items-center gap-4">
+              <FooterCopyright copyright={copyright} />
+              <BrandAttribution
+                internalBrandSlug="open_site_ai"
+                optionIndex={3}
+                variant="span"
+                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+              />
             </div>
-          )}
+          </div>
         </footer>
       </div>
     </Section>

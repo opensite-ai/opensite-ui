@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { FooterLogo } from "../../ui/footer-logo";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
@@ -57,12 +58,8 @@ export interface FooterBrandDescriptionProps {
   description?: React.ReactNode;
   /** Social media links */
   socialLinks?: FooterSocialLink[];
-  /** Copyright text */
-  copyright?: React.ReactNode;
-  /** Attribution text */
-  attributionText?: React.ReactNode;
-  /** Attribution link URL */
-  attributionHref?: string;
+  /** Brand/company name for the copyright notice */
+  copyright?: string;
   /** Legal links (terms, privacy, etc.) */
   legalLinks?: FooterBrandDescriptionLink[];
   /** Additional CSS classes for the section wrapper */
@@ -126,8 +123,6 @@ export function FooterBrandDescription({
   description,
   socialLinks,
   copyright,
-  attributionText,
-  attributionHref,
   legalLinks,
   className,
   contentClassName,
@@ -153,10 +148,6 @@ export function FooterBrandDescription({
   patternOpacity,
   optixFlowConfig,
 }: FooterBrandDescriptionProps): React.JSX.Element {
-  const currentYear = useMemo(() => new Date().getFullYear(), []);
-  const copyrightText =
-    copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
-
   return (
     <Section
       background={background}
@@ -274,17 +265,13 @@ export function FooterBrandDescription({
               copyrightClassName,
             )}
           >
-            <p>{copyrightText}</p>
-            {attributionText && (
-              <Pressable
-                href={attributionHref || "https://opensite.ai"}
-                className="hover:text-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {attributionText}
-              </Pressable>
-            )}
+            <FooterCopyright copyright={copyright} />
+            <BrandAttribution
+              internalBrandSlug="open_site_ai"
+              optionIndex={4}
+              variant="span"
+              linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+            />
           </div>
           {legalLinks && legalLinks.length > 0 && (
             <ul

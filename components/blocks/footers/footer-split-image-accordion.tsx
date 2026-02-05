@@ -7,6 +7,8 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { FooterLogo } from "../../ui/footer-logo";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
 import {
@@ -100,9 +102,9 @@ export interface FooterSplitImageAccordionProps {
    */
   footerData?: FooterSplitImageAccordionData;
   /**
-   * Copyright text
+   * Brand/company name for the copyright notice
    */
-  copyright?: React.ReactNode;
+  copyright?: string;
   /**
    * Section background variant
    */
@@ -493,16 +495,20 @@ export function FooterSplitImageAccordion({
               bottomClassName,
             )}
           >
-            {copyright && (
-              <p
-                className={cn(
-                  "text-sm text-muted-foreground",
-                  copyrightClassName,
-                )}
-              >
-                {copyright}
-              </p>
-            )}
+            <div
+              className={cn(
+                "flex flex-wrap items-center gap-4 text-sm text-muted-foreground",
+                copyrightClassName,
+              )}
+            >
+              <FooterCopyright copyright={copyright} />
+              <BrandAttribution
+                internalBrandSlug="open_site_ai"
+                optionIndex={8}
+                variant="span"
+                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+              />
+            </div>
             {submenuLinks && submenuLinks.length > 0 && (
               <ul
                 className={cn(

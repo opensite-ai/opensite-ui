@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { FooterLogo } from "../../ui/footer-logo";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { Section } from "../../ui/section";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -69,12 +70,8 @@ export interface FooterCtaBannerProps {
   newsletterPlaceholder?: string;
   /** Newsletter button text */
   newsletterButtonText?: React.ReactNode;
-  /** Copyright text */
-  copyright?: React.ReactNode;
-  /** Attribution text */
-  attributionText?: React.ReactNode;
-  /** Attribution link URL */
-  attributionHref?: string;
+  /** Brand/company name for the copyright notice */
+  copyright?: string;
   /** Legal links */
   legalLinks?: FooterCtaBannerLink[];
   /** Additional CSS classes for the section wrapper */
@@ -154,8 +151,6 @@ export function FooterCtaBanner({
   newsletterPlaceholder,
   newsletterButtonText,
   copyright,
-  attributionText,
-  attributionHref,
   legalLinks,
   className,
   contentClassName,
@@ -186,9 +181,6 @@ export function FooterCtaBanner({
   patternOpacity,
   optixFlowConfig,
 }: FooterCtaBannerProps): React.JSX.Element {
-  const currentYear = useMemo(() => new Date().getFullYear(), []);
-  const copyrightText = copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
-
   return (
     <Section
       background={background}
@@ -280,15 +272,13 @@ export function FooterCtaBanner({
           {/* Bottom Section */}
           <div className={cn("mt-16 flex flex-col justify-between gap-4 border-t border-border pt-8 text-sm text-muted-foreground md:flex-row md:items-center", bottomClassName)}>
             <div className={cn("flex flex-col gap-2 md:flex-row md:items-center md:gap-4", copyrightClassName)}>
-              <p>{copyrightText}</p>
-              <Pressable
-                href={attributionHref}
-                className="hover:text-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {attributionText}
-              </Pressable>
+              <FooterCopyright copyright={copyright} />
+              <BrandAttribution
+                internalBrandSlug="open_site_ai"
+                optionIndex={8}
+                variant="span"
+                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+              />
             </div>
             <ul className={cn("flex gap-4", legalLinksClassName)}>
               {legalLinks?.map((link, idx) => (

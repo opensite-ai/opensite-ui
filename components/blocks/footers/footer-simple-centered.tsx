@@ -5,6 +5,8 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { FooterLogo } from "../../ui/footer-logo";
+import { FooterCopyright } from "../../ui/footer-copyright";
+import { BrandAttribution } from "../../ui/brand-attribution";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig, NavLinkItem } from "../../../src/types/blocks";
@@ -54,18 +56,18 @@ export interface FooterSimpleCenteredProps {
   tagline?: React.ReactNode;
   /** Sitemap sections */
   sitemap?: FooterSimpleCenteredSection[];
-  /** Copyright text */
-  copyright?: React.ReactNode;
+  /** Brand/company name for the copyright notice */
+  copyright?: string;
   /** Bottom links (terms, privacy, etc.) */
   bottomLinks?: FooterSimpleCenteredBottomLink[];
-  /** Attribution text */
-  attributionText?: React.ReactNode;
-  /** Attribution link URL */
-  attributionHref?: string;
   /** Additional CSS classes for the section wrapper */
   className?: string;
   /** Additional CSS classes for the footer element */
   footerClassName?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /** Additional CSS classes for the main content wrapper */
   contentClassName?: string;
   /** Additional CSS classes for the brand section */
@@ -119,11 +121,11 @@ export function FooterSimpleCentered({
   sitemap,
   copyright,
   bottomLinks,
-  attributionText,
-  attributionHref = "https://opensite.ai",
   className,
   footerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
+  spacing = "py-12 md:py-32",
   brandClassName,
   logoWrapperClassName,
   logoClassName,
@@ -138,7 +140,6 @@ export function FooterSimpleCentered({
   bottomLinksClassName,
   bottomLinkClassName,
   background,
-  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -158,7 +159,7 @@ export function FooterSimpleCentered({
                 href={link.href}
                 className={cn(
                   "text-sm text-muted-foreground transition-colors hover:text-primary",
-                  sitemapLinkClassName
+                  sitemapLinkClassName,
                 )}
               >
                 {link.label}
@@ -168,7 +169,13 @@ export function FooterSimpleCentered({
         </ul>
       </div>
     ));
-  }, [sitemap, sitemapSectionClassName, sitemapTitleClassName, sitemapLinksClassName, sitemapLinkClassName]);
+  }, [
+    sitemap,
+    sitemapSectionClassName,
+    sitemapTitleClassName,
+    sitemapLinksClassName,
+    sitemapLinkClassName,
+  ]);
 
   const bottomLinksContent = useMemo(() => {
     if (!bottomLinks || bottomLinks.length === 0) return null;
@@ -180,7 +187,7 @@ export function FooterSimpleCentered({
           href={link.href}
           className={cn(
             "text-sm text-muted-foreground transition-colors hover:text-primary",
-            bottomLinkClassName
+            bottomLinkClassName,
           )}
         >
           {link.text}
@@ -196,12 +203,13 @@ export function FooterSimpleCentered({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
       <footer className={cn(footerClassName)}>
         <div
           className={cn(
             "relative mb-8 flex w-full flex-col gap-x-28 gap-y-8 md:flex-row md:justify-between md:gap-y-0",
-            contentClassName
+            contentClassName,
           )}
         >
           <div className={cn("max-w-96", brandClassName)}>
@@ -209,7 +217,7 @@ export function FooterSimpleCentered({
               <div
                 className={cn(
                   "mb-6 flex items-center gap-3",
-                  logoWrapperClassName
+                  logoWrapperClassName,
                 )}
               >
                 <FooterLogo
@@ -220,23 +228,18 @@ export function FooterSimpleCentered({
               </div>
             )}
             {tagline && (
-              <p
-                className={cn(
-                  "text-base font-medium text-muted-foreground",
-                  taglineClassName
-                )}
-              >
+              <p className={cn("text-base font-mediumd", taglineClassName)}>
                 {tagline}
               </p>
             )}
           </div>
           <div
             className={cn(
-              "flex flex-col items-start gap-x-20 gap-y-14 xl:flex-row",
-              sitemapWrapperClassName
+              "flex flex-col items-start gap-x-20 gap-y-14 xl:flex-row w-full",
+              sitemapWrapperClassName,
             )}
           >
-            <div className="inline-grid w-fit grid-cols-1 gap-x-20 gap-y-14 sm:grid-cols-2">
+            <div className="grid md:flex w-full gap-8 md:gap-6 lg:gap-12 md:flex-wrap md:justify-between grid-cols-2">
               {sitemapContent}
             </div>
           </div>
@@ -244,31 +247,27 @@ export function FooterSimpleCentered({
         <div
           className={cn(
             "flex flex-col items-baseline justify-between gap-8 border-t border-border pt-8 md:flex-row md:gap-16",
-            bottomBarClassName
+            bottomBarClassName,
           )}
         >
           <div
             className={cn(
               "flex flex-col gap-2 text-xs text-muted-foreground sm:flex-row sm:items-center sm:gap-4 sm:text-sm",
-              copyrightClassName
+              copyrightClassName,
             )}
           >
-            {copyright && <span>{copyright}</span>}
-            {attributionHref && attributionText && (
-              <Pressable
-                href={attributionHref}
-                className="hover:text-accent-foreground"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {attributionText}
-              </Pressable>
-            )}
+            <FooterCopyright copyright={copyright} />
+            <BrandAttribution
+              internalBrandSlug="open_site_ai"
+              optionIndex={5}
+              variant="span"
+              linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+            />
           </div>
           <div
             className={cn(
-              "flex flex-col items-start gap-4 text-xs text-muted-foreground sm:text-sm md:flex-row lg:items-center",
-              bottomLinksClassName
+              "flex flex-col items-start gap-4 text-xs sm:text-sm md:flex-row lg:items-center",
+              bottomLinksClassName,
             )}
           >
             {bottomLinksContent}
