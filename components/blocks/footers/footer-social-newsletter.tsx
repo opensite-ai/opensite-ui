@@ -125,8 +125,8 @@ export interface FooterSocialNewsletterProps {
 /**
  * FooterSocialNewsletter - A footer with social icons, navigation links, and newsletter signup.
  *
- * Features prominent social media icons in circular buttons, multi-column navigation,
- * and an email newsletter subscription form. Ideal for community-focused products,
+ * Features logo with social icons below, multi-column navigation grid,
+ * and a newsletter subscription form in the bottom bar. Ideal for community-focused products,
  * SaaS platforms, and businesses that prioritize social engagement and email marketing.
  */
 export function FooterSocialNewsletter({
@@ -176,142 +176,87 @@ export function FooterSocialNewsletter({
     >
       <div className={cn(contentClassName)}>
         <footer>
-          {logo && (
-            <FooterLogo
-              logo={logo}
-              logoClassName={cn(
-                "flex items-center gap-2",
-                logoWrapperClassName,
-              )}
-              logoImageClassName={cn("h-10", logoClassName)}
-              optixFlowConfig={optixFlowConfig}
-            />
-          )}
-          {sections && sections.length > 0 ? (
+          {/* Logo and Social Icons Section */}
+          <div className="mb-10">
+            {logo && (
+              <FooterLogo
+                logo={logo}
+                logoClassName={cn(
+                  "flex items-center gap-2",
+                  logoWrapperClassName,
+                )}
+                logoImageClassName={cn("h-10", logoClassName)}
+                optixFlowConfig={optixFlowConfig}
+              />
+            )}
+
+            {/* Social icons directly below logo */}
+            {socialLinks && socialLinks.length > 0 && (
+              <div className={cn("mt-6", socialColumnClassName)}>
+                <ul
+                  className={cn(
+                    "flex items-center gap-4",
+                    socialLinksClassName,
+                  )}
+                >
+                  {socialLinks.map((social, idx) => (
+                    <li key={idx}>
+                      <SocialLinkIcon
+                        href={social.href}
+                        label={social.label}
+                        iconNameOverride={social.iconNameOverride}
+                        iconSize={20}
+                        className={cn(
+                          "opacity-80 transition-colors hover:opacity-100",
+                          socialLinkClassName,
+                        )}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {/* Navigation Grid - 4 columns on desktop, 2 on mobile */}
+          {sections && sections.length > 0 && (
             <div
               className={cn(
-                "mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-4",
+                "grid grid-cols-2 gap-8 lg:grid-cols-4",
                 gridClassName,
               )}
             >
-              {sections &&
-                sections.length > 0 &&
-                sections.map((section, sectionIdx) => (
-                  <div key={sectionIdx} className={cn(navSectionClassName)}>
-                    <h3 className={cn("mb-4 font-bold", navTitleClassName)}>
-                      {section.title}
-                    </h3>
-                    <ul className={cn("space-y-4", navLinksClassName)}>
-                      {section.links.map((link, linkIdx) => (
-                        <li
-                          key={linkIdx}
-                          className={cn("font-medium", navLinkClassName)}
-                        >
-                          <Pressable href={link.href}>{link.name}</Pressable>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-            </div>
-          ) : null}
-
-          {((socialLinks && socialLinks.length > 0) ||
-            newsletterLabel ||
-            newsletterButtonText) && (
-            <div className={cn("lg:col-span-2 xl:col-span-1")}>
-              {(newsletterLabel || newsletterButtonText) && (
-                <div
-                  className={cn(
-                    "grid w-full max-w-sm items-center gap-1.5",
-                    newsletterClassName,
-                  )}
-                >
-                  {newsletterLabel && (
-                    <label
-                      htmlFor="newsletter-email"
-                      className="text-sm font-medium"
-                    >
-                      {newsletterLabel}
-                    </label>
-                  )}
-                  <div className="flex w-full max-w-sm items-center space-x-2">
-                    <input
-                      type="email"
-                      id="newsletter-email"
-                      placeholder={newsletterPlaceholder || "Email"}
-                      className={cn(
-                        "flex h-10 w-full rounded-md border border-input  px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-                        newsletterInputClassName,
-                      )}
-                    />
-                    {newsletterButtonText && (
-                      <Pressable
-                        onClick={(e) => {
-                          e.preventDefault();
-                        }}
-                        variant="default"
-                        size="default"
-                        asButton
-                        className={cn(newsletterButtonClassName)}
+              {sections.map((section, sectionIdx) => (
+                <div key={sectionIdx} className={cn(navSectionClassName)}>
+                  <h3 className={cn("mb-4 font-bold", navTitleClassName)}>
+                    {section.title}
+                  </h3>
+                  <ul className={cn("space-y-4", navLinksClassName)}>
+                    {section.links.map((link, linkIdx) => (
+                      <li
+                        key={linkIdx}
+                        className={cn("text-sm font-medium", navLinkClassName)}
                       >
-                        {newsletterButtonText}
-                      </Pressable>
-                    )}
-                  </div>
-                  {(privacyConsentText || privacyLinkText) && (
-                    <p className={cn("mt-1 text-xs ", privacyClassName)}>
-                      {privacyConsentText}
-                      {privacyLinkText && (
-                        <Pressable
-                          href={privacyLinkUrl || "#"}
-                          className="ml-1  hover:underline"
-                        >
-                          {privacyLinkText}
-                        </Pressable>
-                      )}
-                    </p>
-                  )}
-                </div>
-              )}
-
-              {socialLinks && socialLinks.length > 0 && (
-                <div className={cn("", socialColumnClassName)}>
-                  <ul
-                    className={cn(
-                      "mb-10 flex items-center gap-2",
-                      socialLinksClassName,
-                    )}
-                  >
-                    {socialLinks.map((social, idx) => (
-                      <li key={idx} className="font-medium">
-                        <SocialLinkIcon
-                          href={social.href}
-                          label={social.label}
-                          iconNameOverride={social.iconNameOverride}
-                          iconSize={24}
-                          className={cn(
-                            "flex size-12 items-center justify-center rounded-full transition-colors",
-                            socialLinkClassName,
-                          )}
-                        />
+                        <Pressable href={link.href}>{link.name}</Pressable>
                       </li>
                     ))}
                   </ul>
                 </div>
-              )}
+              ))}
             </div>
           )}
 
+          {/* Bottom Bar - Copyright left, Newsletter right */}
           <div
             className={cn(
-              "mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium  md:flex-row md:items-center",
+              "mt-16 flex flex-col gap-6 border-t pt-8 lg:flex-row lg:items-start lg:justify-between",
               bottomClassName,
             )}
           >
+            {/* Copyright and Attribution - Left side */}
             <div
               className={cn(
-                "flex flex-col gap-2 opacity-80 md:flex-row md:items-center md:gap-4",
+                "flex flex-col gap-2 text-sm font-medium opacity-80 md:flex-row md:items-center md:gap-4",
                 copyrightClassName,
               )}
             >
@@ -323,6 +268,54 @@ export function FooterSocialNewsletter({
                 linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
               />
             </div>
+
+            {/* Newsletter Form - Right side */}
+            {(newsletterLabel || newsletterButtonText) && (
+              <div
+                className={cn(
+                  "flex w-full flex-col gap-2 lg:w-auto lg:max-w-md",
+                  newsletterClassName,
+                )}
+              >
+                <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center">
+                  <input
+                    type="email"
+                    id="newsletter-email"
+                    placeholder={newsletterPlaceholder || "Enter your email"}
+                    className={cn(
+                      "flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:w-64",
+                      newsletterInputClassName,
+                    )}
+                  />
+                  {newsletterButtonText && (
+                    <Pressable
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                      variant="default"
+                      size="default"
+                      asButton
+                      className={cn("shrink-0", newsletterButtonClassName)}
+                    >
+                      {newsletterButtonText}
+                    </Pressable>
+                  )}
+                </div>
+                {(privacyConsentText || privacyLinkText) && (
+                  <p className={cn("text-xs opacity-70", privacyClassName)}>
+                    {privacyConsentText}
+                    {privacyLinkText && (
+                      <Pressable
+                        href={privacyLinkUrl || "#"}
+                        className="ml-1 underline hover:opacity-100"
+                      >
+                        {privacyLinkText}
+                      </Pressable>
+                    )}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
         </footer>
       </div>

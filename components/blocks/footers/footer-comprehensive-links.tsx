@@ -164,7 +164,7 @@ export function FooterComprehensiveLinks({
       )}
 
       <div className="grid grid-cols-1 gap-10 lg:gap-12">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-12">
+        <div className="grid grid-cols-2 gap-8 lg:grid-cols-12">
           {linkColumns &&
             linkColumns.length > 0 &&
             linkColumns.map((column) => (
@@ -188,7 +188,7 @@ export function FooterComprehensiveLinks({
             ))}
 
           {contact || (socialLinks?.length ?? 0) > 0 ? (
-            <div className="flex flex-col gap-12 col-span-1 sm:col-span-2 lg:col-span-4">
+            <div className="flex flex-col gap-12 col-span-2 lg:col-span-4">
               {contact ? (
                 <div className="flex flex-col gap-4">
                   <h3 className="text-sm font-semibold">Contact</h3>
@@ -305,7 +305,7 @@ export function FooterComprehensiveLinks({
             />
           </div>
           {(bottomLinks?.length ?? 0) > 0 ? (
-            <div className="flex items-center gap-4 sm:gap-6">
+            <div className="grid grid-cols-2 gap-4 sm:flex sm:items-center sm:gap-6">
               {bottomLinks?.map((link) => (
                 <Pressable
                   key={link.href}

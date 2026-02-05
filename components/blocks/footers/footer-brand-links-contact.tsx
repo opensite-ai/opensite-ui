@@ -170,7 +170,7 @@ export function FooterBrandLinksContact({
     if (!linkGroups || linkGroups.length === 0) return null;
 
     return linkGroups.map((group) => (
-      <div key={group.title} className={cn(linkGroupClassName)}>
+      <div key={group.title} className={cn("mt-8 md:mt-0", linkGroupClassName)}>
         <h3
           className={cn(
             "mb-6 text-sm font-semibold uppercase tracking-wider",
@@ -282,13 +282,18 @@ export function FooterBrandLinksContact({
 
       <div
         className={cn(
-          "grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4",
+          "grid grid-cols-2 gap-6 md:gap-10 md:grid-cols-2 lg:grid-cols-4",
           gridClassName,
         )}
       >
         {linkGroupsContent}
 
-        <div className={cn(contactColumnClassName)}>
+        <div
+          className={cn(
+            "w-full md:w-fit col-span-2 md:col-span-1 mt-8 md:mt-0",
+            contactColumnClassName,
+          )}
+        >
           {contactTitle && (
             <h3
               className={cn("text-lg font-semibold", linkGroupTitleClassName)}
