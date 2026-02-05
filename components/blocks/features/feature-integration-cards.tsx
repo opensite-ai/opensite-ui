@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn, getTextColor, getBorderColor, getAccentColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -194,12 +194,19 @@ export function FeatureIntegrationCards({
     if (!integration.linkLabel) return null;
 
     return (
-      <span className={cn("flex items-center gap-1 rounded-full border px-3 py-2.5 text-sm", integration.linkLabelClassName)}>
+      <span
+        className={cn(
+          "flex items-center gap-1.5 rounded-full border px-3 py-2 text-sm font-medium transition-colors",
+          getBorderColor(background),
+          getAccentColor(background),
+          integration.linkLabelClassName,
+        )}
+      >
         {integration.linkLabel}
-        <DynamicIcon name="lucide/arrow-right" size={16} />
+        <DynamicIcon name="lucide/arrow-right" size={14} />
       </span>
     );
-  }, []);
+  }, [background]);
 
   const integrationsContent = useMemo(() => {
     if (integrationsSlot) return integrationsSlot;
@@ -213,27 +220,60 @@ export function FeatureIntegrationCards({
         <>
           <div className="flex items-center justify-between">
             {iconContent && (
-              <span className="grid size-12 shrink-0 place-content-center rounded-md border">
+              <span
+                className={cn(
+                  "grid size-12 shrink-0 place-content-center rounded-lg border bg-background/50",
+                  getBorderColor(background),
+                )}
+              >
                 {iconContent}
               </span>
             )}
             {linkLabelContent}
           </div>
-          <div>
+          <div className="space-y-1">
             {integration.title && (
               typeof integration.title === "string" ? (
-                <h3 className={cn("font-medium md:text-lg", integration.titleClassName)}>{integration.title}</h3>
+                <h3
+                  className={cn(
+                    "font-semibold md:text-lg",
+                    getTextColor(background),
+                    integration.titleClassName,
+                  )}
+                >
+                  {integration.title}
+                </h3>
               ) : (
-                <div className={cn("font-medium md:text-lg", integration.titleClassName)}>{integration.title}</div>
+                <div
+                  className={cn(
+                    "font-semibold md:text-lg",
+                    getTextColor(background),
+                    integration.titleClassName,
+                  )}
+                >
+                  {integration.title}
+                </div>
               )
             )}
             {integration.description && (
               typeof integration.description === "string" ? (
-                <p className={cn("text-sm md:text-base", getTextColor(background, 'muted'), integration.descriptionClassName)}>
+                <p
+                  className={cn(
+                    "text-sm leading-relaxed md:text-base",
+                    getTextColor(background, "muted"),
+                    integration.descriptionClassName,
+                  )}
+                >
                   {integration.description}
                 </p>
               ) : (
-                <div className={cn("text-sm md:text-base", getTextColor(background, 'muted'), integration.descriptionClassName)}>
+                <div
+                  className={cn(
+                    "text-sm leading-relaxed md:text-base",
+                    getTextColor(background, "muted"),
+                    integration.descriptionClassName,
+                  )}
+                >
                   {integration.description}
                 </div>
               )
@@ -242,12 +282,20 @@ export function FeatureIntegrationCards({
         </>
       );
 
+      const cardClasses = cn(
+        "flex flex-col gap-5 rounded-xl border p-6 transition-all duration-300",
+        getBorderColor(background),
+        "hover:shadow-lg",
+        cardClassName,
+        integration.className,
+      );
+
       if (integration.link) {
         return (
           <Pressable
             key={index}
             href={integration.link}
-            className={cn("flex flex-col gap-4 rounded-xl border p-6 transition-colors duration-300", cardClassName, integration.className)}
+            className={cardClasses}
           >
             {cardContent}
           </Pressable>
@@ -255,15 +303,12 @@ export function FeatureIntegrationCards({
       }
 
       return (
-        <div
-          key={index}
-          className={cn("flex flex-col gap-4 rounded-xl border p-6 transition-colors duration-300", cardClassName, integration.className)}
-        >
+        <div key={index} className={cardClasses}>
           {cardContent}
         </div>
       );
     });
-  }, [integrationsSlot, integrations, cardClassName, renderIntegrationIcon, renderLinkLabel]);
+  }, [integrationsSlot, integrations, cardClassName, renderIntegrationIcon, renderLinkLabel, background]);
 
   return (
     <Section

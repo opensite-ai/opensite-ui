@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getAccentColor } from "../../../lib/utils";
+import { cn, getAccentColor, getTextColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -218,8 +218,7 @@ export function FeatureUtilityCardsGrid({
           href={learnMoreAction.href}
           onClick={learnMoreAction.onClick}
           className={cn(
-            "hover:underline",
-            `hover:${getAccentColor(background)}`,
+            "font-medium transition-opacity hover:opacity-80",
             learnMoreAction.className,
           )}
           aria-label={learnMoreAction["aria-label"]}
@@ -233,7 +232,10 @@ export function FeatureUtilityCardsGrid({
       <Pressable
         href={learnMoreAction.href}
         onClick={learnMoreAction.onClick}
-        className={cn(learnMoreAction.className)}
+        className={cn(
+          "flex items-center gap-1 font-medium transition-opacity hover:opacity-80",
+          learnMoreAction.className,
+        )}
         aria-label={learnMoreAction["aria-label"]}
       >
         {learnMoreAction.icon}
@@ -277,34 +279,62 @@ export function FeatureUtilityCardsGrid({
     return utilities.map((utility, index) => (
       <Card
         key={index}
-        className={cn("overflow-hidden pt-0", cardClassName, utility.className)}
+        className={cn(
+          "overflow-hidden pt-0 transition-shadow duration-300 hover:shadow-lg",
+          cardClassName,
+          utility.className,
+        )}
       >
-        {renderUtilityImage(utility)}
-        <div className="p-5">
+        <div className="overflow-hidden">
+          {renderUtilityImage(utility)}
+        </div>
+        <div className="p-5 md:p-6">
           {utility.title &&
             (typeof utility.title === "string" ? (
-              <p className={cn("mb-1 font-medium", utility.titleClassName)}>
+              <h3
+                className={cn(
+                  "mb-2 text-lg font-semibold",
+                  utility.titleClassName,
+                )}
+              >
                 {utility.title}
-              </p>
+              </h3>
             ) : (
-              <div className={cn("mb-1 font-medium", utility.titleClassName)}>
+              <div
+                className={cn(
+                  "mb-2 text-lg font-semibold",
+                  utility.titleClassName,
+                )}
+              >
                 {utility.title}
               </div>
             ))}
           {utility.description &&
             (typeof utility.description === "string" ? (
-              <p className={cn("", utility.descriptionClassName)}>
+              <p
+                className={cn(
+                  "text-sm leading-relaxed",
+                  getTextColor(background, "muted"),
+                  utility.descriptionClassName,
+                )}
+              >
                 {utility.description}
               </p>
             ) : (
-              <div className={cn("", utility.descriptionClassName)}>
+              <div
+                className={cn(
+                  "text-sm leading-relaxed",
+                  getTextColor(background, "muted"),
+                  utility.descriptionClassName,
+                )}
+              >
                 {utility.description}
               </div>
             ))}
         </div>
       </Card>
     ));
-  }, [utilitiesSlot, utilities, cardClassName, renderUtilityImage]);
+  }, [utilitiesSlot, utilities, cardClassName, renderUtilityImage, background]);
 
   return (
     <Section

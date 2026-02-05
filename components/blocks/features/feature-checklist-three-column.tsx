@@ -5,6 +5,7 @@ import { useMemo, useCallback } from "react";
 import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
+import { Card } from "../../ui/card";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -236,16 +237,18 @@ export function FeatureChecklistThreeColumn({
     if (!items || items.length === 0) return null;
 
     return (
-      <ul className={cn("flex flex-col", getTextColor(background, 'muted'), gapClass, checklistClassName)}>
+      <ul className={cn("flex flex-col", gapClass, checklistClassName)}>
         {items.map((item, index) => (
-          <li key={index} className={cn("flex items-center gap-2", getCheckItemClassName(item))}>
-            <DynamicIcon name="lucide/check" size={16} className={getAccentColor(background)} />
-            {getCheckItemContent(item)}
+          <li key={index} className={cn("flex items-start gap-3", getCheckItemClassName(item))}>
+            <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
+              <DynamicIcon name="lucide/check" size={12} className={getAccentColor(background)} />
+            </span>
+            <span className={getTextColor(background, "muted")}>{getCheckItemContent(item)}</span>
           </li>
         ))}
       </ul>
     );
-  }, [checklistClassName, getCheckItemContent, getCheckItemClassName]);
+  }, [checklistClassName, getCheckItemContent, getCheckItemClassName, background]);
 
   const renderCardImage = useCallback((card: FeatureChecklistThreeColumnCard) => {
     if (card.imageSlot) return card.imageSlot;
@@ -270,10 +273,10 @@ export function FeatureChecklistThreeColumn({
     return (
       <Pressable
         href={card.link}
-        className="my-3 flex items-center gap-2 px-4 font-medium sm:my-4 sm:px-5 md:px-6"
+        className="flex items-center gap-2 px-5 py-4 font-medium transition-opacity hover:opacity-80 md:px-6"
       >
         {card.linkLabel || "Read more"}
-        <DynamicIcon name="lucide/chevron-right" size={16} className="mt-0.5" />
+        <DynamicIcon name="lucide/arrow-right" size={16} />
       </Pressable>
     );
   }, []);
@@ -283,59 +286,86 @@ export function FeatureChecklistThreeColumn({
     if (!cards || cards.length === 0) return null;
 
     return cards.map((card, index) => (
-      <div key={index} className={cn("rounded-lg border", cardClassName, card.className)}>
-        <div className="relative p-1">
+      <Card
+        key={index}
+        className={cn(
+          "overflow-hidden pt-0 transition-shadow duration-300 hover:shadow-lg",
+          cardClassName,
+          card.className,
+        )}
+      >
+        <div className="relative">
           {renderCardImage(card)}
           {card.badge && (
             <Badge
               variant="outline"
-              className={cn("absolute top-5 left-5 bg-background", card.badgeClassName)}
+              className={cn(
+                "absolute top-4 left-4 bg-background/90 backdrop-blur-sm",
+                card.badgeClassName,
+              )}
             >
               {card.badge}
             </Badge>
           )}
         </div>
-        <div>
-          <div className="mb-3 px-4 pt-5 sm:px-5 md:px-6 md:pt-6">
+        <div className="flex flex-col">
+          <div className="px-5 py-5 md:px-6 md:py-6">
             {card.title && (
               typeof card.title === "string" ? (
-                <h3 className={cn("font-medium", card.titleClassName)}>{card.title}</h3>
+                <h3 className={cn("mb-2 text-lg font-semibold", card.titleClassName)}>
+                  {card.title}
+                </h3>
               ) : (
-                <div className={cn("font-medium", card.titleClassName)}>{card.title}</div>
+                <div className={cn("mb-2 text-lg font-semibold", card.titleClassName)}>
+                  {card.title}
+                </div>
               )
             )}
             {card.description && (
               typeof card.description === "string" ? (
-                <p className={cn(getTextColor(background, 'muted'), card.descriptionClassName)}>{card.description}</p>
+                <p className={cn("text-sm leading-relaxed", getTextColor(background, 'muted'), card.descriptionClassName)}>
+                  {card.description}
+                </p>
               ) : (
-                <div className={cn(getTextColor(background, 'muted'), card.descriptionClassName)}>{card.description}</div>
+                <div className={cn("text-sm leading-relaxed", getTextColor(background, 'muted'), card.descriptionClassName)}>
+                  {card.description}
+                </div>
               )
             )}
           </div>
-          <div className="h-px border-t border-dashed"></div>
-          <ul className={getTextColor(background, 'muted')}>
-            {card.checklistItems?.map((item, itemIndex) => (
-              <React.Fragment key={itemIndex}>
-                <li className={cn("flex items-start gap-2 px-4 py-3 sm:px-5 md:px-6", getCheckItemClassName(item))}>
-                  <DynamicIcon
-                    name="lucide/check"
-                    size={16}
-                    className={cn("mt-1 shrink-0", getAccentColor(background))}
-                  />
-                  {getCheckItemContent(item)}
+          {card.checklistItems && card.checklistItems.length > 0 && (
+            <ul className="border-t px-5 py-4 md:px-6">
+              {card.checklistItems.map((item, itemIndex) => (
+                <li
+                  key={itemIndex}
+                  className={cn(
+                    "flex items-start gap-3 py-2",
+                    getCheckItemClassName(item),
+                  )}
+                >
+                  <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                    <DynamicIcon
+                      name="lucide/check"
+                      size={12}
+                      className={getAccentColor(background)}
+                    />
+                  </span>
+                  <span className={cn("text-sm", getTextColor(background, "muted"))}>
+                    {getCheckItemContent(item)}
+                  </span>
                 </li>
-                {card.checklistItems && itemIndex < card.checklistItems.length - 1 && (
-                  <div className="h-px border-t border-dashed"></div>
-                )}
-              </React.Fragment>
-            ))}
-          </ul>
-          <div className="h-px border-t border-dashed"></div>
-          {renderCardLink(card)}
+              ))}
+            </ul>
+          )}
+          {card.link && (
+            <div className="border-t">
+              {renderCardLink(card)}
+            </div>
+          )}
         </div>
-      </div>
+      </Card>
     ));
-  }, [cardsSlot, cards, cardClassName, renderCardImage, renderCardLink, getCheckItemContent, getCheckItemClassName]);
+  }, [cardsSlot, cards, cardClassName, renderCardImage, renderCardLink, getCheckItemContent, getCheckItemClassName, background]);
 
   return (
     <Section
@@ -347,19 +377,19 @@ export function FeatureChecklistThreeColumn({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("grid gap-4 sm:grid-cols-2 sm:gap-8 md:gap-12 lg:grid-cols-3 lg:gap-16", headerGridClassName)}>
+      <div className={cn("grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 lg:gap-12", headerGridClassName)}>
         {title && (
           typeof title === "string" ? (
-            <h2 className={cn("mb-4 text-3xl font-medium sm:col-span-2 sm:text-4xl md:mb-0 lg:col-span-1", titleClassName)}>
+            <h2 className={cn("mb-2 text-2xl font-semibold text-balance sm:col-span-2 sm:text-3xl lg:col-span-1 lg:text-4xl", titleClassName)}>
               {title}
             </h2>
           ) : (
-            <div className={cn("mb-4 text-3xl font-medium sm:col-span-2 sm:text-4xl md:mb-0 lg:col-span-1", titleClassName)}>
+            <div className={cn("mb-2 text-2xl font-semibold text-balance sm:col-span-2 sm:text-3xl lg:col-span-1 lg:text-4xl", titleClassName)}>
               {title}
             </div>
           )
         )}
-        {renderChecklistColumn(checklistColumn1, checklistColumn1Slot, "gap-3 sm:gap-4")}
+        {renderChecklistColumn(checklistColumn1, checklistColumn1Slot, "gap-4")}
         {renderChecklistColumn(checklistColumn2, checklistColumn2Slot, "gap-4")}
       </div>
       <div className={cn("mt-10 grid gap-6 sm:mt-16 md:grid-cols-2 lg:grid-cols-3", cardsGridClassName)}>

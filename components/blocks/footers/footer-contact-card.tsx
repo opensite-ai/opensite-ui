@@ -100,6 +100,10 @@ export interface FooterContactCardProps {
   locationClassName?: string;
   /** Section background variant */
   background?: SectionBackground;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Optional background pattern name */
@@ -148,7 +152,8 @@ export function FooterContactCard({
   copyrightClassName,
   locationClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -160,6 +165,7 @@ export function FooterContactCard({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
       <div className={cn(contentClassName)}>
         <footer>
@@ -175,7 +181,12 @@ export function FooterContactCard({
                 />
               )}
               {heading && (
-                <h2 className={cn("mb-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+                <h2
+                  className={cn(
+                    "mb-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h2>
               )}
@@ -207,14 +218,26 @@ export function FooterContactCard({
             </div>
 
             {/* Right Column - Social and Navigation */}
-            <div className={cn("flex flex-col justify-between", rightColumnClassName)}>
+            <div
+              className={cn(
+                "flex flex-col justify-between",
+                rightColumnClassName,
+              )}
+            >
               {(socialTitle || (socialLinks && socialLinks.length > 0)) && (
                 <div className={cn(socialSectionClassName)}>
                   {socialTitle && (
-                    <p className={cn("mb-4 font-medium", socialTitleClassName)}>{socialTitle}</p>
+                    <p className={cn("mb-4 font-medium", socialTitleClassName)}>
+                      {socialTitle}
+                    </p>
                   )}
                   {socialLinks && socialLinks.length > 0 && (
-                    <ul className={cn("flex items-center gap-4", socialLinksClassName)}>
+                    <ul
+                      className={cn(
+                        "flex items-center gap-4",
+                        socialLinksClassName,
+                      )}
+                    >
                       {socialLinks.map((social, idx) => (
                         <li key={idx}>
                           <SocialLinkIcon
@@ -223,7 +246,7 @@ export function FooterContactCard({
                             iconNameOverride={social.iconNameOverride}
                             className={cn(
                               "flex size-12 items-center justify-center rounded-full border transition-colors hover:opacity-80",
-                              socialLinkClassName
+                              socialLinkClassName,
                             )}
                           />
                         </li>
@@ -233,13 +256,16 @@ export function FooterContactCard({
                 </div>
               )}
               {navLinks && navLinks.length > 0 && (
-                <nav className={cn("mt-8", navClassName)}>
+                <nav className={cn("mt-18 md:mt-8", navClassName)}>
                   <ul className="flex flex-wrap gap-6">
                     {navLinks.map((link, idx) => (
                       <li key={idx}>
                         <Pressable
                           href={link.href}
-                          className={cn("opacity-80 hover:opacity-100", navLinkClassName)}
+                          className={cn(
+                            "opacity-80 hover:opacity-100",
+                            navLinkClassName,
+                          )}
                         >
                           {link.name}
                         </Pressable>
@@ -252,8 +278,18 @@ export function FooterContactCard({
           </div>
 
           {/* Bottom Section */}
-          <div className={cn("mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm opacity-80 md:flex-row md:items-center", bottomClassName)}>
-            <div className={cn("flex flex-col gap-2 md:flex-row md:items-center md:gap-4", copyrightClassName)}>
+          <div
+            className={cn(
+              "mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm opacity-80 md:flex-row md:items-center",
+              bottomClassName,
+            )}
+          >
+            <div
+              className={cn(
+                "flex flex-col gap-2 md:flex-row md:items-center md:gap-4",
+                copyrightClassName,
+              )}
+            >
               <FooterCopyright copyright={copyright} />
               <BrandAttribution
                 internalBrandSlug="open_site_ai"

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getNestedCardBg } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Card } from "../../ui/card";
@@ -10,7 +10,12 @@ import { Separator } from "../../ui/separator";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { getTextColor } from "../../../lib/utils";
 
 export interface FeatureBentoUtilitiesCardItem {
   /**
@@ -192,77 +197,88 @@ export function FeatureBentoUtilities({
   patternOpacity,
   patternClassName,
 }: FeatureBentoUtilitiesProps): React.JSX.Element {
-  const renderCard = React.useCallback((card: FeatureBentoUtilitiesCardItem, index: number) => {
-    const hasImage = card.imageSrc || card.imageSlot;
-    const cardClasses = cn(
-      hasImage ? "overflow-hidden pt-0" : "p-6",
-      card.isDashed && "border-dashed bg-transparent shadow-none",
-      card.className
-    );
+  const renderCard = React.useCallback(
+    (card: FeatureBentoUtilitiesCardItem, index: number) => {
+      const hasImage = card.imageSrc || card.imageSlot;
+      const cardClasses = cn(
+        hasImage ? "overflow-hidden pt-0" : "p-6",
+        card.isDashed && "border-dashed bg-transparent shadow-none",
+        card.className,
+      );
 
-    const renderImage = () => {
-      if (card.imageSlot) return card.imageSlot;
-      if (card.imageSrc) {
+      const renderImage = () => {
+        if (card.imageSlot) return card.imageSlot;
+        if (card.imageSrc) {
+          return (
+            <Img
+              src={card.imageSrc}
+              alt={card.imageAlt || ""}
+              className="aspect-video w-full object-cover"
+              loading="lazy"
+              optixFlowConfig={optixFlowConfig}
+            />
+          );
+        }
+        return null;
+      };
+
+      const renderTitle = () => {
+        if (!card.title) return null;
+
+        const titleContent = (
+          <>
+            {card.title}
+            {card.showSparkle && (
+              <DynamicIcon name="lucide/sparkles" size={16} />
+            )}
+            {card.badge && <Badge variant="outline">{card.badge}</Badge>}
+          </>
+        );
+
         return (
-          <Img
-            src={card.imageSrc}
-            alt={card.imageAlt || ""}
-            className="aspect-video w-full object-cover"
-            loading="lazy"
-            optixFlowConfig={optixFlowConfig}
-          />
+          <div className="mb-1 flex items-center gap-2 font-medium">
+            {titleContent}
+          </div>
+        );
+      };
+
+      if (hasImage) {
+        return (
+          <Card key={index} className={cardClasses}>
+            {renderImage()}
+            <div className="p-6">
+              {renderTitle()}
+              {card.description && <p>{card.description}</p>}
+            </div>
+          </Card>
         );
       }
-      return null;
-    };
 
-    const renderTitle = () => {
-      if (!card.title) return null;
-
-      const titleContent = (
-        <>
-          {card.title}
-          {card.showSparkle && <DynamicIcon name="lucide/sparkles" size={16} />}
-          {card.badge && <Badge variant="outline">{card.badge}</Badge>}
-        </>
-      );
-
-      return (
-        <div className="mb-1 flex items-center gap-2 font-medium">
-          {titleContent}
-        </div>
-      );
-    };
-
-    if (hasImage) {
       return (
         <Card key={index} className={cardClasses}>
-          {renderImage()}
-          <div className="p-6">
-            {renderTitle()}
-            {card.description && (
-              <p className={getTextColor(background, 'muted')}>{card.description}</p>
-            )}
-          </div>
+          {renderTitle()}
+          {card.description && (
+            <p className={getTextColor(background, "muted")}>
+              {card.description}
+            </p>
+          )}
         </Card>
       );
-    }
+    },
+    [optixFlowConfig],
+  );
 
-    return (
-      <Card key={index} className={cardClasses}>
-        {renderTitle()}
-        {card.description && (
-          <p className={getTextColor(background, 'muted')}>{card.description}</p>
-        )}
-      </Card>
-    );
-  }, [optixFlowConfig]);
-
-  const renderColumn = React.useCallback((cards: FeatureBentoUtilitiesCardItem[] | undefined, slot: React.ReactNode | undefined) => {
-    if (slot) return slot;
-    if (!cards || cards.length === 0) return null;
-    return cards.map((card, index) => renderCard(card, index));
-  }, [renderCard]);
+  const renderColumn = React.useCallback(
+    (
+      cards: FeatureBentoUtilitiesCardItem[] | undefined,
+      slot: React.ReactNode | undefined,
+    ) => {
+      if (slot) return slot;
+      if (!cards || cards.length === 0) return null;
+      return cards.map((card, index) => renderCard(card, index));
+    },
+    [renderCard],
+  );
 
   const labelIconElement = useMemo(() => {
     if (labelIcon) return labelIcon;
@@ -277,43 +293,66 @@ export function FeatureBentoUtilities({
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
-      className={cn(getNestedCardBg(background, 'muted'), className)}
+      className={className}
       containerClassName={cn("max-w-7xl", containerClassName)}
     >
       {(labelIconElement || label) && (
-        <div className={cn("flex items-center gap-2", getTextColor(background, 'muted'), labelClassName)}>
+        <div
+          className={cn(
+            "flex items-center gap-2",
+            getTextColor(background, "muted"),
+            labelClassName,
+          )}
+        >
           {labelIconElement}
-          {label && (
-            typeof label === "string" ? (
+          {label &&
+            (typeof label === "string" ? (
               <p className="text-sm">{label}</p>
             ) : (
               <div className="text-sm">{label}</div>
-            )
-          )}
+            ))}
         </div>
       )}
       <Separator className="mt-3 mb-8" />
-      <div className={cn("flex flex-col justify-between gap-6 md:flex-row", headerClassName)}>
-        {title && (
-          typeof title === "string" ? (
-            <h2 className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</h2>
-          ) : (
-            <div className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</div>
-          )
+      <div
+        className={cn(
+          "flex flex-col justify-between gap-6 md:flex-row",
+          headerClassName,
         )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("md:w-1/2", descriptionClassName)}>{description}</p>
+      >
+        {title &&
+          (typeof title === "string" ? (
+            <h2 className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>
+              {title}
+            </h2>
           ) : (
-            <div className={cn("md:w-1/2", descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div
+              className={cn("text-3xl font-medium md:w-1/2", titleClassName)}
+            >
+              {title}
+            </div>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p className={cn("md:w-1/2", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={cn("md:w-1/2", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
       </div>
-      <div className={cn("mt-11 flex flex-col gap-6 md:flex-row", gridClassName)}>
-        <div className={cn("flex w-full flex-col gap-6", columnClassName)}>
+      <div
+        className={cn(
+          "mt-11 grid grid-cols-1 gap-6 md:grid-cols-2",
+          gridClassName,
+        )}
+      >
+        <div className={cn("flex flex-col gap-6", columnClassName)}>
           {renderColumn(leftColumnCards, leftColumnSlot)}
         </div>
-        <div className={cn("flex w-full flex-col gap-6", columnClassName)}>
+        <div className={cn("flex flex-col gap-6", columnClassName)}>
           {renderColumn(rightColumnCards, rightColumnSlot)}
         </div>
       </div>

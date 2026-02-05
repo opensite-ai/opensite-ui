@@ -57,6 +57,10 @@ export interface FooterAnimatedSocialProps {
   copyrightClassName?: string;
   /** Section background variant */
   background?: SectionBackground;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Optional background pattern */
@@ -114,7 +118,8 @@ export function FooterAnimatedSocial({
   separatorClassName,
   copyrightClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
 }: FooterAnimatedSocialProps): React.JSX.Element {
@@ -137,7 +142,10 @@ export function FooterAnimatedSocial({
           label={link.label}
           iconNameOverride={link.iconNameOverride}
           iconSize={24}
-          className={cn("group flex items-center gap-2 py-2 transition-colors hover:opacity-70", socialLinkClassName)}
+          className={cn(
+            "group flex items-center gap-2 py-2 transition-colors hover:opacity-70",
+            socialLinkClassName,
+          )}
         />
       </motion.div>
     ));
@@ -150,6 +158,7 @@ export function FooterAnimatedSocial({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
       <div className={cn(contentClassName)}>
         <footer>
@@ -159,14 +168,27 @@ export function FooterAnimatedSocial({
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className={cn("flex flex-col justify-between md:flex-row md:items-center", layoutClassName)}
+              className={cn(
+                "flex flex-col justify-between md:flex-row md:items-center",
+                layoutClassName,
+              )}
             >
               <div className={cn("space-y-8", leftColumnClassName)}>
                 <motion.div variants={itemVariants} className="space-y-6">
-                  <h2 className={cn("text-4xl leading-tight font-bold lg:text-5xl", headingClassName)}>
+                  <h2
+                    className={cn(
+                      "text-4xl leading-tight font-bold lg:text-5xl",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h2>
-                  <p className={cn("max-w-md text-lg leading-relaxed opacity-80", descriptionClassName)}>
+                  <p
+                    className={cn(
+                      "max-w-md text-lg leading-relaxed opacity-80",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
                 </motion.div>
@@ -175,7 +197,10 @@ export function FooterAnimatedSocial({
                   <motion.div variants={itemVariants}>
                     <Pressable
                       href={ctaUrl}
-                      className={cn("inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border h-11 px-8 hover:opacity-80", ctaClassName)}
+                      className={cn(
+                        "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border h-11 px-8 hover:opacity-80",
+                        ctaClassName,
+                      )}
                     >
                       {ctaText}
                     </Pressable>
@@ -183,9 +208,14 @@ export function FooterAnimatedSocial({
                 )}
               </div>
 
-              <div className={cn("mt-5 space-y-8 md:mt-0", rightColumnClassName)}>
+              <div
+                className={cn(
+                  "flex flex-row md:flex-col flex-wrap items-center justify-center gap-4 md:gap-2",
+                  rightColumnClassName,
+                )}
+              >
                 <motion.div variants={itemVariants}>
-                  <div className={cn("space-y-6", socialLinksClassName)}>
+                  <div className={cn("flex flex-row md:flex-col items-center gap-4 md:gap-6", socialLinksClassName)}>
                     {socialLinksContent}
                   </div>
                 </motion.div>
@@ -200,14 +230,26 @@ export function FooterAnimatedSocial({
               className={cn("mt-16", bottomClassName)}
             >
               <motion.div variants={itemVariants}>
-                <div className={cn("mb-8 h-px w-full opacity-20", separatorClassName)} style={{ backgroundColor: 'currentColor' }} />
+                <div
+                  className={cn(
+                    "mb-8 h-px w-full opacity-20",
+                    separatorClassName,
+                  )}
+                  style={{ backgroundColor: "currentColor" }}
+                />
               </motion.div>
 
               <motion.div
                 variants={itemVariants}
-                className={cn("flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center", copyrightClassName)}
+                className={cn(
+                  "flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center",
+                  copyrightClassName,
+                )}
               >
-                <FooterCopyright copyright={copyright} className="text-sm opacity-70" />
+                <FooterCopyright
+                  copyright={copyright}
+                  className="text-sm opacity-70"
+                />
 
                 <div className="flex items-center gap-6 text-sm opacity-70">
                   <BrandAttribution
