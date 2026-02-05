@@ -396,7 +396,7 @@ export function FeatureNumberedCards({
             {cardImg(feature)}
             <span
               className={cn(
-                "absolute top-5 left-5 flex size-6 items-center justify-center rounded-sm bg-primary font-mono text-xs text-primary-foreground md:top-10 md:left-10",
+                "absolute top-2 md:top-5 left-2 md:left-5 flex size-10 md:size-12 items-center justify-center rounded-md shadow-lg bg-primary text-sm md:text-md text-primary-foreground lg:top-10 lg:left-10 font-semibold",
                 badgeClassName,
               )}
             >

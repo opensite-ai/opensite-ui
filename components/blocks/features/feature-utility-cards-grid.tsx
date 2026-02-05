@@ -199,7 +199,11 @@ export function FeatureUtilityCardsGrid({
     if (labelIcon) return labelIcon;
     if (labelIconName)
       return (
-        <DynamicIcon name={labelIconName} size={20} className={getAccentColor(background)} />
+        <DynamicIcon
+          name={labelIconName}
+          size={20}
+          className={getAccentColor(background)}
+        />
       );
     return null;
   }, [labelIcon, labelIconName, background]);
@@ -325,7 +329,12 @@ export function FeatureUtilityCardsGrid({
             )}
           >
             {(label || labelIcon || labelIconName) && (
-              <div className={cn("flex items-center gap-1 ", labelClassName)}>
+              <div
+                className={cn(
+                  "text-lg flex items-center gap-4",
+                  labelClassName,
+                )}
+              >
                 {renderLabelIcon}
                 {label &&
                   (typeof label === "string" ? (

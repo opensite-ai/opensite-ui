@@ -185,7 +185,7 @@ export function FeatureImageCardsThreeColumn({
   cardsSlot,
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-6 md:py-32",
+  spacing = "py-12 md:py-32",
   titleClassName,
   descriptionClassName,
   gridClassName,
@@ -252,7 +252,7 @@ export function FeatureImageCardsThreeColumn({
           )}
         >
           {renderImage(card, imageAlt)}
-          <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-0 md:translate-y-20 rounded-xl bg-linear-to-t from-black to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
+          <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 md:translate-y-20 rounded-xl bg-linear-to-t from-black to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
           <div className="absolute top-0 flex h-full w-full flex-col justify-between p-4 md:p-6">
             {(card.badgeText ||
               card.avatarSrc ||
@@ -322,7 +322,7 @@ export function FeatureImageCardsThreeColumn({
               (typeof title === "string" ? (
                 <h2
                   className={cn(
-                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl max-w-lg md:max-w-md",
+                    "text-2xl font-semibold text-balance md:text-3xl lg:text-4xl max-w-lg md:max-w-md",
                     titleClassName,
                   )}
                 >
@@ -331,7 +331,7 @@ export function FeatureImageCardsThreeColumn({
               ) : (
                 <div
                   className={cn(
-                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl max-w-lg md:max-w-md",
+                    "text-2xl font-semibold text-balance md:text-3xl lg:text-4xl max-w-lg md:max-w-md",
                     titleClassName,
                   )}
                 >

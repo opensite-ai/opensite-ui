@@ -166,7 +166,7 @@ export function FeatureIconGridBordered({
       <div
         key={index}
         className={cn(
-          "relative flex h-full flex-col justify-between gap-6 rounded-none border-dashed px-3 md:border-l md:px-5",
+          "relative flex h-full flex-col justify-between gap-6 rounded-none border-dashed px-0 md:border-l md:px-5",
           cardClassName,
           feature.className,
         )}

@@ -62,6 +62,26 @@ export interface FeaturePatternGridLinksItem {
 
 export interface FeaturePatternGridLinksProps {
   /**
+   * Main heading content
+   */
+  title?: React.ReactNode;
+  /**
+   * Supporting description content
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
    * Array of feature items
    */
   features?: FeaturePatternGridLinksItem[];
@@ -125,41 +145,62 @@ export interface FeaturePatternGridLinksProps {
  * ```
  */
 export function FeaturePatternGridLinks({
+  title,
+  description,
+  titleClassName,
+  descriptionClassName,
+  headerClassName,
   features,
   featuresSlot,
   className,
-  containerClassName,
+  spacing = "py-12 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   gridClassName,
   cardClassName,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
 }: FeaturePatternGridLinksProps): React.JSX.Element {
-  const renderFeatureIcon = useCallback((feature: FeaturePatternGridLinksItem) => {
-    if (feature.icon) return feature.icon;
-    if (feature.iconName) return <DynamicIcon name={feature.iconName} size={24} className={feature.iconClassName} />;
-    return null;
-  }, []);
+  const renderFeatureIcon = useCallback(
+    (feature: FeaturePatternGridLinksItem) => {
+      if (feature.icon) return feature.icon;
+      if (feature.iconName)
+        return (
+          <DynamicIcon
+            name={feature.iconName}
+            size={24}
+            className={feature.iconClassName}
+          />
+        );
+      return null;
+    },
+    [],
+  );
 
-  const renderFeatureLink = useCallback((feature: FeaturePatternGridLinksItem) => {
-    if (feature.linkSlot) return feature.linkSlot;
-    if (!feature.link && !feature.linkLabel) return null;
+  const renderFeatureLink = useCallback(
+    (feature: FeaturePatternGridLinksItem) => {
+      if (feature.linkSlot) return feature.linkSlot;
+      if (!feature.link && !feature.linkLabel) return null;
 
-    const label = feature.linkLabel || (feature.link ? "Learn more" : null);
-    if (!label) return null;
+      const label = feature.linkLabel || (feature.link ? "Learn more" : null);
+      if (!label) return null;
 
-    return (
-      <Pressable
-        href={feature.link}
-        className={cn("flex items-center gap-2 text-sm font-medium", feature.linkClassName)}
-      >
-        {label}
-        <DynamicIcon name="lucide/chevron-right" size={16} />
-      </Pressable>
-    );
-  }, []);
+      return (
+        <Pressable
+          href={feature.link}
+          className={cn(
+            "flex items-center gap-2 text-sm font-medium",
+            feature.linkClassName,
+          )}
+        >
+          {label}
+          <DynamicIcon name="lucide/chevron-right" size={16} />
+        </Pressable>
+      );
+    },
+    [],
+  );
 
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
@@ -168,33 +209,62 @@ export function FeaturePatternGridLinks({
     return features.map((feature, index) => (
       <div
         key={index}
-        className={cn("flex flex-col gap-10 rounded-lg border p-8", cardClassName, feature.className)}
+        className={cn(
+          "flex flex-col gap-10 rounded-lg border p-8",
+          cardClassName,
+          feature.className,
+        )}
       >
         <div>
           {renderFeatureIcon(feature)}
-          {feature.title && (
-            typeof feature.title === "string" ? (
-              <h3 className={cn("mt-6 mb-2 font-medium", feature.titleClassName)}>{feature.title}</h3>
+          {feature.title &&
+            (typeof feature.title === "string" ? (
+              <h3
+                className={cn("mt-6 mb-2 font-medium", feature.titleClassName)}
+              >
+                {feature.title}
+              </h3>
             ) : (
-              <div className={cn("mt-6 mb-2 font-medium", feature.titleClassName)}>{feature.title}</div>
-            )
-          )}
-          {feature.description && (
-            typeof feature.description === "string" ? (
-              <p className={cn("text-sm", getTextColor(background, 'muted'), feature.descriptionClassName)}>
+              <div
+                className={cn("mt-6 mb-2 font-medium", feature.titleClassName)}
+              >
+                {feature.title}
+              </div>
+            ))}
+          {feature.description &&
+            (typeof feature.description === "string" ? (
+              <p
+                className={cn(
+                  "text-sm",
+                  getTextColor(background, "muted"),
+                  feature.descriptionClassName,
+                )}
+              >
                 {feature.description}
               </p>
             ) : (
-              <div className={cn("text-sm", getTextColor(background, 'muted'), feature.descriptionClassName)}>
+              <div
+                className={cn(
+                  "text-sm",
+                  getTextColor(background, "muted"),
+                  feature.descriptionClassName,
+                )}
+              >
                 {feature.description}
               </div>
-            )
-          )}
+            ))}
         </div>
         {renderFeatureLink(feature)}
       </div>
     ));
-  }, [featuresSlot, features, cardClassName, renderFeatureIcon, renderFeatureLink, background]);
+  }, [
+    featuresSlot,
+    features,
+    cardClassName,
+    renderFeatureIcon,
+    renderFeatureLink,
+    background,
+  ]);
 
   return (
     <Section
@@ -206,8 +276,57 @@ export function FeaturePatternGridLinks({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
-        {featuresContent}
+      <div className="flex flex-col space-y-6 md:space-y-16">
+        {title || description ? (
+          <div
+            className={cn(
+              "flex flex-col gap-4 md:gap-6 text-left",
+              headerClassName,
+            )}
+          >
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl max-w-lg md:max-w-md",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
+              ) : (
+                <div
+                  className={cn(
+                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl max-w-lg md:max-w-md",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn("max-w-lg md:max-w-md", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div
+                  className={cn("max-w-lg md:max-w-md", descriptionClassName)}
+                >
+                  {description}
+                </div>
+              ))}
+          </div>
+        ) : null}
+
+        <div
+          className={cn(
+            "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+            gridClassName,
+          )}
+        >
+          {featuresContent}
+        </div>
       </div>
     </Section>
   );

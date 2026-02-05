@@ -244,7 +244,7 @@ export function FeatureIconTabsContent({
   tabContentClassName,
   optixFlowConfig,
   background,
-  spacing = "py-6 md:py-32",
+  spacing = "pt-14 pb-12 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -341,7 +341,7 @@ export function FeatureIconTabsContent({
                 key={tab.value}
                 value={tab.value}
                 className={cn(
-                  "flex h-auto! w-auto! flex-none items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
+                  "flex h-auto! w-auto! flex-none items-center gap-2 rounded-lg border border-border pl-0 pr-4 md:pl-4 md:pr-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
                   `data-[state=active]:${getBorderColor(background, "accent")}`,
                   tabTriggerClassName,
                   tab.className,
@@ -353,8 +353,8 @@ export function FeatureIconTabsContent({
             ))}
           </TabsList>
         </div>
-        <div className={cn("py-6 lg:py-16", contentWrapperClassName)}>
-          <div className="relative">
+        <div className={cn("py-6 md:py-10", contentWrapperClassName)}>
+          <div className="p-4 md:p-8 bg-muted/50 rounded-2xl shadow-lg">
             {tabs.map((tab) => {
               if (tab.contentSlot) {
                 return (
@@ -394,7 +394,7 @@ export function FeatureIconTabsContent({
                       (typeof content.title === "string" ? (
                         <h3
                           className={cn(
-                            "text-3xl font-semibold lg:text-5xl",
+                            "text-2xl font-semibold",
                             content.titleClassName,
                           )}
                         >
@@ -403,7 +403,7 @@ export function FeatureIconTabsContent({
                       ) : (
                         <div
                           className={cn(
-                            "text-3xl font-semibold lg:text-5xl",
+                            "text-2xl font-semibold",
                             content.titleClassName,
                           )}
                         >
@@ -488,7 +488,7 @@ export function FeatureIconTabsContent({
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "max-w-2xl text-3xl font-semibold md:text-4xl text-balance",
+                    "max-w-4xl text-3xl font-semibold md:text-6xl text-balance",
                     headingClassName,
                   )}
                 >
@@ -497,7 +497,7 @@ export function FeatureIconTabsContent({
               ) : (
                 <div
                   className={cn(
-                    "max-w-2xl text-3xl font-semibold md:text-4xl text-balance",
+                    "max-w-4xl text-3xl font-semibold md:text-6xl text-balance",
                     headingClassName,
                   )}
                 >

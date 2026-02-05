@@ -131,8 +131,8 @@ export function FeatureCapabilitiesGrid({
   items,
   itemsSlot,
   className,
-  containerClassName = "px-4 sm:px-4 md:px-6 lg:px-8",
-  spacing = "py-6 md:py-32",
+  containerClassName = "mx-auto w-full max-w-screen-lg md:max-w-screen-4xl relative z-10 px-6 sm:px-2 md:px-2 lg:px-2",
+  spacing = "py-12 md:py-32",
   eyebrowClassName,
   headingClassName,
   gridClassName,
@@ -162,7 +162,7 @@ export function FeatureCapabilitiesGrid({
         <Card
           key={`${typeof item.title === "string" ? item.title : "item"}-${index}`}
           className={cn(
-            "group relative rounded-md overflow-visible border-border/10 bg-background/5 p-0 transition-colors duration-300 hover:border-border/20",
+            "group relative rounded-md overflow-visible border-border/10 bg-card text-card-foreground p-0 transition-colors duration-300 hover:border-border/20",
             cardClassName,
             item.className,
           )}
@@ -184,7 +184,7 @@ export function FeatureCapabilitiesGrid({
             {iconContent && (
               <div
                 className={cn(
-                  "flex h-10 w-10 items-center justify-center rounded-xl border border-border/15 bg-background/5",
+                  "flex h-10 w-10 items-center justify-center rounded-xl border ",
                   item.iconClassName,
                 )}
               >
@@ -213,7 +213,7 @@ export function FeatureCapabilitiesGrid({
                 {item.badge && (
                   <span
                     className={cn(
-                      "rounded-full border border-border/20 px-2 py-0.5 text-[10px] leading-none",
+                      "rounded-full border px-2 py-0.5 text-[10px] leading-none",
                       item.badgeClassName,
                     )}
                   >
@@ -255,7 +255,6 @@ export function FeatureCapabilitiesGrid({
       patternClassName={patternClassName}
       className={className}
       containerClassName={containerClassName}
-      containerMaxWidth="lg"
     >
       <div className="flex flex-col space-y-6 md:space-y-16">
         {eyebrow || heading ? (
