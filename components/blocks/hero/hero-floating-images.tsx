@@ -72,8 +72,10 @@ export interface HeroFloatingImagesProps {
    */
   background?: SectionBackground;
   /**
-   * Vertical spacing for the section
+   * Additional CSS classes for the container
    */
+  containerClassName?: string;
+  /** Section spacing variant */
   spacing?: SectionSpacing;
   /**
    * Optional background pattern name
@@ -159,7 +161,6 @@ export function HeroFloatingImages({
   zoomIconName = "lucide/zoom-in",
   enableLightbox = true,
   background,
-  spacing,
   pattern,
   patternOpacity,
   className,
@@ -171,6 +172,8 @@ export function HeroFloatingImages({
   imageClassName,
   zoomIndicatorClassName,
   optixFlowConfig,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
 }: HeroFloatingImagesProps): React.JSX.Element {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -240,10 +243,7 @@ export function HeroFloatingImages({
         )}
       >
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-background/90 shadow-lg">
-          <DynamicIcon
-            name={zoomIconName}
-            size={20}
-          />
+          <DynamicIcon name={zoomIconName} size={20} />
         </div>
       </div>
     ),
@@ -329,10 +329,7 @@ export function HeroFloatingImages({
               )}
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-background/90 shadow-lg">
-                <DynamicIcon
-                  name={zoomIconName}
-                  size={16}
-                />
+                <DynamicIcon name={zoomIconName} size={16} />
               </div>
             </div>
           )}
@@ -386,9 +383,13 @@ export function HeroFloatingImages({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn("relative flex items-center justify-center", className)}
+      containerClassName={containerClassName}
     >
       <div
-        className={cn("grid gap-12 lg:grid-cols-2 lg:gap-16", gridClassName)}
+        className={cn(
+          "grid gap-4 md:gap-12 grid-cols-1 md:grid-cols-2 lg:gap-16",
+          gridClassName,
+        )}
       >
         {/* Content Area */}
         {hasContent ? (

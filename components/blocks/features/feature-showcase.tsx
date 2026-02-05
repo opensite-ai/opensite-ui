@@ -234,12 +234,20 @@ export function FeatureShowcase({
                   {item.mediaComponent && (
                     <div
                       className={cn(
-                        "relative w-full min-h-[25dvh] h-[25dvh] max-h-[35dvh] md:min-h-0 md:h-auto md:max-h-none [&>*]:h-full [&>*]:object-cover",
+                        "relative w-full min-h-[25dvh] h-[25dvh] max-h-[35dvh] md:min-h-[300px] md:h-[400px] md:max-h-[500px] [&>*]:h-full [&>*]:object-cover",
                         mediaWrapperClassName,
                         mediaClassName,
                       )}
                     >
                       {item.mediaComponent}
+                      {/* Mobile-only pagination - positioned relative to the image */}
+                      <CarouselPagination
+                        onPrevious={() => api?.scrollPrev()}
+                        onNext={() => api?.scrollNext()}
+                        canScrollPrevious={canScrollPrevious}
+                        canScrollNext={canScrollNext}
+                        className="absolute bottom-2 right-2 md:hidden"
+                      />
                     </div>
                   )}
                 </div>
@@ -247,12 +255,13 @@ export function FeatureShowcase({
             ))}
           </CarouselContent>
         </div>
+        {/* Desktop-only pagination - positioned at bottom of carousel */}
         <CarouselPagination
           onPrevious={() => api?.scrollPrev()}
           onNext={() => api?.scrollNext()}
           canScrollPrevious={canScrollPrevious}
           canScrollNext={canScrollNext}
-          className="absolute bottom-[calc(25dvh+2rem)] right-4 md:bottom-6 md:right-0"
+          className="absolute bottom-6 right-0 hidden md:flex"
         />
       </Carousel>
     );
