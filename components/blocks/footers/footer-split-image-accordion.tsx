@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput } from "../../ui/form-inputs";
+
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import {
@@ -376,13 +376,12 @@ export function FooterSplitImageAccordion({
                 className={cn("flex items-stretch", newsletterFormClassName)}
               >
                 <Field name="email" className="flex-1">
-                  {({ field, meta }) => (
-                    <TextInput
+                  {({ field }) => (
+                    <input
                       {...field}
                       type="email"
                       placeholder={emailPlaceholder}
-                      error={meta.touched && !!meta.error}
-                      className="flex h-10 w-full rounded-l-md rounded-r-none border border-r-0 border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="flex h-10 w-full rounded-l-md rounded-r-none border border-r-0 border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       aria-label={emailPlaceholder}
                     />
                   )}
@@ -390,8 +389,10 @@ export function FooterSplitImageAccordion({
                 <Pressable
                   componentType="button"
                   type="submit"
-                  className="inline-flex h-10 items-center justify-center rounded-l-none rounded-r-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-                  asButton={false}
+                  variant="default"
+                  size="icon"
+                  asButton
+                  className="rounded-l-none rounded-r-md shrink-0 h-10"
                   disabled={form.isSubmitting}
                 >
                   <DynamicIcon name="lucide/arrow-right" size={16} />
@@ -472,6 +473,8 @@ export function FooterSplitImageAccordion({
             </div>
           )}
 
+          <Separator />
+
           {paymentPlatforms && paymentPlatforms.length > 0 && (
             <ul
               className={cn(
@@ -481,13 +484,11 @@ export function FooterSplitImageAccordion({
             >
               {paymentPlatforms.map((platform, idx) => (
                 <li key={idx}>
-                  <PaymentPlatformIcon platform={platform} size={24} />
+                  <PaymentPlatformIcon platform={platform} size={30} />
                 </li>
               ))}
             </ul>
           )}
-
-          <Separator />
 
           <div
             className={cn(
