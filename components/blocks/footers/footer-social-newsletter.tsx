@@ -11,6 +11,7 @@ import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
 import type { PatternName } from "../../ui/pattern-background";
 import type { FooterSocialLink } from "./types";
+import { DynamicIcon } from "@/src";
 
 /**
  * Logo configuration for the footer
@@ -177,7 +178,7 @@ export function FooterSocialNewsletter({
       <div className={cn(contentClassName)}>
         <footer>
           {/* Logo and Social Icons Section */}
-          <div className="mb-10">
+          <div className="mb-20">
             {logo && (
               <FooterLogo
                 logo={logo}
@@ -222,7 +223,7 @@ export function FooterSocialNewsletter({
           {sections && sections.length > 0 && (
             <div
               className={cn(
-                "grid grid-cols-2 gap-8 lg:grid-cols-4",
+                "space-y-12 space-x-4 md:space-y-6 md:space-x-6 grid grid-cols-2 lg:grid-cols-4",
                 gridClassName,
               )}
             >
@@ -249,7 +250,7 @@ export function FooterSocialNewsletter({
           {/* Bottom Bar - Copyright left, Newsletter right */}
           <div
             className={cn(
-              "mt-16 flex flex-col gap-6 border-t pt-8 lg:flex-row lg:items-start lg:justify-between",
+              "gap-14 md:gap-4 mt-16 flex flex-col-reverse border-none md:border-t pt-4 md:pt-8 lg:flex-row lg:items-start lg:justify-between",
               bottomClassName,
             )}
           >
@@ -277,13 +278,13 @@ export function FooterSocialNewsletter({
                   newsletterClassName,
                 )}
               >
-                <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center">
+                <div className="flex w-full flex-row items-stretch">
                   <input
                     type="email"
                     id="newsletter-email"
                     placeholder={newsletterPlaceholder || "Enter your email"}
                     className={cn(
-                      "flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:w-64",
+                      "flex h-10 w-full rounded-l-md rounded-r-none border border-r-0 border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:w-64",
                       newsletterInputClassName,
                     )}
                   />
@@ -293,11 +294,14 @@ export function FooterSocialNewsletter({
                         e.preventDefault();
                       }}
                       variant="default"
-                      size="default"
+                      size="icon"
                       asButton
-                      className={cn("shrink-0", newsletterButtonClassName)}
+                      className={cn(
+                        "rounded-l-none rounded-r-md shrink-0 h-10",
+                        newsletterButtonClassName,
+                      )}
                     >
-                      {newsletterButtonText}
+                      <DynamicIcon name="feather/send" />
                     </Pressable>
                   )}
                 </div>

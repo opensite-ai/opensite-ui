@@ -305,7 +305,7 @@ export function FooterComprehensiveLinks({
             />
           </div>
           {(bottomLinks?.length ?? 0) > 0 ? (
-            <div className="grid grid-cols-2 gap-4 sm:flex sm:items-center sm:gap-6">
+            <div className="grid grid-cols-2 gap-4 sm:flex sm:items-center sm:gap-6 w-full md:w-fit mt-6 md:mt-0">
               {bottomLinks?.map((link) => (
                 <Pressable
                   key={link.href}
