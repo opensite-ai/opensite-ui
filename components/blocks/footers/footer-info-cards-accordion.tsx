@@ -19,6 +19,7 @@ import {
   imagePlaceholders,
 } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
 
