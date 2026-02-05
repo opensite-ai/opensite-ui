@@ -222,7 +222,7 @@ export function FeatureShowcase({
                       : undefined
                   }
                   className={cn(
-                    "flex flex-col gap-8 md:gap-14 md:flex-row md:items-center md:justify-between",
+                    "flex flex-col-reverse gap-8 md:gap-14 md:flex-row md:items-center md:justify-between",
                     slideClassName,
                   )}
                 >
@@ -234,7 +234,7 @@ export function FeatureShowcase({
                   {item.mediaComponent && (
                     <div
                       className={cn(
-                        "w-full",
+                        "relative w-full min-h-[25dvh] h-[25dvh] max-h-[35dvh] md:min-h-0 md:h-auto md:max-h-none [&>*]:h-full [&>*]:object-cover",
                         mediaWrapperClassName,
                         mediaClassName,
                       )}
@@ -252,7 +252,7 @@ export function FeatureShowcase({
           onNext={() => api?.scrollNext()}
           canScrollPrevious={canScrollPrevious}
           canScrollNext={canScrollNext}
-          className="absolute bottom-4 right-0 md:bottom-6"
+          className="absolute bottom-[calc(25dvh+2rem)] right-4 md:bottom-6 md:right-0"
         />
       </Carousel>
     );

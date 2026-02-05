@@ -51,6 +51,10 @@ export interface FooterLinksGridProps {
   }[];
   /** Section background variant */
   background?: SectionBackground;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Optional background pattern name */
@@ -81,10 +85,11 @@ export function FooterLinksGrid({
   attributionHref,
   bottomLinks,
   background,
-  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
 }: FooterLinksGridProps): React.JSX.Element {
   const currentYear = useMemo(() => new Date().getFullYear(), []);
   const copyrightText = copyright ?? `© ${currentYear}`;
@@ -96,11 +101,12 @@ export function FooterLinksGrid({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
       <footer>
-        <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-4 md:gap-8 md:grid-cols-6">
           {(logo || tagline) && (
-            <div className="col-span-2 mb-8 lg:mb-0">
+            <div className="flex space-y-2 col-span-2 flex-col mb-6 md:mb-0 pr-0 md:pr-6">
               {logo && (
                 <FooterLogo
                   logo={logo}
@@ -111,23 +117,22 @@ export function FooterLinksGrid({
               {tagline && <p className="mt-4 font-bold">{tagline}</p>}
             </div>
           )}
-          {menuItems && menuItems.length > 0 && menuItems.map((section, sectionIdx) => (
-            <div key={sectionIdx}>
-              <h3 className="mb-4 font-bold">{section.title}</h3>
-              <ul className="space-y-4 text-muted-foreground">
-                {section.links.map((link, linkIdx) => (
-                  <li
-                    key={linkIdx}
-                    className="font-medium hover:text-primary"
-                  >
-                    <Pressable href={link.url}>{link.text}</Pressable>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {menuItems &&
+            menuItems.length > 0 &&
+            menuItems.map((section, sectionIdx) => (
+              <div key={sectionIdx}>
+                <h3 className="mb-4 font-bold">{section.title}</h3>
+                <ul className="space-y-4">
+                  {section.links.map((link, linkIdx) => (
+                    <li key={linkIdx} className="text-sm font-medium">
+                      <Pressable href={link.url}>{link.text}</Pressable>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
         </div>
-        <div className="mt-24 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground md:flex-row md:items-center">
+        <div className="mt-24 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium md:flex-row md:items-center">
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
             <p>{copyrightText}</p>
             {attributionText && (
@@ -142,7 +147,7 @@ export function FooterLinksGrid({
           {bottomLinks && bottomLinks.length > 0 && (
             <ul className="flex gap-4">
               {bottomLinks.map((link, linkIdx) => (
-                <li key={linkIdx} className="underline hover:text-primary">
+                <li key={linkIdx} className="underline">
                   <Pressable href={link.url}>{link.text}</Pressable>
                 </li>
               ))}
