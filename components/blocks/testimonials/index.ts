@@ -1,8 +1,8 @@
-export { ReviewsListVerified } from "./reviews-list-verified";
-export type { ReviewsListVerifiedProps, ReviewItem } from "./reviews-list-verified";
+export { TestimonialsListVerified } from "./testimonials-list-verified";
+export type { TestimonialsListVerifiedProps, ReviewItem } from "./testimonials-list-verified";
 
-export { ReviewsImagesHelpful } from "./reviews-images-helpful";
-export type { ReviewsImagesHelpfulProps, ReviewWithImages } from "./reviews-images-helpful";
+export { TestimonialsImagesHelpful } from "./testimonials-images-helpful";
+export type { TestimonialsImagesHelpfulProps, ReviewWithImages } from "./testimonials-images-helpful";
 
 export { TestimonialsBentoGrid } from "./testimonials-bento-grid";
 export type { TestimonialsBentoGridProps, TestimonialItem } from "./testimonials-bento-grid";

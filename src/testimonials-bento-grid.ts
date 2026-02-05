@@ -3,9 +3,9 @@
  *
  * @example
  * ```ts
- * import { TestimonialsBentoGrid } from "@opensite/ui/blocks/reviews/testimonials-bento-grid";
+ * import { TestimonialsBentoGrid } from "@opensite/ui/blocks/testimonials/testimonials-bento-grid";
  * ```
  */
 
-export { TestimonialsBentoGrid } from "../components/blocks/reviews/testimonials-bento-grid";
-export type { TestimonialsBentoGridProps, BentoTestimonialItem } from "../components/blocks/reviews/testimonials-bento-grid";
+export { TestimonialsBentoGrid } from "../components/blocks/testimonials/testimonials-bento-grid";
+export type { TestimonialsBentoGridProps, BentoTestimonialItem } from "../components/blocks/testimonials/testimonials-bento-grid";

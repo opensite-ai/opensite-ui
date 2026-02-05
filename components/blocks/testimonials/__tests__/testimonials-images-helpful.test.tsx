@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { ReviewsImagesHelpful } from "../reviews-images-helpful";
+import { TestimonialsImagesHelpful } from "../testimonials-images-helpful";
 
 vi.mock("@page-speed/img", () => ({
   Img: ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
@@ -52,29 +52,29 @@ vi.mock("../../../../lib/mediaPlaceholders", () => ({
   imagePlaceholders: Array(50).fill("https://placeholder.com/image.jpg"),
 }));
 
-describe("ReviewsImagesHelpful", () => {
+describe("TestimonialsImagesHelpful", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   it("renders with explicit heading", () => {
-    render(<ReviewsImagesHelpful heading="Test Reviews" writeReviewLabel="Write a Review" />);
+    render(<TestimonialsImagesHelpful heading="Test Reviews" writeReviewLabel="Write a Review" />);
     expect(screen.getByText("Test Reviews")).toBeInTheDocument();
     expect(screen.getByText("Write a Review")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
-    render(<ReviewsImagesHelpful heading="Custom Heading" />);
+    render(<TestimonialsImagesHelpful heading="Custom Heading" />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders write review button", () => {
-    render(<ReviewsImagesHelpful heading="Test Reviews" writeReviewLabel="Write a Review" />);
+    render(<TestimonialsImagesHelpful heading="Test Reviews" writeReviewLabel="Write a Review" />);
     expect(screen.getByText("Write a Review")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<ReviewsImagesHelpful heading="Test Reviews" className="custom-class" />);
+    const { container } = render(<TestimonialsImagesHelpful heading="Test Reviews" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -3,9 +3,9 @@
  *
  * @example
  * ```ts
- * import { TestimonialsSliderMinimal } from "@opensite/ui/blocks/reviews/testimonials-slider-minimal";
+ * import { TestimonialsSliderMinimal } from "@opensite/ui/blocks/testimonials/testimonials-slider-minimal";
  * ```
  */
 
-export { TestimonialsSliderMinimal } from "../components/blocks/reviews/testimonials-slider-minimal";
-export type { TestimonialsSliderMinimalProps } from "../components/blocks/reviews/testimonials-slider-minimal";
+export { TestimonialsSliderMinimal } from "../components/blocks/testimonials/testimonials-slider-minimal";
+export type { TestimonialsSliderMinimalProps } from "../components/blocks/testimonials/testimonials-slider-minimal";

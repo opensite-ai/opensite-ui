@@ -3,9 +3,9 @@
  *
  * @example
  * ```ts
- * import { TestimonialsMiniDividers } from "@opensite/ui/blocks/reviews/testimonials-mini-dividers";
+ * import { TestimonialsMiniDividers } from "@opensite/ui/blocks/testimonials/testimonials-mini-dividers";
  * ```
  */
 
-export { TestimonialsMiniDividers } from "../components/blocks/reviews/testimonials-mini-dividers";
-export type { TestimonialsMiniDividersProps, MiniTestimonialItem } from "../components/blocks/reviews/testimonials-mini-dividers";
+export { TestimonialsMiniDividers } from "../components/blocks/testimonials/testimonials-mini-dividers";
+export type { TestimonialsMiniDividersProps, MiniTestimonialItem } from "../components/blocks/testimonials/testimonials-mini-dividers";

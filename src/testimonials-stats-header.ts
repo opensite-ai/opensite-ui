@@ -3,9 +3,9 @@
  *
  * @example
  * ```ts
- * import { TestimonialsStatsHeader } from "@opensite/ui/blocks/reviews/testimonials-stats-header";
+ * import { TestimonialsStatsHeader } from "@opensite/ui/blocks/testimonials/testimonials-stats-header";
  * ```
  */
 
-export { TestimonialsStatsHeader } from "../components/blocks/reviews/testimonials-stats-header";
-export type { TestimonialsStatsHeaderProps, StatItem } from "../components/blocks/reviews/testimonials-stats-header";
+export { TestimonialsStatsHeader } from "../components/blocks/testimonials/testimonials-stats-header";
+export type { TestimonialsStatsHeaderProps, StatItem } from "../components/blocks/testimonials/testimonials-stats-header";

@@ -3,9 +3,9 @@
  *
  * @example
  * ```ts
- * import { TestimonialsAnimatedSplit } from "@opensite/ui/blocks/reviews/testimonials-animated-split";
+ * import { TestimonialsAnimatedSplit } from "@opensite/ui/blocks/testimonials/testimonials-animated-split";
  * ```
  */
 
-export { TestimonialsAnimatedSplit } from "../components/blocks/reviews/testimonials-animated-split";
-export type { TestimonialsAnimatedSplitProps, AnimatedSplitTestimonialItem } from "../components/blocks/reviews/testimonials-animated-split";
+export { TestimonialsAnimatedSplit } from "../components/blocks/testimonials/testimonials-animated-split";
+export type { TestimonialsAnimatedSplitProps, AnimatedSplitTestimonialItem } from "../components/blocks/testimonials/testimonials-animated-split";

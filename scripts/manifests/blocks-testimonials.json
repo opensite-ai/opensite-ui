@@ -1,0 +1,163 @@
+[
+  {
+    "path": "./blocks/testimonials/testimonials-animated-split",
+    "types": "./dist/testimonials-animated-split.d.ts",
+    "import": "./dist/testimonials-animated-split.js",
+    "require": "./dist/testimonials-animated-split.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-bento-grid",
+    "types": "./dist/testimonials-bento-grid.d.ts",
+    "import": "./dist/testimonials-bento-grid.js",
+    "require": "./dist/testimonials-bento-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-carousel-image",
+    "types": "./dist/testimonials-carousel-image.d.ts",
+    "import": "./dist/testimonials-carousel-image.js",
+    "require": "./dist/testimonials-carousel-image.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-centered-avatars",
+    "types": "./dist/testimonials-centered-avatars.d.ts",
+    "import": "./dist/testimonials-centered-avatars.js",
+    "require": "./dist/testimonials-centered-avatars.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-company-logo",
+    "types": "./dist/testimonials-company-logo.d.ts",
+    "import": "./dist/testimonials-company-logo.js",
+    "require": "./dist/testimonials-company-logo.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-grid-add-review",
+    "types": "./dist/testimonials-grid-add-review.d.ts",
+    "import": "./dist/testimonials-grid-add-review.js",
+    "require": "./dist/testimonials-grid-add-review.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-images-helpful",
+    "types": "./dist/testimonials-images-helpful.d.ts",
+    "import": "./dist/testimonials-images-helpful.js",
+    "require": "./dist/testimonials-images-helpful.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-large-quote",
+    "types": "./dist/testimonials-large-quote.d.ts",
+    "import": "./dist/testimonials-large-quote.js",
+    "require": "./dist/testimonials-large-quote.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-list-verified",
+    "types": "./dist/testimonials-list-verified.d.ts",
+    "import": "./dist/testimonials-list-verified.js",
+    "require": "./dist/testimonials-list-verified.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-logo-cards",
+    "types": "./dist/testimonials-logo-cards.d.ts",
+    "import": "./dist/testimonials-logo-cards.js",
+    "require": "./dist/testimonials-logo-cards.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-marquee",
+    "types": "./dist/testimonials-marquee.d.ts",
+    "import": "./dist/testimonials-marquee.js",
+    "require": "./dist/testimonials-marquee.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-masonry-grid",
+    "types": "./dist/testimonials-masonry-grid.d.ts",
+    "import": "./dist/testimonials-masonry-grid.js",
+    "require": "./dist/testimonials-masonry-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-mini-dividers",
+    "types": "./dist/testimonials-mini-dividers.d.ts",
+    "import": "./dist/testimonials-mini-dividers.js",
+    "require": "./dist/testimonials-mini-dividers.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-minimal-numbered",
+    "types": "./dist/testimonials-minimal-numbered.d.ts",
+    "import": "./dist/testimonials-minimal-numbered.js",
+    "require": "./dist/testimonials-minimal-numbered.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-parallax-number",
+    "types": "./dist/testimonials-parallax-number.d.ts",
+    "import": "./dist/testimonials-parallax-number.js",
+    "require": "./dist/testimonials-parallax-number.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-quote-carousel",
+    "types": "./dist/testimonials-quote-carousel.d.ts",
+    "import": "./dist/testimonials-quote-carousel.js",
+    "require": "./dist/testimonials-quote-carousel.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-scrolling-columns",
+    "types": "./dist/testimonials-scrolling-columns.d.ts",
+    "import": "./dist/testimonials-scrolling-columns.js",
+    "require": "./dist/testimonials-scrolling-columns.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-simple-grid",
+    "types": "./dist/testimonials-simple-grid.d.ts",
+    "import": "./dist/testimonials-simple-grid.js",
+    "require": "./dist/testimonials-simple-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-slider-minimal",
+    "types": "./dist/testimonials-slider-minimal.d.ts",
+    "import": "./dist/testimonials-slider-minimal.js",
+    "require": "./dist/testimonials-slider-minimal.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-split-image",
+    "types": "./dist/testimonials-split-image.d.ts",
+    "import": "./dist/testimonials-split-image.js",
+    "require": "./dist/testimonials-split-image.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-stats-header",
+    "types": "./dist/testimonials-stats-header.d.ts",
+    "import": "./dist/testimonials-stats-header.js",
+    "require": "./dist/testimonials-stats-header.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-twitter-cards",
+    "types": "./dist/testimonials-twitter-cards.d.ts",
+    "import": "./dist/testimonials-twitter-cards.js",
+    "require": "./dist/testimonials-twitter-cards.cjs"
+  }
+,
+  {
+    "path": "./blocks/testimonials/testimonials-wall-compact",
+    "types": "./dist/testimonials-wall-compact.d.ts",
+    "import": "./dist/testimonials-wall-compact.js",
+    "require": "./dist/testimonials-wall-compact.cjs"
+  }
+
+]

@@ -3,9 +3,9 @@
  *
  * @example
  * ```ts
- * import { TestimonialsWallCompact } from "@opensite/ui/blocks/reviews/testimonials-wall-compact";
+ * import { TestimonialsWallCompact } from "@opensite/ui/blocks/testimonials/testimonials-wall-compact";
  * ```
  */
 
-export { TestimonialsWallCompact } from "../components/blocks/reviews/testimonials-wall-compact";
-export type { TestimonialsWallCompactProps, WallTestimonialItem } from "../components/blocks/reviews/testimonials-wall-compact";
+export { TestimonialsWallCompact } from "../components/blocks/testimonials/testimonials-wall-compact";
+export type { TestimonialsWallCompactProps, WallTestimonialItem } from "../components/blocks/testimonials/testimonials-wall-compact";

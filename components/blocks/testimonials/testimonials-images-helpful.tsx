@@ -64,7 +64,7 @@ export interface ReviewWithImages {
   variant?: string;
 }
 
-export interface ReviewsImagesHelpfulProps {
+export interface TestimonialsImagesHelpfulProps {
   /**
    * Array of reviews to display
    */
@@ -159,14 +159,14 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
 }
 
 /**
- * ReviewsImagesHelpful - An enhanced customer reviews section featuring image attachments,
+ * TestimonialsImagesHelpful - An enhanced customer reviews section featuring image attachments,
  * helpful voting functionality, and a write review button. Displays reviews with star ratings,
  * product variants, user avatars with verification badges, and interactive helpful/report
  * buttons. Perfect for e-commerce product pages requiring rich review experiences.
  *
  * @example
  * ```tsx
- * <ReviewsImagesHelpful
+ * <TestimonialsImagesHelpful
  *   heading="Customer Reviews"
  *   reviews={[
  *     {
@@ -188,7 +188,7 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
  * />
  * ```
  */
-export function ReviewsImagesHelpful({
+export function TestimonialsImagesHelpful({
   reviews,
   reviewsSlot,
   heading,
@@ -207,7 +207,7 @@ export function ReviewsImagesHelpful({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: ReviewsImagesHelpfulProps): React.JSX.Element {
+}: TestimonialsImagesHelpfulProps): React.JSX.Element {
   const [helpfulClicked, setHelpfulClicked] = useState<Set<number>>(new Set());
 
   const totalReviews = reviews?.length ?? 0;

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render } from "@testing-library/react";
-import { ReviewsListVerified } from "../reviews-list-verified";
+import { TestimonialsListVerified } from "../testimonials-list-verified";
 
 vi.mock("../../../ui/avatar", () => ({
   Avatar: ({ children, className }: { children: React.ReactNode; className?: string }) => (
@@ -36,13 +36,13 @@ vi.mock("../../../../lib/blockBrandedIconsAndPlaceholders", () => ({
   },
 }));
 
-describe("ReviewsListVerified", () => {
+describe("TestimonialsListVerified", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   it("renders custom heading", () => {
-    const { container } = render(<ReviewsListVerified heading="Custom Reviews" />);
+    const { container } = render(<TestimonialsListVerified heading="Custom Reviews" />);
     expect(container.textContent).toContain("Custom Reviews");
   });
 });

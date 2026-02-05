@@ -3,9 +3,9 @@
  *
  * @example
  * ```ts
- * import { TestimonialsCompanyLogo } from "@opensite/ui/blocks/reviews/testimonials-company-logo";
+ * import { TestimonialsCompanyLogo } from "@opensite/ui/blocks/testimonials/testimonials-company-logo";
  * ```
  */
 
-export { TestimonialsCompanyLogo } from "../components/blocks/reviews/testimonials-company-logo";
-export type { TestimonialsCompanyLogoProps } from "../components/blocks/reviews/testimonials-company-logo";
+export { TestimonialsCompanyLogo } from "../components/blocks/testimonials/testimonials-company-logo";
+export type { TestimonialsCompanyLogoProps } from "../components/blocks/testimonials/testimonials-company-logo";

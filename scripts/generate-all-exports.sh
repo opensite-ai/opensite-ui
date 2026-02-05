@@ -16,7 +16,7 @@ for category in about article background-pattern-hero banner blog carousel \
   case-studies-list case-study-detail comparison contact cta faq features \
   footers gallery hero industries link-page list logos navbars offer-modal \
   pricing process project-detail project-list resource-detail resource-list \
-  reviews service-detail services-list stats team timeline; do
+  testimonials service-detail services-list stats team timeline; do
 
   echo "Processing blocks/${category}..."
 

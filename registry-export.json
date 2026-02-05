@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-02-05T02:42:53.863Z",
+    "exportedAt": "2026-02-05T03:09:35.520Z",
     "totalBlocks": 605,
-    "version": "1.3.5",
+    "version": "1.3.6",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -9275,8 +9275,8 @@
       "exampleUsage": "<ResourceDetailDocumentSidebar\n  breadcrumbs={[\n    { label: \"Home\", href: \"/\" },\n    { label: \"Templates\", href: \"/templates\" },\n    { label: \"Service Agreement\", isCurrentPage: true }\n  ]}\n  title=\"Professional Service Agreement\"\n  article={{\n    featuredImage: { src: \"/images/doc.jpg\", alt: \"Document preview\" },\n    content: <div>Your article content here...</div>\n  }}\n  sidebar={{\n    excerptTitle: \"Document Summary\",\n    excerptDescription: \"A comprehensive service agreement template...\",\n    downloadButton: { text: \"Download PDF\", href: \"/download\" },\n    reviewer: { name: \"John Doe\", role: \"Legal Consultant\", avatarSrc: \"/avatars/john.jpg\" },\n    featuresTitle: \"Key Features\",\n    features: [\n      { text: \"Customizable Terms\" },\n      { text: \"Digital Signatures\" },\n      { text: \"Document Tracking\" }\n    ],\n    shareTitle: \"Share this template\",\n    socialLinks: [\n      { icon: \"linkedin\", href: \"#\", label: \"Share on LinkedIn\" }\n    ]\n  }}\n/>"
     },
     {
-      "id": "reviews-list-verified",
-      "name": "Reviews List with Verified Badges",
+      "id": "testimonials-list-verified",
+      "name": "Testimonials List with Verified Badges",
       "description": "A customer reviews section featuring a rating summary header with overall score, star distribution breakdown, and a list of individual reviews with verified purchase badges, author avatars, dates, and star ratings. Ideal for product pages, service reviews, or any page requiring authentic customer feedback display.",
       "semanticTags": [
         "reviews",
@@ -9289,12 +9289,12 @@
         "social-proof"
       ],
       "category": "testimonials",
-      "props": "ReviewsListVerifiedProps",
-      "exampleUsage": "<ReviewsListVerified\n  title=\"Customer Reviews\"\n  averageRating={4.8}\n  totalReviews={1250}\n  reviews={[\n    {\n      id: \"1\",\n      author: { name: \"Sarah M.\", avatar: \"/avatars/sarah.jpg\" },\n      rating: 5,\n      date: \"2024-01-15\",\n      content: \"Excellent product! Exceeded my expectations.\",\n      verified: true\n    }\n  ]}\n/>"
+      "props": "TestimonialsListVerifiedProps",
+      "exampleUsage": "<TestimonialsListVerified\n  title=\"Customer Reviews\"\n  averageRating={4.8}\n  totalReviews={1250}\n  reviews={[\n    {\n      id: \"1\",\n      author: { name: \"Sarah M.\", avatar: \"/avatars/sarah.jpg\" },\n      rating: 5,\n      date: \"2024-01-15\",\n      content: \"Excellent product! Exceeded my expectations.\",\n      verified: true\n    }\n  ]}\n/>"
     },
     {
-      "id": "reviews-images-helpful",
-      "name": "Reviews with Images and Helpful Voting",
+      "id": "testimonials-images-helpful",
+      "name": "Testimonials with Images and Helpful Voting",
       "description": "An enhanced reviews section featuring customer photos, helpful/not helpful voting buttons, and a write review CTA. Each review displays images in a gallery format with star ratings, author info, and engagement metrics. Perfect for e-commerce product pages requiring visual customer feedback.",
       "semanticTags": [
         "reviews",
@@ -9308,8 +9308,8 @@
         "user-generated-content"
       ],
       "category": "testimonials",
-      "props": "ReviewsImagesHelpfulProps",
-      "exampleUsage": "<ReviewsImagesHelpful\n  title=\"Customer Reviews\"\n  reviews={[\n    {\n      id: \"1\",\n      author: { name: \"John D.\", avatar: \"/avatars/john.jpg\" },\n      rating: 5,\n      date: \"2024-01-15\",\n      content: \"Amazing quality!\",\n      images: [\"/review-1.jpg\", \"/review-2.jpg\"],\n      helpfulCount: 24,\n      verified: true\n    }\n  ]}\n  onWriteReview={() => console.log(\"Write review\")}\n/>"
+      "props": "TestimonialsImagesHelpfulProps",
+      "exampleUsage": "<TestimonialsImagesHelpful\n  title=\"Customer Reviews\"\n  reviews={[\n    {\n      id: \"1\",\n      author: { name: \"John D.\", avatar: \"/avatars/john.jpg\" },\n      rating: 5,\n      date: \"2024-01-15\",\n      content: \"Amazing quality!\",\n      images: [\"/review-1.jpg\", \"/review-2.jpg\"],\n      helpfulCount: 24,\n      verified: true\n    }\n  ]}\n  onWriteReview={() => console.log(\"Write review\")}\n/>"
     },
     {
       "id": "testimonials-bento-grid",

@@ -44,7 +44,7 @@ export interface ReviewItem {
   verified?: boolean;
 }
 
-export interface ReviewsListVerifiedProps {
+export interface TestimonialsListVerifiedProps {
   /**
    * Array of reviews to display
    */
@@ -123,14 +123,14 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
 }
 
 /**
- * ReviewsListVerified - A clean, vertical list of customer reviews with rating summary,
+ * TestimonialsListVerified - A clean, vertical list of customer reviews with rating summary,
  * verified purchase badges, and author information. Features star ratings, review titles,
  * content, and author avatars with verification status. Ideal for product pages, service
  * reviews, or any context requiring authentic customer feedback display.
  *
  * @example
  * ```tsx
- * <ReviewsListVerified
+ * <TestimonialsListVerified
  *   heading="Customer Reviews"
  *   reviews={[
  *     {
@@ -148,7 +148,7 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
  * />
  * ```
  */
-export function ReviewsListVerified({
+export function TestimonialsListVerified({
   reviews,
   reviewsSlot,
   heading,
@@ -163,7 +163,7 @@ export function ReviewsListVerified({
   spacing,
   pattern,
   patternOpacity,
-}: ReviewsListVerifiedProps): React.JSX.Element {
+}: TestimonialsListVerifiedProps): React.JSX.Element {
   const totalReviews = reviews?.length ?? 0;
   const averageRating = totalReviews > 0
     ? (reviews?.reduce((sum, review) => sum + review.rating, 0) ?? 0) / totalReviews

@@ -340,29 +340,29 @@ import { CaseStudiesImageGrid } from "../../components/blocks/case-studies-list/
 import { CaseStudiesTestimonialStats } from "../../components/blocks/case-studies-list/case-studies-testimonial-stats";
 
 // Reviews components
-import { ReviewsListVerified } from "../../components/blocks/reviews/reviews-list-verified";
-import { ReviewsImagesHelpful } from "../../components/blocks/reviews/reviews-images-helpful";
-import { TestimonialsBentoGrid } from "../../components/blocks/reviews/testimonials-bento-grid";
-import { TestimonialsTwitterCards } from "../../components/blocks/reviews/testimonials-twitter-cards";
-import { TestimonialsCarouselImage } from "../../components/blocks/reviews/testimonials-carousel-image";
-import { TestimonialsCenteredAvatars } from "../../components/blocks/reviews/testimonials-centered-avatars";
-import { TestimonialsCompanyLogo } from "../../components/blocks/reviews/testimonials-company-logo";
-import { TestimonialsGridAddReview } from "../../components/blocks/reviews/testimonials-grid-add-review";
-import { TestimonialsMarquee } from "../../components/blocks/reviews/testimonials-marquee";
-import { TestimonialsSimpleGrid } from "../../components/blocks/reviews/testimonials-simple-grid";
-import { TestimonialsSliderMinimal } from "../../components/blocks/reviews/testimonials-slider-minimal";
-import { TestimonialsSplitImage } from "../../components/blocks/reviews/testimonials-split-image";
-import { TestimonialsStatsHeader } from "../../components/blocks/reviews/testimonials-stats-header";
-import { TestimonialsWallCompact } from "../../components/blocks/reviews/testimonials-wall-compact";
-import { TestimonialsMiniDividers } from "../../components/blocks/reviews/testimonials-mini-dividers";
-import { TestimonialsLogoCards } from "../../components/blocks/reviews/testimonials-logo-cards";
-import { TestimonialsQuoteCarousel } from "../../components/blocks/reviews/testimonials-quote-carousel";
-import { TestimonialsAnimatedSplit } from "../../components/blocks/reviews/testimonials-animated-split";
-import { TestimonialsScrollingColumns } from "../../components/blocks/reviews/testimonials-scrolling-columns";
-import { TestimonialsMinimalNumbered } from "../../components/blocks/reviews/testimonials-minimal-numbered";
-import { TestimonialsParallaxNumber } from "../../components/blocks/reviews/testimonials-parallax-number";
-import { TestimonialsMasonryGrid } from "../../components/blocks/reviews/testimonials-masonry-grid";
-import { TestimonialsLargeQuote } from "../../components/blocks/reviews/testimonials-large-quote";
+import { TestimonialsListVerified } from "../../components/blocks/testimonials/testimonials-list-verified";
+import { TestimonialsImagesHelpful } from "../../components/blocks/testimonials/testimonials-images-helpful";
+import { TestimonialsBentoGrid } from "../../components/blocks/testimonials/testimonials-bento-grid";
+import { TestimonialsTwitterCards } from "../../components/blocks/testimonials/testimonials-twitter-cards";
+import { TestimonialsCarouselImage } from "../../components/blocks/testimonials/testimonials-carousel-image";
+import { TestimonialsCenteredAvatars } from "../../components/blocks/testimonials/testimonials-centered-avatars";
+import { TestimonialsCompanyLogo } from "../../components/blocks/testimonials/testimonials-company-logo";
+import { TestimonialsGridAddReview } from "../../components/blocks/testimonials/testimonials-grid-add-review";
+import { TestimonialsMarquee } from "../../components/blocks/testimonials/testimonials-marquee";
+import { TestimonialsSimpleGrid } from "../../components/blocks/testimonials/testimonials-simple-grid";
+import { TestimonialsSliderMinimal } from "../../components/blocks/testimonials/testimonials-slider-minimal";
+import { TestimonialsSplitImage } from "../../components/blocks/testimonials/testimonials-split-image";
+import { TestimonialsStatsHeader } from "../../components/blocks/testimonials/testimonials-stats-header";
+import { TestimonialsWallCompact } from "../../components/blocks/testimonials/testimonials-wall-compact";
+import { TestimonialsMiniDividers } from "../../components/blocks/testimonials/testimonials-mini-dividers";
+import { TestimonialsLogoCards } from "../../components/blocks/testimonials/testimonials-logo-cards";
+import { TestimonialsQuoteCarousel } from "../../components/blocks/testimonials/testimonials-quote-carousel";
+import { TestimonialsAnimatedSplit } from "../../components/blocks/testimonials/testimonials-animated-split";
+import { TestimonialsScrollingColumns } from "../../components/blocks/testimonials/testimonials-scrolling-columns";
+import { TestimonialsMinimalNumbered } from "../../components/blocks/testimonials/testimonials-minimal-numbered";
+import { TestimonialsParallaxNumber } from "../../components/blocks/testimonials/testimonials-parallax-number";
+import { TestimonialsMasonryGrid } from "../../components/blocks/testimonials/testimonials-masonry-grid";
+import { TestimonialsLargeQuote } from "../../components/blocks/testimonials/testimonials-large-quote";
 import { CaseStudiesFeaturedBorder } from "../../components/blocks/case-studies-list/case-studies-featured-border";
 import { CaseStudiesStatsCard } from "../../components/blocks/case-studies-list/case-studies-stats-card";
 
@@ -14970,10 +14970,10 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
 />`.trim(),
   },
 
-  // Reviews components
-  "reviews-list-verified": {
-    id: "reviews-list-verified",
-    name: "Reviews List with Verified Badges",
+  // Testimonials components
+  "testimonials-list-verified": {
+    id: "testimonials-list-verified",
+    name: "Testimonials List with Verified Badges",
     description:
       "A customer reviews section featuring a rating summary header with overall score, star distribution breakdown, and a list of individual reviews with verified purchase badges, author avatars, dates, and star ratings. Ideal for product pages, service reviews, or any page requiring authentic customer feedback display.",
     semanticTags: [
@@ -14987,10 +14987,10 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       "social-proof",
     ],
     category: "testimonials",
-    component: ReviewsListVerified,
-    props: "ReviewsListVerifiedProps",
+    component: TestimonialsListVerified,
+    props: "TestimonialsListVerifiedProps",
     exampleUsage: `
-<ReviewsListVerified
+<TestimonialsListVerified
   title="Customer Reviews"
   averageRating={4.8}
   totalReviews={1250}
@@ -15006,9 +15006,9 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   ]}
 />`.trim(),
   },
-  "reviews-images-helpful": {
-    id: "reviews-images-helpful",
-    name: "Reviews with Images and Helpful Voting",
+  "testimonials-images-helpful": {
+    id: "testimonials-images-helpful",
+    name: "Testimonials with Images and Helpful Voting",
     description:
       "An enhanced reviews section featuring customer photos, helpful/not helpful voting buttons, and a write review CTA. Each review displays images in a gallery format with star ratings, author info, and engagement metrics. Perfect for e-commerce product pages requiring visual customer feedback.",
     semanticTags: [
@@ -15023,10 +15023,10 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       "user-generated-content",
     ],
     category: "testimonials",
-    component: ReviewsImagesHelpful,
-    props: "ReviewsImagesHelpfulProps",
+    component: TestimonialsImagesHelpful,
+    props: "TestimonialsImagesHelpfulProps",
     exampleUsage: `
-<ReviewsImagesHelpful
+<TestimonialsImagesHelpful
   title="Customer Reviews"
   reviews={[
     {
