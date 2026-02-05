@@ -250,7 +250,7 @@ export function FooterSocialNewsletter({
           {/* Bottom Bar - Copyright left, Newsletter right */}
           <div
             className={cn(
-              "gap-14 md:gap-4 mt-16 flex flex-col-reverse border-none md:border-t pt-4 md:pt-8 lg:flex-row lg:items-start lg:justify-between",
+              "gap-14 md:gap-4 mt-16 flex flex-col-reverse border-t-0 md:border-t pt-4 md:pt-10 lg:flex-row lg:items-start lg:justify-between",
               bottomClassName,
             )}
           >
