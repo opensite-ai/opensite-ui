@@ -193,7 +193,7 @@ export function TeamFilterableSearch({
   heading,
   description,
   searchPlaceholder,
-  members,
+  members = [],
   membersSlot,
   filtersSlot,
   background,

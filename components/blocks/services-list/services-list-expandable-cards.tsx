@@ -133,7 +133,7 @@ export interface ServicesListExpandableCardsProps {
 export function ServicesListExpandableCards({
   title,
   subtitle,
-  services,
+  services = [],
   optixFlowConfig,
   enableLayoutAnimations = true,
   background,
