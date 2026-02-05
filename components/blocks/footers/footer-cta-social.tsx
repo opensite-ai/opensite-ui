@@ -6,20 +6,10 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
-
-/**
- * Social link configuration with icon
- */
-export interface FooterCtaSocialLink {
-  /** Icon name in format: prefix/name (e.g., "lucide/twitter") */
-  icon: string;
-  /** Link URL */
-  url: string;
-  /** Accessible label */
-  label: string;
-}
+import type { FooterSocialLink } from "./types";
 
 /**
  * Props for the FooterCtaSocial component
@@ -38,7 +28,7 @@ export interface FooterCtaSocialProps {
   /** Contact email */
   email?: string;
   /** Social links */
-  socialLinks?: FooterCtaSocialLink[];
+  socialLinks?: FooterSocialLink[];
   /** Copyright text */
   copyright?: React.ReactNode;
   /** Attribution text */
@@ -125,17 +115,16 @@ export function FooterCtaSocial({
     if (!socialLinks || socialLinks.length === 0) return null;
 
     return socialLinks.map((link) => (
-      <Pressable
-        key={link.url}
-        href={link.url}
+      <SocialLinkIcon
+        key={link.href}
+        href={link.href}
+        label={link.label}
+        iconNameOverride={link.iconNameOverride}
+        asButton
         variant="outline"
         size="icon"
-        asButton
         className={cn("h-12 w-12 rounded-full", socialLinkClassName)}
-        aria-label={link.label}
-      >
-        <DynamicIcon name={link.icon} size={20} />
-      </Pressable>
+      />
     ));
   }, [socialLinks, socialLinkClassName]);
 

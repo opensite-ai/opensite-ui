@@ -3,24 +3,14 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
-import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { FooterLogo } from "../../ui/footer-logo";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
-
-/**
- * Social link configuration
- */
-export interface FooterSocialAppsSocialLink {
-  /** Icon name in format: prefix/name (e.g., "simple-icons/twitter") */
-  icon: string;
-  /** Link URL */
-  href: string;
-  /** Accessible label */
-  label: string;
-}
+import type { FooterSocialLink } from "./types";
 
 /**
  * App store link configuration
@@ -61,7 +51,7 @@ export interface FooterSocialAppsProps {
   /** Navigation sections */
   sections?: FooterSocialAppsSection[];
   /** Social media links */
-  socialLinks?: FooterSocialAppsSocialLink[];
+  socialLinks?: FooterSocialLink[];
   /** Mobile app store links */
   appLinks?: FooterSocialAppsAppLink[];
   /** Social section label */
@@ -132,18 +122,20 @@ export function FooterSocialApps({
 
     return socialLinks.map((social, idx) => (
       <li key={idx} className="font-medium">
-        <Pressable href={social.href} aria-label={social.label}>
-          <span className={cn(
+        <SocialLinkIcon
+          href={social.href}
+          label={social.label}
+          iconNameOverride={social.iconNameOverride}
+          iconSize={24}
+          className={cn(
             "flex size-12 items-center justify-center rounded-full transition-colors hover:text-primary",
             getNestedCardBg(background),
             getNestedCardTextColor(background)
-          )}>
-            <DynamicIcon name={social.icon} size={24} />
-          </span>
-        </Pressable>
+          )}
+        />
       </li>
     ));
-  }, [socialLinks]);
+  }, [socialLinks, background]);
 
   const appLinksContent = useMemo(() => {
     if (!appLinks || appLinks.length === 0) return null;
@@ -176,19 +168,12 @@ export function FooterSocialApps({
           <div className="flex flex-col justify-between gap-10 lg:flex-row lg:gap-20">
             {logo && (
               <div className="flex flex-col gap-6">
-                <Pressable href={logo.url} className="flex items-center gap-2">
-                  {logo.src && (
-                    <Img
-                      src={logo.src}
-                      alt={logo.alt}
-                      className="h-10"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  )}
-                  {logo.title && (
-                    <span className="text-xl font-semibold">{logo.title}</span>
-                  )}
-                </Pressable>
+                <FooterLogo
+                  logo={logo}
+                  logoClassName="flex items-center gap-2"
+                  logoImageClassName="h-10"
+                  optixFlowConfig={optixFlowConfig}
+                />
               </div>
             )}
             {sections && sections.length > 0 && (

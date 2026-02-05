@@ -67,7 +67,7 @@ describe("ArticleChaptersAuthor", () => {
     render(<ArticleChaptersAuthor title="Test Guide" author={mockAuthor} />);
     expect(screen.getByText("Jane Smith")).toBeInTheDocument();
     expect(screen.getByText("Senior Developer")).toBeInTheDocument();
-    expect(screen.getByText(mockAuthor.bio)).toBeInTheDocument();
+    expect(screen.getByText(mockAuthor.bio!)).toBeInTheDocument();
   });
 
   it("renders author social links", () => {

@@ -5,12 +5,14 @@ import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils"
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import {
   PatternBackground,
   type PatternName,
 } from "../../ui/pattern-background";
 import { Section } from "../../ui/section";
 import type { SectionBackground } from "../../../src/types";
+import type { FooterSocialLink } from "./types";
 
 export interface FooterComprehensiveLinksLink {
   label: string;
@@ -20,12 +22,6 @@ export interface FooterComprehensiveLinksLink {
 export interface FooterComprehensiveLinksColumn {
   title: string;
   links: FooterComprehensiveLinksLink[];
-}
-
-export interface FooterComprehensiveLinksSocial {
-  platform: "facebook" | "x" | "instagram" | "linkedin" | "youtube";
-  href: string;
-  label?: string;
 }
 
 export interface FooterComprehensiveLinksContact {
@@ -74,7 +70,7 @@ export interface FooterComprehensiveLinksProps {
   /**
    * Social links
    */
-  socialLinks?: FooterComprehensiveLinksSocial[];
+  socialLinks?: FooterSocialLink[];
   /**
    * Copyright text
    */
@@ -111,17 +107,6 @@ export interface FooterComprehensiveLinksProps {
     compression?: number;
   };
 }
-
-const socialIconMap: Record<
-  FooterComprehensiveLinksSocial["platform"],
-  string
-> = {
-  facebook: "simple-icons/facebook",
-  x: "simple-icons/x",
-  instagram: "simple-icons/instagram",
-  linkedin: "simple-icons/linkedin",
-  youtube: "simple-icons/youtube",
-};
 
 /**
  * FooterComprehensiveLinks - A comprehensive footer with brand summary,
@@ -281,24 +266,19 @@ export function FooterComprehensiveLinks({
                       Follow Us
                     </h3>
                     <div className="flex items-center gap-3">
-                      {socialLinks?.map((link) => (
-                        <Pressable
-                          key={`${link.platform}-${link.href}`}
+                      {socialLinks?.map((link, idx) => (
+                        <SocialLinkIcon
+                          key={idx}
                           href={link.href}
-                          aria-label={
-                            link.label || `Follow us on ${link.platform}`
-                          }
+                          label={link.label}
+                          iconNameOverride={link.iconNameOverride}
+                          iconSize={16}
                           className={cn(
                             "flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-muted/80 hover:text-primary",
                             getNestedCardBg(background),
                             getNestedCardTextColor(background)
                           )}
-                        >
-                          <DynamicIcon
-                            name={socialIconMap[link.platform]}
-                            size={16}
-                          />
-                        </Pressable>
+                        />
                       ))}
                     </div>
                   </div>

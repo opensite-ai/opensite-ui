@@ -133,6 +133,13 @@
   }
 ,
   {
+    "path": "./components/footer-logo",
+    "types": "./dist/footer-logo.d.ts",
+    "import": "./dist/footer-logo.js",
+    "require": "./dist/footer-logo.cjs"
+  }
+,
+  {
     "path": "./components/form-inputs",
     "types": "./dist/form-inputs.d.ts",
     "import": "./dist/form-inputs.js",

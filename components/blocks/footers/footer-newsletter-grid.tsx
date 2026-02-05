@@ -2,24 +2,13 @@
 
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Img } from "@page-speed/img";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { FooterLogo } from "../../ui/footer-logo";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
-
-/**
- * Social link configuration
- */
-export interface FooterNewsletterGridSocialLink {
-  /** Icon name in format: prefix/name (e.g., "simple-icons/instagram") */
-  icon: string;
-  /** Link URL */
-  href: string;
-  /** Accessible label */
-  label: string;
-}
+import type { FooterSocialLink } from "./types";
 
 /**
  * Navigation section configuration
@@ -50,7 +39,7 @@ export interface FooterNewsletterGridProps {
   /** Navigation sections */
   sections?: FooterNewsletterGridSection[];
   /** Social media links */
-  socialLinks?: FooterNewsletterGridSocialLink[];
+  socialLinks?: FooterSocialLink[];
   /** Newsletter section title */
   newsletterTitle?: string;
   /** Newsletter placeholder text */
@@ -132,13 +121,14 @@ export function FooterNewsletterGrid({
     if (!socialLinks || socialLinks.length === 0) return null;
 
     return socialLinks.map((social, idx) => (
-      <li
-        key={idx}
-        className="font-medium duration-200 hover:scale-110 hover:text-muted-foreground"
-      >
-        <Pressable href={social.href} aria-label={social.label}>
-          <DynamicIcon name={social.icon} size={24} />
-        </Pressable>
+      <li key={idx}>
+        <SocialLinkIcon
+          href={social.href}
+          label={social.label}
+          iconNameOverride={social.iconNameOverride}
+          iconSize={24}
+          className="font-medium duration-200 hover:scale-110 hover:text-muted-foreground"
+        />
       </li>
     ));
   }, [socialLinks]);
@@ -157,19 +147,11 @@ export function FooterNewsletterGrid({
             <div className="col-span-4 flex w-full flex-col gap-6 lg:col-span-2">
               {logo && (
                 <div className="flex items-center gap-2 lg:justify-start">
-                  <Pressable href={logo.url}>
-                    {logo.src && (
-                      <Img
-                        src={logo.src}
-                        alt={logo.alt}
-                        className="h-8"
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                    )}
-                  </Pressable>
-                  {logo.title && (
-                    <h2 className="text-xl font-semibold">{logo.title}</h2>
-                  )}
+                  <FooterLogo
+                    logo={logo}
+                    logoImageClassName="h-8"
+                    optixFlowConfig={optixFlowConfig}
+                  />
                 </div>
               )}
               {description && (

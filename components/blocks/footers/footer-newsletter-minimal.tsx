@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import {
   isValidEmail,
   PageSpeedFormSubmissionError,
@@ -18,16 +19,7 @@ import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig, NavLinkItem } from "../../../src/types/blocks";
 import type { PatternName } from "../../ui/pattern-background";
-
-/**
- * Social link configuration
- */
-export interface FooterNewsletterMinimalSocialLink {
-  /** Link label */
-  label: string;
-  /** Link URL */
-  href: string;
-}
+import type { FooterSocialLink } from "./types";
 
 /**
  * Footer link configuration
@@ -52,7 +44,7 @@ export interface FooterNewsletterMinimalProps {
   /** Navigation links */
   navLinks?: NavLinkItem[];
   /** Social links */
-  socialLinks?: FooterNewsletterMinimalSocialLink[];
+  socialLinks?: FooterSocialLink[];
   /** Footer links (privacy, terms) */
   footerLinks?: FooterNewsletterMinimalFooterLink[];
   /** Newsletter label */
@@ -247,19 +239,15 @@ export function FooterNewsletterMinimal({
   const socialLinksContent = useMemo(() => {
     if (!socialLinks || socialLinks.length === 0) return null;
 
-    return socialLinks.map((item) => (
-      <li key={item.label}>
-        <Pressable
+    return socialLinks.map((item, idx) => (
+      <li key={idx}>
+        <SocialLinkIcon
           href={item.href}
+          label={item.label}
+          iconNameOverride={item.iconNameOverride}
+          iconSize={14}
           className={cn("group flex items-center gap-1 tracking-tight hover:text-muted-foreground", socialLinkClassName)}
-        >
-          {item.label}{" "}
-          <DynamicIcon
-            name="lucide/arrow-up-right"
-            size={14}
-            className="group-hover:text-muted-foreground/50"
-          />
-        </Pressable>
+        />
       </li>
     ));
   }, [socialLinks, socialLinkClassName]);

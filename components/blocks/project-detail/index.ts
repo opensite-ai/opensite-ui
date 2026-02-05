@@ -6,25 +6,22 @@ export {
 export {
   ProjectDetailSidebarSticky,
   type ProjectDetailSidebarStickyProps,
-  type ProjectDetailSidebarStickyImage,
+  type ProjectDetailSidebarStickyRelatedProject,
 } from "./project-detail-sidebar-sticky";
 
 export {
   ProjectDetailCaseStudyProse,
   type ProjectDetailCaseStudyProseProps,
-  type ProjectDetailCaseStudyProseSection,
 } from "./project-detail-case-study-prose";
 
 export {
   ProjectDetailSidebarNavigation,
   type ProjectDetailSidebarNavigationProps,
-  type ProjectDetailSidebarNavigationSection,
 } from "./project-detail-sidebar-navigation";
 
 export {
   ProjectDetailFullscreenHero,
   type ProjectDetailFullscreenHeroProps,
-  type ProjectDetailFullscreenHeroSection,
 } from "./project-detail-fullscreen-hero";
 
 export {
@@ -41,13 +38,11 @@ export {
 export {
   ProjectDetailSplitMaterials,
   type ProjectDetailSplitMaterialsProps,
-  type ProjectDetailSplitMaterialsSpec,
 } from "./project-detail-split-materials";
 
 export {
   ProjectDetailCompactMetadata,
   type ProjectDetailCompactMetadataProps,
-  type ProjectDetailCompactMetadataItem,
 } from "./project-detail-compact-metadata";
 
 export {
@@ -75,7 +70,6 @@ export {
 export {
   ProjectDetailListRelated,
   type ProjectDetailListRelatedProps,
-  type ProjectDetailListRelatedImage,
   type ProjectDetailListRelatedProject,
 } from "./project-detail-list-related";
 
@@ -94,13 +88,11 @@ export {
 export {
   ProjectDetailPhotographyBreadcrumb,
   type ProjectDetailPhotographyBreadcrumbProps,
-  type ProjectDetailPhotographyBreadcrumbItem,
 } from "./project-detail-photography-breadcrumb";
 
 export {
   ProjectDetailLargeHeroFeatured,
   type ProjectDetailLargeHeroFeaturedProps,
-  type ProjectDetailLargeHeroFeaturedDetail,
   type ProjectDetailLargeHeroFeaturedSection,
 } from "./project-detail-large-hero-featured";
 

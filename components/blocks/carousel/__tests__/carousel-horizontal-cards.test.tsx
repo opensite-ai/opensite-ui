@@ -9,18 +9,18 @@ vi.mock("../../../ui/dynamic-icon", () => ({
 }));
 
 describe("CarouselHorizontalCards", () => {
-  const mockCards = [
-    { title: "Test Card 1", description: "Description 1", icon: "lucide/star" },
-    { title: "Test Card 2", description: "Description 2", icon: "lucide/heart" },
+  const mockItems = [
+    { id: 1, imageSrc: "/test1.jpg", title: "Test Card 1", count: "100" },
+    { id: 2, imageSrc: "/test2.jpg", title: "Test Card 2", count: "200" },
   ];
 
   it("renders with required props", () => {
-    const { container } = render(<CarouselHorizontalCards cards={mockCards} />);
+    const { container } = render(<CarouselHorizontalCards items={mockItems} />);
     expect(container).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<CarouselHorizontalCards cards={mockCards} className="custom-class" />);
+    const { container } = render(<CarouselHorizontalCards items={mockItems} className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

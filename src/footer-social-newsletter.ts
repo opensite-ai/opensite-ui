@@ -2,5 +2,4 @@ export { FooterSocialNewsletter } from "../components/blocks/footers/footer-soci
 export type {
   FooterSocialNewsletterProps,
   FooterSocialNewsletterSection,
-  FooterSocialNewsletterSocialLink,
 } from "../components/blocks/footers/footer-social-newsletter";

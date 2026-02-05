@@ -2,13 +2,14 @@
 
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Img } from "@page-speed/img";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { FooterLogo } from "../../ui/footer-logo";
 import { Section } from "../../ui/section";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
 import type { PatternName } from "../../ui/pattern-background";
+import type { FooterSocialLink } from "./types";
 
 /**
  * Logo configuration for the footer
@@ -22,18 +23,6 @@ export interface FooterCtaBannerLogo {
   alt: string;
   /** Logo title/brand name */
   title: string;
-}
-
-/**
- * Social link configuration
- */
-export interface FooterCtaBannerSocialLink {
-  /** Icon name in format: prefix/name (e.g., "simple-icons/instagram") */
-  icon: string;
-  /** Link URL */
-  href: string;
-  /** Accessible label */
-  label: string;
 }
 
 /**
@@ -73,7 +62,7 @@ export interface FooterCtaBannerProps {
   /** Navigation sections */
   sections?: FooterCtaBannerSection[];
   /** Social media links */
-  socialLinks?: FooterCtaBannerSocialLink[];
+  socialLinks?: FooterSocialLink[];
   /** Newsletter label */
   newsletterLabel?: React.ReactNode;
   /** Newsletter placeholder */
@@ -108,8 +97,6 @@ export interface FooterCtaBannerProps {
   logoWrapperClassName?: string;
   /** Additional CSS classes for the logo image */
   logoClassName?: string;
-  /** Additional CSS classes for the logo title */
-  logoTitleClassName?: string;
   /** Additional CSS classes for the newsletter section */
   newsletterClassName?: string;
   /** Additional CSS classes for the newsletter input */
@@ -180,7 +167,6 @@ export function FooterCtaBanner({
   brandClassName,
   logoWrapperClassName,
   logoClassName,
-  logoTitleClassName,
   newsletterClassName,
   newsletterInputClassName,
   newsletterButtonClassName,
@@ -234,22 +220,12 @@ export function FooterCtaBanner({
             {/* Brand Section */}
             <div className={cn("lg:col-span-2", brandClassName)}>
               {logo && (
-                <Pressable
-                  href={logo.url}
-                  className={cn("mb-6 flex items-center gap-2", logoWrapperClassName)}
-                >
-                  {logo.src && (
-                    <Img
-                      src={logo.src}
-                      alt={logo.alt}
-                      className={cn("h-8 invert", logoClassName)}
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  )}
-                  {logo.title && (
-                    <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
-                  )}
-                </Pressable>
+                <FooterLogo
+                  logo={logo}
+                  logoClassName={cn("mb-6", logoWrapperClassName)}
+                  logoImageClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
               )}
               <div className={cn("mb-6", newsletterClassName)}>
                 <p className="mb-2 text-sm font-medium">{newsletterLabel}</p>
@@ -270,13 +246,12 @@ export function FooterCtaBanner({
               <ul className={cn("flex items-center gap-4", socialLinksClassName)}>
                 {socialLinks?.map((social, idx) => (
                   <li key={idx}>
-                    <Pressable
+                    <SocialLinkIcon
                       href={social.href}
-                      aria-label={social.label}
+                      label={social.label}
+                      iconNameOverride={social.iconNameOverride}
                       className={cn("text-muted-foreground transition-colors hover:text-primary", socialLinkClassName)}
-                    >
-                      <DynamicIcon name={social.icon} size={20} />
-                    </Pressable>
+                    />
                   </li>
                 ))}
               </ul>

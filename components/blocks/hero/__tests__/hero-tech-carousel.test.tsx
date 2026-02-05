@@ -50,7 +50,7 @@ describe("HeroTechCarousel", () => {
 
   it("renders technologies when provided", () => {
     const technologies = [
-      { name: "React", icon: "react", description: "A JavaScript library" },
+      { name: "React", command: "npm install react" },
     ];
     render(<HeroTechCarousel technologies={technologies} />);
     expect(screen.getByText("React")).toBeInTheDocument();

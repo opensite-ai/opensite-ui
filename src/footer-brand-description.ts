@@ -2,5 +2,5 @@ export { FooterBrandDescription } from "../components/blocks/footers/footer-bran
 export type {
   FooterBrandDescriptionProps,
   FooterBrandDescriptionSection,
-  FooterBrandDescriptionSocialLink,
+  FooterBrandDescriptionLink,
 } from "../components/blocks/footers/footer-brand-description";

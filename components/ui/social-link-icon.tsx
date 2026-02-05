@@ -4,21 +4,13 @@ import * as React from "react";
 import { cn } from "../../lib/utils";
 import { Pressable, type PressableProps } from "../../lib/Pressable";
 import { DynamicIcon } from "./dynamic-icon";
+import {
+  usePlatformFromUrl,
+  type SocialPlatformName,
+} from "@opensite/hooks/usePlatformFromUrl";
 
-/**
- * Supported social platform names
- */
-export type SocialPlatformName =
-  | "instagram"
-  | "linkedin"
-  | "google"
-  | "facebook"
-  | "tiktok"
-  | "youtube"
-  | "yelp"
-  | "spotify"
-  | "apple"
-  | "x";
+// Re-export for consumers
+export type { SocialPlatformName };
 
 /**
  * Mapping of platform names to DynamicIcon icon names
@@ -34,6 +26,7 @@ const platformIconMap: Record<SocialPlatformName, string> = {
   spotify: "cib/spotify",
   apple: "cib/apple",
   x: "line-md/twitter-x",
+  unknown: "icon-park-solid/circular-connection",
 };
 
 /**
@@ -60,16 +53,23 @@ export interface SocialLinkIconDynamicIconProps {
  * Props for the SocialLinkIcon component
  */
 export interface SocialLinkIconProps
-  extends Omit<PressableProps, "children">,
-    SocialLinkIconDynamicIconProps {
+  extends Omit<PressableProps, "children">, SocialLinkIconDynamicIconProps {
   /**
    * The social platform name - determines which icon to display
    */
-  platformName: SocialPlatformName;
+  platformName?: SocialPlatformName;
   /**
    * Optional label for accessibility (defaults to platform name)
    */
   label?: string;
+  /**
+   * Optional icon name override
+   */
+  iconNameOverride?: string;
+  /**
+   * Required href for the link
+   */
+  href: string;
 }
 
 /**
@@ -111,14 +111,27 @@ export const SocialLinkIcon = React.forwardRef<
       label,
       iconSize = 20,
       iconColor,
+      href,
       iconClassName,
       className,
+      iconNameOverride,
       ...pressableProps
     },
-    ref
+    ref,
   ) => {
-    const iconName = platformIconMap[platformName];
-    const accessibleLabel = label || platformName;
+    const platform = usePlatformFromUrl(href as string);
+
+    const smartPlatformName = React.useMemo(() => {
+      return platform || platformName;
+    }, [platform, platformName]);
+
+    const iconName = React.useMemo(() => {
+      return iconNameOverride || platformIconMap[smartPlatformName];
+    }, [iconNameOverride, smartPlatformName]);
+
+    const accessibleLabel = React.useMemo(() => {
+      return label || platformName;
+    }, [label, platformName]);
 
     return (
       <Pressable
@@ -126,7 +139,7 @@ export const SocialLinkIcon = React.forwardRef<
         aria-label={accessibleLabel}
         className={cn(
           "inline-flex items-center justify-center transition-colors",
-          className
+          className,
         )}
         {...pressableProps}
       >
@@ -139,8 +152,7 @@ export const SocialLinkIcon = React.forwardRef<
         />
       </Pressable>
     );
-  }
+  },
 );
 
 SocialLinkIcon.displayName = "SocialLinkIcon";
-

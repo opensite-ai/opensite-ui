@@ -1,19 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
+import { FooterLogo } from "../../ui/footer-logo";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "../../ui/accordion";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import {
   isValidEmail,
   PageSpeedFormSubmissionError,
@@ -25,6 +20,7 @@ import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
+import type { FooterSocialLink } from "./types";
 
 export interface FooterSplitImageAccordionLink {
   /**
@@ -50,21 +46,6 @@ export interface FooterSplitImageAccordionSection {
    * Array of links in this section
    */
   items: FooterSplitImageAccordionLink[];
-}
-
-export interface FooterSplitImageAccordionSocialLink {
-  /**
-   * Icon name in format: prefix/name
-   */
-  icon: string;
-  /**
-   * Link URL
-   */
-  link: string;
-  /**
-   * Accessible label
-   */
-  label: string;
 }
 
 /**
@@ -105,7 +86,7 @@ export interface FooterSplitImageAccordionProps {
   /**
    * Social media links
    */
-  socialLinks?: FooterSplitImageAccordionSocialLink[];
+  socialLinks?: FooterSocialLink[];
   /**
    * Payment method image URLs
    */
@@ -191,9 +172,9 @@ export interface FooterSplitImageAccordionProps {
    */
   brandDescriptionClassName?: string;
   /**
-   * Additional CSS classes for the accordion section
+   * Additional CSS classes for the links grid section
    */
-  accordionClassName?: string;
+  linksGridClassName?: string;
   /**
    * Additional CSS classes for payment methods
    */
@@ -234,10 +215,10 @@ export interface FooterSplitImageAccordionProps {
 
 /**
  * Footer Split Image Accordion - A split-layout footer with large image,
- * newsletter signup, accordion navigation, and payment methods.
+ * newsletter signup, navigation links, and payment methods.
  *
  * Layout: Two-column split with image on left, content on right.
- * Key features: Large hero image, accordion links for mobile, payment icons.
+ * Key features: Large hero image, organized link sections, payment icons.
  * Best for: E-commerce sites, fashion brands, lifestyle businesses.
  *
  * @example
@@ -281,7 +262,7 @@ export function FooterSplitImageAccordion({
   logoClassName,
   brandTitleClassName,
   brandDescriptionClassName,
-  accordionClassName,
+  linksGridClassName,
   paymentMethodsClassName,
   bottomClassName,
   copyrightClassName,
@@ -292,8 +273,6 @@ export function FooterSplitImageAccordion({
   onSuccess,
   onError,
 }: FooterSplitImageAccordionProps) {
-  const [isDesktop, setIsDesktop] = React.useState(false);
-
   const form = useForm<{ email: string }>({
     initialValues: {
       email: "",
@@ -330,10 +309,7 @@ export function FooterSplitImageAccordion({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -345,18 +321,6 @@ export function FooterSplitImageAccordion({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  React.useEffect(() => {
-    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
-    checkDesktop();
-    window.addEventListener("resize", checkDesktop);
-    return () => window.removeEventListener("resize", checkDesktop);
-  }, []);
-
-  const allAccordionIds = useMemo(
-    () => footerLinks?.map(({ id }) => id) ?? [],
-    [footerLinks]
-  );
-
   return (
     <Section
       background={background}
@@ -367,7 +331,12 @@ export function FooterSplitImageAccordion({
     >
       <div className={cn("grid grid-cols-1 lg:grid-cols-2", gridClassName)}>
         {footerData?.image?.src && (
-          <div className={cn("overflow-hidden max-lg:aspect-square", imageColumnClassName)}>
+          <div
+            className={cn(
+              "overflow-hidden max-lg:aspect-square",
+              imageColumnClassName,
+            )}
+          >
             <Img
               src={footerData.image.src}
               alt={footerData.image.alt}
@@ -380,54 +349,62 @@ export function FooterSplitImageAccordion({
         <div className={cn("space-y-10 p-6 lg:p-12", contentColumnClassName)}>
           {newsletterTitle && (
             <div className={cn("space-y-6", newsletterSectionClassName)}>
-              <h3 className={cn("text-2xl font-semibold lg:text-3xl", newsletterTitleClassName)}>{newsletterTitle}</h3>
-            <Form
-              form={form}
-              action={formConfig?.endpoint}
-              method={formMethod}
-              className={cn("flex gap-2", newsletterFormClassName)}
-            >
-              <Field name="email" className="flex-1">
-                {({ field, meta }) => (
-                  <TextInput
-                    {...field}
-                    type="email"
-                    placeholder={emailPlaceholder}
-                    error={meta.touched && !!meta.error}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    aria-label={emailPlaceholder}
-                  />
+              <h3
+                className={cn(
+                  "text-2xl font-semibold lg:text-3xl",
+                  newsletterTitleClassName,
                 )}
-              </Field>
-              <Pressable
-                componentType="button"
-                type="submit"
-                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-                asButton={false}
-                disabled={form.isSubmitting}
               >
-                <DynamicIcon name="lucide/arrow-right" size={16} />
-              </Pressable>
-            </Form>
-            {socialLinks && socialLinks.length > 0 && (
-              <ul className={cn("flex flex-wrap gap-4", socialLinksClassName)}>
-                {socialLinks.map((social, idx) => (
-                  <li key={idx}>
-                    <Pressable
-                      href={social.link}
-                      variant="outline"
-                      size="icon"
-                      asButton
-                      className="rounded-full"
-                      aria-label={social.label}
-                    >
-                      <DynamicIcon name={social.icon} size={20} />
-                    </Pressable>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+                {newsletterTitle}
+              </h3>
+              <Form
+                form={form}
+                action={formConfig?.endpoint}
+                method={formMethod}
+                className={cn("flex gap-2", newsletterFormClassName)}
+              >
+                <Field name="email" className="flex-1">
+                  {({ field, meta }) => (
+                    <TextInput
+                      {...field}
+                      type="email"
+                      placeholder={emailPlaceholder}
+                      error={meta.touched && !!meta.error}
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      aria-label={emailPlaceholder}
+                    />
+                  )}
+                </Field>
+                <Pressable
+                  componentType="button"
+                  type="submit"
+                  className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+                  asButton={false}
+                  disabled={form.isSubmitting}
+                >
+                  <DynamicIcon name="lucide/arrow-right" size={16} />
+                </Pressable>
+              </Form>
+              {socialLinks && socialLinks.length > 0 && (
+                <ul
+                  className={cn("flex flex-wrap gap-4", socialLinksClassName)}
+                >
+                  {socialLinks.map((social, idx) => (
+                    <li key={idx}>
+                      <SocialLinkIcon
+                        href={social.href}
+                        label={social.label}
+                        iconNameOverride={social.iconNameOverride}
+                        variant="outline"
+                        size="icon"
+                        asButton
+                        className="rounded-full"
+                      />
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           )}
 
           <Separator />
@@ -435,103 +412,66 @@ export function FooterSplitImageAccordion({
           {footerData && (
             <div className={cn("space-y-6", brandSectionClassName)}>
               {footerData.logo && (
-                <Pressable href={footerData.logoUrl} className={cn("inline-block max-w-60", logoClassName)}>
-                  {footerData.logo.light && (
-                    <Img
-                      src={footerData.logo.light}
-                      alt="Logo"
-                      className="w-full dark:hidden"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  )}
-                  {footerData.logo.dark && (
-                    <Img
-                      src={footerData.logo.dark}
-                      alt="Logo"
-                      className="hidden w-full dark:block"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  )}
-                </Pressable>
+                <FooterLogo
+                  logo={{ ...footerData.logo, url: footerData.logoUrl }}
+                  logoClassName={cn("inline-block max-w-60", logoClassName)}
+                  optixFlowConfig={optixFlowConfig}
+                />
               )}
               {footerData.title && (
-                <h4 className={cn("text-xl font-semibold", brandTitleClassName)}>{footerData.title}</h4>
+                <h4
+                  className={cn("text-xl font-semibold", brandTitleClassName)}
+                >
+                  {footerData.title}
+                </h4>
               )}
               {footerData.description && (
-                <p className={cn("text-muted-foreground", brandDescriptionClassName)}>{footerData.description}</p>
+                <p
+                  className={cn(
+                    "text-muted-foreground",
+                    brandDescriptionClassName,
+                  )}
+                >
+                  {footerData.description}
+                </p>
               )}
             </div>
           )}
 
           {footerLinks && footerLinks.length > 0 && (
-            <>
-              {isDesktop ? (
-                <Accordion
-                  value={allAccordionIds}
-                  type="multiple"
-                  className={cn("grid gap-4 lg:grid-cols-3", accordionClassName)}
-                >
-                  {footerLinks.map((section) => (
-                <AccordionItem
-                  key={section.id}
-                  value={section.id}
-                  className="border-transparent"
-                >
-                  <AccordionTrigger className="cursor-auto rounded-none pb-4 pt-0 text-base font-bold leading-normal hover:no-underline [&>svg]:hidden">
-                    {section.title}
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-1">
-                    <ul className="space-y-2">
-                      {section.items.map((item, idx) => (
-                        <li key={idx} className="text-sm font-light leading-tight">
-                          <Pressable
-                            href={item.link}
-                            className="hover:underline hover:underline-offset-2"
-                          >
-                            {item.text}
-                          </Pressable>
-                        </li>
-                      ))}
-                    </ul>
-                  </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              ) : (
-                <Accordion type="single" collapsible className={cn("grid gap-4", accordionClassName)}>
-                  {footerLinks.map((section) => (
-                <AccordionItem
-                  key={section.id}
-                  value={section.id}
-                  className="border-b"
-                >
-                  <AccordionTrigger className="py-4 text-base font-bold leading-normal hover:no-underline [&>svg]:hidden">
-                    {section.title}
-                    <DynamicIcon name="lucide/plus" size={20} />
-                  </AccordionTrigger>
-                  <AccordionContent className="py-4">
-                    <ul className="space-y-3">
-                      {section.items.map((item, idx) => (
-                        <li key={idx} className="text-sm font-light leading-tight">
-                          <Pressable
-                            href={item.link}
-                            className="hover:underline hover:underline-offset-2"
-                          >
-                            {item.text}
-                          </Pressable>
-                        </li>
-                      ))}
-                    </ul>
-                  </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
+            <div
+              className={cn(
+                "grid gap-8 sm:grid-cols-2 lg:grid-cols-3",
+                linksGridClassName,
               )}
-            </>
+            >
+              {footerLinks.map((section) => (
+                <div key={section.id}>
+                  <h3 className="mb-4 text-base font-bold">{section.title}</h3>
+                  <ul className="space-y-3 text-sm text-muted-foreground">
+                    {section.items.map((item, idx) => (
+                      <li key={idx}>
+                        <Pressable
+                          href={item.link}
+                          className="hover:text-primary"
+                        >
+                          {item.text}
+                        </Pressable>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           )}
 
           {paymentMethods && paymentMethods.length > 0 && (
-            <ul className={cn("flex flex-wrap items-center gap-3", paymentMethodsClassName)}>
+            <ul
+              className={cn(
+                "flex flex-wrap items-center gap-3",
+                paymentMethodsClassName,
+              )}
+            >
               {paymentMethods.map((method, idx) => (
                 <li key={idx}>
                   <Img
@@ -547,12 +487,29 @@ export function FooterSplitImageAccordion({
 
           <Separator />
 
-          <div className={cn("flex flex-wrap items-center justify-between gap-4", bottomClassName)}>
+          <div
+            className={cn(
+              "flex flex-wrap items-center justify-between gap-4",
+              bottomClassName,
+            )}
+          >
             {copyright && (
-              <p className={cn("text-sm text-muted-foreground", copyrightClassName)}>{copyright}</p>
+              <p
+                className={cn(
+                  "text-sm text-muted-foreground",
+                  copyrightClassName,
+                )}
+              >
+                {copyright}
+              </p>
             )}
             {submenuLinks && submenuLinks.length > 0 && (
-              <ul className={cn("flex flex-wrap gap-x-6 gap-y-2", submenuLinksClassName)}>
+              <ul
+                className={cn(
+                  "flex flex-wrap gap-x-6 gap-y-2",
+                  submenuLinksClassName,
+                )}
+              >
                 {submenuLinks.map((link, idx) => (
                   <li key={idx}>
                     <Pressable

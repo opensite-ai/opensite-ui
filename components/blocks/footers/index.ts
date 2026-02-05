@@ -11,6 +11,9 @@
  * ```
  */
 
+// Shared types
+export type { FooterSocialLink } from "./types";
+
 // Footer components
 export { FooterLinksGrid } from "./footer-links-grid";
 export type {
@@ -22,14 +25,13 @@ export { FooterSocialNewsletter } from "./footer-social-newsletter";
 export type {
   FooterSocialNewsletterProps,
   FooterSocialNewsletterSection,
-  FooterSocialNewsletterSocialLink,
+  FooterSocialNewsletterLink,
 } from "./footer-social-newsletter";
 
 export { FooterSocialApps } from "./footer-social-apps";
 export type {
   FooterSocialAppsProps,
   FooterSocialAppsSection,
-  FooterSocialAppsSocialLink,
   FooterSocialAppsAppLink,
 } from "./footer-social-apps";
 
@@ -43,27 +45,25 @@ export { FooterBrandDescription } from "./footer-brand-description";
 export type {
   FooterBrandDescriptionProps,
   FooterBrandDescriptionSection,
-  FooterBrandDescriptionSocialLink,
+  FooterBrandDescriptionLink,
 } from "./footer-brand-description";
 
 export { FooterNewsletterGrid } from "./footer-newsletter-grid";
 export type {
   FooterNewsletterGridProps,
   FooterNewsletterGridSection,
-  FooterNewsletterGridSocialLink,
 } from "./footer-newsletter-grid";
 
 export { FooterCtaBanner } from "./footer-cta-banner";
 export type {
   FooterCtaBannerProps,
   FooterCtaBannerSection,
-  FooterCtaBannerSocialLink,
+  FooterCtaBannerLink,
 } from "./footer-cta-banner";
 
 export { FooterContactCard } from "./footer-contact-card";
 export type {
   FooterContactCardProps,
-  FooterContactCardSocialLink,
   FooterContactCardNavLink,
 } from "./footer-contact-card";
 
@@ -75,29 +75,22 @@ export type {
 } from "./footer-background-card";
 
 export { FooterAnimatedSocial } from "./footer-animated-social";
-export type {
-  FooterAnimatedSocialProps,
-  FooterAnimatedSocialLink,
-} from "./footer-animated-social";
+export type { FooterAnimatedSocialProps } from "./footer-animated-social";
 
 export { FooterNewsletterMinimal } from "./footer-newsletter-minimal";
 export type {
   FooterNewsletterMinimalProps,
-  FooterNewsletterMinimalSocialLink,
   FooterNewsletterMinimalFooterLink,
 } from "./footer-newsletter-minimal";
 
 export { FooterCtaSocial } from "./footer-cta-social";
-export type {
-  FooterCtaSocialProps,
-  FooterCtaSocialLink,
-} from "./footer-cta-social";
+export type { FooterCtaSocialProps } from "./footer-cta-social";
 
 export { FooterNavSocial } from "./footer-nav-social";
 export type {
   FooterNavSocialProps,
   FooterNavSocialSection,
-  FooterNavSocialLink,
+  FooterNavSocialNavLink,
 } from "./footer-nav-social";
 
 export { FooterNewsletterContact } from "./footer-newsletter-contact";
@@ -106,7 +99,6 @@ export type {
   FooterNewsletterContactLink,
   FooterNewsletterContactSection,
   FooterNewsletterContactDetail,
-  FooterNewsletterContactSocialLink,
 } from "./footer-newsletter-contact";
 
 export { FooterSplitImageAccordion } from "./footer-split-image-accordion";
@@ -114,15 +106,13 @@ export type {
   FooterSplitImageAccordionProps,
   FooterSplitImageAccordionLink,
   FooterSplitImageAccordionSection,
-  FooterSplitImageAccordionSocialLink,
 } from "./footer-split-image-accordion";
 
 export { FooterAccordionSocial } from "./footer-accordion-social";
 export type {
   FooterAccordionSocialProps,
-  FooterAccordionSocialLink,
+  FooterAccordionSocialNavLink,
   FooterAccordionSocialSection,
-  FooterAccordionSocialMediaLink,
 } from "./footer-accordion-social";
 
 export { FooterInfoCardsAccordion } from "./footer-info-cards-accordion";
@@ -131,5 +121,4 @@ export type {
   FooterInfoCardsAccordionInfoItem,
   FooterInfoCardsAccordionLink,
   FooterInfoCardsAccordionSection,
-  FooterInfoCardsAccordionSocialLink,
 } from "./footer-info-cards-accordion";

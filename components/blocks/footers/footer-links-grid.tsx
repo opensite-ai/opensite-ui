@@ -2,8 +2,8 @@
 
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
+import { FooterLogo } from "../../ui/footer-logo";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -102,17 +102,11 @@ export function FooterLinksGrid({
           {(logo || tagline) && (
             <div className="col-span-2 mb-8 lg:mb-0">
               {logo && (
-                <div className="flex items-center gap-2 lg:justify-start">
-                  <Pressable href={logo.url} className="flex items-center gap-2">
-                    <Img
-                      src={logo.src}
-                      alt={logo.alt}
-                      className="h-10 dark:invert"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                    <span className="text-xl font-semibold">{logo.title}</span>
-                  </Pressable>
-                </div>
+                <FooterLogo
+                  logo={logo}
+                  logoClassName="flex items-center gap-2 lg:justify-start"
+                  optixFlowConfig={optixFlowConfig}
+                />
               )}
               {tagline && <p className="mt-4 font-bold">{tagline}</p>}
             </div>

@@ -3,7 +3,7 @@
 import React, { useEffect, useId, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "../../lib/utils";
-import { useOnClickOutside } from "@opensite/hooks/core/useOnClickOutside";
+import { useOnClickOutside } from "@opensite/hooks/useOnClickOutside";
 import type { AnimatedDialogProps } from "../../src/types";
 
 /**

@@ -5,9 +5,11 @@ import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
-import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
+import { FooterLogo } from "../../ui/footer-logo";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
+import type { FooterSocialLink } from "./types";
 import {
   isValidEmail,
   PageSpeedFormSubmissionError,
@@ -60,21 +62,6 @@ export interface FooterNewsletterContactDetail {
   link?: string;
 }
 
-export interface FooterNewsletterContactSocialLink {
-  /**
-   * Icon name in format: prefix/name
-   */
-  icon: string;
-  /**
-   * Link URL
-   */
-  link: string;
-  /**
-   * Accessible label
-   */
-  label: string;
-}
-
 export interface FooterNewsletterContactProps {
   /**
    * Newsletter section title
@@ -103,7 +90,7 @@ export interface FooterNewsletterContactProps {
   /**
    * Social media links
    */
-  socialLinks?: FooterNewsletterContactSocialLink[];
+  socialLinks?: FooterSocialLink[];
   /**
    * Logo configuration
    */
@@ -251,15 +238,14 @@ export function FooterNewsletterContact({
 
     return socialLinks.map((social, idx) => (
       <li key={idx}>
-        <Pressable
-          href={social.link}
+        <SocialLinkIcon
+          href={social.href}
+          label={social.label}
+          iconNameOverride={social.iconNameOverride}
           variant="outline"
           size="icon"
           asButton
-          aria-label={social.label}
-        >
-          <DynamicIcon name={social.icon} size={20} />
-        </Pressable>
+        />
       </li>
     ));
   }, [socialLinks]);
@@ -394,24 +380,10 @@ export function FooterNewsletterContact({
             <div className="flex items-center justify-between gap-4 md:gap-12">
               <Separator className="flex-1" />
               <div className="basis-30 md:basis-40">
-                <Pressable href={logo.url}>
-                  {logo.light && (
-                    <Img
-                      src={logo.light}
-                      alt="Logo"
-                      className="block dark:hidden"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  )}
-                  {logo.dark && (
-                    <Img
-                      src={logo.dark}
-                      alt="Logo"
-                      className="hidden dark:block"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  )}
-                </Pressable>
+                <FooterLogo
+                  logo={logo}
+                  optixFlowConfig={optixFlowConfig}
+                />
               </div>
               <Separator className="flex-1" />
             </div>

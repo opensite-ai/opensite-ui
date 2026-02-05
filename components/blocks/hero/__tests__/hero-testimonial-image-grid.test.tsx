@@ -39,9 +39,9 @@ describe("HeroTestimonialImageGrid", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
-    render(<HeroTestimonialImageGrid actions={actions} />);
+  it("renders button when provided", () => {
+    const button = { text: "Get Started", url: "/start" };
+    render(<HeroTestimonialImageGrid button={button} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
   });
 

@@ -2,13 +2,14 @@
 
 import { useMemo } from "react";
 import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
-import { Img } from "@page-speed/img";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { FooterLogo } from "../../ui/footer-logo";
 import { Section } from "../../ui/section";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
+import type { FooterSocialLink } from "./types";
 
 /**
  * Logo configuration for the footer
@@ -22,18 +23,6 @@ export interface FooterContactCardLogo {
   alt: string;
   /** Logo title/brand name */
   title: string;
-}
-
-/**
- * Social link configuration
- */
-export interface FooterContactCardSocialLink {
-  /** Icon name in format: prefix/name (e.g., "simple-icons/instagram") */
-  icon: string;
-  /** Link URL */
-  href: string;
-  /** Accessible label */
-  label: string;
 }
 
 /**
@@ -61,7 +50,7 @@ export interface FooterContactCardProps {
   /** Contact address */
   address?: React.ReactNode;
   /** Social media links */
-  socialLinks?: FooterContactCardSocialLink[];
+  socialLinks?: FooterSocialLink[];
   /** Navigation links */
   navLinks?: FooterContactCardNavLink[];
   /** Social section title */
@@ -88,8 +77,6 @@ export interface FooterContactCardProps {
   logoWrapperClassName?: string;
   /** Additional CSS classes for the logo image */
   logoClassName?: string;
-  /** Additional CSS classes for the logo title */
-  logoTitleClassName?: string;
   /** Additional CSS classes for the heading */
   headingClassName?: string;
   /** Additional CSS classes for the contact section */
@@ -153,7 +140,6 @@ export function FooterContactCard({
   leftColumnClassName,
   logoWrapperClassName,
   logoClassName,
-  logoTitleClassName,
   headingClassName,
   contactClassName,
   rightColumnClassName,
@@ -189,18 +175,12 @@ export function FooterContactCard({
             {/* Left Column - Heading and Contact */}
             <div className={cn(leftColumnClassName)}>
               {logo && (
-                <Pressable
-                  href={logo.url}
-                  className={cn("mb-8 flex items-center gap-2", logoWrapperClassName)}
-                >
-                  <Img
-                    src={logo.src}
-                    alt={logo.alt}
-                    className={cn("h-10", logoClassName)}
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                  <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
-                </Pressable>
+                <FooterLogo
+                  logo={logo}
+                  logoClassName={cn("mb-8", logoWrapperClassName)}
+                  logoImageClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
               )}
               {heading && (
                 <h2 className={cn("mb-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
@@ -244,21 +224,20 @@ export function FooterContactCard({
                   {socialLinks && socialLinks.length > 0 && (
                     <ul className={cn("flex items-center gap-4", socialLinksClassName)}>
                       {socialLinks.map((social, idx) => (
-                    <li key={idx}>
-                        <Pressable
-                          href={social.href}
-                          aria-label={social.label}
-                          className={cn(
-                            "flex size-12 items-center justify-center rounded-full transition-colors hover:bg-primary hover:text-primary-foreground",
-                            getNestedCardBg(background),
-                            getNestedCardTextColor(background),
-                            socialLinkClassName
-                          )}
-                        >
-                          <DynamicIcon name={social.icon} size={20} />
-                        </Pressable>
-                      </li>
-                    ))}
+                        <li key={idx}>
+                          <SocialLinkIcon
+                            href={social.href}
+                            label={social.label}
+                            iconNameOverride={social.iconNameOverride}
+                            className={cn(
+                              "flex size-12 items-center justify-center rounded-full transition-colors hover:bg-primary hover:text-primary-foreground",
+                              getNestedCardBg(background),
+                              getNestedCardTextColor(background),
+                              socialLinkClassName
+                            )}
+                          />
+                        </li>
+                      ))}
                     </ul>
                   )}
                 </div>

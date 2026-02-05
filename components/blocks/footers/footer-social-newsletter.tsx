@@ -2,13 +2,14 @@
 
 import { useMemo } from "react";
 import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
-import { Img } from "@page-speed/img";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { FooterLogo } from "../../ui/footer-logo";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
 import type { PatternName } from "../../ui/pattern-background";
+import type { FooterSocialLink } from "./types";
 
 /**
  * Logo configuration for the footer
@@ -22,18 +23,6 @@ export interface FooterSocialNewsletterLogo {
   alt: string;
   /** Logo title/brand name */
   title: string;
-}
-
-/**
- * Social link configuration
- */
-export interface FooterSocialNewsletterSocialLink {
-  /** Icon name in format: prefix/name (e.g., "simple-icons/discord") */
-  icon: string;
-  /** Link URL */
-  href: string;
-  /** Accessible label */
-  label: string;
 }
 
 /**
@@ -65,7 +54,7 @@ export interface FooterSocialNewsletterProps {
   /** Navigation sections */
   sections?: FooterSocialNewsletterSection[];
   /** Social media links */
-  socialLinks?: FooterSocialNewsletterSocialLink[];
+  socialLinks?: FooterSocialLink[];
   /** Newsletter label text */
   newsletterLabel?: React.ReactNode;
   /** Newsletter placeholder text */
@@ -92,8 +81,6 @@ export interface FooterSocialNewsletterProps {
   logoWrapperClassName?: string;
   /** Additional CSS classes for the logo image */
   logoClassName?: string;
-  /** Additional CSS classes for the logo title */
-  logoTitleClassName?: string;
   /** Additional CSS classes for the main grid */
   gridClassName?: string;
   /** Additional CSS classes for navigation sections */
@@ -158,7 +145,6 @@ export function FooterSocialNewsletter({
   contentClassName,
   logoWrapperClassName,
   logoClassName,
-  logoTitleClassName,
   gridClassName,
   navSectionClassName,
   navTitleClassName,
@@ -193,15 +179,12 @@ export function FooterSocialNewsletter({
       <div className={cn(contentClassName)}>
         <footer>
           {logo && (
-            <Pressable href={logo.url} className={cn("flex items-center gap-2", logoWrapperClassName)}>
-              <Img
-                src={logo.src}
-                alt={logo.alt}
-                className={cn("h-10", logoClassName)}
-                optixFlowConfig={optixFlowConfig}
-              />
-              <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
-            </Pressable>
+            <FooterLogo
+              logo={logo}
+              logoClassName={cn("flex items-center gap-2", logoWrapperClassName)}
+              logoImageClassName={cn("h-10", logoClassName)}
+              optixFlowConfig={optixFlowConfig}
+            />
           )}
           {((sections && sections.length > 0) || (socialLinks && socialLinks.length > 0) || newsletterLabel || newsletterButtonText) && (
             <div className={cn("mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-4", gridClassName)}>
@@ -226,16 +209,18 @@ export function FooterSocialNewsletter({
                     <ul className={cn("mb-10 flex items-center gap-2 text-muted-foreground", socialLinksClassName)}>
                       {socialLinks.map((social, idx) => (
                         <li key={idx} className="font-medium">
-                          <Pressable href={social.href} aria-label={social.label}>
-                            <span className={cn(
+                          <SocialLinkIcon
+                            href={social.href}
+                            label={social.label}
+                            iconNameOverride={social.iconNameOverride}
+                            iconSize={24}
+                            className={cn(
                               "flex size-12 items-center justify-center rounded-full transition-colors hover:text-primary",
                               getNestedCardBg(background),
                               getNestedCardTextColor(background),
                               socialLinkClassName
-                            )}>
-                              <DynamicIcon name={social.icon} size={24} />
-                            </span>
-                          </Pressable>
+                            )}
+                          />
                         </li>
                       ))}
                     </ul>

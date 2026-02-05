@@ -6,7 +6,9 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import { Section } from "../../ui/section";
+import type { FooterSocialLink } from "./types";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig, NavLinkItem } from "../../../src/types/blocks";
 import { PatternName } from "@/components/ui/pattern-background";
@@ -31,18 +33,6 @@ export interface FooterBrandLinksContactItem {
   label: string;
   /** Contact link URL */
   href: string;
-}
-
-/**
- * Social link configuration
- */
-export interface FooterBrandLinksContactSocialLink {
-  /** Icon name in format: prefix/name */
-  icon: string;
-  /** Link URL */
-  href: string;
-  /** Accessible label */
-  label: string;
 }
 
 /**
@@ -72,7 +62,7 @@ export interface FooterBrandLinksContactProps {
   /** Contact items for the contact column */
   contactItems?: FooterBrandLinksContactItem[];
   /** Social media links */
-  socialLinks?: FooterBrandLinksContactSocialLink[];
+  socialLinks?: FooterSocialLink[];
   /** Bottom bar links */
   legalLinks?: FooterBrandLinksContactLegalLink[];
   /** Attribution label in the bottom bar */
@@ -226,18 +216,18 @@ export function FooterBrandLinksContact({
   const socialLinksContent = useMemo(() => {
     if (!socialLinks || socialLinks.length === 0) return null;
 
-    return socialLinks.map((link) => (
-      <Pressable
-        key={link.label}
-        href={link.href}
+    return socialLinks.map((social, idx) => (
+      <SocialLinkIcon
+        key={idx}
+        href={social.href}
+        label={social.label}
+        iconNameOverride={social.iconNameOverride}
         variant="outline"
         size="icon"
         asButton
         className={cn("rounded-full", socialLinkClassName)}
-        aria-label={link.label}
-      >
-        <DynamicIcon name={link.icon} size={18} />
-      </Pressable>
+        iconSize={18}
+      />
     ));
   }, [socialLinks, socialLinkClassName]);
 

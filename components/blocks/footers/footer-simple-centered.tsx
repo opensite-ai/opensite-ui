@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
-import { Img } from "@page-speed/img";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
+import { FooterLogo } from "../../ui/footer-logo";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig, NavLinkItem } from "../../../src/types/blocks";
@@ -74,8 +74,6 @@ export interface FooterSimpleCenteredProps {
   logoWrapperClassName?: string;
   /** Additional CSS classes for the logo image */
   logoClassName?: string;
-  /** Additional CSS classes for the logo title */
-  logoTitleClassName?: string;
   /** Additional CSS classes for the tagline */
   taglineClassName?: string;
   /** Additional CSS classes for the sitemap wrapper */
@@ -129,7 +127,6 @@ export function FooterSimpleCentered({
   brandClassName,
   logoWrapperClassName,
   logoClassName,
-  logoTitleClassName,
   taglineClassName,
   sitemapWrapperClassName,
   sitemapSectionClassName,
@@ -215,28 +212,11 @@ export function FooterSimpleCentered({
                   logoWrapperClassName
                 )}
               >
-                {logo?.src && (
-                  <div className={cn(
-                    "flex size-12 items-center justify-center rounded-lg border border-border p-2",
-                    getNestedCardBg(background, 'accent'),
-                    getNestedCardTextColor(background)
-                  )}>
-                    <Img
-                      src={logo.src}
-                      alt={logo?.alt}
-                      className={cn(
-                        "size-12 h-full w-full object-contain object-center",
-                        logoClassName
-                      )}
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </div>
-                )}
-                {logo?.title && (
-                  <h3 className={cn("text-xl font-bold", logoTitleClassName)}>
-                    {logo.title}
-                  </h3>
-                )}
+                <FooterLogo
+                  logo={logo}
+                  logoClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
               </div>
             )}
             {tagline && (

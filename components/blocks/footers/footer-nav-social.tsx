@@ -3,13 +3,14 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Img } from "@page-speed/img";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { FooterLogo } from "../../ui/footer-logo";
 import { Section } from "../../ui/section";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
 import type { PatternName } from "../../ui/pattern-background";
+import type { FooterSocialLink } from "./types";
 
 /**
  * Logo configuration for the footer
@@ -23,18 +24,6 @@ export interface FooterNavSocialLogo {
   alt: string;
   /** Logo title/brand name */
   title: string;
-}
-
-/**
- * Social link configuration
- */
-export interface FooterNavSocialLink {
-  /** Icon name in format: prefix/name (e.g., "simple-icons/instagram") */
-  icon: string;
-  /** Link URL */
-  href: string;
-  /** Accessible label */
-  label: string;
 }
 
 /**
@@ -66,7 +55,7 @@ export interface FooterNavSocialProps {
   /** Navigation sections */
   sections?: FooterNavSocialSection[];
   /** Social media links */
-  socialLinks?: FooterNavSocialLink[];
+  socialLinks?: FooterSocialLink[];
   /** Newsletter heading */
   newsletterHeading?: React.ReactNode;
   /** Newsletter description */
@@ -97,8 +86,6 @@ export interface FooterNavSocialProps {
   logoWrapperClassName?: string;
   /** Additional CSS classes for the logo image */
   logoClassName?: string;
-  /** Additional CSS classes for the logo title */
-  logoTitleClassName?: string;
   /** Additional CSS classes for the navigation grid */
   navGridClassName?: string;
   /** Additional CSS classes for navigation sections */
@@ -174,7 +161,6 @@ export function FooterNavSocial({
   leftColumnClassName,
   logoWrapperClassName,
   logoClassName,
-  logoTitleClassName,
   navGridClassName,
   navSectionClassName,
   navTitleClassName,
@@ -226,13 +212,12 @@ export function FooterNavSocial({
 
     return socialLinks.map((social, idx) => (
       <li key={idx}>
-        <Pressable
+        <SocialLinkIcon
           href={social.href}
-          aria-label={social.label}
+          label={social.label}
+          iconNameOverride={social.iconNameOverride}
           className={cn("text-muted-foreground transition-colors hover:text-primary", socialLinkClassName)}
-        >
-          <DynamicIcon name={social.icon} size={20} />
-        </Pressable>
+        />
       </li>
     ));
   }, [socialLinks, socialLinkClassName]);
@@ -262,22 +247,12 @@ export function FooterNavSocial({
           <div className={cn("grid gap-10 lg:grid-cols-2", gridClassName)}>
             <div className={cn(leftColumnClassName)}>
               {logo && (
-                <Pressable
-                  href={logo.url}
-                  className={cn("mb-8 flex items-center gap-2", logoWrapperClassName)}
-                >
-                  {logo.src && (
-                    <Img
-                      src={logo.src}
-                      alt={logo.alt}
-                      className={cn("h-10", logoClassName)}
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  )}
-                  {logo.title && (
-                    <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
-                  )}
-                </Pressable>
+                <FooterLogo
+                  logo={logo}
+                  logoClassName={cn("mb-8", logoWrapperClassName)}
+                  logoImageClassName={logoClassName}
+                  optixFlowConfig={optixFlowConfig}
+                />
               )}
               <div className={cn("grid gap-8 sm:grid-cols-3", navGridClassName)}>
                 {sectionsContent}

@@ -2,5 +2,4 @@ export { FooterNewsletterGrid } from "../components/blocks/footers/footer-newsle
 export type {
   FooterNewsletterGridProps,
   FooterNewsletterGridSection,
-  FooterNewsletterGridSocialLink,
 } from "../components/blocks/footers/footer-newsletter-grid";

@@ -10,7 +10,6 @@
 export { FooterAccordionSocial } from "../components/blocks/footers/footer-accordion-social";
 export type {
   FooterAccordionSocialProps,
-  FooterAccordionSocialLink,
+  FooterAccordionSocialNavLink,
   FooterAccordionSocialSection,
-  FooterAccordionSocialMediaLink,
 } from "../components/blocks/footers/footer-accordion-social";

@@ -13,5 +13,5 @@ export type {
   FooterNewsletterContactLink,
   FooterNewsletterContactSection,
   FooterNewsletterContactDetail,
-  FooterNewsletterContactSocialLink,
 } from "../components/blocks/footers/footer-newsletter-contact";
+export type { FooterSocialLink } from "../components/blocks/footers/types";

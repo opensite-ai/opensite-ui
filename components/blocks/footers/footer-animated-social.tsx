@@ -4,21 +4,12 @@ import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
-
-/**
- * Social link configuration
- */
-export interface FooterAnimatedSocialLink {
-  /** Display name */
-  name: string;
-  /** Link URL */
-  href: string;
-}
+import type { FooterSocialLink } from "./types";
 
 /**
  * Props for the FooterAnimatedSocial component
@@ -33,7 +24,7 @@ export interface FooterAnimatedSocialProps {
   /** CTA button URL */
   ctaUrl?: string;
   /** Social media links */
-  socialLinks?: FooterAnimatedSocialLink[];
+  socialLinks?: FooterSocialLink[];
   /** Copyright text */
   copyright?: React.ReactNode;
   /** Attribution text */
@@ -134,9 +125,9 @@ export function FooterAnimatedSocial({
   const socialLinksContent = useMemo(() => {
     if (!socialLinks || socialLinks.length === 0) return null;
 
-    return socialLinks.map((link) => (
+    return socialLinks.map((link, idx) => (
       <motion.div
-        key={link.name}
+        key={idx}
         variants={itemVariants}
         whileHover={{ x: 4 }}
         transition={{
@@ -145,19 +136,13 @@ export function FooterAnimatedSocial({
           damping: 20,
         }}
       >
-        <Pressable
+        <SocialLinkIcon
           href={link.href}
+          label={link.label}
+          iconNameOverride={link.iconNameOverride}
+          iconSize={24}
           className={cn("group flex items-center gap-2 py-2 transition-colors hover:text-muted-foreground", socialLinkClassName)}
-        >
-          <span className="text-xl font-medium">
-            {link.name}
-          </span>
-          <DynamicIcon
-            name="lucide/arrow-up-right"
-            size={24}
-            className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-          />
-        </Pressable>
+        />
       </motion.div>
     ));
   }, [socialLinks, socialLinkClassName]);

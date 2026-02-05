@@ -1,23 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
+import { FooterLogo } from "../../ui/footer-logo";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "../../ui/accordion";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import { Card, CardContent, CardTitle } from "../../ui/card";
+import type { FooterSocialLink } from "./types";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import {
-  logoPlaceholders,
-  imagePlaceholders,
-} from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -66,21 +58,6 @@ export interface FooterInfoCardsAccordionSection {
    * Array of links in this section
    */
   items: FooterInfoCardsAccordionLink[];
-}
-
-export interface FooterInfoCardsAccordionSocialLink {
-  /**
-   * Icon name in format: prefix/name
-   */
-  icon: string;
-  /**
-   * Link URL
-   */
-  link: string;
-  /**
-   * Accessible label
-   */
-  label: string;
 }
 
 /**
@@ -151,7 +128,7 @@ export interface FooterInfoCardsAccordionProps {
   /**
    * Social media links
    */
-  socialLinks?: FooterInfoCardsAccordionSocialLink[];
+  socialLinks?: FooterSocialLink[];
   /**
    * Payment method image URLs
    */
@@ -276,9 +253,9 @@ export interface FooterInfoCardsAccordionProps {
 
 /**
  * Footer Info Cards Accordion - A comprehensive footer with info cards,
- * newsletter, accordion navigation, payment methods, and social links.
+ * newsletter, navigation links, payment methods, and social links.
  *
- * Layout: Hero image with newsletter, info cards grid, accordion links.
+ * Layout: Hero image with newsletter, info cards grid, organized link sections.
  * Key features: Contact info cards, payment method icons, language selector.
  * Best for: E-commerce sites, service businesses, customer-focused brands.
  *
@@ -341,27 +318,14 @@ export function FooterInfoCardsAccordion({
   optixFlowConfig,
 }: FooterInfoCardsAccordionProps) {
   const [email, setEmail] = React.useState("");
-  const [isDesktop, setIsDesktop] = React.useState(false);
 
-  const currentYear = useMemo(() => new Date().getFullYear(), []);
-
-  React.useEffect(() => {
-    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
-    checkDesktop();
-    window.addEventListener("resize", checkDesktop);
-    return () => window.removeEventListener("resize", checkDesktop);
-  }, []);
+  const currentYear = new Date().getFullYear();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Newsletter signup:", email);
     setEmail("");
   };
-
-  const allAccordionIds = useMemo(
-    () => footerLinks?.map(({ id }) => id) ?? [],
-    [footerLinks]
-  );
 
   return (
     <Section
@@ -514,23 +478,11 @@ export function FooterInfoCardsAccordion({
                 )}
               >
                 {footerDetails?.logo && (
-                  <Pressable
-                    href={footerDetails.logoUrl || "/"}
-                    className={cn("inline-block w-full max-w-80", logoClassName)}
-                  >
-                    <Img
-                      src={footerDetails.logo.light}
-                      alt="Logo"
-                      className="w-full dark:hidden"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                    <Img
-                      src={footerDetails.logo.dark}
-                      alt="Logo"
-                      className="hidden w-full dark:inline-block"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </Pressable>
+                  <FooterLogo
+                    logo={{ ...footerDetails.logo, url: footerDetails.logoUrl || "/" }}
+                    logoClassName={cn("inline-block w-full max-w-80", logoClassName)}
+                    optixFlowConfig={optixFlowConfig}
+                  />
                 )}
                 {footerDetails?.description && (
                   <p
@@ -551,74 +503,25 @@ export function FooterInfoCardsAccordion({
                 accordionColumnClassName,
               )}
             >
-              {isDesktop ? (
-                <Accordion
-                  value={allAccordionIds}
-                  type="multiple"
-                  className="grid grid-cols-3 gap-4"
-                >
-                  {footerLinks.map((section) => (
-                  <AccordionItem
-                    key={section.id}
-                    value={section.id}
-                    className="border-transparent"
-                  >
-                    <AccordionTrigger className="cursor-auto rounded-none pb-4 pt-0 text-base font-bold leading-normal hover:no-underline [&>svg]:hidden">
-                      {section.title}
-                    </AccordionTrigger>
-                    <AccordionContent className="pb-1">
-                      <ul className="space-y-3">
-                        {section.items.map((item, idx) => (
-                          <li
-                            key={idx}
-                            className="text-sm font-light leading-tight"
-                          >
-                            <Pressable
-                              href={item.link}
-                              className="hover:underline hover:underline-offset-2"
-                            >
-                              {item.text}
-                            </Pressable>
-                          </li>
-                        ))}
-                      </ul>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            ) : (
-              <Accordion type="multiple">
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {footerLinks.map((section) => (
-                  <AccordionItem key={section.id} value={section.id}>
-                    <AccordionTrigger className="py-4 text-base font-bold leading-normal hover:no-underline [&>svg]:hidden">
-                      {section.title}
-                      <DynamicIcon
-                        name="lucide/plus"
-                        size={20}
-                        className="lg:hidden"
-                      />
-                    </AccordionTrigger>
-                    <AccordionContent className="pb-4">
-                      <ul className="space-y-3">
-                        {section.items.map((item, idx) => (
-                          <li
-                            key={idx}
-                            className="text-sm font-light leading-tight"
+                  <div key={section.id}>
+                    <h3 className="mb-4 text-base font-bold">{section.title}</h3>
+                    <ul className="space-y-3 text-sm text-muted-foreground">
+                      {section.items.map((item, idx) => (
+                        <li key={idx}>
+                          <Pressable
+                            href={item.link}
+                            className="hover:text-primary"
                           >
-                            <Pressable
-                              href={item.link}
-                              className="hover:underline hover:underline-offset-2"
-                            >
-                              {item.text}
-                            </Pressable>
-                          </li>
-                        ))}
-                      </ul>
-                    </AccordionContent>
-                  </AccordionItem>
+                            {item.text}
+                          </Pressable>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
-              </Accordion>
-            )}
+              </div>
             </div>
           )}
           </div>
@@ -656,16 +559,15 @@ export function FooterInfoCardsAccordion({
               <ul className={cn("flex flex-wrap gap-4", socialLinksClassName)}>
                 {socialLinks.map((social, idx) => (
                   <li key={idx}>
-                    <Pressable
-                      href={social.link}
+                    <SocialLinkIcon
+                      href={social.href}
+                      label={social.label}
+                      iconNameOverride={social.iconNameOverride}
                       variant="default"
                       size="icon"
                       asButton
                       className="rounded-full"
-                      aria-label={social.label}
-                    >
-                      <DynamicIcon name={social.icon} size={20} />
-                    </Pressable>
+                    />
                   </li>
                 ))}
               </ul>

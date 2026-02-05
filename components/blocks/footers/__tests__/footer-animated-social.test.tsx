@@ -14,6 +14,12 @@ vi.mock("../../../ui/dynamic-icon", () => ({
   ),
 }));
 
+vi.mock("../../../ui/social-link-icon", () => ({
+  SocialLinkIcon: ({ href, label }: { href: string; label?: string }) => (
+    <a href={href} data-testid="social-link-icon" aria-label={label}>{label || "social-icon"}</a>
+  ),
+}));
+
 describe("FooterAnimatedSocial", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -42,12 +48,14 @@ describe("FooterAnimatedSocial", () => {
 
   it("renders social links when provided", () => {
     const socialLinks = [
-      { name: "Twitter", href: "https://twitter.com" },
-      { name: "LinkedIn", href: "https://linkedin.com" },
+      { href: "https://twitter.com", label: "Twitter" },
+      { href: "https://linkedin.com", label: "LinkedIn" },
     ];
     render(<FooterAnimatedSocial socialLinks={socialLinks} />);
-    expect(screen.getByText("Twitter")).toBeInTheDocument();
-    expect(screen.getByText("LinkedIn")).toBeInTheDocument();
+    const socialLinkIcons = screen.getAllByTestId("social-link-icon");
+    expect(socialLinkIcons).toHaveLength(2);
+    expect(socialLinkIcons[0]).toHaveAttribute("href", "https://twitter.com");
+    expect(socialLinkIcons[1]).toHaveAttribute("href", "https://linkedin.com");
   });
 
   it("applies custom className", () => {

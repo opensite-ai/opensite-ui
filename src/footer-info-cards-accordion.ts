@@ -13,5 +13,5 @@ export type {
   FooterInfoCardsAccordionInfoItem,
   FooterInfoCardsAccordionLink,
   FooterInfoCardsAccordionSection,
-  FooterInfoCardsAccordionSocialLink,
 } from "../components/blocks/footers/footer-info-cards-accordion";
+export type { FooterSocialLink } from "../components/blocks/footers/types";

@@ -12,6 +12,6 @@ export type {
   FooterSplitImageAccordionProps,
   FooterSplitImageAccordionLink,
   FooterSplitImageAccordionSection,
-  FooterSplitImageAccordionSocialLink,
   FooterSplitImageAccordionData,
 } from "../components/blocks/footers/footer-split-image-accordion";
+export type { FooterSocialLink } from "../components/blocks/footers/types";

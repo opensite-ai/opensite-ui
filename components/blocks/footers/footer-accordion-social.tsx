@@ -1,19 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
-import { cn } from "../../../lib/utils";
-import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
+import { FooterLogo } from "../../ui/footer-logo";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "../../ui/accordion";
 import {
   isValidEmail,
   PageSpeedFormSubmissionError,
@@ -23,8 +15,10 @@ import {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
+import type { FooterSocialLink } from "./types";
 
-export interface FooterAccordionSocialLink {
+export interface FooterAccordionSocialNavLink {
   /**
    * Link text
    */
@@ -32,15 +26,7 @@ export interface FooterAccordionSocialLink {
   /**
    * Link URL
    */
-  link?: string;
-  /**
-   * Link type for special handling
-   */
-  type?: "default" | "email";
-  /**
-   * Email address (if type is email)
-   */
-  email?: string;
+  href: string;
 }
 
 export interface FooterAccordionSocialSection {
@@ -55,22 +41,7 @@ export interface FooterAccordionSocialSection {
   /**
    * Array of links in this section
    */
-  items: FooterAccordionSocialLink[];
-}
-
-export interface FooterAccordionSocialMediaLink {
-  /**
-   * Icon name in format: prefix/name
-   */
-  icon: string;
-  /**
-   * Link URL
-   */
-  link: string;
-  /**
-   * Accessible label
-   */
-  label: string;
+  items: FooterAccordionSocialNavLink[];
 }
 
 export interface FooterAccordionSocialProps {
@@ -87,9 +58,9 @@ export interface FooterAccordionSocialProps {
    */
   footerLinks?: FooterAccordionSocialSection[];
   /**
-   * Social media links
+   * Social media links - only href is required, platform icon is auto-detected
    */
-  socialLinks?: FooterAccordionSocialMediaLink[];
+  socialLinks?: FooterSocialLink[];
   /**
    * Logo configuration
    */
@@ -152,11 +123,11 @@ export interface FooterAccordionSocialProps {
 }
 
 /**
- * Footer Accordion Social - A footer with newsletter, accordion navigation links,
- * and social media icons with responsive accordion behavior.
+ * Footer Accordion Social - A footer with newsletter, navigation links,
+ * and social media icons.
  *
- * Layout: Newsletter section at top, accordion links in grid, social icons.
- * Key features: Responsive accordion (collapsed on mobile, expanded on desktop).
+ * Layout: Newsletter section at top, links in grid, social icons.
+ * Key features: Organized link sections, newsletter signup, social icons.
  * Best for: E-commerce sites, retail brands, content-heavy websites.
  *
  * @example
@@ -189,9 +160,6 @@ export function FooterAccordionSocial({
   patternOpacity,
   patternClassName,
 }: FooterAccordionSocialProps) {
-  const [isDesktop, setIsDesktop] = React.useState(false);
-  const [accordionValue, setAccordionValue] = React.useState("");
-
   const form = useForm<{ email: string }>({
     initialValues: {
       email: "",
@@ -228,10 +196,7 @@ export function FooterAccordionSocial({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -242,18 +207,6 @@ export function FooterAccordionSocial({
 
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
-
-  React.useEffect(() => {
-    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
-    checkDesktop();
-    window.addEventListener("resize", checkDesktop);
-    return () => window.removeEventListener("resize", checkDesktop);
-  }, []);
-
-  const allAccordionIds = useMemo(() => {
-    if (!footerLinks || footerLinks.length === 0) return [];
-    return footerLinks.map(({ id }) => id);
-  }, [footerLinks]);
 
   return (
     <Section
@@ -267,25 +220,12 @@ export function FooterAccordionSocial({
       <div className="space-y-10">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
           <div className="space-y-6">
-            {logo?.url && (
-              <Pressable href={logo.url} className="inline-block max-w-48">
-                {logo.light && (
-                  <Img
-                    src={logo.light}
-                    alt="Logo"
-                    className="w-full dark:hidden"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                )}
-                {logo.dark && (
-                  <Img
-                    src={logo.dark}
-                    alt="Logo"
-                    className="hidden w-full dark:block"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                )}
-              </Pressable>
+            {logo && (
+              <FooterLogo
+                logo={logo}
+                logoClassName="inline-block max-w-48"
+                optixFlowConfig={optixFlowConfig}
+              />
             )}
             <div className="space-y-4">
               <h3 className="text-2xl font-semibold">{newsletterTitle}</h3>
@@ -321,87 +261,26 @@ export function FooterAccordionSocial({
             </Form>
           </div>
 
-          {isDesktop ? (
-            <Accordion
-              value={allAccordionIds}
-              type="multiple"
-              className="grid grid-cols-2 gap-x-16 gap-y-4 lg:grid-cols-3"
-            >
-              {footerLinks && footerLinks.length > 0 && footerLinks.map((section) => (
-                <AccordionItem
-                  key={section.id}
-                  value={section.id}
-                  className="border-none"
-                >
-                  <AccordionTrigger className="cursor-auto rounded-none pb-4 pt-0 text-lg font-bold leading-none hover:no-underline [&>svg]:hidden">
-                    {section.title}
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-0">
-                    <ul className="space-y-2">
-                      {section.items.map((item, idx) => (
-                        <li key={idx} className="text-sm font-light leading-tight">
-                          {item.type === "email" ? (
-                            <>
-                              <p className="mb-1.5">{item.text}</p>
-                              <Pressable
-                                href={`mailto:${item.email}`}
-                                className="underline underline-offset-2"
-                              >
-                                {item.email}
-                              </Pressable>
-                            </>
-                          ) : (
-                            <Pressable href={item.link}>{item.text}</Pressable>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
+          {footerLinks && footerLinks.length > 0 && (
+            <div className="grid grid-cols-2 gap-x-16 gap-y-8 lg:grid-cols-3">
+              {footerLinks.map((section) => (
+                <div key={section.id}>
+                  <h3 className="mb-4 text-lg font-bold">{section.title}</h3>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    {section.items.map((item, idx) => (
+                      <li key={idx}>
+                        <Pressable
+                          href={item.href}
+                          className="hover:text-primary"
+                        >
+                          {item.text}
+                        </Pressable>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </Accordion>
-          ) : (
-            <Accordion
-              value={accordionValue}
-              type="single"
-              collapsible
-              onValueChange={setAccordionValue}
-              className="space-y-0"
-            >
-              {footerLinks && footerLinks.length > 0 && footerLinks.map((section) => (
-                <AccordionItem
-                  key={section.id}
-                  value={section.id}
-                  className="border-b"
-                >
-                  <AccordionTrigger className="py-4 text-lg font-bold leading-none hover:no-underline [&>svg]:hidden">
-                    {section.title}
-                    <DynamicIcon name="lucide/plus" size={20} className="lg:hidden" />
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-4">
-                    <ul className="space-y-2 pl-4">
-                      {section.items.map((item, idx) => (
-                        <li key={idx} className="text-sm font-light leading-tight">
-                          {item.type === "email" ? (
-                            <>
-                              <p className="mb-1.5">{item.text}</p>
-                              <Pressable
-                                href={`mailto:${item.email}`}
-                                className="underline underline-offset-2"
-                              >
-                                {item.email}
-                              </Pressable>
-                            </>
-                          ) : (
-                            <Pressable href={item.link}>{item.text}</Pressable>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            </div>
           )}
         </div>
 
@@ -410,18 +289,17 @@ export function FooterAccordionSocial({
           {socialLinks && socialLinks.length > 0 && (
             <ul className="flex flex-wrap gap-4">
               {socialLinks.map((social, idx) => (
-              <li key={idx}>
-                <Pressable
-                  href={social.link}
-                  variant="outline"
-                  size="icon"
-                  asButton
-                  className="rounded-full"
-                  aria-label={social.label}
-                >
-                  <DynamicIcon name={social.icon} size={20} />
-                </Pressable>
-              </li>
+                <li key={idx}>
+                  <SocialLinkIcon
+                    href={social.href}
+                    label={social.label}
+                    iconNameOverride={social.iconNameOverride}
+                    variant="outline"
+                    size="icon"
+                    asButton
+                    className="rounded-full"
+                  />
+                </li>
               ))}
             </ul>
           )}
