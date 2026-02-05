@@ -5,6 +5,10 @@ import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import {
+  PaymentPlatformIcon,
+  type PaymentPlatformName,
+} from "../../ui/payment-platform-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { FooterLogo } from "../../ui/footer-logo";
 import { FooterCopyright } from "../../ui/footer-copyright";
@@ -90,9 +94,9 @@ export interface FooterSplitImageAccordionProps {
    */
   socialLinks?: FooterSocialLink[];
   /**
-   * Payment method image URLs
+   * Payment platform names to display icons for
    */
-  paymentMethods?: string[];
+  paymentPlatforms?: PaymentPlatformName[];
   /**
    * Submenu links
    */
@@ -109,6 +113,10 @@ export interface FooterSplitImageAccordionProps {
    * Section background variant
    */
   background?: SectionBackground;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /**
    * Section spacing variant
    */
@@ -243,12 +251,13 @@ export function FooterSplitImageAccordion({
   emailPlaceholder,
   footerLinks,
   socialLinks,
-  paymentMethods,
+  paymentPlatforms,
   submenuLinks,
   footerData,
   copyright,
   background,
-  spacing,
+  containerClassName = "w-screen px-0 sm:px-0 lg:px-0 max-w-screen relative z-10",
+  spacing = "py-6 md:py-0",
   pattern,
   patternOpacity,
   className,
@@ -330,6 +339,7 @@ export function FooterSplitImageAccordion({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div className={cn("grid grid-cols-1 lg:grid-cols-2", gridClassName)}>
         {footerData?.image?.src && (
@@ -363,7 +373,7 @@ export function FooterSplitImageAccordion({
                 form={form}
                 action={formConfig?.endpoint}
                 method={formMethod}
-                className={cn("flex gap-2", newsletterFormClassName)}
+                className={cn("flex items-stretch", newsletterFormClassName)}
               >
                 <Field name="email" className="flex-1">
                   {({ field, meta }) => (
@@ -372,7 +382,7 @@ export function FooterSplitImageAccordion({
                       type="email"
                       placeholder={emailPlaceholder}
                       error={meta.touched && !!meta.error}
-                      className="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="flex h-10 w-full rounded-l-md rounded-r-none border border-r-0 border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       aria-label={emailPlaceholder}
                     />
                   )}
@@ -380,7 +390,7 @@ export function FooterSplitImageAccordion({
                 <Pressable
                   componentType="button"
                   type="submit"
-                  className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+                  className="inline-flex h-10 items-center justify-center rounded-l-none rounded-r-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90"
                   asButton={false}
                   disabled={form.isSubmitting}
                 >
@@ -428,12 +438,7 @@ export function FooterSplitImageAccordion({
                 </h4>
               )}
               {footerData.description && (
-                <p
-                  className={cn(
-                    "opacity-80",
-                    brandDescriptionClassName,
-                  )}
-                >
+                <p className={cn("opacity-80", brandDescriptionClassName)}>
                   {footerData.description}
                 </p>
               )}
@@ -443,7 +448,7 @@ export function FooterSplitImageAccordion({
           {footerLinks && footerLinks.length > 0 && (
             <div
               className={cn(
-                "grid gap-8 sm:grid-cols-2 lg:grid-cols-3",
+                "grid gap-8 grid-cols-2 lg:grid-cols-3",
                 linksGridClassName,
               )}
             >
@@ -467,21 +472,16 @@ export function FooterSplitImageAccordion({
             </div>
           )}
 
-          {paymentMethods && paymentMethods.length > 0 && (
+          {paymentPlatforms && paymentPlatforms.length > 0 && (
             <ul
               className={cn(
                 "flex flex-wrap items-center gap-3",
                 paymentMethodsClassName,
               )}
             >
-              {paymentMethods.map((method, idx) => (
+              {paymentPlatforms.map((platform, idx) => (
                 <li key={idx}>
-                  <Img
-                    src={method}
-                    alt="Payment method"
-                    className="h-6"
-                    optixFlowConfig={optixFlowConfig}
-                  />
+                  <PaymentPlatformIcon platform={platform} size={24} />
                 </li>
               ))}
             </ul>

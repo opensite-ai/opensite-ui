@@ -3111,6 +3111,11 @@
       "import": "./dist/pattern-background.js",
       "require": "./dist/pattern-background.cjs"
     },
+    "./components/payment-platform-icon": {
+      "types": "./dist/payment-platform-icon.d.ts",
+      "import": "./dist/payment-platform-icon.js",
+      "require": "./dist/payment-platform-icon.cjs"
+    },
     "./components/popover": {
       "types": "./dist/popover.d.ts",
       "import": "./dist/popover.js",

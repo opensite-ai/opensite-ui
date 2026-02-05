@@ -49,6 +49,11 @@ export type {
   SocialPlatformName,
   SocialLinkIconDynamicIconProps,
 } from "../components/ui/social-link-icon";
+export { PaymentPlatformIcon } from "../components/ui/payment-platform-icon";
+export type {
+  PaymentPlatformIconProps,
+  PaymentPlatformName,
+} from "../components/ui/payment-platform-icon";
 
 // Navigation components
 export { Pressable } from "../lib/Pressable";

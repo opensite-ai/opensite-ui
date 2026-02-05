@@ -15,3 +15,4 @@ export type {
   FooterInfoCardsAccordionSection,
 } from "../components/blocks/footers/footer-info-cards-accordion";
 export type { FooterSocialLink } from "../components/blocks/footers/types";
+export type { PaymentPlatformName } from "../components/ui/payment-platform-icon";

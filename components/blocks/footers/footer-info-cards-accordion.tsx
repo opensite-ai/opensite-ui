@@ -3,6 +3,10 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import {
+  PaymentPlatformIcon,
+  type PaymentPlatformName,
+} from "../../ui/payment-platform-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { FooterLogo } from "../../ui/footer-logo";
 import { FooterCopyright } from "../../ui/footer-copyright";
@@ -132,9 +136,9 @@ export interface FooterInfoCardsAccordionProps {
    */
   socialLinks?: FooterSocialLink[];
   /**
-   * Payment method image URLs
+   * Payment platform names to display icons for
    */
-  paymentMethods?: string[];
+  paymentPlatforms?: PaymentPlatformName[];
   /**
    * Submenu links
    */
@@ -288,7 +292,7 @@ export function FooterInfoCardsAccordion({
   infoItems,
   footerLinks,
   socialLinks,
-  paymentMethods,
+  paymentPlatforms,
   submenuLinks,
   footerDetails,
   copyright,
@@ -544,7 +548,7 @@ export function FooterInfoCardsAccordion({
           </div>
         )}
 
-        {((paymentMethods && paymentMethods.length > 0) ||
+        {((paymentPlatforms && paymentPlatforms.length > 0) ||
           (socialLinks && socialLinks.length > 0)) && (
           <div
             className={cn(
@@ -553,21 +557,16 @@ export function FooterInfoCardsAccordion({
             )}
           >
             <div className="space-y-5">
-              {paymentMethods && paymentMethods.length > 0 && (
+              {paymentPlatforms && paymentPlatforms.length > 0 && (
                 <ul
                   className={cn(
                     "flex flex-wrap items-center gap-3",
                     paymentMethodsClassName,
                   )}
                 >
-                  {paymentMethods.map((method, idx) => (
+                  {paymentPlatforms.map((platform, idx) => (
                     <li key={idx}>
-                      <Img
-                        src={method}
-                        alt="Payment method"
-                        className="w-10"
-                        optixFlowConfig={optixFlowConfig}
-                      />
+                      <PaymentPlatformIcon platform={platform} size={28} />
                     </li>
                   ))}
                 </ul>

@@ -15,3 +15,4 @@ export type {
   FooterSplitImageAccordionData,
 } from "../components/blocks/footers/footer-split-image-accordion";
 export type { FooterSocialLink } from "../components/blocks/footers/types";
+export type { PaymentPlatformName } from "../components/ui/payment-platform-icon";

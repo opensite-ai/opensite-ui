@@ -224,6 +224,13 @@
   }
 ,
   {
+    "path": "./components/payment-platform-icon",
+    "types": "./dist/payment-platform-icon.d.ts",
+    "import": "./dist/payment-platform-icon.js",
+    "require": "./dist/payment-platform-icon.cjs"
+  }
+,
+  {
     "path": "./components/popover",
     "types": "./dist/popover.d.ts",
     "import": "./dist/popover.js",
