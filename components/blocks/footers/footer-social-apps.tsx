@@ -64,6 +64,10 @@ export interface FooterSocialAppsProps {
   copyright?: string;
   /** Section background variant */
   background?: SectionBackground;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Optional background pattern */
@@ -94,7 +98,8 @@ export function FooterSocialApps({
   appLabel,
   copyright,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -103,7 +108,7 @@ export function FooterSocialApps({
     if (!sections || sections.length === 0) return null;
 
     return sections.map((section, sectionIdx) => (
-      <div key={sectionIdx}>
+      <div key={sectionIdx} className="mt-8 md:mt-0">
         <h3 className="mb-4 font-bold">{section.title}</h3>
         <ul className="space-y-4">
           {section.links.map((link, linkIdx) => (
@@ -159,6 +164,7 @@ export function FooterSocialApps({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
       <div>
         <footer>
@@ -168,19 +174,19 @@ export function FooterSocialApps({
                 <FooterLogo
                   logo={logo}
                   logoClassName="flex items-center gap-2"
-                  logoImageClassName="h-10"
+                  logoImageClassName="w-auto object-contain h-8 md:h-10"
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
             )}
             {sections && sections.length > 0 && (
-              <div className="grid flex-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
+              <div className="grid flex-1 gap-4 md:gap-12 grid-cols-2 md:grid-cols-3">
                 {sectionsContent}
               </div>
             )}
             {((socialLinks && socialLinks.length > 0) ||
               (appLinks && appLinks.length > 0)) && (
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-6 md:gap-12">
                 {socialLinks && socialLinks.length > 0 && (
                   <div>
                     {socialLabel && (

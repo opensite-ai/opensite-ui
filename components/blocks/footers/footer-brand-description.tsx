@@ -193,7 +193,7 @@ export function FooterBrandDescription({
               {description && (
                 <p
                   className={cn(
-                    "max-w-[70%] text-sm opacity-80",
+                    "max-w-full md:max-w-[70%] text-sm opacity-80",
                     descriptionClassName,
                   )}
                 >
@@ -227,7 +227,7 @@ export function FooterBrandDescription({
           {sections && sections.length > 0 && (
             <div
               className={cn(
-                "grid w-full gap-6 md:grid-cols-3 lg:gap-20",
+                "grid w-full gap-6 grid-cols-2 md:grid-cols-3 lg:gap-20",
                 navGridClassName,
               )}
             >

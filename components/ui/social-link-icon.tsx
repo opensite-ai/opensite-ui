@@ -154,6 +154,7 @@ export const SocialLinkIcon = React.forwardRef<
     return (
       <Pressable
         ref={ref}
+        href={href}
         aria-label={accessibleLabel}
         className={cn(
           "inline-flex items-center justify-center transition-colors",
