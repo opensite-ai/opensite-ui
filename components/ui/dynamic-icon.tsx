@@ -69,7 +69,7 @@ export function DynamicIcon({
     const separator = name.includes("/") ? "/" : ":";
     const [prefix, iconName] = name.split(separator);
     // Don't pass color to API - we'll handle it via CSS
-    const baseUrl = `https://icons.opensite.ai/api/icon/${prefix}/${iconName}?format=svg&width=${size}&height=${size}`;
+    const baseUrl = `https://icons.opensite.ai/api/icon/${prefix}/${iconName}?format=svg&width=${size}&height=${size}&key=au382bi7fsh96w9h9xlrnat2jglx`;
 
     return {
       url: baseUrl,
@@ -187,14 +187,14 @@ function processSvgForCurrentColor(svg: string): string {
   // Replace common black color values with currentColor for stroke
   processed = processed.replace(
     /stroke=["'](#000000|#000|black)["']/gi,
-    'stroke="currentColor"'
+    'stroke="currentColor"',
   );
 
   // Replace common black color values with currentColor for fill
   // But be careful not to replace fill="none"
   processed = processed.replace(
     /fill=["'](#000000|#000|black)["']/gi,
-    'fill="currentColor"'
+    'fill="currentColor"',
   );
 
   return processed;
