@@ -55,6 +55,10 @@ export interface FeatureShowcaseProps {
    */
   mediaClassName?: string;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Whether to equalize slide heights on mobile
    */
   equalizeOnMobile?: boolean;
@@ -115,10 +119,11 @@ export function FeatureShowcase({
   slideClassName,
   contentClassName,
   mediaClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   equalizeOnMobile,
   stretchMediaOnMobile,
   background,
-  spacing = "py-6 md:py-32",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -273,6 +278,7 @@ export function FeatureShowcase({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
       {children}
       {carouselContent}

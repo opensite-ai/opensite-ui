@@ -329,7 +329,7 @@ export function FeatureIconTabsContent({
 
     return (
       <Tabs defaultValue={activeDefaultTab} className="mt-8">
-        <div className="container overflow-x-auto px-4 pb-2 md:px-6 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-border/50 hover:scrollbar-thumb-border md:overflow-x-visible [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border/30">
+        <div className="container overflow-x-auto pl-0 pr-4 md:pl-4 md:pr-4 pb-2 md:px-6 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-border/50 hover:scrollbar-thumb-border md:overflow-x-visible [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border/30">
           <TabsList
             className={cn(
               "inline-flex w-auto items-center justify-start gap-2 bg-transparent md:w-full md:justify-center md:gap-4 h-auto! p-0!",
@@ -341,7 +341,7 @@ export function FeatureIconTabsContent({
                 key={tab.value}
                 value={tab.value}
                 className={cn(
-                  "flex h-auto! w-auto! flex-none items-center gap-2 rounded-lg border border-border pl-0 pr-4 md:pl-4 md:pr-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
+                  "flex h-auto! w-auto! flex-none items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
                   `data-[state=active]:${getBorderColor(background, "accent")}`,
                   tabTriggerClassName,
                   tab.className,
@@ -354,7 +354,7 @@ export function FeatureIconTabsContent({
           </TabsList>
         </div>
         <div className={cn("py-6 md:py-10", contentWrapperClassName)}>
-          <div className="p-4 md:p-8 bg-muted/50 rounded-2xl shadow-lg">
+          <div className="p-4 md:p-8 bg-muted/60 rounded-2xl shadow-lg">
             {tabs.map((tab) => {
               if (tab.contentSlot) {
                 return (

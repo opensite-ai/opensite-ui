@@ -177,7 +177,7 @@ export function FeatureAccordionImage({
   imageClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
