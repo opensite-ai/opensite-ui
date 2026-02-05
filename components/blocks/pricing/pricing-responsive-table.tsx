@@ -68,7 +68,7 @@ export function PricingResponsiveTable({
   title,
   subtitle,
   plans = [],
-  features,
+  features = [],
   background = "default",
 }: PricingResponsiveTableProps) {
   const [isYearly, setIsYearly] = useState(false);

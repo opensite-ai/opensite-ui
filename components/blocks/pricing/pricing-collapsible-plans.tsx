@@ -266,7 +266,7 @@ export interface PricingCollapsiblePlansProps {
 export function PricingCollapsiblePlans({
   title,
   subtitle,
-  plans,
+  plans = [],
   plansSlot,
   defaultSelectedIndex,
   selectedIndex,
@@ -330,12 +330,13 @@ export function PricingCollapsiblePlans({
     return (
       <ul className={cn("mb-6 space-y-3", featuresClassName)}>
         {plan.features.map((feature, index) => {
+          const iconName = feature.iconName || featureIconName;
           const resolvedIcon =
             feature.icon ??
             featureIcon ??
-            (feature.iconName || featureIconName ? (
+            (iconName ? (
               <DynamicIcon
-                name={feature.iconName || featureIconName}
+                name={iconName}
                 size={18}
                 className={cn(
                   "mt-0.5 shrink-0 text-primary",

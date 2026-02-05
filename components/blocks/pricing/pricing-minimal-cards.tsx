@@ -253,12 +253,13 @@ export function PricingMinimalCards({
       return (
         <ul className={cn("mb-6 flex-1 space-y-2", featuresClassName)}>
           {plan.features.map((feature, featureIndex) => {
-            const resolvedIcon =
+            const iconName = feature.iconName || featureIconName;
+          const resolvedIcon =
               feature.icon ??
               featureIcon ??
-              (feature.iconName || featureIconName ? (
+              (iconName ? (
                 <DynamicIcon
-                  name={feature.iconName || featureIconName}
+                  name={iconName}
                   size={16}
                   className={cn(
                     "shrink-0 text-primary",

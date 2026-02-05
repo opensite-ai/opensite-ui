@@ -334,12 +334,13 @@ export function PricingToggleCards({
     return (
       <ul className={cn("space-y-3", featuresClassName)}>
         {plan.features.map((feature, featureIndex) => {
+          const iconName = feature.iconName || featureIconName;
           const resolvedIcon =
             feature.icon ??
             featureIcon ??
-            (feature.iconName || featureIconName ? (
+            (iconName ? (
               <DynamicIcon
-                name={feature.iconName || featureIconName}
+                name={iconName}
                 size={18}
                 className={cn(
                   "mt-0.5 shrink-0 text-primary",

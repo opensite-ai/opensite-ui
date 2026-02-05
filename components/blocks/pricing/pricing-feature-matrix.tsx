@@ -68,8 +68,8 @@ export function PricingFeatureMatrix({
   className,
   title,
   subtitle,
-  plans,
-  featureCategories,
+  plans = [],
+  featureCategories = [],
   background = "default",
 }: PricingFeatureMatrixProps) {
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">("monthly");

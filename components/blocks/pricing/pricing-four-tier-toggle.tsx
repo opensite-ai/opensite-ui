@@ -330,12 +330,13 @@ export function PricingFourTierToggle({
             const fallbackIconName = isIncluded
               ? includedIconName
               : excludedIconName;
+            const iconName = feature.iconName || fallbackIconName;
             const resolvedIcon =
               feature.icon ??
               (isIncluded ? includedIcon : excludedIcon) ??
-              (feature.iconName || fallbackIconName ? (
+              (iconName ? (
                 <DynamicIcon
-                  name={feature.iconName || fallbackIconName}
+                  name={iconName}
                   size={16}
                   className={cn(
                     "mt-0.5 shrink-0",

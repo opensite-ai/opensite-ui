@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -238,12 +239,13 @@ export function PricingEnterpriseContact({
     if (!features || features.length === 0) return null;
 
     return features.map((feature, index) => {
-      const resolvedIcon =
+      const iconName = feature.iconName || featureIconName;
+          const resolvedIcon =
         feature.icon ??
         featureIcon ??
-        (feature.iconName || featureIconName ? (
+        (iconName ? (
           <DynamicIcon
-            name={feature.iconName || featureIconName}
+            name={iconName}
             size={16}
             className={cn("text-primary", feature.iconClassName)}
           />

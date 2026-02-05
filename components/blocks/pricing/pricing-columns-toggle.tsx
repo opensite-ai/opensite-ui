@@ -307,12 +307,13 @@ export function PricingColumnsToggle({
       return (
         <ul className={cn("mb-8 flex-1 space-y-4", featuresClassName)}>
           {plan.features.map((feature, featureIndex) => {
-            const resolvedIcon =
+            const iconName = feature.iconName || featureIconName;
+          const resolvedIcon =
               feature.icon ??
               featureIcon ??
-              (feature.iconName || featureIconName ? (
+              (iconName ? (
                 <DynamicIcon
-                  name={feature.iconName || featureIconName}
+                  name={iconName}
                   size={18}
                   className={cn(
                     "mt-0.5 shrink-0 text-primary",

@@ -248,12 +248,13 @@ export function PricingSingleCard({
       return (
         <ul className={cn("space-y-3", groupFeaturesClassName)}>
           {group.features.map((feature, featureIndex) => {
-            const resolvedIcon =
+            const iconName = feature.iconName || featureIconName;
+          const resolvedIcon =
               feature.icon ??
               featureIcon ??
-              (feature.iconName || featureIconName ? (
+              (iconName ? (
                 <DynamicIcon
-                  name={feature.iconName || featureIconName}
+                  name={iconName}
                   size={16}
                   className={cn(
                     "mt-0.5 shrink-0 text-primary",

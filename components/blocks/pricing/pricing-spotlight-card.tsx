@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -249,12 +250,13 @@ export function PricingSpotlightCard({
     return (
       <ul className={cn("mt-8 space-y-4", featuresClassName)}>
         {features.map((feature, index) => {
+          const iconName = feature.iconName || featureIconName;
           const resolvedIcon =
             feature.icon ??
             featureIcon ??
-            (feature.iconName || featureIconName ? (
+            (iconName ? (
               <DynamicIcon
-                name={feature.iconName || featureIconName}
+                name={iconName}
                 size={14}
                 className={cn(
                   "text-primary",

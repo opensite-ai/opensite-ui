@@ -48,7 +48,7 @@ export function PricingSplitLayout({
   description,
   price,
   priceDescription,
-  features,
+  features = [],
   buttonText,
   buttonHref = "#",
   secondaryButtonText,

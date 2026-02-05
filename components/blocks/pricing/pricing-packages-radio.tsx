@@ -251,7 +251,7 @@ export interface PricingPackagesRadioProps {
 export function PricingPackagesRadio({
   title,
   subtitle,
-  packages,
+  packages = [],
   packagesSlot,
   selectedPackageId,
   defaultSelectedPackageId,
@@ -308,12 +308,13 @@ export function PricingPackagesRadio({
     return (
       <ul className={cn("mt-4 grid gap-2 sm:grid-cols-2", featuresClassName)}>
         {pkg.features.map((feature, index) => {
+          const iconName = feature.iconName || featureIconName;
           const resolvedIcon =
             feature.icon ??
             featureIcon ??
-            (feature.iconName || featureIconName ? (
+            (iconName ? (
               <DynamicIcon
-                name={feature.iconName || featureIconName}
+                name={iconName}
                 size={16}
                 className={cn(
                   "shrink-0 text-primary",
