@@ -180,7 +180,7 @@ export function FooterBrandLinksContact({
               <Pressable
                 href={link.href}
                 className={cn(
-                  "text-sm text-muted-foreground transition-colors hover:text-primary",
+                  "text-sm opacity-80 transition-colors hover:opacity-100",
                   linkItemClassName,
                 )}
               >
@@ -208,13 +208,13 @@ export function FooterBrandLinksContact({
         className={cn("flex items-start gap-4", contactItemClassName)}
       >
         <div className="shrink-0">
-          <DynamicIcon name={item.icon} size={20} className="text-primary" />
+          <DynamicIcon name={item.icon} size={20} />
         </div>
         <div className="space-y-1">
           {item.href ? (
             <Pressable
               href={item.href}
-              className="text-sm font-medium transition-colors hover:text-muted-foreground"
+              className="text-sm font-medium transition-colors hover:opacity-70"
             >
               {item.label}
             </Pressable>
@@ -277,7 +277,7 @@ export function FooterBrandLinksContact({
             {description && (
               <p
                 className={cn(
-                  "text-sm text-muted-foreground",
+                  "text-sm opacity-80",
                   descriptionClassName,
                 )}
               >
@@ -299,7 +299,7 @@ export function FooterBrandLinksContact({
             {contactItemsContent && (
               <ul
                 className={cn(
-                  "mt-4 space-y-3 text-sm text-muted-foreground",
+                  "mt-4 space-y-3 text-sm opacity-80",
                   linkListClassName,
                 )}
               >
@@ -310,7 +310,7 @@ export function FooterBrandLinksContact({
             {socialLinks && socialLinks.length > 0 && (
               <div className={cn("mt-8", socialSectionClassName)}>
                 {socialTitle && (
-                  <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                  <h4 className="text-sm font-semibold uppercase tracking-[0.2em] opacity-70">
                     {socialTitle}
                   </h4>
                 )}
@@ -322,7 +322,7 @@ export function FooterBrandLinksContact({
 
         <div
           className={cn(
-            "mt-12 border-t pt-8 text-sm text-muted-foreground",
+            "mt-12 border-t pt-8 text-sm opacity-80",
             bottomBarClassName,
           )}
         >
@@ -338,7 +338,7 @@ export function FooterBrandLinksContact({
                 internalBrandSlug="open_site_ai"
                 optionIndex={5}
                 variant="span"
-                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+                linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
               />
             </div>
             <div
@@ -353,7 +353,7 @@ export function FooterBrandLinksContact({
                   <Pressable
                     key={idx}
                     href={link.href}
-                    className="underline transition-colors hover:text-primary"
+                    className="underline transition-colors hover:opacity-100"
                   >
                     {link.label}
                   </Pressable>

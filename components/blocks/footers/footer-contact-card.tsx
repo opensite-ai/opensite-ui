@@ -1,6 +1,6 @@
 "use client";
 
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { FooterLogo } from "../../ui/footer-logo";
 import { FooterCopyright } from "../../ui/footer-copyright";
@@ -180,12 +180,12 @@ export function FooterContactCard({
                 </h2>
               )}
               {(email || phone || address) && (
-                <div className={cn("space-y-4 text-muted-foreground", contactClassName)}>
+                <div className={cn("space-y-4 opacity-80", contactClassName)}>
                   {email && (
                     <p>
                       <Pressable
                         href={`mailto:${email}`}
-                        className="hover:text-primary"
+                        className="hover:opacity-100"
                       >
                         {email}
                       </Pressable>
@@ -195,7 +195,7 @@ export function FooterContactCard({
                     <p>
                       <Pressable
                         href={`tel:${phone}`}
-                        className="hover:text-primary"
+                        className="hover:opacity-100"
                       >
                         {phone}
                       </Pressable>
@@ -222,9 +222,7 @@ export function FooterContactCard({
                             label={social.label}
                             iconNameOverride={social.iconNameOverride}
                             className={cn(
-                              "flex size-12 items-center justify-center rounded-full transition-colors hover:bg-primary hover:text-primary-foreground",
-                              getNestedCardBg(background),
-                              getNestedCardTextColor(background),
+                              "flex size-12 items-center justify-center rounded-full border transition-colors hover:opacity-80",
                               socialLinkClassName
                             )}
                           />
@@ -241,7 +239,7 @@ export function FooterContactCard({
                       <li key={idx}>
                         <Pressable
                           href={link.href}
-                          className={cn("text-muted-foreground hover:text-primary", navLinkClassName)}
+                          className={cn("opacity-80 hover:opacity-100", navLinkClassName)}
                         >
                           {link.name}
                         </Pressable>
@@ -254,14 +252,14 @@ export function FooterContactCard({
           </div>
 
           {/* Bottom Section */}
-          <div className={cn("mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm text-muted-foreground md:flex-row md:items-center", bottomClassName)}>
+          <div className={cn("mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm opacity-80 md:flex-row md:items-center", bottomClassName)}>
             <div className={cn("flex flex-col gap-2 md:flex-row md:items-center md:gap-4", copyrightClassName)}>
               <FooterCopyright copyright={copyright} />
               <BrandAttribution
                 internalBrandSlug="open_site_ai"
                 optionIndex={7}
                 variant="span"
-                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+                linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
               />
             </div>
             {(locationLabel || location) && (

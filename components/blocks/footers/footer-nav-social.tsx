@@ -187,12 +187,12 @@ export function FooterNavSocial({
     return sections.map((section, sectionIdx) => (
       <div key={sectionIdx} className={cn(navSectionClassName)}>
         <h3 className={cn("mb-4 font-semibold", navTitleClassName)}>{section.title}</h3>
-        <ul className={cn("space-y-3 text-sm text-muted-foreground", navLinksClassName)}>
+        <ul className={cn("space-y-3 text-sm opacity-80", navLinksClassName)}>
           {section.links.map((link, linkIdx) => (
             <li key={linkIdx} className={cn(navLinkClassName)}>
               <Pressable
                 href={link.href}
-                className="hover:text-primary"
+                className="hover:opacity-100"
               >
                 {link.name}
               </Pressable>
@@ -212,7 +212,7 @@ export function FooterNavSocial({
           href={social.href}
           label={social.label}
           iconNameOverride={social.iconNameOverride}
-          className={cn("text-muted-foreground transition-colors hover:text-primary", socialLinkClassName)}
+          className={cn("opacity-80 transition-colors hover:opacity-100", socialLinkClassName)}
         />
       </li>
     ));
@@ -223,7 +223,7 @@ export function FooterNavSocial({
 
     return legalLinks.map((link, idx) => (
       <li key={idx} className={cn(legalLinkClassName)}>
-        <Pressable href={link.href} className="hover:text-primary">
+        <Pressable href={link.href} className="hover:opacity-100">
           {link.name}
         </Pressable>
       </li>
@@ -264,7 +264,7 @@ export function FooterNavSocial({
                     </h3>
                   )}
                   {newsletterDescription && (
-                    <p className={cn("mb-4 text-sm text-muted-foreground", newsletterDescriptionClassName)}>
+                    <p className={cn("mb-4 text-sm opacity-80", newsletterDescriptionClassName)}>
                       {newsletterDescription}
                     </p>
                   )}
@@ -272,7 +272,7 @@ export function FooterNavSocial({
                     <input
                       type="email"
                       placeholder={newsletterPlaceholder}
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                     {newsletterButtonText && (
                       <button
@@ -298,14 +298,14 @@ export function FooterNavSocial({
             </div>
           </div>
 
-          <div className={cn("mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm text-muted-foreground md:flex-row md:items-center", bottomClassName)}>
+          <div className={cn("mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm opacity-80 md:flex-row md:items-center", bottomClassName)}>
             <div className={cn("flex flex-col gap-2 md:flex-row md:items-center md:gap-4", copyrightClassName)}>
               <FooterCopyright copyright={copyright} />
               <BrandAttribution
                 internalBrandSlug="open_site_ai"
                 optionIndex={1}
                 variant="span"
-                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+                linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
               />
             </div>
             {legalLinksContent && (

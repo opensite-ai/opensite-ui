@@ -203,14 +203,14 @@ export function FooterSocialApps({
             )}
           </div>
           <div className="mt-24 border-t pt-8">
-            <div className="flex flex-col justify-between gap-4 text-center text-sm font-medium text-muted-foreground md:flex-row md:text-left">
+            <div className="flex flex-col justify-between gap-4 text-center text-sm font-medium opacity-80 md:flex-row md:text-left">
               <div className="flex flex-wrap items-center gap-4">
                 <FooterCopyright copyright={copyright} />
                 <BrandAttribution
                   internalBrandSlug="open_site_ai"
                   optionIndex={6}
                   variant="span"
-                  linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+                  linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
                 />
               </div>
             </div>

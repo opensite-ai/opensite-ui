@@ -2,13 +2,17 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureBentoImageGridItem {
   /**
@@ -191,163 +195,234 @@ export function FeatureBentoImageGrid({
   patternOpacity,
   patternClassName,
 }: FeatureBentoImageGridProps): React.JSX.Element {
-  const renderItemIcon = React.useCallback((item: FeatureBentoImageGridItem) => {
-    if (item.icon) return item.icon;
-    if (item.iconName) return <DynamicIcon name={item.iconName} size={24} />;
-    return null;
-  }, []);
+  const renderItemIcon = React.useCallback(
+    (item: FeatureBentoImageGridItem) => {
+      if (item.icon) return item.icon;
+      if (item.iconName) return <DynamicIcon name={item.iconName} size={24} />;
+      return null;
+    },
+    [],
+  );
 
-  const renderItemImage = React.useCallback((item: FeatureBentoImageGridItem, imageClassName?: string) => {
-    if (item.imageSlot) return item.imageSlot;
-    if (item.imageSrc) {
-      return (
-        <Img
-          src={item.imageSrc}
-          alt={item.imageAlt || (typeof item.title === "string" ? item.title : "Feature image")}
-          className={cn(imageClassName, item.imageClassName)}
-          loading="lazy"
-          optixFlowConfig={optixFlowConfig}
-        />
-      );
-    }
-    return null;
-  }, [optixFlowConfig]);
+  const renderItemImage = React.useCallback(
+    (item: FeatureBentoImageGridItem, imageClassName?: string) => {
+      if (item.imageSlot) return item.imageSlot;
+      if (item.imageSrc) {
+        return (
+          <Img
+            src={item.imageSrc}
+            alt={
+              item.imageAlt ||
+              (typeof item.title === "string" ? item.title : "Feature image")
+            }
+            className={cn(imageClassName, item.imageClassName)}
+            loading="lazy"
+            optixFlowConfig={optixFlowConfig}
+          />
+        );
+      }
+      return null;
+    },
+    [optixFlowConfig],
+  );
 
-  const renderLargeCard = React.useCallback((item: FeatureBentoImageGridItem) => {
-    const iconContent = renderItemIcon(item);
-    const hasIconBadgeContent = iconContent || item.iconBadge;
+  const renderLargeCard = React.useCallback(
+    (item: FeatureBentoImageGridItem) => {
+      const iconContent = renderItemIcon(item);
+      const hasIconBadgeContent = iconContent || item.iconBadge;
 
-    const cardContent = (
-      <>
-        {renderItemImage(item, "h-full max-h-[580px] w-full rounded-xl object-cover object-center")}
-        <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-20 rounded-xl bg-linear-to-t from-primary to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
-        <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
-          {hasIconBadgeContent && (
-            <span className={cn("ml-auto flex w-fit items-center gap-1 p-2.5 text-sm font-semibold text-background", item.iconBadgeClassName)}>
-              {iconContent}
-              {item.iconBadge}
-            </span>
+      const cardContent = (
+        <>
+          {renderItemImage(
+            item,
+            "h-full max-h-[580px] w-full rounded-xl object-cover object-center",
           )}
-          <div className="flex flex-col gap-5 text-background">
-            {item.title && (
-              typeof item.title === "string" ? (
-                <h4 className={cn("text-2xl font-semibold lg:text-3xl", item.titleClassName)}>
-                  {item.title}
-                </h4>
-              ) : (
-                <div className={cn("text-2xl font-semibold lg:text-3xl", item.titleClassName)}>
-                  {item.title}
-                </div>
-              )
+          <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 rounded-xl bg-linear-to-t from-black to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
+          <div className="absolute top-0 flex h-full w-full flex-col justify-between px-5 md:px-8 py-6 md:py-6">
+            {hasIconBadgeContent && (
+              <span
+                className={cn(
+                  "ml-auto flex w-fit items-center gap-2 p-0 text-sm font-semibold text-white",
+                  item.iconBadgeClassName,
+                )}
+              >
+                {iconContent}
+                {item.iconBadge}
+              </span>
             )}
-            {item.linkText && (
-              <p className={cn("flex items-center gap-1 font-medium", item.linkTextClassName)}>
-                {item.linkText}
-                <DynamicIcon name="lucide/chevron-right" size={16} />
-              </p>
-            )}
+            <div className="flex flex-col gap-2 md:gap-5 text-white">
+              {item.title &&
+                (typeof item.title === "string" ? (
+                  <h4
+                    className={cn(
+                      "text-2xl font-medium lg:text-3xl",
+                      item.titleClassName,
+                    )}
+                  >
+                    {item.title}
+                  </h4>
+                ) : (
+                  <div
+                    className={cn(
+                      "text-2xl font-medium lg:text-3xl",
+                      item.titleClassName,
+                    )}
+                  >
+                    {item.title}
+                  </div>
+                ))}
+              {item.linkText && (
+                <p
+                  className={cn(
+                    "flex items-center gap-1 font-bold text-sm uppercase",
+                    item.linkTextClassName,
+                  )}
+                >
+                  {item.linkText}
+                  <DynamicIcon name="lucide/chevron-right" size={16} />
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-      </>
-    );
+        </>
+      );
 
-    if (item.link) {
+      if (item.link) {
+        return (
+          <Pressable
+            href={item.link}
+            className={cn(
+              "group relative col-span-2 row-span-3 overflow-hidden rounded-xl",
+              largeCardClassName,
+              item.className,
+            )}
+          >
+            {cardContent}
+          </Pressable>
+        );
+      }
+
       return (
-        <Pressable
-          href={item.link}
-          className={cn("group relative col-span-2 row-span-3 overflow-hidden rounded-xl", largeCardClassName, item.className)}
+        <div
+          className={cn(
+            "group relative col-span-2 row-span-3 overflow-hidden rounded-xl",
+            largeCardClassName,
+            item.className,
+          )}
         >
           {cardContent}
-        </Pressable>
-      );
-    }
-
-    return (
-      <div className={cn("group relative col-span-2 row-span-3 overflow-hidden rounded-xl", largeCardClassName, item.className)}>
-        {cardContent}
-      </div>
-    );
-  }, [largeCardClassName, renderItemImage, renderItemIcon]);
-
-  const renderSmallCard = React.useCallback((item: FeatureBentoImageGridItem, index: number) => {
-    const iconContent = renderItemIcon(item);
-    const hasIconBadgeContent = iconContent || item.iconBadge;
-
-    const cardContent = (
-      <>
-        {renderItemImage(item, cn(
-          "h-full w-full rounded-xl object-cover object-center",
-          index === 0 ? "max-h-44" : "max-h-96"
-        ))}
-        <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 rounded-xl bg-linear-to-t from-primary to-transparent opacity-80 transition-transform duration-300 group-hover:translate-y-0"></div>
-        <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
-          {hasIconBadgeContent && (
-            <span className={cn("ml-auto flex w-fit items-center gap-1 p-2.5 text-sm font-semibold text-background", item.iconBadgeClassName)}>
-              {iconContent}
-              {item.iconBadge}
-            </span>
-          )}
-          <div className="flex flex-col gap-5 text-background">
-            {item.title && (
-              typeof item.title === "string" ? (
-                <h4 className={cn("text-2xl font-semibold lg:text-3xl", item.titleClassName)}>
-                  {item.title}
-                </h4>
-              ) : (
-                <div className={cn("text-2xl font-semibold lg:text-3xl", item.titleClassName)}>
-                  {item.title}
-                </div>
-              )
-            )}
-            {item.linkText && (
-              <p className={cn("flex items-center gap-1 font-medium", item.linkTextClassName)}>
-                {item.linkText}
-                <DynamicIcon name="lucide/chevron-right" size={16} />
-              </p>
-            )}
-          </div>
         </div>
-      </>
-    );
+      );
+    },
+    [largeCardClassName, renderItemImage, renderItemIcon],
+  );
 
-    if (item.link) {
+  const renderSmallCard = React.useCallback(
+    (item: FeatureBentoImageGridItem, index: number) => {
+      const iconContent = renderItemIcon(item);
+      const hasIconBadgeContent = iconContent || item.iconBadge;
+
+      const cardContent = (
+        <>
+          {renderItemImage(
+            item,
+            cn(
+              "h-full w-full rounded-xl object-cover object-center",
+              index === 0 ? "max-h-44" : "max-h-96",
+            ),
+          )}
+          <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 rounded-xl bg-linear-to-t from-black to-transparent opacity-80 transition-transform duration-300 group-hover:translate-y-0"></div>
+          <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
+            {hasIconBadgeContent && (
+              <span
+                className={cn(
+                  "ml-auto flex w-fit items-center gap-1 p-2.5 text-sm font-semibold ",
+                  item.iconBadgeClassName,
+                )}
+              >
+                {iconContent}
+                {item.iconBadge}
+              </span>
+            )}
+            <div className="flex flex-col gap-5 ">
+              {item.title &&
+                (typeof item.title === "string" ? (
+                  <h4
+                    className={cn(
+                      "text-2xl font-semibold lg:text-3xl",
+                      item.titleClassName,
+                    )}
+                  >
+                    {item.title}
+                  </h4>
+                ) : (
+                  <div
+                    className={cn(
+                      "text-2xl font-semibold lg:text-3xl",
+                      item.titleClassName,
+                    )}
+                  >
+                    {item.title}
+                  </div>
+                ))}
+              {item.linkText && (
+                <p
+                  className={cn(
+                    "flex items-center gap-1 font-medium",
+                    item.linkTextClassName,
+                  )}
+                >
+                  {item.linkText}
+                  <DynamicIcon name="lucide/chevron-right" size={16} />
+                </p>
+              )}
+            </div>
+          </div>
+        </>
+      );
+
+      if (item.link) {
+        return (
+          <Pressable
+            key={index}
+            href={item.link}
+            className={cn(
+              "group relative overflow-hidden rounded-xl",
+              index === 1 && "row-span-2",
+              smallCardClassName,
+              item.className,
+            )}
+          >
+            {cardContent}
+          </Pressable>
+        );
+      }
+
       return (
-        <Pressable
+        <div
           key={index}
-          href={item.link}
           className={cn(
             "group relative overflow-hidden rounded-xl",
             index === 1 && "row-span-2",
             smallCardClassName,
-            item.className
+            item.className,
           )}
         >
           {cardContent}
-        </Pressable>
+        </div>
       );
-    }
-
-    return (
-      <div
-        key={index}
-        className={cn(
-          "group relative overflow-hidden rounded-xl",
-          index === 1 && "row-span-2",
-          smallCardClassName,
-          item.className
-        )}
-      >
-        {cardContent}
-      </div>
-    );
-  }, [smallCardClassName, renderItemImage, renderItemIcon]);
+    },
+    [smallCardClassName, renderItemImage, renderItemIcon],
+  );
 
   const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
     const largeItem = items.find((item) => item.size === "large") || items[0];
-    const smallItems = items.filter((item) => item.size !== "large").slice(0, 2);
+    const smallItems = items
+      .filter((item) => item.size !== "large")
+      .slice(0, 2);
 
     return (
       <>
@@ -369,21 +444,42 @@ export function FeatureBentoImageGrid({
       className={className}
       containerClassName={containerClassName}
     >
-      {title && (
-        typeof title === "string" ? (
-          <h1 className={cn("mb-4 text-center text-4xl font-semibold", titleClassName)}>{title}</h1>
+      {title &&
+        (typeof title === "string" ? (
+          <h2
+            className={cn(
+              "mb-4 text-center text-4xl font-semibold text-balance",
+              titleClassName,
+            )}
+          >
+            {title}
+          </h2>
         ) : (
-          <div className={cn("mb-4 text-center text-4xl font-semibold", titleClassName)}>{title}</div>
-        )
-      )}
-      {description && (
-        typeof description === "string" ? (
-          <p className={cn("text-center", getTextColor(background, 'muted'), descriptionClassName)}>{description}</p>
+          <div
+            className={cn(
+              "mb-4 text-center text-4xl font-semibold text-balance",
+              titleClassName,
+            )}
+          >
+            {title}
+          </div>
+        ))}
+      {description &&
+        (typeof description === "string" ? (
+          <p className={cn("text-center text-balance", descriptionClassName)}>
+            {description}
+          </p>
         ) : (
-          <div className={cn("text-center", getTextColor(background, 'muted'), descriptionClassName)}>{description}</div>
-        )
-      )}
-      <div className={cn("grid grid-cols-1 gap-y-5 pt-14 xl:grid-cols-3 xl:grid-rows-2 xl:gap-x-5 xl:gap-y-0", gridClassName)}>
+          <div className={cn("text-center text-balance", descriptionClassName)}>
+            {description}
+          </div>
+        ))}
+      <div
+        className={cn(
+          "grid grid-cols-1 gap-y-5 pt-14 xl:grid-cols-3 xl:grid-rows-2 xl:gap-x-5 xl:gap-y-0",
+          gridClassName,
+        )}
+      >
         {itemsContent}
       </div>
     </Section>

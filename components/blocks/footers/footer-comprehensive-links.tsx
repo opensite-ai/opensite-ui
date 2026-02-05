@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -269,7 +265,7 @@ export function FooterComprehensiveLinks({
                         iconNameOverride={link.iconNameOverride}
                         iconSize={18}
                         className={cn(
-                          "flex size-fit p-2 items-center justify-center rounded-lg transition-shadow bg-muted border shadow-sm hover:shadow-lg",
+                          "flex size-fit p-2 items-center justify-center rounded-lg transition-shadow border shadow-sm hover:shadow-lg",
                         )}
                       />
                     ))}

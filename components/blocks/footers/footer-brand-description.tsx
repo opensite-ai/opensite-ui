@@ -106,6 +106,10 @@ export interface FooterBrandDescriptionProps {
   pattern?: PatternName;
   /** Pattern opacity (0-1) */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /** Optional Optix Flow configuration for @page-speed/img */
   optixFlowConfig?: OptixFlowConfig;
 }
@@ -143,10 +147,11 @@ export function FooterBrandDescription({
   legalLinksClassName,
   legalLinkClassName,
   background,
-  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
 }: FooterBrandDescriptionProps): React.JSX.Element {
   return (
     <Section
@@ -155,6 +160,7 @@ export function FooterBrandDescription({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
       <div className={cn(contentClassName)}>
         <div
@@ -187,7 +193,7 @@ export function FooterBrandDescription({
               {description && (
                 <p
                   className={cn(
-                    "max-w-[70%] text-sm text-muted-foreground",
+                    "max-w-[70%] text-sm opacity-80",
                     descriptionClassName,
                   )}
                 >
@@ -197,7 +203,7 @@ export function FooterBrandDescription({
               {socialLinks && socialLinks.length > 0 && (
                 <ul
                   className={cn(
-                    "flex items-center space-x-6 text-muted-foreground",
+                    "flex items-center space-x-6 opacity-80",
                     socialLinksClassName,
                   )}
                 >
@@ -208,7 +214,7 @@ export function FooterBrandDescription({
                         label={social.label}
                         iconNameOverride={social.iconNameOverride}
                         className={cn(
-                          "font-medium hover:text-primary",
+                          "font-medium hover:opacity-100",
                           socialLinkClassName,
                         )}
                       />
@@ -232,7 +238,7 @@ export function FooterBrandDescription({
                   </h3>
                   <ul
                     className={cn(
-                      "space-y-3 text-sm text-muted-foreground",
+                      "space-y-3 text-sm opacity-80",
                       navLinksClassName,
                     )}
                   >
@@ -240,7 +246,7 @@ export function FooterBrandDescription({
                       <li
                         key={linkIdx}
                         className={cn(
-                          "font-medium hover:text-primary",
+                          "font-medium hover:opacity-100",
                           navLinkClassName,
                         )}
                       >
@@ -255,7 +261,7 @@ export function FooterBrandDescription({
         </div>
         <div
           className={cn(
-            "mt-8 flex flex-col justify-between gap-4 border-t py-8 text-xs font-medium text-muted-foreground md:flex-row md:items-center md:text-left",
+            "mt-8 flex flex-col justify-between gap-4 border-t py-8 text-xs font-medium opacity-70 md:flex-row md:items-center md:text-left",
             bottomClassName,
           )}
         >
@@ -270,7 +276,7 @@ export function FooterBrandDescription({
               internalBrandSlug="open_site_ai"
               optionIndex={4}
               variant="span"
-              linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+              linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
             />
           </div>
           {legalLinks && legalLinks.length > 0 && (
@@ -283,7 +289,7 @@ export function FooterBrandDescription({
               {legalLinks.map((link, idx) => (
                 <li
                   key={idx}
-                  className={cn("hover:text-primary", legalLinkClassName)}
+                  className={cn("hover:opacity-100", legalLinkClassName)}
                 >
                   <Pressable href={link.href}>{link.name}</Pressable>
                 </li>

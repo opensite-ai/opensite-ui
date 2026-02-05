@@ -191,7 +191,7 @@ export function FooterBackgroundCard({
       className={cn("bg-cover bg-center bg-no-repeat", className)}
       style={sectionStyle}
     >
-      <div className={cn("mx-auto max-w-7xl rounded-lg bg-background p-8 shadow-lg md:p-12", cardClassName)}>
+      <div className={cn("mx-auto max-w-7xl rounded-lg p-8 shadow-lg md:p-12", cardClassName)}>
         <div className={cn("grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-12", gridClassName)}>
           {(profileImage || tagline || personalMessage || ctaText) && (
             <div className={cn("lg:col-span-1", profileSectionClassName)}>
@@ -211,14 +211,14 @@ export function FooterBackgroundCard({
                 </div>
               )}
               {personalMessage && (
-                <p className={cn("mb-6 text-sm leading-relaxed text-muted-foreground", messageClassName)}>
+                <p className={cn("mb-6 text-sm leading-relaxed opacity-80", messageClassName)}>
                   {personalMessage}
                 </p>
               )}
               {ctaText && (
                 <Pressable
                   href={ctaUrl || "#"}
-                  className={cn("inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2", ctaClassName)}
+                  className={cn("inline-flex items-center justify-center whitespace-nowrap rounded-md border text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:opacity-80 h-10 px-4 py-2", ctaClassName)}
                 >
                   {ctaText}
                 </Pressable>
@@ -228,7 +228,7 @@ export function FooterBackgroundCard({
 
           {menuItems && menuItems.length > 0 && menuItems.map((menu, idx) => (
             <div key={idx} className={cn(menuSectionClassName)}>
-              <h3 className={cn("mb-4 text-sm font-medium tracking-wider text-primary uppercase", menuTitleClassName)}>
+              <h3 className={cn("mb-4 text-sm font-medium tracking-wider uppercase", menuTitleClassName)}>
                 {menu.title}
               </h3>
               <ul className="space-y-3">
@@ -236,7 +236,7 @@ export function FooterBackgroundCard({
                   <li key={index}>
                     <Pressable
                       href={link.url}
-                      className={cn("border-b border-transparent text-muted-foreground transition-all duration-300 ease-in-out hover:border-primary hover:text-primary", menuLinkClassName)}
+                      className={cn("border-b border-transparent opacity-80 transition-all duration-300 ease-in-out hover:opacity-100", menuLinkClassName)}
                     >
                       {link.text}
                     </Pressable>
@@ -249,20 +249,20 @@ export function FooterBackgroundCard({
           {(contactTitle || contact) && (
             <div className={cn(contactSectionClassName)}>
               {contactTitle && (
-                <h3 className={cn("mb-4 text-sm font-medium tracking-wider text-primary uppercase", contactTitleClassName)}>
+                <h3 className={cn("mb-4 text-sm font-medium tracking-wider uppercase", contactTitleClassName)}>
                   {contactTitle}
                 </h3>
               )}
               {contact && (
                 <ul className="space-y-3">
                   {contact.phone && (
-                    <li className={cn("text-muted-foreground", contactItemClassName)}>{contact.phone}</li>
+                    <li className={cn("opacity-80", contactItemClassName)}>{contact.phone}</li>
                   )}
                   {contact.email && (
-                    <li className={cn("text-muted-foreground", contactItemClassName)}>{contact.email}</li>
+                    <li className={cn("opacity-80", contactItemClassName)}>{contact.email}</li>
                   )}
                   {(contact.location || contact.timezone) && (
-                    <li className={cn("text-muted-foreground", contactItemClassName)}>
+                    <li className={cn("opacity-80", contactItemClassName)}>
                       {contact.location}{contact.location && contact.timezone && " • "}{contact.timezone}
                     </li>
                   )}
@@ -272,14 +272,14 @@ export function FooterBackgroundCard({
           )}
         </div>
 
-        <div className={cn("mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row", bottomClassName)}>
-          <div className={cn("flex flex-col gap-2 text-sm text-muted-foreground md:flex-row md:items-center md:gap-4", copyrightClassName)}>
+        <div className={cn("mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row", bottomClassName)}>
+          <div className={cn("flex flex-col gap-2 text-sm opacity-80 md:flex-row md:items-center md:gap-4", copyrightClassName)}>
             <FooterCopyright copyright={copyright} />
             <BrandAttribution
               internalBrandSlug="open_site_ai"
               optionIndex={3}
               variant="span"
-              linkClassName="hover:text-primary"
+              linkClassName="hover:opacity-100"
             />
           </div>
           {bottomLinks && bottomLinks.length > 0 && (
@@ -288,7 +288,7 @@ export function FooterBackgroundCard({
                 <Pressable
                   key={idx}
                   href={link.url}
-                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                  className="text-sm opacity-80 transition-colors hover:opacity-100"
                 >
                   {link.text}
                 </Pressable>

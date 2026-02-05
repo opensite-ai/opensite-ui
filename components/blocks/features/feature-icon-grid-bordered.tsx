@@ -174,7 +174,7 @@ export function FeatureIconGridBordered({
         {(feature.icon || feature.iconName) && (
           <div
             className={cn(
-              "flex size-10 shrink-0 items-center justify-center rounded-lg md:size-12 text-accent-foreground bg-primary shadow-xl",
+              "flex size-10 shrink-0 items-center justify-center rounded-lg md:size-12 text-primary-foreground bg-primary shadow-xl",
               feature.iconClassName,
             )}
           >

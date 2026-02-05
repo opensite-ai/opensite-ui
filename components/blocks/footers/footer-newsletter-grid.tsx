@@ -103,11 +103,11 @@ export function FooterNewsletterGrid({
     return sections.map((section, sectionIdx) => (
       <div key={sectionIdx} className="col-span-2 md:col-span-1">
         <h3 className="mb-5 font-medium">{section.title}</h3>
-        <ul className="space-y-4 text-sm text-muted-foreground">
+        <ul className="space-y-4 text-sm opacity-80">
           {section.links.map((link, linkIdx) => (
             <li
               key={linkIdx}
-              className="font-medium hover:text-primary"
+              className="font-medium hover:opacity-100"
             >
               <Pressable href={link.href}>{link.name}</Pressable>
             </li>
@@ -127,7 +127,7 @@ export function FooterNewsletterGrid({
           label={social.label}
           iconNameOverride={social.iconNameOverride}
           iconSize={24}
-          className="font-medium duration-200 hover:scale-110 hover:text-muted-foreground"
+          className="font-medium duration-200 hover:scale-110 hover:opacity-70"
         />
       </li>
     ));
@@ -155,7 +155,7 @@ export function FooterNewsletterGrid({
                 </div>
               )}
               {description && (
-                <p className="text-muted-foreground">{description}</p>
+                <p className="opacity-80">{description}</p>
               )}
               {socialLinks && socialLinks.length > 0 && (
                 <ul className="flex items-center space-x-6">
@@ -174,7 +174,7 @@ export function FooterNewsletterGrid({
                     <input
                       type="email"
                       placeholder={newsletterPlaceholder}
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                     {newsletterButtonText && (
                       <button
@@ -187,12 +187,12 @@ export function FooterNewsletterGrid({
                   </div>
                 </div>
                 {(privacyText || privacyLinkText) && (
-                  <p className="mt-1 text-xs font-medium text-muted-foreground">
+                  <p className="mt-1 text-xs font-medium opacity-80">
                     {privacyText}
                     {privacyLinkText && privacyLinkUrl && (
                       <Pressable
                         href={privacyLinkUrl}
-                        className="ml-1 text-primary hover:underline"
+                        className="ml-1 hover:underline hover:opacity-100"
                       >
                         {privacyLinkText}
                       </Pressable>
@@ -202,14 +202,14 @@ export function FooterNewsletterGrid({
               </div>
             )}
           </div>
-          <div className="mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground lg:flex-row lg:items-center lg:text-left">
+          <div className="mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium opacity-80 lg:flex-row lg:items-center lg:text-left">
             <div className="flex flex-wrap items-center gap-4">
               <FooterCopyright copyright={copyright} />
               <BrandAttribution
                 internalBrandSlug="open_site_ai"
                 optionIndex={3}
                 variant="span"
-                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+                linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
               />
             </div>
           </div>

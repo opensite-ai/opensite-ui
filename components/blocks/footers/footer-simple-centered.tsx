@@ -158,7 +158,7 @@ export function FooterSimpleCentered({
               <Pressable
                 href={link.href}
                 className={cn(
-                  "text-sm text-muted-foreground transition-colors hover:text-primary",
+                  "text-sm opacity-80 transition-colors hover:opacity-100",
                   sitemapLinkClassName,
                 )}
               >
@@ -182,11 +182,11 @@ export function FooterSimpleCentered({
 
     return bottomLinks.map((link, idx) => (
       <React.Fragment key={link.href}>
-        {idx > 0 && <span className="text-muted-foreground">•</span>}
+        {idx > 0 && <span className="opacity-70">•</span>}
         <Pressable
           href={link.href}
           className={cn(
-            "text-sm text-muted-foreground transition-colors hover:text-primary",
+            "text-sm opacity-80 transition-colors hover:opacity-100",
             bottomLinkClassName,
           )}
         >
@@ -246,13 +246,13 @@ export function FooterSimpleCentered({
         </div>
         <div
           className={cn(
-            "flex flex-col items-baseline justify-between gap-8 border-t border-border pt-8 md:flex-row md:gap-16",
+            "flex flex-col items-baseline justify-between gap-8 border-t pt-8 md:flex-row md:gap-16",
             bottomBarClassName,
           )}
         >
           <div
             className={cn(
-              "flex flex-col gap-2 text-xs text-muted-foreground sm:flex-row sm:items-center sm:gap-4 sm:text-sm",
+              "flex flex-col gap-2 text-xs opacity-80 sm:flex-row sm:items-center sm:gap-4 sm:text-sm",
               copyrightClassName,
             )}
           >
@@ -261,7 +261,7 @@ export function FooterSimpleCentered({
               internalBrandSlug="open_site_ai"
               optionIndex={5}
               variant="span"
-              linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+              linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
             />
           </div>
           <div

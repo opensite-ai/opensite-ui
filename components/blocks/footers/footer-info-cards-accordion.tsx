@@ -387,7 +387,7 @@ export function FooterInfoCardsAccordion({
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={emailPlaceholder || "Email Address"}
-                    className="flex h-10 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="flex h-10 flex-1 rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   />
                   <Pressable
                     componentType="button"
@@ -400,7 +400,7 @@ export function FooterInfoCardsAccordion({
                 </form>
               )}
               {(termsText || termsLinkText || privacyLinkText) && (
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm opacity-80">
                   {termsText}{" "}
                   {termsLinkText && (
                     <Pressable
@@ -450,12 +450,12 @@ export function FooterInfoCardsAccordion({
                     {item.link ? (
                       <Pressable
                         href={item.link}
-                        className="break-all text-muted-foreground underline"
+                        className="break-all opacity-80 underline"
                       >
                         {item.text}
                       </Pressable>
                     ) : (
-                      <p className="text-muted-foreground">{item.text}</p>
+                      <p className="opacity-80">{item.text}</p>
                     )}
                   </div>
                 </div>
@@ -489,7 +489,7 @@ export function FooterInfoCardsAccordion({
                 {footerDetails?.description && (
                   <p
                     className={cn(
-                      "max-w-md text-sm leading-relaxed text-muted-foreground",
+                      "max-w-md text-sm leading-relaxed opacity-80",
                       brandDescriptionClassName,
                     )}
                   >
@@ -509,12 +509,12 @@ export function FooterInfoCardsAccordion({
                 {footerLinks.map((section) => (
                   <div key={section.id}>
                     <h3 className="mb-4 text-base font-bold">{section.title}</h3>
-                    <ul className="space-y-3 text-sm text-muted-foreground">
+                    <ul className="space-y-3 text-sm opacity-80">
                       {section.items.map((item, idx) => (
                         <li key={idx}>
                           <Pressable
                             href={item.link}
-                            className="hover:text-primary"
+                            className="hover:opacity-100"
                           >
                             {item.text}
                           </Pressable>
@@ -583,13 +583,13 @@ export function FooterInfoCardsAccordion({
             bottomClassName,
           )}
         >
-          <div className={cn("flex flex-wrap items-center gap-4 text-sm text-muted-foreground", copyrightClassName)}>
+          <div className={cn("flex flex-wrap items-center gap-4 text-sm opacity-80", copyrightClassName)}>
             <FooterCopyright copyright={copyright} />
             <BrandAttribution
               internalBrandSlug="open_site_ai"
               optionIndex={0}
               variant="span"
-              linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+              linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
             />
           </div>
           {submenuLinks && submenuLinks.length > 0 && (

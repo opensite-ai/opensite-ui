@@ -372,7 +372,7 @@ export function FooterSplitImageAccordion({
                       type="email"
                       placeholder={emailPlaceholder}
                       error={meta.touched && !!meta.error}
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       aria-label={emailPlaceholder}
                     />
                   )}
@@ -430,7 +430,7 @@ export function FooterSplitImageAccordion({
               {footerData.description && (
                 <p
                   className={cn(
-                    "text-muted-foreground",
+                    "opacity-80",
                     brandDescriptionClassName,
                   )}
                 >
@@ -450,12 +450,12 @@ export function FooterSplitImageAccordion({
               {footerLinks.map((section) => (
                 <div key={section.id}>
                   <h3 className="mb-4 text-base font-bold">{section.title}</h3>
-                  <ul className="space-y-3 text-sm text-muted-foreground">
+                  <ul className="space-y-3 text-sm opacity-80">
                     {section.items.map((item, idx) => (
                       <li key={idx}>
                         <Pressable
                           href={item.link}
-                          className="hover:text-primary"
+                          className="hover:opacity-100"
                         >
                           {item.text}
                         </Pressable>
@@ -497,7 +497,7 @@ export function FooterSplitImageAccordion({
           >
             <div
               className={cn(
-                "flex flex-wrap items-center gap-4 text-sm text-muted-foreground",
+                "flex flex-wrap items-center gap-4 text-sm opacity-80",
                 copyrightClassName,
               )}
             >
@@ -506,7 +506,7 @@ export function FooterSplitImageAccordion({
                 internalBrandSlug="open_site_ai"
                 optionIndex={8}
                 variant="span"
-                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+                linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
               />
             </div>
             {submenuLinks && submenuLinks.length > 0 && (

@@ -132,7 +132,7 @@ export function FooterLinksGrid({
               internalBrandSlug="open_site_ai"
               optionIndex={0}
               variant="span"
-              linkClassName="hover:text-primary"
+              linkClassName="hover:opacity-100"
             />
           </div>
           {bottomLinks && bottomLinks.length > 0 && (

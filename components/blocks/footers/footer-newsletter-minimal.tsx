@@ -224,7 +224,7 @@ export function FooterNewsletterMinimal({
       <li key={idx}>
         <Pressable
           href={item.href}
-          className={cn("tracking-tight hover:text-muted-foreground", navLinkClassName)}
+          className={cn("tracking-tight hover:opacity-70", navLinkClassName)}
         >
           {item.label}
         </Pressable>
@@ -242,7 +242,7 @@ export function FooterNewsletterMinimal({
           label={item.label}
           iconNameOverride={item.iconNameOverride}
           iconSize={14}
-          className={cn("group flex items-center gap-1 tracking-tight hover:text-muted-foreground", socialLinkClassName)}
+          className={cn("group flex items-center gap-1 tracking-tight hover:opacity-70", socialLinkClassName)}
         />
       </li>
     ));
@@ -255,7 +255,7 @@ export function FooterNewsletterMinimal({
       <li key={item.label}>
         <Pressable
           href={item.href}
-          className={cn("group flex items-center gap-1 tracking-tight hover:text-muted-foreground", footerLinkClassName)}
+          className={cn("group flex items-center gap-1 tracking-tight hover:opacity-70", footerLinkClassName)}
         >
           {item.label}
         </Pressable>
@@ -376,7 +376,7 @@ export function FooterNewsletterMinimal({
                 <Pressable
                   componentType="button"
                   type="submit"
-                  className={cn("p-2 hover:bg-muted/20", newsletterButtonClassName)}
+                  className={cn("p-2 hover:opacity-80", newsletterButtonClassName)}
                   asButton={false}
                   disabled={form.isSubmitting}
                 >
@@ -409,14 +409,14 @@ export function FooterNewsletterMinimal({
             </motion.div>
           </div>
         )}
-        <div className={cn("mt-8 text-center text-sm text-muted-foreground", copyrightClassName)}>
+        <div className={cn("mt-8 text-center text-sm opacity-80", copyrightClassName)}>
           <FooterCopyright copyright={copyright} />
           <BrandAttribution
             internalBrandSlug="open_site_ai"
             optionIndex={4}
             variant="div"
             containerClassName="mt-2"
-            linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+            linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
           />
         </div>
       </div>

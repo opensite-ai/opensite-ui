@@ -136,7 +136,7 @@ export function FooterCtaSocial({
         <div className={cn("mx-auto flex max-w-3xl flex-col items-center gap-2 text-center", containerClassName)}>
           <div className={cn("flex w-full items-center gap-4", preHeadingWrapperClassName)}>
             <div className={cn("h-px flex-1 bg-[linear-gradient(270deg,hsl(var(--primary,0_0%_100%))_0%,hsl(var(--secondary,0_0%_0%))_100%)] opacity-50", decorativeLineClassName)} />
-            <p className={cn("text-sm text-muted-foreground italic md:text-base", preHeadingClassName)}>
+            <p className={cn("text-sm opacity-70 italic md:text-base", preHeadingClassName)}>
               {preHeading}
             </p>
             <div className={cn("h-px flex-1 bg-[linear-gradient(270deg,hsl(var(--secondary,0_0%_0%))_0%,hsl(var(--primary,0_0%_100%))_100%)] opacity-50", decorativeLineClassName)} />
@@ -144,13 +144,13 @@ export function FooterCtaSocial({
 
           <h2 className={cn("py-6 text-5xl font-bold md:text-6xl", headingClassName)}>{heading}</h2>
 
-          <p className={cn("max-w-2xl text-base text-muted-foreground md:text-lg", descriptionClassName)}>
+          <p className={cn("max-w-2xl text-base opacity-80 md:text-lg", descriptionClassName)}>
             {description}
           </p>
 
           <Pressable
             href={buttonUrl}
-            className={cn("group relative mt-4 inline-flex items-center gap-2 rounded-lg border bg-background px-8 py-4 text-base font-medium transition-all hover:bg-muted", buttonClassName)}
+            className={cn("group relative mt-4 inline-flex items-center gap-2 rounded-lg border px-8 py-4 text-base font-medium transition-all hover:opacity-80", buttonClassName)}
           >
             <span>{buttonText}</span>
             <DynamicIcon
@@ -167,24 +167,24 @@ export function FooterCtaSocial({
           )}
 
           {email && (
-            <p className={cn("pt-2 text-sm text-muted-foreground md:text-base", emailClassName)}>
+            <p className={cn("pt-2 text-sm opacity-80 md:text-base", emailClassName)}>
               <Pressable
                 href={`mailto:${email}`}
-                className="transition-colors hover:text-primary"
+                className="transition-colors hover:opacity-100"
               >
                 {email}
               </Pressable>
             </p>
           )}
 
-          <div className={cn("mt-8 border-t pt-8 text-sm text-muted-foreground", bottomClassName)}>
+          <div className={cn("mt-8 border-t pt-8 text-sm opacity-70", bottomClassName)}>
             <div className={cn("flex flex-col gap-2", copyrightClassName)}>
               <FooterCopyright copyright={copyright} />
               <BrandAttribution
                 internalBrandSlug="open_site_ai"
                 optionIndex={9}
                 variant="span"
-                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+                linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
               />
             </div>
           </div>

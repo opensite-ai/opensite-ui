@@ -231,7 +231,7 @@ export function FooterAccordionSocial({
             )}
             <div className="space-y-4">
               <h3 className="text-2xl font-semibold">{newsletterTitle}</h3>
-              <p className="text-muted-foreground">{newsletterDescription}</p>
+              <p className="opacity-80">{newsletterDescription}</p>
             </div>
             <Form
               form={form}
@@ -246,7 +246,7 @@ export function FooterAccordionSocial({
                     type="email"
                     placeholder="Email Address"
                     error={meta.touched && !!meta.error}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     aria-label="Email Address"
                   />
                 )}
@@ -268,12 +268,12 @@ export function FooterAccordionSocial({
               {footerLinks.map((section) => (
                 <div key={section.id}>
                   <h3 className="mb-4 text-lg font-bold">{section.title}</h3>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
+                  <ul className="space-y-2 text-sm opacity-80">
                     {section.items.map((item, idx) => (
                       <li key={idx}>
                         <Pressable
                           href={item.href}
-                          className="hover:text-primary"
+                          className="hover:opacity-100"
                         >
                           {item.text}
                         </Pressable>
@@ -287,13 +287,13 @@ export function FooterAccordionSocial({
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-6 border-t pt-8">
-          <div className="flex flex-col gap-2 text-sm text-muted-foreground md:flex-row md:items-center md:gap-4">
+          <div className="flex flex-col gap-2 text-sm opacity-80 md:flex-row md:items-center md:gap-4">
             <FooterCopyright copyright={copyright} />
             <BrandAttribution
               internalBrandSlug="open_site_ai"
               optionIndex={1}
               variant="span"
-              linkClassName="hover:text-primary"
+              linkClassName="hover:opacity-100"
             />
           </div>
           {socialLinks && socialLinks.length > 0 && (

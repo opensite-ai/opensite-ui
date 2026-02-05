@@ -192,16 +192,16 @@ export function FooterCtaBanner({
       <div className={cn(contentClassName)}>
         <footer>
           {/* CTA Banner */}
-          <div className={cn("mb-16 rounded-lg bg-primary/10 p-8 text-center md:p-12", ctaBannerClassName)}>
+          <div className={cn("mb-16 rounded-lg border p-8 text-center md:p-12", ctaBannerClassName)}>
             <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", ctaHeadingClassName)}>
               {ctaHeading}
             </h2>
-            <p className={cn("mx-auto mb-6 max-w-2xl text-muted-foreground", ctaDescriptionClassName)}>
+            <p className={cn("mx-auto mb-6 max-w-2xl opacity-80", ctaDescriptionClassName)}>
               {ctaDescription}
             </p>
             <Pressable
               href={ctaButtonUrl}
-              className={cn("inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8", ctaButtonClassName)}
+              className={cn("inline-flex items-center justify-center whitespace-nowrap rounded-md border text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:opacity-80 h-11 px-8", ctaButtonClassName)}
             >
               {ctaButtonText}
             </Pressable>
@@ -225,7 +225,7 @@ export function FooterCtaBanner({
                   <input
                     type="email"
                     placeholder={newsletterPlaceholder}
-                    className={cn("flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", newsletterInputClassName)}
+                    className={cn("flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", newsletterInputClassName)}
                   />
                   <button
                     type="submit"
@@ -242,7 +242,7 @@ export function FooterCtaBanner({
                       href={social.href}
                       label={social.label}
                       iconNameOverride={social.iconNameOverride}
-                      className={cn("text-muted-foreground transition-colors hover:text-primary", socialLinkClassName)}
+                      className={cn("opacity-80 transition-colors hover:opacity-100", socialLinkClassName)}
                     />
                   </li>
                 ))}
@@ -253,12 +253,12 @@ export function FooterCtaBanner({
             {sections?.map((section, sectionIdx) => (
               <div key={sectionIdx} className={cn(navSectionClassName)}>
                 <h3 className={cn("mb-4 font-semibold", navTitleClassName)}>{section.title}</h3>
-                <ul className={cn("space-y-3 text-sm text-muted-foreground", navLinksClassName)}>
+                <ul className={cn("space-y-3 text-sm opacity-80", navLinksClassName)}>
                   {section.links.map((link, linkIdx) => (
                     <li key={linkIdx}>
                       <Pressable
                         href={link.href}
-                        className={cn("hover:text-primary", navLinkClassName)}
+                        className={cn("hover:opacity-100", navLinkClassName)}
                       >
                         {link.name}
                       </Pressable>
@@ -270,20 +270,20 @@ export function FooterCtaBanner({
           </div>
 
           {/* Bottom Section */}
-          <div className={cn("mt-16 flex flex-col justify-between gap-4 border-t border-border pt-8 text-sm text-muted-foreground md:flex-row md:items-center", bottomClassName)}>
+          <div className={cn("mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm opacity-80 md:flex-row md:items-center", bottomClassName)}>
             <div className={cn("flex flex-col gap-2 md:flex-row md:items-center md:gap-4", copyrightClassName)}>
               <FooterCopyright copyright={copyright} />
               <BrandAttribution
                 internalBrandSlug="open_site_ai"
                 optionIndex={8}
                 variant="span"
-                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+                linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
               />
             </div>
             <ul className={cn("flex gap-4", legalLinksClassName)}>
               {legalLinks?.map((link, idx) => (
                 <li key={idx}>
-                  <Pressable href={link.href} className={cn("hover:text-primary", legalLinkClassName)}>
+                  <Pressable href={link.href} className={cn("hover:opacity-100", legalLinkClassName)}>
                     {link.name}
                   </Pressable>
                 </li>

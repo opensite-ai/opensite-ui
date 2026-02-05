@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { FooterLogo } from "../../ui/footer-logo";
 import { FooterCopyright } from "../../ui/footer-copyright";
 import { BrandAttribution } from "../../ui/brand-attribution";
@@ -315,7 +311,7 @@ export function FooterSocialNewsletter({
           >
             <div
               className={cn(
-                "flex flex-col gap-2 text-muted-foreground md:flex-row md:items-center md:gap-4",
+                "flex flex-col gap-2 opacity-80 md:flex-row md:items-center md:gap-4",
                 copyrightClassName,
               )}
             >
@@ -324,7 +320,7 @@ export function FooterSocialNewsletter({
                 internalBrandSlug="open_site_ai"
                 optionIndex={7}
                 variant="span"
-                linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+                linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
               />
             </div>
           </div>

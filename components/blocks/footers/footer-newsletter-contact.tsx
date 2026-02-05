@@ -190,7 +190,7 @@ export function FooterNewsletterContact({
 
     return footerLinks.map((section, idx) => (
       <div key={idx}>
-        <h2 className="mb-6 text-sm font-medium uppercase leading-tight text-muted-foreground">
+        <h2 className="mb-6 text-sm font-medium uppercase leading-tight opacity-70">
           {section.title}
         </h2>
         <ul className="space-y-3">
@@ -335,7 +335,7 @@ export function FooterNewsletterContact({
                     type="email"
                     placeholder={newsletterPlaceholder}
                     error={meta.touched && !!meta.error}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     aria-label={newsletterPlaceholder || "Email address"}
                   />
                 )}
@@ -358,7 +358,7 @@ export function FooterNewsletterContact({
 
           {(contactDetailsContent || socialLinksContent) && (
             <div>
-              <h2 className="mb-6 text-sm font-medium uppercase leading-tight text-muted-foreground">
+              <h2 className="mb-6 text-sm font-medium uppercase leading-tight opacity-70">
                 Contact
               </h2>
               <div className="space-y-6">
@@ -392,13 +392,13 @@ export function FooterNewsletterContact({
           </div>
         )}
 
-        <div className="flex flex-wrap items-center justify-center gap-3 text-muted-foreground max-md:text-xs">
+        <div className="flex flex-wrap items-center justify-center gap-3 opacity-80 max-md:text-xs">
           <FooterCopyright copyright={copyright} />
           <BrandAttribution
             internalBrandSlug="open_site_ai"
             optionIndex={2}
             variant="span"
-            linkClassName="underline underline-offset-4 transition-colors hover:text-primary"
+            linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
           />
           <Pressable
             href="#top"
