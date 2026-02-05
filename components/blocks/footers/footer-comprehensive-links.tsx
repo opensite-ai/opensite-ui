@@ -7,10 +7,7 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { FooterCopyright } from "../../ui/footer-copyright";
 import { BrandAttribution } from "../../ui/brand-attribution";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
-import {
-  PatternBackground,
-  type PatternName,
-} from "../../ui/pattern-background";
+import { type PatternName } from "../../ui/pattern-background";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { FooterSocialLink } from "./types";
@@ -167,7 +164,7 @@ export function FooterComprehensiveLinks({
       )}
 
       <div className="grid grid-cols-1 gap-10 lg:gap-12">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-12">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-12">
           {linkColumns &&
             linkColumns.length > 0 &&
             linkColumns.map((column) => (
@@ -191,7 +188,7 @@ export function FooterComprehensiveLinks({
             ))}
 
           {contact || (socialLinks?.length ?? 0) > 0 ? (
-            <div className="flex flex-col gap-12 col-span-2 lg:col-span-12 w-full">
+            <div className="flex flex-col gap-12 col-span-1 sm:col-span-2 lg:col-span-4">
               {contact ? (
                 <div className="flex flex-col gap-4">
                   <h3 className="text-sm font-semibold">Contact</h3>

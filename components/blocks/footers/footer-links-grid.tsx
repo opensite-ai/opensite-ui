@@ -86,7 +86,6 @@ export function FooterLinksGrid({
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "py-6 md:py-32",
 }: FooterLinksGridProps): React.JSX.Element {
-
   return (
     <Section
       background={background}
@@ -97,7 +96,7 @@ export function FooterLinksGrid({
       containerClassName={containerClassName}
     >
       <footer>
-        <div className="grid grid-cols-2 gap-4 md:gap-8 md:grid-cols-6">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-6">
           {(logo || tagline) && (
             <div className="flex space-y-2 col-span-2 flex-col mb-6 md:mb-0 pr-0 md:pr-6">
               {logo && (
@@ -107,7 +106,7 @@ export function FooterLinksGrid({
                   optixFlowConfig={optixFlowConfig}
                 />
               )}
-              {tagline && <p className="mt-4 font-bold">{tagline}</p>}
+              {tagline && <p className="mt-4">{tagline}</p>}
             </div>
           )}
           {menuItems &&
@@ -136,7 +135,7 @@ export function FooterLinksGrid({
             />
           </div>
           {bottomLinks && bottomLinks.length > 0 && (
-            <ul className="flex gap-4">
+            <ul className="pt-4 md:pt-0 gap-4 grid md:flex grid-cols-2 items-center">
               {bottomLinks.map((link, linkIdx) => (
                 <li key={linkIdx} className="underline">
                   <Pressable href={link.url}>{link.text}</Pressable>

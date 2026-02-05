@@ -182,7 +182,6 @@ export function FooterSimpleCentered({
 
     return bottomLinks.map((link, idx) => (
       <React.Fragment key={link.href}>
-        {idx > 0 && <span className="opacity-70">•</span>}
         <Pressable
           href={link.href}
           className={cn(
@@ -266,7 +265,7 @@ export function FooterSimpleCentered({
           </div>
           <div
             className={cn(
-              "flex flex-col items-start gap-4 text-xs sm:text-sm md:flex-row lg:items-center",
+              "pt-4 md:pt-0 gap-4 grid md:flex grid-cols-2 items-center w-full md:w-fit",
               bottomLinksClassName,
             )}
           >

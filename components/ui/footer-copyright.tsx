@@ -43,8 +43,7 @@ export function FooterCopyright({
 
   return (
     <p className={cn(className)}>
-      © {currentYear} {copyright}. All Rights Reserved.
+      © {currentYear} {copyright} All Rights Reserved.
     </p>
   );
 }
-

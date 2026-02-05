@@ -111,6 +111,10 @@ export interface FooterBrandLinksContactProps {
   legalLinksClassName?: string;
   /** Section background variant */
   background?: SectionBackground;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Optional background pattern */
@@ -156,7 +160,8 @@ export function FooterBrandLinksContact({
   copyrightClassName,
   legalLinksClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -251,114 +256,108 @@ export function FooterBrandLinksContact({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn(contentClassName)}>
-        <div
-          className={cn(
-            "grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4",
-            gridClassName,
-          )}
-        >
-          <div className={cn(brandClassName)}>
+      {(logoSrc || tagline || description) && (
+        <div className="flex items-center flex-col mb-20">
+          <div className="max-w-full md:max-w-md flex flex-col gap-4 items-center text-center text-balance">
             {logoSrc && (
-              <Img
-                src={logoSrc}
-                alt={logoAlt}
-                className={cn("mb-4 h-10 w-auto", logoClassName)}
-                loading="eager"
-                optixFlowConfig={optixFlowConfig}
-              />
+              <Pressable href={"/"} className="flex w-fit">
+                <Img
+                  src={logoSrc}
+                  alt={logoAlt || "Logo"}
+                  className="h-auto md:h-24 w-40 max-w-lg md:w-auto object-contain"
+                  loading="lazy"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </Pressable>
             )}
-            {tagline && (
-              <p className={cn("mb-4 text-base", taglineClassName)}>
-                {tagline}
-              </p>
-            )}
+            {tagline && <p className="text-xl font-medium">{tagline}</p>}
             {description && (
-              <p
-                className={cn(
-                  "text-sm opacity-80",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-            )}
-          </div>
-
-          {linkGroupsContent}
-
-          <div className={cn(contactColumnClassName)}>
-            {contactTitle && (
-              <h3
-                className={cn("text-lg font-semibold", linkGroupTitleClassName)}
-              >
-                {contactTitle}
-              </h3>
-            )}
-            {contactItemsContent && (
-              <ul
-                className={cn(
-                  "mt-4 space-y-3 text-sm opacity-80",
-                  linkListClassName,
-                )}
-              >
-                {contactItemsContent}
-              </ul>
-            )}
-
-            {socialLinks && socialLinks.length > 0 && (
-              <div className={cn("mt-8", socialSectionClassName)}>
-                {socialTitle && (
-                  <h4 className="text-sm font-semibold uppercase tracking-[0.2em] opacity-70">
-                    {socialTitle}
-                  </h4>
-                )}
-                <div className="mt-3 flex gap-4">{socialLinksContent}</div>
-              </div>
+              <p className="text-sm leading-relaxed">{description}</p>
             )}
           </div>
         </div>
+      )}
 
-        <div
-          className={cn(
-            "mt-12 border-t pt-8 text-sm opacity-80",
-            bottomBarClassName,
+      <div
+        className={cn(
+          "grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4",
+          gridClassName,
+        )}
+      >
+        {linkGroupsContent}
+
+        <div className={cn(contactColumnClassName)}>
+          {contactTitle && (
+            <h3
+              className={cn("text-lg font-semibold", linkGroupTitleClassName)}
+            >
+              {contactTitle}
+            </h3>
           )}
-        >
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <div
+          {contactItemsContent && (
+            <ul
               className={cn(
-                "flex flex-wrap items-center gap-4",
-                copyrightClassName,
+                "mt-4 space-y-3 text-sm opacity-80",
+                linkListClassName,
               )}
             >
-              <FooterCopyright copyright={copyright} />
-              <BrandAttribution
-                internalBrandSlug="open_site_ai"
-                optionIndex={5}
-                variant="span"
-                linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
-              />
-            </div>
-            <div
-              className={cn(
-                "flex flex-wrap items-center gap-4",
-                legalLinksClassName,
+              {contactItemsContent}
+            </ul>
+          )}
+
+          {socialLinks && socialLinks.length > 0 && (
+            <div className={cn("mt-8", socialSectionClassName)}>
+              {socialTitle && (
+                <h4 className="text-sm font-semibold uppercase tracking-[0.2em] opacity-70">
+                  {socialTitle}
+                </h4>
               )}
-            >
-              {legalLinks &&
-                legalLinks.length > 0 &&
-                legalLinks.map((link, idx: number) => (
-                  <Pressable
-                    key={idx}
-                    href={link.href}
-                    className="underline transition-colors hover:opacity-100"
-                  >
-                    {link.label}
-                  </Pressable>
-                ))}
+              <div className="mt-3 flex gap-4">{socialLinksContent}</div>
             </div>
+          )}
+        </div>
+      </div>
+
+      <div
+        className={cn(
+          "mt-12 border-t pt-8 text-sm opacity-80",
+          bottomBarClassName,
+        )}
+      >
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+          <div
+            className={cn(
+              "flex flex-wrap items-center gap-4",
+              copyrightClassName,
+            )}
+          >
+            <FooterCopyright copyright={copyright} />
+            <BrandAttribution
+              internalBrandSlug="open_site_ai"
+              optionIndex={5}
+              variant="span"
+              linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
+            />
+          </div>
+          <div
+            className={cn(
+              "flex flex-wrap items-center gap-4",
+              legalLinksClassName,
+            )}
+          >
+            {legalLinks &&
+              legalLinks.length > 0 &&
+              legalLinks.map((link, idx: number) => (
+                <Pressable
+                  key={idx}
+                  href={link.href}
+                  className="underline transition-colors hover:opacity-100"
+                >
+                  {link.label}
+                </Pressable>
+              ))}
           </div>
         </div>
       </div>

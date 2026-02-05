@@ -261,7 +261,7 @@ export function FooterBrandDescription({
         </div>
         <div
           className={cn(
-            "mt-8 flex flex-col justify-between gap-4 border-t py-8 text-xs font-medium opacity-70 md:flex-row md:items-center md:text-left",
+            "mt-8 flex flex-col justify-between gap-8 md:gap-4 border-t py-8 text-xs font-medium opacity-70 md:flex-row md:items-center md:text-left",
             bottomClassName,
           )}
         >
@@ -282,7 +282,7 @@ export function FooterBrandDescription({
           {legalLinks && legalLinks.length > 0 && (
             <ul
               className={cn(
-                "order-1 flex flex-col gap-2 md:order-2 md:flex-row",
+                "order-1 md:order-2 pt-4 md:pt-0 gap-4 grid md:flex grid-cols-2 items-center",
                 legalLinksClassName,
               )}
             >
