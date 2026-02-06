@@ -215,7 +215,12 @@ export function FooterAnimatedSocial({
                 )}
               >
                 <motion.div variants={itemVariants}>
-                  <div className={cn("flex flex-row md:flex-col items-center gap-4 md:gap-6", socialLinksClassName)}>
+                  <div
+                    className={cn(
+                      "flex flex-row md:flex-col items-center gap-4 md:gap-6",
+                      socialLinksClassName,
+                    )}
+                  >
                     {socialLinksContent}
                   </div>
                 </motion.div>

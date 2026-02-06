@@ -96,6 +96,8 @@ export interface FooterNavSocialProps {
   navLinkClassName?: string;
   /** Additional CSS classes for the right column */
   rightColumnClassName?: string;
+  /** Config for submitting forms to server */
+  formConfig?: { token: string };
   /** Additional CSS classes for the newsletter section */
   newsletterClassName?: string;
   /** Additional CSS classes for the newsletter heading */
@@ -122,6 +124,10 @@ export interface FooterNavSocialProps {
   legalLinkClassName?: string;
   /** Section background variant */
   background?: SectionBackground;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Optional background pattern */
@@ -156,6 +162,7 @@ export function FooterNavSocial({
   gridClassName,
   leftColumnClassName,
   logoWrapperClassName,
+  formConfig,
   logoClassName,
   navGridClassName,
   navSectionClassName,
@@ -176,7 +183,8 @@ export function FooterNavSocial({
   legalLinksClassName,
   legalLinkClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-40",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -186,14 +194,13 @@ export function FooterNavSocial({
 
     return sections.map((section, sectionIdx) => (
       <div key={sectionIdx} className={cn(navSectionClassName)}>
-        <h3 className={cn("mb-4 font-semibold", navTitleClassName)}>{section.title}</h3>
+        <h3 className={cn("mb-4 font-semibold", navTitleClassName)}>
+          {section.title}
+        </h3>
         <ul className={cn("space-y-3 text-sm opacity-80", navLinksClassName)}>
           {section.links.map((link, linkIdx) => (
             <li key={linkIdx} className={cn(navLinkClassName)}>
-              <Pressable
-                href={link.href}
-                className="hover:opacity-100"
-              >
+              <Pressable href={link.href} className="hover:opacity-100">
                 {link.name}
               </Pressable>
             </li>
@@ -201,7 +208,13 @@ export function FooterNavSocial({
         </ul>
       </div>
     ));
-  }, [sections, navSectionClassName, navTitleClassName, navLinksClassName, navLinkClassName]);
+  }, [
+    sections,
+    navSectionClassName,
+    navTitleClassName,
+    navLinksClassName,
+    navLinkClassName,
+  ]);
 
   const socialLinksContent = useMemo(() => {
     if (!socialLinks || socialLinks.length === 0) return null;
@@ -212,7 +225,10 @@ export function FooterNavSocial({
           href={social.href}
           label={social.label}
           iconNameOverride={social.iconNameOverride}
-          className={cn("opacity-80 transition-colors hover:opacity-100", socialLinkClassName)}
+          className={cn(
+            "opacity-80 transition-colors hover:opacity-100",
+            socialLinkClassName,
+          )}
         />
       </li>
     ));
@@ -237,10 +253,16 @@ export function FooterNavSocial({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
       <div className={cn(contentClassName)}>
         <footer>
-          <div className={cn("grid gap-10 lg:grid-cols-2", gridClassName)}>
+          <div
+            className={cn(
+              "grid gap-12 md:gap-24 lg:grid-cols-2",
+              gridClassName,
+            )}
+          >
             <div className={cn(leftColumnClassName)}>
               {logo && (
                 <FooterLogo
@@ -250,25 +272,50 @@ export function FooterNavSocial({
                   optixFlowConfig={optixFlowConfig}
                 />
               )}
-              <div className={cn("grid gap-8 sm:grid-cols-3", navGridClassName)}>
+              <div
+                className={cn(
+                  "grid md:flex w-full gap-8 md:gap-6 lg:gap-12 md:flex-wrap md:justify-between grid-cols-2",
+                  navGridClassName,
+                )}
+              >
                 {sectionsContent}
               </div>
             </div>
 
-            <div className={cn("flex flex-col justify-between", rightColumnClassName)}>
-              {(newsletterHeading || newsletterDescription) && (
-                <div className={cn("mb-8", newsletterClassName)}>
+            <div
+              className={cn(
+                "flex flex-col justify-between mt-0 md:mt-16 space-y-8 md:space-y-12",
+                rightColumnClassName,
+              )}
+            >
+              {formConfig && (
+                <div className={cn("", newsletterClassName)}>
                   {newsletterHeading && (
-                    <h3 className={cn("mb-2 text-lg font-semibold", newsletterHeadingClassName)}>
+                    <h3
+                      className={cn(
+                        "mb-4 font-medium",
+                        newsletterHeadingClassName,
+                      )}
+                    >
                       {newsletterHeading}
                     </h3>
                   )}
                   {newsletterDescription && (
-                    <p className={cn("mb-4 text-sm opacity-80", newsletterDescriptionClassName)}>
+                    <p
+                      className={cn(
+                        "mb-4 text-sm opacity-80",
+                        newsletterDescriptionClassName,
+                      )}
+                    >
                       {newsletterDescription}
                     </p>
                   )}
-                  <div className={cn("flex max-w-md gap-2", newsletterFormClassName)}>
+                  <div
+                    className={cn(
+                      "flex max-w-md gap-2",
+                      newsletterFormClassName,
+                    )}
+                  >
                     <input
                       type="email"
                       placeholder={newsletterPlaceholder}
@@ -285,12 +332,20 @@ export function FooterNavSocial({
                   </div>
                 </div>
               )}
+
               {(socialTitle || socialLinksContent) && (
                 <div className={cn(socialSectionClassName)}>
                   {socialTitle && (
-                    <p className={cn("mb-4 font-medium", socialTitleClassName)}>{socialTitle}</p>
+                    <p className={cn("mb-4 font-medium", socialTitleClassName)}>
+                      {socialTitle}
+                    </p>
                   )}
-                  <ul className={cn("flex items-center gap-4", socialLinksClassName)}>
+                  <ul
+                    className={cn(
+                      "flex items-center gap-4",
+                      socialLinksClassName,
+                    )}
+                  >
                     {socialLinksContent}
                   </ul>
                 </div>
@@ -298,8 +353,18 @@ export function FooterNavSocial({
             </div>
           </div>
 
-          <div className={cn("mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm opacity-80 md:flex-row md:items-center", bottomClassName)}>
-            <div className={cn("flex flex-col gap-2 md:flex-row md:items-center md:gap-4", copyrightClassName)}>
+          <div
+            className={cn(
+              "mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm opacity-80 md:flex-row md:items-center",
+              bottomClassName,
+            )}
+          >
+            <div
+              className={cn(
+                "flex flex-col gap-2 md:flex-row md:items-center md:gap-4",
+                copyrightClassName,
+              )}
+            >
               <FooterCopyright copyright={copyright} />
               <BrandAttribution
                 internalBrandSlug="open_site_ai"
@@ -309,7 +374,12 @@ export function FooterNavSocial({
               />
             </div>
             {legalLinksContent && (
-              <ul className={cn("flex gap-4", legalLinksClassName)}>
+              <ul
+                className={cn(
+                  "pt-4 md:pt-0 gap-4 grid md:flex grid-cols-2 items-center w-full md:w-fit",
+                  legalLinksClassName,
+                )}
+              >
                 {legalLinksContent}
               </ul>
             )}

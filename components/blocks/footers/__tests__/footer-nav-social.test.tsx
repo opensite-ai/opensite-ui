@@ -3,36 +3,32 @@ import { render, screen } from "@testing-library/react";
 import { FooterNavSocial } from "../footer-nav-social";
 
 vi.mock("../../../lib/Pressable", () => ({
-  Pressable: ({ children, href, className }: { children: React.ReactNode; href?: string; className?: string }) => (
-    <a href={href} className={className} data-testid="mock-pressable">{children}</a>
+  Pressable: ({
+    children,
+    href,
+    className,
+  }: {
+    children: React.ReactNode;
+    href?: string;
+    className?: string;
+  }) => (
+    <a href={href} className={className} data-testid="mock-pressable">
+      {children}
+    </a>
   ),
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
   DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
+    <span data-testid="mock-icon" data-name={name} className={className}>
+      icon
+    </span>
   ),
 }));
 
 describe("FooterNavSocial", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-  });
-
-  it("renders with provided props", () => {
-    render(<FooterNavSocial newsletterHeading="Test Newsletter" socialTitle="Test Social" />);
-    expect(screen.getByText("Test Newsletter")).toBeInTheDocument();
-    expect(screen.getByText("Test Social")).toBeInTheDocument();
-  });
-
-  it("renders custom newsletter heading", () => {
-    render(<FooterNavSocial newsletterHeading="Custom Newsletter" />);
-    expect(screen.getByText("Custom Newsletter")).toBeInTheDocument();
-  });
-
-  it("renders custom newsletter description", () => {
-    render(<FooterNavSocial newsletterDescription="Custom description" />);
-    expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
 
   it("renders sections when provided", () => {

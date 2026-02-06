@@ -10,6 +10,7 @@ import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
 import type { PatternName } from "../../ui/pattern-background";
+import FooterLogo from "@/components/ui/footer-logo";
 
 /**
  * Logo configuration for the footer
@@ -87,6 +88,10 @@ export interface FooterBackgroundCardProps {
   copyright?: string;
   /** Bottom links */
   bottomLinks?: FooterBackgroundCardLink[];
+  /** Additional CSS classes for the logo wrapper */
+  logoWrapperClassName?: string;
+  /** Additional CSS classes for the logo image */
+  logoClassName?: string;
   /** Additional CSS classes for the section wrapper */
   className?: string;
   /** Additional CSS classes for the card wrapper */
@@ -123,6 +128,10 @@ export interface FooterBackgroundCardProps {
   bottomLinksClassName?: string;
   /** Section background variant */
   background?: SectionBackground;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Optional background pattern */
@@ -154,6 +163,8 @@ export function FooterBackgroundCard({
   menuItems,
   copyright,
   bottomLinks,
+  logoWrapperClassName,
+  logoClassName,
   className,
   cardClassName,
   gridClassName,
@@ -172,14 +183,18 @@ export function FooterBackgroundCard({
   copyrightClassName,
   bottomLinksClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: FooterBackgroundCardProps): React.JSX.Element {
   const sectionStyle = useMemo(
-    () => backgroundImage ? { backgroundImage: `url('${backgroundImage}')` } : undefined,
-    [backgroundImage]
+    () =>
+      backgroundImage
+        ? { backgroundImage: `url('${backgroundImage}')` }
+        : undefined,
+    [backgroundImage],
   );
 
   return (
@@ -190,35 +205,68 @@ export function FooterBackgroundCard({
       patternOpacity={patternOpacity}
       className={cn("bg-cover bg-center bg-no-repeat", className)}
       style={sectionStyle}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-7xl rounded-lg p-8 shadow-lg md:p-12", cardClassName)}>
-        <div className={cn("grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-12", gridClassName)}>
-          {(profileImage || tagline || personalMessage || ctaText) && (
+      <div
+        className={cn(
+          "mx-auto max-w-7xl rounded-2xl p-12 shadow-xl md:p-16 bg-card text-card-foreground",
+          cardClassName,
+        )}
+      >
+        <div
+          className={cn(
+            "grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-12",
+            gridClassName,
+          )}
+        >
+          {(profileImage || tagline || personalMessage || ctaText || logo) && (
             <div className={cn("lg:col-span-1", profileSectionClassName)}>
+              <FooterLogo
+                logo={logo}
+                logoClassName={cn("mb-12", logoWrapperClassName)}
+                logoImageClassName={logoClassName}
+                optixFlowConfig={optixFlowConfig}
+              />
+
               {(profileImage || tagline) && (
                 <div className="mb-4 flex items-center gap-4">
                   {profileImage && (
                     <Img
                       src={profileImage}
                       alt="Profile"
-                      className={cn("h-16 w-16 rounded-full object-cover", profileImageClassName)}
+                      className={cn(
+                        "h-16 w-16 rounded-full object-cover",
+                        profileImageClassName,
+                      )}
                       optixFlowConfig={optixFlowConfig}
                     />
                   )}
                   {tagline && (
-                    <h3 className={cn("text-2xl font-medium", taglineClassName)}>{tagline}</h3>
+                    <h3
+                      className={cn("text-2xl font-medium", taglineClassName)}
+                    >
+                      {tagline}
+                    </h3>
                   )}
                 </div>
               )}
               {personalMessage && (
-                <p className={cn("mb-6 text-sm leading-relaxed opacity-80", messageClassName)}>
+                <p
+                  className={cn(
+                    "mb-6 text-sm leading-relaxed opacity-80",
+                    messageClassName,
+                  )}
+                >
                   {personalMessage}
                 </p>
               )}
               {ctaText && (
                 <Pressable
                   href={ctaUrl || "#"}
-                  className={cn("inline-flex items-center justify-center whitespace-nowrap rounded-md border text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:opacity-80 h-10 px-4 py-2", ctaClassName)}
+                  className={cn(
+                    "inline-flex items-center justify-center whitespace-nowrap rounded-md border text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:opacity-80 h-10 px-4 py-2",
+                    ctaClassName,
+                  )}
                 >
                   {ctaText}
                 </Pressable>
@@ -226,44 +274,68 @@ export function FooterBackgroundCard({
             </div>
           )}
 
-          {menuItems && menuItems.length > 0 && menuItems.map((menu, idx) => (
-            <div key={idx} className={cn(menuSectionClassName)}>
-              <h3 className={cn("mb-4 text-sm font-medium tracking-wider uppercase", menuTitleClassName)}>
-                {menu.title}
-              </h3>
-              <ul className="space-y-3">
-                {menu.links.map((link, index) => (
-                  <li key={index}>
-                    <Pressable
-                      href={link.url}
-                      className={cn("border-b border-transparent opacity-80 transition-all duration-300 ease-in-out hover:opacity-100", menuLinkClassName)}
-                    >
-                      {link.text}
-                    </Pressable>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {menuItems &&
+            menuItems.length > 0 &&
+            menuItems.map((menu, idx) => (
+              <div
+                key={idx}
+                className={cn("pl-0 md:pl-8", menuSectionClassName)}
+              >
+                <h3
+                  className={cn(
+                    "mb-4 text-sm font-medium tracking-wider uppercase",
+                    menuTitleClassName,
+                  )}
+                >
+                  {menu.title}
+                </h3>
+                <ul className="space-y-3">
+                  {menu.links.map((link, index) => (
+                    <li key={index}>
+                      <Pressable
+                        href={link.url}
+                        className={cn(
+                          "border-b border-transparent opacity-80 transition-all duration-300 ease-in-out hover:opacity-100",
+                          menuLinkClassName,
+                        )}
+                      >
+                        {link.text}
+                      </Pressable>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
 
           {(contactTitle || contact) && (
-            <div className={cn(contactSectionClassName)}>
+            <div className={cn("pl-0 md:pl-8", contactSectionClassName)}>
               {contactTitle && (
-                <h3 className={cn("mb-4 text-sm font-medium tracking-wider uppercase", contactTitleClassName)}>
+                <h3
+                  className={cn(
+                    "mb-4 text-sm font-medium tracking-wider uppercase",
+                    contactTitleClassName,
+                  )}
+                >
                   {contactTitle}
                 </h3>
               )}
               {contact && (
                 <ul className="space-y-3">
                   {contact.phone && (
-                    <li className={cn("opacity-80", contactItemClassName)}>{contact.phone}</li>
+                    <li className={cn("opacity-80", contactItemClassName)}>
+                      {contact.phone}
+                    </li>
                   )}
                   {contact.email && (
-                    <li className={cn("opacity-80", contactItemClassName)}>{contact.email}</li>
+                    <li className={cn("opacity-80", contactItemClassName)}>
+                      {contact.email}
+                    </li>
                   )}
                   {(contact.location || contact.timezone) && (
                     <li className={cn("opacity-80", contactItemClassName)}>
-                      {contact.location}{contact.location && contact.timezone && " • "}{contact.timezone}
+                      {contact.location}
+                      {contact.location && contact.timezone && " • "}
+                      {contact.timezone}
                     </li>
                   )}
                 </ul>
@@ -272,8 +344,18 @@ export function FooterBackgroundCard({
           )}
         </div>
 
-        <div className={cn("mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row", bottomClassName)}>
-          <div className={cn("flex flex-col gap-2 text-sm opacity-80 md:flex-row md:items-center md:gap-4", copyrightClassName)}>
+        <div
+          className={cn(
+            "mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row",
+            bottomClassName,
+          )}
+        >
+          <div
+            className={cn(
+              "flex flex-col gap-2 text-sm opacity-80 md:flex-row md:items-center md:gap-4",
+              copyrightClassName,
+            )}
+          >
             <FooterCopyright copyright={copyright} />
             <BrandAttribution
               internalBrandSlug="open_site_ai"

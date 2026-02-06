@@ -2,13 +2,17 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getBorderColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface HeroCenteredScreenshotProps {
   /**
@@ -93,11 +97,11 @@ export function HeroCenteredScreenshot({
   imageSrc,
   imageAlt = "placeholder",
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -110,7 +114,14 @@ export function HeroCenteredScreenshot({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -137,45 +148,57 @@ export function HeroCenteredScreenshot({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("overflow-hidden border-b", getBorderColor(background, "muted"))}>
-        <div className={cn("container", containerClassName)}>
-          <div className="mx-auto flex max-w-5xl flex-col items-center">
-            <div className={cn("z-10 items-center text-center", contentClassName)}>
-              {heading && (
-                typeof heading === "string" ? (
-                  <h1 className={cn("mb-8 text-4xl font-semibold text-pretty lg:text-7xl", headingClassName)}>
-                    {heading}
-                  </h1>
-                ) : (
-                  <div className={headingClassName}>{heading}</div>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("mx-auto max-w-3xl lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
-                    {description}
-                  </p>
-                ) : (
-                  <div className={descriptionClassName}>{description}</div>
-                )
-              )}
-              {(actionsSlot || (actions && actions.length > 0)) && (
-                <div className={cn("mt-12 flex w-full flex-col justify-center gap-2 sm:flex-row", actionsClassName)}>
-                  {renderActions}
-                </div>
-              )}
-            </div>
+      <div className={cn("")}>
+        <div className="flex flex-col">
+          <div
+            className={cn("z-10 items-center text-center", contentClassName)}
+          >
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "mb-8 text-4xl font-bold text-balance lg:text-7xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h1>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mx-auto max-w-3xl lg:text-xl text-balance opacity-80",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              ))}
+            {(actionsSlot || (actions && actions.length > 0)) && (
+              <div className={cn("lazy", actionsClassName)}>
+                {renderActions}
+              </div>
+            )}
           </div>
-          {imageSrc && (
-            <Img
-              src={imageSrc}
-              alt={imageAlt}
-              className={cn("mx-auto mt-24 max-h-[700px] w-full max-w-7xl rounded-t-lg object-cover shadow-lg", imageClassName)}
-              optixFlowConfig={optixFlowConfig}
-            />
-          )}
         </div>
+        {imageSrc && (
+          <Img
+            src={imageSrc}
+            alt={imageAlt}
+            className={cn(
+              "mx-auto mt-24 max-h-[700px] w-full max-w-7xl rounded-2xl object-cover shadow-lg",
+              imageClassName,
+            )}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
       </div>
     </Section>
   );
