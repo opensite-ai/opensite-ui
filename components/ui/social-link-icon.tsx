@@ -25,7 +25,7 @@ const platformIconMap: Record<SocialPlatformName, string> = {
   yelp: "cib/yelp",
   spotify: "cib/spotify",
   apple: "cib/apple",
-  x: "line-md/twitter-x",
+  x: "line-md/twitter-x-alt",
   github: "cib/github",
   snapchat: "cib/snapchat",
   discord: "cib/discord",
@@ -44,6 +44,8 @@ const platformIconMap: Record<SocialPlatformName, string> = {
   npmjs: "simple-icons/npm",
   crates: "cib/rust",
   rubygems: "cib/rubygems",
+  behance: "cib/behance",
+  dribbble: "cib/dribbble",
   unknown: "icon-park-solid/circular-connection",
 };
 
