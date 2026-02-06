@@ -7,6 +7,7 @@ import { Pressable } from "../../../lib/Pressable";
 import { FooterCopyright } from "../../ui/footer-copyright";
 import { BrandAttribution } from "../../ui/brand-attribution";
 import { Section } from "../../ui/section";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
 import type { PatternName } from "../../ui/pattern-background";
@@ -51,13 +52,13 @@ export interface FooterBackgroundCardMenuItem {
  */
 export interface FooterBackgroundCardContact {
   /** Phone number */
-  phone: string;
+  phone?: string;
   /** Email address */
-  email: string;
+  email?: string;
   /** Location */
-  location: string;
+  location?: string;
   /** Timezone */
-  timezone: string;
+  timezone?: string;
 }
 
 /**
@@ -196,6 +197,10 @@ export function FooterBackgroundCard({
         : undefined,
     [backgroundImage],
   );
+  const contactLocationLabel =
+    contact?.location && contact?.timezone
+      ? `${contact.location} • ${contact.timezone}`
+      : contact?.location || contact?.timezone;
 
   return (
     <Section
@@ -271,6 +276,83 @@ export function FooterBackgroundCard({
                   {ctaText}
                 </Pressable>
               )}
+
+              {(contactTitle || contact) && (
+                <div className={cn("mt-8", contactSectionClassName)}>
+                  {contactTitle && (
+                    <h3
+                      className={cn(
+                        "mb-4 text-sm font-medium tracking-wider uppercase",
+                        contactTitleClassName,
+                      )}
+                    >
+                      {contactTitle}
+                    </h3>
+                  )}
+                  {contact && (
+                    <ul className="space-y-3">
+                      {contact.phone ? (
+                        <li className={cn("text-sm", contactItemClassName)}>
+                          <Pressable
+                            href={contact.phone}
+                            className="group flex items-center gap-2.5 opacity-80 transition-opacity hover:opacity-100"
+                          >
+                            <DynamicIcon name="lucide/phone" size={16} />
+                            <span className="underline underline-offset-2">
+                              {contact.phone}
+                            </span>
+                          </Pressable>
+                        </li>
+                      ) : null}
+                      {contact.email ? (
+                        <li className={cn("text-sm", contactItemClassName)}>
+                          <Pressable
+                            href={contact.email}
+                            className="group flex items-center gap-2.5 opacity-80 transition-opacity hover:opacity-100"
+                          >
+                            <DynamicIcon name="lucide/mail" size={16} />
+                            <span className="underline underline-offset-2">
+                              {contact.email}
+                            </span>
+                          </Pressable>
+                        </li>
+                      ) : null}
+                      {contactLocationLabel ? (
+                        <li className={cn("text-sm", contactItemClassName)}>
+                          {contact.location ? (
+                            <Pressable
+                              href={`https://maps.google.com/?q=${encodeURIComponent(
+                                contact.location,
+                              )}`}
+                              className="group flex items-start gap-2.5 opacity-80 transition-opacity hover:opacity-100"
+                            >
+                              <DynamicIcon
+                                name="lucide/map-pin"
+                                size={16}
+                                className="mt-0.5"
+                              />
+                              <span className="underline underline-offset-2">
+                                {contactLocationLabel}
+                              </span>
+                            </Pressable>
+                          ) : (
+                            <div className="flex items-start gap-2.5 opacity-80">
+                              <DynamicIcon
+                                name="lucide/map-pin"
+                                size={16}
+                                className="mt-0.5"
+                              />
+                              <span className="underline underline-offset-2">
+                                {contactLocationLabel}
+                              </span>
+                            </div>
+                          )}
+                        </li>
+                      ) : null}
+                    </ul>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
@@ -306,42 +388,6 @@ export function FooterBackgroundCard({
                 </ul>
               </div>
             ))}
-
-          {(contactTitle || contact) && (
-            <div className={cn("pl-0 md:pl-8", contactSectionClassName)}>
-              {contactTitle && (
-                <h3
-                  className={cn(
-                    "mb-4 text-sm font-medium tracking-wider uppercase",
-                    contactTitleClassName,
-                  )}
-                >
-                  {contactTitle}
-                </h3>
-              )}
-              {contact && (
-                <ul className="space-y-3">
-                  {contact.phone && (
-                    <li className={cn("opacity-80", contactItemClassName)}>
-                      {contact.phone}
-                    </li>
-                  )}
-                  {contact.email && (
-                    <li className={cn("opacity-80", contactItemClassName)}>
-                      {contact.email}
-                    </li>
-                  )}
-                  {(contact.location || contact.timezone) && (
-                    <li className={cn("opacity-80", contactItemClassName)}>
-                      {contact.location}
-                      {contact.location && contact.timezone && " • "}
-                      {contact.timezone}
-                    </li>
-                  )}
-                </ul>
-              )}
-            </div>
-          )}
         </div>
 
         <div

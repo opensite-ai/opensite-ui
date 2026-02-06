@@ -182,7 +182,12 @@ export function HeroCenteredScreenshot({
                 <div className={descriptionClassName}>{description}</div>
               ))}
             {(actionsSlot || (actions && actions.length > 0)) && (
-              <div className={cn("lazy", actionsClassName)}>
+              <div
+                className={cn(
+                  "flex items-center gap-4 mt-8 md:mt-12 justify-center",
+                  actionsClassName,
+                )}
+              >
                 {renderActions}
               </div>
             )}
@@ -193,7 +198,7 @@ export function HeroCenteredScreenshot({
             src={imageSrc}
             alt={imageAlt}
             className={cn(
-              "mx-auto mt-24 max-h-[700px] w-full max-w-7xl rounded-2xl object-cover shadow-lg",
+              "mx-auto mt-12 md:mt-24 max-h-[700px] w-full max-w-7xl rounded-2xl object-cover shadow-xl",
               imageClassName,
             )}
             optixFlowConfig={optixFlowConfig}

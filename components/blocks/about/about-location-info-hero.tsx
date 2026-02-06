@@ -179,8 +179,8 @@ export function AboutLocationInfoHero({
   pattern,
   patternOpacity,
   className,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-6 md:py-32",
+  containerClassName = "mx-auto w-full max-w-7xl relative z-10 px-8 sm:px-6 md:px-0",
+  spacing = "py-12 md:py-32",
   optixFlowConfig,
 }: AboutLocationInfoHeroProps): React.JSX.Element {
   const isSingleImage = (images?.length ?? 0) <= 1;
@@ -196,7 +196,7 @@ export function AboutLocationInfoHero({
             key={index}
             href={action.href}
             onClick={action.onClick}
-            className="h-auto text-sm font-semibold uppercase tracking-wider underline decoration-2 underline-offset-8 transition hover:no-underline"
+            className="h-auto text-sm font-semibold uppercase tracking-wider underline decoration-2 underline-offset-8 transition-opacity hover:opacity-70"
           >
             {action.label}
           </Pressable>
@@ -230,7 +230,7 @@ export function AboutLocationInfoHero({
                   <div key={itemIndex} className="flex flex-col">
                     {item.day &&
                       (typeof item.day === "string" ? (
-                        <span className="text-white text-sm font-semibold uppercase opacity-60 tracking-wide">
+                        <span className="text-sm font-bold uppercase opacity-60 tracking-tight">
                           {item.day}
                         </span>
                       ) : (
@@ -238,7 +238,7 @@ export function AboutLocationInfoHero({
                       ))}
                     {item.time &&
                       (typeof item.time === "string" ? (
-                        <span className="text-white text-sm font-semibold uppercase opacity-60">
+                        <span className="text-sm uppercase tracking-tight">
                           {item.time}
                         </span>
                       ) : (
@@ -323,7 +323,7 @@ export function AboutLocationInfoHero({
       <div className={cn(" relative")}>
         <div
           className={cn(
-            "flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12",
+            "flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-12",
             contentPosition === "right" && "lg:flex-row-reverse",
             mobileStackOrder === "images-first" && "flex-col-reverse",
           )}
@@ -346,7 +346,7 @@ export function AboutLocationInfoHero({
             {actionsContent}
 
             {address || phone ? (
-              <div className="space-y-4">
+              <div className="space-y-4 my-12 md:my-10">
                 {address ? (
                   <div
                     className={cn(
