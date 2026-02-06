@@ -7,7 +7,14 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, ImageItem, StatItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  StatItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -67,7 +74,7 @@ export interface HeroEventRegistrationProps {
   /**
    * Custom slot for location card (overrides location props)
    */
-  locationSlot?: React.ReactNode;  /**
+  locationSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -138,11 +145,11 @@ export function HeroEventRegistration({
   locationSublabel,
   locationSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -156,7 +163,9 @@ export function HeroEventRegistration({
 
     return (
       <Badge variant="outline" className="w-fit">
-        {badgeIcon && <DynamicIcon name={badgeIcon} size={14} className="mr-1" />}
+        {badgeIcon && (
+          <DynamicIcon name={badgeIcon} size={14} className="mr-1" />
+        )}
         {badgeText}
       </Badge>
     );
@@ -169,7 +178,14 @@ export function HeroEventRegistration({
     return (
       <div className={cn("flex flex-col gap-4 sm:flex-row", actionsClassName)}>
         {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -200,7 +216,9 @@ export function HeroEventRegistration({
         {stats.map((stat, index) => (
           <div key={index} className="text-center">
             <div className="text-2xl font-bold ">{stat.value}</div>
-            <div className={cn("text-sm", getTextColor(background, "muted"))}>{stat.label}</div>
+            <div className={cn("text-sm", getTextColor(background, "muted"))}>
+              {stat.label}
+            </div>
           </div>
         ))}
       </div>
@@ -214,7 +232,12 @@ export function HeroEventRegistration({
     return (
       <div className="absolute -bottom-4 -left-4 rounded-xl bg-background p-4 shadow-lg">
         <div className="flex items-center gap-3">
-          <div className={cn("flex h-12 w-12 items-center justify-center rounded-full", `${getAccentColor(background)}/10`)}>
+          <div
+            className={cn(
+              "flex h-12 w-12 items-center justify-center rounded-full",
+              `${getAccentColor(background)}/10`,
+            )}
+          >
             <DynamicIcon
               name="lucide/map-pin"
               size={24}
@@ -222,20 +245,22 @@ export function HeroEventRegistration({
             />
           </div>
           <div>
-            {locationLabel && (
-              typeof locationLabel === "string" ? (
+            {locationLabel &&
+              (typeof locationLabel === "string" ? (
                 <div className="font-semibold ">{locationLabel}</div>
               ) : (
                 locationLabel
-              )
-            )}
-            {locationSublabel && (
-              typeof locationSublabel === "string" ? (
-                <div className={cn("text-sm", getTextColor(background, "muted"))}>{locationSublabel}</div>
+              ))}
+            {locationSublabel &&
+              (typeof locationSublabel === "string" ? (
+                <div
+                  className={cn("text-sm", getTextColor(background, "muted"))}
+                >
+                  {locationSublabel}
+                </div>
               ) : (
                 locationSublabel
-              )
-            )}
+              ))}
           </div>
         </div>
       </div>
@@ -268,36 +293,49 @@ export function HeroEventRegistration({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className={cn("flex flex-col gap-8", contentClassName)}>
-            {renderBadge}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
-                  {heading}
-                </h1>
-              ) : (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
-                  {heading}
-                </h1>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
-                  {description}
-                </p>
-              ) : (
-                <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-            {renderActions}
-            {renderStats}
-          </div>
-          {renderImage}
+      <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+        <div className={cn("flex flex-col gap-8", contentClassName)}>
+          {renderBadge}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h1>
+            ) : (
+              <h1
+                className={cn(
+                  "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h1>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-lg",
+                  getTextColor(background, "muted"),
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            ))}
+          {renderActions}
+          {renderStats}
         </div>
+        {renderImage}
       </div>
     </Section>
   );
