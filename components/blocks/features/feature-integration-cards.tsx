@@ -264,7 +264,7 @@ export function FeatureIntegrationCards({
       );
 
       const cardClasses = cn(
-        "flex flex-col gap-5 rounded-xl border p-6 transition-all duration-300 bg-card card-text-foreground",
+        "flex flex-col gap-5 rounded-xl border p-6 transition-all duration-300 bg-card text-card-foreground",
         "hover:shadow-lg",
         cardClassName,
         integration.className,
