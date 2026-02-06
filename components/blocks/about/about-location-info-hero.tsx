@@ -323,7 +323,7 @@ export function AboutLocationInfoHero({
       <div className={cn(" relative")}>
         <div
           className={cn(
-            "flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-12",
+            "flex flex-col gap-12 lg:flex-row lg:items-center",
             contentPosition === "right" && "lg:flex-row-reverse",
             mobileStackOrder === "images-first" && "flex-col-reverse",
           )}

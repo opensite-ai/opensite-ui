@@ -341,17 +341,22 @@ export function FooterInfoCardsAccordion({
       patternOpacity={patternOpacity}
       className={cn(className)}
     >
-      <div className={cn("space-y-10", contentClassName)}>
+      <div className={cn("space-y-12 lg:space-y-14", contentClassName)}>
         {footerDetails?.image?.src &&
           (newsletterTitle || newsletterDescription || subscribeText) && (
             <div
               className={cn(
-                "grid items-center gap-x-20 gap-y-5 lg:grid-cols-2",
+                "grid gap-6 rounded-3xl border bg-card/40 p-4 sm:p-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center lg:gap-10 lg:p-8",
                 newsletterGridClassName,
               )}
             >
-              <div className={cn(newsletterImageClassName)}>
-                <AspectRatio ratio={2} className="overflow-hidden rounded-2xl">
+              <div
+                className={cn(
+                  "overflow-hidden rounded-2xl bg-muted/30",
+                  newsletterImageClassName,
+                )}
+              >
+                <AspectRatio ratio={3 / 2}>
                   <Img
                     src={footerDetails.image.src}
                     alt={footerDetails.image.alt || ""}
@@ -360,13 +365,13 @@ export function FooterInfoCardsAccordion({
                   />
                 </AspectRatio>
               </div>
-              <div className={cn("space-y-5", newsletterContentClassName)}>
+              <div className={cn("space-y-6", newsletterContentClassName)}>
                 {(newsletterTitle || newsletterDescription) && (
-                  <div className="space-y-3">
+                  <div className="space-y-3 text-pretty">
                     {newsletterTitle && (
                       <h3
                         className={cn(
-                          "text-4xl font-semibold leading-snug",
+                          "text-2xl font-semibold leading-tight tracking-tight sm:text-3xl lg:text-4xl",
                           newsletterTitleClassName,
                         )}
                       >
@@ -376,7 +381,7 @@ export function FooterInfoCardsAccordion({
                     {newsletterDescription && (
                       <p
                         className={cn(
-                          "leading-normal",
+                          "text-sm leading-relaxed text-muted-foreground sm:text-base",
                           newsletterDescriptionClassName,
                         )}
                       >
@@ -388,7 +393,7 @@ export function FooterInfoCardsAccordion({
                 {subscribeText && (
                   <form
                     className={cn(
-                      "flex items-start gap-4",
+                      "flex flex-col gap-3 sm:flex-row sm:items-center",
                       newsletterFormClassName,
                     )}
                     onSubmit={handleSubmit}
@@ -398,25 +403,26 @@ export function FooterInfoCardsAccordion({
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder={emailPlaceholder || "Email Address"}
-                      className="flex h-10 flex-1 rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="h-11 w-full rounded-full border border-input bg-background px-4 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:flex-1"
                     />
                     <Pressable
                       componentType="button"
                       type="submit"
                       variant="default"
                       asButton
+                      className="h-11 w-full rounded-full px-6 text-sm font-semibold sm:w-auto"
                     >
                       {subscribeText}
                     </Pressable>
                   </form>
                 )}
                 {(termsText || termsLinkText || privacyLinkText) && (
-                  <p className="text-sm opacity-80">
+                  <p className="text-xs leading-relaxed text-muted-foreground sm:text-sm">
                     {termsText}{" "}
                     {termsLinkText && (
                       <Pressable
                         href={termsLinkUrl || "#"}
-                        className="underline underline-offset-2"
+                        className="underline underline-offset-4 transition-colors hover:text-foreground"
                       >
                         {termsLinkText}
                       </Pressable>
@@ -425,7 +431,7 @@ export function FooterInfoCardsAccordion({
                     {privacyLinkText && (
                       <Pressable
                         href={privacyLinkUrl || "#"}
-                        className="underline underline-offset-2"
+                        className="underline underline-offset-4 transition-colors hover:text-foreground"
                       >
                         {privacyLinkText}
                       </Pressable>
@@ -440,35 +446,38 @@ export function FooterInfoCardsAccordion({
         {infoItems && infoItems.length > 0 && (
           <div
             className={cn(
-              "grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4",
+              "grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4",
               infoCardsGridClassName,
             )}
           >
             {infoItems.map((item, idx) => (
               <Card
                 key={idx}
-                className={cn("rounded-lg px-5 py-6", infoCardClassName)}
+                className={cn(
+                  "group rounded-2xl border-border/60 bg-card/40 px-5 py-5 shadow-none transition-all hover:border-border/80 hover:bg-card/60 hover:shadow-sm",
+                  infoCardClassName,
+                )}
               >
-                <CardContent className="flex items-start gap-3 p-0">
-                  <div className="shrink-0 basis-7 flex items-center justify-center mt-0.5">
-                    <DynamicIcon name={item.icon} size={24} />
+                <CardContent className="flex items-start gap-4 p-0">
+                  <div className="mt-0.5 flex size-10 items-center justify-center rounded-full border bg-background/80 text-muted-foreground transition-colors group-hover:text-foreground">
+                    <DynamicIcon name={item.icon} size={18} />
                   </div>
                   <div className="flex-1 space-y-1">
-                    <div className="text-sm leading-relaxed">
-                      <CardTitle className="text-base font-semibold leading-relaxed">
-                        {item.title}
-                      </CardTitle>
-                      {item.link ? (
-                        <Pressable
-                          href={item.link}
-                          className="break-word opacity-80 underline"
-                        >
-                          {item.text}
-                        </Pressable>
-                      ) : (
-                        <p className="opacity-80">{item.text}</p>
-                      )}
-                    </div>
+                    <CardTitle className="text-sm font-semibold">
+                      {item.title}
+                    </CardTitle>
+                    {item.link ? (
+                      <Pressable
+                        href={item.link}
+                        className="text-sm text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+                      >
+                        {item.text}
+                      </Pressable>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">
+                        {item.text}
+                      </p>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -479,14 +488,14 @@ export function FooterInfoCardsAccordion({
         {(footerDetails?.logo || footerDetails?.description || footerLinks) && (
           <div
             className={cn(
-              "grid grid-cols-1 gap-8 lg:grid-cols-5 xl:grid-cols-2",
+              "grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)]",
               brandGridClassName,
             )}
           >
             {(footerDetails?.logo || footerDetails?.description) && (
               <div
                 className={cn(
-                  "space-y-5 lg:col-span-2 xl:col-span-1",
+                  "space-y-5",
                   brandColumnClassName,
                 )}
               >
@@ -497,7 +506,7 @@ export function FooterInfoCardsAccordion({
                       url: footerDetails.logoUrl || "/",
                     }}
                     logoClassName={cn(
-                      "inline-block w-full max-w-80",
+                      "inline-block w-full max-w-64",
                       logoClassName,
                     )}
                     optixFlowConfig={optixFlowConfig}
@@ -506,7 +515,7 @@ export function FooterInfoCardsAccordion({
                 {footerDetails?.description && (
                   <p
                     className={cn(
-                      "max-w-md text-sm leading-relaxed opacity-80",
+                      "max-w-md text-sm leading-relaxed text-muted-foreground",
                       brandDescriptionClassName,
                     )}
                   >
@@ -518,22 +527,22 @@ export function FooterInfoCardsAccordion({
             {footerLinks && footerLinks.length > 0 && (
               <div
                 className={cn(
-                  "lg:col-span-3 xl:col-span-1",
+                  "space-y-6",
                   accordionColumnClassName,
                 )}
               >
                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                   {footerLinks.map((section) => (
                     <div key={section.id}>
-                      <h3 className="mb-4 text-base font-bold">
+                      <h3 className="mb-4 text-sm font-semibold tracking-wide">
                         {section.title}
                       </h3>
-                      <ul className="space-y-3 text-sm opacity-80">
+                      <ul className="space-y-2.5 text-sm text-muted-foreground">
                         {section.items.map((item, idx) => (
                           <li key={idx}>
                             <Pressable
                               href={item.link}
-                              className="hover:opacity-100"
+                              className="transition-colors hover:text-foreground"
                             >
                               {item.text}
                             </Pressable>
@@ -552,11 +561,11 @@ export function FooterInfoCardsAccordion({
           (socialLinks && socialLinks.length > 0)) && (
           <div
             className={cn(
-              "flex flex-wrap justify-between gap-6",
+              "flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between",
               paymentSocialRowClassName,
             )}
           >
-            <div className="space-y-5">
+            <div className="space-y-4">
               {paymentPlatforms && paymentPlatforms.length > 0 && (
                 <ul
                   className={cn(
@@ -566,24 +575,25 @@ export function FooterInfoCardsAccordion({
                 >
                   {paymentPlatforms.map((platform, idx) => (
                     <li key={idx}>
-                      <PaymentPlatformIcon platform={platform} size={28} />
+                      <PaymentPlatformIcon platform={platform} size={26} />
                     </li>
                   ))}
                 </ul>
               )}
             </div>
             {socialLinks && socialLinks.length > 0 && (
-              <ul className={cn("flex flex-wrap gap-4", socialLinksClassName)}>
+              <ul className={cn("flex flex-wrap gap-3", socialLinksClassName)}>
                 {socialLinks.map((social, idx) => (
                   <li key={idx}>
                     <SocialLinkIcon
                       href={social.href}
                       label={social.label}
                       iconNameOverride={social.iconNameOverride}
-                      variant="default"
+                      variant="outline"
                       size="icon"
                       asButton
-                      className="rounded-full"
+                      className="rounded-full border shadow-sm transition-shadow hover:shadow-md"
+                      iconSize={18}
                     />
                   </li>
                 ))}
@@ -594,13 +604,13 @@ export function FooterInfoCardsAccordion({
 
         <div
           className={cn(
-            "flex flex-wrap justify-between gap-6 border-t pt-8",
+            "flex flex-col gap-6 border-t pt-8 md:flex-row md:items-center md:justify-between",
             bottomClassName,
           )}
         >
           <div
             className={cn(
-              "flex flex-wrap items-center gap-4 text-sm opacity-80",
+              "flex flex-wrap items-center gap-4 text-sm text-muted-foreground",
               copyrightClassName,
             )}
           >

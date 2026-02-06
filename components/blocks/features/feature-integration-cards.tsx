@@ -184,21 +184,23 @@ export function FeatureIntegrationCards({
       if (!integration.icon) return null;
 
       return (
-        <Img
-          src={integration.icon}
-          alt={
-            integration.iconAlt ||
-            (typeof integration.title === "string"
-              ? integration.title
-              : "Integration icon")
-          }
-          className={cn(
-            "min-h-12 h-auto w-auto object-contain",
-            integration.iconClassName,
-          )}
-          loading="lazy"
-          optixFlowConfig={optixFlowConfig}
-        />
+        <div className="flex h-12 w-40 max-w-full shrink-0 items-center justify-start">
+          <Img
+            src={integration.icon}
+            alt={
+              integration.iconAlt ||
+              (typeof integration.title === "string"
+                ? integration.title
+                : "Integration icon")
+            }
+            className={cn(
+              "h-full w-full object-contain",
+              integration.iconClassName,
+            )}
+            loading="lazy"
+            optixFlowConfig={optixFlowConfig}
+          />
+        </div>
       );
     },
     [optixFlowConfig],
