@@ -111,6 +111,7 @@ export interface FooterNewsletterMinimalProps {
   patternOpacity?: number;
   /**
    * Optional form submission configuration.
+   * Requires `token` to render the newsletter UI.
    *
    * **Universal Usage**: Works with ANY REST API endpoint. Simply provide an `endpoint` URL
    * and the form will submit to it in JSON format.
@@ -132,7 +133,7 @@ export interface FooterNewsletterMinimalProps {
    *
    * See `FORMS_INTEGRATION_GUIDE.md` for complete examples with Next.js, React, and more.
    */
-  formConfig?: PageSpeedFormConfig;
+  formConfig?: PageSpeedFormConfig & { token: string };
   /**
    * Optional custom submission handler for maximum flexibility.
    *
@@ -352,39 +353,41 @@ export function FooterNewsletterMinimal({
           </div>
         </div>
         <div className={cn("mt-20 flex flex-col justify-between gap-15 lg:flex-row", newsletterSectionClassName)}>
-          <div className="flex w-full max-w-md flex-col gap-10">
-            <div className="space-y-1 text-sm font-light tracking-tight lg:text-base">
-              {newsletterLabel && <p>{newsletterLabel}</p>}
-              <Form
-                form={form}
-                action={formConfig?.endpoint}
-                method={formMethod}
-                className={cn("flex w-full items-end border-b border-b-foreground/10", newsletterFormClassName)}
-              >
-                <Field name="email" className="flex-1">
-                  {({ field, meta }) => (
-                    <TextInput
-                      {...field}
-                      type="email"
-                      placeholder={newsletterPlaceholder}
-                      error={meta.touched && !!meta.error}
-                      className={cn("mt-10 h-auto w-full rounded-none border-0 bg-transparent p-0 uppercase shadow-none placeholder:text-foreground/20 focus:outline-none focus:ring-0 lg:text-base", newsletterInputClassName)}
-                      aria-label={newsletterPlaceholder || "Email address"}
-                    />
-                  )}
-                </Field>
-                <Pressable
-                  componentType="button"
-                  type="submit"
-                  className={cn("p-2 hover:opacity-80", newsletterButtonClassName)}
-                  asButton={false}
-                  disabled={form.isSubmitting}
+          {formConfig?.token && (
+            <div className="flex w-full max-w-md flex-col gap-10">
+              <div className="space-y-1 text-sm font-light tracking-tight lg:text-base">
+                {newsletterLabel && <p>{newsletterLabel}</p>}
+                <Form
+                  form={form}
+                  action={formConfig?.endpoint}
+                  method={formMethod}
+                  className={cn("flex w-full items-end border-b border-b-foreground/10", newsletterFormClassName)}
                 >
-                  <DynamicIcon name="lucide/arrow-right" size={20} />
-                </Pressable>
-              </Form>
+                  <Field name="email" className="flex-1">
+                    {({ field, meta }) => (
+                      <TextInput
+                        {...field}
+                        type="email"
+                        placeholder={newsletterPlaceholder}
+                        error={meta.touched && !!meta.error}
+                        className={cn("mt-10 h-auto w-full rounded-none border-0 bg-transparent p-0 uppercase shadow-none placeholder:text-foreground/20 focus:outline-none focus:ring-0 lg:text-base", newsletterInputClassName)}
+                        aria-label={newsletterPlaceholder || "Email address"}
+                      />
+                    )}
+                  </Field>
+                  <Pressable
+                    componentType="button"
+                    type="submit"
+                    className={cn("p-2 hover:opacity-80", newsletterButtonClassName)}
+                    asButton={false}
+                    disabled={form.isSubmitting}
+                  >
+                    <DynamicIcon name="lucide/arrow-right" size={20} />
+                  </Pressable>
+                </Form>
+              </div>
             </div>
-          </div>
+          )}
           <div className={cn("grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base", bottomGridClassName)}>
             {location && (
               <div className={cn("w-32", locationClassName)}>{location}</div>

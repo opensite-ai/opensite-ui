@@ -126,8 +126,9 @@ export interface FooterNewsletterContactProps {
   };
   /**
    * Optional form submission configuration for newsletter signup.
+   * Requires `token` to render the newsletter UI.
    */
-  formConfig?: PageSpeedFormConfig;
+  formConfig?: PageSpeedFormConfig & { token: string };
   /**
    * Optional custom submission handler for newsletter signup.
    */
@@ -312,47 +313,52 @@ export function FooterNewsletterContact({
     >
       <div className="space-y-10">
         <div className="grid grid-cols-1 gap-x-16 gap-y-8 md:grid-cols-2 xl:grid-cols-4">
-          {(newsletterTitle || newsletterDescription || newsletterButtonText) && (
-            <div className="space-y-6">
-              {newsletterTitle && (
-                <h3 className="text-3xl font-medium font-serif leading-none">
-                  {newsletterTitle}
-                </h3>
-              )}
-              {newsletterDescription && (
-                <p className="font-light leading-normal">{newsletterDescription}</p>
-              )}
-            <Form
-              form={form}
-              action={formConfig?.endpoint}
-              method={formMethod}
-              className="space-y-4"
-            >
-              <Field name="email">
-                {({ field, meta }) => (
-                  <TextInput
-                    {...field}
-                    type="email"
-                    placeholder={newsletterPlaceholder}
-                    error={meta.touched && !!meta.error}
-                    className="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    aria-label={newsletterPlaceholder || "Email address"}
-                  />
+          {formConfig?.token &&
+            (newsletterTitle ||
+              newsletterDescription ||
+              newsletterButtonText) && (
+              <div className="space-y-6">
+                {newsletterTitle && (
+                  <h3 className="text-3xl font-medium font-serif leading-none">
+                    {newsletterTitle}
+                  </h3>
                 )}
-              </Field>
-              <Pressable
-                componentType="button"
-                type="submit"
-                variant="default"
-                asButton
-                className="w-full"
-                disabled={form.isSubmitting}
-              >
-                {newsletterButtonText}
-              </Pressable>
-            </Form>
-          </div>
-          )}
+                {newsletterDescription && (
+                  <p className="font-light leading-normal">
+                    {newsletterDescription}
+                  </p>
+                )}
+                <Form
+                  form={form}
+                  action={formConfig?.endpoint}
+                  method={formMethod}
+                  className="space-y-4"
+                >
+                  <Field name="email">
+                    {({ field, meta }) => (
+                      <TextInput
+                        {...field}
+                        type="email"
+                        placeholder={newsletterPlaceholder}
+                        error={meta.touched && !!meta.error}
+                        className="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        aria-label={newsletterPlaceholder || "Email address"}
+                      />
+                    )}
+                  </Field>
+                  <Pressable
+                    componentType="button"
+                    type="submit"
+                    variant="default"
+                    asButton
+                    className="w-full"
+                    disabled={form.isSubmitting}
+                  >
+                    {newsletterButtonText}
+                  </Pressable>
+                </Form>
+              </div>
+            )}
 
           {linkSectionsContent}
 

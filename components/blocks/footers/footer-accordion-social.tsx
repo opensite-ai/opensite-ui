@@ -88,8 +88,9 @@ export interface FooterAccordionSocialProps {
   };
   /**
    * Optional form submission configuration for newsletter signup.
+   * Requires `token` to render the newsletter UI.
    */
-  formConfig?: PageSpeedFormConfig;
+  formConfig?: PageSpeedFormConfig & { token: string };
   /**
    * Optional custom submission handler for newsletter signup.
    */
@@ -229,38 +230,42 @@ export function FooterAccordionSocial({
                 optixFlowConfig={optixFlowConfig}
               />
             )}
-            <div className="space-y-4">
-              <h3 className="text-2xl font-semibold">{newsletterTitle}</h3>
-              <p className="opacity-80">{newsletterDescription}</p>
-            </div>
-            <Form
-              form={form}
-              action={formConfig?.endpoint}
-              method={formMethod}
-              className="flex gap-2"
-            >
-              <Field name="email" className="flex-1">
-                {({ field, meta }) => (
-                  <TextInput
-                    {...field}
-                    type="email"
-                    placeholder="Email Address"
-                    error={meta.touched && !!meta.error}
-                    className="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    aria-label="Email Address"
-                  />
-                )}
-              </Field>
-              <Pressable
-                componentType="button"
-                type="submit"
-                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-                asButton={false}
-                disabled={form.isSubmitting}
-              >
-                <DynamicIcon name="lucide/arrow-right" size={16} />
-              </Pressable>
-            </Form>
+            {formConfig?.token && (
+              <>
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-semibold">{newsletterTitle}</h3>
+                  <p className="opacity-80">{newsletterDescription}</p>
+                </div>
+                <Form
+                  form={form}
+                  action={formConfig?.endpoint}
+                  method={formMethod}
+                  className="flex gap-2"
+                >
+                  <Field name="email" className="flex-1">
+                    {({ field, meta }) => (
+                      <TextInput
+                        {...field}
+                        type="email"
+                        placeholder="Email Address"
+                        error={meta.touched && !!meta.error}
+                        className="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        aria-label="Email Address"
+                      />
+                    )}
+                  </Field>
+                  <Pressable
+                    componentType="button"
+                    type="submit"
+                    className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+                    asButton={false}
+                    disabled={form.isSubmitting}
+                  >
+                    <DynamicIcon name="lucide/arrow-right" size={16} />
+                  </Pressable>
+                </Form>
+              </>
+            )}
           </div>
 
           {footerLinks && footerLinks.length > 0 && (

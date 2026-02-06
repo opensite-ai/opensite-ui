@@ -2,13 +2,17 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getTextColor, getBorderColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureIntegrationCardsItem {
   /**
@@ -174,39 +178,31 @@ export function FeatureIntegrationCards({
   patternOpacity,
   patternClassName,
 }: FeatureIntegrationCardsProps): React.JSX.Element {
-  const renderIntegrationIcon = useCallback((integration: FeatureIntegrationCardsItem) => {
-    if (integration.iconSlot) return integration.iconSlot;
-    if (!integration.icon) return null;
+  const renderIntegrationIcon = useCallback(
+    (integration: FeatureIntegrationCardsItem) => {
+      if (integration.iconSlot) return integration.iconSlot;
+      if (!integration.icon) return null;
 
-    return (
-      <Img
-        src={integration.icon}
-        alt={integration.iconAlt || (typeof integration.title === "string" ? integration.title : "Integration icon")}
-        className={cn("h-auto w-7", integration.iconClassName)}
-        loading="lazy"
-        optixFlowConfig={optixFlowConfig}
-      />
-    );
-  }, [optixFlowConfig]);
-
-  const renderLinkLabel = useCallback((integration: FeatureIntegrationCardsItem) => {
-    if (integration.linkLabelSlot) return integration.linkLabelSlot;
-    if (!integration.linkLabel) return null;
-
-    return (
-      <span
-        className={cn(
-          "flex items-center gap-1.5 rounded-full border px-3 py-2 text-sm font-medium transition-colors",
-          getBorderColor(background),
-          getAccentColor(background),
-          integration.linkLabelClassName,
-        )}
-      >
-        {integration.linkLabel}
-        <DynamicIcon name="lucide/arrow-right" size={14} />
-      </span>
-    );
-  }, [background]);
+      return (
+        <Img
+          src={integration.icon}
+          alt={
+            integration.iconAlt ||
+            (typeof integration.title === "string"
+              ? integration.title
+              : "Integration icon")
+          }
+          className={cn(
+            "min-h-12 h-auto w-auto object-contain",
+            integration.iconClassName,
+          )}
+          loading="lazy"
+          optixFlowConfig={optixFlowConfig}
+        />
+      );
+    },
+    [optixFlowConfig],
+  );
 
   const integrationsContent = useMemo(() => {
     if (integrationsSlot) return integrationsSlot;
@@ -214,30 +210,18 @@ export function FeatureIntegrationCards({
 
     return integrations.map((integration, index) => {
       const iconContent = renderIntegrationIcon(integration);
-      const linkLabelContent = renderLinkLabel(integration);
 
       const cardContent = (
         <>
-          <div className="flex items-center justify-between">
-            {iconContent && (
-              <span
-                className={cn(
-                  "grid size-12 shrink-0 place-content-center rounded-lg border bg-background/50",
-                  getBorderColor(background),
-                )}
-              >
-                {iconContent}
-              </span>
-            )}
-            {linkLabelContent}
+          <div className="flex items-start gap-2 justify-between">
+            {iconContent && <div className={cn("flex")}>{iconContent}</div>}
           </div>
           <div className="space-y-1">
-            {integration.title && (
-              typeof integration.title === "string" ? (
+            {integration.title &&
+              (typeof integration.title === "string" ? (
                 <h3
                   className={cn(
                     "font-semibold md:text-lg",
-                    getTextColor(background),
                     integration.titleClassName,
                   )}
                 >
@@ -247,20 +231,17 @@ export function FeatureIntegrationCards({
                 <div
                   className={cn(
                     "font-semibold md:text-lg",
-                    getTextColor(background),
                     integration.titleClassName,
                   )}
                 >
                   {integration.title}
                 </div>
-              )
-            )}
-            {integration.description && (
-              typeof integration.description === "string" ? (
+              ))}
+            {integration.description &&
+              (typeof integration.description === "string" ? (
                 <p
                   className={cn(
                     "text-sm leading-relaxed md:text-base",
-                    getTextColor(background, "muted"),
                     integration.descriptionClassName,
                   )}
                 >
@@ -270,21 +251,18 @@ export function FeatureIntegrationCards({
                 <div
                   className={cn(
                     "text-sm leading-relaxed md:text-base",
-                    getTextColor(background, "muted"),
                     integration.descriptionClassName,
                   )}
                 >
                   {integration.description}
                 </div>
-              )
-            )}
+              ))}
           </div>
         </>
       );
 
       const cardClasses = cn(
-        "flex flex-col gap-5 rounded-xl border p-6 transition-all duration-300",
-        getBorderColor(background),
+        "flex flex-col gap-5 rounded-xl border p-6 transition-all duration-300 bg-card card-text-foreground",
         "hover:shadow-lg",
         cardClassName,
         integration.className,
@@ -308,7 +286,7 @@ export function FeatureIntegrationCards({
         </div>
       );
     });
-  }, [integrationsSlot, integrations, cardClassName, renderIntegrationIcon, renderLinkLabel, background]);
+  }, [integrationsSlot, integrations, cardClassName, renderIntegrationIcon]);
 
   return (
     <Section
@@ -320,23 +298,45 @@ export function FeatureIntegrationCards({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto mb-12 flex max-w-3xl flex-col items-center gap-4 text-center", headerClassName)}>
-        {title && (
-          typeof title === "string" ? (
-            <h2 className={cn("text-3xl font-semibold md:text-4xl", titleClassName)}>{title}</h2>
-          ) : (
-            <div className={cn("text-3xl font-semibold md:text-4xl", titleClassName)}>{title}</div>
-          )
+      <div
+        className={cn(
+          "mx-auto mb-12 flex max-w-3xl flex-col items-center gap-4 text-center",
+          headerClassName,
         )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn(getTextColor(background, 'muted'), descriptionClassName)}>{description}</p>
+      >
+        {title &&
+          (typeof title === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-semibold md:text-4xl",
+                titleClassName,
+              )}
+            >
+              {title}
+            </h2>
           ) : (
-            <div className={cn(getTextColor(background, 'muted'), descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div
+              className={cn(
+                "text-3xl font-semibold md:text-4xl",
+                titleClassName,
+              )}
+            >
+              {title}
+            </div>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p className={cn(descriptionClassName)}>{description}</p>
+          ) : (
+            <div className={cn(descriptionClassName)}>{description}</div>
+          ))}
       </div>
-      <div className={cn("grid gap-6 sm:grid-cols-2 lg:grid-cols-4", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-6 sm:grid-cols-2 lg:grid-cols-4",
+          gridClassName,
+        )}
+      >
         {integrationsContent}
       </div>
     </Section>
