@@ -3,11 +3,10 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { cn, getAccentColor, getBorderColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -162,7 +161,11 @@ export function AboutNetworkSpotlight({
       <ul className={cn("mt-6 space-y-3", highlightsClassName)}>
         {highlights.map((item, index) => (
           <li key={index} className="flex items-start gap-3 text-background/80">
-            <span className={cn("mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary/20", getAccentColor(background))}>
+            <span
+              className={cn(
+                "mt-1 flex size-fit p-2 items-center justify-center rounded-full bg-primary text-primary-foreground",
+              )}
+            >
               <DynamicIcon name="lucide/check" size={14} />
             </span>
             <span>{item}</span>
@@ -186,7 +189,12 @@ export function AboutNetworkSpotlight({
         ...pressableProps
       } = action;
       return (
-        <Pressable key={index} className={actionClassName} asButton {...pressableProps}>
+        <Pressable
+          key={index}
+          className={actionClassName}
+          asButton
+          {...pressableProps}
+        >
           {children ?? (
             <>
               {icon}
@@ -207,17 +215,20 @@ export function AboutNetworkSpotlight({
       <div
         className={cn(
           "rounded-2xl border bg-foreground/80 p-5 backdrop-blur-sm",
-          getBorderColor(background, 'accent'),
           spotlightCardClassName,
         )}
       >
         <div className="mb-2 flex items-center gap-3">
-          <div className={cn("flex h-12 w-12 items-center justify-center rounded-full text-primary-foreground", getAccentColor(background))}>
+          <div
+            className={cn(
+              "flex size-fit p-2 items-center justify-center rounded-full bg-primary text-primary-foreground",
+            )}
+          >
             {spotlightCard.icon}
           </div>
           <div>
             {typeof spotlightCard.label === "string" ? (
-              <p className={cn("text-xs font-bold uppercase tracking-[0.2em]", getAccentColor(background))}>
+              <p className={cn("text-xs font-bold uppercase tracking-[0.2em]")}>
                 {spotlightCard.label}
               </p>
             ) : (
@@ -233,7 +244,9 @@ export function AboutNetworkSpotlight({
           </div>
         </div>
         {typeof spotlightCard.description === "string" ? (
-          <p className="text-sm text-background/80">{spotlightCard.description}</p>
+          <p className="text-sm text-background/80">
+            {spotlightCard.description}
+          </p>
         ) : (
           spotlightCard.description
         )}
@@ -288,7 +301,6 @@ export function AboutNetworkSpotlight({
               <p
                 className={cn(
                   "text-sm font-semibold uppercase tracking-[0.2em]",
-                  getAccentColor(background),
                   eyebrowClassName,
                 )}
               >

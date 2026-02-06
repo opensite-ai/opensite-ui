@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -145,8 +145,8 @@ export function HeroEventRegistration({
   locationSublabel,
   locationSlot,
   background,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6  sm:px-0 md:px-0 lg:px-0",
+  spacing = "py-20 md:py-32",
   pattern,
   patternOpacity,
   className,
@@ -216,9 +216,7 @@ export function HeroEventRegistration({
         {stats.map((stat, index) => (
           <div key={index} className="text-center">
             <div className="text-2xl font-bold ">{stat.value}</div>
-            <div className={cn("text-sm", getTextColor(background, "muted"))}>
-              {stat.label}
-            </div>
+            <div className={cn("text-sm")}>{stat.label}</div>
           </div>
         ))}
       </div>
@@ -230,19 +228,14 @@ export function HeroEventRegistration({
     if (!locationLabel && !locationSublabel) return null;
 
     return (
-      <div className="absolute -bottom-4 -left-4 rounded-xl bg-background p-4 shadow-lg">
+      <div className="absolute -bottom-4 -left-4 rounded-xl bg-card p-4 shadow-lg">
         <div className="flex items-center gap-3">
           <div
             className={cn(
-              "flex h-12 w-12 items-center justify-center rounded-full",
-              `${getAccentColor(background)}/10`,
+              "flex h-12 w-12 items-center justify-center rounded-full text-card-foreground",
             )}
           >
-            <DynamicIcon
-              name="lucide/map-pin"
-              size={24}
-              className={getAccentColor(background)}
-            />
+            <DynamicIcon name="lucide/map-pin" size={24} />
           </div>
           <div>
             {locationLabel &&
@@ -253,11 +246,7 @@ export function HeroEventRegistration({
               ))}
             {locationSublabel &&
               (typeof locationSublabel === "string" ? (
-                <div
-                  className={cn("text-sm", getTextColor(background, "muted"))}
-                >
-                  {locationSublabel}
-                </div>
+                <div className={cn("text-sm")}>{locationSublabel}</div>
               ) : (
                 locationSublabel
               ))}
@@ -320,13 +309,7 @@ export function HeroEventRegistration({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "text-lg",
-                  getTextColor(background, "muted"),
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("text-lg", descriptionClassName)}>
                 {description}
               </p>
             ) : (
