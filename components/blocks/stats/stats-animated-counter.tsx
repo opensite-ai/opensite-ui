@@ -251,12 +251,12 @@ export function StatsAnimatedCounter({
   statsSlot,
   animationDuration = 2000,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -323,11 +323,9 @@ export function StatsAnimatedCounter({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div
-        ref={sectionRef}
-        className={cn("mx-auto max-w-5xl", containerClassName)}
-      >
+      <div ref={sectionRef} className="relative">
         {hasHeaderContent && (
           <div className={cn("mb-12 text-center", contentClassName)}>
             {heading &&

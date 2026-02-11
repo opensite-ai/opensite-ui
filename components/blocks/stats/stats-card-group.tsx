@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -165,12 +169,12 @@ export function StatsCardGroup({
   avatars,
   avatarsSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   cardClassName,
   statsClassName,
   statValueClassName,
@@ -220,11 +224,13 @@ export function StatsCardGroup({
             />
           ))}
           {avatars.length > 4 && (
-            <div className={cn(
-              "flex h-8 w-8 items-center justify-center rounded-full border-2 border-background text-xs font-medium",
-              getNestedCardBg(background, 'muted'),
-              getNestedCardTextColor(background)
-            )}>
+            <div
+              className={cn(
+                "flex h-8 w-8 items-center justify-center rounded-full border-2 border-background text-xs font-medium",
+                getNestedCardBg(background, "muted"),
+                getNestedCardTextColor(background),
+              )}
+            >
               +{avatars.length - 4}
             </div>
           )}
@@ -285,15 +291,18 @@ export function StatsCardGroup({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-4xl", containerClassName)}>
+      <div className="relative">
         {(statsSlot || (stats && stats.length > 0)) && (
-          <div className={cn(
-            "rounded-xl border p-8",
-            getNestedCardBg(background, 'card'),
-            getNestedCardTextColor(background),
-            cardClassName
-          )}>
+          <div
+            className={cn(
+              "rounded-xl border p-8",
+              getNestedCardBg(background, "card"),
+              getNestedCardTextColor(background),
+              cardClassName,
+            )}
+          >
             <div className={cn("grid gap-8 md:grid-cols-3", statsClassName)}>
               {statsContent}
             </div>

@@ -156,12 +156,12 @@ export function StatsIconCards({
   stats,
   statsSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -270,8 +270,9 @@ export function StatsIconCards({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-5xl", containerClassName)}>
+      <div className="relative">
         {hasHeaderContent && (
           <div className={cn("mb-10 text-center", contentClassName)}>
             {heading &&

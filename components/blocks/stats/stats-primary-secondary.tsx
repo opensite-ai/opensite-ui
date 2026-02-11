@@ -148,12 +148,12 @@ export function StatsPrimarySecondary({
   secondaryStats,
   secondaryStatsSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   primaryClassName,
   primaryValueClassName,
   primaryBadgeClassName,
@@ -268,13 +268,9 @@ export function StatsPrimarySecondary({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "grid items-center gap-6 lg:grid-cols-12 lg:gap-12",
-          containerClassName,
-        )}
-      >
+      <div className="relative">
         {hasPrimaryContent && primaryContent}
 
         {hasSecondaryContent && (

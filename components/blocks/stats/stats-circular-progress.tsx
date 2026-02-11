@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Section } from "../../ui/section";
@@ -251,12 +255,12 @@ export function StatsCircularProgress({
   categoriesSlot,
   defaultCategory,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   headerClassName,
   badgeClassName,
   headingClassName,
@@ -342,7 +346,7 @@ export function StatsCircularProgress({
                     key={index}
                     className={cn(
                       "flex flex-col items-center justify-center rounded-xl border p-6",
-                      getNestedCardBg(background, 'card'),
+                      getNestedCardBg(background, "card"),
                       getNestedCardTextColor(background),
                       stat.className,
                       statCardClassName,
@@ -418,8 +422,9 @@ export function StatsCircularProgress({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-6xl", containerClassName)}>
+      <div className="relative">
         {hasHeaderContent && (
           <div className={cn("mb-12 text-center", headerClassName)}>
             {badgeContent}

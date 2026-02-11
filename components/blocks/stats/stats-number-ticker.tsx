@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -146,7 +150,7 @@ function useNumberTicker(
   endValue: number,
   duration: number = 2500,
   isVisible: boolean,
-  decimals: number = 0
+  decimals: number = 0,
 ): string {
   const [displayValue, setDisplayValue] = React.useState("0");
 
@@ -218,29 +222,51 @@ function TickerStatItem({
 }) {
   // Determine decimal places based on the value
   const decimals = stat.value % 1 !== 0 ? 1 : 0;
-  const displayValue = useNumberTicker(stat.value, duration, isVisible, decimals);
+  const displayValue = useNumberTicker(
+    stat.value,
+    duration,
+    isVisible,
+    decimals,
+  );
 
   return (
-    <div className={cn(
-      "rounded-xl border p-6 transition-shadow hover:shadow-md",
-      getNestedCardBg(background, 'card'),
-      getNestedCardTextColor(background),
-      stat.className,
-      cardClassName
-    )}>
-      <div className={cn("mb-2 text-4xl font-bold tabular-nums md:text-5xl", valueClassName)}>
+    <div
+      className={cn(
+        "rounded-xl border p-6 transition-shadow hover:shadow-md",
+        getNestedCardBg(background, "card"),
+        getNestedCardTextColor(background),
+        stat.className,
+        cardClassName,
+      )}
+    >
+      <div
+        className={cn(
+          "mb-2 text-4xl font-bold tabular-nums md:text-5xl",
+          valueClassName,
+        )}
+      >
         {stat.prefix}
         {displayValue}
         {stat.suffix}
       </div>
-      <div className={cn("mb-1 text-lg font-semibold", labelClassName)}>{stat.label}</div>
-      {stat.description && (
-        typeof stat.description === "string" ? (
-          <p className={cn("text-sm text-muted-foreground", descriptionClassName)}>{stat.description}</p>
+      <div className={cn("mb-1 text-lg font-semibold", labelClassName)}>
+        {stat.label}
+      </div>
+      {stat.description &&
+        (typeof stat.description === "string" ? (
+          <p
+            className={cn(
+              "text-sm text-muted-foreground",
+              descriptionClassName,
+            )}
+          >
+            {stat.description}
+          </p>
         ) : (
-          <div className={cn("text-sm", descriptionClassName)}>{stat.description}</div>
-        )
-      )}
+          <div className={cn("text-sm", descriptionClassName)}>
+            {stat.description}
+          </div>
+        ))}
     </div>
   );
 }
@@ -273,12 +299,12 @@ export function StatsNumberTicker({
   statsSlot,
   animationDuration = 2500,
   background = "white",
-  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   headerClassName,
   badgeClassName,
   headingClassName,
@@ -300,7 +326,7 @@ export function StatsNumberTicker({
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     if (sectionRef.current) {
@@ -323,7 +349,12 @@ export function StatsNumberTicker({
     if (!stats || stats.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-6 sm:grid-cols-2 lg:grid-cols-4", statsGridClassName)}>
+      <div
+        className={cn(
+          "grid gap-6 sm:grid-cols-2 lg:grid-cols-4",
+          statsGridClassName,
+        )}
+      >
         {stats.map((stat, index) => (
           <TickerStatItem
             key={index}
@@ -339,7 +370,18 @@ export function StatsNumberTicker({
         ))}
       </div>
     );
-  }, [statsSlot, stats, background, animationDuration, isVisible, statsGridClassName, statCardClassName, statValueClassName, statLabelClassName, statDescriptionClassName]);
+  }, [
+    statsSlot,
+    stats,
+    background,
+    animationDuration,
+    isVisible,
+    statsGridClassName,
+    statCardClassName,
+    statValueClassName,
+    statLabelClassName,
+    statDescriptionClassName,
+  ]);
 
   // Check if header has any content
   const hasHeaderContent = !!(badge || badgeSlot || heading || description);
@@ -352,29 +394,40 @@ export function StatsNumberTicker({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div ref={sectionRef} className={cn("mx-auto max-w-5xl", containerClassName)}>
+      <div ref={sectionRef} className="relative">
         {hasHeaderContent && (
           <div className={cn("mb-12 text-center", headerClassName)}>
             {badgeContent}
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-4 text-3xl font-bold md:text-4xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h2>
               ) : (
                 <div className={cn("mb-4", headingClassName)}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mx-auto max-w-2xl text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
-                <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
-              )
-            )}
+                <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>
+                  {description}
+                </div>
+              ))}
           </div>
         )}
 

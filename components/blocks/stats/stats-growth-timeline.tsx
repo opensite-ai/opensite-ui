@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -231,12 +235,12 @@ export function StatsGrowthTimeline({
   actions,
   actionsSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   headerClassName,
   badgeClassName,
   headingClassName,
@@ -289,11 +293,13 @@ export function StatsGrowthTimeline({
               {/* Content */}
               <div className="ml-6 flex flex-col items-start md:ml-0 md:w-1/2 md:px-8">
                 {milestone.year && (
-                  <div className={cn(
-                    "mb-4 inline-flex h-9 w-20 items-center justify-center rounded-full text-sm font-semibold",
-                    getNestedCardBg(background, 'muted'),
-                    getNestedCardTextColor(background)
-                  )}>
+                  <div
+                    className={cn(
+                      "mb-4 inline-flex h-9 w-20 items-center justify-center rounded-full text-sm font-semibold",
+                      getNestedCardBg(background, "muted"),
+                      getNestedCardTextColor(background),
+                    )}
+                  >
                     {milestone.year}
                   </div>
                 )}
@@ -358,9 +364,9 @@ export function StatsGrowthTimeline({
       <div
         className={cn(
           "mt-24 rounded-lg p-8",
-          getNestedCardBg(background, 'muted'),
+          getNestedCardBg(background, "muted"),
           getNestedCardTextColor(background),
-          currentStatsClassName
+          currentStatsClassName,
         )}
       >
         {currentStatsHeading &&
@@ -463,8 +469,9 @@ export function StatsGrowthTimeline({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-5xl", containerClassName)}>
+      <div className="relative">
         {hasHeaderContent && (
           <div className={cn("mb-16 text-center", headerClassName)}>
             {badgeContent}

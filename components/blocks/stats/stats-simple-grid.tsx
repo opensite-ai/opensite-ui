@@ -123,12 +123,12 @@ export function StatsSimpleGrid({
   actions,
   actionsSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   actionsClassName,
@@ -223,20 +223,16 @@ export function StatsSimpleGrid({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "flex flex-col items-start text-left",
-          containerClassName,
-        )}
-      >
+      <div className={cn("flex flex-col items-start text-left")}>
         {hasHeaderContent && (
           <div className={cn("mb-12 w-full md:mb-16", contentClassName)}>
             {heading &&
               (typeof heading === "string" ? (
                 <h2
                   className={cn(
-                    "mb-8 w-full max-w-[24rem] text-3xl font-bold text-pretty sm:text-4xl md:max-w-[30rem] lg:max-w-[37rem] lg:text-5xl",
+                    "mb-8 w-full max-w-[24rem] text-3xl font-bold text-pretty sm:text-4xl md:max-w-120 lg:max-w-148 lg:text-5xl",
                     headingClassName,
                   )}
                 >

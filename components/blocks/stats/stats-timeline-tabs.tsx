@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -189,12 +193,12 @@ export function StatsTimelineTabs({
   tabsSlot,
   defaultPeriod,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   headerClassName,
   badgeClassName,
   headingClassName,
@@ -257,7 +261,7 @@ export function StatsTimelineTabs({
                     key={index}
                     className={cn(
                       "rounded-lg border p-6 transition-shadow hover:shadow-md",
-                      getNestedCardBg(background, 'card'),
+                      getNestedCardBg(background, "card"),
                       getNestedCardTextColor(background),
                       stat.className,
                       statCardClassName,
@@ -340,8 +344,9 @@ export function StatsTimelineTabs({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-6xl", containerClassName)}>
+      <div className="relative">
         <div className="flex flex-col space-y-6">
           {hasHeaderContent && (
             <div className={cn("space-y-2 text-center", headerClassName)}>

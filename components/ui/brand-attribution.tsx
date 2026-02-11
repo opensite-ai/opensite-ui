@@ -552,7 +552,14 @@ export const BrandAttribution: React.FC<BrandAttributionBaseProps> = ({
   const { prefix = "", anchorText, href, suffix = "" } = options[optionIndex];
 
   const ContainerEl = variant;
-  const trackedHref = buildTrackedHref(href);
+
+  // Initialize with base href to match server render
+  const [trackedHref, setTrackedHref] = React.useState(href);
+
+  // Add tracking params only on client after hydration
+  React.useEffect(() => {
+    setTrackedHref(buildTrackedHref(href));
+  }, [href]);
 
   return (
     <ContainerEl className={containerClassName}>

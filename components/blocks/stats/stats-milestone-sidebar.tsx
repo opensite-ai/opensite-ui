@@ -142,12 +142,12 @@ export function StatsMilestoneSidebar({
   milestones,
   milestonesSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   sidebarClassName,
   headingClassName,
   descriptionClassName,
@@ -192,7 +192,13 @@ export function StatsMilestoneSidebar({
           ))}
       </div>
     );
-  }, [sidebarSlot, heading, description, headingClassName, descriptionClassName]);
+  }, [
+    sidebarSlot,
+    heading,
+    description,
+    headingClassName,
+    descriptionClassName,
+  ]);
 
   // Memoized milestones rendering
   const milestonesContent = useMemo(() => {
@@ -260,11 +266,22 @@ export function StatsMilestoneSidebar({
         ))}
       </div>
     );
-  }, [milestonesSlot, milestones, milestonesClassName, milestoneItemClassName, milestoneYearClassName, milestoneTitleClassName, milestoneDescriptionClassName]);
+  }, [
+    milestonesSlot,
+    milestones,
+    milestonesClassName,
+    milestoneItemClassName,
+    milestoneYearClassName,
+    milestoneTitleClassName,
+    milestoneDescriptionClassName,
+  ]);
 
   // Check if there's any content to render
   const hasSidebarContent = !!(sidebarSlot || heading || description);
-  const hasMilestonesContent = !!(milestonesSlot || (milestones && milestones.length > 0));
+  const hasMilestonesContent = !!(
+    milestonesSlot ||
+    (milestones && milestones.length > 0)
+  );
 
   return (
     <Section
@@ -274,8 +291,9 @@ export function StatsMilestoneSidebar({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-6xl", containerClassName)}>
+      <div className="relative">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Sticky Sidebar */}
           {hasSidebarContent && (
@@ -286,7 +304,9 @@ export function StatsMilestoneSidebar({
 
           {/* Milestones List */}
           {hasMilestonesContent && (
-            <div className={hasSidebarContent ? "lg:col-span-8" : "lg:col-span-12"}>
+            <div
+              className={hasSidebarContent ? "lg:col-span-8" : "lg:col-span-12"}
+            >
               {milestonesContent}
             </div>
           )}
