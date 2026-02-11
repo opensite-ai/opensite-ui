@@ -104,6 +104,12 @@ export interface HeroSplitIconCardsProps {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
 }
 
 /**
@@ -122,13 +128,15 @@ export function HeroSplitIconCards({
   cardItems,
   cardsSlot,
   background,
-  verticalSpacing,
   pattern,
   patternOpacity,
   className,
   contentClassName,
   headingClassName,
   descriptionClassName,
+  verticalSpacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
 }: HeroSplitIconCardsProps): React.JSX.Element {
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -142,11 +150,7 @@ export function HeroSplitIconCards({
           </Pressable>
         )}
         {secondaryCta && (
-          <Pressable
-            href={secondaryCta.href}
-            size="lg"
-            variant="outline"
-          >
+          <Pressable href={secondaryCta.href} size="lg" variant="outline">
             {secondaryCta.label}
           </Pressable>
         )}
@@ -164,15 +168,24 @@ export function HeroSplitIconCards({
           const card = (
             <Card className="h-full border-border/60 px-0 py-0">
               <div className="flex items-start gap-4 p-6">
-                <div className={cn("flex h-14 w-14 items-center justify-center rounded-xl", `${getAccentColor(background)}/10`, getAccentColor(background))}>
+                <div
+                  className={cn(
+                    "flex h-14 w-14 items-center justify-center rounded-xl",
+                    `${getAccentColor(background)}/10`,
+                    getAccentColor(background),
+                  )}
+                >
                   <DynamicIcon name={item.icon} size={24} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold ">
-                    {item.title}
-                  </h3>
+                  <h3 className="text-lg font-bold ">{item.title}</h3>
                   {item.subtitle ? (
-                    <p className={cn("mt-2 text-sm", getTextColor(background, "muted"))}>
+                    <p
+                      className={cn(
+                        "mt-2 text-sm",
+                        getTextColor(background, "muted"),
+                      )}
+                    >
                       {item.subtitle}
                     </p>
                   ) : null}
@@ -196,10 +209,11 @@ export function HeroSplitIconCards({
   return (
     <Section
       background={background}
-      spacing={verticalSpacing}
+      spacing={verticalSpacing || spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn("overflow-hidden", className)}
+      containerClassName={containerClassName}
     >
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
         <div className={cn("space-y-6", contentClassName)}>
@@ -207,33 +221,53 @@ export function HeroSplitIconCards({
             children
           ) : (
             <>
-              {eyebrow && (
-                typeof eyebrow === "string" ? (
-                  <p className={cn("text-xs font-semibold uppercase tracking-[0.25em]", getAccentColor(background))}>
+              {eyebrow &&
+                (typeof eyebrow === "string" ? (
+                  <p
+                    className={cn(
+                      "text-xs font-semibold uppercase tracking-[0.25em]",
+                      getAccentColor(background),
+                    )}
+                  >
                     {eyebrow}
                   </p>
                 ) : (
                   eyebrow
-                )
-              )}
-              {heading && (
-                typeof heading === "string" ? (
-                  <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
+                ))}
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h2
+                    className={cn(
+                      "text-3xl font-bold md:text-4xl",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h2>
                 ) : (
-                  <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
+                  <h2
+                    className={cn(
+                      "text-3xl font-bold md:text-4xl",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h2>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>{description}</p>
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "text-lg",
+                      getTextColor(background, "muted"),
+                      descriptionClassName,
+                    )}
+                  >
+                    {description}
+                  </p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
-                )
-              )}
+                ))}
               {renderActions}
             </>
           )}

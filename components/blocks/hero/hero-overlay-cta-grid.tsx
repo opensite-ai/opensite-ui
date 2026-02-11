@@ -197,7 +197,7 @@ export function HeroOverlayCtaGrid({
     if (!cards || cards.length === 0) return null;
 
     return (
-      <div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl border border-border bg-white/95 shadow-2xl px-6 md:px-20">
+      <div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl border border-border bg-white/95 shadow-2xl px-0">
         <div className="grid grid-cols-1 divide-y divide-border md:grid-cols-3 md:divide-x md:divide-y-0">
           {cards.map((card) => (
             <Pressable
@@ -207,7 +207,7 @@ export function HeroOverlayCtaGrid({
             >
               <div
                 className={cn(
-                  "relative flex h-12 w-12 flex-none items-center justify-center rounded-full transition-colors group-hover:text-black bg-white",
+                  "relative flex h-12 w-12 flex-none items-center justify-center rounded-full bg-primary text-primary-foreground",
                 )}
               >
                 <DynamicIcon name={card.icon} size={22} />
@@ -252,7 +252,7 @@ export function HeroOverlayCtaGrid({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(
-        "relative flex h-full min-h-screen w-screen items-center justify-center overflow-hidden bg-black pb-0 pt-0 md:pt-0",
+        "relative flex h-full min-h-screen w-screen items-center justify-center overflow-hidden bg-black pb-0 pt-0 md:pt-0 px-6",
         className,
       )}
     >
@@ -265,14 +265,14 @@ export function HeroOverlayCtaGrid({
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mx-auto max-w-3xl text-center text-balance text-white px-6 md:px-20"
+          className="mx-auto max-w-3xl text-center text-balance text-white px-0"
         >
           {renderBadge}
           {heading &&
             (typeof heading === "string" ? (
               <h1
                 className={cn(
-                  "mt-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl",
+                  "mt-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl text-balance",
                   headingClassName,
                 )}
               >
@@ -281,7 +281,7 @@ export function HeroOverlayCtaGrid({
             ) : (
               <h1
                 className={cn(
-                  "mt-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl",
+                  "mt-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl text-balance",
                   headingClassName,
                 )}
               >
@@ -291,13 +291,19 @@ export function HeroOverlayCtaGrid({
           {description &&
             (typeof description === "string" ? (
               <p
-                className={cn("mt-5 text-lg md:text-xl", descriptionClassName)}
+                className={cn(
+                  "mt-5 text-lg md:text-xl text-balance",
+                  descriptionClassName,
+                )}
               >
                 {description}
               </p>
             ) : (
               <div
-                className={cn("mt-5 text-lg md:text-xl", descriptionClassName)}
+                className={cn(
+                  "mt-5 text-lg md:text-xl text-balance",
+                  descriptionClassName,
+                )}
               >
                 {description}
               </div>

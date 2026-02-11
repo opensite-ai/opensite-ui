@@ -2,15 +2,19 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type {ActionConfig,
+import type {
+  ActionConfig,
   LogoItem,
-  OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface HeroPatternBadgeLogosProps {
   /**
@@ -46,9 +50,6 @@ export interface HeroPatternBadgeLogosProps {
    */
   logosTagline?: React.ReactNode;
   /**
-   * Background pattern image URL
-   */
-  backgroundImageUrl?: string;  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -115,14 +116,13 @@ export function HeroPatternBadgeLogos({
   actionsSlot,
   logos,
   logosSlot,
-  logosTagline = "Powering the next generation of digital products",
-  backgroundImageUrl = "https://cdn.ing/assets/files/record/286186/nbdflpgp4ostrno079hygibsflp3",
+  logosTagline,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -137,7 +137,14 @@ export function HeroPatternBadgeLogos({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -214,67 +221,75 @@ export function HeroPatternBadgeLogos({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn("relative p-0", className)}
+      containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "absolute h-full w-full bg-contain bg-repeat opacity-100 lg:block",
-          "mask-[linear-gradient(to_right,var(--color-border),transparent,transparent,var(--color-border))]",
-          backgroundClassName
-        )}
-        style={{ backgroundImage: `url('${backgroundImageUrl}')` }}
-      />
-      <div className={cn("container py-28 md:py-32", containerClassName)}>
+      <div className={cn("relative")}>
         <div className="mx-auto flex max-w-5xl flex-col items-center">
-          <div className={cn("z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 text-center", contentClassName)}>
+          <div
+            className={cn(
+              "z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 text-center",
+              contentClassName,
+            )}
+          >
             {badge && (
               <div className={badgeClassName}>
                 {typeof badge === "string" ? (
-                  <Badge variant="outline" className="transition-colors hover:bg-secondary/20">
-                    {badge}
-                  </Badge>
+                  <Badge variant="default">{badge}</Badge>
                 ) : (
                   badge
                 )}
               </div>
             )}
             <div>
-              {heading && (
-                typeof heading === "string" ? (
-                  <h1 className={cn("mb-6 text-4xl font-bold tracking-tight text-pretty md:text-5xl lg:text-7xl", headingClassName)}>
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h1
+                    className={cn(
+                      "mb-6 text-4xl font-bold tracking-tight text-balance md:text-5xl lg:text-7xl",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h1>
                 ) : (
                   <div className={headingClassName}>{heading}</div>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("mx-auto max-w-2xl md:text-lg lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "mx-auto max-w-2xl md:text-lg lg:text-xl text-balance",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
-                )
-              )}
+                ))}
             </div>
 
             {(actionsSlot || (actions && actions.length > 0)) && (
-              <div className={cn("mt-6 flex items-center gap-4", actionsClassName)}>
+              <div
+                className={cn("mt-6 flex items-center gap-4", actionsClassName)}
+              >
                 {renderActions}
               </div>
             )}
 
             {(logosSlot || (logos && logos.length > 0) || logosTagline) && (
-              <div className={cn("mt-12 flex flex-col items-center gap-4 lg:mt-16", logosClassName)}>
-                {logosTagline && (
-                  typeof logosTagline === "string" ? (
-                    <p className={cn("text-center text-sm", getTextColor(background, "muted"))}>
-                      {logosTagline}
-                    </p>
+              <div
+                className={cn(
+                  "mt-12 flex flex-col items-center gap-4 lg:mt-16",
+                  logosClassName,
+                )}
+              >
+                {logosTagline &&
+                  (typeof logosTagline === "string" ? (
+                    <p className={cn("text-center text-sm")}>{logosTagline}</p>
                   ) : (
                     logosTagline
-                  )
-                )}
+                  ))}
                 <div className="grid grid-cols-2 place-items-center items-center justify-center gap-6 opacity-80 sm:grid-cols-4 sm:gap-4">
                   {renderLogos}
                 </div>

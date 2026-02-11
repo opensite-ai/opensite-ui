@@ -4,13 +4,7 @@ import * as React from "react";
 import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../../ui/card";
+import { Card, CardContent, CardDescription, CardHeader } from "../../ui/card";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -212,7 +206,11 @@ export function FeatureCategoryImageCards({
     return features.map((feature, index) => (
       <Card
         key={index}
-        className={cn("border-none", cardClassName, feature.className)}
+        className={cn(
+          "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border pt-6 shadow-sm border-none",
+          cardClassName,
+          feature.className,
+        )}
       >
         <CardHeader className="text-center">
           {feature.title &&
@@ -250,7 +248,7 @@ export function FeatureCategoryImageCards({
               </div>
             ))}
         </CardHeader>
-        <CardContent className="px-7 pb-7">
+        <CardContent className="px-7 pb-0">
           {renderFeatureImage(feature)}
         </CardContent>
       </Card>
@@ -283,7 +281,7 @@ export function FeatureCategoryImageCards({
             (typeof title === "string" ? (
               <h2
                 className={cn(
-                  "text-3xl font-semibold md:text-5xl",
+                  "text-3xl font-semibold md:text-5xl text-balance",
                   titleClassName,
                 )}
               >
@@ -292,7 +290,7 @@ export function FeatureCategoryImageCards({
             ) : (
               <div
                 className={cn(
-                  "text-3xl font-semibold md:text-5xl",
+                  "text-3xl font-semibold md:text-5xl text-balance",
                   titleClassName,
                 )}
               >
@@ -301,11 +299,21 @@ export function FeatureCategoryImageCards({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("max-w-2xl md:text-lg", descriptionClassName)}>
+              <p
+                className={cn(
+                  "max-w-2xl md:text-lg text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
-              <div className={cn("max-w-2xl md:text-lg", descriptionClassName)}>
+              <div
+                className={cn(
+                  "max-w-2xl md:text-lg text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </div>
             ))}

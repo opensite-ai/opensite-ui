@@ -240,6 +240,10 @@ export interface FooterInfoCardsAccordionProps {
    */
   background?: SectionBackground;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Section spacing variant
    */
   spacing?: SectionSpacing;
@@ -318,7 +322,8 @@ export function FooterInfoCardsAccordion({
   copyrightClassName,
   submenuLinksClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -340,6 +345,7 @@ export function FooterInfoCardsAccordion({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
       <div className={cn("space-y-12 lg:space-y-14", contentClassName)}>
         {footerDetails?.image?.src &&
@@ -493,12 +499,7 @@ export function FooterInfoCardsAccordion({
             )}
           >
             {(footerDetails?.logo || footerDetails?.description) && (
-              <div
-                className={cn(
-                  "space-y-5",
-                  brandColumnClassName,
-                )}
-              >
+              <div className={cn("space-y-5", brandColumnClassName)}>
                 {footerDetails?.logo && (
                   <FooterLogo
                     logo={{
@@ -525,13 +526,8 @@ export function FooterInfoCardsAccordion({
               </div>
             )}
             {footerLinks && footerLinks.length > 0 && (
-              <div
-                className={cn(
-                  "space-y-6",
-                  accordionColumnClassName,
-                )}
-              >
-                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              <div className={cn("space-y-6", accordionColumnClassName)}>
+                <div className="grid gap-8 grid-cols-2 md:grid-cols-3">
                   {footerLinks.map((section) => (
                     <div key={section.id}>
                       <h3 className="mb-4 text-sm font-semibold tracking-wide">

@@ -2,11 +2,17 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, ImageItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  LogoItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -42,7 +48,7 @@ export interface HeroLogoCenteredScreenshotProps {
   /**
    * Custom slot for image (overrides image prop)
    */
-  imageSlot?: React.ReactNode;  /**
+  imageSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -99,11 +105,11 @@ export function HeroLogoCenteredScreenshot({
   image,
   imageSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -119,7 +125,7 @@ export function HeroLogoCenteredScreenshot({
       <Img
         src={logoSrc}
         alt={logo.alt}
-        className={cn("h-10 md:h-16", logo.className)}
+        className={cn("h-10 md:h-16 object-contain", logo.className)}
         optixFlowConfig={optixFlowConfig}
       />
     );
@@ -129,7 +135,14 @@ export function HeroLogoCenteredScreenshot({
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = action;
     return (
       <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
@@ -151,7 +164,11 @@ export function HeroLogoCenteredScreenshot({
       <Img
         src={image.src}
         alt={image.alt}
-        className={cn("mt-20 aspect-video w-full rounded-t-lg object-cover", imageClassName, image.className)}
+        className={cn(
+          "mt-20 w-full rounded-xl object-cover h-auto shadow-xl",
+          imageClassName,
+          image.className,
+        )}
         optixFlowConfig={optixFlowConfig}
       />
     );
@@ -165,32 +182,50 @@ export function HeroLogoCenteredScreenshot({
       patternOpacity={patternOpacity}
       className={cn(className)}
     >
-      <div className="border-b">
+      <div className="relative">
         <div className={cn("container max-w-7xl", containerClassName)}>
           <div className="mx-auto flex max-w-5xl flex-col items-center">
-            <div className={cn("z-10 flex flex-col items-center gap-6 text-center", contentClassName)}>
+            <div
+              className={cn(
+                "z-10 flex flex-col items-center gap-6 text-center",
+                contentClassName,
+              )}
+            >
               {renderLogo}
-              <div>
-                {heading && (
-                  typeof heading === "string" ? (
-                    <h1 className={cn("mb-4 text-3xl font-medium text-pretty lg:text-5xl", headingClassName)}>
+              <div className="flex flex-col justify-center items-center w-full text-balance">
+                {heading &&
+                  (typeof heading === "string" ? (
+                    <h1
+                      className={cn(
+                        "mb-4 text-3xl font-medium lg:text-5xl",
+                        headingClassName,
+                      )}
+                    >
                       {heading}
                     </h1>
                   ) : (
-                    <h1 className={cn("mb-4 text-3xl font-medium text-pretty lg:text-5xl", headingClassName)}>
+                    <h1
+                      className={cn(
+                        "mb-4 text-3xl font-medium lg:text-5xl",
+                        headingClassName,
+                      )}
+                    >
                       {heading}
                     </h1>
-                  )
-                )}
-                {description && (
-                  typeof description === "string" ? (
-                    <p className={cn("max-w-3xl lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+                  ))}
+                {description &&
+                  (typeof description === "string" ? (
+                    <p
+                      className={cn(
+                        "max-w-3xl lg:text-xl",
+                        descriptionClassName,
+                      )}
+                    >
                       {description}
                     </p>
                   ) : (
                     <div className={descriptionClassName}>{description}</div>
-                  )
-                )}
+                  ))}
               </div>
               {renderAction}
             </div>

@@ -284,7 +284,7 @@ export function FeatureUtilityCardsGrid({
       <Card
         key={index}
         className={cn(
-          "py-0 shadow-sm overflow-hidden pt-0 transition-shadow duration-300 hover:shadow-lg",
+          "gap-0! py-0 shadow-sm overflow-hidden pt-0 transition-shadow duration-300 hover:shadow-lg",
           cardClassName,
           utility.className,
         )}

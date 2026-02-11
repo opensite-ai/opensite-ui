@@ -108,6 +108,10 @@ export interface FooterAccordionSocialProps {
    */
   background?: SectionBackground;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Vertical spacing for the section
    */
   spacing?: SectionSpacing;
@@ -158,7 +162,8 @@ export function FooterAccordionSocial({
   onSuccess,
   onError,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -219,6 +224,7 @@ export function FooterAccordionSocial({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
       <div className="space-y-10">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
