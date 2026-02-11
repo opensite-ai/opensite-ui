@@ -240,7 +240,7 @@ export function HeroOverlayCtaGrid({
           loading="eager"
           optixFlowConfig={optixFlowConfig}
         />
-        <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/65 to-black/20" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/65 to-black/20" />
       </div>
     );
   }, [backgroundSlot, backgroundImage, backgroundAlt, optixFlowConfig]);
@@ -252,15 +252,14 @@ export function HeroOverlayCtaGrid({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(
-        "relative flex h-full min-h-screen w-screen items-center justify-center overflow-hidden bg-black pb-0 pt-0 md:pt-0 px-6",
+        "relative flex h-full min-h-screen w-screen items-center justify-center overflow-hidden bg-black pb-0 pt-0 md:pt-0 px-0",
         className,
       )}
+      containerClassName={containerClassName}
     >
       {renderBackground}
 
-      <Container
-        className={cn("relative flex flex-col gap-12", containerClassName)}
-      >
+      <div className="relative flex flex-col gap-12">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
@@ -312,7 +311,7 @@ export function HeroOverlayCtaGrid({
         </motion.div>
 
         {renderCards}
-      </Container>
+      </div>
     </Section>
   );
 }

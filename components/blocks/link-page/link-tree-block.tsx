@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useState, useCallback, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -263,10 +262,6 @@ export interface LinkTreeBlockProps {
    */
   backgroundPattern?: PatternName | undefined;
   /**
-   * Custom accent color CSS value (applied as --accent-color CSS variable)
-   */
-  accentColor?: string;
-  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -327,7 +322,6 @@ export function LinkTreeBlock({
   footerAction,
   footerSlot,
   className,
-  containerClassName,
   contentClassName,
   headerClassName,
   avatarClassName,
@@ -354,22 +348,22 @@ export function LinkTreeBlock({
   socialLinkClassName,
   socialIconClassName,
   footerClassName,
-  background = "gray",
-  spacing,
+  background,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
   backgroundPattern,
-  accentColor,
   optixFlowConfig,
 }: LinkTreeBlockProps): React.JSX.Element {
   const resolvedBackground = background;
   const resolvedPattern = pattern ?? backgroundPattern;
 
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = React.useState(false);
+  const [lightboxIndex, setLightboxIndex] = React.useState(0);
 
-  const lightboxItems: LightboxItem[] = useMemo(() => {
+  const lightboxItems: LightboxItem[] = React.useMemo(() => {
     if (!mediaGallery || mediaGallery.length === 0) return [];
     return mediaGallery.slice(0, mediaGalleryLimit).map((item, index) => ({
       id: item.id ?? `media-${index}`,
@@ -382,12 +376,12 @@ export function LinkTreeBlock({
     }));
   }, [mediaGallery, mediaGalleryLimit]);
 
-  const handleMediaClick = useCallback((index: number) => {
+  const handleMediaClick = React.useCallback((index: number) => {
     setLightboxIndex(index);
     setLightboxOpen(true);
   }, []);
 
-  const handleLightboxClose = useCallback(() => {
+  const handleLightboxClose = React.useCallback(() => {
     setLightboxOpen(false);
   }, []);
 
@@ -407,7 +401,7 @@ export function LinkTreeBlock({
     resolveImage(brandAvatar || brandLogo, nameForAlt) ||
     resolveImage(blockBrandedIconsAndPlaceholders.avatar1, nameForAlt);
 
-  const renderBrandHeader = useMemo(() => {
+  const renderBrandHeader = React.useMemo(() => {
     if (brandSlot) return brandSlot;
 
     return (
@@ -497,7 +491,7 @@ export function LinkTreeBlock({
     taglineClassName,
   ]);
 
-  const renderLinks = useMemo(() => {
+  const renderLinks = React.useMemo(() => {
     if (linksSlot) return linksSlot;
     if (!links || links.length === 0) return null;
 
@@ -537,7 +531,7 @@ export function LinkTreeBlock({
                   "hover:scale-[1.02] active:scale-[0.98]",
                   isFeatured
                     ? "bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
-                    : "border border-border bg-card hover:bg-accent",
+                    : "border border-border bg-card text-card-foreground hover:bg-accent",
                   linkClassName,
                   isFeatured ? featuredLinkClassName : null,
                   linkItemClassName,
@@ -557,7 +551,7 @@ export function LinkTreeBlock({
                 "hover:scale-[1.02] active:scale-[0.98]",
                 isFeatured
                   ? "bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
-                  : "border border-border bg-card hover:bg-accent",
+                  : "border border-border bg-card text-card-foreground hover:bg-accent",
                 linkClassName,
                 isFeatured ? featuredLinkClassName : null,
                 linkItemClassName,
@@ -634,7 +628,7 @@ export function LinkTreeBlock({
     linkChevronClassName,
   ]);
 
-  const renderMediaGallery = useMemo(() => {
+  const renderMediaGallery = React.useMemo(() => {
     if (mediaGallerySlot) return mediaGallerySlot;
     if (!mediaGallery || mediaGallery.length === 0) return null;
 
@@ -751,7 +745,7 @@ export function LinkTreeBlock({
     mediaGalleryPlayIconClassName,
   ]);
 
-  const renderSocialLinks = useMemo(() => {
+  const renderSocialLinks = React.useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
@@ -804,7 +798,7 @@ export function LinkTreeBlock({
     socialLinkClassName,
   ]);
 
-  const renderFooter = useMemo(() => {
+  const renderFooter = React.useMemo(() => {
     if (footerSlot) return footerSlot;
 
     if (!footerAction) return null;
@@ -852,11 +846,7 @@ export function LinkTreeBlock({
       pattern={resolvedPattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
-      style={
-        accentColor
-          ? ({ "--accent-color": accentColor } as React.CSSProperties)
-          : undefined
-      }
+      containerClassName={containerClassName}
     >
       <div
         className={cn(

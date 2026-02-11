@@ -196,7 +196,7 @@ export function HeroPatternLogoTechStack({
     return (
       <div
         className={cn(
-          "mt-20 flex flex-col items-center gap-5",
+          "mt-8 md:mt-20 flex flex-col items-center gap-5",
           techLogosClassName,
         )}
       >
@@ -217,7 +217,7 @@ export function HeroPatternLogoTechStack({
                 key={index}
                 href={techLogo.href}
                 className={cn(
-                  "group flex w-auto h-12 items-center justify-center p-0",
+                  "group flex w-auto h-10 items-center justify-center max-w-12 max-h-10 min-h-10 p-1",
                   techLogo.className,
                 )}
               >

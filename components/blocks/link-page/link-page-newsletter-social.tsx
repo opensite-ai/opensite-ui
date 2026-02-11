@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
@@ -339,7 +339,7 @@ export function LinkPageNewsletterSocial({
   name,
   bio,
   avatar,
-  avatarUrl = blockBrandedIconsAndPlaceholders.avatar3,
+  avatarUrl,
   profileSlot,
   newsletterHeading,
   newsletterDescription,
@@ -360,7 +360,6 @@ export function LinkPageNewsletterSocial({
   footerAction,
   footerSlot,
   className,
-  containerClassName,
   contentClassName,
   headerClassName,
   avatarClassName,
@@ -381,8 +380,9 @@ export function LinkPageNewsletterSocial({
   linkLabelClassName,
   linkChevronClassName,
   footerClassName,
-  background = "white",
-  spacing,
+  background,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
@@ -490,12 +490,7 @@ export function LinkPageNewsletterSocial({
         <div className="space-y-1">
           {name &&
             (typeof name === "string" ? (
-              <h1
-                className={cn(
-                  "text-2xl font-bold",
-                  nameClassName,
-                )}
-              >
+              <h1 className={cn("text-2xl font-bold", nameClassName)}>
                 {name}
               </h1>
             ) : (
@@ -503,13 +498,7 @@ export function LinkPageNewsletterSocial({
             ))}
           {bio &&
             (typeof bio === "string" ? (
-              <p
-                className={cn(
-                  "max-w-xs text-sm",
-                  getTextColor(resolvedBackground, 'muted'),
-                  bioClassName,
-                )}
-              >
+              <p className={cn("max-w-xs text-sm text-balance", bioClassName)}>
                 {bio}
               </p>
             ) : (
@@ -518,7 +507,18 @@ export function LinkPageNewsletterSocial({
         </div>
       </div>
     );
-  }, [profileSlot, resolvedAvatar, avatarClassName, optixFlowConfig, name, resolvedBackground, nameClassName, bio, bioClassName, headerClassName]);
+  }, [
+    profileSlot,
+    resolvedAvatar,
+    avatarClassName,
+    optixFlowConfig,
+    name,
+    resolvedBackground,
+    nameClassName,
+    bio,
+    bioClassName,
+    headerClassName,
+  ]);
 
   const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
@@ -552,12 +552,10 @@ export function LinkPageNewsletterSocial({
               key={social.id ?? index}
               {...socialPressableProps}
               aria-label={ariaLabel}
+              asButton
+              size="icon-lg"
               className={cn(
                 "rounded-full p-2.5 transition-all duration-200",
-                "hover:scale-110 active:scale-95",
-                getNestedCardBg(resolvedBackground),
-                getNestedCardTextColor(resolvedBackground),
-                "hover:opacity-80",
                 socialLinkClassName,
                 social.className,
               )}
@@ -568,7 +566,14 @@ export function LinkPageNewsletterSocial({
         })}
       </div>
     );
-  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, resolvedBackground, socialLinkClassName]);
+  }, [
+    socialLinksSlot,
+    socialLinks,
+    socialLinksClassName,
+    socialIconClassName,
+    resolvedBackground,
+    socialLinkClassName,
+  ]);
 
   const renderFormFields = useMemo(() => {
     if (formSlot) return formSlot;
@@ -591,10 +596,7 @@ export function LinkPageNewsletterSocial({
               type="email"
               placeholder={emailPlaceholder}
               error={meta.touched && !!meta.error}
-              className={cn(
-                "w-full",
-                inputClassName,
-              )}
+              className={cn("w-full", inputClassName)}
               aria-label={emailPlaceholder || "Email address"}
             />
           )}
@@ -626,7 +628,16 @@ export function LinkPageNewsletterSocial({
         </Pressable>
       </>
     );
-  }, [formSlot, resolvedSubmitAction, emailPlaceholder, inputClassName, submitButtonClassName, form.isSubmitting, submittingIcon, submittingLabel]);
+  }, [
+    formSlot,
+    resolvedSubmitAction,
+    emailPlaceholder,
+    inputClassName,
+    submitButtonClassName,
+    form.isSubmitting,
+    submittingIcon,
+    submittingLabel,
+  ]);
 
   const renderNewsletter = useMemo(() => {
     if (newsletterSlot) return newsletterSlot;
@@ -657,13 +668,7 @@ export function LinkPageNewsletterSocial({
             ))}
           {newsletterDescription &&
             (typeof newsletterDescription === "string" ? (
-              <p
-                className={cn(
-                  "text-sm",
-                  getTextColor(resolvedBackground, 'muted'),
-                  newsletterDescriptionClassName,
-                )}
-              >
+              <p className={cn("text-sm", newsletterDescriptionClassName)}>
                 {newsletterDescription}
               </p>
             ) : (
@@ -683,7 +688,20 @@ export function LinkPageNewsletterSocial({
         </Form>
       </div>
     );
-  }, [newsletterSlot, newsletterCardClassName, newsletterHeading, newsletterHeadingClassName, newsletterDescription, resolvedBackground, newsletterDescriptionClassName, form, formConfig?.endpoint, formMethod, formClassName, renderFormFields]);
+  }, [
+    newsletterSlot,
+    newsletterCardClassName,
+    newsletterHeading,
+    newsletterHeadingClassName,
+    newsletterDescription,
+    resolvedBackground,
+    newsletterDescriptionClassName,
+    form,
+    formConfig?.endpoint,
+    formMethod,
+    formClassName,
+    renderFormFields,
+  ]);
 
   const renderLinks = useMemo(() => {
     if (linksSlot) return linksSlot;
@@ -732,7 +750,7 @@ export function LinkPageNewsletterSocial({
             <Pressable
               key={link.id ?? index}
               className={cn(
-                "flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200",
+                "flex w-full bg-card text-card-foreground items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200",
                 "hover:scale-[1.02] active:scale-[0.98]",
                 "border border-border bg-card hover:opacity-80",
                 linkClassName,
@@ -756,12 +774,7 @@ export function LinkPageNewsletterSocial({
                     {label}
                   </div>
                 ))}
-              <span
-                className={cn(
-                  getTextColor(resolvedBackground, 'muted'),
-                  linkChevronClassName,
-                )}
-              >
+              <span className={cn(linkChevronClassName)}>
                 {resolvedChevronIcon}
               </span>
             </Pressable>
@@ -769,7 +782,17 @@ export function LinkPageNewsletterSocial({
         })}
       </div>
     );
-  }, [linksSlot, links, linksClassName, linkIconClassName, resolvedBackground, linkClassName, linkLabelClassName, linkChevronClassName, resolvedChevronIcon]);
+  }, [
+    linksSlot,
+    links,
+    linksClassName,
+    linkIconClassName,
+    resolvedBackground,
+    linkClassName,
+    linkLabelClassName,
+    linkChevronClassName,
+    resolvedChevronIcon,
+  ]);
 
   const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
@@ -795,7 +818,6 @@ export function LinkPageNewsletterSocial({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          getTextColor(resolvedBackground, 'muted'),
           "opacity-50",
           footerClassName,
           actionClassName,
@@ -821,14 +843,10 @@ export function LinkPageNewsletterSocial({
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
+      containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "flex min-h-screen w-full items-start justify-center py-12",
-          containerClassName,
-        )}
-      >
-        <div className={cn("w-full max-w-md space-y-8", contentClassName)}>
+      <div className="flex min-h-screen w-full items-start justify-center py-12">
+        <div className={cn("w-full space-y-8", contentClassName)}>
           {renderProfile}
           {renderSocialLinks}
           {renderNewsletter}
