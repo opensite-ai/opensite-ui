@@ -223,11 +223,11 @@ export function HeroPatternBadgeLogos({
       className={cn("relative p-0", className)}
       containerClassName={containerClassName}
     >
-      <div className={cn("relative")}>
-        <div className="mx-auto flex max-w-5xl flex-col items-center">
+      <div className="relative">
+        <div className="relative">
           <div
             className={cn(
-              "z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 text-center",
+              "p-6 flex w-full flex-col items-center gap-6 text-center",
               contentClassName,
             )}
           >
@@ -271,7 +271,10 @@ export function HeroPatternBadgeLogos({
 
             {(actionsSlot || (actions && actions.length > 0)) && (
               <div
-                className={cn("mt-6 flex items-center gap-4", actionsClassName)}
+                className={cn(
+                  "mt-6 flex items-center gap-4 flex-col md:flex-row w-full",
+                  actionsClassName,
+                )}
               >
                 {renderActions}
               </div>
@@ -280,7 +283,7 @@ export function HeroPatternBadgeLogos({
             {(logosSlot || (logos && logos.length > 0) || logosTagline) && (
               <div
                 className={cn(
-                  "mt-12 flex flex-col items-center gap-4 lg:mt-16",
+                  "mt-6 flex flex-col items-center gap-4 lg:mt-16 w-full",
                   logosClassName,
                 )}
               >
@@ -290,7 +293,7 @@ export function HeroPatternBadgeLogos({
                   ) : (
                     logosTagline
                   ))}
-                <div className="grid grid-cols-2 place-items-center items-center justify-center gap-6 opacity-80 sm:grid-cols-4 sm:gap-4">
+                <div className="grid grid-cols-2 place-items-center items-center justify-center gap-6 opacity-80 sm:grid-cols-4 sm:gap-4 w-full">
                   {renderLogos}
                 </div>
               </div>

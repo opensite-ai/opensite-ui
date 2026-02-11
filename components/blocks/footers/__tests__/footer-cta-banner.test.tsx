@@ -3,26 +3,32 @@ import { render, screen } from "@testing-library/react";
 import { FooterCtaBanner } from "../footer-cta-banner";
 
 vi.mock("../../../lib/Pressable", () => ({
-  Pressable: ({ children, href, className }: { children: React.ReactNode; href?: string; className?: string }) => (
-    <a href={href} className={className} data-testid="mock-pressable">{children}</a>
+  Pressable: ({
+    children,
+    href,
+    className,
+  }: {
+    children: React.ReactNode;
+    href?: string;
+    className?: string;
+  }) => (
+    <a href={href} className={className} data-testid="mock-pressable">
+      {children}
+    </a>
   ),
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
   DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
+    <span data-testid="mock-icon" data-name={name} className={className}>
+      icon
+    </span>
   ),
 }));
 
 describe("FooterCtaBanner", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-  });
-
-  it("renders with provided props", () => {
-    render(<FooterCtaBanner ctaHeading="Test CTA Heading" newsletterLabel="Test Newsletter Title" />);
-    expect(screen.getByText("Test CTA Heading")).toBeInTheDocument();
-    expect(screen.getByText("Test Newsletter Title")).toBeInTheDocument();
   });
 
   it("renders custom CTA heading", () => {

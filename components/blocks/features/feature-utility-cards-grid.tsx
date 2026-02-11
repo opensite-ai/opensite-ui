@@ -237,7 +237,7 @@ export function FeatureUtilityCardsGrid({
         href={learnMoreAction.href}
         onClick={learnMoreAction.onClick}
         className={cn(
-          "flex items-center gap-1 font-medium transition-opacity hover:opacity-80",
+          "flex items-center gap-1 font-medium transition-opacity hover:opacity-80 text-right",
           learnMoreAction.className,
         )}
         aria-label={learnMoreAction["aria-label"]}

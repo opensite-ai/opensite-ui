@@ -2,12 +2,16 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { buttonVariants } from "../../../lib/button-variants";
-import type {ActionConfig, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  LogoItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -53,9 +57,6 @@ export interface HeroPatternLogoTechStackProps {
    */
   techLogosSlot?: React.ReactNode;
   /**
-   * Background pattern image URL
-   */
-  backgroundImage?: string;  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -110,20 +111,19 @@ export function HeroPatternLogoTechStack({
   logo,
   logoSlot,
   heading,
-  highlightedWord = "Blocks",
+  highlightedWord,
   description,
   actions,
   actionsSlot,
-  techStackLabel = "Built with open-source technologies",
+  techStackLabel,
   techLogos,
   techLogosSlot,
-  backgroundImage = "https://cdn.ing/assets/files/record/286187/4gpn0yq2ptra8iwlvmwwv860ggwv",
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -137,11 +137,11 @@ export function HeroPatternLogoTechStack({
 
     const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
     return (
-      <div className="rounded-xl bg-background/30 p-4 shadow-sm backdrop-blur-sm">
+      <div className="relative">
         <Img
           src={logoSrc}
           alt={logo.alt}
-          className={cn("h-16", logo.imgClassName)}
+          className={cn("h-16 w-auto object-contain", logo.imgClassName)}
           optixFlowConfig={optixFlowConfig}
         />
       </div>
@@ -153,9 +153,21 @@ export function HeroPatternLogoTechStack({
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div className={cn("mt-6 flex justify-center gap-3", actionsClassName)}>
+      <div
+        className={cn(
+          "mt-6 flex justify-center flex-col md:flex-row gap-3",
+          actionsClassName,
+        )}
+      >
         {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -182,33 +194,40 @@ export function HeroPatternLogoTechStack({
     if (!techLogos || techLogos.length === 0) return null;
 
     return (
-      <div className={cn("mt-20 flex flex-col items-center gap-5", techLogosClassName)}>
-        {techStackLabel && (
-          typeof techStackLabel === "string" ? (
-            <p className={cn("font-medium lg:text-left", getTextColor(background, "muted"))}>
-              {techStackLabel}
-            </p>
+      <div
+        className={cn(
+          "mt-20 flex flex-col items-center gap-5",
+          techLogosClassName,
+        )}
+      >
+        {techStackLabel &&
+          (typeof techStackLabel === "string" ? (
+            <p className={cn("font-medium lg:text-left")}>{techStackLabel}</p>
           ) : (
             techStackLabel
-          )
-        )}
+          ))}
         <div className="flex flex-wrap items-center justify-center gap-4">
           {techLogos.map((techLogo, index) => {
-            const techLogoSrc = typeof techLogo.src === "string" ? techLogo.src : techLogo.src.light;
+            const techLogoSrc =
+              typeof techLogo.src === "string"
+                ? techLogo.src
+                : techLogo.src.light;
             return (
               <Pressable
                 key={index}
                 href={techLogo.href}
                 className={cn(
-                  buttonVariants({ variant: "outline" }),
-                  "group flex aspect-square h-12 items-center justify-center p-0",
-                  techLogo.className
+                  "group flex w-auto h-12 items-center justify-center p-0",
+                  techLogo.className,
                 )}
               >
                 <Img
                   src={techLogoSrc}
                   alt={techLogo.alt}
-                  className={cn("h-6 saturate-0 transition-all group-hover:saturate-100", techLogo.imgClassName)}
+                  className={cn(
+                    "h-full w-auto object-contain",
+                    techLogo.imgClassName,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
               </Pressable>
@@ -217,7 +236,13 @@ export function HeroPatternLogoTechStack({
         </div>
       </div>
     );
-  }, [techLogosSlot, techLogos, techStackLabel, techLogosClassName, optixFlowConfig]);
+  }, [
+    techLogosSlot,
+    techLogos,
+    techStackLabel,
+    techLogosClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -226,41 +251,54 @@ export function HeroPatternLogoTechStack({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
-      <div className="absolute inset-x-0 top-0 flex h-full w-full items-center justify-center opacity-100">
-        <Img
-          alt="background"
-          src={backgroundImage}
-          className="mask-[radial-gradient(75%_75%_at_center,white,transparent)] opacity-90"
-          optixFlowConfig={optixFlowConfig}
-        />
-      </div>
-      <div className={cn("relative z-10 container", containerClassName)}>
+      <div className="relative">
         <div className="mx-auto flex max-w-5xl flex-col items-center">
-          <div className={cn("flex flex-col items-center gap-6 text-center", contentClassName)}>
+          <div
+            className={cn(
+              "flex flex-col items-center gap-6 text-center",
+              contentClassName,
+            )}
+          >
             {renderLogo}
             <div>
-              {heading && (
-                typeof heading === "string" ? (
-                  <h1 className={cn("mb-6 text-2xl font-bold tracking-tight text-pretty lg:text-5xl", headingClassName)}>
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h1
+                    className={cn(
+                      "mb-6 text-2xl font-bold tracking-tight text-balance lg:text-5xl",
+                      headingClassName,
+                    )}
+                  >
                     {heading}{" "}
-                    {highlightedWord && <span className={getAccentColor(background)}>{highlightedWord}</span>}
+                    {highlightedWord && (
+                      <span className="opacity-75">{highlightedWord}</span>
+                    )}
                   </h1>
                 ) : (
-                  <h1 className={cn("mb-6 text-2xl font-bold tracking-tight text-pretty lg:text-5xl", headingClassName)}>
+                  <h1
+                    className={cn(
+                      "mb-6 text-2xl font-bold tracking-tight text-balance lg:text-5xl",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h1>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("mx-auto max-w-3xl lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "mx-auto max-w-3xl lg:text-xl text-balance",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
-                )
-              )}
+                ))}
             </div>
             {renderActions}
             {renderTechLogos}
