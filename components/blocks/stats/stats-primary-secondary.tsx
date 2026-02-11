@@ -183,7 +183,7 @@ export function StatsPrimarySecondary({
     if (!primaryValue) return null;
 
     return (
-      <div className={cn("lg:col-span-4", primaryClassName)}>
+      <div className={cn("lg:col-span-4 mb-8", primaryClassName)}>
         <div className="lg:pe-6 xl:pe-12">
           <p
             className={cn(
