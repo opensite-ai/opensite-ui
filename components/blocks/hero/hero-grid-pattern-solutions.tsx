@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -113,11 +113,11 @@ export function HeroGridPatternSolutions({
   imagesSlot,
   showGridPattern = true,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -131,11 +131,7 @@ export function HeroGridPatternSolutions({
     return (
       <Pressable
         href={badgeHref}
-        className={cn(
-          "mx-auto mb-4 flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background)
-        )}
+        className="mx-auto mb-4 flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm bg-card"
       >
         {badgeText}
         <DynamicIcon name="lucide/arrow-right" size={16} />
@@ -197,9 +193,10 @@ export function HeroGridPatternSolutions({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={cn("relative flex items-center justify-center", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="relative overflow-hidden">
           {showGridPattern && (
             <div className="absolute inset-0 -top-1 -left-1 -z-10 h-full w-full bg-[linear-gradient(to_right,hsl(var(--muted-foreground))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted-foreground))_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_100%_at_50%_50%,transparent_60%,#000_100%)] bg-size-[92px_92px] opacity-15"></div>
@@ -219,7 +216,7 @@ export function HeroGridPatternSolutions({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("mx-auto mb-8 max-w-2xl text-center lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+                <p className={cn("mx-auto mb-8 max-w-2xl text-center lg:text-xl text-muted-foreground", descriptionClassName)}>
                   {description}
                 </p>
               ) : (

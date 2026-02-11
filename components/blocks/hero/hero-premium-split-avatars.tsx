@@ -92,6 +92,10 @@ export interface HeroPremiumSplitAvatarsProps {
    */
   className?: string;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Additional CSS classes for the content column
    */
   contentClassName?: string;
@@ -114,8 +118,8 @@ export interface HeroPremiumSplitAvatarsProps {
 }
 
 export function HeroPremiumSplitAvatars({
-  brandName = "Business",
-  brandSuffix = "PRO",
+  brandName,
+  brandSuffix,
   brandSlot,
   heading,
   description,
@@ -123,14 +127,15 @@ export function HeroPremiumSplitAvatars({
   actionSlot,
   avatars,
   avatarsSlot,
-  socialProofText = "More than 1 million professionals rely on our platform",
+  socialProofText,
   image,
   imageSlot,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -217,38 +222,41 @@ export function HeroPremiumSplitAvatars({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("dark flex", className)}
+      className={cn("relative flex items-center justify-center dark", className)}
+      containerClassName={containerClassName}
     >
-      <div className="flex w-full items-center justify-center bg-background lg:w-1/2">
-        <div className={cn("container my-10 flex w-[500px] flex-col gap-24", contentClassName)}>
-          {renderBrand}
-          <div>
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("text-4xl lg:text-6xl", headingClassName)}>
-                  {heading}
-                </h2>
-              ) : (
-                <h2 className={cn("text-4xl lg:text-6xl", headingClassName)}>
-                  {heading}
-                </h2>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-2.5 lg:text-xl", descriptionClassName)}>
-                  {description}
-                </p>
-              ) : (
-                <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-            {renderAction}
+      <div className="relative flex w-full">
+        <div className="flex w-full items-center justify-center bg-background lg:w-1/2">
+          <div className={cn("my-10 flex w-[500px] flex-col gap-24", contentClassName)}>
+            {renderBrand}
+            <div>
+              {heading && (
+                typeof heading === "string" ? (
+                  <h2 className={cn("text-4xl lg:text-6xl", headingClassName)}>
+                    {heading}
+                  </h2>
+                ) : (
+                  <h2 className={cn("text-4xl lg:text-6xl", headingClassName)}>
+                    {heading}
+                  </h2>
+                )
+              )}
+              {description && (
+                typeof description === "string" ? (
+                  <p className={cn("mt-2.5 lg:text-xl", descriptionClassName)}>
+                    {description}
+                  </p>
+                ) : (
+                  <div className={descriptionClassName}>{description}</div>
+                )
+              )}
+              {renderAction}
+            </div>
+            {renderAvatars}
           </div>
-          {renderAvatars}
         </div>
+        {renderImage}
       </div>
-      {renderImage}
     </Section>
   );
 }

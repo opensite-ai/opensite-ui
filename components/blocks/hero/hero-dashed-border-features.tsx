@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -115,11 +115,11 @@ export function HeroDashedBorderFeatures({
   features,
   featuresSlot,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -132,11 +132,7 @@ export function HeroDashedBorderFeatures({
     return (
       <Pressable
         href={announcementHref}
-        className={cn(
-          "mx-auto mb-4 flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background)
-        )}
+        className="mx-auto mb-4 flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm bg-card"
       >
         <Badge>{badgeText}</Badge>
         {announcementText}
@@ -201,11 +197,7 @@ export function HeroDashedBorderFeatures({
           index === 1 && "border-x"
         )}
       >
-        <span className={cn(
-          "flex size-10 shrink-0 items-center justify-center rounded-md text-sm lg:size-12 lg:text-base",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background)
-        )}>
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-md text-sm lg:size-12 lg:text-base bg-card">
           {feature.icon ?? <DynamicIcon name={feature.iconName || "lucide/check"} size={20} />}
         </span>
         {feature.title}
@@ -219,9 +211,10 @@ export function HeroDashedBorderFeatures({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      className={cn("relative flex items-center justify-center", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className={cn("border-x border-t border-dashed px-4 py-20 md:px-16", contentClassName)}>
           <div className="mx-auto max-w-3xl">
             {renderAnnouncement}
@@ -236,7 +229,7 @@ export function HeroDashedBorderFeatures({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("mx-auto mb-6 max-w-2xl text-center lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+                <p className={cn("mx-auto mb-6 max-w-2xl text-center lg:text-xl text-muted-foreground", descriptionClassName)}>
                   {description}
                 </p>
               ) : (

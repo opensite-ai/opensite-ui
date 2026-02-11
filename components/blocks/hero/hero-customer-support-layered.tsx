@@ -141,7 +141,7 @@ export function HeroCustomerSupportLayered({
           </div>
         )}
         {images[2] && (
-          <div className="absolute right-0 top-[10%] z-30 aspect-3/4 w-[45%] overflow-hidden rounded-lg shadow-2xl md:w-[40%]">
+          <div className="absolute left-[50%] top-[40%] md:top-[10%] z-30 aspect-3/4 w-[45%] overflow-hidden rounded-lg shadow-2xl md:w-[40%]">
             <Img
               src={images[2].src}
               alt={images[2].alt}

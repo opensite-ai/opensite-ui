@@ -223,7 +223,7 @@ export function HeroStartupLaunchCta({
     if (!badgeCard) return null;
 
     return (
-      <div className="absolute -bottom-4 -left-4 flex items-center gap-3 rounded-xl bg-background p-4 shadow-lg">
+      <div className="absolute -bottom-4 -left-4 flex items-center gap-3 rounded-xl bg-card text-card-foreground p-4 shadow-lg">
         {badgeCard.logoSrc && (
           <Img
             src={badgeCard.logoSrc}
@@ -234,7 +234,7 @@ export function HeroStartupLaunchCta({
         )}
         <div>
           {badgeCard.title && (
-            <div className="font-semibold ">{badgeCard.title}</div>
+            <div className="font-semibold">{badgeCard.title}</div>
           )}
           {badgeCard.subtitle && (
             <div className="text-sm">{badgeCard.subtitle}</div>

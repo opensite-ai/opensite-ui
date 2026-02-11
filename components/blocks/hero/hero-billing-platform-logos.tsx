@@ -54,10 +54,7 @@ export interface HeroBillingPlatformLogosProps {
    * Custom slot for logos (overrides logos array)
    */
   logosSlot?: React.ReactNode;
-  /**
-   * Background noise texture URL
-   */
-  backgroundNoiseUrl?: string;
+
   /**
    * Background style for the section
    */
@@ -119,13 +116,12 @@ export function HeroBillingPlatformLogos({
   logosTagline,
   logos,
   logosSlot,
-  backgroundNoiseUrl = "https://cdn.ing/assets/i/r/286188/zrqcp9hynh3j7p2laihwzfbujgrl/noise.png",
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -188,13 +184,10 @@ export function HeroBillingPlatformLogos({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(
-        "dark font-sans",
-        className
-      )}
-      style={{ backgroundImage: backgroundNoiseUrl ? `url('${backgroundNoiseUrl}')` : undefined }}
+      className={cn("relative flex items-center justify-center dark font-sans", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="grid grid-cols-1 items-center justify-center gap-12 lg:grid-cols-[minmax(33.75rem,1fr)_1.5fr] lg:gap-8">
           <div className={contentClassName}>
             <div className="flex flex-col gap-3">

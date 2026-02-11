@@ -173,7 +173,7 @@ export function HeroFloatingImages({
   zoomIndicatorClassName,
   optixFlowConfig,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-6 md:py-32",
+  spacing = "py-32 md:py-32",
 }: HeroFloatingImagesProps): React.JSX.Element {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);

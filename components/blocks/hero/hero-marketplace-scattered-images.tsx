@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -109,11 +109,11 @@ export function HeroMarketplaceScatteredImages({
   imagesSlot,
   showGridPattern = true,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -176,10 +176,11 @@ export function HeroMarketplaceScatteredImages({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={cn("relative flex items-center justify-center", className)}
+      containerClassName={containerClassName}
     >
-      <div className={containerClassName}>
-        <div className={cn("relative container mx-auto max-w-xl py-10 text-center", contentClassName)}>
+      <div className="relative">
+        <div className={cn("relative mx-auto max-w-xl py-10 text-center", contentClassName)}>
           {showGridPattern && (
             <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,hsl(var(--muted))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted))_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_100%_at_50%_50%,#000_60%,transparent_100%)] bg-size-[64px_64px]"></div>
           )}
@@ -196,7 +197,7 @@ export function HeroMarketplaceScatteredImages({
           )}
           {description && (
             typeof description === "string" ? (
-              <p className={cn("mb-5 text-sm md:text-base", getTextColor(background, "muted"), descriptionClassName)}>
+              <p className={cn("mb-5 text-sm md:text-base text-muted-foreground", descriptionClassName)}>
                 {description}
               </p>
             ) : (

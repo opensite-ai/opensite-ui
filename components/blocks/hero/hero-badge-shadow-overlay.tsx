@@ -2,13 +2,19 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { Img } from "@page-speed/img";
 
 export interface HeroBadgeShadowOverlayProps {
   /**
@@ -75,22 +81,37 @@ export interface HeroBadgeShadowOverlayProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 export function HeroBadgeShadowOverlay({
   announcementBadge,
   announcementText,
-  announcementHref = "#",
+  announcementHref,
+  description,
+  descriptionClassName,
   heading,
   actions,
   actionsSlot,
-  backgroundImageUrl = "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/shadow-overlay.png",
+  backgroundImageUrl,
+  optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-0 md:py-0",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "mx-0 w-screen px-0 sm:px-0 lg:px-0 max-w-screen relative z-10 min-h-screen h-full",
   announcementClassName,
   headingClassName,
   actionsClassName,
@@ -99,26 +120,37 @@ export function HeroBadgeShadowOverlay({
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
-    return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
+    return (
+      <div className={cn("flex flex-col md:flex-row gap-4", actionsClassName)}>
+        {actions.map((action, index) => {
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={actionClassName}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  }, [actionsSlot, actions, actionsClassName]);
 
   return (
     <Section
@@ -126,44 +158,58 @@ export function HeroBadgeShadowOverlay({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("relative", className)}
+      className={cn("relative flex items-center justify-center", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
-        <div className="flex flex-col items-center gap-10 text-center">
+      <div className="flex flex-col min-h-screen h-full justify-center items-center">
+        <div className="flex flex-col items-center gap-10 text-center px-6 max-full md:max-w-lg">
           {(announcementBadge || announcementText) && (
             <Pressable
               href={announcementHref}
               className={cn(
-                "flex items-center gap-2 rounded-full px-2 py-1 text-sm transition-colors",
-                `hover:${getNestedCardBg(background)}`,
-                announcementClassName
+                "flex items-center gap-2 rounded-full px-2 py-1 text-sm bg-card text-card-foreground",
+                announcementClassName,
               )}
             >
               {announcementBadge && <Badge>{announcementBadge}</Badge>}
               {announcementText}
-              <DynamicIcon name="lucide/arrow-right" size={16} />
+              <DynamicIcon name="lucide/arrow-up-right" size={16} />
             </Pressable>
           )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-4xl font-semibold lg:text-8xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-4xl font-semibold lg:text-8xl text-white text-balance text-shadow-xl text-center",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {(actionsSlot || (actions && actions.length > 0)) && (
-            <div className={cn("flex w-full flex-col justify-center gap-2 sm:flex-row", actionsClassName)}>
-              {renderActions}
-            </div>
-          )}
+            ))}
+
+          {description &&
+            (typeof description === "string" ? (
+              <p className={cn("text-lg text-balance", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            ))}
+
+          {renderActions}
         </div>
       </div>
-      <div
-        className="absolute inset-0 -z-10 bg-[50%_0] bg-no-repeat"
-        style={{ backgroundImage: `url('${backgroundImageUrl}')` }}
-      />
+      {backgroundImageUrl && (
+        <Img
+          src={backgroundImageUrl}
+          alt="Background Image"
+          className="absolute inset-0 -z-10 h-full w-full object-cover brightness-50"
+          optixFlowConfig={optixFlowConfig}
+        />
+      )}
     </Section>
   );
 }

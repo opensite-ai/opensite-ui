@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -109,11 +109,11 @@ export function HeroTherapyTestimonialGrid({
   testimonial,
   testimonialSlot,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -150,11 +150,7 @@ export function HeroTherapyTestimonialGrid({
 
     return (
       <div className="col-[1/2] row-[3/4] md:col-[1/2] md:row-[2/3]">
-        <div className={cn(
-          "flex h-full min-h-37.5 flex-col gap-3 overflow-hidden rounded-3xl p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background)
-        )}>
+        <div className="flex h-full min-h-37.5 flex-col gap-3 overflow-hidden rounded-3xl bg-card p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8">
           {testimonial.avatar && (
             <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl md:h-30 md:w-30">
               <Img
@@ -204,7 +200,7 @@ export function HeroTherapyTestimonialGrid({
         </div>
         {renderTestimonial}
         <div className="row-[4/5] md:col-[2/3] md:row-[2/3]">
-          <div className={cn("h-full w-full overflow-hidden rounded-2xl", getNestedCardBg(background))}>
+          <div className="h-full w-full overflow-hidden rounded-2xl bg-card">
             <Img
               src={images[2].src}
               alt={images[2].alt}
@@ -219,9 +215,14 @@ export function HeroTherapyTestimonialGrid({
 
   return (
     <Section
-      className={cn("bg-background py-12 font-sans md:py-20", className)}
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("relative flex items-center justify-center bg-background py-12 font-sans md:py-20", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className={cn("mx-auto mb-16 flex max-w-[900px] flex-col items-center gap-6", headerClassName)}>
           {heading && (
             typeof heading === "string" ? (

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { Fragment, useState } from "react";
-import { cn, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -114,19 +114,19 @@ export function HeroMentorshipVideoSplit({
   description,
   action,
   actionSlot,
-  videoLabel = "Watch our introduction to discover our services",
+  videoLabel,
   videoThumbnail,
-  videoUrl = "https://www.youtube.com/embed/your-video-id",
-  videoTitle = "Presentation Video",
+  videoUrl,
+  videoTitle,
   videoSlot,
   image,
   imageSlot,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -161,7 +161,7 @@ export function HeroMentorshipVideoSplit({
       <div className="flex max-w-97.5 flex-col gap-6">
         {videoLabel && (
           typeof videoLabel === "string" ? (
-            <p className={cn("text-xl", getAccentColor(background))}>{videoLabel}</p>
+            <p className="text-xl text-accent-foreground">{videoLabel}</p>
           ) : (
             videoLabel
           )
@@ -216,27 +216,28 @@ export function HeroMentorshipVideoSplit({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={cn("relative flex items-center justify-center", className)}
+      containerClassName={containerClassName}
     >
-        <div className={cn("container", containerClassName)}>
+        <div className="relative">
           <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
             <div>
               <div className={cn("flex h-full flex-col justify-between gap-12", contentClassName)}>
                 <div className="flex max-w-165 flex-col gap-9">
                   {heading && (
                     typeof heading === "string" ? (
-                      <h1 className={cn("text-[2.5rem] leading-none sm:text-[3.4375rem] md:text-[4rem]", getAccentColor(background), headingClassName)}>
+                      <h1 className={cn("text-[2.5rem] leading-none text-accent-foreground sm:text-[3.4375rem] md:text-[4rem]", headingClassName)}>
                         {heading}
                       </h1>
                     ) : (
-                      <h1 className={cn("text-[2.5rem] leading-none sm:text-[3.4375rem] md:text-[4rem]", getAccentColor(background), headingClassName)}>
+                      <h1 className={cn("text-[2.5rem] leading-none text-accent-foreground sm:text-[3.4375rem] md:text-[4rem]", headingClassName)}>
                         {heading}
                       </h1>
                     )
                   )}
                   {description && (
                     typeof description === "string" ? (
-                      <p className={cn("text-lg font-medium md:text-xl", getAccentColor(background), descriptionClassName)}>
+                      <p className={cn("text-lg font-medium text-accent-foreground md:text-xl", descriptionClassName)}>
                         {description}
                       </p>
                     ) : (

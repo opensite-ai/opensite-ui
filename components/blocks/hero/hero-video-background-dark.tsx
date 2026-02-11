@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
 import { Section } from "../../ui/section";
@@ -58,6 +58,10 @@ export interface HeroVideoBackgroundDarkProps {
    */
   className?: string;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Additional CSS classes for the content area
    */
   contentClassName?: string;
@@ -80,10 +84,11 @@ export function HeroVideoBackgroundDark({
   videoSrc,
   videoSlot,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -140,41 +145,44 @@ export function HeroVideoBackgroundDark({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={cn("relative flex items-center justify-center", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("relative z-10 container mx-auto flex size-full max-w-3xl flex-col justify-center gap-4 lg:items-center lg:text-center", contentClassName)}>
-        {badgeText && (
-          typeof badgeText === "string" ? (
-            <span className={cn("text-xs", getTextColor(background, "muted"))}>
-              {badgeText}
-            </span>
-          ) : (
-            badgeText
-          )
-        )}
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("text-5xl font-bold lg:text-[4.2rem]", headingClassName)}>
-              {heading}
-            </h1>
-          ) : (
-            <h1 className={cn("text-5xl font-bold lg:text-[4.2rem]", headingClassName)}>
-              {heading}
-            </h1>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
-              {description}
-            </p>
-          ) : (
-            <div className={descriptionClassName}>{description}</div>
-          )
-        )}
-        {renderActions}
+      <div className="relative">
+        <div className={cn("relative z-10 mx-auto flex size-full max-w-3xl flex-col justify-center gap-4 lg:items-center lg:text-center", contentClassName)}>
+          {badgeText && (
+            typeof badgeText === "string" ? (
+              <span className="text-xs text-muted-foreground">
+                {badgeText}
+              </span>
+            ) : (
+              badgeText
+            )
+          )}
+          {heading && (
+            typeof heading === "string" ? (
+              <h1 className={cn("text-5xl font-bold lg:text-[4.2rem]", headingClassName)}>
+                {heading}
+              </h1>
+            ) : (
+              <h1 className={cn("text-5xl font-bold lg:text-[4.2rem]", headingClassName)}>
+                {heading}
+              </h1>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
+          {renderActions}
+        </div>
+        {renderVideo}
       </div>
-      {renderVideo}
     </Section>
   );
 }

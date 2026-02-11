@@ -89,7 +89,7 @@ export interface HeroHiringAnimatedTextProps {
 }
 
 export function HeroHiringAnimatedText({
-  headingPrefix = "We help you to hire top",
+  headingPrefix,
   animatedTexts,
   headingSlot,
   description,
@@ -99,11 +99,11 @@ export function HeroHiringAnimatedText({
   scrollActionSlot,
   backgroundImage,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -189,13 +189,18 @@ export function HeroHiringAnimatedText({
 
   return (
     <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={cn(
-        "dark relative h-svh max-h-[1400px] w-full bg-cover bg-position-[100%] bg-no-repeat before:absolute before:top-0 before:left-0 before:size-full before:bg-[radial-gradient(circle_at_100%_-100%,transparent_40%,rgba(0,0,0,.75)_85%)] before:content-['']",
+        "relative flex items-center justify-center dark h-svh max-h-[1400px] w-full bg-cover bg-position-[100%] bg-no-repeat before:absolute before:top-0 before:left-0 before:size-full before:bg-[radial-gradient(circle_at_100%_-100%,transparent_40%,rgba(0,0,0,.75)_85%)] before:content-['']",
         className
       )}
+      containerClassName={containerClassName}
       style={{ backgroundImage: `url('${backgroundImage}')` }}
     >
-      <div className={cn("relative z-10 container flex size-full max-w-412.5 flex-col justify-between pt-24 pb-14 md:justify-end", containerClassName)}>
+      <div className="relative z-10 flex size-full max-w-412.5 flex-col justify-between pt-24 pb-14 md:justify-end">
         <div className={cn("flex h-full flex-col justify-between gap-6 md:justify-end", contentClassName)}>
           {renderHeading}
           <div className="flex flex-col gap-8">

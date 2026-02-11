@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getBorderColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -80,11 +80,11 @@ export function HeroArchitectureFullscreen({
   actionSlot,
   backgroundImage,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   taglineClassName,
   headingClassName,
   descriptionClassName,
@@ -118,17 +118,18 @@ export function HeroArchitectureFullscreen({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(
-        "dark relative h-svh max-h-[1400px] w-full overflow-hidden bg-cover bg-center bg-no-repeat font-poppins after:absolute after:top-0 after:left-0 after:block after:h-full after:w-full after:bg-foreground/65 after:content-['']",
+        "relative flex items-center justify-center dark h-svh max-h-[1400px] w-full overflow-hidden bg-cover bg-center bg-no-repeat font-poppins after:absolute after:top-0 after:left-0 after:block after:h-full after:w-full after:bg-foreground/65 after:content-['']",
         className
       )}
+      containerClassName={containerClassName}
       style={{ backgroundImage: backgroundImage ? `url('${backgroundImage}')` : undefined }}
     >
-      <div className={cn("relative z-20 container h-full w-full max-w-340", containerClassName)}>
+      <div className="relative z-20 h-full w-full max-w-340">
         <div className="flex h-full w-full flex-col justify-end gap-12">
           <div className="flex max-w-245.5 flex-col gap-1">
             {tagline && (
               typeof tagline === "string" ? (
-                <p className={cn("text-sm leading-none uppercase", getTextColor(background, "muted"), taglineClassName)}>
+                <p className={cn("text-sm leading-none uppercase text-muted-foreground", taglineClassName)}>
                   {tagline}
                 </p>
               ) : (
@@ -148,7 +149,7 @@ export function HeroArchitectureFullscreen({
           <div className="flex w-full flex-col justify-between gap-5 sm:flex-row sm:items-center">
             {description && (
               typeof description === "string" ? (
-                <p className={cn("max-w-81 border-l pl-6 text-base", getBorderColor(background, "muted"), getTextColor(background, "muted"), descriptionClassName)}>
+                <p className={cn("max-w-81 border-l border-border pl-6 text-base text-muted-foreground", descriptionClassName)}>
                   {description}
                 </p>
               ) : (

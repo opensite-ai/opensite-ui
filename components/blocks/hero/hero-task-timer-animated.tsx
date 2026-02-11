@@ -4,10 +4,15 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -31,7 +36,7 @@ export interface HeroTaskTimerAnimatedProps {
   /**
    * Custom slot for images (overrides images array)
    */
-  imagesSlot?: React.ReactNode;  /**
+  imagesSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -53,6 +58,10 @@ export interface HeroTaskTimerAnimatedProps {
    */
   className?: string;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Additional CSS classes for the header area
    */
   headerClassName?: string;
@@ -68,70 +77,50 @@ export interface HeroTaskTimerAnimatedProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
 }
 
 export function HeroTaskTimerAnimated({
   heading,
+  description,
+  descriptionClassName,
   actions,
   actionsSlot,
   images,
   imagesSlot,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
   imagesClassName,
   optixFlowConfig,
 }: HeroTaskTimerAnimatedProps): React.JSX.Element {
-  const defaultActions: ActionConfig[] = [
-    {
-      label: "Download for Mac",
-      href: "#",
-      variant: "default",
-      className: "group h-fit rounded-xl p-4 text-xl font-semibold shadow-xl",
-      icon: <DynamicIcon name="lucide/apple" size={20} className="mr-2" />,
-    },
-    {
-      label: "Download for Windows",
-      href: "#",
-      variant: "link",
-      className: "flex items-center gap-2 text-lg font-semibold ",
-      iconAfter: <DynamicIcon name="lucide/arrow-right" size={20} />,
-    },
-  ];
-
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
-
-    const actionsToRender = actions || defaultActions;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-        {actionsToRender.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-          const isPrimaryAction = index === 0 && !actions;
-
-          if (isPrimaryAction) {
-            return (
-              <Pressable
-                key={index}
-                asButton
-                className={actionClassName}
-                {...pressableProps}
-              >
-                <div className="size-full overflow-hidden">
-                  <div className="flex items-center transition-all group-hover:-translate-x-5">
-                    {icon}
-                    <span>{label}</span>
-                    <DynamicIcon name="lucide/arrow-right" size={20} className="ml-2 opacity-0 transition-opacity group-hover:opacity-100" />
-                  </div>
-                </div>
-              </Pressable>
-            );
-          }
+        {actions.map((action, index) => {
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
 
           return (
             <Pressable
@@ -152,7 +141,7 @@ export function HeroTaskTimerAnimated({
         })}
       </div>
     );
-  }, [actionsSlot, actions, defaultActions]);
+  }, [actionsSlot, actions]);
 
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
@@ -166,7 +155,10 @@ export function HeroTaskTimerAnimated({
               <Img
                 src={images[0].src}
                 alt={images[0].alt}
-                className={cn("block size-full object-cover object-top-left", images[0].className)}
+                className={cn(
+                  "block size-full object-cover object-top-left",
+                  images[0].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </AspectRatio>
@@ -178,7 +170,10 @@ export function HeroTaskTimerAnimated({
               <Img
                 src={images[1].src}
                 alt={images[1].alt}
-                className={cn("block size-full object-cover object-top-left", images[1].className)}
+                className={cn(
+                  "block size-full object-cover object-top-left",
+                  images[1].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </AspectRatio>
@@ -190,26 +185,52 @@ export function HeroTaskTimerAnimated({
 
   return (
     <Section
-      className={cn(
-        "container flex flex-col gap-10 bg-background py-20 sm:gap-20",
-        className,
-      )}
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("flex flex-col gap-10 lg:w-[80%] lg:self-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("max-w-2xl text-6xl font-bold tracking-tight md:text-7xl lg:text-8xl", headingClassName)}>
-              {heading}
-            </h1>
-          ) : (
-            <h1 className={cn("max-w-2xl text-6xl font-bold tracking-tight md:text-7xl lg:text-8xl", headingClassName)}>
-              {heading}
-            </h1>
-          )
-        )}
-        {renderActions}
+      <div className="relative flex flex-col gap-6 md:gap-16">
+        <div
+          className={cn(
+            "flex flex-col gap-10 lg:w-[80%] lg:self-center",
+            headerClassName,
+          )}
+        >
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "max-w-2xl text-6xl font-bold tracking-tight md:text-7xl lg:text-8xl text-balance",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h1>
+            ) : (
+              <h1
+                className={cn(
+                  "max-w-2xl text-6xl font-bold tracking-tight md:text-7xl lg:text-8xl text-balance",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h1>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p className={cn("text-lg text-balance", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            ))}
+          {renderActions}
+        </div>
+        {renderImages}
       </div>
-      {renderImages}
     </Section>
   );
 }

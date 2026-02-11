@@ -2,10 +2,11 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Img } from "@page-speed/img";
+import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -31,9 +32,18 @@ export interface HeroSplitSpiralShapesProps {
    */
   actionsSlot?: React.ReactNode;
   /**
-   * Custom slot for spiral shapes (overrides default shapes)
+   * Array of images to display (expects 3 images for scattered layout)
    */
-  shapesSlot?: React.ReactNode;  /**
+  images?: ImageItem[];
+  /**
+   * Custom slot for rendering images (overrides images array)
+   */
+  imagesSlot?: React.ReactNode;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -70,6 +80,10 @@ export interface HeroSplitSpiralShapesProps {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the images container
+   */
+  imagesClassName?: string;
 }
 
 export function HeroSplitSpiralShapes({
@@ -78,16 +92,19 @@ export function HeroSplitSpiralShapes({
   description,
   actions,
   actionsSlot,
-  shapesSlot,
+  images,
+  imagesSlot,
+  optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
+  imagesClassName,
 }: HeroSplitSpiralShapesProps): React.JSX.Element {
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -118,42 +135,51 @@ export function HeroSplitSpiralShapes({
     );
   }, [actionsSlot, actions]);
 
-  const renderShapes = useMemo(() => {
-    if (shapesSlot) return shapesSlot;
+  const renderImages = useMemo(() => {
+    if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
 
     return (
-      <div className="relative aspect-3/4">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            version="1.1"
-            viewBox="0 0 800 800"
-            className={cn("h-full w-full opacity-20", getTextColor(background, "muted"))}
-          >
-            {Array.from(Array(720).keys()).map((dot, index, array) => {
-              const angle = 0.2 * index;
-              const scalar = 40 + index * (360 / array.length);
-              const x = Math.round(Math.cos(angle) * scalar);
-              const y = Math.round(Math.sin(angle) * scalar);
-
-              return (
-                <circle
-                  key={index}
-                  r={(3 * index) / array.length}
-                  cx={400 + x}
-                  cy={400 + y}
-                  opacity={1 - Math.sin(angle)}
-                />
-              );
-            })}
-          </svg>
-        </div>
-        <div className={cn("absolute top-[10%] left-[8%] flex aspect-5/6 w-[38%] justify-center rounded-lg border border-border", getNestedCardBg(background, 'accent'))}></div>
-        <div className={cn("absolute top-[20%] right-[12%] flex aspect-square w-[20%] justify-center rounded-lg border border-border", getNestedCardBg(background, 'accent'))}></div>
-        <div className={cn("absolute right-[24%] bottom-[24%] flex aspect-5/6 w-[38%] justify-center rounded-lg border border-border", getNestedCardBg(background, 'accent'))}></div>
+      <div className={cn("relative aspect-3/4", imagesClassName)}>
+        {images[0] && (
+          <div className="absolute top-[10%] left-[8%] w-[38%] overflow-hidden rounded-lg border border-border">
+            <div className="aspect-5/6">
+              <Img
+                src={images[0].src}
+                alt={images[0].alt}
+                className={cn("h-full w-full object-cover", images[0].className)}
+                optixFlowConfig={optixFlowConfig}
+              />
+            </div>
+          </div>
+        )}
+        {images[1] && (
+          <div className="absolute top-[20%] right-[12%] w-[20%] overflow-hidden rounded-lg border border-border">
+            <div className="aspect-square">
+              <Img
+                src={images[1].src}
+                alt={images[1].alt}
+                className={cn("h-full w-full object-cover", images[1].className)}
+                optixFlowConfig={optixFlowConfig}
+              />
+            </div>
+          </div>
+        )}
+        {images[2] && (
+          <div className="absolute right-[24%] bottom-[24%] w-[38%] overflow-hidden rounded-lg border border-border">
+            <div className="aspect-5/6">
+              <Img
+                src={images[2].src}
+                alt={images[2].alt}
+                className={cn("h-full w-full object-cover", images[2].className)}
+                optixFlowConfig={optixFlowConfig}
+              />
+            </div>
+          </div>
+        )}
       </div>
     );
-  }, [shapesSlot]);
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -161,9 +187,10 @@ export function HeroSplitSpiralShapes({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={cn("relative flex items-center justify-center", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div className={cn("flex flex-col items-center py-32 text-center lg:mx-auto lg:items-start lg:px-0 lg:text-left", contentClassName)}>
             {badgeText && (
@@ -186,7 +213,7 @@ export function HeroSplitSpiralShapes({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("mb-8 max-w-xl lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+                <p className={cn("mb-8 max-w-xl lg:text-xl text-muted-foreground", descriptionClassName)}>
                   {description}
                 </p>
               ) : (
@@ -195,7 +222,7 @@ export function HeroSplitSpiralShapes({
             )}
             {renderActions}
           </div>
-          {renderShapes}
+          {renderImages}
         </div>
       </div>
     </Section>

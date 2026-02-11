@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { Fragment, useState } from "react";
-import { cn, getTextColor, getBorderColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -135,11 +135,11 @@ export function HeroConversionVideoPlay({
   logos,
   logosSlot,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -222,10 +222,11 @@ export function HeroConversionVideoPlay({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={cn("relative flex items-center justify-center", className)}
+      containerClassName={containerClassName}
     >
-        <div className={cn("overflow-hidden border-b", getBorderColor(background, "muted"))}>
-          <div className={cn("container", containerClassName)}>
+        <div className="relative">
+          <div className="overflow-hidden border-b border-border">
             <div className="flex flex-col items-center gap-16 md:gap-24">
               <div className={cn("flex flex-col items-center gap-8", contentClassName)}>
                 <div className="flex flex-col items-center gap-7">
@@ -240,7 +241,7 @@ export function HeroConversionVideoPlay({
                   )}
                   {description && (
                     typeof description === "string" ? (
-                      <p className={cn("max-w-[750px] text-center text-base leading-relaxed font-normal md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+                      <p className={cn("max-w-[750px] text-center text-base leading-relaxed font-normal md:text-xl text-muted-foreground", descriptionClassName)}>
                         {description}
                       </p>
                     ) : (
@@ -271,12 +272,10 @@ export function HeroConversionVideoPlay({
               </div>
             </div>
           </div>
-        </div>
-        <div className="container">
-          <div className={cn("flex flex-col items-center gap-16 py-20", logosClassName)}>
+          <div className="flex flex-col items-center gap-16 py-20">
             {logosTagline && (
               typeof logosTagline === "string" ? (
-                <p className={cn("text-center text-xl font-medium", getAccentColor(background))}>
+                <p className={cn("text-center text-xl font-medium text-accent-foreground")}>
                   {logosTagline}
                 </p>
               ) : (

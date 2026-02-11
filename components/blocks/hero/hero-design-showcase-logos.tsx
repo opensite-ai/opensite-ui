@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -106,17 +106,17 @@ export function HeroDesignShowcaseLogos({
   description,
   actions,
   actionsSlot,
-  logosLabel = "Trusted by design teams at",
+  logosLabel,
   logos,
   logosSlot,
   showcaseImage,
   showcaseSlot,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -213,9 +213,10 @@ export function HeroDesignShowcaseLogos({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      className={cn("relative flex items-center justify-center", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className={cn("flex flex-col items-center gap-8", contentClassName)}>
           <div className="flex max-w-[920px] flex-col items-center gap-6">
             {heading && (
@@ -231,7 +232,7 @@ export function HeroDesignShowcaseLogos({
             )}
             {description && (
               typeof description === "string" ? (
-                <p className={cn("text-center text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+                <p className={cn("text-center text-xl text-muted-foreground", descriptionClassName)}>
                   {description}
                 </p>
               ) : (

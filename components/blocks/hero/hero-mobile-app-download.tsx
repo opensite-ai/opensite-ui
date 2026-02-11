@@ -167,7 +167,6 @@ export function HeroMobileAppDownload({
   badgeIcon,
   badgeSlot,
   heading,
-  description,
   storeActions,
   storeActionsSlot,
   ratingValue,
@@ -186,6 +185,7 @@ export function HeroMobileAppDownload({
   className,
   contentClassName,
   headingClassName,
+  description,
   descriptionClassName,
   imageClassName,
   optixFlowConfig,
@@ -194,7 +194,7 @@ export function HeroMobileAppDownload({
     if (badgeSlot) return badgeSlot;
 
     return (
-      <Badge>
+      <Badge className="px-4 py-1">
         {badgeIcon && <DynamicIcon name={badgeIcon} />}
         <span>{badgeText}</span>
       </Badge>

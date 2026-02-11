@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -130,7 +130,7 @@ export function HeroProductivityLauncherVideo({
   videoSrc,
   videoSlot,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
@@ -172,7 +172,7 @@ export function HeroProductivityLauncherVideo({
     if (!versionInfo) return null;
 
     return (
-      <div className={cn("flex gap-6 text-xs", getTextColor(background, "muted"))}>
+      <div className="flex gap-6 text-xs text-muted-foreground">
         {versionInfo.version && <span>{versionInfo.version}</span>}
         {versionInfo.osRequirement && (
           <span className="relative before:absolute before:-left-3 before:content-['|']">
@@ -199,7 +199,7 @@ export function HeroProductivityLauncherVideo({
       >
         {secondaryCta.primaryText && <span>{secondaryCta.primaryText}</span>}
         {secondaryCta.secondaryText && (
-          <span className={cn("flex items-center gap-1", getTextColor(background, "muted"))}>
+          <span className="flex items-center gap-1 text-muted-foreground">
             <span>{secondaryCta.secondaryText}</span>
             <DynamicIcon
               name="lucide/arrow-right"
@@ -231,12 +231,14 @@ export function HeroProductivityLauncherVideo({
 
   return (
     <Section
-      className={cn(
-        "dark relative overflow-hidden bg-background py-12 font-sans md:py-20",
-        className
-      )}
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("relative flex items-center justify-center dark overflow-hidden bg-background py-12 font-sans md:py-20", className)}
+      containerClassName="px-6 sm:px-6 md:px-8 lg:px-8"
     >
-      <div className={cn("relative z-20 container max-w-204.5", contentClassName)}>
+      <div className={cn("relative z-20 max-w-204.5", contentClassName)}>
         <div className="flex flex-col items-center">
           <div className="flex flex-col items-center gap-8 px-4 pt-52 pb-32 md:pb-52">
             <div className="max-w-100 sm:max-w-135">
@@ -255,7 +257,7 @@ export function HeroProductivityLauncherVideo({
             <div className="max-w-90 md:max-w-full">
               {description && (
                 typeof description === "string" ? (
-                  <p className={cn("text-center text-sm leading-normal tracking-tight text-balance [text-shadow:0_4px_4px_rgba(0,0,0,0.25)] md:text-lg", getTextColor(background, "muted"), descriptionClassName)}>
+                  <p className={cn("text-center text-sm leading-normal tracking-tight text-balance text-muted-foreground [text-shadow:0_4px_4px_rgba(0,0,0,0.25)] md:text-lg", descriptionClassName)}>
                     {description}
                   </p>
                 ) : (

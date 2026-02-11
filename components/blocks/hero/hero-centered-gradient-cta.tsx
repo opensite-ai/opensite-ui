@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -107,11 +107,11 @@ export function HeroCenteredGradientCta({
   features,
   featuresSlot,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   gradientClassName,
   badgeClassName,
   headingClassName,
@@ -158,18 +158,18 @@ export function HeroCenteredGradientCta({
 
   return (
     <Section
-      className={cn(
-        "relative min-h-screen overflow-hidden bg-background py-32",
-        className
-      )}
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("relative flex items-center justify-center min-h-screen overflow-hidden bg-background py-32", className)}
+      containerClassName={containerClassName}
     >
       <div className={cn("pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(120,119,198,0.3),transparent)]", gradientClassName)} />
-      <div className={cn("container relative z-10 flex flex-col items-center text-center", containerClassName)}>
+      <div className="relative z-10 flex flex-col items-center text-center">
         {badge && (
           <div className={cn(
-            "inline-flex items-center gap-2 rounded-full border border-border/50 px-4 py-2 text-sm",
-            getNestedCardBg(background, 'muted'),
-            getNestedCardTextColor(background),
+            "inline-flex items-center gap-2 rounded-full border border-border/50 bg-accent px-4 py-2 text-sm",
             badgeClassName
           )}>
             {badgeIcon}
@@ -194,7 +194,7 @@ export function HeroCenteredGradientCta({
         )}
         {description && (
           typeof description === "string" ? (
-            <p className={cn("mt-6 max-w-2xl text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+            <p className={cn("mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
               {description}
             </p>
           ) : (
@@ -207,7 +207,7 @@ export function HeroCenteredGradientCta({
           </div>
         )}
         {(featuresSlot || (features && features.length > 0)) && (
-          <div className={cn("mt-16 flex items-center gap-8 text-sm", getTextColor(background, "muted"), featuresClassName)}>
+          <div className={cn("mt-16 flex items-center gap-8 text-sm text-muted-foreground", featuresClassName)}>
             {renderFeatures}
           </div>
         )}

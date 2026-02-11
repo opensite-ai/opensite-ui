@@ -58,6 +58,10 @@ export interface HeroPresentationPlatformVideoProps {
    */
   className?: string;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Additional CSS classes for the content column
    */
   contentClassName?: string;
@@ -84,10 +88,11 @@ export function HeroPresentationPlatformVideo({
   videoSrc,
   videoSlot,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   className,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -144,44 +149,48 @@ export function HeroPresentationPlatformVideo({
 
   return (
     <Section
-      className={cn(
-        "flex min-h-screen items-center justify-between bg-background py-14",
-        className,
-      )}
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("relative flex items-center justify-center", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("flex flex-col gap-5 px-[10%] lg:w-[50%] lg:pr-0", contentClassName)}>
-        {subtitle && (
-          typeof subtitle === "string" ? (
-            <p className="font-light uppercase">
-              {subtitle}
-            </p>
-          ) : (
-            subtitle
-          )
-        )}
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("text-5xl font-medium md:text-6xl lg:text-7xl", headingClassName)}>
-              {heading}
-            </h1>
-          ) : (
-            <h1 className={cn("text-5xl font-medium md:text-6xl lg:text-7xl", headingClassName)}>
-              {heading}
-            </h1>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("my-8 md:text-xl", descriptionClassName)}>
-              {description}
-            </p>
-          ) : (
-            <div className={descriptionClassName}>{description}</div>
-          )
-        )}
-        {renderActions}
+      <div className="relative flex min-h-screen items-center justify-between">
+        <div className={cn("flex flex-col gap-5 lg:w-[50%] lg:pr-0", contentClassName)}>
+          {subtitle && (
+            typeof subtitle === "string" ? (
+              <p className="font-light uppercase">
+                {subtitle}
+              </p>
+            ) : (
+              subtitle
+            )
+          )}
+          {heading && (
+            typeof heading === "string" ? (
+              <h1 className={cn("text-5xl font-medium md:text-6xl lg:text-7xl", headingClassName)}>
+                {heading}
+              </h1>
+            ) : (
+              <h1 className={cn("text-5xl font-medium md:text-6xl lg:text-7xl", headingClassName)}>
+                {heading}
+              </h1>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("my-8 md:text-xl", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
+          {renderActions}
+        </div>
+        {renderVideo}
       </div>
-      {renderVideo}
     </Section>
   );
 }
