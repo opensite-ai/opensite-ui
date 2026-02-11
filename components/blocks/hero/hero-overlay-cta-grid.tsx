@@ -3,16 +3,13 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Container } from "../../ui/container";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import type {
-  SectionBackground,
-  SectionSpacing,
-} from "../../../src/types";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroOverlayCtaGridCard {
@@ -154,11 +151,11 @@ export function HeroOverlayCtaGrid({
   backgroundAlt = "OpenSite AI coverage advisory hero background",
   backgroundSlot,
   background,
-  spacing,
+  spacing = "none",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-0 sm:px-0 lg:px-0 max-w-full relative z-10 h-screen w-screen flex justify-center items-center",
   headingClassName,
   descriptionClassName,
   optixFlowConfig,
@@ -168,7 +165,7 @@ export function HeroOverlayCtaGrid({
     if (!badgeText) return null;
 
     return (
-      <div className="inline-flex items-center gap-2 rounded-full border border-background/30 bg-background/15 px-6 py-2 text-sm font-semibold uppercase tracking-[0.2em]">
+      <div className="inline-flex items-center gap-2 rounded-full border border-primary bg-primary text-primary-foreground px-6 py-2 text-sm font-semibold uppercase tracking-[0.2em]">
         {badgeIcon ? <DynamicIcon name={badgeIcon} size={18} /> : null}
         {badgeText}
       </div>
@@ -200,27 +197,29 @@ export function HeroOverlayCtaGrid({
     if (!cards || cards.length === 0) return null;
 
     return (
-      <div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl border border-border bg-background/95 shadow-2xl">
+      <div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl border border-border bg-white/95 shadow-2xl px-6 md:px-20">
         <div className="grid grid-cols-1 divide-y divide-border md:grid-cols-3 md:divide-x md:divide-y-0">
           {cards.map((card) => (
             <Pressable
               key={card.label}
               href={card.href}
-              className="group flex items-center gap-4 px-6 py-6 transition-colors hover:bg-primary/5"
+              className="group flex items-center gap-4 px-6 py-6 transition-colors"
             >
-              <div className={cn("relative flex h-12 w-12 flex-none items-center justify-center rounded-full transition-colors group-hover:text-primary-foreground", `${getAccentColor(background)}/10`, getAccentColor(background), `group-hover:${getAccentColor(background)}`)}>
+              <div
+                className={cn(
+                  "relative flex h-12 w-12 flex-none items-center justify-center rounded-full transition-colors group-hover:text-black bg-white",
+                )}
+              >
                 <DynamicIcon name={card.icon} size={22} />
               </div>
               <div className="min-w-0">
-                <p className="text-base font-semibold ">
-                  {card.label}
-                </p>
-                <p className={cn("text-sm", getTextColor(background, "muted"))}>{card.subtitle}</p>
+                <p className="text-base font-semibold ">{card.label}</p>
+                <p className={cn("text-sm text-black")}>{card.subtitle}</p>
               </div>
               <DynamicIcon
                 name="lucide/arrow-right"
                 size={18}
-                className={cn("ml-auto flex-none", getAccentColor(background))}
+                className={cn("ml-auto flex-none text-muted")}
               />
             </Pressable>
           ))}
@@ -241,7 +240,7 @@ export function HeroOverlayCtaGrid({
           loading="eager"
           optixFlowConfig={optixFlowConfig}
         />
-        <div className="absolute inset-0 bg-linear-to-r from-foreground/80 via-foreground/65 to-foreground/20" />
+        <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/65 to-black/20" />
       </div>
     );
   }, [backgroundSlot, backgroundImage, backgroundAlt, optixFlowConfig]);
@@ -253,8 +252,8 @@ export function HeroOverlayCtaGrid({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(
-        "relative flex min-h-dvh items-center justify-center overflow-hidden bg-background pb-20 pt-32 md:pt-36",
-        className
+        "relative flex h-full min-h-screen w-screen items-center justify-center overflow-hidden bg-black pb-0 pt-0 md:pt-0",
+        className,
       )}
     >
       {renderBackground}
@@ -266,7 +265,7 @@ export function HeroOverlayCtaGrid({
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mx-auto max-w-3xl text-center text-balance text-background"
+          className="mx-auto max-w-3xl text-center text-balance text-white px-6 md:px-20"
         >
           {renderBadge}
           {heading &&
@@ -274,7 +273,7 @@ export function HeroOverlayCtaGrid({
               <h1
                 className={cn(
                   "mt-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl",
-                  headingClassName
+                  headingClassName,
                 )}
               >
                 {heading}
@@ -283,7 +282,7 @@ export function HeroOverlayCtaGrid({
               <h1
                 className={cn(
                   "mt-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl",
-                  headingClassName
+                  headingClassName,
                 )}
               >
                 {heading}
@@ -292,19 +291,13 @@ export function HeroOverlayCtaGrid({
           {description &&
             (typeof description === "string" ? (
               <p
-                className={cn(
-                  "mt-5 text-lg text-background/80 md:text-xl",
-                  descriptionClassName
-                )}
+                className={cn("mt-5 text-lg md:text-xl", descriptionClassName)}
               >
                 {description}
               </p>
             ) : (
               <div
-                className={cn(
-                  "mt-5 text-lg text-background/80 md:text-xl",
-                  descriptionClassName
-                )}
+                className={cn("mt-5 text-lg md:text-xl", descriptionClassName)}
               >
                 {description}
               </div>

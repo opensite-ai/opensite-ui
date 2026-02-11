@@ -19,6 +19,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { Pressable } from "@/src";
 
 export interface FeatureCategoryImageCardsItem {
   /**
@@ -57,6 +58,10 @@ export interface FeatureCategoryImageCardsItem {
    * Additional CSS classes for the image
    */
   imageClassName?: string;
+  /**
+   * Optional Link
+   */
+  href?: string;
 }
 
 export interface FeatureCategoryImageCardsProps {
@@ -187,7 +192,7 @@ export function FeatureCategoryImageCards({
             src={feature.imageSrc}
             alt={feature.imageAlt || "Feature image"}
             className={cn(
-              "w-full rounded-xl object-cover",
+              "h-full w-full rounded-xl object-cover",
               feature.imageClassName,
             )}
             loading="lazy"
@@ -212,23 +217,25 @@ export function FeatureCategoryImageCards({
         <CardHeader className="text-center">
           {feature.title &&
             (typeof feature.title === "string" ? (
-              <CardTitle
+              <Pressable
+                href={feature.href}
                 className={cn(
                   "text-lg font-semibold md:text-2xl",
                   feature.titleClassName,
                 )}
               >
                 {feature.title}
-              </CardTitle>
+              </Pressable>
             ) : (
-              <div
+              <Pressable
+                href={feature.href}
                 className={cn(
                   "text-lg font-semibold md:text-2xl",
                   feature.titleClassName,
                 )}
               >
                 {feature.title}
-              </div>
+              </Pressable>
             ))}
           {feature.category &&
             (typeof feature.category === "string" ? (
@@ -260,55 +267,57 @@ export function FeatureCategoryImageCards({
       className={className}
       containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "flex flex-col items-center justify-center gap-4 text-center",
-          headerClassName,
-        )}
-      >
-        {badge && (
-          <Badge variant="outline" className={badgeClassName}>
-            {badge}
-          </Badge>
-        )}
-        {title &&
-          (typeof title === "string" ? (
-            <h2
-              className={cn(
-                "text-3xl font-semibold md:text-5xl",
-                titleClassName,
-              )}
-            >
-              {title}
-            </h2>
-          ) : (
-            <div
-              className={cn(
-                "text-3xl font-semibold md:text-5xl",
-                titleClassName,
-              )}
-            >
-              {title}
-            </div>
-          ))}
-        {description &&
-          (typeof description === "string" ? (
-            <p className={cn("max-w-2xl md:text-lg", descriptionClassName)}>
-              {description}
-            </p>
-          ) : (
-            <div className={cn("max-w-2xl md:text-lg", descriptionClassName)}>
-              {description}
-            </div>
-          ))}
-      </div>
-      <div
-        className={cn(
-          "mx-auto mt-20 grid max-w-7xl gap-7 md:grid-cols-2 lg:grid-cols-3",
-          gridClassName,
-        )}
-      >
-        {featuresContent}
+      <div className="flex flex-col gap-6 md:gap-16">
+        <div
+          className={cn(
+            "flex flex-col items-center justify-center gap-4 text-center",
+            headerClassName,
+          )}
+        >
+          {badge && (
+            <Badge variant="default" className={badgeClassName}>
+              {badge}
+            </Badge>
+          )}
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold md:text-5xl",
+                  titleClassName,
+                )}
+              >
+                {title}
+              </h2>
+            ) : (
+              <div
+                className={cn(
+                  "text-3xl font-semibold md:text-5xl",
+                  titleClassName,
+                )}
+              >
+                {title}
+              </div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p className={cn("max-w-2xl md:text-lg", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={cn("max-w-2xl md:text-lg", descriptionClassName)}>
+                {description}
+              </div>
+            ))}
+        </div>
+        <div
+          className={cn(
+            "mx-auto grid max-w-7xl gap-7 md:grid-cols-2 lg:grid-cols-3",
+            gridClassName,
+          )}
+        >
+          {featuresContent}
+        </div>
       </div>
     </Section>
   );

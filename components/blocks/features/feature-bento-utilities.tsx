@@ -16,6 +16,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { getTextColor } from "../../../lib/utils";
+import { Pressable } from "@/src";
 
 export interface FeatureBentoUtilitiesCardItem {
   /**
@@ -54,6 +55,10 @@ export interface FeatureBentoUtilitiesCardItem {
    * Additional CSS classes for the card
    */
   className?: string;
+  /**
+   * Optional Link
+   */
+  href?: string;
 }
 
 export interface FeatureBentoUtilitiesProps {
@@ -236,9 +241,12 @@ export function FeatureBentoUtilities({
         );
 
         return (
-          <div className="mb-1 flex items-center gap-2 font-medium">
+          <Pressable
+            href={card.href}
+            className="pb-2 flex items-center gap-2 font-medium"
+          >
             {titleContent}
-          </div>
+          </Pressable>
         );
       };
 

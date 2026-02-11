@@ -54,6 +54,10 @@ export interface FeatureUtilityCardsGridItem {
    * Additional CSS classes for the image
    */
   imageClassName?: string;
+  /**
+   * Optional Link
+   */
+  href?: string;
 }
 
 export interface FeatureUtilityCardsGridProps {
@@ -218,7 +222,7 @@ export function FeatureUtilityCardsGrid({
           href={learnMoreAction.href}
           onClick={learnMoreAction.onClick}
           className={cn(
-            "font-medium transition-opacity hover:opacity-80",
+            "font-medium transition-opacity hover:opacity-80 text-right",
             learnMoreAction.className,
           )}
           aria-label={learnMoreAction["aria-label"]}
@@ -280,34 +284,34 @@ export function FeatureUtilityCardsGrid({
       <Card
         key={index}
         className={cn(
-          "overflow-hidden pt-0 transition-shadow duration-300 hover:shadow-lg",
+          "py-0 shadow-sm overflow-hidden pt-0 transition-shadow duration-300 hover:shadow-lg",
           cardClassName,
           utility.className,
         )}
       >
-        <div className="overflow-hidden">
-          {renderUtilityImage(utility)}
-        </div>
+        <div className="overflow-hidden">{renderUtilityImage(utility)}</div>
         <div className="p-5 md:p-6">
           {utility.title &&
             (typeof utility.title === "string" ? (
-              <h3
+              <Pressable
+                href={utility.href}
                 className={cn(
                   "mb-2 text-lg font-semibold",
                   utility.titleClassName,
                 )}
               >
                 {utility.title}
-              </h3>
+              </Pressable>
             ) : (
-              <div
+              <Pressable
+                href={utility.href}
                 className={cn(
                   "mb-2 text-lg font-semibold",
                   utility.titleClassName,
                 )}
               >
                 {utility.title}
-              </div>
+              </Pressable>
             ))}
           {utility.description &&
             (typeof utility.description === "string" ? (
@@ -354,14 +358,14 @@ export function FeatureUtilityCardsGrid({
         <>
           <div
             className={cn(
-              "flex items-center justify-between text-sm",
+              "flex items-center justify-between text-sm gap-4",
               headerClassName,
             )}
           >
             {(label || labelIcon || labelIconName) && (
               <div
                 className={cn(
-                  "text-lg flex items-center gap-4",
+                  "text-lg flex items-center gap-4 leading-snug",
                   labelClassName,
                 )}
               >

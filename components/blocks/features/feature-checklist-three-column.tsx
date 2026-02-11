@@ -10,7 +10,11 @@ import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureChecklistThreeColumnCheckItem {
   /**
@@ -218,68 +222,106 @@ export function FeatureChecklistThreeColumn({
   patternOpacity,
   patternClassName,
 }: FeatureChecklistThreeColumnProps): React.JSX.Element {
-  const getCheckItemContent = useCallback((item: string | FeatureChecklistThreeColumnCheckItem) => {
-    if (typeof item === "string") return item;
-    return item.content;
-  }, []);
+  const getCheckItemContent = useCallback(
+    (item: string | FeatureChecklistThreeColumnCheckItem) => {
+      if (typeof item === "string") return item;
+      return item.content;
+    },
+    [],
+  );
 
-  const getCheckItemClassName = useCallback((item: string | FeatureChecklistThreeColumnCheckItem) => {
-    if (typeof item === "string") return undefined;
-    return item.className;
-  }, []);
+  const getCheckItemClassName = useCallback(
+    (item: string | FeatureChecklistThreeColumnCheckItem) => {
+      if (typeof item === "string") return undefined;
+      return item.className;
+    },
+    [],
+  );
 
-  const renderChecklistColumn = useCallback((
-    items: (string | FeatureChecklistThreeColumnCheckItem)[] | undefined,
-    slot: React.ReactNode | undefined,
-    gapClass: string
-  ) => {
-    if (slot) return slot;
-    if (!items || items.length === 0) return null;
+  const renderChecklistColumn = useCallback(
+    (
+      items: (string | FeatureChecklistThreeColumnCheckItem)[] | undefined,
+      slot: React.ReactNode | undefined,
+      gapClass: string,
+    ) => {
+      if (slot) return slot;
+      if (!items || items.length === 0) return null;
 
-    return (
-      <ul className={cn("flex flex-col", gapClass, checklistClassName)}>
-        {items.map((item, index) => (
-          <li key={index} className={cn("flex items-start gap-3", getCheckItemClassName(item))}>
-            <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
-              <DynamicIcon name="lucide/check" size={12} className={getAccentColor(background)} />
-            </span>
-            <span className={getTextColor(background, "muted")}>{getCheckItemContent(item)}</span>
-          </li>
-        ))}
-      </ul>
-    );
-  }, [checklistClassName, getCheckItemContent, getCheckItemClassName, background]);
-
-  const renderCardImage = useCallback((card: FeatureChecklistThreeColumnCard) => {
-    if (card.imageSlot) return card.imageSlot;
-    if (card.image) {
       return (
-        <Img
-          src={card.image}
-          alt={card.imageAlt || (typeof card.title === "string" ? card.title : "Card image")}
-          className={cn("max-h-96 w-full rounded-t-lg object-cover sm:max-h-72 md:max-h-64", card.imageClassName)}
-          loading="lazy"
-          optixFlowConfig={optixFlowConfig}
-        />
+        <ul className={cn("flex flex-col", gapClass, checklistClassName)}>
+          {items.map((item, index) => (
+            <li
+              key={index}
+              className={cn(
+                "flex items-start gap-3",
+                getCheckItemClassName(item),
+              )}
+            >
+              <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                <DynamicIcon
+                  name="lucide/check"
+                  size={12}
+                  className={getAccentColor(background)}
+                />
+              </span>
+              <span className={getTextColor(background, "muted")}>
+                {getCheckItemContent(item)}
+              </span>
+            </li>
+          ))}
+        </ul>
       );
-    }
-    return null;
-  }, [optixFlowConfig]);
+    },
+    [
+      checklistClassName,
+      getCheckItemContent,
+      getCheckItemClassName,
+      background,
+    ],
+  );
 
-  const renderCardLink = useCallback((card: FeatureChecklistThreeColumnCard) => {
-    if (card.linkSlot) return card.linkSlot;
-    if (!card.link) return null;
+  const renderCardImage = useCallback(
+    (card: FeatureChecklistThreeColumnCard) => {
+      if (card.imageSlot) return card.imageSlot;
+      if (card.image) {
+        return (
+          <Img
+            src={card.image}
+            alt={
+              card.imageAlt ||
+              (typeof card.title === "string" ? card.title : "Card image")
+            }
+            className={cn(
+              "max-h-96 w-full rounded-t-lg object-cover sm:max-h-72 md:max-h-64",
+              card.imageClassName,
+            )}
+            loading="lazy"
+            optixFlowConfig={optixFlowConfig}
+          />
+        );
+      }
+      return null;
+    },
+    [optixFlowConfig],
+  );
 
-    return (
-      <Pressable
-        href={card.link}
-        className="flex items-center gap-2 px-5 py-4 font-medium transition-opacity hover:opacity-80 md:px-6"
-      >
-        {card.linkLabel || "Read more"}
-        <DynamicIcon name="lucide/arrow-right" size={16} />
-      </Pressable>
-    );
-  }, []);
+  const renderCardLink = useCallback(
+    (card: FeatureChecklistThreeColumnCard) => {
+      if (card.linkSlot) return card.linkSlot;
+      if (!card.link) return null;
+
+      return (
+        <Pressable
+          href={card.link}
+          className="flex items-center gap-2 px-5 py-4 font-medium transition-opacity hover:opacity-80 md:px-6"
+        >
+          {card.linkLabel || "Read more"}
+          <DynamicIcon name="lucide/arrow-right" size={16} />
+        </Pressable>
+      );
+    },
+    [],
+  );
 
   const cardsContent = useMemo(() => {
     if (cardsSlot) return cardsSlot;
@@ -289,7 +331,7 @@ export function FeatureChecklistThreeColumn({
       <Card
         key={index}
         className={cn(
-          "overflow-hidden pt-0 transition-shadow duration-300 hover:shadow-lg",
+          "gap-0 rounded-xl border py-0 shadow-sm overflow-hidden pt-0 transition-shadow duration-300 hover:shadow-lg",
           cardClassName,
           card.className,
         )}
@@ -310,28 +352,48 @@ export function FeatureChecklistThreeColumn({
         </div>
         <div className="flex flex-col">
           <div className="px-5 py-5 md:px-6 md:py-6">
-            {card.title && (
-              typeof card.title === "string" ? (
-                <h3 className={cn("mb-2 text-lg font-semibold", card.titleClassName)}>
+            {card.title &&
+              (typeof card.title === "string" ? (
+                <h3
+                  className={cn(
+                    "mb-2 text-lg font-semibold",
+                    card.titleClassName,
+                  )}
+                >
                   {card.title}
                 </h3>
               ) : (
-                <div className={cn("mb-2 text-lg font-semibold", card.titleClassName)}>
+                <div
+                  className={cn(
+                    "mb-2 text-lg font-semibold",
+                    card.titleClassName,
+                  )}
+                >
                   {card.title}
                 </div>
-              )
-            )}
-            {card.description && (
-              typeof card.description === "string" ? (
-                <p className={cn("text-sm leading-relaxed", getTextColor(background, 'muted'), card.descriptionClassName)}>
+              ))}
+            {card.description &&
+              (typeof card.description === "string" ? (
+                <p
+                  className={cn(
+                    "text-sm leading-relaxed",
+                    getTextColor(background, "muted"),
+                    card.descriptionClassName,
+                  )}
+                >
                   {card.description}
                 </p>
               ) : (
-                <div className={cn("text-sm leading-relaxed", getTextColor(background, 'muted'), card.descriptionClassName)}>
+                <div
+                  className={cn(
+                    "text-sm leading-relaxed",
+                    getTextColor(background, "muted"),
+                    card.descriptionClassName,
+                  )}
+                >
                   {card.description}
                 </div>
-              )
-            )}
+              ))}
           </div>
           {card.checklistItems && card.checklistItems.length > 0 && (
             <ul className="border-t px-5 py-4 md:px-6">
@@ -350,22 +412,29 @@ export function FeatureChecklistThreeColumn({
                       className={getAccentColor(background)}
                     />
                   </span>
-                  <span className={cn("text-sm", getTextColor(background, "muted"))}>
+                  <span
+                    className={cn("text-sm", getTextColor(background, "muted"))}
+                  >
                     {getCheckItemContent(item)}
                   </span>
                 </li>
               ))}
             </ul>
           )}
-          {card.link && (
-            <div className="border-t">
-              {renderCardLink(card)}
-            </div>
-          )}
+          {card.link && <div className="border-t">{renderCardLink(card)}</div>}
         </div>
       </Card>
     ));
-  }, [cardsSlot, cards, cardClassName, renderCardImage, renderCardLink, getCheckItemContent, getCheckItemClassName, background]);
+  }, [
+    cardsSlot,
+    cards,
+    cardClassName,
+    renderCardImage,
+    renderCardLink,
+    getCheckItemContent,
+    getCheckItemClassName,
+    background,
+  ]);
 
   return (
     <Section
@@ -377,22 +446,41 @@ export function FeatureChecklistThreeColumn({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 lg:gap-12", headerGridClassName)}>
-        {title && (
-          typeof title === "string" ? (
-            <h2 className={cn("mb-2 text-2xl font-semibold text-balance sm:col-span-2 sm:text-3xl lg:col-span-1 lg:text-4xl", titleClassName)}>
+      <div
+        className={cn(
+          "grid gap-4 md:gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 lg:gap-12",
+          headerGridClassName,
+        )}
+      >
+        {title &&
+          (typeof title === "string" ? (
+            <h2
+              className={cn(
+                "mb-2 text-2xl font-semibold text-balance sm:col-span-2 sm:text-3xl lg:col-span-1 lg:text-4xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h2>
           ) : (
-            <div className={cn("mb-2 text-2xl font-semibold text-balance sm:col-span-2 sm:text-3xl lg:col-span-1 lg:text-4xl", titleClassName)}>
+            <div
+              className={cn(
+                "mb-2 text-2xl font-semibold text-balance sm:col-span-2 sm:text-3xl lg:col-span-1 lg:text-4xl",
+                titleClassName,
+              )}
+            >
               {title}
             </div>
-          )
-        )}
+          ))}
         {renderChecklistColumn(checklistColumn1, checklistColumn1Slot, "gap-4")}
         {renderChecklistColumn(checklistColumn2, checklistColumn2Slot, "gap-4")}
       </div>
-      <div className={cn("mt-10 grid gap-6 sm:mt-16 md:grid-cols-2 lg:grid-cols-3", cardsGridClassName)}>
+      <div
+        className={cn(
+          "mt-10 grid gap-6 sm:mt-16 md:grid-cols-2 lg:grid-cols-3",
+          cardsGridClassName,
+        )}
+      >
         {cardsContent}
       </div>
     </Section>

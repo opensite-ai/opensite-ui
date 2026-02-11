@@ -111,6 +111,10 @@ export interface FooterNewsletterContactProps {
   className?: string;
   /** Section background variant */
   background?: SectionBackground;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Optional background pattern name */
@@ -177,7 +181,8 @@ export function FooterNewsletterContact({
   copyright,
   className,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -288,10 +293,7 @@ export function FooterNewsletterContact({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -309,7 +311,8 @@ export function FooterNewsletterContact({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
+      containerClassName={containerClassName}
     >
       <div className="space-y-10">
         <div className="grid grid-cols-1 gap-x-16 gap-y-8 md:grid-cols-2 xl:grid-cols-4">
@@ -317,7 +320,7 @@ export function FooterNewsletterContact({
             (newsletterTitle ||
               newsletterDescription ||
               newsletterButtonText) && (
-              <div className="space-y-6">
+              <div className="space-y-6 col-span-2 md:col-span-1">
                 {newsletterTitle && (
                   <h3 className="text-3xl font-medium font-serif leading-none">
                     {newsletterTitle}
@@ -363,20 +366,16 @@ export function FooterNewsletterContact({
           {linkSectionsContent}
 
           {(contactDetailsContent || socialLinksContent) && (
-            <div>
+            <div className="col-span-2 md:col-span-1">
               <h2 className="mb-6 text-sm font-medium uppercase leading-tight opacity-70">
                 Contact
               </h2>
               <div className="space-y-6">
                 {contactDetailsContent && (
-                  <ul className="space-y-3">
-                    {contactDetailsContent}
-                  </ul>
+                  <ul className="space-y-3">{contactDetailsContent}</ul>
                 )}
                 {socialLinksContent && (
-                  <ul className="flex flex-wrap gap-3">
-                    {socialLinksContent}
-                  </ul>
+                  <ul className="flex flex-wrap gap-3">{socialLinksContent}</ul>
                 )}
               </div>
             </div>
@@ -388,10 +387,7 @@ export function FooterNewsletterContact({
             <div className="flex items-center justify-between gap-4 md:gap-12">
               <Separator className="flex-1" />
               <div className="basis-30 md:basis-40">
-                <FooterLogo
-                  logo={logo}
-                  optixFlowConfig={optixFlowConfig}
-                />
+                <FooterLogo logo={logo} optixFlowConfig={optixFlowConfig} />
               </div>
               <Separator className="flex-1" />
             </div>

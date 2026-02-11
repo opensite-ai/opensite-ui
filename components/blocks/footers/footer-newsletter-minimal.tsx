@@ -104,6 +104,10 @@ export interface FooterNewsletterMinimalProps {
   /** Section background variant */
   background?: SectionBackground;
   /** Section spacing variant */
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   spacing?: SectionSpacing;
   /** Optional background pattern */
   pattern?: PatternName;
@@ -210,7 +214,8 @@ export function FooterNewsletterMinimal({
   brandTextClassName,
   copyrightClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   formConfig,
@@ -242,8 +247,11 @@ export function FooterNewsletterMinimal({
           href={item.href}
           label={item.label}
           iconNameOverride={item.iconNameOverride}
-          iconSize={14}
-          className={cn("group flex items-center gap-1 tracking-tight hover:opacity-70", socialLinkClassName)}
+          iconSize={24}
+          className={cn(
+            "group flex items-center gap-1 tracking-tight hover:opacity-70",
+            socialLinkClassName,
+          )}
         />
       </li>
     ));
@@ -256,14 +264,16 @@ export function FooterNewsletterMinimal({
       <li key={item.label}>
         <Pressable
           href={item.href}
-          className={cn("group flex items-center gap-1 tracking-tight hover:opacity-70", footerLinkClassName)}
+          className={cn(
+            "group flex items-center gap-1 tracking-tight hover:opacity-70",
+            footerLinkClassName,
+          )}
         >
           {item.label}
         </Pressable>
       </li>
     ));
   }, [footerLinks, footerLinkClassName]);
-
 
   const form = useForm<{ email: string }>({
     initialValues: {
@@ -301,10 +311,7 @@ export function FooterNewsletterMinimal({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -322,18 +329,34 @@ export function FooterNewsletterMinimal({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("dark", className)}
+      className={className}
+      containerClassName={containerClassName}
     >
       <div className={cn(contentClassName)}>
-        <div className={cn("flex flex-col justify-between gap-15 lg:flex-row", topSectionClassName)}>
+        <div
+          className={cn(
+            "flex flex-col justify-between gap-15 lg:flex-row",
+            topSectionClassName,
+          )}
+        >
           <div className="flex flex-col gap-10">
             {heading && (
-              <p className={cn("relative text-4xl font-medium tracking-tight lg:text-5xl", headingClassName)}>
+              <p
+                className={cn(
+                  "relative text-4xl font-medium tracking-tight lg:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </p>
             )}
             {(supportLabel || supportEmail) && (
-              <div className={cn("space-y-1 text-sm font-light tracking-tight lg:text-base", supportClassName)}>
+              <div
+                className={cn(
+                  "space-y-1 text-sm font-light tracking-tight lg:text-base",
+                  supportClassName,
+                )}
+              >
                 {supportLabel && <p>{supportLabel}</p>}
                 {supportEmail && (
                   <Pressable href={`mailto:${supportEmail}`}>
@@ -343,16 +366,26 @@ export function FooterNewsletterMinimal({
               </div>
             )}
           </div>
-          <div className={cn("grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base", navGridClassName)}>
+          <div
+            className={cn(
+              "grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base",
+              navGridClassName,
+            )}
+          >
             <ul className={cn("space-y-1", navLinksClassName)}>
               {navLinksContent}
             </ul>
-            <ul className={cn("space-y-1", socialLinksClassName)}>
+            <ul className={cn("space-y-4", socialLinksClassName)}>
               {socialLinksContent}
             </ul>
           </div>
         </div>
-        <div className={cn("mt-20 flex flex-col justify-between gap-15 lg:flex-row", newsletterSectionClassName)}>
+        <div
+          className={cn(
+            "mt-20 flex flex-col justify-between gap-15 lg:flex-row",
+            newsletterSectionClassName,
+          )}
+        >
           {formConfig?.token && (
             <div className="flex w-full max-w-md flex-col gap-10">
               <div className="space-y-1 text-sm font-light tracking-tight lg:text-base">
@@ -361,7 +394,10 @@ export function FooterNewsletterMinimal({
                   form={form}
                   action={formConfig?.endpoint}
                   method={formMethod}
-                  className={cn("flex w-full items-end border-b border-b-foreground/10", newsletterFormClassName)}
+                  className={cn(
+                    "flex w-full items-end border-b border-b-foreground/10",
+                    newsletterFormClassName,
+                  )}
                 >
                   <Field name="email" className="flex-1">
                     {({ field, meta }) => (
@@ -370,7 +406,10 @@ export function FooterNewsletterMinimal({
                         type="email"
                         placeholder={newsletterPlaceholder}
                         error={meta.touched && !!meta.error}
-                        className={cn("mt-10 h-auto w-full rounded-none border-0 bg-transparent p-0 uppercase shadow-none placeholder:text-foreground/20 focus:outline-none focus:ring-0 lg:text-base", newsletterInputClassName)}
+                        className={cn(
+                          "mt-10 h-auto w-full rounded-none border-0 bg-transparent p-0 uppercase shadow-none placeholder:text-foreground/20 focus:outline-none focus:ring-0 lg:text-base",
+                          newsletterInputClassName,
+                        )}
                         aria-label={newsletterPlaceholder || "Email address"}
                       />
                     )}
@@ -378,7 +417,10 @@ export function FooterNewsletterMinimal({
                   <Pressable
                     componentType="button"
                     type="submit"
-                    className={cn("p-2 hover:opacity-80", newsletterButtonClassName)}
+                    className={cn(
+                      "p-2 hover:opacity-80",
+                      newsletterButtonClassName,
+                    )}
                     asButton={false}
                     disabled={form.isSubmitting}
                   >
@@ -388,7 +430,12 @@ export function FooterNewsletterMinimal({
               </div>
             </div>
           )}
-          <div className={cn("grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base", bottomGridClassName)}>
+          <div
+            className={cn(
+              "grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base",
+              bottomGridClassName,
+            )}
+          >
             {location && (
               <div className={cn("w-32", locationClassName)}>{location}</div>
             )}
@@ -406,13 +453,23 @@ export function FooterNewsletterMinimal({
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <span className={cn("text-6xl font-bold tracking-tighter md:text-8xl lg:text-9xl", brandTextClassName)}>
+              <span
+                className={cn(
+                  "text-6xl font-bold tracking-tighter md:text-8xl lg:text-9xl",
+                  brandTextClassName,
+                )}
+              >
                 {brandText}
               </span>
             </motion.div>
           </div>
         )}
-        <div className={cn("mt-8 text-center text-sm opacity-80", copyrightClassName)}>
+        <div
+          className={cn(
+            "mt-8 text-center text-sm opacity-80",
+            copyrightClassName,
+          )}
+        >
           <FooterCopyright copyright={copyright} />
           <BrandAttribution
             internalBrandSlug="open_site_ai"
