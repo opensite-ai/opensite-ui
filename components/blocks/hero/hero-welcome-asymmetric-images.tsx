@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 
@@ -53,6 +53,10 @@ export interface HeroWelcomeAsymmetricImagesProps {
    */
   patternOpacity?: number;
   /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
@@ -89,11 +93,12 @@ export function HeroWelcomeAsymmetricImages({
   images,
   imagesSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
+  patternClassName,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   headingClassName,
   descriptionClassName,
   optixFlowConfig,
@@ -167,16 +172,18 @@ export function HeroWelcomeAsymmetricImages({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row xl:gap-20">
           <div className="flex w-full flex-col items-start text-left">
             {heading &&
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "mb-8 text-4xl font-normal text-pretty md:text-7xl",
+                    "mb-8 text-4xl font-normal text-balance md:text-7xl",
                     headingClassName,
                   )}
                 >
@@ -185,7 +192,7 @@ export function HeroWelcomeAsymmetricImages({
               ) : (
                 <h1
                   className={cn(
-                    "mb-8 text-4xl font-normal text-pretty md:text-7xl",
+                    "mb-8 text-4xl font-normal text-balance md:text-7xl",
                     headingClassName,
                   )}
                 >
@@ -196,8 +203,7 @@ export function HeroWelcomeAsymmetricImages({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mb-12 max-w-[70%] text-xl font-normal",
-                    getTextColor(background, "muted"),
+                    "mb-12 max-w-[70%] text-xl font-normal text-balance",
                     descriptionClassName,
                   )}
                 >
@@ -206,8 +212,7 @@ export function HeroWelcomeAsymmetricImages({
               ) : (
                 <div
                   className={cn(
-                    "mb-12 max-w-[70%] text-xl font-normal",
-                    getTextColor(background, "muted"),
+                    "mb-12 max-w-[70%] text-xl font-normal text-balance",
                     descriptionClassName,
                   )}
                 >

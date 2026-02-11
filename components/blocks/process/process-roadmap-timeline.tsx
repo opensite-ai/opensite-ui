@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor, getBorderColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -11,6 +11,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { Badge } from "@/src";
 
 /**
  * Milestone status type
@@ -109,6 +110,10 @@ export interface ProcessRoadmapTimelineProps {
    */
   spacing?: SectionSpacing;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Optional background pattern name or URL
    */
   pattern?: PatternName | undefined;
@@ -117,13 +122,13 @@ export interface ProcessRoadmapTimelineProps {
    */
   patternOpacity?: number;
   /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
-  /**
-   * @deprecated Use `heading` instead
-   */
-  title?: string;
 }
 
 const StatusBadge = ({
@@ -138,37 +143,25 @@ const StatusBadge = ({
   const config = {
     completed: {
       label: "Completed",
-      badgeClassName:
-        cn(getNestedCardBg(background, 'muted'), "text-success"),
       icon: "lucide/check-circle-2",
     },
     "in-progress": {
       label: "In Progress",
-      badgeClassName:
-        cn(getNestedCardBg(background, 'muted'), getAccentColor(background)),
       icon: "lucide/loader-2",
     },
     upcoming: {
       label: "Upcoming",
-      badgeClassName:
-        cn(getNestedCardBg(background, 'muted'), getTextColor(background, 'muted')),
       icon: "lucide/clock",
     },
   };
 
-  const { label, badgeClassName, icon } = config[status];
+  const { label, icon } = config[status];
 
   return (
-    <span
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium",
-        badgeClassName,
-        className,
-      )}
-    >
+    <Badge className={cn("items-center gap-1.5", className)}>
       <DynamicIcon name={icon} size={14} />
       {label}
-    </span>
+    </Badge>
   );
 };
 
@@ -190,14 +183,14 @@ export function ProcessRoadmapTimeline({
   milestoneCardClassName,
   milestoneNodeClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
-  // Backwards compatibility
-  title,
+  patternClassName,
 }: ProcessRoadmapTimelineProps): React.JSX.Element {
   // Handle backwards compatibility
-  const resolvedHeading = title ?? heading;
+  const resolvedHeading = heading;
 
   const renderMilestones = useMemo(() => {
     if (milestonesSlot) return milestonesSlot;
@@ -222,9 +215,7 @@ export function ProcessRoadmapTimeline({
             >
               <div
                 className={cn(
-                  "rounded-lg border p-6 shadow-sm transition-shadow hover:shadow-md",
-                  getNestedCardBg(background, 'card'),
-                  getNestedCardTextColor(background),
+                  "bg-card text-card-foreground rounded-lg border p-6 shadow-sm transition-shadow hover:shadow-md",
                   milestone.status === "in-progress" && "border-primary/50",
                   milestoneCardClassName,
                 )}
@@ -237,15 +228,18 @@ export function ProcessRoadmapTimeline({
                 >
                   {milestone.date &&
                     (typeof milestone.date === "string" ? (
-                      <span className={cn("text-sm font-medium", getTextColor(background, 'muted'))}>
+                      <span className={cn("text-sm font-medium")}>
                         {milestone.date}
                       </span>
                     ) : (
-                      <div className={cn("text-sm font-medium", getTextColor(background, 'muted'))}>
+                      <div className={cn("text-sm font-medium")}>
                         {milestone.date}
                       </div>
                     ))}
-                  <StatusBadge status={milestone.status} background={background} />
+                  <StatusBadge
+                    status={milestone.status}
+                    background={background}
+                  />
                 </div>
                 {milestone.title &&
                   (typeof milestone.title === "string" ? (
@@ -259,13 +253,9 @@ export function ProcessRoadmapTimeline({
                   ))}
                 {milestone.description &&
                   (typeof milestone.description === "string" ? (
-                    <p className={cn("mb-4", getTextColor(background, 'muted'))}>
-                      {milestone.description}
-                    </p>
+                    <p className="mb-4">{milestone.description}</p>
                   ) : (
-                    <div className={cn("mb-4", getTextColor(background, 'muted'))}>
-                      {milestone.description}
-                    </div>
+                    <div className="mb-4">{milestone.description}</div>
                   ))}
                 {milestone.features?.length ? (
                   <div
@@ -278,9 +268,7 @@ export function ProcessRoadmapTimeline({
                       <span
                         key={fIndex}
                         className={cn(
-                          "rounded px-2 py-1 text-xs",
-                          getNestedCardBg(background, 'muted'),
-                          getNestedCardTextColor(background)
+                          "rounded border text-card-foreground px-2 py-1 text-xs",
                         )}
                       >
                         {feature}
@@ -290,40 +278,28 @@ export function ProcessRoadmapTimeline({
                 ) : null}
               </div>
             </div>
-
-            <div
-              className={cn(
-                "absolute left-1/2 flex size-10 -translate-x-1/2 items-center justify-center rounded-full border-2",
-                getNestedCardBg(background, 'card'),
-                milestone.status === "completed"
-                  ? "border-success bg-success text-white"
-                  : milestone.status === "in-progress"
-                    ? cn("border-primary bg-primary", getNestedCardTextColor(background))
-                    : cn(getBorderColor(background, 'default'), getTextColor(background, 'muted')),
-                milestoneNodeClassName,
-              )}
-            >
-              {milestone.status === "completed" ? (
-                <DynamicIcon name="lucide/check" size={20} />
-              ) : (
-                <span className="text-sm font-semibold">{index + 1}</span>
-              )}
-            </div>
-
             <div className="flex-1" />
           </div>
         ))}
       </div>
     );
-  }, [milestonesSlot, milestones, background, milestoneCardClassName, milestoneNodeClassName]);
+  }, [
+    milestonesSlot,
+    milestones,
+    background,
+    milestoneCardClassName,
+    milestoneNodeClassName,
+  ]);
 
   return (
     <Section
       background={background}
       spacing={spacing}
-      className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
     >
       <div className={contentClassName}>
         <div className={cn("mb-16 text-center", headerClassName)}>
@@ -331,7 +307,7 @@ export function ProcessRoadmapTimeline({
             (typeof resolvedHeading === "string" ? (
               <h1
                 className={cn(
-                  "mb-4 text-4xl font-semibold tracking-tight lg:text-5xl",
+                  "mb-4 text-4xl font-semibold tracking-tight lg:text-5xl text-balance",
                   headingClassName,
                 )}
               >
@@ -344,8 +320,7 @@ export function ProcessRoadmapTimeline({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mx-auto max-w-2xl text-lg",
-                  getTextColor(background, 'muted'),
+                  "mx-auto max-w-2xl text-lg text-balance",
                   descriptionClassName,
                 )}
               >

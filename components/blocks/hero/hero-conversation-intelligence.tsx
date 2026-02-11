@@ -2,13 +2,19 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getBorderColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface HeroConversationIntelligenceProps {
   /**
@@ -56,6 +62,10 @@ export interface HeroConversationIntelligenceProps {
    */
   patternOpacity?: number;
   /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -98,11 +108,12 @@ export function HeroConversationIntelligence({
   image,
   imageSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
+  patternClassName,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -115,7 +126,14 @@ export function HeroConversationIntelligence({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -140,76 +158,78 @@ export function HeroConversationIntelligence({
     if (!image) return null;
 
     return (
-      <div className={cn("mx-auto w-full max-w-325", imageClassName)}>
-        <AspectRatio ratio={1.818181818 / 1}>
-          <div className="relative flex size-full flex-col justify-between">
-            <AspectRatio
-              ratio={3.714285714 / 1}
-              className="w-full rounded-xl bg-[linear-gradient(transparent,var(--color-muted))]"
-            />
-            <AspectRatio
-              ratio={3.714285714 / 1}
-              className="w-full rounded-xl bg-[linear-gradient(var(--color-muted),transparent)]"
-            />
-            <div className={cn("absolute top-1/2 left-1/2 z-10 w-[87.69%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl border", getBorderColor(background, "muted"))}>
-              <AspectRatio ratio={1.594405594 / 1}>
-                <Img
-                  src={image.src}
-                  alt={image.alt}
-                  className={cn("object-centers size-full object-cover", image.className)}
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </AspectRatio>
-            </div>
-            <div className="absolute -top-[50%] left-1/2 z-0 w-[60%] -translate-x-1/2">
-              <AspectRatio
-                ratio={1}
-                className="bg-[radial-gradient(closest-side,var(--color-accent),transparent)]"
-              />
-            </div>
-          </div>
-        </AspectRatio>
+      <div
+        className={cn(
+          "relative flex size-full flex-col justify-between",
+          imageClassName,
+        )}
+      >
+        <Img
+          src={image.src}
+          alt={image.alt}
+          className={cn(
+            "object-centers size-full object-cover shadow-xl rounded-xl",
+            image.className,
+          )}
+          optixFlowConfig={optixFlowConfig}
+        />
       </div>
     );
   }, [imageSlot, image, imageClassName, optixFlowConfig]);
 
   return (
     <Section
-      className={cn("bg-background py-12 font-sans md:py-20", className)}
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
-        <div className="flex flex-col gap-24">
+      <div className="relative">
+        <div className="flex flex-col gap-8 md:gap-24">
           <div>
-            <div className={cn("relative z-10 mx-auto flex max-w-220 flex-col gap-7", contentClassName)}>
-              <h1 className={cn("text-center text-5xl leading-[1.294] font-semibold sm:text-[3.75rem] md:text-[4.25rem]", headingClassName)}>
-                {headingPrimary}{" "}
-                <span className={cn(
-                  "relative text-nowrap",
-                  `after:absolute after:top-1/2 after:left-0 after:z-[-1] after:block after:h-[65%] after:w-full after:-translate-y-1/3 after:content-['']`,
-                  `after:${getNestedCardBg(background)}`
-                )}>
-                  {headingHighlight}
-                </span>
+            <div
+              className={cn(
+                "relative z-10 mx-auto flex max-w-220 flex-col gap-7",
+                contentClassName,
+              )}
+            >
+              <h1
+                className={cn(
+                  "text-center text-5xl leading-[1.294] font-semibold sm:text-[3.75rem] md:text-[4.25rem] text-balance",
+                  headingClassName,
+                )}
+              >
+                {headingPrimary}
               </h1>
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("text-center text-xl leading-normal", getTextColor(background, "muted"), descriptionClassName)}>
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "text-center text-xl leading-normal text-balance",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
-                )
-              )}
+                ))}
               {(actionsSlot || (actions && actions.length > 0)) && (
-                <div className={cn("flex items-center justify-center gap-5", actionsClassName)}>
+                <div
+                  className={cn(
+                    "flex flex-col md:flex-row items-center justify-center gap-4",
+                    actionsClassName,
+                  )}
+                >
                   {renderActions}
                 </div>
               )}
             </div>
           </div>
-          <div>
-            {renderImage}
-          </div>
+          {renderImage}
         </div>
       </div>
     </Section>

@@ -101,7 +101,7 @@ export function HeroTechCarousel({
   patternOpacity,
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-6 md:py-32",
+  spacing = "py-32",
   headingClassName,
   descriptionClassName,
   optixFlowConfig,
@@ -251,16 +251,16 @@ export function HeroTechCarousel({
                 )}
               >
                 {technologies &&
-                  current &&
-                  technologies[current] &&
-                  technologies[current].logo && (
-                    <Img
-                      src={technologies[current]?.logo}
-                      alt={technologies[current]?.name}
-                      className="h-4 md:h-7"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  )}
+                current &&
+                technologies[current] &&
+                technologies[current].logo ? (
+                  <Img
+                    src={technologies[current]?.logo}
+                    alt={technologies[current]?.name}
+                    className="h-4 md:h-7"
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                ) : null}
                 <p
                   className={cn(
                     "px-2 font-mono text-sm",

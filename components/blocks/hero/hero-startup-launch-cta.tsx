@@ -2,13 +2,19 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { Badge } from "@/src";
 
 export interface HeroStartupLaunchCtaProps {
   /**
@@ -66,7 +72,7 @@ export interface HeroStartupLaunchCtaProps {
   /**
    * Custom slot for badge card (overrides badgeCard)
    */
-  badgeCardSlot?: React.ReactNode;  /**
+  badgeCardSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -82,7 +88,10 @@ export interface HeroStartupLaunchCtaProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
-
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
   /**
    * Additional CSS classes for the section
    */
@@ -136,15 +145,16 @@ export function HeroStartupLaunchCta({
   avatarsSlot,
   socialProofText,
   imageSrc,
-  imageAlt = "Startup dashboard",
+  imageAlt,
   badgeCard,
   badgeCardSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
+  patternClassName,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   contentClassName,
   badgeClassName,
   headingClassName,
@@ -159,7 +169,14 @@ export function HeroStartupLaunchCta({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -190,7 +207,10 @@ export function HeroStartupLaunchCta({
             key={index}
             src={avatar.src}
             alt={avatar.alt}
-            className={cn("h-10 w-10 rounded-full border-2 border-background object-cover", avatar.className)}
+            className={cn(
+              "h-10 w-10 rounded-full border-2 border-background object-cover",
+              avatar.className,
+            )}
             optixFlowConfig={optixFlowConfig}
           />
         ))}
@@ -213,8 +233,12 @@ export function HeroStartupLaunchCta({
           />
         )}
         <div>
-          {badgeCard.title && <div className="font-semibold ">{badgeCard.title}</div>}
-          {badgeCard.subtitle && <div className={cn("text-sm", getTextColor(background, "muted"))}>{badgeCard.subtitle}</div>}
+          {badgeCard.title && (
+            <div className="font-semibold ">{badgeCard.title}</div>
+          )}
+          {badgeCard.subtitle && (
+            <div className="text-sm">{badgeCard.subtitle}</div>
+          )}
         </div>
       </div>
     );
@@ -226,54 +250,72 @@ export function HeroStartupLaunchCta({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
             {badge && (
-              <div className={cn("inline-flex w-fit items-center gap-2 rounded-full bg-success/10 px-4 py-2 text-sm font-medium text-success", badgeClassName)}>
+              <Badge className={cn("relative", badgeClassName)}>
                 {badgeIcon}
                 {typeof badge === "string" ? <span>{badge}</span> : badge}
-              </div>
+              </Badge>
             )}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl leading-snug text-balance",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn("text-lg text-balance", descriptionClassName)}>
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
             {(actionsSlot || (actions && actions.length > 0)) && (
-              <div className={cn("flex flex-col gap-4 sm:flex-row", actionsClassName)}>
+              <div
+                className={cn(
+                  "flex flex-col gap-4 sm:flex-row",
+                  actionsClassName,
+                )}
+              >
                 {renderActions}
               </div>
             )}
             {(avatarsSlot || avatars || socialProofText) && (
-              <div className={cn("flex items-center gap-4 pt-4", socialProofClassName)}>
+              <div
+                className={cn(
+                  "flex items-center gap-4 pt-4",
+                  socialProofClassName,
+                )}
+              >
                 {renderAvatars}
                 {socialProofText && (
-                  <div className="text-sm">
-                    {socialProofText}
-                  </div>
+                  <div className="text-sm">{socialProofText}</div>
                 )}
               </div>
             )}
           </div>
           <div className="relative">
             {imageSrc && (
-              <div className={cn("overflow-hidden rounded-2xl bg-linear-to-br from-green-50 to-blue-50 p-8", imageClassName)}>
+              <div
+                className={cn(
+                  "overflow-hidden rounded-2xl bg-linear-to-br from-green-50 to-blue-50 p-8",
+                  imageClassName,
+                )}
+              >
                 <Img
                   src={imageSrc}
                   alt={imageAlt}

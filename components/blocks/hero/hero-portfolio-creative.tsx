@@ -6,7 +6,14 @@ import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, ImageItem, SocialLinkItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  SocialLinkItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -65,7 +72,7 @@ export interface HeroPortfolioCreativeProps {
   /**
    * Custom slot for portfolio images (overrides portfolioImages array)
    */
-  portfolioImagesSlot?: React.ReactNode;  /**
+  portfolioImagesSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -124,11 +131,11 @@ export function HeroPortfolioCreative({
   portfolioImages,
   portfolioImagesSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -146,16 +153,17 @@ export function HeroPortfolioCreative({
             <Img
               src={profile.avatar.src}
               alt={profile.avatar.alt}
-              className={cn("h-full w-full object-cover", profile.avatar.className)}
+              className={cn(
+                "h-full w-full object-cover",
+                profile.avatar.className,
+              )}
               optixFlowConfig={optixFlowConfig}
             />
           </div>
         )}
         <div>
           {profile.name && (
-            <h2 className="text-lg font-semibold ">
-              {profile.name}
-            </h2>
+            <h2 className="text-lg font-semibold ">{profile.name}</h2>
           )}
           {profile.title && (
             <p className={cn("text-sm", getTextColor(background, "muted"))}>
@@ -174,7 +182,14 @@ export function HeroPortfolioCreative({
     return (
       <div className="flex flex-col gap-4 sm:flex-row">
         {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -206,9 +221,14 @@ export function HeroPortfolioCreative({
           <Pressable
             key={index}
             href={link.href}
-            className={cn("hover:", getTextColor(background, "muted"), link.className)}
+            className={cn(
+              "hover:",
+              getTextColor(background, "muted"),
+              link.className,
+            )}
           >
-            {link.icon ?? (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
+            {link.icon ??
+              (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
           </Pressable>
         ))}
       </div>
@@ -228,7 +248,10 @@ export function HeroPortfolioCreative({
                 <Img
                   src={portfolioImages[0].src}
                   alt={portfolioImages[0].alt}
-                  className={cn("aspect-3/4 w-full object-cover transition-transform hover:scale-105", portfolioImages[0].className)}
+                  className={cn(
+                    "aspect-3/4 w-full object-cover transition-transform hover:scale-105",
+                    portfolioImages[0].className,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
@@ -238,7 +261,10 @@ export function HeroPortfolioCreative({
                 <Img
                   src={portfolioImages[1].src}
                   alt={portfolioImages[1].alt}
-                  className={cn("aspect-square w-full object-cover transition-transform hover:scale-105", portfolioImages[1].className)}
+                  className={cn(
+                    "aspect-square w-full object-cover transition-transform hover:scale-105",
+                    portfolioImages[1].className,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
@@ -250,7 +276,10 @@ export function HeroPortfolioCreative({
                 <Img
                   src={portfolioImages[2].src}
                   alt={portfolioImages[2].alt}
-                  className={cn("aspect-square w-full object-cover transition-transform hover:scale-105", portfolioImages[2].className)}
+                  className={cn(
+                    "aspect-square w-full object-cover transition-transform hover:scale-105",
+                    portfolioImages[2].className,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
@@ -260,7 +289,10 @@ export function HeroPortfolioCreative({
                 <Img
                   src={portfolioImages[3].src}
                   alt={portfolioImages[3].alt}
-                  className={cn("aspect-3/4 w-full object-cover transition-transform hover:scale-105", portfolioImages[3].className)}
+                  className={cn(
+                    "aspect-3/4 w-full object-cover transition-transform hover:scale-105",
+                    portfolioImages[3].className,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
@@ -269,7 +301,12 @@ export function HeroPortfolioCreative({
         </div>
       </div>
     );
-  }, [portfolioImagesSlot, portfolioImages, portfolioClassName, optixFlowConfig]);
+  }, [
+    portfolioImagesSlot,
+    portfolioImages,
+    portfolioClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -283,26 +320,40 @@ export function HeroPortfolioCreative({
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
             {renderProfile}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-lg",
+                    getTextColor(background, "muted"),
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
             {renderActions}
             {renderSocialLinks}
           </div>

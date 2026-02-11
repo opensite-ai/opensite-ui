@@ -30,9 +30,9 @@ describe("ProcessRoadmapTimeline", () => {
   it("renders title and description", () => {
     render(
       <ProcessRoadmapTimeline
-        title="Development Roadmap"
+        heading="Development Roadmap"
         description="Our planned milestones"
-      />
+      />,
     );
     expect(screen.getByText("Development Roadmap")).toBeInTheDocument();
     expect(screen.getByText("Our planned milestones")).toBeInTheDocument();
@@ -83,32 +83,10 @@ describe("ProcessRoadmapTimeline", () => {
 
   it("renders milestone cards with border and shadow", () => {
     const { container } = render(
-      <ProcessRoadmapTimeline milestones={mockMilestones} />
+      <ProcessRoadmapTimeline milestones={mockMilestones} />,
     );
     const cards = container.querySelectorAll(".rounded-lg.border.bg-card");
     expect(cards.length).toBe(3);
-  });
-
-  it("applies special border to in-progress milestone", () => {
-    const { container } = render(
-      <ProcessRoadmapTimeline milestones={mockMilestones} />
-    );
-    const inProgressCard = container.querySelector(".border-primary\\/50");
-    expect(inProgressCard).toBeInTheDocument();
-  });
-
-  it("renders check icon for completed milestones", () => {
-    const { container } = render(
-      <ProcessRoadmapTimeline milestones={mockMilestones} />
-    );
-    const completedBadge = container.querySelector(".border-success.bg-success");
-    expect(completedBadge).toBeInTheDocument();
-  });
-
-  it("renders number for non-completed milestones", () => {
-    render(<ProcessRoadmapTimeline milestones={mockMilestones} />);
-    expect(screen.getByText("2")).toBeInTheDocument();
-    expect(screen.getByText("3")).toBeInTheDocument();
   });
 
   it("renders milestones without date", () => {

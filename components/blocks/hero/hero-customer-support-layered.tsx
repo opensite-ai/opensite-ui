@@ -2,12 +2,17 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getBorderColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { AspectRatio } from "../../ui/aspect-ratio";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { Badge } from "@/src";
 
 export interface HeroCustomerSupportLayeredProps {
   /**
@@ -78,6 +83,10 @@ export interface HeroCustomerSupportLayeredProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 export function HeroCustomerSupportLayered({
@@ -87,58 +96,58 @@ export function HeroCustomerSupportLayered({
   images,
   imagesSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   contentClassName,
   taglineClassName,
   headingClassName,
   descriptionClassName,
   imagesClassName,
   optixFlowConfig,
+  patternClassName,
 }: HeroCustomerSupportLayeredProps): React.JSX.Element {
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
     return (
-      <div className={cn("relative ml-8 aspect-square w-full max-w-225 overflow-hidden lg:absolute lg:right-0 lg:bottom-0 lg:w-1/2", imagesClassName)}>
+      <div
+        className={cn(
+          "relative min-h-[350px] md:min-h-[400px] lg:min-h-[450px]",
+          imagesClassName,
+        )}
+      >
         {images[0] && (
-          <div className="absolute right-0 bottom-0 w-[85%] overflow-hidden rounded-lg">
-            <AspectRatio ratio={0.918918919 / 1}>
-              <Img
-                src={images[0].src}
-                alt={images[0].alt}
-                className={cn("block size-full object-cover object-top-left", images[0].className)}
-                optixFlowConfig={optixFlowConfig}
-              />
-            </AspectRatio>
+          <div className="absolute left-0 top-0 z-10 aspect-4/3 w-[65%] overflow-hidden rounded-lg shadow-2xl md:w-[60%]">
+            <Img
+              src={images[0].src}
+              alt={images[0].alt}
+              className={cn("h-full w-full object-cover", images[0].className)}
+              optixFlowConfig={optixFlowConfig}
+            />
           </div>
         )}
         {images[1] && (
-          <div className="absolute bottom-0 left-[0%] w-[70%] overflow-hidden rounded-tl-lg">
-            <AspectRatio ratio={1.9 / 1}>
-              <Img
-                src={images[1].src}
-                alt={images[1].alt}
-                className={cn("block h-full w-full object-cover object-center", images[1].className)}
-                optixFlowConfig={optixFlowConfig}
-              />
-            </AspectRatio>
+          <div className="absolute bottom-0 left-[5%] z-20 aspect-video w-[60%] overflow-hidden rounded-lg shadow-2xl md:w-[55%]">
+            <Img
+              src={images[1].src}
+              alt={images[1].alt}
+              className={cn("h-full w-full object-cover", images[1].className)}
+              optixFlowConfig={optixFlowConfig}
+            />
           </div>
         )}
         {images[2] && (
-          <div className="absolute right-[5%] bottom-0 w-[40%] overflow-hidden rounded-tl-lg rounded-tr-lg shadow-md">
-            <AspectRatio ratio={0.776119403 / 1}>
-              <Img
-                src={images[2].src}
-                alt={images[2].alt}
-                className={cn("block h-full w-full object-cover object-top", images[2].className)}
-                optixFlowConfig={optixFlowConfig}
-              />
-            </AspectRatio>
+          <div className="absolute right-0 top-[10%] z-30 aspect-3/4 w-[45%] overflow-hidden rounded-lg shadow-2xl md:w-[40%]">
+            <Img
+              src={images[2].src}
+              alt={images[2].alt}
+              className={cn("h-full w-full object-cover", images[2].className)}
+              optixFlowConfig={optixFlowConfig}
+            />
           </div>
         )}
       </div>
@@ -151,44 +160,56 @@ export function HeroCustomerSupportLayered({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("relative border-b pt-10", getBorderColor(background, "muted"), className)}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
-        <div className="grid grid-cols-1 items-center gap-2 md:gap-4 lg:grid-cols-2">
-          <div className={cn("flex w-full max-w-125 flex-col gap-9 lg:max-w-150 lg:py-[20%] xl:py-[26%]", contentClassName)}>
-            {tagline && (
-              typeof tagline === "string" ? (
-                <p className={cn("font-mono text-[clamp(0.875rem,0.875vw,1rem)]", getTextColor(background, "muted"), taglineClassName)}>
-                  {tagline}
-                </p>
+      <div className="relative">
+        <div className="grid grid-cols-1 items-center gap-4 md:gap-20 md:grid-cols-2">
+          <div
+            className={cn(
+              "flex w-full max-w-125 flex-col gap-9",
+              contentClassName,
+            )}
+          >
+            {tagline &&
+              (typeof tagline === "string" ? (
+                <Badge>{tagline}</Badge>
               ) : (
                 <div className={taglineClassName}>{tagline}</div>
-              )
-            )}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("text-[clamp(3.5rem,calc(6.5vw+2.3rem),9.5rem)] leading-[0.85] tracking-[-0.03em] ", headingClassName)}>
+              ))}
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "text-5xl md:text-6xl lg:text-7xl font-semibold text-balance leading-snug",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-[clamp(3.5rem,calc(6.5vw+2.3rem),9.5rem)] leading-[0.85] tracking-[-0.03em] ", headingClassName)}>
+                <h1
+                  className={cn(
+                    "text-2xl md:text-3xl lg:text-4xl font-semibold text-balance",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-[clamp(1.125rem,1.125vw,1.4rem)] leading-normal", getTextColor(background, "muted"), descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn("leading-normal text-lg", descriptionClassName)}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
           </div>
-          <div>
-            {renderImages}
-          </div>
+          <div>{renderImages}</div>
         </div>
       </div>
     </Section>
