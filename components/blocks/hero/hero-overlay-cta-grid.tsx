@@ -259,7 +259,7 @@ export function HeroOverlayCtaGrid({
     >
       {renderBackground}
 
-      <div className="relative flex flex-col gap-12">
+      <div className="relative flex flex-col gap-12 px-6">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}

@@ -2,11 +2,18 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, FeatureItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  FeatureItem,
+  LogoItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -23,6 +30,10 @@ export interface HeroPlatformFeaturesGridProps {
    * Subtitle/label text above heading
    */
   subtitle?: React.ReactNode;
+  /**
+   * Supporting description content
+   */
+  description?: React.ReactNode;
   /**
    * Main heading content
    */
@@ -42,7 +53,7 @@ export interface HeroPlatformFeaturesGridProps {
   /**
    * Custom slot for features (overrides features array)
    */
-  featuresSlot?: React.ReactNode;  /**
+  featuresSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -89,17 +100,18 @@ export function HeroPlatformFeaturesGrid({
   logo,
   logoSlot,
   subtitle,
+  description,
   heading,
   action,
   actionSlot,
   features,
   featuresSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   headerClassName,
   headingClassName,
   featuresClassName,
@@ -114,7 +126,10 @@ export function HeroPlatformFeaturesGrid({
       <Img
         src={logoSrc}
         alt={logo.alt}
-        className={cn("mx-auto mb-5 w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28", logo.imgClassName)}
+        className={cn(
+          "mx-auto mb-5 w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28",
+          logo.imgClassName,
+        )}
         optixFlowConfig={optixFlowConfig}
       />
     );
@@ -124,7 +139,14 @@ export function HeroPlatformFeaturesGrid({
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = action;
     return (
       <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
@@ -143,10 +165,22 @@ export function HeroPlatformFeaturesGrid({
     if (!features || features.length === 0) return null;
 
     return (
-      <div className={cn("mt-16 grid gap-px overflow-hidden rounded-lg border bg-input md:grid-cols-2 lg:grid-cols-4", featuresClassName)}>
+      <div
+        className={cn(
+          "mt-16 grid gap-px overflow-hidden rounded-lg border bg-input md:grid-cols-2 lg:grid-cols-4 w-full",
+          featuresClassName,
+        )}
+      >
         {features.map((feature, index) => (
-          <div key={index} className="flex flex-col gap-3 bg-background p-5 md:gap-6">
-            {feature.icon ?? (feature.iconName && <DynamicIcon name={feature.iconName} size={24} />)}
+          <Pressable
+            href={feature.href}
+            key={index}
+            className="flex flex-col gap-3 bg-card text-card-foreground p-5 md:gap-6"
+          >
+            {feature.icon ??
+              (feature.iconName && (
+                <DynamicIcon name={feature.iconName} size={24} />
+              ))}
             <div>
               {feature.title && (
                 <h2 className="text-sm font-semibold md:text-base">
@@ -154,12 +188,12 @@ export function HeroPlatformFeaturesGrid({
                 </h2>
               )}
               {feature.description && (
-                <p className={cn("text-sm md:text-base", getTextColor(background, "muted"))}>
+                <p className={cn("text-sm md:text-base")}>
                   {feature.description}
                 </p>
               )}
             </div>
-          </div>
+          </Pressable>
         ))}
       </div>
     );
@@ -172,30 +206,55 @@ export function HeroPlatformFeaturesGrid({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("text-center", headerClassName)}>
+      <div className="flex flex-col items-center w-full">
+        <div
+          className={cn(
+            "flex flex-col items-center w-full gap-6 text-center",
+            headerClassName,
+          )}
+        >
           {renderLogo}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <span className={cn("mb-3 text-sm tracking-widest md:text-base", getTextColor(background, "muted"))}>
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <span className={cn("mb-3 text-sm tracking-widest md:text-base")}>
                 {subtitle}
               </span>
             ) : (
               subtitle
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("mt-4 text-4xl font-semibold text-balance lg:text-6xl", headingClassName)}>
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "mt-4 text-4xl font-semibold text-balance lg:text-6xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("mt-4 text-4xl font-semibold text-balance lg:text-6xl", headingClassName)}>
+              <h1
+                className={cn(
+                  "mt-4 text-4xl font-semibold text-balance lg:text-6xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
-            )
-          )}
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p className={cn("max-w-2xl md:text-lg text-balance")}>
+                {description}
+              </p>
+            ) : (
+              <div className={cn("max-w-2xl md:text-lg text-balance")}>
+                {description}
+              </div>
+            ))}
+
           {renderAction}
         </div>
         {renderFeatures}

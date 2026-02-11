@@ -25,6 +25,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { sub } from "date-fns";
 
 /**
  * Link item for the newsletter social link page
@@ -451,11 +452,21 @@ export function LinkPageNewsletterSocial({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  const resolvedSubmitAction = submitAction ?? {
-    label: buttonText,
-    variant: "default" as const,
-    size: "lg" as const,
-  };
+  const resolvedSubmitAction = useMemo<ActionConfig>(() => {
+    if (submitAction) {
+      return {
+        ...submitAction,
+        label: buttonText || submitAction?.label || "Submit",
+        variant: submitAction?.variant || ("default" as const),
+        size: submitAction?.size || ("lg" as const),
+      };
+    }
+    return {
+      label: buttonText || "Submit",
+      variant: "default" as const,
+      size: "lg" as const,
+    };
+  }, [submitAction, buttonText]);
 
   const resolvedChevronIcon = linkChevronIcon ?? (
     <DynamicIcon name="lucide/chevron-right" size={16} />
@@ -646,7 +657,7 @@ export function LinkPageNewsletterSocial({
       <div
         className={cn(
           "space-y-4 rounded-2xl p-6",
-          "border border-border bg-card shadow-sm",
+          "border border-border bg-card text-card-foreground shadow-sm",
           newsletterCardClassName,
         )}
       >
@@ -752,7 +763,7 @@ export function LinkPageNewsletterSocial({
               className={cn(
                 "flex w-full bg-card text-card-foreground items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200",
                 "hover:scale-[1.02] active:scale-[0.98]",
-                "border border-border bg-card hover:opacity-80",
+                "border border-border hover:opacity-80",
                 linkClassName,
                 linkItemClassName,
               )}

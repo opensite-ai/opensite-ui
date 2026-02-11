@@ -848,12 +848,7 @@ export function LinkTreeBlock({
       patternClassName={patternClassName}
       containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "flex min-h-screen w-full items-start justify-center py-12",
-          containerClassName,
-        )}
-      >
+      <div className="flex min-h-screen w-full items-start justify-center py-12">
         <div className={cn("w-full max-w-md space-y-6", contentClassName)}>
           {renderBrandHeader}
           {renderLinks}

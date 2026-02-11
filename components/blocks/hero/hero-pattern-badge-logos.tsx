@@ -99,10 +99,6 @@ export interface HeroPatternBadgeLogosProps {
    */
   logosClassName?: string;
   /**
-   * Additional CSS classes for the background pattern
-   */
-  backgroundClassName?: string;
-  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -129,7 +125,6 @@ export function HeroPatternBadgeLogos({
   badgeClassName,
   actionsClassName,
   logosClassName,
-  backgroundClassName,
   optixFlowConfig,
 }: HeroPatternBadgeLogosProps): React.JSX.Element {
   const renderActions = useMemo(() => {
@@ -232,7 +227,7 @@ export function HeroPatternBadgeLogos({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("relative p-0", className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className="relative">
@@ -305,7 +300,7 @@ export function HeroPatternBadgeLogos({
                   ) : (
                     logosTagline
                   ))}
-                <div className="grid grid-cols-2 place-items-center items-center justify-center gap-6 opacity-80 sm:grid-cols-4 sm:gap-4 w-full">
+                <div className="flex items-center justify-center flex-wrap gap-12">
                   {renderLogos}
                 </div>
               </div>

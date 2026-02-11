@@ -4,15 +4,15 @@ import * as React from "react";
 import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import type { CarouselApi } from "../../ui/carousel";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
-import type {OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -51,7 +51,7 @@ export interface HeroTechCarouselProps {
   /**
    * Autoplay delay in milliseconds
    */
-  autoplayDelay?: number;  /**
+  autoplayDelay?: number; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -95,18 +95,20 @@ export function HeroTechCarousel({
   description,
   technologies,
   carouselSlot,
-  autoplayDelay = 4000,
+  autoplayDelay = 5000,
   background,
-  spacing,
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-6 md:py-32",
   headingClassName,
   descriptionClassName,
   optixFlowConfig,
 }: HeroTechCarouselProps): React.JSX.Element {
-  const plugin = useRef(Autoplay({ delay: autoplayDelay, stopOnInteraction: false }));
+  const plugin = useRef(
+    Autoplay({ delay: autoplayDelay, stopOnInteraction: false }),
+  );
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [fadeIn, setFadeIn] = useState(true);
@@ -162,25 +164,35 @@ export function HeroTechCarousel({
             >
               <div
                 className={cn(
-                  "flex cursor-pointer items-center justify-center gap-2 rounded-md border p-6",
+                  "flex cursor-pointer items-center justify-center gap-2 rounded-md border px-4 py-2",
                   idx === current ? "border-input" : "border-transparent",
                 )}
                 onClick={() => selectTechnology(idx)}
               >
-                <Img
-                  className="h-4 shrink-0 md:h-7"
-                  src={technology.logo}
-                  alt={technology.name}
-                  optixFlowConfig={optixFlowConfig}
-                />
-                <p>{technology.name}</p>
+                {technology.logo && (
+                  <Img
+                    className="h-4 shrink-0 md:h-7"
+                    src={technology.logo}
+                    alt={technology.name}
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                )}
+                <p className="text-nowrap">{technology.name}</p>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
       </Carousel>
     );
-  }, [carouselSlot, technologies, setApi, plugin, current, selectTechnology, optixFlowConfig]);
+  }, [
+    carouselSlot,
+    technologies,
+    setApi,
+    plugin,
+    current,
+    selectTechnology,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -188,49 +200,77 @@ export function HeroTechCarousel({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="flex flex-col justify-center">
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("mx-auto mb-4 max-w-2xl text-center text-4xl font-bold md:text-6xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "mx-auto mb-4 max-w-2xl text-center text-4xl font-bold md:text-6xl text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("mx-auto mb-4 max-w-2xl text-center text-4xl font-bold md:text-6xl", headingClassName)}>
+              <h1
+                className={cn(
+                  "mx-auto mb-4 max-w-2xl text-center text-4xl font-bold md:text-6xl text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto mt-4 max-w-xl text-center text-lg", getTextColor(background, "muted"), descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto mt-4 max-w-xl text-center text-lg text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           {technologies && technologies.length > 0 && (
-            <div className={cn(
-              "mx-auto mt-8 mb-12 flex h-[60px] w-fit items-center gap-2 rounded-md px-4 py-2 text-center",
-              getNestedCardBg(background),
-              getNestedCardTextColor(background)
-            )}>
+            <div
+              className={cn(
+                "mx-auto bg-muted mt-8 mb-12 flex h-[60px] w-fit items-center gap-2 rounded-md px-4 py-2 text-center",
+              )}
+            >
               <div
                 className={cn(
                   "flex items-center gap-2 transition-opacity duration-300",
                   fadeIn ? "opacity-100" : "opacity-0",
                 )}
               >
-                <Img
-                  src={technologies[current]?.logo}
-                  alt={technologies[current]?.name}
-                  className="h-4 md:h-7"
-                  optixFlowConfig={optixFlowConfig}
-                />
-                <p className="border-l px-2 font-mono text-sm">
+                {technologies &&
+                  current &&
+                  technologies[current] &&
+                  technologies[current].logo && (
+                    <Img
+                      src={technologies[current]?.logo}
+                      alt={technologies[current]?.name}
+                      className="h-4 md:h-7"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  )}
+                <p
+                  className={cn(
+                    "px-2 font-mono text-sm",
+                    technologies &&
+                      technologies[current] &&
+                      technologies[current].logo
+                      ? "border-l"
+                      : "",
+                  )}
+                >
                   {technologies[current]?.command}
                 </p>
               </div>

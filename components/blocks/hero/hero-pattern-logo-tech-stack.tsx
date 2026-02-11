@@ -206,7 +206,7 @@ export function HeroPatternLogoTechStack({
           ) : (
             techStackLabel
           ))}
-        <div className="flex flex-wrap items-center justify-center gap-4">
+        <div className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-8 md:gap-4">
           {techLogos.map((techLogo, index) => {
             const techLogoSrc =
               typeof techLogo.src === "string"
@@ -217,7 +217,7 @@ export function HeroPatternLogoTechStack({
                 key={index}
                 href={techLogo.href}
                 className={cn(
-                  "group flex w-auto h-10 items-center justify-center max-w-12 max-h-10 min-h-10 p-1",
+                  "group flex w-auto h-12 md:h-10 items-center justify-center max-w-full md:max-w-30 max-h-12 md:max-h-10 min-h-12 md:min-h-10 p-2 md:p-1",
                   techLogo.className,
                 )}
               >
