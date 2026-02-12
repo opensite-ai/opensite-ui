@@ -40,3 +40,28 @@ export {
   type TextColorVariant,
   type BorderColorVariant,
 } from "../lib/utils";
+
+// Re-export form utilities
+export {
+  generateInitialValues,
+  generateValidationSchema,
+  getColumnSpanClass,
+  type FormFieldType,
+  type FormFieldConfig,
+  type SelectOption,
+} from "../lib/form-field-types";
+
+export {
+  submitPageSpeedForm,
+  isValidEmail,
+  PageSpeedFormSubmissionError,
+  useFileUpload,
+  useContactForm,
+  type PageSpeedFormConfig,
+  type PageSpeedFormMethod,
+  type PageSpeedFormSubmissionFormat,
+  type FileUploadProgress,
+  type UseFileUploadReturn,
+  type UseContactFormOptions,
+  type UseContactFormReturn,
+} from "../lib/forms";

@@ -28,6 +28,7 @@ import type {
 } from "../../../src/types";
 import type { FormFieldConfig } from "../../../lib/form-field-types";
 import { getColumnSpanClass } from "../../../lib/form-field-types";
+import FormFeedback from "@/components/ui/form-feedback";
 
 export interface FaqItem {
   id: string;
@@ -86,11 +87,6 @@ export interface ContactFaqProps {
    * @default "Thank you! Your message has been sent successfully."
    */
   successMessage?: React.ReactNode;
-  /**
-   * Error message to display if submission fails
-   * @default "There was an error sending your message. Please try again."
-   */
-  errorMessage?: React.ReactNode;
   /**
    * Additional CSS classes for the section
    */
@@ -254,7 +250,6 @@ export function ContactFaq({
   faqHeading,
   formFields = DEFAULT_FORM_FIELDS,
   successMessage = "Thank you! Your message has been sent successfully.",
-  errorMessage = "There was an error sending your message. Please try again.",
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
@@ -446,41 +441,13 @@ export function ContactFaq({
                   <div className={formHeadingClassName}>{formHeading}</div>
                 ))}
 
-              {/* Success Message */}
-              {isSubmitted && (
-                <div
-                  className={cn(
-                    "mb-6 p-4 bg-primary/10 border border-primary rounded-md",
-                    successMessageClassName,
-                  )}
-                >
-                  {typeof successMessage === "string" ? (
-                    <p className="text-sm text-primary-foreground/90 text-center">
-                      {successMessage}
-                    </p>
-                  ) : (
-                    successMessage
-                  )}
-                </div>
-              )}
-
-              {/* Error Message */}
-              {submissionError && (
-                <div
-                  className={cn(
-                    "mb-6 p-4 bg-destructive/10 border border-destructive rounded-md",
-                    errorMessageClassName,
-                  )}
-                >
-                  {typeof errorMessage === "string" ? (
-                    <p className="text-sm text-destructive text-center">
-                      {submissionError}
-                    </p>
-                  ) : (
-                    errorMessage
-                  )}
-                </div>
-              )}
+              <FormFeedback
+                isSubmitted={isSubmitted}
+                successMessageClassName={successMessageClassName}
+                successMessage={successMessage}
+                submissionError={submissionError}
+                errorMessageClassName={errorMessageClassName}
+              />
 
               <Form
                 form={form}

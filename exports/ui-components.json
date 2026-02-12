@@ -114,6 +114,11 @@
     "import": "./dist/footer-logo.js",
     "require": "./dist/footer-logo.cjs"
   },
+  "./components/form-feedback": {
+    "types": "./dist/form-feedback.d.ts",
+    "import": "./dist/form-feedback.js",
+    "require": "./dist/form-feedback.cjs"
+  },
   "./components/form-inputs": {
     "types": "./dist/form-inputs.d.ts",
     "import": "./dist/form-inputs.js",

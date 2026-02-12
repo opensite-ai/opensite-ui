@@ -71,7 +71,7 @@ export interface UseContactFormReturn {
  * ```
  */
 export function useContactForm(
-  options: UseContactFormOptions
+  options: UseContactFormOptions,
 ): UseContactFormReturn {
   const {
     formFields,
@@ -89,11 +89,11 @@ export function useContactForm(
   const form = usePageSpeedForm({
     initialValues: useMemo(
       () => generateInitialValues(formFields),
-      [formFields]
+      [formFields],
     ),
     validationSchema: useMemo(
       () => generateValidationSchema(formFields),
-      [formFields]
+      [formFields],
     ),
     onSubmit: async (values, helpers) => {
       setSubmissionError(null);
@@ -129,7 +129,7 @@ export function useContactForm(
           }
           onSuccess?.(result);
           // Auto-hide success message after 5 seconds
-          setTimeout(() => setIsSubmitted(false), 5000);
+          setTimeout(() => setIsSubmitted(false), 10000);
         }
       } catch (error) {
         if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {

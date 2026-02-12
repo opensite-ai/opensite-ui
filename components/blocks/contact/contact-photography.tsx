@@ -28,6 +28,7 @@ import type {
   OptixFlowConfig,
   SectionBackground,
 } from "../../../src/types";
+import FormFeedback from "../../ui/form-feedback";
 
 export interface DirectionConfig {
   desktop: "mediaRight" | "mediaLeft";
@@ -57,11 +58,6 @@ export interface ContactPhotographyProps {
    * @default "Thank you! Your message has been sent successfully."
    */
   successMessage?: React.ReactNode;
-  /**
-   * Error message to display if submission fails
-   * @default "There was an error sending your message. Please try again."
-   */
-  errorMessage?: React.ReactNode;
   /** Additional CSS classes for the section */
   className?: string;
   /** Additional CSS classes for the heading */
@@ -184,7 +180,6 @@ export function ContactPhotography({
   actionsSlot,
   formFields = DEFAULT_FORM_FIELDS,
   successMessage = "Thank you! Your message has been sent successfully.",
-  errorMessage = "There was an error sending your message. Please try again.",
   className,
   headingClassName,
   descriptionClassName,
@@ -337,38 +332,13 @@ export function ContactPhotography({
               <div className={descriptionClassName}>{description}</div>
             ))}
 
-          {/* Success Message */}
-          {isSubmitted && (
-            <div
-              className={cn(
-                "p-4 bg-primary/10 border border-primary rounded-md",
-                successMessageClassName,
-              )}
-            >
-              {typeof successMessage === "string" ? (
-                <p className="text-sm text-primary-foreground/90 text-center">
-                  {successMessage}
-                </p>
-              ) : (
-                successMessage
-              )}
-            </div>
-          )}
-
-          {/* Error Message */}
-          {submissionError && (
-            <div
-              className={cn(
-                "p-4 bg-destructive/10 border border-destructive rounded-md",
-                errorMessageClassName,
-              )}
-            >
-              <p className="text-sm text-destructive text-center">
-                {submissionError}
-              </p>
-            </div>
-          )}
-
+          <FormFeedback
+            isSubmitted={isSubmitted}
+            successMessageClassName={successMessageClassName}
+            successMessage={successMessage}
+            submissionError={submissionError}
+            errorMessageClassName={errorMessageClassName}
+          />
           {/* Form */}
           <Form
             form={form}

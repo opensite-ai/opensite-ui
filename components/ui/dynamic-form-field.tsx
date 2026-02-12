@@ -276,10 +276,6 @@ export function DynamicFormField({
             />
           )}
 
-          {/* Error message */}
-          {meta.touched && meta.error && (
-            <p className="text-sm text-destructive">{meta.error}</p>
-          )}
         </div>
       )}
     </Field>

@@ -161,6 +161,13 @@
   }
 ,
   {
+    "path": "./components/form-feedback",
+    "types": "./dist/form-feedback.d.ts",
+    "import": "./dist/form-feedback.js",
+    "require": "./dist/form-feedback.cjs"
+  }
+,
+  {
     "path": "./components/form-inputs",
     "types": "./dist/form-inputs.d.ts",
     "import": "./dist/form-inputs.js",

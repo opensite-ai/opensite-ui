@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "1.7.6",
+  "version": "1.7.8",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -3066,6 +3066,11 @@
       "import": "./dist/footer-logo.js",
       "require": "./dist/footer-logo.cjs"
     },
+    "./components/form-feedback": {
+      "types": "./dist/form-feedback.d.ts",
+      "import": "./dist/form-feedback.js",
+      "require": "./dist/form-feedback.cjs"
+    },
     "./components/form-inputs": {
       "types": "./dist/form-inputs.d.ts",
       "import": "./dist/form-inputs.js",
@@ -3374,7 +3379,7 @@
   },
   "dependencies": {
     "@opensite/hooks": "2.0.6",
-    "@page-speed/forms": "0.3.6",
+    "@page-speed/forms": "0.3.7",
     "@page-speed/img": "0.4.5",
     "@page-speed/lightbox": "0.2.1",
     "@page-speed/pdf-viewer": "0.1.9",
