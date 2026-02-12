@@ -112,7 +112,7 @@ export interface FormFieldConfig {
    * Layout for radio/checkbox groups
    * @default "stacked"
    */
-  layout?: "inline" | "stacked";
+  layout?: "grid" | "stacked";
 }
 
 /**

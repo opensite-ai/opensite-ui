@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -3379,7 +3379,7 @@
   },
   "dependencies": {
     "@opensite/hooks": "2.0.6",
-    "@page-speed/forms": "0.4.3",
+    "@page-speed/forms": "0.4.4",
     "@page-speed/img": "0.4.5",
     "@page-speed/lightbox": "0.2.1",
     "@page-speed/pdf-viewer": "0.1.9",
