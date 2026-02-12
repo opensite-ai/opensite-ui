@@ -91,11 +91,11 @@ export function HeroArchitectureFullscreen({
   actionSlot,
   backgroundImage,
   background,
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
+  spacing = "py-0 md:py-0",
   pattern,
   patternOpacity,
   className,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  containerClassName = "mx-0 min-h-screen h-full w-screen max-w-full relative z-10 px-0 sm:px-0 md:px-0 lg:px-0 flex items-end",
   taglineClassName,
   headingClassName,
   descriptionClassName,
@@ -150,9 +150,9 @@ export function HeroArchitectureFullscreen({
           optixFlowConfig={optixFlowConfig}
         />
       )}
-      <div className="relative z-20 h-full w-full max-w-340">
-        <div className="flex h-full w-full flex-col justify-end gap-6 md:gap-12">
-          <div className="flex max-w-245.5 flex-col gap-1">
+      <div className="relative z-20 h-full w-full max-w-340 p-8 md:p-24">
+        <div className="flex flex-col justify-end gap-6 md:gap-12">
+          <div className="flex flex-col gap-1">
             {tagline &&
               (typeof tagline === "string" ? (
                 <p
@@ -180,12 +180,12 @@ export function HeroArchitectureFullscreen({
                 <div className={headingClassName}>{heading}</div>
               ))}
           </div>
-          <div className="flex w-full flex-col justify-between gap-5 sm:flex-row sm:items-center">
+          <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
             {description &&
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "max-w-81 text-base text-balance text-white text-shadow-xl",
+                    "text-base text-balance text-white text-shadow-xl",
                     descriptionClassName,
                   )}
                 >

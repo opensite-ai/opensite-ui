@@ -141,7 +141,7 @@ export function HeroHiringAnimatedText({
             {animatedTexts.map((text, index) => (
               <div
                 key={index}
-                className="absolute top-0 left-0 text-white transition-opacity duration-500 ease-in-out"
+                className="absolute top-0 left-0 text-white transition-opacity duration-1000 ease-in-out"
                 style={{
                   opacity: index === activeIndex ? 1 : 0,
                 }}
@@ -153,19 +153,20 @@ export function HeroHiringAnimatedText({
         )}
       </h1>
     );
-  }, [headingSlot, headingPrefix, animatedTexts, headingClassName, activeIndex]);
+  }, [
+    headingSlot,
+    headingPrefix,
+    animatedTexts,
+    headingClassName,
+    activeIndex,
+  ]);
 
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div
-        className={cn(
-          "flex flex-col md:flex-row items-center gap-4",
-          actionsClassName,
-        )}
-      >
+      <div className={cn("flex flex-col md:flex-row gap-4", actionsClassName)}>
         {actions.map((action, index) => {
           const {
             label,

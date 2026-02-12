@@ -118,7 +118,7 @@ export function HeroDesignShowcaseLogos({
   showcaseImage,
   showcaseSlot,
   background,
-  spacing = "py-32 md:py-32",
+  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
@@ -203,7 +203,7 @@ export function HeroDesignShowcaseLogos({
                 src={logoSrc}
                 alt={logo.alt}
                 className={cn(
-                  "block w-auto opacity-50 md:h-5 object-contain",
+                  "block w-auto opacity-50 h-5 object-contain",
                   logo.className,
                 )}
                 optixFlowConfig={optixFlowConfig}

@@ -202,15 +202,19 @@ export function ProcessRoadmapTimeline({
           <div
             key={index}
             className={cn(
-              "relative flex items-start gap-8",
-              index % 2 === 0 ? "flex-row" : "flex-row-reverse",
+              "relative flex items-start gap-4 md:gap-8",
+              "flex-col md:flex-row",
+              index % 2 !== 0 && "md:flex-row-reverse",
               milestone.className,
             )}
           >
             <div
               className={cn(
-                "flex-1",
-                index % 2 === 0 ? "text-right pr-8" : "text-left pl-8",
+                "w-full md:flex-1",
+                "text-left md:pr-0",
+                index % 2 === 0
+                  ? "md:text-right md:pr-8"
+                  : "md:text-left md:pl-8",
               )}
             >
               <div
@@ -223,7 +227,8 @@ export function ProcessRoadmapTimeline({
                 <div
                   className={cn(
                     "mb-3 flex items-center gap-3",
-                    index % 2 === 0 ? "justify-end" : "justify-start",
+                    "justify-start",
+                    index % 2 === 0 ? "md:justify-end" : "md:justify-start",
                   )}
                 >
                   {milestone.date &&
@@ -261,7 +266,8 @@ export function ProcessRoadmapTimeline({
                   <div
                     className={cn(
                       "flex flex-wrap gap-2",
-                      index % 2 === 0 ? "justify-end" : "justify-start",
+                      "justify-start",
+                      index % 2 === 0 ? "md:justify-end" : "md:justify-start",
                     )}
                   >
                     {milestone.features.map((feature, fIndex) => (
@@ -278,7 +284,7 @@ export function ProcessRoadmapTimeline({
                 ) : null}
               </div>
             </div>
-            <div className="flex-1" />
+            <div className="hidden md:block md:flex-1" />
           </div>
         ))}
       </div>
@@ -334,7 +340,7 @@ export function ProcessRoadmapTimeline({
         <div className={cn("relative mx-auto max-w-4xl", timelineClassName)}>
           <div
             className={cn(
-              "absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-border/50",
+              "absolute left-4 md:left-1/2 top-0 bottom-0 w-px md:-translate-x-1/2 bg-border/50",
               timelineLineClassName,
             )}
           />

@@ -186,9 +186,9 @@ export function HeroCenteredGradientCta({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative gap-6 md:gap-16 z-10 flex flex-col items-center text-center">
+      <div className="relative gap-6 z-10 flex flex-col items-center text-center">
         {badge && (
-          <Badge>
+          <Badge className="px-3">
             {badgeIcon}
             {typeof badge === "string" ? <span>{badge}</span> : badge}
           </Badge>
@@ -197,7 +197,7 @@ export function HeroCenteredGradientCta({
           (typeof heading === "string" ? (
             <h1
               className={cn(
-                "mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
+                "max-w-full md:max-w-md text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
                 headingClassName,
               )}
             >
@@ -208,7 +208,7 @@ export function HeroCenteredGradientCta({
           ) : headingHighlight ? (
             <h1
               className={cn(
-                "mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
+                "max-w-full md:max-w-md text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
                 headingClassName,
               )}
             >
@@ -221,7 +221,7 @@ export function HeroCenteredGradientCta({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mt-6 max-w-2xl text-lg md:text-xl text-balance",
+                "max-w-full md:max-w-md text-md md:text-xl text-balance",
                 descriptionClassName,
               )}
             >
@@ -233,7 +233,7 @@ export function HeroCenteredGradientCta({
         {(actionsSlot || (actions && actions.length > 0)) && (
           <div
             className={cn(
-              "mt-8 md:mt-16 flex flex-col gap-4 sm:flex-row",
+              "mt-0 md:mt-6 flex flex-col gap-4 sm:flex-row",
               actionsClassName,
             )}
           >
@@ -243,7 +243,7 @@ export function HeroCenteredGradientCta({
         {(featuresSlot || (features && features.length > 0)) && (
           <div
             className={cn(
-              "mt-16 flex items-center gap-8 text-sm text-muted-foreground",
+              "mt-4 md:mt-6 flex flex-col md:flex-row items-center gap-4 md:gap-8 text-sm",
               featuresClassName,
             )}
           >

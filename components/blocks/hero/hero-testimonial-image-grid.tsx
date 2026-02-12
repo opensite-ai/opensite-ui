@@ -8,10 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import { Section } from "../../ui/section";
-import type {
-  SectionBackground,
-  SectionSpacing,
-} from "../../../src/types";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
@@ -176,22 +173,19 @@ export function HeroTestimonialImageGrid({
       <div className="flex flex-wrap items-center gap-3">
         <div className="flex -space-x-2">
           {testimonial.avatars.map((avatar, index) => (
-            <Avatar
-              key={index}
-              className="size-10 border-2 border-border"
-            >
-              <AvatarImage src={avatar.image} alt="" />
+            <Avatar key={index} className="size-10 border-2 border-border">
+              <AvatarImage src={avatar.image} alt={testimonial.author} />
               <AvatarFallback>{avatar.fallback}</AvatarFallback>
             </Avatar>
           ))}
         </div>
         <div>
-          <p className="mb-1 text-sm text-foreground/60 italic">
+          <p className="mb-1 text-sm  italic">
             &quot;{testimonial.quote}&quot;
           </p>
-          <p className="text-sm font-medium text-foreground/60">
-            {testimonial.author}, {testimonial.role} @
-            {testimonial.company}
+          <p className="text-sm font-medium ">
+            {testimonial.author}, {testimonial.role}
+            {testimonial.company?.length ? ` | ${testimonial.company}` : ""}
           </p>
         </div>
       </div>
@@ -206,11 +200,14 @@ export function HeroTestimonialImageGrid({
 
     return (
       <div className="w-full flex-1">
-        <div className="w-full max-w-200">
+        <div className="w-full max-w-full md:max-w-200">
           <AspectRatio ratio={1 / 1} className="h-full w-full">
-            <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-[3.5%]">
+            <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-4">
               {images.slice(0, 4).map((image, index) => (
-                <div key={index} className="overflow-hidden rounded-[5.2%] border border-border bg-card">
+                <div
+                  key={index}
+                  className="overflow-hidden rounded-lg shadow-xl"
+                >
                   <Img
                     src={image.src}
                     alt={image.alt || ""}
@@ -232,39 +229,55 @@ export function HeroTestimonialImageGrid({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("relative flex items-center justify-center py-12 md:py-20", className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className="relative">
         <div className="flex flex-col items-center gap-8 md:flex-row">
           <div className="flex-1">
             <div className="flex flex-col gap-4 lg:gap-8">
-              {heading && (
-                typeof heading === "string" ? (
-                  <h1 className={cn("leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight lg:text-5xl xl:text-7xl", headingClassName)}>
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h1
+                    className={cn(
+                      "leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight lg:text-5xl xl:text-7xl",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h1>
                 ) : (
-                  <h1 className={cn("leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight lg:text-5xl xl:text-7xl", headingClassName)}>
+                  <h1
+                    className={cn(
+                      "leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight lg:text-5xl xl:text-7xl",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h1>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("text-lg leading-relaxed text-muted-foreground xl:text-2xl", descriptionClassName)}>
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "text-lg leading-relaxed text-balance xl:text-2xl",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
                 ) : (
-                  <div className={cn("text-lg leading-relaxed text-muted-foreground xl:text-2xl", descriptionClassName)}>
+                  <div
+                    className={cn(
+                      "text-lg leading-relaxed text-balance xl:text-2xl",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </div>
-                )
-              )}
+                ))}
             </div>
-            <div className="my-6 lg:my-10">
-              {renderButton}
-            </div>
+            <div className="my-6 lg:my-10">{renderButton}</div>
             {renderTestimonial}
           </div>
           {renderImagesGrid}

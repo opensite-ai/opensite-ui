@@ -130,7 +130,7 @@ export function HeroTherapyTestimonialGrid({
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div className="flex flex-col items-start mt-6 md:mt-8 gap-4 sm:flex-row sm:items-center">
+      <div className="flex flex-col mt-6 md:mt-8 gap-4 sm:flex-row items-center">
         {actions.map((action, index) => {
           const {
             label,
@@ -168,7 +168,7 @@ export function HeroTherapyTestimonialGrid({
 
     return (
       <div className="col-[1/2] row-[3/4] md:col-[1/2] md:row-[2/3]">
-        <div className="flex h-full min-h-37.5 flex-col gap-3 overflow-hidden rounded-3xl bg-card p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8">
+        <div className="flex h-full min-h-37.5 flex-col gap-3 overflow-hidden rounded-3xl bg-card p-6 md:p-8 md:flex-row md:items-start md:gap-7">
           {testimonial.avatar && (
             <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl md:h-30 md:w-30">
               <Img
@@ -263,7 +263,7 @@ export function HeroTherapyTestimonialGrid({
             (typeof heading === "string" ? (
               <h1
                 className={cn(
-                  "text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl",
+                  "text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl text-balance",
                   headingClassName,
                 )}
               >
@@ -272,7 +272,7 @@ export function HeroTherapyTestimonialGrid({
             ) : (
               <h1
                 className={cn(
-                  "text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl",
+                  "text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl text-balance",
                   headingClassName,
                 )}
               >
@@ -283,7 +283,7 @@ export function HeroTherapyTestimonialGrid({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-center text-lg text-muted-foreground md:text-xl",
+                  "text-center text-lg md:text-xl",
                   descriptionClassName,
                 )}
               >
