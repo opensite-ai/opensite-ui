@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput, Select, TextArea } from "../../ui/form-inputs";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card, CardContent } from "../../ui/card";
@@ -118,7 +118,7 @@ export interface ContactConsultationProps {
   /**
    * Additional CSS classes for the submit button
    */
-  submitClassName?: string;  /**
+  submitClassName?: string; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -214,7 +214,6 @@ export function ContactConsultation({
   actions,
   actionsSlot,
   className,
-  containerClassName,
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -222,10 +221,11 @@ export function ContactConsultation({
   cardContentClassName,
   formClassName,
   submitClassName,
-  background = "white",
-  spacing = "xl",
+  spacing = "py-8 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  background,
   pattern,
-  patternOpacity = 0.1,
+  patternOpacity,
 
   formConfig,
   onSubmit,
@@ -282,10 +282,7 @@ export function ContactConsultation({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -301,7 +298,14 @@ export function ContactConsultation({
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
-        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        const {
+          label,
+          icon,
+          iconAfter,
+          children,
+          className: actionClassName,
+          ...pressableProps
+        } = action;
         return (
           <Pressable
             key={index}
@@ -329,28 +333,37 @@ export function ContactConsultation({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("py-12", className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto w-full max-w-4xl px-4", containerClassName)}>
+      <div className="relative">
         <div className={cn("mb-10 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-3 text-3xl font-bold tracking-tight", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-3 text-3xl font-bold tracking-tight text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("leading-relaxed text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "leading-relaxed text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
 
         <Card className={cardClassName}>
@@ -532,23 +545,6 @@ export function ContactConsultation({
                 </Field>
               </div>
 
-              <div className={cn("rounded-lg border p-4", getNestedCardBg(background, "subtle"), getNestedCardTextColor(background))}>
-                <div className="flex gap-3">
-                  <DynamicIcon
-                    name="lucide/info"
-                    size={20}
-                    className="mt-0.5 text-muted-foreground"
-                  />
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">What happens next?</p>
-                    <p className="text-sm text-muted-foreground">
-                      We'll review your request and contact you within 24 hours to
-                      schedule your consultation at a time that works for you.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
               {actionsSlot || (actions && actions.length > 0) ? (
                 actionsContent
               ) : (
@@ -559,7 +555,13 @@ export function ContactConsultation({
                   asButton
                   disabled={form.isSubmitting}
                 >
-                  {buttonIcon ?? <DynamicIcon name="lucide/calendar-check" size={16} className="mr-2" />}
+                  {buttonIcon ?? (
+                    <DynamicIcon
+                      name="lucide/calendar-check"
+                      size={16}
+                      className="mr-2"
+                    />
+                  )}
                   {buttonText}
                 </Pressable>
               )}
@@ -570,4 +572,3 @@ export function ContactConsultation({
     </Section>
   );
 }
-

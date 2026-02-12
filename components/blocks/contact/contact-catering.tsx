@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput, Select, TextArea, Radio } from "../../ui/form-inputs";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card, CardContent } from "../../ui/card";
@@ -256,7 +256,8 @@ export function ContactCatering({
   actions,
   actionsSlot,
   className,
-  containerClassName,
+  spacing = "py-8 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -264,10 +265,9 @@ export function ContactCatering({
   cardContentClassName,
   formClassName,
   submitClassName,
-  background = "white",
-  spacing = "xl",
+  background,
   pattern,
-  patternOpacity = 0.1,
+  patternOpacity,
   formConfig,
   onSubmit,
   onSuccess,
@@ -292,7 +292,8 @@ export function ContactCatering({
       tasting: false,
     },
     validationSchema: {
-      eventType: (value) => (!value ? "Please select an event type" : undefined),
+      eventType: (value) =>
+        !value ? "Please select an event type" : undefined,
       eventDate: (value) => (!value ? "Event date is required" : undefined),
       guestCount: (value) => (!value ? "Please select guest count" : undefined),
       name: (value) => (!value ? "Name is required" : undefined),
@@ -329,10 +330,7 @@ export function ContactCatering({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -364,7 +362,14 @@ export function ContactCatering({
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
-        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps} = action;
+        const {
+          label,
+          icon,
+          iconAfter,
+          children,
+          className: actionClassName,
+          ...pressableProps
+        } = action;
         return (
           <Pressable
             key={index}
@@ -392,28 +397,37 @@ export function ContactCatering({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("py-12", className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto w-full max-w-4xl px-4", containerClassName)}>
+      <div className="relative">
         <div className={cn("mb-10 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-3 text-3xl font-bold tracking-tight", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-3 text-3xl font-bold tracking-tight",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("leading-relaxed text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "leading-relaxed text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
 
         <Card className={cardClassName}>
@@ -561,7 +575,7 @@ export function ContactCatering({
                         <Checkbox
                           id={cuisine.id}
                           checked={form.values.cuisinePreferences.includes(
-                            cuisine.id
+                            cuisine.id,
                           )}
                           onCheckedChange={() =>
                             toggleCuisinePreference(cuisine.id)
@@ -586,7 +600,7 @@ export function ContactCatering({
                         <Checkbox
                           id={option.id}
                           checked={form.values.dietaryAccommodations.includes(
-                            option.id
+                            option.id,
                           )}
                           onCheckedChange={() =>
                             toggleDietaryAccommodation(option.id)
@@ -606,7 +620,9 @@ export function ContactCatering({
                 <Field name="budget">
                   {({ field, meta }) => (
                     <div className="space-y-2">
-                      <Label htmlFor="budget">Budget Per Person (Optional)</Label>
+                      <Label htmlFor="budget">
+                        Budget Per Person (Optional)
+                      </Label>
                       <Select
                         {...field}
                         id="budget"
@@ -704,27 +720,12 @@ export function ContactCatering({
                       form.setFieldValue("tasting", checked === true)
                     }
                   />
-                  <Label htmlFor="tasting" className="cursor-pointer font-normal">
+                  <Label
+                    htmlFor="tasting"
+                    className="cursor-pointer font-normal"
+                  >
                     I'm interested in scheduling a tasting
                   </Label>
-                </div>
-              </div>
-
-              <div className={cn("rounded-lg border p-4", getNestedCardBg(background, "subtle"), getNestedCardTextColor(background))}>
-                <div className="flex gap-3">
-                  <DynamicIcon
-                    name="lucide/chef-hat"
-                    size={20}
-                    className="mt-0.5 text-muted-foreground"
-                  />
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">Custom Menus Available</p>
-                    <p className="text-sm text-muted-foreground">
-                      We'll work with you to create a custom menu that perfectly
-                      fits your event and budget. Our team will contact you within
-                      24 hours to discuss options.
-                    </p>
-                  </div>
                 </div>
               </div>
 
@@ -738,7 +739,13 @@ export function ContactCatering({
                   asButton
                   disabled={form.isSubmitting}
                 >
-                  {buttonIcon ?? <DynamicIcon name="lucide/utensils" size={16} className="mr-2" />}
+                  {buttonIcon ?? (
+                    <DynamicIcon
+                      name="lucide/utensils"
+                      size={16}
+                      className="mr-2"
+                    />
+                  )}
                   {buttonText}
                 </Pressable>
               )}

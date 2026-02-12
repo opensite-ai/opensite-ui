@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { Form } from "@page-speed/forms";
-import "../../styles/forms.css";
 import {
   cn,
   getNestedCardBg,

@@ -25,7 +25,11 @@ import type {
 
 const USE_CASES = [
   { value: "automation", label: "Workflow Automation", icon: "lucide/zap" },
-  { value: "analytics", label: "Analytics & Reporting", icon: "lucide/bar-chart-3" },
+  {
+    value: "analytics",
+    label: "Analytics & Reporting",
+    icon: "lucide/bar-chart-3",
+  },
   { value: "collaboration", label: "Team Collaboration", icon: "lucide/users" },
 ];
 
@@ -116,7 +120,7 @@ export interface ContactDemoProps {
   /**
    * Additional CSS classes for the submit button
    */
-  submitClassName?: string;  /**
+  submitClassName?: string; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -211,7 +215,6 @@ export function ContactDemo({
   actions,
   actionsSlot,
   className,
-  containerClassName,
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -219,10 +222,11 @@ export function ContactDemo({
   cardContentClassName,
   formClassName,
   submitClassName,
-  background = "white",
-  spacing = "xl",
+  spacing = "py-8 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  background,
   pattern,
-  patternOpacity = 0.1,
+  patternOpacity,
 
   formConfig,
   onSubmit,
@@ -280,10 +284,7 @@ export function ContactDemo({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -299,7 +300,14 @@ export function ContactDemo({
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
-        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        const {
+          label,
+          icon,
+          iconAfter,
+          children,
+          className: actionClassName,
+          ...pressableProps
+        } = action;
         return (
           <Pressable
             key={index}
@@ -327,28 +335,32 @@ export function ContactDemo({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("py-12", className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto w-full max-w-4xl px-4", containerClassName)}>
+      <div className="relative">
         <div className={cn("mb-10 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-3 text-3xl font-bold tracking-tight", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-3 text-3xl font-bold tracking-tight",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("leading-relaxed text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p className={cn("leading-relaxed", descriptionClassName)}>
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
 
         <Card className={cardClassName}>
@@ -361,7 +373,9 @@ export function ContactDemo({
             >
               {/* Use Case Selection */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">What's your primary use case?</h3>
+                <h3 className="text-lg font-semibold">
+                  What's your primary use case?
+                </h3>
                 <Field name="useCase">
                   {({ field, meta }) => (
                     <div className="space-y-2">
@@ -544,14 +558,16 @@ export function ContactDemo({
                   asButton
                   disabled={form.isSubmitting}
                 >
-                  {buttonIcon ?? <DynamicIcon name="lucide/calendar" size={16} className="mr-2" />}
+                  {buttonIcon ?? (
+                    <DynamicIcon
+                      name="lucide/calendar"
+                      size={16}
+                      className="mr-2"
+                    />
+                  )}
                   {buttonText}
                 </Pressable>
               )}
-
-              <p className="text-center text-xs text-muted-foreground">
-                We'll contact you within 24 hours to schedule your personalized demo.
-              </p>
             </Form>
           </CardContent>
         </Card>
@@ -559,4 +575,3 @@ export function ContactDemo({
     </Section>
   );
 }
-

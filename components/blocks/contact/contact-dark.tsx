@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { Form } from "@page-speed/forms";
-import "../../styles/forms.css";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";

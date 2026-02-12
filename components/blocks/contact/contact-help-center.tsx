@@ -128,13 +128,13 @@ export function ContactHelpCenter({
   description,
   cardTitle,
   contactItems,
-  background = "white",
-  spacing = "lg",
+  background,
   pattern,
   patternOpacity,
   className,
   contactItemsSlot,
-  containerClassName,
+  spacing = "py-8 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   leftColumnClassName,
   eyebrowClassName,
@@ -151,16 +151,14 @@ export function ContactHelpCenter({
       <Pressable
         key={`${item.title}-${idx}`}
         href={item.href}
-        className="flex items-start gap-4 rounded-lg p-4 transition-colors hover:bg-muted/40"
+        className="flex items-start gap-4 rounded-lg p-4 "
       >
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full">
           <DynamicIcon name={item.icon} size={20} />
         </div>
         <div>
           <p className="font-semibold">{item.title}</p>
-          {item.subtitle ? (
-            <p className="text-sm text-muted-foreground">{item.subtitle}</p>
-          ) : null}
+          {item.subtitle ? <p className="text-sm">{item.subtitle}</p> : null}
         </div>
       </Pressable>
     ));
@@ -173,21 +171,17 @@ export function ContactHelpCenter({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
-      <Container className={cn("", containerClassName)}>
-        <div
-          className={cn(
-            "rounded-3xl bg-linear-to-br from-primary/5 via-background to-background p-8 md:p-12",
-            contentClassName,
-          )}
-        >
+      <div className="relative">
+        <div className={cn("rounded-3xl p-8 md:p-12", contentClassName)}>
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
             <div className={cn("space-y-5", leftColumnClassName)}>
               {eyebrow &&
                 (typeof eyebrow === "string" ? (
                   <p
                     className={cn(
-                      "text-sm font-semibold uppercase tracking-[0.2em] text-primary",
+                      "text-sm font-semibold uppercase tracking-[0.2em]",
                       eyebrowClassName,
                     )}
                   >
@@ -200,7 +194,7 @@ export function ContactHelpCenter({
                 (typeof heading === "string" ? (
                   <h2
                     className={cn(
-                      "text-3xl font-bold md:text-4xl",
+                      "text-3xl font-bold md:text-4xl text-balance",
                       headingClassName,
                     )}
                   >
@@ -211,12 +205,7 @@ export function ContactHelpCenter({
                 ))}
               {description &&
                 (typeof description === "string" ? (
-                  <p
-                    className={cn(
-                      "text-muted-foreground",
-                      descriptionClassName,
-                    )}
-                  >
+                  <p className={cn("text-balance", descriptionClassName)}>
                     {description}
                   </p>
                 ) : (
@@ -232,12 +221,7 @@ export function ContactHelpCenter({
             >
               {cardTitle ? (
                 typeof cardTitle === "string" ? (
-                  <h3
-                    className={cn(
-                      "text-xl font-bold",
-                      cardTitleClassName,
-                    )}
-                  >
+                  <h3 className={cn("text-xl font-bold", cardTitleClassName)}>
                     {cardTitle}
                   </h3>
                 ) : (
@@ -251,7 +235,7 @@ export function ContactHelpCenter({
             </div>
           </div>
         </div>
-      </Container>
+      </div>
     </Section>
   );
 }

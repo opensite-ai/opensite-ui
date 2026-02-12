@@ -6,7 +6,8 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { type ActionConfig } from "../../../src/types/blocks";
 import { Section } from "../../ui/section";
-import type { SectionBackground } from "../../../src/types";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ContactFloatingBannerProps {
   /**
@@ -61,6 +62,22 @@ export interface ContactFloatingBannerProps {
    * Background style for the section
    */
   background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 /**
@@ -83,8 +100,8 @@ export function ContactFloatingBanner({
   badgeText,
   message,
   buttonText,
-  buttonIcon = "lucide/arrow-right",
-  buttonHref = "#",
+  buttonIcon,
+  buttonHref,
   actions,
   actionsSlot,
   className,
@@ -92,13 +109,24 @@ export function ContactFloatingBanner({
   bannerContentClassName,
   messageClassName,
   badgeClassName,
-  background = "default",
+  background,
+  spacing = "py-8 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  pattern,
+  patternOpacity,
 }: ContactFloatingBannerProps): React.JSX.Element {
   const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
-        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        const {
+          label,
+          icon,
+          iconAfter,
+          children,
+          className: actionClassName,
+          ...pressableProps
+        } = action;
         return (
           <Pressable
             key={index}
@@ -121,12 +149,36 @@ export function ContactFloatingBanner({
   }, [actionsSlot, actions]);
 
   return (
-    <Section background={background} spacing="lg" className={className}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+      containerClassName={containerClassName}
+    >
       {/* Floating Banner */}
-      <div className={cn("pointer-events-none fixed inset-x-0 bottom-0 sm:flex sm:justify-center sm:px-6 sm:pb-5 lg:px-8", bannerClassName)}>
-        <div className={cn("pointer-events-auto flex items-center justify-between gap-x-6 bg-primary px-6 py-2.5 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5", bannerContentClassName)}>
-          <p className={cn("text-sm leading-6 text-primary-foreground", messageClassName)}>
-            <strong className={cn("font-semibold", badgeClassName)}>{badgeText}</strong>
+      <div
+        className={cn(
+          "pointer-events-none fixed inset-x-0 bottom-0 sm:flex sm:justify-center sm:px-6 sm:pb-5 lg:px-8",
+          bannerClassName,
+        )}
+      >
+        <div
+          className={cn(
+            "pointer-events-auto flex items-center justify-between gap-x-6 bg-primary px-6 py-2.5 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5",
+            bannerContentClassName,
+          )}
+        >
+          <p
+            className={cn(
+              "text-sm leading-6 text-primary-foreground",
+              messageClassName,
+            )}
+          >
+            <strong className={cn("font-semibold", badgeClassName)}>
+              {badgeText}
+            </strong>
             <svg
               viewBox="0 0 2 2"
               className="mx-2 inline h-0.5 w-0.5 fill-current"
@@ -160,4 +212,3 @@ export function ContactFloatingBanner({
     </Section>
   );
 }
-
