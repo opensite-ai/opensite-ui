@@ -177,8 +177,10 @@ export function HeroMentorshipVideoSplit({
     if (videoSlot) return videoSlot;
     if (!videoThumbnail) return null;
 
+    const aspectRatio = videoAspectRatio === "vertical" ? 9 / 16 : 16 / 9;
+
     return (
-      <div className="flex max-w-97.5 flex-col gap-6">
+      <div className="flex flex-col gap-4">
         {videoLabel &&
           (typeof videoLabel === "string" ? (
             <p className="text-xl">{videoLabel}</p>
@@ -189,9 +191,12 @@ export function HeroMentorshipVideoSplit({
           onClick={() => setIsVideoOpen(true)}
           asButton
           variant="ghost"
-          className="group relative flex aspect-video h-full w-full max-w-97.5 overflow-hidden rounded-lg p-0"
+          className={cn(
+            "group relative flex overflow-hidden rounded-lg p-0",
+            videoAspectRatio === "vertical" ? "h-36 w-20" : "h-20 w-36",
+          )}
         >
-          <AspectRatio ratio={16 / 9} className="flex h-full w-full">
+          <AspectRatio ratio={aspectRatio} className="flex h-full w-full">
             <Img
               src={videoThumbnail.src}
               alt={videoThumbnail.alt}
@@ -204,7 +209,7 @@ export function HeroMentorshipVideoSplit({
             <div className="m-auto aspect-square z-10">
               <DynamicIcon
                 name="lucide/play"
-                size={40}
+                size={24}
                 className="transition-transform group-hover:scale-125"
               />
             </div>
@@ -212,7 +217,7 @@ export function HeroMentorshipVideoSplit({
         </Pressable>
       </div>
     );
-  }, [videoSlot, videoThumbnail, videoLabel, optixFlowConfig, setIsVideoOpen]);
+  }, [videoSlot, videoThumbnail, videoLabel, videoAspectRatio, optixFlowConfig, setIsVideoOpen]);
 
   const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
@@ -297,18 +302,16 @@ export function HeroMentorshipVideoSplit({
         </div>
       </Section>
       <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
-        <DialogContent className="sm:max-w-200">
+        <DialogContent className={cn(
+          videoAspectRatio === "vertical" ? "sm:max-w-100" : "sm:max-w-200",
+        )}>
           <DialogHeader>
             <DialogTitle>{videoTitle}</DialogTitle>
           </DialogHeader>
-          <div className="aspect-video">
-            <iframe
-              className="h-full w-full"
-              src={videoUrl}
-              title={videoTitle}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+          <div className={videoAspectRatio === "vertical" ? "aspect-9/16" : "aspect-video"}>
+            <video controls autoPlay className="h-full w-full rounded-lg">
+              <source src={videoUrl} type="video/mp4" />
+            </video>
           </div>
         </DialogContent>
       </Dialog>
