@@ -183,7 +183,9 @@ export function HeroMentorshipVideoSplit({
       <div className="flex flex-col gap-4">
         {videoLabel &&
           (typeof videoLabel === "string" ? (
-            <p className="text-xl">{videoLabel}</p>
+            <p className="text-xs font-semibold uppercase opacity-75">
+              {videoLabel}
+            </p>
           ) : (
             videoLabel
           ))}
@@ -206,7 +208,7 @@ export function HeroMentorshipVideoSplit({
               )}
               optixFlowConfig={optixFlowConfig}
             />
-            <div className="m-auto aspect-square z-10">
+            <div className="m-auto aspect-square z-10 bg-card text-card-foreground p-2 rounded-xl shadow-xl">
               <DynamicIcon
                 name="lucide/play"
                 size={24}
@@ -217,7 +219,14 @@ export function HeroMentorshipVideoSplit({
         </Pressable>
       </div>
     );
-  }, [videoSlot, videoThumbnail, videoLabel, videoAspectRatio, optixFlowConfig, setIsVideoOpen]);
+  }, [
+    videoSlot,
+    videoThumbnail,
+    videoLabel,
+    videoAspectRatio,
+    optixFlowConfig,
+    setIsVideoOpen,
+  ]);
 
   const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
@@ -250,11 +259,11 @@ export function HeroMentorshipVideoSplit({
         containerClassName={containerClassName}
       >
         <div className="relative">
-          <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
+          <div className="flex w-full flex-col-reverse md:flex-row gap-6 md:gap-20">
             <div>
               <div
                 className={cn(
-                  "flex h-full flex-col justify-between gap-4",
+                  "flex h-full flex-col justify-between gap-8",
                   contentClassName,
                 )}
               >
@@ -263,7 +272,7 @@ export function HeroMentorshipVideoSplit({
                     (typeof heading === "string" ? (
                       <h1
                         className={cn(
-                          "text-4xl font-semibold lg:text-8xl text-balance text-shadow-xl text-center",
+                          "text-4xl font-semibold lg:text-8xl text-balance text-shadow-xl",
                           headingClassName,
                         )}
                       >
@@ -272,7 +281,7 @@ export function HeroMentorshipVideoSplit({
                     ) : (
                       <h1
                         className={cn(
-                          "text-4xl font-semibold lg:text-8xl text-balance text-shadow-xl text-center",
+                          "text-4xl font-semibold lg:text-8xl text-balance text-shadow-xl",
                           headingClassName,
                         )}
                       >
@@ -302,13 +311,19 @@ export function HeroMentorshipVideoSplit({
         </div>
       </Section>
       <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
-        <DialogContent className={cn(
-          videoAspectRatio === "vertical" ? "sm:max-w-100" : "sm:max-w-200",
-        )}>
+        <DialogContent
+          className={cn(
+            videoAspectRatio === "vertical" ? "sm:max-w-100" : "sm:max-w-200",
+          )}
+        >
           <DialogHeader>
             <DialogTitle>{videoTitle}</DialogTitle>
           </DialogHeader>
-          <div className={videoAspectRatio === "vertical" ? "aspect-9/16" : "aspect-video"}>
+          <div
+            className={
+              videoAspectRatio === "vertical" ? "aspect-9/16" : "aspect-video"
+            }
+          >
             <video controls autoPlay className="h-full w-full rounded-lg">
               <source src={videoUrl} type="video/mp4" />
             </video>

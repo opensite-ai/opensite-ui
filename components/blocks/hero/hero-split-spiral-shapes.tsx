@@ -153,9 +153,14 @@ export function HeroSplitSpiralShapes({
     if (!images || images.length === 0) return null;
 
     return (
-      <div className={cn("relative aspect-3/4", imagesClassName)}>
+      <div
+        className={cn(
+          "grid grid-cols-2 gap-4 md:relative md:block md:aspect-3/4",
+          imagesClassName,
+        )}
+      >
         {images[0] && (
-          <div className="absolute top-[10%] left-[8%] w-[38%] overflow-hidden rounded-lg shadow-xl">
+          <div className="col-span-2 overflow-hidden rounded-lg shadow-xl md:absolute md:top-[5%] md:left-[2%] md:w-[55%]">
             <div className="aspect-5/6">
               <Img
                 src={images[0].src}
@@ -170,7 +175,7 @@ export function HeroSplitSpiralShapes({
           </div>
         )}
         {images[1] && (
-          <div className="absolute top-[20%] right-[12%] w-[20%] overflow-hidden rounded-lg shadow-xl">
+          <div className="overflow-hidden rounded-lg shadow-xl md:absolute md:top-[12%] md:right-[5%] md:w-[35%]">
             <div className="aspect-square">
               <Img
                 src={images[1].src}
@@ -185,7 +190,7 @@ export function HeroSplitSpiralShapes({
           </div>
         )}
         {images[2] && (
-          <div className="absolute right-[24%] bottom-[24%] w-[38%] overflow-hidden rounded-lg shadow-xl">
+          <div className="overflow-hidden rounded-lg shadow-xl md:absolute md:right-[10%] md:bottom-[15%] md:w-[55%]">
             <div className="aspect-video">
               <Img
                 src={images[2].src}

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { Fragment, useState } from "react";
+import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -14,9 +15,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../../ui/dialog";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, ImageItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  LogoItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface HeroConversionVideoPlayProps {
   /**
@@ -155,15 +164,22 @@ export function HeroConversionVideoPlay({
 
     return (
       <>
-        {primaryAction && (() => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = primaryAction;
-          return (
-            <Pressable
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              <div className="relative z-10 flex items-center gap-2.5">
+        {primaryAction &&
+          (() => {
+            const {
+              label,
+              icon,
+              iconAfter,
+              children,
+              className: actionClassName,
+              ...pressableProps
+            } = primaryAction;
+            return (
+              <Pressable
+                asButton
+                className={actionClassName}
+                {...pressableProps}
+              >
                 {children ?? (
                   <>
                     {icon}
@@ -171,98 +187,97 @@ export function HeroConversionVideoPlay({
                     {iconAfter}
                   </>
                 )}
-              </div>
-              <div className="absolute bottom-16 -left-16 aspect-square w-16 rounded-full bg-pink-400 transition-all duration-300 group-hover:bottom-1/2 group-hover:-left-5 group-hover:w-[110%] group-hover:translate-y-1/2"></div>
-            </Pressable>
-          );
-        })()}
+              </Pressable>
+            );
+          })()}
 
-        <Pressable
-          href="#"
-          onClick={() => setIsVideoOpen(true)}
-          asButton
-          variant="ghost"
-          className="flex h-fit w-fit items-center gap-2 text-lg font-semibold uppercase hover:bg-transparent"
-        >
-          <div className="flex h-10 w-10 rounded-full bg-primary">
-            <DynamicIcon
-              name="lucide/play"
-              size={16}
-              className="m-auto fill-white stroke-white"
-            />
-          </div>
-          <div>{videoButtonLabel}</div>
-        </Pressable>
+        {videoUrl && (
+          <Pressable
+            onClick={() => setIsVideoOpen(true)}
+            asButton
+            variant="link"
+          >
+            <div className="flex h-10 w-10 rounded-full bg-primary text-primary-foreground">
+              <DynamicIcon name="lucide/play" />
+            </div>
+            <div>{videoButtonLabel}</div>
+          </Pressable>
+        )}
       </>
     );
   }, [actionsSlot, primaryAction, videoButtonLabel, setIsVideoOpen]);
 
-  const renderLogos = useMemo(() => {
-    if (logosSlot) return logosSlot;
-    if (!logos || logos.length === 0) return null;
-
-    return logos.map((logo, index) => {
-      const src = typeof logo.src === "string" ? logo.src : logo.src.light;
-      return (
-        <Img
-          key={index}
-          src={src}
-          alt={logo.alt}
-          className={logo.className}
-          optixFlowConfig={optixFlowConfig}
-        />
-      );
-    });
-  }, [logosSlot, logos, optixFlowConfig]);
-
   return (
     <Fragment>
       <Section
-      background={background}
-      spacing={spacing}
-      pattern={pattern}
-      patternOpacity={patternOpacity}
-      className={cn("relative flex items-center justify-center", className)}
-      containerClassName={containerClassName}
-    >
+        background={background}
+        spacing={spacing}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
+        className={cn("relative flex items-center justify-center", className)}
+        containerClassName={containerClassName}
+      >
         <div className="relative">
           <div className="overflow-hidden border-b border-border">
             <div className="flex flex-col items-center gap-16 md:gap-24">
-              <div className={cn("flex flex-col items-center gap-8", contentClassName)}>
+              <div
+                className={cn(
+                  "flex flex-col items-center gap-8",
+                  contentClassName,
+                )}
+              >
                 <div className="flex flex-col items-center gap-7">
-                  {heading && (
-                    typeof heading === "string" ? (
-                      <h1 className={cn("max-w-[920px] text-center text-4xl leading-tight font-semibold md:text-6xl lg:text-7xl", headingClassName)}>
+                  {heading &&
+                    (typeof heading === "string" ? (
+                      <h1
+                        className={cn(
+                          "max-w-[920px] text-center text-4xl leading-tight font-semibold md:text-6xl lg:text-7xl text-balance",
+                          headingClassName,
+                        )}
+                      >
                         {heading}
                       </h1>
                     ) : (
                       <div className={headingClassName}>{heading}</div>
-                    )
-                  )}
-                  {description && (
-                    typeof description === "string" ? (
-                      <p className={cn("max-w-[750px] text-center text-base leading-relaxed font-normal md:text-xl text-muted-foreground", descriptionClassName)}>
+                    ))}
+                  {description &&
+                    (typeof description === "string" ? (
+                      <p
+                        className={cn(
+                          "max-w-[750px] text-center text-base leading-relaxed font-normal md:text-xl text-balance",
+                          descriptionClassName,
+                        )}
+                      >
                         {description}
                       </p>
                     ) : (
                       <div className={descriptionClassName}>{description}</div>
-                    )
-                  )}
+                    ))}
                 </div>
 
-                <div className={cn("flex flex-wrap items-center justify-center gap-8", actionsClassName)}>
+                <div
+                  className={cn(
+                    "flex flex-wrap items-center justify-center gap-8",
+                    actionsClassName,
+                  )}
+                >
                   {renderActions}
                 </div>
               </div>
               <div className="w-full">
-                {imageSlot ? imageSlot : image ? (
+                {imageSlot ? (
+                  imageSlot
+                ) : image ? (
                   <div className={cn("relative h-fit w-full", imageClassName)}>
                     <div className="relative z-20 w-full max-w-330 overflow-hidden rounded-t-xl md:rounded-t-3xl">
                       <AspectRatio ratio={2.095238095 / 1}>
                         <Img
                           src={image.src}
                           alt={image.alt}
-                          className={cn("size-full object-cover object-center", image.className)}
+                          className={cn(
+                            "size-full object-cover object-center",
+                            image.className,
+                          )}
                           optixFlowConfig={optixFlowConfig}
                         />
                       </AspectRatio>
@@ -273,36 +288,55 @@ export function HeroConversionVideoPlay({
             </div>
           </div>
           <div className="flex flex-col items-center gap-16 py-20">
-            {logosTagline && (
-              typeof logosTagline === "string" ? (
-                <p className={cn("text-center text-xl font-medium text-accent-foreground")}>
+            {logosTagline &&
+              (typeof logosTagline === "string" ? (
+                <p className={cn("text-center text-xl font-medium ")}>
                   {logosTagline}
                 </p>
               ) : (
                 logosTagline
-              )
-            )}
-            {(logosSlot || (logos && logos.length > 0)) && (
-              <div className="flex flex-wrap items-center justify-center gap-20">
-                {renderLogos}
-              </div>
-            )}
+              ))}
+            {logosSlot ? (
+              logosSlot
+            ) : logos && logos.length > 0 ? (
+              <Carousel
+                opts={{ loop: true }}
+                plugins={[AutoScroll({ playOnInit: true, speed: 1 })]}
+                className="relative w-full max-w-(--breakpoint-2xl) overflow-hidden"
+              >
+                <CarouselContent className="items-center">
+                  {[...logos, ...logos].map((logo, index) => (
+                    <CarouselItem key={index} className="w-fit basis-auto px-7">
+                      <Img
+                        src={
+                          typeof logo.src === "string"
+                            ? logo.src
+                            : logo.src.light
+                        }
+                        alt={logo.alt}
+                        className={cn(
+                          "h-8 w-full object-fill",
+                          logo.imgClassName,
+                        )}
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            ) : null}
           </div>
         </div>
       </Section>
       <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
-        <DialogContent className="sm:max-w-[800px]">
+        <DialogContent className="sm:max-w-200">
           <DialogHeader>
             <DialogTitle>{videoDialogTitle}</DialogTitle>
           </DialogHeader>
           <div className="aspect-video">
-            <iframe
-              className="h-full w-full"
-              src={videoUrl}
-              title={videoDialogTitle}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+            <video controls autoPlay className="h-full w-full rounded-lg">
+              <source src={videoUrl} type="video/mp4" />
+            </video>
           </div>
         </DialogContent>
       </Dialog>

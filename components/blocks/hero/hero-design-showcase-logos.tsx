@@ -4,11 +4,17 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, LogoItem, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  LogoItem,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface HeroDesignShowcaseLogosProps {
   /**
@@ -130,9 +136,21 @@ export function HeroDesignShowcaseLogos({
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div className={cn("mt-3 flex items-center justify-center gap-3", actionsClassName)}>
+      <div
+        className={cn(
+          "mt-6 md:mt-12 flex items-center justify-center gap-3",
+          actionsClassName,
+        )}
+      >
         {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -160,24 +178,34 @@ export function HeroDesignShowcaseLogos({
 
     return (
       <div className="py-10 md:py-16">
-        {logosLabel && (
-          typeof logosLabel === "string" ? (
+        {logosLabel &&
+          (typeof logosLabel === "string" ? (
             <p className="text-center text-sm text-foreground/60">
               {logosLabel}
             </p>
           ) : (
-            <div className="text-center text-sm text-foreground/60">{logosLabel}</div>
-          )
-        )}
-        <div className={cn("mt-8 flex flex-wrap items-center justify-center gap-5 sm:flex-nowrap", logosClassName)}>
+            <div className="text-center text-sm text-foreground/60">
+              {logosLabel}
+            </div>
+          ))}
+        <div
+          className={cn(
+            "mt-8 flex flex-wrap items-center justify-center gap-5 sm:flex-nowrap",
+            logosClassName,
+          )}
+        >
           {logos.map((logo, index) => {
-            const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
+            const logoSrc =
+              typeof logo.src === "string" ? logo.src : logo.src.light;
             return (
               <Img
                 key={index}
                 src={logoSrc}
                 alt={logo.alt}
-                className={cn("block h-3.5 w-auto opacity-50 md:h-5", logo.className)}
+                className={cn(
+                  "block h-3.5 w-auto opacity-50 md:h-5",
+                  logo.className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             );
@@ -198,7 +226,10 @@ export function HeroDesignShowcaseLogos({
             <Img
               src={showcaseImage.src}
               alt={showcaseImage.alt}
-              className={cn("w-full object-cover object-top-left", showcaseImage.className)}
+              className={cn(
+                "w-full object-cover object-top-left",
+                showcaseImage.className,
+              )}
               optixFlowConfig={optixFlowConfig}
             />
           </div>
@@ -217,35 +248,46 @@ export function HeroDesignShowcaseLogos({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className={cn("flex flex-col items-center gap-8", contentClassName)}>
+        <div
+          className={cn("flex flex-col items-center gap-8", contentClassName)}
+        >
           <div className="flex max-w-[920px] flex-col items-center gap-6">
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("mb-6 text-center text-[2.75rem] leading-tight font-semibold md:text-[3.5rem] lg:text-[4.375rem]", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "mb-6 text-center text-[2.75rem] leading-tight font-semibold md:text-[3.5rem] lg:text-[4.375rem] text-balance",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("mb-6 text-center text-[2.75rem] leading-tight font-semibold md:text-[3.5rem] lg:text-[4.375rem]", headingClassName)}>
+                <h1
+                  className={cn(
+                    "mb-6 text-center text-[2.75rem] leading-tight font-semibold md:text-[3.5rem] lg:text-[4.375rem] text-balance",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-center text-xl text-muted-foreground", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-center text-xl text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
           </div>
-          <div>
-            {renderActions}
-          </div>
-          <div>
-            {renderLogos}
-          </div>
+          <div>{renderActions}</div>
+          <div>{renderLogos}</div>
         </div>
       </div>
       {renderShowcase}

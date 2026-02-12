@@ -4,7 +4,6 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
 import type {
@@ -240,11 +239,11 @@ export function HeroPremiumSplitAvatars({
       className={cn("relative flex items-center justify-center", className)}
       containerClassName={containerClassName}
     >
-      <div className="relative flex w-full flex-col md:flex-row">
+      <div className="relative flex w-full flex-col md:flex-row gap-8 md:gap-20">
         <div className="flex w-full items-center justify-center lg:w-1/2">
           <div
             className={cn(
-              "my-10 flex w-[500px] flex-col gap-24",
+              "my-10 flex w-full flex-col gap-6 md:gap-24",
               contentClassName,
             )}
           >

@@ -217,7 +217,7 @@ export function HeroCustomerSupportLayered({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className="grid grid-cols-1 items-center gap-4 md:gap-20 md:grid-cols-2">
+        <div className="grid grid-cols-1 items-center gap-8 md:gap-20 md:grid-cols-2">
           <div
             className={cn(
               "flex w-full max-w-125 flex-col gap-9",

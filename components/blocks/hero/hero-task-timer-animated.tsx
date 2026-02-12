@@ -111,7 +111,7 @@ export function HeroTaskTimerAnimated({
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+      <div className="flex flex-col items-start mt-6 md:mt-8 gap-4 sm:flex-row sm:items-center">
         {actions.map((action, index) => {
           const {
             label,
@@ -148,15 +148,20 @@ export function HeroTaskTimerAnimated({
     if (!images || images.length < 2) return null;
 
     return (
-      <div className={cn("flex flex-col gap-10 lg:flex-row", imagesClassName)}>
-        <div className="flex flex-col gap-10 lg:w-[60%]">
-          <div className="overflow-hidden rounded-lg">
+      <div
+        className={cn(
+          "flex flex-col mt-6 gap-6 md:gap-10 lg:flex-row",
+          imagesClassName,
+        )}
+      >
+        <div className="flex flex-col gap-10 w-full lg:w-[60%]">
+          <div className="overflow-hidden rounded-lg shadow-xl">
             <AspectRatio ratio={1.916786227 / 1}>
               <Img
                 src={images[0].src}
                 alt={images[0].alt}
                 className={cn(
-                  "block size-full object-cover object-top-left",
+                  "block size-full object-cover object-center",
                   images[0].className,
                 )}
                 optixFlowConfig={optixFlowConfig}
@@ -164,14 +169,14 @@ export function HeroTaskTimerAnimated({
             </AspectRatio>
           </div>
         </div>
-        <div className="flex flex-col gap-10 lg:w-[40%]">
-          <div className="overflow-hidden rounded-lg">
+        <div className="flex flex-col gap-10 w-full lg:w-[40%]">
+          <div className="overflow-hidden rounded-lg shadow-xl">
             <AspectRatio ratio={1.916786227 / 1}>
               <Img
                 src={images[1].src}
                 alt={images[1].alt}
                 className={cn(
-                  "block size-full object-cover object-top-left",
+                  "block size-full object-cover object-center",
                   images[1].className,
                 )}
                 optixFlowConfig={optixFlowConfig}
@@ -193,12 +198,7 @@ export function HeroTaskTimerAnimated({
       containerClassName={containerClassName}
     >
       <div className="relative flex flex-col gap-6 md:gap-16">
-        <div
-          className={cn(
-            "flex flex-col gap-10 lg:w-[80%] lg:self-center",
-            headerClassName,
-          )}
-        >
+        <div className={cn("flex flex-col gap-4 w-full", headerClassName)}>
           {heading &&
             (typeof heading === "string" ? (
               <h1

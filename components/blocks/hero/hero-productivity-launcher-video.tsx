@@ -4,8 +4,11 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -69,21 +72,13 @@ export interface HeroProductivityLauncherVideoProps {
    */
   versionInfoSlot?: React.ReactNode;
   /**
-   * Secondary CTA configuration
-   */
-  secondaryCta?: SecondaryCtaConfig;
-  /**
-   * Custom slot for secondary CTA (overrides secondaryCta prop)
-   */
-  secondaryCtaSlot?: React.ReactNode;
-  /**
    * Video source URL
    */
   videoSrc?: string;
   /**
    * Custom slot for video (overrides videoSrc prop)
    */
-  videoSlot?: React.ReactNode;  /**
+  videoSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -91,6 +86,10 @@ export interface HeroProductivityLauncherVideoProps {
    * Vertical spacing for the section
    */
   spacing?: SectionSpacing;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /**
    * Optional background pattern name
    */
@@ -125,12 +124,11 @@ export function HeroProductivityLauncherVideo({
   actionsSlot,
   versionInfo,
   versionInfoSlot,
-  secondaryCta,
-  secondaryCtaSlot,
   videoSrc,
   videoSlot,
   background,
-  spacing = "py-32 md:py-32",
+  spacing = "py-0 md:py-0",
+  containerClassName = "mx-auto w-screen min-h-screen h-full max-w-screen relative z-10 px-0 sm:px-0 md:px-0 lg:px-0 flex flex-col items-center justify-center",
   pattern,
   patternOpacity,
   className,
@@ -145,7 +143,14 @@ export function HeroProductivityLauncherVideo({
     return (
       <div className="flex flex-wrap items-center justify-center gap-4">
         {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -172,7 +177,7 @@ export function HeroProductivityLauncherVideo({
     if (!versionInfo) return null;
 
     return (
-      <div className="flex gap-6 text-xs text-muted-foreground">
+      <div className="flex gap-6 text-xs text-white">
         {versionInfo.version && <span>{versionInfo.version}</span>}
         {versionInfo.osRequirement && (
           <span className="relative before:absolute before:-left-3 before:content-['|']">
@@ -181,49 +186,27 @@ export function HeroProductivityLauncherVideo({
         )}
         {versionInfo.installMethod && (
           <span className="relative before:absolute before:-left-3 before:content-['|']">
-            <button onClick={versionInfo.installAction}>{versionInfo.installMethod}</button>
+            <button onClick={versionInfo.installAction}>
+              {versionInfo.installMethod}
+            </button>
           </span>
         )}
       </div>
     );
   }, [versionInfoSlot, versionInfo]);
 
-  const renderSecondaryCta = useMemo(() => {
-    if (secondaryCtaSlot) return secondaryCtaSlot;
-    if (!secondaryCta) return null;
-
-    return (
-      <Pressable
-        href={secondaryCta.href}
-        className="group relative mt-10 flex h-8 items-center gap-3 overflow-hidden rounded-full border border-border/50 bg-background px-3 py-1 text-sm font-medium"
-      >
-        {secondaryCta.primaryText && <span>{secondaryCta.primaryText}</span>}
-        {secondaryCta.secondaryText && (
-          <span className="flex items-center gap-1 text-muted-foreground">
-            <span>{secondaryCta.secondaryText}</span>
-            <DynamicIcon
-              name="lucide/arrow-right"
-              size={16}
-              className="stroke-muted-foreground"
-            />
-          </span>
-        )}
-      </Pressable>
-    );
-  }, [secondaryCtaSlot, secondaryCta]);
-
   const renderVideo = useMemo(() => {
     if (videoSlot) return videoSlot;
 
     return (
-      <div className="absolute -top-24 z-10 h-full w-full before:absolute before:inset-0 before:size-full before:bg-[radial-gradient(circle_at_center,rgba(10,10,10,.3)_15%,rgba(10,10,10,1)_45%)] before:content-['']">
+      <div className="absolute top-0 z-10 h-full w-full inset-0">
         <video
           src={videoSrc}
           loop
           muted
           autoPlay
           controls={false}
-          className="block size-full object-cover object-center bg-blend-saturation"
+          className="block size-full object-cover object-center brightness-50"
         />
       </div>
     );
@@ -235,42 +218,54 @@ export function HeroProductivityLauncherVideo({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("relative flex items-center justify-center dark overflow-hidden bg-background py-12 font-sans md:py-20", className)}
-      containerClassName="px-6 sm:px-6 md:px-8 lg:px-8"
+      className={className}
+      containerClassName={containerClassName}
     >
       <div className={cn("relative z-20 max-w-204.5", contentClassName)}>
         <div className="flex flex-col items-center">
           <div className="flex flex-col items-center gap-8 px-4 pt-52 pb-32 md:pb-52">
             <div className="max-w-100 sm:max-w-135">
-              {heading && (
-                typeof heading === "string" ? (
-                  <h1 className={cn("text-center text-4xl leading-tight font-semibold [text-shadow:0_4px_4px_rgba(0,0,0,0.15)] sm:text-5xl md:text-[4rem]", headingClassName)}>
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h1
+                    className={cn(
+                      "text-center text-4xl leading-tight font-semibold text-shadow-xl sm:text-5xl md:text-6xl text-balance text-white",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h1>
                 ) : (
-                  <h1 className={cn("text-center text-4xl leading-tight font-semibold [text-shadow:0_4px_4px_rgba(0,0,0,0.15)] sm:text-5xl md:text-[4rem]", headingClassName)}>
+                  <h1
+                    className={cn(
+                      "text-center text-4xl leading-tight font-semibold text-shadow-xl sm:text-5xl md:text-6xl text-balance text-white",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h1>
-                )
-              )}
+                ))}
             </div>
             <div className="max-w-90 md:max-w-full">
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("text-center text-sm leading-normal tracking-tight text-balance text-muted-foreground [text-shadow:0_4px_4px_rgba(0,0,0,0.25)] md:text-lg", descriptionClassName)}>
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "text-center text-sm leading-normal tracking-tight text-balance md:text-lg text-white",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
-                )
-              )}
+                ))}
             </div>
           </div>
           <div className="flex flex-col items-center gap-4">
             {renderActions}
             {renderVersionInfo}
           </div>
-          {renderSecondaryCta}
         </div>
       </div>
       {renderVideo}

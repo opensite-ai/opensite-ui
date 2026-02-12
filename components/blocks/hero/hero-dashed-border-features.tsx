@@ -6,7 +6,6 @@ import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -151,7 +150,12 @@ export function HeroDashedBorderFeatures({
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div className={cn("flex flex-col md:flex-row gap-4", actionsClassName)}>
+      <div
+        className={cn(
+          "flex flex-col items-center justify-center mt-4 md:flex-row gap-4",
+          actionsClassName,
+        )}
+      >
         {actions.map((action, index) => {
           const {
             label,
@@ -243,7 +247,7 @@ export function HeroDashedBorderFeatures({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mx-auto mb-6 max-w-2xl text-center lg:text-xl text-balance",
+                    "mx-auto mb-8 max-w-2xl text-center lg:text-xl text-balance",
                     descriptionClassName,
                   )}
                 >

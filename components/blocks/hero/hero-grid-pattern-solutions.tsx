@@ -1,14 +1,22 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { Badge } from "@/src";
 
 export interface HeroGridPatternSolutionsProps {
   /**
@@ -48,9 +56,6 @@ export interface HeroGridPatternSolutionsProps {
    */
   imagesSlot?: React.ReactNode;
   /**
-   * Whether to show the grid pattern background
-   */
-  showGridPattern?: boolean;  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -103,7 +108,7 @@ export interface HeroGridPatternSolutionsProps {
 
 export function HeroGridPatternSolutions({
   badgeText,
-  badgeHref = "#",
+  badgeHref,
   badgeSlot,
   heading,
   description,
@@ -111,7 +116,6 @@ export function HeroGridPatternSolutions({
   actionsSlot,
   images,
   imagesSlot,
-  showGridPattern = true,
   background,
   spacing = "py-32 md:py-32",
   pattern,
@@ -125,16 +129,41 @@ export function HeroGridPatternSolutions({
   imagesClassName,
   optixFlowConfig,
 }: HeroGridPatternSolutionsProps): React.JSX.Element {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const lightboxItems: LightboxItem[] = useMemo(
+    () =>
+      (images ?? []).map((img, index) => ({
+        id: `hero-grid-image-${index}`,
+        type: "image" as const,
+        src: img.src,
+        alt: img.alt,
+        download: true,
+        share: true,
+      })),
+    [images],
+  );
+
+  const handleImageClick = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
+    if (!badgeText) return null;
 
     return (
-      <Pressable
-        href={badgeHref}
-        className="mx-auto mb-4 flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm bg-card"
-      >
-        {badgeText}
-        <DynamicIcon name="lucide/arrow-right" size={16} />
+      <Pressable href={badgeHref}>
+        <Badge className="px-2">
+          {badgeText}
+          <DynamicIcon name="lucide/arrow-right" />
+        </Badge>
       </Pressable>
     );
   }, [badgeSlot, badgeHref, badgeText]);
@@ -144,9 +173,21 @@ export function HeroGridPatternSolutions({
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div className={cn("flex flex-col justify-center gap-x-2 gap-y-3 sm:flex-row", actionsClassName)}>
+      <div
+        className={cn(
+          "flex flex-col justify-center gap-x-2 gap-y-3 sm:flex-row",
+          actionsClassName,
+        )}
+      >
         {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -173,19 +214,41 @@ export function HeroGridPatternSolutions({
     if (!images || images.length === 0) return null;
 
     return (
-      <div className={cn("mt-20 grid gap-6 md:grid-cols-10", imagesClassName)}>
+      <div
+        className={cn(
+          "mt-8 md:mt-20 grid grid-cols-2 gap-4 md:flex md:flex-row md:items-center md:justify-center md:gap-6",
+          imagesClassName,
+        )}
+      >
         {images.map((image, index) => (
-          <Img
+          <div
             key={index}
-            src={image.src}
-            alt={image.alt}
-            className={cn("h-full max-h-[500px] w-full rounded-xl object-cover", image.className)}
-            optixFlowConfig={optixFlowConfig}
-          />
+            className="cursor-pointer overflow-hidden rounded-xl transition-transform hover:scale-[1.02] hover:shadow-lg"
+            onClick={() => handleImageClick(index)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleImageClick(index);
+              }
+            }}
+            aria-label={`View ${image.alt} in lightbox`}
+          >
+            <Img
+              src={image.src}
+              alt={image.alt}
+              className={cn(
+                "h-full max-h-[200px] max-w-[200px] w-full rounded-xl object-cover shadow-xl",
+                image.className,
+              )}
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
         ))}
       </div>
     );
-  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig, handleImageClick]);
 
   return (
     <Section
@@ -198,36 +261,67 @@ export function HeroGridPatternSolutions({
     >
       <div className="relative">
         <div className="relative overflow-hidden">
-          {showGridPattern && (
-            <div className="absolute inset-0 -top-1 -left-1 -z-10 h-full w-full bg-[linear-gradient(to_right,hsl(var(--muted-foreground))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted-foreground))_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_100%_at_50%_50%,transparent_60%,#000_100%)] bg-size-[92px_92px] opacity-15"></div>
-          )}
           <div className={cn("mx-auto max-w-4xl", contentClassName)}>
             {renderBadge}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl text-balance",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl", headingClassName)}>
+                <h1
+                  className={cn(
+                    "my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl text-balance",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mx-auto mb-8 max-w-2xl text-center lg:text-xl text-muted-foreground", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mx-auto mb-8 max-w-2xl text-center lg:text-xl text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
             {renderActions}
           </div>
         </div>
         {renderImages}
       </div>
+
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }

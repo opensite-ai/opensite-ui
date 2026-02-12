@@ -3,11 +3,17 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { cn, getNestedCardBg } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -51,7 +57,7 @@ export interface HeroMarketplaceScatteredImagesProps {
   /**
    * Whether to show the grid pattern background
    */
-  showGridPattern?: boolean;  /**
+  showGridPattern?: boolean; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -104,7 +110,7 @@ export function HeroMarketplaceScatteredImages({
   action,
   actionSlot,
   tagline,
-  taglineIcon = "lucide/globe",
+  taglineIcon,
   taglineSlot,
   images,
   imagesSlot,
@@ -125,7 +131,14 @@ export function HeroMarketplaceScatteredImages({
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = action;
     return (
       <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
@@ -141,6 +154,7 @@ export function HeroMarketplaceScatteredImages({
 
   const renderTagline = useMemo(() => {
     if (taglineSlot) return taglineSlot;
+    if (!tagline || !taglineIcon) return null;
 
     return (
       <div className="mt-7 flex items-start justify-center gap-2 font-medium md:text-xl">
@@ -175,12 +189,26 @@ export function HeroMarketplaceScatteredImages({
     if (!images || images.length === 0) return null;
 
     return (
-      <div className={cn("mx-auto mt-14 max-w-7xl overflow-hidden py-8", imagesClassName)}>
+      <div
+        className={cn(
+          "mx-auto max-w-7xl overflow-hidden py-8",
+          imagesClassName,
+        )}
+      >
         <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
           {columns.map((colImages, colIndex) => (
-            <div key={colIndex} className="grid gap-3">
+            <div
+              key={colIndex}
+              className={cn(
+                "grid gap-3",
+                colIndex === 2 && "hidden md:grid",
+              )}
+            >
               {colImages.map((image, imgIndex) => {
-                const height = heightPatterns[colIndex][imgIndex % heightPatterns[colIndex].length];
+                const height =
+                  heightPatterns[colIndex][
+                    imgIndex % heightPatterns[colIndex].length
+                  ];
                 const direction = colIndex % 2 === 0 ? "up" : "down";
 
                 return (
@@ -201,10 +229,7 @@ export function HeroMarketplaceScatteredImages({
                       delay: imgIndex * 0.1,
                     }}
                     viewport={{ once: true }}
-                    className={cn(
-                      "w-full overflow-hidden rounded-2xl",
-                      getNestedCardBg(background),
-                    )}
+                    className={cn("w-full overflow-hidden rounded-2xl")}
                     style={{ height }}
                   >
                     <Img
@@ -225,7 +250,15 @@ export function HeroMarketplaceScatteredImages({
         </div>
       </div>
     );
-  }, [imagesSlot, images, imagesClassName, optixFlowConfig, columns, heightPatterns, background]);
+  }, [
+    imagesSlot,
+    images,
+    imagesClassName,
+    optixFlowConfig,
+    columns,
+    heightPatterns,
+    background,
+  ]);
 
   return (
     <Section
@@ -236,31 +269,46 @@ export function HeroMarketplaceScatteredImages({
       className={cn("relative flex items-center justify-center", className)}
       containerClassName={containerClassName}
     >
-      <div className="relative">
-        <div className={cn("relative mx-auto max-w-xl py-10 text-center", contentClassName)}>
-          {showGridPattern && (
-            <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,hsl(var(--muted))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted))_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_100%_at_50%_50%,#000_60%,transparent_100%)] bg-size-[64px_64px]"></div>
+      <div className="flex flex-col gap-6 items-center">
+        <div
+          className={cn(
+            "relative mx-auto max-w-xl py-10 text-center flex flex-col gap-6 items-center",
+            contentClassName,
           )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("mb-3 text-4xl lg:text-7xl", headingClassName)}>
+        >
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "mb-3 text-4xl lg:text-7xl text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("mb-3 text-4xl lg:text-7xl", headingClassName)}>
+              <h1
+                className={cn(
+                  "mb-3 text-4xl lg:text-7xl text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mb-5 text-sm md:text-base text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mb-5 text-sm md:text-base text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           {renderAction}
           {renderTagline}
         </div>
