@@ -12,8 +12,8 @@ importers:
         specifier: 2.0.6
         version: 2.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/forms':
-        specifier: 0.4.3
-        version: 0.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 0.4.5
+        version: 0.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@page-speed/img':
         specifier: 0.4.5
         version: 0.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -744,8 +744,8 @@ packages:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
 
-  '@page-speed/forms@0.4.3':
-    resolution: {integrity: sha512-/THX+u9ixWadhH8M3jQ1OdBqhnYHnmQ5G0/B+KsSdra9Jee77X9fVCT+nTKWOz7BllP52zdwW1BTfou3txAGoA==}
+  '@page-speed/forms@0.4.5':
+    resolution: {integrity: sha512-OkbJsOxPpQv3fOVv6RYfTlVjdpaD8ZlE8B29rSuN+5mG9MyXOSBqeyNJReZfCHDERce8fWa+rPb2cXPsxueAxQ==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       react: '>=16.8.0'
@@ -2857,7 +2857,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@page-speed/forms@0.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@page-speed/forms@0.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
       '@opensite/hooks': 2.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
