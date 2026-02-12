@@ -1,25 +1,33 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput, TextArea } from "@page-speed/forms/inputs";
 import "../../styles/forms.css";
-import { cn } from "../../../lib/utils";
+import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { Card, CardContent } from "../../ui/card";
+import { Img } from "@page-speed/img";
 import { Label } from "../../ui/label";
 import {
   PageSpeedFormSubmissionError,
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
-import { Section } from "../../ui/section";
-import type { PatternName } from "../../ui/pattern-background";
+import {
+  PatternBackground,
+  type PatternName,
+} from "../../ui/pattern-background";
 import type {
   ActionConfig,
+  OptixFlowConfig,
   SectionBackground,
-  SectionSpacing,
 } from "../../../src/types";
+
+export interface DirectionConfig {
+  desktop: "mediaRight" | "mediaLeft";
+  mobile: "mediaTop" | "mediaBottom";
+}
 
 interface ContactPhotographyFormValues {
   first_name: string;
@@ -44,37 +52,35 @@ export interface ContactPhotographyProps {
   actionsSlot?: React.ReactNode;
   /** Additional CSS classes for the section */
   className?: string;
-  /** Additional CSS classes for the container */
-  containerClassName?: string;
-  /** Additional CSS classes for the header */
-  headerClassName?: string;
   /** Additional CSS classes for the heading */
   headingClassName?: string;
   /** Additional CSS classes for the description */
   descriptionClassName?: string;
-  /** Additional CSS classes for the card */
-  cardClassName?: string;
-  /** Additional CSS classes for the card content */
-  cardContentClassName?: string;
+  /** Additional CSS classes for the content area */
+  contentClassName?: string;
   /** Additional CSS classes for the form */
   formClassName?: string;
   /** Additional CSS classes for the submit button */
-  submitClassName?: string; /**
-   * Background style for the section
-   */
+  submitClassName?: string;
+  /** Section background variant */
   background?: SectionBackground;
-  /**
-   * Vertical spacing for the section
-   */
-  spacing?: SectionSpacing;
-  /**
-   * Optional background pattern name or URL
-   */
+  /** Pattern background key or URL */
   pattern?: PatternName | undefined;
-  /**
-   * Pattern overlay opacity (0-1)
-   */
+  /** Pattern opacity (0-1) */
   patternOpacity?: number;
+  /** Image source URL */
+  imageSrc?: string;
+  /** Image alt text */
+  imageAlt?: string;
+  /** Additional CSS classes for the image */
+  imageClassName?: string;
+  /** Optional Optix Flow configuration for image optimization */
+  optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Direction configuration for desktop and mobile layouts
+   * @default { desktop: 'mediaRight', mobile: 'mediaTop' }
+   */
+  directionConfig?: DirectionConfig;
 
   /** Form configuration for PageSpeed forms */
   formConfig?: PageSpeedFormConfig;
@@ -87,12 +93,23 @@ export interface ContactPhotographyProps {
 }
 
 /**
- * ContactPhotography - Contact form with image background layout.
+ * ContactPhotography - A full-width split-screen contact form section with edge-to-edge design,
+ * featuring text content and a form on one side and a large full-height image on the other.
+ *
+ * Layout: 50/50 split layout with content/form and image sections. Fully responsive with
+ * configurable media placement for desktop and mobile.
+ * Key features: Pattern background support, edge-to-edge design, no card wrapping.
+ * Best for: Photography studios, creative services, visual-first contact pages.
  *
  * @example
  * ```tsx
  * <ContactPhotography
  *   heading="Photography Services"
+ *   description="Book a photography session with us"
+ *   buttonText="Send Message"
+ *   imageSrc="/studio.jpg"
+ *   background="dark"
+ *   pattern="grid"
  *   formConfig={{ endpoint: "/api/contact", format: "json" }}
  * />
  * ```
@@ -105,18 +122,19 @@ export function ContactPhotography({
   actions,
   actionsSlot,
   className,
-  headerClassName,
   headingClassName,
   descriptionClassName,
-  cardClassName,
-  cardContentClassName,
+  contentClassName,
   formClassName,
   submitClassName,
-  background,
-  spacing = "py-8 md:py-32",
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  background = "dark",
   pattern,
   patternOpacity,
+  imageSrc,
+  imageAlt,
+  imageClassName,
+  optixFlowConfig,
+  directionConfig = { desktop: "mediaRight", mobile: "mediaTop" },
 
   formConfig,
   onSubmit,
@@ -180,7 +198,7 @@ export function ContactPhotography({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  const actionsContent = React.useMemo(() => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
@@ -213,22 +231,52 @@ export function ContactPhotography({
     return null;
   }, [actionsSlot, actions]);
 
-  return (
-    <Section
-      background={background}
-      spacing={spacing}
-      pattern={pattern}
-      patternOpacity={patternOpacity}
-      className={className}
-      containerClassName={containerClassName}
+  // Determine background color based on background variant
+  const bgColorClass = useMemo(() => {
+    switch (background) {
+      case "dark":
+        return "bg-foreground text-background";
+      case "gray":
+        return cn(getNestedCardBg(background), getNestedCardTextColor(background));
+      case "white":
+        return "bg-background";
+      default:
+        return "bg-background";
+    }
+  }, [background]);
+
+  // Determine flex direction based on directionConfig
+  const desktopOrder =
+    directionConfig.desktop === "mediaRight"
+      ? "lg:flex-row"
+      : "lg:flex-row-reverse";
+  const mobileOrder =
+    directionConfig.mobile === "mediaTop" ? "flex-col" : "flex-col-reverse";
+
+  const contentArea = (
+    <div
+      className={cn(
+        "relative flex w-full items-center lg:w-1/2",
+        bgColorClass,
+        contentClassName,
+      )}
     >
-      <div className="relative">
-        <div className={cn("mb-10 text-center", headerClassName)}>
+      {/* Pattern Background */}
+      {pattern && (
+        <div className="absolute inset-0 overflow-hidden">
+          <PatternBackground pattern={pattern} opacity={patternOpacity} />
+        </div>
+      )}
+
+      {/* Content */}
+      <div className="relative z-10 w-full px-8 py-16 sm:px-12 sm:py-20 lg:px-16 lg:py-24 xl:px-24">
+        <div className="mx-auto max-w-xl space-y-8">
+          {/* Heading */}
           {heading &&
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight text-balance",
+                  "text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl",
                   headingClassName,
                 )}
               >
@@ -237,11 +285,13 @@ export function ContactPhotography({
             ) : (
               <div className={headingClassName}>{heading}</div>
             ))}
+
+          {/* Description */}
           {description &&
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "leading-relaxed text-balance",
+                  "text-base leading-relaxed opacity-90 sm:text-lg",
                   descriptionClassName,
                 )}
               >
@@ -250,115 +300,132 @@ export function ContactPhotography({
             ) : (
               <div className={descriptionClassName}>{description}</div>
             ))}
-        </div>
 
-        <Card className={cn("mx-auto max-w-xl", cardClassName)}>
-          <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
-            <Form
-              form={form}
-              action={formConfig?.endpoint}
-              method={formMethod}
-              className={cn("space-y-4", formClassName)}
-            >
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field name="first_name">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="first-name">First Name</Label>
-                      <TextInput
-                        {...field}
-                        id="first-name"
-                        placeholder="John"
-                        error={meta.touched && !!meta.error}
-                        aria-label="First Name"
-                      />
-                    </div>
-                  )}
-                </Field>
-
-                <Field name="last_name">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="last-name">Last Name</Label>
-                      <TextInput
-                        {...field}
-                        id="last-name"
-                        placeholder="Doe"
-                        error={meta.touched && !!meta.error}
-                        aria-label="Last Name"
-                      />
-                    </div>
-                  )}
-                </Field>
-              </div>
-
-              <Field name="email">
+          {/* Form */}
+          <Form
+            form={form}
+            action={formConfig?.endpoint}
+            method={formMethod}
+            className={cn("space-y-4", formClassName)}
+          >
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field name="first_name">
                 {({ field, meta }) => (
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="first-name">First Name</Label>
                     <TextInput
                       {...field}
-                      id="email"
-                      type="email"
-                      placeholder="john@example.com"
+                      id="first-name"
+                      placeholder="John"
                       error={meta.touched && !!meta.error}
-                      aria-label="Email"
+                      aria-label="First Name"
                     />
                   </div>
                 )}
               </Field>
 
-              <Field name="phone">
+              <Field name="last_name">
                 {({ field, meta }) => (
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Phone</Label>
+                    <Label htmlFor="last-name">Last Name</Label>
                     <TextInput
                       {...field}
-                      id="phone"
-                      type="tel"
-                      placeholder="+1 (555) 000-0000"
+                      id="last-name"
+                      placeholder="Doe"
                       error={meta.touched && !!meta.error}
-                      aria-label="Phone"
+                      aria-label="Last Name"
                     />
                   </div>
                 )}
               </Field>
+            </div>
 
-              <Field name="message">
-                {({ field, meta }) => (
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <TextArea
-                      {...field}
-                      id="message"
-                      placeholder="Your message..."
-                      rows={4}
-                      error={meta.touched && !!meta.error}
-                      aria-label="Message"
-                    />
-                  </div>
-                )}
-              </Field>
-
-              {actionsSlot || (actions && actions.length > 0) ? (
-                actionsContent
-              ) : (
-                <Pressable
-                  componentType="button"
-                  type="submit"
-                  className={cn("w-full", submitClassName)}
-                  size="lg"
-                  asButton
-                  disabled={form.isSubmitting}
-                >
-                  {buttonIcon}
-                  {buttonText}
-                </Pressable>
+            <Field name="email">
+              {({ field, meta }) => (
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <TextInput
+                    {...field}
+                    id="email"
+                    type="email"
+                    placeholder="john@example.com"
+                    error={meta.touched && !!meta.error}
+                    aria-label="Email"
+                  />
+                </div>
               )}
-            </Form>
-          </CardContent>
-        </Card>
+            </Field>
+
+            <Field name="phone">
+              {({ field, meta }) => (
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone</Label>
+                  <TextInput
+                    {...field}
+                    id="phone"
+                    type="tel"
+                    placeholder="+1 (555) 000-0000"
+                    error={meta.touched && !!meta.error}
+                    aria-label="Phone"
+                  />
+                </div>
+              )}
+            </Field>
+
+            <Field name="message">
+              {({ field, meta }) => (
+                <div className="space-y-2">
+                  <Label htmlFor="message">Message</Label>
+                  <TextArea
+                    {...field}
+                    id="message"
+                    placeholder="Your message..."
+                    rows={4}
+                    error={meta.touched && !!meta.error}
+                    aria-label="Message"
+                  />
+                </div>
+              )}
+            </Field>
+
+            {actionsSlot || (actions && actions.length > 0) ? (
+              actionsContent
+            ) : (
+              <Pressable
+                componentType="button"
+                type="submit"
+                className={cn("w-full", submitClassName)}
+                size="lg"
+                asButton
+                disabled={form.isSubmitting}
+              >
+                {buttonIcon}
+                {buttonText}
+              </Pressable>
+            )}
+          </Form>
+        </div>
       </div>
-    </Section>
+    </div>
+  );
+
+  const imageArea = imageSrc ? (
+    <div className="relative h-64 w-full sm:h-96 lg:h-auto lg:w-1/2">
+      <Img
+        src={imageSrc}
+        alt={imageAlt || ""}
+        className={cn("h-full w-full object-cover", imageClassName)}
+        optixFlowConfig={optixFlowConfig}
+      />
+    </div>
+  ) : null;
+
+  return (
+    <section className={cn("relative w-full overflow-hidden", className)}>
+      <div className={cn("flex min-h-screen", mobileOrder, desktopOrder)}>
+        {contentArea}
+        {imageArea}
+      </div>
+    </section>
   );
 }

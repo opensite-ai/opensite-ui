@@ -1,13 +1,20 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput, TextArea } from "@page-speed/forms/inputs";
 import "../../styles/forms.css";
-import { cn } from "../../../lib/utils";
+import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent } from "../../ui/card";
 import { Label } from "../../ui/label";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../ui/accordion";
 import {
   PageSpeedFormSubmissionError,
   submitPageSpeedForm,
@@ -26,6 +33,12 @@ interface ContactFaqFormValues {
   email: string;
   subject: string;
   message: string;
+}
+
+export interface FaqItem {
+  id: string;
+  question: React.ReactNode;
+  answer: React.ReactNode;
 }
 
 export interface ContactFaqProps {
@@ -57,6 +70,18 @@ export interface ContactFaqProps {
    * Custom slot for rendering actions (overrides actions array)
    */
   actionsSlot?: React.ReactNode;
+  /**
+   * Array of FAQ items to display alongside the contact form
+   */
+  items?: FaqItem[];
+  /**
+   * Custom slot for rendering FAQ items (overrides items array)
+   */
+  itemsSlot?: React.ReactNode;
+  /**
+   * Heading for the FAQ section
+   */
+  faqHeading?: React.ReactNode;
   /**
    * Additional CSS classes for the section
    */
@@ -96,7 +121,32 @@ export interface ContactFaqProps {
   /**
    * Additional CSS classes for the submit button
    */
-  submitClassName?: string; /**
+  submitClassName?: string;
+  /**
+   * Additional CSS classes for the FAQ heading
+   */
+  faqHeadingClassName?: string;
+  /**
+   * Additional CSS classes for the accordion
+   */
+  accordionClassName?: string;
+  /**
+   * Additional CSS classes for accordion items
+   */
+  accordionItemClassName?: string;
+  /**
+   * Additional CSS classes for accordion triggers
+   */
+  accordionTriggerClassName?: string;
+  /**
+   * Additional CSS classes for accordion content
+   */
+  accordionContentClassName?: string;
+  /**
+   * Additional CSS classes for the two-column grid wrapper
+   */
+  gridClassName?: string;
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -150,6 +200,9 @@ export function ContactFaq({
   buttonIcon,
   actions,
   actionsSlot,
+  items,
+  itemsSlot,
+  faqHeading,
   className,
   headerClassName,
   headingClassName,
@@ -159,6 +212,12 @@ export function ContactFaq({
   formHeadingClassName,
   formClassName,
   submitClassName,
+  faqHeadingClassName,
+  accordionClassName,
+  accordionItemClassName,
+  accordionTriggerClassName,
+  accordionContentClassName,
+  gridClassName,
   background,
   spacing = "py-8 md:py-32",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
@@ -258,6 +317,50 @@ export function ContactFaq({
     return null;
   }, [actionsSlot, actions]);
 
+  const hasFaqItems = itemsSlot || (items && items.length > 0);
+
+  const faqContent = useMemo(() => {
+    if (itemsSlot) return itemsSlot;
+    if (!items || items.length === 0) return null;
+
+    return (
+      <Accordion type="single" collapsible className={accordionClassName}>
+        {items.map((item) => (
+          <AccordionItem
+            key={item.id}
+            value={item.id}
+            className={accordionItemClassName}
+          >
+            <AccordionTrigger
+              className={cn(
+                "font-semibold hover:no-underline",
+                accordionTriggerClassName,
+              )}
+            >
+              {item.question}
+            </AccordionTrigger>
+            <AccordionContent
+              className={cn(
+                getTextColor(background, "muted"),
+                accordionContentClassName,
+              )}
+            >
+              {item.answer}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    );
+  }, [
+    itemsSlot,
+    items,
+    accordionClassName,
+    accordionItemClassName,
+    accordionTriggerClassName,
+    accordionContentClassName,
+    background,
+  ]);
+
   return (
     <Section
       background={background}
@@ -297,109 +400,140 @@ export function ContactFaq({
             ))}
         </div>
 
-        <Card className={cn("mx-auto max-w-xl", cardClassName)}>
-          <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
-            {formHeading &&
-              (typeof formHeading === "string" ? (
-                <h3
-                  className={cn(
-                    "mb-6 text-xl font-semibold",
-                    formHeadingClassName,
-                  )}
-                >
-                  {formHeading}
-                </h3>
-              ) : (
-                <div className={formHeadingClassName}>{formHeading}</div>
-              ))}
-            <Form
-              form={form}
-              action={formConfig?.endpoint}
-              method={formMethod}
-              className={cn("space-y-4", formClassName)}
-            >
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field name="name">
+        <div
+          className={cn(
+            "mx-auto grid gap-10",
+            hasFaqItems
+              ? "max-w-5xl lg:grid-cols-2"
+              : "max-w-xl lg:grid-cols-1",
+            gridClassName,
+          )}
+        >
+          {/* FAQ Column */}
+          {hasFaqItems && (
+            <div>
+              {faqHeading &&
+                (typeof faqHeading === "string" ? (
+                  <h3
+                    className={cn(
+                      "mb-6 text-xl font-semibold",
+                      faqHeadingClassName,
+                    )}
+                  >
+                    {faqHeading}
+                  </h3>
+                ) : (
+                  <div className={faqHeadingClassName}>{faqHeading}</div>
+                ))}
+              {faqContent}
+            </div>
+          )}
+
+          {/* Contact Form Column */}
+          <Card className={cn(hasFaqItems ? "" : "mx-auto max-w-xl w-full", cardClassName)}>
+            <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
+              {formHeading &&
+                (typeof formHeading === "string" ? (
+                  <h3
+                    className={cn(
+                      "mb-6 text-xl font-semibold",
+                      formHeadingClassName,
+                    )}
+                  >
+                    {formHeading}
+                  </h3>
+                ) : (
+                  <div className={formHeadingClassName}>{formHeading}</div>
+                ))}
+              <Form
+                form={form}
+                action={formConfig?.endpoint}
+                method={formMethod}
+                className={cn("space-y-4", formClassName)}
+              >
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Field name="name">
+                    {({ field, meta }) => (
+                      <div className="space-y-2">
+                        <Label htmlFor="name">Name</Label>
+                        <TextInput
+                          {...field}
+                          id="name"
+                          placeholder="John Doe"
+                          error={meta.touched && !!meta.error}
+                          aria-label="Name"
+                        />
+                      </div>
+                    )}
+                  </Field>
+
+                  <Field name="email">
+                    {({ field, meta }) => (
+                      <div className="space-y-2">
+                        <Label htmlFor="email">Email</Label>
+                        <TextInput
+                          {...field}
+                          id="email"
+                          type="email"
+                          placeholder="john@example.com"
+                          error={meta.touched && !!meta.error}
+                          aria-label="Email"
+                        />
+                      </div>
+                    )}
+                  </Field>
+                </div>
+
+                <Field name="subject">
                   {({ field, meta }) => (
                     <div className="space-y-2">
-                      <Label htmlFor="name">Name</Label>
+                      <Label htmlFor="subject">Subject</Label>
                       <TextInput
                         {...field}
-                        id="name"
-                        placeholder="John Doe"
+                        id="subject"
+                        placeholder="What is this regarding?"
                         error={meta.touched && !!meta.error}
-                        aria-label="Name"
+                        aria-label="Subject"
                       />
                     </div>
                   )}
                 </Field>
 
-                <Field name="email">
+                <Field name="message">
                   {({ field, meta }) => (
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
-                      <TextInput
+                      <Label htmlFor="message">Message</Label>
+                      <TextArea
                         {...field}
-                        id="email"
-                        type="email"
-                        placeholder="john@example.com"
+                        id="message"
+                        placeholder="Your question..."
+                        rows={4}
                         error={meta.touched && !!meta.error}
-                        aria-label="Email"
+                        aria-label="Message"
                       />
                     </div>
                   )}
                 </Field>
-              </div>
 
-              <Field name="subject">
-                {({ field, meta }) => (
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
-                    <TextInput
-                      {...field}
-                      id="subject"
-                      placeholder="What is this regarding?"
-                      error={meta.touched && !!meta.error}
-                      aria-label="Subject"
-                    />
-                  </div>
+                {actionsSlot || (actions && actions.length > 0) ? (
+                  actionsContent
+                ) : (
+                  <Pressable
+                    componentType="button"
+                    type="submit"
+                    className={cn("w-full", submitClassName)}
+                    size="lg"
+                    asButton
+                    disabled={form.isSubmitting}
+                  >
+                    {buttonIcon}
+                    {buttonText}
+                  </Pressable>
                 )}
-              </Field>
-
-              <Field name="message">
-                {({ field, meta }) => (
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <TextArea
-                      {...field}
-                      id="message"
-                      placeholder="Your question..."
-                      rows={4}
-                      error={meta.touched && !!meta.error}
-                      aria-label="Message"
-                    />
-                  </div>
-                )}
-              </Field>
-
-              {actionsSlot || (actions && actions.length > 0) ? (
-                actionsContent
-              ) : (
-                <Pressable
-                  componentType="button"
-                  type="submit"
-                  className={cn("w-full", submitClassName)}
-                  size="lg"
-                  asButton
-                  disabled={form.isSubmitting}
-                >
-                  {buttonIcon}
-                  {buttonText}
-                </Pressable>
-              )}
-            </Form>
-          </CardContent>
-        </Card>
+              </Form>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </Section>
   );

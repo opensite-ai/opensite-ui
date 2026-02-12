@@ -2475,15 +2475,21 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "contact-faq",
     name: "Contact FAQ",
     description:
-      "A contact form designed for FAQ and general inquiries with subject and message fields. Simple and straightforward for customer questions.",
-    semanticTags: ["contact", "faq", "questions", "inquiry", "form", "support"],
+      "A two-column contact form with an FAQ accordion sidebar. Displays frequently asked questions alongside a contact form so visitors can find answers before submitting inquiries. Falls back to a single-column centered layout when no FAQ items are provided.",
+    semanticTags: ["contact", "faq", "questions", "inquiry", "form", "support", "accordion", "two-column"],
     category: "contact",
     component: ContactFaq,
     props: "ContactFaqProps",
     exampleUsage: `
 <ContactFaq
   heading="Have a Question?"
-  description="We're here to help"
+  description="Check our FAQs or send us a message"
+  faqHeading="Frequently Asked Questions"
+  items={[
+    { id: "1", question: "What are your hours?", answer: "We are open Monday to Friday, 9am to 5pm." },
+    { id: "2", question: "How do I reset my password?", answer: "Click the forgot password link on the login page." },
+  ]}
+  formHeading="Still need help?"
   buttonText="Send Question"
   formConfig={{ endpoint: "/api/faq", format: "json" }}
 />
@@ -2789,14 +2795,15 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "contact-photography",
     name: "Contact Photography Services",
     description:
-      "Photography booking form with session type, date, location, and special requirements. Perfect for photographers and studios.",
+      "Full-width split-screen contact form with edge-to-edge design, featuring heading, description and form on one side and a large full-height image on the other. Pattern background support, configurable media placement. Perfect for photographers, studios, and creative services.",
     semanticTags: [
       "contact",
       "photography",
-      "booking",
+      "split-screen",
       "form",
-      "session",
+      "image",
       "creative",
+      "edge-to-edge",
     ],
     category: "contact",
     component: ContactPhotography,
@@ -2804,8 +2811,11 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     exampleUsage: `
 <ContactPhotography
   heading="Photography Services"
-  description="Book a photography session"
-  buttonText="Book Session"
+  description="Book a photography session with us"
+  buttonText="Send Message"
+  imageSrc="/studio.jpg"
+  background="dark"
+  pattern="grid"
   formConfig={{ endpoint: "/api/photography", format: "json" }}
 />
     `.trim(),

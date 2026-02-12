@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-02-12T05:41:18.862Z",
+    "exportedAt": "2026-02-12T06:27:04.238Z",
     "totalBlocks": 605,
-    "version": "1.7.3",
+    "version": "1.7.4",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -1015,18 +1015,20 @@
     {
       "id": "contact-faq",
       "name": "Contact FAQ",
-      "description": "A contact form designed for FAQ and general inquiries with subject and message fields. Simple and straightforward for customer questions.",
+      "description": "A two-column contact form with an FAQ accordion sidebar. Displays frequently asked questions alongside a contact form so visitors can find answers before submitting inquiries. Falls back to a single-column centered layout when no FAQ items are provided.",
       "semanticTags": [
         "contact",
         "faq",
         "questions",
         "inquiry",
         "form",
-        "support"
+        "support",
+        "accordion",
+        "two-column"
       ],
       "category": "contact",
       "props": "ContactFaqProps",
-      "exampleUsage": "<ContactFaq\n  heading=\"Have a Question?\"\n  description=\"We're here to help\"\n  buttonText=\"Send Question\"\n  formConfig={{ endpoint: \"/api/faq\", format: \"json\" }}\n/>"
+      "exampleUsage": "<ContactFaq\n  heading=\"Have a Question?\"\n  description=\"Check our FAQs or send us a message\"\n  faqHeading=\"Frequently Asked Questions\"\n  items={[\n    { id: \"1\", question: \"What are your hours?\", answer: \"We are open Monday to Friday, 9am to 5pm.\" },\n    { id: \"2\", question: \"How do I reset my password?\", answer: \"Click the forgot password link on the login page.\" },\n  ]}\n  formHeading=\"Still need help?\"\n  buttonText=\"Send Question\"\n  formConfig={{ endpoint: \"/api/faq\", format: \"json\" }}\n/>"
     },
     {
       "id": "contact-feedback",
@@ -1234,18 +1236,19 @@
     {
       "id": "contact-photography",
       "name": "Contact Photography Services",
-      "description": "Photography booking form with session type, date, location, and special requirements. Perfect for photographers and studios.",
+      "description": "Full-width split-screen contact form with edge-to-edge design, featuring heading, description and form on one side and a large full-height image on the other. Pattern background support, configurable media placement. Perfect for photographers, studios, and creative services.",
       "semanticTags": [
         "contact",
         "photography",
-        "booking",
+        "split-screen",
         "form",
-        "session",
-        "creative"
+        "image",
+        "creative",
+        "edge-to-edge"
       ],
       "category": "contact",
       "props": "ContactPhotographyProps",
-      "exampleUsage": "<ContactPhotography\n  heading=\"Photography Services\"\n  description=\"Book a photography session\"\n  buttonText=\"Book Session\"\n  formConfig={{ endpoint: \"/api/photography\", format: \"json\" }}\n/>"
+      "exampleUsage": "<ContactPhotography\n  heading=\"Photography Services\"\n  description=\"Book a photography session with us\"\n  buttonText=\"Send Message\"\n  imageSrc=\"/studio.jpg\"\n  background=\"dark\"\n  pattern=\"grid\"\n  formConfig={{ endpoint: \"/api/photography\", format: \"json\" }}\n/>"
     },
     {
       "id": "contact-press",

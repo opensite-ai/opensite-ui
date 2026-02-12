@@ -424,7 +424,7 @@ export function ContactDark({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight",
+                  "mb-3 text-3xl font-bold tracking-tight text-balance",
                   headingClassName,
                 )}
               >
@@ -435,7 +435,12 @@ export function ContactDark({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("leading-relaxed ", descriptionClassName)}>
+              <p
+                className={cn(
+                  "leading-relaxed text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
@@ -445,11 +450,11 @@ export function ContactDark({
 
         <Card
           className={cn(
-            "grid gap-0 overflow-hidden lg:grid-cols-2",
+            "grid gap-0 overflow-hidden grid-cols-1 lg:grid-cols-2 pt-0 pb-0",
             cardClassName,
           )}
         >
-          <div className={cn("p-6 lg:p-8", formPanelClassName)}>
+          <div className={cn("p-6 lg:p-12", formPanelClassName)}>
             <Form
               form={form}
               action={formConfig?.endpoint}
@@ -464,7 +469,7 @@ export function ContactDark({
                       <TextInput
                         {...field}
                         id="first-name"
-                        placeholder="John"
+                        placeholder="First name"
                         error={meta.touched && !!meta.error}
                         aria-label="First Name"
                       />
@@ -478,7 +483,7 @@ export function ContactDark({
                       <TextInput
                         {...field}
                         id="last-name"
-                        placeholder="Doe"
+                        placeholder="Last name"
                         error={meta.touched && !!meta.error}
                         aria-label="Last Name"
                       />
@@ -494,7 +499,7 @@ export function ContactDark({
                       {...field}
                       id="email"
                       type="email"
-                      placeholder="john@example.com"
+                      placeholder="Your email"
                       error={meta.touched && !!meta.error}
                       aria-label="Email Address"
                     />
@@ -508,7 +513,7 @@ export function ContactDark({
                     <TextArea
                       {...field}
                       id="message"
-                      placeholder="Tell us how we can help..."
+                      placeholder="Your message..."
                       rows={4}
                       error={meta.touched && !!meta.error}
                       aria-label="Message"
