@@ -209,50 +209,16 @@ export function HeroTestimonialImageGrid({
         <div className="w-full max-w-200">
           <AspectRatio ratio={1 / 1} className="h-full w-full">
             <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-[3.5%]">
-              <div className="overflow-hidden rounded-[5.2%] border border-border bg-card">
-                <Img
-                  src={images[0].src}
-                  alt={images[0].alt || ""}
-                  className="object-fit h-full w-full object-center"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </div>
-              <div className="relative overflow-hidden rounded-[5.2%] border border-border bg-card">
-                <div className="absolute top-1/2 left-[5%] w-[110%] max-w-100 -translate-y-1/2 overflow-hidden rounded-md">
-                  <AspectRatio ratio={1.739130435 / 1}>
-                    <Img
-                      src={images[1].src}
-                      alt={images[1].alt || ""}
-                      className="size-full object-cover object-center"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </AspectRatio>
+              {images.slice(0, 4).map((image, index) => (
+                <div key={index} className="overflow-hidden rounded-[5.2%] border border-border bg-card">
+                  <Img
+                    src={image.src}
+                    alt={image.alt || ""}
+                    className="size-full object-cover object-center"
+                    optixFlowConfig={optixFlowConfig}
+                  />
                 </div>
-              </div>
-              <div className="relative overflow-hidden rounded-[5.2%] border border-border bg-card">
-                <div className="absolute top-[9%] left-[9%] w-[200%] max-w-150 overflow-hidden rounded-md">
-                  <AspectRatio ratio={1.6 / 1}>
-                    <Img
-                      src={images[2].src}
-                      alt={images[2].alt || ""}
-                      className="size-full object-cover object-center"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </AspectRatio>
-                </div>
-              </div>
-              <div className="relative overflow-hidden rounded-[5.2%] border border-border bg-card">
-                <div className="relative top-[12%] left-[50%] w-[70%] max-w-70 -translate-x-[50%]">
-                  <AspectRatio ratio={0.52 / 1}>
-                    <Img
-                      src={images[3].src}
-                      alt={images[3].alt || ""}
-                      className="absolute z-10 w-full rounded-[16%]"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </AspectRatio>
-                </div>
-              </div>
+              ))}
             </div>
           </AspectRatio>
         </div>

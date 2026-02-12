@@ -4,10 +4,15 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, FeatureItem, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  FeatureItem,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { Badge } from "@/src";
 
 export interface HeroCenteredGradientCtaProps {
   /**
@@ -107,7 +112,7 @@ export function HeroCenteredGradientCta({
   features,
   featuresSlot,
   background,
-  spacing = "py-32 md:py-32",
+  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
@@ -123,25 +128,37 @@ export function HeroCenteredGradientCta({
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
-    return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
+    return (
+      <div className="flex flex-col items-start mt-6 md:mt-8 gap-4 sm:flex-row sm:items-center">
+        {actions.map((action, index) => {
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
+
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={actionClassName}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  <span>{label}</span>
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
   }, [actionsSlot, actions]);
 
   const renderFeatures = useMemo(() => {
@@ -149,10 +166,14 @@ export function HeroCenteredGradientCta({
     if (!features || features.length === 0) return null;
 
     return features.map((feature, index) => (
-      <div key={index} className={cn("flex items-center gap-2", feature.className)}>
+      <Pressable
+        href={feature.href}
+        key={index}
+        className={cn("flex items-center gap-2", feature.className)}
+      >
         {feature.icon}
         <span>{feature.title}</span>
-      </div>
+      </Pressable>
     ));
   }, [featuresSlot, features]);
 
@@ -162,52 +183,70 @@ export function HeroCenteredGradientCta({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("relative flex items-center justify-center min-h-screen overflow-hidden bg-background py-32", className)}
+      className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(120,119,198,0.3),transparent)]", gradientClassName)} />
-      <div className="relative z-10 flex flex-col items-center text-center">
+      <div className="relative gap-6 md:gap-16 z-10 flex flex-col items-center text-center">
         {badge && (
-          <div className={cn(
-            "inline-flex items-center gap-2 rounded-full border border-border/50 bg-accent px-4 py-2 text-sm",
-            badgeClassName
-          )}>
+          <Badge>
             {badgeIcon}
             {typeof badge === "string" ? <span>{badge}</span> : badge}
-          </div>
+          </Badge>
         )}
-        {(heading || headingHighlight) && (
-          typeof heading === "string" ? (
-            <h1 className={cn("mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl", headingClassName)}>
+        {(heading || headingHighlight) &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : heading ? (
             <div className={headingClassName}>{heading}</div>
           ) : headingHighlight ? (
-            <h1 className={cn("mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl", headingClassName)}>
-              Build something{" "}
+            <h1
+              className={cn(
+                "mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
+                headingClassName,
+              )}
+            >
               <span className="bg-linear-to-r from-primary to-purple-600 bg-clip-text text-transparent">
                 {headingHighlight}
               </span>
             </h1>
-          ) : null
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
+          ) : null)}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-6 max-w-2xl text-lg md:text-xl text-balance",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
         {(actionsSlot || (actions && actions.length > 0)) && (
-          <div className={cn("mt-10 flex flex-col gap-4 sm:flex-row", actionsClassName)}>
+          <div
+            className={cn(
+              "mt-8 md:mt-16 flex flex-col gap-4 sm:flex-row",
+              actionsClassName,
+            )}
+          >
             {renderActions}
           </div>
         )}
         {(featuresSlot || (features && features.length > 0)) && (
-          <div className={cn("mt-16 flex items-center gap-8 text-sm text-muted-foreground", featuresClassName)}>
+          <div
+            className={cn(
+              "mt-16 flex items-center gap-8 text-sm text-muted-foreground",
+              featuresClassName,
+            )}
+          >
             {renderFeatures}
           </div>
         )}

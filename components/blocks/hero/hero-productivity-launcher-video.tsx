@@ -141,7 +141,7 @@ export function HeroProductivityLauncherVideo({
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div className="flex flex-wrap items-center justify-center gap-4">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4">
         {actions.map((action, index) => {
           const {
             label,
@@ -222,8 +222,8 @@ export function HeroProductivityLauncherVideo({
       containerClassName={containerClassName}
     >
       <div className={cn("relative z-20 max-w-204.5", contentClassName)}>
-        <div className="flex flex-col items-center">
-          <div className="flex flex-col items-center gap-8 px-4 pt-52 pb-32 md:pb-52">
+        <div className="flex flex-col items-center pb-8">
+          <div className="flex flex-col items-center gap-8 pb-16 pt-16">
             <div className="max-w-100 sm:max-w-135">
               {heading &&
                 (typeof heading === "string" ? (

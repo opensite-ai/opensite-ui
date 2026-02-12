@@ -135,7 +135,7 @@ export function HeroConversionVideoPlay({
   description,
   primaryAction,
   videoButtonLabel = "Play Video",
-  videoUrl = "https://www.youtube.com/embed/your-video-id",
+  videoUrl,
   videoDialogTitle = "Presentation Video",
   actionsSlot,
   image,
@@ -144,7 +144,7 @@ export function HeroConversionVideoPlay({
   logos,
   logosSlot,
   background,
-  spacing = "py-32 md:py-32",
+  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
@@ -197,7 +197,7 @@ export function HeroConversionVideoPlay({
             asButton
             variant="link"
           >
-            <div className="flex h-10 w-10 rounded-full bg-primary text-primary-foreground">
+            <div className="flex h-10 w-10 rounded-full bg-primary text-primary-foreground justify-center items-center">
               <DynamicIcon name="lucide/play" />
             </div>
             <div>{videoButtonLabel}</div>
@@ -257,7 +257,7 @@ export function HeroConversionVideoPlay({
 
                 <div
                   className={cn(
-                    "flex flex-wrap items-center justify-center gap-8",
+                    "flex flex-wrap items-center justify-center gap-4",
                     actionsClassName,
                   )}
                 >
@@ -290,9 +290,7 @@ export function HeroConversionVideoPlay({
           <div className="flex flex-col items-center gap-16 py-20">
             {logosTagline &&
               (typeof logosTagline === "string" ? (
-                <p className={cn("text-center text-xl font-medium ")}>
-                  {logosTagline}
-                </p>
+                <p className={cn("text-center font-medium ")}>{logosTagline}</p>
               ) : (
                 logosTagline
               ))}

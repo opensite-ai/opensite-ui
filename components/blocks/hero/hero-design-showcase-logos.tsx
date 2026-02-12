@@ -138,7 +138,7 @@ export function HeroDesignShowcaseLogos({
     return (
       <div
         className={cn(
-          "mt-6 md:mt-12 flex items-center justify-center gap-3",
+          "mt-6 md:mt-12 flex flex-col md:flex-row items-center justify-center gap-4",
           actionsClassName,
         )}
       >
@@ -177,7 +177,7 @@ export function HeroDesignShowcaseLogos({
     if (!logos || logos.length === 0) return null;
 
     return (
-      <div className="py-10 md:py-16">
+      <div className="py-0 md:py-16">
         {logosLabel &&
           (typeof logosLabel === "string" ? (
             <p className="text-center text-sm text-foreground/60">
@@ -203,7 +203,7 @@ export function HeroDesignShowcaseLogos({
                 src={logoSrc}
                 alt={logo.alt}
                 className={cn(
-                  "block h-3.5 w-auto opacity-50 md:h-5",
+                  "block w-auto opacity-50 md:h-5 object-contain",
                   logo.className,
                 )}
                 optixFlowConfig={optixFlowConfig}

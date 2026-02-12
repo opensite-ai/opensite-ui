@@ -117,7 +117,7 @@ export function HeroGridPatternSolutions({
   images,
   imagesSlot,
   background,
-  spacing = "py-32 md:py-32",
+  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
@@ -160,9 +160,9 @@ export function HeroGridPatternSolutions({
 
     return (
       <Pressable href={badgeHref}>
-        <Badge className="px-2">
+        <Badge className="px-4">
           {badgeText}
-          <DynamicIcon name="lucide/arrow-right" />
+          <DynamicIcon name="lucide/arrow-up-right" size={16} />
         </Badge>
       </Pressable>
     );
@@ -261,7 +261,7 @@ export function HeroGridPatternSolutions({
     >
       <div className="relative">
         <div className="relative overflow-hidden">
-          <div className={cn("mx-auto max-w-4xl", contentClassName)}>
+          <div className={cn("flex flex-col items-center", contentClassName)}>
             {renderBadge}
             {heading &&
               (typeof heading === "string" ? (

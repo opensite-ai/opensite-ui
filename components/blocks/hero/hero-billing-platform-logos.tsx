@@ -122,7 +122,7 @@ export function HeroBillingPlatformLogos({
   logos,
   logosSlot,
   background,
-  spacing = "py-32 md:py-32",
+  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
@@ -224,7 +224,7 @@ export function HeroBillingPlatformLogos({
                 <div>
                   <div
                     className={cn(
-                      "flex flex-col items-center gap-4 lg:flex-row",
+                      "flex flex-col items-start md:items-center gap-4 lg:flex-row",
                       actionsClassName,
                     )}
                   >
@@ -238,8 +238,8 @@ export function HeroBillingPlatformLogos({
             imagesSlot
           ) : mainImage ? (
             <div>
-              <div className="relative mr-auto ml-auto aspect-[1.28581291/1] w-full max-w-149 lg:mr-0 lg:ml-auto">
-                <div className="relative mx-auto aspect-[1.020365896/1] h-full w-[79.35%] max-w-118.25 overflow-hidden rounded-3xl">
+              <div className="relative mr-auto ml-auto md:aspect-[1.28581291/1] w-full max-w-full md:max-w-149 lg:mr-0 lg:ml-auto">
+                <div className="relative mx-auto md:aspect-[1.020365896/1] h-full w-full md:w-[79.35%] max-w-full md:max-w-118.25 overflow-hidden rounded-3xl">
                   <Img
                     src={mainImage.src}
                     alt={mainImage.alt}
@@ -296,7 +296,7 @@ export function HeroBillingPlatformLogos({
       </div>
       <div
         className={cn(
-          "flex flex-col items-center justify-center gap-8 pt-28",
+          "flex flex-col items-center justify-center gap-8 pt-8 md:pt-28",
           logosClassName,
         )}
       >

@@ -1,11 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -45,7 +48,7 @@ export interface HeroHiringAnimatedTextProps {
   /**
    * Background image URL
    */
-  backgroundImage?: string;  /**
+  backgroundImage?: string; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -99,7 +102,7 @@ export function HeroHiringAnimatedText({
   scrollActionSlot,
   backgroundImage,
   background,
-  spacing = "py-32 md:py-32",
+  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
@@ -109,26 +112,38 @@ export function HeroHiringAnimatedText({
   descriptionClassName,
   actionsClassName,
 }: HeroHiringAnimatedTextProps): React.JSX.Element {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const cycleText = useCallback(() => {
+    if (!animatedTexts || animatedTexts.length <= 1) return;
+    setActiveIndex((prev) => (prev + 1) % animatedTexts.length);
+  }, [animatedTexts]);
+
+  useEffect(() => {
+    if (!animatedTexts || animatedTexts.length <= 1) return;
+    const interval = setInterval(cycleText, 2000);
+    return () => clearInterval(interval);
+  }, [animatedTexts, cycleText]);
+
   const renderHeading = useMemo(() => {
     if (headingSlot) return headingSlot;
 
     return (
-      <h1 className={cn("text-4xl leading-9 font-bold lg:text-5xl lg:leading-12! xl:text-7xl xl:leading-22!", headingClassName)}>
+      <h1
+        className={cn(
+          "text-4xl leading-9 font-bold lg:text-5xl lg:leading-12! xl:text-7xl xl:leading-22! text-white text-shadow-xl",
+          headingClassName,
+        )}
+      >
         <div className="mb-2">{headingPrefix}</div>
         {animatedTexts && animatedTexts.length > 0 && (
-          <div className="relative h-[calc(2.25rem*3)] md:h-9 lg:h-12 xl:h-22">
+          <div className="relative h-9 lg:h-12 xl:h-22">
             {animatedTexts.map((text, index) => (
               <div
                 key={index}
-                className={cn(
-                  "absolute top-0 left-0 will-change-[opacity]",
-                  index === 0
-                    ? `animate-[show-text_${animatedTexts.length * 2}s_ease-in-out_infinite_0s]`
-                    : `animate-[show-text_${animatedTexts.length * 2}s_ease-in-out_infinite_${index * 2}s] opacity-0`
-                )}
+                className="absolute top-0 left-0 text-white transition-opacity duration-500 ease-in-out"
                 style={{
-                  animation: `show-text ${animatedTexts.length * 2}s ease-in-out infinite ${index * 2}s`,
-                  opacity: index === 0 ? 1 : 0,
+                  opacity: index === activeIndex ? 1 : 0,
                 }}
               >
                 {text}
@@ -138,16 +153,28 @@ export function HeroHiringAnimatedText({
         )}
       </h1>
     );
-  }, [headingSlot, headingPrefix, animatedTexts, headingClassName]);
+  }, [headingSlot, headingPrefix, animatedTexts, headingClassName, activeIndex]);
 
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div className={cn("flex flex-wrap items-center gap-5", actionsClassName)}>
+      <div
+        className={cn(
+          "flex flex-col md:flex-row items-center gap-4",
+          actionsClassName,
+        )}
+      >
         {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -173,7 +200,14 @@ export function HeroHiringAnimatedText({
     if (scrollActionSlot) return scrollActionSlot;
     if (!scrollAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = scrollAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = scrollAction;
     return (
       <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
@@ -194,26 +228,35 @@ export function HeroHiringAnimatedText({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(
-        "relative flex items-center justify-center dark h-svh max-h-[1400px] w-full bg-cover bg-position-[100%] bg-no-repeat before:absolute before:top-0 before:left-0 before:size-full before:bg-[radial-gradient(circle_at_100%_-100%,transparent_40%,rgba(0,0,0,.75)_85%)] before:content-['']",
-        className
+        "relative flex items-center justify-center h-svh max-h-[1400px] w-full bg-cover bg-position-[100%] bg-no-repeat before:absolute before:top-0 before:left-0 before:size-full before:bg-[radial-gradient(circle_at_100%_-100%,transparent_40%,rgba(0,0,0,.75)_85%)] before:content-['']",
+        className,
       )}
       containerClassName={containerClassName}
       style={{ backgroundImage: `url('${backgroundImage}')` }}
     >
       <div className="relative z-10 flex size-full max-w-412.5 flex-col justify-between pt-24 pb-14 md:justify-end">
-        <div className={cn("flex h-full flex-col justify-between gap-6 md:justify-end", contentClassName)}>
+        <div
+          className={cn(
+            "flex h-full flex-col justify-between gap-6 md:justify-end max-w-full md:max-w-md",
+            contentClassName,
+          )}
+        >
           {renderHeading}
           <div className="flex flex-col gap-8">
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-lg lg:text-2xl", descriptionClassName)}>
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-lg lg:text-2xl text-white text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-            <div className="flex flex-wrap items-center justify-between gap-5">
+              ))}
+            <div className="flex flex-wrap items-center justify-between gap-4">
               {renderActions}
               {renderScrollAction}
             </div>

@@ -176,7 +176,7 @@ export function HeroSplitSpiralShapes({
         )}
         {images[1] && (
           <div className="overflow-hidden rounded-lg shadow-xl md:absolute md:top-[12%] md:right-[5%] md:w-[35%]">
-            <div className="aspect-square">
+            <div className="aspect-5/6">
               <Img
                 src={images[1].src}
                 alt={images[1].alt}
@@ -191,7 +191,7 @@ export function HeroSplitSpiralShapes({
         )}
         {images[2] && (
           <div className="overflow-hidden rounded-lg shadow-xl md:absolute md:right-[10%] md:bottom-[15%] md:w-[55%]">
-            <div className="aspect-video">
+            <div className="aspect-5/6">
               <Img
                 src={images[2].src}
                 alt={images[2].alt}

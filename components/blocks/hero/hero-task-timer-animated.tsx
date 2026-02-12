@@ -96,7 +96,7 @@ export function HeroTaskTimerAnimated({
   images,
   imagesSlot,
   background,
-  spacing = "py-32 md:py-32",
+  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,

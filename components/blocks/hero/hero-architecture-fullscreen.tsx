@@ -4,10 +4,14 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface HeroArchitectureFullscreenProps {
   /**
@@ -70,6 +74,13 @@ export interface HeroArchitectureFullscreenProps {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /**
+   * Optional Optix Flow configuration for image optimization
+   */
+  optixFlowConfig?: {
+    apiKey: string;
+    compression?: number;
+  };
 }
 
 export function HeroArchitectureFullscreen({
@@ -80,7 +91,7 @@ export function HeroArchitectureFullscreen({
   actionSlot,
   backgroundImage,
   background,
-  spacing = "py-32 md:py-32",
+  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
@@ -88,22 +99,30 @@ export function HeroArchitectureFullscreen({
   taglineClassName,
   headingClassName,
   descriptionClassName,
+  optixFlowConfig,
 }: HeroArchitectureFullscreenProps): React.JSX.Element {
   const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = action;
     return (
-      <Pressable
-        asButton
-        className={actionClassName}
-        {...pressableProps}
-      >
+      <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
           <>
             {icon}
-            {typeof label === "string" ? <p className="group-hover:underline">{label}</p> : label}
+            {typeof label === "string" ? (
+              <p className="group-hover:underline">{label}</p>
+            ) : (
+              label
+            )}
             {iconAfter}
           </>
         )}
@@ -118,48 +137,65 @@ export function HeroArchitectureFullscreen({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(
-        "relative flex items-center justify-center dark h-svh max-h-[1400px] w-full overflow-hidden bg-cover bg-center bg-no-repeat font-poppins after:absolute after:top-0 after:left-0 after:block after:h-full after:w-full after:bg-foreground/65 after:content-['']",
-        className
+        "relative flex min-h-screen min-w-screen items-center justify-center dark w-full overflow-hidden font-poppins",
+        className,
       )}
       containerClassName={containerClassName}
-      style={{ backgroundImage: backgroundImage ? `url('${backgroundImage}')` : undefined }}
     >
+      {backgroundImage && (
+        <Img
+          src={backgroundImage}
+          alt=""
+          className="absolute inset-0 min-h-screen min-w-screen object-cover object-center brightness-50"
+          optixFlowConfig={optixFlowConfig}
+        />
+      )}
       <div className="relative z-20 h-full w-full max-w-340">
-        <div className="flex h-full w-full flex-col justify-end gap-12">
+        <div className="flex h-full w-full flex-col justify-end gap-6 md:gap-12">
           <div className="flex max-w-245.5 flex-col gap-1">
-            {tagline && (
-              typeof tagline === "string" ? (
-                <p className={cn("text-sm leading-none uppercase text-muted-foreground", taglineClassName)}>
+            {tagline &&
+              (typeof tagline === "string" ? (
+                <p
+                  className={cn(
+                    "text-sm leading-none uppercase text-balance text-white text-shadow-xl",
+                    taglineClassName,
+                  )}
+                >
                   {tagline}
                 </p>
               ) : (
                 <div className={taglineClassName}>{tagline}</div>
-              )
-            )}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("text-3xl leading-snug! md:text-4xl lg:text-6xl", headingClassName)}>
+              ))}
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "text-3xl leading-snug! md:text-4xl lg:text-6xl text-white text-balance text-shadow-xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
+              ))}
           </div>
           <div className="flex w-full flex-col justify-between gap-5 sm:flex-row sm:items-center">
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("max-w-81 border-l border-border pl-6 text-base text-muted-foreground", descriptionClassName)}>
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "max-w-81 text-base text-balance text-white text-shadow-xl",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-            <div className="shrink-0">
-              {renderAction}
-            </div>
+              ))}
           </div>
+          <div className="shrink-0">{renderAction}</div>
         </div>
       </div>
     </Section>
