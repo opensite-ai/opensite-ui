@@ -94,6 +94,11 @@
     "import": "./dist/dropdown-menu.js",
     "require": "./dist/dropdown-menu.cjs"
   },
+  "./components/dynamic-form-field": {
+    "types": "./dist/dynamic-form-field.d.ts",
+    "import": "./dist/dynamic-form-field.js",
+    "require": "./dist/dynamic-form-field.cjs"
+  },
   "./components/dynamic-icon": {
     "types": "./dist/dynamic-icon.d.ts",
     "import": "./dist/dynamic-icon.js",

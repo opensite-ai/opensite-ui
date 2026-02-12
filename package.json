@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "1.7.5",
+  "version": "1.7.6",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -3045,6 +3045,11 @@
       "types": "./dist/dropdown-menu.d.ts",
       "import": "./dist/dropdown-menu.js",
       "require": "./dist/dropdown-menu.cjs"
+    },
+    "./components/dynamic-form-field": {
+      "types": "./dist/dynamic-form-field.d.ts",
+      "import": "./dist/dynamic-form-field.js",
+      "require": "./dist/dynamic-form-field.cjs"
     },
     "./components/dynamic-icon": {
       "types": "./dist/dynamic-icon.d.ts",

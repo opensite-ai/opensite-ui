@@ -133,6 +133,13 @@
   }
 ,
   {
+    "path": "./components/dynamic-form-field",
+    "types": "./dist/dynamic-form-field.d.ts",
+    "import": "./dist/dynamic-form-field.js",
+    "require": "./dist/dynamic-form-field.cjs"
+  }
+,
+  {
     "path": "./components/dynamic-icon",
     "types": "./dist/dynamic-icon.d.ts",
     "import": "./dist/dynamic-icon.js",

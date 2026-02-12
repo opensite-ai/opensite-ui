@@ -1,17 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput, TextArea } from "@page-speed/forms/inputs";
+import { Form } from "@page-speed/forms";
 import "../../styles/forms.css";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card } from "../../ui/card";
-import { Label } from "../../ui/label";
+import { DynamicFormField } from "../../ui/dynamic-form-field";
+import type { FormFieldConfig } from "../../../lib/form-field-types";
+import { getColumnSpanClass } from "../../../lib/form-field-types";
 import {
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
+  useContactForm,
+  useFileUpload,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
 import { Section } from "../../ui/section";
@@ -21,13 +22,6 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-
-interface ContactDarkFormValues {
-  firstName: string;
-  lastName: string;
-  email: string;
-  message: string;
-}
 
 export interface ContactDarkOption {
   /**
@@ -109,6 +103,21 @@ export interface ContactDarkProps {
    */
   socialLinksSlot?: React.ReactNode;
   /**
+   * Array of form field configurations
+   * If not provided, defaults to: firstName, lastName, email, message
+   */
+  formFields?: FormFieldConfig[];
+  /**
+   * Success message to display after form submission
+   * @default "Thank you! Your message has been sent successfully."
+   */
+  successMessage?: React.ReactNode;
+  /**
+   * Error message to display if submission fails
+   * @default "There was an error sending your message. Please try again."
+   */
+  errorMessage?: React.ReactNode;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -155,7 +164,16 @@ export interface ContactDarkProps {
   /**
    * Additional CSS classes for the social links container
    */
-  socialLinksClassName?: string; /**
+  socialLinksClassName?: string;
+  /**
+   * Additional CSS classes for the success message
+   */
+  successMessageClassName?: string;
+  /**
+   * Additional CSS classes for the error message
+   */
+  errorMessageClassName?: string;
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -212,7 +230,7 @@ export interface ContactDarkProps {
    *   });
    * }}
    */
-  onSubmit?: (values: ContactDarkFormValues) => void | Promise<void>;
+  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
   /**
    * Optional success callback invoked after successful submission.
    *
@@ -227,6 +245,43 @@ export interface ContactDarkProps {
    */
   onError?: (error: Error) => void;
 }
+
+// Default form fields
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "firstName",
+    type: "text",
+    label: "First Name",
+    placeholder: "First name",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "lastName",
+    type: "text",
+    label: "Last Name",
+    placeholder: "Last name",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "your@email.com",
+    required: true,
+    columnSpan: 12,
+  },
+  {
+    name: "message",
+    type: "textarea",
+    label: "Message",
+    placeholder: "Your message...",
+    required: true,
+    rows: 4,
+    columnSpan: 12,
+  },
+];
 
 /**
  * ContactDark - A dark-themed contact form with split layout featuring a form
@@ -248,7 +303,7 @@ export function ContactDark({
   description,
   contactHeading = "Contact Information",
   contactDescription = "Fill up the form and our team will get back to you within 24 hours.",
-  buttonText,
+  buttonText = "Submit",
   buttonIcon,
   actions,
   actionsSlot,
@@ -256,6 +311,9 @@ export function ContactDark({
   contactOptionsSlot,
   socialLinks,
   socialLinksSlot,
+  formFields = DEFAULT_FORM_FIELDS,
+  successMessage = "Thank you! Your message has been sent successfully.",
+  errorMessage = "There was an error sending your message. Please try again.",
   className,
   headerClassName,
   headingClassName,
@@ -267,6 +325,8 @@ export function ContactDark({
   infoPanelClassName,
   contactOptionsClassName,
   socialLinksClassName,
+  successMessageClassName,
+  errorMessageClassName,
   background,
   spacing = "py-8 md:py-32",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
@@ -278,60 +338,29 @@ export function ContactDark({
   onSuccess,
   onError,
 }: ContactDarkProps): React.JSX.Element {
-  const form = useForm<ContactDarkFormValues>({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      message: "",
+  // File upload hook
+  const {
+    uploadTokens,
+    uploadProgress,
+    isUploading,
+    uploadFiles,
+    removeFile,
+    resetUpload,
+  } = useFileUpload({ onError });
+
+  // Contact form hook with file upload integration
+  const { form, isSubmitted, submissionError, formMethod } = useContactForm({
+    formFields,
+    formConfig,
+    onSubmit,
+    onSuccess: (data) => {
+      resetUpload();
+      onSuccess?.(data);
     },
-    validationSchema: {
-      firstName: (value) => (!value ? "First name is required" : undefined),
-      lastName: (value) => (!value ? "Last name is required" : undefined),
-      email: (value) => {
-        if (!value) return "Email is required";
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
-          return "Please enter a valid email address";
-        return undefined;
-      },
-      message: (value) => (!value ? "Message is required" : undefined),
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
-
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
-
-      try {
-        let result: unknown;
-
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
-
-        if (onSubmit) {
-          await onSubmit(values);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
+    onError,
+    resetOnSuccess: formConfig?.resetOnSuccess !== false,
+    uploadTokens,
   });
-
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
   const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -455,72 +484,60 @@ export function ContactDark({
           )}
         >
           <div className={cn("p-6 lg:p-12", formPanelClassName)}>
+            {/* Success Message */}
+            {isSubmitted && (
+              <div
+                className={cn(
+                  "mb-6 p-4 bg-primary/10 border border-primary rounded-md",
+                  successMessageClassName,
+                )}
+              >
+                {typeof successMessage === "string" ? (
+                  <p className="text-sm text-primary-foreground/90 text-center">
+                    {successMessage}
+                  </p>
+                ) : (
+                  successMessage
+                )}
+              </div>
+            )}
+
+            {/* Error Message */}
+            {submissionError && (
+              <div
+                className={cn(
+                  "mb-6 p-4 bg-destructive/10 border border-destructive rounded-md",
+                  errorMessageClassName,
+                )}
+              >
+                <p className="text-sm text-destructive text-center">
+                  {submissionError}
+                </p>
+              </div>
+            )}
+
             <Form
               form={form}
               action={formConfig?.endpoint}
               method={formMethod}
               className={cn("space-y-6", formClassName)}
             >
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field name="firstName">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="first-name">First Name</Label>
-                      <TextInput
-                        {...field}
-                        id="first-name"
-                        placeholder="First name"
-                        error={meta.touched && !!meta.error}
-                        aria-label="First Name"
-                      />
-                    </div>
-                  )}
-                </Field>
-                <Field name="lastName">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="last-name">Last Name</Label>
-                      <TextInput
-                        {...field}
-                        id="last-name"
-                        placeholder="Last name"
-                        error={meta.touched && !!meta.error}
-                        aria-label="Last Name"
-                      />
-                    </div>
-                  )}
-                </Field>
+              <div className="grid grid-cols-12 gap-4">
+                {formFields.map((field) => (
+                  <div
+                    key={field.name}
+                    className={getColumnSpanClass(field.columnSpan)}
+                  >
+                    <DynamicFormField
+                      field={field}
+                      uploadProgress={uploadProgress}
+                      onFileUpload={uploadFiles}
+                      onFileRemove={removeFile}
+                      isUploading={isUploading}
+                    />
+                  </div>
+                ))}
               </div>
-              <Field name="email">
-                {({ field, meta }) => (
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email Address</Label>
-                    <TextInput
-                      {...field}
-                      id="email"
-                      type="email"
-                      placeholder="Your email"
-                      error={meta.touched && !!meta.error}
-                      aria-label="Email Address"
-                    />
-                  </div>
-                )}
-              </Field>
-              <Field name="message">
-                {({ field, meta }) => (
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <TextArea
-                      {...field}
-                      id="message"
-                      placeholder="Your message..."
-                      rows={4}
-                      error={meta.touched && !!meta.error}
-                      aria-label="Message"
-                    />
-                  </div>
-                )}
-              </Field>
               {actionsSlot || (actions && actions.length > 0) ? (
                 actionsContent
               ) : (

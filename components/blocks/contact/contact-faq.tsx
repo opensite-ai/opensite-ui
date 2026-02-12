@@ -2,13 +2,12 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput, TextArea } from "@page-speed/forms/inputs";
+import { Form } from "@page-speed/forms";
 import "../../styles/forms.css";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent } from "../../ui/card";
-import { Label } from "../../ui/label";
+import { DynamicFormField } from "../../ui/dynamic-form-field";
 import {
   Accordion,
   AccordionContent,
@@ -16,8 +15,8 @@ import {
   AccordionTrigger,
 } from "../../ui/accordion";
 import {
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
+  useContactForm,
+  useFileUpload,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
 import { Section } from "../../ui/section";
@@ -27,13 +26,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-
-interface ContactFaqFormValues {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
+import type { FormFieldConfig } from "../../../lib/form-field-types";
+import { getColumnSpanClass } from "../../../lib/form-field-types";
 
 export interface FaqItem {
   id: string;
@@ -82,6 +76,21 @@ export interface ContactFaqProps {
    * Heading for the FAQ section
    */
   faqHeading?: React.ReactNode;
+  /**
+   * Array of form field configurations
+   * If not provided, defaults to: name, email, subject, message
+   */
+  formFields?: FormFieldConfig[];
+  /**
+   * Success message to display after form submission
+   * @default "Thank you! Your message has been sent successfully."
+   */
+  successMessage?: React.ReactNode;
+  /**
+   * Error message to display if submission fails
+   * @default "There was an error sending your message. Please try again."
+   */
+  errorMessage?: React.ReactNode;
   /**
    * Additional CSS classes for the section
    */
@@ -151,6 +160,14 @@ export interface ContactFaqProps {
    */
   gridClassName?: string;
   /**
+   * Additional CSS classes for the success message
+   */
+  successMessageClassName?: string;
+  /**
+   * Additional CSS classes for the error message
+   */
+  errorMessageClassName?: string;
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -166,7 +183,6 @@ export interface ContactFaqProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
-
   /**
    * Form configuration for PageSpeed forms
    */
@@ -174,7 +190,7 @@ export interface ContactFaqProps {
   /**
    * Custom submit handler
    */
-  onSubmit?: (values: ContactFaqFormValues) => void | Promise<void>;
+  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
   /**
    * Success callback
    */
@@ -185,29 +201,62 @@ export interface ContactFaqProps {
   onError?: (error: Error) => void;
 }
 
+// Default form fields
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "name",
+    type: "text",
+    label: "Name",
+    placeholder: "Full Name",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "email",
+    type: "email",
+    label: "Email",
+    placeholder: "your@email.com",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "subject",
+    type: "text",
+    label: "Subject",
+    placeholder: "What is this regarding?",
+    required: true,
+    columnSpan: 12,
+  },
+  {
+    name: "message",
+    type: "textarea",
+    label: "Message",
+    placeholder: "Your message...",
+    required: true,
+    rows: 4,
+    columnSpan: 12,
+  },
+];
+
 /**
- * ContactFaq - FAQ contact form for questions not answered in FAQ section.
- *
- * @example
- * ```tsx
- * <ContactFaq
- *   heading="Still need help?"
- *   formConfig={{ endpoint: "/api/contact", format: "json" }}
- * />
- * ```
+ * ContactFaq - FAQ contact form with flexible field configuration
  */
 export function ContactFaq({
   heading,
   description,
   formHeading,
-  buttonText,
+  buttonText = "Submit",
   buttonIcon,
   actions,
   actionsSlot,
   items,
   itemsSlot,
   faqHeading,
+  formFields = DEFAULT_FORM_FIELDS,
+  successMessage = "Thank you! Your message has been sent successfully.",
+  errorMessage = "There was an error sending your message. Please try again.",
   className,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -223,73 +272,42 @@ export function ContactFaq({
   accordionTriggerClassName,
   accordionContentClassName,
   gridClassName,
+  successMessageClassName,
+  errorMessageClassName,
   background,
   spacing = "py-8 md:py-32",
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
-
   formConfig,
   onSubmit,
   onSuccess,
   onError,
 }: ContactFaqProps): React.JSX.Element {
-  const form = useForm<ContactFaqFormValues>({
-    initialValues: {
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
+  // File upload hook
+  const {
+    uploadTokens,
+    uploadProgress,
+    isUploading,
+    uploadFiles,
+    removeFile,
+    resetUpload,
+  } = useFileUpload({ onError });
+
+  // Contact form hook with file upload integration
+  const { form, isSubmitted, submissionError, formMethod } = useContactForm({
+    formFields,
+    formConfig,
+    onSubmit,
+    onSuccess: (data) => {
+      resetUpload();
+      onSuccess?.(data);
     },
-    validationSchema: {
-      name: (value) => (!value ? "Name is required" : undefined),
-      email: (value) => {
-        if (!value) return "Email is required";
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
-          return "Please enter a valid email address";
-        return undefined;
-      },
-      subject: (value) => (!value ? "Subject is required" : undefined),
-      message: (value) => (!value ? "Message is required" : undefined),
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
-
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
-
-      try {
-        let result: unknown;
-
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
-
-        if (onSubmit) {
-          await onSubmit(values);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
+    onError,
+    resetOnSuccess: formConfig?.resetOnSuccess !== false,
+    uploadTokens,
   });
 
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
-
-  const actionsContent = React.useMemo(() => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
@@ -358,7 +376,6 @@ export function ContactFaq({
     accordionItemClassName,
     accordionTriggerClassName,
     accordionContentClassName,
-    background,
   ]);
 
   return (
@@ -428,75 +445,65 @@ export function ContactFaq({
                 ) : (
                   <div className={formHeadingClassName}>{formHeading}</div>
                 ))}
+
+              {/* Success Message */}
+              {isSubmitted && (
+                <div
+                  className={cn(
+                    "mb-6 p-4 bg-primary/10 border border-primary rounded-md",
+                    successMessageClassName,
+                  )}
+                >
+                  {typeof successMessage === "string" ? (
+                    <p className="text-sm text-primary-foreground/90 text-center">
+                      {successMessage}
+                    </p>
+                  ) : (
+                    successMessage
+                  )}
+                </div>
+              )}
+
+              {/* Error Message */}
+              {submissionError && (
+                <div
+                  className={cn(
+                    "mb-6 p-4 bg-destructive/10 border border-destructive rounded-md",
+                    errorMessageClassName,
+                  )}
+                >
+                  {typeof errorMessage === "string" ? (
+                    <p className="text-sm text-destructive text-center">
+                      {submissionError}
+                    </p>
+                  ) : (
+                    errorMessage
+                  )}
+                </div>
+              )}
+
               <Form
                 form={form}
                 action={formConfig?.endpoint}
                 method={formMethod}
                 className={cn("space-y-4", formClassName)}
               >
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Field name="name">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Name</Label>
-                        <TextInput
-                          {...field}
-                          id="name"
-                          placeholder="John Doe"
-                          error={meta.touched && !!meta.error}
-                          aria-label="Name"
-                        />
-                      </div>
-                    )}
-                  </Field>
-
-                  <Field name="email">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
-                        <TextInput
-                          {...field}
-                          id="email"
-                          type="email"
-                          placeholder="john@example.com"
-                          error={meta.touched && !!meta.error}
-                          aria-label="Email"
-                        />
-                      </div>
-                    )}
-                  </Field>
+                <div className="grid grid-cols-12 gap-4">
+                  {formFields.map((field) => (
+                    <div
+                      key={field.name}
+                      className={getColumnSpanClass(field.columnSpan)}
+                    >
+                      <DynamicFormField
+                        field={field}
+                        uploadProgress={uploadProgress}
+                        onFileUpload={uploadFiles}
+                        onFileRemove={removeFile}
+                        isUploading={isUploading}
+                      />
+                    </div>
+                  ))}
                 </div>
-
-                <Field name="subject">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="subject">Subject</Label>
-                      <TextInput
-                        {...field}
-                        id="subject"
-                        placeholder="What is this regarding?"
-                        error={meta.touched && !!meta.error}
-                        aria-label="Subject"
-                      />
-                    </div>
-                  )}
-                </Field>
-
-                <Field name="message">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Message</Label>
-                      <TextArea
-                        {...field}
-                        id="message"
-                        placeholder="Your question..."
-                        rows={4}
-                        error={meta.touched && !!meta.error}
-                        aria-label="Message"
-                      />
-                    </div>
-                  )}
-                </Field>
 
                 {actionsSlot || (actions && actions.length > 0) ? (
                   actionsContent

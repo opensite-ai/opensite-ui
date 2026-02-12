@@ -6,6 +6,12 @@ import {
   type RailsErrorResponse,
 } from "@page-speed/forms/integration";
 
+// Export shared form hooks
+export { useFileUpload } from "./forms/use-file-upload";
+export type { FileUploadProgress, UseFileUploadReturn } from "./forms/use-file-upload";
+export { useContactForm } from "./forms/use-contact-form";
+export type { UseContactFormOptions, UseContactFormReturn } from "./forms/use-contact-form";
+
 export type PageSpeedFormMethod = "post" | "get" | "put" | "patch";
 export type PageSpeedFormSubmissionFormat = "json" | "rails";
 
