@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document provides comprehensive guidelines for creating and maintaining modules in the DashTrack platform ecosystem, designed to support 300+ client websites through ultra-high performance architecture. The platform utilizes a modern rendering pipeline from `customer-sites` (Rails) → `@opensite/blocks` (React rendering runtime) → optimized media components (`@opensite/img`, `@opensite/video`) with robust CDN caching.
+This document provides comprehensive guidelines for creating and maintaining modules in the DashTrack platform ecosystem, designed to support 300+ client websites through ultra-high performance architecture. The platform utilizes a modern rendering pipeline from `customer-sites` (Rails) → `@opensite/blocks` (React rendering runtime) → optimized media components (`@page-speed/img`, `@opensite/video`) with robust CDN caching.
 
 ## Core Architecture Flow
 
@@ -16,7 +16,7 @@ flowchart TD
     C -->|No| E["Legacy React Components"]
     D --> F["toastability-service CDN"]
     E --> F
-    F --> G["@opensite/img Component"]
+    F --> G["@page-speed/img Component"]
     F --> H["@opensite/video Component"]
     F --> I["Optimized CSS/JS Assets"]
     G --> J["Client Browser"]
@@ -25,9 +25,9 @@ flowchart TD
 ```
 
 1. **Entry Point**: `customer-sites` Rails application serves all client websites via dynamic subdomains
-2. **Rendering Engine**: `@opensite/blocks` processes Chai design payloads from `toastability-service/assets/components/:id` 
-3. **Media Optimization**: `@opensite/img` and `@opensite/video` provide responsive, format-optimized media delivery
-4. **Page Building**: `@opensite/builder-sdk` powers the visual page builder in `dt-cms/Source`
+2. **Rendering Engine**: `@opensite/blocks` processes design payloads from `toastability-service/assets/components/:id` 
+3. **Media Optimization**: `@page-speed/img` and `@opensite/video` provide responsive, format-optimized media delivery
+4. **Page Building**: `@opensite/ui` powers the semantic UI components for building pages
 5. **CDN Layer**: `toastability-service` provides robust asset caching with strong ETags and Cloudflare integration
 
 ## Core Architecture Principles
@@ -104,12 +104,12 @@ All modules must be optimized for minimal bundle impact using granular exports:
 // ✅ PREFERRED: Granular imports for minimal bundle size
 import { BlocksRenderer } from "@opensite/blocks/core/blocks-renderer";
 import { fetchDesignPayloadForPage } from "@opensite/blocks/api/fetch-design";
-import { Img } from "@opensite/img/core";
+import { Img } from "@page-speed/img/core";
 import { Video } from "@opensite/video/core";
 
 // ✅ GOOD: Module-level imports
 import { BlocksRenderer } from "@opensite/blocks/core";
-import { Img } from "@opensite/img";
+import { Img } from "@page-speed/img";
 
 // ⚠️ AVOID: Full package imports increase bundle size
 import * from "@opensite/blocks";
@@ -161,7 +161,7 @@ import { parseDesignPayload } from "@opensite/blocks/utils/design";
 // Fetches payloads from: https://cdn.ing/assets/components/:page_id
 ```
 
-#### `@opensite/img` - Optimized Image Component 
+#### `@page-speed/img` - Optimized Image Component 
 
 **Purpose**: Responsive images with format optimization (AVIF, WebP, JPEG)
 **Used By**: `@opensite/blocks` for media rendering
@@ -802,7 +802,7 @@ export class CompatibilityLayer {
 ### Bundle Size Limits by Module Type
 
 - **Core Rendering** (`@opensite/blocks`): ≤ 50KB gzipped
-- **Media Components** (`@opensite/img`, `@opensite/video`): ≤ 15KB gzipped each
+- **Media Components** (`@page-speed/img`, `@opensite/video`): ≤ 15KB gzipped each
 - **Builder SDK** (`@opensite/builder-sdk`): ≤ 200KB gzipped (editor-only)
 - **Utility Modules**: ≤ 10KB gzipped per module
 

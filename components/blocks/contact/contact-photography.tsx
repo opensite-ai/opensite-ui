@@ -345,7 +345,7 @@ export function ContactPhotography({
             method={formMethod}
             className={cn("space-y-4", formClassName)}
           >
-            <div className="grid grid-cols-12 gap-4">
+            <div className="grid grid-cols-12 gap-6">
               {formFields.map((field) => (
                 <div
                   key={field.name}
