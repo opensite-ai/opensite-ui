@@ -258,7 +258,7 @@ export function HeroStartupLaunchCta({
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
             {badge && (
-              <Badge className={cn("relative", badgeClassName)}>
+              <Badge className={cn("px-4", badgeClassName)}>
                 {badgeIcon}
                 {typeof badge === "string" ? <span>{badge}</span> : badge}
               </Badge>

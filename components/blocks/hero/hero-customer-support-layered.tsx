@@ -7,12 +7,13 @@ import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
+  ActionConfig,
   ImageItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import { Badge } from "@/src";
+import { Badge, Pressable } from "@/src";
 
 export interface HeroCustomerSupportLayeredProps {
   /**
@@ -87,6 +88,18 @@ export interface HeroCustomerSupportLayeredProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 export function HeroCustomerSupportLayered({
@@ -99,6 +112,9 @@ export function HeroCustomerSupportLayered({
   pattern,
   patternOpacity,
   className,
+  actions,
+  actionsSlot,
+  actionsClassName,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "py-32 md:py-32",
   contentClassName,
@@ -154,6 +170,42 @@ export function HeroCustomerSupportLayered({
     );
   }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
+  const renderActions = useMemo(() => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return (
+      <div className={cn("flex flex-col md:flex-row gap-4", actionsClassName)}>
+        {actions.map((action, index) => {
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={actionClassName}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  }, [actionsSlot, actions, actionsClassName]);
+
   return (
     <Section
       background={background}
@@ -208,6 +260,8 @@ export function HeroCustomerSupportLayered({
               ) : (
                 <div className={descriptionClassName}>{description}</div>
               ))}
+
+            {renderActions}
           </div>
           <div>{renderImages}</div>
         </div>

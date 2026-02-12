@@ -6,9 +6,16 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { Badge } from "@/src";
 
 export interface HeroSpiralPatternCardsProps {
   /**
@@ -108,7 +115,14 @@ export function HeroSpiralPatternCards({
     return (
       <div className="flex w-full flex-col justify-center gap-2 sm:flex-row">
         {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -135,14 +149,22 @@ export function HeroSpiralPatternCards({
     if (!images || images.length === 0) return null;
 
     return (
-      <div className={cn("mt-16 flex flex-col items-center justify-center lg:mt-32", imagesClassName)}>
+      <div
+        className={cn(
+          "mt-16 flex flex-col items-center justify-center lg:mt-32",
+          imagesClassName,
+        )}
+      >
         <div className="relative mx-auto aspect-square w-[95%] max-w-125 sm:w-full">
           {images[0] && (
             <div className="absolute inset-0 z-5 m-auto flex aspect-29/36 w-4/5 max-w-[16rem] translate-x-[-75%] translate-y-[10%] scale-[0.85] rotate-[-15deg] justify-center overflow-hidden rounded-lg border border-border opacity-60 md:w-85 md:max-w-85">
               <Img
                 src={images[0].src}
                 alt={images[0].alt}
-                className={cn("h-full w-full object-cover", images[0].className)}
+                className={cn(
+                  "h-full w-full object-cover",
+                  images[0].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
@@ -152,7 +174,10 @@ export function HeroSpiralPatternCards({
               <Img
                 src={images[1].src}
                 alt={images[1].alt}
-                className={cn("h-full w-full object-cover", images[1].className)}
+                className={cn(
+                  "h-full w-full object-cover",
+                  images[1].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
@@ -162,7 +187,10 @@ export function HeroSpiralPatternCards({
               <Img
                 src={images[2].src}
                 alt={images[2].alt}
-                className={cn("h-full w-full object-cover", images[2].className)}
+                className={cn(
+                  "h-full w-full object-cover",
+                  images[2].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
@@ -183,33 +211,45 @@ export function HeroSpiralPatternCards({
     >
       <div className="relative">
         <div className="flex flex-col items-center text-center">
-          {badgeText && (
-            typeof badgeText === "string" ? (
-              <p className="text-xs uppercase">{badgeText}</p>
+          {badgeText &&
+            (typeof badgeText === "string" ? (
+              <Badge>{badgeText}</Badge>
             ) : (
               badgeText
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("my-3 text-2xl font-bold text-pretty sm:text-4xl md:my-6 lg:text-5xl", headingClassName)}>
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "my-3 text-2xl font-bold sm:text-4xl md:my-6 lg:text-5xl text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("my-3 text-2xl font-bold text-pretty sm:text-4xl md:my-6 lg:text-5xl", headingClassName)}>
+              <h1
+                className={cn(
+                  "my-3 text-2xl font-bold sm:text-4xl md:my-6 lg:text-5xl text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mb-6 max-w-xl md:mb-12 lg:text-xl text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mb-6 max-w-xl md:mb-12 lg:text-xl text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           {renderActions}
         </div>
         {renderImages}

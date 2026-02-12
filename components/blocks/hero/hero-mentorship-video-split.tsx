@@ -14,7 +14,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../../ui/dialog";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -62,7 +68,7 @@ export interface HeroMentorshipVideoSplitProps {
   /**
    * Custom slot for image (overrides image prop)
    */
-  imageSlot?: React.ReactNode;  /**
+  imageSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -107,9 +113,14 @@ export interface HeroMentorshipVideoSplitProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Video aspect ratio
+   */
+  videoAspectRatio?: "horizontal" | "vertical";
 }
 
 export function HeroMentorshipVideoSplit({
+  videoAspectRatio = "horizontal",
   heading,
   description,
   action,
@@ -139,17 +150,26 @@ export function HeroMentorshipVideoSplit({
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = action;
     return (
-      <Pressable asButton className={actionClassName} {...pressableProps}>
-        {children ?? (
-          <>
-            {icon}
-            {label}
-            {iconAfter}
-          </>
-        )}
-      </Pressable>
+      <div className="flex">
+        <Pressable asButton className={actionClassName} {...pressableProps}>
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      </div>
     );
   }, [actionSlot, action]);
 
@@ -159,32 +179,33 @@ export function HeroMentorshipVideoSplit({
 
     return (
       <div className="flex max-w-97.5 flex-col gap-6">
-        {videoLabel && (
-          typeof videoLabel === "string" ? (
-            <p className="text-xl text-accent-foreground">{videoLabel}</p>
+        {videoLabel &&
+          (typeof videoLabel === "string" ? (
+            <p className="text-xl">{videoLabel}</p>
           ) : (
             videoLabel
-          )
-        )}
+          ))}
         <Pressable
-          href="#"
           onClick={() => setIsVideoOpen(true)}
           asButton
           variant="ghost"
-          className="group relative flex aspect-video h-full w-full max-w-97.5 overflow-hidden rounded-lg bg-accent p-0 transition-all hover:bg-accent"
+          className="group relative flex aspect-video h-full w-full max-w-97.5 overflow-hidden rounded-lg p-0"
         >
           <AspectRatio ratio={16 / 9} className="flex h-full w-full">
             <Img
               src={videoThumbnail.src}
               alt={videoThumbnail.alt}
-              className={cn("absolute inset-0 h-full w-full object-cover", videoThumbnail.className)}
+              className={cn(
+                "absolute inset-0 h-full w-full object-cover",
+                videoThumbnail.className,
+              )}
               optixFlowConfig={optixFlowConfig}
             />
             <div className="m-auto aspect-square z-10">
               <DynamicIcon
                 name="lucide/play"
                 size={40}
-                className="fill-white stroke-white transition-transform group-hover:scale-125"
+                className="transition-transform group-hover:scale-125"
               />
             </div>
           </AspectRatio>
@@ -202,7 +223,11 @@ export function HeroMentorshipVideoSplit({
         <Img
           src={image.src}
           alt={image.alt}
-          className={cn("aspect-4/5 h-full max-h-250 w-full rounded-xl object-cover object-center", imageClassName, image.className)}
+          className={cn(
+            "aspect-4/5 h-full max-h-250 w-full rounded-xl object-cover object-center",
+            imageClassName,
+            image.className,
+          )}
           optixFlowConfig={optixFlowConfig}
         />
       </div>
@@ -212,38 +237,56 @@ export function HeroMentorshipVideoSplit({
   return (
     <Fragment>
       <Section
-      background={background}
-      spacing={spacing}
-      pattern={pattern}
-      patternOpacity={patternOpacity}
-      className={cn("relative flex items-center justify-center", className)}
-      containerClassName={containerClassName}
-    >
+        background={background}
+        spacing={spacing}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
+        className={cn("relative flex items-center justify-center", className)}
+        containerClassName={containerClassName}
+      >
         <div className="relative">
           <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
             <div>
-              <div className={cn("flex h-full flex-col justify-between gap-12", contentClassName)}>
+              <div
+                className={cn(
+                  "flex h-full flex-col justify-between gap-4",
+                  contentClassName,
+                )}
+              >
                 <div className="flex max-w-165 flex-col gap-9">
-                  {heading && (
-                    typeof heading === "string" ? (
-                      <h1 className={cn("text-[2.5rem] leading-none text-accent-foreground sm:text-[3.4375rem] md:text-[4rem]", headingClassName)}>
+                  {heading &&
+                    (typeof heading === "string" ? (
+                      <h1
+                        className={cn(
+                          "text-4xl font-semibold lg:text-8xl text-balance text-shadow-xl text-center",
+                          headingClassName,
+                        )}
+                      >
                         {heading}
                       </h1>
                     ) : (
-                      <h1 className={cn("text-[2.5rem] leading-none text-accent-foreground sm:text-[3.4375rem] md:text-[4rem]", headingClassName)}>
+                      <h1
+                        className={cn(
+                          "text-4xl font-semibold lg:text-8xl text-balance text-shadow-xl text-center",
+                          headingClassName,
+                        )}
+                      >
                         {heading}
                       </h1>
-                    )
-                  )}
-                  {description && (
-                    typeof description === "string" ? (
-                      <p className={cn("text-lg font-medium text-accent-foreground md:text-xl", descriptionClassName)}>
+                    ))}
+                  {description &&
+                    (typeof description === "string" ? (
+                      <p
+                        className={cn(
+                          "text-lg font-medium md:text-xl",
+                          descriptionClassName,
+                        )}
+                      >
                         {description}
                       </p>
                     ) : (
                       <div className={descriptionClassName}>{description}</div>
-                    )
-                  )}
+                    ))}
                   {renderAction}
                 </div>
                 {renderVideoSection}

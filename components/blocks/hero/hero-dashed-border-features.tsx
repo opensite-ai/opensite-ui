@@ -9,7 +9,12 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, FeatureItem, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  FeatureItem,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface HeroDashedBorderFeaturesProps {
   /**
@@ -44,10 +49,6 @@ export interface HeroDashedBorderFeaturesProps {
    * Custom slot for rendering actions (overrides actions array)
    */
   actionsSlot?: React.ReactNode;
-  /**
-   * Avatar image URL for demo button
-   */
-  demoAvatarSrc?: string;
   /**
    * Array of feature items
    */
@@ -105,17 +106,16 @@ export interface HeroDashedBorderFeaturesProps {
 export function HeroDashedBorderFeatures({
   badgeText,
   announcementText,
-  announcementHref = "#",
+  announcementHref,
   announcementSlot,
   heading,
   description,
   actions,
   actionsSlot,
-  demoAvatarSrc,
   features,
   featuresSlot,
   background,
-  spacing = "py-32 md:py-32",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
@@ -128,16 +128,21 @@ export function HeroDashedBorderFeatures({
 }: HeroDashedBorderFeaturesProps): React.JSX.Element {
   const renderAnnouncement = useMemo(() => {
     if (announcementSlot) return announcementSlot;
+    if (!announcementText || !badgeText) return null;
 
     return (
-      <Pressable
-        href={announcementHref}
-        className="mx-auto mb-4 flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm bg-card"
-      >
-        <Badge>{badgeText}</Badge>
-        {announcementText}
-        <DynamicIcon name="lucide/arrow-right" size={16} />
-      </Pressable>
+      <div className="flex justify-center">
+        <Pressable
+          href={announcementHref}
+          className={cn(
+            "flex items-center gap-2 rounded-full px-2 py-1 text-sm bg-card text-card-foreground shadow-md hover:shadow-xl transition-shadow duration-500 w-fit",
+          )}
+        >
+          {badgeText && <Badge>{badgeText}</Badge>}
+          {announcementText}
+          <DynamicIcon name="lucide/arrow-up-right" size={16} />
+        </Pressable>
+      </div>
     );
   }, [announcementSlot, announcementHref, badgeText, announcementText]);
 
@@ -146,9 +151,16 @@ export function HeroDashedBorderFeatures({
     if (!actions || actions.length === 0) return null;
 
     return (
-      <>
+      <div className={cn("flex flex-col md:flex-row gap-4", actionsClassName)}>
         {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -166,42 +178,33 @@ export function HeroDashedBorderFeatures({
             </Pressable>
           );
         })}
-        <Pressable
-          href="#"
-          asButton
-          variant="outline"
-          size="lg"
-          className="w-full gap-2 sm:w-auto lg:mt-10"
-        >
-          <Avatar className="size-8 rounded-full ring-1 ring-input">
-            <AvatarImage
-              src={demoAvatarSrc}
-              alt="placeholder"
-            />
-          </Avatar>
-          Schedule a demo
-        </Pressable>
-      </>
+      </div>
     );
-  }, [actionsSlot, actions, demoAvatarSrc]);
+  }, [actionsSlot, actions, actionsClassName]);
 
   const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
     return features.map((feature, index) => (
-      <div
+      <Pressable
         key={index}
         className={cn(
           "flex items-center gap-6 border-t border-dashed p-4 font-medium md:justify-center lg:p-10 lg:text-lg",
-          index === 1 && "border-x"
+          index === 1 && "md:border-x",
+          index === 2 ? "border-b" : "md:border-b",
         )}
+        href={feature.href}
       >
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-md text-sm lg:size-12 lg:text-base bg-card">
-          {feature.icon ?? <DynamicIcon name={feature.iconName || "lucide/check"} size={20} />}
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-md text-sm lg:size-12 lg:text-base bg-card text-card-foreground">
+          {feature.icon ? (
+            feature.icon
+          ) : feature.iconName ? (
+            <DynamicIcon name={feature.iconName || "lucide/check"} size={20} />
+          ) : null}
         </span>
         {feature.title}
-      </div>
+      </Pressable>
     ));
   }, [featuresSlot, features]);
 
@@ -215,35 +218,59 @@ export function HeroDashedBorderFeatures({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className={cn("border-x border-t border-dashed px-4 py-20 md:px-16", contentClassName)}>
+        <div
+          className={cn(
+            "border-x border-t border-dashed px-4 py-6 md:py-20 md:px-16",
+            contentClassName,
+          )}
+        >
           <div className="mx-auto max-w-3xl">
             {renderAnnouncement}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mx-auto mb-6 max-w-2xl text-center lg:text-xl text-muted-foreground", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mx-auto mb-6 max-w-2xl text-center lg:text-xl text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-            <div className={cn("flex flex-col justify-center gap-2 sm:flex-row", actionsClassName)}>
-              {renderActions}
-            </div>
+              ))}
+            {renderActions}
           </div>
         </div>
-        <div className={cn("relative grid border-x border-dashed md:grid-cols-3", featuresClassName)}>
-          <DynamicIcon name="lucide/sparkle" size={20} className="absolute top-0 right-0 translate-x-2.5 -translate-y-2.5 fill-primary" />
-          <DynamicIcon name="lucide/sparkle" size={20} className="absolute top-0 left-0 -translate-x-2.5 -translate-y-2.5 fill-primary" />
+        <div
+          className={cn(
+            "relative grid border-x border-dashed md:grid-cols-3",
+            featuresClassName,
+          )}
+        >
+          <DynamicIcon
+            name="lucide/sparkle"
+            size={20}
+            className="absolute top-0 right-0 translate-x-2.5 -translate-y-2.5 fill-primary"
+          />
+          <DynamicIcon
+            name="lucide/sparkle"
+            size={20}
+            className="absolute top-0 left-0 -translate-x-2.5 -translate-y-2.5 fill-primary"
+          />
           {renderFeatures}
         </div>
       </div>

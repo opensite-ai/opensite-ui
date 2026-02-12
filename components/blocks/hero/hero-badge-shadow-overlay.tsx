@@ -167,7 +167,7 @@ export function HeroBadgeShadowOverlay({
             <Pressable
               href={announcementHref}
               className={cn(
-                "flex items-center gap-2 rounded-full px-2 py-1 text-sm bg-card text-card-foreground",
+                "flex items-center gap-2 rounded-full px-2 py-1 text-sm bg-card text-card-foreground shadow-md hover:shadow-xl transition-shadow duration-500",
                 announcementClassName,
               )}
             >
@@ -192,7 +192,12 @@ export function HeroBadgeShadowOverlay({
 
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("text-lg text-balance", descriptionClassName)}>
+              <p
+                className={cn(
+                  "text-lg text-white text-balance text-shadow-xl text-center",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (

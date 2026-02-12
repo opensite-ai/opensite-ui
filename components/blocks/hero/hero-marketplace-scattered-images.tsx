@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { motion } from "framer-motion";
+import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -149,26 +150,82 @@ export function HeroMarketplaceScatteredImages({
     );
   }, [taglineSlot, taglineIcon, tagline]);
 
+  // Distribute images across 3 columns for masonry layout
+  const columns = useMemo(() => {
+    if (!images || images.length === 0) return [[], [], []] as ImageItem[][];
+    const cols: ImageItem[][] = [[], [], []];
+    images.forEach((img, i) => {
+      cols[i % 3].push(img);
+    });
+    return cols;
+  }, [images]);
+
+  // Predefined height patterns per column for varied "scattered" feel
+  const heightPatterns = useMemo(
+    () => [
+      ["14rem", "20rem", "16rem", "22rem"],
+      ["20rem", "14rem", "22rem", "16rem"],
+      ["16rem", "22rem", "14rem", "20rem"],
+    ],
+    [],
+  );
+
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
     return (
       <div className={cn("mx-auto mt-14 max-w-7xl overflow-hidden py-8", imagesClassName)}>
-        <div className="relative w-full">
-          {images.map((image, index) => (
-            <Img
-              key={index}
-              src={image.src}
-              alt={image.alt}
-              className={image.className}
-              optixFlowConfig={optixFlowConfig}
-            />
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+          {columns.map((colImages, colIndex) => (
+            <div key={colIndex} className="grid gap-3">
+              {colImages.map((image, imgIndex) => {
+                const height = heightPatterns[colIndex][imgIndex % heightPatterns[colIndex].length];
+                const direction = colIndex % 2 === 0 ? "up" : "down";
+
+                return (
+                  <motion.div
+                    key={imgIndex}
+                    initial={{
+                      opacity: 0,
+                      scale: 0.9,
+                      y: direction === "up" ? 50 : -50,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      scale: 1,
+                      y: 0,
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      delay: imgIndex * 0.1,
+                    }}
+                    viewport={{ once: true }}
+                    className={cn(
+                      "w-full overflow-hidden rounded-2xl",
+                      getNestedCardBg(background),
+                    )}
+                    style={{ height }}
+                  >
+                    <Img
+                      src={image.src}
+                      alt={image.alt}
+                      className={cn(
+                        "h-full w-full rounded-2xl object-cover",
+                        image.className,
+                      )}
+                      loading="lazy"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </motion.div>
+                );
+              })}
+            </div>
           ))}
         </div>
       </div>
     );
-  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig, columns, heightPatterns, background]);
 
   return (
     <Section

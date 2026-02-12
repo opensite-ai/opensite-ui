@@ -7,7 +7,13 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -70,7 +76,7 @@ export interface HeroPremiumSplitAvatarsProps {
   /**
    * Custom slot for image (overrides image prop)
    */
-  imageSlot?: React.ReactNode;  /**
+  imageSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -148,11 +154,7 @@ export function HeroPremiumSplitAvatars({
     return (
       <h1 className="text-4xl ">
         {brandName}{" "}
-        {brandSuffix && (
-          <span className="bg-linear-to-tr from-foreground to-muted bg-clip-text text-transparent">
-            {brandSuffix}
-          </span>
-        )}
+        {brandSuffix && <span className="pb-1 border-b-2">{brandSuffix}</span>}
       </h1>
     );
   }, [brandSlot, brandName, brandSuffix]);
@@ -161,17 +163,26 @@ export function HeroPremiumSplitAvatars({
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = action;
     return (
-      <Pressable asButton className={actionClassName} {...pressableProps}>
-        {children ?? (
-          <>
-            {icon}
-            <span>{label}</span>
-            {iconAfter}
-          </>
-        )}
-      </Pressable>
+      <div className="flex">
+        <Pressable asButton className={actionClassName} {...pressableProps}>
+          {children ?? (
+            <>
+              {icon}
+              <span>{label}</span>
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      </div>
     );
   }, [actionSlot, action]);
 
@@ -183,21 +194,21 @@ export function HeroPremiumSplitAvatars({
       <div className="flex items-center gap-3.5">
         <div className="flex -space-x-3">
           {avatars.map((avatar, index) => (
-            <Avatar key={index} className="block size-11 min-h-11 min-w-11 rounded-full object-cover lg:size-11">
+            <Avatar
+              key={index}
+              className="block size-11 min-h-11 min-w-11 rounded-full object-cover lg:size-11"
+            >
               <AvatarImage src={avatar.src} />
               <AvatarFallback>{avatar.fallback}</AvatarFallback>
             </Avatar>
           ))}
         </div>
-        {socialProofText && (
-          typeof socialProofText === "string" ? (
-            <span className="text-xs lg:text-sm">
-              {socialProofText}
-            </span>
+        {socialProofText &&
+          (typeof socialProofText === "string" ? (
+            <span className="text-xs lg:text-sm">{socialProofText}</span>
           ) : (
             socialProofText
-          )
-        )}
+          ))}
       </div>
     );
   }, [avatarsSlot, avatars, socialProofText]);
@@ -210,7 +221,11 @@ export function HeroPremiumSplitAvatars({
       <Img
         src={image.src}
         alt={image.alt}
-        className={cn("hidden h-screen w-1/2 object-cover lg:block", imageClassName, image.className)}
+        className={cn(
+          "h-full w-full md:w-1/2 object-cover block rounded-xl shadow-xl",
+          imageClassName,
+          image.className,
+        )}
         optixFlowConfig={optixFlowConfig}
       />
     );
@@ -222,16 +237,21 @@ export function HeroPremiumSplitAvatars({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("relative flex items-center justify-center dark", className)}
+      className={cn("relative flex items-center justify-center", className)}
       containerClassName={containerClassName}
     >
-      <div className="relative flex w-full">
-        <div className="flex w-full items-center justify-center bg-background lg:w-1/2">
-          <div className={cn("my-10 flex w-[500px] flex-col gap-24", contentClassName)}>
+      <div className="relative flex w-full flex-col md:flex-row">
+        <div className="flex w-full items-center justify-center lg:w-1/2">
+          <div
+            className={cn(
+              "my-10 flex w-[500px] flex-col gap-24",
+              contentClassName,
+            )}
+          >
             {renderBrand}
-            <div>
-              {heading && (
-                typeof heading === "string" ? (
+            <div className="flex flex-col gap-4 md:gap-8">
+              {heading &&
+                (typeof heading === "string" ? (
                   <h2 className={cn("text-4xl lg:text-6xl", headingClassName)}>
                     {heading}
                   </h2>
@@ -239,17 +259,15 @@ export function HeroPremiumSplitAvatars({
                   <h2 className={cn("text-4xl lg:text-6xl", headingClassName)}>
                     {heading}
                   </h2>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
+                ))}
+              {description &&
+                (typeof description === "string" ? (
                   <p className={cn("mt-2.5 lg:text-xl", descriptionClassName)}>
                     {description}
                   </p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
-                )
-              )}
+                ))}
               {renderAction}
             </div>
             {renderAvatars}

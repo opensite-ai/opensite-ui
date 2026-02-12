@@ -4,9 +4,14 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { Badge } from "@/src";
 
 export interface HeroVideoBackgroundDarkProps {
   /**
@@ -36,7 +41,7 @@ export interface HeroVideoBackgroundDarkProps {
   /**
    * Custom slot for video (overrides videoSrc prop)
    */
-  videoSlot?: React.ReactNode;  /**
+  videoSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -84,11 +89,11 @@ export function HeroVideoBackgroundDark({
   videoSrc,
   videoSlot,
   background,
-  spacing = "py-32 md:py-32",
+  spacing = "py-0 md:py-0",
   pattern,
   patternOpacity,
   className,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  containerClassName = "px-0 sm:px-0 md:px-0 lg:px-0 min-h-screen w-screen h-full max-w-screen",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -101,7 +106,14 @@ export function HeroVideoBackgroundDark({
       <div className="flex lg:justify-center">
         <div className="flex min-w-fit flex-col gap-5 text-sm leading-[.96] whitespace-nowrap lg:flex-row lg:items-stretch">
           {actions.map((action, index) => {
-            const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+            const {
+              label,
+              icon,
+              iconAfter,
+              children,
+              className: actionClassName,
+              ...pressableProps
+            } = action;
             return (
               <Pressable
                 key={index}
@@ -148,37 +160,52 @@ export function HeroVideoBackgroundDark({
       className={cn("relative flex items-center justify-center", className)}
       containerClassName={containerClassName}
     >
-      <div className="relative">
-        <div className={cn("relative z-10 mx-auto flex size-full max-w-3xl flex-col justify-center gap-4 lg:items-center lg:text-center", contentClassName)}>
-          {badgeText && (
-            typeof badgeText === "string" ? (
-              <span className="text-xs text-muted-foreground">
-                {badgeText}
-              </span>
+      <div className="min-h-screen h-full flex flex-col justify-center items-center">
+        <div
+          className={cn(
+            "relative z-10 mx-auto flex size-full max-w-3xl flex-col justify-center gap-6 lg:items-center lg:text-center px-6",
+            contentClassName,
+          )}
+        >
+          {badgeText &&
+            (typeof badgeText === "string" ? (
+              <Badge>{badgeText}</Badge>
             ) : (
               badgeText
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-5xl font-bold lg:text-[4.2rem]", headingClassName)}>
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-4xl font-bold md:text-5xl text-balance text-white text-shadow-xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("text-5xl font-bold lg:text-[4.2rem]", headingClassName)}>
+              <h1
+                className={cn(
+                  "text-4xl font-bold md:text-5xl text-balance text-white text-shadow-xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-lg text-balance text-white text-shadow-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           {renderActions}
         </div>
         {renderVideo}

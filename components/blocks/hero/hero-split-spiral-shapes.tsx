@@ -4,11 +4,17 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { Badge } from "@/src";
 
 export interface HeroSplitSpiralShapesProps {
   /**
@@ -113,7 +119,14 @@ export function HeroSplitSpiralShapes({
     return (
       <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
         {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -142,36 +155,45 @@ export function HeroSplitSpiralShapes({
     return (
       <div className={cn("relative aspect-3/4", imagesClassName)}>
         {images[0] && (
-          <div className="absolute top-[10%] left-[8%] w-[38%] overflow-hidden rounded-lg border border-border">
+          <div className="absolute top-[10%] left-[8%] w-[38%] overflow-hidden rounded-lg shadow-xl">
             <div className="aspect-5/6">
               <Img
                 src={images[0].src}
                 alt={images[0].alt}
-                className={cn("h-full w-full object-cover", images[0].className)}
+                className={cn(
+                  "h-full w-full object-cover",
+                  images[0].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
           </div>
         )}
         {images[1] && (
-          <div className="absolute top-[20%] right-[12%] w-[20%] overflow-hidden rounded-lg border border-border">
+          <div className="absolute top-[20%] right-[12%] w-[20%] overflow-hidden rounded-lg shadow-xl">
             <div className="aspect-square">
               <Img
                 src={images[1].src}
                 alt={images[1].alt}
-                className={cn("h-full w-full object-cover", images[1].className)}
+                className={cn(
+                  "h-full w-full object-cover",
+                  images[1].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
           </div>
         )}
         {images[2] && (
-          <div className="absolute right-[24%] bottom-[24%] w-[38%] overflow-hidden rounded-lg border border-border">
-            <div className="aspect-5/6">
+          <div className="absolute right-[24%] bottom-[24%] w-[38%] overflow-hidden rounded-lg shadow-xl">
+            <div className="aspect-video">
               <Img
                 src={images[2].src}
                 alt={images[2].alt}
-                className={cn("h-full w-full object-cover", images[2].className)}
+                className={cn(
+                  "h-full w-full object-cover",
+                  images[2].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
@@ -192,34 +214,51 @@ export function HeroSplitSpiralShapes({
     >
       <div className="relative">
         <div className="grid items-center gap-8 lg:grid-cols-2">
-          <div className={cn("flex flex-col items-center py-32 text-center lg:mx-auto lg:items-start lg:px-0 lg:text-left", contentClassName)}>
-            {badgeText && (
-              typeof badgeText === "string" ? (
-                <p>{badgeText}</p>
+          <div
+            className={cn(
+              "flex flex-col items-center text-center lg:mx-auto lg:items-start lg:px-0 lg:text-left",
+              contentClassName,
+            )}
+          >
+            {badgeText &&
+              (typeof badgeText === "string" ? (
+                <Badge>{badgeText}</Badge>
               ) : (
                 badgeText
-              )
-            )}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("my-6 text-4xl font-bold text-pretty lg:text-6xl", headingClassName)}>
+              ))}
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "my-6 text-4xl font-bold text-balance lg:text-6xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("my-6 text-4xl font-bold text-pretty lg:text-6xl", headingClassName)}>
+                <h1
+                  className={cn(
+                    "my-6 text-4xl font-bold text-balance lg:text-6xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mb-8 max-w-xl lg:text-xl text-muted-foreground", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mb-8 max-w-xl lg:text-xl text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
             {renderActions}
           </div>
           {renderImages}
