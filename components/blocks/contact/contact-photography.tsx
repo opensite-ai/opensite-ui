@@ -5,7 +5,11 @@ import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput, TextArea } from "@page-speed/forms/inputs";
 import "../../styles/forms.css";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Label } from "../../ui/label";
@@ -127,7 +131,7 @@ export function ContactPhotography({
   contentClassName,
   formClassName,
   submitClassName,
-  background = "dark",
+  background,
   pattern,
   patternOpacity,
   imageSrc,
@@ -237,7 +241,10 @@ export function ContactPhotography({
       case "dark":
         return "bg-foreground text-background";
       case "gray":
-        return cn(getNestedCardBg(background), getNestedCardTextColor(background));
+        return cn(
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
+        );
       case "white":
         return "bg-background";
       default:

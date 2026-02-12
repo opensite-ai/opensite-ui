@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput, TextArea } from "@page-speed/forms/inputs";
 import "../../styles/forms.css";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent } from "../../ui/card";
 import { Label } from "../../ui/label";
@@ -127,6 +127,10 @@ export interface ContactFaqProps {
    */
   faqHeadingClassName?: string;
   /**
+   * Additional CSS classes for the FAQ container
+   */
+  faqContainerClassName?: string;
+  /**
    * Additional CSS classes for the accordion
    */
   accordionClassName?: string;
@@ -213,6 +217,7 @@ export function ContactFaq({
   formClassName,
   submitClassName,
   faqHeadingClassName,
+  faqContainerClassName,
   accordionClassName,
   accordionItemClassName,
   accordionTriggerClassName,
@@ -339,12 +344,7 @@ export function ContactFaq({
             >
               {item.question}
             </AccordionTrigger>
-            <AccordionContent
-              className={cn(
-                getTextColor(background, "muted"),
-                accordionContentClassName,
-              )}
-            >
+            <AccordionContent className={cn(accordionContentClassName)}>
               {item.answer}
             </AccordionContent>
           </AccordionItem>
@@ -371,12 +371,17 @@ export function ContactFaq({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className={cn("mb-10 text-center", headerClassName)}>
+        <div
+          className={cn(
+            "mb-10 md:mb-16 text-left max-w-full md:max-w-md",
+            headerClassName,
+          )}
+        >
           {heading &&
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight text-balance",
+                  "mb-3 text-3xl md:text-5xl font-bold tracking-tight text-balance",
                   headingClassName,
                 )}
               >
@@ -402,35 +407,13 @@ export function ContactFaq({
 
         <div
           className={cn(
-            "mx-auto grid gap-10",
-            hasFaqItems
-              ? "max-w-5xl lg:grid-cols-2"
-              : "max-w-xl lg:grid-cols-1",
+            "w-full mx-auto grid gap-10 grid-cols-1",
+            hasFaqItems ? "lg:grid-cols-2" : "lg:grid-cols-1",
             gridClassName,
           )}
         >
-          {/* FAQ Column */}
-          {hasFaqItems && (
-            <div>
-              {faqHeading &&
-                (typeof faqHeading === "string" ? (
-                  <h3
-                    className={cn(
-                      "mb-6 text-xl font-semibold",
-                      faqHeadingClassName,
-                    )}
-                  >
-                    {faqHeading}
-                  </h3>
-                ) : (
-                  <div className={faqHeadingClassName}>{faqHeading}</div>
-                ))}
-              {faqContent}
-            </div>
-          )}
-
           {/* Contact Form Column */}
-          <Card className={cn(hasFaqItems ? "" : "mx-auto max-w-xl w-full", cardClassName)}>
+          <Card className={cn("w-full pt-0 pb-0", cardClassName)}>
             <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
               {formHeading &&
                 (typeof formHeading === "string" ? (
@@ -533,6 +516,26 @@ export function ContactFaq({
               </Form>
             </CardContent>
           </Card>
+
+          {/* FAQ Column */}
+          {hasFaqItems && (
+            <div className={cn("relative", faqContainerClassName)}>
+              {faqHeading &&
+                (typeof faqHeading === "string" ? (
+                  <h3
+                    className={cn(
+                      "mb-6 text-xl font-semibold",
+                      faqHeadingClassName,
+                    )}
+                  >
+                    {faqHeading}
+                  </h3>
+                ) : (
+                  <div className={faqHeadingClassName}>{faqHeading}</div>
+                ))}
+              {faqContent}
+            </div>
+          )}
         </div>
       </div>
     </Section>
