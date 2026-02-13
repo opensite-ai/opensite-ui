@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -79,7 +79,6 @@ export interface AboutStoryGalleryProps {
 
 export function AboutStoryGallery({
   className,
-  containerClassName,
   title,
   titleClassName,
   description,
@@ -89,7 +88,8 @@ export function AboutStoryGallery({
   imagesClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "py-8 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
 }: AboutStoryGalleryProps): React.JSX.Element {
@@ -126,7 +126,7 @@ export function AboutStoryGallery({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className="mx-auto max-w-3xl text-center">
@@ -148,7 +148,6 @@ export function AboutStoryGallery({
             <p
               className={cn(
                 "mt-6 text-lg whitespace-pre-line text-balance",
-                getTextColor(background, 'muted'),
                 descriptionClassName,
               )}
             >

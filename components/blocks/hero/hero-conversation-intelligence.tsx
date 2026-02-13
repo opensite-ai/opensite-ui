@@ -5,7 +5,6 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { AspectRatio } from "../../ui/aspect-ratio";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -21,10 +20,6 @@ export interface HeroConversationIntelligenceProps {
    * Main heading content (first part)
    */
   headingPrimary?: React.ReactNode;
-  /**
-   * Highlighted heading content (second part with background)
-   */
-  headingHighlight?: React.ReactNode;
   /**
    * Description text below heading
    */
@@ -100,8 +95,7 @@ export interface HeroConversationIntelligenceProps {
 }
 
 export function HeroConversationIntelligence({
-  headingPrimary = "Conversation Intelligence",
-  headingHighlight,
+  headingPrimary,
   description,
   actions,
   actionsSlot,

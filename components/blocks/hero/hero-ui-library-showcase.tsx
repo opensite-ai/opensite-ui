@@ -6,7 +6,13 @@ import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -42,7 +48,7 @@ export interface HeroUiLibraryShowcaseProps {
   /**
    * Custom slot for image (overrides image prop)
    */
-  imageSlot?: React.ReactNode;  /**
+  imageSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -63,6 +69,10 @@ export interface HeroUiLibraryShowcaseProps {
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /**
    * Additional CSS classes for the header area
    */
@@ -95,10 +105,11 @@ export function HeroUiLibraryShowcase({
   image,
   imageSlot,
   background,
-  spacing,
+  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -110,7 +121,14 @@ export function HeroUiLibraryShowcase({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -154,7 +172,11 @@ export function HeroUiLibraryShowcase({
           <Img
             src={image.src}
             alt={image.alt}
-            className={cn("size-full object-cover", imageClassName, image.className)}
+            className={cn(
+              "size-full object-cover",
+              imageClassName,
+              image.className,
+            )}
             optixFlowConfig={optixFlowConfig}
           />
         </AspectRatio>
@@ -164,34 +186,52 @@ export function HeroUiLibraryShowcase({
 
   return (
     <Section
-      className={cn(
-        "container mx-auto mt-32 flex flex-col items-center gap-20 bg-background md:gap-40 md:text-center",
-        className,
-      )}
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("flex flex-col gap-10 md:items-center", headerClassName)}>
+      <div
+        className={cn("flex flex-col gap-10 md:items-center", headerClassName)}
+      >
         {renderLogo}
         <div className="flex max-w-[880px] flex-col items-center gap-6">
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-4xl tracking-tighter capitalize md:text-5xl lg:text-6xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-4xl tracking-tighter capitalize md:text-5xl lg:text-6xl",
+                  headingClassName,
+                )}
+              >
                 <p>{heading}</p>
               </h1>
             ) : (
-              <h1 className={cn("text-4xl tracking-tighter capitalize md:text-5xl lg:text-6xl", headingClassName)}>
+              <h1
+                className={cn(
+                  "text-4xl tracking-tighter capitalize md:text-5xl lg:text-6xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-xl",
+                  getTextColor(background, "muted"),
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderActions}
       </div>

@@ -258,7 +258,7 @@ export function HeroFloatingImages({
       <button
         type="button"
         className={cn(
-          "group relative col-span-2 aspect-[4/3] overflow-hidden rounded-2xl sm:col-span-1 sm:row-span-2 sm:aspect-auto sm:h-full",
+          "group relative col-span-2 aspect-4/3 overflow-hidden rounded-2xl sm:col-span-1 sm:row-span-2 sm:aspect-auto sm:h-full",
           featuredImageClassName,
         )}
         onClick={() => handleImageClick(0)}

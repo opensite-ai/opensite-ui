@@ -1,16 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput, Select, TextArea } from "../../ui/form-inputs";
+import { useMemo } from "react";
+import { Form } from "@page-speed/forms";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card, CardContent } from "../../ui/card";
-import { Label } from "../../ui/label";
+import { DynamicFormField } from "../../ui/dynamic-form-field";
+import type { FormFieldConfig } from "../../../lib/form-field-types";
+import { getColumnSpanClass } from "../../../lib/form-field-types";
 import {
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
+  useContactForm,
+  useFileUpload,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
 import { Section } from "../../ui/section";
@@ -21,44 +23,106 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 
-const TIME_SLOTS = [
-  "9:00 AM",
-  "10:00 AM",
-  "11:00 AM",
-  "12:00 PM",
-  "1:00 PM",
-  "2:00 PM",
-  "3:00 PM",
-  "4:00 PM",
-  "5:00 PM",
+// Default form fields for callback scheduling
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "name",
+    type: "text",
+    label: "Full Name",
+    placeholder: "John Doe",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "company",
+    type: "text",
+    label: "Company",
+    placeholder: "Acme Inc.",
+    required: false,
+    columnSpan: 6,
+  },
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "john@example.com",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "phone",
+    type: "tel",
+    label: "Phone Number",
+    placeholder: "+1 (555) 000-0000",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "date",
+    type: "date",
+    label: "Preferred Date",
+    placeholder: "",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "time",
+    type: "select",
+    label: "Preferred Time",
+    placeholder: "Select a time",
+    required: true,
+    columnSpan: 6,
+    options: [
+      { value: "9:00 AM", label: "9:00 AM" },
+      { value: "10:00 AM", label: "10:00 AM" },
+      { value: "11:00 AM", label: "11:00 AM" },
+      { value: "12:00 PM", label: "12:00 PM" },
+      { value: "1:00 PM", label: "1:00 PM" },
+      { value: "2:00 PM", label: "2:00 PM" },
+      { value: "3:00 PM", label: "3:00 PM" },
+      { value: "4:00 PM", label: "4:00 PM" },
+      { value: "5:00 PM", label: "5:00 PM" },
+    ],
+  },
+  {
+    name: "timezone",
+    type: "select",
+    label: "Timezone",
+    placeholder: "",
+    required: true,
+    columnSpan: 12,
+    options: [
+      { value: "est", label: "Eastern Time (EST)" },
+      { value: "cst", label: "Central Time (CST)" },
+      { value: "mst", label: "Mountain Time (MST)" },
+      { value: "pst", label: "Pacific Time (PST)" },
+    ],
+  },
+  {
+    name: "topic",
+    type: "select",
+    label: "Topic",
+    placeholder: "Select a topic",
+    required: true,
+    columnSpan: 12,
+    options: [
+      { value: "product-demo", label: "Product Demo" },
+      { value: "sales-inquiry", label: "Sales Inquiry" },
+      { value: "technical-support", label: "Technical Support" },
+      { value: "partnership", label: "Partnership" },
+      { value: "general-question", label: "General Question" },
+    ],
+  },
+  {
+    name: "details",
+    type: "textarea",
+    label: "Additional Details (Optional)",
+    placeholder: "Help us prepare for the call by sharing any specific questions or topics you'd like to cover...",
+    required: false,
+    rows: 4,
+    columnSpan: 12,
+  },
 ];
-
-const TOPICS = [
-  "Product Demo",
-  "Sales Inquiry",
-  "Technical Support",
-  "Partnership",
-  "General Question",
-];
-
-const TIMEZONES = [
-  { value: "est", label: "Eastern Time (EST)" },
-  { value: "cst", label: "Central Time (CST)" },
-  { value: "mst", label: "Mountain Time (MST)" },
-  { value: "pst", label: "Pacific Time (PST)" },
-];
-
-interface CallbackFormValues {
-  name: string;
-  company: string;
-  email: string;
-  phone: string;
-  date: string;
-  time: string;
-  timezone: string;
-  topic: string;
-  details: string;
-}
 
 export interface ContactCallbackProps {
   /**
@@ -86,13 +150,35 @@ export interface ContactCallbackProps {
    */
   actionsSlot?: React.ReactNode;
   /**
-   * Footer content (e.g., help text)
+   * Array of form field configurations
+   * If not provided, defaults to: name, company, email, phone, date, time, timezone, topic, details
    */
-  footer?: React.ReactNode;
+  formFields?: FormFieldConfig[];
   /**
-   * Custom slot for footer content (overrides footer prop)
+   * Success message to display after form submission
+   * @default "Thank you! Your callback request has been received."
    */
-  footerSlot?: React.ReactNode;
+  successMessage?: React.ReactNode;
+  /**
+   * Label for the information section heading
+   */
+  infoSectionLabel?: string;
+  /**
+   * Label for the schedule section heading
+   */
+  scheduleSectionLabel?: string;
+  /**
+   * Label for the topic section heading
+   */
+  topicSectionLabel?: string;
+  /**
+   * Label for the callback process info box heading
+   */
+  callbackProcessLabel?: string;
+  /**
+   * Description for the callback process info box
+   */
+  callbackProcessDescription?: string;
   /**
    * Additional CSS classes for the section
    */
@@ -130,15 +216,20 @@ export interface ContactCallbackProps {
    */
   submitClassName?: string;
   /**
-   * Additional CSS classes for the footer
+   * Additional CSS classes for the success message
    */
-  footerClassName?: string;
+  successMessageClassName?: string;
+  /**
+   * Additional CSS classes for the error message
+   */
+  errorMessageClassName?: string;
   /**
    * Background style for the section
    */
   background?: SectionBackground;
   /**
    * Vertical spacing for the section
+   * @default "py-8 md:py-32"
    */
   spacing?: SectionSpacing;
   /**
@@ -151,56 +242,19 @@ export interface ContactCallbackProps {
   patternOpacity?: number;
   /**
    * Optional form submission configuration.
-   *
-   * **Universal Usage**: Works with ANY REST API endpoint. Simply provide an `endpoint` URL
-   * and the form will submit to it in JSON format.
-   *
-   * @example
-   * // Works with any API
-   * formConfig={{ endpoint: "https://api.mysite.com/callback", format: "json" }}
-   *
-   * @example
-   * // With custom headers (e.g., authentication)
-   * formConfig={{
-   *   endpoint: "/api/callback",
-   *   headers: { "Authorization": "Bearer token123" }
-   * }}
-   *
-   * **Note**: The `apiKey`, `contactCategoryToken`, and other platform-specific fields
-   * are OPTIONAL and only needed when integrating with DashTrack's Rails backend.
-   * For generic REST APIs, just use `endpoint`, `method`, `format`, and `headers`.
-   *
-   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples with Next.js, React, and more.
+   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples.
    */
   formConfig?: PageSpeedFormConfig;
   /**
    * Optional custom submission handler for maximum flexibility.
-   *
-   * Use this when you need complete control over the submission logic,
-   * such as custom API calls, analytics tracking, or multi-step workflows.
-   *
-   * Can be used alone or in combination with `formConfig` for hybrid approaches.
-   *
-   * @example
-   * onSubmit={async (values) => {
-   *   await fetch("/api/callback", {
-   *     method: "POST",
-   *     body: JSON.stringify(values)
-   *   });
-   * }}
    */
-  onSubmit?: (values: CallbackFormValues) => void | Promise<void>;
+  onSubmit?: (values: Record<string, unknown>) => void | Promise<void>;
   /**
    * Optional success callback invoked after successful submission.
-   *
-   * Called after `formConfig` submission and/or `onSubmit` completes successfully.
-   * Use for showing success messages, redirecting, analytics tracking, etc.
    */
   onSuccess?: (data: unknown) => void;
   /**
    * Optional error callback invoked if submission fails.
-   *
-   * Receives the error object for custom error handling, logging, or user notifications.
    */
   onError?: (error: Error) => void;
 }
@@ -223,14 +277,19 @@ export interface ContactCallbackProps {
 export function ContactCallback({
   heading,
   description,
-  buttonText,
+  buttonText = "Schedule Callback",
   buttonIcon = <DynamicIcon name="lucide/phone" size={16} />,
   actions,
   actionsSlot,
-  footer,
-  footerSlot,
+  formFields,
+  successMessage = "Thank you! Your callback request has been received.",
+  infoSectionLabel,
+  scheduleSectionLabel,
+  topicSectionLabel,
+  callbackProcessLabel,
+  callbackProcessDescription,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -238,86 +297,45 @@ export function ContactCallback({
   cardContentClassName,
   formClassName,
   submitClassName,
-  footerClassName,
-  background = "white",
-  spacing = "xl",
+  successMessageClassName,
+  errorMessageClassName,
+  background,
+  spacing = "py-8 md:py-32",
   pattern,
-  patternOpacity = 0.1,
+  patternOpacity,
   formConfig,
   onSubmit,
   onSuccess,
   onError,
 }: ContactCallbackProps): React.JSX.Element {
-  const form = useForm<CallbackFormValues>({
-    initialValues: {
-      name: "",
-      company: "",
-      email: "",
-      phone: "",
-      date: "",
-      time: "",
-      timezone: "est",
-      topic: "",
-      details: "",
-    },
-    validationSchema: {
-      name: (value) => (!value ? "Name is required" : undefined),
-      email: (value) => {
-        if (!value) return "Email is required";
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
-          return "Please enter a valid email address";
-        return undefined;
-      },
-      phone: (value) => (!value ? "Phone number is required" : undefined),
-      date: (value) => (!value ? "Date is required" : undefined),
-      time: (value) => (!value ? "Time is required" : undefined),
-      topic: (value) => (!value ? "Topic is required" : undefined),
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
+  // Use the provided form fields or fall back to defaults
+  const fields = useMemo(
+    () => formFields || DEFAULT_FORM_FIELDS,
+    [formFields]
+  );
 
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
-
-      try {
-        let result: unknown;
-
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
-
-        if (onSubmit) {
-          await onSubmit(values);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
+  // Initialize form with contact form hook
+  const { form, submissionError, formMethod, resetSubmissionState } = useContactForm({
+    formFields: fields,
+    formConfig,
+    onSubmit,
+    onSuccess,
+    onError,
   });
 
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
-
-  const actionsContent = React.useMemo(() => {
+  // Render actions
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
-        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        const {
+          label,
+          icon,
+          iconAfter,
+          children,
+          className: actionClassName,
+          ...pressableProps
+        } = action;
         return (
           <Pressable
             key={index}
@@ -339,266 +357,93 @@ export function ContactCallback({
     return null;
   }, [actionsSlot, actions]);
 
-  const footerContent = React.useMemo(() => {
-    if (footerSlot) return footerSlot;
-    if (footer) {
-      return typeof footer === "string" ? (
-        <p className={cn("mt-6 text-center text-sm text-muted-foreground", footerClassName)}>
-          {footer}
-        </p>
-      ) : (
-        <div className={cn("mt-6 text-center text-sm text-muted-foreground", footerClassName)}>
-          {footer}
-        </div>
-      );
-    }
-    return null;
-  }, [footerSlot, footer, footerClassName]);
-
   return (
     <Section
       background={background}
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("pb-12", className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-4xl px-4", containerClassName)}>
-        <div className={cn("mb-10 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-3 text-3xl font-bold tracking-tight", headingClassName)}>
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("leading-relaxed text-muted-foreground", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
-        </div>
+      <div className="relative">
+        {/* Header */}
+        {(heading || description) && (
+          <div className={cn("mb-10 text-center", headerClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-3 text-3xl font-bold tracking-tight",
+                    headingClassName
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn("leading-relaxed", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              ))}
+          </div>
+        )}
 
+        {/* Form Card */}
         <Card className={cardClassName}>
           <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
             <Form
               form={form}
               action={formConfig?.endpoint}
               method={formMethod}
+              submissionError={submissionError}
+              successMessage={successMessage}
+              successMessageClassName={successMessageClassName}
+              errorMessageClassName={errorMessageClassName}
+              submissionConfig={formConfig?.submissionConfig}
+              onNewSubmission={resetSubmissionState}
               className={cn("space-y-6", formClassName)}
             >
-              {/* Contact Information */}
-              <div>
-                <h3 className="mb-4 text-lg font-semibold">Your Information</h3>
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  <Field name="name">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Full Name</Label>
-                        <TextInput
-                          {...field}
-                          id="name"
-                          placeholder="John Doe"
-                          error={meta.touched && !!meta.error}
-                          aria-label="Full Name"
-                        />
-                      </div>
-                    )}
-                  </Field>
-                  <Field name="company">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="company">Company</Label>
-                        <TextInput
-                          {...field}
-                          id="company"
-                          placeholder="Acme Inc."
-                          error={meta.touched && !!meta.error}
-                          aria-label="Company"
-                        />
-                      </div>
-                    )}
-                  </Field>
-                </div>
+              <div className="grid grid-cols-12 gap-6">
+                {fields.map((field) => (
+                  <div
+                    key={field.name}
+                    className={getColumnSpanClass(field.columnSpan)}
+                  >
+                    <DynamicFormField field={field} />
+                  </div>
+                ))}
               </div>
 
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <Field name="email">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email Address</Label>
-                      <TextInput
-                        {...field}
-                        id="email"
-                        type="email"
-                        placeholder="john@example.com"
-                        error={meta.touched && !!meta.error}
-                        aria-label="Email Address"
-                      />
+              {/* Optional Info Box */}
+              {(callbackProcessLabel || callbackProcessDescription) && (
+                <div className="rounded-lg border p-4">
+                  <div className="flex items-start gap-3">
+                    <DynamicIcon
+                      name="lucide/clock"
+                      size={20}
+                      className="mt-1 shrink-0"
+                    />
+                    <div className="text-sm">
+                      {callbackProcessLabel && (
+                        <p className="font-medium">{callbackProcessLabel}</p>
+                      )}
+                      {callbackProcessDescription && (
+                        <p className="mt-1 leading-relaxed">
+                          {callbackProcessDescription}
+                        </p>
+                      )}
                     </div>
-                  )}
-                </Field>
-                <Field name="phone">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <TextInput
-                        {...field}
-                        id="phone"
-                        type="tel"
-                        placeholder="+1 (555) 000-0000"
-                        error={meta.touched && !!meta.error}
-                        aria-label="Phone Number"
-                      />
-                    </div>
-                  )}
-                </Field>
-              </div>
-
-              {/* Schedule */}
-              <div className="border-t pt-6">
-                <h3 className="mb-4 text-lg font-semibold">
-                  Preferred Callback Time
-                </h3>
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  <Field name="date">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="date">Preferred Date</Label>
-                        <div className="relative">
-                          <TextInput
-                            {...field}
-                            id="date"
-                            type="date"
-                            className="pl-10"
-                            error={meta.touched && !!meta.error}
-                            aria-label="Preferred Date"
-                          />
-                          <DynamicIcon
-                            name="lucide/calendar"
-                            size={20}
-                            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-                          />
-                        </div>
-                      </div>
-                    )}
-                  </Field>
-                  <Field name="time">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="time">Preferred Time</Label>
-                        <Select
-                          {...field}
-                          id="time"
-                          error={meta.touched && !!meta.error}
-                          aria-label="Preferred Time"
-                        >
-                          <option value="">Select a time</option>
-                          {TIME_SLOTS.map((slot) => (
-                            <option key={slot} value={slot}>
-                              {slot}
-                            </option>
-                          ))}
-                        </Select>
-                      </div>
-                    )}
-                  </Field>
-                </div>
-
-                <div className="mt-4">
-                  <Field name="timezone">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="timezone">Timezone</Label>
-                        <Select
-                          {...field}
-                          id="timezone"
-                          error={meta.touched && !!meta.error}
-                          aria-label="Timezone"
-                        >
-                          {TIMEZONES.map((tz) => (
-                            <option key={tz.value} value={tz.value}>
-                              {tz.label}
-                            </option>
-                          ))}
-                        </Select>
-                      </div>
-                    )}
-                  </Field>
-                </div>
-              </div>
-
-              {/* Topic */}
-              <div className="border-t pt-6">
-                <h3 className="mb-4 text-lg font-semibold">
-                  What would you like to discuss?
-                </h3>
-                <div className="space-y-4">
-                  <Field name="topic">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="topic">Topic</Label>
-                        <Select
-                          {...field}
-                          id="topic"
-                          error={meta.touched && !!meta.error}
-                          aria-label="Topic"
-                        >
-                          <option value="">Select a topic</option>
-                          {TOPICS.map((topic) => (
-                            <option key={topic} value={topic.toLowerCase()}>
-                              {topic}
-                            </option>
-                          ))}
-                        </Select>
-                      </div>
-                    )}
-                  </Field>
-
-                  <Field name="details">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="details">
-                          Additional Details (Optional)
-                        </Label>
-                        <TextArea
-                          {...field}
-                          id="details"
-                          placeholder="Help us prepare for the call by sharing any specific questions or topics you'd like to cover..."
-                          rows={4}
-                          error={meta.touched && !!meta.error}
-                          aria-label="Additional Details"
-                        />
-                      </div>
-                    )}
-                  </Field>
-                </div>
-              </div>
-
-              <div className="rounded-lg border p-4">
-                <div className="flex items-start gap-3">
-                  <DynamicIcon
-                    name="lucide/clock"
-                    size={20}
-                    className="mt-1 shrink-0 text-primary"
-                  />
-                  <div className="text-sm">
-                    <p className="font-medium">Callback Process</p>
-                    <p className="mt-1 leading-relaxed text-muted-foreground">
-                      We'll call you at the scheduled time at the phone number
-                      you provided. Please ensure you're available to answer. If
-                      you miss the call, we'll send you a follow-up email.
-                    </p>
                   </div>
                 </div>
-              </div>
+              )}
 
+              {/* Submit Button */}
               {actionsSlot || (actions && actions.length > 0) ? (
                 actionsContent
               ) : (
@@ -611,14 +456,12 @@ export function ContactCallback({
                   disabled={form.isSubmitting}
                 >
                   {buttonIcon}
-                  {buttonText}
+                  {buttonText || "Schedule Callback"}
                 </Pressable>
               )}
             </Form>
           </CardContent>
         </Card>
-
-        {footerContent}
       </div>
     </Section>
   );

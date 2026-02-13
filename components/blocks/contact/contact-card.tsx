@@ -1,17 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput, TextArea } from "../../ui/form-inputs";
+import { useMemo } from "react";
+import { Form } from "@page-speed/forms";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card } from "../../ui/card";
-import { Checkbox } from "../../ui/checkbox";
-import { Label } from "../../ui/label";
+import { DynamicFormField } from "../../ui/dynamic-form-field";
+import type { FormFieldConfig } from "../../../lib/form-field-types";
+import { getColumnSpanClass } from "../../../lib/form-field-types";
 import {
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
+  useContactForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
 import { Section } from "../../ui/section";
@@ -22,13 +22,49 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 
-interface ContactCardFormValues {
-  firstName: string;
-  lastName: string;
-  email: string;
-  message: string;
-  privacyPolicy: boolean;
-}
+// Default form fields for contact card
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "firstName",
+    type: "text",
+    label: "First Name",
+    placeholder: "John",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "lastName",
+    type: "text",
+    label: "Last Name",
+    placeholder: "Doe",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "john@example.com",
+    required: true,
+    columnSpan: 12,
+  },
+  {
+    name: "message",
+    type: "textarea",
+    label: "Message",
+    placeholder: "How can we help you?",
+    required: true,
+    rows: 4,
+    columnSpan: 12,
+  },
+  {
+    name: "privacyPolicy",
+    type: "checkbox",
+    label: "I agree to the privacy policy",
+    required: true,
+    columnSpan: 12,
+  },
+];
 
 export interface ContactOption {
   /**
@@ -83,11 +119,22 @@ export interface ContactCardProps {
    */
   contactOptionsSlot?: React.ReactNode;
   /**
+   * Array of form field configurations
+   * If not provided, defaults to: firstName, lastName, email, message, privacyPolicy
+   */
+  formFields?: FormFieldConfig[];
+  /**
+   * Success message to display after form submission
+   * @default "Thank you! We'll be in touch soon."
+   */
+  successMessage?: React.ReactNode;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
   /**
    * Additional CSS classes for the container
+   * @default "px-6 sm:px-6 md:px-8 lg:px-8"
    */
   containerClassName?: string;
   /**
@@ -106,6 +153,14 @@ export interface ContactCardProps {
    * Additional CSS classes for the submit button
    */
   submitClassName?: string;
+  /**
+   * Additional CSS classes for the success message
+   */
+  successMessageClassName?: string;
+  /**
+   * Additional CSS classes for the error message
+   */
+  errorMessageClassName?: string;
   /**
    * Additional CSS classes for the info panel
    */
@@ -128,6 +183,7 @@ export interface ContactCardProps {
   background?: SectionBackground;
   /**
    * Vertical spacing for the section
+   * @default "py-8 md:py-32"
    */
   spacing?: SectionSpacing;
   /**
@@ -140,56 +196,19 @@ export interface ContactCardProps {
   patternOpacity?: number;
   /**
    * Optional form submission configuration.
-   *
-   * **Universal Usage**: Works with ANY REST API endpoint. Simply provide an `endpoint` URL
-   * and the form will submit to it in JSON format.
-   *
-   * @example
-   * // Works with any API
-   * formConfig={{ endpoint: "https://api.mysite.com/contact", format: "json" }}
-   *
-   * @example
-   * // With custom headers (e.g., authentication)
-   * formConfig={{
-   *   endpoint: "/api/contact",
-   *   headers: { "Authorization": "Bearer token123" }
-   * }}
-   *
-   * **Note**: The `apiKey`, `contactCategoryToken`, and other platform-specific fields
-   * are OPTIONAL and only needed when integrating with DashTrack's Rails backend.
-   * For generic REST APIs, just use `endpoint`, `method`, `format`, and `headers`.
-   *
-   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples with Next.js, React, and more.
+   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples.
    */
   formConfig?: PageSpeedFormConfig;
   /**
    * Optional custom submission handler for maximum flexibility.
-   *
-   * Use this when you need complete control over the submission logic,
-   * such as custom API calls, analytics tracking, or multi-step workflows.
-   *
-   * Can be used alone or in combination with `formConfig` for hybrid approaches.
-   *
-   * @example
-   * onSubmit={async (values) => {
-   *   await fetch("/api/contact", {
-   *     method: "POST",
-   *     body: JSON.stringify(values)
-   *   });
-   * }}
    */
-  onSubmit?: (values: ContactCardFormValues) => void | Promise<void>;
+  onSubmit?: (values: Record<string, unknown>) => void | Promise<void>;
   /**
    * Optional success callback invoked after successful submission.
-   *
-   * Called after `formConfig` submission and/or `onSubmit` completes successfully.
-   * Use for showing success messages, redirecting, analytics tracking, etc.
    */
   onSuccess?: (data: unknown) => void;
   /**
    * Optional error callback invoked if submission fails.
-   *
-   * Receives the error object for custom error handling, logging, or user notifications.
    */
   onError?: (error: Error) => void;
 }
@@ -213,91 +232,49 @@ export function ContactCard({
   heading,
   description,
   formHeading,
-  buttonText,
+  buttonText = "Send Message",
   buttonIcon,
   actions,
   actionsSlot,
   contactOptions,
   contactOptionsSlot,
+  formFields,
+  successMessage = "Thank you! We'll be in touch soon.",
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   cardClassName,
   formHeadingClassName,
   formClassName,
   submitClassName,
+  successMessageClassName,
+  errorMessageClassName,
   infoPanelClassName,
   headingClassName,
   descriptionClassName,
   contactOptionsClassName,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing = "py-8 md:py-32",
   pattern,
-  patternOpacity = 0.1,
+  patternOpacity,
   formConfig,
   onSubmit,
   onSuccess,
   onError,
 }: ContactCardProps): React.JSX.Element {
-  const form = useForm<ContactCardFormValues>({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      message: "",
-      privacyPolicy: false,
-    },
-    validationSchema: {
-      firstName: (value) => (!value ? "First name is required" : undefined),
-      lastName: (value) => (!value ? "Last name is required" : undefined),
-      email: (value) => {
-        if (!value) return "Email is required";
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
-          return "Please enter a valid email address";
-        return undefined;
-      },
-      message: (value) => (!value ? "Message is required" : undefined),
-      privacyPolicy: (value) =>
-        !value ? "You must agree to the privacy policy" : undefined,
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
+  // Use the provided form fields or fall back to defaults
+  const fields = useMemo(
+    () => formFields || DEFAULT_FORM_FIELDS,
+    [formFields]
+  );
 
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
-
-      try {
-        let result: unknown;
-
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
-
-        if (onSubmit) {
-          await onSubmit(values);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
+  // Initialize form with contact form hook
+  const { form, submissionError, formMethod, resetSubmissionState } = useContactForm({
+    formFields: fields,
+    formConfig,
+    onSubmit,
+    onSuccess,
+    onError,
   });
-
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
   const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -325,16 +302,12 @@ export function ContactCard({
     return null;
   }, [actionsSlot, actions]);
 
-  const contactOptionsContent = React.useMemo(() => {
+  const contactOptionsContent = useMemo(() => {
     if (contactOptionsSlot) return contactOptionsSlot;
     if (contactOptions && contactOptions.length > 0) {
       return contactOptions.map((option, key) => (
         <div key={key} className="flex items-center gap-4">
-          <DynamicIcon
-            name={option.icon}
-            size={20}
-            className="text-muted-foreground"
-          />
+          <DynamicIcon name={option.icon} size={20} />
           {option.href ? (
             <Pressable href={option.href}>{option.info}</Pressable>
           ) : (
@@ -352,108 +325,47 @@ export function ContactCard({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("py-12", className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto w-full max-w-4xl px-4", containerClassName)}>
+      <div className="relative">
         <div className="grid items-start gap-10 lg:grid-cols-2">
           <Card className={cn("p-6 lg:p-8", cardClassName)}>
-            {formHeading && (
-              typeof formHeading === "string" ? (
-                <h3 className={cn("mb-6 text-2xl font-semibold tracking-tight", formHeadingClassName)}>
+            {formHeading &&
+              (typeof formHeading === "string" ? (
+                <h3
+                  className={cn(
+                    "mb-6 text-2xl font-semibold tracking-tight",
+                    formHeadingClassName
+                  )}
+                >
                   {formHeading}
                 </h3>
               ) : (
                 <div className={formHeadingClassName}>{formHeading}</div>
-              )
-            )}
+              ))}
             <Form
               form={form}
               action={formConfig?.endpoint}
               method={formMethod}
+              submissionError={submissionError}
+              successMessage={successMessage}
+              successMessageClassName={successMessageClassName}
+              errorMessageClassName={errorMessageClassName}
+              submissionConfig={formConfig?.submissionConfig}
+              onNewSubmission={resetSubmissionState}
               className={cn("space-y-6", formClassName)}
             >
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field name="firstName">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="first-name">First Name</Label>
-                      <TextInput
-                        {...field}
-                        id="first-name"
-                        placeholder="John"
-                        error={meta.touched && !!meta.error}
-                        aria-label="First Name"
-                      />
-                    </div>
-                  )}
-                </Field>
-                <Field name="lastName">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="last-name">Last Name</Label>
-                      <TextInput
-                        {...field}
-                        id="last-name"
-                        placeholder="Doe"
-                        error={meta.touched && !!meta.error}
-                        aria-label="Last Name"
-                      />
-                    </div>
-                  )}
-                </Field>
+              <div className="grid grid-cols-12 gap-6">
+                {fields.map((field) => (
+                  <div
+                    key={field.name}
+                    className={getColumnSpanClass(field.columnSpan)}
+                  >
+                    <DynamicFormField field={field} />
+                  </div>
+                ))}
               </div>
-              <Field name="email">
-                {({ field, meta }) => (
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email Address</Label>
-                    <TextInput
-                      {...field}
-                      id="email"
-                      type="email"
-                      placeholder="john@example.com"
-                      error={meta.touched && !!meta.error}
-                      aria-label="Email Address"
-                    />
-                  </div>
-                )}
-              </Field>
-              <Field name="message">
-                {({ field, meta }) => (
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <TextArea
-                      {...field}
-                      id="message"
-                      placeholder="Tell us how we can help..."
-                      rows={4}
-                      error={meta.touched && !!meta.error}
-                      aria-label="Message"
-                    />
-                  </div>
-                )}
-              </Field>
-              <Field name="privacyPolicy">
-                {({ field }) => (
-                  <div className="flex items-center gap-2">
-                    <Checkbox
-                      id="privacy-policy"
-                      checked={field.value}
-                      onCheckedChange={(checked) =>
-                        field.onChange(checked === true)
-                      }
-                    />
-                    <Label
-                      htmlFor="privacy-policy"
-                      className="cursor-pointer text-sm font-normal"
-                    >
-                      I agree to the{" "}
-                      <Pressable href="#" className="text-primary hover:underline">
-                        Privacy Policy
-                      </Pressable>
-                    </Label>
-                  </div>
-                )}
-              </Field>
               {actionsSlot || (actions && actions.length > 0) ? (
                 actionsContent
               ) : (
@@ -472,24 +384,27 @@ export function ContactCard({
           </Card>
 
           <div className={cn("lg:pt-8", infoPanelClassName)}>
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("mb-3 text-3xl font-bold tracking-tight", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-3 text-3xl font-bold tracking-tight",
+                    headingClassName
+                  )}
+                >
                   {heading}
                 </h2>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("leading-relaxed text-muted-foreground", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn("leading-relaxed", descriptionClassName)}>
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
             <div className={cn("mt-10 space-y-4", contactOptionsClassName)}>
               {contactOptionsContent}
             </div>

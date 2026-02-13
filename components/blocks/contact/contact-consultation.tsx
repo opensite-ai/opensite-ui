@@ -1,17 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput, Select, TextArea } from "../../ui/form-inputs";
+import { useMemo } from "react";
+import { Form } from "@page-speed/forms";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card, CardContent } from "../../ui/card";
-import { Label } from "../../ui/label";
-import { Separator } from "../../ui/separator";
+import { DynamicFormField } from "../../ui/dynamic-form-field";
+import { DynamicIcon } from "../../ui/dynamic-icon";
+import type { FormFieldConfig } from "../../../lib/form-field-types";
+import { getColumnSpanClass } from "../../../lib/form-field-types";
 import {
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
+  useContactForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
 import { Section } from "../../ui/section";
@@ -46,17 +46,85 @@ const BUDGETS = [
   { value: "50k-plus", label: "$50,000+" },
 ];
 
-interface ConsultationFormValues {
-  service: string;
-  duration: string;
-  budget: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  company: string;
-  details: string;
-}
+// Default form fields for consultation booking
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "service",
+    type: "select",
+    label: "Service Needed",
+    placeholder: "Select a service",
+    required: true,
+    columnSpan: 12,
+    options: SERVICES,
+  },
+  {
+    name: "duration",
+    type: "select",
+    label: "Preferred Duration",
+    placeholder: "Select duration",
+    required: false,
+    columnSpan: 6,
+    options: DURATIONS,
+  },
+  {
+    name: "budget",
+    type: "select",
+    label: "Project Budget",
+    placeholder: "Select budget range",
+    required: false,
+    columnSpan: 6,
+    options: BUDGETS,
+  },
+  {
+    name: "firstName",
+    type: "text",
+    label: "First Name",
+    placeholder: "John",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "lastName",
+    type: "text",
+    label: "Last Name",
+    placeholder: "Doe",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "john@example.com",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "phone",
+    type: "tel",
+    label: "Phone Number",
+    placeholder: "+1 (555) 000-0000",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "company",
+    type: "text",
+    label: "Company Name",
+    placeholder: "Acme Inc.",
+    required: false,
+    columnSpan: 12,
+  },
+  {
+    name: "details",
+    type: "textarea",
+    label: "Tell us about your needs",
+    placeholder: "Describe your project, goals, and any specific challenges...",
+    required: false,
+    rows: 4,
+    columnSpan: 12,
+  },
+];
 
 export interface ContactConsultationProps {
   /**
@@ -84,11 +152,22 @@ export interface ContactConsultationProps {
    */
   actionsSlot?: React.ReactNode;
   /**
+   * Array of form field configurations
+   * If not provided, defaults to: service, duration, budget, firstName, lastName, email, phone, company, details
+   */
+  formFields?: FormFieldConfig[];
+  /**
+   * Success message to display after form submission
+   * @default "Thank you for your consultation request! We'll be in touch within 24 hours to schedule your session."
+   */
+  successMessage?: React.ReactNode;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
   /**
    * Additional CSS classes for the container
+   * @default "px-6 sm:px-6 md:px-8 lg:px-8"
    */
   containerClassName?: string;
   /**
@@ -116,14 +195,24 @@ export interface ContactConsultationProps {
    */
   formClassName?: string;
   /**
+   * Additional CSS classes for success message
+   */
+  successMessageClassName?: string;
+  /**
+   * Additional CSS classes for error message
+   */
+  errorMessageClassName?: string;
+  /**
    * Additional CSS classes for the submit button
    */
-  submitClassName?: string; /**
+  submitClassName?: string;
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
   /**
    * Vertical spacing for the section
+   * @default "py-8 md:py-32"
    */
   spacing?: SectionSpacing;
   /**
@@ -136,57 +225,19 @@ export interface ContactConsultationProps {
   patternOpacity?: number;
 
   /**
-   * Optional form submission configuration.
-   *
-   * **Universal Usage**: Works with ANY REST API endpoint. Simply provide an `endpoint` URL
-   * and the form will submit to it in JSON format.
-   *
-   * @example
-   * // Works with any API
-   * formConfig={{ endpoint: "https://api.mysite.com/consultation", format: "json" }}
-   *
-   * @example
-   * // With custom headers (e.g., authentication)
-   * formConfig={{
-   *   endpoint: "/api/consultation",
-   *   headers: { "Authorization": "Bearer token123" }
-   * }}
-   *
-   * **Note**: The `apiKey`, `contactCategoryToken`, and other platform-specific fields
-   * are OPTIONAL and only needed when integrating with DashTrack's Rails backend.
-   * For generic REST APIs, just use `endpoint`, `method`, `format`, and `headers`.
-   *
-   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples with Next.js, React, and more.
+   * Optional form submission configuration. See FORMS_INTEGRATION_GUIDE.md for complete examples.
    */
   formConfig?: PageSpeedFormConfig;
   /**
-   * Optional custom submission handler for maximum flexibility.
-   *
-   * Use this when you need complete control over the submission logic,
-   * such as custom API calls, analytics tracking, or multi-step workflows.
-   *
-   * Can be used alone or in combination with `formConfig` for hybrid approaches.
-   *
-   * @example
-   * onSubmit={async (values) => {
-   *   await fetch("/api/consultation", {
-   *     method: "POST",
-   *     body: JSON.stringify(values)
-   *   });
-   * }}
+   * Optional custom submission handler.
    */
-  onSubmit?: (values: ConsultationFormValues) => void | Promise<void>;
+  onSubmit?: (values: Record<string, unknown>) => void | Promise<void>;
   /**
    * Optional success callback invoked after successful submission.
-   *
-   * Called after `formConfig` submission and/or `onSubmit` completes successfully.
-   * Use for showing success messages, redirecting, analytics tracking, etc.
    */
   onSuccess?: (data: unknown) => void;
   /**
    * Optional error callback invoked if submission fails.
-   *
-   * Receives the error object for custom error handling, logging, or user notifications.
    */
   onError?: (error: Error) => void;
 }
@@ -209,10 +260,12 @@ export interface ContactConsultationProps {
 export function ContactConsultation({
   heading,
   description,
-  buttonText,
+  buttonText = "Book Consultation",
   buttonIcon,
   actions,
   actionsSlot,
+  formFields,
+  successMessage = "Thank you for your consultation request! We'll be in touch within 24 hours to schedule your session.",
   className,
   headerClassName,
   headingClassName,
@@ -220,79 +273,33 @@ export function ContactConsultation({
   cardClassName,
   cardContentClassName,
   formClassName,
+  successMessageClassName,
+  errorMessageClassName,
   submitClassName,
   spacing = "py-8 md:py-32",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   background,
   pattern,
   patternOpacity,
-
   formConfig,
   onSubmit,
   onSuccess,
   onError,
 }: ContactConsultationProps): React.JSX.Element {
-  const form = useForm<ConsultationFormValues>({
-    initialValues: {
-      service: "",
-      duration: "60",
-      budget: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      company: "",
-      details: "",
-    },
-    validationSchema: {
-      service: (value) => (!value ? "Please select a service" : undefined),
-      budget: (value) => (!value ? "Please select a budget range" : undefined),
-      firstName: (value) => (!value ? "First name is required" : undefined),
-      lastName: (value) => (!value ? "Last name is required" : undefined),
-      email: (value) => {
-        if (!value) return "Email is required";
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
-          return "Please enter a valid email address";
-        return undefined;
-      },
-      phone: (value) => (!value ? "Phone number is required" : undefined),
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
+  // Use the provided form fields or fall back to defaults
+  const fields = useMemo(
+    () => formFields || DEFAULT_FORM_FIELDS,
+    [formFields]
+  );
 
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
-
-      try {
-        let result: unknown;
-
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
-
-        if (onSubmit) {
-          await onSubmit(values);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
+  // Contact form hook
+  const { form, submissionError, formMethod, resetSubmissionState } = useContactForm({
+    formFields: fields,
+    formConfig,
+    onSubmit,
+    onSuccess,
+    onError,
   });
-
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
   const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -372,177 +379,20 @@ export function ContactConsultation({
               form={form}
               action={formConfig?.endpoint}
               method={formMethod}
-              className={cn("space-y-8", formClassName)}
+              submissionError={submissionError}
+              successMessage={successMessage}
+              successMessageClassName={successMessageClassName}
+              errorMessageClassName={errorMessageClassName}
+              submissionConfig={formConfig?.submissionConfig}
+              onNewSubmission={resetSubmissionState}
+              className={cn("space-y-6", formClassName)}
             >
-              {/* Service Selection */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Consultation Details</h3>
-                <Field name="service">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="service">Service Type</Label>
-                      <Select
-                        {...field}
-                        id="service"
-                        error={meta.touched && !!meta.error}
-                        aria-label="Service Type"
-                      >
-                        <option value="">Select a service</option>
-                        {SERVICES.map((service) => (
-                          <option key={service.value} value={service.value}>
-                            {service.label}
-                          </option>
-                        ))}
-                      </Select>
-                    </div>
-                  )}
-                </Field>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Field name="duration">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="duration">Preferred Duration</Label>
-                        <Select
-                          {...field}
-                          id="duration"
-                          error={meta.touched && !!meta.error}
-                          aria-label="Preferred Duration"
-                        >
-                          {DURATIONS.map((duration) => (
-                            <option key={duration.value} value={duration.value}>
-                              {duration.label}
-                            </option>
-                          ))}
-                        </Select>
-                      </div>
-                    )}
-                  </Field>
-
-                  <Field name="budget">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="budget">Budget Range</Label>
-                        <Select
-                          {...field}
-                          id="budget"
-                          error={meta.touched && !!meta.error}
-                          aria-label="Budget Range"
-                        >
-                          <option value="">Select budget range</option>
-                          {BUDGETS.map((budget) => (
-                            <option key={budget.value} value={budget.value}>
-                              {budget.label}
-                            </option>
-                          ))}
-                        </Select>
-                      </div>
-                    )}
-                  </Field>
-                </div>
-              </div>
-
-              <Separator />
-
-              {/* Personal Information */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Your Information</h3>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Field name="firstName">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="first-name">First Name</Label>
-                        <TextInput
-                          {...field}
-                          id="first-name"
-                          placeholder="John"
-                          error={meta.touched && !!meta.error}
-                          aria-label="First Name"
-                        />
-                      </div>
-                    )}
-                  </Field>
-                  <Field name="lastName">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="last-name">Last Name</Label>
-                        <TextInput
-                          {...field}
-                          id="last-name"
-                          placeholder="Doe"
-                          error={meta.touched && !!meta.error}
-                          aria-label="Last Name"
-                        />
-                      </div>
-                    )}
-                  </Field>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Field name="email">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
-                        <TextInput
-                          {...field}
-                          id="email"
-                          type="email"
-                          placeholder="john@example.com"
-                          error={meta.touched && !!meta.error}
-                          aria-label="Email"
-                        />
-                      </div>
-                    )}
-                  </Field>
-                  <Field name="phone">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="phone">Phone</Label>
-                        <TextInput
-                          {...field}
-                          id="phone"
-                          type="tel"
-                          placeholder="+1 (555) 000-0000"
-                          error={meta.touched && !!meta.error}
-                          aria-label="Phone"
-                        />
-                      </div>
-                    )}
-                  </Field>
-                </div>
-
-                <Field name="company">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="company">Company (Optional)</Label>
-                      <TextInput
-                        {...field}
-                        id="company"
-                        placeholder="Acme Inc."
-                        error={meta.touched && !!meta.error}
-                        aria-label="Company"
-                      />
-                    </div>
-                  )}
-                </Field>
-
-                <Field name="details">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="details">
-                        Additional Details (Optional)
-                      </Label>
-                      <TextArea
-                        {...field}
-                        id="details"
-                        placeholder="Tell us more about your needs..."
-                        rows={4}
-                        error={meta.touched && !!meta.error}
-                        aria-label="Additional Details"
-                      />
-                    </div>
-                  )}
-                </Field>
+              <div className="grid grid-cols-12 gap-6">
+                {fields.map((field) => (
+                  <div key={field.name} className={getColumnSpanClass(field.columnSpan)}>
+                    <DynamicFormField field={field} />
+                  </div>
+                ))}
               </div>
 
               {actionsSlot || (actions && actions.length > 0) ? (

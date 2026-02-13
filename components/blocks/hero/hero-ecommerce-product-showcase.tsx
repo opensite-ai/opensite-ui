@@ -2,13 +2,21 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, ImageItem, StatItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  StatItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { Badge } from "@/src";
 
 export interface HeroEcommerceProductShowcaseProps {
   /**
@@ -72,6 +80,10 @@ export interface HeroEcommerceProductShowcaseProps {
    */
   patternOpacity?: number;
   /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -122,11 +134,12 @@ export function HeroEcommerceProductShowcase({
   images,
   imagesSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
+  patternClassName,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -139,14 +152,10 @@ export function HeroEcommerceProductShowcase({
     if (badgeSlot) return badgeSlot;
 
     return (
-      <div className={cn(
-        "inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm font-medium",
-        getNestedCardBg(background, 'accent'),
-        getNestedCardTextColor(background)
-      )}>
+      <Badge className={cn("px-4 py-2")}>
         {badgeIcon && <DynamicIcon name={badgeIcon} size={16} />}
         <span>{badgeText}</span>
-      </div>
+      </Badge>
     );
   }, [badgeSlot, badgeIcon, badgeText]);
 
@@ -157,7 +166,14 @@ export function HeroEcommerceProductShowcase({
     return (
       <div className={cn("flex flex-col gap-4 sm:flex-row", actionsClassName)}>
         {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -190,7 +206,7 @@ export function HeroEcommerceProductShowcase({
             {index > 0 && <div className="h-12 w-px bg-border"></div>}
             <div className="text-center">
               <div className="text-2xl font-bold ">{stat.value}</div>
-              <div className={cn("text-sm", getTextColor(background, "muted"))}>{stat.label}</div>
+              <div className={cn("text-sm")}>{stat.label}</div>
             </div>
           </React.Fragment>
         ))}
@@ -206,21 +222,27 @@ export function HeroEcommerceProductShowcase({
       <div className={cn("grid grid-cols-2 gap-4", imagesClassName)}>
         <div className="space-y-4">
           {images[0] && (
-            <div className={cn("overflow-hidden rounded-2xl", getNestedCardBg(background, "muted"))}>
+            <div className={cn("overflow-hidden rounded-2xl")}>
               <Img
                 src={images[0].src}
                 alt={images[0].alt}
-                className={cn("aspect-3/4 w-full object-cover", images[0].className)}
+                className={cn(
+                  "aspect-3/4 w-full object-cover",
+                  images[0].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
           )}
           {images[1] && (
-            <div className={cn("overflow-hidden rounded-2xl", getNestedCardBg(background, "muted"))}>
+            <div className={cn("overflow-hidden rounded-2xl")}>
               <Img
                 src={images[1].src}
                 alt={images[1].alt}
-                className={cn("aspect-square w-full object-cover", images[1].className)}
+                className={cn(
+                  "aspect-square w-full object-cover",
+                  images[1].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
@@ -228,21 +250,27 @@ export function HeroEcommerceProductShowcase({
         </div>
         <div className="space-y-4 pt-8">
           {images[2] && (
-            <div className={cn("overflow-hidden rounded-2xl", getNestedCardBg(background, "muted"))}>
+            <div className={cn("overflow-hidden rounded-2xl")}>
               <Img
                 src={images[2].src}
                 alt={images[2].alt}
-                className={cn("aspect-square w-full object-cover", images[2].className)}
+                className={cn(
+                  "aspect-square w-full object-cover",
+                  images[2].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
           )}
           {images[3] && (
-            <div className={cn("overflow-hidden rounded-2xl", getNestedCardBg(background, "muted"))}>
+            <div className={cn("overflow-hidden rounded-2xl")}>
               <Img
                 src={images[3].src}
                 alt={images[3].alt}
-                className={cn("aspect-3/4 w-full object-cover", images[3].className)}
+                className={cn(
+                  "aspect-3/4 w-full object-cover",
+                  images[3].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
@@ -258,35 +286,48 @@ export function HeroEcommerceProductShowcase({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className="order-2 lg:order-1">
-            {renderImages}
-          </div>
-          <div className={cn("order-1 flex flex-col gap-8 lg:order-2", contentClassName)}>
+          <div className="order-2 lg:order-1">{renderImages}</div>
+          <div
+            className={cn(
+              "order-1 flex flex-col gap-8 lg:order-2",
+              contentClassName,
+            )}
+          >
             {renderBadge}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn("text-lg text-balance", descriptionClassName)}>
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
             {renderActions}
             {renderStats}
           </div>
