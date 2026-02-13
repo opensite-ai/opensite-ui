@@ -2,12 +2,17 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getNestedCardBg } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import type {ActionConfig, StatItem, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  StatItem,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { Badge } from "@/src";
 
 export interface HeroMinimalCenteredDarkProps {
   /**
@@ -45,7 +50,7 @@ export interface HeroMinimalCenteredDarkProps {
   /**
    * Custom slot for rendering stats (overrides stats array)
    */
-  statsSlot?: React.ReactNode;  /**
+  statsSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -94,7 +99,6 @@ export interface HeroMinimalCenteredDarkProps {
 
 export function HeroMinimalCenteredDark({
   badge,
-  showStatusDot = true,
   heading,
   headingHighlight,
   description,
@@ -103,11 +107,11 @@ export function HeroMinimalCenteredDark({
   stats,
   statsSlot,
   background,
-  spacing,
+  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   badgeClassName,
   headingClassName,
   descriptionClassName,
@@ -119,7 +123,14 @@ export function HeroMinimalCenteredDark({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -144,7 +155,10 @@ export function HeroMinimalCenteredDark({
     if (!stats || stats.length === 0) return null;
 
     return stats.map((stat, index) => (
-      <div key={index} className={cn("flex items-center gap-2", stat.className)}>
+      <div
+        key={index}
+        className={cn("flex items-center gap-2", stat.className)}
+      >
         {stat.icon}
         <span>{stat.value}</span>
       </div>
@@ -153,56 +167,71 @@ export function HeroMinimalCenteredDark({
 
   return (
     <Section
-      className={cn(
-        "dark relative min-h-screen bg-background py-32",
-        className
-      )}
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container flex flex-col items-center justify-center text-center", containerClassName)}>
+      <div className="relative">
         {badge && (
-          <div className={cn("inline-flex items-center gap-2 rounded-full border border-border/50 px-4 py-2 text-sm", `${getNestedCardBg(background, "muted")}/30`, getTextColor(background, "muted"), badgeClassName)}>
-            {showStatusDot && (
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-success"></span>
-              </span>
-            )}
+          <Badge className={cn("px-3 py-2", badgeClassName)}>
             {typeof badge === "string" ? <span>{badge}</span> : badge}
-          </div>
+          </Badge>
         )}
-        {(heading || headingHighlight) && (
-          typeof heading === "string" ? (
-            <h1 className={cn("mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl", headingClassName)}>
+        {(heading || headingHighlight) &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : heading ? (
             <div className={headingClassName}>{heading}</div>
           ) : headingHighlight ? (
-            <h1 className={cn("mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl", headingClassName)}>
-              The future of{" "}
-              <span className="bg-linear-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-                {headingHighlight}
-              </span>{" "}
-              is here
+            <h1
+              className={cn(
+                "mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
+                headingClassName,
+              )}
+            >
+              {headingHighlight}
             </h1>
-          ) : null
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-6 max-w-2xl text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+          ) : null)}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-6 max-w-2xl text-lg md:text-xl text-balance",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
         {(actionsSlot || (actions && actions.length > 0)) && (
-          <div className={cn("mt-10 flex flex-col gap-4 sm:flex-row", actionsClassName)}>
+          <div
+            className={cn(
+              "mt-6 md:mt-10 flex flex-col gap-4 md:flex-row",
+              actionsClassName,
+            )}
+          >
             {renderActions}
           </div>
         )}
         {(statsSlot || (stats && stats.length > 0)) && (
-          <div className={cn("mt-16 flex items-center gap-8 text-sm", getTextColor(background, "muted"), statsClassName)}>
+          <div
+            className={cn(
+              "mt-16 flex items-center gap-8 text-sm",
+              statsClassName,
+            )}
+          >
             {renderStats}
           </div>
         )}

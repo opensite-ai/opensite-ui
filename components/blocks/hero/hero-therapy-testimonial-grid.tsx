@@ -182,7 +182,7 @@ export function HeroTherapyTestimonialGrid({
               />
             </div>
           )}
-          <div className="flex h-full w-full flex-col gap-2 justify-center">
+          <div className="flex h-full w-full flex-col gap-2 justify-start">
             <p className="text-lg font-medium ">
               &quot;{testimonial.quote}&quot;
             </p>

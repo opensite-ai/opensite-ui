@@ -6,6 +6,7 @@ import {
   TextInput,
   TextArea,
   Select,
+  MultiSelect,
   Radio,
   Checkbox,
   CheckboxGroup,
@@ -15,7 +16,6 @@ import {
   DateRangePicker,
   RichTextEditor,
 } from "@page-speed/forms/inputs";
-import { Label } from "./label";
 import { cn } from "../../lib/utils";
 import type { FormFieldConfig } from "../../lib/form-field-types";
 
@@ -63,22 +63,28 @@ export function DynamicFormField({
   onFileRemove,
   isUploading = false,
 }: DynamicFormFieldProps): React.JSX.Element {
-  const fieldId = `field-${field.name}`;
+  const fieldId = field.name;
+  const usesGroupLegend =
+    field.type === "radio" || field.type === "checkbox-group";
+  const usesInlineCheckboxLabel = field.type === "checkbox";
+  const shouldRenderFieldLabel = !usesGroupLegend && !usesInlineCheckboxLabel;
+  const checkboxLabel = (
+    <>
+      {field.label}
+      {field.required ? <span className="text-destructive ml-1">*</span> : null}
+    </>
+  );
 
   return (
-    <Field name={field.name}>
+    <Field
+      name={field.name}
+      label={shouldRenderFieldLabel ? field.label : undefined}
+      description={shouldRenderFieldLabel ? field.description : undefined}
+      required={field.required}
+      className={cn("space-y-2", className)}
+    >
       {({ field: formField, meta }) => (
-        <div className={cn("space-y-2", className)}>
-          {/* Label for non-checkbox fields */}
-          {field.type !== "checkbox" && (
-            <Label htmlFor={fieldId}>
-              {field.label}
-              {field.required && (
-                <span className="text-destructive ml-1">*</span>
-              )}
-            </Label>
-          )}
-
+        <div>
           {/* Text input types */}
           {(field.type === "text" ||
             field.type === "email" ||
@@ -139,7 +145,7 @@ export function DynamicFormField({
 
           {/* Multi-Select */}
           {field.type === "multi-select" && field.options && (
-            <Select
+            <MultiSelect
               {...formField}
               id={fieldId}
               options={field.options}
@@ -149,8 +155,6 @@ export function DynamicFormField({
               error={meta.touched && !!meta.error}
               disabled={field.disabled}
               aria-label={field.label}
-              // @ts-ignore - MultiSelect not properly typed in @page-speed/forms
-              multiple
             />
           )}
 
@@ -160,6 +164,9 @@ export function DynamicFormField({
               {...formField}
               id={fieldId}
               options={field.options}
+              label={field.label}
+              description={field.description}
+              required={field.required}
               disabled={field.disabled}
               layout={field.layout || "stacked"}
               error={meta.touched && !!meta.error}
@@ -169,26 +176,18 @@ export function DynamicFormField({
 
           {/* Checkbox */}
           {field.type === "checkbox" && (
-            <div className="flex items-start space-x-2">
-              <Checkbox
-                {...formField}
-                id={fieldId}
-                value={formField.value === true || formField.value === "true"}
-                onChange={(checked) => formField.onChange(checked)}
-                disabled={field.disabled}
-                error={meta.touched && !!meta.error}
-                aria-label={field.label}
-              />
-              <Label
-                htmlFor={fieldId}
-                className="font-normal cursor-pointer leading-relaxed"
-              >
-                {field.label}
-                {field.required && (
-                  <span className="text-destructive ml-1">*</span>
-                )}
-              </Label>
-            </div>
+            <Checkbox
+              {...formField}
+              id={fieldId}
+              value={formField.value === true || formField.value === "true"}
+              onChange={(checked) => formField.onChange(checked)}
+              label={checkboxLabel}
+              description={field.description}
+              disabled={field.disabled}
+              required={field.required}
+              error={meta.touched && !!meta.error}
+              aria-label={field.label}
+            />
           )}
 
           {/* Checkbox Group */}
@@ -197,6 +196,9 @@ export function DynamicFormField({
               {...formField}
               id={fieldId}
               options={field.options}
+              label={field.label}
+              description={field.description}
+              required={field.required}
               disabled={field.disabled}
               layout={field.layout || "stacked"}
               error={meta.touched && !!meta.error}
@@ -221,6 +223,7 @@ export function DynamicFormField({
             <DateRangePicker
               {...formField}
               id={fieldId}
+              placeholder={field.placeholder}
               error={meta.touched && !!meta.error}
               disabled={field.disabled}
               aria-label={field.label}
@@ -275,7 +278,6 @@ export function DynamicFormField({
               aria-label={field.label}
             />
           )}
-
         </div>
       )}
     </Field>

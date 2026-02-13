@@ -27,7 +27,6 @@ import type {
   OptixFlowConfig,
   SectionBackground,
 } from "../../../src/types";
-import FormFeedback from "../../ui/form-feedback";
 
 export interface DirectionConfig {
   desktop: "mediaRight" | "mediaLeft";
@@ -212,18 +211,19 @@ export function ContactPhotography({
   } = useFileUpload({ onError });
 
   // Contact form hook with file upload integration
-  const { form, isSubmitted, submissionError, formMethod } = useContactForm({
-    formFields,
-    formConfig,
-    onSubmit,
-    onSuccess: (data) => {
-      resetUpload();
-      onSuccess?.(data);
-    },
-    onError,
-    resetOnSuccess: formConfig?.resetOnSuccess !== false,
-    uploadTokens,
-  });
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields,
+      formConfig,
+      onSubmit,
+      onSuccess: (data) => {
+        resetUpload();
+        onSuccess?.(data);
+      },
+      onError,
+      resetOnSuccess: formConfig?.resetOnSuccess !== false,
+      uploadTokens,
+    });
 
   const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -331,18 +331,20 @@ export function ContactPhotography({
               <div className={descriptionClassName}>{description}</div>
             ))}
 
-          <FormFeedback
-            isSubmitted={isSubmitted}
-            successMessageClassName={successMessageClassName}
-            successMessage={successMessage}
-            submissionError={submissionError}
-            errorMessageClassName={errorMessageClassName}
-          />
           {/* Form */}
           <Form
             form={form}
             action={formConfig?.endpoint}
             method={formMethod}
+            submissionError={submissionError}
+            successMessage={successMessage}
+            successMessageClassName={successMessageClassName}
+            errorMessageClassName={errorMessageClassName}
+            submissionConfig={formConfig?.submissionConfig}
+            onNewSubmission={() => {
+              resetUpload();
+              resetSubmissionState();
+            }}
             className={cn("space-y-4", formClassName)}
           >
             <div className="grid grid-cols-12 gap-6">

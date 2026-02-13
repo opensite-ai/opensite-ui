@@ -2,13 +2,19 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, StatItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  StatItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { Badge } from "@/src";
 
 export interface HeroStatsSocialProofProps {
   /**
@@ -62,7 +68,7 @@ export interface HeroStatsSocialProofProps {
   /**
    * Custom slot for status card (overrides statusCard)
    */
-  statusCardSlot?: React.ReactNode;  /**
+  statusCardSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -131,15 +137,15 @@ export function HeroStatsSocialProof({
   stats,
   statsSlot,
   imageSrc,
-  imageAlt = "Platform dashboard",
+  imageAlt,
   statusCard,
   statusCardSlot,
   background,
-  spacing,
+  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   badgeClassName,
   headingClassName,
@@ -154,7 +160,14 @@ export function HeroStatsSocialProof({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -181,7 +194,7 @@ export function HeroStatsSocialProof({
     return stats.map((stat, index) => (
       <div key={index} className={stat.className}>
         <div className="text-3xl font-bold ">{stat.value}</div>
-        {stat.label && <div className={cn("text-sm", getTextColor(background, "muted"))}>{stat.label}</div>}
+        {stat.label && <div className="text-sm">{stat.label}</div>}
       </div>
     ));
   }, [statsSlot, stats]);
@@ -191,20 +204,22 @@ export function HeroStatsSocialProof({
     if (!statusCard) return null;
 
     return (
-      <div className={cn(
-        "absolute -bottom-6 -left-6 rounded-xl p-4 shadow-lg",
-        getNestedCardBg(background, 'card'),
-        getNestedCardTextColor(background)
-      )}>
+      <div
+        className={cn("absolute -bottom-6 -left-6 rounded-xl p-4 shadow-lg")}
+      >
         <div className="flex items-center gap-3">
           {statusCard.icon && (
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-success/10">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
               {statusCard.icon}
             </div>
           )}
           <div>
-            {statusCard.title && <div className="font-semibold ">{statusCard.title}</div>}
-            {statusCard.subtitle && <div className={cn("text-sm", getTextColor(background, "muted"))}>{statusCard.subtitle}</div>}
+            {statusCard.title && (
+              <div className="font-semibold ">{statusCard.title}</div>
+            )}
+            {statusCard.subtitle && (
+              <div className="text-sm">{statusCard.subtitle}</div>
+            )}
           </div>
         </div>
       </div>
@@ -217,49 +232,65 @@ export function HeroStatsSocialProof({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
             {badge && (
-              <div className={cn("inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm font-medium", `${getAccentColor(background)}/10`, getAccentColor(background), badgeClassName)}>
+              <Badge className={cn("px-4 py-2 text-sm", badgeClassName)}>
                 {badgeIcon}
                 {typeof badge === "string" ? <span>{badge}</span> : badge}
-              </div>
+              </Badge>
             )}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn("text-lg text-balance", descriptionClassName)}>
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
             {(actionsSlot || (actions && actions.length > 0)) && (
-              <div className={cn("flex flex-col gap-4 sm:flex-row", actionsClassName)}>
+              <div
+                className={cn(
+                  "flex flex-col gap-4 sm:flex-row",
+                  actionsClassName,
+                )}
+              >
                 {renderActions}
               </div>
             )}
             {(statsSlot || (stats && stats.length > 0)) && (
-              <div className={cn("grid grid-cols-3 gap-8 pt-8 border-t border-border", statsClassName)}>
+              <div
+                className={cn("grid grid-cols-3 gap-8 pt-8", statsClassName)}
+              >
                 {renderStats}
               </div>
             )}
           </div>
           <div className="relative">
             {imageSrc && (
-              <div className={cn("aspect-square overflow-hidden rounded-2xl", getNestedCardBg(background), imageClassName)}>
+              <div
+                className={cn(
+                  "aspect-square overflow-hidden rounded-2xl shadow-2xl",
+                  imageClassName,
+                )}
+              >
                 <Img
                   src={imageSrc}
                   alt={imageAlt}

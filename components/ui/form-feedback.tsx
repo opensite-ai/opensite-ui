@@ -1,7 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@/src";
+import {
+  FormFeedback as PageSpeedFormFeedback,
+  type FormFeedbackProps as PageSpeedFormFeedbackProps,
+} from "@page-speed/forms";
 
 type Props = {
   isSubmitted?: boolean;
@@ -18,46 +21,14 @@ const FormFeedback = ({
   submissionError,
   errorMessageClassName,
 }: Props) => {
-  // Show nothing if no feedback to display
-  if (!isSubmitted && !submissionError) return null;
+  const feedbackProps: PageSpeedFormFeedbackProps = {
+    successMessage: isSubmitted ? successMessage : undefined,
+    submissionError,
+    successMessageClassName,
+    errorMessageClassName,
+  };
 
-  return (
-    <>
-      {/* Success Message */}
-      {isSubmitted && !submissionError && (
-        <div
-          className={cn(
-            "mb-6 p-4 bg-primary/10 border border-primary rounded-md",
-            successMessageClassName,
-          )}
-        >
-          {typeof successMessage === "string" ? (
-            <p className="text-sm text-primary-foreground/90 text-center">{successMessage}</p>
-          ) : (
-            successMessage
-          )}
-        </div>
-      )}
-
-      {/* Error Message */}
-      {submissionError && (
-        <div
-          className={cn(
-            "mb-6 p-4 bg-destructive/10 border border-destructive rounded-md",
-            errorMessageClassName,
-          )}
-        >
-          {typeof submissionError === "string" ? (
-            <p className="text-sm text-destructive text-center">
-              {submissionError}
-            </p>
-          ) : (
-            submissionError
-          )}
-        </div>
-      )}
-    </>
-  );
+  return <PageSpeedFormFeedback {...feedbackProps} />;
 };
 
 export default FormFeedback;

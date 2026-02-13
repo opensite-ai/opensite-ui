@@ -102,11 +102,11 @@ export function HeroHiringAnimatedText({
   scrollActionSlot,
   backgroundImage,
   background,
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
+  spacing = "py-0 md:py-0",
   pattern,
   patternOpacity,
   className,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  containerClassName = "mx-auto h-screen w-full max-w-7xl relative z-10 px-6 md:px-16 lg:px-32 pb-12 md:pb-18",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -235,10 +235,10 @@ export function HeroHiringAnimatedText({
       containerClassName={containerClassName}
       style={{ backgroundImage: `url('${backgroundImage}')` }}
     >
-      <div className="relative z-10 flex size-full max-w-412.5 flex-col justify-between pt-24 pb-14 md:justify-end">
+      <div className="relative z-10 flex size-full max-w-md flex-col justify-between md:justify-end">
         <div
           className={cn(
-            "flex h-full flex-col justify-between gap-6 md:justify-end max-w-full md:max-w-md",
+            "flex h-full flex-col gap-6 justify-end max-w-full md:max-w-md",
             contentClassName,
           )}
         >

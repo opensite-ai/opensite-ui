@@ -8,7 +8,13 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface HeroDesignSystem3dProps {
   /**
@@ -98,7 +104,7 @@ export interface HeroDesignSystem3dProps {
 }
 
 export function HeroDesignSystem3d({
-  trustBadge = "Trusted by over 7,000 customers",
+  trustBadge,
   trustBadgeSlot,
   heading,
   description,
@@ -144,9 +150,21 @@ export function HeroDesignSystem3d({
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div className={cn("flex w-full flex-wrap items-center gap-4 md:w-fit", actionsClassName)}>
+      <div
+        className={cn(
+          "flex w-full flex-wrap items-center gap-4 md:w-fit",
+          actionsClassName,
+        )}
+      >
         {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
 
           if (index === 0) {
             return (
@@ -162,7 +180,12 @@ export function HeroDesignSystem3d({
                   className="block size-6 shrink-0"
                   optixFlowConfig={optixFlowConfig}
                 />
-                <p className={cn("text-nowrap transition-all duration-300 ease-in-out", `group-hover:${getAccentColor(background)}`)}>
+                <p
+                  className={cn(
+                    "text-nowrap transition-all duration-300 ease-in-out",
+                    `group-hover:${getAccentColor(background)}`,
+                  )}
+                >
                   {label}
                 </p>
                 <DynamicIcon
@@ -200,14 +223,22 @@ export function HeroDesignSystem3d({
     if (!images || images.length === 0) return null;
 
     return (
-      <div className={cn("relative mt-16 aspect-[1.2/1] overflow-hidden sm:-right-[10%] sm:mt-28 sm:aspect-[2.788990826/1]", imagesClassName)}>
+      <div
+        className={cn(
+          "relative mt-16 aspect-[1.2/1] overflow-hidden sm:-right-[10%] sm:mt-28 sm:aspect-[2.788990826/1]",
+          imagesClassName,
+        )}
+      >
         {images[0] && (
           <div className="absolute top-[11%] left-[8%] z-10 aspect-[0.7/1] w-[80%] sm:left-[4%] sm:w-[45%]">
             <div className="size-full transform-[rotateY(-30deg)_rotateX(-18deg)_rotate(-4deg)]">
               <Img
                 src={images[0].src}
                 alt={images[0].alt}
-                className={cn("block size-full object-cover object-center", images[0].className)}
+                className={cn(
+                  "block size-full object-cover object-center",
+                  images[0].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
@@ -219,7 +250,10 @@ export function HeroDesignSystem3d({
               <Img
                 src={images[1].src}
                 alt={images[1].alt}
-                className={cn("block size-full object-cover object-center", images[1].className)}
+                className={cn(
+                  "block size-full object-cover object-center",
+                  images[1].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
@@ -231,7 +265,10 @@ export function HeroDesignSystem3d({
               <Img
                 src={images[2].src}
                 alt={images[2].alt}
-                className={cn("block size-full object-cover object-center", images[2].className)}
+                className={cn(
+                  "block size-full object-cover object-center",
+                  images[2].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
@@ -251,30 +288,49 @@ export function HeroDesignSystem3d({
     >
       <div className={cn("mx-auto max-w-396 px-0 sm:px-8", containerClassName)}>
         <div className="container px-4">
-          <div className={cn("mx-auto flex max-w-100 flex-col items-center gap-6 sm:max-w-125 lg:max-w-160", contentClassName)}>
+          <div
+            className={cn(
+              "mx-auto flex max-w-100 flex-col items-center gap-6 sm:max-w-125 lg:max-w-160",
+              contentClassName,
+            )}
+          >
             {renderTrustBadge}
             <div className="mb-2">
-              {heading && (
-                typeof heading === "string" ? (
-                  <h1 className={cn("text-center text-[2.8125rem] leading-none font-bold sm:text-[3.9375rem] lg:text-[5.3125rem]", headingClassName)}>
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h1
+                    className={cn(
+                      "text-center text-[2.8125rem] leading-none font-bold sm:text-[3.9375rem] lg:text-[5.3125rem]",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h1>
                 ) : (
-                  <h1 className={cn("text-center text-[2.8125rem] leading-none font-bold sm:text-[3.9375rem] lg:text-[5.3125rem]", headingClassName)}>
+                  <h1
+                    className={cn(
+                      "text-center text-[2.8125rem] leading-none font-bold sm:text-[3.9375rem] lg:text-[5.3125rem]",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h1>
-                )
-              )}
+                ))}
             </div>
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-center text-base leading-snug text-balance sm:text-2xl", getTextColor(background, "muted"), descriptionClassName)}>
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-center text-base leading-snug text-balance sm:text-2xl",
+                    getTextColor(background, "muted"),
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
             {renderActions}
           </div>
         </div>

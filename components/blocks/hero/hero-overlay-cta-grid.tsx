@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Container } from "../../ui/container";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -148,7 +147,7 @@ export function HeroOverlayCtaGrid({
   cards,
   cardsSlot,
   backgroundImage,
-  backgroundAlt = "OpenSite AI coverage advisory hero background",
+  backgroundAlt,
   backgroundSlot,
   background,
   spacing = "none",

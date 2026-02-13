@@ -5,6 +5,7 @@ import {
   type RailsApiConfig,
   type RailsErrorResponse,
 } from "@page-speed/forms/integration";
+import type { ReactNode } from "react";
 
 // Export shared form hooks
 export { useFileUpload } from "./forms/use-file-upload";
@@ -14,6 +15,53 @@ export type { UseContactFormOptions, UseContactFormReturn } from "./forms/use-co
 
 export type PageSpeedFormMethod = "post" | "get" | "put" | "patch";
 export type PageSpeedFormSubmissionFormat = "json" | "rails";
+export type PageSpeedFormSubmissionBehavior =
+  | "showConfirmation"
+  | "redirect"
+  | "renderCustomComponent";
+
+export interface PageSpeedFormSubmissionResult {
+  formData: Record<string, any>;
+  responseData: unknown;
+}
+
+export interface PageSpeedFormSubmissionConfig {
+  /**
+   * Post-submit behavior.
+   * @default "showConfirmation"
+   */
+  behavior?: PageSpeedFormSubmissionBehavior;
+
+  /**
+   * Optional callback triggered on successful submission.
+   * Always invoked regardless of `behavior`.
+   */
+  handleFormSubmission?: (
+    result: PageSpeedFormSubmissionResult,
+  ) => void | Promise<void>;
+
+  /**
+   * Redirect destination used when behavior is "redirect".
+   */
+  redirectUrl?: string;
+
+  /**
+   * Custom component that replaces default confirmation when
+   * behavior is "renderCustomComponent".
+   */
+  customComponent?: ReactNode;
+
+  /**
+   * Optional action to allow a fresh submission after success.
+   */
+  newFormSubmissionAction?: {
+    /**
+     * Defaults to true when `label` is provided, otherwise false.
+     */
+    enable?: boolean;
+    label?: string;
+  };
+}
 
 export interface PageSpeedFormConfig {
   /**
@@ -67,6 +115,11 @@ export interface PageSpeedFormConfig {
    * @default true
    */
   resetOnSuccess?: boolean;
+
+  /**
+   * Optional post-submission behavior configuration.
+   */
+  submissionConfig?: PageSpeedFormSubmissionConfig;
 }
 
 export class PageSpeedFormSubmissionError extends Error {

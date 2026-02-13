@@ -27,7 +27,6 @@ import type {
 } from "../../../src/types";
 import type { FormFieldConfig } from "../../../lib/form-field-types";
 import { getColumnSpanClass } from "../../../lib/form-field-types";
-import FormFeedback from "@/components/ui/form-feedback";
 
 export interface FaqItem {
   id: string;
@@ -288,18 +287,19 @@ export function ContactFaq({
   } = useFileUpload({ onError });
 
   // Contact form hook with file upload integration
-  const { form, isSubmitted, submissionError, formMethod } = useContactForm({
-    formFields,
-    formConfig,
-    onSubmit,
-    onSuccess: (data) => {
-      resetUpload();
-      onSuccess?.(data);
-    },
-    onError,
-    resetOnSuccess: formConfig?.resetOnSuccess !== false,
-    uploadTokens,
-  });
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields,
+      formConfig,
+      onSubmit,
+      onSuccess: (data) => {
+        resetUpload();
+        onSuccess?.(data);
+      },
+      onError,
+      resetOnSuccess: formConfig?.resetOnSuccess !== false,
+      uploadTokens,
+    });
 
   const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -440,18 +440,19 @@ export function ContactFaq({
                   <div className={formHeadingClassName}>{formHeading}</div>
                 ))}
 
-              <FormFeedback
-                isSubmitted={isSubmitted}
-                successMessageClassName={successMessageClassName}
-                successMessage={successMessage}
-                submissionError={submissionError}
-                errorMessageClassName={errorMessageClassName}
-              />
-
               <Form
                 form={form}
                 action={formConfig?.endpoint}
                 method={formMethod}
+                submissionError={submissionError}
+                successMessage={successMessage}
+                successMessageClassName={successMessageClassName}
+                errorMessageClassName={errorMessageClassName}
+                submissionConfig={formConfig?.submissionConfig}
+                onNewSubmission={() => {
+                  resetUpload();
+                  resetSubmissionState();
+                }}
                 className={cn("space-y-4", formClassName)}
               >
                 <div className="grid grid-cols-12 gap-6">

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useForm as usePageSpeedForm } from "@page-speed/forms";
 import type { FormFieldConfig } from "../form-field-types";
 import {
@@ -10,6 +10,7 @@ import {
   PageSpeedFormSubmissionError,
   type PageSpeedFormConfig,
 } from "../forms";
+import { useNavigation } from "../useNavigation";
 
 export interface UseContactFormOptions {
   /**
@@ -48,6 +49,7 @@ export interface UseContactFormReturn {
   isSubmitted: boolean;
   submissionError: string | null;
   formMethod: "get" | "post";
+  resetSubmissionState: () => void;
 }
 
 /**
@@ -83,8 +85,44 @@ export function useContactForm(
     uploadTokens = [],
   } = options;
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const submissionConfig = formConfig?.submissionConfig;
+  const redirectUrl = submissionConfig?.redirectUrl;
+  const redirectNavigation = useNavigation({ href: redirectUrl });
+
+  const resetSubmissionState = useCallback(() => {
+    setSubmissionError(null);
+  }, []);
+
+  const performRedirect = useCallback(() => {
+    if (!redirectUrl || typeof window === "undefined") {
+      return;
+    }
+
+    const navigate = () => {
+      if (
+        redirectNavigation.shouldUseRouter &&
+        redirectNavigation.normalizedHref
+      ) {
+        const handler = (window as any).__opensiteNavigationHandler;
+        if (typeof handler === "function") {
+          try {
+            const handled = handler(redirectNavigation.normalizedHref, undefined);
+            if (handled !== false) {
+              return;
+            }
+          } catch (error) {
+            console.error("Internal redirect handler failed:", error);
+          }
+        }
+      }
+
+      const destination = redirectNavigation.normalizedHref || redirectUrl;
+      window.location.assign(destination);
+    };
+
+    window.setTimeout(navigate, 150);
+  }, [redirectNavigation, redirectUrl]);
 
   const form = usePageSpeedForm({
     initialValues: useMemo(
@@ -96,7 +134,7 @@ export function useContactForm(
       [formFields],
     ),
     onSubmit: async (values, helpers) => {
-      setSubmissionError(null);
+      resetSubmissionState();
       const shouldAutoSubmit = Boolean(formConfig?.endpoint);
 
       if (!shouldAutoSubmit && !onSubmit) {
@@ -123,13 +161,26 @@ export function useContactForm(
         }
 
         if (shouldAutoSubmit || onSubmit) {
-          setIsSubmitted(true);
+          try {
+            await submissionConfig?.handleFormSubmission?.({
+              formData: submissionValues,
+              responseData: result,
+            });
+          } catch (callbackError) {
+            console.error("handleFormSubmission callback failed:", callbackError);
+          }
+
           if (resetOnSuccess) {
             helpers.resetForm();
           }
           onSuccess?.(result);
-          // Auto-hide success message after 5 seconds
-          setTimeout(() => setIsSubmitted(false), 10000);
+
+          if (
+            submissionConfig?.behavior === "redirect" &&
+            submissionConfig.redirectUrl
+          ) {
+            performRedirect();
+          }
         }
       } catch (error) {
         if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
@@ -148,8 +199,9 @@ export function useContactForm(
 
   return {
     form,
-    isSubmitted,
+    isSubmitted: form.status === "success",
     submissionError,
     formMethod,
+    resetSubmissionState,
   };
 }

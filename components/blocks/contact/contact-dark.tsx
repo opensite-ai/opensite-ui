@@ -21,7 +21,6 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import FormFeedback from "../../ui/form-feedback";
 
 export interface ContactDarkOption {
   /**
@@ -343,18 +342,19 @@ export function ContactDark({
   } = useFileUpload({ onError });
 
   // Contact form hook with file upload integration
-  const { form, isSubmitted, submissionError, formMethod } = useContactForm({
-    formFields,
-    formConfig,
-    onSubmit,
-    onSuccess: (data) => {
-      resetUpload();
-      onSuccess?.(data);
-    },
-    onError,
-    resetOnSuccess: formConfig?.resetOnSuccess !== false,
-    uploadTokens,
-  });
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields,
+      formConfig,
+      onSubmit,
+      onSuccess: (data) => {
+        resetUpload();
+        onSuccess?.(data);
+      },
+      onError,
+      resetOnSuccess: formConfig?.resetOnSuccess !== false,
+      uploadTokens,
+    });
 
   const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -422,10 +422,15 @@ export function ContactDark({
         <Pressable
           key={key}
           href={social.href}
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-primary-foreground/20 text-primary-foreground/70 transition-colors hover:border-primary-foreground/40 hover:text-primary-foreground"
+          className={cn(
+            "flex h-9 w-9 items-center justify-center",
+            "rounded-xl border-2 transition-shadow duration-1000",
+            "bg-primary text-primary-foreground border-primary-foreground",
+            "shadow-sm hover:shadow-xl",
+          )}
           aria-label={social.label}
         >
-          <DynamicIcon name={social.icon} size={16} />
+          <DynamicIcon name={social.icon} size={18} />
         </Pressable>
       ));
     }
@@ -478,17 +483,19 @@ export function ContactDark({
           )}
         >
           <div className={cn("p-6 lg:p-12", formPanelClassName)}>
-            <FormFeedback
-              isSubmitted={isSubmitted}
-              successMessageClassName={successMessageClassName}
-              successMessage={successMessage}
-              submissionError={submissionError}
-              errorMessageClassName={errorMessageClassName}
-            />
             <Form
               form={form}
               action={formConfig?.endpoint}
               method={formMethod}
+              submissionError={submissionError}
+              successMessage={successMessage}
+              successMessageClassName={successMessageClassName}
+              errorMessageClassName={errorMessageClassName}
+              submissionConfig={formConfig?.submissionConfig}
+              onNewSubmission={() => {
+                resetUpload();
+                resetSubmissionState();
+              }}
               className={cn("space-y-6", formClassName)}
             >
               <div className="grid grid-cols-12 gap-6">
