@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
+import { motion } from "motion/react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -137,7 +138,7 @@ export function HeroArchitectureFullscreen({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(
-        "relative flex min-h-screen min-w-screen items-center justify-center dark w-full overflow-hidden font-poppins",
+        "relative flex min-h-screen min-w-screen items-center justify-center  w-full overflow-hidden",
         className,
       )}
       containerClassName={containerClassName}
@@ -150,9 +151,9 @@ export function HeroArchitectureFullscreen({
           optixFlowConfig={optixFlowConfig}
         />
       )}
-      <div className="relative z-20 h-full w-full max-w-340 p-8 md:p-24">
-        <div className="flex flex-col justify-end gap-6 md:gap-12">
-          <div className="flex flex-col gap-1">
+      <div className="relative z-20 h-full w-full max-w-full md:max-w-lg p-8 md:p-24">
+        <div className="flex flex-col justify-end gap-6">
+          <div className="relative">
             {tagline &&
               (typeof tagline === "string" ? (
                 <p
@@ -168,14 +169,50 @@ export function HeroArchitectureFullscreen({
               ))}
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <motion.h1
                   className={cn(
-                    "text-3xl leading-snug! md:text-4xl lg:text-6xl text-white text-balance text-shadow-xl",
+                    "text-6xl font-bold md:text-7xl lg:text-8xl text-white text-balance text-shadow-xl tracking-tight leading-0",
                     headingClassName,
                   )}
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: {},
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.08,
+                        delayChildren: 0.15,
+                      },
+                    },
+                  }}
                 >
-                  {heading}
-                </h1>
+                  {heading.split(" ").map((word, i) => (
+                    <span
+                      key={`${word}-${i}`}
+                      className="inline-block overflow-hidden align-bottom"
+                    >
+                      <motion.span
+                        className="inline-block"
+                        variants={{
+                          hidden: { y: "100%", opacity: 0 },
+                          visible: {
+                            y: 0,
+                            opacity: 1,
+                            transition: {
+                              duration: 0.5,
+                              ease: [0.33, 1, 0.68, 1],
+                            },
+                          },
+                        }}
+                      >
+                        {word}
+                      </motion.span>
+                      {i < heading.split(" ").length - 1 && (
+                        <span className="inline-block w-[0.3em]">&nbsp;</span>
+                      )}
+                    </span>
+                  ))}
+                </motion.h1>
               ) : (
                 <div className={headingClassName}>{heading}</div>
               ))}
@@ -185,7 +222,7 @@ export function HeroArchitectureFullscreen({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "text-base text-balance text-white text-shadow-xl",
+                    "text-lg md:text-xl text-balance text-white text-shadow-xl",
                     descriptionClassName,
                   )}
                 >

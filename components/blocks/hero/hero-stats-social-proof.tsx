@@ -205,20 +205,26 @@ export function HeroStatsSocialProof({
 
     return (
       <div
-        className={cn("absolute -bottom-6 -left-6 rounded-xl p-4 shadow-lg")}
+        className={cn(
+          "absolute bottom-4 md:-bottom-6 left-4 right-4 md:right-auto md:-left-6 rounded-2xl max-w-md p-4 shadow-2xl bg-card text-card-foreground",
+        )}
       >
         <div className="flex items-center gap-3">
           {statusCard.icon && (
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
+            <div className="flex shrink-0 h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
               {statusCard.icon}
             </div>
           )}
-          <div>
+          <div className="text-balance">
             {statusCard.title && (
-              <div className="font-semibold ">{statusCard.title}</div>
+              <div className="font-semibold text-sm md:text-md leading-snug">
+                {statusCard.title}
+              </div>
             )}
             {statusCard.subtitle && (
-              <div className="text-sm">{statusCard.subtitle}</div>
+              <div className="text-sm leading-snug tracking-tight">
+                {statusCard.subtitle}
+              </div>
             )}
           </div>
         </div>
@@ -239,7 +245,7 @@ export function HeroStatsSocialProof({
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
             {badge && (
-              <Badge className={cn("px-4 py-2 text-sm", badgeClassName)}>
+              <Badge className={cn("px-4 py-2", badgeClassName)}>
                 {badgeIcon}
                 {typeof badge === "string" ? <span>{badge}</span> : badge}
               </Badge>

@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@opensite/hooks':
-        specifier: 2.0.7
-        version: 2.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 2.0.8
+        version: 2.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/forms':
-        specifier: 0.4.6
-        version: 0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 0.4.7
+        version: 0.4.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@page-speed/img':
         specifier: 0.4.5
         version: 0.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -737,15 +737,15 @@ packages:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
 
-  '@opensite/hooks@2.0.7':
-    resolution: {integrity: sha512-75hhChQip01TKegxV32ZyjV+4XkLC46q0Ta4Nz6+To2c/veQ+onyvKNVVyZlOWlRBnaDjqtM95mhxL7u87mISg==}
+  '@opensite/hooks@2.0.8':
+    resolution: {integrity: sha512-cdklMZq+CYdBSNtAhcjs/y15xViKeAvAEs7UPUWHz9saPR5PeNGjOQtA2VFoctzTp/30/e95R3U1WzsfTuBulQ==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
 
-  '@page-speed/forms@0.4.6':
-    resolution: {integrity: sha512-9QEeqLzaZg5aatawiJK9C98jt/9oTEHLJHySwUSeqL4mJJvLqM5hl72LgqTjYPAO4scVS1UTcb52o3N6T5oSEA==}
+  '@page-speed/forms@0.4.7':
+    resolution: {integrity: sha512-sETOp3ICodPZj/koxANfRm8YK4sCM8oGMolFIQCo07cD3dKwOA5PJxpBzFB1RG1oAuflPlQJUZMLZ92nT0L6yQ==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       react: '>=16.8.0'
@@ -2852,14 +2852,14 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@opensite/hooks@2.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@opensite/hooks@2.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@page-speed/forms@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@page-speed/forms@0.4.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
-      '@opensite/hooks': 2.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@opensite/hooks': 2.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)

@@ -8,6 +8,17 @@ vi.mock("@page-speed/img", () => ({
   ),
 }));
 
+vi.mock("motion/react", () => ({
+  motion: {
+    h1: ({ children, className, ...props }: React.PropsWithChildren<{ className?: string }>) => (
+      <h1 className={className} data-testid="motion-h1">{children}</h1>
+    ),
+    span: ({ children, className, ...props }: React.PropsWithChildren<{ className?: string }>) => (
+      <span className={className}>{children}</span>
+    ),
+  },
+}));
+
 vi.mock("../../../lib/Pressable", () => ({
   Pressable: ({ children, href, className }: { children: React.ReactNode; href?: string; className?: string }) => (
     <a href={href} className={className} data-testid="mock-pressable">{children}</a>
@@ -30,7 +41,8 @@ describe("HeroArchitectureFullscreen", () => {
 
   it("renders custom heading", () => {
     render(<HeroArchitectureFullscreen heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+    expect(screen.getByText("Custom")).toBeInTheDocument();
+    expect(screen.getByText("Heading")).toBeInTheDocument();
   });
 
   it("renders custom description", () => {
