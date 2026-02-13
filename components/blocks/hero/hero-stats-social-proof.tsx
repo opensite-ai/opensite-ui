@@ -15,6 +15,7 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { Badge } from "@/src";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroStatsSocialProofProps {
   /**
@@ -155,38 +156,6 @@ export function HeroStatsSocialProof({
   imageClassName,
   optixFlowConfig,
 }: HeroStatsSocialProofProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const {
-        label,
-        icon,
-        iconAfter,
-        children,
-        className: actionClassName,
-        ...pressableProps
-      } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
-
   const renderStats = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
@@ -206,7 +175,9 @@ export function HeroStatsSocialProof({
     return (
       <div
         className={cn(
-          "absolute bottom-4 md:-bottom-6 left-4 right-4 md:right-auto md:-left-6 rounded-2xl max-w-md p-4 shadow-2xl bg-card text-card-foreground",
+          "absolute bottom-4 md:-bottom-6 left-4 right-4",
+          "md:right-auto md:-left-6 rounded-2xl max-w-md py-4 pl-4",
+          "pr-4 md:pr-6 shadow-2xl bg-card text-card-foreground",
         )}
       >
         <div className="flex items-center gap-3">
@@ -271,19 +242,19 @@ export function HeroStatsSocialProof({
               ) : (
                 <div className={descriptionClassName}>{description}</div>
               ))}
-            {(actionsSlot || (actions && actions.length > 0)) && (
-              <div
-                className={cn(
-                  "flex flex-col gap-4 sm:flex-row",
-                  actionsClassName,
-                )}
-              >
-                {renderActions}
-              </div>
-            )}
+
+            <BlockActions
+              actions={actions}
+              actionsClassName={actionsClassName}
+              actionsSlot={actionsSlot}
+            />
+
             {(statsSlot || (stats && stats.length > 0)) && (
               <div
-                className={cn("grid grid-cols-3 gap-8 pt-8", statsClassName)}
+                className={cn(
+                  "flex flex-wrap gap-4 md:gap-8 lg:gap-12 pt-8",
+                  statsClassName,
+                )}
               >
                 {renderStats}
               </div>

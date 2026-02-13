@@ -253,7 +253,9 @@ export function AboutDeveloperStory({
               ))}
             {stat.label &&
               (typeof stat.label === "string" ? (
-                <p className={cn("mt-2", getTextColor(background, 'muted'))}>{stat.label}</p>
+                <p className={cn("mt-2", getTextColor(background, "muted"))}>
+                  {stat.label}
+                </p>
               ) : (
                 <div className="mt-2">{stat.label}</div>
               ))}
@@ -291,7 +293,7 @@ export function AboutDeveloperStory({
             <p
               className={cn(
                 "max-w-2xl text-lg md:text-xl text-balance",
-                getTextColor(background, 'muted'),
+                getTextColor(background, "muted"),
                 descriptionClassName,
               )}
             >
@@ -326,7 +328,7 @@ export function AboutDeveloperStory({
               <p
                 className={cn(
                   "mt-6 text-lg whitespace-pre-line",
-                  getTextColor(background, 'muted'),
+                  getTextColor(background, "muted"),
                   storyContentClassName,
                 )}
               >
@@ -343,7 +345,7 @@ export function AboutDeveloperStory({
             src={storyImage.src}
             alt={storyImage.alt}
             className={cn(
-              "rounded-2xl object-cover rounded-2xl object-cover w-full h-auto",
+              "rounded-2xl object-cover w-full h-auto",
               storyImageClassName,
             )}
             optixFlowConfig={optixFlowConfig}

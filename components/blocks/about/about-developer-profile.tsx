@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -14,6 +14,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface AboutDeveloperProfileProps {
   /**
@@ -167,11 +168,7 @@ export function AboutDeveloperProfile({
         key={idx}
         href={link.href}
         aria-label={link["aria-label"]}
-        className={cn(
-          getTextColor(background, 'muted'),
-          `hover:${getAccentColor(background)}`,
-          link.className,
-        )}
+        className={cn(link.className)}
       >
         {link.icon}
       </Pressable>
@@ -187,8 +184,6 @@ export function AboutDeveloperProfile({
         key={idx}
         className={cn(
           "rounded-full px-4 py-2 text-sm font-medium",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background),
           skillTagClassName,
         )}
       >
@@ -196,38 +191,6 @@ export function AboutDeveloperProfile({
       </span>
     ));
   }, [skillsSlot, skills, skillTagClassName, background]);
-
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const {
-        label,
-        icon,
-        iconAfter,
-        children,
-        className: actionClassName,
-        ...pressableProps
-      } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
 
   return (
     <Section
@@ -262,9 +225,7 @@ export function AboutDeveloperProfile({
               ))}
             {role &&
               (typeof role === "string" ? (
-                <p className={cn("mt-2 text-xl", getAccentColor(background), roleClassName)}>
-                  {role}
-                </p>
+                <p className={cn("mt-2 text-xl", roleClassName)}>{role}</p>
               ) : (
                 <div className={cn("mt-2", roleClassName)}>{role}</div>
               ))}
@@ -284,13 +245,7 @@ export function AboutDeveloperProfile({
         {bio && (
           <div className="mt-12">
             {typeof bio === "string" ? (
-              <p
-                className={cn(
-                  "text-lg whitespace-pre-line",
-                  getTextColor(background, 'muted'),
-                  bioClassName,
-                )}
-              >
+              <p className={cn("text-lg whitespace-pre-line", bioClassName)}>
                 {bio}
               </p>
             ) : (
@@ -311,16 +266,11 @@ export function AboutDeveloperProfile({
           </div>
         )}
 
-        {(actionsSlot || (actions && actions.length > 0)) && (
-          <div
-            className={cn(
-              "mt-12 text-center md:text-left flex gap-2 items-center flex-wrap",
-              actionsClassName,
-            )}
-          >
-            {actionsContent}
-          </div>
-        )}
+        <BlockActions
+          actions={actions}
+          actionsSlot={actionsSlot}
+          actionsClassName={actionsClassName}
+        />
       </div>
     </Section>
   );

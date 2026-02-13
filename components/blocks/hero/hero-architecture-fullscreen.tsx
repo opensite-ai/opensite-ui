@@ -171,7 +171,7 @@ export function HeroArchitectureFullscreen({
               (typeof heading === "string" ? (
                 <motion.h1
                   className={cn(
-                    "text-6xl font-bold md:text-7xl lg:text-8xl text-white text-balance text-shadow-xl tracking-tight leading-0",
+                    "text-6xl font-bold md:text-7xl lg:text-8xl text-white text-balance text-shadow-xl tracking-tight leading-[1.1]",
                     headingClassName,
                   )}
                   initial="hidden"

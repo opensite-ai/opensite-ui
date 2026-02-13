@@ -2,13 +2,20 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroCommunitySurveyCtaProps {
   /**
@@ -114,10 +121,10 @@ export interface HeroCommunitySurveyCtaProps {
 }
 
 export function HeroCommunitySurveyCta({
-  announcementPrimary = "Join our Community Collaboration Survey!",
-  announcementSecondary = "We'll donate $20 for each response.",
-  announcementLinkText = "Take a tour",
-  announcementHref = "#",
+  announcementPrimary,
+  announcementSecondary,
+  announcementLinkText,
+  announcementHref,
   announcementSlot,
   heading,
   description,
@@ -146,44 +153,31 @@ export function HeroCommunitySurveyCta({
     return (
       <Pressable
         href={announcementHref}
-        className={cn("group mx-auto mb-3 w-fit gap-3 rounded-full border px-5 py-2 text-sm", announcementClassName)}
+        className={cn(
+          "group mx-auto mb-3 w-fit gap-3 rounded-full border px-5 py-2 text-sm",
+          announcementClassName,
+        )}
       >
-        <span className="mr-1 font-medium">
-          {announcementPrimary}
-        </span>
+        <span className="mr-1 font-medium">{announcementPrimary}</span>
         {announcementSecondary}
-        <DynamicIcon name="lucide/minus" size={16} className="mx-1 inline-block" />
+        <DynamicIcon
+          name="lucide/minus"
+          size={16}
+          className="mx-1 inline-block"
+        />
         <span className="font-semibold group-hover:underline">
           {announcementLinkText}
         </span>
       </Pressable>
     );
-  }, [announcementSlot, announcementHref, announcementClassName, announcementPrimary, announcementSecondary, announcementLinkText]);
-
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
+  }, [
+    announcementSlot,
+    announcementHref,
+    announcementClassName,
+    announcementPrimary,
+    announcementSecondary,
+    announcementLinkText,
+  ]);
 
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
@@ -216,7 +210,14 @@ export function HeroCommunitySurveyCta({
         )}
       </div>
     );
-  }, [imagesSlot, imagesClassName, mainImage, leftOverlayImage, rightOverlayImage, optixFlowConfig]);
+  }, [
+    imagesSlot,
+    imagesClassName,
+    mainImage,
+    leftOverlayImage,
+    rightOverlayImage,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -224,33 +225,43 @@ export function HeroCommunitySurveyCta({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container flex flex-col gap-7 text-center", containerClassName)}>
+      <div className="relative">
         {renderAnnouncement}
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("mx-auto max-w-4xl text-4xl font-semibold text-balance lg:text-6xl", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "mx-auto max-w-4xl text-4xl font-semibold text-balance lg:text-6xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mx-auto max-w-4xl lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mx-auto max-w-4xl lg:text-xl",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
-        {(actionsSlot || (actions && actions.length > 0)) && (
-          <div className={cn("flex flex-col justify-center gap-4 sm:flex-row", actionsClassName)}>
-            {renderActions}
-          </div>
-        )}
+          ))}
+
+        <BlockActions
+          actions={actions}
+          actionsClassName={actionsClassName}
+          actionsSlot={actionsSlot}
+        />
       </div>
       <div className="relative px-8">
         <div className="absolute inset-0 top-1/2 h-full w-full bg-linear-to-b from-muted to-transparent to-50%"></div>
