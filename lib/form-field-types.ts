@@ -196,9 +196,38 @@ export function generateValidationSchema(
 }
 
 /**
- * Get grid column span class for Tailwind
+ * Static mapping of column span values to Tailwind classes.
+ *
+ * IMPORTANT: These must be complete, literal class strings — never
+ * constructed dynamically via template literals — so that Tailwind's
+ * JIT/AOT scanner can detect them and generate the corresponding CSS.
+ */
+const columnSpanClasses: Record<number, string> = {
+  1: "col-span-12 md:col-span-1",
+  2: "col-span-12 md:col-span-2",
+  3: "col-span-12 md:col-span-3",
+  4: "col-span-12 md:col-span-4",
+  5: "col-span-12 md:col-span-5",
+  6: "col-span-12 md:col-span-6",
+  7: "col-span-12 md:col-span-7",
+  8: "col-span-12 md:col-span-8",
+  9: "col-span-12 md:col-span-9",
+  10: "col-span-12 md:col-span-10",
+  11: "col-span-12 md:col-span-11",
+  12: "col-span-12",
+};
+
+/**
+ * Get grid column span class for Tailwind.
+ *
+ * Uses a static lookup so every class string is a complete literal that
+ * Tailwind's scanner can find. The field is full-width (col-span-12) on
+ * mobile/small screens and respects the requested span from the `md`
+ * breakpoint (768px) up. This avoids cramped multi-column layouts in
+ * narrow form slots (e.g. contact blocks with side-by-side info panels).
  */
 export function getColumnSpanClass(span?: number): string {
   if (!span || span === 12) return "col-span-12";
-  return `col-span-12 sm:col-span-${Math.min(span, 12)}`;
+  const clamped = Math.max(1, Math.min(span, 12));
+  return columnSpanClasses[clamped] || "col-span-12";
 }
