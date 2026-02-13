@@ -3,10 +3,8 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -15,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface AboutStoryExpertiseArea {
   /**
@@ -199,7 +198,7 @@ export function AboutStoryExpertise({
     if (!storyParagraphs || storyParagraphs.length === 0) return null;
 
     return (
-      <div className={cn("space-y-4", getTextColor(background, 'muted'), storyClassName)}>
+      <div className={cn("space-y-4", storyClassName)}>
         {storyParagraphs.map((paragraph, idx) =>
           typeof paragraph === "string" ? (
             <p key={idx}>{paragraph}</p>
@@ -211,27 +210,6 @@ export function AboutStoryExpertise({
     );
   }, [storySlot, storyParagraphs, storyClassName]);
 
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className={cn("flex flex-wrap gap-4", actionsClassName)}>
-        {actions.map((action, idx) => (
-          <Pressable
-            key={idx}
-            href={action.href}
-            onClick={action.onClick}
-            size={action.size || "lg"}
-            variant={action.variant || "default"}
-          >
-            {action.label}
-          </Pressable>
-        ))}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
   const highlightContent = useMemo(() => {
     if (highlightSlot) return highlightSlot;
     if (!highlight) return null;
@@ -239,7 +217,7 @@ export function AboutStoryExpertise({
     return (
       <div
         className={cn(
-          "rounded-2xl border border-border/60 bg-background/90 p-6 shadow-xl",
+          "rounded-2xl border border-border/60 p-6 shadow-xl",
           highlightClassName,
         )}
       >
@@ -250,7 +228,11 @@ export function AboutStoryExpertise({
           <div>
             {highlight.label &&
               (typeof highlight.label === "string" ? (
-                <p className={cn("text-xs font-semibold uppercase tracking-[0.2em]", getTextColor(background, 'muted'))}>
+                <p
+                  className={cn(
+                    "text-xs font-semibold uppercase tracking-[0.2em]",
+                  )}
+                >
                   {highlight.label}
                 </p>
               ) : (
@@ -258,9 +240,7 @@ export function AboutStoryExpertise({
               ))}
             {highlight.title &&
               (typeof highlight.title === "string" ? (
-                <h3 className="text-lg font-bold">
-                  {highlight.title}
-                </h3>
+                <h3 className="text-lg font-bold">{highlight.title}</h3>
               ) : (
                 highlight.title
               ))}
@@ -268,9 +248,7 @@ export function AboutStoryExpertise({
         </div>
         {highlight.description &&
           (typeof highlight.description === "string" ? (
-            <p className={cn("text-sm", getTextColor(background, 'muted'))}>
-              {highlight.description}
-            </p>
+            <p className={cn("text-sm")}>{highlight.description}</p>
           ) : (
             highlight.description
           ))}
@@ -298,27 +276,23 @@ export function AboutStoryExpertise({
             transition={{ duration: 0.3, delay: idx * 0.05 }}
             className="flex items-start gap-4 rounded-2xl bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
           >
-            <div className={cn(
-              "flex h-12 w-12 items-center justify-center rounded-xl",
-              getNestedCardBg(background, 'muted'),
-              getAccentColor(background),
-            )}>
+            <div
+              className={cn(
+                "flex h-12 w-12 items-center justify-center rounded-xl",
+              )}
+            >
               {area.icon}
             </div>
             <div>
               {area.title &&
                 (typeof area.title === "string" ? (
-                  <h4 className="text-lg font-bold">
-                    {area.title}
-                  </h4>
+                  <h4 className="text-lg font-bold">{area.title}</h4>
                 ) : (
                   area.title
                 ))}
               {area.description &&
                 (typeof area.description === "string" ? (
-                  <p className={cn("mt-1 text-sm", getTextColor(background, 'muted'))}>
-                    {area.description}
-                  </p>
+                  <p className={cn("mt-1 text-sm")}>{area.description}</p>
                 ) : (
                   <div className="mt-1">{area.description}</div>
                 ))}
@@ -351,7 +325,6 @@ export function AboutStoryExpertise({
                 <p
                   className={cn(
                     "text-sm font-semibold uppercase tracking-[0.2em]",
-                    getAccentColor(background),
                     eyebrowClassName,
                   )}
                 >
@@ -375,7 +348,12 @@ export function AboutStoryExpertise({
               ))}
           </div>
           {storyContent}
-          {actionsContent}
+
+          <BlockActions
+            actions={actions}
+            actionsClassName={actionsClassName}
+            actionsSlot={actionsSlot}
+          />
         </motion.div>
 
         {image && (
@@ -410,12 +388,11 @@ export function AboutStoryExpertise({
       <div
         className={cn(
           "mt-20 rounded-3xl p-8 md:p-12",
-          getNestedCardBg(background, 'subtle'),
           expertiseSectionClassName,
         )}
       >
         <div className="text-center">
-          <p className={cn("text-sm font-semibold uppercase tracking-[0.2em]", getAccentColor(background))}>
+          <p className={cn("text-sm font-semibold uppercase tracking-[0.2em]")}>
             Our Expertise
           </p>
           {expertiseHeading &&
@@ -438,7 +415,6 @@ export function AboutStoryExpertise({
               <p
                 className={cn(
                   "mx-auto mt-3 max-w-2xl",
-                  getTextColor(background, 'muted'),
                   expertiseDescriptionClassName,
                 )}
               >

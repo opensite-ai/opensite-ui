@@ -143,7 +143,6 @@ export function AboutDeveloperProfile({
   actions,
   actionsSlot,
   className,
-  containerClassName,
   contentClassName,
   nameClassName,
   roleClassName,
@@ -155,7 +154,8 @@ export function AboutDeveloperProfile({
   actionsClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
 }: AboutDeveloperProfileProps): React.JSX.Element {
@@ -198,7 +198,7 @@ export function AboutDeveloperProfile({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className={cn("mx-auto max-w-4xl", contentClassName)}>
