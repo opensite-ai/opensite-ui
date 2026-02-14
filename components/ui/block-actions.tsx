@@ -33,7 +33,7 @@ type Props = {
   actionsSlot?: React.ReactNode;
   /**
    * Mobile layout configuration (applies below `md` breakpoint).
-   * @default { width: "fit", position: "left" }
+   * @default { width: "full", position: "center" }
    */
   mobileConfig?: BlockActionsMobileConfig;
 };
@@ -89,8 +89,8 @@ function BlockActions({
     [],
   );
 
-  const width = mobileConfig?.width ?? "fit";
-  const position = mobileConfig?.position ?? "left";
+  const width = mobileConfig?.width ?? "full";
+  const position = mobileConfig?.position ?? "center";
   const mobileLayoutClass = MOBILE_CLASSES[`${width}-${position}`];
 
   if (actionsSlot) {
