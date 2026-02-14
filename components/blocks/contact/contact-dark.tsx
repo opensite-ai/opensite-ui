@@ -8,7 +8,6 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card } from "../../ui/card";
 import { DynamicFormField } from "../../ui/dynamic-form-field";
 import type { FormFieldConfig } from "../../../lib/form-field-types";
-import { getColumnSpanClass } from "../../../lib/form-field-types";
 import {
   useContactForm,
   useFileUpload,
@@ -498,21 +497,72 @@ export function ContactDark({
               }}
               className={cn("space-y-6", formClassName)}
             >
-              <div className="grid grid-cols-12 gap-6">
-                {formFields.map((field) => (
-                  <div
-                    key={field.name}
-                    className={getColumnSpanClass(field.columnSpan)}
-                  >
-                    <DynamicFormField
-                      field={field}
-                      uploadProgress={uploadProgress}
-                      onFileUpload={uploadFiles}
-                      onFileRemove={removeFile}
-                      isUploading={isUploading}
-                    />
-                  </div>
-                ))}
+              <div className="space-y-4">
+                {formFields.map((field, index) => {
+                  const prevField = index > 0 ? formFields[index - 1] : null;
+                  const shouldGroup =
+                    field.columnSpan &&
+                    field.columnSpan <= 6 &&
+                    prevField?.columnSpan &&
+                    prevField.columnSpan <= 6 &&
+                    prevField.columnSpan + field.columnSpan <= 12;
+
+                  if (shouldGroup && index > 0) {
+                    // Skip rendering - already grouped with previous field
+                    return null;
+                  }
+
+                  const nextField =
+                    index < formFields.length - 1
+                      ? formFields[index + 1]
+                      : null;
+                  const groupWithNext =
+                    field.columnSpan &&
+                    field.columnSpan <= 6 &&
+                    nextField?.columnSpan &&
+                    nextField.columnSpan <= 6 &&
+                    field.columnSpan + nextField.columnSpan <= 12;
+
+                  if (groupWithNext && nextField) {
+                    return (
+                      <div
+                        key={field.name}
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                      >
+                        <div className="min-h-[76px]">
+                          <DynamicFormField
+                            field={field}
+                            uploadProgress={uploadProgress}
+                            onFileUpload={uploadFiles}
+                            onFileRemove={removeFile}
+                            isUploading={isUploading}
+                          />
+                        </div>
+                        <div className="min-h-[76px]">
+                          <DynamicFormField
+                            field={nextField}
+                            uploadProgress={uploadProgress}
+                            onFileUpload={uploadFiles}
+                            onFileRemove={removeFile}
+                            isUploading={isUploading}
+                          />
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div key={field.name} className="min-h-[76px]">
+                      <DynamicFormField
+                        field={field}
+                        uploadProgress={uploadProgress}
+                        onFileUpload={uploadFiles}
+                        onFileRemove={removeFile}
+                        isUploading={isUploading}
+                      />
+                    </div>
+                  );
+                })}
               </div>
               {actionsSlot || (actions && actions.length > 0) ? (
                 actionsContent
