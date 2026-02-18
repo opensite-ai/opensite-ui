@@ -26,13 +26,13 @@ export interface HeroMentalHealthTeamProps {
    */
   heading?: React.ReactNode;
   /**
-   * Array of team member images (expects 2 images)
+   * Array of 2 small images (expects 2 images)
    */
-  teamImages?: ImageItem[];
+  smallImages?: ImageItem[];
   /**
-   * Custom slot for team images (overrides teamImages array)
+   * Custom slot for small images (overrides smallImage array)
    */
-  teamImagesSlot?: React.ReactNode;
+  smallImagesSlot?: React.ReactNode;
   /**
    * Testimonial configuration
    */
@@ -117,8 +117,8 @@ export function HeroMentalHealthTeam({
   actionsSlot,
   actionsClassName,
   heading,
-  teamImages,
-  teamImagesSlot,
+  smallImages,
+  smallImagesSlot,
   testimonial,
   testimonialSlot,
   featureImage,
@@ -134,36 +134,36 @@ export function HeroMentalHealthTeam({
   gridClassName,
   optixFlowConfig,
 }: HeroMentalHealthTeamProps): React.JSX.Element {
-  const renderTeamImages = useMemo(() => {
-    if (teamImagesSlot) return teamImagesSlot;
-    if (!teamImages || teamImages.length === 0) return null;
+  const renderSmallImages = useMemo(() => {
+    if (smallImagesSlot) return smallImagesSlot;
+    if (!smallImages || smallImages.length === 0) return null;
 
     return (
       <>
-        {teamImages[0] && (
+        {smallImages[0] && (
           <div className="col-[1/2] row-[1/2] w-full">
             <div className="h-full max-h-77.5 w-full overflow-hidden rounded-2xl">
               <Img
-                src={teamImages[0].src}
-                alt={teamImages[0].alt}
+                src={smallImages[0].src}
+                alt={smallImages[0].alt}
                 className={cn(
                   "block h-full w-full object-cover object-center",
-                  teamImages[0].className,
+                  smallImages[0].className,
                 )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
           </div>
         )}
-        {teamImages[1] && (
+        {smallImages[1] && (
           <div className="col-[2/3] row-[1/2] w-full md:col-[2/3] md:row-[1/2]">
             <div className="h-full max-h-77.5 w-full overflow-hidden rounded-2xl">
               <Img
-                src={teamImages[1].src}
-                alt={teamImages[1].alt}
+                src={smallImages[1].src}
+                alt={smallImages[1].alt}
                 className={cn(
                   "block h-full w-full object-cover object-center",
-                  teamImages[1].className,
+                  smallImages[1].className,
                 )}
                 optixFlowConfig={optixFlowConfig}
               />
@@ -172,7 +172,7 @@ export function HeroMentalHealthTeam({
         )}
       </>
     );
-  }, [teamImagesSlot, teamImages, optixFlowConfig]);
+  }, [smallImagesSlot, smallImages, optixFlowConfig]);
 
   const renderTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
@@ -268,7 +268,7 @@ export function HeroMentalHealthTeam({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-center text-lg md:text-xl",
+                  "text-center text-lg md:text-xl text-balance",
                   descriptionClassName,
                 )}
               >
@@ -289,7 +289,7 @@ export function HeroMentalHealthTeam({
             gridClassName,
           )}
         >
-          {renderTeamImages}
+          {renderSmallImages}
           {renderTestimonial}
           {renderFeatureImage}
         </div>

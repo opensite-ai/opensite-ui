@@ -122,7 +122,7 @@ export function HeroAdaptableProductGrid({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative">
+      <div className="pt-8 md:pt-0">
         {heading &&
           (typeof heading === "string" ? (
             <h1

@@ -181,10 +181,10 @@ export function HeroInnovationImageGrid({
       containerClassName={containerClassName}
     >
       <div className="pt-10 md:pt-0">
-        <div className="grid grid-cols-1 gap-22.5 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-12 md:gap-22.5 lg:grid-cols-2">
           <div>
             <div
-              className={cn("flex flex-col gap-6 md:gap-12", contentClassName)}
+              className={cn("flex flex-col gap-2 md:gap-12", contentClassName)}
             >
               <div>
                 {heading &&

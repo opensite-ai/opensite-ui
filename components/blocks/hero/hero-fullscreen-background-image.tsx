@@ -96,7 +96,7 @@ export function HeroFullscreenBackgroundImage({
   patternOpacity,
   className,
   containerClassName = "px-0 sm:px-0 lg:px-0 max-w-full relative z-10 h-screen w-screen flex justify-center items-center",
-  contentClassName = "relative flex flex-col gap-12 px-6 pt-28 pb-6 md:pt-0 md:pb-0",
+  contentClassName = "",
   headingClassName,
   descriptionClassName,
   actionsClassName,
@@ -134,7 +134,8 @@ export function HeroFullscreenBackgroundImage({
       {renderBackground}
       <div
         className={cn(
-          "relative z-30 m-auto flex max-w-full md:max-w-md flex-col items-center justify-center gap-6 px-5",
+          "flex flex-col gap-4 md:gap-6 px-6 pt-28 pb-6 md:pt-0 md:pb-0",
+          "relative z-30 m-auto max-w-full md:max-w-md flex-col items-center justify-center text-center",
           contentClassName,
         )}
       >

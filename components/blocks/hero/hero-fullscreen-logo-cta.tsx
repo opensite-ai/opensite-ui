@@ -100,7 +100,7 @@ export function HeroFullscreenLogoCta({
   patternOpacity,
   className,
   containerClassName = "px-0 sm:px-0 lg:px-0 max-w-full relative z-10 h-screen w-screen flex justify-center items-center",
-  contentClassName = "relative flex flex-col gap-12 px-6 pt-28 pb-6 md:pt-0 md:pb-0",
+  contentClassName,
   headingClassName,
   descriptionClassName,
   optixFlowConfig,
@@ -178,7 +178,9 @@ export function HeroFullscreenLogoCta({
 
       <div
         className={cn(
-          "relative z-30 m-auto flex max-w-full flex-col items-start justify-center gap-4 md:gap-6 px-5",
+          "z-30 m-auto max-w-full items-start justify-center flex flex-col",
+          "relative gap-12 md:gap-6 px-5",
+          "pt-8 pb-6 md:pt-0 md:pb-0",
           contentClassName,
         )}
       >

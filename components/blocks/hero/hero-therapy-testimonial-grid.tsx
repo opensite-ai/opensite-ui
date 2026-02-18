@@ -252,7 +252,7 @@ export function HeroTherapyTestimonialGrid({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-center text-lg md:text-xl",
+                  "text-center text-lg md:text-xl text-balance",
                   descriptionClassName,
                 )}
               >

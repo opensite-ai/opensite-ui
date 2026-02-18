@@ -58,11 +58,11 @@ describe("HeroMentalHealthTeam", () => {
   });
 
   it("renders team images when provided", () => {
-    const teamImages = [
+    const smallImages = [
       { src: "https://example.com/team1.jpg", alt: "Team Member 1" },
       { src: "https://example.com/team2.jpg", alt: "Team Member 2" },
     ];
-    render(<HeroMentalHealthTeam teamImages={teamImages} />);
+    render(<HeroMentalHealthTeam smallImages={smallImages} />);
     const renderedImages = screen.getAllByTestId("mock-img");
     expect(renderedImages.length).toBeGreaterThan(0);
   });
