@@ -6,7 +6,6 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { Input } from "../../ui/input";
 import type {
   ActionConfig,
   ImageItem,
@@ -16,21 +15,25 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { Form } from "@page-speed/forms";
+import {
+  DynamicFormField,
+  useContactForm,
+  useFileUpload,
+  type FormFieldConfig,
+  type PageSpeedFormConfig,
+} from "@page-speed/forms/integration";
 
-export interface EmailFormConfig {
-  /**
-   * Input placeholder text
-   */
-  placeholder?: string;
-  /**
-   * Submit button action
-   */
-  action?: ActionConfig;
-  /**
-   * Helper text below form
-   */
-  helperText?: React.ReactNode;
-}
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "Enter your email",
+    required: true,
+    columnSpan: 12,
+  },
+];
 
 export interface BrowserPreviewConfig {
   /**
@@ -65,13 +68,41 @@ export interface HeroSaasDashboardPreviewProps {
    */
   description?: React.ReactNode;
   /**
-   * Email form configuration
+   * Form field configuration
    */
-  emailForm?: EmailFormConfig;
+  formFields?: FormFieldConfig[];
   /**
-   * Custom slot for email form (overrides emailForm prop)
+   * Form configuration for submission
    */
-  emailFormSlot?: React.ReactNode;
+  formConfig?: PageSpeedFormConfig;
+  /**
+   * Custom submit handler
+   */
+  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
+  /**
+   * Success callback
+   */
+  onSuccess?: (data: unknown) => void;
+  /**
+   * Error callback
+   */
+  onError?: (error: Error) => void;
+  /**
+   * Success message to display
+   */
+  successMessage?: React.ReactNode;
+  /**
+   * Submit button configuration
+   */
+  buttonAction?: ActionConfig;
+  /**
+   * Helper text below form
+   */
+  helperText?: React.ReactNode;
+  /**
+   * Custom slot for form (overrides form props)
+   */
+  formSlot?: React.ReactNode;
   /**
    * Browser preview configuration
    */
@@ -132,8 +163,15 @@ export function HeroSaasDashboardPreview({
   badgeSlot,
   heading,
   description,
-  emailForm,
-  emailFormSlot,
+  formFields = DEFAULT_FORM_FIELDS,
+  formConfig,
+  onSubmit,
+  onSuccess,
+  onError,
+  successMessage,
+  buttonAction,
+  helperText,
+  formSlot,
   browserPreview,
   browserPreviewSlot,
   background,
@@ -148,6 +186,20 @@ export function HeroSaasDashboardPreview({
   previewClassName,
   optixFlowConfig,
 }: HeroSaasDashboardPreviewProps): React.JSX.Element {
+  const { uploadTokens, uploadProgress, isUploading, uploadFiles, removeFile, resetUpload } = useFileUpload({ onError });
+
+  const { form, submissionError, formMethod, resetSubmissionState } = useContactForm({
+    formFields,
+    formConfig,
+    onSubmit,
+    onSuccess: (data) => {
+      resetUpload();
+      onSuccess?.(data);
+    },
+    onError,
+    uploadTokens,
+  });
+
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
 
@@ -163,40 +215,68 @@ export function HeroSaasDashboardPreview({
     );
   }, [badgeSlot, badgeIcon, badgeText]);
 
-  const renderEmailForm = useMemo(() => {
-    if (emailFormSlot) return emailFormSlot;
-    if (!emailForm) return null;
+  const renderForm = useMemo(() => {
+    if (formSlot) return formSlot;
+
+    const defaultButtonAction: ActionConfig = {
+      label: "Start Free Trial",
+      variant: "default",
+      className: "h-12",
+    };
+
+    const action = buttonAction || defaultButtonAction;
 
     return (
-      <>
+      <Form
+        form={form}
+        notificationConfig={{
+          submissionError,
+          successMessage,
+        }}
+        formConfig={{
+          endpoint: formConfig?.endpoint,
+          method: formMethod,
+          submissionConfig: formConfig?.submissionConfig,
+        }}
+        onNewSubmission={() => {
+          resetUpload();
+          resetSubmissionState();
+        }}
+      >
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <div className="flex w-full max-w-md items-center gap-2">
-            <Input
-              type="email"
-              placeholder={emailForm.placeholder}
-              className="h-12 flex-1"
-            />
-            {emailForm.action && (
-              <Pressable
-                href={emailForm.action.href}
-                asButton
-                variant={emailForm.action.variant}
-                className={emailForm.action.className}
-              >
-                {emailForm.action.label}
-              </Pressable>
-            )}
+            {formFields.map((field) => (
+              <div key={field.name} className="flex-1">
+                <DynamicFormField
+                  field={field}
+                  uploadProgress={uploadProgress}
+                  onFileUpload={uploadFiles}
+                  onFileRemove={removeFile}
+                  isUploading={isUploading}
+                />
+              </div>
+            ))}
+            <Pressable
+              onClick={form.handleSubmit}
+              asButton
+              variant={action.variant}
+              className={cn("h-12", action.className)}
+              disabled={form.isSubmitting}
+            >
+              {action.label}
+            </Pressable>
           </div>
         </div>
-        {emailForm.helperText &&
-          (typeof emailForm.helperText === "string" ? (
-            <p className="mt-4 text-sm">{emailForm.helperText}</p>
+        {helperText && (
+          typeof helperText === "string" ? (
+            <p className={cn("text-sm text-center mt-4")}>{helperText}</p>
           ) : (
-            emailForm.helperText
-          ))}
-      </>
+            helperText
+          )
+        )}
+      </Form>
     );
-  }, [emailFormSlot, emailForm]);
+  }, [formSlot, formFields, form, formConfig, formMethod, buttonAction, uploadProgress, uploadFiles, removeFile, isUploading, submissionError, successMessage, helperText, resetUpload, resetSubmissionState]);
 
   const renderBrowserPreview = useMemo(() => {
     if (browserPreviewSlot) return browserPreviewSlot;
@@ -284,7 +364,7 @@ export function HeroSaasDashboardPreview({
             ) : (
               <div className={descriptionClassName}>{description}</div>
             ))}
-          {renderEmailForm}
+          {renderForm}
         </div>
         {renderBrowserPreview}
       </div>

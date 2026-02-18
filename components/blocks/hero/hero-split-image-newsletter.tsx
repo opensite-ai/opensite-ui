@@ -5,7 +5,6 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { Input } from "../../ui/input";
 import type {
   ActionConfig,
   ImageItem,
@@ -15,21 +14,25 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { Form } from "@page-speed/forms";
+import {
+  DynamicFormField,
+  useContactForm,
+  useFileUpload,
+  type FormFieldConfig,
+  type PageSpeedFormConfig,
+} from "@page-speed/forms/integration";
 
-export interface NewsletterFormConfig {
-  /**
-   * Input placeholder text
-   */
-  placeholder?: string;
-  /**
-   * Submit button action
-   */
-  action?: ActionConfig;
-  /**
-   * Helper text below form
-   */
-  helperText?: React.ReactNode;
-}
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "Enter your email",
+    required: true,
+    columnSpan: 12,
+  },
+];
 
 export interface HeroSplitImageNewsletterProps {
   /**
@@ -41,13 +44,41 @@ export interface HeroSplitImageNewsletterProps {
    */
   description?: React.ReactNode;
   /**
-   * Newsletter form configuration
+   * Form field configuration
    */
-  newsletterForm?: NewsletterFormConfig;
+  formFields?: FormFieldConfig[];
   /**
-   * Custom slot for newsletter form (overrides newsletterForm prop)
+   * Form configuration for submission
    */
-  newsletterFormSlot?: React.ReactNode;
+  formConfig?: PageSpeedFormConfig;
+  /**
+   * Custom submit handler
+   */
+  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
+  /**
+   * Success callback
+   */
+  onSuccess?: (data: unknown) => void;
+  /**
+   * Error callback
+   */
+  onError?: (error: Error) => void;
+  /**
+   * Success message to display
+   */
+  successMessage?: React.ReactNode;
+  /**
+   * Submit button configuration
+   */
+  buttonAction?: ActionConfig;
+  /**
+   * Helper text below form
+   */
+  helperText?: React.ReactNode;
+  /**
+   * Custom slot for form (overrides form props)
+   */
+  formSlot?: React.ReactNode;
   /**
    * Feature image on the right side
    */
@@ -105,8 +136,15 @@ export interface HeroSplitImageNewsletterProps {
 export function HeroSplitImageNewsletter({
   heading,
   description,
-  newsletterForm,
-  newsletterFormSlot,
+  formFields = DEFAULT_FORM_FIELDS,
+  formConfig,
+  onSubmit,
+  onSuccess,
+  onError,
+  successMessage,
+  buttonAction,
+  helperText,
+  formSlot,
   image,
   imageSlot,
   background,
@@ -121,39 +159,81 @@ export function HeroSplitImageNewsletter({
   imageClassName,
   optixFlowConfig,
 }: HeroSplitImageNewsletterProps): React.JSX.Element {
-  const renderNewsletterForm = useMemo(() => {
-    if (newsletterFormSlot) return newsletterFormSlot;
-    if (!newsletterForm) return null;
+  const { uploadTokens, uploadProgress, isUploading, uploadFiles, removeFile, resetUpload } = useFileUpload({ onError });
+
+  const { form, submissionError, formMethod, resetSubmissionState } = useContactForm({
+    formFields,
+    formConfig,
+    onSubmit,
+    onSuccess: (data) => {
+      resetUpload();
+      onSuccess?.(data);
+    },
+    onError,
+    uploadTokens,
+  });
+
+  const renderForm = useMemo(() => {
+    if (formSlot) return formSlot;
+
+    const defaultButtonAction: ActionConfig = {
+      label: "Subscribe",
+      variant: "default",
+      className: "h-12",
+    };
+
+    const action = buttonAction || defaultButtonAction;
 
     return (
-      <>
+      <Form
+        form={form}
+        notificationConfig={{
+          submissionError,
+          successMessage,
+        }}
+        formConfig={{
+          endpoint: formConfig?.endpoint,
+          method: formMethod,
+          submissionConfig: formConfig?.submissionConfig,
+        }}
+        onNewSubmission={() => {
+          resetUpload();
+          resetSubmissionState();
+        }}
+      >
         <div className="flex flex-col gap-4 sm:flex-row">
-          <Input
-            type="email"
-            placeholder={newsletterForm.placeholder}
-            className="h-12 flex-1 rounded-full px-6"
-          />
-          {newsletterForm.action && (
-            <Pressable
-              href={newsletterForm.action.href}
-              asButton
-              variant={newsletterForm.action.variant}
-              className={newsletterForm.action.className}
-            >
-              {newsletterForm.action.label}
-              {newsletterForm.action.iconAfter}
-            </Pressable>
-          )}
-        </div>
-        {newsletterForm.helperText &&
-          (typeof newsletterForm.helperText === "string" ? (
-            <p className={cn("text-sm")}>{newsletterForm.helperText}</p>
-          ) : (
-            newsletterForm.helperText
+          {formFields.map((field) => (
+            <div key={field.name} className="flex-1">
+              <DynamicFormField
+                field={field}
+                uploadProgress={uploadProgress}
+                onFileUpload={uploadFiles}
+                onFileRemove={removeFile}
+                isUploading={isUploading}
+              />
+            </div>
           ))}
-      </>
+          <Pressable
+            onClick={form.handleSubmit}
+            asButton
+            variant={action.variant}
+            className={cn("h-12", action.className)}
+            disabled={form.isSubmitting}
+          >
+            {action.label}
+            {action.iconAfter}
+          </Pressable>
+        </div>
+        {helperText && (
+          typeof helperText === "string" ? (
+            <p className={cn("text-sm mt-2")}>{helperText}</p>
+          ) : (
+            helperText
+          )
+        )}
+      </Form>
     );
-  }, [newsletterFormSlot, newsletterForm]);
+  }, [formSlot, formFields, form, formConfig, formMethod, buttonAction, uploadProgress, uploadFiles, removeFile, isUploading, submissionError, successMessage, helperText, resetUpload, resetSubmissionState]);
 
   const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
@@ -224,7 +304,7 @@ export function HeroSplitImageNewsletter({
             ) : (
               <div className={descriptionClassName}>{description}</div>
             ))}
-          {renderNewsletterForm}
+          {renderForm}
         </div>
         {renderImage}
       </div>

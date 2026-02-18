@@ -42,7 +42,7 @@ function CountdownDigit({ value, label }: { value: number; label: string }) {
   const display = value.toString().padStart(2, "0");
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center bg-card pt-2 pb-6 px-2 text-card-foreground rounded-xl md:rounded-2xl shadow-xl">
       <div
         className={cn(
           "flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl text-3xl font-bold md:h-24 md:w-24 md:text-5xl",
@@ -60,7 +60,7 @@ function CountdownDigit({ value, label }: { value: number; label: string }) {
           </motion.span>
         </AnimatePresence>
       </div>
-      <span className={cn("mt-2 text-sm")}>{label}</span>
+      <span className={cn("mt-2 text-xs md:text-sm")}>{label}</span>
     </div>
   );
 }
@@ -283,7 +283,7 @@ export function HeroComingSoonCountdown({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="pt-8 md:pt-0">
+      <div className="px-6 py-8 md:px-12 md:py-12 lg:py-16 lg:px-16 rounded-2xl flex flex-col items-center text-center bg-muted gap-4 md:gap-8">
         {(badgeText || badgeIcon) && (
           <Badge className={cn("gap-2 px-4 py-2", badgeClassName)}>
             {badgeIcon && <DynamicIcon name={badgeIcon} size={16} />}
@@ -294,7 +294,7 @@ export function HeroComingSoonCountdown({
           (typeof heading === "string" ? (
             <h1
               className={cn(
-                "mt-8 max-w-3xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
+                "max-w-full md:max-w-lg text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
                 headingClassName,
               )}
             >
@@ -307,7 +307,7 @@ export function HeroComingSoonCountdown({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mt-6 max-w-xl text-lg md:text-xl text-balance",
+                "max-w-full md:max-w-md text-lg md:text-xl text-balance",
                 descriptionClassName,
               )}
             >
@@ -319,7 +319,7 @@ export function HeroComingSoonCountdown({
         {showCountdown && (
           <div
             className={cn(
-              "mt-12 grid grid-cols-4 gap-4 md:gap-8",
+              "py-8 grid grid-cols-4 gap-2 md:gap-4 lg:gap-8",
               countdownClassName,
             )}
           >
@@ -335,7 +335,7 @@ export function HeroComingSoonCountdown({
         )}
         <div
           className={cn(
-            "mt-12 flex w-full max-w-md flex-col gap-4 sm:flex-row",
+            "flex w-full max-w-md flex-col gap-4 sm:flex-row",
             formClassName,
           )}
         >
@@ -343,10 +343,7 @@ export function HeroComingSoonCountdown({
         </div>
         {(socialLinksSlot || (socialLinks && socialLinks.length > 0)) && (
           <div
-            className={cn(
-              "mt-16 flex items-center gap-6",
-              socialLinksClassName,
-            )}
+            className={cn("mt-8 flex items-center gap-6", socialLinksClassName)}
           >
             {renderSocialLinks}
           </div>
