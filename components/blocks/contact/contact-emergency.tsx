@@ -377,13 +377,7 @@ export function ContactEmergency({
               }}
             >
               <div className="grid md:grid-cols-2">
-                {/* Left: Priority Selection */}
                 <div className="border-b p-6 md:border-b-0 md:border-r">
-                  <div className="mb-6 flex items-center gap-2">
-                    <DynamicIcon name="lucide/alert-triangle" size={20} />
-                    <h3 className="font-semibold">Priority Level</h3>
-                  </div>
-
                   {priorityField && (
                     <Field name="priority">
                       {({ field }) => (
@@ -413,7 +407,10 @@ export function ContactEmergency({
                                   <span className="font-medium">
                                     {item.label}
                                   </span>
-                                  <Badge variant="secondary" className="text-xs">
+                                  <Badge
+                                    variant="secondary"
+                                    className="text-xs"
+                                  >
                                     <DynamicIcon
                                       name="lucide/clock"
                                       size={12}
