@@ -171,7 +171,7 @@ export function HeroHiringAnimatedText({
           )}
         >
           {renderHeading}
-          <div className="flex items-center md:items-start flex-col gap-8">
+          <div className="flex items-stretch md:items-start flex-col gap-8">
             {description &&
               (typeof description === "string" ? (
                 <p

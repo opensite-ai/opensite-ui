@@ -112,11 +112,11 @@ export function HeroNewsletterMinimal({
   patternClassName,
   statsSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   headingClassName,
   descriptionClassName,
   formClassName,
@@ -244,7 +244,7 @@ export function HeroNewsletterMinimal({
         {(statsSlot || (stats && stats.length > 0)) && (
           <div
             className={cn(
-              "mt-16 flex flex-wrap items-center justify-center gap-8",
+              "mt-16 flex flex-wrap items-center justify-center gap-8 md:gap-12",
               statsClassName,
             )}
           >

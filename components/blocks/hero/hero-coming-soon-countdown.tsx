@@ -240,19 +240,27 @@ export function HeroComingSoonCountdown({
 }: HeroComingSoonCountdownProps): React.JSX.Element {
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
 
-  const { uploadTokens, uploadProgress, isUploading, uploadFiles, removeFile, resetUpload } = useFileUpload({ onError });
-
-  const { form, submissionError, formMethod, resetSubmissionState } = useContactForm({
-    formFields,
-    formConfig,
-    onSubmit,
-    onSuccess: (data) => {
-      resetUpload();
-      onSuccess?.(data);
-    },
-    onError,
+  const {
     uploadTokens,
-  });
+    uploadProgress,
+    isUploading,
+    uploadFiles,
+    removeFile,
+    resetUpload,
+  } = useFileUpload({ onError });
+
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields,
+      formConfig,
+      onSubmit,
+      onSuccess: (data) => {
+        resetUpload();
+        onSuccess?.(data);
+      },
+      onError,
+      uploadTokens,
+    });
 
   const calculateTimeLeft = useCallback((): TimeLeft | null => {
     if (!countdownDate) return null;
@@ -335,16 +343,31 @@ export function HeroComingSoonCountdown({
           {action.label}
           {action.iconAfter}
         </Pressable>
-        {helperText && (
-          typeof helperText === "string" ? (
+        {helperText &&
+          (typeof helperText === "string" ? (
             <p className={cn("text-sm mt-2 text-center")}>{helperText}</p>
           ) : (
             helperText
-          )
-        )}
+          ))}
       </Form>
     );
-  }, [formSlot, formFields, form, formConfig, formMethod, buttonAction, uploadProgress, uploadFiles, removeFile, isUploading, submissionError, successMessage, helperText, resetUpload, resetSubmissionState]);
+  }, [
+    formSlot,
+    formFields,
+    form,
+    formConfig,
+    formMethod,
+    buttonAction,
+    uploadProgress,
+    uploadFiles,
+    removeFile,
+    isUploading,
+    submissionError,
+    successMessage,
+    helperText,
+    resetUpload,
+    resetSubmissionState,
+  ]);
 
   const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
@@ -424,7 +447,7 @@ export function HeroComingSoonCountdown({
         )}
         <div
           className={cn(
-            "flex w-full max-w-md flex-col gap-4 sm:flex-row",
+            "flex w-full max-w-md flex-col gap-4 sm:flex-row items-center justify-center",
             formClassName,
           )}
         >

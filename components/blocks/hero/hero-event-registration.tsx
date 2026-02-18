@@ -176,7 +176,7 @@ export function HeroEventRegistration({
     return (
       <div
         className={cn(
-          "flex flex-col md:flex-row items-center gap-4 md:gap-6 pt-8 md:pt-12",
+          "flex flex-col md:flex-row items-center gap-4 md:gap-6 pt-8 md:pt-12 w-full md:w-fit",
           statsClassName,
         )}
       >
