@@ -3,11 +3,15 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 /**
  * Configuration for the primary action button
@@ -47,13 +51,13 @@ export interface HeroVideoOverlayStarsProps {
    */
   heading?: React.ReactNode;
   /**
-   * Primary action button configuration
+   * Action buttons configuration
    */
-  action?: ActionButtonConfig;
+  actions?: ActionConfig[];
   /**
-   * Custom slot for action (overrides action prop)
+   * Custom slot for actions (overrides action prop)
    */
-  actionSlot?: React.ReactNode;
+  actionsSlot?: React.ReactNode;
   /**
    * Trust/rating section configuration
    */
@@ -83,6 +87,14 @@ export interface HeroVideoOverlayStarsProps {
    */
   className?: string;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content area
+   */
+  contentClassName?: string;
+  /**
    * Additional CSS classes for the heading
    */
   headingClassName?: string;
@@ -94,6 +106,18 @@ export interface HeroVideoOverlayStarsProps {
    * Custom slot for video background (overrides videoSrc)
    */
   videoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
 }
 
 /**
@@ -102,36 +126,24 @@ export interface HeroVideoOverlayStarsProps {
  */
 export function HeroVideoOverlayStars({
   heading,
-  action,
-  actionSlot,
+  actions,
+  actionsSlot,
+  actionsClassName,
+  description,
+  descriptionClassName,
   trust,
   trustSlot,
   background,
-  spacing,
+  spacing = "none",
   pattern,
   patternOpacity,
+  containerClassName = "px-0 sm:px-0 lg:px-0 max-w-full relative z-10 h-screen w-screen flex justify-center items-center",
+  contentClassName,
   className,
   headingClassName,
   videoSrc,
   videoSlot,
 }: HeroVideoOverlayStarsProps): React.JSX.Element {
-  const renderAction = useMemo(() => {
-    if (actionSlot) return actionSlot;
-    if (!action) return null;
-
-    return (
-      <Pressable
-        href={action.href}
-        asButton
-        variant="default"
-        className="flex h-fit w-fit items-center justify-center gap-2 rounded-full px-7 py-3.5 font-medium shadow-[0_0_5px_5px_rgba(255,255,255,.3)] transition-all duration-500 hover:bg-neutral-200 hover:shadow-[0_0_10px_5px_rgba(255,255,255,.5)]"
-      >
-        <p>{action.label}</p>
-        {action.icon && <DynamicIcon name={action.icon} size={20} />}
-      </Pressable>
-    );
-  }, [actionSlot, action]);
-
   const renderTrust = useMemo(() => {
     if (trustSlot) return trustSlot;
     if (!trust) return null;
@@ -151,7 +163,7 @@ export function HeroVideoOverlayStars({
           ))}
         </div>
         {trust.message && (
-          <p className="mt-1.5 max-w-40 text-center text-xs leading-snug font-medium text-foreground/60">
+          <p className="mt-1.5 max-w-40 text-center text-xs leading-snug font-medium">
             {trust.message}
           </p>
         )}
@@ -178,25 +190,58 @@ export function HeroVideoOverlayStars({
 
   return (
     <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={cn(
-        "dark relative h-svh max-h-[1400px] min-h-[600px] w-full overflow-hidden bg-background px-5 font-sans",
-        className
+        "relative flex h-full min-h-screen w-screen items-center justify-center overflow-hidden pb-0 pt-0 md:pt-0 px-0",
+        className,
       )}
+      containerClassName={containerClassName}
     >
       <div className="relative z-10 flex size-full">
         <div className="m-auto flex max-w-100 flex-col items-center gap-9 sm:max-w-125 md:max-w-200">
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("bg-linear-to-br from-neutral-100 to-neutral-600 bg-clip-text text-center text-4xl leading-tight font-semibold text-transparent sm:text-5xl md:text-[4rem]", headingClassName)}>
-                {heading}
-              </h1>
-            ) : (
-              <h1 className={cn("bg-linear-to-br from-neutral-100 to-neutral-600 bg-clip-text text-center text-4xl leading-tight font-semibold text-transparent sm:text-5xl md:text-[4rem]", headingClassName)}>
-                {heading}
-              </h1>
-            )
-          )}
-          {renderAction}
+          <div className={cn("flex w-full flex-col gap-8", contentClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "text-6xl font-font-semibold md:text-[5.8rem] text-balance",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h1>
+              ) : (
+                <h1
+                  className={cn(
+                    "text-6xl font-font-semibold md:text-[5.8rem] text-balance",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h1>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-xl md:text-2xl text-balance",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              ))}
+          </div>
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
           {renderTrust}
         </div>
       </div>

@@ -2,12 +2,17 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Input } from "../../ui/input";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -50,7 +55,7 @@ export interface HeroSplitImageNewsletterProps {
   /**
    * Custom slot for image (overrides image prop)
    */
-  imageSlot?: React.ReactNode;  /**
+  imageSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -105,11 +110,11 @@ export function HeroSplitImageNewsletter({
   image,
   imageSlot,
   background,
-  spacing,
+  spacing = "xl",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -140,15 +145,12 @@ export function HeroSplitImageNewsletter({
             </Pressable>
           )}
         </div>
-        {newsletterForm.helperText && (
-          typeof newsletterForm.helperText === "string" ? (
-            <p className={cn("text-sm", getTextColor(background, "muted"))}>
-              {newsletterForm.helperText}
-            </p>
+        {newsletterForm.helperText &&
+          (typeof newsletterForm.helperText === "string" ? (
+            <p className={cn("text-sm")}>{newsletterForm.helperText}</p>
           ) : (
             newsletterForm.helperText
-          )
-        )}
+          ))}
       </>
     );
   }, [newsletterFormSlot, newsletterForm]);
@@ -162,7 +164,11 @@ export function HeroSplitImageNewsletter({
         <Img
           src={image.src}
           alt={image.alt}
-          className={cn("w-full rounded-2xl object-cover shadow-2xl", imageClassName, image.className)}
+          className={cn(
+            "w-full rounded-2xl object-cover shadow-2xl",
+            imageClassName,
+            image.className,
+          )}
           optixFlowConfig={optixFlowConfig}
         />
       </div>
@@ -171,33 +177,48 @@ export function HeroSplitImageNewsletter({
 
   return (
     <Section
-      className={cn(
-        "relative flex min-h-screen items-center justify-center bg-background py-14 font-sans",
-        className,
-      )}
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("relative flex items-center justify-center", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container flex flex-col items-center gap-10 lg:flex-row lg:gap-20", containerClassName)}>
+      <div className="flex flex-col items-center gap-10 lg:flex-row lg:gap-20">
         <div className={cn("flex flex-col gap-8 lg:w-1/2", contentClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-5xl font-bold md:text-6xl lg:text-7xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-5xl font-bold md:text-6xl lg:text-7xl text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("text-5xl font-bold md:text-6xl lg:text-7xl", headingClassName)}>
+              <h1
+                className={cn(
+                  "text-5xl font-bold md:text-6xl lg:text-7xl text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-lg md:text-xl text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           {renderNewsletterForm}
         </div>
         {renderImage}

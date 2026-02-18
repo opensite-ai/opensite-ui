@@ -1,16 +1,35 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { HeroTestimonialImageGrid } from "../hero-testimonial-image-grid";
+import { ActionConfig } from "@/src";
 
 vi.mock("@page-speed/img", () => ({
-  Img: ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
+  Img: ({
+    src,
+    alt,
+    className,
+  }: {
+    src: string;
+    alt: string;
+    className?: string;
+  }) => (
     <img src={src} alt={alt} className={className} data-testid="mock-img" />
   ),
 }));
 
 vi.mock("../../../lib/Pressable", () => ({
-  Pressable: ({ children, href, className }: { children: React.ReactNode; href?: string; className?: string }) => (
-    <a href={href} className={className} data-testid="mock-pressable">{children}</a>
+  Pressable: ({
+    children,
+    href,
+    className,
+  }: {
+    children: React.ReactNode;
+    href?: string;
+    className?: string;
+  }) => (
+    <a href={href} className={className} data-testid="mock-pressable">
+      {children}
+    </a>
   ),
 }));
 
@@ -40,13 +59,24 @@ describe("HeroTestimonialImageGrid", () => {
   });
 
   it("renders button when provided", () => {
-    const button = { text: "Get Started", url: "/start" };
-    render(<HeroTestimonialImageGrid button={button} />);
+    const actions: ActionConfig[] = [
+      {
+        label: "Get Started",
+        href: "/start",
+        variant: "outline",
+      },
+    ];
+    render(<HeroTestimonialImageGrid actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroTestimonialImageGrid heading="Test Heading" className="custom-class" />);
+    const { container } = render(
+      <HeroTestimonialImageGrid
+        heading="Test Heading"
+        className="custom-class"
+      />,
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -131,7 +131,7 @@ export function HeroFullscreenLogoCta({
       <Img
         src={logoSrc}
         alt={logo.alt}
-        className={cn("h-24 w-auto object-contain", logo.className)}
+        className={cn("h-12 md:h-16 w-auto object-contain", logo.className)}
         optixFlowConfig={optixFlowConfig}
       />
     );
@@ -169,7 +169,7 @@ export function HeroFullscreenLogoCta({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(
-        "relative flex h-full min-h-screen w-screen items-center justify-center overflow-hidden bg-black pb-0 pt-0 md:pt-0 px-0",
+        "relative flex h-full min-h-screen w-screen items-center justify-center overflow-hidden pb-0 pt-0 md:pt-0 px-0",
         className,
       )}
       containerClassName={containerClassName}
@@ -178,7 +178,7 @@ export function HeroFullscreenLogoCta({
 
       <div
         className={cn(
-          "relative z-30 m-auto flex max-w-185 flex-col items-start justify-center gap-6 px-5",
+          "relative z-30 m-auto flex max-w-full flex-col items-start justify-center gap-6 px-5",
           contentClassName,
         )}
       >

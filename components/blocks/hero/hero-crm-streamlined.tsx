@@ -1,13 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroCrmStreamlinedProps {
   /**
@@ -25,11 +30,15 @@ export interface HeroCrmStreamlinedProps {
   /**
    * Action configuration for CTA button
    */
-  action?: ActionConfig;
+  actions?: ActionConfig[];
   /**
    * Custom slot for action (overrides action)
    */
-  actionSlot?: React.ReactNode;
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
   /**
    * Main image configuration
    */
@@ -92,16 +101,17 @@ export function HeroCrmStreamlined({
   tagline,
   heading,
   description,
-  action,
-  actionSlot,
+  actions,
+  actionsSlot,
+  actionsClassName,
   image,
   imageSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   contentClassName,
   taglineClassName,
   headingClassName,
@@ -109,80 +119,83 @@ export function HeroCrmStreamlined({
   imageClassName,
   optixFlowConfig,
 }: HeroCrmStreamlinedProps): React.JSX.Element {
-  const renderAction = useMemo(() => {
-    if (actionSlot) return actionSlot;
-    if (!action) return null;
-
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps} = action;
-    return (
-      <Pressable
-        asButton
-        className={actionClassName}
-        {...pressableProps}
-      >
-        {children ?? (
-          <>
-            {icon}
-            {label}
-            {iconAfter}
-          </>
-        )}
-      </Pressable>
-    );
-  }, [actionSlot, action]);
-
   return (
     <Section
       background={background}
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("overflow-hidden font-sans", className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="flex flex-col items-center justify-between gap-10 md:flex-row">
           <div className={cn("basis-2/4", contentClassName)}>
             <div className="mt-10 flex flex-col gap-2">
-              {tagline && (
-                typeof tagline === "string" ? (
-                  <p className={cn("text-base font-semibold", getTextColor(background, "muted"), taglineClassName)}>
+              {tagline &&
+                (typeof tagline === "string" ? (
+                  <p
+                    className={cn("text-base font-semibold", taglineClassName)}
+                  >
                     {tagline}
                   </p>
                 ) : (
                   <div className={taglineClassName}>{tagline}</div>
-                )
-              )}
-              {heading && (
-                typeof heading === "string" ? (
-                  <h1 className={cn("mb-2 text-4xl leading-snug! font-medium lg:text-5xl", headingClassName)}>
+                ))}
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h1
+                    className={cn(
+                      "mb-2 text-4xl leading-snug! font-semibold text-balance lg:text-5xl",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h1>
                 ) : (
                   <div className={headingClassName}>{heading}</div>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("mb-2 text-lg opacity-80", descriptionClassName)}>
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "mb-2 text-lg opacity-80 text-balance",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
-                )
-              )}
-              {renderAction}
+                ))}
+              <BlockActions
+                actions={actions}
+                actionsSlot={actionsSlot}
+                actionsClassName={actionsClassName}
+              />
             </div>
           </div>
-          <div className={cn("relative basis-[42%] py-9 md:py-16", imageClassName)}>
-            {imageSlot ? imageSlot : image ? (
+          <div
+            className={cn("relative basis-[42%] py-9 md:py-16", imageClassName)}
+          >
+            {imageSlot ? (
+              imageSlot
+            ) : image ? (
               <div className="aspect-square w-full overflow-hidden">
                 <Img
                   src={image.src}
                   alt={image.alt}
-                  className={cn("relative z-20 h-full w-full object-cover object-center", image.className)}
+                  className={cn(
+                    "relative z-20 h-full w-full object-cover object-center rounded-xl shadow-xl",
+                    image.className,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
-                <div className={cn("absolute top-0 left-25 z-10 aspect-[1.378254211/1] h-full w-225", getNestedCardBg(background))} />
+                <div
+                  className={cn(
+                    "absolute top-0 left-25 z-10 bg-muted aspect-[1.378254211/1] h-full w-225",
+                  )}
+                />
               </div>
             ) : null}
           </div>

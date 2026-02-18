@@ -1,14 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroAdaptableProductGridProps {
   /**
@@ -22,11 +25,11 @@ export interface HeroAdaptableProductGridProps {
   /**
    * CTA action configuration
    */
-  action?: ActionConfig;
+  actions?: ActionConfig[];
   /**
    * Custom slot for rendering action (overrides action)
    */
-  actionSlot?: React.ReactNode;
+  actionsSlot?: React.ReactNode;
   /**
    * Logo/image source URL
    */
@@ -80,9 +83,9 @@ export interface HeroAdaptableProductGridProps {
    */
   imageClassName?: string;
   /**
-   * Additional CSS classes for the grid pattern background
+   * Additional CSS classes for the actions container
    */
-  gridPatternClassName?: string;
+  actionsClassName?: string;
   /**
    * OptixFlow image optimization configuration
    */
@@ -92,8 +95,8 @@ export interface HeroAdaptableProductGridProps {
 export function HeroAdaptableProductGrid({
   heading,
   description,
-  action,
-  actionSlot,
+  actions,
+  actionsSlot,
   imageSrc,
   imageAlt = "placeholder",
   background,
@@ -107,31 +110,9 @@ export function HeroAdaptableProductGrid({
   contentClassName,
   imageContainerClassName,
   imageClassName,
-  gridPatternClassName,
+  actionsClassName,
   optixFlowConfig,
 }: HeroAdaptableProductGridProps): React.JSX.Element {
-  const renderAction = useMemo(() => {
-    if (actionSlot) return actionSlot;
-    if (!action) return null;
-
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-    return (
-      <Pressable
-        asButton
-        className={actionClassName}
-        {...pressableProps}
-      >
-        {children ?? (
-          <>
-            {icon}
-            {label}
-            {iconAfter}
-          </>
-        )}
-      </Pressable>
-    );
-  }, [actionSlot, action]);
-
   return (
     <Section
       background={background}
@@ -139,37 +120,57 @@ export function HeroAdaptableProductGrid({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("text-5xl lg:text-7xl", headingClassName)}>
+      <div className="relative">
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "text-5xl lg:text-7xl font-semibold text-balance",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        <div className="mt-14 grid gap-10 lg:grid-cols-2">
-          <div className={contentClassName}>
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-lg lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+          ))}
+        <div className="mt-14 grid gap-6 md:gap-10 grid-cols-1 lg:grid-cols-2">
+          <div
+            className={cn("flex flex-col items-start gap-6", contentClassName)}
+          >
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-lg lg:text-xl text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-            {renderAction}
+              ))}
+
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
           </div>
-          <div className={cn("relative flex items-center justify-center overflow-hidden", imageContainerClassName)}>
-            <div className={cn("absolute inset-0 -top-1 -z-10 mx-auto h-full w-full max-w-3xl bg-[linear-gradient(to_right,hsl(var(--muted-foreground))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted-foreground))_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_100%_at_50%_50%,#000_60%,transparent_100%)] bg-size-[56px_56px] opacity-15", gridPatternClassName)} />
+          <div
+            className={cn(
+              "relative flex items-center justify-center rounded-2xl shadow-2xl overflow-hidden",
+              imageContainerClassName,
+            )}
+          >
             {imageSrc && (
               <Img
                 src={imageSrc}
                 alt={imageAlt}
-                className={cn("max-h-[400px]", imageClassName)}
+                className={cn("max-h-[400px] object-cover", imageClassName)}
                 optixFlowConfig={optixFlowConfig}
               />
             )}

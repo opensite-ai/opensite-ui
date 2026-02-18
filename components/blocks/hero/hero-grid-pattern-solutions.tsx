@@ -17,6 +17,7 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { Badge } from "@/src";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroGridPatternSolutionsProps {
   /**
@@ -121,7 +122,7 @@ export function HeroGridPatternSolutions({
   pattern,
   patternOpacity,
   className,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  containerClassName = "xl",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -167,47 +168,6 @@ export function HeroGridPatternSolutions({
       </Pressable>
     );
   }, [badgeSlot, badgeHref, badgeText]);
-
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div
-        className={cn(
-          "flex flex-col justify-center gap-x-2 gap-y-3 sm:flex-row",
-          actionsClassName,
-        )}
-      >
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
 
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
@@ -267,7 +227,7 @@ export function HeroGridPatternSolutions({
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl text-balance",
+                    "my-4 mb-6 max-w-full md:max-w-md text-center text-3xl font-semibold lg:text-8xl text-balance",
                     headingClassName,
                   )}
                 >
@@ -276,7 +236,7 @@ export function HeroGridPatternSolutions({
               ) : (
                 <h1
                   className={cn(
-                    "my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl text-balance",
+                    "my-4 mb-6 max-w-full md:max-w-md text-center text-3xl font-semibold lg:text-8xl text-balance",
                     headingClassName,
                   )}
                 >
@@ -287,7 +247,7 @@ export function HeroGridPatternSolutions({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mx-auto mb-8 max-w-2xl text-center lg:text-xl text-balance",
+                    "mx-auto mb-8 max-w-full md:max-w-md text-center lg:text-xl text-balance",
                     descriptionClassName,
                   )}
                 >
@@ -296,7 +256,11 @@ export function HeroGridPatternSolutions({
               ) : (
                 <div className={descriptionClassName}>{description}</div>
               ))}
-            {renderActions}
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
           </div>
         </div>
         {renderImages}

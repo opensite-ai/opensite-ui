@@ -1,22 +1,43 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { HeroAdaptableProductGrid } from "../hero-adaptable-product-grid";
+import { ActionConfig } from "@/src";
 
 vi.mock("@page-speed/img", () => ({
-  Img: ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
+  Img: ({
+    src,
+    alt,
+    className,
+  }: {
+    src: string;
+    alt: string;
+    className?: string;
+  }) => (
     <img src={src} alt={alt} className={className} data-testid="mock-img" />
   ),
 }));
 
 vi.mock("../../../lib/Pressable", () => ({
-  Pressable: ({ children, href, className }: { children: React.ReactNode; href?: string; className?: string }) => (
-    <a href={href} className={className} data-testid="mock-pressable">{children}</a>
+  Pressable: ({
+    children,
+    href,
+    className,
+  }: {
+    children: React.ReactNode;
+    href?: string;
+    className?: string;
+  }) => (
+    <a href={href} className={className} data-testid="mock-pressable">
+      {children}
+    </a>
   ),
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
   DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
+    <span data-testid="mock-icon" data-name={name} className={className}>
+      icon
+    </span>
   ),
 }));
 
@@ -45,13 +66,24 @@ describe("HeroAdaptableProductGrid", () => {
   });
 
   it("renders action when provided", () => {
-    const action = { label: "Get Started", href: "/start", variant: "default" as const };
-    render(<HeroAdaptableProductGrid action={action} />);
+    const actions: ActionConfig[] = [
+      {
+        label: "Get Started",
+        href: "/start",
+        variant: "outline",
+      },
+    ];
+    render(<HeroAdaptableProductGrid actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroAdaptableProductGrid heading="Test Heading" className="custom-class" />);
+    const { container } = render(
+      <HeroAdaptableProductGrid
+        heading="Test Heading"
+        className="custom-class"
+      />,
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

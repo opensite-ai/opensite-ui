@@ -35,10 +35,6 @@ export interface HeroGradientAvatarsRatingProps {
    */
   heading?: React.ReactNode;
   /**
-   * Heading subtitle (muted text)
-   */
-  headingSubtitle?: React.ReactNode;
-  /**
    * Description text below heading
    */
   description?: React.ReactNode;
@@ -130,7 +126,6 @@ export interface HeroGradientAvatarsRatingProps {
 
 export function HeroGradientAvatarsRating({
   heading,
-  headingSubtitle,
   description,
   actions,
   actionsSlot,
@@ -204,7 +199,10 @@ export function HeroGradientAvatarsRating({
 
     return (
       <div
-        className={cn("relative grid gap-4 lg:grid-cols-2", imagesClassName)}
+        className={cn(
+          "grid items-center gap-8 md:gap-20 grid-cols-1 lg:grid-cols-2",
+          imagesClassName,
+        )}
       >
         {images[0] && (
           <div
@@ -264,7 +262,7 @@ export function HeroGradientAvatarsRating({
             {heading && (
               <h1
                 className={cn(
-                  "text-4xl font-semibold sm:text-5xl",
+                  "text-4xl font-semibold sm:text-5xl text-balance",
                   headingClassName,
                 )}
               >
@@ -276,7 +274,7 @@ export function HeroGradientAvatarsRating({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "my-8 max-w-xl lg:text-lg",
+                    "my-8 max-w-xl lg:text-lg text-balance",
                     descriptionClassName,
                   )}
                 >

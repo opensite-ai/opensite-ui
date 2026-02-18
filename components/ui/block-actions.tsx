@@ -54,41 +54,6 @@ function BlockActions({
   actions,
   actionsSlot,
 }: Props) {
-  const renderAction = React.useCallback(
-    (action: ActionConfig, idx: number) => {
-      const {
-        label,
-        icon,
-        iconAfter,
-        children,
-        href,
-        onClick,
-        className: actionClassName,
-        ...pressableProps
-      } = action;
-
-      return (
-        <Pressable
-          key={idx}
-          href={href}
-          onClick={onClick}
-          asButton={action.asButton || true}
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    },
-    [],
-  );
-
   const width = mobileConfig?.width ?? "full";
   const position = mobileConfig?.position ?? "center";
   const mobileLayoutClass = MOBILE_CLASSES[`${width}-${position}`];
@@ -105,7 +70,9 @@ function BlockActions({
           verticalSpacing,
         )}
       >
-        {actions.map((action, index) => renderAction(action, index))}
+        {actions.map((action, index) => (
+          <ActionComponent key={index} action={action} />
+        ))}
       </div>
     );
   } else {
@@ -113,4 +80,39 @@ function BlockActions({
   }
 }
 
-export { BlockActions };
+export type ActionComponentProps = {
+  action: ActionConfig;
+};
+
+function ActionComponent({ action }: ActionComponentProps) {
+  const {
+    label,
+    icon,
+    iconAfter,
+    children,
+    href,
+    onClick,
+    className: actionClassName,
+    ...pressableProps
+  } = action;
+
+  return (
+    <Pressable
+      href={href}
+      onClick={onClick}
+      asButton={action.asButton ?? true}
+      className={actionClassName}
+      {...pressableProps}
+    >
+      {children ?? (
+        <>
+          {icon}
+          {label}
+          {iconAfter}
+        </>
+      )}
+    </Pressable>
+  );
+}
+
+export { BlockActions, ActionComponent };

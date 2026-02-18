@@ -13,6 +13,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { Badge } from "@/src";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroCenteredGradientCtaProps {
   /**
@@ -117,50 +118,12 @@ export function HeroCenteredGradientCta({
   patternOpacity,
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  gradientClassName,
   badgeClassName,
   headingClassName,
   descriptionClassName,
   actionsClassName,
   featuresClassName,
 }: HeroCenteredGradientCtaProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className="flex flex-col items-start mt-6 md:mt-8 gap-4 sm:flex-row sm:items-center">
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  <span>{label}</span>
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions]);
-
   const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
@@ -188,7 +151,7 @@ export function HeroCenteredGradientCta({
     >
       <div className="relative gap-6 z-10 flex flex-col items-center text-center">
         {badge && (
-          <Badge className="px-3">
+          <Badge variant="outline" className={cn("px-3", badgeClassName)}>
             {badgeIcon}
             {typeof badge === "string" ? <span>{badge}</span> : badge}
           </Badge>
@@ -230,16 +193,11 @@ export function HeroCenteredGradientCta({
           ) : (
             <div className={descriptionClassName}>{description}</div>
           ))}
-        {(actionsSlot || (actions && actions.length > 0)) && (
-          <div
-            className={cn(
-              "mt-0 md:mt-6 flex flex-col gap-4 sm:flex-row",
-              actionsClassName,
-            )}
-          >
-            {renderActions}
-          </div>
-        )}
+        <BlockActions
+          actions={actions}
+          actionsSlot={actionsSlot}
+          actionsClassName={actionsClassName}
+        />
         {(featuresSlot || (features && features.length > 0)) && (
           <div
             className={cn(

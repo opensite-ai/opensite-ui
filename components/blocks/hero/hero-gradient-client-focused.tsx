@@ -112,7 +112,7 @@ export function HeroGradientClientFocused({
     return (
       <Img
         className={cn(
-          "rounded-2xl aspect-video shadow-xl w-full h-auto object-cover",
+          "rounded-2xl aspect-video shadow-xl w-full h-auto object-cover mt-8 md:mt-12",
           imageClassName,
           image.className,
         )}
@@ -132,12 +132,12 @@ export function HeroGradientClientFocused({
       patternOpacity={patternOpacity}
       containerClassName={containerClassName}
     >
-      <div className="relative flex flex-col items-center gap-8 md:gap-12">
+      <div className="relative flex flex-col items-center gap-4">
         {heading &&
           (typeof heading === "string" ? (
             <h1
               className={cn(
-                "max-w-2xl text-7xl font-semibold max-lg:text-5xl text-balance",
+                "max-w-full md:max-w-md text-7xl font-semibold text-balance",
                 headingClassName,
               )}
             >
@@ -146,7 +146,7 @@ export function HeroGradientClientFocused({
           ) : (
             <h1
               className={cn(
-                "max-w-2xl text-7xl font-semibold max-lg:text-5xl text-balance",
+                "max-w-full md:max-w-md text-7xl font-semibold text-balance",
                 headingClassName,
               )}
             >
@@ -157,7 +157,7 @@ export function HeroGradientClientFocused({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "max-w-2xl max-lg:text-sm text-balance",
+                "max-w-full md:max-w-md text-balance",
                 descriptionClassName,
               )}
             >

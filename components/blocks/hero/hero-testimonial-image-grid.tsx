@@ -3,13 +3,17 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import { Section } from "../../ui/section";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 /**
  * Configuration for the testimonial section
@@ -64,16 +68,17 @@ export interface HeroTestimonialImageGridProps {
    */
   description?: React.ReactNode;
   /**
-   * Primary button configuration
+   * Array of action configurations for CTA buttons
    */
-  button?: {
-    text: string;
-    url: string;
-  };
+  actions?: ActionConfig[];
   /**
-   * Custom slot for button (overrides button prop)
+   * Custom slot for rendering actions (overrides actions array)
    */
-  buttonSlot?: React.ReactNode;
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
   /**
    * Testimonial configuration
    */
@@ -138,14 +143,15 @@ export interface HeroTestimonialImageGridProps {
 export function HeroTestimonialImageGrid({
   heading,
   description,
-  button,
-  buttonSlot,
+  actions,
+  actionsSlot,
+  actionsClassName,
   testimonial,
   testimonialSlot,
   gridImages,
   imagesSlot,
   background,
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
@@ -154,17 +160,6 @@ export function HeroTestimonialImageGrid({
   descriptionClassName,
   optixFlowConfig,
 }: HeroTestimonialImageGridProps): React.JSX.Element {
-  const renderButton = useMemo(() => {
-    if (buttonSlot) return buttonSlot;
-    if (!button || !button.url) return null;
-
-    return (
-      <Pressable href={button.url} asButton size="lg" variant="default">
-        {button.text}
-      </Pressable>
-    );
-  }, [buttonSlot, button]);
-
   const renderTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
     if (!testimonial || !testimonial.avatars) return null;
@@ -240,7 +235,7 @@ export function HeroTestimonialImageGrid({
                 (typeof heading === "string" ? (
                   <h1
                     className={cn(
-                      "leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight lg:text-5xl xl:text-7xl",
+                      "leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight lg:text-5xl xl:text-7xl text-balance",
                       headingClassName,
                     )}
                   >
@@ -249,7 +244,7 @@ export function HeroTestimonialImageGrid({
                 ) : (
                   <h1
                     className={cn(
-                      "leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight lg:text-5xl xl:text-7xl",
+                      "leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight lg:text-5xl xl:text-7xl text-balance",
                       headingClassName,
                     )}
                   >
@@ -277,7 +272,11 @@ export function HeroTestimonialImageGrid({
                   </div>
                 ))}
             </div>
-            <div className="my-6 lg:my-10">{renderButton}</div>
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
             {renderTestimonial}
           </div>
           {renderImagesGrid}

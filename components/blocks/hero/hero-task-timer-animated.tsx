@@ -167,7 +167,12 @@ export function HeroTaskTimerAnimated({
       containerClassName={containerClassName}
     >
       <div className="relative flex flex-col gap-6 md:gap-16">
-        <div className={cn("flex flex-col gap-4 w-full", headerClassName)}>
+        <div
+          className={cn(
+            "flex flex-col gap-4 w-full pt-12 lg:pt-0",
+            headerClassName,
+          )}
+        >
           {heading &&
             (typeof heading === "string" ? (
               <h1

@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import type {
   ActionConfig,
@@ -145,7 +144,7 @@ export function HeroStatsSocialProof({
   pattern,
   patternOpacity,
   className,
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
+  spacing = "xl",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   badgeClassName,
@@ -214,9 +213,9 @@ export function HeroStatsSocialProof({
     >
       <div className="relative">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className={cn("flex flex-col gap-8", contentClassName)}>
+          <div className={cn("flex flex-col gap-4 md:gap-8", contentClassName)}>
             {badge && (
-              <Badge className={cn("px-4 py-2", badgeClassName)}>
+              <Badge className={cn("px-4 py-2 gap-2", badgeClassName)}>
                 {badgeIcon}
                 {typeof badge === "string" ? <span>{badge}</span> : badge}
               </Badge>

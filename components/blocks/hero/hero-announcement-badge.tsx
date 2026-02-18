@@ -86,6 +86,7 @@ export function HeroAnnouncementBadge({
   description,
   actions,
   actionsSlot,
+  actionsClassName,
   background,
   pattern,
   patternOpacity,
@@ -95,7 +96,6 @@ export function HeroAnnouncementBadge({
   badgeClassName,
   headingClassName,
   descriptionClassName,
-  actionsClassName,
 }: HeroAnnouncementBadgeProps): React.JSX.Element {
   return (
     <Section

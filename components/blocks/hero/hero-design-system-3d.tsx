@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -15,6 +15,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroDesignSystem3dProps {
   /**
@@ -114,11 +115,11 @@ export function HeroDesignSystem3d({
   images,
   imagesSlot,
   background,
-  spacing,
+  spacing = "pt-32 pb-0 md:pt-32 md:pb-0",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -144,79 +145,6 @@ export function HeroDesignSystem3d({
       </div>
     );
   }, [trustBadgeSlot, trustBadge]);
-
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div
-        className={cn(
-          "flex w-full flex-wrap items-center gap-4 md:w-fit",
-          actionsClassName,
-        )}
-      >
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-
-          if (index === 0) {
-            return (
-              <Pressable
-                key={index}
-                asButton
-                className={actionClassName}
-                {...pressableProps}
-              >
-                <Img
-                  src={logoMarkSrc}
-                  alt=""
-                  className="block size-6 shrink-0"
-                  optixFlowConfig={optixFlowConfig}
-                />
-                <p
-                  className={cn(
-                    "text-nowrap transition-all duration-300 ease-in-out",
-                    `group-hover:${getAccentColor(background)}`,
-                  )}
-                >
-                  {label}
-                </p>
-                <DynamicIcon
-                  name="lucide/move-up-right"
-                  size={24}
-                  className="shrink-0 stroke-black transition-all duration-300 ease-in-out group-hover:stroke-primary"
-                />
-              </Pressable>
-            );
-          }
-
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName, logoMarkSrc, optixFlowConfig]);
 
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
@@ -284,10 +212,11 @@ export function HeroDesignSystem3d({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("font-sans", className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-396 px-0 sm:px-8", containerClassName)}>
-        <div className="container px-4">
+      <div className="relative flex flex-col gap-4 md:gap-8 lg:gap-12">
+        <div className="relative flex flex-col gap-4 md:gap-6 lg:gap-8">
           <div
             className={cn(
               "mx-auto flex max-w-100 flex-col items-center gap-6 sm:max-w-125 lg:max-w-160",
@@ -322,7 +251,6 @@ export function HeroDesignSystem3d({
                 <p
                   className={cn(
                     "text-center text-base leading-snug text-balance sm:text-2xl",
-                    getTextColor(background, "muted"),
                     descriptionClassName,
                   )}
                 >
@@ -331,7 +259,11 @@ export function HeroDesignSystem3d({
               ) : (
                 <div className={descriptionClassName}>{description}</div>
               ))}
-            {renderActions}
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
           </div>
         </div>
         {renderImages}

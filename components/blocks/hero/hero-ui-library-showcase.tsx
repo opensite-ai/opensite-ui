@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import type {
@@ -141,7 +140,7 @@ export function HeroUiLibraryShowcase({
     if (!image) return null;
 
     return (
-      <div className="w-full overflow-hidden rounded-2xl shadow-xl mt-8 md:mt-12">
+      <div className="w-full overflow-hidden rounded-2xl shadow-xl mt-12 md:mt-20">
         <AspectRatio ratio={1.916786227 / 1}>
           <Img
             src={image.src}
@@ -167,7 +166,7 @@ export function HeroUiLibraryShowcase({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("flex flex-col gap-10 items-start", headerClassName)}>
+      <div className={cn("flex flex-col gap-4 items-start", headerClassName)}>
         {renderLogo}
         <div className="flex max-w-[880px] flex-col items-center gap-6">
           {heading &&

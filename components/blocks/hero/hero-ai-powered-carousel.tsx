@@ -159,7 +159,7 @@ export function HeroAiPoweredCarousel({
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "mt-10 mb-4 text-3xl font-semibold lg:text-5xl text-balance",
+                    "mt-4 md:mt-10 mb-4 text-3xl font-semibold lg:text-5xl text-balance",
                     headingClassName,
                   )}
                 >

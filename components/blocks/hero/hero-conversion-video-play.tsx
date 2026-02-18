@@ -144,7 +144,7 @@ export function HeroConversionVideoPlay({
   logos,
   logosSlot,
   background,
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
@@ -302,7 +302,7 @@ export function HeroConversionVideoPlay({
                 plugins={[AutoScroll({ playOnInit: true, speed: 1 })]}
                 className="relative w-full max-w-(--breakpoint-2xl) overflow-hidden"
               >
-                <CarouselContent className="items-center">
+                <CarouselContent className={cn("items-center", logosClassName)}>
                   {[...logos, ...logos].map((logo, index) => (
                     <CarouselItem key={index} className="w-fit basis-auto px-7">
                       <Img

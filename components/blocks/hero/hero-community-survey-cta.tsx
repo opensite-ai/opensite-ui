@@ -24,10 +24,6 @@ export interface HeroCommunitySurveyCtaProps {
    */
   announcementPrimary?: React.ReactNode;
   /**
-   * Announcement banner secondary text
-   */
-  announcementSecondary?: React.ReactNode;
-  /**
    * Announcement banner link text
    */
   announcementLinkText?: React.ReactNode;
@@ -123,7 +119,6 @@ export interface HeroCommunitySurveyCtaProps {
 
 export function HeroCommunitySurveyCta({
   announcementPrimary,
-  announcementSecondary,
   announcementLinkText,
   announcementHref,
   announcementSlot,
@@ -137,7 +132,7 @@ export function HeroCommunitySurveyCta({
   imagesSlot,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
@@ -155,16 +150,13 @@ export function HeroCommunitySurveyCta({
       <Pressable href={announcementHref}>
         <Badge
           className={cn(
-            "group mx-auto w-fit gap-3 px-5 py-2 text-sm h-fit",
+            "group mx-auto w-fit px-5 py-2 text-sm h-fit",
             announcementClassName,
           )}
         >
-          <div className="flex flex-col">
-            <div className="font-medium">{announcementPrimary}</div>
-            {announcementSecondary}
-          </div>
+          <span>{announcementPrimary}</span>
           {announcementLinkText ? (
-            <span className="font-semibold pl-4 ml-4 border-l">
+            <span className="font-bold pl-4 ml-4 border-l border-primary-foreground">
               {announcementLinkText}
             </span>
           ) : null}
@@ -176,7 +168,6 @@ export function HeroCommunitySurveyCta({
     announcementHref,
     announcementClassName,
     announcementPrimary,
-    announcementSecondary,
     announcementLinkText,
   ]);
 
@@ -270,7 +261,7 @@ export function HeroCommunitySurveyCta({
             optixFlowConfig={optixFlowConfig}
           />
         </div>
-        <div className="absolute bottom-4 left-[10%] z-30 aspect-square w-[35%] overflow-hidden rounded-lg shadow-2xl md:bottom-6 md:left-[15%]">
+        <div className="absolute bottom-4 left-[10%] z-30 aspect-square w-[35%] overflow-hidden rounded-lg shadow-2xl md:bottom-6 md:left-[5%]">
           <Img
             src={leftOverlayImage!.src}
             alt={leftOverlayImage!.alt}
@@ -300,7 +291,7 @@ export function HeroCommunitySurveyCta({
       containerClassName={containerClassName}
     >
       <div className="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
-        <div>
+        <div className="flex flex-col items-start gap-6 md:gap-8">
           {renderAnnouncement}
           {heading &&
             (typeof heading === "string" ? (
@@ -335,9 +326,7 @@ export function HeroCommunitySurveyCta({
             actionsSlot={actionsSlot}
           />
         </div>
-        <div className="relative">
-          {renderImages}
-        </div>
+        <div className="relative">{renderImages}</div>
       </div>
     </Section>
   );

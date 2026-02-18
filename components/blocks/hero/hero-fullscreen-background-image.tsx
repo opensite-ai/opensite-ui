@@ -142,7 +142,7 @@ export function HeroFullscreenBackgroundImage({
           (typeof heading === "string" ? (
             <h1
               className={cn(
-                "text-center text-4xl leading-tight md:text-6xl xl:text-[4.4rem] text-balance text-white text-shadow-2xl",
+                "text-center text-4xl leading-tight md:text-6xl xl:text-[4.4rem] text-balance text-white text-shadow-2xl font-semibold",
                 headingClassName,
               )}
             >
@@ -155,7 +155,7 @@ export function HeroFullscreenBackgroundImage({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-center text-base text-balance text-shadow-2xl",
+                "text-center text-base text-balance text-white text-shadow-2xl",
                 descriptionClassName,
               )}
             >

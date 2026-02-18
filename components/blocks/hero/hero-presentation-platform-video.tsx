@@ -4,9 +4,14 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroPresentationPlatformVideoProps {
   /**
@@ -36,7 +41,7 @@ export interface HeroPresentationPlatformVideoProps {
   /**
    * Custom slot for video (overrides videoSrc prop)
    */
-  videoSlot?: React.ReactNode;  /**
+  videoSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -77,6 +82,10 @@ export interface HeroPresentationPlatformVideoProps {
    * Additional CSS classes for the video container
    */
   videoClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 export function HeroPresentationPlatformVideo({
@@ -85,10 +94,11 @@ export function HeroPresentationPlatformVideo({
   description,
   actions,
   actionsSlot,
+  actionsClassName,
   videoSrc,
   videoSlot,
   background,
-  spacing = "py-32 md:py-32",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
@@ -105,7 +115,14 @@ export function HeroPresentationPlatformVideo({
     return (
       <div className="flex flex-col gap-4 font-medium md:flex-row">
         {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -131,7 +148,12 @@ export function HeroPresentationPlatformVideo({
     if (videoSlot) return videoSlot;
 
     return (
-      <div className={cn("relative hidden h-[720px] w-[45%] overflow-hidden rounded-l-full bg-foreground lg:block", videoClassName)}>
+      <div
+        className={cn(
+          "relative hidden h-[720px] w-[45%] overflow-hidden rounded-l-full bg-foreground lg:block",
+          videoClassName,
+        )}
+      >
         <video
           autoPlay
           loop
@@ -156,38 +178,52 @@ export function HeroPresentationPlatformVideo({
       className={cn("relative flex items-center justify-center", className)}
       containerClassName={containerClassName}
     >
-      <div className="relative flex min-h-screen items-center justify-between">
-        <div className={cn("flex flex-col gap-5 lg:w-[50%] lg:pr-0", contentClassName)}>
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className="font-light uppercase">
-                {subtitle}
-              </p>
+      <div className="relative flex min-h-fit md:min-h-screen items-center justify-between">
+        <div
+          className={cn(
+            "flex flex-col gap-5 lg:w-[50%] lg:pr-0",
+            contentClassName,
+          )}
+        >
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p className="font-light uppercase">{subtitle}</p>
             ) : (
               subtitle
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-5xl font-medium md:text-6xl lg:text-7xl", headingClassName)}>
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-5xl font-medium md:text-6xl lg:text-7xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("text-5xl font-medium md:text-6xl lg:text-7xl", headingClassName)}>
+              <h1
+                className={cn(
+                  "text-5xl font-medium md:text-6xl lg:text-7xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
+            ))}
+          {description &&
+            (typeof description === "string" ? (
               <p className={cn("my-8 md:text-xl", descriptionClassName)}>
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
-          {renderActions}
+            ))}
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
         {renderVideo}
       </div>

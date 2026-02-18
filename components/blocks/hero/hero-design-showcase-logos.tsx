@@ -15,6 +15,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroDesignShowcaseLogosProps {
   /**
@@ -112,66 +113,25 @@ export function HeroDesignShowcaseLogos({
   description,
   actions,
   actionsSlot,
+  actionsClassName,
   logosLabel,
   logos,
   logosSlot,
   showcaseImage,
   showcaseSlot,
   background,
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
+  spacing = "xl",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
-  actionsClassName,
   logosClassName,
   showcaseClassName,
   optixFlowConfig,
 }: HeroDesignShowcaseLogosProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div
-        className={cn(
-          "mt-6 md:mt-12 flex flex-col md:flex-row items-center justify-center gap-4",
-          actionsClassName,
-        )}
-      >
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label && <div>{label}</div>}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
   const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
@@ -256,7 +216,7 @@ export function HeroDesignShowcaseLogos({
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "mb-6 text-center text-[2.75rem] leading-tight font-semibold md:text-[3.5rem] lg:text-[4.375rem] text-balance",
+                    "mb-6 text-center text-[2.75rem] leading-tight font-semibold md:text-[3.5rem] lg:text-[4.375rem] text-balance max-w-full md:max-w-md",
                     headingClassName,
                   )}
                 >
@@ -265,7 +225,7 @@ export function HeroDesignShowcaseLogos({
               ) : (
                 <h1
                   className={cn(
-                    "mb-6 text-center text-[2.75rem] leading-tight font-semibold md:text-[3.5rem] lg:text-[4.375rem] text-balance",
+                    "mb-6 text-center text-[2.75rem] leading-tight font-semibold md:text-[3.5rem] lg:text-[4.375rem] text-balance max-w-full md:max-w-md",
                     headingClassName,
                   )}
                 >
@@ -276,7 +236,7 @@ export function HeroDesignShowcaseLogos({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "text-center text-xl text-balance",
+                    "text-center text-xl text-balance max-w-full md:max-w-md",
                     descriptionClassName,
                   )}
                 >
@@ -286,7 +246,11 @@ export function HeroDesignShowcaseLogos({
                 <div className={descriptionClassName}>{description}</div>
               ))}
           </div>
-          <div>{renderActions}</div>
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
           <div>{renderLogos}</div>
         </div>
       </div>
