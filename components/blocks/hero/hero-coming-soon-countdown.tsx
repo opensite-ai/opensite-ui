@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Input } from "../../ui/input";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -16,6 +15,25 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { Badge, SocialLinkIcon } from "@/src";
+import { Form } from "@page-speed/forms";
+import {
+  DynamicFormField,
+  useContactForm,
+  useFileUpload,
+  type FormFieldConfig,
+  type PageSpeedFormConfig,
+} from "@page-speed/forms/integration";
+
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "Enter your email",
+    required: true,
+    columnSpan: 12,
+  },
+];
 
 interface TimeLeft {
   days: number;
@@ -91,15 +109,39 @@ export interface HeroComingSoonCountdownProps {
    */
   countdownSlot?: React.ReactNode;
   /**
-   * Email input placeholder text
+   * Form field configuration
    */
-  emailPlaceholder?: string;
+  formFields?: FormFieldConfig[];
   /**
-   * Submit button action configuration
+   * Form configuration for submission
    */
-  submitAction?: ActionConfig;
+  formConfig?: PageSpeedFormConfig;
   /**
-   * Custom slot for the form (overrides email input and submit)
+   * Custom submit handler
+   */
+  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
+  /**
+   * Success callback
+   */
+  onSuccess?: (data: unknown) => void;
+  /**
+   * Error callback
+   */
+  onError?: (error: Error) => void;
+  /**
+   * Success message to display
+   */
+  successMessage?: React.ReactNode;
+  /**
+   * Submit button configuration
+   */
+  buttonAction?: ActionConfig;
+  /**
+   * Helper text below form
+   */
+  helperText?: React.ReactNode;
+  /**
+   * Custom slot for the form (overrides form props)
    */
   formSlot?: React.ReactNode;
   /**
@@ -171,8 +213,14 @@ export function HeroComingSoonCountdown({
   description,
   countdownDate,
   countdownSlot,
-  emailPlaceholder = "Enter your email",
-  submitAction,
+  formFields = DEFAULT_FORM_FIELDS,
+  formConfig,
+  onSubmit,
+  onSuccess,
+  onError,
+  successMessage,
+  buttonAction,
+  helperText,
   formSlot,
   socialLinks,
   socialLinksSlot,
@@ -191,6 +239,20 @@ export function HeroComingSoonCountdown({
   socialLinksClassName,
 }: HeroComingSoonCountdownProps): React.JSX.Element {
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
+
+  const { uploadTokens, uploadProgress, isUploading, uploadFiles, removeFile, resetUpload } = useFileUpload({ onError });
+
+  const { form, submissionError, formMethod, resetSubmissionState } = useContactForm({
+    formFields,
+    formConfig,
+    onSubmit,
+    onSuccess: (data) => {
+      resetUpload();
+      onSuccess?.(data);
+    },
+    onError,
+    uploadTokens,
+  });
 
   const calculateTimeLeft = useCallback((): TimeLeft | null => {
     if (!countdownDate) return null;
@@ -226,36 +288,63 @@ export function HeroComingSoonCountdown({
 
   const renderForm = useMemo(() => {
     if (formSlot) return formSlot;
-    if (!submitAction) return null;
 
-    const {
-      label,
-      icon,
-      iconAfter,
-      children,
-      className: actionClassName,
-      ...pressableProps
-    } = submitAction;
+    const defaultButtonAction: ActionConfig = {
+      label: "Notify Me",
+      variant: "default",
+      className: "h-12",
+    };
+
+    const action = buttonAction || defaultButtonAction;
 
     return (
-      <>
-        <Input
-          type="email"
-          placeholder={emailPlaceholder}
-          className={cn("h-12 flex-1 border-border/50")}
-        />
-        <Pressable asButton className={actionClassName} {...pressableProps}>
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
+      <Form
+        form={form}
+        notificationConfig={{
+          submissionError,
+          successMessage,
+        }}
+        formConfig={{
+          endpoint: formConfig?.endpoint,
+          method: formMethod,
+          submissionConfig: formConfig?.submissionConfig,
+        }}
+        onNewSubmission={() => {
+          resetUpload();
+          resetSubmissionState();
+        }}
+      >
+        {formFields.map((field) => (
+          <div key={field.name} className="flex-1">
+            <DynamicFormField
+              field={field}
+              uploadProgress={uploadProgress}
+              onFileUpload={uploadFiles}
+              onFileRemove={removeFile}
+              isUploading={isUploading}
+            />
+          </div>
+        ))}
+        <Pressable
+          onClick={form.handleSubmit}
+          asButton
+          variant={action.variant}
+          className={cn("h-12", action.className)}
+          disabled={form.isSubmitting}
+        >
+          {action.label}
+          {action.iconAfter}
         </Pressable>
-      </>
+        {helperText && (
+          typeof helperText === "string" ? (
+            <p className={cn("text-sm mt-2 text-center")}>{helperText}</p>
+          ) : (
+            helperText
+          )
+        )}
+      </Form>
     );
-  }, [formSlot, submitAction, emailPlaceholder]);
+  }, [formSlot, formFields, form, formConfig, formMethod, buttonAction, uploadProgress, uploadFiles, removeFile, isUploading, submissionError, successMessage, helperText, resetUpload, resetSubmissionState]);
 
   const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;

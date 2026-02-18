@@ -38,10 +38,10 @@ describe("HeroSaasDashboardPreview", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders emailForm when provided", () => {
-    const emailForm = { placeholder: "Enter your email", action: { label: "Get Started", href: "/start" } };
-    render(<HeroSaasDashboardPreview emailForm={emailForm} />);
-    expect(screen.getByPlaceholderText("Enter your email")).toBeInTheDocument();
+  it("renders form fields when provided", () => {
+    const formFields = [{ name: "email", type: "email" as const, label: "Email", placeholder: "Enter your email", required: true, columnSpan: 12 }];
+    render(<HeroSaasDashboardPreview formFields={formFields} />);
+    expect(screen.getByText("Email")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

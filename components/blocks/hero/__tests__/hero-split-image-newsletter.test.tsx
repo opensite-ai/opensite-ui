@@ -38,10 +38,10 @@ describe("HeroSplitImageNewsletter", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders newsletterForm when provided", () => {
-    const newsletterForm = { placeholder: "Enter your email", action: { label: "Subscribe", href: "/subscribe" } };
-    render(<HeroSplitImageNewsletter newsletterForm={newsletterForm} />);
-    expect(screen.getByPlaceholderText("Enter your email")).toBeInTheDocument();
+  it("renders form fields when provided", () => {
+    const formFields = [{ name: "email", type: "email" as const, label: "Email", placeholder: "Enter your email", required: true, columnSpan: 12 }];
+    render(<HeroSplitImageNewsletter formFields={formFields} />);
+    expect(screen.getByText("Email")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

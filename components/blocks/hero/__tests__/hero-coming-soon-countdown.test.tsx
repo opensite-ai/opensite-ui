@@ -41,9 +41,9 @@ describe("HeroComingSoonCountdown", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders submitAction when provided", () => {
-    const submitAction = { label: "Notify Me", href: "/notify" };
-    render(<HeroComingSoonCountdown submitAction={submitAction} />);
+  it("renders buttonAction when provided", () => {
+    const buttonAction = { label: "Notify Me", variant: "default" as const };
+    render(<HeroComingSoonCountdown buttonAction={buttonAction} />);
     expect(screen.getByText("Notify Me")).toBeInTheDocument();
   });
 
