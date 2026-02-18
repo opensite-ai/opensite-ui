@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -238,7 +237,7 @@ export function HeroComingSoonCountdown({
   formClassName,
   socialLinksClassName,
 }: HeroComingSoonCountdownProps): React.JSX.Element {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
+  const [timeLeft, setTimeLeft] = React.useState<TimeLeft | null>(null);
 
   const {
     uploadTokens,
@@ -262,7 +261,7 @@ export function HeroComingSoonCountdown({
       uploadTokens,
     });
 
-  const calculateTimeLeft = useCallback((): TimeLeft | null => {
+  const calculateTimeLeft = React.useCallback((): TimeLeft | null => {
     if (!countdownDate) return null;
     const now = Date.now();
     const target = countdownDate.getTime();
@@ -278,7 +277,7 @@ export function HeroComingSoonCountdown({
     };
   }, [countdownDate]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setTimeLeft(calculateTimeLeft());
 
     if (!countdownDate) return;
@@ -294,7 +293,7 @@ export function HeroComingSoonCountdown({
 
   const showCountdown = countdownSlot || timeLeft;
 
-  const renderForm = useMemo(() => {
+  const renderForm = React.useMemo(() => {
     if (formSlot) return formSlot;
 
     const defaultButtonAction: ActionConfig = {
@@ -308,6 +307,7 @@ export function HeroComingSoonCountdown({
     return (
       <Form
         form={form}
+        fields={formFields}
         notificationConfig={{
           submissionError,
           successMessage,
@@ -316,6 +316,10 @@ export function HeroComingSoonCountdown({
           endpoint: formConfig?.endpoint,
           method: formMethod,
           submissionConfig: formConfig?.submissionConfig,
+          formLayout: "button-group",
+          buttonGroupSize: "lg",
+          submitLabel: action.label,
+          submitVariant: action.variant || "default",
         }}
         onNewSubmission={() => {
           resetUpload();
@@ -369,7 +373,7 @@ export function HeroComingSoonCountdown({
     resetSubmissionState,
   ]);
 
-  const renderSocialLinks = useMemo(() => {
+  const renderSocialLinks = React.useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 

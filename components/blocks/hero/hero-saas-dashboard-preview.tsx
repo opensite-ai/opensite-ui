@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -186,21 +185,29 @@ export function HeroSaasDashboardPreview({
   previewClassName,
   optixFlowConfig,
 }: HeroSaasDashboardPreviewProps): React.JSX.Element {
-  const { uploadTokens, uploadProgress, isUploading, uploadFiles, removeFile, resetUpload } = useFileUpload({ onError });
-
-  const { form, submissionError, formMethod, resetSubmissionState } = useContactForm({
-    formFields,
-    formConfig,
-    onSubmit,
-    onSuccess: (data) => {
-      resetUpload();
-      onSuccess?.(data);
-    },
-    onError,
+  const {
     uploadTokens,
-  });
+    uploadProgress,
+    isUploading,
+    uploadFiles,
+    removeFile,
+    resetUpload,
+  } = useFileUpload({ onError });
 
-  const renderBadge = useMemo(() => {
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields,
+      formConfig,
+      onSubmit,
+      onSuccess: (data) => {
+        resetUpload();
+        onSuccess?.(data);
+      },
+      onError,
+      uploadTokens,
+    });
+
+  const renderBadge = React.useMemo(() => {
     if (badgeSlot) return badgeSlot;
 
     return (
@@ -215,7 +222,7 @@ export function HeroSaasDashboardPreview({
     );
   }, [badgeSlot, badgeIcon, badgeText]);
 
-  const renderForm = useMemo(() => {
+  const renderForm = React.useMemo(() => {
     if (formSlot) return formSlot;
 
     const defaultButtonAction: ActionConfig = {
@@ -229,6 +236,7 @@ export function HeroSaasDashboardPreview({
     return (
       <Form
         form={form}
+        fields={formFields}
         notificationConfig={{
           submissionError,
           successMessage,
@@ -237,6 +245,10 @@ export function HeroSaasDashboardPreview({
           endpoint: formConfig?.endpoint,
           method: formMethod,
           submissionConfig: formConfig?.submissionConfig,
+          formLayout: "button-group",
+          buttonGroupSize: "lg",
+          submitLabel: action.label,
+          submitVariant: action.variant || "default",
         }}
         onNewSubmission={() => {
           resetUpload();
@@ -267,18 +279,33 @@ export function HeroSaasDashboardPreview({
             </Pressable>
           </div>
         </div>
-        {helperText && (
-          typeof helperText === "string" ? (
+        {helperText &&
+          (typeof helperText === "string" ? (
             <p className={cn("text-sm text-center mt-4")}>{helperText}</p>
           ) : (
             helperText
-          )
-        )}
+          ))}
       </Form>
     );
-  }, [formSlot, formFields, form, formConfig, formMethod, buttonAction, uploadProgress, uploadFiles, removeFile, isUploading, submissionError, successMessage, helperText, resetUpload, resetSubmissionState]);
+  }, [
+    formSlot,
+    formFields,
+    form,
+    formConfig,
+    formMethod,
+    buttonAction,
+    uploadProgress,
+    uploadFiles,
+    removeFile,
+    isUploading,
+    submissionError,
+    successMessage,
+    helperText,
+    resetUpload,
+    resetSubmissionState,
+  ]);
 
-  const renderBrowserPreview = useMemo(() => {
+  const renderBrowserPreview = React.useMemo(() => {
     if (browserPreviewSlot) return browserPreviewSlot;
     if (!browserPreview) return null;
 

@@ -12,8 +12,8 @@ importers:
         specifier: 2.0.8
         version: 2.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/forms':
-        specifier: 0.5.8
-        version: 0.5.8(@types/react-dom@18.3.7(@types/react@18.3.27))(@types/react@18.3.27)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        specifier: 0.5.9
+        version: 0.5.9(@types/react-dom@18.3.7(@types/react@18.3.27))(@types/react@18.3.27)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       '@page-speed/icon':
         specifier: ^0.1.0
         version: 0.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -653,8 +653,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@legendapp/state@3.0.0-beta.43':
-    resolution: {integrity: sha512-5Jtz1Vlubw5x98I+H12talCFT02orIWq+ewBMPFlSNIxRj+ZLjwV2yDM2UMR8ebI8XqW8YyoqOfGFh9zr3VU0g==}
+  '@legendapp/state@3.0.0-beta.44':
+    resolution: {integrity: sha512-NsRoVGst1mg3qsY5tcYBUt4jfbLbRE3G44PuiARYvpuNYoeVNTyKmUE4MiOwt1yQZxv9nOeK3KzptbdNYisoVQ==}
     peerDependencies:
       expo-sqlite: ^15.0.0
     peerDependenciesMeta:
@@ -750,8 +750,8 @@ packages:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
 
-  '@page-speed/forms@0.5.8':
-    resolution: {integrity: sha512-6hl0VpAf4T4aS1+dpV+vpK0wIFNLWmlljoICkQyUkCx59+63WcL1Qg0lbeksfkQsHYfFTgw6eLIUS57tSzCPGg==}
+  '@page-speed/forms@0.5.9':
+    resolution: {integrity: sha512-Di6OVGpCaNJwNsRlBA3W4623gAt1V58NFMeUfarv0sjKOy2pwUop9Nz8DKeVJ5EyYOBeEl7dpvDQ9iH3ZNVJqQ==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       react: '>=16.8.0'
@@ -3120,7 +3120,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@legendapp/state@3.0.0-beta.43(react@18.3.1)':
+  '@legendapp/state@3.0.0-beta.44(react@18.3.1)':
     dependencies:
       use-sync-external-store: 1.6.0(react@18.3.1)
     transitivePeerDependencies:
@@ -3185,7 +3185,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@page-speed/forms@0.5.8(@types/react-dom@18.3.7(@types/react@18.3.27))(@types/react@18.3.27)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
+  '@page-speed/forms@0.5.9(@types/react-dom@18.3.7(@types/react@18.3.27))(@types/react@18.3.27)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
       '@opensite/hooks': 2.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-direction': 1.1.1(@types/react@18.3.27)(react@18.3.1)
@@ -3203,7 +3203,7 @@ snapshots:
       zod: 4.3.6
       zod-validation-error: 5.0.0(zod@4.3.6)
     optionalDependencies:
-      '@legendapp/state': 3.0.0-beta.43(react@18.3.1)
+      '@legendapp/state': 3.0.0-beta.44(react@18.3.1)
       valibot: 1.2.0(typescript@5.9.3)
     transitivePeerDependencies:
       - '@types/react'

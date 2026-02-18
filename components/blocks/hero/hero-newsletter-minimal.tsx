@@ -1,10 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { Input } from "../../ui/input";
 import type {
   ActionConfig,
   StatItem,
@@ -13,6 +11,25 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { Form } from "@page-speed/forms";
+import {
+  DynamicFormField,
+  useContactForm,
+  useFileUpload,
+  type FormFieldConfig,
+  type PageSpeedFormConfig,
+} from "@page-speed/forms/integration";
+
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "Enter your email",
+    required: true,
+    columnSpan: 12,
+  },
+];
 
 export interface HeroNewsletterMinimalProps {
   /**
@@ -24,15 +41,39 @@ export interface HeroNewsletterMinimalProps {
    */
   description?: React.ReactNode;
   /**
-   * Email input placeholder text
+   * Form field configuration
    */
-  inputPlaceholder?: string;
+  formFields?: FormFieldConfig[];
+  /**
+   * Form configuration for submission
+   */
+  formConfig?: PageSpeedFormConfig;
+  /**
+   * Custom submit handler
+   */
+  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
+  /**
+   * Success callback
+   */
+  onSuccess?: (data: unknown) => void;
+  /**
+   * Error callback
+   */
+  onError?: (error: Error) => void;
+  /**
+   * Success message to display
+   */
+  successMessage?: React.ReactNode;
   /**
    * Submit button configuration
    */
-  submitAction?: ActionConfig;
+  buttonAction?: ActionConfig;
   /**
-   * Custom slot for the form (overrides default input + button)
+   * Helper text below form
+   */
+  helperText?: React.ReactNode;
+  /**
+   * Custom slot for the form (overrides form props)
    */
   formSlot?: React.ReactNode;
   /**
@@ -104,8 +145,14 @@ export interface HeroNewsletterMinimalProps {
 export function HeroNewsletterMinimal({
   heading,
   description,
-  inputPlaceholder,
-  submitAction,
+  formFields = DEFAULT_FORM_FIELDS,
+  formConfig,
+  onSubmit,
+  onSuccess,
+  onError,
+  successMessage,
+  buttonAction,
+  helperText,
   formSlot,
   disclaimer,
   stats,
@@ -120,11 +167,31 @@ export function HeroNewsletterMinimal({
   headingClassName,
   descriptionClassName,
   formClassName,
-  inputClassName,
   disclaimerClassName,
   statsClassName,
 }: HeroNewsletterMinimalProps): React.JSX.Element {
-  const renderStats = useMemo(() => {
+  const {
+    uploadTokens,
+    uploadProgress,
+    isUploading,
+    uploadFiles,
+    removeFile,
+    resetUpload,
+  } = useFileUpload({ onError });
+
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields,
+      formConfig,
+      onSubmit,
+      onSuccess: (data) => {
+        resetUpload();
+        onSuccess?.(data);
+      },
+      onError,
+      uploadTokens,
+    });
+  const renderStats = React.useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -150,38 +217,85 @@ export function HeroNewsletterMinimal({
     ));
   }, [statsSlot, stats]);
 
-  const renderForm = useMemo(() => {
+  const renderForm = React.useMemo(() => {
     if (formSlot) return formSlot;
-    if (!submitAction) return null;
 
-    const {
-      label,
-      icon,
-      iconAfter,
-      children,
-      className: actionClassName,
-      ...pressableProps
-    } = submitAction;
+    const defaultButtonAction: ActionConfig = {
+      label: "Subscribe",
+      variant: "default",
+      className: "h-12",
+    };
+
+    const action = buttonAction || defaultButtonAction;
 
     return (
-      <>
-        <Input
-          type="email"
-          placeholder={inputPlaceholder}
-          className={cn("h-12 flex-1", inputClassName)}
-        />
-        <Pressable asButton className={actionClassName} {...pressableProps}>
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
+      <Form
+        form={form}
+        fields={formFields}
+        notificationConfig={{
+          submissionError,
+          successMessage,
+        }}
+        formConfig={{
+          endpoint: formConfig?.endpoint,
+          method: formMethod,
+          submissionConfig: formConfig?.submissionConfig,
+          formLayout: "button-group",
+          buttonGroupSize: "lg",
+          submitLabel: action.label,
+          submitVariant: action.variant || "default",
+        }}
+        onNewSubmission={() => {
+          resetUpload();
+          resetSubmissionState();
+        }}
+      >
+        {formFields.map((field) => (
+          <div key={field.name} className="flex-1">
+            <DynamicFormField
+              field={field}
+              uploadProgress={uploadProgress}
+              onFileUpload={uploadFiles}
+              onFileRemove={removeFile}
+              isUploading={isUploading}
+            />
+          </div>
+        ))}
+        <Pressable
+          onClick={form.handleSubmit}
+          asButton
+          variant={action.variant}
+          className={cn("h-12", action.className)}
+          disabled={form.isSubmitting}
+        >
+          {action.label}
+          {action.iconAfter}
         </Pressable>
-      </>
+        {helperText &&
+          (typeof helperText === "string" ? (
+            <p className={cn("text-sm mt-2 text-center")}>{helperText}</p>
+          ) : (
+            helperText
+          ))}
+      </Form>
     );
-  }, [formSlot, submitAction, inputPlaceholder, inputClassName]);
+  }, [
+    formSlot,
+    formFields,
+    form,
+    formConfig,
+    formMethod,
+    buttonAction,
+    uploadProgress,
+    uploadFiles,
+    removeFile,
+    isUploading,
+    submissionError,
+    successMessage,
+    helperText,
+    resetUpload,
+    resetSubmissionState,
+  ]);
 
   return (
     <Section

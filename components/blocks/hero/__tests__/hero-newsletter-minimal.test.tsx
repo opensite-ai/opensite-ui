@@ -34,9 +34,9 @@ describe("HeroNewsletterMinimal", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders submitAction when provided", () => {
-    const submitAction = { label: "Subscribe", href: "/subscribe" };
-    render(<HeroNewsletterMinimal submitAction={submitAction} />);
+  it("renders buttonAction when provided", () => {
+    const buttonAction = { label: "Subscribe", variant: "default" as const };
+    render(<HeroNewsletterMinimal buttonAction={buttonAction} />);
     expect(screen.getByText("Subscribe")).toBeInTheDocument();
   });
 
