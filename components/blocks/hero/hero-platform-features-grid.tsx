@@ -167,7 +167,7 @@ export function HeroPlatformFeaturesGrid({
     return (
       <div
         className={cn(
-          "mt-16 grid gap-px overflow-hidden rounded-lg border bg-input md:grid-cols-2 lg:grid-cols-4 w-full",
+          "mt-12 md:mt-16 grid gap-px overflow-hidden rounded-lg border bg-input md:grid-cols-2 lg:grid-cols-4 w-full",
           featuresClassName,
         )}
       >
@@ -211,7 +211,7 @@ export function HeroPlatformFeaturesGrid({
       <div className="flex flex-col items-center w-full">
         <div
           className={cn(
-            "flex flex-col items-center w-full gap-6 text-center",
+            "flex flex-col items-center w-full gap-4 md:gap-6 text-center",
             headerClassName,
           )}
         >

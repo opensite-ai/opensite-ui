@@ -15,6 +15,7 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroTaskTimerAnimatedProps {
   /**
@@ -29,6 +30,10 @@ export interface HeroTaskTimerAnimatedProps {
    * Custom slot for rendering actions (overrides actions array)
    */
   actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
   /**
    * Array of showcase images (expects 2 images)
    */
@@ -93,56 +98,20 @@ export function HeroTaskTimerAnimated({
   descriptionClassName,
   actions,
   actionsSlot,
+  actionsClassName,
   images,
   imagesSlot,
   background,
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
+  spacing = "xl",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
   imagesClassName,
   optixFlowConfig,
 }: HeroTaskTimerAnimatedProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className="flex flex-col items-start mt-6 md:mt-8 gap-4 sm:flex-row sm:items-center">
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  <span>{label}</span>
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions]);
-
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length < 2) return null;
@@ -227,7 +196,11 @@ export function HeroTaskTimerAnimated({
             ) : (
               <div className={descriptionClassName}>{description}</div>
             ))}
-          {renderActions}
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
         {renderImages}
       </div>

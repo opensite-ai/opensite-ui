@@ -91,7 +91,7 @@ export function HeroAnnouncementBadge({
   patternOpacity,
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
+  spacing = "pt-32 pb-16 md:pt-32 md:pb-32",
   badgeClassName,
   headingClassName,
   descriptionClassName,
@@ -119,7 +119,7 @@ export function HeroAnnouncementBadge({
               </span>
             )}
             {typeof badge === "string" ? (
-              <p className="truncate whitespace-nowrap">{badge}</p>
+              <p className="truncate whitespace-nowrap pr-2">{badge}</p>
             ) : (
               badge
             )}

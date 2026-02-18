@@ -256,7 +256,7 @@ export function HeroSplitGeometricShapes({
           <div className="grid items-center gap-0 md:gap-8 lg:grid-cols-2">
             <div
               className={cn(
-                "container flex flex-col items-center px-10 py-8 text-center lg:mx-auto lg:items-start lg:px-16 lg:py-32 lg:text-left",
+                "flex flex-col items-center pr-6 pl-6 py-8 text-center lg:mx-auto lg:items-start lg:pr-6 lg:pl-20 lg:py-32 lg:text-left",
                 contentClassName,
               )}
             >
@@ -290,7 +290,7 @@ export function HeroSplitGeometricShapes({
                 (typeof description === "string" ? (
                   <p
                     className={cn(
-                      "mb-8 max-w-xl lg:text-xl text-balance",
+                      "mb-4 md:mb-6 max-w-xl lg:text-xl text-balance",
                       descriptionClassName,
                     )}
                   >
@@ -304,6 +304,7 @@ export function HeroSplitGeometricShapes({
                 actions={actions}
                 actionsSlot={actionsSlot}
                 actionsClassName={actionsClassName}
+                mobileConfig={{ width: "full", position: "center" }}
               />
             </div>
             {renderImages}

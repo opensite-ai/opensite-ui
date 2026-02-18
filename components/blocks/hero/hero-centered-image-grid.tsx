@@ -107,7 +107,7 @@ export function HeroCenteredImageGrid({
   patternOpacity,
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
+  spacing = "xl",
   contentClassName,
   headingClassName,
   descriptionClassName,

@@ -180,40 +180,110 @@ export function HeroCommunitySurveyCta({
     announcementLinkText,
   ]);
 
+  const imageCount = useMemo(() => {
+    let count = 0;
+    if (mainImage) count++;
+    if (leftOverlayImage) count++;
+    if (rightOverlayImage) count++;
+    return count;
+  }, [mainImage, leftOverlayImage, rightOverlayImage]);
+
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
+    if (imageCount === 0) return null;
 
+    // Single image: centered with rounded corners and shadow
+    if (imageCount === 1) {
+      const img = mainImage || leftOverlayImage || rightOverlayImage;
+      return (
+        <div className="flex justify-center">
+          <div
+            className={cn(
+              "relative aspect-4/3 w-full max-w-lg overflow-hidden rounded-lg shadow-2xl",
+              imagesClassName,
+            )}
+          >
+            <Img
+              src={img!.src}
+              alt={img!.alt}
+              className="h-full w-full object-cover"
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
+        </div>
+      );
+    }
+
+    // Two images: overlapping absolute-positioned layout
+    if (imageCount === 2) {
+      const imgs = [mainImage, leftOverlayImage, rightOverlayImage].filter(
+        Boolean,
+      ) as ImageItem[];
+      return (
+        <div
+          className={cn(
+            "relative min-h-[350px] md:min-h-[400px] lg:min-h-[450px]",
+            imagesClassName,
+          )}
+        >
+          <div className="absolute left-0 top-0 z-10 aspect-4/3 w-[70%] overflow-hidden rounded-lg shadow-2xl md:w-[65%]">
+            <Img
+              src={imgs[0].src}
+              alt={imgs[0].alt}
+              className="h-full w-full object-cover"
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
+          <div className="absolute bottom-0 right-0 z-20 aspect-3/4 w-[55%] overflow-hidden rounded-lg shadow-2xl md:w-[50%]">
+            <Img
+              src={imgs[1].src}
+              alt={imgs[1].alt}
+              className="h-full w-full object-cover"
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
+        </div>
+      );
+    }
+
+    // Three images: cascading overlapping layout
     return (
-      <div className={cn("relative mx-auto max-w-5xl", imagesClassName)}>
-        {mainImage && (
+      <div
+        className={cn(
+          "relative min-h-[380px] md:min-h-[430px] lg:min-h-[480px]",
+          imagesClassName,
+        )}
+      >
+        <div className="absolute left-0 top-0 z-10 aspect-4/3 w-[65%] overflow-hidden rounded-lg shadow-2xl">
           <Img
-            src={mainImage.src}
-            alt={mainImage.alt}
-            className={mainImage.className}
+            src={mainImage!.src}
+            alt={mainImage!.alt}
+            className="h-full w-full object-cover"
             optixFlowConfig={optixFlowConfig}
           />
-        )}
-        {leftOverlayImage && (
+        </div>
+        <div className="absolute bottom-0 right-0 z-20 aspect-3/4 w-[50%] overflow-hidden rounded-lg shadow-2xl">
           <Img
-            src={leftOverlayImage.src}
-            alt={leftOverlayImage.alt}
-            className={leftOverlayImage.className}
+            src={rightOverlayImage!.src}
+            alt={rightOverlayImage!.alt}
+            className="h-full w-full object-cover"
             optixFlowConfig={optixFlowConfig}
           />
-        )}
-        {rightOverlayImage && (
+        </div>
+        <div className="absolute bottom-4 left-[10%] z-30 aspect-square w-[35%] overflow-hidden rounded-lg shadow-2xl md:bottom-6 md:left-[15%]">
           <Img
-            src={rightOverlayImage.src}
-            alt={rightOverlayImage.alt}
-            className={rightOverlayImage.className}
+            src={leftOverlayImage!.src}
+            alt={leftOverlayImage!.alt}
+            className="h-full w-full object-cover"
             optixFlowConfig={optixFlowConfig}
           />
-        )}
+        </div>
       </div>
     );
   }, [
     imagesSlot,
     imagesClassName,
+    imageCount,
     mainImage,
     leftOverlayImage,
     rightOverlayImage,

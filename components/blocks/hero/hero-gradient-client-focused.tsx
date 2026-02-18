@@ -2,12 +2,18 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroGradientClientFocusedProps {
   /**
@@ -33,7 +39,7 @@ export interface HeroGradientClientFocusedProps {
   /**
    * Custom slot for image (overrides image prop)
    */
-  imageSlot?: React.ReactNode;  /**
+  imageSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -88,53 +94,28 @@ export function HeroGradientClientFocused({
   image,
   imageSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   headingClassName,
   descriptionClassName,
   actionsClassName,
   imageClassName,
   optixFlowConfig,
 }: HeroGradientClientFocusedProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className={cn("flex items-center gap-2.5 text-lg max-lg:flex-col max-lg:text-base", actionsClassName)}>
-        {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
   const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
     return (
       <Img
-        className={cn("mt-10 w-[50%] rounded-xl shadow-[rgba(50,50,105,0.15)_0px_2px_5px_0px,rgba(0,0,0,0.05)_0px_1px_1px_0px] max-lg:w-full", imageClassName, image.className)}
+        className={cn(
+          "rounded-2xl aspect-video shadow-xl w-full h-auto object-cover",
+          imageClassName,
+          image.className,
+        )}
         src={image.src}
         alt={image.alt}
         optixFlowConfig={optixFlowConfig}
@@ -144,33 +125,52 @@ export function HeroGradientClientFocused({
 
   return (
     <Section
-      className={cn(
-        "bg-gradient-to-b from-accent/5 to-primary/5 py-20 text-center",
-        className,
-      )}
+      className={cn("text-center", className)}
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container flex flex-col items-center gap-5", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("max-w-2xl text-7xl font-medium max-lg:text-5xl", headingClassName)}>
+      <div className="relative flex flex-col items-center gap-8 md:gap-12">
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "max-w-2xl text-7xl font-semibold max-lg:text-5xl text-balance",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
-            <h1 className={cn("max-w-2xl text-7xl font-medium max-lg:text-5xl", headingClassName)}>
+            <h1
+              className={cn(
+                "max-w-2xl text-7xl font-semibold max-lg:text-5xl text-balance",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("max-w-2xl max-lg:text-sm", getTextColor(background, "muted"), descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "max-w-2xl max-lg:text-sm text-balance",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
-        {renderActions}
+          ))}
+        <BlockActions
+          actions={actions}
+          actionsSlot={actionsSlot}
+          actionsClassName={actionsClassName}
+        />
         {renderImage}
       </div>
     </Section>

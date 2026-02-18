@@ -4,9 +4,14 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  LogoItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -38,7 +43,7 @@ export interface HeroFullscreenLogoCtaProps {
   /**
    * Background image URL
    */
-  backgroundImage?: string;  /**
+  backgroundImage?: string; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -90,16 +95,33 @@ export function HeroFullscreenLogoCta({
   actionSlot,
   backgroundImage,
   background,
-  spacing,
+  spacing = "none",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
-  contentClassName,
+  containerClassName = "px-0 sm:px-0 lg:px-0 max-w-full relative z-10 h-screen w-screen flex justify-center items-center",
+  contentClassName = "relative flex flex-col gap-12 px-6 pt-28 pb-6 md:pt-0 md:pb-0",
   headingClassName,
   descriptionClassName,
   optixFlowConfig,
 }: HeroFullscreenLogoCtaProps): React.JSX.Element {
+  const renderBackground = useMemo(() => {
+    if (!backgroundImage) return null;
+
+    return (
+      <div className="absolute inset-0">
+        <Img
+          src={backgroundImage}
+          alt="Full screen background image"
+          className="h-full w-full object-cover"
+          loading="eager"
+          optixFlowConfig={optixFlowConfig}
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/65 to-black/20" />
+      </div>
+    );
+  }, [backgroundImage, optixFlowConfig]);
+
   const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
@@ -109,7 +131,7 @@ export function HeroFullscreenLogoCta({
       <Img
         src={logoSrc}
         alt={logo.alt}
-        className={cn("size-20", logo.className)}
+        className={cn("h-24 w-auto object-contain", logo.className)}
         optixFlowConfig={optixFlowConfig}
       />
     );
@@ -119,17 +141,20 @@ export function HeroFullscreenLogoCta({
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = action;
     return (
-      <Pressable
-        asButton
-        className={actionClassName}
-        {...pressableProps}
-      >
+      <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
           <>
             {icon}
-            <span className="text-2xl">{label}</span>
+            {label}
             {iconAfter}
           </>
         )}
@@ -139,36 +164,60 @@ export function HeroFullscreenLogoCta({
 
   return (
     <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={cn(
-        "dark h-screen w-screen bg-background bg-cover bg-center bg-no-repeat pt-12 pb-24",
+        "relative flex h-full min-h-screen w-screen items-center justify-center overflow-hidden bg-black pb-0 pt-0 md:pt-0 px-0",
         className,
       )}
-      style={{ backgroundImage: `url('${backgroundImage}')` }}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container flex h-full flex-col justify-between px-5 xl:px-20", containerClassName)}>
+      {renderBackground}
+
+      <div
+        className={cn(
+          "relative z-30 m-auto flex max-w-185 flex-col items-start justify-center gap-6 px-5",
+          contentClassName,
+        )}
+      >
         {renderLogo}
         <div className="flex items-end justify-between">
-          <div className={cn("flex w-full flex-col gap-8 md:w-2/3", contentClassName)}>
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("text-6xl font-medium md:text-[5.8rem]", headingClassName)}>
+          <div className={cn("flex w-full flex-col gap-8 md:w-2/3")}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "text-6xl font-font-semibold md:text-[5.8rem]",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-6xl font-medium md:text-[5.8rem]", headingClassName)}>
+                <h1
+                  className={cn(
+                    "text-6xl font-semibold md:text-[5.8rem]",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-xl md:text-2xl", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-xl md:text-2xl text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
           </div>
           {renderAction}
         </div>

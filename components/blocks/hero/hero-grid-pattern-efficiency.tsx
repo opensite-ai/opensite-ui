@@ -34,9 +34,6 @@ export interface HeroGridPatternEfficiencyProps {
    */
   actionSubtext?: React.ReactNode;
   /**
-   * Whether to show the grid pattern background
-   */
-  showGridPattern?: boolean; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -85,7 +82,6 @@ export function HeroGridPatternEfficiency({
   action,
   actionSlot,
   actionSubtext,
-  showGridPattern = true,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
@@ -159,9 +155,6 @@ export function HeroGridPatternEfficiency({
     >
       <div className="relative">
         <div className={cn("relative max-w-5xl", contentClassName)}>
-          {showGridPattern && (
-            <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,hsl(var(--muted))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted))_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_100%_at_50%_50%,#000_60%,transparent_100%)] bg-size-[64px_64px]"></div>
-          )}
           {renderHeading}
           {description &&
             (typeof description === "string" ? (

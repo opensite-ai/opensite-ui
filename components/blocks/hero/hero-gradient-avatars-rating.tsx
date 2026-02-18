@@ -2,14 +2,21 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface AvatarItem {
   /**
@@ -23,18 +30,6 @@ export interface AvatarItem {
 }
 
 export interface HeroGradientAvatarsRatingProps {
-  /**
-   * Top link text
-   */
-  topLinkText?: React.ReactNode;
-  /**
-   * Top link href
-   */
-  topLinkHref?: string;
-  /**
-   * Custom slot for top link (overrides topLink props)
-   */
-  topLinkSlot?: React.ReactNode;
   /**
    * Main heading content
    */
@@ -82,7 +77,7 @@ export interface HeroGradientAvatarsRatingProps {
   /**
    * Custom slot for images (overrides images array)
    */
-  imagesSlot?: React.ReactNode;  /**
+  imagesSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -134,9 +129,6 @@ export interface HeroGradientAvatarsRatingProps {
 }
 
 export function HeroGradientAvatarsRating({
-  topLinkText,
-  topLinkHref,
-  topLinkSlot,
   heading,
   headingSubtitle,
   description,
@@ -150,11 +142,11 @@ export function HeroGradientAvatarsRating({
   images,
   imagesSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -162,49 +154,6 @@ export function HeroGradientAvatarsRating({
   imagesClassName,
   optixFlowConfig,
 }: HeroGradientAvatarsRatingProps): React.JSX.Element {
-  const renderTopLink = useMemo(() => {
-    if (topLinkSlot) return topLinkSlot;
-    if (!topLinkText || !topLinkHref) return null;
-
-    return (
-      <Pressable
-        href={topLinkHref}
-        className={cn("my-6 text-xs font-bold tracking-[0.3em] uppercase hover:underline", getTextColor(background, "muted"))}
-      >
-        {topLinkText}
-      </Pressable>
-    );
-  }, [topLinkSlot, topLinkText, topLinkHref]);
-
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className={cn("flex w-full flex-col justify-center gap-3 sm:flex-row lg:justify-start", actionsClassName)}>
-        {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
   const renderAvatars = useMemo(() => {
     if (avatarsSlot) return avatarsSlot;
     if (!avatars || avatars.length === 0) return null;
@@ -239,13 +188,12 @@ export function HeroGradientAvatarsRating({
           ))}
           {ratingValue && <span className="font-semibold">{ratingValue}</span>}
         </div>
-        {ratingLabel && (
-          typeof ratingLabel === "string" ? (
-            <p className={cn("text-sm font-medium", getTextColor(background, "muted"))}>{ratingLabel}</p>
+        {ratingLabel &&
+          (typeof ratingLabel === "string" ? (
+            <p className={cn("text-sm font-medium")}>{ratingLabel}</p>
           ) : (
             ratingLabel
-          )
-        )}
+          ))}
       </div>
     );
   }, [ratingValue, ratingLabel, starCount]);
@@ -255,23 +203,39 @@ export function HeroGradientAvatarsRating({
     if (!images || images.length === 0) return null;
 
     return (
-      <div className={cn("relative grid gap-4 lg:grid-cols-2", imagesClassName)}>
+      <div
+        className={cn("relative grid gap-4 lg:grid-cols-2", imagesClassName)}
+      >
         {images[0] && (
-          <div className={cn("relative aspect-3/4 w-full overflow-hidden rounded-lg", getNestedCardBg(background))}>
+          <div
+            className={cn(
+              "relative aspect-3/4 w-full overflow-hidden rounded-xl shadow-xl",
+            )}
+          >
             <Img
               src={images[0].src}
               alt={images[0].alt}
-              className={cn("h-full w-full object-cover transition-transform duration-300 hover:scale-105", images[0].className)}
+              className={cn(
+                "h-full w-full object-cover transition-transform duration-300 hover:scale-105",
+                images[0].className,
+              )}
               optixFlowConfig={optixFlowConfig}
             />
           </div>
         )}
         {images[1] && (
-          <div className={cn("relative aspect-3/4 w-full overflow-hidden rounded-lg lg:mt-8", getNestedCardBg(background))}>
+          <div
+            className={cn(
+              "relative aspect-3/4 w-full overflow-hidden rounded-lg lg:mt-8",
+            )}
+          >
             <Img
               src={images[1].src}
               alt={images[1].alt}
-              className={cn("h-full w-full object-cover transition-transform duration-300 hover:scale-105", images[1].className)}
+              className={cn(
+                "h-full w-full object-cover transition-transform duration-300 hover:scale-105",
+                images[1].className,
+              )}
               optixFlowConfig={optixFlowConfig}
             />
           </div>
@@ -286,40 +250,47 @@ export function HeroGradientAvatarsRating({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className="pointer-events-none absolute inset-x-0 -top-20 -bottom-20 bg-[radial-gradient(ellipse_35%_15%_at_40%_55%,hsl(var(--accent))_0%,transparent_100%)] lg:bg-[radial-gradient(ellipse_12%_20%_at_60%_45%,hsl(var(--accent))_0%,transparent_100%)]"></div>
-      <div className="pointer-events-none absolute inset-x-0 -top-20 -bottom-20 bg-[radial-gradient(ellipse_35%_20%_at_70%_75%,hsl(var(--accent))_0%,transparent_80%)] lg:bg-[radial-gradient(ellipse_15%_30%_at_70%_65%,hsl(var(--accent))_0%,transparent_80%)]"></div>
-      <div className="pointer-events-none absolute inset-x-0 -top-20 -bottom-20 bg-[radial-gradient(hsl(var(--accent-foreground)/0.1)_1px,transparent_1px)] mask-[radial-gradient(ellipse_60%_60%_at_65%_50%,#000_0%,transparent_80%)] bg-size-[8px_8px]"></div>
-
-      <div className={cn("relative z-10 container mx-auto px-4", containerClassName)}>
+      <div className="relative">
         <div className="grid items-center gap-8 lg:grid-cols-2">
-          <div className={cn("flex flex-col items-center text-center lg:items-start lg:text-left", contentClassName)}>
-            {renderTopLink}
-
+          <div
+            className={cn(
+              "flex flex-col items-center text-center lg:items-start lg:text-left",
+              contentClassName,
+            )}
+          >
             {heading && (
-              <h1 className={cn("text-4xl font-semibold sm:text-5xl", headingClassName)}>
-                {typeof heading === "string" ? heading : heading}
-                {headingSubtitle && (
-                  <>
-                    <br />
-                    <span className={getTextColor(background, "muted")}>{headingSubtitle}</span>
-                  </>
+              <h1
+                className={cn(
+                  "text-4xl font-semibold sm:text-5xl",
+                  headingClassName,
                 )}
+              >
+                {typeof heading === "string" ? heading : heading}
               </h1>
             )}
 
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("my-8 max-w-xl lg:text-lg", getTextColor(background, "muted"), descriptionClassName)}>
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "my-8 max-w-xl lg:text-lg",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
 
-            {renderActions}
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
 
             {(avatars || avatarsSlot || ratingValue || ratingLabel) && (
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:items-center">

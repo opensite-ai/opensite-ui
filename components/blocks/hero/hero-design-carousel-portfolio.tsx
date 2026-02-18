@@ -11,7 +11,16 @@ import { Img } from "@page-speed/img";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, ImageItem, FeatureItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  FeatureItem,
+  LogoItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroDesignCarouselPortfolioProps {
   /**
@@ -39,21 +48,17 @@ export interface HeroDesignCarouselPortfolioProps {
    */
   description?: React.ReactNode;
   /**
-   * Primary action configuration (schedule chat button)
+   * Array of action configurations for CTA buttons
    */
-  primaryAction?: ActionConfig;
-  /**
-   * Avatar image for primary action button
-   */
-  primaryActionAvatar?: string;
-  /**
-   * Secondary action configuration (portfolio button)
-   */
-  secondaryAction?: ActionConfig;
+  actions?: ActionConfig[];
   /**
    * Custom slot for actions (overrides action props)
    */
   actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
   /**
    * Array of carousel images
    */
@@ -119,18 +124,17 @@ export function HeroDesignCarouselPortfolio({
   featuresSlot,
   heading,
   description,
-  primaryAction,
-  primaryActionAvatar,
-  secondaryAction,
+  actions,
   actionsSlot,
+  actionsClassName,
   carouselImages,
   carouselSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -146,7 +150,7 @@ export function HeroDesignCarouselPortfolio({
     return (
       <Img
         src={logoSrc}
-        className={cn("h-12 lg:h-16", logo.className)}
+        className={cn("object-contain w-auto h-12 lg:h-16", logo.className)}
         alt={logo.alt}
         optixFlowConfig={optixFlowConfig}
       />
@@ -158,55 +162,23 @@ export function HeroDesignCarouselPortfolio({
     if (!features || features.length === 0) return null;
 
     return (
-      <div className={cn("hidden items-center gap-6 lg:flex", featuresClassName)}>
+      <div
+        className={cn("hidden items-center gap-6 lg:flex", featuresClassName)}
+      >
         {features.map((feature, index) => (
           <div key={index} className="flex items-center gap-1.5 ">
-            {feature.icon ?? <DynamicIcon name={feature.iconName || "lucide/check-circle"} size={24} />}
+            {feature.icon ?? (
+              <DynamicIcon
+                name={feature.iconName || "lucide/check-circle"}
+                size={24}
+              />
+            )}
             <span>{feature.title}</span>
           </div>
         ))}
       </div>
     );
   }, [featuresSlot, features, featuresClassName]);
-
-  const renderPrimaryAction = useMemo(() => {
-    if (actionsSlot) return null;
-    if (!primaryAction) return null;
-
-    const { label, className: actionClassName, ...pressableProps } = primaryAction;
-    return (
-      <Pressable
-        asButton
-        className={actionClassName}
-        {...pressableProps}
-      >
-        <Img
-          src={primaryActionAvatar}
-          alt=""
-          className="size-9 rounded-full object-cover lg:size-11"
-          optixFlowConfig={optixFlowConfig}
-        />
-        <span>{label}</span>
-      </Pressable>
-    );
-  }, [actionsSlot, primaryAction, primaryActionAvatar, optixFlowConfig]);
-
-  const renderSecondaryAction = useMemo(() => {
-    if (actionsSlot) return null;
-    if (!secondaryAction) return null;
-
-    const { label, iconAfter, className: actionClassName, ...pressableProps } = secondaryAction;
-    return (
-      <Pressable
-        asButton
-        className={actionClassName}
-        {...pressableProps}
-      >
-        <span>{label}</span>
-        {iconAfter}
-      </Pressable>
-    );
-  }, [actionsSlot, secondaryAction]);
 
   const renderCarousel = useMemo(() => {
     if (carouselSlot) return carouselSlot;
@@ -227,7 +199,10 @@ export function HeroDesignCarouselPortfolio({
             delay: 1000,
           }),
         ]}
-        className={cn("relative mx-auto w-full max-w-full overflow-hidden from-white to-transparent before:absolute before:top-0 before:left-0 before:z-10 before:h-full before:w-[20%] before:bg-linear-to-r before:content-[''] after:absolute after:top-0 after:right-0 after:z-10 after:h-full after:w-[20%] after:bg-linear-to-l after:from-white after:to-transparent after:content-['']", carouselClassName)}
+        className={cn(
+          "relative mx-auto w-full max-w-full overflow-hidden from-white to-transparent before:absolute before:top-0 before:left-0 before:z-10 before:h-full before:w-[20%] before:bg-linear-to-r before:content-[''] after:absolute after:top-0 after:right-0 after:z-10 after:h-full after:w-[20%] after:bg-linear-to-l after:from-white after:to-transparent after:content-['']",
+          carouselClassName,
+        )}
       >
         <CarouselContent className="ml-5 flex gap-5 pl-4">
           {carouselImages.map((image, index) => (
@@ -254,46 +229,71 @@ export function HeroDesignCarouselPortfolio({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn("relative", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("relative z-10 container mx-auto", containerClassName)}>
-        <div className="py-8">
-          {renderLogo}
-        </div>
-        <div className={cn("flex flex-col gap-10 py-10 lg:py-28", contentClassName)}>
+      <div className="relative">
+        {renderLogo ? <div className="pb-8">{renderLogo}</div> : null}
+
+        <div
+          className={cn(
+            "flex flex-col gap-10 pt-12 pb-8 lg:pt-24 lg:pb-12",
+            contentClassName,
+          )}
+        >
           {renderFeatures}
           <div className="flex">
             <div className="flex flex-1 flex-col gap-4">
-              {heading && (
-                typeof heading === "string" ? (
-                  <h1 className={cn("max-w-6xl text-4xl tracking-tighter lg:text-7xl xl:text-9xl", headingClassName)}>
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h1
+                    className={cn(
+                      "max-w-6xl text-4xl tracking-tighter lg:text-7xl xl:text-9xl font-semibold",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h1>
                 ) : (
-                  <h1 className={cn("max-w-6xl text-4xl tracking-tighter lg:text-7xl xl:text-9xl", headingClassName)}>
+                  <h1
+                    className={cn(
+                      "max-w-6xl text-4xl tracking-tighter lg:text-7xl xl:text-9xl font-semibold",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h1>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("text-lg lg:text-2xl", descriptionClassName)}>
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "text-lg lg:text-2xl text-balance",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
                 ) : (
-                  <p className={cn("text-lg lg:text-2xl", descriptionClassName)}>
+                  <p
+                    className={cn(
+                      "text-lg lg:text-2xl text-balance",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
-                )
-              )}
+                ))}
             </div>
           </div>
-          {actionsSlot || renderPrimaryAction}
+
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
       </div>
-      <div className="relative flex flex-col">
-        {renderCarousel}
-      </div>
-      {actionsSlot || renderSecondaryAction}
+      <div className="relative flex flex-col">{renderCarousel}</div>
     </Section>
   );
 }

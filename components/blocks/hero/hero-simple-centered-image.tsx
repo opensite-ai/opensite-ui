@@ -107,7 +107,7 @@ export function HeroSimpleCenteredImage({
   patternOpacity,
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
+  spacing = "xl",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -180,7 +180,7 @@ export function HeroSimpleCenteredImage({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mb-6 max-w-xl lg:mb-12 lg:text-2xl text-balance",
+                "max-w-xl md:max-w-md lg:text-2xl text-balance",
                 descriptionClassName,
               )}
             >
@@ -199,7 +199,7 @@ export function HeroSimpleCenteredImage({
       {imageSrc && (
         <div
           className={cn(
-            "aspect-video mask-[linear-gradient(#000_80%,transparent_100%)]",
+            "aspect-video mask-[linear-gradient(#000_80%,transparent_100%)] mt-8 md:mt-16",
             imageWrapperClassName,
           )}
         >

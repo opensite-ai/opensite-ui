@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import type {
   ActionConfig,
@@ -15,6 +14,7 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { Badge } from "@/src";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroSpiralPatternCardsProps {
   /**
@@ -37,6 +37,10 @@ export interface HeroSpiralPatternCardsProps {
    * Custom slot for rendering actions (overrides actions array)
    */
   actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
   /**
    * Array of images to display (expects 3 images for stacked card effect)
    */
@@ -94,11 +98,12 @@ export function HeroSpiralPatternCards({
   description,
   actions,
   actionsSlot,
+  actionsClassName,
   images,
   imagesSlot,
   optixFlowConfig,
   background,
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
@@ -107,42 +112,6 @@ export function HeroSpiralPatternCards({
   descriptionClassName,
   imagesClassName,
 }: HeroSpiralPatternCardsProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className="flex w-full flex-col justify-center gap-2 sm:flex-row">
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions]);
-
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
@@ -249,7 +218,12 @@ export function HeroSpiralPatternCards({
             ) : (
               <div className={descriptionClassName}>{description}</div>
             ))}
-          {renderActions}
+
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
         {renderImages}
       </div>

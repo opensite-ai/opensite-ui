@@ -1,20 +1,21 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
-import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroAiPoweredCarouselProps {
   /**
@@ -42,21 +43,13 @@ export interface HeroAiPoweredCarouselProps {
    */
   actionsSlot?: React.ReactNode;
   /**
-   * Images for mobile carousel (first row)
+   * Images for carousel 1
    */
-  mobileCarouselImages1?: ImageItem[];
+  carouselImages1?: ImageItem[];
   /**
-   * Images for mobile carousel (second row)
+   * Images for carousel 2
    */
-  mobileCarouselImages2?: ImageItem[];
-  /**
-   * Images for desktop carousel (first column)
-   */
-  desktopCarouselImages1?: ImageItem[];
-  /**
-   * Images for desktop carousel (second column)
-   */
-  desktopCarouselImages2?: ImageItem[];
+  carouselImages2?: ImageItem[];
   /**
    * Custom slot for carousel content (overrides all carousel images)
    */
@@ -118,17 +111,15 @@ export function HeroAiPoweredCarousel({
   description,
   actions,
   actionsSlot,
-  mobileCarouselImages1,
-  mobileCarouselImages2,
-  desktopCarouselImages1,
-  desktopCarouselImages2,
+  carouselImages1,
+  carouselImages2,
   carouselSlot,
   background,
-  spacing,
+  spacing = "xl",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   contentClassName,
   badgeClassName,
   headingClassName,
@@ -136,31 +127,6 @@ export function HeroAiPoweredCarousel({
   actionsClassName,
   optixFlowConfig,
 }: HeroAiPoweredCarouselProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
-
   return (
     <Section
       background={background}
@@ -168,44 +134,65 @@ export function HeroAiPoweredCarousel({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="grid items-center gap-16 lg:grid-cols-2">
-          <div className={cn("mx-auto", contentClassName)}>
+          <div
+            className={cn(
+              "mx-auto flex flex-col gap-4 md:gap-8",
+              contentClassName,
+            )}
+          >
             {(badge || badgeTagline) && (
-              <div className={cn("flex w-fit items-center gap-2 rounded-full border px-2.5 py-1.5 text-xs font-medium", badgeClassName)}>
+              <div
+                className={cn(
+                  "flex w-fit items-center gap-2 rounded-full border pl-2.5 pr-4 py-1.5 text-xs font-medium",
+                  badgeClassName,
+                )}
+              >
                 {badge && <Badge>{badge}</Badge>}
                 {badgeTagline}
               </div>
             )}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("mt-10 mb-4 text-3xl font-semibold lg:text-5xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "mt-10 mb-4 text-3xl font-semibold lg:text-5xl text-balance",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mx-auto lg:text-lg", getTextColor(background, "muted"), descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mx-auto lg:text-lg text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-            {(actionsSlot || (actions && actions.length > 0)) && (
-              <div className={cn("mt-10 flex flex-col gap-2 sm:flex-row", actionsClassName)}>
-                {renderActions}
-              </div>
-            )}
+              ))}
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
           </div>
-          {carouselSlot ? carouselSlot : (
+          {carouselSlot ? (
+            carouselSlot
+          ) : (
             <>
               <div className="flex flex-col gap-8 lg:hidden">
-                {mobileCarouselImages1 && mobileCarouselImages1.length > 0 && (
+                {carouselImages1 && carouselImages1.length > 0 && (
                   <Carousel
                     opts={{
                       loop: true,
@@ -218,12 +205,15 @@ export function HeroAiPoweredCarousel({
                     className="-mx-7"
                   >
                     <CarouselContent className="max-h-[350px]">
-                      {mobileCarouselImages1.map((image, index) => (
+                      {carouselImages1.map((image, index) => (
                         <CarouselItem key={index} className="max-w-96">
                           <Img
                             src={image.src}
                             alt={image.alt}
-                            className={image.className}
+                            className={cn(
+                              "rounded-lg shadow-lg",
+                              image.className,
+                            )}
                             optixFlowConfig={optixFlowConfig}
                           />
                         </CarouselItem>
@@ -231,7 +221,7 @@ export function HeroAiPoweredCarousel({
                     </CarouselContent>
                   </Carousel>
                 )}
-                {mobileCarouselImages2 && mobileCarouselImages2.length > 0 && (
+                {carouselImages2 && carouselImages2.length > 0 && (
                   <Carousel
                     opts={{
                       loop: true,
@@ -245,12 +235,15 @@ export function HeroAiPoweredCarousel({
                     className="-mx-7"
                   >
                     <CarouselContent className="max-h-[350px]">
-                      {mobileCarouselImages2.map((image, index) => (
+                      {carouselImages2.map((image, index) => (
                         <CarouselItem key={index} className="max-w-96">
                           <Img
                             src={image.src}
                             alt={image.alt}
-                            className={image.className}
+                            className={cn(
+                              "rounded-lg shadow-lg",
+                              image.className,
+                            )}
                             optixFlowConfig={optixFlowConfig}
                           />
                         </CarouselItem>
@@ -260,7 +253,7 @@ export function HeroAiPoweredCarousel({
                 )}
               </div>
               <div className="hidden grid-cols-2 gap-8 lg:grid">
-                {desktopCarouselImages1 && desktopCarouselImages1.length > 0 && (
+                {carouselImages1 && carouselImages1.length > 0 && (
                   <Carousel
                     opts={{
                       loop: true,
@@ -273,12 +266,15 @@ export function HeroAiPoweredCarousel({
                     orientation="vertical"
                   >
                     <CarouselContent className="max-h-[600px]">
-                      {desktopCarouselImages1.map((image, index) => (
+                      {carouselImages1.map((image, index) => (
                         <CarouselItem key={index}>
                           <Img
                             src={image.src}
                             alt={image.alt}
-                            className={image.className}
+                            className={cn(
+                              "rounded-lg shadow-lg",
+                              image.className,
+                            )}
                             optixFlowConfig={optixFlowConfig}
                           />
                         </CarouselItem>
@@ -286,7 +282,7 @@ export function HeroAiPoweredCarousel({
                     </CarouselContent>
                   </Carousel>
                 )}
-                {desktopCarouselImages2 && desktopCarouselImages2.length > 0 && (
+                {carouselImages2 && carouselImages2.length > 0 && (
                   <Carousel
                     opts={{
                       loop: true,
@@ -300,12 +296,15 @@ export function HeroAiPoweredCarousel({
                     orientation="vertical"
                   >
                     <CarouselContent className="max-h-[600px]">
-                      {desktopCarouselImages2.map((image, index) => (
+                      {carouselImages2.map((image, index) => (
                         <CarouselItem key={index}>
                           <Img
                             src={image.src}
                             alt={image.alt}
-                            className={image.className}
+                            className={cn(
+                              "rounded-lg shadow-lg",
+                              image.className,
+                            )}
                             optixFlowConfig={optixFlowConfig}
                           />
                         </CarouselItem>
