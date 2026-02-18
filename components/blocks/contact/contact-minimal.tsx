@@ -205,10 +205,7 @@ export function ContactMinimal({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -224,7 +221,14 @@ export function ContactMinimal({
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
-        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        const {
+          label,
+          icon,
+          iconAfter,
+          children,
+          className: actionClassName,
+          ...pressableProps
+        } = action;
         return (
           <Pressable
             key={index}
@@ -250,11 +254,21 @@ export function ContactMinimal({
     if (footerSlot) return footerSlot;
     if (footer) {
       return typeof footer === "string" ? (
-        <p className={cn("mt-6 text-center text-sm text-muted-foreground", footerClassName)}>
+        <p
+          className={cn(
+            "mt-6 text-center text-sm  text-balance",
+            footerClassName,
+          )}
+        >
           {footer}
         </p>
       ) : (
-        <div className={cn("mt-6 text-center text-sm text-muted-foreground", footerClassName)}>
+        <div
+          className={cn(
+            "mt-6 text-center text-sm  text-balance",
+            footerClassName,
+          )}
+        >
           {footer}
         </div>
       );
@@ -272,24 +286,32 @@ export function ContactMinimal({
     >
       <div className={cn("mx-auto w-full max-w-md px-4", containerClassName)}>
         <div className={cn("mb-10 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-3 text-3xl font-bold tracking-tight", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-3 text-3xl font-bold tracking-tight",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("leading-relaxed text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "leading-relaxed text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
 
         <Form
@@ -367,5 +389,3 @@ export function ContactMinimal({
     </Section>
   );
 }
-
-

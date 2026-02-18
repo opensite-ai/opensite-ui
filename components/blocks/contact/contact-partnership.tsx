@@ -58,7 +58,7 @@ export interface ContactPartnershipProps {
   /** Additional CSS classes for the form */
   formClassName?: string;
   /** Additional CSS classes for the submit button */
-  submitClassName?: string;  /**
+  submitClassName?: string; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -167,10 +167,7 @@ export function ContactPartnership({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -186,10 +183,28 @@ export function ContactPartnership({
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
-        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        const {
+          label,
+          icon,
+          iconAfter,
+          children,
+          className: actionClassName,
+          ...pressableProps
+        } = action;
         return (
-          <Pressable key={index} asButton className={actionClassName} {...pressableProps}>
-            {children ?? (<>{icon}{label}{iconAfter}</>)}
+          <Pressable
+            key={index}
+            asButton
+            className={actionClassName}
+            {...pressableProps}
+          >
+            {children ?? (
+              <>
+                {icon}
+                {label}
+                {iconAfter}
+              </>
+            )}
           </Pressable>
         );
       });
@@ -207,12 +222,32 @@ export function ContactPartnership({
     >
       <div className={cn("mx-auto max-w-4xl px-4", containerClassName)}>
         <div className={cn("mb-10 text-center", headerClassName)}>
-          {heading && (typeof heading === "string" ? (
-            <h2 className={cn("mb-3 text-3xl font-bold tracking-tight", headingClassName)}>{heading}</h2>
-          ) : <div className={headingClassName}>{heading}</div>)}
-          {description && (typeof description === "string" ? (
-            <p className={cn("leading-relaxed text-muted-foreground", descriptionClassName)}>{description}</p>
-          ) : <div className={descriptionClassName}>{description}</div>)}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-3 text-3xl font-bold tracking-tight  text-balance",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "leading-relaxed  text-balance",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            ))}
         </div>
 
         <Card className={cn("mx-auto max-w-xl", cardClassName)}>
@@ -325,5 +360,3 @@ export function ContactPartnership({
     </Section>
   );
 }
-
-

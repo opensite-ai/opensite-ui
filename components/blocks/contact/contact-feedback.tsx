@@ -256,7 +256,7 @@ export function ContactFeedback({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight",
+                  "mb-3 text-3xl font-bold tracking-tight text-balance",
                   headingClassName,
                 )}
               >
@@ -269,7 +269,7 @@ export function ContactFeedback({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "leading-relaxed text-muted-foreground",
+                  "leading-relaxed text-balance",
                   descriptionClassName,
                 )}
               >

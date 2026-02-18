@@ -10,11 +10,7 @@ import { Card, CardContent } from "../../ui/card";
 import { DynamicFormField } from "../../ui/dynamic-form-field";
 import type { FormFieldConfig } from "../../../lib/form-field-types";
 import { getColumnSpanClass } from "../../../lib/form-field-types";
-import {
-  useContactForm,
-  useFileUpload,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
+import { useContactForm, type PageSpeedFormConfig } from "../../../lib/forms";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -117,7 +113,8 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
     name: "details",
     type: "textarea",
     label: "Additional Details (Optional)",
-    placeholder: "Help us prepare for the call by sharing any specific questions or topics you'd like to cover...",
+    placeholder:
+      "Help us prepare for the call by sharing any specific questions or topics you'd like to cover...",
     required: false,
     rows: 4,
     columnSpan: 12,
@@ -309,19 +306,17 @@ export function ContactCallback({
   onError,
 }: ContactCallbackProps): React.JSX.Element {
   // Use the provided form fields or fall back to defaults
-  const fields = useMemo(
-    () => formFields || DEFAULT_FORM_FIELDS,
-    [formFields]
-  );
+  const fields = useMemo(() => formFields || DEFAULT_FORM_FIELDS, [formFields]);
 
   // Initialize form with contact form hook
-  const { form, submissionError, formMethod, resetSubmissionState } = useContactForm({
-    formFields: fields,
-    formConfig,
-    onSubmit,
-    onSuccess,
-    onError,
-  });
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields: fields,
+      formConfig,
+      onSubmit,
+      onSuccess,
+      onError,
+    });
 
   // Render actions
   const actionsContent = useMemo(() => {
@@ -374,8 +369,8 @@ export function ContactCallback({
               (typeof heading === "string" ? (
                 <h2
                   className={cn(
-                    "mb-3 text-3xl font-bold tracking-tight",
-                    headingClassName
+                    "mb-3 text-3xl font-bold tracking-tight text-balance",
+                    headingClassName,
                   )}
                 >
                   {heading}
@@ -385,7 +380,12 @@ export function ContactCallback({
               ))}
             {description &&
               (typeof description === "string" ? (
-                <p className={cn("leading-relaxed", descriptionClassName)}>
+                <p
+                  className={cn(
+                    "leading-relaxed text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
@@ -466,4 +466,3 @@ export function ContactCallback({
     </Section>
   );
 }
-

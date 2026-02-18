@@ -265,7 +265,7 @@ export function ContactGuest({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight",
+                  "mb-3 text-3xl font-bold tracking-tight text-balance",
                   headingClassName,
                 )}
               >
@@ -276,7 +276,12 @@ export function ContactGuest({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("leading-relaxed", descriptionClassName)}>
+              <p
+                className={cn(
+                  "leading-relaxed text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (

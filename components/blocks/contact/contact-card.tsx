@@ -10,10 +10,7 @@ import { Card } from "../../ui/card";
 import { DynamicFormField } from "../../ui/dynamic-form-field";
 import type { FormFieldConfig } from "../../../lib/form-field-types";
 import { getColumnSpanClass } from "../../../lib/form-field-types";
-import {
-  useContactForm,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
+import { useContactForm, type PageSpeedFormConfig } from "../../../lib/forms";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -262,25 +259,30 @@ export function ContactCard({
   onError,
 }: ContactCardProps): React.JSX.Element {
   // Use the provided form fields or fall back to defaults
-  const fields = useMemo(
-    () => formFields || DEFAULT_FORM_FIELDS,
-    [formFields]
-  );
+  const fields = useMemo(() => formFields || DEFAULT_FORM_FIELDS, [formFields]);
 
   // Initialize form with contact form hook
-  const { form, submissionError, formMethod, resetSubmissionState } = useContactForm({
-    formFields: fields,
-    formConfig,
-    onSubmit,
-    onSuccess,
-    onError,
-  });
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields: fields,
+      formConfig,
+      onSubmit,
+      onSuccess,
+      onError,
+    });
 
   const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
-        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        const {
+          label,
+          icon,
+          iconAfter,
+          children,
+          className: actionClassName,
+          ...pressableProps
+        } = action;
         return (
           <Pressable
             key={index}
@@ -335,14 +337,16 @@ export function ContactCard({
               (typeof formHeading === "string" ? (
                 <h3
                   className={cn(
-                    "mb-6 text-2xl font-semibold tracking-tight",
-                    formHeadingClassName
+                    "mb-6 text-2xl font-semibold tracking-tight text-balance",
+                    formHeadingClassName,
                   )}
                 >
                   {formHeading}
                 </h3>
               ) : (
-                <div className={formHeadingClassName}>{formHeading}</div>
+                <div className={cn("text-balance", formHeadingClassName)}>
+                  {formHeading}
+                </div>
               ))}
             <Form
               form={form}
@@ -388,8 +392,8 @@ export function ContactCard({
               (typeof heading === "string" ? (
                 <h2
                   className={cn(
-                    "mb-3 text-3xl font-bold tracking-tight",
-                    headingClassName
+                    "mb-3 text-3xl font-bold tracking-tight text-balance",
+                    headingClassName,
                   )}
                 >
                   {heading}
@@ -399,7 +403,12 @@ export function ContactCard({
               ))}
             {description &&
               (typeof description === "string" ? (
-                <p className={cn("leading-relaxed", descriptionClassName)}>
+                <p
+                  className={cn(
+                    "leading-relaxed text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
@@ -414,4 +423,3 @@ export function ContactCard({
     </Section>
   );
 }
-

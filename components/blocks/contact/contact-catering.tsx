@@ -9,10 +9,7 @@ import { Card, CardContent } from "../../ui/card";
 import { DynamicFormField } from "../../ui/dynamic-form-field";
 import type { FormFieldConfig } from "../../../lib/form-field-types";
 import { getColumnSpanClass } from "../../../lib/form-field-types";
-import {
-  useContactForm,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
+import { useContactForm, type PageSpeedFormConfig } from "../../../lib/forms";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -351,19 +348,17 @@ export function ContactCatering({
   onError,
 }: ContactCateringProps): React.JSX.Element {
   // Use the provided form fields or fall back to defaults
-  const fields = useMemo(
-    () => formFields || DEFAULT_FORM_FIELDS,
-    [formFields]
-  );
+  const fields = useMemo(() => formFields || DEFAULT_FORM_FIELDS, [formFields]);
 
   // Contact form hook
-  const { form, submissionError, formMethod, resetSubmissionState } = useContactForm({
-    formFields: fields,
-    formConfig,
-    onSubmit,
-    onSuccess,
-    onError,
-  });
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields: fields,
+      formConfig,
+      onSubmit,
+      onSuccess,
+      onError,
+    });
 
   const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -413,7 +408,7 @@ export function ContactCatering({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight",
+                  "mb-3 text-3xl font-bold tracking-tight text-balance",
                   headingClassName,
                 )}
               >
@@ -426,7 +421,7 @@ export function ContactCatering({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "leading-relaxed text-muted-foreground",
+                  "leading-relaxed text-balance",
                   descriptionClassName,
                 )}
               >

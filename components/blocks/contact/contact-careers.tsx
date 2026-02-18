@@ -5,7 +5,6 @@ import { useMemo } from "react";
 import { Form } from "@page-speed/forms";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card, CardContent } from "../../ui/card";
 import { DynamicFormField } from "../../ui/dynamic-form-field";
 import type { FormFieldConfig } from "../../../lib/form-field-types";
@@ -284,10 +283,7 @@ export function ContactCareers({
   onError,
 }: ContactCareersProps): React.JSX.Element {
   // Use the provided form fields or fall back to defaults
-  const fields = useMemo(
-    () => formFields || DEFAULT_FORM_FIELDS,
-    [formFields]
-  );
+  const fields = useMemo(() => formFields || DEFAULT_FORM_FIELDS, [formFields]);
 
   // Initialize file upload hook
   const {
@@ -300,17 +296,18 @@ export function ContactCareers({
   } = useFileUpload({ onError });
 
   // Initialize form with contact form hook
-  const { form, submissionError, formMethod, resetSubmissionState } = useContactForm({
-    formFields: fields,
-    formConfig,
-    onSubmit,
-    onSuccess: (data) => {
-      resetUpload();
-      onSuccess?.(data);
-    },
-    onError,
-    uploadTokens,
-  });
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields: fields,
+      formConfig,
+      onSubmit,
+      onSuccess: (data) => {
+        resetUpload();
+        onSuccess?.(data);
+      },
+      onError,
+      uploadTokens,
+    });
 
   const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -360,8 +357,8 @@ export function ContactCareers({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight",
-                  headingClassName
+                  "mb-3 text-3xl font-bold tracking-tight text-balance",
+                  headingClassName,
                 )}
               >
                 {heading}
@@ -371,7 +368,12 @@ export function ContactCareers({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("leading-relaxed", descriptionClassName)}>
+              <p
+                className={cn(
+                  "leading-relaxed text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
