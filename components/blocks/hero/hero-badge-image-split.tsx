@@ -1,10 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
-import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -153,7 +151,7 @@ export function HeroBadgeImageSplit({
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "my-6 text-4xl font-bold text-pretty lg:text-6xl",
+                    "my-6 text-4xl font-bold text-balance lg:text-6xl",
                     headingClassName,
                   )}
                 >
@@ -166,8 +164,7 @@ export function HeroBadgeImageSplit({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mb-8 max-w-xl lg:text-xl",
-                    getTextColor(background, "muted"),
+                    "mb-8 max-w-xl lg:text-xl text-balance",
                     descriptionClassName,
                   )}
                 >
