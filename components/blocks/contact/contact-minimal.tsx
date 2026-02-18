@@ -1,17 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput, TextArea } from "../../ui/form-inputs";
+import { useMemo } from "react";
+import { Form } from "@page-speed/forms";
+import {
+  DynamicFormField,
+  getColumnSpanClass,
+  useContactForm,
+  useFileUpload,
+  type FormFieldConfig,
+  type PageSpeedFormConfig,
+} from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Label } from "../../ui/label";
-import {
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
+import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -20,77 +22,96 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 
-interface ContactMinimalFormValues {
-  name: string;
-  email: string;
-  message: string;
-}
+// Default form fields
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "first_name",
+    type: "text",
+    label: "First Name",
+    placeholder: "John",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "last_name",
+    type: "text",
+    label: "Last Name",
+    placeholder: "Doe",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "email",
+    type: "email",
+    label: "Email",
+    placeholder: "john@example.com",
+    required: true,
+    columnSpan: 12,
+  },
+  {
+    name: "phone",
+    type: "tel",
+    label: "Phone",
+    placeholder: "+1 (555) 000-0000",
+    required: true,
+    columnSpan: 12,
+  },
+  {
+    name: "message",
+    type: "textarea",
+    label: "Message",
+    placeholder: "Your message...",
+    required: true,
+    rows: 4,
+    columnSpan: 12,
+  },
+];
 
 export interface ContactMinimalProps {
-  /**
-   * Main heading content
-   */
+  /** Main heading text */
   heading?: React.ReactNode;
-  /**
-   * Description text below heading
-   */
+  /** Description text below heading */
   description?: React.ReactNode;
-  /**
-   * Submit button text
-   */
+  /** Submit button text */
   buttonText?: string;
-  /**
-   * Submit button icon (displayed before text)
-   */
+  /** Icon to display in submit button */
   buttonIcon?: React.ReactNode;
-  /**
-   * Array of action configurations for additional buttons
-   */
+  /** Array of action configurations for custom buttons */
   actions?: ActionConfig[];
-  /**
-   * Custom slot for rendering actions (overrides actions array and default submit)
-   */
+  /** Custom slot for rendering actions (overrides actions array) */
   actionsSlot?: React.ReactNode;
   /**
-   * Footer content (e.g., privacy policy text)
+   * Array of form field configurations
+   * If not provided, defaults to: first_name, last_name, email, phone, message
    */
-  footer?: React.ReactNode;
+  formFields?: FormFieldConfig[];
   /**
-   * Custom slot for footer content (overrides footer prop)
+   * Success message to display after form submission
+   * @default "Thank you! Your message has been sent successfully."
    */
-  footerSlot?: React.ReactNode;
-  /**
-   * Additional CSS classes for the section
-   */
+  successMessage?: React.ReactNode;
+  /** Additional CSS classes for the section */
   className?: string;
-  /**
-   * Additional CSS classes for the container
-   */
+  /** Additional CSS classes for the container */
   containerClassName?: string;
-  /**
-   * Additional CSS classes for the header wrapper
-   */
+  /** Additional CSS classes for the header */
   headerClassName?: string;
-  /**
-   * Additional CSS classes for the heading
-   */
+  /** Additional CSS classes for the heading */
   headingClassName?: string;
-  /**
-   * Additional CSS classes for the description
-   */
+  /** Additional CSS classes for the description */
   descriptionClassName?: string;
-  /**
-   * Additional CSS classes for the form
-   */
+  /** Additional CSS classes for the card */
+  cardClassName?: string;
+  /** Additional CSS classes for the card content */
+  cardContentClassName?: string;
+  /** Additional CSS classes for the form */
   formClassName?: string;
-  /**
-   * Additional CSS classes for the submit button
-   */
+  /** Additional CSS classes for the submit button */
   submitClassName?: string;
-  /**
-   * Additional CSS classes for the footer
-   */
-  footerClassName?: string;
+  /** Additional CSS classes for the success message */
+  successMessageClassName?: string;
+  /** Additional CSS classes for the error message */
+  errorMessageClassName?: string;
   /**
    * Background style for the section
    */
@@ -107,32 +128,24 @@ export interface ContactMinimalProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
-  /**
-   * Form submission configuration
-   */
+
+  /** Form configuration for PageSpeed forms */
   formConfig?: PageSpeedFormConfig;
-  /**
-   * Custom submission handler
-   */
-  onSubmit?: (values: ContactMinimalFormValues) => void | Promise<void>;
-  /**
-   * Success callback after submission
-   */
+  /** Custom submit handler */
+  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
+  /** Success callback */
   onSuccess?: (data: unknown) => void;
-  /**
-   * Error callback if submission fails
-   */
+  /** Error callback */
   onError?: (error: Error) => void;
 }
 
 /**
- * ContactMinimal - Simple, clean contact form with essential fields.
- * Perfect for minimal designs and quick contact forms.
+ * ContactMinimal - Contact form with flexible field configuration
  *
  * @example
  * ```tsx
  * <ContactMinimal
- *   heading="Let's Talk"
+ *   heading="Contact Us"
  *   formConfig={{ endpoint: "/api/contact", format: "json" }}
  * />
  * ```
@@ -140,20 +153,23 @@ export interface ContactMinimalProps {
 export function ContactMinimal({
   heading,
   description,
-  buttonText,
-  buttonIcon = <DynamicIcon name="lucide/send" size={16} />,
+  buttonText = "Submit",
+  buttonIcon,
   actions,
   actionsSlot,
-  footer,
-  footerSlot,
+  formFields = DEFAULT_FORM_FIELDS,
+  successMessage = "Thank you! Your message has been sent successfully.",
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
   descriptionClassName,
+  cardClassName,
+  cardContentClassName,
   formClassName,
   submitClassName,
-  footerClassName,
+  successMessageClassName,
+  errorMessageClassName,
   background = "white",
   spacing = "xl",
   pattern,
@@ -164,60 +180,32 @@ export function ContactMinimal({
   onSuccess,
   onError,
 }: ContactMinimalProps): React.JSX.Element {
-  const form = useForm<ContactMinimalFormValues>({
-    initialValues: {
-      name: "",
-      email: "",
-      message: "",
-    },
-    validationSchema: {
-      name: (value) => (!value ? "Name is required" : undefined),
-      email: (value) => {
-        if (!value) return "Email is required";
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
-          return "Please enter a valid email address";
-        return undefined;
+  // File upload hook
+  const {
+    uploadTokens,
+    uploadProgress,
+    isUploading,
+    uploadFiles,
+    removeFile,
+    resetUpload,
+  } = useFileUpload({ onError });
+
+  // Contact form hook with file upload integration
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields,
+      formConfig,
+      onSubmit,
+      onSuccess: (data) => {
+        resetUpload();
+        onSuccess?.(data);
       },
-      message: (value) => (!value ? "Message is required" : undefined),
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
+      onError,
+      resetOnSuccess: formConfig?.resetOnSuccess !== false,
+      uploadTokens,
+    });
 
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
-
-      try {
-        let result: unknown;
-
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
-
-        if (onSubmit) {
-          await onSubmit(values);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
-  });
-
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
-
-  const actionsContent = React.useMemo(() => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
@@ -250,32 +238,6 @@ export function ContactMinimal({
     return null;
   }, [actionsSlot, actions]);
 
-  const footerContent = React.useMemo(() => {
-    if (footerSlot) return footerSlot;
-    if (footer) {
-      return typeof footer === "string" ? (
-        <p
-          className={cn(
-            "mt-6 text-center text-sm  text-balance",
-            footerClassName,
-          )}
-        >
-          {footer}
-        </p>
-      ) : (
-        <div
-          className={cn(
-            "mt-6 text-center text-sm  text-balance",
-            footerClassName,
-          )}
-        >
-          {footer}
-        </div>
-      );
-    }
-    return null;
-  }, [footerSlot, footer, footerClassName]);
-
   return (
     <Section
       background={background}
@@ -283,14 +245,15 @@ export function ContactMinimal({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn("py-12", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto w-full max-w-md px-4", containerClassName)}>
+      <div className="mx-auto max-w-4xl">
         <div className={cn("mb-10 text-center", headerClassName)}>
           {heading &&
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight",
+                  "mb-3 text-3xl font-bold tracking-tight text-balance",
                   headingClassName,
                 )}
               >
@@ -303,7 +266,7 @@ export function ContactMinimal({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "leading-relaxed text-muted-foreground",
+                  "leading-relaxed text-balance",
                   descriptionClassName,
                 )}
               >
@@ -314,77 +277,64 @@ export function ContactMinimal({
             ))}
         </div>
 
-        <Form
-          form={form}
-          action={formConfig?.endpoint}
-          method={formMethod}
-          className={cn("space-y-4", formClassName)}
-        >
-          <Field name="name">
-            {({ field, meta }) => (
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <TextInput
-                  {...field}
-                  id="name"
-                  placeholder="Your full name"
-                  error={meta.touched && !!meta.error}
-                  aria-label="Name"
-                />
-              </div>
-            )}
-          </Field>
-
-          <Field name="email">
-            {({ field, meta }) => (
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <TextInput
-                  {...field}
-                  id="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  error={meta.touched && !!meta.error}
-                  aria-label="Email"
-                />
-              </div>
-            )}
-          </Field>
-
-          <Field name="message">
-            {({ field, meta }) => (
-              <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
-                <TextArea
-                  {...field}
-                  id="message"
-                  placeholder="Tell us what's on your mind..."
-                  rows={4}
-                  error={meta.touched && !!meta.error}
-                  aria-label="Message"
-                />
-              </div>
-            )}
-          </Field>
-
-          {actionsSlot || (actions && actions.length > 0) ? (
-            actionsContent
-          ) : (
-            <Pressable
-              componentType="button"
-              type="submit"
-              className={cn("w-full gap-2", submitClassName)}
-              size="lg"
-              asButton
-              disabled={form.isSubmitting}
+        <Card className={cn("mx-auto max-w-xl", cardClassName)}>
+          <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
+            <Form
+              form={form}
+              notificationConfig={{
+                submissionError,
+                successMessage,
+              }}
+              styleConfig={{
+                formClassName: cn("space-y-4", formClassName),
+                successMessageClassName,
+                errorMessageClassName,
+              }}
+              formConfig={{
+                endpoint: formConfig?.endpoint,
+                method: formMethod,
+                submissionConfig: formConfig?.submissionConfig,
+              }}
+              onNewSubmission={() => {
+                resetUpload();
+                resetSubmissionState();
+              }}
             >
-              {buttonIcon}
-              {buttonText}
-            </Pressable>
-          )}
-        </Form>
+              <div className="grid grid-cols-12 gap-6">
+                {formFields.map((field) => (
+                  <div
+                    key={field.name}
+                    className={getColumnSpanClass(field.columnSpan)}
+                  >
+                    <DynamicFormField
+                      field={field}
+                      uploadProgress={uploadProgress}
+                      onFileUpload={uploadFiles}
+                      onFileRemove={removeFile}
+                      isUploading={isUploading}
+                    />
+                  </div>
+                ))}
+              </div>
 
-        {footerContent}
+              {actionsSlot || (actions && actions.length > 0) ? (
+                actionsContent
+              ) : (
+                <Pressable
+                  componentType="button"
+                  type="submit"
+                  className={cn("w-full", submitClassName)}
+                  size="lg"
+                  asButton
+                  disabled={form.isSubmitting}
+                >
+                  {buttonIcon}
+                  {buttonText}
+                </Pressable>
+              )}
+            </Form>
+          </CardContent>
+        </Card>
       </div>
     </Section>
   );

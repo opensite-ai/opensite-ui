@@ -1,17 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput, TextArea } from "../../ui/form-inputs";
+import { useMemo } from "react";
+import { Form } from "@page-speed/forms";
+import {
+  DynamicFormField,
+  getColumnSpanClass,
+  useContactForm,
+  useFileUpload,
+  type FormFieldConfig,
+  type PageSpeedFormConfig,
+} from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent } from "../../ui/card";
-import { Label } from "../../ui/label";
-import {
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -20,13 +22,50 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 
-interface ContactTenantFormValues {
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
-  message: string;
-}
+// Default form fields
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "first_name",
+    type: "text",
+    label: "First Name",
+    placeholder: "John",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "last_name",
+    type: "text",
+    label: "Last Name",
+    placeholder: "Doe",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "email",
+    type: "email",
+    label: "Email",
+    placeholder: "john@example.com",
+    required: true,
+    columnSpan: 12,
+  },
+  {
+    name: "phone",
+    type: "tel",
+    label: "Phone",
+    placeholder: "+1 (555) 000-0000",
+    required: true,
+    columnSpan: 12,
+  },
+  {
+    name: "message",
+    type: "textarea",
+    label: "Message",
+    placeholder: "Your message...",
+    required: true,
+    rows: 4,
+    columnSpan: 12,
+  },
+];
 
 export interface ContactTenantProps {
   /** Main heading text */
@@ -41,6 +80,16 @@ export interface ContactTenantProps {
   actions?: ActionConfig[];
   /** Custom slot for rendering actions (overrides actions array) */
   actionsSlot?: React.ReactNode;
+  /**
+   * Array of form field configurations
+   * If not provided, defaults to: first_name, last_name, email, phone, message
+   */
+  formFields?: FormFieldConfig[];
+  /**
+   * Success message to display after form submission
+   * @default "Thank you! Your message has been sent successfully."
+   */
+  successMessage?: React.ReactNode;
   /** Additional CSS classes for the section */
   className?: string;
   /** Additional CSS classes for the container */
@@ -58,7 +107,12 @@ export interface ContactTenantProps {
   /** Additional CSS classes for the form */
   formClassName?: string;
   /** Additional CSS classes for the submit button */
-  submitClassName?: string;  /**
+  submitClassName?: string;
+  /** Additional CSS classes for the success message */
+  successMessageClassName?: string;
+  /** Additional CSS classes for the error message */
+  errorMessageClassName?: string;
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -78,7 +132,7 @@ export interface ContactTenantProps {
   /** Form configuration for PageSpeed forms */
   formConfig?: PageSpeedFormConfig;
   /** Custom submit handler */
-  onSubmit?: (values: ContactTenantFormValues) => void | Promise<void>;
+  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
   /** Success callback */
   onSuccess?: (data: unknown) => void;
   /** Error callback */
@@ -86,7 +140,7 @@ export interface ContactTenantProps {
 }
 
 /**
- * ContactTenant - Contact form with image background layout.
+ * ContactTenant - Contact form with flexible field configuration
  *
  * @example
  * ```tsx
@@ -99,12 +153,14 @@ export interface ContactTenantProps {
 export function ContactTenant({
   heading,
   description,
-  buttonText,
+  buttonText = "Submit",
   buttonIcon,
   actions,
   actionsSlot,
+  formFields = DEFAULT_FORM_FIELDS,
+  successMessage = "Thank you! Your message has been sent successfully.",
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -112,6 +168,8 @@ export function ContactTenant({
   cardContentClassName,
   formClassName,
   submitClassName,
+  successMessageClassName,
+  errorMessageClassName,
   background = "white",
   spacing = "xl",
   pattern,
@@ -122,74 +180,57 @@ export function ContactTenant({
   onSuccess,
   onError,
 }: ContactTenantProps): React.JSX.Element {
-  const form = useForm<ContactTenantFormValues>({
-    initialValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      phone: "",
-      message: "",
-    },
-    validationSchema: {
-      first_name: (value) => (!value ? "First name is required" : undefined),
-      last_name: (value) => (!value ? "Last name is required" : undefined),
-      email: (value) => {
-        if (!value) return "Email is required";
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
-          return "Please enter a valid email address";
-        return undefined;
+  // File upload hook
+  const {
+    uploadTokens,
+    uploadProgress,
+    isUploading,
+    uploadFiles,
+    removeFile,
+    resetUpload,
+  } = useFileUpload({ onError });
+
+  // Contact form hook with file upload integration
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields,
+      formConfig,
+      onSubmit,
+      onSuccess: (data) => {
+        resetUpload();
+        onSuccess?.(data);
       },
-      phone: (value) => (!value ? "Phone is required" : undefined),
-      message: (value) => (!value ? "Message is required" : undefined),
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
+      onError,
+      resetOnSuccess: formConfig?.resetOnSuccess !== false,
+      uploadTokens,
+    });
 
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
-
-      try {
-        let result: unknown;
-
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
-
-        if (onSubmit) {
-          await onSubmit(values);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
-  });
-
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
-
-  const actionsContent = React.useMemo(() => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
-        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        const {
+          label,
+          icon,
+          iconAfter,
+          children,
+          className: actionClassName,
+          ...pressableProps
+        } = action;
         return (
-          <Pressable key={index} asButton className={actionClassName} {...pressableProps}>
-            {children ?? (<>{icon}{label}{iconAfter}</>)}
+          <Pressable
+            key={index}
+            asButton
+            className={actionClassName}
+            {...pressableProps}
+          >
+            {children ?? (
+              <>
+                {icon}
+                {label}
+                {iconAfter}
+              </>
+            )}
           </Pressable>
         );
       });
@@ -204,100 +245,77 @@ export function ContactTenant({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn("py-12", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-4xl px-4", containerClassName)}>
+      <div className="mx-auto max-w-4xl">
         <div className={cn("mb-10 text-center", headerClassName)}>
-          <h2 className={cn("mb-3 text-3xl font-bold tracking-tight", headingClassName)}>{heading}</h2>
-          <p className={cn("leading-relaxed text-muted-foreground", descriptionClassName)}>{description}</p>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-3 text-3xl font-bold tracking-tight text-balance",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "leading-relaxed text-balance",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            ))}
         </div>
 
         <Card className={cn("mx-auto max-w-xl", cardClassName)}>
           <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
             <Form
               form={form}
-              action={formConfig?.endpoint}
-              method={formMethod}
-              className={cn("space-y-4", formClassName)}
+              notificationConfig={{
+                submissionError,
+                successMessage,
+              }}
+              styleConfig={{
+                formClassName: cn("space-y-4", formClassName),
+                successMessageClassName,
+                errorMessageClassName,
+              }}
+              formConfig={{
+                endpoint: formConfig?.endpoint,
+                method: formMethod,
+                submissionConfig: formConfig?.submissionConfig,
+              }}
+              onNewSubmission={() => {
+                resetUpload();
+                resetSubmissionState();
+              }}
             >
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field name="first_name">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="first-name">First Name</Label>
-                      <TextInput
-                        {...field}
-                        id="first-name"
-                        placeholder="John"
-                        error={meta.touched && !!meta.error}
-                        aria-label="First Name"
-                      />
-                    </div>
-                  )}
-                </Field>
-
-                <Field name="last_name">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="last-name">Last Name</Label>
-                      <TextInput
-                        {...field}
-                        id="last-name"
-                        placeholder="Doe"
-                        error={meta.touched && !!meta.error}
-                        aria-label="Last Name"
-                      />
-                    </div>
-                  )}
-                </Field>
+              <div className="grid grid-cols-12 gap-6">
+                {formFields.map((field) => (
+                  <div
+                    key={field.name}
+                    className={getColumnSpanClass(field.columnSpan)}
+                  >
+                    <DynamicFormField
+                      field={field}
+                      uploadProgress={uploadProgress}
+                      onFileUpload={uploadFiles}
+                      onFileRemove={removeFile}
+                      isUploading={isUploading}
+                    />
+                  </div>
+                ))}
               </div>
-
-              <Field name="email">
-                {({ field, meta }) => (
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <TextInput
-                      {...field}
-                      id="email"
-                      type="email"
-                      placeholder="john@example.com"
-                      error={meta.touched && !!meta.error}
-                      aria-label="Email"
-                    />
-                  </div>
-                )}
-              </Field>
-
-              <Field name="phone">
-                {({ field, meta }) => (
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone</Label>
-                    <TextInput
-                      {...field}
-                      id="phone"
-                      type="tel"
-                      placeholder="+1 (555) 000-0000"
-                      error={meta.touched && !!meta.error}
-                      aria-label="Phone"
-                    />
-                  </div>
-                )}
-              </Field>
-
-              <Field name="message">
-                {({ field, meta }) => (
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <TextArea
-                      {...field}
-                      id="message"
-                      placeholder="Your message..."
-                      rows={4}
-                      error={meta.touched && !!meta.error}
-                      aria-label="Message"
-                    />
-                  </div>
-                )}
-              </Field>
 
               {actionsSlot || (actions && actions.length > 0) ? (
                 actionsContent
@@ -321,5 +339,3 @@ export function ContactTenant({
     </Section>
   );
 }
-
-

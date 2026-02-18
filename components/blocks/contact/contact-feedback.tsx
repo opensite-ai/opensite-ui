@@ -1,17 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput, TextArea } from "../../ui/form-inputs";
+import { useMemo } from "react";
+import { Form } from "@page-speed/forms";
+import {
+  DynamicFormField,
+  getColumnSpanClass,
+  useContactForm,
+  useFileUpload,
+  type FormFieldConfig,
+  type PageSpeedFormConfig,
+} from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent } from "../../ui/card";
-import { Label } from "../../ui/label";
-import {
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -20,72 +22,97 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 
-interface ContactFeedbackFormValues {
-  email: string;
-  feedback: string;
-}
+// Default form fields
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "first_name",
+    type: "text",
+    label: "First Name",
+    placeholder: "John",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "last_name",
+    type: "text",
+    label: "Last Name",
+    placeholder: "Doe",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "email",
+    type: "email",
+    label: "Email",
+    placeholder: "john@example.com",
+    required: true,
+    columnSpan: 12,
+  },
+  {
+    name: "phone",
+    type: "tel",
+    label: "Phone",
+    placeholder: "+1 (555) 000-0000",
+    required: true,
+    columnSpan: 12,
+  },
+  {
+    name: "message",
+    type: "textarea",
+    label: "Message",
+    placeholder: "Your message...",
+    required: true,
+    rows: 4,
+    columnSpan: 12,
+  },
+];
 
 export interface ContactFeedbackProps {
-  /**
-   * Main heading text
-   */
+  /** Main heading text */
   heading?: React.ReactNode;
-  /**
-   * Description text below heading
-   */
+  /** Description text below heading */
   description?: React.ReactNode;
-  /**
-   * Submit button text
-   */
+  /** Submit button text */
   buttonText?: string;
-  /**
-   * Icon to display in submit button
-   */
+  /** Icon to display in submit button */
   buttonIcon?: React.ReactNode;
-  /**
-   * Array of action configurations for custom buttons
-   */
+  /** Array of action configurations for custom buttons */
   actions?: ActionConfig[];
-  /**
-   * Custom slot for rendering actions (overrides actions array)
-   */
+  /** Custom slot for rendering actions (overrides actions array) */
   actionsSlot?: React.ReactNode;
   /**
-   * Additional CSS classes for the section
+   * Array of form field configurations
+   * If not provided, defaults to: first_name, last_name, email, phone, message
    */
+  formFields?: FormFieldConfig[];
+  /**
+   * Success message to display after form submission
+   * @default "Thank you! Your message has been sent successfully."
+   */
+  successMessage?: React.ReactNode;
+  /** Additional CSS classes for the section */
   className?: string;
-  /**
-   * Additional CSS classes for the container
-   */
+  /** Additional CSS classes for the container */
   containerClassName?: string;
-  /**
-   * Additional CSS classes for the header
-   */
+  /** Additional CSS classes for the header */
   headerClassName?: string;
-  /**
-   * Additional CSS classes for the heading
-   */
+  /** Additional CSS classes for the heading */
   headingClassName?: string;
-  /**
-   * Additional CSS classes for the description
-   */
+  /** Additional CSS classes for the description */
   descriptionClassName?: string;
-  /**
-   * Additional CSS classes for the card
-   */
+  /** Additional CSS classes for the card */
   cardClassName?: string;
-  /**
-   * Additional CSS classes for the card content
-   */
+  /** Additional CSS classes for the card content */
   cardContentClassName?: string;
-  /**
-   * Additional CSS classes for the form
-   */
+  /** Additional CSS classes for the form */
   formClassName?: string;
+  /** Additional CSS classes for the submit button */
+  submitClassName?: string;
+  /** Additional CSS classes for the success message */
+  successMessageClassName?: string;
+  /** Additional CSS classes for the error message */
+  errorMessageClassName?: string;
   /**
-   * Additional CSS classes for the submit button
-   */
-  submitClassName?: string; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -102,43 +129,38 @@ export interface ContactFeedbackProps {
    */
   patternOpacity?: number;
 
-  /**
-   * Form configuration for PageSpeed forms
-   */
+  /** Form configuration for PageSpeed forms */
   formConfig?: PageSpeedFormConfig;
-  /**
-   * Custom submit handler
-   */
-  onSubmit?: (values: ContactFeedbackFormValues) => void | Promise<void>;
-  /**
-   * Success callback
-   */
+  /** Custom submit handler */
+  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
+  /** Success callback */
   onSuccess?: (data: unknown) => void;
-  /**
-   * Error callback
-   */
+  /** Error callback */
   onError?: (error: Error) => void;
 }
 
 /**
- * ContactFeedback - Simple feedback form for collecting user feedback.
+ * ContactFeedback - Contact form with flexible field configuration
  *
  * @example
  * ```tsx
  * <ContactFeedback
  *   heading="Share Your Feedback"
- *   formConfig={{ endpoint: "/api/feedback", format: "json" }}
+ *   formConfig={{ endpoint: "/api/contact", format: "json" }}
  * />
  * ```
  */
 export function ContactFeedback({
   heading,
   description,
-  buttonText,
+  buttonText = "Submit",
   buttonIcon,
   actions,
   actionsSlot,
+  formFields = DEFAULT_FORM_FIELDS,
+  successMessage = "Thank you! Your message has been sent successfully.",
   className,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -146,69 +168,44 @@ export function ContactFeedback({
   cardContentClassName,
   formClassName,
   submitClassName,
-  background,
-  spacing = "py-8 md:py-32",
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  successMessageClassName,
+  errorMessageClassName,
+  background = "white",
+  spacing = "xl",
   pattern,
-  patternOpacity,
+  patternOpacity = 0.1,
 
   formConfig,
   onSubmit,
   onSuccess,
   onError,
 }: ContactFeedbackProps): React.JSX.Element {
-  const form = useForm<ContactFeedbackFormValues>({
-    initialValues: {
-      email: "",
-      feedback: "",
-    },
-    validationSchema: {
-      email: (value) => {
-        if (!value) return "Email is required";
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
-          return "Please enter a valid email address";
-        return undefined;
+  // File upload hook
+  const {
+    uploadTokens,
+    uploadProgress,
+    isUploading,
+    uploadFiles,
+    removeFile,
+    resetUpload,
+  } = useFileUpload({ onError });
+
+  // Contact form hook with file upload integration
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields,
+      formConfig,
+      onSubmit,
+      onSuccess: (data) => {
+        resetUpload();
+        onSuccess?.(data);
       },
-      feedback: (value) => (!value ? "Feedback is required" : undefined),
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
+      onError,
+      resetOnSuccess: formConfig?.resetOnSuccess !== false,
+      uploadTokens,
+    });
 
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
-
-      try {
-        let result: unknown;
-
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
-
-        if (onSubmit) {
-          await onSubmit(values);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
-  });
-
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
-
-  const actionsContent = React.useMemo(() => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
@@ -247,10 +244,10 @@ export function ContactFeedback({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      className={cn("py-12", className)}
       containerClassName={containerClassName}
     >
-      <div className="relative">
+      <div className="mx-auto max-w-4xl">
         <div className={cn("mb-10 text-center", headerClassName)}>
           {heading &&
             (typeof heading === "string" ? (
@@ -284,41 +281,41 @@ export function ContactFeedback({
           <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
             <Form
               form={form}
-              action={formConfig?.endpoint}
-              method={formMethod}
-              className={cn("space-y-4", formClassName)}
+              notificationConfig={{
+                submissionError,
+                successMessage,
+              }}
+              styleConfig={{
+                formClassName: cn("space-y-4", formClassName),
+                successMessageClassName,
+                errorMessageClassName,
+              }}
+              formConfig={{
+                endpoint: formConfig?.endpoint,
+                method: formMethod,
+                submissionConfig: formConfig?.submissionConfig,
+              }}
+              onNewSubmission={() => {
+                resetUpload();
+                resetSubmissionState();
+              }}
             >
-              <Field name="email">
-                {({ field, meta }) => (
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <TextInput
-                      {...field}
-                      id="email"
-                      type="email"
-                      placeholder="your@email.com"
-                      error={meta.touched && !!meta.error}
-                      aria-label="Email"
+              <div className="grid grid-cols-12 gap-6">
+                {formFields.map((field) => (
+                  <div
+                    key={field.name}
+                    className={getColumnSpanClass(field.columnSpan)}
+                  >
+                    <DynamicFormField
+                      field={field}
+                      uploadProgress={uploadProgress}
+                      onFileUpload={uploadFiles}
+                      onFileRemove={removeFile}
+                      isUploading={isUploading}
                     />
                   </div>
-                )}
-              </Field>
-
-              <Field name="feedback">
-                {({ field, meta }) => (
-                  <div className="space-y-2">
-                    <Label htmlFor="feedback">Feedback</Label>
-                    <TextArea
-                      {...field}
-                      id="feedback"
-                      placeholder="Tell us what you think..."
-                      rows={6}
-                      error={meta.touched && !!meta.error}
-                      aria-label="Feedback"
-                    />
-                  </div>
-                )}
-              </Field>
+                ))}
+              </div>
 
               {actionsSlot || (actions && actions.length > 0) ? (
                 actionsContent
