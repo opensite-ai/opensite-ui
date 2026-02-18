@@ -215,7 +215,7 @@ export function HeroEventRegistration({
     if (!locationLabel && !locationSublabel) return null;
 
     return (
-      <div className="absolute -bottom-4 -left-4 rounded-xl bg-card p-4 shadow-lg">
+      <div className="absolute -bottom-4 -left-4 rounded-xl bg-card text-card-foreground p-4 shadow-lg ring-4 ring-primary">
         <div className="flex items-center gap-3">
           <div
             className={cn(
@@ -227,13 +227,17 @@ export function HeroEventRegistration({
           <div>
             {locationLabel &&
               (typeof locationLabel === "string" ? (
-                <div className="font-semibold ">{locationLabel}</div>
+                <div className="font-semibold text-card-foreground">
+                  {locationLabel}
+                </div>
               ) : (
                 locationLabel
               ))}
             {locationSublabel &&
               (typeof locationSublabel === "string" ? (
-                <div className={cn("text-sm")}>{locationSublabel}</div>
+                <div className={cn("text-sm text-card-foreground")}>
+                  {locationSublabel}
+                </div>
               ) : (
                 locationSublabel
               ))}
@@ -275,7 +279,7 @@ export function HeroEventRegistration({
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div
             className={cn(
-              "flex flex-col items-start gap-6 md:gap-8",
+              "flex flex-col items-start gap-4 md:gap-6",
               contentClassName,
             )}
           >

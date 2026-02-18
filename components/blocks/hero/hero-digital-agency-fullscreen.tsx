@@ -151,7 +151,7 @@ export function HeroDigitalAgencyFullscreen({
       <div className="relative">
         <div
           className={cn(
-            "flex min-h-screen min-w-screen h-full w-full flex-col items-center justify-end",
+            "flex min-h-screen h-full w-full flex-col items-center justify-end",
             contentClassName,
           )}
         >

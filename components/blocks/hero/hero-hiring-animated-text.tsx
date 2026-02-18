@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import type {
   ActionConfig,
   SectionBackground,
@@ -11,6 +10,7 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroHiringAnimatedTextProps {
   /**
@@ -38,14 +38,6 @@ export interface HeroHiringAnimatedTextProps {
    */
   actionsSlot?: React.ReactNode;
   /**
-   * Scroll action configuration
-   */
-  scrollAction?: ActionConfig;
-  /**
-   * Custom slot for scroll action (overrides scrollAction prop)
-   */
-  scrollActionSlot?: React.ReactNode;
-  /**
    * Background image URL
    */
   backgroundImage?: string; /**
@@ -64,7 +56,6 @@ export interface HeroHiringAnimatedTextProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
-
   /**
    * Additional CSS classes for the section
    */
@@ -98,8 +89,6 @@ export function HeroHiringAnimatedText({
   description,
   actions,
   actionsSlot,
-  scrollAction,
-  scrollActionSlot,
   backgroundImage,
   background,
   pattern,
@@ -161,67 +150,6 @@ export function HeroHiringAnimatedText({
     activeIndex,
   ]);
 
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className={cn("flex flex-col md:flex-row gap-4", actionsClassName)}>
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
-  const renderScrollAction = useMemo(() => {
-    if (scrollActionSlot) return scrollActionSlot;
-    if (!scrollAction) return null;
-
-    const {
-      label,
-      icon,
-      iconAfter,
-      children,
-      className: actionClassName,
-      ...pressableProps
-    } = scrollAction;
-    return (
-      <Pressable asButton className={actionClassName} {...pressableProps}>
-        {children ?? (
-          <>
-            {icon}
-            <div>{label}</div>
-            {iconAfter}
-          </>
-        )}
-      </Pressable>
-    );
-  }, [scrollActionSlot, scrollAction]);
-
   return (
     <Section
       background={background}
@@ -243,7 +171,7 @@ export function HeroHiringAnimatedText({
           )}
         >
           {renderHeading}
-          <div className="flex flex-col gap-8">
+          <div className="flex items-center md:items-start flex-col gap-8">
             {description &&
               (typeof description === "string" ? (
                 <p
@@ -257,10 +185,12 @@ export function HeroHiringAnimatedText({
               ) : (
                 <div className={descriptionClassName}>{description}</div>
               ))}
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              {renderActions}
-              {renderScrollAction}
-            </div>
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+              mobileConfig={{ width: "full", position: "center" }}
+            />
           </div>
         </div>
       </div>
