@@ -137,7 +137,7 @@ export function HeroGradientClientFocused({
           (typeof heading === "string" ? (
             <h1
               className={cn(
-                "max-w-full md:max-w-md text-7xl font-semibold text-balance",
+                "max-w-full md:max-w-md text-5xl md:text-6xl lg:text-7xl font-semibold text-balance",
                 headingClassName,
               )}
             >
@@ -146,7 +146,7 @@ export function HeroGradientClientFocused({
           ) : (
             <h1
               className={cn(
-                "max-w-full md:max-w-md text-7xl font-semibold text-balance",
+                "max-w-full md:max-w-md text-5xl md:text-6xl lg:text-7xl font-semibold text-balance",
                 headingClassName,
               )}
             >

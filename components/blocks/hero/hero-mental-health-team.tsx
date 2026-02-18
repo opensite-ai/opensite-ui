@@ -2,11 +2,19 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import type {ImageItem, OptixFlowConfig, TestimonialItem, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ImageItem,
+  OptixFlowConfig,
+  TestimonialItem,
+  SectionBackground,
+  SectionSpacing,
+  ActionConfig,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroMentalHealthTeamProps {
   /**
@@ -40,7 +48,7 @@ export interface HeroMentalHealthTeamProps {
   /**
    * Custom slot for feature image (overrides featureImage prop)
    */
-  featureImageSlot?: React.ReactNode;  /**
+  featureImageSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -56,7 +64,6 @@ export interface HeroMentalHealthTeamProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
-
   /**
    * Additional CSS classes for the section
    */
@@ -81,10 +88,34 @@ export interface HeroMentalHealthTeamProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
 }
 
 export function HeroMentalHealthTeam({
-  subtitle,
+  description,
+  descriptionClassName,
+  actions,
+  actionsSlot,
+  actionsClassName,
   heading,
   teamImages,
   teamImagesSlot,
@@ -93,11 +124,11 @@ export function HeroMentalHealthTeam({
   featureImage,
   featureImageSlot,
   background,
-  spacing,
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
   gridClassName,
@@ -115,7 +146,10 @@ export function HeroMentalHealthTeam({
               <Img
                 src={teamImages[0].src}
                 alt={teamImages[0].alt}
-                className={cn("block h-full w-full object-cover object-center", teamImages[0].className)}
+                className={cn(
+                  "block h-full w-full object-cover object-center",
+                  teamImages[0].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
@@ -127,7 +161,10 @@ export function HeroMentalHealthTeam({
               <Img
                 src={teamImages[1].src}
                 alt={teamImages[1].alt}
-                className={cn("block h-full w-full object-cover object-center", teamImages[1].className)}
+                className={cn(
+                  "block h-full w-full object-cover object-center",
+                  teamImages[1].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
@@ -141,14 +178,14 @@ export function HeroMentalHealthTeam({
     if (testimonialSlot) return testimonialSlot;
     if (!testimonial) return null;
 
-    const avatarSrc = testimonial.avatarSrc ?? (testimonial.avatar?.src);
+    const avatarSrc = testimonial.avatarSrc ?? testimonial.avatar?.src;
     return (
       <div className="col-[1/3] row-[3/4] w-full md:col-[1/3] md:row-[2/3]">
-        <div className={cn(
-          "flex h-full min-h-37.5 flex-col gap-3 overflow-hidden rounded-3xl p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background)
-        )}>
+        <div
+          className={cn(
+            "flex h-full min-h-37.5 flex-col gap-3 overflow-hidden rounded-3xl p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8 bg-muted",
+          )}
+        >
           {avatarSrc && (
             <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl md:h-30 md:w-30">
               <Img
@@ -159,8 +196,8 @@ export function HeroMentalHealthTeam({
               />
             </div>
           )}
-          <div className="flex h-full w-full flex-col justify-between gap-2">
-            <p className="text-lg font-medium ">
+          <div className="flex h-full w-full flex-col justify-between gap-2 text-muted-foreground">
+            <p className="text-lg font-medium">
               &quot;{testimonial.quote}&quot;
             </p>
             <p className="">{testimonial.author}</p>
@@ -180,7 +217,10 @@ export function HeroMentalHealthTeam({
           <Img
             src={featureImage.src}
             alt={featureImage.alt}
-            className={cn("block h-full w-full object-cover object-center", featureImage.className)}
+            className={cn(
+              "block h-full w-full object-cover object-center",
+              featureImage.className,
+            )}
             optixFlowConfig={optixFlowConfig}
           />
         </div>
@@ -190,30 +230,65 @@ export function HeroMentalHealthTeam({
 
   return (
     <Section
-      className={cn("dark bg-background py-12 font-sans md:py-20", className)}
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("mx-auto mb-24 flex max-w-[900px] flex-col items-center gap-3", headerClassName)}>
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className="text-center ">{subtitle}</p>
-            ) : (
-              subtitle
-            )
+      <div className="pt-10 md:pt-0">
+        <div
+          className={cn(
+            "mx-auto mb-16 flex max-w-[900px] flex-col items-center gap-6",
+            headerClassName,
           )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl", headingClassName)}>
+        >
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl", headingClassName)}>
+              <h1
+                className={cn(
+                  "text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
-            )
-          )}
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-center text-lg md:text-xl",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            ))}
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
-        <div className={cn("grid w-full max-w-332.5 auto-cols-auto grid-cols-2 grid-rows-[auto_auto] justify-center gap-5 md:grid-cols-[repeat(4,1fr)]", gridClassName)}>
+        <div
+          className={cn(
+            "grid w-full max-w-332.5 auto-cols-auto grid-cols-2 grid-rows-[auto_auto] justify-center gap-5 md:grid-cols-[repeat(4,1fr)]",
+            gridClassName,
+          )}
+        >
           {renderTeamImages}
           {renderTestimonial}
           {renderFeatureImage}

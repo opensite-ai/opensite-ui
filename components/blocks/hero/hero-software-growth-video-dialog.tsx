@@ -186,7 +186,7 @@ export function HeroSoftwareGrowthVideoDialog({
                   src={showcaseImages[index].src}
                   alt={showcaseImages[index].alt}
                   className={cn(
-                    "size-full object-cover object-center",
+                    "size-full object-cover object-center rounded-xl shadow-xl",
                     showcaseImages[index].className,
                   )}
                   optixFlowConfig={optixFlowConfig}
@@ -210,13 +210,13 @@ export function HeroSoftwareGrowthVideoDialog({
         containerClassName={containerClassName}
       >
         <div className="relative">
-          <div className="flex flex-col">
-            <div className="flex flex-col items-center justify-center gap-8">
+          <div className="flex flex-col gap-10 md:gap-6">
+            <div className="flex flex-col items-center justify-center gap-8 pt-6 md:pt-0">
               {heading &&
                 (typeof heading === "string" ? (
                   <h1
                     className={cn(
-                      "max-w-[1000px] text-center text-[3.125rem] leading-none md:text-[4.25rem] lg:text-[5.5rem] text-balance",
+                      "max-w-[1000px] text-center text-[3.125rem] leading-none md:text-[4.25rem] lg:text-[5.5rem] text-balance font-semibold",
                       headingClassName,
                     )}
                   >
@@ -225,7 +225,7 @@ export function HeroSoftwareGrowthVideoDialog({
                 ) : (
                   <h1
                     className={cn(
-                      "max-w-[1000px] text-center text-[3.125rem] leading-none md:text-[4.25rem] lg:text-[5.5rem] text-balance",
+                      "max-w-[1000px] text-center text-[3.125rem] leading-none md:text-[4.25rem] lg:text-[5.5rem] text-balance font-semibold",
                       headingClassName,
                     )}
                   >

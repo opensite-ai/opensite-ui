@@ -211,7 +211,7 @@ export function HeroStatsSocialProof({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative">
+      <div className="pt-10 md:pt-0">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-4 md:gap-8", contentClassName)}>
             {badge && (

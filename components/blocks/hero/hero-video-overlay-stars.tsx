@@ -152,18 +152,13 @@ export function HeroVideoOverlayStars({
 
     return (
       <div>
-        <div className="flex items-center justify-center gap-0.5">
+        <div className="flex items-center justify-center gap-0.5 text-white">
           {[...Array(starCount)].map((_, i) => (
-            <DynamicIcon
-              key={i}
-              name="lucide/star"
-              size={12}
-              className="fill-muted2-foreground"
-            />
+            <DynamicIcon key={i} name="lucide/star" size={12} />
           ))}
         </div>
         {trust.message && (
-          <p className="mt-1.5 max-w-40 text-center text-xs leading-snug font-medium">
+          <p className="mt-1.5 max-w-40 text-center text-xs leading-snug font-medium text-white text-shadow-2xl">
             {trust.message}
           </p>
         )}
@@ -175,7 +170,7 @@ export function HeroVideoOverlayStars({
     if (videoSlot) return videoSlot;
 
     return (
-      <div className="absolute inset-0 size-full before:absolute before:inset-0 before:bg-background/85 before:content-['']">
+      <div className="absolute inset-0 size-full before:absolute brightness-50">
         <video
           src={videoSrc}
           muted
@@ -201,13 +196,13 @@ export function HeroVideoOverlayStars({
       containerClassName={containerClassName}
     >
       <div className="relative z-10 flex size-full">
-        <div className="m-auto flex max-w-100 flex-col items-center gap-9 sm:max-w-125 md:max-w-200">
+        <div className="m-auto flex max-w-100 flex-col items-center gap-9 sm:max-w-125 md:max-w-200 text-center">
           <div className={cn("flex w-full flex-col gap-8", contentClassName)}>
             {heading &&
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "text-6xl font-font-semibold md:text-[5.8rem] text-balance",
+                    "text-5xl font-semibold md:text-6xl text-balance text-white text-shadow-2xl",
                     headingClassName,
                   )}
                 >
@@ -216,7 +211,7 @@ export function HeroVideoOverlayStars({
               ) : (
                 <h1
                   className={cn(
-                    "text-6xl font-font-semibold md:text-[5.8rem] text-balance",
+                    "text-5xl font-semibold md:text-6xl text-balance text-white text-shadow-2xl",
                     headingClassName,
                   )}
                 >
@@ -227,7 +222,7 @@ export function HeroVideoOverlayStars({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "text-xl md:text-2xl text-balance",
+                    "text-xl md:text-2xl text-balance text-white text-shadow-2xl",
                     descriptionClassName,
                   )}
                 >

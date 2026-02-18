@@ -4,8 +4,6 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Fragment, useState } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import {
@@ -178,8 +176,8 @@ export function HeroVideoDialogGradient({
         className={className}
         containerClassName={containerClassName}
       >
-        <div className="relative z-20">
-          <div className="flex flex-col items-center gap-8">
+        <div className="relative z-20 pt-10 md:pt-">
+          <div className="flex flex-col items-center gap-6 md:gap-8">
             <div className="flex flex-col items-center gap-6">
               {heading &&
                 (typeof heading === "string" ? (

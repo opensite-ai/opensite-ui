@@ -209,7 +209,10 @@ export function HeroDesignShowcaseLogos({
     >
       <div className="relative">
         <div
-          className={cn("flex flex-col items-center gap-8", contentClassName)}
+          className={cn(
+            "flex flex-col items-center gap-8 pt-8 md:pt-12",
+            contentClassName,
+          )}
         >
           <div className="flex max-w-[920px] flex-col items-center gap-6">
             {heading &&

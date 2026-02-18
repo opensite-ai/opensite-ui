@@ -222,7 +222,7 @@ export function HeroConversionVideoPlay({
             <div className="flex flex-col items-center gap-16 md:gap-24">
               <div
                 className={cn(
-                  "flex flex-col items-center gap-8",
+                  "flex flex-col items-center gap-8 pt-8 md:pt-12",
                   contentClassName,
                 )}
               >

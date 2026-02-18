@@ -4,7 +4,6 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -291,7 +290,7 @@ export function HeroCommunitySurveyCta({
       containerClassName={containerClassName}
     >
       <div className="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
-        <div className="flex flex-col items-start gap-6 md:gap-8">
+        <div className="flex flex-col items-start gap-6 md:gap-8 pt-8 md:pt-0">
           {renderAnnouncement}
           {heading &&
             (typeof heading === "string" ? (
@@ -324,6 +323,7 @@ export function HeroCommunitySurveyCta({
             actions={actions}
             actionsClassName={actionsClassName}
             actionsSlot={actionsSlot}
+            mobileConfig={{ width: "full", position: "center" }}
           />
         </div>
         <div className="relative">{renderImages}</div>

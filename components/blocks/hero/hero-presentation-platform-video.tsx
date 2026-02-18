@@ -98,7 +98,7 @@ export function HeroPresentationPlatformVideo({
   videoSrc,
   videoSlot,
   background,
-  spacing = "xl",
+  spacing = "py-32 md:py-16",
   pattern,
   patternOpacity,
   className,
@@ -213,7 +213,9 @@ export function HeroPresentationPlatformVideo({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("my-8 md:text-xl", descriptionClassName)}>
+              <p
+                className={cn("my-0 md:my-8 md:text-xl", descriptionClassName)}
+              >
                 {description}
               </p>
             ) : (

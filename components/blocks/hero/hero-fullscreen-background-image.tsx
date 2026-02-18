@@ -134,7 +134,7 @@ export function HeroFullscreenBackgroundImage({
       {renderBackground}
       <div
         className={cn(
-          "relative z-30 m-auto flex max-w-185 flex-col items-center justify-center gap-6 px-5",
+          "relative z-30 m-auto flex max-w-full md:max-w-md flex-col items-center justify-center gap-6 px-5",
           contentClassName,
         )}
       >
@@ -142,7 +142,7 @@ export function HeroFullscreenBackgroundImage({
           (typeof heading === "string" ? (
             <h1
               className={cn(
-                "text-center text-4xl leading-tight md:text-6xl xl:text-[4.4rem] text-balance text-white text-shadow-2xl font-semibold",
+                "text-5xl md:text-6xl lg:text-7xl text-balance text-white text-shadow-2xl font-semibold",
                 headingClassName,
               )}
             >

@@ -166,14 +166,19 @@ export function HeroUiLibraryShowcase({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("flex flex-col gap-4 items-start", headerClassName)}>
+      <div
+        className={cn(
+          "flex flex-col gap-4 items-start pt-6 md:pt-0",
+          headerClassName,
+        )}
+      >
         {renderLogo}
         <div className="flex max-w-[880px] flex-col items-center gap-6">
           {heading &&
             (typeof heading === "string" ? (
               <h1
                 className={cn(
-                  "text-4xl tracking-tighter font-semibold md:text-5xl lg:text-6xl",
+                  "text-5xl md:text-6xl lg:text-7xl font-semibold text-balance",
                   headingClassName,
                 )}
               >
@@ -182,7 +187,7 @@ export function HeroUiLibraryShowcase({
             ) : (
               <h1
                 className={cn(
-                  "text-4xl tracking-tighter font-semibold md:text-5xl lg:text-6xl",
+                  "text-5xl md:text-6xl lg:text-7xl font-semibold text-balance",
                   headingClassName,
                 )}
               >

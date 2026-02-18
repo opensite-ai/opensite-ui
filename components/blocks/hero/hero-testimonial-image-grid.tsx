@@ -165,7 +165,7 @@ export function HeroTestimonialImageGrid({
     if (!testimonial || !testimonial.avatars) return null;
 
     return (
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3 pt-8">
         <div className="flex -space-x-2">
           {testimonial.avatars.map((avatar, index) => (
             <Avatar key={index} className="size-10 border-2 border-border">
@@ -227,7 +227,7 @@ export function HeroTestimonialImageGrid({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative">
+      <div className="pt-10 md:pt-0">
         <div className="flex flex-col items-center gap-8 md:flex-row">
           <div className="flex-1">
             <div className="flex flex-col gap-4 lg:gap-8">

@@ -2,12 +2,18 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Input } from "../../ui/input";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -73,7 +79,7 @@ export interface HeroSaasDashboardPreviewProps {
   /**
    * Custom slot for browser preview (overrides browserPreview prop)
    */
-  browserPreviewSlot?: React.ReactNode;  /**
+  browserPreviewSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -131,11 +137,11 @@ export function HeroSaasDashboardPreview({
   browserPreview,
   browserPreviewSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -146,18 +152,12 @@ export function HeroSaasDashboardPreview({
     if (badgeSlot) return badgeSlot;
 
     return (
-      <div className={cn(
-        "inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm",
-        getNestedCardBg(background, 'muted'),
-        getNestedCardTextColor(background)
-      )}>
-        {badgeIcon && (
-          <DynamicIcon
-            name={badgeIcon}
-            size={16}
-            className={getAccentColor(background)}
-          />
+      <div
+        className={cn(
+          "inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm bg-muted text-muted-foreground",
         )}
+      >
+        {badgeIcon && <DynamicIcon name={badgeIcon} size={16} />}
         {badgeText && <span>{badgeText}</span>}
       </div>
     );
@@ -188,15 +188,12 @@ export function HeroSaasDashboardPreview({
             )}
           </div>
         </div>
-        {emailForm.helperText && (
-          typeof emailForm.helperText === "string" ? (
-            <p className={cn("mt-4 text-sm", getTextColor(background, "muted"))}>
-              {emailForm.helperText}
-            </p>
+        {emailForm.helperText &&
+          (typeof emailForm.helperText === "string" ? (
+            <p className="mt-4 text-sm">{emailForm.helperText}</p>
           ) : (
             emailForm.helperText
-          )
-        )}
+          ))}
       </>
     );
   }, [emailFormSlot, emailForm]);
@@ -207,22 +204,24 @@ export function HeroSaasDashboardPreview({
 
     return (
       <div className={cn("relative mt-20", previewClassName)}>
-        <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent z-10 pointer-events-none"></div>
-        <div className={cn(
-          "overflow-hidden rounded-xl border border-border shadow-2xl",
-          getNestedCardBg(background, 'muted')
-        )}>
-          <div className={cn(
-            "flex items-center gap-2 border-b border-border px-4 py-3",
-            getNestedCardBg(background, 'muted')
-          )}>
+        <div className="absolute inset-0 z-10 pointer-events-none"></div>
+        <div
+          className={cn(
+            "overflow-hidden rounded-xl border border-border shadow-2xl",
+          )}
+        >
+          <div
+            className={cn(
+              "flex items-center gap-2 border-b border-border px-4 py-3",
+            )}
+          >
             <div className="flex gap-1.5">
               <div className="h-3 w-3 rounded-full bg-destructive"></div>
               <div className="h-3 w-3 rounded-full bg-accent"></div>
-              <div className="h-3 w-3 rounded-full bg-success"></div>
+              <div className="h-3 w-3 rounded-full bg-primary"></div>
             </div>
             {browserPreview.url && (
-              <div className={cn("flex-1 text-center text-sm", getTextColor(background, "muted"))}>
+              <div className={cn("flex-1 text-center text-sm")}>
                 {browserPreview.url}
               </div>
             )}
@@ -247,30 +246,44 @@ export function HeroSaasDashboardPreview({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="pt-10 md:pt-0">
         <div className={cn("mx-auto max-w-4xl text-center", headerClassName)}>
           {renderBadge}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("mt-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "mt-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("mt-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+              <h1
+                className={cn(
+                  "mt-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-6 text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-6 text-lg md:text-xl text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           {renderEmailForm}
         </div>
         {renderBrowserPreview}

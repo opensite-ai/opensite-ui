@@ -3,14 +3,32 @@ import { render, screen } from "@testing-library/react";
 import { HeroBusinessOperationsMosaic } from "../hero-business-operations-mosaic";
 
 vi.mock("@page-speed/img", () => ({
-  Img: ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
+  Img: ({
+    src,
+    alt,
+    className,
+  }: {
+    src: string;
+    alt: string;
+    className?: string;
+  }) => (
     <img src={src} alt={alt} className={className} data-testid="mock-img" />
   ),
 }));
 
 vi.mock("../../../lib/Pressable", () => ({
-  Pressable: ({ children, href, className }: { children: React.ReactNode; href?: string; className?: string }) => (
-    <a href={href} className={className} data-testid="mock-pressable">{children}</a>
+  Pressable: ({
+    children,
+    href,
+    className,
+  }: {
+    children: React.ReactNode;
+    href?: string;
+    className?: string;
+  }) => (
+    <a href={href} className={className} data-testid="mock-pressable">
+      {children}
+    </a>
   ),
 }));
 
@@ -34,7 +52,9 @@ describe("HeroBusinessOperationsMosaic", () => {
   });
 
   it("renders custom subheading", () => {
-    render(<HeroBusinessOperationsMosaic subheading="Custom subheading text" />);
+    render(
+      <HeroBusinessOperationsMosaic description="Custom subheading text" />,
+    );
     expect(screen.getByText("Custom subheading text")).toBeInTheDocument();
   });
 
@@ -49,7 +69,12 @@ describe("HeroBusinessOperationsMosaic", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroBusinessOperationsMosaic heading="Test Heading" className="custom-class" />);
+    const { container } = render(
+      <HeroBusinessOperationsMosaic
+        heading="Test Heading"
+        className="custom-class"
+      />,
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

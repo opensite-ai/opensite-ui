@@ -155,10 +155,10 @@ export function HeroFeatureCardsGrid({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative">
+      <div className="pt-10 md:pt-0">
         <div
           className={cn(
-            "mx-auto max-w-full md:max-w-3xl text-center",
+            "mx-auto max-w-full md:max-w-3xl text-center flex flex-col items-center",
             contentClassName,
           )}
         >

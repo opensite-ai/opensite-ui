@@ -185,7 +185,12 @@ export function HeroSplitImageNewsletter({
       containerClassName={containerClassName}
     >
       <div className="flex flex-col items-center gap-10 lg:flex-row lg:gap-20">
-        <div className={cn("flex flex-col gap-8 lg:w-1/2", contentClassName)}>
+        <div
+          className={cn(
+            "flex flex-col gap-8 lg:w-1/2 pt-8 md:pt-0",
+            contentClassName,
+          )}
+        >
           {heading &&
             (typeof heading === "string" ? (
               <h1

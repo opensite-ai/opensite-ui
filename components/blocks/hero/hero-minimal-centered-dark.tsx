@@ -13,6 +13,7 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { Badge } from "@/src";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroMinimalCenteredDarkProps {
   /**
@@ -107,49 +108,17 @@ export function HeroMinimalCenteredDark({
   stats,
   statsSlot,
   background,
-  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
   className,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   badgeClassName,
   headingClassName,
   descriptionClassName,
   actionsClassName,
   statsClassName,
 }: HeroMinimalCenteredDarkProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const {
-        label,
-        icon,
-        iconAfter,
-        children,
-        className: actionClassName,
-        ...pressableProps
-      } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
-
   const renderStats = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
@@ -176,7 +145,7 @@ export function HeroMinimalCenteredDark({
     >
       <div className="relative">
         {badge && (
-          <Badge className={cn("px-3 py-2", badgeClassName)}>
+          <Badge className={cn("px-4 py-1", badgeClassName)}>
             {typeof badge === "string" ? <span>{badge}</span> : badge}
           </Badge>
         )}
@@ -215,16 +184,11 @@ export function HeroMinimalCenteredDark({
           ) : (
             <div className={descriptionClassName}>{description}</div>
           ))}
-        {(actionsSlot || (actions && actions.length > 0)) && (
-          <div
-            className={cn(
-              "mt-6 md:mt-10 flex flex-col gap-4 md:flex-row",
-              actionsClassName,
-            )}
-          >
-            {renderActions}
-          </div>
-        )}
+        <BlockActions
+          actions={actions}
+          actionsSlot={actionsSlot}
+          actionsClassName={actionsClassName}
+        />
         {(statsSlot || (stats && stats.length > 0)) && (
           <div
             className={cn(

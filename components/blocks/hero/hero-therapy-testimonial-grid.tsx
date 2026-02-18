@@ -14,6 +14,7 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface TestimonialConfig {
   /**
@@ -103,6 +104,10 @@ export interface HeroTherapyTestimonialGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 export function HeroTherapyTestimonialGrid({
@@ -110,12 +115,13 @@ export function HeroTherapyTestimonialGrid({
   description,
   actions,
   actionsSlot,
+  actionsClassName,
   images,
   imagesSlot,
   testimonial,
   testimonialSlot,
   background,
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
@@ -125,43 +131,6 @@ export function HeroTherapyTestimonialGrid({
   descriptionClassName,
   optixFlowConfig,
 }: HeroTherapyTestimonialGridProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className="flex flex-col mt-6 md:mt-8 gap-4 sm:flex-row items-center">
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  <span>{label}</span>
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions]);
-
   const renderTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
     if (!testimonial) return null;
@@ -252,10 +221,10 @@ export function HeroTherapyTestimonialGrid({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative">
+      <div className="pt-10 md:pt-0">
         <div
           className={cn(
-            "mx-auto mb-16 flex max-w-[900px] flex-col items-center gap-6",
+            "mx-auto mb-8 md:mb-12 flex max-w-[900px] flex-col items-center gap-3",
             headerClassName,
           )}
         >
@@ -292,7 +261,11 @@ export function HeroTherapyTestimonialGrid({
             ) : (
               <div className={descriptionClassName}>{description}</div>
             ))}
-          {renderActions}
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
         <div className="grid w-full auto-cols-auto grid-cols-1 grid-rows-[auto_auto_auto] justify-center gap-5 md:grid-cols-2">
           {renderImagesGrid}

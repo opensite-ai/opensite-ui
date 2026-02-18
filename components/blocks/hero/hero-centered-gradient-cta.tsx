@@ -113,7 +113,7 @@ export function HeroCenteredGradientCta({
   features,
   featuresSlot,
   background,
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
@@ -151,9 +151,13 @@ export function HeroCenteredGradientCta({
     >
       <div className="relative gap-6 z-10 flex flex-col items-center text-center">
         {badge && (
-          <Badge variant="outline" className={cn("px-3", badgeClassName)}>
+          <Badge className={cn("px-3", badgeClassName)}>
             {badgeIcon}
-            {typeof badge === "string" ? <span>{badge}</span> : badge}
+            {typeof badge === "string" ? (
+              <span className="font-bold">{badge}</span>
+            ) : (
+              badge
+            )}
           </Badge>
         )}
         {(heading || headingHighlight) &&

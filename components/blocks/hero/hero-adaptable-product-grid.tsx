@@ -98,13 +98,13 @@ export function HeroAdaptableProductGrid({
   actions,
   actionsSlot,
   imageSrc,
-  imageAlt = "placeholder",
+  imageAlt,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   headingClassName,
   descriptionClassName,
   contentClassName,
@@ -127,7 +127,7 @@ export function HeroAdaptableProductGrid({
           (typeof heading === "string" ? (
             <h1
               className={cn(
-                "text-5xl lg:text-7xl font-semibold text-balance",
+                "text-5xl lg:text-7xl font-semibold text-pretty",
                 headingClassName,
               )}
             >
@@ -136,9 +136,9 @@ export function HeroAdaptableProductGrid({
           ) : (
             <div className={headingClassName}>{heading}</div>
           ))}
-        <div className="mt-14 grid gap-6 md:gap-10 grid-cols-1 lg:grid-cols-2">
+        <div className="mt-6 md:mt-24 grid gap-10 grid-cols-1 lg:grid-cols-2">
           <div
-            className={cn("flex flex-col items-start gap-6", contentClassName)}
+            className={cn("flex flex-col items-start gap-2", contentClassName)}
           >
             {description &&
               (typeof description === "string" ? (
@@ -170,7 +170,10 @@ export function HeroAdaptableProductGrid({
               <Img
                 src={imageSrc}
                 alt={imageAlt}
-                className={cn("max-h-[400px] object-cover", imageClassName)}
+                className={cn(
+                  "max-h-[400px] w-full object-cover",
+                  imageClassName,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             )}

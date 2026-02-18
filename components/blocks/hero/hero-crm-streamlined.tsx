@@ -131,7 +131,7 @@ export function HeroCrmStreamlined({
       <div className="relative">
         <div className="flex flex-col items-center justify-between gap-10 md:flex-row">
           <div className={cn("basis-2/4", contentClassName)}>
-            <div className="mt-10 flex flex-col gap-2">
+            <div className="mt-14 md:mt-0 flex flex-col gap-2">
               {tagline &&
                 (typeof tagline === "string" ? (
                   <p
@@ -181,19 +181,19 @@ export function HeroCrmStreamlined({
             {imageSlot ? (
               imageSlot
             ) : image ? (
-              <div className="aspect-square w-full overflow-hidden">
+              <div className="aspect-square w-full overflow-hidden rounded-xl shadow-xl">
                 <Img
                   src={image.src}
                   alt={image.alt}
                   className={cn(
-                    "relative z-20 h-full w-full object-cover object-center rounded-xl shadow-xl",
+                    "relative z-20 h-full w-full object-cover object-center",
                     image.className,
                   )}
                   optixFlowConfig={optixFlowConfig}
                 />
                 <div
                   className={cn(
-                    "absolute top-0 left-25 z-10 bg-muted aspect-[1.378254211/1] h-full w-225",
+                    "absolute top-0 left-25 z-10 bg-muted aspect-[1.378254211/1] h-full w-225 rounded-xl",
                   )}
                 />
               </div>

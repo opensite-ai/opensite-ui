@@ -153,7 +153,7 @@ export function HeroDesignSystem3d({
     return (
       <div
         className={cn(
-          "relative mt-16 aspect-[1.2/1] overflow-hidden sm:-right-[10%] sm:mt-28 sm:aspect-[2.788990826/1]",
+          "relative mt-8 aspect-[1.2/1] overflow-hidden sm:-right-[10%] sm:mt-16 sm:aspect-[2.788990826/1]",
           imagesClassName,
         )}
       >

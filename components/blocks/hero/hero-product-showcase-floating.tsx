@@ -6,9 +6,16 @@ import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface FloatingStatItem {
   /**
@@ -96,7 +103,7 @@ export interface HeroProductShowcaseFloatingProps {
   /**
    * Custom slot for user count (overrides userCount prop)
    */
-  userCountSlot?: React.ReactNode;  /**
+  userCountSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -141,6 +148,10 @@ export interface HeroProductShowcaseFloatingProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 export function HeroProductShowcaseFloating({
@@ -151,6 +162,7 @@ export function HeroProductShowcaseFloating({
   description,
   actions,
   actionsSlot,
+  actionsClassName,
   productImage,
   productImageSlot,
   floatingStat,
@@ -158,11 +170,11 @@ export function HeroProductShowcaseFloating({
   userCount,
   userCountSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -173,41 +185,18 @@ export function HeroProductShowcaseFloating({
     if (badgeSlot) return badgeSlot;
 
     return (
-      <div className={cn("inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm font-medium", `${getAccentColor(background)}/10`, getAccentColor(background))}>
+      <div
+        className={cn(
+          "inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm font-medium",
+          `${getAccentColor(background)}/10`,
+          getAccentColor(background),
+        )}
+      >
         {badgeIcon && <DynamicIcon name={badgeIcon} size={16} />}
         {badgeText && <span>{badgeText}</span>}
       </div>
     );
   }, [badgeSlot, badgeIcon, badgeText]);
-
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className="flex flex-col gap-4 sm:flex-row">
-        {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions]);
 
   const renderFloatingStat = useMemo(() => {
     if (floatingStatSlot) return floatingStatSlot;
@@ -226,10 +215,10 @@ export function HeroProductShowcaseFloating({
             </div>
           )}
           <div>
-            <div className="text-2xl font-bold ">
-              {floatingStat.value}
+            <div className="text-2xl font-bold ">{floatingStat.value}</div>
+            <div className={cn("text-xs", getTextColor(background, "muted"))}>
+              {floatingStat.label}
             </div>
-            <div className={cn("text-xs", getTextColor(background, "muted"))}>{floatingStat.label}</div>
           </div>
         </div>
       </div>
@@ -250,7 +239,10 @@ export function HeroProductShowcaseFloating({
                   key={idx}
                   src={avatar.src}
                   alt={avatar.alt}
-                  className={cn("h-8 w-8 rounded-full border-2 border-background object-cover", avatar.className)}
+                  className={cn(
+                    "h-8 w-8 rounded-full border-2 border-background object-cover",
+                    avatar.className,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
               ))}
@@ -258,7 +250,9 @@ export function HeroProductShowcaseFloating({
           )}
           <div className="text-sm">
             <div className="font-semibold ">{userCount.count}</div>
-            <div className={getTextColor(background, "muted")}>{userCount.label}</div>
+            <div className={getTextColor(background, "muted")}>
+              {userCount.label}
+            </div>
           </div>
         </div>
       </div>
@@ -270,13 +264,16 @@ export function HeroProductShowcaseFloating({
     if (!productImage) return null;
 
     return (
-      <div className={cn("order-2 lg:order-1", showcaseClassName)}>
+      <div className={cn("order-1", showcaseClassName)}>
         <div className="relative">
           <div className="aspect-4/3 overflow-hidden rounded-2xl bg-linear-to-br from-primary/20 to-purple-500/20 p-8">
             <Img
               src={productImage.src}
               alt={productImage.alt}
-              className={cn("h-full w-full rounded-lg object-cover shadow-2xl", productImage.className)}
+              className={cn(
+                "h-full w-full rounded-lg object-cover shadow-2xl",
+                productImage.className,
+              )}
               optixFlowConfig={optixFlowConfig}
             />
           </div>
@@ -285,7 +282,14 @@ export function HeroProductShowcaseFloating({
         </div>
       </div>
     );
-  }, [productImageSlot, productImage, showcaseClassName, optixFlowConfig, renderFloatingStat, renderUserCount]);
+  }, [
+    productImageSlot,
+    productImage,
+    showcaseClassName,
+    optixFlowConfig,
+    renderFloatingStat,
+    renderUserCount,
+  ]);
 
   return (
     <Section
@@ -294,33 +298,53 @@ export function HeroProductShowcaseFloating({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="pt-10 md:pt-0">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           {renderProductShowcase}
-          <div className={cn("order-1 flex flex-col gap-8 lg:order-2", contentClassName)}>
+          <div className={cn("flex flex-col gap-8 order-2", contentClassName)}>
             {renderBadge}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-lg",
+                    getTextColor(background, "muted"),
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-            {renderActions}
+              ))}
+
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
           </div>
         </div>
       </div>

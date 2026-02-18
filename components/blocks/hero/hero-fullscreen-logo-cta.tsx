@@ -178,18 +178,18 @@ export function HeroFullscreenLogoCta({
 
       <div
         className={cn(
-          "relative z-30 m-auto flex max-w-full flex-col items-start justify-center gap-6 px-5",
+          "relative z-30 m-auto flex max-w-full flex-col items-start justify-center gap-4 md:gap-6 px-5",
           contentClassName,
         )}
       >
         {renderLogo}
-        <div className="flex items-end justify-between">
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-start md:justify-between gap-8">
           <div className={cn("flex w-full flex-col gap-8 md:w-2/3")}>
             {heading &&
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "text-6xl font-font-semibold md:text-[5.8rem]",
+                    "text-5xl md:text-6xl lg:text-7xl",
                     headingClassName,
                   )}
                 >
@@ -198,7 +198,7 @@ export function HeroFullscreenLogoCta({
               ) : (
                 <h1
                   className={cn(
-                    "text-6xl font-semibold md:text-[5.8rem]",
+                    "text-5xl md:text-6xl lg:text-7xl",
                     headingClassName,
                   )}
                 >

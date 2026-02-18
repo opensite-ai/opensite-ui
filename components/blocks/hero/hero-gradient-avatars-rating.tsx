@@ -200,7 +200,7 @@ export function HeroGradientAvatarsRating({
     return (
       <div
         className={cn(
-          "grid items-center gap-8 md:gap-20 grid-cols-1 lg:grid-cols-2",
+          "grid items-center gap-4 md:gap-6 grid-cols-1 lg:grid-cols-2",
           imagesClassName,
         )}
       >
@@ -255,14 +255,14 @@ export function HeroGradientAvatarsRating({
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div
             className={cn(
-              "flex flex-col items-center text-center lg:items-start lg:text-left",
+              "flex flex-col items-center text-center lg:items-start lg:text-left pt-6 md:pt-0",
               contentClassName,
             )}
           >
             {heading && (
               <h1
                 className={cn(
-                  "text-4xl font-semibold sm:text-5xl text-balance",
+                  "text-4xl font-semibold md:text-6xl lg:text-7xl text-balance leading-tight",
                   headingClassName,
                 )}
               >
