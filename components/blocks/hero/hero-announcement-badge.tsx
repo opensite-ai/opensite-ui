@@ -1,14 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
-import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroAnnouncementBadgeProps {
   /**
@@ -85,41 +87,16 @@ export function HeroAnnouncementBadge({
   actions,
   actionsSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
   badgeClassName,
   headingClassName,
   descriptionClassName,
   actionsClassName,
 }: HeroAnnouncementBadgeProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
-
   return (
     <Section
       background={background}
@@ -127,19 +104,17 @@ export function HeroAnnouncementBadge({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative flex flex-col gap-4 md:gap-6 lg:gap-8">
         {badge && (
-          <Badge
-            variant="outline"
-            className={cn("mb-4 max-w-full text-sm font-normal lg:mb-10 lg:py-2 lg:pr-5 lg:pl-2", badgeClassName)}
-          >
+          <Badge className={cn("gap-2", badgeClassName)}>
             {badgeIcon && (
-              <span className={cn(
-                "mr-2 flex size-8 shrink-0 items-center justify-center rounded-full",
-                getNestedCardBg(background, 'accent'),
-                getNestedCardTextColor(background)
-              )}>
+              <span
+                className={cn(
+                  "flex size-8 shrink-0 items-center justify-center rounded-full",
+                )}
+              >
                 {badgeIcon}
               </span>
             )}
@@ -150,29 +125,37 @@ export function HeroAnnouncementBadge({
             )}
           </Badge>
         )}
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("mb-6 text-4xl leading-none font-bold tracking-tighter md:text-[7vw] lg:text-8xl", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "text-4xl leading-none font-bold tracking-tighter md:text-[7vw] lg:text-8xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("max-w-2xl md:text-[2vw] lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "max-w-2xl md:text-[2vw] lg:text-xl text-balance",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
-        {(actionsSlot || (actions && actions.length > 0)) && (
-          <div className={cn("mt-6 flex flex-col gap-4 sm:flex-row lg:mt-10", actionsClassName)}>
-            {renderActions}
-          </div>
-        )}
+          ))}
+        <BlockActions
+          actions={actions}
+          actionsSlot={actionsSlot}
+          actionsClassName={actionsClassName}
+        />
       </div>
     </Section>
   );

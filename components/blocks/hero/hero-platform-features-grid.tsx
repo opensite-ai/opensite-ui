@@ -108,7 +108,7 @@ export function HeroPlatformFeaturesGrid({
   featuresSlot,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-32",
+  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
@@ -127,7 +127,7 @@ export function HeroPlatformFeaturesGrid({
         src={logoSrc}
         alt={logo.alt}
         className={cn(
-          "mx-auto mb-5 w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28",
+          "mx-auto mb-5 w-24 md:mb-6 md:w-28 lg:mb-7 lg:w-32",
           logo.imgClassName,
         )}
         optixFlowConfig={optixFlowConfig}
@@ -246,7 +246,7 @@ export function HeroPlatformFeaturesGrid({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("max-w-2xl md:text-lg text-balance")}>
+              <p className={cn("mb-6 max-w-2xl md:text-lg text-balance")}>
                 {description}
               </p>
             ) : (

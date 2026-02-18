@@ -55,9 +55,6 @@ export interface HeroMarketplaceScatteredImagesProps {
    */
   imagesSlot?: React.ReactNode;
   /**
-   * Whether to show the grid pattern background
-   */
-  showGridPattern?: boolean; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -73,7 +70,6 @@ export interface HeroMarketplaceScatteredImagesProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
-
   /**
    * Additional CSS classes for the section
    */
@@ -114,7 +110,6 @@ export function HeroMarketplaceScatteredImages({
   taglineSlot,
   images,
   imagesSlot,
-  showGridPattern = true,
   background,
   spacing = "py-32 md:py-32",
   pattern,
@@ -199,10 +194,7 @@ export function HeroMarketplaceScatteredImages({
           {columns.map((colImages, colIndex) => (
             <div
               key={colIndex}
-              className={cn(
-                "grid gap-3",
-                colIndex === 2 && "hidden md:grid",
-              )}
+              className={cn("grid gap-3", colIndex === 2 && "hidden md:grid")}
             >
               {colImages.map((image, imgIndex) => {
                 const height =
@@ -272,7 +264,7 @@ export function HeroMarketplaceScatteredImages({
       <div className="flex flex-col gap-6 items-center">
         <div
           className={cn(
-            "relative mx-auto max-w-xl py-10 text-center flex flex-col gap-6 items-center",
+            "relative mx-auto max-w-xl py-0 md:py-10 text-center flex flex-col gap-6 items-center",
             contentClassName,
           )}
         >

@@ -2,8 +2,7 @@
 
 import * as React from "react";
 import { useState, useMemo, useCallback } from "react";
-import { cn, getNestedCardBg } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type {
@@ -14,6 +13,7 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 /**
  * Image configuration for hero split geometric shapes.
@@ -110,6 +110,10 @@ export interface HeroSplitGeometricShapesProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 export function HeroSplitGeometricShapes({
@@ -121,11 +125,12 @@ export function HeroSplitGeometricShapes({
   images,
   imagesSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
   pattern,
+  actionsClassName,
   patternOpacity,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -160,42 +165,6 @@ export function HeroSplitGeometricShapes({
   const handleLightboxClose = useCallback(() => {
     setLightboxOpen(false);
   }, []);
-
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions]);
 
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
@@ -275,11 +244,15 @@ export function HeroSplitGeometricShapes({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className={cn("flex flex-col items-center")}>
-        <div className={cn("2xl:w-[calc(min(100vw-2*theme(container.padding),100%+8rem))] w-full overflow-clip rounded-lg", getNestedCardBg(background))}>
+        <div
+          className={cn(
+            "2xl:w-[calc(min(100vw-2*theme(container.padding),100%+8rem))] w-full overflow-clip rounded-lg bg-muted",
+          )}
+        >
           <div className="grid items-center gap-0 md:gap-8 lg:grid-cols-2">
             <div
               className={cn(
@@ -297,7 +270,7 @@ export function HeroSplitGeometricShapes({
                 (typeof heading === "string" ? (
                   <h1
                     className={cn(
-                      "my-6 text-4xl font-bold text-pretty lg:text-6xl",
+                      "my-6 text-4xl font-bold text-balance lg:text-6xl",
                       headingClassName,
                     )}
                   >
@@ -306,7 +279,7 @@ export function HeroSplitGeometricShapes({
                 ) : (
                   <h1
                     className={cn(
-                      "my-6 text-4xl font-bold text-pretty lg:text-6xl",
+                      "my-6 text-4xl font-bold text-balance lg:text-6xl",
                       headingClassName,
                     )}
                   >
@@ -317,7 +290,7 @@ export function HeroSplitGeometricShapes({
                 (typeof description === "string" ? (
                   <p
                     className={cn(
-                      "mb-8 max-w-xl lg:text-xl",
+                      "mb-8 max-w-xl lg:text-xl text-balance",
                       descriptionClassName,
                     )}
                   >
@@ -326,7 +299,12 @@ export function HeroSplitGeometricShapes({
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
                 ))}
-              {renderActions}
+
+              <BlockActions
+                actions={actions}
+                actionsSlot={actionsSlot}
+                actionsClassName={actionsClassName}
+              />
             </div>
             {renderImages}
           </div>

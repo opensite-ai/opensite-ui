@@ -4,7 +4,6 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import type {
   ActionConfig,
@@ -151,7 +150,7 @@ export function HeroSpiralPatternCards({
     return (
       <div
         className={cn(
-          "mt-16 flex flex-col items-center justify-center lg:mt-32",
+          "mt-16 flex flex-col items-center justify-center lg:mt-20",
           imagesClassName,
         )}
       >

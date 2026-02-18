@@ -16,6 +16,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { Badge } from "@/src";
 
 export interface HeroCommunitySurveyCtaProps {
   /**
@@ -135,11 +136,11 @@ export function HeroCommunitySurveyCta({
   rightOverlayImage,
   imagesSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   announcementClassName,
   headingClassName,
   descriptionClassName,
@@ -151,23 +152,23 @@ export function HeroCommunitySurveyCta({
     if (announcementSlot) return announcementSlot;
 
     return (
-      <Pressable
-        href={announcementHref}
-        className={cn(
-          "group mx-auto mb-3 w-fit gap-3 rounded-full border px-5 py-2 text-sm",
-          announcementClassName,
-        )}
-      >
-        <span className="mr-1 font-medium">{announcementPrimary}</span>
-        {announcementSecondary}
-        <DynamicIcon
-          name="lucide/minus"
-          size={16}
-          className="mx-1 inline-block"
-        />
-        <span className="font-semibold group-hover:underline">
-          {announcementLinkText}
-        </span>
+      <Pressable href={announcementHref}>
+        <Badge
+          className={cn(
+            "group mx-auto w-fit gap-3 px-5 py-2 text-sm h-fit",
+            announcementClassName,
+          )}
+        >
+          <div className="flex flex-col">
+            <div className="font-medium">{announcementPrimary}</div>
+            {announcementSecondary}
+          </div>
+          {announcementLinkText ? (
+            <span className="font-semibold pl-4 ml-4 border-l">
+              {announcementLinkText}
+            </span>
+          ) : null}
+        </Badge>
       </Pressable>
     );
   }, [
@@ -228,44 +229,45 @@ export function HeroCommunitySurveyCta({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative">
-        {renderAnnouncement}
-        {heading &&
-          (typeof heading === "string" ? (
-            <h1
-              className={cn(
-                "mx-auto max-w-4xl text-4xl font-semibold text-balance lg:text-6xl",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h1>
-          ) : (
-            <div className={headingClassName}>{heading}</div>
-          ))}
-        {description &&
-          (typeof description === "string" ? (
-            <p
-              className={cn(
-                "mx-auto max-w-4xl lg:text-xl",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-          ) : (
-            <div className={descriptionClassName}>{description}</div>
-          ))}
+      <div className="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
+        <div>
+          {renderAnnouncement}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "max-w-4xl text-4xl font-semibold text-balance lg:text-6xl",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h1>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "max-w-4xl lg:text-xl text-balance",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            ))}
 
-        <BlockActions
-          actions={actions}
-          actionsClassName={actionsClassName}
-          actionsSlot={actionsSlot}
-        />
-      </div>
-      <div className="relative px-8">
-        <div className="absolute inset-0 top-1/2 h-full w-full bg-linear-to-b from-muted to-transparent to-50%"></div>
-        {renderImages}
+          <BlockActions
+            actions={actions}
+            actionsClassName={actionsClassName}
+            actionsSlot={actionsSlot}
+          />
+        </div>
+        <div className="relative">
+          {renderImages}
+        </div>
       </div>
     </Section>
   );

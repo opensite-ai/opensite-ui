@@ -2,13 +2,18 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, ImageItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface HeroCenteredImageGridProps {
   /**
@@ -39,14 +44,6 @@ export interface HeroCenteredImageGridProps {
    * Image overlay action configuration
    */
   imageOverlayAction?: ActionConfig;
-  /**
-   * Array of logo items
-   */
-  logos?: LogoItem[];
-  /**
-   * Custom slot for logos (overrides logos array)
-   */
-  logosSlot?: React.ReactNode;
   /**
    * Background style for the section
    */
@@ -92,10 +89,6 @@ export interface HeroCenteredImageGridProps {
    */
   imageGridClassName?: string;
   /**
-   * Additional CSS classes for the logos container
-   */
-  logosClassName?: string;
-  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -109,20 +102,17 @@ export function HeroCenteredImageGrid({
   gridImages,
   gridImagesSlot,
   imageOverlayAction,
-  logos,
-  logosSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
   contentClassName,
   headingClassName,
   descriptionClassName,
   actionsClassName,
   imageGridClassName,
-  logosClassName,
   optixFlowConfig,
 }: HeroCenteredImageGridProps): React.JSX.Element {
   const renderActions = useMemo(() => {
@@ -130,7 +120,14 @@ export function HeroCenteredImageGrid({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -152,13 +149,16 @@ export function HeroCenteredImageGrid({
 
   const renderImageOverlayAction = useMemo(() => {
     if (!imageOverlayAction) return null;
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = imageOverlayAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = imageOverlayAction;
     return (
-      <Pressable
-        asButton
-        className={actionClassName}
-        {...pressableProps}
-      >
+      <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
           <>
             {icon}
@@ -170,72 +170,80 @@ export function HeroCenteredImageGrid({
     );
   }, [imageOverlayAction]);
 
-  const renderLogos = useMemo(() => {
-    if (logosSlot) return logosSlot;
-    if (!logos || logos.length === 0) return null;
-
-    return logos.map((logo, index) => {
-      const src = typeof logo.src === "string" ? logo.src : logo.src.light;
-      const darkSrc = typeof logo.src === "string" ? logo.src : logo.src.dark;
-
-      return (
-        <React.Fragment key={index}>
-          <Img
-            src={src}
-            alt={logo.alt}
-            className={cn(logo.className, "dark:invert")}
-            optixFlowConfig={optixFlowConfig}
-          />
-        </React.Fragment>
-      );
-    });
-  }, [logosSlot, logos, optixFlowConfig]);
-
   return (
     <Section
       background={background}
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="mx-auto flex max-w-5xl flex-col items-center">
-          <div className={cn("z-10 flex flex-col items-center gap-8 text-center", contentClassName)}>
+          <div
+            className={cn(
+              "z-10 flex flex-col items-center gap-8 text-center",
+              contentClassName,
+            )}
+          >
             <div className="max-w-3xl">
-              {heading && (
-                typeof heading === "string" ? (
-                  <h1 className={cn("mb-4 text-4xl font-semibold text-pretty lg:text-6xl", headingClassName)}>
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h1
+                    className={cn(
+                      "mb-4 text-4xl font-semibold text-balance lg:text-6xl",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h1>
                 ) : (
                   <div className={headingClassName}>{heading}</div>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "lg:text-xl text-balance",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
-                )
-              )}
+                ))}
             </div>
             {(actionsSlot || (actions && actions.length > 0)) && (
-              <div className={cn("flex w-full flex-col justify-center gap-2 sm:flex-row", actionsClassName)}>
+              <div
+                className={cn(
+                  "flex w-full flex-col justify-center gap-2 sm:flex-row",
+                  actionsClassName,
+                )}
+              >
                 {renderActions}
               </div>
             )}
           </div>
         </div>
-        {gridImagesSlot ? gridImagesSlot : (
-          <div className={cn("mx-auto mt-20 grid max-w-7xl gap-px bg-border p-px md:grid-cols-5", imageGridClassName)}>
+        {gridImagesSlot ? (
+          gridImagesSlot
+        ) : (
+          <div
+            className={cn(
+              "mx-auto mt-20 grid max-w-7xl gap-px bg-border p-px md:grid-cols-5",
+              imageGridClassName,
+            )}
+          >
             {gridImages?.[0] && (
               <Img
                 src={gridImages[0].src}
                 alt={gridImages[0].alt}
-                className={cn("h-full max-h-[500px] w-full object-cover md:col-span-3 dark:invert", gridImages[0].className)}
+                className={cn(
+                  "h-full max-h-[500px] w-full object-cover md:col-span-3 dark:invert",
+                  gridImages[0].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             )}
@@ -244,17 +252,15 @@ export function HeroCenteredImageGrid({
                 <Img
                   src={gridImages[1].src}
                   alt={gridImages[1].alt}
-                  className={cn("h-full max-h-[500px] w-full object-cover dark:invert", gridImages[1].className)}
+                  className={cn(
+                    "h-full max-h-[500px] w-full object-cover dark:invert",
+                    gridImages[1].className,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
                 {renderImageOverlayAction}
               </div>
             )}
-          </div>
-        )}
-        {(logosSlot || (logos && logos.length > 0)) && (
-          <div className={cn("mx-auto mt-12 grid max-w-7xl grid-cols-2 place-items-center gap-6 md:grid-cols-4", logosClassName)}>
-            {renderLogos}
           </div>
         )}
       </div>

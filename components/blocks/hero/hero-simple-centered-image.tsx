@@ -2,12 +2,18 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroSimpleCenteredImageProps {
   /**
@@ -95,13 +101,13 @@ export function HeroSimpleCenteredImage({
   actions,
   actionsSlot,
   imageSrc,
-  imageAlt = "placeholder hero",
+  imageAlt,
   background,
-  spacing,
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -115,7 +121,14 @@ export function HeroSimpleCenteredImage({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -141,43 +154,64 @@ export function HeroSimpleCenteredImage({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container flex flex-col items-center text-center", containerClassName, contentClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("my-3 text-3xl font-bold text-pretty sm:text-4xl md:my-6 lg:text-6xl", headingClassName)}>
+      <div
+        className={cn(
+          "flex flex-col items-center text-center",
+          contentClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "my-3 text-3xl font-bold text-balance sm:text-4xl md:my-6 lg:text-6xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mb-6 max-w-xl lg:mb-12 lg:text-2xl", getTextColor(background, "muted"), descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mb-6 max-w-xl lg:mb-12 lg:text-2xl text-balance",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
-        {(actionsSlot || (actions && actions.length > 0)) && (
-          <div className={cn("mb-6 flex gap-2 lg:mb-12", actionsClassName)}>
-            {renderActions}
-          </div>
-        )}
+          ))}
+
+        <BlockActions
+          actions={actions}
+          actionsSlot={actionsSlot}
+          actionsClassName={actionsClassName}
+        />
       </div>
       {imageSrc && (
-        <div className="container">
-          <div className={cn("aspect-video mask-[linear-gradient(#000_80%,transparent_100%)]", imageWrapperClassName)}>
-            <Img
-              src={imageSrc}
-              alt={imageAlt}
-              className={cn("h-full w-full rounded-md object-cover", imageClassName)}
-              optixFlowConfig={optixFlowConfig}
-            />
-          </div>
+        <div
+          className={cn(
+            "aspect-video mask-[linear-gradient(#000_80%,transparent_100%)]",
+            imageWrapperClassName,
+          )}
+        >
+          <Img
+            src={imageSrc}
+            alt={imageAlt}
+            className={cn(
+              "h-full w-full rounded-t-2xl object-cover",
+              imageClassName,
+            )}
+            optixFlowConfig={optixFlowConfig}
+          />
         </div>
       )}
     </Section>

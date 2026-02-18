@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
@@ -15,6 +14,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { Img } from "@page-speed/img";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroBadgeShadowOverlayProps {
   /**
@@ -116,42 +116,6 @@ export function HeroBadgeShadowOverlay({
   headingClassName,
   actionsClassName,
 }: HeroBadgeShadowOverlayProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className={cn("flex flex-col md:flex-row gap-4", actionsClassName)}>
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
   return (
     <Section
       background={background}
@@ -162,7 +126,7 @@ export function HeroBadgeShadowOverlay({
       containerClassName={containerClassName}
     >
       <div className="flex flex-col min-h-screen h-full justify-center items-center">
-        <div className="flex flex-col items-center gap-10 text-center px-6 max-full md:max-w-lg">
+        <div className="flex flex-col items-center gap-4 text-center px-6 max-full md:max-w-lg">
           {(announcementBadge || announcementText) && (
             <Pressable
               href={announcementHref}
@@ -180,7 +144,7 @@ export function HeroBadgeShadowOverlay({
             (typeof heading === "string" ? (
               <h1
                 className={cn(
-                  "text-4xl font-semibold lg:text-8xl text-white text-balance text-shadow-xl text-center",
+                  "text-4xl font-semibold lg:text-8xl text-white text-balance text-shadow-2xl text-center",
                   headingClassName,
                 )}
               >
@@ -204,7 +168,11 @@ export function HeroBadgeShadowOverlay({
               <div className={descriptionClassName}>{description}</div>
             ))}
 
-          {renderActions}
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
       </div>
       {backgroundImageUrl && (

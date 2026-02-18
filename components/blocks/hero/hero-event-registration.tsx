@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Img } from "@page-speed/img";
@@ -17,6 +16,7 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroEventRegistrationProps {
   /**
@@ -146,7 +146,7 @@ export function HeroEventRegistration({
   locationSlot,
   background,
   containerClassName = "px-6  sm:px-0 md:px-0 lg:px-0",
-  spacing = "py-20 md:py-32",
+  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
@@ -170,42 +170,6 @@ export function HeroEventRegistration({
       </Badge>
     );
   }, [badgeSlot, badgeIcon, badgeText]);
-
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className={cn("flex flex-col gap-4 sm:flex-row", actionsClassName)}>
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
 
   const renderStats = useMemo(() => {
     if (statsSlot) return statsSlot;
@@ -315,7 +279,11 @@ export function HeroEventRegistration({
             ) : (
               <div className={descriptionClassName}>{description}</div>
             ))}
-          {renderActions}
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
           {renderStats}
         </div>
         {renderImage}
