@@ -4,28 +4,24 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Form } from "@page-speed/forms";
 import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
-import { Img } from "@page-speed/img";
-import { DynamicFormField } from "../../ui/dynamic-form-field";
-import type { FormFieldConfig } from "../../../lib/form-field-types";
-import {
+  DynamicFormField,
+  getColumnSpanClass,
   useContactForm,
   useFileUpload,
+  type FormFieldConfig,
   type PageSpeedFormConfig,
-} from "../../../lib/forms";
-import {
-  PatternBackground,
-  type PatternName,
-} from "../../ui/pattern-background";
+} from "@page-speed/forms/integration";
+import { cn } from "../../../lib/utils";
+import { Pressable } from "../../../lib/Pressable";
+import { Img } from "@page-speed/img";
+import { type PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
   OptixFlowConfig,
   SectionBackground,
+  SectionSpacing,
 } from "../../../src/types";
+import { Section } from "../../ui/section";
 
 export interface DirectionConfig {
   desktop: "mediaRight" | "mediaLeft";
@@ -55,6 +51,10 @@ export interface ContactPhotographyProps {
    * @default "Thank you! Your message has been sent successfully."
    */
   successMessage?: React.ReactNode;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /** Additional CSS classes for the section */
   className?: string;
   /** Additional CSS classes for the heading */
@@ -75,6 +75,10 @@ export interface ContactPhotographyProps {
   background?: SectionBackground;
   /** Pattern background key or URL */
   pattern?: PatternName | undefined;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
   /** Pattern opacity (0-1) */
   patternOpacity?: number;
   /** Image source URL */
@@ -177,6 +181,7 @@ export function ContactPhotography({
   actionsSlot,
   formFields = DEFAULT_FORM_FIELDS,
   successMessage = "Thank you! Your message has been sent successfully.",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   className,
   headingClassName,
   descriptionClassName,
@@ -185,6 +190,7 @@ export function ContactPhotography({
   submitClassName,
   successMessageClassName,
   errorMessageClassName,
+  spacing = "none",
   background,
   pattern,
   patternOpacity,
@@ -257,24 +263,6 @@ export function ContactPhotography({
     return null;
   }, [actionsSlot, actions]);
 
-  // Determine background color based on background variant
-  const bgColorClass = useMemo(() => {
-    switch (background) {
-      case "dark":
-        return "bg-foreground text-background";
-      case "gray":
-        return cn(
-          getNestedCardBg(background),
-          getNestedCardTextColor(background),
-        );
-      case "white":
-        return "bg-background";
-      default:
-        return "bg-background";
-    }
-  }, [background]);
-
-  // Determine flex direction based on directionConfig
   const desktopOrder =
     directionConfig.desktop === "mediaRight"
       ? "lg:flex-row"
@@ -286,17 +274,9 @@ export function ContactPhotography({
     <div
       className={cn(
         "relative flex w-full items-center lg:w-1/2",
-        bgColorClass,
         contentClassName,
       )}
     >
-      {/* Pattern Background */}
-      {pattern && (
-        <div className="absolute inset-0 overflow-hidden">
-          <PatternBackground pattern={pattern} opacity={patternOpacity} />
-        </div>
-      )}
-
       {/* Content */}
       <div className="relative z-10 w-full px-8 py-16 sm:px-12 sm:py-20 lg:px-16 lg:py-24 xl:px-24">
         <div className="mx-auto max-w-xl space-y-8">
@@ -333,79 +313,41 @@ export function ContactPhotography({
           {/* Form */}
           <Form
             form={form}
-            action={formConfig?.endpoint}
-            method={formMethod}
-            submissionError={submissionError}
-            successMessage={successMessage}
-            successMessageClassName={successMessageClassName}
-            errorMessageClassName={errorMessageClassName}
-            submissionConfig={formConfig?.submissionConfig}
+            notificationConfig={{
+              submissionError,
+              successMessage,
+            }}
+            styleConfig={{
+              formClassName: cn("space-y-6", formClassName),
+              successMessageClassName,
+              errorMessageClassName,
+            }}
+            formConfig={{
+              endpoint: formConfig?.endpoint,
+              method: formMethod,
+              submissionConfig: formConfig?.submissionConfig,
+            }}
             onNewSubmission={() => {
               resetUpload();
               resetSubmissionState();
             }}
-            className={formClassName}
           >
-            {(() => {
-              const fieldElements: React.ReactNode[] = [];
-              let skip = false;
-
-              formFields.forEach((field, index) => {
-                if (skip) {
-                  skip = false;
-                  return;
-                }
-
-                const nextField =
-                  index < formFields.length - 1
-                    ? formFields[index + 1]
-                    : null;
-                const shouldGroupWithNext =
-                  field.columnSpan &&
-                  field.columnSpan <= 6 &&
-                  nextField?.columnSpan &&
-                  nextField.columnSpan <= 6 &&
-                  field.columnSpan + nextField.columnSpan <= 12;
-
-                if (shouldGroupWithNext && nextField) {
-                  fieldElements.push(
-                    <div
-                      key={field.name}
-                      className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-                    >
-                      <DynamicFormField
-                        field={field}
-                        uploadProgress={uploadProgress}
-                        onFileUpload={uploadFiles}
-                        onFileRemove={removeFile}
-                        isUploading={isUploading}
-                      />
-                      <DynamicFormField
-                        field={nextField}
-                        uploadProgress={uploadProgress}
-                        onFileUpload={uploadFiles}
-                        onFileRemove={removeFile}
-                        isUploading={isUploading}
-                      />
-                    </div>,
-                  );
-                  skip = true;
-                } else {
-                  fieldElements.push(
-                    <DynamicFormField
-                      key={field.name}
-                      field={field}
-                      uploadProgress={uploadProgress}
-                      onFileUpload={uploadFiles}
-                      onFileRemove={removeFile}
-                      isUploading={isUploading}
-                    />,
-                  );
-                }
-              });
-
-              return fieldElements;
-            })()}
+            <div className="grid grid-cols-12 gap-6">
+              {formFields.map((field) => (
+                <div
+                  key={field.name}
+                  className={getColumnSpanClass(field.columnSpan)}
+                >
+                  <DynamicFormField
+                    field={field}
+                    uploadProgress={uploadProgress}
+                    onFileUpload={uploadFiles}
+                    onFileRemove={removeFile}
+                    isUploading={isUploading}
+                  />
+                </div>
+              ))}
+            </div>
 
             {actionsSlot || (actions && actions.length > 0) ? (
               actionsContent
@@ -440,11 +382,18 @@ export function ContactPhotography({
   ) : null;
 
   return (
-    <section className={cn("relative w-full overflow-hidden", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+      containerClassName={containerClassName}
+    >
       <div className={cn("flex min-h-screen", mobileOrder, desktopOrder)}>
         {contentArea}
         {imageArea}
       </div>
-    </section>
+    </Section>
   );
 }

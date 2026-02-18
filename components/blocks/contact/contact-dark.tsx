@@ -2,17 +2,18 @@
 
 import * as React from "react";
 import { Form } from "@page-speed/forms";
+import {
+  DynamicFormField,
+  getColumnSpanClass,
+  useContactForm,
+  useFileUpload,
+  type FormFieldConfig,
+  type PageSpeedFormConfig,
+} from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card } from "../../ui/card";
-import { DynamicFormField } from "../../ui/dynamic-form-field";
-import type { FormFieldConfig } from "../../../lib/form-field-types";
-import {
-  useContactForm,
-  useFileUpload,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -484,79 +485,41 @@ export function ContactDark({
           <div className={cn("p-6 lg:p-12", formPanelClassName)}>
             <Form
               form={form}
-              action={formConfig?.endpoint}
-              method={formMethod}
-              submissionError={submissionError}
-              successMessage={successMessage}
-              successMessageClassName={successMessageClassName}
-              errorMessageClassName={errorMessageClassName}
-              submissionConfig={formConfig?.submissionConfig}
+              notificationConfig={{
+                submissionError,
+                successMessage,
+              }}
+              styleConfig={{
+                formClassName: cn("space-y-6", formClassName),
+                successMessageClassName,
+                errorMessageClassName,
+              }}
+              formConfig={{
+                endpoint: formConfig?.endpoint,
+                method: formMethod,
+                submissionConfig: formConfig?.submissionConfig,
+              }}
               onNewSubmission={() => {
                 resetUpload();
                 resetSubmissionState();
               }}
-              className={formClassName}
             >
-              {(() => {
-                const fieldElements: React.ReactNode[] = [];
-                let skip = false;
-
-                formFields.forEach((field, index) => {
-                  if (skip) {
-                    skip = false;
-                    return;
-                  }
-
-                  const nextField =
-                    index < formFields.length - 1
-                      ? formFields[index + 1]
-                      : null;
-                  const shouldGroupWithNext =
-                    field.columnSpan &&
-                    field.columnSpan <= 6 &&
-                    nextField?.columnSpan &&
-                    nextField.columnSpan <= 6 &&
-                    field.columnSpan + nextField.columnSpan <= 12;
-
-                  if (shouldGroupWithNext && nextField) {
-                    fieldElements.push(
-                      <div
-                        key={field.name}
-                        className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-                      >
-                        <DynamicFormField
-                          field={field}
-                          uploadProgress={uploadProgress}
-                          onFileUpload={uploadFiles}
-                          onFileRemove={removeFile}
-                          isUploading={isUploading}
-                        />
-                        <DynamicFormField
-                          field={nextField}
-                          uploadProgress={uploadProgress}
-                          onFileUpload={uploadFiles}
-                          onFileRemove={removeFile}
-                          isUploading={isUploading}
-                        />
-                      </div>,
-                    );
-                    skip = true;
-                  } else {
-                    fieldElements.push(
-                      <DynamicFormField
-                        key={field.name}
-                        field={field}
-                        uploadProgress={uploadProgress}
-                        onFileUpload={uploadFiles}
-                        onFileRemove={removeFile}
-                        isUploading={isUploading}
-                      />,
-                    );
-                  }
-                });
-
-                return fieldElements;
-              })()}
+              <div className="grid grid-cols-12 gap-6">
+                {formFields.map((field) => (
+                  <div
+                    key={field.name}
+                    className={getColumnSpanClass(field.columnSpan)}
+                  >
+                    <DynamicFormField
+                      field={field}
+                      uploadProgress={uploadProgress}
+                      onFileUpload={uploadFiles}
+                      onFileRemove={removeFile}
+                      isUploading={isUploading}
+                    />
+                  </div>
+                ))}
+              </div>
               {actionsSlot || (actions && actions.length > 0) ? (
                 actionsContent
               ) : (
