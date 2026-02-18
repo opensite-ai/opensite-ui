@@ -136,7 +136,7 @@ export function HeroSplitIconCards({
   descriptionClassName,
   verticalSpacing,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-12 md:py-32",
+  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
 }: HeroSplitIconCardsProps): React.JSX.Element {
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;

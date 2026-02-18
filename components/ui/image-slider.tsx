@@ -7,6 +7,7 @@ import { Img } from "@page-speed/img";
 import type { OptixFlowConfig } from "../../src/types";
 
 export type ImageSliderDirection = "up" | "down";
+export type ImageSliderTransition = "slide" | "fade";
 
 export interface ImageSliderImage {
   /**
@@ -77,6 +78,11 @@ export interface ImageSliderProps {
    */
   direction?: ImageSliderDirection;
   /**
+   * Transition style for the slider
+   * @default "slide"
+   */
+  transition?: ImageSliderTransition;
+  /**
    * Starting image index
    * @default 0
    */
@@ -127,6 +133,26 @@ const slideVariants: Variants = {
   },
 };
 
+const fadeVariants: Variants = {
+  initial: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.8,
+      ease: [0.4, 0, 0.2, 1],
+    },
+  },
+  fadeExit: {
+    opacity: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.4, 0, 0.2, 1],
+    },
+  },
+};
+
 const normalizeIndex = (index: number, length: number) => {
   if (!length) return 0;
   const safeIndex = index % length;
@@ -145,6 +171,7 @@ export const ImageSlider = ({
   autoplay = true,
   autoplayIntervalMs = 6000,
   direction = "up",
+  transition = "slide",
   startIndex = 0,
   enableKeyboard = true,
   onSlideChange,
@@ -233,8 +260,14 @@ export const ImageSlider = ({
             key={`${currentIndex}-${activeImage.src ?? "image"}`}
             initial="initial"
             animate="visible"
-            exit={direction === "up" ? "upExit" : "downExit"}
-            variants={slideVariants}
+            exit={
+              transition === "fade"
+                ? "fadeExit"
+                : direction === "up"
+                  ? "upExit"
+                  : "downExit"
+            }
+            variants={transition === "fade" ? fadeVariants : slideVariants}
             className="absolute inset-0"
           >
             <Img

@@ -1,7 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useRef, useState, useMemo, useCallback, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+  type ReactNode,
+} from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
@@ -114,10 +121,10 @@ export function FeatureShowcase({
   slideClassName,
   contentClassName,
   mediaClassName,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   equalizeOnMobile,
   stretchMediaOnMobile,
   background,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,

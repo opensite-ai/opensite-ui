@@ -2,23 +2,24 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getBorderColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface HeroAdCampaignExpertProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
-  /**
-   * Highlighted text within heading (underlined)
-   */
-  headingHighlight?: string;
   /**
    * Description text below heading
    */
@@ -91,18 +92,17 @@ export interface HeroAdCampaignExpertProps {
 
 export function HeroAdCampaignExpert({
   heading,
-  headingHighlight,
   description,
   action,
   actionSlot,
   imageSrc,
-  imageAlt = "",
+  imageAlt,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -114,13 +114,16 @@ export function HeroAdCampaignExpert({
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = action;
     return (
-      <Pressable
-        asButton
-        className={actionClassName}
-        {...pressableProps}
-      >
+      <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
           <>
             {icon}
@@ -138,41 +141,52 @@ export function HeroAdCampaignExpert({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("pb-24", className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("pt-16 lg:pt-24", containerClassName)}>
+      <div className="relative">
         <div className="flex flex-col items-center lg:flex-row lg:items-start">
-          <div className={cn("relative flex flex-col items-start gap-8 pb-20 lg:w-1/2", contentClassName)}>
-            {(heading || headingHighlight) && (
-              typeof heading === "string" ? (
-                <h2 className={cn("text-3xl leading-tight font-bold tracking-tighter lg:text-5xl", headingClassName)}>
+          <div
+            className={cn(
+              "relative flex flex-col items-start gap-8 pb-20 lg:w-1/2",
+              contentClassName,
+            )}
+          >
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "text-3xl leading-tight font-bold tracking-tighter lg:text-5xl text-balance",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h2>
               ) : heading ? (
                 <div className={headingClassName}>{heading}</div>
-              ) : headingHighlight ? (
-                <h2 className={cn("text-3xl leading-tight font-bold tracking-tighter lg:text-5xl", headingClassName)}>
-                  Your ad campaigns excel with{" "}
-                  <span className={cn(getBorderColor(background, "muted"), "border-b-2")}>{headingHighlight}</span>,
-                  delivering optimized performance.
-                </h2>
-              ) : null
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-lg", descriptionClassName)}>
+              ) : null)}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn("text-lg text-balance", descriptionClassName)}>
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
             {renderAction}
           </div>
-          <div className={cn("relative flex w-full justify-center lg:w-1/2", imageContainerClassName)}>
+          <div
+            className={cn(
+              "relative flex w-full justify-center lg:w-1/2",
+              imageContainerClassName,
+            )}
+          >
             {imageSrc && (
               <div className="relative z-10 -mb-16 h-auto w-[80%] max-w-[355px] lg:w-[520px]">
-                <AspectRatio ratio={355 / 520} className={cn(getBorderColor(background, "muted"), "border")}>
+                <AspectRatio
+                  ratio={355 / 520}
+                  className="border-muted border rounded-xl shadow-xl overflow-hidden"
+                >
                   <Img
                     src={imageSrc}
                     alt={imageAlt}
@@ -186,7 +200,7 @@ export function HeroAdCampaignExpert({
               <AspectRatio ratio={2} className="relative">
                 <AspectRatio
                   ratio={1}
-                  className={cn("absolute w-full rounded-full", getNestedCardBg(background))}
+                  className={cn("absolute w-full rounded-full bg-muted")}
                 />
               </AspectRatio>
             </div>

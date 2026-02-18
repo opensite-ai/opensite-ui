@@ -70,7 +70,11 @@ export interface HeroImageSliderProps {
   /**
    * Vertical spacing for the section
    */
-  verticalSpacing?: SectionSpacing;
+  spacing?: SectionSpacing;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /**
    * Background pattern
    */
@@ -139,7 +143,8 @@ export function HeroImageSlider({
   overlay = true,
   overlaySlot,
   background,
-  verticalSpacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
@@ -201,7 +206,7 @@ export function HeroImageSlider({
           typeof eyebrow === "string" ? (
             <p
               className={cn(
-                "text-xs font-semibold uppercase tracking-[0.3em] text-primary-foreground/80",
+                "text-xs font-semibold uppercase tracking-[0.3em] text-white",
                 eyebrowClassName,
               )}
             >
@@ -215,7 +220,7 @@ export function HeroImageSlider({
           typeof heading === "string" ? (
             <h1
               className={cn(
-                "mt-5 text-4xl font-semibold tracking-tight text-balance md:text-6xl",
+                "mt-5 text-4xl font-semibold tracking-tight text-balance md:text-6xl text-white text-shadow-xl",
                 headingClassName,
               )}
             >
@@ -229,7 +234,7 @@ export function HeroImageSlider({
           typeof description === "string" ? (
             <p
               className={cn(
-                "mt-6 text-base text-primary-foreground/80 md:text-lg",
+                "mt-6 text-base text-white text-balance md:text-lg text-shadow-xl",
                 descriptionClassName,
               )}
             >
@@ -269,20 +274,25 @@ export function HeroImageSlider({
   return (
     <Section
       background={background}
-      spacing={verticalSpacing}
+      spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn("overflow-hidden", className)}
+      containerClassName={containerClassName}
     >
       <ImageSlider
         images={images && images.length ? images : []}
         autoplay={autoplay}
         autoplayIntervalMs={autoplayIntervalMs}
         direction={direction}
+        transition="fade"
         overlay={overlay}
         overlaySlot={overlaySlot}
         overlayClassName={overlayClassName}
-        className={cn("min-h-[520px] md:min-h-[680px]", sliderClassName)}
+        className={cn(
+          "min-h-[520px] md:min-h-[680px] bg-black!",
+          sliderClassName,
+        )}
         imageClassName={cn("scale-[1.02]", imageClassName)}
         optixFlowConfig={optixFlowConfig}
       >

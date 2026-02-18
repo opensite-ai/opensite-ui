@@ -5,11 +5,16 @@ import { useMemo } from "react";
 import { cn, getTextColor } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroBadgeImageSplitProps {
   /**
@@ -106,13 +111,13 @@ export function HeroBadgeImageSplit({
   actions,
   actionsSlot,
   imageSrc,
-  imageAlt = "Hero section demo image showing interface components",
+  imageAlt,
   background,
-  spacing,
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
   contentClassName,
   badgeClassName,
   headingClassName,
@@ -121,31 +126,6 @@ export function HeroBadgeImageSplit({
   imageClassName,
   optixFlowConfig,
 }: HeroBadgeImageSplitProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
-
   return (
     <Section
       background={background}
@@ -153,45 +133,64 @@ export function HeroBadgeImageSplit({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="grid items-center gap-8 lg:grid-cols-2">
-          <div className={cn("flex flex-col items-center text-center lg:items-start lg:text-left", contentClassName)}>
+          <div
+            className={cn(
+              "flex flex-col items-center text-center lg:items-start lg:text-left",
+              contentClassName,
+            )}
+          >
             {badge && (
               <Badge variant="outline" className={badgeClassName}>
                 {badge}
                 {badgeIcon}
               </Badge>
             )}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("my-6 text-4xl font-bold text-pretty lg:text-6xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "my-6 text-4xl font-bold text-pretty lg:text-6xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mb-8 max-w-xl lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mb-8 max-w-xl lg:text-xl",
+                    getTextColor(background, "muted"),
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-            {(actionsSlot || (actions && actions.length > 0)) && (
-              <div className={cn("flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start", actionsClassName)}>
-                {renderActions}
-              </div>
-            )}
+              ))}
+
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
           </div>
           {imageSrc && (
             <Img
               src={imageSrc}
               alt={imageAlt}
-              className={cn("max-h-96 w-full rounded-md object-cover", imageClassName)}
+              className={cn(
+                "max-h-96 w-full rounded-md object-cover",
+                imageClassName,
+              )}
               optixFlowConfig={optixFlowConfig}
             />
           )}

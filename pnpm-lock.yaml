@@ -14,6 +14,9 @@ importers:
       '@page-speed/forms':
         specifier: 0.5.7
         version: 0.5.7(@types/react-dom@18.3.7(@types/react@18.3.27))(@types/react@18.3.27)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      '@page-speed/icon':
+        specifier: ^0.1.0
+        version: 0.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/img':
         specifier: 0.4.5
         version: 0.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -760,6 +763,13 @@ packages:
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
+
+  '@page-speed/icon@0.1.0':
+    resolution: {integrity: sha512-W4ybl7XUFsoMvKnSIkUSgLi0dQStZff4d/AR8T36+AhxjKDNFlVFDkPjSQq9aHQFBUXQSZpnyeejkXTpcYpqVw==}
+    engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
 
   '@page-speed/img@0.4.5':
     resolution: {integrity: sha512-S1xot5BN1X5bnYdH3PryOQw8GHry/zjPfDt+RVorZXbt1ELt3uzy0lQAEhBZ2XPyTwhPatOLKRa0OEC7bKu93g==}
@@ -3206,6 +3216,11 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       web-vitals: 5.1.0
+
+  '@page-speed/icon@0.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   '@page-speed/img@0.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:

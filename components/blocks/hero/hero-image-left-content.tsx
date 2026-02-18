@@ -1,15 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
-import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroImageLeftContentProps {
   /**
@@ -110,19 +113,19 @@ export interface HeroImageLeftContentProps {
 export function HeroImageLeftContent({
   badge,
   badgeIcon,
-  badgeVariant = "secondary",
+  badgeVariant,
   heading,
   description,
   actions,
   actionsSlot,
   imageSrc,
-  imageAlt = "placeholder hero",
+  imageAlt,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   contentClassName,
   badgeClassName,
   headingClassName,
@@ -132,81 +135,74 @@ export function HeroImageLeftContent({
   imageClassName,
   optixFlowConfig,
 }: HeroImageLeftContentProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
-
   return (
     <Section
       background={background}
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
-          <div className={cn("flex justify-end", getNestedCardBg(background), imageContainerClassName)}>
+          <div className={cn("flex justify-end", imageContainerClassName)}>
             {imageSrc && (
               <Img
                 src={imageSrc}
                 alt={imageAlt}
-                className={cn("max-h-[600px] w-full rounded-md object-cover lg:max-h-[800px]", imageClassName)}
+                className={cn(
+                  "max-h-[600px] w-full rounded-md object-cover lg:max-h-[800px]",
+                  imageClassName,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             )}
           </div>
-          <div className={cn("flex flex-col items-center text-center lg:max-w-3xl lg:items-start lg:text-left", contentClassName)}>
+          <div
+            className={cn(
+              "flex flex-col items-center text-center lg:max-w-3xl lg:items-start lg:text-left",
+              contentClassName,
+            )}
+          >
             {badge && (
               <Badge variant={badgeVariant} className={badgeClassName}>
                 {badge}
                 {badgeIcon}
               </Badge>
             )}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("my-6 text-4xl font-bold text-pretty md:text-5xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "my-6 text-4xl font-bold md:text-5xl text-balance",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mb-8 max-w-xl lg:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mb-8 max-w-xl lg:text-xl text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-            {(actionsSlot || (actions && actions.length > 0)) && (
-              <div className={cn("flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start", actionsClassName)}>
-                {renderActions}
-              </div>
-            )}
+              ))}
+
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
           </div>
         </div>
       </div>

@@ -2,6 +2,8 @@
 
 import * as React from "react";
 
+// use apiKey = 'au382bi7fsh96w9h9xlrnat2jglx'
+
 import { cn } from "../../lib/utils";
 
 interface DynamicIconProps {
@@ -28,6 +30,10 @@ interface DynamicIconProps {
    * Alt text for accessibility
    */
   alt?: string;
+  /**
+   * API key for icons.opensite.ai API
+   */
+  apiKey?: string;
 }
 
 // Simple in-memory cache for fetched SVGs
@@ -60,6 +66,7 @@ export function DynamicIcon({
   color,
   className,
   alt,
+  apiKey,
 }: DynamicIconProps) {
   const [svgContent, setSvgContent] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -68,14 +75,14 @@ export function DynamicIcon({
   const { url, iconName } = React.useMemo(() => {
     const separator = name.includes("/") ? "/" : ":";
     const [prefix, iconName] = name.split(separator);
-    // Don't pass color to API - we'll handle it via CSS
-    const baseUrl = `https://icons.opensite.ai/api/icon/${prefix}/${iconName}?format=svg&width=${size}&height=${size}&key=au382bi7fsh96w9h9xlrnat2jglx`;
+    const key = apiKey ? `&key=${apiKey}` : "";
+    const baseUrl = `https://icons.opensite.ai/api/icon/${prefix}/${iconName}?format=svg&width=${size}&height=${size}${key}`;
 
     return {
       url: baseUrl,
       iconName,
     };
-  }, [name, size]);
+  }, [name, size, apiKey]);
 
   React.useEffect(() => {
     let isMounted = true;

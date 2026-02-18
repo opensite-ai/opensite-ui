@@ -114,6 +114,10 @@ export interface HeroOverlayCtaGridProps {
    */
   containerClassName?: string;
   /**
+   * Additional CSS classes for the content
+   */
+  contentClassName?: string;
+  /**
    * Additional CSS classes for the heading
    */
   headingClassName?: string;
@@ -155,6 +159,7 @@ export function HeroOverlayCtaGrid({
   patternOpacity,
   className,
   containerClassName = "px-0 sm:px-0 lg:px-0 max-w-full relative z-10 h-screen w-screen flex justify-center items-center",
+  contentClassName = "relative flex flex-col gap-12 px-6 pt-28 pb-6 md:pt-0 md:pb-0",
   headingClassName,
   descriptionClassName,
   optixFlowConfig,
@@ -258,7 +263,7 @@ export function HeroOverlayCtaGrid({
     >
       {renderBackground}
 
-      <div className="relative flex flex-col gap-12 px-6">
+      <div className={contentClassName}>
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
