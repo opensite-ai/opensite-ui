@@ -162,8 +162,8 @@ export function HeroEventRegistration({
     if (badgeSlot) return badgeSlot;
 
     return (
-      <Badge className="px-4 gap-2">
-        {badgeIcon && <DynamicIcon name={badgeIcon} />}
+      <Badge className="px-4 py-1 gap-2">
+        {badgeIcon && <DynamicIcon name={badgeIcon} size={18} />}
         {badgeText}
       </Badge>
     );
@@ -174,15 +174,38 @@ export function HeroEventRegistration({
     if (!stats || stats.length === 0) return null;
 
     return (
-      <div className="flex justify-center w-full">
-        <div className={cn("grid grid-cols-3 gap-4 pt-4", statsClassName)}>
-          {stats.map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-2xl font-bold ">{stat.value}</div>
+      <div
+        className={cn(
+          "flex flex-col md:flex-row items-center gap-4 md:gap-6 pt-8 md:pt-12",
+          statsClassName,
+        )}
+      >
+        {stats.map((stat, index) => (
+          <React.Fragment key={index}>
+            {index > 0 && (
+              <div className="h-12 w-px bg-border hidden md:flex"></div>
+            )}
+            <div className="flex items-center gap-2 justify-between flex-row md:flex-col text-left md:text-center w-full md:w-fit border md:border-none rounded-xl md:rounded-none p-4 md:p-0">
+              <div
+                className={cn(
+                  "flex items-center gap-2 w-fit md:w-full",
+                  stat.icon ? "justify-between" : "justify-center",
+                )}
+              >
+                {stat.icon}
+                <div
+                  className={cn(
+                    "font-bold ",
+                    stat.icon ? "text-xl" : "text-2xl",
+                  )}
+                >
+                  {stat.value}
+                </div>
+              </div>
               <div className={cn("text-sm")}>{stat.label}</div>
             </div>
-          ))}
-        </div>
+          </React.Fragment>
+        ))}
       </div>
     );
   }, [statsSlot, stats, statsClassName]);

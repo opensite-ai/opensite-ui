@@ -236,25 +236,20 @@ export function HeroAgencyAnimatedImages({
       containerClassName={containerClassName}
     >
       <div className="pt-10 md:pt-0">
-        <div className="grid w-full grid-cols-1 items-center justify-between gap-14 lg:grid-cols-2">
-          <div
-            className={cn(
-              "flex w-full max-w-125 flex-col gap-8 md:gap-14 lg:max-w-full",
-              contentClassName,
-            )}
-          >
+        <div className="grid w-full gap-12 md:gap-14 grid-cols-1 lg:grid-cols-2">
+          <div className={cn("flex w-full flex-col gap-4", contentClassName)}>
             {heading &&
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "text-5xl md:text-6xl lg:text-7xl xl:text-[5rem] text-left text-pretty",
+                    "text-4xl md:text-5xl lg:text-7xl xl:text-[5rem] text-left text-pretty",
                     headingClassName,
                   )}
                 >
                   {heading}
                 </h1>
               ) : (
-                <div className={headingClassName}>{heading}</div>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (

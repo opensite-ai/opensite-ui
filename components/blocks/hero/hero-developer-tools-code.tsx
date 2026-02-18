@@ -154,7 +154,7 @@ export function HeroDeveloperToolsCode({
     if (!badgeText && !badgeIcon) return null;
 
     return (
-      <Badge className="w-fit gap-2 mx-4">
+      <Badge className="gap-2 px-4 py-1">
         {badgeIcon && <DynamicIcon name={badgeIcon} size={14} />}
         {badgeText}
       </Badge>
@@ -215,7 +215,7 @@ export function HeroDeveloperToolsCode({
     >
       <div className="pt-8 md:pt-0">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className={cn("flex flex-col gap-8", contentClassName)}>
+          <div className={cn("flex flex-col gap-4 md:gap-8", contentClassName)}>
             {renderBadge}
             {heading &&
               (typeof heading === "string" ? (

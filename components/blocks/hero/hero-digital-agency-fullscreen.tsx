@@ -4,8 +4,6 @@ import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -90,11 +88,11 @@ export function HeroDigitalAgencyFullscreen({
   actionsSlot,
   backgroundImage,
   background,
-  spacing = "none",
   pattern,
   patternOpacity,
   className,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-0 md:py-0",
+  containerClassName = "w-screen max-w-full relative z-10 px-0 min-h-screen h-full",
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -143,7 +141,7 @@ export function HeroDigitalAgencyFullscreen({
         >
           <Img
             src={backgroundImage}
-            alt=""
+            alt="Hero Background Image"
             className="h-full w-full brightness-50 object-cover object-center"
             eager
             optixFlowConfig={optixFlowConfig}
@@ -151,19 +149,20 @@ export function HeroDigitalAgencyFullscreen({
         </div>
       )}
       <div className="relative">
-        <div className="flex w-full flex-col justify-between gap-10">
-          <div
-            className={cn(
-              "mx-auto flex max-w-125 flex-1 flex-col items-center justify-center gap-7 sm:max-w-150 md:max-w-200",
-              contentClassName,
-            )}
-          >
+        <div
+          className={cn(
+            "flex min-h-screen min-w-screen h-full w-full flex-col items-center justify-end",
+            contentClassName,
+          )}
+        >
+          <div className="container flex flex-col gap-6 mb-6 md:mb-24 px-6 md:px-0">
             {heading &&
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "mb-8 text-4xl font-normal text-balance md:text-7xl",
+                    "text-4xl font-bold text-balance md:text-7xl",
                     headingClassName,
+                    backgroundImage ? "text-white text-shadow-2xl" : "",
                   )}
                 >
                   {heading}
@@ -175,8 +174,9 @@ export function HeroDigitalAgencyFullscreen({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mb-12 max-w-full md:max-w-[70%] text-lg md:text-xl font-normal text-balance",
+                    "max-w-full md:max-w-[70%] text-lg md:text-xl font-normal text-balance",
                     descriptionClassName,
+                    backgroundImage ? "text-white text-shadow-2xl" : "",
                   )}
                 >
                   {description}

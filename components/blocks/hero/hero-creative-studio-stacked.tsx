@@ -117,6 +117,10 @@ export interface HeroCreativeStudioStackedProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 export function HeroCreativeStudioStacked({
@@ -125,6 +129,7 @@ export function HeroCreativeStudioStacked({
   heading,
   description,
   videoAction,
+  patternClassName,
   actions,
   onVideoClick,
   videoDialog,
@@ -233,9 +238,11 @@ export function HeroCreativeStudioStacked({
         spacing={spacing}
         pattern={pattern}
         patternOpacity={patternOpacity}
-        className={cn(className)}
+        patternClassName={patternClassName}
+        className={className}
+        containerClassName={containerClassName}
       >
-        <div className={cn("container", containerClassName)}>
+        <div className="pt-8 md:pt-0">
           <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
             <div className={cn("flex flex-col gap-6", contentClassName)}>
               {tagline &&
@@ -256,7 +263,7 @@ export function HeroCreativeStudioStacked({
                   (typeof heading === "string" ? (
                     <h1
                       className={cn(
-                        "max-w-[920px] text-center text-4xl leading-tight font-semibold md:text-6xl lg:text-7xl text-balance",
+                        "max-w-[920px] text-left text-4xl leading-tight font-semibold md:text-6xl lg:text-7xl text-balance",
                         headingClassName,
                       )}
                     >
@@ -269,7 +276,7 @@ export function HeroCreativeStudioStacked({
                   (typeof description === "string" ? (
                     <p
                       className={cn(
-                        "max-w-[750px] text-center text-base leading-relaxed font-normal md:text-xl text-balance",
+                        "max-w-[750px] text-left text-base leading-relaxed font-normal md:text-xl text-balance",
                         descriptionClassName,
                       )}
                     >

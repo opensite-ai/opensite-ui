@@ -236,7 +236,7 @@ export function HeroStartupLaunchCta({
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "mb-8 text-4xl font-normal text-balance md:text-7xl",
+                    "text-4xl font-normal text-balance md:text-7xl",
                     headingClassName,
                   )}
                 >
@@ -249,7 +249,7 @@ export function HeroStartupLaunchCta({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mb-12 max-w-full md:max-w-[70%] text-lg md:text-xl font-normal text-balance",
+                    "max-w-full md:max-w-[70%] text-lg md:text-xl font-normal text-balance",
                     descriptionClassName,
                   )}
                 >

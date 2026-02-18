@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -165,14 +164,21 @@ export function HeroEcommerceProductShowcase({
     if (!stats || stats.length === 0) return null;
 
     return (
-      <div className={cn("flex items-center gap-6 pt-4", statsClassName)}>
+      <div
+        className={cn(
+          "flex flex-col md:flex-row items-center gap-4 md:gap-6 pt-8 md:pt-12",
+          statsClassName,
+        )}
+      >
         {stats.map((stat, index) => (
           <React.Fragment key={index}>
-            {index > 0 && <div className="h-12 w-px bg-border"></div>}
-            <div className="text-center">
+            {index > 0 && (
+              <div className="h-12 w-px bg-border hidden md:flex"></div>
+            )}
+            <div className="flex items-center gap-2 justify-between flex-row md:flex-col text-left md:text-center w-full md:w-fit border md:border-none rounded-xl md:rounded-none p-4 md:p-0">
               <div
                 className={cn(
-                  "flex items-center",
+                  "flex items-center gap-2 w-fit md:w-full",
                   stat.icon ? "justify-between" : "justify-center",
                 )}
               >
@@ -197,12 +203,14 @@ export function HeroEcommerceProductShowcase({
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
+    const imgClassWrapper =
+      "overflow-hidden rounded-3xl ring-4 ring-primary shadow-2xl";
 
     return (
-      <div className={cn("grid grid-cols-2 gap-4", imagesClassName)}>
-        <div className="space-y-4">
+      <div className={cn("grid grid-cols-2 gap-4 md:gap-8", imagesClassName)}>
+        <div className="space-y-4 md:space-y-8">
           {images[0] && (
-            <div className={cn("overflow-hidden rounded-2xl")}>
+            <div className={imgClassWrapper}>
               <Img
                 src={images[0].src}
                 alt={images[0].alt}
@@ -215,7 +223,7 @@ export function HeroEcommerceProductShowcase({
             </div>
           )}
           {images[1] && (
-            <div className={cn("overflow-hidden rounded-2xl")}>
+            <div className={imgClassWrapper}>
               <Img
                 src={images[1].src}
                 alt={images[1].alt}
@@ -228,9 +236,9 @@ export function HeroEcommerceProductShowcase({
             </div>
           )}
         </div>
-        <div className="space-y-4 pt-8">
+        <div className="space-y-4 md:space-y-8 pt-12">
           {images[2] && (
-            <div className={cn("overflow-hidden rounded-2xl")}>
+            <div className={imgClassWrapper}>
               <Img
                 src={images[2].src}
                 alt={images[2].alt}
@@ -243,7 +251,7 @@ export function HeroEcommerceProductShowcase({
             </div>
           )}
           {images[3] && (
-            <div className={cn("overflow-hidden rounded-2xl")}>
+            <div className={imgClassWrapper}>
               <Img
                 src={images[3].src}
                 alt={images[3].alt}
@@ -272,8 +280,13 @@ export function HeroEcommerceProductShowcase({
     >
       <div className="pt-8 md:pt-0">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className="order-1">{renderImages}</div>
-          <div className={cn("flex flex-col gap-8 order-2", contentClassName)}>
+          <div className="order-2 md:order-1">{renderImages}</div>
+          <div
+            className={cn(
+              "flex flex-col gap-4 md:gap-6 order-1 md:order-2",
+              contentClassName,
+            )}
+          >
             {renderBadge}
             {heading &&
               (typeof heading === "string" ? (

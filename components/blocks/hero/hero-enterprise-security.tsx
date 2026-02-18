@@ -5,11 +5,9 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
 import type {
   ActionConfig,
   FeatureItem,
-  LogoItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
@@ -138,12 +136,20 @@ export function HeroEnterpriseSecurity({
     if (!features || features.length === 0) return null;
 
     return (
-      <div className={cn("mt-20 grid gap-8 md:grid-cols-3", featuresClassName)}>
+      <div
+        className={cn(
+          "mt-12 md:mt-20 grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-3",
+          featuresClassName,
+        )}
+      >
         {features.map((feature, index) => (
           <Pressable
             href={feature.href}
             key={index}
-            className={cn("rounded-2xl border border-border p-6 text-center")}
+            className={cn(
+              "rounded-2xl border border-border p-6 text-center",
+              "transition-all duration-500 hover:ring-2 hover:shadow-lg",
+            )}
           >
             <div
               className={cn(
@@ -180,7 +186,12 @@ export function HeroEnterpriseSecurity({
       containerClassName={containerClassName}
     >
       <div className="pt-8 md:pt-0">
-        <div className={cn("mx-auto max-w-4xl text-center", contentClassName)}>
+        <div
+          className={cn(
+            "mx-auto max-w-4xl text-center flex flex-col items-center gap-6",
+            contentClassName,
+          )}
+        >
           {badge && (
             <Badge className={cn("px-4", badgeClassName)}>
               {badgeIcon}
@@ -191,7 +202,7 @@ export function HeroEnterpriseSecurity({
             (typeof heading === "string" ? (
               <h1
                 className={cn(
-                  "mb-8 text-4xl font-normal text-balance md:text-7xl",
+                  "text-4xl font-bold text-balance md:text-7xl",
                   headingClassName,
                 )}
               >
@@ -204,7 +215,7 @@ export function HeroEnterpriseSecurity({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mb-12 max-w-full md:max-w-[70%] text-lg md:text-xl font-normal text-balance",
+                  "max-w-full md:max-w-[70%] text-lg md:text-xl font-normal text-balance",
                   descriptionClassName,
                 )}
               >

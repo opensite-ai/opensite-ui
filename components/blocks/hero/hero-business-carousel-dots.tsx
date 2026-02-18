@@ -21,11 +21,11 @@ const fadeVariants = {
   initial: { opacity: 0 },
   animate: {
     opacity: 1,
-    transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] as const },
+    transition: { duration: 1, ease: [0.4, 0, 0.2, 1] as const },
   },
   exit: {
     opacity: 0,
-    transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] as const },
+    transition: { duration: 1, ease: [0.4, 0, 0.2, 1] as const },
   },
 };
 
@@ -152,7 +152,7 @@ export function HeroBusinessCarouselDots({
     if (imageCount <= 1) return;
     timerRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % imageCount);
-    }, 4000);
+    }, 7000);
   }, [imageCount]);
 
   useEffect(() => {
@@ -178,7 +178,12 @@ export function HeroBusinessCarouselDots({
       containerClassName={containerClassName}
     >
       <div className="pt-8 md:pt-0">
-        <div className={cn("mx-auto max-w-5xl text-center", contentClassName)}>
+        <div
+          className={cn(
+            "mx-auto max-w-full md:max-w-5xl text-center flex flex-col items-center px-4",
+            contentClassName,
+          )}
+        >
           {badge && (
             <Badge variant={badgeVariant} className={badgeClassName}>
               {badge}
@@ -214,11 +219,12 @@ export function HeroBusinessCarouselDots({
             actions={actions}
             actionsSlot={actionsSlot}
             actionsClassName={actionsClassName}
+            mobileConfig={{ width: "full", position: "center" }}
           />
         </div>
         <div
           className={cn(
-            "relative mx-4 mt-10 md:mx-10 md:mt-16",
+            "relative mx-4 mt-18 md:mx-10 md:mt-32",
             carouselClassName,
           )}
         >
@@ -229,8 +235,8 @@ export function HeroBusinessCarouselDots({
           {carouselSlot ? (
             carouselSlot
           ) : activeImage ? (
-            <div className="relative aspect-video w-full overflow-hidden">
-              <AnimatePresence mode="wait" initial={false}>
+            <div className="relative aspect-video w-full overflow-hidden ">
+              <AnimatePresence initial={false}>
                 <motion.div
                   key={currentIndex}
                   variants={fadeVariants}
