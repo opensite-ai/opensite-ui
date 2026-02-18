@@ -2,11 +2,15 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Input } from "../../ui/input";
-import type {ActionConfig, StatItem, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  StatItem,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
@@ -42,7 +46,7 @@ export interface HeroNewsletterMinimalProps {
   /**
    * Custom slot for rendering stats (overrides stats array)
    */
-  statsSlot?: React.ReactNode;  /**
+  statsSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -91,16 +95,21 @@ export interface HeroNewsletterMinimalProps {
    * Additional CSS classes for the stats container
    */
   statsClassName?: string;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 export function HeroNewsletterMinimal({
   heading,
   description,
-  inputPlaceholder = "Enter your email",
+  inputPlaceholder,
   submitAction,
   formSlot,
-  disclaimer = "Free forever. No spam. Unsubscribe anytime.",
+  disclaimer,
   stats,
+  patternClassName,
   statsSlot,
   background,
   spacing,
@@ -120,9 +129,23 @@ export function HeroNewsletterMinimal({
     if (!stats || stats.length === 0) return null;
 
     return stats.map((stat, index) => (
-      <div key={index} className={cn("flex items-center gap-2 text-sm", getTextColor(background, "muted"), stat.className)}>
-        {stat.icon}
-        <span>{stat.value}</span>
+      <div key={index} className={cn("flex items-center", stat.className)}>
+        <div className="text-center">
+          <div
+            className={cn(
+              "flex items-center",
+              stat.icon ? "justify-between" : "justify-center",
+            )}
+          >
+            {stat.icon}
+            <div
+              className={cn("font-bold ", stat.icon ? "text-xl" : "text-2xl")}
+            >
+              {stat.value}
+            </div>
+          </div>
+          <div className={cn("text-sm")}>{stat.label}</div>
+        </div>
       </div>
     ));
   }, [statsSlot, stats]);
@@ -131,7 +154,14 @@ export function HeroNewsletterMinimal({
     if (formSlot) return formSlot;
     if (!submitAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = submitAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = submitAction;
 
     return (
       <>
@@ -140,11 +170,7 @@ export function HeroNewsletterMinimal({
           placeholder={inputPlaceholder}
           className={cn("h-12 flex-1", inputClassName)}
         />
-        <Pressable
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
+        <Pressable asButton className={actionClassName} {...pressableProps}>
           {children ?? (
             <>
               {icon}
@@ -159,44 +185,69 @@ export function HeroNewsletterMinimal({
 
   return (
     <Section
-      className={cn(
-        "relative min-h-[80vh] bg-background py-32",
-        className,
-      )}
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container flex flex-col items-center justify-center text-center", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("max-w-3xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl", headingClassName)}>
+      <div
+        className={cn(
+          "container flex flex-col items-center justify-center text-center",
+          containerClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "max-w-3xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-pretty",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
-            <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-6 max-w-xl text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+            heading
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-6 max-w-full md:max-w-lg text-lg md:text-xl text-balance",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={descriptionClassName}>{description}</div>
-          )
-        )}
-        <div className={cn("mt-10 flex w-full max-w-md flex-col gap-4 sm:flex-row", formClassName)}>
+            description
+          ))}
+        <div
+          className={cn(
+            "mt-10 flex w-full max-w-md flex-col gap-4 sm:flex-row",
+            formClassName,
+          )}
+        >
           {renderForm}
         </div>
-        {disclaimer && (
-          typeof disclaimer === "string" ? (
-            <p className={cn("mt-4 text-sm", getTextColor(background, "muted"), disclaimerClassName)}>
+        {disclaimer &&
+          (typeof disclaimer === "string" ? (
+            <p className={cn("mt-4 text-sm", disclaimerClassName)}>
               {disclaimer}
             </p>
           ) : (
-            <div className={disclaimerClassName}>{disclaimer}</div>
-          )
-        )}
+            disclaimer
+          ))}
         {(statsSlot || (stats && stats.length > 0)) && (
-          <div className={cn("mt-16 flex flex-wrap items-center justify-center gap-8", statsClassName)}>
+          <div
+            className={cn(
+              "mt-16 flex flex-wrap items-center justify-center gap-8",
+              statsClassName,
+            )}
+          >
             {renderStats}
           </div>
         )}

@@ -1,20 +1,33 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState, useMemo } from "react";
-import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Img } from "@page-speed/img";
-import type { CarouselApi } from "../../ui/carousel";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
+
+const fadeVariants = {
+  initial: { opacity: 0 },
+  animate: {
+    opacity: 1,
+    transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] as const },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] as const },
+  },
+};
 
 export interface HeroBusinessCarouselDotsProps {
   /**
@@ -101,11 +114,15 @@ export interface HeroBusinessCarouselDotsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 export function HeroBusinessCarouselDots({
   badge,
-  badgeVariant = "outline",
+  badgeVariant,
   heading,
   description,
   actions,
@@ -116,6 +133,7 @@ export function HeroBusinessCarouselDots({
   spacing,
   pattern,
   patternOpacity,
+  patternClassName,
   className,
   containerClassName,
   contentClassName,
@@ -126,48 +144,28 @@ export function HeroBusinessCarouselDots({
   carouselClassName,
   optixFlowConfig,
 }: HeroBusinessCarouselDotsProps): React.JSX.Element {
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const imageCount = carouselImages?.length ?? 0;
+
+  const startTimer = useCallback(() => {
+    if (imageCount <= 1) return;
+    timerRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % imageCount);
+    }, 4000);
+  }, [imageCount]);
 
   useEffect(() => {
-    if (!api) return;
-
-    const updateCurrent = () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    };
-
-    updateCurrent();
-    api.on("select", updateCurrent);
-
+    startTimer();
     return () => {
-      api.off("select", updateCurrent);
+      if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [api]);
+  }, [startTimer]);
 
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
+  const activeImage =
+    carouselImages && carouselImages.length > 0
+      ? carouselImages[currentIndex]
+      : null;
 
   return (
     <Section
@@ -175,73 +173,84 @@ export function HeroBusinessCarouselDots({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
       className={cn("overflow-hidden", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="pt-8 md:pt-0">
         <div className={cn("mx-auto max-w-5xl text-center", contentClassName)}>
           {badge && (
             <Badge variant={badgeVariant} className={badgeClassName}>
               {badge}
             </Badge>
           )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("mt-6 text-4xl font-bold md:text-6xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "mt-6 text-4xl font-bold md:text-6xl text-balance",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
-              <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-5 text-lg md:text-xl lg:px-32", getTextColor(background, "muted"), descriptionClassName)}>
+              heading
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-5 text-lg md:text-xl lg:px-32 text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
-          {(actionsSlot || (actions && actions.length > 0)) && (
-            <div className={cn("mt-8 flex justify-center gap-2", actionsClassName)}>
-              {renderActions}
-            </div>
-          )}
+              description
+            ))}
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
-        <div className={cn("relative mx-10 mt-16 hidden md:block", carouselClassName)}>
-          <div className="absolute top-0 -right-20 -left-20 z-10 h-px bg-[linear-gradient(to_right,transparent,hsl(var(--border))_4%,hsl(var(--border))_96%,transparent)]"></div>
-          <div className="absolute bottom-0 -right-20 -left-20 z-10 h-px bg-[linear-gradient(to_right,transparent,hsl(var(--border))_4%,hsl(var(--border))_96%,transparent)]"></div>
-          <div className="absolute -top-20 left-0 z-10 h-[calc(100%+160px)] w-px bg-[linear-gradient(to_bottom,transparent,hsl(var(--border))_4%,hsl(var(--border))_96%,transparent)]"></div>
-          <div className="absolute -top-20 right-0 z-10 h-[calc(100%+160px)] w-px bg-[linear-gradient(to_bottom,transparent,hsl(var(--border))_4%,hsl(var(--border))_96%,transparent)]"></div>
-          {carouselSlot ? carouselSlot : (carouselImages && carouselImages.length > 0) ? (
-            <>
-              <Carousel setApi={setApi} className="w-full">
-                <CarouselContent>
-                  {carouselImages.map((image, index) => (
-                    <CarouselItem key={index}>
-                      <Img
-                        src={image.src}
-                        alt={image.alt}
-                        className={cn("aspect-video w-full rounded-lg object-cover", image.className)}
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-              </Carousel>
-              <div className="mt-4 flex justify-center gap-2">
-                {carouselImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => api?.scrollTo(index)}
+        <div
+          className={cn(
+            "relative mx-4 mt-10 md:mx-10 md:mt-16",
+            carouselClassName,
+          )}
+        >
+          <div className="absolute top-0 -right-4 -left-4 z-10 h-px bg-[linear-gradient(to_right,transparent,hsl(var(--border))_4%,hsl(var(--border))_96%,transparent)] md:-right-20 md:-left-20"></div>
+          <div className="absolute bottom-0 -right-4 -left-4 z-10 h-px bg-[linear-gradient(to_right,transparent,hsl(var(--border))_4%,hsl(var(--border))_96%,transparent)] md:-right-20 md:-left-20"></div>
+          <div className="absolute -top-10 left-0 z-10 h-[calc(100%+80px)] w-px bg-[linear-gradient(to_bottom,transparent,hsl(var(--border))_4%,hsl(var(--border))_96%,transparent)] md:-top-20 md:h-[calc(100%+160px)]"></div>
+          <div className="absolute -top-10 right-0 z-10 h-[calc(100%+80px)] w-px bg-[linear-gradient(to_bottom,transparent,hsl(var(--border))_4%,hsl(var(--border))_96%,transparent)] md:-top-20 md:h-[calc(100%+160px)]"></div>
+          {carouselSlot ? (
+            carouselSlot
+          ) : activeImage ? (
+            <div className="relative aspect-video w-full overflow-hidden">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={currentIndex}
+                  variants={fadeVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  className="absolute inset-0"
+                >
+                  <Img
+                    src={activeImage.src}
+                    alt={activeImage.alt}
                     className={cn(
-                      "h-2 w-2 rounded-full transition-colors",
-                      current === index + 1 ? "bg-primary" : getNestedCardBg(background)
+                      "h-full w-full object-cover",
+                      activeImage.className,
                     )}
+                    optixFlowConfig={optixFlowConfig}
                   />
-                ))}
-              </div>
-            </>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           ) : null}
         </div>
       </div>

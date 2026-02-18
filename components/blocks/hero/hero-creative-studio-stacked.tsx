@@ -3,9 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { Fragment, useState } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import {
@@ -16,7 +14,15 @@ import {
 } from "../../ui/dialog";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { VideoDialogConfig } from "./hero-video-dialog-gradient";
+import { ActionComponent } from "@/components/ui/block-actions";
 
 export interface HeroCreativeStudioStackedProps {
   /**
@@ -32,25 +38,17 @@ export interface HeroCreativeStudioStackedProps {
    */
   description?: React.ReactNode;
   /**
-   * Primary action configuration
+   * Array of action configurations for CTA buttons
    */
-  primaryAction?: ActionConfig;
+  actions?: ActionConfig[];
   /**
-   * Video button label
+   * Video action object
    */
-  videoButtonLabel?: React.ReactNode;
+  videoAction?: ActionConfig;
   /**
-   * Video URL for the dialog
+   * Video dialog configuration
    */
-  videoUrl?: string;
-  /**
-   * Video dialog title
-   */
-  videoDialogTitle?: string;
-  /**
-   * Custom slot for actions (overrides primaryAction and video button)
-   */
-  actionsSlot?: React.ReactNode;
+  videoDialog?: VideoDialogConfig;
   /**
    * Array of stacked images (expects 3 images)
    */
@@ -108,20 +106,28 @@ export interface HeroCreativeStudioStackedProps {
    */
   imagesClassName?: string;
   /**
+   * Video aspect ratio
+   */
+  videoAspectRatio?: "horizontal" | "vertical";
+  /**
+   * Callback when video button is clicked
+   */
+  onVideoClick?: () => void;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
 }
 
 export function HeroCreativeStudioStacked({
+  videoAspectRatio = "horizontal",
   tagline,
   heading,
   description,
-  primaryAction,
-  videoButtonLabel = "How it works?",
-  videoUrl = "https://www.youtube.com/embed/your-video-id",
-  videoDialogTitle = "Presentation Video",
-  actionsSlot,
+  videoAction,
+  actions,
+  onVideoClick,
+  videoDialog,
   images,
   imagesSlot,
   background,
@@ -140,61 +146,39 @@ export function HeroCreativeStudioStacked({
 }: HeroCreativeStudioStackedProps): React.JSX.Element {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!primaryAction) return null;
-
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = primaryAction;
-
-    return (
-      <>
-        <Pressable
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-        <Pressable
-          href="#"
-          onClick={() => setIsVideoOpen(true)}
-          asButton
-          variant="ghost"
-          className="flex h-fit w-fit flex-nowrap items-center gap-2 rounded-sm bg-transparent px-5 py-3.5 text-sm font-medium tracking-wider text-nowrap uppercase"
-        >
-          <DynamicIcon
-            name="lucide/play"
-            size={12}
-            className="fill-neutral-950"
-          />
-          <p>{videoButtonLabel}</p>
-        </Pressable>
-      </>
-    );
-  }, [actionsSlot, primaryAction, videoButtonLabel, setIsVideoOpen]);
+  const handleVideoClick = () => {
+    if (onVideoClick) {
+      onVideoClick();
+    } else {
+      setIsVideoOpen(true);
+    }
+  };
 
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
+    const sharedImgWrapperClassName = "overflow-hidden rounded-xl shadow-xl";
 
     return (
-      <div className={cn("relative mx-auto aspect-[0.789340102/1] max-w-100", imagesClassName)}>
+      <div
+        className={cn(
+          "relative mx-auto aspect-[0.789340102/1] max-w-100",
+          imagesClassName,
+        )}
+      >
         {images[0] && (
           <div className="absolute bottom-0 left-0 z-30 w-[63%]">
             <AspectRatio
               ratio={0.724137931 / 1}
-              className="overflow-hidden"
+              className={sharedImgWrapperClassName}
             >
               <Img
                 src={images[0].src}
                 alt={images[0].alt}
-                className={cn("size-full object-cover object-center", images[0].className)}
+                className={cn(
+                  "size-full object-cover object-center",
+                  images[0].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </AspectRatio>
@@ -205,12 +189,15 @@ export function HeroCreativeStudioStacked({
           <div className="absolute top-1/2 left-1/2 z-20 w-[63%] -translate-x-1/2 -translate-y-1/2">
             <AspectRatio
               ratio={0.724137931 / 1}
-              className="overflow-hidden"
+              className={sharedImgWrapperClassName}
             >
               <Img
                 src={images[1].src}
                 alt={images[1].alt}
-                className={cn("size-full object-cover object-center", images[1].className)}
+                className={cn(
+                  "size-full object-cover object-center",
+                  images[1].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </AspectRatio>
@@ -221,12 +208,15 @@ export function HeroCreativeStudioStacked({
           <div className="absolute top-0 right-0 z-10 w-[63%]">
             <AspectRatio
               ratio={0.724137931 / 1}
-              className="overflow-hidden"
+              className={sharedImgWrapperClassName}
             >
               <Img
                 src={images[2].src}
                 alt={images[2].alt}
-                className={cn("size-full object-cover object-center", images[2].className)}
+                className={cn(
+                  "size-full object-cover object-center",
+                  images[2].className,
+                )}
                 optixFlowConfig={optixFlowConfig}
               />
             </AspectRatio>
@@ -239,67 +229,96 @@ export function HeroCreativeStudioStacked({
   return (
     <Fragment>
       <Section
-      background={background}
-      spacing={spacing}
-      pattern={pattern}
-      patternOpacity={patternOpacity}
-      className={cn(className)}
-    >
+        background={background}
+        spacing={spacing}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
+        className={cn(className)}
+      >
         <div className={cn("container", containerClassName)}>
           <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
             <div className={cn("flex flex-col gap-6", contentClassName)}>
-              {tagline && (
-                typeof tagline === "string" ? (
-                  <p className={cn("text-sm font-medium tracking-wider uppercase", getTextColor(background, "muted"), taglineClassName)}>
+              {tagline &&
+                (typeof tagline === "string" ? (
+                  <p
+                    className={cn(
+                      "text-sm font-medium tracking-wider uppercase",
+                      taglineClassName,
+                    )}
+                  >
                     {tagline}
                   </p>
                 ) : (
                   <div className={taglineClassName}>{tagline}</div>
-                )
-              )}
+                ))}
               <div className="flex max-w-160 flex-col gap-6">
-                {heading && (
-                  typeof heading === "string" ? (
-                    <h1 className={cn("text-4xl leading-tight font-medium md:text-5xl xl:text-6xl", headingClassName)}>
+                {heading &&
+                  (typeof heading === "string" ? (
+                    <h1
+                      className={cn(
+                        "max-w-[920px] text-center text-4xl leading-tight font-semibold md:text-6xl lg:text-7xl text-balance",
+                        headingClassName,
+                      )}
+                    >
                       {heading}
                     </h1>
                   ) : (
-                    <div className={headingClassName}>{heading}</div>
-                  )
-                )}
-                {description && (
-                  typeof description === "string" ? (
-                    <p className={cn("text-xl text-balance", getTextColor(background, "muted"), descriptionClassName)}>
+                    heading
+                  ))}
+                {description &&
+                  (typeof description === "string" ? (
+                    <p
+                      className={cn(
+                        "max-w-[750px] text-center text-base leading-relaxed font-normal md:text-xl text-balance",
+                        descriptionClassName,
+                      )}
+                    >
                       {description}
                     </p>
                   ) : (
-                    <div className={descriptionClassName}>{description}</div>
-                  )
+                    description
+                  ))}
+              </div>
+              <div
+                className={cn(
+                  "flex flex-col md:flex-row flex-wrap gap-4",
+                  actionsClassName,
                 )}
-              </div>
-              <div className={cn("flex flex-wrap gap-4 py-4", actionsClassName)}>
-                {renderActions}
+              >
+                {videoAction && videoDialog?.videoUrl ? (
+                  <ActionComponent
+                    action={{
+                      ...videoAction,
+                      onClick: handleVideoClick,
+                    }}
+                  />
+                ) : null}
+                {actions?.map((action, index) => (
+                  <ActionComponent key={index} action={action} />
+                ))}
               </div>
             </div>
-            <div>
-              {renderImages}
-            </div>
+            <div>{renderImages}</div>
           </div>
         </div>
       </Section>
       <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
-        <DialogContent className="sm:max-w-[800px]">
+        <DialogContent
+          className={cn(
+            videoAspectRatio === "vertical" ? "sm:max-w-100" : "sm:max-w-200",
+          )}
+        >
           <DialogHeader>
-            <DialogTitle>{videoDialogTitle}</DialogTitle>
+            <DialogTitle>{videoDialog?.title}</DialogTitle>
           </DialogHeader>
-          <div className="aspect-video">
-            <iframe
-              className="h-full w-full"
-              src={videoUrl}
-              title={videoDialogTitle}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+          <div
+            className={
+              videoAspectRatio === "vertical" ? "aspect-9/16" : "aspect-video"
+            }
+          >
+            <video controls autoPlay className="h-full w-full rounded-lg">
+              <source src={videoDialog?.videoUrl} type="video/mp4" />
+            </video>
           </div>
         </DialogContent>
       </Dialog>

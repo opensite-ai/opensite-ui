@@ -14,6 +14,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroConversationIntelligenceProps {
   /**
@@ -115,38 +116,6 @@ export function HeroConversationIntelligence({
   imageClassName,
   optixFlowConfig,
 }: HeroConversationIntelligenceProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const {
-        label,
-        icon,
-        iconAfter,
-        children,
-        className: actionClassName,
-        ...pressableProps
-      } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
-
   const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
@@ -211,16 +180,11 @@ export function HeroConversationIntelligence({
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
                 ))}
-              {(actionsSlot || (actions && actions.length > 0)) && (
-                <div
-                  className={cn(
-                    "flex flex-col md:flex-row items-center justify-center gap-4",
-                    actionsClassName,
-                  )}
-                >
-                  {renderActions}
-                </div>
-              )}
+              <BlockActions
+                actions={actions}
+                actionsSlot={actionsSlot}
+                actionsClassName={actionsClassName}
+              />
             </div>
           </div>
           {renderImage}

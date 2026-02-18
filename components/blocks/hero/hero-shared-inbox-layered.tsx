@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import type {
+  ActionConfig,
   ImageItem,
   OptixFlowConfig,
   SectionBackground,
@@ -12,7 +13,7 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import { Badge } from "@/src";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface LayeredImageConfig {
   /**
@@ -27,9 +28,13 @@ export interface LayeredImageConfig {
 
 export interface HeroSharedInboxLayeredProps {
   /**
-   * Subtitle/label text above heading
+   * eyebrow text above heading
    */
-  subtitle?: React.ReactNode;
+  eyebrow?: React.ReactNode;
+  /**
+   * Additional CSS classes for the eyebrow
+   */
+  eyebrowClassName?: string;
   /**
    * Main heading content (can include line breaks)
    */
@@ -93,17 +98,33 @@ export interface HeroSharedInboxLayeredProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 export function HeroSharedInboxLayered({
-  subtitle,
+  eyebrow,
+  eyebrowClassName,
   heading,
   description,
   layeredImages,
   layeredImagesSlot,
   background,
+  actions,
+  actionsSlot,
+  actionsClassName,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-12 md:py-32",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
@@ -165,7 +186,7 @@ export function HeroSharedInboxLayered({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative">
+      <div className="pt-8 md:pt-0">
         <div className="grid grid-cols-1 items-center gap-4 md:gap-20 md:grid-cols-2">
           <div
             className={cn(
@@ -173,42 +194,51 @@ export function HeroSharedInboxLayered({
               contentClassName,
             )}
           >
-            {subtitle &&
-              (typeof subtitle === "string" ? (
-                <Badge>{subtitle}</Badge>
+            {eyebrow &&
+              (typeof eyebrow === "string" ? (
+                <div
+                  className={cn(
+                    "font-light tracking-widest text-sm md:text-md uppercase",
+                    eyebrowClassName,
+                  )}
+                >
+                  {eyebrow}
+                </div>
               ) : (
-                subtitle
+                eyebrow
               ))}
             {heading &&
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "text-5xl md:text-6xl lg:text-7xl font-semibold text-balance leading-snug",
+                    "text-4xl font-semibold text-balance md:text-7xl",
                     headingClassName,
                   )}
                 >
                   {heading}
                 </h1>
               ) : (
-                <h1
-                  className={cn(
-                    "text-2xl md:text-3xl lg:text-4xl font-semibold text-balance",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h1>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
                 <p
-                  className={cn("leading-normal text-lg", descriptionClassName)}
+                  className={cn(
+                    "max-w-full md:max-w-[70%] text-lg md:text-xl font-normal text-balance",
+                    descriptionClassName,
+                  )}
                 >
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
+
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
           </div>
           <div>{renderLayeredImages}</div>
         </div>

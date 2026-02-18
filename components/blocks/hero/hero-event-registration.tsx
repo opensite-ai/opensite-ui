@@ -145,8 +145,8 @@ export function HeroEventRegistration({
   locationSublabel,
   locationSlot,
   background,
-  containerClassName = "px-6  sm:px-0 md:px-0 lg:px-0",
-  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
+  containerClassName = "px-6 sm:px-0 md:px-0 lg:px-0",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
@@ -162,10 +162,8 @@ export function HeroEventRegistration({
     if (badgeSlot) return badgeSlot;
 
     return (
-      <Badge variant="outline" className="w-fit">
-        {badgeIcon && (
-          <DynamicIcon name={badgeIcon} size={14} className="mr-1" />
-        )}
+      <Badge className="px-4 gap-2">
+        {badgeIcon && <DynamicIcon name={badgeIcon} />}
         {badgeText}
       </Badge>
     );
@@ -176,13 +174,15 @@ export function HeroEventRegistration({
     if (!stats || stats.length === 0) return null;
 
     return (
-      <div className={cn("grid grid-cols-3 gap-4 pt-4", statsClassName)}>
-        {stats.map((stat, index) => (
-          <div key={index} className="text-center">
-            <div className="text-2xl font-bold ">{stat.value}</div>
-            <div className={cn("text-sm")}>{stat.label}</div>
-          </div>
-        ))}
+      <div className="flex justify-center w-full">
+        <div className={cn("grid grid-cols-3 gap-4 pt-4", statsClassName)}>
+          {stats.map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="text-2xl font-bold ">{stat.value}</div>
+              <div className={cn("text-sm")}>{stat.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }, [statsSlot, stats, statsClassName]);
@@ -248,45 +248,45 @@ export function HeroEventRegistration({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-        <div className={cn("flex flex-col gap-8", contentClassName)}>
-          {renderBadge}
-          {heading &&
-            (typeof heading === "string" ? (
-              <h1
-                className={cn(
-                  "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
-            ) : (
-              <h1
-                className={cn(
-                  "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p className={cn("text-lg", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
-          <BlockActions
-            actions={actions}
-            actionsSlot={actionsSlot}
-            actionsClassName={actionsClassName}
-          />
-          {renderStats}
+      <div className="pt-8 md:pt-0">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <div
+            className={cn(
+              "flex flex-col items-start gap-6 md:gap-8",
+              contentClassName,
+            )}
+          >
+            {renderBadge}
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-pretty",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h1>
+              ) : (
+                heading
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn("text-lg text-balance", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                description
+              ))}
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
+            {renderStats}
+          </div>
+          {renderImage}
         </div>
-        {renderImage}
       </div>
     </Section>
   );

@@ -2,27 +2,36 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type {ActionConfig, FeatureItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import type {
+  ActionConfig,
+  FeatureItem,
+  LogoItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { Badge } from "@/src";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroEnterpriseSecurityProps {
   /**
-   * Badge text content
+   * Badge/status indicator content
    */
-  badgeText?: React.ReactNode;
+  badge?: React.ReactNode;
   /**
-   * Badge icon name
+   * Badge icon
    */
-  badgeIcon?: string;
+  badgeIcon?: React.ReactNode;
   /**
-   * Custom slot for badge (overrides badge props)
+   * Additional CSS classes for the badge
    */
-  badgeSlot?: React.ReactNode;
+  badgeClassName?: string;
   /**
    * Main heading content
    */
@@ -48,13 +57,6 @@ export interface HeroEnterpriseSecurityProps {
    */
   featuresSlot?: React.ReactNode;
   /**
-   * Array of logo items
-   */
-  logos?: LogoItem[];
-  /**
-   * Custom slot for logos (overrides logos array)
-   */
-  logosSlot?: React.ReactNode;  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -70,7 +72,10 @@ export interface HeroEnterpriseSecurityProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
-
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
   /**
    * Additional CSS classes for the section
    */
@@ -100,86 +105,34 @@ export interface HeroEnterpriseSecurityProps {
    */
   featuresClassName?: string;
   /**
-   * Additional CSS classes for the logos container
-   */
-  logosClassName?: string;
-  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
 }
 
 export function HeroEnterpriseSecurity({
-  badgeText,
+  badge,
   badgeIcon,
-  badgeSlot,
+  badgeClassName,
   heading,
   description,
   actions,
   actionsSlot,
   features,
   featuresSlot,
-  logos,
-  logosSlot,
   background,
-  spacing,
   pattern,
   patternOpacity,
+  patternClassName,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   contentClassName,
   headingClassName,
   descriptionClassName,
   actionsClassName,
   featuresClassName,
-  logosClassName,
-  optixFlowConfig,
 }: HeroEnterpriseSecurityProps): React.JSX.Element {
-  const renderBadge = useMemo(() => {
-    if (badgeSlot) return badgeSlot;
-    if (!badgeText && !badgeIcon) return null;
-
-    return (
-      <div className={cn(
-        "inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm",
-        getNestedCardBg(background, 'muted'),
-        getNestedCardTextColor(background)
-      )}>
-        {badgeIcon && <DynamicIcon name={badgeIcon} size={16} className="text-success" />}
-        <span>{badgeText}</span>
-      </div>
-    );
-  }, [badgeSlot, badgeText, badgeIcon]);
-
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className={cn("mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center", actionsClassName)}>
-        {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
   const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
@@ -187,45 +140,34 @@ export function HeroEnterpriseSecurity({
     return (
       <div className={cn("mt-20 grid gap-8 md:grid-cols-3", featuresClassName)}>
         {features.map((feature, index) => (
-          <div key={index} className={cn("rounded-2xl border border-border p-6 text-center", getNestedCardBg(background, "card"))}>
-            <div className={cn("mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full", feature.iconBgClass || `${getAccentColor(background)}/10`)}>
-              {feature.icon ?? <DynamicIcon name={feature.iconName || "lucide/check"} size={24} className={feature.iconColorClass || getAccentColor(background)} />}
+          <Pressable
+            href={feature.href}
+            key={index}
+            className={cn("rounded-2xl border border-border p-6 text-center")}
+          >
+            <div
+              className={cn(
+                "mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full",
+                feature.iconBgClass,
+              )}
+            >
+              {feature.icon ?? (
+                <DynamicIcon
+                  name={feature.iconName || "lucide/check"}
+                  size={24}
+                  className={feature.iconColorClass}
+                />
+              )}
             </div>
-            <h3 className="mb-2 text-lg font-semibold ">
-              {feature.title}
-            </h3>
+            <h3 className="mb-2 text-lg font-semibold ">{feature.title}</h3>
             {feature.description && (
-              <p className={cn("text-sm", getTextColor(background, "muted"))}>
-                {feature.description}
-              </p>
+              <p className="text-sm">{feature.description}</p>
             )}
-          </div>
+          </Pressable>
         ))}
       </div>
     );
   }, [featuresSlot, features, featuresClassName]);
-
-  const renderLogos = useMemo(() => {
-    if (logosSlot) return logosSlot;
-    if (!logos || logos.length === 0) return null;
-
-    return (
-      <div className={cn("mt-16 flex flex-wrap items-center justify-center gap-8", logosClassName)}>
-        {logos.map((logo, index) => {
-          const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
-          return (
-            <Img
-              key={index}
-              src={logoSrc}
-              alt={logo.alt}
-              className={cn("h-8 opacity-50 grayscale", logo.className)}
-              optixFlowConfig={optixFlowConfig}
-            />
-          );
-        })}
-      </div>
-    );
-  }, [logosSlot, logos, logosClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -233,35 +175,51 @@ export function HeroEnterpriseSecurity({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="pt-8 md:pt-0">
         <div className={cn("mx-auto max-w-4xl text-center", contentClassName)}>
-          {renderBadge}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("mt-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+          {badge && (
+            <Badge className={cn("px-4", badgeClassName)}>
+              {badgeIcon}
+              {typeof badge === "string" ? <span>{badge}</span> : badge}
+            </Badge>
+          )}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "mb-8 text-4xl font-normal text-balance md:text-7xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("mt-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
-                {heading}
-              </h1>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-6 text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+              heading
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mb-12 max-w-full md:max-w-[70%] text-lg md:text-xl font-normal text-balance",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
-          {renderActions}
+              description
+            ))}
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
         {renderFeatures}
-        {renderLogos}
       </div>
     </Section>
   );

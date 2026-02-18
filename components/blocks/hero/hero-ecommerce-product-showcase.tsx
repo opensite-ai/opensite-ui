@@ -17,6 +17,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { Badge } from "@/src";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroEcommerceProductShowcaseProps {
   /**
@@ -135,7 +136,7 @@ export function HeroEcommerceProductShowcase({
   imagesSlot,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-32 md:py-32",
+  spacing = "xl",
   pattern,
   patternOpacity,
   patternClassName,
@@ -159,42 +160,6 @@ export function HeroEcommerceProductShowcase({
     );
   }, [badgeSlot, badgeIcon, badgeText]);
 
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className={cn("flex flex-col gap-4 sm:flex-row", actionsClassName)}>
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
   const renderStats = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
@@ -205,7 +170,22 @@ export function HeroEcommerceProductShowcase({
           <React.Fragment key={index}>
             {index > 0 && <div className="h-12 w-px bg-border"></div>}
             <div className="text-center">
-              <div className="text-2xl font-bold ">{stat.value}</div>
+              <div
+                className={cn(
+                  "flex items-center",
+                  stat.icon ? "justify-between" : "justify-center",
+                )}
+              >
+                {stat.icon}
+                <div
+                  className={cn(
+                    "font-bold ",
+                    stat.icon ? "text-xl" : "text-2xl",
+                  )}
+                >
+                  {stat.value}
+                </div>
+              </div>
               <div className={cn("text-sm")}>{stat.label}</div>
             </div>
           </React.Fragment>
@@ -290,15 +270,10 @@ export function HeroEcommerceProductShowcase({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative">
+      <div className="pt-8 md:pt-0">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className="order-2 lg:order-1">{renderImages}</div>
-          <div
-            className={cn(
-              "order-1 flex flex-col gap-8 lg:order-2",
-              contentClassName,
-            )}
-          >
+          <div className="order-1">{renderImages}</div>
+          <div className={cn("flex flex-col gap-8 order-2", contentClassName)}>
             {renderBadge}
             {heading &&
               (typeof heading === "string" ? (
@@ -311,14 +286,7 @@ export function HeroEcommerceProductShowcase({
                   {heading}
                 </h1>
               ) : (
-                <h1
-                  className={cn(
-                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h1>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
@@ -326,9 +294,13 @@ export function HeroEcommerceProductShowcase({
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
-            {renderActions}
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
             {renderStats}
           </div>
         </div>

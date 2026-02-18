@@ -13,7 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import { Badge, Pressable } from "@/src";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroCustomerSupportLayeredProps {
   /**
@@ -116,7 +116,7 @@ export function HeroCustomerSupportLayered({
   actionsSlot,
   actionsClassName,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-32 md:py-32",
+  spacing = "xl",
   contentClassName,
   taglineClassName,
   headingClassName,
@@ -170,42 +170,6 @@ export function HeroCustomerSupportLayered({
     );
   }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className={cn("flex flex-col md:flex-row gap-4", actionsClassName)}>
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
   return (
     <Section
       background={background}
@@ -216,52 +180,59 @@ export function HeroCustomerSupportLayered({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative">
+      <div className="pt-8 md:pt-0">
         <div className="grid grid-cols-1 items-center gap-8 md:gap-20 md:grid-cols-2">
           <div
             className={cn(
-              "flex w-full max-w-125 flex-col gap-9",
+              "flex w-full max-w-125 flex-col gap-4 md:gap-6",
               contentClassName,
             )}
           >
             {tagline &&
               (typeof tagline === "string" ? (
-                <Badge>{tagline}</Badge>
+                <div
+                  className={cn(
+                    "font-light tracking-widest text-sm md:text-md uppercase",
+                    taglineClassName,
+                  )}
+                >
+                  {tagline}
+                </div>
               ) : (
-                <div className={taglineClassName}>{tagline}</div>
+                tagline
               ))}
             {heading &&
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "text-5xl md:text-6xl lg:text-7xl font-semibold text-balance leading-snug",
+                    "text-4xl font-semibold text-balance md:text-7xl",
                     headingClassName,
                   )}
                 >
                   {heading}
                 </h1>
               ) : (
-                <h1
-                  className={cn(
-                    "text-2xl md:text-3xl lg:text-4xl font-semibold text-balance",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h1>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
                 <p
-                  className={cn("leading-normal text-lg", descriptionClassName)}
+                  className={cn(
+                    "max-w-full md:max-w-[70%] text-lg md:text-xl font-normal text-balance",
+                    descriptionClassName,
+                  )}
                 >
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
 
-            {renderActions}
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
           </div>
           <div>{renderImages}</div>
         </div>

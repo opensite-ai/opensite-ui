@@ -2,13 +2,18 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface TerminalLine {
   /**
@@ -114,6 +119,10 @@ export interface HeroDeveloperToolsCodeProps {
    * Additional CSS classes for the terminal container
    */
   terminalClassName?: string;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 export function HeroDeveloperToolsCode({
@@ -128,15 +137,16 @@ export function HeroDeveloperToolsCode({
   terminalLines,
   terminalSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
   actionsClassName,
+  patternClassName,
   terminalClassName,
 }: HeroDeveloperToolsCodeProps): React.JSX.Element {
   const renderBadge = useMemo(() => {
@@ -144,48 +154,24 @@ export function HeroDeveloperToolsCode({
     if (!badgeText && !badgeIcon) return null;
 
     return (
-      <Badge variant="outline" className="w-fit">
-        {badgeIcon && <DynamicIcon name={badgeIcon} size={14} className="mr-1" />}
+      <Badge className="w-fit gap-2 mx-4">
+        {badgeIcon && <DynamicIcon name={badgeIcon} size={14} />}
         {badgeText}
       </Badge>
     );
   }, [badgeSlot, badgeText, badgeIcon]);
-
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className={cn("flex flex-col gap-4 sm:flex-row", actionsClassName)}>
-        {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
 
   const renderTerminal = useMemo(() => {
     if (terminalSlot) return terminalSlot;
     if (!terminalLines || terminalLines.length === 0) return null;
 
     return (
-      <div className={cn("overflow-hidden rounded-xl border border-border bg-zinc-950 shadow-2xl", terminalClassName)}>
+      <div
+        className={cn(
+          "overflow-hidden rounded-xl border border-border bg-zinc-950 shadow-2xl",
+          terminalClassName,
+        )}
+      >
         <div className="flex items-center gap-2 border-b border-zinc-800 bg-zinc-900 px-4 py-3">
           <div className="flex gap-1.5">
             <div className="h-3 w-3 rounded-full bg-red-500"></div>
@@ -198,7 +184,10 @@ export function HeroDeveloperToolsCode({
         </div>
         <div className="p-4 font-mono text-sm">
           {terminalLines.map((line, index) => (
-            <div key={index} className={cn(index > 0 && "mt-1", line.colorClass)}>
+            <div
+              key={index}
+              className={cn(index > 0 && "mt-1", line.colorClass)}
+            >
               {line.prefix && (
                 <span className={line.prefixColorClass}>{line.prefix}</span>
               )}{" "}
@@ -220,37 +209,42 @@ export function HeroDeveloperToolsCode({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="pt-8 md:pt-0">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
             {renderBadge}
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-pretty",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
-                  {heading}
-                </h1>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-lg", getTextColor(background, "muted"), descriptionClassName)}>
+                heading
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn("text-lg text-balance", descriptionClassName)}>
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-            {renderActions}
+                description
+              ))}
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
           </div>
-          <div className="relative">
-            {renderTerminal}
-          </div>
+          <div className="relative">{renderTerminal}</div>
         </div>
       </div>
     </Section>

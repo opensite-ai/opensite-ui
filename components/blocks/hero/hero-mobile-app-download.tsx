@@ -179,7 +179,7 @@ export function HeroMobileAppDownload({
   notificationSlot,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
+  spacing = "xl",
   pattern,
   patternOpacity,
   className,
@@ -333,7 +333,7 @@ export function HeroMobileAppDownload({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative">
+      <div className="pt-8 md:pt-0">
         <div className="grid items-center gap-12 grid-cols-1 md:grid-cols-2 md:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
             {renderBadge}

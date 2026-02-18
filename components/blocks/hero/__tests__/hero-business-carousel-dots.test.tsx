@@ -14,14 +14,13 @@ vi.mock("../../../lib/Pressable", () => ({
   ),
 }));
 
-vi.mock("embla-carousel-auto-scroll", () => ({
-  default: () => ({}),
-}));
-
-vi.mock("../../../ui/carousel", () => ({
-  Carousel: ({ children }: { children: React.ReactNode }) => <div data-testid="carousel">{children}</div>,
-  CarouselContent: ({ children }: { children: React.ReactNode }) => <div data-testid="carousel-content">{children}</div>,
-  CarouselItem: ({ children }: { children: React.ReactNode }) => <div data-testid="carousel-item">{children}</div>,
+vi.mock("framer-motion", () => ({
+  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  motion: {
+    div: ({ children, className, ...props }: Record<string, unknown>) => (
+      <div className={className as string} data-testid="motion-div">{children as React.ReactNode}</div>
+    ),
+  },
 }));
 
 vi.mock("../../../lib/mediaPlaceholders", () => ({
@@ -51,7 +50,8 @@ describe("HeroBusinessCarouselDots", () => {
   it("renders carousel when images provided", () => {
     const carouselImages = [{ src: "https://example.com/image.jpg", alt: "Test image" }];
     render(<HeroBusinessCarouselDots carouselImages={carouselImages} />);
-    expect(screen.getByTestId("carousel")).toBeInTheDocument();
+    expect(screen.getByTestId("mock-img")).toBeInTheDocument();
+    expect(screen.getByTestId("mock-img")).toHaveAttribute("src", "https://example.com/image.jpg");
   });
 
   it("applies custom className", () => {

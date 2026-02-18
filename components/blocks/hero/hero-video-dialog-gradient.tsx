@@ -62,7 +62,8 @@ export interface HeroVideoDialogGradientProps {
   /**
    * Video dialog configuration
    */
-  videoDialog?: VideoDialogConfig; /**
+  videoDialog?: VideoDialogConfig;
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -111,6 +112,10 @@ export interface HeroVideoDialogGradientProps {
    * Callback when video button is clicked
    */
   onVideoClick?: () => void;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 export function HeroVideoDialogGradient({
@@ -128,6 +133,7 @@ export function HeroVideoDialogGradient({
   pattern,
   onVideoClick,
   patternOpacity,
+  actionsClassName,
   className,
   headingClassName,
   descriptionClassName,
@@ -190,14 +196,7 @@ export function HeroVideoDialogGradient({
                     {heading}
                   </h1>
                 ) : (
-                  <h1
-                    className={cn(
-                      "max-w-[920px] text-center text-4xl leading-tight font-semibold md:text-6xl lg:text-7xl text-balance",
-                      headingClassName,
-                    )}
-                  >
-                    {heading}
-                  </h1>
+                  heading
                 ))}
               {description &&
                 (typeof description === "string" ? (
@@ -210,10 +209,15 @@ export function HeroVideoDialogGradient({
                     {description}
                   </p>
                 ) : (
-                  <div className={descriptionClassName}>{description}</div>
+                  description
                 ))}
             </div>
-            <div className="flex flex-col md:flex-row flex-wrap gap-4">
+            <div
+              className={cn(
+                "flex flex-col md:flex-row flex-wrap gap-4",
+                actionsClassName,
+              )}
+            >
               {videoAction && videoDialog?.videoUrl ? (
                 <ActionComponent
                   action={{

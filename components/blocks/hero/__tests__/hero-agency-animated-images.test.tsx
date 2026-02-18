@@ -3,19 +3,50 @@ import { render, screen } from "@testing-library/react";
 import { HeroAgencyAnimatedImages } from "../hero-agency-animated-images";
 
 vi.mock("@page-speed/img", () => ({
-  Img: ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
+  Img: ({
+    src,
+    alt,
+    className,
+  }: {
+    src: string;
+    alt: string;
+    className?: string;
+  }) => (
     <img src={src} alt={alt} className={className} data-testid="mock-img" />
   ),
 }));
 
+vi.mock("framer-motion", () => ({
+  motion: {
+    div: ({ children, className, ...props }: React.PropsWithChildren<{ className?: string }>) => (
+      <div className={className} data-testid="motion-div" {...props}>
+        {children}
+      </div>
+    ),
+  },
+  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}));
+
 vi.mock("../../../lib/Pressable", () => ({
-  Pressable: ({ children, href, className }: { children: React.ReactNode; href?: string; className?: string }) => (
-    <a href={href} className={className} data-testid="mock-pressable">{children}</a>
+  Pressable: ({
+    children,
+    href,
+    className,
+  }: {
+    children: React.ReactNode;
+    href?: string;
+    className?: string;
+  }) => (
+    <a href={href} className={className} data-testid="mock-pressable">
+      {children}
+    </a>
   ),
 }));
 
 vi.mock("../../../ui/aspect-ratio", () => ({
-  AspectRatio: ({ children }: { children: React.ReactNode }) => <div data-testid="aspect-ratio">{children}</div>,
+  AspectRatio: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="aspect-ratio">{children}</div>
+  ),
 }));
 
 vi.mock("../../../lib/mediaPlaceholders", () => ({
@@ -38,18 +69,25 @@ describe("HeroAgencyAnimatedImages", () => {
   });
 
   it("renders custom subheading", () => {
-    render(<HeroAgencyAnimatedImages subheading="Custom Subheading" />);
+    render(<HeroAgencyAnimatedImages description="Custom Subheading" />);
     expect(screen.getByText("Custom Subheading")).toBeInTheDocument();
   });
 
   it("renders action when provided", () => {
-    const action = { label: "Get Started", href: "/start", variant: "default" as const };
-    render(<HeroAgencyAnimatedImages action={action} />);
+    const actions = [
+      { label: "Get Started", href: "/start", variant: "default" as const },
+    ];
+    render(<HeroAgencyAnimatedImages actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroAgencyAnimatedImages heading="Test Heading" className="custom-class" />);
+    const { container } = render(
+      <HeroAgencyAnimatedImages
+        heading="Test Heading"
+        className="custom-class"
+      />,
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

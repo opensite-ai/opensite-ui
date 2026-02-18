@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import type {
   ActionConfig,
@@ -15,6 +14,7 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { Badge } from "@/src";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroStartupLaunchCtaProps {
   /**
@@ -72,7 +72,8 @@ export interface HeroStartupLaunchCtaProps {
   /**
    * Custom slot for badge card (overrides badgeCard)
    */
-  badgeCardSlot?: React.ReactNode; /**
+  badgeCardSlot?: React.ReactNode;
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -137,6 +138,9 @@ export interface HeroStartupLaunchCtaProps {
 export function HeroStartupLaunchCta({
   badge,
   badgeIcon,
+  badgeCard,
+  badgeCardSlot,
+  badgeClassName,
   heading,
   description,
   actions,
@@ -146,17 +150,14 @@ export function HeroStartupLaunchCta({
   socialProofText,
   imageSrc,
   imageAlt,
-  badgeCard,
-  badgeCardSlot,
   background,
   pattern,
   patternOpacity,
   patternClassName,
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
+  spacing = "xl",
   contentClassName,
-  badgeClassName,
   headingClassName,
   descriptionClassName,
   actionsClassName,
@@ -164,38 +165,6 @@ export function HeroStartupLaunchCta({
   imageClassName,
   optixFlowConfig,
 }: HeroStartupLaunchCtaProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const {
-        label,
-        icon,
-        iconAfter,
-        children,
-        className: actionClassName,
-        ...pressableProps
-      } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
-
   const renderAvatars = useMemo(() => {
     if (avatarsSlot) return avatarsSlot;
     if (!avatars || avatars.length === 0) return null;
@@ -254,7 +223,7 @@ export function HeroStartupLaunchCta({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative">
+      <div className="pt-8 md:pt-0">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
             {badge && (
@@ -267,33 +236,33 @@ export function HeroStartupLaunchCta({
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl leading-snug text-balance",
+                    "mb-8 text-4xl font-normal text-balance md:text-7xl",
                     headingClassName,
                   )}
                 >
                   {heading}
                 </h1>
               ) : (
-                <div className={headingClassName}>{heading}</div>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
-                <p className={cn("text-lg text-balance", descriptionClassName)}>
+                <p
+                  className={cn(
+                    "mb-12 max-w-full md:max-w-[70%] text-lg md:text-xl font-normal text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
-            {(actionsSlot || (actions && actions.length > 0)) && (
-              <div
-                className={cn(
-                  "flex flex-col gap-4 sm:flex-row",
-                  actionsClassName,
-                )}
-              >
-                {renderActions}
-              </div>
-            )}
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
             {(avatarsSlot || avatars || socialProofText) && (
               <div
                 className={cn(

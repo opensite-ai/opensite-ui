@@ -1,21 +1,68 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Input } from "../../ui/input";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, SocialLinkItem, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SocialLinkItem,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { Badge, SocialLinkIcon } from "@/src";
 
-/**
- * Countdown item configuration
- */
-export interface CountdownItem {
-  value: string;
-  label: string;
+interface TimeLeft {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
+const digitVariants = {
+  initial: { y: -20, opacity: 0 },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: { type: "spring" as const, stiffness: 300, damping: 25 },
+  },
+  exit: {
+    y: 20,
+    opacity: 0,
+    transition: { duration: 0.15 },
+  },
+};
+
+function CountdownDigit({ value, label }: { value: number; label: string }) {
+  const display = value.toString().padStart(2, "0");
+
+  return (
+    <div className="flex flex-col items-center">
+      <div
+        className={cn(
+          "flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl text-3xl font-bold md:h-24 md:w-24 md:text-5xl",
+        )}
+      >
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.span
+            key={display}
+            variants={digitVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            {display}
+          </motion.span>
+        </AnimatePresence>
+      </div>
+      <span className={cn("mt-2 text-sm")}>{label}</span>
+    </div>
+  );
 }
 
 export interface HeroComingSoonCountdownProps {
@@ -36,11 +83,11 @@ export interface HeroComingSoonCountdownProps {
    */
   description?: React.ReactNode;
   /**
-   * Countdown items array
+   * Target date for the countdown. If in the past or not provided, countdown is hidden.
    */
-  countdownItems?: CountdownItem[];
+  countdownDate?: Date;
   /**
-   * Custom slot for countdown (overrides countdownItems)
+   * Custom slot for countdown (overrides countdownDate)
    */
   countdownSlot?: React.ReactNode;
   /**
@@ -111,6 +158,10 @@ export interface HeroComingSoonCountdownProps {
    * Additional CSS classes for the social links container
    */
   socialLinksClassName?: string;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 export function HeroComingSoonCountdown({
@@ -118,7 +169,7 @@ export function HeroComingSoonCountdown({
   badgeText,
   heading,
   description,
-  countdownItems,
+  countdownDate,
   countdownSlot,
   emailPlaceholder = "Enter your email",
   submitAction,
@@ -126,11 +177,12 @@ export function HeroComingSoonCountdown({
   socialLinks,
   socialLinksSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
+  patternClassName,
   className,
-  containerClassName,
   badgeClassName,
   headingClassName,
   descriptionClassName,
@@ -138,42 +190,61 @@ export function HeroComingSoonCountdown({
   formClassName,
   socialLinksClassName,
 }: HeroComingSoonCountdownProps): React.JSX.Element {
-  const renderCountdown = useMemo(() => {
-    if (countdownSlot) return countdownSlot;
-    if (!countdownItems || countdownItems.length === 0) return null;
+  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
 
-    return countdownItems.map((item) => (
-      <div key={item.label} className="flex flex-col items-center">
-        <div className={cn(
-          "flex h-16 w-16 items-center justify-center rounded-xl text-3xl font-bold md:h-24 md:w-24 md:text-5xl",
-          getNestedCardBg(background, 'muted'),
-          getNestedCardTextColor(background)
-        )}>
-          {item.value}
-        </div>
-        <span className={cn("mt-2 text-sm", getTextColor(background, "muted"))}>{item.label}</span>
-      </div>
-    ));
-  }, [countdownSlot, countdownItems, background]);
+  const calculateTimeLeft = useCallback((): TimeLeft | null => {
+    if (!countdownDate) return null;
+    const now = Date.now();
+    const target = countdownDate.getTime();
+    const diff = target - now;
+
+    if (diff <= 0) return null;
+
+    return {
+      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+      minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+      seconds: Math.floor((diff % (1000 * 60)) / 1000),
+    };
+  }, [countdownDate]);
+
+  useEffect(() => {
+    setTimeLeft(calculateTimeLeft());
+
+    if (!countdownDate) return;
+
+    const timer = setInterval(() => {
+      const remaining = calculateTimeLeft();
+      setTimeLeft(remaining);
+      if (!remaining) clearInterval(timer);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [countdownDate, calculateTimeLeft]);
+
+  const showCountdown = countdownSlot || timeLeft;
 
   const renderForm = useMemo(() => {
     if (formSlot) return formSlot;
     if (!submitAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = submitAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = submitAction;
 
     return (
       <>
         <Input
           type="email"
           placeholder={emailPlaceholder}
-          className={cn("h-12 flex-1 border-border/50", `${getNestedCardBg(background, "muted")}/30`)}
+          className={cn("h-12 flex-1 border-border/50")}
         />
-        <Pressable
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
+        <Pressable asButton className={actionClassName} {...pressableProps}>
           {children ?? (
             <>
               {icon}
@@ -191,63 +262,92 @@ export function HeroComingSoonCountdown({
     if (!socialLinks || socialLinks.length === 0) return null;
 
     return socialLinks.map((link, index) => (
-      <Pressable
+      <SocialLinkIcon
         key={index}
         href={link.href}
-        className={cn(getTextColor(background, "muted"), "hover:opacity-80", link.className)}
-      >
-        {link.icon ?? (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
-      </Pressable>
+        className={cn("hover:opacity-80", link.className)}
+        asButton
+        variant="outline"
+        size="icon"
+      />
     ));
   }, [socialLinksSlot, socialLinks, background]);
 
   return (
     <Section
-      className={cn(
-        "dark relative min-h-screen bg-background py-32",
-        className,
-      )}
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container flex flex-col items-center justify-center text-center", containerClassName)}>
+      <div className="pt-8 md:pt-0">
         {(badgeText || badgeIcon) && (
-          <div className={cn(
-            "inline-flex items-center gap-2 rounded-full border border-border/50 px-4 py-2 text-sm",
-            getNestedCardBg(background, 'muted'),
-            getNestedCardTextColor(background),
-            badgeClassName
-          )}>
-            {badgeIcon && <DynamicIcon name={badgeIcon} size={16} className={getAccentColor(background)} />}
+          <Badge className={cn("gap-2 px-4 py-2", badgeClassName)}>
+            {badgeIcon && <DynamicIcon name={badgeIcon} size={16} />}
             <span>{badgeText}</span>
-          </div>
+          </Badge>
         )}
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("mt-8 max-w-3xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "mt-8 max-w-3xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
-            <div className={cn("mt-8", headingClassName)}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-6 max-w-xl text-lg md:text-xl", getTextColor(background, "muted"), descriptionClassName)}>
+            heading
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-6 max-w-xl text-lg md:text-xl text-balance",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-6", descriptionClassName)}>{description}</div>
-          )
-        )}
-        {(countdownSlot || (countdownItems && countdownItems.length > 0)) && (
-          <div className={cn("mt-12 grid grid-cols-4 gap-4 md:gap-8", countdownClassName)}>
-            {renderCountdown}
+            description
+          ))}
+        {showCountdown && (
+          <div
+            className={cn(
+              "mt-12 grid grid-cols-4 gap-4 md:gap-8",
+              countdownClassName,
+            )}
+          >
+            {countdownSlot ?? (
+              <>
+                <CountdownDigit value={timeLeft!.days} label="Days" />
+                <CountdownDigit value={timeLeft!.hours} label="Hours" />
+                <CountdownDigit value={timeLeft!.minutes} label="Minutes" />
+                <CountdownDigit value={timeLeft!.seconds} label="Seconds" />
+              </>
+            )}
           </div>
         )}
-        <div className={cn("mt-12 flex w-full max-w-md flex-col gap-4 sm:flex-row", formClassName)}>
+        <div
+          className={cn(
+            "mt-12 flex w-full max-w-md flex-col gap-4 sm:flex-row",
+            formClassName,
+          )}
+        >
           {renderForm}
         </div>
         {(socialLinksSlot || (socialLinks && socialLinks.length > 0)) && (
-          <div className={cn("mt-16 flex items-center gap-6", socialLinksClassName)}>
+          <div
+            className={cn(
+              "mt-16 flex items-center gap-6",
+              socialLinksClassName,
+            )}
+          >
             {renderSocialLinks}
           </div>
         )}

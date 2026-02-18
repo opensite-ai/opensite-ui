@@ -1,13 +1,20 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "../../../lib/utils";
+import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroDigitalAgencyFullscreenProps {
   /**
@@ -26,22 +33,6 @@ export interface HeroDigitalAgencyFullscreenProps {
    * Custom slot for rendering actions (overrides actions array)
    */
   actionsSlot?: React.ReactNode;
-  /**
-   * Footer label content
-   */
-  footerLabel?: React.ReactNode;
-  /**
-   * Footer sublabel content
-   */
-  footerSublabel?: React.ReactNode;
-  /**
-   * Footer scroll action configuration
-   */
-  footerAction?: ActionConfig;
-  /**
-   * Custom slot for footer (overrides footer props)
-   */
-  footerSlot?: React.ReactNode;
   /**
    * Background image URL
    */
@@ -87,9 +78,9 @@ export interface HeroDigitalAgencyFullscreenProps {
    */
   actionsClassName?: string;
   /**
-   * Additional CSS classes for the footer
+   * OptixFlow image optimization configuration
    */
-  footerClassName?: string;
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 export function HeroDigitalAgencyFullscreen({
@@ -97,92 +88,38 @@ export function HeroDigitalAgencyFullscreen({
   description,
   actions,
   actionsSlot,
-  footerLabel,
-  footerSublabel,
-  footerAction,
-  footerSlot,
   backgroundImage,
   background,
-  spacing,
+  spacing = "none",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   headingClassName,
   descriptionClassName,
   actionsClassName,
-  footerClassName,
+  optixFlowConfig,
 }: HeroDigitalAgencyFullscreenProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const bgImageRef = useRef<HTMLDivElement>(null);
 
-    return (
-      <div className={cn("mt-8 flex flex-wrap items-center justify-center gap-4", actionsClassName)}>
-        {actions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
+  useEffect(() => {
+    if (!backgroundImage || !bgImageRef.current) return;
 
-  const renderFooter = useMemo(() => {
-    if (footerSlot) return footerSlot;
-    if (!footerAction) return null;
+    const imgEl = bgImageRef.current.querySelector("img");
+    if (!imgEl) return;
 
-    const { className: footerActionClassName, ...footerActionProps } = footerAction;
-    return (
-      <div className={cn("flex items-center justify-between gap-4 rounded-lg bg-foreground/20 px-6 py-4 backdrop-blur-sm", footerClassName)}>
-        <div className="flex items-center gap-3">
-          <div className={cn("h-8 w-1", getAccentColor(background))}></div>
-          <div className={cn("text-sm font-medium", getTextColor(background, "muted"))}>
-            {footerLabel && (
-              typeof footerLabel === "string" ? (
-                <p className={getAccentColor(background)}>{footerLabel}</p>
-              ) : (
-                footerLabel
-              )
-            )}
-            {footerSublabel && (
-              typeof footerSublabel === "string" ? (
-                <p>{footerSublabel}</p>
-              ) : (
-                footerSublabel
-              )
-            )}
-          </div>
-        </div>
-        <Pressable
-          asButton
-          className={footerActionClassName}
-          {...footerActionProps}
-        >
-          <DynamicIcon
-            name="lucide/arrow-down"
-            size={20}
-            className="m-auto stroke-primary"
-          />
-        </Pressable>
-      </div>
-    );
-  }, [footerSlot, footerAction, footerLabel, footerSublabel, footerClassName]);
+    // If the image is already cached / complete, reveal immediately
+    if (imgEl.complete && imgEl.naturalWidth > 0) {
+      setIsImageLoaded(true);
+      return;
+    }
+
+    const handleLoad = () => setIsImageLoaded(true);
+    imgEl.addEventListener("load", handleLoad);
+    return () => imgEl.removeEventListener("load", handleLoad);
+  }, [backgroundImage]);
 
   return (
     <Section
@@ -191,37 +128,68 @@ export function HeroDigitalAgencyFullscreen({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(
-        "font-dm_sans dark relative h-svh max-h-[1400px] min-h-[600px] w-full bg-cover bg-center bg-no-repeat after:absolute after:inset-0 after:block after:size-full after:bg-zinc-950/50 after:content-['']",
-        className
+        "relative flex h-full min-h-screen w-screen items-center justify-center overflow-hidden pb-0 pt-0 md:pt-0 px-0",
+        className,
       )}
-      style={{ backgroundImage: backgroundImage ? `url('${backgroundImage}')` : undefined }}
+      containerClassName={containerClassName}
     >
-      <div className={cn("relative z-10 mx-auto flex size-full max-w-500 px-4 py-9", containerClassName)}>
+      {backgroundImage && (
+        <div
+          ref={bgImageRef}
+          className={cn(
+            "absolute inset-0 transition-[filter] duration-1000 ease-out",
+            isImageLoaded ? "blur-0" : "blur-xl",
+          )}
+        >
+          <Img
+            src={backgroundImage}
+            alt=""
+            className="h-full w-full brightness-50 object-cover object-center"
+            eager
+            optixFlowConfig={optixFlowConfig}
+          />
+        </div>
+      )}
+      <div className="relative">
         <div className="flex w-full flex-col justify-between gap-10">
-          <div className={cn("mx-auto flex max-w-125 flex-1 flex-col items-center justify-center gap-7 sm:max-w-150 md:max-w-200", contentClassName)}>
-            {heading && (
-              typeof heading === "string" ? (
-                <h1 className={cn("text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl", headingClassName)}>
+          <div
+            className={cn(
+              "mx-auto flex max-w-125 flex-1 flex-col items-center justify-center gap-7 sm:max-w-150 md:max-w-200",
+              contentClassName,
+            )}
+          >
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "mb-8 text-4xl font-normal text-balance md:text-7xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h1>
               ) : (
-                <h1 className={cn("text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl", headingClassName)}>
-                  {heading}
-                </h1>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-center text-lg text-balance md:text-2xl", descriptionClassName)}>
+                heading
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mb-12 max-w-full md:max-w-[70%] text-lg md:text-xl font-normal text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-            {renderActions}
+                description
+              ))}
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
           </div>
-          {renderFooter}
         </div>
       </div>
     </Section>

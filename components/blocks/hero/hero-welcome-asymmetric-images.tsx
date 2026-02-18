@@ -10,6 +10,7 @@ import type { ActionConfig, ImageItem } from "../../../src/types/blocks";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroWelcomeAsymmetricImagesProps {
   /**
@@ -79,6 +80,10 @@ export interface HeroWelcomeAsymmetricImagesProps {
     apiKey: string;
     compression?: number;
   };
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 /**
@@ -90,6 +95,7 @@ export function HeroWelcomeAsymmetricImages({
   description,
   actions,
   actionsSlot,
+  actionsClassName,
   images,
   imagesSlot,
   background,
@@ -103,29 +109,6 @@ export function HeroWelcomeAsymmetricImages({
   descriptionClassName,
   optixFlowConfig,
 }: HeroWelcomeAsymmetricImagesProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className="flex flex-col gap-4 sm:flex-row">
-        {actions.map((action, idx) => (
-          <Pressable
-            key={idx}
-            href={action.href}
-            onClick={action.onClick}
-            asButton
-            variant={action.variant || "default"}
-            size={action.size || "lg"}
-          >
-            {action.label}
-            {action.icon}
-          </Pressable>
-        ))}
-      </div>
-    );
-  }, [actionsSlot, actions]);
-
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length < 4) return null;
@@ -190,36 +173,27 @@ export function HeroWelcomeAsymmetricImages({
                   {heading}
                 </h1>
               ) : (
-                <h1
-                  className={cn(
-                    "mb-8 text-4xl font-normal text-balance md:text-7xl",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h1>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mb-12 max-w-[70%] text-xl font-normal text-balance",
+                    "mb-12 max-w-full md:max-w-[70%] text-lg md:text-xl font-normal text-balance",
                     descriptionClassName,
                   )}
                 >
                   {description}
                 </p>
               ) : (
-                <div
-                  className={cn(
-                    "mb-12 max-w-[70%] text-xl font-normal text-balance",
-                    descriptionClassName,
-                  )}
-                >
-                  {description}
-                </div>
+                description
               ))}
-            {renderActions}
+
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
           </div>
           {renderImages}
         </div>
