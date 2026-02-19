@@ -68,6 +68,28 @@ export { CommunityInitiatives } from "../components/blocks/about/community-initi
 export { AboutCultureTabs } from "../components/blocks/about/about-culture-tabs";
 export { MediaHoverCtas } from "../components/blocks/cta/media-hover-ctas";
 
+// Banner blocks
+export { BannerAnnouncementDismissible } from "../components/blocks/banner/banner-announcement-dismissible";
+export { BannerCountdownSale } from "../components/blocks/banner/banner-countdown-sale";
+export { BannerDeliveryCountdown } from "../components/blocks/banner/banner-delivery-countdown";
+export { BannerEventPromo } from "../components/blocks/banner/banner-event-promo";
+export { BannerFloatingOffer } from "../components/blocks/banner/banner-floating-offer";
+export { BannerGdprRights } from "../components/blocks/banner/banner-gdpr-rights";
+export { BannerPrivacyNotice } from "../components/blocks/banner/banner-privacy-notice";
+export { BannerPromoCta } from "../components/blocks/banner/banner-promo-cta";
+export { BannerSocialFollow } from "../components/blocks/banner/banner-social-follow";
+export { BannerSurveyIncentive } from "../components/blocks/banner/banner-survey-incentive";
+export type { BannerAnnouncementDismissibleProps } from "../components/blocks/banner/banner-announcement-dismissible";
+export type { BannerCountdownSaleProps } from "../components/blocks/banner/banner-countdown-sale";
+export type { BannerDeliveryCountdownProps } from "../components/blocks/banner/banner-delivery-countdown";
+export type { BannerEventPromoProps } from "../components/blocks/banner/banner-event-promo";
+export type { BannerFloatingOfferProps } from "../components/blocks/banner/banner-floating-offer";
+export type { BannerGdprRightsProps } from "../components/blocks/banner/banner-gdpr-rights";
+export type { BannerPrivacyNoticeProps } from "../components/blocks/banner/banner-privacy-notice";
+export type { BannerPromoCtaProps } from "../components/blocks/banner/banner-promo-cta";
+export type { BannerSocialFollowProps } from "../components/blocks/banner/banner-social-follow";
+export type { BannerSurveyIncentiveProps } from "../components/blocks/banner/banner-survey-incentive";
+
 // Footer blocks
 export { FooterLinksGrid } from "../components/blocks/footers/footer-links-grid";
 export { FooterSocialNewsletter } from "../components/blocks/footers/footer-social-newsletter";
