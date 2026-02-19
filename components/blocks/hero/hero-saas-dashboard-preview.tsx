@@ -234,7 +234,7 @@ export function HeroSaasDashboardPreview({
     const action = buttonAction || defaultButtonAction;
 
     return (
-      <div className="mt-12 w-full flex items-center justify-center">
+      <div className="mt-4 md:mt-6 w-full flex items-center justify-center">
         <Form
           form={form}
           fields={formFields}
@@ -312,7 +312,7 @@ export function HeroSaasDashboardPreview({
     if (!browserPreview) return null;
 
     return (
-      <div className={cn("relative mt-20", previewClassName)}>
+      <div className={cn("relative mt-12 md:mt-20", previewClassName)}>
         <div className="absolute inset-0 z-10 pointer-events-none"></div>
         <div
           className={cn(
@@ -357,10 +357,10 @@ export function HeroSaasDashboardPreview({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-      <div className="pt-10 md:pt-0">
+      <div className="pt-10 md:pt-0 flex flex-col items-center justify-center">
         <div
           className={cn(
-            "mmx-auto text-center flex flex-col items-center gap-6 md:gap-8 max-w-full md:max-w-md",
+            "mx-auto text-center flex flex-col items-center gap-4 md:gap-6 max-w-full md:max-w-md",
             headerClassName,
           )}
         >

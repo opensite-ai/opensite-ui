@@ -65,14 +65,14 @@ describe("HeroNewsletterMinimal", () => {
   });
 
   it("renders FormEngine with button-group layout and lg size", () => {
-    render(<HeroNewsletterMinimal />);
+    render(<HeroNewsletterMinimal formEngineSetup={{ fields: [] }} />);
     expect(screen.getByTestId("form-layout")).toHaveTextContent("button-group");
     expect(screen.getByTestId("button-size")).toHaveTextContent("lg");
   });
 
   it("renders buttonAction label in FormEngine", () => {
     const buttonAction = { label: "Subscribe Now", variant: "default" as const };
-    render(<HeroNewsletterMinimal buttonAction={buttonAction} />);
+    render(<HeroNewsletterMinimal buttonAction={buttonAction} formEngineSetup={{ fields: [] }} />);
     expect(screen.getByTestId("submit-label")).toHaveTextContent("Subscribe Now");
   });
 

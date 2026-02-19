@@ -3,19 +3,24 @@
 import * as React from "react";
 import {
   FormEngine,
-  useFileUpload,
+  FormEngineProps,
+  FormEngineStyleRules,
   type FormFieldConfig,
-  type PageSpeedFormConfig,
 } from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type {
-  ActionConfig,
-  SectionBackground,
-  SectionSpacing,
-} from "../../../src/types";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "space-y-6",
+  successMessageClassName: "text-green-600 dark:text-green-400 mt-4 p-3 rounded-md bg-green-50 dark:bg-green-950/20",
+  errorMessageClassName: "text-red-600 dark:text-red-400 mt-4 p-3 rounded-md bg-red-50 dark:bg-red-950/20",
+};
 
 // Default form fields
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
@@ -67,24 +72,6 @@ export interface ContactVendorProps {
   heading?: React.ReactNode;
   /** Description text below heading */
   description?: React.ReactNode;
-  /** Submit button text */
-  buttonText?: string;
-  /** Icon to display in submit button */
-  buttonIcon?: React.ReactNode;
-  /** Array of action configurations for custom buttons */
-  actions?: ActionConfig[];
-  /** Custom slot for rendering actions (overrides actions array) */
-  actionsSlot?: React.ReactNode;
-  /**
-   * Array of form field configurations
-   * If not provided, defaults to: first_name, last_name, email, phone, message
-   */
-  formFields?: FormFieldConfig[];
-  /**
-   * Success message to display after form submission
-   * @default "Thank you! Your message has been sent successfully."
-   */
-  successMessage?: React.ReactNode;
   /** Additional CSS classes for the section */
   className?: string;
   /** Additional CSS classes for the container */
@@ -99,14 +86,6 @@ export interface ContactVendorProps {
   cardClassName?: string;
   /** Additional CSS classes for the card content */
   cardContentClassName?: string;
-  /** Additional CSS classes for the form */
-  formClassName?: string;
-  /** Additional CSS classes for the submit button */
-  submitClassName?: string;
-  /** Additional CSS classes for the success message */
-  successMessageClassName?: string;
-  /** Additional CSS classes for the error message */
-  errorMessageClassName?: string;
   /**
    * Background style for the section
    */
@@ -124,14 +103,10 @@ export interface ContactVendorProps {
    */
   patternOpacity?: number;
 
-  /** Form configuration for PageSpeed forms */
-  formConfig?: PageSpeedFormConfig;
-  /** Custom submit handler */
-  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
-  /** Success callback */
-  onSuccess?: (data: unknown) => void;
-  /** Error callback */
-  onError?: (error: Error) => void;
+  /**
+   * Full form engine setup and props
+   */
+  formEngineSetup?: FormEngineProps;
 }
 
 /**
@@ -148,42 +123,53 @@ export interface ContactVendorProps {
 export function ContactVendor({
   heading,
   description,
-  buttonText = "Submit",
-  buttonIcon,
-  actions,
-  actionsSlot,
-  formFields = DEFAULT_FORM_FIELDS,
-  successMessage = "Thank you! Your message has been sent successfully.",
   className,
+  formEngineSetup,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
   descriptionClassName,
   cardClassName,
   cardContentClassName,
-  formClassName,
-  submitClassName,
-  successMessageClassName,
-  errorMessageClassName,
-  background = "white",
+  background,
   spacing = "xl",
   pattern,
   patternOpacity = 0.1,
-
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
 }: ContactVendorProps): React.JSX.Element {
-  // File upload hook
-  const {
-    uploadTokens,
-    uploadProgress,
-    isUploading,
-    uploadFiles,
-    removeFile,
-    resetUpload,
-  } = useFileUpload({ onError });
+  const formStyleRules: FormEngineStyleRules = React.useMemo(() => {
+    return {
+      formContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formContainer ??
+        DEFAULT_STYLE_RULES.formContainer,
+      fieldsContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldsContainer ??
+        DEFAULT_STYLE_RULES.fieldsContainer,
+      fieldClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldClassName ??
+        DEFAULT_STYLE_RULES.fieldClassName,
+      formClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formClassName ??
+        DEFAULT_STYLE_RULES.formClassName,
+      successMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.successMessageClassName ??
+        DEFAULT_STYLE_RULES.successMessageClassName,
+      errorMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.errorMessageClassName ??
+        DEFAULT_STYLE_RULES.errorMessageClassName,
+    };
+  }, [formEngineSetup?.formLayoutSettings?.styleRules]);
+
+  const formFields = React.useMemo(() => {
+    if (
+      formEngineSetup &&
+      formEngineSetup?.fields &&
+      formEngineSetup?.fields?.length > 0
+    ) {
+      return formEngineSetup.fields;
+    } else {
+      return DEFAULT_FORM_FIELDS;
+    }
+  }, [formEngineSetup?.fields]);
 
   return (
     <Section
@@ -207,7 +193,7 @@ export function ContactVendor({
                 {heading}
               </h2>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
@@ -220,45 +206,22 @@ export function ContactVendor({
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
         </div>
 
         <Card className={cn("mx-auto max-w-xl", cardClassName)}>
           <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
-            <FormEngine
-              api={formConfig}
-              fields={formFields}
-              formLayoutSettings={{
-                formLayout: "standard",
-                submitButtonSetup: {
-                  submitLabel: (
-                    <>
-                      {buttonIcon}
-                      {buttonText}
-                    </>
-                  ),
-                },
-                styleRules: {
-                  formClassName: cn("space-y-4", formClassName),
-                  successMessageClassName,
-                  errorMessageClassName,
-                },
-              }}
-              successMessage={successMessage}
-              onSubmit={onSubmit}
-              onSuccess={(data) => {
-                resetUpload();
-                onSuccess?.(data);
-              }}
-              onError={onError}
-              resetOnSuccess={formConfig?.resetOnSuccess !== false}
-              uploadTokens={uploadTokens}
-              uploadProgress={uploadProgress}
-              onFileUpload={uploadFiles}
-              onFileRemove={removeFile}
-              isUploading={isUploading}
-            />
+            {formEngineSetup ? (
+              <FormEngine
+                {...formEngineSetup}
+                formLayoutSettings={{
+                  ...formEngineSetup.formLayoutSettings,
+                  styleRules: formStyleRules,
+                }}
+                fields={formFields}
+              />
+            ) : null}
           </CardContent>
         </Card>
       </div>

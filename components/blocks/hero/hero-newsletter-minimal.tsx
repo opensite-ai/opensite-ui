@@ -12,10 +12,19 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import {
   FormEngine,
-  useFileUpload,
+  FormEngineProps,
+  FormEngineStyleRules,
   type FormFieldConfig,
-  type PageSpeedFormConfig,
 } from "@page-speed/forms/integration";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "",
+  successMessageClassName: "text-green-600 dark:text-green-400 mt-4 p-3 rounded-md bg-green-50 dark:bg-green-950/20",
+  errorMessageClassName: "text-red-600 dark:text-red-400 mt-4 p-3 rounded-md bg-red-50 dark:bg-red-950/20",
+};
 
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
   {
@@ -38,29 +47,9 @@ export interface HeroNewsletterMinimalProps {
    */
   description?: React.ReactNode;
   /**
-   * Form field configuration
+   * Full form engine setup and props
    */
-  formFields?: FormFieldConfig[];
-  /**
-   * Form configuration for submission
-   */
-  formConfig?: PageSpeedFormConfig;
-  /**
-   * Custom submit handler
-   */
-  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
-  /**
-   * Success callback
-   */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Error callback
-   */
-  onError?: (error: Error) => void;
-  /**
-   * Success message to display
-   */
-  successMessage?: React.ReactNode;
+  formEngineSetup?: FormEngineProps;
   /**
    * Submit button configuration
    */
@@ -142,12 +131,7 @@ export interface HeroNewsletterMinimalProps {
 export function HeroNewsletterMinimal({
   heading,
   description,
-  formFields = DEFAULT_FORM_FIELDS,
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
-  successMessage,
+  formEngineSetup,
   buttonAction,
   helperText,
   formSlot,
@@ -156,7 +140,7 @@ export function HeroNewsletterMinimal({
   patternClassName,
   statsSlot,
   background,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  containerClassName = "pmx-auto w-full max-w-7xl relative z-10 px-6 sm:px-6 md:px-8 lg:px-8 flex flex-col items-center justify-center",
   spacing = "xl",
   pattern,
   patternOpacity,
@@ -167,14 +151,40 @@ export function HeroNewsletterMinimal({
   disclaimerClassName,
   statsClassName,
 }: HeroNewsletterMinimalProps): React.JSX.Element {
-  const {
-    uploadTokens,
-    uploadProgress,
-    isUploading,
-    uploadFiles,
-    removeFile,
-    resetUpload,
-  } = useFileUpload({ onError });
+  const formStyleRules: FormEngineStyleRules = React.useMemo(() => {
+    return {
+      formContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formContainer ??
+        DEFAULT_STYLE_RULES.formContainer,
+      fieldsContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldsContainer ??
+        DEFAULT_STYLE_RULES.fieldsContainer,
+      fieldClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldClassName ??
+        DEFAULT_STYLE_RULES.fieldClassName,
+      formClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formClassName ??
+        DEFAULT_STYLE_RULES.formClassName,
+      successMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.successMessageClassName ??
+        DEFAULT_STYLE_RULES.successMessageClassName,
+      errorMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.errorMessageClassName ??
+        DEFAULT_STYLE_RULES.errorMessageClassName,
+    };
+  }, [formEngineSetup?.formLayoutSettings?.styleRules]);
+
+  const formFields = React.useMemo(() => {
+    if (
+      formEngineSetup &&
+      formEngineSetup?.fields &&
+      formEngineSetup?.fields?.length > 0
+    ) {
+      return formEngineSetup.fields;
+    } else {
+      return DEFAULT_FORM_FIELDS;
+    }
+  }, [formEngineSetup?.fields]);
   const renderStats = React.useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
@@ -203,6 +213,7 @@ export function HeroNewsletterMinimal({
 
   const renderForm = React.useMemo(() => {
     if (formSlot) return formSlot;
+    if (!formEngineSetup) return null;
 
     const defaultButtonAction: ActionConfig = {
       label: "Subscribe",
@@ -214,11 +225,12 @@ export function HeroNewsletterMinimal({
     return (
       <>
         <FormEngine
-          api={formConfig}
-          fields={formFields}
+          {...formEngineSetup}
           formLayoutSettings={{
+            ...formEngineSetup.formLayoutSettings,
             formLayout: "button-group",
             buttonGroupSetup: {
+              ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
               size: "lg",
               submitLabel: (
                 <>
@@ -228,19 +240,9 @@ export function HeroNewsletterMinimal({
               ),
               submitVariant: action.variant || "default",
             },
+            styleRules: formStyleRules,
           }}
-          successMessage={successMessage}
-          onSubmit={onSubmit}
-          onSuccess={(data) => {
-            resetUpload();
-            onSuccess?.(data);
-          }}
-          onError={onError}
-          uploadTokens={uploadTokens}
-          uploadProgress={uploadProgress}
-          onFileUpload={uploadFiles}
-          onFileRemove={removeFile}
-          isUploading={isUploading}
+          fields={formFields}
         />
         {helperText &&
           (typeof helperText === "string" ? (
@@ -250,23 +252,7 @@ export function HeroNewsletterMinimal({
           ))}
       </>
     );
-  }, [
-    formSlot,
-    formFields,
-    formConfig,
-    buttonAction,
-    uploadTokens,
-    uploadProgress,
-    uploadFiles,
-    removeFile,
-    isUploading,
-    successMessage,
-    onSubmit,
-    onSuccess,
-    onError,
-    helperText,
-    resetUpload,
-  ]);
+  }, [formSlot, formEngineSetup, buttonAction, formFields, formStyleRules, helperText]);
 
   return (
     <Section
@@ -278,17 +264,12 @@ export function HeroNewsletterMinimal({
       className={className}
       containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "container flex flex-col items-center justify-center text-center",
-          containerClassName,
-        )}
-      >
+      <div className="flex flex-col items-center justify-center">
         {heading &&
           (typeof heading === "string" ? (
             <h1
               className={cn(
-                "max-w-3xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-pretty",
+                "max-w-3xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-pretty text-center",
                 headingClassName,
               )}
             >
@@ -301,7 +282,7 @@ export function HeroNewsletterMinimal({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mt-6 max-w-full md:max-w-lg text-lg md:text-xl text-balance",
+                "mt-6 max-w-full md:max-w-lg text-lg md:text-xl text-balance text-center",
                 descriptionClassName,
               )}
             >

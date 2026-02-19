@@ -4,9 +4,9 @@ import * as React from "react";
 import { useMemo } from "react";
 import {
   FormEngine,
-  useFileUpload,
+  FormEngineProps,
+  FormEngineStyleRules,
   type FormFieldConfig,
-  type PageSpeedFormConfig,
 } from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
 import { Card, CardContent } from "../../ui/card";
@@ -23,6 +23,15 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "space-y-6",
+  successMessageClassName: "text-green-600 dark:text-green-400 mt-4 p-3 rounded-md bg-green-50 dark:bg-green-950/20",
+  errorMessageClassName: "text-red-600 dark:text-red-400 mt-4 p-3 rounded-md bg-red-50 dark:bg-red-950/20",
+};
 
 export interface FaqItem {
   id: string;
@@ -64,15 +73,9 @@ export interface ContactFaqProps {
    */
   faqHeading?: React.ReactNode;
   /**
-   * Array of form field configurations
-   * If not provided, defaults to: name, email, subject, message
+   * Full form engine setup and props
    */
-  formFields?: FormFieldConfig[];
-  /**
-   * Success message to display after form submission
-   * @default "Thank you! Your message has been sent successfully."
-   */
-  successMessage?: React.ReactNode;
+  formEngineSetup?: FormEngineProps;
   /**
    * Additional CSS classes for the section
    */
@@ -106,14 +109,6 @@ export interface ContactFaqProps {
    */
   formHeadingClassName?: string;
   /**
-   * Additional CSS classes for the form
-   */
-  formClassName?: string;
-  /**
-   * Additional CSS classes for the submit button
-   */
-  submitClassName?: string;
-  /**
    * Additional CSS classes for the FAQ heading
    */
   faqHeadingClassName?: string;
@@ -142,14 +137,6 @@ export interface ContactFaqProps {
    */
   gridClassName?: string;
   /**
-   * Additional CSS classes for the success message
-   */
-  successMessageClassName?: string;
-  /**
-   * Additional CSS classes for the error message
-   */
-  errorMessageClassName?: string;
-  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -165,22 +152,6 @@ export interface ContactFaqProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
-  /**
-   * Form configuration for PageSpeed forms
-   */
-  formConfig?: PageSpeedFormConfig;
-  /**
-   * Custom submit handler
-   */
-  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
-  /**
-   * Success callback
-   */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Error callback
-   */
-  onError?: (error: Error) => void;
 }
 
 // Default form fields
@@ -232,8 +203,7 @@ export function ContactFaq({
   items,
   itemsSlot,
   faqHeading,
-  formFields = DEFAULT_FORM_FIELDS,
-  successMessage = "Thank you! Your message has been sent successfully.",
+  formEngineSetup,
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
@@ -242,7 +212,6 @@ export function ContactFaq({
   cardClassName,
   cardContentClassName,
   formHeadingClassName,
-  formClassName,
   faqHeadingClassName,
   faqContainerClassName,
   accordionClassName,
@@ -250,26 +219,45 @@ export function ContactFaq({
   accordionTriggerClassName,
   accordionContentClassName,
   gridClassName,
-  successMessageClassName,
-  errorMessageClassName,
   background,
   spacing = "py-8 md:py-32",
   pattern,
   patternOpacity,
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
 }: ContactFaqProps): React.JSX.Element {
-  // File upload hook
-  const {
-    uploadTokens,
-    uploadProgress,
-    isUploading,
-    uploadFiles,
-    removeFile,
-    resetUpload,
-  } = useFileUpload({ onError });
+  const formStyleRules: FormEngineStyleRules = React.useMemo(() => {
+    return {
+      formContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formContainer ??
+        DEFAULT_STYLE_RULES.formContainer,
+      fieldsContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldsContainer ??
+        DEFAULT_STYLE_RULES.fieldsContainer,
+      fieldClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldClassName ??
+        DEFAULT_STYLE_RULES.fieldClassName,
+      formClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formClassName ??
+        DEFAULT_STYLE_RULES.formClassName,
+      successMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.successMessageClassName ??
+        DEFAULT_STYLE_RULES.successMessageClassName,
+      errorMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.errorMessageClassName ??
+        DEFAULT_STYLE_RULES.errorMessageClassName,
+    };
+  }, [formEngineSetup?.formLayoutSettings?.styleRules]);
+
+  const formFields = React.useMemo(() => {
+    if (
+      formEngineSetup &&
+      formEngineSetup?.fields &&
+      formEngineSetup?.fields?.length > 0
+    ) {
+      return formEngineSetup.fields;
+    } else {
+      return DEFAULT_FORM_FIELDS;
+    }
+  }, [formEngineSetup?.fields]);
 
   const hasFaqItems = itemsSlot || (items && items.length > 0);
 
@@ -377,39 +365,26 @@ export function ContactFaq({
                   <div className={formHeadingClassName}>{formHeading}</div>
                 ))}
 
-              <FormEngine
-                api={formConfig}
-                fields={formFields}
-                formLayoutSettings={{
-                  formLayout: "standard",
-                  submitButtonSetup: {
-                    submitLabel: (
-                      <>
-                        {buttonIcon}
-                        {buttonText}
-                      </>
-                    ),
-                  },
-                  styleRules: {
-                    formClassName: cn("space-y-6", formClassName),
-                    successMessageClassName,
-                    errorMessageClassName,
-                  },
-                }}
-                successMessage={successMessage}
-                onSubmit={onSubmit}
-                onSuccess={(data) => {
-                  resetUpload();
-                  onSuccess?.(data);
-                }}
-                onError={onError}
-                resetOnSuccess={formConfig?.resetOnSuccess !== false}
-                uploadTokens={uploadTokens}
-                uploadProgress={uploadProgress}
-                onFileUpload={uploadFiles}
-                onFileRemove={removeFile}
-                isUploading={isUploading}
-              />
+              {formEngineSetup ? (
+                <FormEngine
+                  {...formEngineSetup}
+                  formLayoutSettings={{
+                    ...formEngineSetup.formLayoutSettings,
+                    formLayout: "standard",
+                    submitButtonSetup: {
+                      ...formEngineSetup.formLayoutSettings?.submitButtonSetup,
+                      submitLabel: (
+                        <>
+                          {buttonIcon}
+                          {buttonText}
+                        </>
+                      ),
+                    },
+                    styleRules: formStyleRules,
+                  }}
+                  fields={formFields}
+                />
+              ) : null}
             </CardContent>
           </Card>
 

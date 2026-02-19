@@ -126,7 +126,7 @@ describe("ContactFaq", () => {
   });
 
   it("renders form with FormEngine", () => {
-    render(<ContactFaq buttonText="Submit" />);
+    render(<ContactFaq buttonText="Submit" formEngineSetup={{ fields: [] }} />);
     expect(screen.getByTestId("mock-form-engine")).toBeInTheDocument();
   });
 });
