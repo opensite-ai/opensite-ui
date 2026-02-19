@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { Form, Field } from "@page-speed/forms";
+import { Form } from "@page-speed/forms";
 import {
   DynamicFormField,
   getColumnSpanClass,
@@ -14,9 +14,6 @@ import {
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Card, CardContent } from "../../ui/card";
-import { Separator } from "../../ui/separator";
-import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -24,6 +21,67 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+
+/**
+ * Configuration for a contact info item in the emergency contact grid.
+ */
+export interface ContactInfoItem {
+  /**
+   * Icon name for DynamicIcon (e.g., "lucide/phone")
+   */
+  icon: string;
+  /**
+   * Icon size in pixels
+   * @default 28
+   */
+  iconSize?: number;
+  /**
+   * Primary label/title for the item
+   */
+  title: string;
+  /**
+   * Secondary text (e.g., phone number, email)
+   */
+  subtitle: string;
+  /**
+   * Link URL (e.g., "tel:+15551234567", "mailto:support@example.com")
+   */
+  href: string;
+  /**
+   * Additional CSS classes for the item container
+   */
+  className?: string;
+}
+
+/**
+ * Default emergency contact items
+ */
+const DEFAULT_CONTACT_ITEMS: ContactInfoItem[] = [
+  {
+    icon: "lucide/phone",
+    title: "Critical Hotline",
+    subtitle: "+1 (555) 911-0000",
+    href: "tel:+15559110000",
+  },
+  {
+    icon: "lucide/mail",
+    title: "Email Support",
+    subtitle: "emergency@support.com",
+    href: "mailto:emergency@support.com",
+  },
+  {
+    icon: "lucide/message-circle",
+    title: "Live Chat",
+    subtitle: "24/7 Available",
+    href: "#chat",
+  },
+  {
+    icon: "lucide/map-pin",
+    title: "Visit Us",
+    subtitle: "123 Support Lane",
+    href: "#location",
+  },
+];
 
 const PRIORITIES = [
   {
@@ -109,6 +167,10 @@ export interface ContactEmergencyProps {
    */
   description?: React.ReactNode;
   /**
+   * Array of emergency contact info items to display in the grid
+   */
+  contactItems?: ContactInfoItem[];
+  /**
    * Submit button text
    */
   buttonText?: string;
@@ -154,14 +216,6 @@ export interface ContactEmergencyProps {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
-  /**
-   * Additional CSS classes for the card
-   */
-  cardClassName?: string;
-  /**
-   * Additional CSS classes for the card content
-   */
-  cardContentClassName?: string;
   /**
    * Additional CSS classes for the form
    */
@@ -227,6 +281,7 @@ export interface ContactEmergencyProps {
 export function ContactEmergency({
   heading,
   description,
+  contactItems = DEFAULT_CONTACT_ITEMS,
   buttonText = "Submit Emergency Request",
   buttonIcon,
   actions,
@@ -237,8 +292,6 @@ export function ContactEmergency({
   headerClassName,
   headingClassName,
   descriptionClassName,
-  cardClassName,
-  cardContentClassName,
   formClassName,
   submitClassName,
   successMessageClassName,
@@ -278,13 +331,7 @@ export function ContactEmergency({
       uploadTokens,
     });
 
-  // Get the priority field from formFields for custom rendering
-  const priorityField = formFields.find((f) => f.name === "priority");
   const otherFields = formFields.filter((f) => f.name !== "priority");
-
-  const selectedPriority = PRIORITIES.find(
-    (p) => p.value === form.values.priority,
-  );
 
   const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -329,32 +376,8 @@ export function ContactEmergency({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className={cn("mb-10 text-center", headerClassName)}>
-          {heading &&
-            (typeof heading === "string" ? (
-              <h2
-                className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p className={cn("leading-relaxed", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
-        </div>
-
-        <Card className={cardClassName}>
-          <CardContent className={cn("p-0", cardContentClassName)}>
+        <div className="flex">
+          <div className={cn("p-0 md:p-12")}>
             <Form
               form={form}
               notificationConfig={{
@@ -376,84 +399,72 @@ export function ContactEmergency({
                 resetSubmissionState();
               }}
             >
-              <div className="grid md:grid-cols-2">
-                <div className="border-b p-6 md:border-b-0 md:border-r">
-                  {priorityField && (
-                    <Field name="priority">
-                      {({ field }) => (
-                        <div className="space-y-3">
-                          {PRIORITIES.map((item) => (
-                            <label
-                              key={item.value}
-                              htmlFor={`priority-${item.value}`}
-                              className={cn(
-                                "flex cursor-pointer items-start gap-4 rounded-lg border p-4 transition-colors",
-                                field.value === item.value
-                                  ? "border-primary"
-                                  : "hover:border-foreground",
-                              )}
-                            >
-                              <input
-                                type="radio"
-                                id={`priority-${item.value}`}
-                                name="priority"
-                                value={item.value}
-                                checked={field.value === item.value}
-                                onChange={field.onChange}
-                                className="mt-1"
-                              />
-                              <div className="flex-1">
-                                <div className="flex items-center justify-between">
-                                  <span className="font-medium">
-                                    {item.label}
-                                  </span>
-                                  <Badge
-                                    variant="secondary"
-                                    className="text-xs"
-                                  >
-                                    <DynamicIcon
-                                      name="lucide/clock"
-                                      size={12}
-                                      className="mr-1"
-                                    />
-                                    {item.response}
-                                  </Badge>
-                                </div>
-                                <p className="mt-1 text-sm text-muted-foreground">
-                                  {item.description}
-                                </p>
-                              </div>
-                            </label>
-                          ))}
-                        </div>
+              <div className="grid md:grid-cols-2 gap-12 md:gap-24">
+                <div className="border-b border-border/60 p-6 md:border-b-0 md:border-r md:border-border/60">
+                  <div className="flex flex-col items-start gap-8 md:gap-12">
+                    <div
+                      className={cn(
+                        "flex flex-col items-start gap-4 text-left",
+                        headerClassName,
                       )}
-                    </Field>
-                  )}
-
-                  <Separator className="my-6" />
-
-                  {/* Phone Option for Critical */}
-                  <div className="rounded-lg border p-4">
-                    <div className="flex items-center gap-3">
-                      <DynamicIcon name="lucide/phone" size={20} />
-                      <div>
-                        <p className="font-medium">Call for Critical Issues</p>
-                        <p className="text-sm ">+1 (555) 911-0000</p>
-                      </div>
+                    >
+                      {heading &&
+                        (typeof heading === "string" ? (
+                          <h2
+                            className={cn(
+                              "text-4xl lg:text-5xl xl:text-6xl font-bold",
+                              headingClassName,
+                            )}
+                          >
+                            {heading}
+                          </h2>
+                        ) : (
+                          heading
+                        ))}
+                      {description &&
+                        (typeof description === "string" ? (
+                          <p
+                            className={cn(
+                              "leading-relaxed",
+                              descriptionClassName,
+                            )}
+                          >
+                            {description}
+                          </p>
+                        ) : (
+                          description
+                        ))}
                     </div>
-                    <p className="mt-2 text-xs">
-                      Available 24/7 for critical emergencies only
-                    </p>
+
+                    {contactItems && contactItems.length > 0 && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                        {contactItems.map((item, index) => (
+                          <Pressable
+                            key={index}
+                            href={item.href}
+                            className={cn(
+                              "rounded-lg border p-4 bg-primary text-primary-foreground",
+                              item.className,
+                            )}
+                          >
+                            <div className="flex items-center gap-3">
+                              <DynamicIcon
+                                name={item.icon}
+                                size={item.iconSize ?? 28}
+                              />
+                              <div>
+                                <p className="font-bold">{item.title}</p>
+                                <p className="text-lg">{item.subtitle}</p>
+                              </div>
+                            </div>
+                          </Pressable>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                {/* Right: Contact Form */}
                 <div className="p-6">
-                  <div className="mb-6 flex items-center gap-2">
-                    <DynamicIcon name="lucide/send" size={20} />
-                    <h3 className="font-semibold">Describe Your Issue</h3>
-                  </div>
-
                   <div className="space-y-4">
                     <div className="grid grid-cols-12 gap-4">
                       {otherFields.map((field) => (
@@ -471,8 +482,6 @@ export function ContactEmergency({
                         </div>
                       ))}
                     </div>
-
-                    <Separator />
 
                     {actionsSlot || (actions && actions.length > 0) ? (
                       actionsContent
@@ -493,8 +502,8 @@ export function ContactEmergency({
                 </div>
               </div>
             </Form>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </Section>
   );

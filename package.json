@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -2995,6 +2995,11 @@
       "types": "./dist/block-actions.d.ts",
       "import": "./dist/block-actions.js",
       "require": "./dist/block-actions.cjs"
+    },
+    "./components/blur-text": {
+      "types": "./dist/blur-text.d.ts",
+      "import": "./dist/blur-text.js",
+      "require": "./dist/blur-text.cjs"
     },
     "./components/brand-attribution": {
       "types": "./dist/brand-attribution.d.ts",

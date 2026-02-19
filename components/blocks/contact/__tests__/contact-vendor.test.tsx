@@ -4,18 +4,16 @@ import { ContactVendor } from "../contact-vendor";
 
 vi.mock("../../../ui/dynamic-icon", () => ({
   DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
+    <span data-testid="mock-icon" data-name={name} className={className}>
+      icon
+    </span>
   ),
 }));
 
 describe("ContactVendor", () => {
   it("renders with provided props", () => {
     const { container } = render(
-      <ContactVendor
-        heading="Test Heading"
-        description="Test Description"
-        buttonText="Test Button"
-      />
+      <ContactVendor heading="Test Heading" description="Test Description" />,
     );
     expect(container).toBeInTheDocument();
   });

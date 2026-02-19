@@ -13,6 +13,7 @@ import {
 } from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
+import { BlurText } from "../../ui/blur-text";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -170,10 +171,10 @@ export function ContactDemo({
   submitClassName,
   successMessageClassName,
   errorMessageClassName,
-  background = "white",
+  background,
   spacing = "xl",
   pattern,
-  patternOpacity = 0.1,
+  patternOpacity,
 
   formConfig,
   onSubmit,
@@ -244,40 +245,48 @@ export function ContactDemo({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("py-12", className)}
+      className={className}
       containerClassName={containerClassName}
     >
-      <div className="mx-auto max-w-4xl">
-        <div className={cn("mb-10 text-center", headerClassName)}>
+      <div className="flex flex-col items-center gap-12 md:gap-32">
+        <div
+          className={cn(
+            "flex flex-col items-center gap-4 md:gap-8 text-center",
+            headerClassName,
+          )}
+        >
           {heading &&
             (typeof heading === "string" ? (
-              <h2
+              <BlurText
+                as="h2"
+                text={heading}
                 className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight text-balance",
+                  "text-5xl lg:text-6xl xl:text-7xl font-bold",
                   headingClassName,
                 )}
-              >
-                {heading}
-              </h2>
+                animateBy="words"
+                delay={150}
+                direction="top"
+              />
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "leading-relaxed text-balance",
+                  "leading-relaxed text-balance text-lg",
                   descriptionClassName,
                 )}
               >
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
         </div>
 
-        <Card className={cn("mx-auto max-w-xl", cardClassName)}>
+        <Card className={cn("rounded-2xl shadow-2xl", cardClassName)}>
           <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
             <Form
               form={form}

@@ -63,6 +63,13 @@
   }
 ,
   {
+    "path": "./components/blur-text",
+    "types": "./dist/blur-text.d.ts",
+    "import": "./dist/blur-text.js",
+    "require": "./dist/blur-text.cjs"
+  }
+,
+  {
     "path": "./components/brand-attribution",
     "types": "./dist/brand-attribution.d.ts",
     "import": "./dist/brand-attribution.js",

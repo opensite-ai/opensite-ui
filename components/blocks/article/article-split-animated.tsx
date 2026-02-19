@@ -8,8 +8,12 @@ import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { OptixFlowConfig, ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleSplitAnimatedProps {
@@ -195,7 +199,18 @@ export function ArticleSplitAnimatedComponent({
   pattern,
   patternOpacity,
 }: ArticleSplitAnimatedProps) {
-  const ctaActions = ctaActionsProp ?? (ctaText ? [{ label: ctaText, href: ctaHref || "#", variant: "default" as const, size: "lg" as const }] : []);
+  const ctaActions =
+    ctaActionsProp ??
+    (ctaText
+      ? [
+          {
+            label: ctaText,
+            href: ctaHref || "#",
+            variant: "default" as const,
+            size: "lg" as const,
+          },
+        ]
+      : []);
 
   const MotionWrapper = enableAnimations ? motion.div : "div";
 
@@ -208,7 +223,7 @@ export function ArticleSplitAnimatedComponent({
         href={categoryHref}
         className={cn(
           "inline-block rounded-full bg-primary/20 px-3 py-1 text-sm font-medium text-primary-foreground backdrop-blur-sm transition-colors hover:bg-primary/30",
-          categoryClassName
+          categoryClassName,
         )}
       >
         {category}
@@ -242,7 +257,10 @@ export function ArticleSplitAnimatedComponent({
         </Avatar>
         <div>
           {authorHref ? (
-            <Pressable href={authorHref} className="font-medium hover:underline">
+            <Pressable
+              href={authorHref}
+              className="font-medium hover:underline"
+            >
               {authorName}
             </Pressable>
           ) : (
@@ -254,7 +272,14 @@ export function ArticleSplitAnimatedComponent({
         </div>
       </div>
     );
-  }, [authorSlot, authorName, authorImage, authorHref, authorRole, authorClassName]);
+  }, [
+    authorSlot,
+    authorName,
+    authorImage,
+    authorHref,
+    authorRole,
+    authorClassName,
+  ]);
 
   const ctaContent = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
@@ -263,7 +288,14 @@ export function ArticleSplitAnimatedComponent({
     return (
       <div className={cn("mt-8 flex flex-wrap gap-3", ctaClassName)}>
         {ctaActions.map((action, index) => {
-          const { label, icon, iconAfter, children: actionChildren, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children: actionChildren,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -317,7 +349,7 @@ export function ArticleSplitAnimatedComponent({
             {...imageAnimationProps}
             className={cn(
               "relative aspect-4/3 overflow-hidden rounded-2xl lg:aspect-auto lg:h-full",
-              imageContainerClassName
+              imageContainerClassName,
             )}
           >
             {heroMediaContent}
@@ -332,32 +364,49 @@ export function ArticleSplitAnimatedComponent({
             className={cn("flex flex-col justify-center", contentClassName)}
           >
             {(publishDate || readTime) && (
-              <div className={cn("flex items-center gap-4 text-sm text-muted-foreground", metaClassName)}>
+              <div
+                className={cn(
+                  "flex items-center gap-4 text-sm text-muted-foreground",
+                  metaClassName,
+                )}
+              >
                 {publishDate && <span>{publishDate}</span>}
-                {publishDate && readTime && <Separator orientation="vertical" className="h-4" />}
+                {publishDate && readTime && (
+                  <Separator orientation="vertical" className="h-4" />
+                )}
                 {readTime && <span>{readTime}</span>}
               </div>
             )}
 
-            {title && (
-              typeof title === "string" ? (
-                <h2 className={cn("mt-4 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl", titleClassName)}>
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "mt-4 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl",
+                    titleClassName,
+                  )}
+                >
                   {title}
                 </h2>
               ) : (
                 <div className={cn("mt-4", titleClassName)}>{title}</div>
-              )
-            )}
+              ))}
 
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mt-4 text-lg text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
-                <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-              )
-            )}
+                <div className={cn("mt-4", descriptionClassName)}>
+                  {description}
+                </div>
+              ))}
 
             {authorContent}
             {ctaContent}

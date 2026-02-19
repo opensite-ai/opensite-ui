@@ -4,15 +4,19 @@ import { ContactDemo } from "../contact-demo";
 
 vi.mock("../../../ui/dynamic-icon", () => ({
   DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
+    <span data-testid="mock-icon" data-name={name} className={className}>
+      icon
+    </span>
   ),
 }));
 
 describe("ContactDemo", () => {
-
   it("renders custom heading", () => {
     render(<ContactDemo heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading).toBeInTheDocument();
+    expect(heading).toHaveTextContent("Custom");
+    expect(heading).toHaveTextContent("Heading");
   });
 
   it("renders custom description", () => {

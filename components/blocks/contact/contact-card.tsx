@@ -18,6 +18,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 // Default form fields for contact card
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
@@ -208,6 +209,10 @@ export interface ContactCardProps {
    * Optional error callback invoked if submission fails.
    */
   onError?: (error: Error) => void;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 /**
@@ -228,11 +233,9 @@ export interface ContactCardProps {
 export function ContactCard({
   heading,
   description,
-  formHeading,
-  buttonText = "Send Message",
-  buttonIcon,
   actions,
   actionsSlot,
+  actionsClassName,
   contactOptions,
   contactOptionsSlot,
   formFields,
@@ -240,9 +243,7 @@ export function ContactCard({
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   cardClassName,
-  formHeadingClassName,
   formClassName,
-  submitClassName,
   successMessageClassName,
   errorMessageClassName,
   infoPanelClassName,
@@ -250,7 +251,7 @@ export function ContactCard({
   descriptionClassName,
   contactOptionsClassName,
   background,
-  spacing = "py-8 md:py-32",
+  spacing = "py-16 md:py-32",
   pattern,
   patternOpacity,
   formConfig,
@@ -271,51 +272,19 @@ export function ContactCard({
       onError,
     });
 
-  const actionsContent = React.useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (actions && actions.length > 0) {
-      return actions.map((action, index) => {
-        const {
-          label,
-          icon,
-          iconAfter,
-          children,
-          className: actionClassName,
-          ...pressableProps
-        } = action;
-        return (
-          <Pressable
-            key={index}
-            asButton
-            className={actionClassName}
-            {...pressableProps}
-          >
-            {children ?? (
-              <>
-                {icon}
-                {label}
-                {iconAfter}
-              </>
-            )}
-          </Pressable>
-        );
-      });
-    }
-    return null;
-  }, [actionsSlot, actions]);
-
   const contactOptionsContent = useMemo(() => {
     if (contactOptionsSlot) return contactOptionsSlot;
     if (contactOptions && contactOptions.length > 0) {
       return contactOptions.map((option, key) => (
-        <div key={key} className="flex items-center gap-4">
+        <Pressable
+          variant="link"
+          href={option.href}
+          key={key}
+          className="gap-4 font-bold"
+        >
           <DynamicIcon name={option.icon} size={20} />
-          {option.href ? (
-            <Pressable href={option.href}>{option.info}</Pressable>
-          ) : (
-            <span>{option.info}</span>
-          )}
-        </div>
+          {option.info}
+        </Pressable>
       ));
     }
     return null;
@@ -331,23 +300,8 @@ export function ContactCard({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className="grid items-start gap-10 lg:grid-cols-2">
-          <Card className={cn("p-6 lg:p-8", cardClassName)}>
-            {formHeading &&
-              (typeof formHeading === "string" ? (
-                <h3
-                  className={cn(
-                    "mb-6 text-2xl font-semibold tracking-tight text-balance",
-                    formHeadingClassName,
-                  )}
-                >
-                  {formHeading}
-                </h3>
-              ) : (
-                <div className={cn("text-balance", formHeadingClassName)}>
-                  {formHeading}
-                </div>
-              ))}
+        <div className="grid items-start gap-10 md:gap-12 lg:grid-cols-2">
+          <Card className={cn("p-6 lg:p-8 order-2 md:order-1", cardClassName)}>
             <Form
               form={form}
               action={formConfig?.endpoint}
@@ -370,51 +324,52 @@ export function ContactCard({
                   </div>
                 ))}
               </div>
-              {actionsSlot || (actions && actions.length > 0) ? (
-                actionsContent
-              ) : (
-                <Pressable
-                  componentType="button"
-                  type="submit"
-                  className={cn("w-full", submitClassName)}
-                  asButton
-                  disabled={form.isSubmitting}
-                >
-                  {buttonIcon}
-                  {buttonText}
-                </Pressable>
-              )}
+              <BlockActions
+                actions={actions}
+                actionsSlot={actionsSlot}
+                actionsClassName={actionsClassName}
+              />
             </Form>
           </Card>
 
-          <div className={cn("lg:pt-8", infoPanelClassName)}>
+          <div
+            className={cn(
+              "flex flex-col items-start gap-2 md:gap-4 order-1 md:order-2",
+              infoPanelClassName,
+            )}
+          >
             {heading &&
               (typeof heading === "string" ? (
                 <h2
                   className={cn(
-                    "mb-3 text-3xl font-bold tracking-tight text-balance",
+                    "text-4xl lg:text-6xl font-bold tracking-tight text-pretty",
                     headingClassName,
                   )}
                 >
                   {heading}
                 </h2>
               ) : (
-                <div className={headingClassName}>{heading}</div>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "leading-relaxed text-balance",
+                    "leading-relaxed text-pretty text-lg opacity-70",
                     descriptionClassName,
                   )}
                 >
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
-            <div className={cn("mt-10 space-y-4", contactOptionsClassName)}>
+            <div
+              className={cn(
+                "mt-4 space-y-4 w-full md:w-fit px-6 py-6 md:px-12 md:py-8 bg-muted rounded-xl text-sm md:text-normal flex flex-col items-start gap-1",
+                contactOptionsClassName,
+              )}
+            >
               {contactOptionsContent}
             </div>
           </div>

@@ -5,7 +5,6 @@ import { useMemo } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import Autoplay from "embla-carousel-autoplay";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
@@ -254,14 +253,7 @@ export function HeroDesignCarouselPortfolio({
                     {heading}
                   </h1>
                 ) : (
-                  <h1
-                    className={cn(
-                      "max-w-6xl text-4xl tracking-tighter lg:text-7xl xl:text-9xl font-semibold",
-                      headingClassName,
-                    )}
-                  >
-                    {heading}
-                  </h1>
+                  heading
                 ))}
               {description &&
                 (typeof description === "string" ? (
@@ -274,14 +266,7 @@ export function HeroDesignCarouselPortfolio({
                     {description}
                   </p>
                 ) : (
-                  <p
-                    className={cn(
-                      "text-lg lg:text-2xl text-balance",
-                      descriptionClassName,
-                    )}
-                  >
-                    {description}
-                  </p>
+                  description
                 ))}
             </div>
           </div>
