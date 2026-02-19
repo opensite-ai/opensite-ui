@@ -23,10 +23,6 @@ const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   fieldsContainer: "",
   fieldClassName: "",
   formClassName: "",
-  successMessageClassName:
-    "text-primary-foreground mt-4 p-3 rounded-md bg-primary",
-  errorMessageClassName:
-    "text-destructive-foreground mt-4 p-3 rounded-md bg-destructive",
 };
 
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [

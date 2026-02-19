@@ -99,7 +99,7 @@ export function FooterSocialApps({
   copyright,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-6 md:py-32",
+  spacing = "py-14 md:py-32",
   pattern,
   patternOpacity,
   optixFlowConfig,

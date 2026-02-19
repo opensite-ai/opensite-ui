@@ -18,11 +18,8 @@ const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   fieldsContainer: "",
   fieldClassName: "",
   formClassName: "space-y-6",
-  successMessageClassName: "text-green-600 dark:text-green-400 mt-4 p-3 rounded-md bg-green-50 dark:bg-green-950/20",
-  errorMessageClassName: "text-red-600 dark:text-red-400 mt-4 p-3 rounded-md bg-red-50 dark:bg-red-950/20",
 };
 
-// Default form fields
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
   {
     name: "first_name",
@@ -151,11 +148,12 @@ export function ContactVendor({
         formEngineSetup?.formLayoutSettings?.styleRules?.formClassName ??
         DEFAULT_STYLE_RULES.formClassName,
       successMessageClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules?.successMessageClassName ??
+        formEngineSetup?.formLayoutSettings?.styleRules
+          ?.successMessageClassName ??
         DEFAULT_STYLE_RULES.successMessageClassName,
       errorMessageClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules?.errorMessageClassName ??
-        DEFAULT_STYLE_RULES.errorMessageClassName,
+        formEngineSetup?.formLayoutSettings?.styleRules
+          ?.errorMessageClassName ?? DEFAULT_STYLE_RULES.errorMessageClassName,
     };
   }, [formEngineSetup?.formLayoutSettings?.styleRules]);
 
