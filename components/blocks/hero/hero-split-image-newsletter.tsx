@@ -182,6 +182,7 @@ export function HeroSplitImageNewsletter({
 
   const renderForm = React.useMemo(() => {
     if (formSlot) return formSlot;
+    if (!formFields || formFields.length === 0) return null;
 
     const defaultButtonAction: ActionConfig = {
       label: "Subscribe",

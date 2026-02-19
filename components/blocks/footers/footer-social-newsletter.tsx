@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { FooterLogo } from "../../ui/footer-logo";
 import { FooterCopyright } from "../../ui/footer-copyright";
@@ -8,10 +9,30 @@ import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
-import type { OptixFlowConfig } from "../../../src/types/blocks";
+import type { ActionConfig, OptixFlowConfig } from "../../../src/types/blocks";
 import type { PatternName } from "../../ui/pattern-background";
 import type { FooterSocialLink } from "./types";
+import { Form } from "@page-speed/forms";
+import {
+  DynamicFormField,
+  useContactForm,
+  useFileUpload,
+  type FormFieldConfig,
+  type PageSpeedFormConfig,
+} from "@page-speed/forms/integration";
+import { Icon } from "@page-speed/icon";
 import { DynamicIcon } from "@/src";
+
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "Enter your email",
+    required: true,
+    columnSpan: 12,
+  },
+];
 
 /**
  * Logo configuration for the footer
@@ -57,18 +78,6 @@ export interface FooterSocialNewsletterProps {
   sections?: FooterSocialNewsletterSection[];
   /** Social media links */
   socialLinks?: FooterSocialLink[];
-  /** Newsletter label text */
-  newsletterLabel?: React.ReactNode;
-  /** Newsletter placeholder text */
-  newsletterPlaceholder?: string;
-  /** Newsletter button text */
-  newsletterButtonText?: React.ReactNode;
-  /** Privacy policy link text */
-  privacyLinkText?: React.ReactNode;
-  /** Privacy policy URL */
-  privacyLinkUrl?: string;
-  /** Privacy consent text */
-  privacyConsentText?: React.ReactNode;
   /** Brand/company name for the copyright notice */
   copyright?: string;
   /** Additional CSS classes for the section wrapper */
@@ -95,12 +104,6 @@ export interface FooterSocialNewsletterProps {
   socialLinksClassName?: string;
   /** Additional CSS classes for social link items */
   socialLinkClassName?: string;
-  /** Additional CSS classes for the newsletter section */
-  newsletterClassName?: string;
-  /** Additional CSS classes for the newsletter input */
-  newsletterInputClassName?: string;
-  /** Additional CSS classes for the newsletter button */
-  newsletterButtonClassName?: string;
   /** Additional CSS classes for the privacy text */
   privacyClassName?: string;
   /** Additional CSS classes for the bottom section */
@@ -121,6 +124,43 @@ export interface FooterSocialNewsletterProps {
   patternOpacity?: number;
   /** Optional Optix Flow configuration for @page-speed/img */
   optixFlowConfig?: OptixFlowConfig;
+
+  /**
+   * Form field configuration
+   */
+  formFields?: FormFieldConfig[];
+  /**
+   * Form configuration for submission
+   */
+  formConfig?: PageSpeedFormConfig;
+  /**
+   * Custom submit handler
+   */
+  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
+  /**
+   * Success callback
+   */
+  onSuccess?: (data: unknown) => void;
+  /**
+   * Error callback
+   */
+  onError?: (error: Error) => void;
+  /**
+   * Success message to display
+   */
+  successMessage?: React.ReactNode;
+  /**
+   * Submit button configuration
+   */
+  buttonAction?: ActionConfig;
+  /**
+   * Helper text below form
+   */
+  helperText?: React.ReactNode;
+  /**
+   * Custom slot for form (overrides form props)
+   */
+  formSlot?: React.ReactNode;
 }
 
 /**
@@ -134,12 +174,6 @@ export function FooterSocialNewsletter({
   logo,
   sections,
   socialLinks,
-  newsletterLabel,
-  newsletterPlaceholder,
-  newsletterButtonText,
-  privacyLinkText,
-  privacyLinkUrl,
-  privacyConsentText,
   copyright,
   className,
   contentClassName,
@@ -153,9 +187,15 @@ export function FooterSocialNewsletter({
   socialColumnClassName,
   socialLinksClassName,
   socialLinkClassName,
-  newsletterClassName,
-  newsletterInputClassName,
-  newsletterButtonClassName,
+  formFields = DEFAULT_FORM_FIELDS,
+  formConfig,
+  onSubmit,
+  onSuccess,
+  onError,
+  successMessage,
+  buttonAction,
+  helperText,
+  formSlot,
   privacyClassName,
   bottomClassName,
   copyrightClassName,
@@ -166,6 +206,113 @@ export function FooterSocialNewsletter({
   patternOpacity,
   optixFlowConfig,
 }: FooterSocialNewsletterProps): React.JSX.Element {
+  const {
+    uploadTokens,
+    uploadProgress,
+    isUploading,
+    uploadFiles,
+    removeFile,
+    resetUpload,
+  } = useFileUpload({ onError });
+
+  const { form, submissionError, formMethod, resetSubmissionState } =
+    useContactForm({
+      formFields,
+      formConfig,
+      onSubmit,
+      onSuccess: (data) => {
+        resetUpload();
+        onSuccess?.(data);
+      },
+      onError,
+      uploadTokens,
+    });
+
+  const renderForm = React.useMemo(() => {
+    if (formSlot) return formSlot;
+
+    const defaultButtonAction: ActionConfig = {
+      label: "Subscribe",
+      variant: "default",
+      className: "h-12",
+    };
+
+    const action = buttonAction || defaultButtonAction;
+
+    return (
+      <Form
+        form={form}
+        fields={formFields}
+        notificationConfig={{
+          submissionError,
+          successMessage,
+        }}
+        formConfig={{
+          endpoint: formConfig?.endpoint,
+          method: formMethod,
+          submissionConfig: formConfig?.submissionConfig,
+          formLayout: "button-group",
+          buttonGroupSize: "sm",
+          submitLabel: action.label,
+          submitVariant: action.variant || "default",
+          submitIconComponent: action.icon || (
+            <DynamicIcon name="lucide/send" />
+          ),
+        }}
+        onNewSubmission={() => {
+          resetUpload();
+          resetSubmissionState();
+        }}
+      >
+        <div className="flex flex-col gap-4 sm:flex-row">
+          {formFields.map((field) => (
+            <div key={field.name} className="flex-1">
+              <DynamicFormField
+                field={field}
+                uploadProgress={uploadProgress}
+                onFileUpload={uploadFiles}
+                onFileRemove={removeFile}
+                isUploading={isUploading}
+              />
+            </div>
+          ))}
+          <Pressable
+            onClick={form.handleSubmit}
+            asButton
+            variant={action.variant}
+            className={cn("h-12", action.className)}
+            disabled={form.isSubmitting}
+          >
+            {action.label}
+            {action.iconAfter}
+          </Pressable>
+        </div>
+        {helperText &&
+          (typeof helperText === "string" ? (
+            <p className={cn("text-sm mt-2")}>{helperText}</p>
+          ) : (
+            helperText
+          ))}
+      </Form>
+    );
+  }, [
+    formSlot,
+    formFields,
+    form,
+    formConfig,
+    formMethod,
+    buttonAction,
+    uploadProgress,
+    uploadFiles,
+    removeFile,
+    isUploading,
+    submissionError,
+    successMessage,
+    helperText,
+    resetUpload,
+    resetSubmissionState,
+  ]);
+
   return (
     <Section
       background={background}
@@ -270,56 +417,7 @@ export function FooterSocialNewsletter({
               />
             </div>
 
-            {/* Newsletter Form - Right side */}
-            {(newsletterLabel || newsletterButtonText) && (
-              <div
-                className={cn(
-                  "flex w-full flex-col gap-2 lg:w-auto lg:max-w-md",
-                  newsletterClassName,
-                )}
-              >
-                <div className="flex w-full flex-row items-stretch">
-                  <input
-                    type="email"
-                    id="newsletter-email"
-                    placeholder={newsletterPlaceholder || "Enter your email"}
-                    className={cn(
-                      "flex h-10 w-full rounded-l-md rounded-r-none border border-r-0 border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:w-64",
-                      newsletterInputClassName,
-                    )}
-                  />
-                  {newsletterButtonText && (
-                    <Pressable
-                      onClick={(e) => {
-                        e.preventDefault();
-                      }}
-                      variant="default"
-                      size="icon"
-                      asButton
-                      className={cn(
-                        "rounded-l-none rounded-r-md shrink-0 h-10",
-                        newsletterButtonClassName,
-                      )}
-                    >
-                      <DynamicIcon name="feather/send" />
-                    </Pressable>
-                  )}
-                </div>
-                {(privacyConsentText || privacyLinkText) && (
-                  <p className={cn("text-xs opacity-70", privacyClassName)}>
-                    {privacyConsentText}
-                    {privacyLinkText && (
-                      <Pressable
-                        href={privacyLinkUrl || "#"}
-                        className="ml-1 underline hover:opacity-100"
-                      >
-                        {privacyLinkText}
-                      </Pressable>
-                    )}
-                  </p>
-                )}
-              </div>
-            )}
+            {renderForm}
           </div>
         </footer>
       </div>
