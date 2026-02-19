@@ -18,12 +18,15 @@ import {
 } from "@page-speed/forms/integration";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
-  formContainer: "",
+  formContainer:
+    "mt-10 flex justify-center items-center w-full max-w-md flex-col gap-4 sm:flex-row",
   fieldsContainer: "",
   fieldClassName: "",
   formClassName: "",
-  successMessageClassName: "text-green-600 dark:text-green-400 mt-4 p-3 rounded-md bg-green-50 dark:bg-green-950/20",
-  errorMessageClassName: "text-red-600 dark:text-red-400 mt-4 p-3 rounded-md bg-red-50 dark:bg-red-950/20",
+  successMessageClassName:
+    "text-primary-foreground mt-4 p-3 rounded-md bg-primary",
+  errorMessageClassName:
+    "text-destructive-foreground mt-4 p-3 rounded-md bg-destructive",
 };
 
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
@@ -107,10 +110,6 @@ export interface HeroNewsletterMinimalProps {
    */
   descriptionClassName?: string;
   /**
-   * Additional CSS classes for the form container
-   */
-  formClassName?: string;
-  /**
    * Additional CSS classes for the input
    */
   inputClassName?: string;
@@ -147,7 +146,6 @@ export function HeroNewsletterMinimal({
   className,
   headingClassName,
   descriptionClassName,
-  formClassName,
   disclaimerClassName,
   statsClassName,
 }: HeroNewsletterMinimalProps): React.JSX.Element {
@@ -166,11 +164,12 @@ export function HeroNewsletterMinimal({
         formEngineSetup?.formLayoutSettings?.styleRules?.formClassName ??
         DEFAULT_STYLE_RULES.formClassName,
       successMessageClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules?.successMessageClassName ??
+        formEngineSetup?.formLayoutSettings?.styleRules
+          ?.successMessageClassName ??
         DEFAULT_STYLE_RULES.successMessageClassName,
       errorMessageClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules?.errorMessageClassName ??
-        DEFAULT_STYLE_RULES.errorMessageClassName,
+        formEngineSetup?.formLayoutSettings?.styleRules
+          ?.errorMessageClassName ?? DEFAULT_STYLE_RULES.errorMessageClassName,
     };
   }, [formEngineSetup?.formLayoutSettings?.styleRules]);
 
@@ -252,7 +251,14 @@ export function HeroNewsletterMinimal({
           ))}
       </>
     );
-  }, [formSlot, formEngineSetup, buttonAction, formFields, formStyleRules, helperText]);
+  }, [
+    formSlot,
+    formEngineSetup,
+    buttonAction,
+    formFields,
+    formStyleRules,
+    helperText,
+  ]);
 
   return (
     <Section
@@ -291,14 +297,8 @@ export function HeroNewsletterMinimal({
           ) : (
             description
           ))}
-        <div
-          className={cn(
-            "mt-10 flex w-full max-w-md flex-col gap-4 sm:flex-row",
-            formClassName,
-          )}
-        >
-          {renderForm}
-        </div>
+
+        {renderForm}
         {disclaimer &&
           (typeof disclaimer === "string" ? (
             <p className={cn("mt-4 text-sm", disclaimerClassName)}>
