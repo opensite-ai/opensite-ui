@@ -2,15 +2,21 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
+import { Badge } from "@/src";
 
 export interface CultureTestimonial {
   /**
@@ -203,7 +209,7 @@ export function AboutCultureTabs({
   ctaImages,
   ctaImagesSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   badgeClassName,
   headingClassName,
@@ -215,44 +221,24 @@ export function AboutCultureTabs({
   actionsClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: AboutCultureTabsProps): React.JSX.Element {
   const resolvedAspects = aspects ?? [];
-  const [activeTab, setActiveTab] = React.useState(resolvedAspects[0]?.id || "");
-
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
+  const [activeTab, setActiveTab] = React.useState(
+    resolvedAspects[0]?.id || "",
+  );
 
   const ctaImagesContent = useMemo(() => {
     if (ctaImagesSlot) return ctaImagesSlot;
     if (!ctaImages || ctaImages.length === 0) return null;
 
     return ctaImages.map((src, i) => (
-      <div key={i} className="relative aspect-square overflow-hidden rounded-md">
+      <div
+        key={i}
+        className="relative aspect-square overflow-hidden rounded-md"
+      >
         <Img
           src={src}
           alt="Team culture"
@@ -269,151 +255,168 @@ export function AboutCultureTabs({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
-        <div className={cn("mx-auto mb-12 max-w-3xl space-y-4 text-center", headerClassName)}>
-          {badgeText && (
-            typeof badgeText === "string" ? (
-              <div className={cn("inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm", getAccentColor(background), badgeClassName)}>
-                {badgeText}
-              </div>
-            ) : (
-              <div className={badgeClassName}>{badgeText}</div>
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl", headingClassName)}>{heading}</h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn(getTextColor(background, 'muted'), descriptionClassName)}>{description}</p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
-        </div>
-
-        {aspectsSlot ? (
-          aspectsSlot
-        ) : resolvedAspects.length > 0 ? (
-          <Tabs
-            defaultValue={resolvedAspects[0]?.id}
-            value={activeTab}
-            onValueChange={setActiveTab}
-            className={cn("space-y-8", tabsClassName)}
-          >
-            <div className="flex justify-center">
-              <TabsList className="grid h-auto grid-cols-2 p-1 md:grid-cols-4">
-                {resolvedAspects.map((aspect) => (
-                  <TabsTrigger
-                    key={aspect.id}
-                    value={aspect.id}
-                    className={cn("px-3 py-2.5", `data-[state=active]:${getAccentColor(background)}`, "data-[state=active]:text-primary-foreground")}
-                  >
-                    {aspect.title}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </div>
-
-            {resolvedAspects.map((aspect) => (
-              <TabsContent key={aspect.id} value={aspect.id} className="space-y-8">
-                <div className="grid gap-6 md:grid-cols-2">
-                  <div className="space-y-4">
-                    <h3 className="text-2xl font-bold tracking-tight">{aspect.title}</h3>
-                    <p className={cn("leading-relaxed", getTextColor(background, 'muted'))}>
-                      {aspect.description}
-                    </p>
-                  </div>
-
-                  <Card className="border-0 bg-gradient-to-br from-primary/5 to-primary/10 p-0">
-                    <CardContent className="space-y-4 p-6 pt-6">
-                      <DynamicIcon
-                        name="lucide/quote"
-                        size={32}
-                        className={cn(getAccentColor(background), "opacity-40")}
-                      />
-                      <p className={cn("italic", getTextColor(background, 'muted'))}>
-                        &quot;{aspect.testimonial.quote}&quot;
-                      </p>
-                      <div className="flex items-center gap-3 pt-2">
-                        <div className="relative h-10 w-10 overflow-hidden rounded-full">
-                          <Img
-                            src={aspect.testimonial.avatar}
-                            alt={aspect.testimonial.author}
-                            className="h-full w-full object-cover"
-                            optixFlowConfig={optixFlowConfig}
-                          />
-                        </div>
-                        <div>
-                          <h4 className="text-sm font-medium">
-                            {aspect.testimonial.author}
-                          </h4>
-                          <p className={cn("text-xs", getTextColor(background, 'muted'))}>
-                            {aspect.testimonial.role}
-                          </p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                  {aspect.images.map((image, idx) => (
-                    <div
-                      key={idx}
-                      className="relative aspect-[4/3] overflow-hidden rounded-lg"
-                    >
-                      <Img
-                        src={image}
-                        alt={`${aspect.title} culture`}
-                        className="h-full w-full transform object-cover transition-transform duration-500 hover:scale-105"
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </TabsContent>
-            ))}
-          </Tabs>
-        ) : null}
-
-        <div className={cn("relative mt-16 rounded-xl border bg-background p-8 md:p-12", ctaClassName)}>
-          <div className="grid items-center gap-8 md:grid-cols-2">
-            <div>
-              {ctaHeading && (
-                typeof ctaHeading === "string" ? (
-                  <h3 className={cn("mb-4 text-2xl font-bold", ctaHeadingClassName)}>{ctaHeading}</h3>
-                ) : (
-                  <div className={cn("mb-4", ctaHeadingClassName)}>{ctaHeading}</div>
-                )
+      <div
+        className={cn(
+          "mx-auto mb-12 max-w-full md:max-w-md space-y-4 text-center flex flex-col items-center justify-center",
+          headerClassName,
+        )}
+      >
+        {badgeText &&
+          (typeof badgeText === "string" ? (
+            <Badge className={cn("px-3 py-1", badgeClassName)}>
+              {badgeText}
+            </Badge>
+          ) : (
+            badgeText
+          ))}
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-bold tracking-tight md:text-4xl text-pretty",
+                headingClassName,
               )}
-              {ctaDescription && (
-                typeof ctaDescription === "string" ? (
-                  <p className={cn("mb-6", getTextColor(background, 'muted'), ctaDescriptionClassName)}>{ctaDescription}</p>
-                ) : (
-                  <div className={cn("mb-6", ctaDescriptionClassName)}>{ctaDescription}</div>
-                )
-              )}
-              {(actionsSlot || (actions && actions.length > 0)) && (
-                <div className={cn("flex gap-4", actionsClassName)}>
-                  {actionsContent}
-                </div>
-              )}
-            </div>
-            <div className="grid grid-cols-3 gap-2">
-              {ctaImagesContent}
-            </div>
+            >
+              {heading}
+            </h2>
+          ) : (
+            heading
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p className={cn("text-balance", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            description
+          ))}
+      </div>
+
+      {aspectsSlot ? (
+        aspectsSlot
+      ) : resolvedAspects.length > 0 ? (
+        <Tabs
+          defaultValue={resolvedAspects[0]?.id}
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className={cn("space-y-8", tabsClassName)}
+        >
+          <div className="flex justify-center">
+            <TabsList className="grid h-auto grid-cols-2 p-1 md:grid-cols-4">
+              {resolvedAspects.map((aspect) => (
+                <TabsTrigger
+                  key={aspect.id}
+                  value={aspect.id}
+                  className={cn("px-3 py-2.5")}
+                >
+                  {aspect.title}
+                </TabsTrigger>
+              ))}
+            </TabsList>
           </div>
 
-          <div className="absolute -left-5 -top-5 h-10 w-10 rounded-full bg-primary/10" />
-          <div className="absolute -bottom-5 -right-5 h-10 w-10 rounded-full bg-primary/10" />
+          {resolvedAspects.map((aspect) => (
+            <TabsContent
+              key={aspect.id}
+              value={aspect.id}
+              className="space-y-8"
+            >
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold tracking-tight">
+                    {aspect.title}
+                  </h3>
+                  <p className={cn("leading-relaxed")}>{aspect.description}</p>
+                </div>
+
+                <Card className="border-0 p-0">
+                  <CardContent className="space-y-4 p-6 pt-6">
+                    <DynamicIcon name="lucide/quote" size={32} />
+                    <p className="italic">
+                      &quot;{aspect.testimonial.quote}&quot;
+                    </p>
+                    <div className="flex items-center gap-3 pt-2">
+                      <div className="relative h-10 w-10 overflow-hidden rounded-full">
+                        <Img
+                          src={aspect.testimonial.avatar}
+                          alt={aspect.testimonial.author}
+                          className="h-full w-full object-cover"
+                          optixFlowConfig={optixFlowConfig}
+                        />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-medium">
+                          {aspect.testimonial.author}
+                        </h4>
+                        <p className="text-xs">{aspect.testimonial.role}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                {aspect.images.map((image, idx) => (
+                  <div
+                    key={idx}
+                    className="relative aspect-4/3 overflow-hidden rounded-lg"
+                  >
+                    <Img
+                      src={image}
+                      alt={`${aspect.title} culture`}
+                      className="h-full w-full transform object-cover transition-transform duration-500 hover:scale-105"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </div>
+                ))}
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
+      ) : null}
+
+      <div
+        className={cn(
+          "relative mt-16 rounded-xl border p-8 md:p-12",
+          ctaClassName,
+        )}
+      >
+        <div className="grid items-center gap-8 md:grid-cols-2">
+          <div>
+            {ctaHeading &&
+              (typeof ctaHeading === "string" ? (
+                <h3
+                  className={cn("mb-4 text-2xl font-bold", ctaHeadingClassName)}
+                >
+                  {ctaHeading}
+                </h3>
+              ) : (
+                ctaHeading
+              ))}
+            {ctaDescription &&
+              (typeof ctaDescription === "string" ? (
+                <p className={cn("mb-6", ctaDescriptionClassName)}>
+                  {ctaDescription}
+                </p>
+              ) : (
+                ctaDescription
+              ))}
+
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
+          </div>
+          <div className="grid grid-cols-3 gap-2">{ctaImagesContent}</div>
         </div>
+
+        <div className="absolute -left-5 -top-5 h-10 w-10 rounded-full bg-primary/10" />
+        <div className="absolute -bottom-5 -right-5 h-10 w-10 rounded-full bg-primary/10" />
+      </div>
     </Section>
   );
 }
