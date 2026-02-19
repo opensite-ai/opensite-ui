@@ -234,58 +234,60 @@ export function HeroSaasDashboardPreview({
     const action = buttonAction || defaultButtonAction;
 
     return (
-      <Form
-        form={form}
-        fields={formFields}
-        notificationConfig={{
-          submissionError,
-          successMessage,
-        }}
-        formConfig={{
-          endpoint: formConfig?.endpoint,
-          method: formMethod,
-          submissionConfig: formConfig?.submissionConfig,
-          formLayout: "button-group",
-          buttonGroupSize: "lg",
-          submitLabel: action.label,
-          submitVariant: action.variant || "default",
-        }}
-        onNewSubmission={() => {
-          resetUpload();
-          resetSubmissionState();
-        }}
-      >
-        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-          <div className="flex w-full max-w-md items-center gap-2">
-            {formFields.map((field) => (
-              <div key={field.name} className="flex-1">
-                <DynamicFormField
-                  field={field}
-                  uploadProgress={uploadProgress}
-                  onFileUpload={uploadFiles}
-                  onFileRemove={removeFile}
-                  isUploading={isUploading}
-                />
-              </div>
-            ))}
-            <Pressable
-              onClick={form.handleSubmit}
-              asButton
-              variant={action.variant}
-              className={cn("h-12", action.className)}
-              disabled={form.isSubmitting}
-            >
-              {action.label}
-            </Pressable>
+      <div className="mt-12 w-full flex items-center justify-center">
+        <Form
+          form={form}
+          fields={formFields}
+          notificationConfig={{
+            submissionError,
+            successMessage,
+          }}
+          formConfig={{
+            endpoint: formConfig?.endpoint,
+            method: formMethod,
+            submissionConfig: formConfig?.submissionConfig,
+            formLayout: "button-group",
+            buttonGroupSize: "lg",
+            submitLabel: action.label,
+            submitVariant: action.variant || "default",
+          }}
+          onNewSubmission={() => {
+            resetUpload();
+            resetSubmissionState();
+          }}
+        >
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+            <div className="flex w-full max-w-md items-center gap-2">
+              {formFields.map((field) => (
+                <div key={field.name} className="flex-1">
+                  <DynamicFormField
+                    field={field}
+                    uploadProgress={uploadProgress}
+                    onFileUpload={uploadFiles}
+                    onFileRemove={removeFile}
+                    isUploading={isUploading}
+                  />
+                </div>
+              ))}
+              <Pressable
+                onClick={form.handleSubmit}
+                asButton
+                variant={action.variant}
+                className={cn("h-12", action.className)}
+                disabled={form.isSubmitting}
+              >
+                {action.label}
+              </Pressable>
+            </div>
           </div>
-        </div>
-        {helperText &&
-          (typeof helperText === "string" ? (
-            <p className={cn("text-sm text-center mt-4")}>{helperText}</p>
-          ) : (
-            helperText
-          ))}
-      </Form>
+          {helperText &&
+            (typeof helperText === "string" ? (
+              <p className={cn("text-sm text-center mt-4")}>{helperText}</p>
+            ) : (
+              helperText
+            ))}
+        </Form>
+      </div>
     );
   }, [
     formSlot,
@@ -356,40 +358,38 @@ export function HeroSaasDashboardPreview({
       containerClassName={containerClassName}
     >
       <div className="pt-10 md:pt-0">
-        <div className={cn("mx-auto max-w-4xl text-center", headerClassName)}>
+        <div
+          className={cn(
+            "mmx-auto text-center flex flex-col items-center gap-6 md:gap-8 max-w-full md:max-w-md",
+            headerClassName,
+          )}
+        >
           {renderBadge}
           {heading &&
             (typeof heading === "string" ? (
               <h1
                 className={cn(
-                  "mt-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
+                  "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
                   headingClassName,
                 )}
               >
                 {heading}
               </h1>
             ) : (
-              <h1
-                className={cn(
-                  "mt-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mt-6 text-lg md:text-xl text-balance",
+                  "text-lg md:text-xl text-balance",
                   descriptionClassName,
                 )}
               >
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
           {renderForm}
         </div>

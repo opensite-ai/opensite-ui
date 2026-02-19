@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import type {
   ActionConfig,
   StatItem,
@@ -11,10 +10,8 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import { Form } from "@page-speed/forms";
 import {
-  DynamicFormField,
-  useContactForm,
+  FormEngine,
   useFileUpload,
   type FormFieldConfig,
   type PageSpeedFormConfig,
@@ -178,19 +175,6 @@ export function HeroNewsletterMinimal({
     removeFile,
     resetUpload,
   } = useFileUpload({ onError });
-
-  const { form, submissionError, formMethod, resetSubmissionState } =
-    useContactForm({
-      formFields,
-      formConfig,
-      onSubmit,
-      onSuccess: (data) => {
-        resetUpload();
-        onSuccess?.(data);
-      },
-      onError,
-      uploadTokens,
-    });
   const renderStats = React.useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
@@ -223,78 +207,65 @@ export function HeroNewsletterMinimal({
     const defaultButtonAction: ActionConfig = {
       label: "Subscribe",
       variant: "default",
-      className: "h-12",
     };
 
     const action = buttonAction || defaultButtonAction;
 
     return (
-      <Form
-        form={form}
-        fields={formFields}
-        notificationConfig={{
-          submissionError,
-          successMessage,
-        }}
-        formConfig={{
-          endpoint: formConfig?.endpoint,
-          method: formMethod,
-          submissionConfig: formConfig?.submissionConfig,
-          formLayout: "button-group",
-          buttonGroupSize: "lg",
-          submitLabel: action.label,
-          submitVariant: action.variant || "default",
-        }}
-        onNewSubmission={() => {
-          resetUpload();
-          resetSubmissionState();
-        }}
-      >
-        {formFields.map((field) => (
-          <div key={field.name} className="flex-1">
-            <DynamicFormField
-              field={field}
-              uploadProgress={uploadProgress}
-              onFileUpload={uploadFiles}
-              onFileRemove={removeFile}
-              isUploading={isUploading}
-            />
-          </div>
-        ))}
-        <Pressable
-          onClick={form.handleSubmit}
-          asButton
-          variant={action.variant}
-          className={cn("h-12", action.className)}
-          disabled={form.isSubmitting}
-        >
-          {action.label}
-          {action.iconAfter}
-        </Pressable>
+      <>
+        <FormEngine
+          api={formConfig}
+          fields={formFields}
+          formLayoutSettings={{
+            formLayout: "button-group",
+            buttonGroupSetup: {
+              size: "lg",
+              submitLabel: (
+                <>
+                  {action.label}
+                  {action.iconAfter}
+                </>
+              ),
+              submitVariant: action.variant || "default",
+            },
+          }}
+          successMessage={successMessage}
+          onSubmit={onSubmit}
+          onSuccess={(data) => {
+            resetUpload();
+            onSuccess?.(data);
+          }}
+          onError={onError}
+          uploadTokens={uploadTokens}
+          uploadProgress={uploadProgress}
+          onFileUpload={uploadFiles}
+          onFileRemove={removeFile}
+          isUploading={isUploading}
+        />
         {helperText &&
           (typeof helperText === "string" ? (
             <p className={cn("text-sm mt-2 text-center")}>{helperText}</p>
           ) : (
             helperText
           ))}
-      </Form>
+      </>
     );
   }, [
     formSlot,
     formFields,
-    form,
     formConfig,
-    formMethod,
     buttonAction,
+    uploadTokens,
     uploadProgress,
     uploadFiles,
     removeFile,
     isUploading,
-    submissionError,
     successMessage,
+    onSubmit,
+    onSuccess,
+    onError,
     helperText,
     resetUpload,
-    resetSubmissionState,
   ]);
 
   return (

@@ -1,18 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { Form } from "@page-speed/forms";
 import {
-  DynamicFormField,
-  getColumnSpanClass,
-  useContactForm,
+  FormEngine,
   useFileUpload,
   type FormFieldConfig,
   type PageSpeedFormConfig,
 } from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -190,54 +185,6 @@ export function ContactVendor({
     resetUpload,
   } = useFileUpload({ onError });
 
-  // Contact form hook with file upload integration
-  const { form, submissionError, formMethod, resetSubmissionState } =
-    useContactForm({
-      formFields,
-      formConfig,
-      onSubmit,
-      onSuccess: (data) => {
-        resetUpload();
-        onSuccess?.(data);
-      },
-      onError,
-      resetOnSuccess: formConfig?.resetOnSuccess !== false,
-      uploadTokens,
-    });
-
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (actions && actions.length > 0) {
-      return actions.map((action, index) => {
-        const {
-          label,
-          icon,
-          iconAfter,
-          children,
-          className: actionClassName,
-          ...pressableProps
-        } = action;
-        return (
-          <Pressable
-            key={index}
-            asButton
-            className={actionClassName}
-            {...pressableProps}
-          >
-            {children ?? (
-              <>
-                {icon}
-                {label}
-                {iconAfter}
-              </>
-            )}
-          </Pressable>
-        );
-      });
-    }
-    return null;
-  }, [actionsSlot, actions]);
-
   return (
     <Section
       background={background}
@@ -279,60 +226,39 @@ export function ContactVendor({
 
         <Card className={cn("mx-auto max-w-xl", cardClassName)}>
           <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
-            <Form
-              form={form}
-              notificationConfig={{
-                submissionError,
-                successMessage,
+            <FormEngine
+              api={formConfig}
+              fields={formFields}
+              formLayoutSettings={{
+                formLayout: "standard",
+                submitButtonSetup: {
+                  submitLabel: (
+                    <>
+                      {buttonIcon}
+                      {buttonText}
+                    </>
+                  ),
+                },
+                styleRules: {
+                  formClassName: cn("space-y-4", formClassName),
+                  successMessageClassName,
+                  errorMessageClassName,
+                },
               }}
-              styleConfig={{
-                formClassName: cn("space-y-4", formClassName),
-                successMessageClassName,
-                errorMessageClassName,
-              }}
-              formConfig={{
-                endpoint: formConfig?.endpoint,
-                method: formMethod,
-                submissionConfig: formConfig?.submissionConfig,
-              }}
-              onNewSubmission={() => {
+              successMessage={successMessage}
+              onSubmit={onSubmit}
+              onSuccess={(data) => {
                 resetUpload();
-                resetSubmissionState();
+                onSuccess?.(data);
               }}
-            >
-              <div className="grid grid-cols-12 gap-6">
-                {formFields.map((field) => (
-                  <div
-                    key={field.name}
-                    className={getColumnSpanClass(field.columnSpan)}
-                  >
-                    <DynamicFormField
-                      field={field}
-                      uploadProgress={uploadProgress}
-                      onFileUpload={uploadFiles}
-                      onFileRemove={removeFile}
-                      isUploading={isUploading}
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {actionsSlot || (actions && actions.length > 0) ? (
-                actionsContent
-              ) : (
-                <Pressable
-                  componentType="button"
-                  type="submit"
-                  className={cn("w-full", submitClassName)}
-                  size="lg"
-                  asButton
-                  disabled={form.isSubmitting}
-                >
-                  {buttonIcon}
-                  {buttonText}
-                </Pressable>
-              )}
-            </Form>
+              onError={onError}
+              resetOnSuccess={formConfig?.resetOnSuccess !== false}
+              uploadTokens={uploadTokens}
+              uploadProgress={uploadProgress}
+              onFileUpload={uploadFiles}
+              onFileRemove={removeFile}
+              isUploading={isUploading}
+            />
           </CardContent>
         </Card>
       </div>

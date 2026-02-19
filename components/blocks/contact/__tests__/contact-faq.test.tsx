@@ -13,6 +13,17 @@ vi.mock("@page-speed/forms", () => ({
 }));
 
 vi.mock("@page-speed/forms/integration", () => ({
+  FormEngine: vi.fn(({ fields, formLayoutSettings, successMessage }) => (
+    <div data-testid="mock-form-engine">
+      <div data-testid="form-layout">{formLayoutSettings?.formLayout || "standard"}</div>
+      {fields?.map((field: any) => (
+        <div key={field.name} data-testid={`field-${field.name}`}>
+          <label htmlFor={field.name}>{field.label ?? field.name}</label>
+          <input id={field.name} aria-label={field.label ?? field.name} />
+        </div>
+      ))}
+    </div>
+  )),
   getColumnSpanClass: () => "col-span-12",
   DynamicFormField: ({
     field,
@@ -38,6 +49,8 @@ vi.mock("@page-speed/forms/integration", () => ({
       status: "idle",
       handleSubmit: async (event?: Event) => event?.preventDefault?.(),
       resetForm: vi.fn(),
+      getFieldMeta: vi.fn(() => ({ touched: false, error: null })),
+      getFieldProps: vi.fn(() => ({ value: "", onChange: vi.fn() })),
     },
     isSubmitted: false,
     submissionError: null,
@@ -112,8 +125,8 @@ describe("ContactFaq", () => {
     expect(twoColGrid).not.toBeInTheDocument();
   });
 
-  it("renders form fields in a 12-column grid layout", () => {
-    const { container } = render(<ContactFaq buttonText="Submit" />);
-    expect(container.querySelector(".grid-cols-12")).toBeInTheDocument();
+  it("renders form with FormEngine", () => {
+    render(<ContactFaq buttonText="Submit" />);
+    expect(screen.getByTestId("mock-form-engine")).toBeInTheDocument();
   });
 });
