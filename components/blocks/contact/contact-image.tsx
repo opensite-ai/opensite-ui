@@ -21,6 +21,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { Img } from "@page-speed/img";
 
 // Default form fields
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
@@ -137,6 +138,21 @@ export interface ContactImageProps {
   onSuccess?: (data: unknown) => void;
   /** Error callback */
   onError?: (error: Error) => void;
+  /**
+   * Additional CSS classes for the content container
+   */
+  contentClassName?: string;
+  /**
+   * Background image URL
+   */
+  backgroundImage?: string;
+  /**
+   * Optional Optix Flow configuration for image optimization
+   */
+  optixFlowConfig?: {
+    apiKey: string;
+    compression?: number;
+  };
 }
 
 /**
@@ -159,9 +175,6 @@ export function ContactImage({
   actionsSlot,
   formFields = DEFAULT_FORM_FIELDS,
   successMessage = "Thank you! Your message has been sent successfully.",
-  className,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  headerClassName,
   headingClassName,
   descriptionClassName,
   cardClassName,
@@ -170,8 +183,13 @@ export function ContactImage({
   submitClassName,
   successMessageClassName,
   errorMessageClassName,
-  background = "white",
-  spacing = "xl",
+  backgroundImage,
+  background,
+  optixFlowConfig,
+  spacing = "none",
+  className,
+  containerClassName = "px-0 sm:px-0 lg:px-0 max-w-full relative z-10 h-screen w-screen flex justify-center items-center",
+  contentClassName = "",
   pattern,
   patternOpacity = 0.1,
 
@@ -238,47 +256,72 @@ export function ContactImage({
     return null;
   }, [actionsSlot, actions]);
 
+  const renderBackground = useMemo(() => {
+    if (!backgroundImage) return null;
+
+    return (
+      <div className="absolute inset-0">
+        <Img
+          src={backgroundImage}
+          alt="Full screen background image"
+          className="h-full w-full object-cover"
+          loading="eager"
+          optixFlowConfig={optixFlowConfig}
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/65 to-black/20" />
+      </div>
+    );
+  }, [backgroundImage, optixFlowConfig]);
+
   return (
     <Section
       background={background}
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("py-12", className)}
+      className={cn(
+        "relative flex h-full min-h-screen w-screen items-center justify-center overflow-hidden bg-black pb-0 pt-0 md:pt-0 px-0",
+        className,
+      )}
       containerClassName={containerClassName}
     >
-      <div className="mx-auto max-w-4xl">
-        <div className={cn("mb-10 text-center", headerClassName)}>
-          {heading &&
-            (typeof heading === "string" ? (
-              <h2
-                className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight text-balance",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "leading-relaxed text-balance",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
-        </div>
-
+      {renderBackground}
+      <div
+        className={cn(
+          "flex flex-col gap-4 md:gap-6 px-6 pt-28 pb-6 md:pt-0 md:pb-0",
+          "relative z-30 m-auto max-w-full md:max-w-md flex-col items-center justify-center text-center",
+          contentClassName,
+        )}
+      >
         <Card className={cn("mx-auto max-w-xl", cardClassName)}>
           <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "text-5xl md:text-6xl lg:text-7xl text-card-foreground text-shadow-2xl font-semibold",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                heading
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-center text-base text-balance text-card-foreground text-shadow-2xl",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                description
+              ))}
+
             <Form
               form={form}
               notificationConfig={{

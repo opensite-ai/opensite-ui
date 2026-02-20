@@ -15,8 +15,14 @@
  */
 
 import * as React from "react";
-import { cn, getNestedCardBg } from "../../../lib/utils";
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -27,6 +33,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
+import { Badge } from "@/src";
 
 export interface CarouselImageHeroProps {
   /**
@@ -138,65 +146,65 @@ export function CarouselImageHero({
   pattern,
   patternOpacity,
 }: CarouselImageHeroProps): React.JSX.Element {
+  const hasImages = React.useMemo(() => {
+    return images && images?.length > 0;
+  }, [images]);
+
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
-  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
+  const progress = useMotionValue(100);
+  const clipPath = useMotionTemplate`inset(0 ${progress}% 0 0 round 10px)`;
 
-  const goToNext = React.useCallback(() => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (images?.length ?? 1));
-  }, [images?.length]);
-
-  const resetInterval = React.useCallback(() => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-    intervalRef.current = setInterval(goToNext, autoPlayInterval);
-  }, [goToNext, autoPlayInterval]);
-
-  const goToSlide = React.useCallback((index: number) => {
-    setCurrentImageIndex(index);
-    resetInterval();
-  }, [resetInterval]);
-
+  // Progress-based auto-advance
   React.useEffect(() => {
-    resetInterval();
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+    if (!hasImages || (images?.length ?? 0) < 2) return;
+
+    // Calculate tick interval based on autoPlayInterval
+    // Progress goes from 100 to 0 in 100 steps
+    const tickInterval = autoPlayInterval / 100;
+
+    const interval = setInterval(() => {
+      const currentProgress = progress.get();
+      if (currentProgress > 0) {
+        progress.set(currentProgress - 1);
+      } else {
+        // Reset and advance to next slide
+        progress.set(100);
+        setCurrentImageIndex(
+          (prevIndex) => (prevIndex + 1) % (images?.length ?? 1),
+        );
       }
-    };
-  }, [resetInterval]);
+    }, tickInterval);
 
-  const renderActions = () => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
+    return () => clearInterval(interval);
+  }, [
+    progress,
+    currentImageIndex,
+    images?.length,
+    autoPlayInterval,
+    hasImages,
+  ]);
 
-    return actions.map((action, index) => {
-      const {
-        label,
-        icon,
-        iconAfter,
-        children,
-        className: actionClassName,
-        ...pressableProps
-      } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  };
+  const handlePrev = React.useCallback(() => {
+    progress.set(100);
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex > 0 ? prevIndex - 1 : (images?.length ?? 1) - 1,
+    );
+  }, [images?.length, progress]);
+
+  const handleNext = React.useCallback(() => {
+    progress.set(100);
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex < (images?.length ?? 0) - 1 ? prevIndex + 1 : 0,
+    );
+  }, [images?.length, progress]);
+
+  const handleDotClick = React.useCallback(
+    (index: number) => {
+      progress.set(100);
+      setCurrentImageIndex(index);
+    },
+    [progress],
+  );
 
   return (
     <Section
@@ -210,50 +218,80 @@ export function CarouselImageHero({
       patternOpacity={patternOpacity}
       containerClassName={containerClassName}
     >
-      {/* Image Carousel */}
-      <div className={cn("absolute inset-0", getNestedCardBg(background), imageClassName)}>
-        {images?.map((image, index) => (
-          <div
-            key={index}
-            className={cn(
-              "absolute inset-0 transition-opacity duration-1000",
-              index === currentImageIndex ? "opacity-100" : "opacity-0",
-            )}
-          >
-            <Img
-              src={image.src}
-              alt={image.alt}
-              className={cn("h-full w-full object-cover", image.className)}
-              optixFlowConfig={optixFlowConfig}
-            />
-            <div className="absolute inset-0 bg-black/40" />
-          </div>
-        ))}
+      <div className={cn("absolute inset-0", imageClassName)}>
+        {!hasImages
+          ? null
+          : images?.map((image, index) => (
+              <div
+                key={index}
+                className={cn(
+                  "absolute inset-0 transition-opacity duration-1000",
+                  index === currentImageIndex ? "opacity-100" : "opacity-0",
+                )}
+              >
+                <Img
+                  src={image.src}
+                  alt={image.alt}
+                  className={cn("h-full w-full object-cover", image.className)}
+                  optixFlowConfig={optixFlowConfig}
+                />
+                <div className="absolute inset-0 bg-black/40" />
+              </div>
+            ))}
 
-        {/* Indicators */}
+        {/* Navigation Controls */}
         <div
           className={cn(
-            "absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-3",
+            "absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center justify-center gap-5",
             indicatorsClassName,
           )}
         >
-          {images?.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={cn(
-                "flex h-4 w-4 items-center justify-center rounded-full transition-colors",
-                index === currentImageIndex
-                  ? "bg-white"
-                  : "bg-white/50 hover:bg-white/80",
-              )}
-              aria-label={`Go to image ${index + 1}`}
-            />
-          ))}
+          <Pressable
+            onClick={handlePrev}
+            asButton
+            variant="ghost"
+            size="icon"
+            className={cn(
+              "flex size-6 cursor-pointer items-center justify-center rounded-full p-0.5 opacity-80 hover:opacity-100 active:scale-95 bg-white/20 text-white backdrop-blur-sm",
+            )}
+          >
+            <DynamicIcon name="lucide/chevron-left" size={16} />
+          </Pressable>
+          <div className="flex items-center justify-center gap-1">
+            {images?.map((_, index) => (
+              <motion.button
+                key={index}
+                initial={false}
+                onClick={() => handleDotClick(index)}
+                animate={{
+                  width: index === currentImageIndex ? "30px" : "8px",
+                }}
+                className="relative flex h-2 cursor-pointer items-center justify-center overflow-hidden rounded-full p-0.5 bg-white/50"
+                aria-label={`Go to image ${index + 1}`}
+              >
+                {currentImageIndex === index && (
+                  <motion.div
+                    style={{ clipPath }}
+                    className="absolute left-0 top-0 h-full w-full origin-left rounded-full bg-white"
+                  />
+                )}
+              </motion.button>
+            ))}
+          </div>
+          <Pressable
+            onClick={handleNext}
+            asButton
+            variant="ghost"
+            size="icon"
+            className={cn(
+              "flex size-6 cursor-pointer items-center justify-center rounded-full p-0.5 opacity-80 hover:opacity-100 active:scale-95 bg-white/20 text-white backdrop-blur-sm",
+            )}
+          >
+            <DynamicIcon name="lucide/chevron-right" size={16} />
+          </Pressable>
         </div>
       </div>
 
-      {/* Content */}
       <div
         className={cn(
           "relative z-10 mx-auto flex min-h-[600px] flex-col items-center justify-center px-4 py-16 text-center md:px-16 md:py-20",
@@ -263,55 +301,49 @@ export function CarouselImageHero({
           <div className="space-y-4">
             {badge &&
               (typeof badge === "string" ? (
-                <div
-                  className={cn(
-                    "inline-flex items-center rounded-full bg-background/10 px-3 py-1 text-sm font-medium backdrop-blur-sm",
-                    badgeClassName,
-                  )}
+                <Badge
+                  className={cn("px-3 py-1 backdrop-blur-sm", badgeClassName)}
                 >
                   <span>{badge}</span>
-                </div>
+                </Badge>
               ) : (
-                <div className={badgeClassName}>{badge}</div>
+                badge
               ))}
             {heading &&
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "text-4xl font-bold sm:text-5xl md:text-6xl text-balance text-shadow",
+                    "text-4xl font-bold sm:text-5xl md:text-6xl text-balance",
                     headingClassName,
+                    hasImages ? "text-white text-shadow-2xl" : "",
                   )}
                 >
                   {heading}
                 </h1>
               ) : (
-                <div className={headingClassName}>{heading}</div>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "text-xl text-balance text-shadow",
+                    "text-xl text-balance",
                     descriptionClassName,
+                    hasImages ? "text-white text-shadow-2xl" : "",
                   )}
                 >
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
           </div>
 
-          {(actionsSlot || (actions && actions.length > 0)) && (
-            <div
-              className={cn(
-                "flex flex-col justify-center gap-4 sm:flex-row",
-                actionsClassName,
-              )}
-            >
-              {renderActions()}
-            </div>
-          )}
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
       </div>
     </Section>

@@ -43,6 +43,7 @@ pnpm-debug.log*
 
 # Editor directories and files
 .vscode/*
+.zed/*
 .rules
 !.vscode/extensions.json
 .idea

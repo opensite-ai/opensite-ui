@@ -153,7 +153,7 @@ export const BlurText = ({
                 ? onAnimationComplete
                 : undefined
             }
-            style={animateBy === "words" ? { marginRight: "0.5em" } : {}}
+            style={animateBy === "words" ? { marginRight: "0.25em" } : {}}
           >
             {segment === " " ? "\u00A0" : segment}
           </motion.span>

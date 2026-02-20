@@ -6,6 +6,13 @@ import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { ImageSlider, type ImageSliderImage } from "../../ui/image-slider";
 import { Pressable } from "../../../lib/Pressable";
+import { Card, CardContent } from "../../ui/card";
+import {
+  FormEngine,
+  FormEngineProps,
+  FormEngineStyleRules,
+  type FormFieldConfig,
+} from "@page-speed/forms/integration";
 import type {
   ActionConfig,
   OptixFlowConfig,
@@ -13,6 +20,40 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "space-y-4",
+};
+
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "firstName",
+    type: "text",
+    label: "First name",
+    placeholder: "John",
+    required: true,
+    columnSpan: 12,
+  },
+  {
+    name: "lastName",
+    type: "text",
+    label: "Last name",
+    placeholder: "Doe",
+    required: true,
+    columnSpan: 12,
+  },
+  {
+    name: "email",
+    type: "email",
+    label: "E-mail",
+    placeholder: "john@example.com",
+    required: true,
+    columnSpan: 12,
+  },
+];
 
 export interface HeroImageSliderProps {
   /**
@@ -123,11 +164,51 @@ export interface HeroImageSliderProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Form heading text
+   */
+  formHeading?: React.ReactNode;
+  /**
+   * Submit button text
+   */
+  buttonText?: string;
+  /**
+   * Icon to display in submit button
+   */
+  buttonIcon?: React.ReactNode;
+  /**
+   * Full form engine setup and props
+   */
+  formEngineSetup?: FormEngineProps;
+  /**
+   * Additional CSS classes for the form card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the card content
+   */
+  cardContentClassName?: string;
+  /**
+   * Additional CSS classes for the form heading
+   */
+  formHeadingClassName?: string;
+  /**
+   * Privacy notice text below the form
+   */
+  privacyNotice?: React.ReactNode;
+  /**
+   * Additional CSS classes for the privacy notice
+   */
+  privacyNoticeClassName?: string;
+  /**
+   * Additional CSS classes for the grid layout
+   */
+  gridClassName?: string;
 }
 
 /**
- * HeroImageSlider - A hero layout that layers headline content over
- * a rotating image slider, ideal for immersive visual storytelling.
+ * HeroImageSlider - A full-width hero with background image slider,
+ * split layout with content on the left and a form card on the right.
  */
 export function HeroImageSlider({
   eyebrow,
@@ -143,8 +224,8 @@ export function HeroImageSlider({
   overlay = true,
   overlaySlot,
   background,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-12",
+  spacing = "py-16 md:py-24",
   pattern,
   patternOpacity,
   className,
@@ -157,7 +238,53 @@ export function HeroImageSlider({
   imageClassName,
   overlayClassName,
   optixFlowConfig,
+  formHeading = "Sign up for updates",
+  buttonText = "Subscribe",
+  buttonIcon,
+  formEngineSetup,
+  cardClassName,
+  cardContentClassName,
+  formHeadingClassName,
+  privacyNotice = "We respect your privacy. Unsubscribe at any time.",
+  privacyNoticeClassName,
+  gridClassName,
 }: HeroImageSliderProps): React.JSX.Element {
+  const formStyleRules: FormEngineStyleRules = React.useMemo(() => {
+    return {
+      formContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formContainer ??
+        DEFAULT_STYLE_RULES.formContainer,
+      fieldsContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldsContainer ??
+        DEFAULT_STYLE_RULES.fieldsContainer,
+      fieldClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldClassName ??
+        DEFAULT_STYLE_RULES.fieldClassName,
+      formClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formClassName ??
+        DEFAULT_STYLE_RULES.formClassName,
+      successMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules
+          ?.successMessageClassName ??
+        DEFAULT_STYLE_RULES.successMessageClassName,
+      errorMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules
+          ?.errorMessageClassName ?? DEFAULT_STYLE_RULES.errorMessageClassName,
+    };
+  }, [formEngineSetup?.formLayoutSettings?.styleRules]);
+
+  const formFields = React.useMemo(() => {
+    if (
+      formEngineSetup &&
+      formEngineSetup?.fields &&
+      formEngineSetup?.fields?.length > 0
+    ) {
+      return formEngineSetup.fields;
+    } else {
+      return DEFAULT_FORM_FIELDS;
+    }
+  }, [formEngineSetup?.fields]);
+
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
@@ -176,8 +303,9 @@ export function HeroImageSlider({
       return (
         <Pressable
           key={index}
-          asButton={asButton ?? true}
-          className={actionClassName}
+          asButton={asButton ?? false}
+          variant="link"
+          className={cn("text-primary p-0 h-auto", actionClassName)}
           {...pressableProps}
         >
           {children ?? (
@@ -198,7 +326,7 @@ export function HeroImageSlider({
     return (
       <div
         className={cn(
-          "mx-auto flex max-w-3xl flex-col items-center",
+          "flex flex-col items-start justify-center",
           contentClassName,
         )}
       >
@@ -206,7 +334,7 @@ export function HeroImageSlider({
           typeof eyebrow === "string" ? (
             <p
               className={cn(
-                "text-xs font-semibold uppercase tracking-[0.3em] text-white",
+                "text-xs font-semibold uppercase tracking-[0.3em] text-white/80",
                 eyebrowClassName,
               )}
             >
@@ -220,34 +348,36 @@ export function HeroImageSlider({
           typeof heading === "string" ? (
             <h1
               className={cn(
-                "mt-5 text-4xl font-semibold tracking-tight text-balance md:text-6xl text-white text-shadow-xl",
+                "mt-3 text-3xl font-bold tracking-tight text-balance md:text-4xl lg:text-5xl text-white text-shadow-xl",
                 headingClassName,
               )}
             >
               {heading}
             </h1>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            <div className={cn("mt-3", headingClassName)}>{heading}</div>
           )
         ) : null}
         {description ? (
           typeof description === "string" ? (
             <p
               className={cn(
-                "mt-6 text-base text-white text-balance md:text-lg text-shadow-xl",
+                "mt-4 text-sm text-white/90 text-balance md:text-base max-w-md text-shadow-lg",
                 descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
-            <div className={descriptionClassName}>{description}</div>
+            <div className={cn("mt-4", descriptionClassName)}>
+              {description}
+            </div>
           )
         ) : null}
         {actionsSlot || (actions && actions.length > 0) ? (
           <div
             className={cn(
-              "mt-8 flex w-full flex-col items-center justify-center gap-3 sm:flex-row",
+              "mt-6 flex flex-col items-start gap-3 sm:flex-row",
               actionsClassName,
             )}
           >
@@ -271,33 +401,108 @@ export function HeroImageSlider({
     renderActions,
   ]);
 
+  const hasForm = formEngineSetup !== undefined;
+
   return (
     <Section
       background={background}
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("overflow-hidden", className)}
+      className={cn("relative overflow-hidden", className)}
       containerClassName={containerClassName}
     >
-      <ImageSlider
-        images={images && images.length ? images : []}
-        autoplay={autoplay}
-        autoplayIntervalMs={autoplayIntervalMs}
-        direction={direction}
-        transition="fade"
-        overlay={overlay}
-        overlaySlot={overlaySlot}
-        overlayClassName={overlayClassName}
+      {/* Full-width background image slider */}
+      <div className={cn("absolute inset-0", sliderClassName)}>
+        <ImageSlider
+          images={images && images.length ? images : []}
+          autoplay={autoplay}
+          autoplayIntervalMs={autoplayIntervalMs}
+          direction={direction}
+          transition="fade"
+          overlay={overlay}
+          overlaySlot={overlaySlot}
+          overlayClassName={cn(
+            "bg-linear-to-r from-black/70 via-black/50 to-black/30",
+            overlayClassName,
+          )}
+          className="min-h-full w-full rounded-none border-none shadow-none"
+          imageClassName={cn("scale-[1.02]", imageClassName)}
+          optixFlowConfig={optixFlowConfig}
+        />
+      </div>
+
+      {/* Content Grid */}
+      <div
         className={cn(
-          "min-h-[520px] md:min-h-[680px] bg-black!",
-          sliderClassName,
+          "relative z-20 grid min-h-[500px] md:min-h-[600px] gap-8 lg:gap-12 grid-cols-1",
+          hasForm ? "lg:grid-cols-2" : "lg:grid-cols-1",
+          gridClassName,
         )}
-        imageClassName={cn("scale-[1.02]", imageClassName)}
-        optixFlowConfig={optixFlowConfig}
       >
-        {renderContent}
-      </ImageSlider>
+        {/* Left: Content */}
+        <div className="flex items-center">{renderContent}</div>
+
+        {/* Right: Form Card */}
+        {hasForm && (
+          <div className="flex items-center justify-center lg:justify-end">
+            <Card
+              className={cn(
+                "w-full max-w-sm bg-card/95 backdrop-blur-sm shadow-2xl",
+                cardClassName,
+              )}
+            >
+              <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
+                {formHeading &&
+                  (typeof formHeading === "string" ? (
+                    <h3
+                      className={cn(
+                        "mb-6 text-xl font-semibold",
+                        formHeadingClassName,
+                      )}
+                    >
+                      {formHeading}
+                    </h3>
+                  ) : (
+                    <div className={cn("mb-6", formHeadingClassName)}>
+                      {formHeading}
+                    </div>
+                  ))}
+
+                <FormEngine
+                  {...formEngineSetup}
+                  formLayoutSettings={{
+                    ...formEngineSetup?.formLayoutSettings,
+                    formLayout: "standard",
+                    submitButtonSetup: {
+                      ...formEngineSetup?.formLayoutSettings?.submitButtonSetup,
+                      submitLabel: (
+                        <>
+                          {buttonIcon}
+                          {buttonText}
+                        </>
+                      ),
+                    },
+                    styleRules: formStyleRules,
+                  }}
+                  fields={formFields}
+                />
+
+                {privacyNotice && (
+                  <p
+                    className={cn(
+                      "mt-4 text-xs text-muted-foreground text-center",
+                      privacyNoticeClassName,
+                    )}
+                  >
+                    {privacyNotice}
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        )}
+      </div>
     </Section>
   );
 }

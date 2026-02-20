@@ -248,10 +248,10 @@ export function ContactDemo({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="flex flex-col items-center gap-12 md:gap-32">
+      <div className="flex flex-col items-center gap-8 md:gap-20">
         <div
           className={cn(
-            "flex flex-col items-center gap-4 md:gap-8 text-center",
+            "flex flex-col items-center gap-4 md:gap-8 text-center max-w-full md:max-w-sm",
             headerClassName,
           )}
         >
@@ -261,7 +261,7 @@ export function ContactDemo({
                 as="h2"
                 text={heading}
                 className={cn(
-                  "text-5xl lg:text-6xl xl:text-7xl font-bold",
+                  "text-5xl lg:text-6xl xl:text-7xl text-pretty font-bold text-left md:text-center",
                   headingClassName,
                 )}
                 animateBy="words"
@@ -275,7 +275,7 @@ export function ContactDemo({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "leading-relaxed text-balance text-lg",
+                  "leading-relaxed text-balance text-lg text-left md:text-center",
                   descriptionClassName,
                 )}
               >

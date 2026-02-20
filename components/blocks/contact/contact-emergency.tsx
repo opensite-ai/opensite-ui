@@ -297,7 +297,7 @@ export function ContactEmergency({
   successMessageClassName,
   errorMessageClassName,
   spacing = "py-8 md:py-32",
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  containerClassName = "w-full max-w-full relative z-10 px-6 sm:px-6 md:px-8 lg:px-8",
   background,
   pattern,
   patternOpacity,
@@ -376,29 +376,29 @@ export function ContactEmergency({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className="flex">
-          <div className={cn("p-0 md:p-12")}>
-            <Form
-              form={form}
-              notificationConfig={{
-                submissionError,
-                successMessage,
-              }}
-              styleConfig={{
-                formClassName,
-                successMessageClassName,
-                errorMessageClassName,
-              }}
-              formConfig={{
-                endpoint: formConfig?.endpoint,
-                method: formMethod,
-                submissionConfig: formConfig?.submissionConfig,
-              }}
-              onNewSubmission={() => {
-                resetUpload();
-                resetSubmissionState();
-              }}
-            >
+        <Form
+          form={form}
+          notificationConfig={{
+            submissionError,
+            successMessage,
+          }}
+          styleConfig={{
+            formClassName,
+            successMessageClassName,
+            errorMessageClassName,
+          }}
+          formConfig={{
+            endpoint: formConfig?.endpoint,
+            method: formMethod,
+            submissionConfig: formConfig?.submissionConfig,
+          }}
+          onNewSubmission={() => {
+            resetUpload();
+            resetSubmissionState();
+          }}
+        >
+          <div className="flex">
+            <div className={cn("p-0 md:p-12")}>
               <div className="grid md:grid-cols-2 gap-12 md:gap-24">
                 <div className="border-b border-border/60 p-6 md:border-b-0 md:border-r md:border-border/60">
                   <div className="flex flex-col items-start gap-8 md:gap-12">
@@ -435,75 +435,86 @@ export function ContactEmergency({
                           description
                         ))}
                     </div>
-
-                    {contactItems && contactItems.length > 0 && (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-                        {contactItems.map((item, index) => (
-                          <Pressable
-                            key={index}
-                            href={item.href}
-                            className={cn(
-                              "rounded-lg border p-4 bg-primary text-primary-foreground",
-                              item.className,
-                            )}
-                          >
-                            <div className="flex items-center gap-3">
-                              <DynamicIcon
-                                name={item.icon}
-                                size={item.iconSize ?? 28}
-                              />
-                              <div>
-                                <p className="font-bold">{item.title}</p>
-                                <p className="text-lg">{item.subtitle}</p>
-                              </div>
-                            </div>
-                          </Pressable>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-12 gap-4">
-                      {otherFields.map((field) => (
-                        <div
-                          key={field.name}
-                          className={getColumnSpanClass(field.columnSpan)}
-                        >
-                          <DynamicFormField
-                            field={field}
-                            uploadProgress={uploadProgress}
-                            onFileUpload={uploadFiles}
-                            onFileRemove={removeFile}
-                            isUploading={isUploading}
-                          />
-                        </div>
-                      ))}
-                    </div>
-
-                    {actionsSlot || (actions && actions.length > 0) ? (
-                      actionsContent
-                    ) : (
-                      <Pressable
-                        componentType="button"
-                        type="submit"
-                        className={cn("w-full", submitClassName)}
-                        size="lg"
-                        asButton
-                        disabled={form.isSubmitting}
-                      >
-                        {buttonIcon}
-                        {buttonText}
-                      </Pressable>
-                    )}
                   </div>
                 </div>
               </div>
-            </Form>
+
+              {contactItems && contactItems.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
+                  {contactItems.map((item, index) => (
+                    <Pressable
+                      key={index}
+                      href={item.href}
+                      className={cn(
+                        "rounded-md border bg-muted ring-2",
+                        "text-muted-foreground px-4 py-3 flex",
+                        "justify-start items-start transition-shadow",
+                        "duration-500 hover:shadow-xl",
+                        item.className,
+                      )}
+                    >
+                      <div className="flex items-center gap-1">
+                        {item.icon ? (
+                          <div className="flex items-center justify-center p-2 rounded-xl border bg-primary text-primary-foreground">
+                            <DynamicIcon
+                              name={item.icon}
+                              size={item.iconSize ?? 24}
+                            />
+                          </div>
+                        ) : null}
+                        <div>
+                          <p className="font-bold text-xs uppercase opacity-70">
+                            {item.title}
+                          </p>
+                          <p className="text-md font-semibold">
+                            {item.subtitle}
+                          </p>
+                        </div>
+                      </div>
+                    </Pressable>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+
+          <div className="p-6">
+            <div className="space-y-4">
+              <div className="grid grid-cols-12 gap-4">
+                {otherFields.map((field) => (
+                  <div
+                    key={field.name}
+                    className={getColumnSpanClass(field.columnSpan)}
+                  >
+                    <DynamicFormField
+                      field={field}
+                      uploadProgress={uploadProgress}
+                      onFileUpload={uploadFiles}
+                      onFileRemove={removeFile}
+                      isUploading={isUploading}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {actionsSlot || (actions && actions.length > 0) ? (
+                actionsContent
+              ) : (
+                <Pressable
+                  componentType="button"
+                  type="submit"
+                  className={cn("w-full", submitClassName)}
+                  size="lg"
+                  asButton
+                  disabled={form.isSubmitting}
+                >
+                  {buttonIcon}
+                  {buttonText}
+                </Pressable>
+              )}
+            </div>
+          </div>
+        </Form>
       </div>
     </Section>
   );

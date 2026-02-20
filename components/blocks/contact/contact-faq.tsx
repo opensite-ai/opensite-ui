@@ -214,7 +214,7 @@ export function ContactFaq({
   accordionContentClassName,
   gridClassName,
   background,
-  spacing = "py-8 md:py-32",
+  spacing = "py-16 md:py-32",
   pattern,
   patternOpacity,
 }: ContactFaqProps): React.JSX.Element {
@@ -312,7 +312,7 @@ export function ContactFaq({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "mb-3 text-3xl md:text-5xl font-bold tracking-tight text-balance",
+                  "mb-3 text-3xl md:text-5xl font-bold tracking-tight text-pretty",
                   headingClassName,
                 )}
               >
@@ -325,7 +325,7 @@ export function ContactFaq({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "leading-relaxed text-balance",
+                  "leading-relaxed text-lg text-pretty md:text-balance",
                   descriptionClassName,
                 )}
               >

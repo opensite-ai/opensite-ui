@@ -254,7 +254,10 @@ export const ImageSlider = ({
         perspective: "1000px",
       }}
     >
-      <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence
+        mode={transition === "fade" ? "sync" : "wait"}
+        initial={false}
+      >
         {activeImage ? (
           <motion.div
             key={`${currentIndex}-${activeImage.src ?? "image"}`}
