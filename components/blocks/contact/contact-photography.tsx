@@ -1,27 +1,28 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { Form } from "@page-speed/forms";
 import {
-  DynamicFormField,
-  getColumnSpanClass,
-  useContactForm,
-  useFileUpload,
+  FormEngine,
+  type FormEngineProps,
+  type FormEngineStyleRules,
   type FormFieldConfig,
-  type PageSpeedFormConfig,
 } from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { type PatternName } from "../../ui/pattern-background";
 import type {
-  ActionConfig,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
 import { Section } from "../../ui/section";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "space-y-6",
+};
 
 export interface DirectionConfig {
   desktop: "mediaRight" | "mediaLeft";
@@ -33,24 +34,6 @@ export interface ContactPhotographyProps {
   heading?: React.ReactNode;
   /** Description text below heading */
   description?: React.ReactNode;
-  /** Submit button text */
-  buttonText?: string;
-  /** Icon to display in submit button */
-  buttonIcon?: React.ReactNode;
-  /** Array of action configurations for custom buttons */
-  actions?: ActionConfig[];
-  /** Custom slot for rendering actions (overrides actions array) */
-  actionsSlot?: React.ReactNode;
-  /**
-   * Array of form field configurations
-   * If not provided, defaults to: first_name, last_name, email, phone, message
-   */
-  formFields?: FormFieldConfig[];
-  /**
-   * Success message to display after form submission
-   * @default "Thank you! Your message has been sent successfully."
-   */
-  successMessage?: React.ReactNode;
   /**
    * Additional CSS classes for the container
    */
@@ -63,14 +46,6 @@ export interface ContactPhotographyProps {
   descriptionClassName?: string;
   /** Additional CSS classes for the content area */
   contentClassName?: string;
-  /** Additional CSS classes for the form */
-  formClassName?: string;
-  /** Additional CSS classes for the submit button */
-  submitClassName?: string;
-  /** Additional CSS classes for the success message */
-  successMessageClassName?: string;
-  /** Additional CSS classes for the error message */
-  errorMessageClassName?: string;
   /** Section background variant */
   background?: SectionBackground;
   /** Pattern background key or URL */
@@ -94,15 +69,10 @@ export interface ContactPhotographyProps {
    * @default { desktop: 'mediaRight', mobile: 'mediaTop' }
    */
   directionConfig?: DirectionConfig;
-
-  /** Form configuration for PageSpeed forms */
-  formConfig?: PageSpeedFormConfig;
-  /** Custom submit handler */
-  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
-  /** Success callback */
-  onSuccess?: (data: unknown) => void;
-  /** Error callback */
-  onError?: (error: Error) => void;
+  /**
+   * Full form engine setup and props
+   */
+  formEngineSetup?: FormEngineProps;
 }
 
 // Default form fields
@@ -158,38 +128,15 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
  * configurable media placement for desktop and mobile.
  * Key features: Pattern background support, edge-to-edge design, no card wrapping.
  * Best for: Photography studios, creative services, visual-first contact pages.
- *
- * @example
- * ```tsx
- * <ContactPhotography
- *   heading="Photography Services"
- *   description="Book a photography session with us"
- *   buttonText="Send Message"
- *   imageSrc="/studio.jpg"
- *   background="dark"
- *   pattern="grid"
- *   formConfig={{ endpoint: "/api/contact", format: "json" }}
- * />
- * ```
  */
 export function ContactPhotography({
   heading,
   description,
-  buttonText = "Submit",
-  buttonIcon,
-  actions,
-  actionsSlot,
-  formFields = DEFAULT_FORM_FIELDS,
-  successMessage = "Thank you! Your message has been sent successfully.",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   className,
   headingClassName,
   descriptionClassName,
   contentClassName,
-  formClassName,
-  submitClassName,
-  successMessageClassName,
-  errorMessageClassName,
   spacing = "none",
   background,
   pattern,
@@ -199,70 +146,8 @@ export function ContactPhotography({
   imageClassName,
   optixFlowConfig,
   directionConfig = { desktop: "mediaRight", mobile: "mediaTop" },
-
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
+  formEngineSetup,
 }: ContactPhotographyProps): React.JSX.Element {
-  // File upload hook
-  const {
-    uploadTokens,
-    uploadProgress,
-    isUploading,
-    uploadFiles,
-    removeFile,
-    resetUpload,
-  } = useFileUpload({ onError });
-
-  // Contact form hook with file upload integration
-  const { form, submissionError, formMethod, resetSubmissionState } =
-    useContactForm({
-      formFields,
-      formConfig,
-      onSubmit,
-      onSuccess: (data) => {
-        resetUpload();
-        onSuccess?.(data);
-      },
-      onError,
-      resetOnSuccess: formConfig?.resetOnSuccess !== false,
-      uploadTokens,
-    });
-
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (actions && actions.length > 0) {
-      return actions.map((action, index) => {
-        const {
-          label,
-          icon,
-          iconAfter,
-          children,
-          className: actionClassName,
-          ...pressableProps
-        } = action;
-        return (
-          <Pressable
-            key={index}
-            asButton
-            className={actionClassName}
-            {...pressableProps}
-          >
-            {children ?? (
-              <>
-                {icon}
-                {label}
-                {iconAfter}
-              </>
-            )}
-          </Pressable>
-        );
-      });
-    }
-    return null;
-  }, [actionsSlot, actions]);
-
   const desktopOrder =
     directionConfig.desktop === "mediaRight"
       ? "lg:flex-row"
@@ -277,10 +162,8 @@ export function ContactPhotography({
         contentClassName,
       )}
     >
-      {/* Content */}
       <div className="relative z-10 w-full px-8 py-16 sm:px-12 sm:py-20 lg:px-16 lg:py-24 xl:px-24">
         <div className="mx-auto max-w-xl space-y-8">
-          {/* Heading */}
           {heading &&
             (typeof heading === "string" ? (
               <h2
@@ -294,8 +177,6 @@ export function ContactPhotography({
             ) : (
               <div className={headingClassName}>{heading}</div>
             ))}
-
-          {/* Description */}
           {description &&
             (typeof description === "string" ? (
               <p
@@ -309,62 +190,13 @@ export function ContactPhotography({
             ) : (
               <div className={descriptionClassName}>{description}</div>
             ))}
-
-          {/* Form */}
-          <Form
-            form={form}
-            notificationConfig={{
-              submissionError,
-              successMessage,
-            }}
-            styleConfig={{
-              formClassName: cn("space-y-6", formClassName),
-              successMessageClassName,
-              errorMessageClassName,
-            }}
-            formConfig={{
-              endpoint: formConfig?.endpoint,
-              method: formMethod,
-              submissionConfig: formConfig?.submissionConfig,
-            }}
-            onNewSubmission={() => {
-              resetUpload();
-              resetSubmissionState();
-            }}
-          >
-            <div className="grid grid-cols-12 gap-6">
-              {formFields.map((field) => (
-                <div
-                  key={field.name}
-                  className={getColumnSpanClass(field.columnSpan)}
-                >
-                  <DynamicFormField
-                    field={field}
-                    uploadProgress={uploadProgress}
-                    onFileUpload={uploadFiles}
-                    onFileRemove={removeFile}
-                    isUploading={isUploading}
-                  />
-                </div>
-              ))}
-            </div>
-
-            {actionsSlot || (actions && actions.length > 0) ? (
-              actionsContent
-            ) : (
-              <Pressable
-                componentType="button"
-                type="submit"
-                className={cn("w-full", submitClassName)}
-                size="lg"
-                asButton
-                disabled={form.isSubmitting}
-              >
-                {buttonIcon}
-                {buttonText}
-              </Pressable>
-            )}
-          </Form>
+          {formEngineSetup ? (
+            <FormEngine
+              formEngineSetup={formEngineSetup}
+              defaultFields={DEFAULT_FORM_FIELDS}
+              defaultStyleRules={DEFAULT_STYLE_RULES}
+            />
+          ) : null}
         </div>
       </div>
     </div>

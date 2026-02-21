@@ -17,6 +17,10 @@ import type {
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
 import { Badge } from "@/src";
+import {
+  ContentGroup,
+  type ContentGroupItem,
+} from "@/components/ui/content-group";
 
 export interface CultureTestimonial {
   /**
@@ -230,6 +234,60 @@ export function AboutCultureTabs({
     resolvedAspects[0]?.id || "",
   );
 
+  const headerItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (badgeText) {
+      if (typeof badgeText === "string") {
+        items.push(
+          <Badge key="badge" className={cn("px-3 py-1", badgeClassName)}>
+            {badgeText}
+          </Badge>,
+        );
+      } else {
+        items.push(badgeText);
+      }
+    }
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "text-3xl font-bold tracking-tight md:text-4xl text-pretty",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn("text-balance", descriptionClassName),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [
+    badgeText,
+    badgeClassName,
+    heading,
+    headingClassName,
+    description,
+    descriptionClassName,
+  ]);
+
   const ctaImagesContent = useMemo(() => {
     if (ctaImagesSlot) return ctaImagesSlot;
     if (!ctaImages || ctaImages.length === 0) return null;
@@ -258,42 +316,13 @@ export function AboutCultureTabs({
       className={className}
       containerClassName={containerClassName}
     >
-      <div
+      <ContentGroup
+        items={headerItems}
         className={cn(
           "mx-auto mb-12 max-w-full md:max-w-md space-y-4 text-center flex flex-col items-center justify-center",
           headerClassName,
         )}
-      >
-        {badgeText &&
-          (typeof badgeText === "string" ? (
-            <Badge className={cn("px-3 py-1", badgeClassName)}>
-              {badgeText}
-            </Badge>
-          ) : (
-            badgeText
-          ))}
-        {heading &&
-          (typeof heading === "string" ? (
-            <h2
-              className={cn(
-                "text-3xl font-bold tracking-tight md:text-4xl text-pretty",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h2>
-          ) : (
-            heading
-          ))}
-        {description &&
-          (typeof description === "string" ? (
-            <p className={cn("text-balance", descriptionClassName)}>
-              {description}
-            </p>
-          ) : (
-            description
-          ))}
-      </div>
+      />
 
       {aspectsSlot ? (
         aspectsSlot

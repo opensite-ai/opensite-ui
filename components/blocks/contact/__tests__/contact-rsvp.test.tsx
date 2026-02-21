@@ -14,7 +14,6 @@ describe("ContactRsvp", () => {
       <ContactRsvp
         heading="Test Heading"
         description="Test Description"
-        buttonText="Test Button"
       />
     );
     expect(container).toBeInTheDocument();

@@ -1,23 +1,25 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { Form } from "@page-speed/forms";
+import {
+  FormEngine,
+  FormEngineProps,
+  FormEngineStyleRules,
+  type FormFieldConfig,
+} from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card, CardContent } from "../../ui/card";
-import { DynamicFormField } from "../../ui/dynamic-form-field";
-import type { FormFieldConfig } from "../../../lib/form-field-types";
-import { getColumnSpanClass } from "../../../lib/form-field-types";
-import { useContactForm, type PageSpeedFormConfig } from "../../../lib/forms";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type {
-  ActionConfig,
-  SectionBackground,
-  SectionSpacing,
-} from "../../../src/types";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "space-y-6",
+};
 
 // Default form fields for callback scheduling
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
@@ -131,44 +133,6 @@ export interface ContactCallbackProps {
    */
   description?: React.ReactNode;
   /**
-   * Submit button text
-   */
-  buttonText?: string;
-  /**
-   * Submit button icon (displayed before text)
-   */
-  buttonIcon?: React.ReactNode;
-  /**
-   * Array of action configurations for additional buttons
-   */
-  actions?: ActionConfig[];
-  /**
-   * Custom slot for rendering actions (overrides actions array and default submit)
-   */
-  actionsSlot?: React.ReactNode;
-  /**
-   * Array of form field configurations
-   * If not provided, defaults to: name, company, email, phone, date, time, timezone, topic, details
-   */
-  formFields?: FormFieldConfig[];
-  /**
-   * Success message to display after form submission
-   * @default "Thank you! Your callback request has been received."
-   */
-  successMessage?: React.ReactNode;
-  /**
-   * Label for the information section heading
-   */
-  infoSectionLabel?: string;
-  /**
-   * Label for the schedule section heading
-   */
-  scheduleSectionLabel?: string;
-  /**
-   * Label for the topic section heading
-   */
-  topicSectionLabel?: string;
-  /**
    * Label for the callback process info box heading
    */
   callbackProcessLabel?: string;
@@ -205,22 +169,6 @@ export interface ContactCallbackProps {
    */
   cardContentClassName?: string;
   /**
-   * Additional CSS classes for the form
-   */
-  formClassName?: string;
-  /**
-   * Additional CSS classes for the submit button
-   */
-  submitClassName?: string;
-  /**
-   * Additional CSS classes for the success message
-   */
-  successMessageClassName?: string;
-  /**
-   * Additional CSS classes for the error message
-   */
-  errorMessageClassName?: string;
-  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -238,22 +186,9 @@ export interface ContactCallbackProps {
    */
   patternOpacity?: number;
   /**
-   * Optional form submission configuration.
-   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples.
+   * Full form engine setup and props
    */
-  formConfig?: PageSpeedFormConfig;
-  /**
-   * Optional custom submission handler for maximum flexibility.
-   */
-  onSubmit?: (values: Record<string, unknown>) => void | Promise<void>;
-  /**
-   * Optional success callback invoked after successful submission.
-   */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Optional error callback invoked if submission fails.
-   */
-  onError?: (error: Error) => void;
+  formEngineSetup?: FormEngineProps;
 }
 
 /**
@@ -266,23 +201,13 @@ export interface ContactCallbackProps {
  * <ContactCallback
  *   heading="Request a Callback"
  *   description="Schedule a time that works for you"
- *   buttonText="Schedule Callback"
- *   formConfig={{ endpoint: "/api/callback", format: "json" }}
+ *   formEngineSetup={{ formConfig: { endpoint: "/api/callback", format: "json" } }}
  * />
  * ```
  */
 export function ContactCallback({
   heading,
   description,
-  buttonText = "Schedule Callback",
-  buttonIcon = <DynamicIcon name="lucide/phone" size={16} />,
-  actions,
-  actionsSlot,
-  formFields,
-  successMessage = "Thank you! Your callback request has been received.",
-  infoSectionLabel,
-  scheduleSectionLabel,
-  topicSectionLabel,
   callbackProcessLabel,
   callbackProcessDescription,
   className,
@@ -292,66 +217,12 @@ export function ContactCallback({
   descriptionClassName,
   cardClassName,
   cardContentClassName,
-  formClassName,
-  submitClassName,
-  successMessageClassName,
-  errorMessageClassName,
   background,
   spacing = "py-8 md:py-32",
   pattern,
   patternOpacity,
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
+  formEngineSetup,
 }: ContactCallbackProps): React.JSX.Element {
-  // Use the provided form fields or fall back to defaults
-  const fields = useMemo(() => formFields || DEFAULT_FORM_FIELDS, [formFields]);
-
-  // Initialize form with contact form hook
-  const { form, submissionError, formMethod, resetSubmissionState } =
-    useContactForm({
-      formFields: fields,
-      formConfig,
-      onSubmit,
-      onSuccess,
-      onError,
-    });
-
-  // Render actions
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (actions && actions.length > 0) {
-      return actions.map((action, index) => {
-        const {
-          label,
-          icon,
-          iconAfter,
-          children,
-          className: actionClassName,
-          ...pressableProps
-        } = action;
-        return (
-          <Pressable
-            key={index}
-            asButton
-            className={actionClassName}
-            {...pressableProps}
-          >
-            {children ?? (
-              <>
-                {icon}
-                {label}
-                {iconAfter}
-              </>
-            )}
-          </Pressable>
-        );
-      });
-    }
-    return null;
-  }, [actionsSlot, actions]);
-
   return (
     <Section
       background={background}
@@ -397,69 +268,36 @@ export function ContactCallback({
         {/* Form Card */}
         <Card className={cardClassName}>
           <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
-            <Form
-              form={form}
-              action={formConfig?.endpoint}
-              method={formMethod}
-              submissionError={submissionError}
-              successMessage={successMessage}
-              successMessageClassName={successMessageClassName}
-              errorMessageClassName={errorMessageClassName}
-              submissionConfig={formConfig?.submissionConfig}
-              onNewSubmission={resetSubmissionState}
-              className={cn("space-y-6", formClassName)}
-            >
-              <div className="grid grid-cols-12 gap-6">
-                {fields.map((field) => (
-                  <div
-                    key={field.name}
-                    className={getColumnSpanClass(field.columnSpan)}
-                  >
-                    <DynamicFormField field={field} />
-                  </div>
-                ))}
-              </div>
-
-              {/* Optional Info Box */}
-              {(callbackProcessLabel || callbackProcessDescription) && (
-                <div className="rounded-lg border p-4">
-                  <div className="flex items-start gap-3">
-                    <DynamicIcon
-                      name="lucide/clock"
-                      size={20}
-                      className="mt-1 shrink-0"
-                    />
-                    <div className="text-sm">
-                      {callbackProcessLabel && (
-                        <p className="font-medium">{callbackProcessLabel}</p>
-                      )}
-                      {callbackProcessDescription && (
-                        <p className="mt-1 leading-relaxed">
-                          {callbackProcessDescription}
-                        </p>
-                      )}
-                    </div>
+            {/* Optional Info Box */}
+            {(callbackProcessLabel || callbackProcessDescription) && (
+              <div className="mb-6 rounded-lg border p-4">
+                <div className="flex items-start gap-3">
+                  <DynamicIcon
+                    name="lucide/clock"
+                    size={20}
+                    className="mt-1 shrink-0"
+                  />
+                  <div className="text-sm">
+                    {callbackProcessLabel && (
+                      <p className="font-medium">{callbackProcessLabel}</p>
+                    )}
+                    {callbackProcessDescription && (
+                      <p className="mt-1 leading-relaxed">
+                        {callbackProcessDescription}
+                      </p>
+                    )}
                   </div>
                 </div>
-              )}
+              </div>
+            )}
 
-              {/* Submit Button */}
-              {actionsSlot || (actions && actions.length > 0) ? (
-                actionsContent
-              ) : (
-                <Pressable
-                  componentType="button"
-                  type="submit"
-                  className={cn("w-full gap-2", submitClassName)}
-                  size="lg"
-                  asButton
-                  disabled={form.isSubmitting}
-                >
-                  {buttonIcon}
-                  {buttonText || "Schedule Callback"}
-                </Pressable>
-              )}
-            </Form>
+            {formEngineSetup ? (
+              <FormEngine
+                formEngineSetup={formEngineSetup}
+                defaultFields={DEFAULT_FORM_FIELDS}
+                defaultStyleRules={DEFAULT_STYLE_RULES}
+              />
+            ) : null}
           </CardContent>
         </Card>
       </div>

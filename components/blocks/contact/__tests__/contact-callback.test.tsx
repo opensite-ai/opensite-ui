@@ -20,11 +20,6 @@ describe("ContactCallback", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders custom button text", () => {
-    render(<ContactCallback buttonText="Custom Button" />);
-    expect(screen.getByText("Custom Button")).toBeInTheDocument();
-  });
-
   it("applies custom className", () => {
     const { container } = render(<ContactCallback className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

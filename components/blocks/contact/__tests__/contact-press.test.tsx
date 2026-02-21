@@ -14,7 +14,6 @@ describe("ContactPress", () => {
       <ContactPress
         heading="Test Heading"
         description="Test Description"
-        buttonText="Test Button"
       />
     );
     expect(container).toBeInTheDocument();

@@ -12,6 +12,10 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
+import {
+  ContentGroup,
+  type ContentGroupItem,
+} from "@/components/ui/content-group";
 
 export interface HeroPresentationPlatformVideoProps {
   /**
@@ -108,6 +112,54 @@ export function HeroPresentationPlatformVideo({
   descriptionClassName,
   videoClassName,
 }: HeroPresentationPlatformVideoProps): React.JSX.Element {
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (subtitle) {
+      if (typeof subtitle === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: "font-light uppercase",
+          children: subtitle,
+        });
+      } else {
+        items.push(subtitle);
+      }
+    }
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h1",
+          className: cn(
+            "text-5xl font-medium md:text-6xl lg:text-7xl",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn("my-0 md:my-8 md:text-xl", descriptionClassName),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [subtitle, heading, headingClassName, description, descriptionClassName]);
+
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
@@ -185,42 +237,8 @@ export function HeroPresentationPlatformVideo({
             contentClassName,
           )}
         >
-          {subtitle &&
-            (typeof subtitle === "string" ? (
-              <p className="font-light uppercase">{subtitle}</p>
-            ) : (
-              subtitle
-            ))}
-          {heading &&
-            (typeof heading === "string" ? (
-              <h1
-                className={cn(
-                  "text-5xl font-medium md:text-6xl lg:text-7xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
-            ) : (
-              <h1
-                className={cn(
-                  "text-5xl font-medium md:text-6xl lg:text-7xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p
-                className={cn("my-0 md:my-8 md:text-xl", descriptionClassName)}
-              >
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
+          <ContentGroup items={contentItems} />
+
           <BlockActions
             actions={actions}
             actionsSlot={actionsSlot}

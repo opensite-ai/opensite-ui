@@ -20,8 +20,5 @@ describe("ContactCatering", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders custom button text", () => {
-    render(<ContactCatering buttonText="Custom Button" />);
-    expect(screen.getByText("Custom Button")).toBeInTheDocument();
-  });
 });
+

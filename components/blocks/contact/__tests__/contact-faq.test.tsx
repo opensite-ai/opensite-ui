@@ -77,7 +77,6 @@ describe("ContactFaq", () => {
       <ContactFaq
         heading="Test Heading"
         description="Test Description"
-        buttonText="Test Button"
       />
     );
     expect(container).toBeInTheDocument();
@@ -94,7 +93,6 @@ describe("ContactFaq", () => {
         heading="Need Help?"
         items={mockFaqItems}
         faqHeading="Frequently Asked Questions"
-        buttonText="Send"
       />
     );
     expect(screen.getByText("Frequently Asked Questions")).toBeInTheDocument();
@@ -108,7 +106,6 @@ describe("ContactFaq", () => {
       <ContactFaq
         heading="Help"
         items={mockFaqItems}
-        buttonText="Submit"
       />
     );
     const gridDiv = container.querySelector(".lg\\:grid-cols-2");
@@ -117,7 +114,7 @@ describe("ContactFaq", () => {
 
   it("uses single-column layout when no FAQ items are provided", () => {
     const { container } = render(
-      <ContactFaq heading="Help" buttonText="Submit" />
+      <ContactFaq heading="Help" />
     );
     const gridDiv = container.querySelector(".lg\\:grid-cols-1");
     expect(gridDiv).toBeInTheDocument();
@@ -126,7 +123,7 @@ describe("ContactFaq", () => {
   });
 
   it("renders form with FormEngine", () => {
-    render(<ContactFaq buttonText="Submit" formEngineSetup={{ fields: [] }} />);
+    render(<ContactFaq formEngineSetup={{ fields: [] }} />);
     expect(screen.getByTestId("mock-form-engine")).toBeInTheDocument();
   });
 });

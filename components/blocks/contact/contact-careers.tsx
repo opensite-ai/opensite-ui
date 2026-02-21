@@ -1,26 +1,24 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { Form } from "@page-speed/forms";
-import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
-import { Card, CardContent } from "../../ui/card";
-import { DynamicFormField } from "../../ui/dynamic-form-field";
-import type { FormFieldConfig } from "../../../lib/form-field-types";
-import { getColumnSpanClass } from "../../../lib/form-field-types";
 import {
-  useContactForm,
-  useFileUpload,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
+  FormEngine,
+  FormEngineProps,
+  FormEngineStyleRules,
+  type FormFieldConfig,
+} from "@page-speed/forms/integration";
+import { cn } from "../../../lib/utils";
+import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type {
-  ActionConfig,
-  SectionBackground,
-  SectionSpacing,
-} from "../../../src/types";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "space-y-6",
+};
 
 // Default form fields for careers application
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
@@ -133,32 +131,6 @@ export interface ContactCareersProps {
    */
   description?: React.ReactNode;
   /**
-   * Submit button text
-   */
-  buttonText?: string;
-  /**
-   * Submit button icon (displayed before text)
-   */
-  buttonIcon?: React.ReactNode;
-  /**
-   * Array of action configurations for additional buttons
-   */
-  actions?: ActionConfig[];
-  /**
-   * Custom slot for rendering actions (overrides actions array and default submit)
-   */
-  actionsSlot?: React.ReactNode;
-  /**
-   * Array of form field configurations
-   * If not provided, defaults to: position, firstName, lastName, email, phone, linkedin, portfolio, availability, coverLetter, resume
-   */
-  formFields?: FormFieldConfig[];
-  /**
-   * Success message to display after form submission
-   * @default "Thank you for your application! We'll review it and get back to you soon."
-   */
-  successMessage?: React.ReactNode;
-  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -188,22 +160,6 @@ export interface ContactCareersProps {
    */
   cardContentClassName?: string;
   /**
-   * Additional CSS classes for the submit button
-   */
-  submitClassName?: string;
-  /**
-   * Additional CSS classes for the form
-   */
-  formClassName?: string;
-  /**
-   * Additional CSS classes for the success message
-   */
-  successMessageClassName?: string;
-  /**
-   * Additional CSS classes for the error message
-   */
-  errorMessageClassName?: string;
-  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -221,22 +177,9 @@ export interface ContactCareersProps {
    */
   patternOpacity?: number;
   /**
-   * Optional form submission configuration.
-   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples.
+   * Full form engine setup and props
    */
-  formConfig?: PageSpeedFormConfig;
-  /**
-   * Optional custom submission handler for maximum flexibility.
-   */
-  onSubmit?: (values: Record<string, unknown>) => void | Promise<void>;
-  /**
-   * Optional success callback invoked after successful submission.
-   */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Optional error callback invoked if submission fails.
-   */
-  onError?: (error: Error) => void;
+  formEngineSetup?: FormEngineProps;
 }
 
 /**
@@ -248,20 +191,13 @@ export interface ContactCareersProps {
  * <ContactCareers
  *   heading="Join Our Team"
  *   description="We're always looking for talented people to join us."
- *   buttonText="Submit Application"
- *   formConfig={{ endpoint: "/api/careers", format: "json" }}
+ *   formEngineSetup={{ formConfig: { endpoint: "/api/careers", format: "json" } }}
  * />
  * ```
  */
 export function ContactCareers({
   heading,
   description,
-  buttonText = "Submit Application",
-  buttonIcon,
-  actions,
-  actionsSlot,
-  formFields,
-  successMessage = "Thank you for your application! We'll review it and get back to you soon.",
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
@@ -269,79 +205,12 @@ export function ContactCareers({
   descriptionClassName,
   cardClassName,
   cardContentClassName,
-  submitClassName,
-  formClassName,
-  successMessageClassName,
-  errorMessageClassName,
   background,
   spacing = "py-8 md:py-32",
   pattern,
   patternOpacity,
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
+  formEngineSetup,
 }: ContactCareersProps): React.JSX.Element {
-  // Use the provided form fields or fall back to defaults
-  const fields = useMemo(() => formFields || DEFAULT_FORM_FIELDS, [formFields]);
-
-  // Initialize file upload hook
-  const {
-    uploadTokens,
-    uploadProgress,
-    isUploading,
-    uploadFiles,
-    removeFile,
-    resetUpload,
-  } = useFileUpload({ onError });
-
-  // Initialize form with contact form hook
-  const { form, submissionError, formMethod, resetSubmissionState } =
-    useContactForm({
-      formFields: fields,
-      formConfig,
-      onSubmit,
-      onSuccess: (data) => {
-        resetUpload();
-        onSuccess?.(data);
-      },
-      onError,
-      uploadTokens,
-    });
-
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (actions && actions.length > 0) {
-      return actions.map((action, index) => {
-        const {
-          label,
-          icon,
-          iconAfter,
-          children,
-          className: actionClassName,
-          ...pressableProps
-        } = action;
-        return (
-          <Pressable
-            key={index}
-            asButton
-            className={actionClassName}
-            {...pressableProps}
-          >
-            {children ?? (
-              <>
-                {icon}
-                {label}
-                {iconAfter}
-              </>
-            )}
-          </Pressable>
-        );
-      });
-    }
-    return null;
-  }, [actionsSlot, actions]);
-
   return (
     <Section
       background={background}
@@ -383,54 +252,13 @@ export function ContactCareers({
 
         <Card className={cardClassName}>
           <CardContent className={cn("p-0", cardContentClassName)}>
-            <Form
-              form={form}
-              action={formConfig?.endpoint}
-              method={formMethod}
-              submissionError={submissionError}
-              successMessage={successMessage}
-              successMessageClassName={successMessageClassName}
-              errorMessageClassName={errorMessageClassName}
-              submissionConfig={formConfig?.submissionConfig}
-              onNewSubmission={() => {
-                resetUpload();
-                resetSubmissionState();
-              }}
-              className={cn("p-6 space-y-6", formClassName)}
-            >
-              <div className="grid grid-cols-12 gap-6">
-                {fields.map((field) => (
-                  <div
-                    key={field.name}
-                    className={getColumnSpanClass(field.columnSpan)}
-                  >
-                    <DynamicFormField
-                      field={field}
-                      uploadProgress={uploadProgress}
-                      onFileUpload={uploadFiles}
-                      onFileRemove={removeFile}
-                      isUploading={isUploading}
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {/* Submit Button */}
-              {actionsSlot || (actions && actions.length > 0) ? (
-                actionsContent
-              ) : (
-                <Pressable
-                  componentType="button"
-                  type="submit"
-                  className={cn("w-full", submitClassName)}
-                  asButton
-                  disabled={form.isSubmitting}
-                >
-                  {buttonIcon}
-                  {buttonText}
-                </Pressable>
-              )}
-            </Form>
+            {formEngineSetup ? (
+              <FormEngine
+                formEngineSetup={formEngineSetup}
+                defaultFields={DEFAULT_FORM_FIELDS}
+                defaultStyleRules={DEFAULT_STYLE_RULES}
+              />
+            ) : null}
           </CardContent>
         </Card>
       </div>

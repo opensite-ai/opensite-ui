@@ -94,6 +94,11 @@
     "import": "./dist/container.js",
     "require": "./dist/container.cjs"
   },
+  "./components/content-group": {
+    "types": "./dist/content-group.d.ts",
+    "import": "./dist/content-group.js",
+    "require": "./dist/content-group.cjs"
+  },
   "./components/dialog": {
     "types": "./dist/dialog.d.ts",
     "import": "./dist/dialog.js",
@@ -228,6 +233,11 @@
     "types": "./dist/tabs.d.ts",
     "import": "./dist/tabs.js",
     "require": "./dist/tabs.cjs"
+  },
+  "./components/text": {
+    "types": "./dist/text.d.ts",
+    "import": "./dist/text.js",
+    "require": "./dist/text.cjs"
   },
   "./components/tooltip": {
     "types": "./dist/tooltip.d.ts",

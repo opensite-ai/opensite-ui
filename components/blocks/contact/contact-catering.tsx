@@ -1,22 +1,24 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { Form } from "@page-speed/forms";
+import {
+  FormEngine,
+  FormEngineProps,
+  FormEngineStyleRules,
+  type FormFieldConfig,
+} from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent } from "../../ui/card";
-import { DynamicFormField } from "../../ui/dynamic-form-field";
-import type { FormFieldConfig } from "../../../lib/form-field-types";
-import { getColumnSpanClass } from "../../../lib/form-field-types";
-import { useContactForm, type PageSpeedFormConfig } from "../../../lib/forms";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type {
-  ActionConfig,
-  SectionBackground,
-  SectionSpacing,
-} from "../../../src/types";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "space-y-6",
+};
 
 const EVENT_TYPES = [
   { value: "wedding", label: "Wedding" },
@@ -198,32 +200,6 @@ export interface ContactCateringProps {
    */
   description?: React.ReactNode;
   /**
-   * Submit button text
-   */
-  buttonText?: string;
-  /**
-   * Submit button icon (displayed before text)
-   */
-  buttonIcon?: React.ReactNode;
-  /**
-   * Array of action configurations for additional buttons
-   */
-  actions?: ActionConfig[];
-  /**
-   * Custom slot for rendering actions (overrides actions array and default submit)
-   */
-  actionsSlot?: React.ReactNode;
-  /**
-   * Array of form field configurations
-   * If not provided, defaults to: eventType, eventDate, guestCount, budget, serviceStyle, cuisinePreferences, dietaryAccommodations, name, email, phone, venue, details, tasting
-   */
-  formFields?: FormFieldConfig[];
-  /**
-   * Success message to display after form submission
-   * @default "Thank you for your inquiry! We'll get back to you within 24 hours with a custom proposal."
-   */
-  successMessage?: React.ReactNode;
-  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -253,22 +229,6 @@ export interface ContactCateringProps {
    */
   cardContentClassName?: string;
   /**
-   * Additional CSS classes for the form
-   */
-  formClassName?: string;
-  /**
-   * Additional CSS classes for success message
-   */
-  successMessageClassName?: string;
-  /**
-   * Additional CSS classes for error message
-   */
-  errorMessageClassName?: string;
-  /**
-   * Additional CSS classes for the submit button
-   */
-  submitClassName?: string;
-  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -286,21 +246,9 @@ export interface ContactCateringProps {
    */
   patternOpacity?: number;
   /**
-   * Optional form submission configuration. See FORMS_INTEGRATION_GUIDE.md for complete examples.
+   * Full form engine setup and props
    */
-  formConfig?: PageSpeedFormConfig;
-  /**
-   * Optional custom submission handler.
-   */
-  onSubmit?: (values: Record<string, unknown>) => void | Promise<void>;
-  /**
-   * Optional success callback invoked after successful submission.
-   */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Optional error callback invoked if submission fails.
-   */
-  onError?: (error: Error) => void;
+  formEngineSetup?: FormEngineProps;
 }
 
 /**
@@ -313,20 +261,13 @@ export interface ContactCateringProps {
  * <ContactCatering
  *   heading="Catering Inquiry"
  *   description="Let us make your event unforgettable with our catering services."
- *   buttonText="Request Quote"
- *   formConfig={{ endpoint: "/api/catering", format: "json" }}
+ *   formEngineSetup={{ formConfig: { endpoint: "/api/catering", format: "json" } }}
  * />
  * ```
  */
 export function ContactCatering({
   heading,
   description,
-  buttonText = "Request Quote",
-  buttonIcon,
-  actions,
-  actionsSlot,
-  formFields,
-  successMessage = "Thank you for your inquiry! We'll get back to you within 24 hours with a custom proposal.",
   className,
   spacing = "py-8 md:py-32",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
@@ -335,64 +276,11 @@ export function ContactCatering({
   descriptionClassName,
   cardClassName,
   cardContentClassName,
-  formClassName,
-  successMessageClassName,
-  errorMessageClassName,
-  submitClassName,
   background,
   pattern,
   patternOpacity,
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
+  formEngineSetup,
 }: ContactCateringProps): React.JSX.Element {
-  // Use the provided form fields or fall back to defaults
-  const fields = useMemo(() => formFields || DEFAULT_FORM_FIELDS, [formFields]);
-
-  // Contact form hook
-  const { form, submissionError, formMethod, resetSubmissionState } =
-    useContactForm({
-      formFields: fields,
-      formConfig,
-      onSubmit,
-      onSuccess,
-      onError,
-    });
-
-  const actionsContent = React.useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (actions && actions.length > 0) {
-      return actions.map((action, index) => {
-        const {
-          label,
-          icon,
-          iconAfter,
-          children,
-          className: actionClassName,
-          ...pressableProps
-        } = action;
-        return (
-          <Pressable
-            key={index}
-            asButton
-            className={actionClassName}
-            {...pressableProps}
-          >
-            {children ?? (
-              <>
-                {icon}
-                {label}
-                {iconAfter}
-              </>
-            )}
-          </Pressable>
-        );
-      });
-    }
-    return null;
-  }, [actionsSlot, actions]);
-
   return (
     <Section
       background={background}
@@ -434,46 +322,13 @@ export function ContactCatering({
 
         <Card className={cardClassName}>
           <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
-            <Form
-              form={form}
-              action={formConfig?.endpoint}
-              method={formMethod}
-              submissionError={submissionError}
-              successMessage={successMessage}
-              successMessageClassName={successMessageClassName}
-              errorMessageClassName={errorMessageClassName}
-              submissionConfig={formConfig?.submissionConfig}
-              onNewSubmission={resetSubmissionState}
-              className={cn("space-y-6", formClassName)}
-            >
-              {/* Form Fields */}
-              <div className="grid grid-cols-12 gap-6">
-                {fields.map((field) => (
-                  <div
-                    key={field.name}
-                    className={getColumnSpanClass(field.columnSpan)}
-                  >
-                    <DynamicFormField field={field} />
-                  </div>
-                ))}
-              </div>
-
-              {/* Submit Button */}
-              {actionsSlot || (actions && actions.length > 0) ? (
-                actionsContent
-              ) : (
-                <Pressable
-                  componentType="button"
-                  type="submit"
-                  className={cn("w-full", submitClassName)}
-                  asButton
-                  disabled={form.isSubmitting}
-                >
-                  {buttonIcon}
-                  {buttonText}
-                </Pressable>
-              )}
-            </Form>
+            {formEngineSetup ? (
+              <FormEngine
+                formEngineSetup={formEngineSetup}
+                defaultFields={DEFAULT_FORM_FIELDS}
+                defaultStyleRules={DEFAULT_STYLE_RULES}
+              />
+            ) : null}
           </CardContent>
         </Card>
       </div>

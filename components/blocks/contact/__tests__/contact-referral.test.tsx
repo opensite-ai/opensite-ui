@@ -14,7 +14,6 @@ describe("ContactReferral", () => {
       <ContactReferral
         heading="Test Heading"
         description="Test Description"
-        buttonText="Test Button"
       />
     );
     expect(container).toBeInTheDocument();

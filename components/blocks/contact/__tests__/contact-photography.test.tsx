@@ -2,53 +2,16 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { ContactPhotography } from "../contact-photography";
 
-vi.mock("@page-speed/forms", () => ({
-  Form: ({
-    children,
-    className,
-  }: {
-    children: React.ReactNode;
-    className?: string;
-  }) => <form className={className}>{children}</form>,
-}));
-
 vi.mock("@page-speed/forms/integration", () => ({
-  getColumnSpanClass: () => "col-span-12",
-  DynamicFormField: ({
-    field,
-  }: {
-    field: { name: string; label?: string };
-  }) => (
-    <div>
-      <label htmlFor={field.name}>{field.label ?? field.name}</label>
-      <input id={field.name} aria-label={field.label ?? field.name} />
+  FormEngine: ({ formEngineSetup, defaultFields }: { formEngineSetup?: unknown; defaultFields?: Array<{ name: string; label?: string }> }) => (
+    <div data-testid="form-engine">
+      {defaultFields?.map((field) => (
+        <div key={field.name}>
+          <label htmlFor={field.name}>{field.label ?? field.name}</label>
+          <input id={field.name} aria-label={field.label ?? field.name} />
+        </div>
+      ))}
     </div>
-  ),
-  useFileUpload: () => ({
-    uploadTokens: [],
-    uploadProgress: {},
-    isUploading: false,
-    uploadFiles: vi.fn(),
-    removeFile: vi.fn(),
-    resetUpload: vi.fn(),
-  }),
-  useContactForm: () => ({
-    form: {
-      isSubmitting: false,
-      status: "idle",
-      handleSubmit: async (event?: Event) => event?.preventDefault?.(),
-      resetForm: vi.fn(),
-    },
-    isSubmitted: false,
-    submissionError: null,
-    formMethod: "post",
-    resetSubmissionState: vi.fn(),
-  }),
-}));
-
-vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
   ),
 }));
 
@@ -58,7 +21,6 @@ describe("ContactPhotography", () => {
       <ContactPhotography
         heading="Test Heading"
         description="Test Description"
-        buttonText="Test Button"
       />
     );
     expect(container).toBeInTheDocument();
@@ -92,18 +54,18 @@ describe("ContactPhotography", () => {
     expect(img).not.toBeInTheDocument();
   });
 
-  it("renders form fields directly without card wrapper", () => {
-    const { container } = render(
-      <ContactPhotography heading="Contact Us" buttonText="Send" />
+  it("renders FormEngine when formEngineSetup is provided", () => {
+    render(
+      <ContactPhotography
+        heading="Contact Us"
+        formEngineSetup={{ api: {} as any }}
+      />
     );
-    // Form should exist but not inside a card
-    expect(screen.getByLabelText("First Name")).toBeInTheDocument();
-    expect(screen.getByLabelText("Email")).toBeInTheDocument();
-    expect(container.querySelector('[class*="card"]')).not.toBeInTheDocument();
+    expect(screen.getByTestId("form-engine")).toBeInTheDocument();
   });
 
-  it("renders form fields in a 12-column grid layout", () => {
-    const { container } = render(<ContactPhotography buttonText="Send" />);
-    expect(container.querySelector(".grid-cols-12")).toBeInTheDocument();
+  it("does not render FormEngine when formEngineSetup is not provided", () => {
+    render(<ContactPhotography heading="Contact Us" />);
+    expect(screen.queryByTestId("form-engine")).not.toBeInTheDocument();
   });
 });

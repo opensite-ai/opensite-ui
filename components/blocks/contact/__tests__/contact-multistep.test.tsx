@@ -14,7 +14,6 @@ describe("ContactMultistep", () => {
       <ContactMultistep
         heading="Test Heading"
         description="Test Description"
-        buttonText="Test Button"
       />
     );
     expect(container).toBeInTheDocument();

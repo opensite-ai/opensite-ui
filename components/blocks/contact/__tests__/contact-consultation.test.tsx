@@ -20,8 +20,5 @@ describe("ContactConsultation", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders custom button text", () => {
-    render(<ContactConsultation buttonText="Custom Button" />);
-    expect(screen.getByText("Custom Button")).toBeInTheDocument();
-  });
 });
+
