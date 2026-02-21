@@ -133,42 +133,6 @@ export function ContactVendor({
   pattern,
   patternOpacity = 0.1,
 }: ContactVendorProps): React.JSX.Element {
-  const formStyleRules: FormEngineStyleRules = React.useMemo(() => {
-    return {
-      formContainer:
-        formEngineSetup?.formLayoutSettings?.styleRules?.formContainer ??
-        DEFAULT_STYLE_RULES.formContainer,
-      fieldsContainer:
-        formEngineSetup?.formLayoutSettings?.styleRules?.fieldsContainer ??
-        DEFAULT_STYLE_RULES.fieldsContainer,
-      fieldClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules?.fieldClassName ??
-        DEFAULT_STYLE_RULES.fieldClassName,
-      formClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules?.formClassName ??
-        DEFAULT_STYLE_RULES.formClassName,
-      successMessageClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules
-          ?.successMessageClassName ??
-        DEFAULT_STYLE_RULES.successMessageClassName,
-      errorMessageClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules
-          ?.errorMessageClassName ?? DEFAULT_STYLE_RULES.errorMessageClassName,
-    };
-  }, [formEngineSetup?.formLayoutSettings?.styleRules]);
-
-  const formFields = React.useMemo(() => {
-    if (
-      formEngineSetup &&
-      formEngineSetup?.fields &&
-      formEngineSetup?.fields?.length > 0
-    ) {
-      return formEngineSetup.fields;
-    } else {
-      return DEFAULT_FORM_FIELDS;
-    }
-  }, [formEngineSetup?.fields]);
-
   return (
     <Section
       background={background}
@@ -212,12 +176,9 @@ export function ContactVendor({
           <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
             {formEngineSetup ? (
               <FormEngine
-                {...formEngineSetup}
-                formLayoutSettings={{
-                  ...formEngineSetup.formLayoutSettings,
-                  styleRules: formStyleRules,
-                }}
-                fields={formFields}
+                formEngineSetup={formEngineSetup}
+                defaultFields={DEFAULT_FORM_FIELDS}
+                defaultStyleRules={DEFAULT_STYLE_RULES}
               />
             ) : null}
           </CardContent>

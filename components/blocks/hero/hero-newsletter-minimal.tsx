@@ -145,41 +145,6 @@ export function HeroNewsletterMinimal({
   disclaimerClassName,
   statsClassName,
 }: HeroNewsletterMinimalProps): React.JSX.Element {
-  const formStyleRules: FormEngineStyleRules = React.useMemo(() => {
-    return {
-      formContainer:
-        formEngineSetup?.formLayoutSettings?.styleRules?.formContainer ??
-        DEFAULT_STYLE_RULES.formContainer,
-      fieldsContainer:
-        formEngineSetup?.formLayoutSettings?.styleRules?.fieldsContainer ??
-        DEFAULT_STYLE_RULES.fieldsContainer,
-      fieldClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules?.fieldClassName ??
-        DEFAULT_STYLE_RULES.fieldClassName,
-      formClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules?.formClassName ??
-        DEFAULT_STYLE_RULES.formClassName,
-      successMessageClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules
-          ?.successMessageClassName ??
-        DEFAULT_STYLE_RULES.successMessageClassName,
-      errorMessageClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules
-          ?.errorMessageClassName ?? DEFAULT_STYLE_RULES.errorMessageClassName,
-    };
-  }, [formEngineSetup?.formLayoutSettings?.styleRules]);
-
-  const formFields = React.useMemo(() => {
-    if (
-      formEngineSetup &&
-      formEngineSetup?.fields &&
-      formEngineSetup?.fields?.length > 0
-    ) {
-      return formEngineSetup.fields;
-    } else {
-      return DEFAULT_FORM_FIELDS;
-    }
-  }, [formEngineSetup?.fields]);
   const renderStats = React.useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
@@ -220,24 +185,26 @@ export function HeroNewsletterMinimal({
     return (
       <>
         <FormEngine
-          {...formEngineSetup}
-          formLayoutSettings={{
-            ...formEngineSetup.formLayoutSettings,
-            formLayout: "button-group",
-            buttonGroupSetup: {
-              ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
-              size: "lg",
-              submitLabel: (
-                <>
-                  {action.label}
-                  {action.iconAfter}
-                </>
-              ),
-              submitVariant: action.variant || "default",
+          formEngineSetup={{
+            ...formEngineSetup,
+            formLayoutSettings: {
+              ...formEngineSetup.formLayoutSettings,
+              formLayout: "button-group",
+              buttonGroupSetup: {
+                ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
+                size: "lg",
+                submitLabel: (
+                  <>
+                    {action.label}
+                    {action.iconAfter}
+                  </>
+                ),
+                submitVariant: action.variant || "default",
+              },
             },
-            styleRules: formStyleRules,
           }}
-          fields={formFields}
+          defaultFields={DEFAULT_FORM_FIELDS}
+          defaultStyleRules={DEFAULT_STYLE_RULES}
         />
         {helperText &&
           (typeof helperText === "string" ? (
@@ -251,8 +218,6 @@ export function HeroNewsletterMinimal({
     formSlot,
     formEngineSetup,
     buttonAction,
-    formFields,
-    formStyleRules,
     helperText,
   ]);
 

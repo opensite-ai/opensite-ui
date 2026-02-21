@@ -238,37 +238,6 @@ export function ContactImage({
   patternOpacity,
   optixFlowConfig,
 }: ContactImageProps): React.JSX.Element {
-  const formStyleRules: FormEngineStyleRules = React.useMemo(() => {
-    return {
-      formContainer:
-        formEngineSetup?.formLayoutSettings?.styleRules?.formContainer ??
-        DEFAULT_STYLE_RULES.formContainer,
-      fieldsContainer:
-        formEngineSetup?.formLayoutSettings?.styleRules?.fieldsContainer ??
-        DEFAULT_STYLE_RULES.fieldsContainer,
-      fieldClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules?.fieldClassName ??
-        DEFAULT_STYLE_RULES.fieldClassName,
-      formClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules?.formClassName ??
-        DEFAULT_STYLE_RULES.formClassName,
-      successMessageClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules
-          ?.successMessageClassName ??
-        DEFAULT_STYLE_RULES.successMessageClassName,
-      errorMessageClassName:
-        formEngineSetup?.formLayoutSettings?.styleRules
-          ?.errorMessageClassName ?? DEFAULT_STYLE_RULES.errorMessageClassName,
-    };
-  }, [formEngineSetup?.formLayoutSettings?.styleRules]);
-
-  const formFields = React.useMemo(() => {
-    if (formEngineSetup?.fields && formEngineSetup.fields.length > 0) {
-      return formEngineSetup.fields;
-    }
-    return DEFAULT_FORM_FIELDS;
-  }, [formEngineSetup?.fields]);
-
   const contactOverlaysContent = React.useMemo(() => {
     if (contactOverlaysSlot) return contactOverlaysSlot;
     if (!contactOverlays || contactOverlays.length === 0) return null;
@@ -415,22 +384,24 @@ export function ContactImage({
           <div className="mt-8">
             {formEngineSetup ? (
               <FormEngine
-                {...formEngineSetup}
-                formLayoutSettings={{
-                  ...formEngineSetup.formLayoutSettings,
-                  formLayout: "standard",
-                  submitButtonSetup: {
-                    ...formEngineSetup.formLayoutSettings?.submitButtonSetup,
-                    submitLabel: (
-                      <>
-                        {buttonIcon}
-                        {buttonText}
-                      </>
-                    ),
+                formEngineSetup={{
+                  ...formEngineSetup,
+                  formLayoutSettings: {
+                    ...formEngineSetup.formLayoutSettings,
+                    formLayout: "standard",
+                    submitButtonSetup: {
+                      ...formEngineSetup.formLayoutSettings?.submitButtonSetup,
+                      submitLabel: (
+                        <>
+                          {buttonIcon}
+                          {buttonText}
+                        </>
+                      ),
+                    },
                   },
-                  styleRules: formStyleRules,
                 }}
-                fields={formFields}
+                defaultFields={DEFAULT_FORM_FIELDS}
+                defaultStyleRules={DEFAULT_STYLE_RULES}
               />
             ) : null}
           </div>

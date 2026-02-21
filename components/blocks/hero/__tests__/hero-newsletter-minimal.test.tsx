@@ -4,17 +4,45 @@ import { HeroNewsletterMinimal } from "../hero-newsletter-minimal";
 
 // Mock FormEngine component and form hooks
 vi.mock("@page-speed/forms/integration", () => ({
-  FormEngine: vi.fn(({ fields, formLayoutSettings, successMessage }) => (
-    <div data-testid="mock-form-engine">
-      <div data-testid="form-layout">{formLayoutSettings?.formLayout || "standard"}</div>
-      <div data-testid="button-size">{formLayoutSettings?.buttonGroupSetup?.size || "default"}</div>
-      <div data-testid="submit-label">{formLayoutSettings?.buttonGroupSetup?.submitLabel}</div>
-      {successMessage && <div data-testid="success-message">{successMessage}</div>}
-      {fields?.map((field: any) => (
-        <input key={field.name} data-testid={`field-${field.name}`} placeholder={field.placeholder} />
-      ))}
-    </div>
-  )),
+  FormEngine: vi.fn(
+    ({
+      formEngineSetup,
+      fields,
+      formLayoutSettings,
+      successMessage,
+      defaultFields,
+    }) => {
+      const effectiveFormLayoutSettings =
+        formEngineSetup?.formLayoutSettings ?? formLayoutSettings;
+      const effectiveSuccessMessage =
+        formEngineSetup?.successMessage ?? successMessage;
+      const effectiveFields = formEngineSetup?.fields ?? fields ?? defaultFields;
+
+      return (
+        <div data-testid="mock-form-engine">
+          <div data-testid="form-layout">
+            {effectiveFormLayoutSettings?.formLayout || "standard"}
+          </div>
+          <div data-testid="button-size">
+            {effectiveFormLayoutSettings?.buttonGroupSetup?.size || "default"}
+          </div>
+          <div data-testid="submit-label">
+            {effectiveFormLayoutSettings?.buttonGroupSetup?.submitLabel}
+          </div>
+          {effectiveSuccessMessage && (
+            <div data-testid="success-message">{effectiveSuccessMessage}</div>
+          )}
+          {effectiveFields?.map((field: any) => (
+            <input
+              key={field.name}
+              data-testid={`field-${field.name}`}
+              placeholder={field.placeholder}
+            />
+          ))}
+        </div>
+      );
+    },
+  ),
   useContactForm: vi.fn(() => ({
     form: {
       handleSubmit: vi.fn(),
