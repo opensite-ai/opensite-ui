@@ -3,7 +3,13 @@ import { render, screen } from "@testing-library/react";
 import { ContactPhotography } from "../contact-photography";
 
 vi.mock("@page-speed/forms/integration", () => ({
-  FormEngine: ({ formEngineSetup, defaultFields }: { formEngineSetup?: unknown; defaultFields?: Array<{ name: string; label?: string }> }) => (
+  FormEngine: ({
+    formEngineSetup,
+    defaultFields,
+  }: {
+    formEngineSetup?: unknown;
+    defaultFields?: Array<{ name: string; label?: string }>;
+  }) => (
     <div data-testid="form-engine">
       {defaultFields?.map((field) => (
         <div key={field.name}>
@@ -21,7 +27,7 @@ describe("ContactPhotography", () => {
       <ContactPhotography
         heading="Test Heading"
         description="Test Description"
-      />
+      />,
     );
     expect(container).toBeInTheDocument();
     expect(screen.getByText("Test Heading")).toBeInTheDocument();
@@ -29,7 +35,9 @@ describe("ContactPhotography", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<ContactPhotography className="custom-class" />);
+    const { container } = render(
+      <ContactPhotography className="custom-class" />,
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 
@@ -37,9 +45,8 @@ describe("ContactPhotography", () => {
     const { container } = render(
       <ContactPhotography
         heading="Studio Contact"
-        imageSrc="/studio.jpg"
-        imageAlt="Studio photo"
-      />
+        image={{ src: "/studio.jpg", alt: "Studio photo" }}
+      />,
     );
     const img = container.querySelector("img");
     expect(img).toBeInTheDocument();
@@ -47,9 +54,7 @@ describe("ContactPhotography", () => {
   });
 
   it("renders without image when imageSrc is not provided", () => {
-    const { container } = render(
-      <ContactPhotography heading="Contact Us" />
-    );
+    const { container } = render(<ContactPhotography heading="Contact Us" />);
     const img = container.querySelector("img");
     expect(img).not.toBeInTheDocument();
   });
@@ -59,7 +64,7 @@ describe("ContactPhotography", () => {
       <ContactPhotography
         heading="Contact Us"
         formEngineSetup={{ api: {} as any }}
-      />
+      />,
     );
     expect(screen.getByTestId("form-engine")).toBeInTheDocument();
   });

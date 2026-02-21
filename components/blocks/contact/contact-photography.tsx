@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import {
   FormEngine,
   type FormEngineProps,
@@ -16,6 +17,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { Section } from "../../ui/section";
+import { ContentGroup, type ContentGroupItem } from "../../ui/content-group";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "",
@@ -56,10 +58,13 @@ export interface ContactPhotographyProps {
   spacing?: SectionSpacing;
   /** Pattern opacity (0-1) */
   patternOpacity?: number;
-  /** Image source URL */
-  imageSrc?: string;
-  /** Image alt text */
-  imageAlt?: string;
+  /**
+   * Image configuration for the left panel
+   */
+  image?: {
+    src: string;
+    alt: string;
+  };
   /** Additional CSS classes for the image */
   imageClassName?: string;
   /** Optional Optix Flow configuration for image optimization */
@@ -141,19 +146,78 @@ export function ContactPhotography({
   background,
   pattern,
   patternOpacity,
-  imageSrc,
-  imageAlt,
+  image,
   imageClassName,
   optixFlowConfig,
   directionConfig = { desktop: "mediaRight", mobile: "mediaTop" },
   formEngineSetup,
 }: ContactPhotographyProps): React.JSX.Element {
-  const desktopOrder =
-    directionConfig.desktop === "mediaRight"
+  const headerItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "text-base leading-relaxed opacity-90 sm:text-lg",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
+  const desktopOrder = React.useMemo(() => {
+    return directionConfig.desktop === "mediaRight"
       ? "lg:flex-row"
       : "lg:flex-row-reverse";
-  const mobileOrder =
-    directionConfig.mobile === "mediaTop" ? "flex-col" : "flex-col-reverse";
+  }, [directionConfig?.desktop]);
+
+  const mobileOrder = React.useMemo(() => {
+    return directionConfig?.mobile === "mediaTop"
+      ? "flex-col"
+      : "flex-col-reverse";
+  }, [directionConfig?.mobile]);
+
+  const imageArea = React.useMemo(() => {
+    if (!image?.src) {
+      return null;
+    }
+
+    return (
+      <div className="relative h-64 w-full sm:h-96 lg:h-auto lg:w-1/2">
+        <Img
+          src={image?.src}
+          alt={image?.alt || "Contact Photo Banner"}
+          className={cn("h-full w-full object-cover", imageClassName)}
+          optixFlowConfig={optixFlowConfig}
+        />
+      </div>
+    );
+  }, [image, imageClassName, optixFlowConfig]);
 
   const contentArea = (
     <div
@@ -164,32 +228,8 @@ export function ContactPhotography({
     >
       <div className="relative z-10 w-full px-8 py-16 sm:px-12 sm:py-20 lg:px-16 lg:py-24 xl:px-24">
         <div className="mx-auto max-w-xl space-y-8">
-          {heading &&
-            (typeof heading === "string" ? (
-              <h2
-                className={cn(
-                  "text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "text-base leading-relaxed opacity-90 sm:text-lg",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
+          <ContentGroup items={headerItems} className="space-y-8" />
+
           {formEngineSetup ? (
             <FormEngine
               formEngineSetup={formEngineSetup}
@@ -201,17 +241,6 @@ export function ContactPhotography({
       </div>
     </div>
   );
-
-  const imageArea = imageSrc ? (
-    <div className="relative h-64 w-full sm:h-96 lg:h-auto lg:w-1/2">
-      <Img
-        src={imageSrc}
-        alt={imageAlt || ""}
-        className={cn("h-full w-full object-cover", imageClassName)}
-        optixFlowConfig={optixFlowConfig}
-      />
-    </div>
-  ) : null;
 
   return (
     <Section

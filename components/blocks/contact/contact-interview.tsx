@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import {
   FormEngine,
   FormEngineProps,
@@ -12,6 +13,7 @@ import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { ContentGroup, type ContentGroupItem } from "../../ui/content-group";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "",
@@ -122,6 +124,44 @@ export function ContactInterview({
   pattern,
   patternOpacity = 0.1,
 }: ContactInterviewProps): React.JSX.Element {
+  const headerItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "mb-3 text-3xl font-bold tracking-tight text-pretty",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "leading-relaxed text-balance md:text-pretty",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -131,38 +171,17 @@ export function ContactInterview({
       className={cn("py-12", className)}
       containerClassName={containerClassName}
     >
-      <div className="mx-auto max-w-4xl">
-        <div className={cn("mb-10 text-center", headerClassName)}>
-          {heading &&
-            (typeof heading === "string" ? (
-              <h2
-                className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight text-balance",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "leading-relaxed text-balance",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
-        </div>
-
+      <div className="mx-auto max-w-full md:max-w-md">
         <Card className={cn("mx-auto max-w-xl", cardClassName)}>
           <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
+            <ContentGroup
+              items={headerItems}
+              className={cn(
+                "flex flex-col items-start text-left pb-8 md:pb-18 max-w-full md:max-w-md",
+                headerClassName,
+              )}
+            />
+
             {formEngineSetup ? (
               <FormEngine
                 formEngineSetup={formEngineSetup}

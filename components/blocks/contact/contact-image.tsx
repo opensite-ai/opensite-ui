@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import {
   FormEngine,
@@ -18,6 +19,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { ContentGroup, type ContentGroupItem } from "../../ui/content-group";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "",
@@ -228,6 +230,64 @@ export function ContactImage({
   patternOpacity,
   optixFlowConfig,
 }: ContactImageProps): React.JSX.Element {
+  const headerItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (eyebrow) {
+      if (typeof eyebrow === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "text-sm font-semibold uppercase tracking-[0.2em] opacity-70",
+            eyebrowClassName,
+          ),
+          children: eyebrow,
+        });
+      } else {
+        items.push(eyebrow);
+      }
+    }
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "mt-2 text-3xl font-bold md:text-4xl lg:text-5xl text-pretty",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn("mt-4 text-lg text-balance", descriptionClassName),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [
+    eyebrow,
+    eyebrowClassName,
+    heading,
+    headingClassName,
+    description,
+    descriptionClassName,
+  ]);
+
   const contactOverlaysContent = React.useMemo(() => {
     if (contactOverlaysSlot) return contactOverlaysSlot;
     if (!contactOverlays || contactOverlays.length === 0) return null;
@@ -290,7 +350,7 @@ export function ContactImage({
     >
       <div
         className={cn(
-          "grid grid-cols-1 items-center gap-12 lg:grid-cols-2",
+          "grid grid-cols-1 items-center md:items-start gap-12 lg:grid-cols-2",
           contentClassName,
         )}
       >
@@ -303,7 +363,7 @@ export function ContactImage({
             transition={{ duration: 0.5 }}
             className="order-2 lg:order-1"
           >
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl aspect-square">
               <Img
                 src={image.src}
                 alt={image.alt}
@@ -326,49 +386,9 @@ export function ContactImage({
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
-          className="order-1 lg:order-2"
+          className="order-1 lg:order-2 bg-card text-card-foreground p-6 md:p-8 rounded-2xl shadow-2xl"
         >
-          {eyebrow &&
-            (typeof eyebrow === "string" ? (
-              <p
-                className={cn(
-                  "text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground",
-                  eyebrowClassName,
-                )}
-              >
-                {eyebrow}
-              </p>
-            ) : (
-              <div className={eyebrowClassName}>{eyebrow}</div>
-            ))}
-          {heading &&
-            (typeof heading === "string" ? (
-              <h2
-                className={cn(
-                  "mt-2 text-3xl font-bold md:text-4xl lg:text-5xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-            ) : (
-              <div className={cn("mt-2", headingClassName)}>{heading}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "mt-4 text-lg text-muted-foreground",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-            ) : (
-              <div className={cn("mt-4", descriptionClassName)}>
-                {description}
-              </div>
-            ))}
+          <ContentGroup items={headerItems} />
 
           {/* Form */}
           <div className="mt-8">

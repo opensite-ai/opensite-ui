@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import {
   FormEngine,
   type FormEngineProps,
@@ -13,6 +14,7 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { ContentGroup, type ContentGroupItem } from "../../ui/content-group";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "",
@@ -212,6 +214,44 @@ export function ContactEmergency({
   pattern,
   patternOpacity,
 }: ContactEmergencyProps): React.JSX.Element {
+  const headerItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "text-4xl lg:text-5xl xl:text-6xl font-bold text-pretty",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "leading-relaxed text-pretty md:text-balance text-lg",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -224,39 +264,13 @@ export function ContactEmergency({
       <div className="grid md:grid-cols-2 gap-12 md:gap-28">
         <div className="h-full">
           <div className="flex flex-col items-start justify-between h-full gap-8 md:gap-12">
-            <div
+            <ContentGroup
+              items={headerItems}
               className={cn(
                 "flex flex-col items-start gap-4 text-left",
                 headerClassName,
               )}
-            >
-              {heading &&
-                (typeof heading === "string" ? (
-                  <h2
-                    className={cn(
-                      "text-4xl lg:text-5xl xl:text-6xl font-bold text-pretty",
-                      headingClassName,
-                    )}
-                  >
-                    {heading}
-                  </h2>
-                ) : (
-                  heading
-                ))}
-              {description &&
-                (typeof description === "string" ? (
-                  <p
-                    className={cn(
-                      "leading-relaxed text-pretty md:text-balance text-lg",
-                      descriptionClassName,
-                    )}
-                  >
-                    {description}
-                  </p>
-                ) : (
-                  description
-                ))}
-            </div>
+            />
 
             {contactItems && contactItems.length > 0 && (
               <div className="grid grid-cols-1 gap-4 md:gap-6 w-full">
@@ -295,7 +309,7 @@ export function ContactEmergency({
           </div>
         </div>
 
-        <div className="py-6 md:py-0 md:px-6">
+        <div className="bg-card text-card-foreground p-6 md:p-8 rounded-2xl shadow-2xl">
           {formEngineSetup ? (
             <FormEngine
               formEngineSetup={formEngineSetup}
