@@ -295,7 +295,7 @@ export function ContactEmergency({
           </div>
         </div>
 
-        <div className="p-6">
+        <div className="py-6 md:py-0 md:px-6">
           {formEngineSetup ? (
             <FormEngine
               formEngineSetup={formEngineSetup}
