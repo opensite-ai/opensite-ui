@@ -1,26 +1,25 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { Form } from "@page-speed/forms";
 import {
-  DynamicFormField,
-  getColumnSpanClass,
-  useContactForm,
-  useFileUpload,
+  FormEngine,
+  type FormEngineProps,
+  type FormEngineStyleRules,
   type FormFieldConfig,
-  type PageSpeedFormConfig,
 } from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type {
-  ActionConfig,
-  SectionBackground,
-  SectionSpacing,
-} from "../../../src/types";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "space-y-4",
+};
 
 /**
  * Configuration for a contact info item in the emergency contact grid.
@@ -153,23 +152,9 @@ export interface ContactEmergencyProps {
    */
   buttonIcon?: React.ReactNode;
   /**
-   * Array of action configurations for custom buttons
+   * Full form engine setup and props
    */
-  actions?: ActionConfig[];
-  /**
-   * Custom slot for rendering actions (overrides actions array)
-   */
-  actionsSlot?: React.ReactNode;
-  /**
-   * Array of form field configurations
-   * If not provided, defaults to: priority, name, email, phone, subject, description
-   */
-  formFields?: FormFieldConfig[];
-  /**
-   * Success message to display after form submission
-   * @default "Thank you! Your emergency request has been received."
-   */
-  successMessage?: React.ReactNode;
+  formEngineSetup?: FormEngineProps;
   /**
    * Additional CSS classes for the section
    */
@@ -191,22 +176,6 @@ export interface ContactEmergencyProps {
    */
   descriptionClassName?: string;
   /**
-   * Additional CSS classes for the form
-   */
-  formClassName?: string;
-  /**
-   * Additional CSS classes for the submit button
-   */
-  submitClassName?: string;
-  /**
-   * Additional CSS classes for the success message
-   */
-  successMessageClassName?: string;
-  /**
-   * Additional CSS classes for the error message
-   */
-  errorMessageClassName?: string;
-  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -222,22 +191,6 @@ export interface ContactEmergencyProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
-  /**
-   * Form configuration for PageSpeed forms
-   */
-  formConfig?: PageSpeedFormConfig;
-  /**
-   * Custom submit handler
-   */
-  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
-  /**
-   * Success callback
-   */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Error callback
-   */
-  onError?: (error: Error) => void;
 }
 
 /**
@@ -248,7 +201,7 @@ export interface ContactEmergencyProps {
  * ```tsx
  * <ContactEmergency
  *   heading="Urgent Support"
- *   formConfig={{ endpoint: "/api/emergency", format: "json" }}
+ *   formEngineSetup={{ formConfig: { endpoint: "/api/emergency", format: "json" } }}
  * />
  * ```
  */
@@ -258,89 +211,47 @@ export function ContactEmergency({
   contactItems,
   buttonText = "Submit Emergency Request",
   buttonIcon,
-  actions,
-  actionsSlot,
-  formFields = DEFAULT_FORM_FIELDS,
-  successMessage = "Thank you! Your emergency request has been received.",
+  formEngineSetup,
   className,
   headerClassName,
   headingClassName,
   descriptionClassName,
-  formClassName,
-  submitClassName,
-  successMessageClassName,
-  errorMessageClassName,
   spacing = "py-16 md:py-32",
-  containerClassName = "wpx-6 sm:px-6 md:px-8 lg:px-8",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   background,
   pattern,
   patternOpacity,
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
 }: ContactEmergencyProps): React.JSX.Element {
-  // File upload hook
-  const {
-    uploadTokens,
-    uploadProgress,
-    isUploading,
-    uploadFiles,
-    removeFile,
-    resetUpload,
-  } = useFileUpload({ onError });
+  const formStyleRules: FormEngineStyleRules = React.useMemo(() => {
+    return {
+      formContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formContainer ??
+        DEFAULT_STYLE_RULES.formContainer,
+      fieldsContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldsContainer ??
+        DEFAULT_STYLE_RULES.fieldsContainer,
+      fieldClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldClassName ??
+        DEFAULT_STYLE_RULES.fieldClassName,
+      formClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formClassName ??
+        DEFAULT_STYLE_RULES.formClassName,
+      successMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules
+          ?.successMessageClassName ??
+        DEFAULT_STYLE_RULES.successMessageClassName,
+      errorMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules
+          ?.errorMessageClassName ?? DEFAULT_STYLE_RULES.errorMessageClassName,
+    };
+  }, [formEngineSetup?.formLayoutSettings?.styleRules]);
 
-  // Contact form hook with file upload integration
-  const { form, submissionError, formMethod, resetSubmissionState } =
-    useContactForm({
-      formFields,
-      formConfig,
-      onSubmit,
-      onSuccess: (data) => {
-        resetUpload();
-        onSuccess?.(data);
-      },
-      onError,
-      resetOnSuccess: formConfig?.resetOnSuccess !== false,
-      uploadTokens,
-    });
-
-  const otherFields = formFields.filter((f) => f.name !== "priority");
-
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (actions && actions.length > 0) {
-      return actions.map((action, index) => {
-        const {
-          label,
-          icon,
-          iconAfter,
-          children,
-          className: actionClassName,
-          ...pressableProps
-        } = action;
-        return (
-          <Pressable
-            key={index}
-            asButton
-            className={actionClassName}
-            {...pressableProps}
-          >
-            {children ?? (
-              <>
-                {icon}
-                {label}
-                {iconAfter}
-              </>
-            )}
-          </Pressable>
-        );
-      });
+  const formFields = React.useMemo(() => {
+    if (formEngineSetup?.fields && formEngineSetup.fields.length > 0) {
+      return formEngineSetup.fields;
     }
-    return null;
-  }, [actionsSlot, actions]);
-
-  // border-b border-border/60 p-6 md:border-b-0 md:border-r md:border-border/60
+    return DEFAULT_FORM_FIELDS;
+  }, [formEngineSetup?.fields]);
 
   return (
     <Section
@@ -354,44 +265,38 @@ export function ContactEmergency({
       <div className="grid md:grid-cols-2 gap-12 md:gap-28">
         <div className="h-full">
           <div className="flex flex-col items-start justify-between h-full gap-8 md:gap-12">
-            <div className="flex flex-cols items-start">
-              <div className="flex flex-cols items-start">
-                <div className="flex flex-col items-start gap-8 md:gap-12">
-                  <div
+            <div
+              className={cn(
+                "flex flex-col items-start gap-4 text-left",
+                headerClassName,
+              )}
+            >
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h2
                     className={cn(
-                      "flex flex-col items-start gap-4 text-left",
-                      headerClassName,
+                      "text-4xl lg:text-5xl xl:text-6xl font-bold text-pretty",
+                      headingClassName,
                     )}
                   >
-                    {heading &&
-                      (typeof heading === "string" ? (
-                        <h2
-                          className={cn(
-                            "text-4xl lg:text-5xl xl:text-6xl font-bold text-pretty",
-                            headingClassName,
-                          )}
-                        >
-                          {heading}
-                        </h2>
-                      ) : (
-                        heading
-                      ))}
-                    {description &&
-                      (typeof description === "string" ? (
-                        <p
-                          className={cn(
-                            "leading-relaxed text-pretty md:text-balance text-lg",
-                            descriptionClassName,
-                          )}
-                        >
-                          {description}
-                        </p>
-                      ) : (
-                        description
-                      ))}
-                  </div>
-                </div>
-              </div>
+                    {heading}
+                  </h2>
+                ) : (
+                  heading
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "leading-relaxed text-pretty md:text-balance text-lg",
+                      descriptionClassName,
+                    )}
+                  >
+                    {description}
+                  </p>
+                ) : (
+                  description
+                ))}
             </div>
 
             {contactItems && contactItems.length > 0 && (
@@ -431,64 +336,28 @@ export function ContactEmergency({
           </div>
         </div>
 
-        <Form
-          form={form}
-          notificationConfig={{
-            submissionError,
-            successMessage,
-          }}
-          styleConfig={{
-            formClassName,
-            successMessageClassName,
-            errorMessageClassName,
-          }}
-          formConfig={{
-            endpoint: formConfig?.endpoint,
-            method: formMethod,
-            submissionConfig: formConfig?.submissionConfig,
-          }}
-          onNewSubmission={() => {
-            resetUpload();
-            resetSubmissionState();
-          }}
-        >
-          <div className="p-6">
-            <div className="space-y-4">
-              <div className="grid grid-cols-12 gap-4">
-                {otherFields.map((field) => (
-                  <div
-                    key={field.name}
-                    className={getColumnSpanClass(field.columnSpan)}
-                  >
-                    <DynamicFormField
-                      field={field}
-                      uploadProgress={uploadProgress}
-                      onFileUpload={uploadFiles}
-                      onFileRemove={removeFile}
-                      isUploading={isUploading}
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {actionsSlot || (actions && actions.length > 0) ? (
-                actionsContent
-              ) : (
-                <Pressable
-                  componentType="button"
-                  type="submit"
-                  className={cn("w-full", submitClassName)}
-                  size="lg"
-                  asButton
-                  disabled={form.isSubmitting}
-                >
-                  {buttonIcon}
-                  {buttonText}
-                </Pressable>
-              )}
-            </div>
-          </div>
-        </Form>
+        <div className="p-6">
+          {formEngineSetup ? (
+            <FormEngine
+              {...formEngineSetup}
+              formLayoutSettings={{
+                ...formEngineSetup.formLayoutSettings,
+                formLayout: "standard",
+                submitButtonSetup: {
+                  ...formEngineSetup.formLayoutSettings?.submitButtonSetup,
+                  submitLabel: (
+                    <>
+                      {buttonIcon}
+                      {buttonText}
+                    </>
+                  ),
+                },
+                styleRules: formStyleRules,
+              }}
+              fields={formFields}
+            />
+          ) : null}
+        </div>
       </div>
     </Section>
   );

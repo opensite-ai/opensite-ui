@@ -1,14 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { Form } from "@page-speed/forms";
 import {
-  DynamicFormField,
-  getColumnSpanClass,
-  useContactForm,
-  useFileUpload,
+  FormEngine,
+  type FormEngineProps,
+  type FormEngineStyleRules,
   type FormFieldConfig,
-  type PageSpeedFormConfig,
 } from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -16,11 +13,14 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type {
-  ActionConfig,
-  SectionBackground,
-  SectionSpacing,
-} from "../../../src/types";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "space-y-6",
+};
 
 export interface ContactDarkOption {
   /**
@@ -78,14 +78,6 @@ export interface ContactDarkProps {
    */
   buttonIcon?: React.ReactNode;
   /**
-   * Array of action configurations for additional buttons
-   */
-  actions?: ActionConfig[];
-  /**
-   * Custom slot for rendering actions (overrides actions array and default submit)
-   */
-  actionsSlot?: React.ReactNode;
-  /**
    * Contact options to display
    */
   contactOptions?: ContactDarkOption[];
@@ -102,15 +94,9 @@ export interface ContactDarkProps {
    */
   socialLinksSlot?: React.ReactNode;
   /**
-   * Array of form field configurations
-   * If not provided, defaults to: firstName, lastName, email, message
+   * Full form engine setup and props
    */
-  formFields?: FormFieldConfig[];
-  /**
-   * Success message to display after form submission
-   * @default "Thank you! Your message has been sent successfully."
-   */
-  successMessage?: React.ReactNode;
+  formEngineSetup?: FormEngineProps;
   /**
    * Additional CSS classes for the section
    */
@@ -140,14 +126,6 @@ export interface ContactDarkProps {
    */
   formPanelClassName?: string;
   /**
-   * Additional CSS classes for the form
-   */
-  formClassName?: string;
-  /**
-   * Additional CSS classes for the submit button
-   */
-  submitClassName?: string;
-  /**
    * Additional CSS classes for the info panel
    */
   infoPanelClassName?: string;
@@ -159,14 +137,6 @@ export interface ContactDarkProps {
    * Additional CSS classes for the social links container
    */
   socialLinksClassName?: string;
-  /**
-   * Additional CSS classes for the success message
-   */
-  successMessageClassName?: string;
-  /**
-   * Additional CSS classes for the error message
-   */
-  errorMessageClassName?: string;
   /**
    * Background style for the section
    */
@@ -183,61 +153,6 @@ export interface ContactDarkProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
-
-  /**
-   * Optional form submission configuration.
-   *
-   * **Universal Usage**: Works with ANY REST API endpoint. Simply provide an `endpoint` URL
-   * and the form will submit to it in JSON format.
-   *
-   * @example
-   * // Works with any API
-   * formConfig={{ endpoint: "https://api.mysite.com/contact", format: "json" }}
-   *
-   * @example
-   * // With custom headers (e.g., authentication)
-   * formConfig={{
-   *   endpoint: "/api/contact",
-   *   headers: { "Authorization": "Bearer token123" }
-   * }}
-   *
-   * **Note**: The `apiKey`, `contactCategoryToken`, and other platform-specific fields
-   * are OPTIONAL and only needed when integrating with DashTrack's Rails backend.
-   * For generic REST APIs, just use `endpoint`, `method`, `format`, and `headers`.
-   *
-   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples with Next.js, React, and more.
-   */
-  formConfig?: PageSpeedFormConfig;
-  /**
-   * Optional custom submission handler for maximum flexibility.
-   *
-   * Use this when you need complete control over the submission logic,
-   * such as custom API calls, analytics tracking, or multi-step workflows.
-   *
-   * Can be used alone or in combination with `formConfig` for hybrid approaches.
-   *
-   * @example
-   * onSubmit={async (values) => {
-   *   await fetch("/api/contact", {
-   *     method: "POST",
-   *     body: JSON.stringify(values)
-   *   });
-   * }}
-   */
-  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
-  /**
-   * Optional success callback invoked after successful submission.
-   *
-   * Called after `formConfig` submission and/or `onSubmit` completes successfully.
-   * Use for showing success messages, redirecting, analytics tracking, etc.
-   */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Optional error callback invoked if submission fails.
-   *
-   * Receives the error object for custom error handling, logging, or user notifications.
-   */
-  onError?: (error: Error) => void;
 }
 
 // Default form fields
@@ -288,7 +203,7 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
  *   heading="Contact Us"
  *   description="Any questions or remarks? Just write us a message!"
  *   buttonText="Send Message"
- *   formConfig={{ endpoint: "/api/contact", format: "json" }}
+ *   formEngineSetup={{ formConfig: { endpoint: "/api/contact", format: "json" } }}
  * />
  * ```
  */
@@ -299,95 +214,56 @@ export function ContactDark({
   contactDescription = "Fill up the form and our team will get back to you within 24 hours.",
   buttonText = "Submit",
   buttonIcon,
-  actions,
-  actionsSlot,
   contactOptions,
   contactOptionsSlot,
   socialLinks,
   socialLinksSlot,
-  formFields = DEFAULT_FORM_FIELDS,
-  successMessage = "Thank you! Your message has been sent successfully.",
+  formEngineSetup,
   className,
   headerClassName,
   headingClassName,
   descriptionClassName,
   cardClassName,
   formPanelClassName,
-  formClassName,
-  submitClassName,
   infoPanelClassName,
   contactOptionsClassName,
   socialLinksClassName,
-  successMessageClassName,
-  errorMessageClassName,
   background,
   spacing = "py-8 md:py-32",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
-
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
 }: ContactDarkProps): React.JSX.Element {
-  // File upload hook
-  const {
-    uploadTokens,
-    uploadProgress,
-    isUploading,
-    uploadFiles,
-    removeFile,
-    resetUpload,
-  } = useFileUpload({ onError });
+  const formStyleRules: FormEngineStyleRules = React.useMemo(() => {
+    return {
+      formContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formContainer ??
+        DEFAULT_STYLE_RULES.formContainer,
+      fieldsContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldsContainer ??
+        DEFAULT_STYLE_RULES.fieldsContainer,
+      fieldClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldClassName ??
+        DEFAULT_STYLE_RULES.fieldClassName,
+      formClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formClassName ??
+        DEFAULT_STYLE_RULES.formClassName,
+      successMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules
+          ?.successMessageClassName ??
+        DEFAULT_STYLE_RULES.successMessageClassName,
+      errorMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules
+          ?.errorMessageClassName ?? DEFAULT_STYLE_RULES.errorMessageClassName,
+    };
+  }, [formEngineSetup?.formLayoutSettings?.styleRules]);
 
-  // Contact form hook with file upload integration
-  const { form, submissionError, formMethod, resetSubmissionState } =
-    useContactForm({
-      formFields,
-      formConfig,
-      onSubmit,
-      onSuccess: (data) => {
-        resetUpload();
-        onSuccess?.(data);
-      },
-      onError,
-      resetOnSuccess: formConfig?.resetOnSuccess !== false,
-      uploadTokens,
-    });
-
-  const actionsContent = React.useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (actions && actions.length > 0) {
-      return actions.map((action, index) => {
-        const {
-          label,
-          icon,
-          iconAfter,
-          children,
-          className: actionClassName,
-          ...pressableProps
-        } = action;
-        return (
-          <Pressable
-            key={index}
-            asButton
-            className={actionClassName}
-            {...pressableProps}
-          >
-            {children ?? (
-              <>
-                {icon}
-                {label}
-                {iconAfter}
-              </>
-            )}
-          </Pressable>
-        );
-      });
+  const formFields = React.useMemo(() => {
+    if (formEngineSetup?.fields && formEngineSetup.fields.length > 0) {
+      return formEngineSetup.fields;
     }
-    return null;
-  }, [actionsSlot, actions]);
+    return DEFAULT_FORM_FIELDS;
+  }, [formEngineSetup?.fields]);
 
   const contactOptionsContent = React.useMemo(() => {
     if (contactOptionsSlot) return contactOptionsSlot;
@@ -447,94 +323,33 @@ export function ContactDark({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className={cn("mb-10 text-center", headerClassName)}>
-          {heading &&
-            (typeof heading === "string" ? (
-              <h2
-                className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight text-balance",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "leading-relaxed text-balance",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
-        </div>
-
         <Card
           className={cn(
             "grid gap-0 overflow-hidden grid-cols-1 lg:grid-cols-2 pt-0 pb-0",
             cardClassName,
           )}
         >
-          <div className={cn("px-0 md:px-12", formPanelClassName)}>
-            <Form
-              form={form}
-              notificationConfig={{
-                submissionError,
-                successMessage,
-              }}
-              styleConfig={{
-                formClassName: cn("space-y-6", formClassName),
-                successMessageClassName,
-                errorMessageClassName,
-              }}
-              formConfig={{
-                endpoint: formConfig?.endpoint,
-                method: formMethod,
-                submissionConfig: formConfig?.submissionConfig,
-              }}
-              onNewSubmission={() => {
-                resetUpload();
-                resetSubmissionState();
-              }}
-            >
-              <div className="grid grid-cols-12 gap-6">
-                {formFields.map((field) => (
-                  <div
-                    key={field.name}
-                    className={getColumnSpanClass(field.columnSpan)}
-                  >
-                    <DynamicFormField
-                      field={field}
-                      uploadProgress={uploadProgress}
-                      onFileUpload={uploadFiles}
-                      onFileRemove={removeFile}
-                      isUploading={isUploading}
-                    />
-                  </div>
-                ))}
-              </div>
-              {actionsSlot || (actions && actions.length > 0) ? (
-                actionsContent
-              ) : (
-                <Pressable
-                  componentType="button"
-                  type="submit"
-                  className={cn("w-full", submitClassName)}
-                  asButton
-                  disabled={form.isSubmitting}
-                >
-                  {buttonIcon}
-                  {buttonText}
-                </Pressable>
-              )}
-            </Form>
+          <div className={cn("p-6 lg:p-12", formPanelClassName)}>
+            {formEngineSetup ? (
+              <FormEngine
+                {...formEngineSetup}
+                formLayoutSettings={{
+                  ...formEngineSetup.formLayoutSettings,
+                  formLayout: "standard",
+                  submitButtonSetup: {
+                    ...formEngineSetup.formLayoutSettings?.submitButtonSetup,
+                    submitLabel: (
+                      <>
+                        {buttonIcon}
+                        {buttonText}
+                      </>
+                    ),
+                  },
+                  styleRules: formStyleRules,
+                }}
+                fields={formFields}
+              />
+            ) : null}
           </div>
 
           <div
@@ -544,23 +359,61 @@ export function ContactDark({
             )}
           >
             <div>
+              <div
+                className={cn(
+                  "pb-6 md:pb-8 border-b-2 border-border/50 mb-6 md:mb-8 text-left",
+                  headerClassName,
+                )}
+              >
+                {heading &&
+                  (typeof heading === "string" ? (
+                    <h2
+                      className={cn(
+                        "text-3xl font-bold tracking-tight text-pretty md:text-5xl",
+                        headingClassName,
+                      )}
+                    >
+                      {heading}
+                    </h2>
+                  ) : (
+                    heading
+                  ))}
+                {description &&
+                  (typeof description === "string" ? (
+                    <p
+                      className={cn(
+                        "leading-relaxed text-balance",
+                        descriptionClassName,
+                      )}
+                    >
+                      {description}
+                    </p>
+                  ) : (
+                    description
+                  ))}
+              </div>
+            </div>
+            <div className="flex flex-col items-start gap-4">
               {contactHeading &&
                 (typeof contactHeading === "string" ? (
-                  <h3 className="mb-3 text-xl font-semibold">
-                    {contactHeading}
-                  </h3>
+                  <h3 className="text-xl font-semibold">{contactHeading}</h3>
                 ) : (
-                  <div className="mb-3">{contactHeading}</div>
+                  contactHeading
                 ))}
               {contactDescription &&
                 (typeof contactDescription === "string" ? (
-                  <p className="mb-8 text-sm text-primary-foreground/80">
+                  <p className="text-sm text-primary-foreground/80">
                     {contactDescription}
                   </p>
                 ) : (
-                  <div className="mb-8">{contactDescription}</div>
+                  contactDescription
                 ))}
-              <div className={cn("space-y-4", contactOptionsClassName)}>
+              <div
+                className={cn(
+                  "pt-6 md:pt-8 space-y-4",
+                  contactOptionsClassName,
+                )}
+              >
                 {contactOptionsContent}
               </div>
             </div>

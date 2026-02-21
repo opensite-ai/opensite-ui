@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-02-20T10:01:51.177Z",
+    "exportedAt": "2026-02-21T09:08:03.785Z",
     "totalBlocks": 605,
-    "version": "2.1.9",
+    "version": "2.2.1",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -890,7 +890,7 @@
       ],
       "category": "contact",
       "props": "ContactCardProps",
-      "exampleUsage": "<ContactCard\n  heading=\"Get in Touch\"\n  description=\"We'd love to hear from you\"\n  formHeading=\"Contact us\"\n  buttonText=\"Send Message\"\n  formConfig={{ endpoint: \"/api/contact\", format: \"json\" }}\n/>"
+      "exampleUsage": "<ContactCard\n  heading=\"Get In Touch\"\n  description=\"We'd love to hear from you. Send us a message and we'll respond as soon as possible.\"\n  buttonText=\"Send Message\"\n  contactOptions={[\n    { icon: \"Phone\", info: \"+1 (555) 987-6543\", href: \"tel:+15559876543\" },\n    { icon: \"Mail\", info: \"support@example.com\", href: \"mailto:support@example.com\" },\n    { icon: \"MapPin\", info: \"456 Business Ave, New York, NY 10001\" },\n    { icon: \"Clock\", info: \"Mon-Fri: 9 AM - 6 PM EST\" },\n  ]}\n  formEngineSetup={{ formConfig: { endpoint: \"/api/contact\", format: \"json\" } }}\n/>"
     },
     {
       "id": "contact-careers",
@@ -959,7 +959,7 @@
       ],
       "category": "contact",
       "props": "ContactDarkProps",
-      "exampleUsage": "<ContactDark\n  heading=\"Contact Us\"\n  description=\"Any questions or remarks? Just write us a message!\"\n  buttonText=\"Send Message\"\n  formConfig={{ endpoint: \"/api/contact\", format: \"json\" }}\n/>"
+      "exampleUsage": "<ContactDark\n  heading=\"Contact Us\"\n  description=\"Any questions or remarks? Just write us a message!\"\n  buttonText=\"Send Message\"\n  formEngineSetup={{ formConfig: { endpoint: \"/api/contact\", format: \"json\" } }}\n/>"
     },
     {
       "id": "contact-demo",
@@ -994,7 +994,7 @@
       ],
       "category": "contact",
       "props": "ContactEmergencyProps",
-      "exampleUsage": "<ContactEmergency\n  heading=\"Emergency Contact\"\n  description=\"We're here to help 24/7\"\n  buttonText=\"Submit Emergency Request\"\n  formConfig={{ endpoint: \"/api/emergency\", format: \"json\" }}\n/>"
+      "exampleUsage": "<ContactEmergency\n  heading=\"Emergency Contact\"\n  description=\"We're here to help 24/7\"\n  buttonText=\"Submit Emergency Request\"\n  formEngineSetup={{ formConfig: { endpoint: \"/api/emergency\", format: \"json\" } }}\n/>"
     },
     {
       "id": "contact-event",
@@ -1080,17 +1080,18 @@
     {
       "id": "contact-image",
       "name": "Contact Image",
-      "description": "Contact form with image background layout. Features a clean card design with first name, last name, email, phone, and message fields.",
+      "description": "Split-layout contact form with an image panel featuring overlay contact items (phone, email, etc.) on the left and a form with heading on the right. Modern, professional design with motion animations.",
       "semanticTags": [
         "contact",
         "form",
         "image",
-        "card",
-        "simple"
+        "split-layout",
+        "overlay",
+        "modern"
       ],
       "category": "contact",
       "props": "ContactImageProps",
-      "exampleUsage": "<ContactImage\n  heading=\"Get in Touch\"\n  description=\"We'd love to hear from you\"\n  buttonText=\"Send Message\"\n  formConfig={{ endpoint: \"/api/contact\", format: \"json\" }}\n/>"
+      "exampleUsage": "<ContactImage\n  eyebrow=\"Get in Touch\"\n  heading=\"Contact Us\"\n  description=\"We'd love to hear from you.\"\n  image={{ src: \"/office.jpg\", alt: \"Our office\" }}\n  contactOverlays={[\n    { icon: \"lucide/phone\", label: \"Phone\", title: \"+1 (555) 987-6543\", href: \"tel:+15559876543\" },\n    { icon: \"lucide/mail\", label: \"Email\", title: \"support@example.com\", href: \"mailto:support@example.com\" },\n  ]}\n  formEngineSetup={{ formConfig: { endpoint: \"/api/contact\", format: \"json\" } }}\n/>"
     },
     {
       "id": "contact-insurance",

@@ -2394,7 +2394,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   heading="Contact Us"
   description="Any questions or remarks? Just write us a message!"
   buttonText="Send Message"
-  formConfig={{ endpoint: "/api/contact", format: "json" }}
+  formEngineSetup={{ formConfig: { endpoint: "/api/contact", format: "json" } }}
 />
     `.trim(),
   },
@@ -2447,7 +2447,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   heading="Emergency Contact"
   description="We're here to help 24/7"
   buttonText="Submit Emergency Request"
-  formConfig={{ endpoint: "/api/emergency", format: "json" }}
+  formEngineSetup={{ formConfig: { endpoint: "/api/emergency", format: "json" } }}
 />
     `.trim(),
   },
@@ -2587,17 +2587,29 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "contact-image",
     name: "Contact Image",
     description:
-      "Contact form with image background layout. Features a clean card design with first name, last name, email, phone, and message fields.",
-    semanticTags: ["contact", "form", "image", "card", "simple"],
+      "Split-layout contact form with an image panel featuring overlay contact items (phone, email, etc.) on the left and a form with heading on the right. Modern, professional design with motion animations.",
+    semanticTags: [
+      "contact",
+      "form",
+      "image",
+      "split-layout",
+      "overlay",
+      "modern",
+    ],
     category: "contact",
     component: ContactImage,
     props: "ContactImageProps",
     exampleUsage: `
 <ContactImage
-  heading="Get in Touch"
-  description="We'd love to hear from you"
-  buttonText="Send Message"
-  formConfig={{ endpoint: "/api/contact", format: "json" }}
+  eyebrow="Get in Touch"
+  heading="Contact Us"
+  description="We'd love to hear from you."
+  image={{ src: "/office.jpg", alt: "Our office" }}
+  contactOverlays={[
+    { icon: "lucide/phone", label: "Phone", title: "+1 (555) 987-6543", href: "tel:+15559876543" },
+    { icon: "lucide/mail", label: "Email", title: "support@example.com", href: "mailto:support@example.com" },
+  ]}
+  formEngineSetup={{ formConfig: { endpoint: "/api/contact", format: "json" } }}
 />
     `.trim(),
   },

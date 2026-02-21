@@ -15,6 +15,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface AboutNetworkSpotlightProps {
   /**
@@ -121,6 +122,10 @@ export interface AboutNetworkSpotlightProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -139,6 +144,7 @@ export function AboutNetworkSpotlight({
   spotlightCard,
   spotlightCardSlot,
   className,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   eyebrowClassName,
   headingClassName,
@@ -148,7 +154,7 @@ export function AboutNetworkSpotlight({
   imageClassName,
   spotlightCardClassName,
   background,
-  spacing,
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -258,9 +264,10 @@ export function AboutNetworkSpotlight({
     <Section
       background={background}
       spacing={spacing}
-      className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      className={className}
+      containerClassName={containerClassName}
     >
       <div
         className={cn(
@@ -275,7 +282,7 @@ export function AboutNetworkSpotlight({
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5 }}
           >
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl aspect-square md:aspect-auto">
               <Img
                 src={image.src}
                 alt={image.alt}
@@ -283,7 +290,7 @@ export function AboutNetworkSpotlight({
                 optixFlowConfig={optixFlowConfig}
               />
               <div className="absolute inset-0 bg-linear-to-tr from-black/70 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6">
+              <div className="absolute bottom-2 md:bottom-6 left-2 md:left-6 right-2 md:right-6">
                 {spotlightCardContent}
               </div>
             </div>
@@ -307,43 +314,39 @@ export function AboutNetworkSpotlight({
                 {eyebrow}
               </p>
             ) : (
-              <div className={eyebrowClassName}>{eyebrow}</div>
+              eyebrow
             ))}
           {heading &&
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "mt-2 text-3xl font-bold text-background md:text-4xl",
+                  "mt-2 text-3xl font-bold md:text-4xl text-pretty",
                   headingClassName,
                 )}
               >
                 {heading}
               </h2>
             ) : (
-              <div className={cn("mt-2", headingClassName)}>{heading}</div>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
               <p
-                className={cn(
-                  "mt-4 text-lg text-background/80",
-                  descriptionClassName,
-                )}
+                className={cn("mt-4 text-lg text-pretty", descriptionClassName)}
               >
                 {description}
               </p>
             ) : (
-              <div className={cn("mt-4", descriptionClassName)}>
-                {description}
-              </div>
+              description
             ))}
           {(highlightsSlot || (highlights && highlights.length > 0)) &&
             highlightsContent}
-          {(actionsSlot || (actions && actions.length > 0)) && (
-            <div className={cn("mt-8 flex flex-wrap gap-4", actionsClassName)}>
-              {actionsContent}
-            </div>
-          )}
+
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </motion.div>
       </div>
     </Section>
