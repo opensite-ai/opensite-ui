@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -12,7 +12,6 @@ import type {
   OptixFlowConfig,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 
 /**
  * Social links for team member
@@ -190,23 +189,9 @@ export function TeamSocialGrid({
         <p className={cn("text-center font-medium", memberNameClassName)}>
           {member.name}
         </p>
-        <p
-          className={cn(
-            "text-center",
-            getTextColor(background, "muted"),
-            memberRoleClassName,
-          )}
-        >
-          {member.role}
-        </p>
+        <p className={cn("text-center", memberRoleClassName)}>{member.role}</p>
         {member.social && (
-          <div
-            className={cn(
-              "mt-2 flex gap-2",
-              getTextColor(background, "muted"),
-              socialLinksClassName,
-            )}
-          >
+          <div className={cn("mt-2 flex gap-2", socialLinksClassName)}>
             {member.social.github && (
               <Pressable
                 href={member.social.github}
@@ -238,7 +223,15 @@ export function TeamSocialGrid({
         )}
       </div>
     ));
-  }, [membersSlot, members, memberCardClassName, avatarClassName, memberNameClassName, memberRoleClassName, socialLinksClassName]);
+  }, [
+    membersSlot,
+    members,
+    memberCardClassName,
+    avatarClassName,
+    memberNameClassName,
+    memberRoleClassName,
+    socialLinksClassName,
+  ]);
 
   return (
     <Section
@@ -270,11 +263,7 @@ export function TeamSocialGrid({
         {description &&
           (typeof description === "string" ? (
             <p
-              className={cn(
-                "mb-8 max-w-3xl lg:text-xl",
-                getTextColor(background, "muted"),
-                descriptionClassName,
-              )}
+              className={cn("mb-8 max-w-3xl lg:text-xl", descriptionClassName)}
             >
               {description}
             </p>

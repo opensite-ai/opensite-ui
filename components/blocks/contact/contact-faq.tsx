@@ -357,7 +357,7 @@ export function ContactFaq({
                     {formHeading}
                   </h3>
                 ) : (
-                  <div className={formHeadingClassName}>{formHeading}</div>
+                  formHeading
                 ))}
 
               {formEngineSetup ? (

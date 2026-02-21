@@ -56,32 +56,6 @@ export interface ContactInfoItem {
 /**
  * Default emergency contact items
  */
-const DEFAULT_CONTACT_ITEMS: ContactInfoItem[] = [
-  {
-    icon: "lucide/phone",
-    title: "Critical Hotline",
-    subtitle: "+1 (555) 911-0000",
-    href: "tel:+15559110000",
-  },
-  {
-    icon: "lucide/mail",
-    title: "Email Support",
-    subtitle: "emergency@support.com",
-    href: "mailto:emergency@support.com",
-  },
-  {
-    icon: "lucide/message-circle",
-    title: "Live Chat",
-    subtitle: "24/7 Available",
-    href: "#chat",
-  },
-  {
-    icon: "lucide/map-pin",
-    title: "Visit Us",
-    subtitle: "123 Support Lane",
-    href: "#location",
-  },
-];
 
 const PRIORITIES = [
   {
@@ -281,7 +255,7 @@ export interface ContactEmergencyProps {
 export function ContactEmergency({
   heading,
   description,
-  contactItems = DEFAULT_CONTACT_ITEMS,
+  contactItems,
   buttonText = "Submit Emergency Request",
   buttonIcon,
   actions,
@@ -296,8 +270,8 @@ export function ContactEmergency({
   submitClassName,
   successMessageClassName,
   errorMessageClassName,
-  spacing = "py-8 md:py-32",
-  containerClassName = "w-full max-w-full relative z-10 px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-16 md:py-32",
+  containerClassName = "wpx-6 sm:px-6 md:px-8 lg:px-8",
   background,
   pattern,
   patternOpacity,
@@ -366,6 +340,8 @@ export function ContactEmergency({
     return null;
   }, [actionsSlot, actions]);
 
+  // border-b border-border/60 p-6 md:border-b-0 md:border-r md:border-border/60
+
   return (
     <Section
       background={background}
@@ -375,7 +351,86 @@ export function ContactEmergency({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative">
+      <div className="grid md:grid-cols-2 gap-12 md:gap-28">
+        <div className="h-full">
+          <div className="flex flex-col items-start justify-between h-full gap-8 md:gap-12">
+            <div className="flex flex-cols items-start">
+              <div className="flex flex-cols items-start">
+                <div className="flex flex-col items-start gap-8 md:gap-12">
+                  <div
+                    className={cn(
+                      "flex flex-col items-start gap-4 text-left",
+                      headerClassName,
+                    )}
+                  >
+                    {heading &&
+                      (typeof heading === "string" ? (
+                        <h2
+                          className={cn(
+                            "text-4xl lg:text-5xl xl:text-6xl font-bold text-pretty",
+                            headingClassName,
+                          )}
+                        >
+                          {heading}
+                        </h2>
+                      ) : (
+                        heading
+                      ))}
+                    {description &&
+                      (typeof description === "string" ? (
+                        <p
+                          className={cn(
+                            "leading-relaxed text-pretty md:text-balance text-lg",
+                            descriptionClassName,
+                          )}
+                        >
+                          {description}
+                        </p>
+                      ) : (
+                        description
+                      ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {contactItems && contactItems.length > 0 && (
+              <div className="grid grid-cols-1 gap-4 md:gap-6 w-full">
+                {contactItems.map((item, index) => (
+                  <Pressable
+                    key={index}
+                    href={item.href}
+                    className={cn(
+                      "rounded-xl border bg-transparent hover:bg-muted ring-2",
+                      "px-4 py-4 flex",
+                      "justify-start items-start transition-all",
+                      "duration-500 hover:text-muted-foreground",
+                      item.className,
+                    )}
+                  >
+                    <div className="flex items-center gap-4">
+                      {item.icon ? (
+                        <div className="flex items-center justify-center p-2 rounded-xl border bg-primary text-primary-foreground">
+                          <DynamicIcon
+                            name={item.icon}
+                            size={item.iconSize ?? 24}
+                          />
+                        </div>
+                      ) : null}
+                      <div>
+                        <p className="font-bold text-xs uppercase opacity-70">
+                          {item.title}
+                        </p>
+                        <p className="text-md font-medium">{item.subtitle}</p>
+                      </div>
+                    </div>
+                  </Pressable>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
         <Form
           form={form}
           notificationConfig={{
@@ -397,87 +452,6 @@ export function ContactEmergency({
             resetSubmissionState();
           }}
         >
-          <div className="flex">
-            <div className={cn("p-0 md:p-12")}>
-              <div className="grid md:grid-cols-2 gap-12 md:gap-24">
-                <div className="border-b border-border/60 p-6 md:border-b-0 md:border-r md:border-border/60">
-                  <div className="flex flex-col items-start gap-8 md:gap-12">
-                    <div
-                      className={cn(
-                        "flex flex-col items-start gap-4 text-left",
-                        headerClassName,
-                      )}
-                    >
-                      {heading &&
-                        (typeof heading === "string" ? (
-                          <h2
-                            className={cn(
-                              "text-4xl lg:text-5xl xl:text-6xl font-bold",
-                              headingClassName,
-                            )}
-                          >
-                            {heading}
-                          </h2>
-                        ) : (
-                          heading
-                        ))}
-                      {description &&
-                        (typeof description === "string" ? (
-                          <p
-                            className={cn(
-                              "leading-relaxed",
-                              descriptionClassName,
-                            )}
-                          >
-                            {description}
-                          </p>
-                        ) : (
-                          description
-                        ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {contactItems && contactItems.length > 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
-                  {contactItems.map((item, index) => (
-                    <Pressable
-                      key={index}
-                      href={item.href}
-                      className={cn(
-                        "rounded-md border bg-muted ring-2",
-                        "text-muted-foreground px-4 py-3 flex",
-                        "justify-start items-start transition-shadow",
-                        "duration-500 hover:shadow-xl",
-                        item.className,
-                      )}
-                    >
-                      <div className="flex items-center gap-1">
-                        {item.icon ? (
-                          <div className="flex items-center justify-center p-2 rounded-xl border bg-primary text-primary-foreground">
-                            <DynamicIcon
-                              name={item.icon}
-                              size={item.iconSize ?? 24}
-                            />
-                          </div>
-                        ) : null}
-                        <div>
-                          <p className="font-bold text-xs uppercase opacity-70">
-                            {item.title}
-                          </p>
-                          <p className="text-md font-semibold">
-                            {item.subtitle}
-                          </p>
-                        </div>
-                      </div>
-                    </Pressable>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-
           <div className="p-6">
             <div className="space-y-4">
               <div className="grid grid-cols-12 gap-4">

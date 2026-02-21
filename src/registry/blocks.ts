@@ -2280,11 +2280,16 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     props: "ContactCardProps",
     exampleUsage: `
 <ContactCard
-  heading="Get in Touch"
-  description="We'd love to hear from you"
-  formHeading="Contact us"
+  heading="Get In Touch"
+  description="We'd love to hear from you. Send us a message and we'll respond as soon as possible."
   buttonText="Send Message"
-  formConfig={{ endpoint: "/api/contact", format: "json" }}
+  contactOptions={[
+    { icon: "Phone", info: "+1 (555) 987-6543", href: "tel:+15559876543" },
+    { icon: "Mail", info: "support@example.com", href: "mailto:support@example.com" },
+    { icon: "MapPin", info: "456 Business Ave, New York, NY 10001" },
+    { icon: "Clock", info: "Mon-Fri: 9 AM - 6 PM EST" },
+  ]}
+  formEngineSetup={{ formConfig: { endpoint: "/api/contact", format: "json" } }}
 />
     `.trim(),
   },
@@ -2476,7 +2481,16 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     name: "Contact FAQ",
     description:
       "A two-column contact form with an FAQ accordion sidebar. Displays frequently asked questions alongside a contact form so visitors can find answers before submitting inquiries. Falls back to a single-column centered layout when no FAQ items are provided.",
-    semanticTags: ["contact", "faq", "questions", "inquiry", "form", "support", "accordion", "two-column"],
+    semanticTags: [
+      "contact",
+      "faq",
+      "questions",
+      "inquiry",
+      "form",
+      "support",
+      "accordion",
+      "two-column",
+    ],
     category: "contact",
     component: ContactFaq,
     props: "ContactFaqProps",

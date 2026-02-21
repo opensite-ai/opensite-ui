@@ -1,65 +1,60 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { Form } from "@page-speed/forms";
+import {
+  FormEngine,
+  type FormEngineProps,
+  type FormEngineStyleRules,
+  type FormFieldConfig,
+} from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Card } from "../../ui/card";
-import { DynamicFormField } from "../../ui/dynamic-form-field";
-import type { FormFieldConfig } from "../../../lib/form-field-types";
-import { getColumnSpanClass } from "../../../lib/form-field-types";
-import { useContactForm, type PageSpeedFormConfig } from "../../../lib/forms";
+import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type {
-  ActionConfig,
-  SectionBackground,
-  SectionSpacing,
-} from "../../../src/types";
-import { BlockActions } from "@/components/ui/block-actions";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { ContactDarkSocialLink } from "./contact-dark";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "space-y-6",
+};
 
 // Default form fields for contact card
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
   {
-    name: "firstName",
+    name: "fullName",
     type: "text",
-    label: "First Name",
-    placeholder: "John",
-    required: true,
-    columnSpan: 6,
-  },
-  {
-    name: "lastName",
-    type: "text",
-    label: "Last Name",
-    placeholder: "Doe",
+    label: "Full Name",
+    placeholder: "Full Name",
     required: true,
     columnSpan: 6,
   },
   {
     name: "email",
     type: "email",
-    label: "Email Address",
-    placeholder: "john@example.com",
+    label: "Email",
+    placeholder: "your@email.com",
     required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "phone",
+    type: "tel",
+    label: "Phone",
+    placeholder: "+1 (555) 000-0000",
     columnSpan: 12,
   },
   {
     name: "message",
     type: "textarea",
-    label: "Message",
-    placeholder: "How can we help you?",
+    label: "Your Message",
+    placeholder: "How can we help you today?",
     required: true,
     rows: 4,
-    columnSpan: 12,
-  },
-  {
-    name: "privacyPolicy",
-    type: "checkbox",
-    label: "I agree to the privacy policy",
-    required: true,
     columnSpan: 12,
   },
 ];
@@ -89,10 +84,6 @@ export interface ContactCardProps {
    */
   description?: React.ReactNode;
   /**
-   * Form card heading
-   */
-  formHeading?: React.ReactNode;
-  /**
    * Submit button text
    */
   buttonText?: string;
@@ -101,15 +92,7 @@ export interface ContactCardProps {
    */
   buttonIcon?: React.ReactNode;
   /**
-   * Array of action configurations for additional buttons
-   */
-  actions?: ActionConfig[];
-  /**
-   * Custom slot for rendering actions (overrides actions array and default submit)
-   */
-  actionsSlot?: React.ReactNode;
-  /**
-   * Contact options to display
+   * Contact options to display with icons
    */
   contactOptions?: ContactOption[];
   /**
@@ -117,15 +100,17 @@ export interface ContactCardProps {
    */
   contactOptionsSlot?: React.ReactNode;
   /**
-   * Array of form field configurations
-   * If not provided, defaults to: firstName, lastName, email, message, privacyPolicy
+   * Social media links to display
    */
-  formFields?: FormFieldConfig[];
+  socialLinks?: ContactDarkSocialLink[];
   /**
-   * Success message to display after form submission
-   * @default "Thank you! We'll be in touch soon."
+   * Custom slot for rendering social links (overrides socialLinks array)
    */
-  successMessage?: React.ReactNode;
+  socialLinksSlot?: React.ReactNode;
+  /**
+   * Full form engine setup and props
+   */
+  formEngineSetup?: FormEngineProps;
   /**
    * Additional CSS classes for the section
    */
@@ -140,25 +125,9 @@ export interface ContactCardProps {
    */
   cardClassName?: string;
   /**
-   * Additional CSS classes for the form heading
+   * Additional CSS classes for the card content
    */
-  formHeadingClassName?: string;
-  /**
-   * Additional CSS classes for the form
-   */
-  formClassName?: string;
-  /**
-   * Additional CSS classes for the submit button
-   */
-  submitClassName?: string;
-  /**
-   * Additional CSS classes for the success message
-   */
-  successMessageClassName?: string;
-  /**
-   * Additional CSS classes for the error message
-   */
-  errorMessageClassName?: string;
+  cardContentClassName?: string;
   /**
    * Additional CSS classes for the info panel
    */
@@ -176,12 +145,20 @@ export interface ContactCardProps {
    */
   contactOptionsClassName?: string;
   /**
+   * Additional CSS classes for the social links container
+   */
+  socialLinksClassName?: string;
+  /**
+   * Additional CSS classes for the two-column grid wrapper
+   */
+  gridClassName?: string;
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
   /**
    * Vertical spacing for the section
-   * @default "py-8 md:py-32"
+   * @default "py-16 md:py-32"
    */
   spacing?: SectionSpacing;
   /**
@@ -192,103 +169,129 @@ export interface ContactCardProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
-  /**
-   * Optional form submission configuration.
-   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples.
-   */
-  formConfig?: PageSpeedFormConfig;
-  /**
-   * Optional custom submission handler for maximum flexibility.
-   */
-  onSubmit?: (values: Record<string, unknown>) => void | Promise<void>;
-  /**
-   * Optional success callback invoked after successful submission.
-   */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Optional error callback invoked if submission fails.
-   */
-  onError?: (error: Error) => void;
-  /**
-   * Additional CSS classes for the actions container
-   */
-  actionsClassName?: string;
 }
 
 /**
- * ContactCard - A simple contact form with card layout and contact information sidebar.
- * Perfect for basic contact pages with multiple contact methods displayed.
+ * ContactCard - A split-layout contact form with a card-wrapped form on one side
+ * and heading, description, and icon-based contact details on the other.
  *
  * @example
  * ```tsx
  * <ContactCard
- *   heading="Get in Touch"
- *   description="Have questions? We'd love to hear from you."
- *   formHeading="Contact us"
- *   buttonText="Send Message"
- *   formConfig={{ endpoint: "/api/contact", format: "json" }}
+ *   heading="Get In Touch"
+ *   description="We'd love to hear from you."
+ *   contactOptions={[
+ *     { icon: "Phone", info: "+1 (555) 987-6543", href: "tel:+15559876543" },
+ *     { icon: "Mail", info: "support@example.com", href: "mailto:support@example.com" },
+ *   ]}
+ *   formEngineSetup={{ formConfig: { endpoint: "/api/contact", format: "json" } }}
  * />
  * ```
  */
 export function ContactCard({
-  heading,
-  description,
-  actions,
-  actionsSlot,
-  actionsClassName,
+  heading = "Get In Touch",
+  description = "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+  buttonText = "Send Message",
+  buttonIcon,
   contactOptions,
   contactOptionsSlot,
-  formFields,
-  successMessage = "Thank you! We'll be in touch soon.",
+  socialLinks,
+  socialLinksSlot,
+  formEngineSetup,
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   cardClassName,
-  formClassName,
-  successMessageClassName,
-  errorMessageClassName,
+  cardContentClassName,
   infoPanelClassName,
   headingClassName,
   descriptionClassName,
   contactOptionsClassName,
+  socialLinksClassName,
+  gridClassName,
   background,
   spacing = "py-16 md:py-32",
   pattern,
   patternOpacity,
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
 }: ContactCardProps): React.JSX.Element {
-  // Use the provided form fields or fall back to defaults
-  const fields = useMemo(() => formFields || DEFAULT_FORM_FIELDS, [formFields]);
+  const formStyleRules: FormEngineStyleRules = React.useMemo(() => {
+    return {
+      formContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formContainer ??
+        DEFAULT_STYLE_RULES.formContainer,
+      fieldsContainer:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldsContainer ??
+        DEFAULT_STYLE_RULES.fieldsContainer,
+      fieldClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.fieldClassName ??
+        DEFAULT_STYLE_RULES.fieldClassName,
+      formClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules?.formClassName ??
+        DEFAULT_STYLE_RULES.formClassName,
+      successMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules
+          ?.successMessageClassName ??
+        DEFAULT_STYLE_RULES.successMessageClassName,
+      errorMessageClassName:
+        formEngineSetup?.formLayoutSettings?.styleRules
+          ?.errorMessageClassName ?? DEFAULT_STYLE_RULES.errorMessageClassName,
+    };
+  }, [formEngineSetup?.formLayoutSettings?.styleRules]);
 
-  // Initialize form with contact form hook
-  const { form, submissionError, formMethod, resetSubmissionState } =
-    useContactForm({
-      formFields: fields,
-      formConfig,
-      onSubmit,
-      onSuccess,
-      onError,
-    });
+  const formFields = React.useMemo(() => {
+    if (formEngineSetup?.fields && formEngineSetup.fields.length > 0) {
+      return formEngineSetup.fields;
+    }
+    return DEFAULT_FORM_FIELDS;
+  }, [formEngineSetup?.fields]);
 
-  const contactOptionsContent = useMemo(() => {
+  const contactOptionsContent = React.useMemo(() => {
     if (contactOptionsSlot) return contactOptionsSlot;
     if (contactOptions && contactOptions.length > 0) {
       return contactOptions.map((option, key) => (
-        <Pressable
-          variant="link"
-          href={option.href}
-          key={key}
-          className="gap-4 font-bold"
-        >
-          <DynamicIcon name={option.icon} size={20} />
-          {option.info}
-        </Pressable>
+        <div key={key} className="flex items-center gap-4">
+          <DynamicIcon
+            name={option.icon}
+            size={20}
+            className="shrink-0 text-muted-foreground"
+          />
+          {option.href ? (
+            <Pressable
+              href={option.href}
+              className="text-sm font-medium text-muted-foreground"
+            >
+              {option.info}
+            </Pressable>
+          ) : (
+            <span className="text-sm font-medium text-muted-foreground">
+              {option.info}
+            </span>
+          )}
+        </div>
       ));
     }
     return null;
   }, [contactOptionsSlot, contactOptions]);
+
+  const socialLinksContent = React.useMemo(() => {
+    if (socialLinksSlot) return socialLinksSlot;
+    if (socialLinks && socialLinks.length > 0) {
+      return socialLinks.map((social, key) => (
+        <Pressable
+          key={key}
+          href={social.href}
+          className={cn(
+            "flex h-9 w-9 items-center justify-center",
+            "rounded-full transition-colors",
+            "text-muted-foreground hover:text-foreground",
+          )}
+          aria-label={social.label}
+        >
+          <DynamicIcon name={social.icon} size={18} />
+        </Pressable>
+      ));
+    }
+    return null;
+  }, [socialLinksSlot, socialLinks]);
 
   return (
     <Section
@@ -300,41 +303,42 @@ export function ContactCard({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className="grid items-start gap-10 md:gap-12 lg:grid-cols-2">
-          <Card className={cn("p-6 lg:p-8 order-2 md:order-1", cardClassName)}>
-            <Form
-              form={form}
-              action={formConfig?.endpoint}
-              method={formMethod}
-              submissionError={submissionError}
-              successMessage={successMessage}
-              successMessageClassName={successMessageClassName}
-              errorMessageClassName={errorMessageClassName}
-              submissionConfig={formConfig?.submissionConfig}
-              onNewSubmission={resetSubmissionState}
-              className={cn("space-y-6", formClassName)}
-            >
-              <div className="grid grid-cols-12 gap-6">
-                {fields.map((field) => (
-                  <div
-                    key={field.name}
-                    className={getColumnSpanClass(field.columnSpan)}
-                  >
-                    <DynamicFormField field={field} />
-                  </div>
-                ))}
-              </div>
-              <BlockActions
-                actions={actions}
-                actionsSlot={actionsSlot}
-                actionsClassName={actionsClassName}
-              />
-            </Form>
+        <div
+          className={cn(
+            "grid items-start gap-10 md:gap-12 grid-cols-1 lg:grid-cols-2",
+            gridClassName,
+          )}
+        >
+          {/* Form Card — left on desktop, bottom on mobile */}
+          <Card className={cn("order-2 lg:order-1 pt-0 pb-0", cardClassName)}>
+            <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
+              {formEngineSetup ? (
+                <FormEngine
+                  {...formEngineSetup}
+                  formLayoutSettings={{
+                    ...formEngineSetup.formLayoutSettings,
+                    formLayout: "standard",
+                    submitButtonSetup: {
+                      ...formEngineSetup.formLayoutSettings?.submitButtonSetup,
+                      submitLabel: (
+                        <>
+                          {buttonIcon}
+                          {buttonText}
+                        </>
+                      ),
+                    },
+                    styleRules: formStyleRules,
+                  }}
+                  fields={formFields}
+                />
+              ) : null}
+            </CardContent>
           </Card>
 
+          {/* Info Panel — right on desktop, top on mobile */}
           <div
             className={cn(
-              "flex flex-col items-start gap-2 md:gap-4 order-1 md:order-2",
+              "flex flex-col items-start gap-2 md:gap-4 order-1 lg:order-2",
               infoPanelClassName,
             )}
           >
@@ -355,7 +359,7 @@ export function ContactCard({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "leading-relaxed text-pretty text-lg opacity-70",
+                    "leading-relaxed text-pretty text-lg text-muted-foreground",
                     descriptionClassName,
                   )}
                 >
@@ -364,14 +368,28 @@ export function ContactCard({
               ) : (
                 description
               ))}
-            <div
-              className={cn(
-                "mt-4 space-y-4 w-full md:w-fit px-6 py-6 md:px-12 md:py-8 bg-muted rounded-xl text-sm md:text-normal flex flex-col items-start gap-1",
-                contactOptionsClassName,
-              )}
-            >
-              {contactOptionsContent}
-            </div>
+
+            {contactOptionsContent && (
+              <div
+                className={cn(
+                  "mt-4 w-full rounded-xl bg-muted px-6 py-6 md:px-8 md:py-8 space-y-6",
+                  contactOptionsClassName,
+                )}
+              >
+                {contactOptionsContent}
+              </div>
+            )}
+
+            {socialLinksContent && (
+              <div
+                className={cn(
+                  "mt-2 flex items-center gap-2",
+                  socialLinksClassName,
+                )}
+              >
+                {socialLinksContent}
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -482,7 +482,7 @@ export function ContactDark({
             cardClassName,
           )}
         >
-          <div className={cn("p-6 lg:p-12", formPanelClassName)}>
+          <div className={cn("px-0 md:px-12", formPanelClassName)}>
             <Form
               form={form}
               notificationConfig={{
