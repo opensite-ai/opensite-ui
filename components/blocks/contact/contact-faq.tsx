@@ -47,14 +47,6 @@ export interface ContactFaqProps {
    */
   formHeading?: React.ReactNode;
   /**
-   * Submit button text
-   */
-  buttonText?: string;
-  /**
-   * Icon to display in submit button
-   */
-  buttonIcon?: React.ReactNode;
-  /**
    * Array of FAQ items to display alongside the contact form
    */
   items?: FaqItem[];
@@ -192,8 +184,6 @@ export function ContactFaq({
   heading,
   description,
   formHeading,
-  buttonText = "Submit",
-  buttonIcon,
   items,
   itemsSlot,
   faqHeading,
@@ -326,22 +316,7 @@ export function ContactFaq({
 
               {formEngineSetup ? (
                 <FormEngine
-                  formEngineSetup={{
-                    ...formEngineSetup,
-                    formLayoutSettings: {
-                      ...formEngineSetup.formLayoutSettings,
-                      formLayout: "standard",
-                      submitButtonSetup: {
-                        ...formEngineSetup.formLayoutSettings?.submitButtonSetup,
-                        submitLabel: (
-                          <>
-                            {buttonIcon}
-                            {buttonText}
-                          </>
-                        ),
-                      },
-                    },
-                  }}
+                  formEngineSetup={formEngineSetup}
                   defaultFields={DEFAULT_FORM_FIELDS}
                   defaultStyleRules={DEFAULT_STYLE_RULES}
                 />

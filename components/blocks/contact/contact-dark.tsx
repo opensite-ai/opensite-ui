@@ -70,14 +70,6 @@ export interface ContactDarkProps {
    */
   contactDescription?: React.ReactNode;
   /**
-   * Submit button text
-   */
-  buttonText?: string;
-  /**
-   * Submit button icon (displayed before text)
-   */
-  buttonIcon?: React.ReactNode;
-  /**
    * Contact options to display
    */
   contactOptions?: ContactDarkOption[];
@@ -202,7 +194,6 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
  * <ContactDark
  *   heading="Contact Us"
  *   description="Any questions or remarks? Just write us a message!"
- *   buttonText="Send Message"
  *   formEngineSetup={{ formConfig: { endpoint: "/api/contact", format: "json" } }}
  * />
  * ```
@@ -212,8 +203,6 @@ export function ContactDark({
   description,
   contactHeading = "Contact Information",
   contactDescription = "Fill up the form and our team will get back to you within 24 hours.",
-  buttonText = "Submit",
-  buttonIcon,
   contactOptions,
   contactOptionsSlot,
   socialLinks,
@@ -301,22 +290,7 @@ export function ContactDark({
           <div className={cn("p-6 lg:p-12", formPanelClassName)}>
             {formEngineSetup ? (
               <FormEngine
-                formEngineSetup={{
-                  ...formEngineSetup,
-                  formLayoutSettings: {
-                    ...formEngineSetup.formLayoutSettings,
-                    formLayout: "standard",
-                    submitButtonSetup: {
-                      ...formEngineSetup.formLayoutSettings?.submitButtonSetup,
-                      submitLabel: (
-                        <>
-                          {buttonIcon}
-                          {buttonText}
-                        </>
-                      ),
-                    },
-                  },
-                }}
+                formEngineSetup={formEngineSetup}
                 defaultFields={DEFAULT_FORM_FIELDS}
                 defaultStyleRules={DEFAULT_STYLE_RULES}
               />

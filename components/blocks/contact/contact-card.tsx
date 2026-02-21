@@ -84,14 +84,6 @@ export interface ContactCardProps {
    */
   description?: React.ReactNode;
   /**
-   * Submit button text
-   */
-  buttonText?: string;
-  /**
-   * Submit button icon (displayed before text)
-   */
-  buttonIcon?: React.ReactNode;
-  /**
    * Contact options to display with icons
    */
   contactOptions?: ContactOption[];
@@ -191,8 +183,6 @@ export interface ContactCardProps {
 export function ContactCard({
   heading = "Get In Touch",
   description = "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
-  buttonText = "Send Message",
-  buttonIcon,
   contactOptions,
   contactOptionsSlot,
   socialLinks,
@@ -283,22 +273,7 @@ export function ContactCard({
             <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
               {formEngineSetup ? (
                 <FormEngine
-                  formEngineSetup={{
-                    ...formEngineSetup,
-                    formLayoutSettings: {
-                      ...formEngineSetup.formLayoutSettings,
-                      formLayout: "standard",
-                      submitButtonSetup: {
-                        ...formEngineSetup.formLayoutSettings?.submitButtonSetup,
-                        submitLabel: (
-                          <>
-                            {buttonIcon}
-                            {buttonText}
-                          </>
-                        ),
-                      },
-                    },
-                  }}
+                  formEngineSetup={formEngineSetup}
                   defaultFields={DEFAULT_FORM_FIELDS}
                   defaultStyleRules={DEFAULT_STYLE_RULES}
                 />

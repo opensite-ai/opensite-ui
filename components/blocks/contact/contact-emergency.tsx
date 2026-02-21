@@ -144,14 +144,6 @@ export interface ContactEmergencyProps {
    */
   contactItems?: ContactInfoItem[];
   /**
-   * Submit button text
-   */
-  buttonText?: string;
-  /**
-   * Icon to display in submit button
-   */
-  buttonIcon?: React.ReactNode;
-  /**
    * Full form engine setup and props
    */
   formEngineSetup?: FormEngineProps;
@@ -209,8 +201,6 @@ export function ContactEmergency({
   heading,
   description,
   contactItems,
-  buttonText = "Submit Emergency Request",
-  buttonIcon,
   formEngineSetup,
   className,
   headerClassName,
@@ -308,22 +298,7 @@ export function ContactEmergency({
         <div className="p-6">
           {formEngineSetup ? (
             <FormEngine
-              formEngineSetup={{
-                ...formEngineSetup,
-                formLayoutSettings: {
-                  ...formEngineSetup.formLayoutSettings,
-                  formLayout: "standard",
-                  submitButtonSetup: {
-                    ...formEngineSetup.formLayoutSettings?.submitButtonSetup,
-                    submitLabel: (
-                      <>
-                        {buttonIcon}
-                        {buttonText}
-                      </>
-                    ),
-                  },
-                },
-              }}
+              formEngineSetup={formEngineSetup}
               defaultFields={DEFAULT_FORM_FIELDS}
               defaultStyleRules={DEFAULT_STYLE_RULES}
             />

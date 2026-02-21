@@ -115,14 +115,6 @@ export interface ContactImageProps {
    */
   description?: React.ReactNode;
   /**
-   * Submit button text
-   */
-  buttonText?: string;
-  /**
-   * Icon to display in submit button
-   */
-  buttonIcon?: React.ReactNode;
-  /**
    * Image configuration for the left panel
    */
   image?: {
@@ -218,8 +210,6 @@ export function ContactImage({
   eyebrow,
   heading,
   description,
-  buttonText = "Send Message",
-  buttonIcon,
   image,
   contactOverlays,
   contactOverlaysSlot,
@@ -384,22 +374,7 @@ export function ContactImage({
           <div className="mt-8">
             {formEngineSetup ? (
               <FormEngine
-                formEngineSetup={{
-                  ...formEngineSetup,
-                  formLayoutSettings: {
-                    ...formEngineSetup.formLayoutSettings,
-                    formLayout: "standard",
-                    submitButtonSetup: {
-                      ...formEngineSetup.formLayoutSettings?.submitButtonSetup,
-                      submitLabel: (
-                        <>
-                          {buttonIcon}
-                          {buttonText}
-                        </>
-                      ),
-                    },
-                  },
-                }}
+                formEngineSetup={formEngineSetup}
                 defaultFields={DEFAULT_FORM_FIELDS}
                 defaultStyleRules={DEFAULT_STYLE_RULES}
               />
