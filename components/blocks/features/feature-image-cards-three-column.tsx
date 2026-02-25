@@ -194,10 +194,10 @@ export interface FeatureImageCardsThreeColumnProps {
  * />
  * ```
  */
-const ASPECT_RATIO_CLASSES = {
-  square: "aspect-square",
-  horizontal: "aspect-video",
-  vertical: "aspect-[9/16]",
+const ASPECT_RATIO_VALUES = {
+  square: "1 / 1",
+  horizontal: "16 / 9",
+  vertical: "9 / 16",
 } as const;
 
 export function FeatureImageCardsThreeColumn({
@@ -355,18 +355,20 @@ export function FeatureImageCardsThreeColumn({
         card.imageAlt ||
         (typeof card.title === "string" ? card.title : "Card image");
 
-      const mobileAspectClass = ASPECT_RATIO_CLASSES[cardAspectRatios.mobile];
-      const desktopAspectClass = `md:${ASPECT_RATIO_CLASSES[cardAspectRatios.desktop]}`;
+      const aspectRatioStyle = {
+        "--aspect-mobile": ASPECT_RATIO_VALUES[cardAspectRatios.mobile],
+        "--aspect-desktop": ASPECT_RATIO_VALUES[cardAspectRatios.desktop],
+      } as React.CSSProperties;
 
       return (
         <Pressable
           key={index}
           href={card.link}
           onClick={card.onClick}
+          style={aspectRatioStyle}
           className={cn(
             "group relative overflow-hidden rounded-2xl shadow-xl",
-            mobileAspectClass,
-            desktopAspectClass,
+            "aspect-[var(--aspect-mobile)] md:aspect-[var(--aspect-desktop)]",
             cardClassName,
             card.className,
           )}

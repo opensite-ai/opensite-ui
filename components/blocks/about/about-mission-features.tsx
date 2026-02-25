@@ -12,6 +12,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
+import { Pressable } from "@/src";
 
 export interface AboutMissionFeaturesProps {
   /**
@@ -124,6 +126,10 @@ export interface AboutMissionFeaturesProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
 }
 
 export function AboutMissionFeatures({
@@ -147,6 +153,7 @@ export function AboutMissionFeatures({
   featuresTitleClassName,
   featuresDescriptionClassName,
   featuresClassName,
+  headerClassName,
   optixFlowConfig,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
@@ -159,11 +166,27 @@ export function AboutMissionFeatures({
     if (!features || features.length === 0) return null;
 
     return features.map((feature, idx) => (
-      <div className="flex flex-col" key={idx}>
+      <Pressable
+        className={cn(
+          "flex flex-col items-start gap-4",
+          "p-6 md:p-8",
+          "transition-all duration-500",
+          "bg-card text-card-foreground hover:bg-primary hover:text-primary-foreground",
+          "border-dashed",
+          idx === features.length - 1
+            ? "border-b-0 md:border-r-0"
+            : "border-r-0 md:border-r border-b md:border-b-0",
+          feature.href ? "cursor-pointer" : "",
+        )}
+        href={feature.href}
+        key={idx}
+      >
         {feature.icon ? (
           <div
             className={cn(
-              "mb-5 flex size-12 items-center justify-center rounded-2xl",
+              "flex items-center justify-center",
+              "size-12 rounded-lg shadow-lg mb-2",
+              "bg-primary text-primary-foreground",
               feature.iconBgClass,
             )}
           >
@@ -172,19 +195,57 @@ export function AboutMissionFeatures({
         ) : null}
         {feature.title &&
           (typeof feature.title === "string" ? (
-            <h3 className="mt-2 mb-3 text-lg font-semibold">{feature.title}</h3>
+            <h3 className="text-lg font-semibold">{feature.title}</h3>
           ) : (
             feature.title
           ))}
         {feature.description &&
           (typeof feature.description === "string" ? (
-            <p className="text-sm md:text-md">{feature.description}</p>
+            <p className="text-sm md:text-base">{feature.description}</p>
           ) : (
             feature.description
           ))}
-      </div>
+      </Pressable>
     ));
   }, [featuresSlot, features, background]);
+
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (title) {
+      if (typeof title === "string") {
+        items.push({
+          _type: "text",
+          as: "h1",
+          className: cn(
+            "text-4xl font-semibold tracking-tighter lg:text-7xl",
+            title,
+          ),
+          children: title,
+        });
+      } else {
+        items.push(title);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "text-xl max-w-full md:max-w-md text-balance",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [title, titleClassName, description, descriptionClassName]);
 
   return (
     <Section
@@ -195,37 +256,19 @@ export function AboutMissionFeatures({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="relative">
-        <div className="flex flex-col gap-4 lg:gap-8">
-          {title &&
-            (typeof title === "string" ? (
-              <h1
-                className={cn(
-                  "text-4xl font-semibold tracking-tighter lg:text-7xl",
-                  titleClassName,
-                )}
-              >
-                {title}
-              </h1>
-            ) : (
-              <div className={titleClassName}>{title}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p className={cn("max-w-xl text-xl", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              description
-            ))}
-        </div>
-        <div className="grid gap-6 md:grid-cols-2">
+      <div className="flex flex-col items-ceenter gap-6 lg:gap-20">
+        <ContentGroup
+          items={contentItems}
+          className={cn("flex flex-col gap-0 lg:gap-2", headerClassName)}
+        />
+
+        <div className="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2">
           {mainImage && (
             <Img
               src={mainImage.src}
               alt={mainImage.alt}
               className={cn(
-                "size-full max-h-96 rounded-2xl object-cover",
+                "size-full max-h-96 rounded-md object-cover shadow-lg",
                 mainImageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
@@ -233,7 +276,10 @@ export function AboutMissionFeatures({
           )}
           <div
             className={cn(
-              "relative flex flex-col justify-between gap-10 overflow-hidden rounded-2xl p-10 text-white text-shadow-2xl",
+              "relative flex flex-col justify-between gap-10",
+              "overflow-hidden p-4 md:p-6 lg:p-10",
+              "text-white text-shadow-2xl",
+              "rounded-md shadow-lg",
               missionSectionClassName,
             )}
           >
@@ -252,7 +298,7 @@ export function AboutMissionFeatures({
                 (typeof missionLabel === "string" ? (
                   <p
                     className={cn(
-                      "text-sm font-bold uppercase",
+                      "text-xl font-semibold",
                       missionLabelClassName,
                     )}
                   >
@@ -266,7 +312,7 @@ export function AboutMissionFeatures({
               {missionText &&
                 (typeof missionText === "string" ? (
                   <p
-                    className={cn("text-lg font-medium", missionTextClassName)}
+                    className={cn("text-lg font-normal", missionTextClassName)}
                   >
                     {missionText}
                   </p>
@@ -276,13 +322,13 @@ export function AboutMissionFeatures({
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-6 md:gap-12">
-          <div className="max-w-xl">
+        <div className="flex flex-col border border-dashed bg-card text-card-foreground">
+          <div className="flex flex-col gap-0 lg:gap-2 p-6">
             {featuresTitle &&
               (typeof featuresTitle === "string" ? (
                 <h2
                   className={cn(
-                    "mb-4 text-2xl font-semibold tracking-tight md:text-4xl",
+                    "text-2xl font-semibold tracking-tight md:text-4xl",
                     featuresTitleClassName,
                   )}
                 >
@@ -300,7 +346,12 @@ export function AboutMissionFeatures({
                 featuresDescription
               ))}
           </div>
-          <div className={cn("grid gap-10 md:grid-cols-3", featuresClassName)}>
+          <div
+            className={cn(
+              "grid gap-10 md:grid-cols-3 border-t border-dashed",
+              featuresClassName,
+            )}
+          >
             {featuresContent}
           </div>
         </div>
