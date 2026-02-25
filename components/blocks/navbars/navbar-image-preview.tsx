@@ -310,7 +310,7 @@ export const NavbarImagePreview = ({
           <div className={innerContainerClasses}>
             <div
               className={cn(
-                "flex items-center justify-between gap-3.5 py-5",
+                "relative flex items-center justify-between gap-3.5 py-5",
                 navClassName,
               )}
             >
@@ -322,7 +322,7 @@ export const NavbarImagePreview = ({
               />
               <NavigationMenu
                 className={cn(
-                  "hidden lg:flex [&>div:nth-child(2)]:left-1/2 [&>div:nth-child(2)]:-translate-x-1/2",
+                  "hidden lg:flex absolute left-1/2 -translate-x-1/2 [&>div:nth-child(2)]:left-1/2 [&>div:nth-child(2)]:-translate-x-1/2",
                   navigationMenuClassName,
                 )}
               >

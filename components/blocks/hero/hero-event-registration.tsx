@@ -223,29 +223,31 @@ export function HeroEventRegistration({
     if (!locationLabel && !locationSublabel) return null;
 
     return (
-      <div className="absolute -bottom-4 -left-4 rounded-xl bg-card text-card-foreground p-4 shadow-lg ring-4 ring-primary">
+      <div className="absolute -bottom-4 -left-4 rounded-xl bg-card text-card-foreground p-2 md:p-4 shadow-lg ring-4 ring-primary">
         <div className="flex items-center gap-3">
           <div
             className={cn(
-              "flex h-12 w-12 items-center justify-center rounded-full text-card-foreground",
+              "flex items-center justify-center shrink-0",
+              "size-12 rounded-xl bg-primary text-primary-foreground",
             )}
           >
             <DynamicIcon name="lucide/map-pin" size={24} />
           </div>
-          <div>
+          <div
+            className={cn(
+              "flex flex-col items-start justify-center",
+              "text-card-foreground gap-0 pr-0 md:pr-2",
+            )}
+          >
             {locationLabel &&
               (typeof locationLabel === "string" ? (
-                <div className="font-semibold text-card-foreground">
-                  {locationLabel}
-                </div>
+                <div className="font-semibold">{locationLabel}</div>
               ) : (
                 locationLabel
               ))}
             {locationSublabel &&
               (typeof locationSublabel === "string" ? (
-                <div className={cn("text-sm text-card-foreground")}>
-                  {locationSublabel}
-                </div>
+                <div className={cn("text-xs")}>{locationSublabel}</div>
               ) : (
                 locationSublabel
               ))}
@@ -296,7 +298,7 @@ export function HeroEventRegistration({
               <Img
                 src={logo.src}
                 alt={logo.alt}
-                className="mr-auto h-12 md:h-16"
+                className="w-auto max-w-full h-12 md:h-14 object-contain my-4"
                 optixFlowConfig={optixFlowConfig}
               />
             )}

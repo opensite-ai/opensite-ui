@@ -421,7 +421,8 @@ export function LinkPageGridCards({
                 "group flex flex-col items-center gap-2 rounded-xl",
                 "hover:scale-[1.03] active:scale-[0.97]",
                 "transition-all duration-200 p-4",
-                "border border-border bg-card shadow-sm hover:shadow-md",
+                "bg-card text-card-foreground shadow-sm hover:shadow-md",
+                "border border-border",
                 cardClassName,
                 linkClassName,
               )}
