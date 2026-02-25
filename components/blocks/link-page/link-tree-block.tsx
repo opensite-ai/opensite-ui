@@ -525,10 +525,10 @@ export function LinkTreeBlock({
                 key={link.id ?? index}
                 className={cn(
                   "group relative flex w-full items-center gap-3 rounded-xl px-4 py-3.5 transition-all duration-200",
-                  "hover:scale-[1.02] active:scale-[0.98]",
+                  "border border-border",
                   isFeatured
                     ? "bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
-                    : "border border-border bg-card text-card-foreground hover:bg-accent",
+                    : "bg-card text-card-foreground hover:bg-primary hover:text-primary-foreground",
                   linkClassName,
                   isFeatured ? featuredLinkClassName : null,
                   linkItemClassName,
@@ -545,10 +545,10 @@ export function LinkTreeBlock({
               key={link.id ?? index}
               className={cn(
                 "group relative flex w-full items-center gap-3 rounded-xl px-4 py-3.5 transition-all duration-200",
-                "hover:scale-[1.02] active:scale-[0.98]",
+                "border border-border",
                 isFeatured
                   ? "bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
-                  : "border border-border bg-card text-card-foreground hover:bg-accent",
+                  : "bg-card text-card-foreground hover:bg-primary hover:text-primary-foreground",
                 linkClassName,
                 isFeatured ? featuredLinkClassName : null,
                 linkItemClassName,
@@ -569,23 +569,20 @@ export function LinkTreeBlock({
                       {label}
                     </span>
                   ) : (
-                    <div className={linkLabelClassName}>{label}</div>
+                    label
                   ))}
                 {description &&
                   (typeof description === "string" ? (
                     <span
                       className={cn(
                         "mt-0.5 block truncate text-xs",
-                        isFeatured ? "text-primary-foreground" : "",
                         linkDescriptionClassName,
                       )}
                     >
                       {description}
                     </span>
                   ) : (
-                    <div className={linkDescriptionClassName}>
-                      {description}
-                    </div>
+                    description
                   ))}
               </div>
 
@@ -644,9 +641,7 @@ export function LinkTreeBlock({
               {mediaGalleryTitle}
             </h3>
           ) : (
-            <div className={mediaGalleryTitleClassName}>
-              {mediaGalleryTitle}
-            </div>
+            mediaGalleryTitle
           ))}
 
         <div
@@ -657,7 +652,6 @@ export function LinkTreeBlock({
               key={item.id ?? index}
               className={cn(
                 "group relative aspect-square overflow-hidden rounded-lg cursor-pointer",
-                "transition-all duration-200 hover:scale-[1.02]",
                 "ring-1",
                 mediaGalleryItemClassName,
                 item.className,
@@ -696,7 +690,7 @@ export function LinkTreeBlock({
                   src={item.src}
                   alt={item.alt || ""}
                   className={cn(
-                    "h-full w-full object-cover transition-transform duration-300 group-hover:scale-105",
+                    "h-full w-full object-cover transition-transform duration-300",
                     mediaGalleryMediaClassName,
                     item.mediaClassName,
                   )}
@@ -706,7 +700,7 @@ export function LinkTreeBlock({
 
               <div
                 className={cn(
-                  "absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-200 group-hover:bg-black/20",
+                  "absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-200",
                   mediaGalleryOverlayClassName,
                 )}
               >
@@ -776,7 +770,6 @@ export function LinkTreeBlock({
               aria-label={ariaLabel}
               className={cn(
                 "flex h-12 w-12 items-center justify-center rounded-full p-2.5 transition-all duration-200",
-                "hover:scale-110 active:scale-95",
                 socialLinkClassName,
                 social.className,
               )}

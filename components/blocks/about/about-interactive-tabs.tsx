@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getTextColor, getAccentColor, getBorderColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -127,7 +127,6 @@ export function AboutInteractiveTabs({
   tabs,
   tabsSlot,
   className,
-  containerClassName,
   headerClassName,
   titleClassName,
   subtitleClassName,
@@ -140,7 +139,8 @@ export function AboutInteractiveTabs({
   tabContentImageClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
 }: AboutInteractiveTabsProps): React.JSX.Element {
@@ -171,17 +171,17 @@ export function AboutInteractiveTabs({
               key={tab.id}
               onClick={() => handleTabChange(tab.id)}
               className={cn(
-                "flex-shrink-0 whitespace-nowrap px-6 py-3 text-sm font-medium transition-colors",
+                "shrink-0 whitespace-nowrap px-6 py-3 text-sm font-medium transition-colors",
                 activeTab === tab.id
                   ? cn(
-                      "border-b-2",
-                      getBorderColor(background, 'accent'),
-                      getAccentColor(background),
+                      "border-b-2 border-primary",
+                      "bg-primary text-primary-foreground",
                       activeTabClassName,
                     )
                   : cn(
-                      getTextColor(background, 'muted'),
-                      `hover:${getAccentColor(background)}`,
+                      "border-b-2 border-muted",
+                      "bg-muted text-muted-foreground",
+                      "hover:bg-primary hover:text-primary-foreground hover:border-primary",
                     ),
                 tabButtonClassName,
               )}
@@ -212,11 +212,7 @@ export function AboutInteractiveTabs({
               )}
               {typeof activeContent.description === "string" ? (
                 <p
-                  className={cn(
-                    "mt-4 text-lg",
-                    getTextColor(background, 'muted'),
-                    tabContentDescriptionClassName,
-                  )}
+                  className={cn("mt-4 text-lg", tabContentDescriptionClassName)}
                 >
                   {activeContent.description}
                 </p>
@@ -263,7 +259,7 @@ export function AboutInteractiveTabs({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className={cn("mx-auto max-w-3xl text-center", headerClassName)}>
@@ -278,21 +274,15 @@ export function AboutInteractiveTabs({
               {title}
             </h1>
           ) : (
-            <div className={titleClassName}>{title}</div>
+            title
           ))}
         {subtitle &&
           (typeof subtitle === "string" ? (
-            <p
-              className={cn(
-                "mt-4 text-lg text-balance",
-                getTextColor(background, 'muted'),
-                subtitleClassName,
-              )}
-            >
+            <p className={cn("mt-4 text-lg text-balance", subtitleClassName)}>
               {subtitle}
             </p>
           ) : (
-            <div className={cn("mt-4", subtitleClassName)}>{subtitle}</div>
+            subtitle
           ))}
       </div>
 

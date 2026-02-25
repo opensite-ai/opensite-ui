@@ -24,7 +24,7 @@ import {
 } from "@page-speed/forms/integration";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
-  formContainer: "w-full flex flex-col gap-3",
+  formContainer: "w-full flex flex-col gap-3 justify-center items-center",
   fieldsContainer: "",
   fieldClassName: "",
   formClassName: "",

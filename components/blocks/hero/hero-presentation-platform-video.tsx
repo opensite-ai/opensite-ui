@@ -160,42 +160,6 @@ export function HeroPresentationPlatformVideo({
     return items;
   }, [subtitle, heading, headingClassName, description, descriptionClassName]);
 
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className="flex flex-col gap-4 font-medium md:flex-row">
-        {actions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={actionClassName}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [actionsSlot, actions]);
-
   const renderVideo = useMemo(() => {
     if (videoSlot) return videoSlot;
 

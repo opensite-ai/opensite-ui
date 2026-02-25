@@ -2,10 +2,8 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -16,6 +14,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface AboutDeveloperStoryProps {
   /**
@@ -129,7 +129,6 @@ export interface AboutDeveloperStoryProps {
 
 export function AboutDeveloperStory({
   className,
-  containerClassName,
   title,
   titleClassName,
   description,
@@ -151,41 +150,11 @@ export function AboutDeveloperStory({
   storyImageClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "xl",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
 }: AboutDeveloperStoryProps): React.JSX.Element {
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div
-        className={cn("flex flex-wrap justify-center gap-4", actionsClassName)}
-      >
-        {actions.map((action, idx) => (
-          <Pressable
-            key={idx}
-            href={action.href}
-            onClick={action.onClick}
-            size={action.size || "lg"}
-            variant={action.variant || "default"}
-            asButton
-          >
-            {action.label}
-            {idx === 1 && (
-              <DynamicIcon
-                name="lucide/arrow-right"
-                size={16}
-                className="ml-2"
-              />
-            )}
-          </Pressable>
-        ))}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
   const logosContent = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
@@ -253,11 +222,9 @@ export function AboutDeveloperStory({
               ))}
             {stat.label &&
               (typeof stat.label === "string" ? (
-                <p className={cn("mt-2", getTextColor(background, "muted"))}>
-                  {stat.label}
-                </p>
+                <p className="mt-2">{stat.label}</p>
               ) : (
-                <div className="mt-2">{stat.label}</div>
+                stat.label
               ))}
           </div>
         ))}
@@ -265,44 +232,61 @@ export function AboutDeveloperStory({
     );
   }, [statsSlot, stats, statsClassName]);
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (title) {
+      if (typeof title === "string") {
+        items.push({
+          _type: "text",
+          as: "h1",
+          className: cn(
+            "text-4xl font-bold tracking-tight md:text-6xl text-balance",
+            title,
+          ),
+          children: title,
+        });
+      } else {
+        items.push(title);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "max-w-2xl text-lg md:text-xl text-balance",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [title, titleClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 text-center">
-        {title &&
-          (typeof title === "string" ? (
-            <h1
-              className={cn(
-                "text-4xl font-bold tracking-tight md:text-6xl text-balance",
-                titleClassName,
-              )}
-            >
-              {title}
-            </h1>
-          ) : (
-            <div className={titleClassName}>{title}</div>
-          ))}
-        {description &&
-          (typeof description === "string" ? (
-            <p
-              className={cn(
-                "max-w-2xl text-lg md:text-xl text-balance",
-                getTextColor(background, "muted"),
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-          ) : (
-            <div className={descriptionClassName}>{description}</div>
-          ))}
-        {actionsContent}
+        <ContentGroup items={contentItems} />
+
+        <BlockActions
+          actions={actions}
+          actionsSlot={actionsSlot}
+          actionsClassName={actionsClassName}
+        />
       </div>
 
       {logosContent}
@@ -321,23 +305,20 @@ export function AboutDeveloperStory({
                 {storyTitle}
               </h2>
             ) : (
-              <div className={storyTitleClassName}>{storyTitle}</div>
+              storyTitle
             ))}
           {storyContent &&
             (typeof storyContent === "string" ? (
               <p
                 className={cn(
                   "mt-6 text-lg whitespace-pre-line",
-                  getTextColor(background, "muted"),
                   storyContentClassName,
                 )}
               >
                 {storyContent}
               </p>
             ) : (
-              <div className={cn("mt-6", storyContentClassName)}>
-                {storyContent}
-              </div>
+              storyContent
             ))}
         </div>
         {storyImage && (

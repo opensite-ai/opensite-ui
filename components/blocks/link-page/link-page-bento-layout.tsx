@@ -700,8 +700,8 @@ export function LinkPageBentoLayout({
       patternClassName={patternClassName}
       containerClassName={containerClassName}
     >
-      <div className="relative">
-        <div className={cn("w-full max-w-lg space-y-6", contentClassName)}>
+      <div className="flex flex-col items-center">
+        <div className={cn("w-full space-y-6", contentClassName)}>
           {renderProfile}
           {renderLinks}
           <div className="pt-4">{renderFooter}</div>

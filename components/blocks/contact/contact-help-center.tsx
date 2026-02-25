@@ -132,7 +132,7 @@ export function ContactHelpCenter({
   patternOpacity,
   className,
   contactItemsSlot,
-  spacing = "py-16 md:py-322",
+  spacing = "py-16 md:py-32",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   leftColumnClassName,

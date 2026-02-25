@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -12,6 +12,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
+import { Badge } from "@/src";
 
 export interface AboutExpandableValueItem {
   /**
@@ -176,7 +178,7 @@ export function AboutExpandableValues({
   actions,
   actionsSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   badgeClassName,
   headingClassName,
@@ -187,7 +189,7 @@ export function AboutExpandableValues({
   ctaDescriptionClassName,
   actionsClassName,
   background,
-  spacing,
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: AboutExpandableValuesProps): React.JSX.Element {
@@ -229,12 +231,8 @@ export function AboutExpandableValues({
           <div
             key={value.id}
             className={cn(
-              "group overflow-hidden rounded-xl border transition-all duration-300",
-              getNestedCardBg(background, 'card'),
-              getNestedCardTextColor(background),
-              expandedValue === value.id
-                ? "col-span-1 shadow-lg md:col-span-2 lg:col-span-3"
-                : "",
+              "group overflow-hidden rounded-xl border transition-all duration-300 col-span-1",
+              expandedValue === value.id ? "shadow-xl" : "shadow-md",
             )}
           >
             <button
@@ -243,7 +241,7 @@ export function AboutExpandableValues({
               type="button"
             >
               <div className="flex items-start gap-4">
-                <div className="shrink-0 rounded-md bg-primary/10 p-3">
+                <div className="shrink-0 size-12 flex items-center justify-center rounded-md bg-primary text-primary-foreground shadow-lg">
                   {value.icon}
                 </div>
                 <div>
@@ -255,7 +253,7 @@ export function AboutExpandableValues({
                     ))}
                   {value.shortDescription &&
                     (typeof value.shortDescription === "string" ? (
-                      <p className={cn("mt-1 text-sm", getTextColor(background, 'muted'))}>
+                      <p className={cn("mt-1 text-sm")}>
                         {value.shortDescription}
                       </p>
                     ) : (
@@ -268,7 +266,6 @@ export function AboutExpandableValues({
                 size={20}
                 className={cn(
                   "mt-1 shrink-0 transition-transform duration-300",
-                  getTextColor(background, 'muted'),
                   expandedValue === value.id ? "rotate-180" : "",
                 )}
               />
@@ -277,14 +274,14 @@ export function AboutExpandableValues({
             {expandedValue === value.id && (
               <div className="space-y-6 px-6 pb-6">
                 {value.longDescription && (
-                  <div className={cn(
-                    "rounded-lg p-4",
-                    getNestedCardBg(background, 'subtle'),
-                  )}>
+                  <div
+                    className={cn(
+                      "rounded-lg p-4 shadow-md",
+                      "bg-muted text-muted-foreground",
+                    )}
+                  >
                     {typeof value.longDescription === "string" ? (
-                      <p className={getTextColor(background, 'muted')}>
-                        {value.longDescription}
-                      </p>
+                      <p className="relative">{value.longDescription}</p>
                     ) : (
                       value.longDescription
                     )}
@@ -293,18 +290,18 @@ export function AboutExpandableValues({
 
                 {value.examples && value.examples.length > 0 && (
                   <div>
-                    <h4 className={cn("mb-2 text-sm font-semibold", getTextColor(background, 'muted'))}>
+                    <h4 className={cn("mb-2 text-sm font-semibold")}>
                       How we put this into practice:
                     </h4>
                     <ul className="space-y-2">
                       {value.examples.map((example, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <div className={cn("mt-1 flex size-5 shrink-0 items-center justify-center rounded-full", getNestedCardBg(background, 'muted'))}>
-                            <DynamicIcon
-                              name="lucide/check"
-                              size={12}
-                              className={getAccentColor(background)}
-                            />
+                          <div
+                            className={cn(
+                              "mt-1 flex size-5 shrink-0 items-center justify-center rounded-full",
+                            )}
+                          >
+                            <DynamicIcon name="lucide/check" size={12} />
                           </div>
                           {typeof example === "string" ? (
                             <span className="text-sm pt-2">{example}</span>
@@ -330,7 +327,7 @@ export function AboutExpandableValues({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div
@@ -341,18 +338,9 @@ export function AboutExpandableValues({
       >
         {badgeText &&
           (typeof badgeText === "string" ? (
-            <div
-              className={cn(
-                "inline-block rounded-lg px-3 py-1 text-sm",
-                getNestedCardBg(background, 'muted'),
-                getAccentColor(background),
-                badgeClassName,
-              )}
-            >
-              {badgeText}
-            </div>
+            <Badge className={cn("px-3", badgeClassName)}>{badgeText}</Badge>
           ) : (
-            <div className={badgeClassName}>{badgeText}</div>
+            badgeText
           ))}
         {heading &&
           (typeof heading === "string" ? (
@@ -365,21 +353,15 @@ export function AboutExpandableValues({
               {heading}
             </h2>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            heading
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p
-              className={cn(
-                "text-balance",
-                getTextColor(background, 'muted'),
-                descriptionClassName,
-              )}
-            >
+            <p className={cn("text-balance", descriptionClassName)}>
               {description}
             </p>
           ) : (
-            <div className={descriptionClassName}>{description}</div>
+            description
           ))}
       </div>
 
@@ -387,32 +369,30 @@ export function AboutExpandableValues({
 
       <div
         className={cn(
-          "relative mt-8 rounded-lg p-8",
-          getNestedCardBg(background, 'accent'),
-          getNestedCardTextColor(background),
+          "relative mt-8 rounded-lg p-8 bg-muted text-muted-foreground",
           ctaClassName,
         )}
       >
-        <div className="mx-auto max-w-3xl space-y-6 text-center">
+        <div className="mx-auto max-w-3xl space-y-6 text-center flex flex-col items-center gap-6">
           {ctaHeading &&
             (typeof ctaHeading === "string" ? (
               <h3 className={cn("text-2xl font-bold", ctaHeadingClassName)}>
                 {ctaHeading}
               </h3>
             ) : (
-              <div className={ctaHeadingClassName}>{ctaHeading}</div>
+              ctaHeading
             ))}
           {ctaDescription &&
             (typeof ctaDescription === "string" ? (
-              <p
-                className={cn(getTextColor(background, 'muted'), ctaDescriptionClassName)}
-              >
-                {ctaDescription}
-              </p>
+              <p className={cn(ctaDescriptionClassName)}>{ctaDescription}</p>
             ) : (
-              <div className={ctaDescriptionClassName}>{ctaDescription}</div>
+              ctaDescription
             ))}
-          {actionsContent}
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
       </div>
     </Section>
