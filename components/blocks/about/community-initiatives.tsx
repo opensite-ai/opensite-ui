@@ -275,12 +275,17 @@ export function CommunityInitiatives({
             </select>
           </div>
 
-          <TabsList className="hidden h-auto grid-cols-4 p-1 md:grid">
+          <TabsList className="hidden h-auto grid-cols-4 p-1 md:grid ring-2 ring-primary">
             {categories.map((category) => (
               <TabsTrigger
                 key={category.id}
                 value={category.id}
-                className="px-3 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                className={cn(
+                  "px-3 py-2.5 cursor-pointer",
+                  "data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
+                  "hover:bg-muted hover:text-muted-foreground",
+                  "transition-all duration-500",
+                )}
               >
                 {category.title}
               </TabsTrigger>
@@ -296,7 +301,7 @@ export function CommunityInitiatives({
           <TabsContent
             key={category.id}
             value={category.id}
-            className="space-y-12"
+            className="space-y-12 md:space-y-24"
           >
             {category.initiatives.map((initiative, index) => {
               const isEven = index % 2 === 0;
@@ -344,7 +349,7 @@ export function CommunityInitiatives({
                         isEven ? "md:order-2" : "md:order-1",
                       )}
                     >
-                      <div className="relative aspect-4/3 overflow-hidden rounded-xl">
+                      <div className="relative aspect-video overflow-hidden rounded-xl shadow-xl">
                         <Img
                           src={initiative.image}
                           alt={initiative.title}
@@ -365,15 +370,17 @@ export function CommunityInitiatives({
                           "flex h-full min-h-[280px] w-full items-center justify-center",
                         )}
                       >
-                        <CardContent className="p-6 text-center">
+                        <CardContent className="p-6 text-center flex flex-col items-center gap-4">
                           <DynamicIcon
                             name={initiative.icon}
                             size={64}
-                            className={cn("mx-auto mb-4", "opacity-50")}
+                            className={cn(
+                              "mx-auto text-card-foreground",
+                              "opacity-50",
+                            )}
                           />
                           <Badge variant="secondary" className="mx-auto">
-                            Learn more about our{" "}
-                            {initiative.title.toLowerCase()} initiative
+                            {initiative.title}
                           </Badge>
                         </CardContent>
                       </Card>
@@ -408,7 +415,7 @@ export function CommunityInitiatives({
     >
       <div
         className={cn(
-          "mx-auto mb-8 md:mb-16 max-w-3xl space-y-4 text-center",
+          "mx-auto mb-8 md:mb-16 max-w-3xl space-y-4 flex flex-col items-center",
           headerClassName,
         )}
       >
@@ -422,7 +429,7 @@ export function CommunityInitiatives({
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-bold tracking-tight md:text-4xl",
+                "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance text-center",
                 headingClassName,
               )}
             >
@@ -433,7 +440,14 @@ export function CommunityInitiatives({
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p className={cn(descriptionClassName)}>{description}</p>
+            <p
+              className={cn(
+                "text-lg text-balance text-center",
+                descriptionClassName,
+              )}
+            >
+              {description}
+            </p>
           ) : (
             description
           ))}

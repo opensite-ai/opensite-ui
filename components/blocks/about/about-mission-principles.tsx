@@ -176,7 +176,7 @@ export function AboutMissionPrinciples({
   className,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "xl",
+  spacing = "lg",
   pattern,
   patternOpacity,
 }: AboutMissionPrinciplesProps): React.JSX.Element {
@@ -218,7 +218,9 @@ export function AboutMissionPrinciples({
         {principles.map((principle, idx) => (
           <div
             key={idx}
-            className={cn("relative rounded-lg border p-6 transition-colors")}
+            className={cn(
+              "relative rounded-lg border p-6 bg-card text-card-foreground",
+            )}
           >
             {principle.number && (
               <div
@@ -233,7 +235,9 @@ export function AboutMissionPrinciples({
             <div className="space-y-3">
               {principle.title &&
                 (typeof principle.title === "string" ? (
-                  <h3 className="text-xl font-bold">{principle.title}</h3>
+                  <h3 className="text-xl font-bold pr-10 text-pretty">
+                    {principle.title}
+                  </h3>
                 ) : (
                   principle.title
                 ))}
@@ -323,12 +327,12 @@ export function AboutMissionPrinciples({
       <div
         className={cn(
           "mt-6 md:mt-24 p-6 lg:p-12",
-          "bg-muted text-muted-foreground",
-          "rounded-xl shadow-lg border",
+          "bg-accent text-accent-foreground",
+          "rounded-xl shadow-xl border",
           visionClassName,
         )}
       >
-        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-3">
+        <div className="grid grid-cols-1 items-center gap-4 md:gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
             {visionHeading &&
               (typeof visionHeading === "string" ? (

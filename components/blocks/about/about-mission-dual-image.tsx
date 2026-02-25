@@ -135,10 +135,50 @@ export function AboutMissionDualImage({
   optixFlowConfig,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "xl",
+  spacing = "lg",
   pattern,
   patternOpacity,
 }: AboutMissionDualImageProps): React.JSX.Element {
+  const renderTextContent = React.useCallback(
+    (
+      primaryHeading?: React.ReactNode,
+      primaryClassName?: string,
+      secondaryContent?: React.ReactNode,
+      secondaryClassname?: string,
+    ) => {
+      if (!primaryHeading || !secondaryContent) {
+        return null;
+      }
+
+      return (
+        <div className="flex flex-col items-start gap-4 md:gap-6">
+          {primaryHeading &&
+            (typeof primaryHeading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight md:text-4xl",
+                  primaryClassName,
+                )}
+              >
+                {primaryHeading}
+              </h2>
+            ) : (
+              primaryHeading
+            ))}
+          {secondaryContent &&
+            (typeof secondaryContent === "string" ? (
+              <p className={cn("mt-4 text-lg", secondaryClassname)}>
+                {secondaryContent}
+              </p>
+            ) : (
+              secondaryContent
+            ))}
+        </div>
+      );
+    },
+    [],
+  );
+
   return (
     <Section
       background={background}
@@ -151,53 +191,19 @@ export function AboutMissionDualImage({
       <div
         className={cn("grid gap-8 md:gap-16 lg:grid-cols-2", contentClassName)}
       >
-        <div className="flex flex-col justify-center">
-          <div className="mb-8 md:mb-12">
-            {missionTitle &&
-              (typeof missionTitle === "string" ? (
-                <h2
-                  className={cn(
-                    "text-3xl font-bold tracking-tight md:text-4xl",
-                    missionTitleClassName,
-                  )}
-                >
-                  {missionTitle}
-                </h2>
-              ) : (
-                missionTitle
-              ))}
-            {missionContent &&
-              (typeof missionContent === "string" ? (
-                <p className={cn("mt-4 text-lg", missionContentClassName)}>
-                  {missionContent}
-                </p>
-              ) : (
-                missionContent
-              ))}
-          </div>
-          <div>
-            {visionTitle &&
-              (typeof visionTitle === "string" ? (
-                <h2
-                  className={cn(
-                    "text-3xl font-bold tracking-tight md:text-4xl",
-                    visionTitleClassName,
-                  )}
-                >
-                  {visionTitle}
-                </h2>
-              ) : (
-                visionTitle
-              ))}
-            {visionContent &&
-              (typeof visionContent === "string" ? (
-                <p className={cn("mt-4 text-lg", visionContentClassName)}>
-                  {visionContent}
-                </p>
-              ) : (
-                visionContent
-              ))}
-          </div>
+        <div className="flex flex-col items-start gap-6 md:gap-8">
+          {renderTextContent(
+            missionTitle,
+            missionTitleClassName,
+            missionContent,
+            missionContentClassName,
+          )}
+          {renderTextContent(
+            visionTitle,
+            visionTitleClassName,
+            visionContent,
+            visionContentClassName,
+          )}
 
           <BlockActions
             actions={actions}
@@ -212,7 +218,7 @@ export function AboutMissionDualImage({
               src={primaryImage.src}
               alt={primaryImage.alt}
               className={cn(
-                "w-full h-auto rounded-2xl object-cover sm:h-full",
+                "w-full h-auto rounded-2xl object-cover sm:h-full shadow-xl",
                 primaryImageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
@@ -223,7 +229,7 @@ export function AboutMissionDualImage({
               src={secondaryImage.src}
               alt={secondaryImage.alt}
               className={cn(
-                "w-full h-auto rounded-2xl object-cover sm:h-full sm:mt-12",
+                "w-full h-auto rounded-2xl object-cover sm:h-full sm:mt-12 shadow-xl",
                 secondaryImageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
