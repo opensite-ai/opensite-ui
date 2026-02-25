@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -128,8 +128,7 @@ export function AboutMinimalStory({
         ) : (
           <div
             className={cn(
-              "flex h-16 w-16 items-center justify-center rounded-full text-2xl font-bold text-primary-foreground",
-              getAccentColor(background),
+              "flex h-16 w-16 items-center justify-center rounded-full text-2xl font-bold",
             )}
           >
             {author.name.charAt(0)}
@@ -137,9 +136,7 @@ export function AboutMinimalStory({
         )}
         <div>
           <p className="font-semibold">{author.name}</p>
-          <p className={cn("text-sm", getTextColor(background, "muted"))}>
-            {author.role}
-          </p>
+          <p className="text-sm">{author.role}</p>
         </div>
       </div>
     );
@@ -168,7 +165,7 @@ export function AboutMinimalStory({
               {title}
             </h1>
           ) : (
-            <div className={titleClassName}>{title}</div>
+            title
           ))}
 
         {content &&
@@ -176,14 +173,13 @@ export function AboutMinimalStory({
             <p
               className={cn(
                 "mt-8 text-lg leading-relaxed whitespace-pre-line",
-                getTextColor(background, "muted"),
                 bodyClassName,
               )}
             >
               {content}
             </p>
           ) : (
-            <div className={cn("mt-8", bodyClassName)}>{content}</div>
+            content
           ))}
 
         {featuredImage && (
@@ -191,7 +187,8 @@ export function AboutMinimalStory({
             src={featuredImage.src}
             alt={featuredImage.alt}
             className={cn(
-              "mt-6 md:mt-12 w-full rounded-2xl object-cover",
+              "mt-6 md:mt-12 w-full",
+              "shadow-xl rounded-2xl object-cover",
               imageClassName,
             )}
             optixFlowConfig={optixFlowConfig}

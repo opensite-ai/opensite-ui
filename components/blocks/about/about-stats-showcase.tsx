@@ -2,12 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-  getTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -234,7 +229,11 @@ export function AboutStatsShowcase({
 
     return (
       <div
-        className={cn("grid grid-cols-2 gap-6 md:grid-cols-3", statsClassName)}
+        className={cn(
+          "grid grid-cols-2 md:grid-cols-3",
+          "gap-6 md:gap-16",
+          statsClassName,
+        )}
       >
         {stats.map((stat, idx) => (
           <div className="flex flex-col gap-6 border-b pb-8" key={idx}>
@@ -246,9 +245,7 @@ export function AboutStatsShowcase({
               ))}
             {stat.label &&
               (typeof stat.label === "string" ? (
-                <p className={getTextColor(background, "muted")}>
-                  {stat.label}
-                </p>
+                <p className="text-base">{stat.label}</p>
               ) : (
                 stat.label
               ))}
@@ -263,8 +260,13 @@ export function AboutStatsShowcase({
     if (!logos || logos.length === 0) return null;
 
     return (
-      <div className={cn("py-24", getNestedCardBg(background, "subtle"))}>
-        <div className="container flex flex-col items-center gap-11">
+      <div
+        className={cn(
+          "px-6 md:px-8 py-8 md:py-24",
+          "bg-transparent border rounded-xl shadow-lg",
+        )}
+      >
+        <div className="flex flex-col items-center gap-11">
           {logosTitle &&
             (typeof logosTitle === "string" ? (
               <p
@@ -276,11 +278,13 @@ export function AboutStatsShowcase({
                 {logosTitle}
               </p>
             ) : (
-              <div className={logosTitleClassName}>{logosTitle}</div>
+              logosTitle
             ))}
           <div
             className={cn(
-              "grid grid-cols-2 gap-x-7 gap-y-12 lg:grid-cols-4",
+              "flex flex-col md:flex-row",
+              "justify-center items-center flex-wrap",
+              "gap-6 md:gap-12 opacity-70",
               logosClassName,
             )}
           >
@@ -289,7 +293,7 @@ export function AboutStatsShowcase({
                 <Img
                   src={logo.src}
                   alt={logo.alt}
-                  className="h-8 object-contain w-auto md:h-14 max-h-24"
+                  className="h-8 object-contain w-auto md:h-14 max-h-14"
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
@@ -324,7 +328,7 @@ export function AboutStatsShowcase({
               {benefitsTitle}
             </h2>
           ) : (
-            <div className={benefitsTitleClassName}>{benefitsTitle}</div>
+            benefitsTitle
           ))}
         <div
           className={cn(
@@ -338,16 +342,16 @@ export function AboutStatsShowcase({
                 <Img
                   src={benefit.image.src}
                   alt={benefit.image.alt}
-                  className="max-h-96 w-full rounded-xl object-cover"
+                  className="max-h-96 w-full rounded-xl object-cover shadow-lg"
                   optixFlowConfig={optixFlowConfig}
                 />
               )}
               {benefit.stat && (
                 <div
                   className={cn(
-                    "flex flex-col justify-center rounded-xl p-8",
-                    getNestedCardBg(background),
-                    getNestedCardTextColor(background),
+                    "flex flex-col justify-center",
+                    "p-6 md:p-8",
+                    "bg-muted text-muted-foreground rounded-xl",
                   )}
                 >
                   {benefit.stat.value &&
@@ -356,26 +360,24 @@ export function AboutStatsShowcase({
                         {benefit.stat.value}
                       </p>
                     ) : (
-                      <div className="mb-2">{benefit.stat.value}</div>
+                      benefit.stat.value
                     ))}
                   {benefit.stat.label &&
                     (typeof benefit.stat.label === "string" ? (
                       <p className="mb-6 font-semibold">{benefit.stat.label}</p>
                     ) : (
-                      <div className="mb-6">{benefit.stat.label}</div>
+                      benefit.stat.label
                     ))}
                   {benefit.stat.description &&
                     (typeof benefit.stat.description === "string" ? (
-                      <p className={getTextColor(background, "muted")}>
-                        {benefit.stat.description}
-                      </p>
+                      <p className="relative">{benefit.stat.description}</p>
                     ) : (
                       benefit.stat.description
                     ))}
                 </div>
               )}
               {benefit.testimonial && (
-                <div className="rounded-xl bg-background p-4">
+                <div className="p-4">
                   <div className="mb-4 flex items-center gap-2">
                     {benefit.testimonial.logo && (
                       <Img
@@ -400,7 +402,7 @@ export function AboutStatsShowcase({
                         {benefit.testimonial.quote}
                       </p>
                     ) : (
-                      <div className="mb-6">{benefit.testimonial.quote}</div>
+                      benefit.testimonial.quote
                     ))}
                   <div className="flex items-baseline gap-1">
                     {benefit.testimonial.author &&
@@ -413,12 +415,7 @@ export function AboutStatsShowcase({
                       ))}
                     {benefit.testimonial.role &&
                       (typeof benefit.testimonial.role === "string" ? (
-                        <span
-                          className={cn(
-                            "text-sm",
-                            getTextColor(background, "muted"),
-                          )}
-                        >
+                        <span className="text-sm">
                           {benefit.testimonial.role}
                         </span>
                       ) : (
@@ -447,7 +444,7 @@ export function AboutStatsShowcase({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className="flex flex-col gap-10 md:gap-24">
@@ -464,21 +461,20 @@ export function AboutStatsShowcase({
                   {title}
                 </h1>
               ) : (
-                <div className={titleClassName}>{title}</div>
+                title
               ))}
             {description &&
               (typeof description === "string" ? (
                 <p
                   className={cn(
                     "text-lg md:text-xl text-balance",
-                    getTextColor(background, "muted"),
                     descriptionClassName,
                   )}
                 >
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
           </div>
           {imagesContent}
@@ -495,7 +491,7 @@ export function AboutStatsShowcase({
                 {statsTitle}
               </h2>
             ) : (
-              <div className={statsTitleClassName}>{statsTitle}</div>
+              statsTitle
             ))}
           {statsContent}
         </div>

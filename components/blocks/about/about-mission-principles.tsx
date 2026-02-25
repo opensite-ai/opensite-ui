@@ -2,13 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-  getTextColor,
-  getAccentColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -18,6 +12,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { Badge } from "@/src";
 
 export interface AboutMissionPrincipleItem {
   /**
@@ -223,17 +218,13 @@ export function AboutMissionPrinciples({
         {principles.map((principle, idx) => (
           <div
             key={idx}
-            className={cn(
-              "relative rounded-lg border p-6 transition-colors",
-              `hover:${getNestedCardBg(background, "muted")}`,
-            )}
+            className={cn("relative rounded-lg border p-6 transition-colors")}
           >
             {principle.number && (
               <div
                 className={cn(
                   "absolute right-4 top-4 text-3xl font-bold",
-                  getAccentColor(background),
-                  "opacity-20",
+                  "opacity-50",
                 )}
               >
                 {principle.number}
@@ -248,9 +239,7 @@ export function AboutMissionPrinciples({
                 ))}
               {principle.description &&
                 (typeof principle.description === "string" ? (
-                  <p className={getTextColor(background, "muted")}>
-                    {principle.description}
-                  </p>
+                  <p className="text-pretty text-lg">{principle.description}</p>
                 ) : (
                   principle.description
                 ))}
@@ -297,17 +286,9 @@ export function AboutMissionPrinciples({
         <div className="space-y-4 md:space-y-8">
           {badgeText &&
             (typeof badgeText === "string" ? (
-              <div
-                className={cn(
-                  "inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm",
-                  getAccentColor(background),
-                  badgeClassName,
-                )}
-              >
-                {badgeText}
-              </div>
+              <Badge className={cn("px-3", badgeClassName)}>{badgeText}</Badge>
             ) : (
-              <div className={badgeClassName}>{badgeText}</div>
+              badgeText
             ))}
 
           {missionHeading &&
@@ -321,24 +302,16 @@ export function AboutMissionPrinciples({
                 {missionHeading}
               </h2>
             ) : (
-              <div className={missionHeadingClassName}>{missionHeading}</div>
+              missionHeading
             ))}
 
           {missionDescription &&
             (typeof missionDescription === "string" ? (
-              <p
-                className={cn(
-                  "text-xl",
-                  getTextColor(background, "muted"),
-                  missionDescriptionClassName,
-                )}
-              >
+              <p className={cn("text-xl", missionDescriptionClassName)}>
                 {missionDescription}
               </p>
             ) : (
-              <div className={missionDescriptionClassName}>
-                {missionDescription}
-              </div>
+              missionDescription
             ))}
 
           {missionActionContent}
@@ -349,9 +322,9 @@ export function AboutMissionPrinciples({
 
       <div
         className={cn(
-          "mt-6 md:mt-24 rounded-lg p-8 lg:p-12",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background),
+          "mt-6 md:mt-24 p-6 lg:p-12",
+          "bg-muted text-muted-foreground",
+          "rounded-xl shadow-lg border",
           visionClassName,
         )}
       >
@@ -368,25 +341,15 @@ export function AboutMissionPrinciples({
                   {visionHeading}
                 </h3>
               ) : (
-                <div className={cn("mb-4", visionHeadingClassName)}>
-                  {visionHeading}
-                </div>
+                visionHeading
               ))}
             {visionDescription &&
               (typeof visionDescription === "string" ? (
-                <p
-                  className={cn(
-                    "mb-4",
-                    getTextColor(background, "muted"),
-                    visionDescriptionClassName,
-                  )}
-                >
+                <p className={cn("mb-4", visionDescriptionClassName)}>
                   {visionDescription}
                 </p>
               ) : (
-                <div className={cn("mb-4", visionDescriptionClassName)}>
-                  {visionDescription}
-                </div>
+                visionDescription
               ))}
           </div>
           <div className="flex justify-center lg:col-span-1 lg:justify-end">

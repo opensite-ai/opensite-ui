@@ -2,13 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useState } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-  getTextColor,
-  getAccentColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -235,7 +229,7 @@ export function AboutStartupTeam({
               "block w-full text-left rounded-lg px-4 py-2 text-sm font-medium transition-colors",
               activeTab === link.value
                 ? "bg-primary text-primary-foreground"
-                : cn(getTextColor(background, "muted"), "hover:bg-muted"),
+                : "bg-card text-card-foreground hover:bg-primary hover:text-primary-foreground",
             )}
           >
             {link.label}
@@ -280,15 +274,9 @@ export function AboutStartupTeam({
               <div
                 className={cn(
                   "mx-auto flex h-24 w-24 items-center justify-center rounded-full",
-                  getNestedCardBg(background),
-                  getNestedCardTextColor(background),
                 )}
               >
-                <DynamicIcon
-                  name="lucide/user"
-                  size={40}
-                  className={cn(getTextColor(background, "muted"))}
-                />
+                <DynamicIcon name="lucide/user" size={40} />
               </div>
             )}
             {member.name &&
@@ -299,11 +287,9 @@ export function AboutStartupTeam({
               ))}
             {member.role &&
               (typeof member.role === "string" ? (
-                <p className={cn("text-sm", getTextColor(background, "muted"))}>
-                  {member.role}
-                </p>
+                <p className="text-sm">{member.role}</p>
               ) : (
-                <div className="text-sm">{member.role}</div>
+                member.role
               ))}
             {member.socialLinks && member.socialLinks.length > 0 && (
               <div className="mt-4 flex justify-center gap-3">
@@ -312,10 +298,6 @@ export function AboutStartupTeam({
                     key={linkIdx}
                     href={link.url}
                     aria-label={link.label}
-                    className={cn(
-                      getTextColor(background, "muted"),
-                      `hover:${getAccentColor(background)}`,
-                    )}
                   >
                     {link.icon}
                   </Pressable>
@@ -352,11 +334,7 @@ export function AboutStartupTeam({
                 "shrink-0 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
                 activeTab === link.value
                   ? "bg-primary text-primary-foreground"
-                  : cn(
-                      "bg-muted",
-                      getTextColor(background, "muted"),
-                      "hover:bg-muted/80",
-                    ),
+                  : "bg-card text-card-foreground hover:bg-primary hover:text-primary-foreground",
               )}
             >
               {link.label}
@@ -400,23 +378,20 @@ export function AboutStartupTeam({
                   {title}
                 </h1>
               ) : (
-                <div className={titleClassName}>{title}</div>
+                title
               ))}
             {description &&
               (typeof description === "string" ? (
                 <p
                   className={cn(
                     "mt-6 text-lg whitespace-pre-line",
-                    getTextColor(background, "muted"),
                     descriptionClassName,
                   )}
                 >
                   {description}
                 </p>
               ) : (
-                <div className={cn("mt-6", descriptionClassName)}>
-                  {description}
-                </div>
+                description
               ))}
 
             <div className="mt-8 md:mt-16">

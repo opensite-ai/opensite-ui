@@ -1,10 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -13,6 +11,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface AboutMissionDualImageProps {
   /**
@@ -140,45 +139,13 @@ export function AboutMissionDualImage({
   pattern,
   patternOpacity,
 }: AboutMissionDualImageProps): React.JSX.Element {
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const {
-        label,
-        icon,
-        iconAfter,
-        children,
-        className: actionClassName,
-        ...pressableProps
-      } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={cn("w-fit", actionClassName)}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
-
   return (
     <Section
       background={background}
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div
@@ -197,23 +164,15 @@ export function AboutMissionDualImage({
                   {missionTitle}
                 </h2>
               ) : (
-                <div className={missionTitleClassName}>{missionTitle}</div>
+                missionTitle
               ))}
             {missionContent &&
               (typeof missionContent === "string" ? (
-                <p
-                  className={cn(
-                    "mt-4 text-lg",
-                    getTextColor(background, "muted"),
-                    missionContentClassName,
-                  )}
-                >
+                <p className={cn("mt-4 text-lg", missionContentClassName)}>
                   {missionContent}
                 </p>
               ) : (
-                <div className={cn("mt-4", missionContentClassName)}>
-                  {missionContent}
-                </div>
+                missionContent
               ))}
           </div>
           <div>
@@ -228,30 +187,23 @@ export function AboutMissionDualImage({
                   {visionTitle}
                 </h2>
               ) : (
-                <div className={visionTitleClassName}>{visionTitle}</div>
+                visionTitle
               ))}
             {visionContent &&
               (typeof visionContent === "string" ? (
-                <p
-                  className={cn(
-                    "mt-4 text-lg",
-                    getTextColor(background, "muted"),
-                    visionContentClassName,
-                  )}
-                >
+                <p className={cn("mt-4 text-lg", visionContentClassName)}>
                   {visionContent}
                 </p>
               ) : (
-                <div className={cn("mt-4", visionContentClassName)}>
-                  {visionContent}
-                </div>
+                visionContent
               ))}
           </div>
-          {(actionsSlot || (actions && actions.length > 0)) && (
-            <div className={cn("mt-8 flex flex-wrap gap-4", actionsClassName)}>
-              {actionsContent}
-            </div>
-          )}
+
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
 
         <div className="relative flex flex-col gap-4 sm:grid sm:grid-cols-2">

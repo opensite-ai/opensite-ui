@@ -2,13 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-  getTextColor,
-  getAccentColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -166,15 +160,16 @@ export function AboutMissionFeatures({
 
     return features.map((feature, idx) => (
       <div className="flex flex-col" key={idx}>
-        <div
-          className={cn(
-            "mb-5 flex size-12 items-center justify-center rounded-2xl text-primary-foreground",
-            getAccentColor(background),
-            feature.iconBgClass,
-          )}
-        >
-          {feature.icon}
-        </div>
+        {feature.icon ? (
+          <div
+            className={cn(
+              "mb-5 flex size-12 items-center justify-center rounded-2xl",
+              feature.iconBgClass,
+            )}
+          >
+            {feature.icon}
+          </div>
+        ) : null}
         {feature.title &&
           (typeof feature.title === "string" ? (
             <h3 className="mt-2 mb-3 text-lg font-semibold">{feature.title}</h3>
@@ -183,9 +178,7 @@ export function AboutMissionFeatures({
           ))}
         {feature.description &&
           (typeof feature.description === "string" ? (
-            <p className={getTextColor(background, "muted")}>
-              {feature.description}
-            </p>
+            <p className="text-sm md:text-md">{feature.description}</p>
           ) : (
             feature.description
           ))}
@@ -199,7 +192,7 @@ export function AboutMissionFeatures({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className="relative">
@@ -223,7 +216,7 @@ export function AboutMissionFeatures({
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
         </div>
         <div className="grid gap-6 md:grid-cols-2">
@@ -240,9 +233,7 @@ export function AboutMissionFeatures({
           )}
           <div
             className={cn(
-              "relative flex flex-col justify-between gap-10 overflow-hidden rounded-2xl p-10",
-              getNestedCardBg(background),
-              getNestedCardTextColor(background),
+              "relative flex flex-col justify-between gap-10 overflow-hidden rounded-2xl p-10 text-white text-shadow-2xl",
               missionSectionClassName,
             )}
           >
@@ -251,10 +242,9 @@ export function AboutMissionFeatures({
                 <Img
                   src={missionBackgroundImage.src}
                   alt={missionBackgroundImage.alt}
-                  className="absolute inset-0 size-full object-cover"
+                  className="absolute inset-0 size-full object-cover brightness-50"
                   optixFlowConfig={optixFlowConfig}
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-foreground/80 via-foreground/50 to-foreground/30" />
               </>
             )}
             <div className="relative z-10">
@@ -262,29 +252,26 @@ export function AboutMissionFeatures({
                 (typeof missionLabel === "string" ? (
                   <p
                     className={cn(
-                      "text-sm font-semibold text-background",
+                      "text-sm font-bold uppercase",
                       missionLabelClassName,
                     )}
                   >
                     {missionLabel}
                   </p>
                 ) : (
-                  <div className={missionLabelClassName}>{missionLabel}</div>
+                  missionLabel
                 ))}
             </div>
             <div className="relative z-10">
               {missionText &&
                 (typeof missionText === "string" ? (
                   <p
-                    className={cn(
-                      "text-lg font-medium text-background",
-                      missionTextClassName,
-                    )}
+                    className={cn("text-lg font-medium", missionTextClassName)}
                   >
                     {missionText}
                   </p>
                 ) : (
-                  <div className={missionTextClassName}>{missionText}</div>
+                  missionText
                 ))}
             </div>
           </div>
@@ -302,23 +289,15 @@ export function AboutMissionFeatures({
                   {featuresTitle}
                 </h2>
               ) : (
-                <div className={featuresTitleClassName}>{featuresTitle}</div>
+                featuresTitle
               ))}
             {featuresDescription &&
               (typeof featuresDescription === "string" ? (
-                <p
-                  className={cn(
-                    "text-lg",
-                    getTextColor(background, "muted"),
-                    featuresDescriptionClassName,
-                  )}
-                >
+                <p className={cn("text-lg", featuresDescriptionClassName)}>
                   {featuresDescription}
                 </p>
               ) : (
-                <div className={featuresDescriptionClassName}>
-                  {featuresDescription}
-                </div>
+                featuresDescription
               ))}
           </div>
           <div className={cn("grid gap-10 md:grid-cols-3", featuresClassName)}>
