@@ -15,6 +15,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { Badge } from "@/src";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FeatureImageCardsThreeColumnItem {
   /**
@@ -193,6 +194,12 @@ export interface FeatureImageCardsThreeColumnProps {
  * />
  * ```
  */
+const ASPECT_RATIO_CLASSES = {
+  square: "aspect-square",
+  horizontal: "aspect-video",
+  vertical: "aspect-[3/4]",
+} as const;
+
 export function FeatureImageCardsThreeColumn({
   title,
   description,
@@ -211,6 +218,7 @@ export function FeatureImageCardsThreeColumn({
   pattern,
   patternOpacity,
   patternClassName,
+  cardAspectRatios = { desktop: "vertical", mobile: "square" },
 }: FeatureImageCardsThreeColumnProps): React.JSX.Element {
   const renderImage = useCallback(
     (card: FeatureImageCardsThreeColumnItem, imageAlt: string) => {
@@ -221,7 +229,7 @@ export function FeatureImageCardsThreeColumn({
         <Img
           src={card.imageSrc}
           alt={imageAlt}
-          className="h-full max-h-[450px] min-h-80 w-full rounded-xl object-cover object-center"
+          className="absolute inset-0 h-full w-full rounded-xl object-cover object-center"
           loading="lazy"
           optixFlowConfig={optixFlowConfig}
         />
@@ -247,6 +255,97 @@ export function FeatureImageCardsThreeColumn({
     [],
   );
 
+  const renderCardBadge = useCallback(
+    (card: FeatureImageCardsThreeColumnItem) => {
+      return card.badgeText || card.avatarSrc || card.icon || card.iconName ? (
+        <Badge
+          variant="default"
+          className={cn("py-1 px-3 gap-2", card.badgeClassName)}
+        >
+          {renderBadgeIcon(card)}
+          {card.badgeText}
+        </Badge>
+      ) : null;
+    },
+    [renderBadgeIcon],
+  );
+
+  const cardHasTextContent = useCallback(
+    (card: FeatureImageCardsThreeColumnItem) => {
+      const hasBadge = !!(
+        card.badgeText ||
+        card.avatarSrc ||
+        card.icon ||
+        card.iconName
+      );
+      return hasBadge || !!card.title || !!card.subtitle || !!card.linkText;
+    },
+    [],
+  );
+
+  const renderCardText = useCallback(
+    (card: FeatureImageCardsThreeColumnItem) => {
+      if (!cardHasTextContent(card)) {
+        return null;
+      }
+
+      const cardBadge = renderCardBadge(card);
+
+      return (
+        <div className="absolute top-0 flex h-full w-full flex-col justify-between p-4 md:p-6">
+          {cardBadge || <div />}
+          {card.title || card.subtitle || card.linkText ? (
+            <div className="flex flex-col items-start gap-4 md:gap-6 text-white">
+              {card.title || card.subtitle ? (
+                <div className="flex flex-col items-start gap-2 md:gap-4">
+                  {card.title &&
+                    (typeof card.title === "string" ? (
+                      <h3
+                        className={cn(
+                          "text-lg md:text-xl font-semibold",
+                          card.titleClassName,
+                        )}
+                      >
+                        {card.title}
+                      </h3>
+                    ) : (
+                      card.title
+                    ))}
+                  {card.subtitle &&
+                    (typeof card.subtitle === "string" ? (
+                      <p
+                        className={cn(
+                          "text-base font-normal",
+                          card.subtitleClassName,
+                        )}
+                      >
+                        {card.subtitle}
+                      </p>
+                    ) : (
+                      card.subtitle
+                    ))}
+                </div>
+              ) : null}
+
+              {card.linkText && (
+                <div
+                  className={cn(
+                    "font-bold text-xs uppercase flex items-center gap-2",
+                    card.linkClassName,
+                  )}
+                >
+                  {card.linkText}
+                  <DynamicIcon name="lucide/arrow-up-right" size={18} />
+                </div>
+              )}
+            </div>
+          ) : null}
+        </div>
+      );
+    },
+    [cardHasTextContent, renderCardBadge],
+  );
+
   const cardsContent = useMemo(() => {
     if (cardsSlot) return cardsSlot;
     if (!cards || cards.length === 0) return null;
@@ -256,6 +355,9 @@ export function FeatureImageCardsThreeColumn({
         card.imageAlt ||
         (typeof card.title === "string" ? card.title : "Card image");
 
+      const mobileAspectClass = ASPECT_RATIO_CLASSES[cardAspectRatios.mobile];
+      const desktopAspectClass = `md:${ASPECT_RATIO_CLASSES[cardAspectRatios.desktop]}`;
+
       return (
         <Pressable
           key={index}
@@ -263,72 +365,67 @@ export function FeatureImageCardsThreeColumn({
           onClick={card.onClick}
           className={cn(
             "group relative overflow-hidden rounded-2xl shadow-xl",
+            mobileAspectClass,
+            desktopAspectClass,
             cardClassName,
             card.className,
           )}
         >
           {renderImage(card, imageAlt)}
-          <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 md:translate-y-20 rounded-xl bg-linear-to-t from-black to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
-          <div className="absolute top-0 flex h-full w-full flex-col justify-between p-4 md:p-6">
-            {(card.badgeText ||
-              card.avatarSrc ||
-              card.icon ||
-              card.iconName) && (
-              <Badge
-                variant="default"
-                className={cn("py-1 px-3 gap-2", card.badgeClassName)}
-              >
-                {renderBadgeIcon(card)}
-                {card.badgeText}
-              </Badge>
-            )}
-            <div className="flex flex-col items-start gap-4 md:gap-6 text-white">
-              <div className="flex flex-col items-start gap-2 md:gap-4">
-                {card.title &&
-                  (typeof card.title === "string" ? (
-                    <h3
-                      className={cn(
-                        "text-lg md:text-xl font-semibold",
-                        card.titleClassName,
-                      )}
-                    >
-                      {card.title}
-                    </h3>
-                  ) : (
-                    card.title
-                  ))}
-                {card.subtitle &&
-                  (typeof card.subtitle === "string" ? (
-                    <p
-                      className={cn(
-                        "text-base font-normal",
-                        card.subtitleClassName,
-                      )}
-                    >
-                      {card.subtitle}
-                    </p>
-                  ) : (
-                    card.subtitle
-                  ))}
-              </div>
-
-              {card.link && (
-                <div
-                  className={cn(
-                    "font-bold text-xs uppercase flex items-center gap-2",
-                    card.linkClassName,
-                  )}
-                >
-                  {card.linkText ? card.linkText : "View"}
-                  <DynamicIcon name="lucide/arrow-up-right" size={18} />
-                </div>
-              )}
-            </div>
-          </div>
+          {cardHasTextContent(card) && (
+            <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 md:translate-y-20 rounded-xl bg-linear-to-t from-black to-transparent transition-transform duration-300 group-hover:translate-y-0" />
+          )}
+          {renderCardText(card)}
         </Pressable>
       );
     });
-  }, [cardsSlot, cards, cardClassName, renderImage, renderBadgeIcon]);
+  }, [
+    cardsSlot,
+    cards,
+    cardClassName,
+    cardAspectRatios,
+    renderImage,
+    cardHasTextContent,
+    renderCardText,
+  ]);
+
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (title) {
+      if (typeof title === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "text-3xl font-semibold text-balance md:text-4xl lg:text-5xl max-w-full md:max-w-md",
+            title,
+          ),
+          children: title,
+        });
+      } else {
+        items.push(title);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "text-xl max-w-full md:max-w-md text-balance",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [title, titleClassName, description, descriptionClassName]);
 
   return (
     <Section
@@ -341,41 +438,13 @@ export function FeatureImageCardsThreeColumn({
       containerClassName={containerClassName}
     >
       <div className="flex flex-col space-y-6 md:space-y-16">
-        {title || description ? (
-          <div
-            className={cn(
-              "flex flex-col gap-6 text-left items-start",
-              headerClassName,
-            )}
-          >
-            {title &&
-              (typeof title === "string" ? (
-                <h2
-                  className={cn(
-                    "text-3xl font-semibold text-balance md:text-4xl lg:text-5xl max-w-full md:max-w-md",
-                    titleClassName,
-                  )}
-                >
-                  {title}
-                </h2>
-              ) : (
-                title
-              ))}
-            {description &&
-              (typeof description === "string" ? (
-                <p
-                  className={cn(
-                    "text-xl max-w-full md:max-w-md text-balance",
-                    descriptionClassName,
-                  )}
-                >
-                  {description}
-                </p>
-              ) : (
-                description
-              ))}
-          </div>
-        ) : null}
+        <ContentGroup
+          items={contentItems}
+          className={cn(
+            "flex flex-col gap-2 text-left items-start",
+            headerClassName,
+          )}
+        />
 
         <div
           className={cn(

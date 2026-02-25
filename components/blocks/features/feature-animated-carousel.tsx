@@ -3,11 +3,7 @@
 import * as React from "react";
 import { useCallback, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -18,6 +14,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { Pressable } from "@/src";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FeatureAnimatedCarouselItem {
   /**
@@ -525,6 +522,44 @@ export function FeatureAnimatedCarousel({
 
   const currentFeature = features[activeIndex];
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (title) {
+      if (typeof title === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "text-3xl font-semibold text-balance md:text-4xl lg:text-5xl max-w-full md:max-w-md",
+            title,
+          ),
+          children: title,
+        });
+      } else {
+        items.push(title);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "text-xl max-w-full md:max-w-md text-balance",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [title, titleClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -536,47 +571,13 @@ export function FeatureAnimatedCarousel({
       containerClassName={containerClassName}
     >
       <div className="flex flex-col space-y-6 md:space-y-16">
-        {title || description ? (
-          <div
-            className={cn(
-              "flex flex-col gap-4 md:gap-6 text-left",
-              headerClassName,
-            )}
-          >
-            {title &&
-              (typeof title === "string" ? (
-                <h2
-                  className={cn(
-                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl max-w-lg md:max-w-md",
-                    titleClassName,
-                  )}
-                >
-                  {title}
-                </h2>
-              ) : (
-                <div
-                  className={cn(
-                    "text-xl font-semibold text-balance md:text-2xl lg:text-3xl max-w-lg md:max-w-md",
-                    titleClassName,
-                  )}
-                >
-                  {title}
-                </div>
-              ))}
-            {description &&
-              (typeof description === "string" ? (
-                <p className={cn("max-w-lg md:max-w-md", descriptionClassName)}>
-                  {description}
-                </p>
-              ) : (
-                <div
-                  className={cn("max-w-lg md:max-w-md", descriptionClassName)}
-                >
-                  {description}
-                </div>
-              ))}
-          </div>
-        ) : null}
+        <ContentGroup
+          items={contentItems}
+          className={cn(
+            "flex flex-col gap-2 text-left items-start",
+            headerClassName,
+          )}
+        />
 
         <div
           className={cn(
