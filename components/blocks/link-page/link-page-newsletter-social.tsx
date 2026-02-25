@@ -2,18 +2,9 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import {
-  isValidEmail,
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -25,7 +16,30 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import { sub } from "date-fns";
+import {
+  FormEngine,
+  type FormEngineProps,
+  type FormEngineStyleRules,
+  type FormFieldConfig,
+} from "@page-speed/forms/integration";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "w-full flex flex-col gap-3",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "",
+};
+
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "Enter your email",
+    required: true,
+    columnSpan: 12,
+  },
+];
 
 /**
  * Link item for the newsletter social link page
@@ -76,17 +90,17 @@ export interface LinkPageNewsletterSocialProps {
    */
   newsletterDescription?: React.ReactNode;
   /**
-   * Email input placeholder text
+   * Full form engine setup and props
    */
-  emailPlaceholder?: string;
+  formEngineSetup?: FormEngineProps;
   /**
-   * Submit button text (used when submitAction is not provided)
+   * Submit button configuration
    */
-  buttonText?: React.ReactNode;
+  buttonAction?: ActionConfig;
   /**
-   * Submit action configuration
+   * Helper text below form
    */
-  submitAction?: ActionConfig;
+  helperText?: React.ReactNode;
   /**
    * Custom slot for rendering the newsletter card
    */
@@ -95,14 +109,6 @@ export interface LinkPageNewsletterSocialProps {
    * Custom slot for rendering form fields inside the newsletter card
    */
   formSlot?: React.ReactNode;
-  /**
-   * Label to show while submitting
-   */
-  submittingLabel?: React.ReactNode;
-  /**
-   * Icon to show while submitting
-   */
-  submittingIcon?: React.ReactNode;
   /**
    * Array of links to display below the newsletter
    */
@@ -184,18 +190,6 @@ export interface LinkPageNewsletterSocialProps {
    */
   newsletterDescriptionClassName?: string;
   /**
-   * Additional CSS classes for the form container
-   */
-  formClassName?: string;
-  /**
-   * Additional CSS classes for the input field
-   */
-  inputClassName?: string;
-  /**
-   * Additional CSS classes for the submit button
-   */
-  submitButtonClassName?: string;
-  /**
    * Additional CSS classes for the links container
    */
   linksClassName?: string;
@@ -240,60 +234,6 @@ export interface LinkPageNewsletterSocialProps {
    */
   patternClassName?: string;
   /**
-   * Optional form submission configuration.
-   *
-   * **Universal Usage**: Works with ANY REST API endpoint. Simply provide an `endpoint` URL
-   * and the form will submit to it in JSON format.
-   *
-   * @example
-   * // Works with any API
-   * formConfig={{ endpoint: "https://api.mysite.com/subscribe", format: "json" }}
-   *
-   * @example
-   * // With custom headers (e.g., authentication)
-   * formConfig={{
-   *   endpoint: "/api/newsletter",
-   *   headers: { "Authorization": "Bearer token123" }
-   * }}
-   *
-   * **Note**: The `apiKey`, `contactCategoryToken`, and other platform-specific fields
-   * are OPTIONAL and only needed when integrating with DashTrack's Rails backend.
-   * For generic REST APIs, just use `endpoint`, `method`, `format`, and `headers`.
-   *
-   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples with Next.js, React, and more.
-   */
-  formConfig?: PageSpeedFormConfig;
-  /**
-   * Optional custom submission handler for maximum flexibility.
-   *
-   * Use this when you need complete control over the submission logic,
-   * such as custom API calls, analytics tracking, or multi-step workflows.
-   *
-   * Can be used alone or in combination with `formConfig` for hybrid approaches.
-   *
-   * @example
-   * onSubmit={async (email) => {
-   *   await fetch("/api/subscribe", {
-   *     method: "POST",
-   *     body: JSON.stringify({ email, campaign: "link-page" })
-   *   });
-   * }}
-   */
-  onSubmit?: (email: string) => void | Promise<void>;
-  /**
-   * Optional success callback invoked after successful submission.
-   *
-   * Called after `formConfig` submission and/or `onSubmit` completes successfully.
-   * Use for showing success messages, redirecting, analytics tracking, etc.
-   */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Optional error callback invoked if submission fails.
-   *
-   * Receives the error object for custom error handling, logging, or user notifications.
-   */
-  onError?: (error: Error) => void;
-  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -304,35 +244,33 @@ export interface LinkPageNewsletterSocialProps {
  *
  * This component provides a link page with:
  * - Profile section with avatar, name, and bio
- * - Newsletter signup form with email validation
- * - Form integration with @page-speed/forms library
+ * - Newsletter signup form powered by FormEngine
  * - Links section below the newsletter
  * - Social media links
  * - Light and dark theme support
  *
- * The newsletter form supports:
- * - Universal REST API integration via formConfig
- * - Custom submission handlers via onSubmit
- * - Success and error callbacks
- * - DashTrack Rails backend integration
+ * The newsletter form is powered by `FormEngine` from `@page-speed/forms/integration`,
+ * which handles validation, submission, error handling, and success states.
  *
  * @example
  * ```tsx
- * // Basic usage
+ * // Basic usage with FormEngine
  * <LinkPageNewsletterSocial
  *   name="Content Creator"
  *   bio="Weekly tips on growing your audience"
  *   newsletterHeading="Join my newsletter"
- *   formConfig={{ endpoint: "/api/subscribe" }}
+ *   formEngineSetup={{
+ *     formConfig: { endpoint: "/api/subscribe", format: "json" },
+ *   }}
  * />
  *
- * // With custom submission handler
+ * // With custom button action
  * <LinkPageNewsletterSocial
  *   name="Content Creator"
- *   onSubmit={async (email) => {
- *     await myCustomApi.subscribe(email);
+ *   formEngineSetup={{
+ *     formConfig: { endpoint: "/api/subscribe" },
  *   }}
- *   onSuccess={() => toast.success("Subscribed!")}
+ *   buttonAction={{ label: "Subscribe Now", variant: "default" }}
  * />
  * ```
  */
@@ -344,15 +282,11 @@ export function LinkPageNewsletterSocial({
   profileSlot,
   newsletterHeading,
   newsletterDescription,
-  emailPlaceholder,
-  buttonText,
-  submitAction,
+  formEngineSetup,
+  buttonAction,
+  helperText,
   newsletterSlot,
   formSlot,
-  submittingLabel,
-  submittingIcon = (
-    <DynamicIcon name="lucide/loader-2" size={16} className="animate-spin" />
-  ),
   links,
   linksSlot,
   linkChevronIcon,
@@ -372,9 +306,6 @@ export function LinkPageNewsletterSocial({
   newsletterCardClassName,
   newsletterHeadingClassName,
   newsletterDescriptionClassName,
-  formClassName,
-  inputClassName,
-  submitButtonClassName,
   linksClassName,
   linkClassName,
   linkIconClassName,
@@ -387,93 +318,23 @@ export function LinkPageNewsletterSocial({
   pattern,
   patternOpacity,
   patternClassName,
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
   optixFlowConfig,
 }: LinkPageNewsletterSocialProps): React.JSX.Element {
-  const resolvedBackground = background;
-
-  const resolvedAvatar: ImageItem | undefined =
-    avatar ||
-    (avatarUrl
-      ? {
-          src: avatarUrl,
-          alt: typeof name === "string" ? name : "Profile avatar",
-        }
-      : undefined);
-
-  const form = useForm<{ email: string }>({
-    initialValues: {
-      email: "",
-    },
-    validationSchema: {
-      email: (value) => {
-        if (!value) return "Email is required";
-        if (!isValidEmail(value)) return "Please enter a valid email address";
-        return undefined;
-      },
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
-
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
-
-      try {
-        let result: unknown;
-
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
-
-        if (onSubmit) {
-          await onSubmit(values.email);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
-  });
-
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
-
-  const resolvedSubmitAction = useMemo<ActionConfig>(() => {
-    if (submitAction) {
-      return {
-        ...submitAction,
-        label: buttonText || submitAction?.label || "Submit",
-        variant: submitAction?.variant || ("default" as const),
-        size: submitAction?.size || ("lg" as const),
-      };
-    }
-    return {
-      label: buttonText || "Submit",
-      variant: "default" as const,
-      size: "lg" as const,
-    };
-  }, [submitAction, buttonText]);
-
   const resolvedChevronIcon = linkChevronIcon ?? (
     <DynamicIcon name="lucide/chevron-right" size={16} />
   );
 
   const renderProfile = useMemo(() => {
     if (profileSlot) return profileSlot;
+
+    const resolvedAvatar: ImageItem | undefined =
+      avatar ||
+      (avatarUrl
+        ? {
+            src: avatarUrl,
+            alt: typeof name === "string" ? name : "Profile avatar",
+          }
+        : undefined);
 
     return (
       <div
@@ -520,11 +381,11 @@ export function LinkPageNewsletterSocial({
     );
   }, [
     profileSlot,
-    resolvedAvatar,
+    avatar,
+    avatarUrl,
     avatarClassName,
     optixFlowConfig,
     name,
-    resolvedBackground,
     nameClassName,
     bio,
     bioClassName,
@@ -582,73 +443,53 @@ export function LinkPageNewsletterSocial({
     socialLinks,
     socialLinksClassName,
     socialIconClassName,
-    resolvedBackground,
     socialLinkClassName,
   ]);
 
-  const renderFormFields = useMemo(() => {
+  const renderForm = useMemo(() => {
     if (formSlot) return formSlot;
+    if (!formEngineSetup) return null;
 
-    const {
-      label,
-      icon,
-      iconAfter,
-      children,
-      className: actionClassName,
-      ...pressableProps
-    } = resolvedSubmitAction;
+    const defaultButtonAction: ActionConfig = {
+      label: "Submit",
+      variant: "default",
+    };
+
+    const action = buttonAction || defaultButtonAction;
 
     return (
       <>
-        <Field name="email">
-          {({ field, meta }) => (
-            <TextInput
-              {...field}
-              type="email"
-              placeholder={emailPlaceholder}
-              error={meta.touched && !!meta.error}
-              className={cn("w-full", inputClassName)}
-              aria-label={emailPlaceholder || "Email address"}
-            />
-          )}
-        </Field>
-        <Pressable
-          componentType="button"
-          type="submit"
-          variant={resolvedSubmitAction.variant ?? "default"}
-          size={resolvedSubmitAction.size ?? "lg"}
-          className={cn("w-full", submitButtonClassName, actionClassName)}
-          asButton
-          disabled={form.isSubmitting}
-          {...pressableProps}
-        >
-          {form.isSubmitting ? (
-            <>
-              {submittingIcon}
-              <span>{submittingLabel}</span>
-            </>
+        <FormEngine
+          formEngineSetup={{
+            ...formEngineSetup,
+            formLayoutSettings: {
+              ...formEngineSetup.formLayoutSettings,
+              formLayout: "button-group",
+              buttonGroupSetup: {
+                ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
+                size: "lg",
+                submitLabel: (
+                  <>
+                    {action.label}
+                    {action.iconAfter}
+                  </>
+                ),
+                submitVariant: action.variant || "default",
+              },
+            },
+          }}
+          defaultFields={DEFAULT_FORM_FIELDS}
+          defaultStyleRules={DEFAULT_STYLE_RULES}
+        />
+        {helperText &&
+          (typeof helperText === "string" ? (
+            <p className={cn("text-sm mt-2 text-center")}>{helperText}</p>
           ) : (
-            (children ?? (
-              <>
-                {icon}
-                {label}
-                {iconAfter}
-              </>
-            ))
-          )}
-        </Pressable>
+            helperText
+          ))}
       </>
     );
-  }, [
-    formSlot,
-    resolvedSubmitAction,
-    emailPlaceholder,
-    inputClassName,
-    submitButtonClassName,
-    form.isSubmitting,
-    submittingIcon,
-    submittingLabel,
-  ]);
+  }, [formSlot, formEngineSetup, buttonAction, helperText]);
 
   const renderNewsletter = useMemo(() => {
     if (newsletterSlot) return newsletterSlot;
@@ -689,14 +530,7 @@ export function LinkPageNewsletterSocial({
             ))}
         </div>
 
-        <Form
-          form={form}
-          action={formConfig?.endpoint}
-          method={formMethod}
-          className={cn("space-y-3", formClassName)}
-        >
-          {renderFormFields}
-        </Form>
+        {renderForm}
       </div>
     );
   }, [
@@ -705,13 +539,8 @@ export function LinkPageNewsletterSocial({
     newsletterHeading,
     newsletterHeadingClassName,
     newsletterDescription,
-    resolvedBackground,
     newsletterDescriptionClassName,
-    form,
-    formConfig?.endpoint,
-    formMethod,
-    formClassName,
-    renderFormFields,
+    renderForm,
   ]);
 
   const renderLinks = useMemo(() => {
@@ -798,7 +627,6 @@ export function LinkPageNewsletterSocial({
     links,
     linksClassName,
     linkIconClassName,
-    resolvedBackground,
     linkClassName,
     linkLabelClassName,
     linkChevronClassName,
@@ -844,11 +672,11 @@ export function LinkPageNewsletterSocial({
         )}
       </Pressable>
     );
-  }, [footerSlot, footerAction, resolvedBackground, footerClassName]);
+  }, [footerSlot, footerAction, footerClassName]);
 
   return (
     <Section
-      background={resolvedBackground}
+      background={background}
       spacing={spacing}
       className={className}
       pattern={pattern}

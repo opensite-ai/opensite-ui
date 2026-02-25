@@ -5,7 +5,6 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
@@ -397,9 +396,7 @@ export function LinkTreeBlock({
   };
 
   const nameForAlt = typeof brandName === "string" ? brandName : "Brand avatar";
-  const resolvedAvatar =
-    resolveImage(brandAvatar || brandLogo, nameForAlt) ||
-    resolveImage(blockBrandedIconsAndPlaceholders.avatar1, nameForAlt);
+  const resolvedAvatar = resolveImage(brandAvatar || brandLogo, nameForAlt);
 
   const renderBrandHeader = React.useMemo(() => {
     if (brandSlot) return brandSlot;
@@ -430,7 +427,7 @@ export function LinkTreeBlock({
           {brandVerified && (
             <div
               className={cn(
-                "absolute -bottom-1 -right-1 rounded-full bg-primary p-1",
+                "absolute -bottom-1 -right-1 rounded-full bg-primary text-primary-foreground p-1",
                 verifiedBadgeClassName,
               )}
             >
@@ -579,7 +576,7 @@ export function LinkTreeBlock({
                     <span
                       className={cn(
                         "mt-0.5 block truncate text-xs",
-                        isFeatured ? "text-primary-foreground/70" : "",
+                        isFeatured ? "text-primary-foreground" : "",
                         linkDescriptionClassName,
                       )}
                     >
@@ -606,7 +603,7 @@ export function LinkTreeBlock({
                 size={16}
                 className={cn(
                   "shrink-0 transition-transform group-hover:translate-x-0.5",
-                  isFeatured ? "text-primary-foreground/70" : "",
+                  isFeatured ? "text-primary-foreground" : "",
                   linkChevronClassName,
                 )}
               />

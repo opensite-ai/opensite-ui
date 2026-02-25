@@ -17875,7 +17875,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "link-page-newsletter-social",
     name: "Link Page Newsletter Social",
     description:
-      "A link page with integrated newsletter signup form. Features profile section with avatar, newsletter signup form with email validation and @page-speed/forms integration, social media links, and additional links section. Supports universal REST API integration, custom submission handlers, and DashTrack Rails backend. Ideal for content creators, bloggers, and marketers who want to grow their email list.",
+      "A link page with integrated newsletter signup form powered by FormEngine. Features profile section with avatar, newsletter signup form with email validation via @page-speed/forms/integration, social media links, and additional links section. Supports universal REST API integration via formEngineSetup. Ideal for content creators, bloggers, and marketers who want to grow their email list.",
     semanticTags: [
       "link-page",
       "newsletter",
@@ -17896,8 +17896,10 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   name="Content Creator"
   bio="Weekly tips on growing your audience"
   newsletterHeading="Join my newsletter"
-  formConfig={{ endpoint: "/api/subscribe" }}
-  onSuccess={() => console.log("Subscribed!")}
+  formEngineSetup={{
+    formConfig: { endpoint: "/api/subscribe", format: "json" },
+  }}
+  buttonAction={{ label: "Subscribe", variant: "default" }}
   links={[
     { id: "1", label: "My Website", href: "https://example.com", icon: "lucide/globe" }
   ]}

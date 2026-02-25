@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-02-25T09:17:21.656Z",
+    "exportedAt": "2026-02-25T10:06:27.654Z",
     "totalBlocks": 605,
-    "version": "2.2.9",
+    "version": "2.3.0",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -10940,7 +10940,7 @@
     {
       "id": "link-page-newsletter-social",
       "name": "Link Page Newsletter Social",
-      "description": "A link page with integrated newsletter signup form. Features profile section with avatar, newsletter signup form with email validation and @page-speed/forms integration, social media links, and additional links section. Supports universal REST API integration, custom submission handlers, and DashTrack Rails backend. Ideal for content creators, bloggers, and marketers who want to grow their email list.",
+      "description": "A link page with integrated newsletter signup form powered by FormEngine. Features profile section with avatar, newsletter signup form with email validation via @page-speed/forms/integration, social media links, and additional links section. Supports universal REST API integration via formEngineSetup. Ideal for content creators, bloggers, and marketers who want to grow their email list.",
       "semanticTags": [
         "link-page",
         "newsletter",
@@ -10955,7 +10955,7 @@
       ],
       "category": "link-page",
       "props": "LinkPageNewsletterSocialProps",
-      "exampleUsage": "<LinkPageNewsletterSocial\n  name=\"Content Creator\"\n  bio=\"Weekly tips on growing your audience\"\n  newsletterHeading=\"Join my newsletter\"\n  formConfig={{ endpoint: \"/api/subscribe\" }}\n  onSuccess={() => console.log(\"Subscribed!\")}\n  links={[\n    { id: \"1\", label: \"My Website\", href: \"https://example.com\", icon: \"lucide/globe\" }\n  ]}\n/>"
+      "exampleUsage": "<LinkPageNewsletterSocial\n  name=\"Content Creator\"\n  bio=\"Weekly tips on growing your audience\"\n  newsletterHeading=\"Join my newsletter\"\n  formEngineSetup={{\n    formConfig: { endpoint: \"/api/subscribe\", format: \"json\" },\n  }}\n  buttonAction={{ label: \"Subscribe\", variant: \"default\" }}\n  links={[\n    { id: \"1\", label: \"My Website\", href: \"https://example.com\", icon: \"lucide/globe\" }\n  ]}\n/>"
     },
     {
       "id": "link-page-grid-cards",

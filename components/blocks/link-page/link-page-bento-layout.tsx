@@ -2,15 +2,9 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-  getTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -258,7 +252,7 @@ export function LinkPageBentoLayout({
   name,
   bio,
   avatar,
-  avatarUrl = blockBrandedIconsAndPlaceholders.avatar5,
+  avatarUrl,
   profileSlot,
   links,
   linksSlot,
@@ -269,7 +263,6 @@ export function LinkPageBentoLayout({
   footerAction,
   footerSlot,
   className,
-  containerClassName,
   contentClassName,
   headerClassName,
   avatarClassName,
@@ -292,15 +285,14 @@ export function LinkPageBentoLayout({
   regularLinkIconClassName,
   regularLinkLabelClassName,
   footerClassName,
-  background = "white",
-  spacing,
+  background,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
 }: LinkPageBentoLayoutProps): React.JSX.Element {
-  const resolvedBackground = background;
-
   const resolvedAvatar: ImageItem | undefined =
     avatar ||
     (avatarUrl
@@ -343,7 +335,6 @@ export function LinkPageBentoLayout({
               className={cn(
                 "rounded-full p-2 transition-all duration-200",
                 "hover:scale-110 active:scale-95",
-                getTextColor(resolvedBackground, "muted"),
                 "hover:opacity-80",
                 socialLinkClassName,
                 social.className,
@@ -360,7 +351,6 @@ export function LinkPageBentoLayout({
     socialLinks,
     socialLinksClassName,
     socialIconClassName,
-    resolvedBackground,
     socialLinkClassName,
   ]);
 
@@ -397,9 +387,7 @@ export function LinkPageBentoLayout({
           <Pressable
             key={link.id ?? index}
             className={cn(
-              "group relative aspect-4/3 overflow-hidden rounded-2xl transition-all duration-200",
-              "hover:scale-[1.02] active:scale-[0.98]",
-              "border border-border bg-muted",
+              "group relative aspect-4/3 overflow-hidden rounded-xl",
               featuredLinkClassName,
               linkClassName,
             )}
@@ -414,9 +402,7 @@ export function LinkPageBentoLayout({
         <Pressable
           key={link.id ?? index}
           className={cn(
-            "group relative aspect-4/3 overflow-hidden rounded-2xl transition-all duration-200",
-            "hover:scale-[1.02] active:scale-[0.98]",
-            "border border-border bg-muted",
+            "group relative aspect-4/3 overflow-hidden rounded-xl",
             featuredLinkClassName,
             linkClassName,
           )}
@@ -427,7 +413,7 @@ export function LinkPageBentoLayout({
               src={imageSource}
               alt={imageAlt}
               className={cn(
-                "absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105",
+                "absolute inset-0 h-full w-full object-cover",
                 featuredLinkImageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
@@ -437,8 +423,8 @@ export function LinkPageBentoLayout({
             className={cn(
               "absolute inset-0 transition-opacity",
               imageSource
-                ? "bg-linear-to-t from-black/80 via-black/40 to-transparent"
-                : "bg-linear-to-t from-neutral-200/50 to-transparent",
+                ? "bg-linear-to-t from-black/80 via-black/40 to-transparent text-white"
+                : "bg-primary text-primary-foreground",
               featuredLinkOverlayClassName,
             )}
           />
@@ -450,7 +436,6 @@ export function LinkPageBentoLayout({
                   <span
                     className={cn(
                       "text-sm font-semibold",
-                      imageSource && "text-background",
                       featuredLinkLabelClassName,
                     )}
                   >
@@ -465,18 +450,13 @@ export function LinkPageBentoLayout({
                 <span
                   className={cn(
                     "mt-0.5 text-xs",
-                    imageSource
-                      ? "text-background/70"
-                      : getTextColor(resolvedBackground, "muted"),
                     featuredLinkDescriptionClassName,
                   )}
                 >
                   {description}
                 </span>
               ) : (
-                <div className={featuredLinkDescriptionClassName}>
-                  {description}
-                </div>
+                description
               ))}
           </div>
         </Pressable>
@@ -485,7 +465,6 @@ export function LinkPageBentoLayout({
   }, [
     featuredLinksSlot,
     featuredLinks,
-    resolvedBackground,
     featuredLinkClassName,
     featuredLinkImageClassName,
     optixFlowConfig,
@@ -523,9 +502,7 @@ export function LinkPageBentoLayout({
           <Pressable
             key={link.id ?? index}
             className={cn(
-              "group flex items-center gap-3 rounded-xl p-3 transition-all duration-200",
-              "hover:scale-[1.02] active:scale-[0.98]",
-              "border border-border bg-muted/50 hover:opacity-80",
+              "group flex items-center gap-3 rounded-xl p-3",
               regularLinkClassName,
               linkClassName,
             )}
@@ -540,9 +517,8 @@ export function LinkPageBentoLayout({
         <Pressable
           key={link.id ?? index}
           className={cn(
-            "group flex items-center gap-3 rounded-xl p-3 transition-all duration-200",
-            "hover:scale-[1.02] active:scale-[0.98]",
-            "border border-border bg-muted/50 hover:opacity-80",
+            "group flex items-center gap-3 rounded-xl p-3",
+            "bg-card text-card-foreground",
             regularLinkClassName,
             linkClassName,
           )}
@@ -551,8 +527,6 @@ export function LinkPageBentoLayout({
           <div
             className={cn(
               "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
-              getNestedCardBg(resolvedBackground, "card"),
-              getNestedCardTextColor(resolvedBackground),
               regularLinkIconWrapperClassName,
             )}
           >
@@ -577,7 +551,6 @@ export function LinkPageBentoLayout({
   }, [
     regularLinksSlot,
     regularLinks,
-    resolvedBackground,
     regularLinkClassName,
     regularLinkIconWrapperClassName,
     regularLinkIconClassName,
@@ -594,12 +567,12 @@ export function LinkPageBentoLayout({
     return (
       <div className={cn("space-y-3", linksClassName)}>
         {hasFeatured && (
-          <div className={cn("grid grid-cols-2 gap-3", featuredLinksClassName)}>
+          <div className={cn("grid grid-cols-1 gap-3", featuredLinksClassName)}>
             {renderFeaturedLinks}
           </div>
         )}
         {hasRegular && (
-          <div className={cn("grid grid-cols-2 gap-3", regularLinksClassName)}>
+          <div className={cn("grid grid-cols-1 gap-3", regularLinksClassName)}>
             {renderRegularLinks}
           </div>
         )}
@@ -650,21 +623,13 @@ export function LinkPageBentoLayout({
             (typeof name === "string" ? (
               <h1 className={cn("text-xl font-bold", nameClassName)}>{name}</h1>
             ) : (
-              <div className={nameClassName}>{name}</div>
+              name
             ))}
           {bio &&
             (typeof bio === "string" ? (
-              <p
-                className={cn(
-                  "max-w-xs text-sm",
-                  getTextColor(resolvedBackground, "muted"),
-                  bioClassName,
-                )}
-              >
-                {bio}
-              </p>
+              <p className={cn("max-w-xs text-sm", bioClassName)}>{bio}</p>
             ) : (
-              <div className={bioClassName}>{bio}</div>
+              bio
             ))}
         </div>
 
@@ -674,7 +639,6 @@ export function LinkPageBentoLayout({
   }, [
     profileSlot,
     resolvedAvatar,
-    resolvedBackground,
     avatarClassName,
     optixFlowConfig,
     name,
@@ -709,7 +673,6 @@ export function LinkPageBentoLayout({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          getTextColor(resolvedBackground, "muted"),
           "opacity-50",
           footerClassName,
           actionClassName,
@@ -725,23 +688,19 @@ export function LinkPageBentoLayout({
         )}
       </Pressable>
     );
-  }, [footerSlot, footerAction, resolvedBackground, footerClassName]);
+  }, [footerSlot, footerAction, footerClassName]);
 
   return (
     <Section
-      background={resolvedBackground}
+      background={background}
       spacing={spacing}
       className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
+      containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "flex min-h-screen w-full items-start justify-center py-12",
-          containerClassName,
-        )}
-      >
+      <div className="relative">
         <div className={cn("w-full max-w-lg space-y-6", contentClassName)}>
           {renderProfile}
           {renderLinks}

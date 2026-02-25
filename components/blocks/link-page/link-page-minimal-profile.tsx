@@ -2,10 +2,9 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -196,7 +195,7 @@ export function LinkPageMinimalProfile({
   name,
   bio,
   avatar,
-  avatarUrl = blockBrandedIconsAndPlaceholders.avatar2,
+  avatarUrl,
   profileSlot,
   links,
   linksSlot,
@@ -205,7 +204,6 @@ export function LinkPageMinimalProfile({
   footerAction,
   footerSlot,
   className,
-  containerClassName,
   contentClassName,
   headerClassName,
   avatarClassName,
@@ -219,26 +217,24 @@ export function LinkPageMinimalProfile({
   socialLinkClassName,
   socialIconClassName,
   footerClassName,
-  background = "default",
-  spacing,
+  background,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
 }: LinkPageMinimalProfileProps): React.JSX.Element {
-  const resolvedBackground = background;
-
-  const resolvedAvatar: ImageItem | undefined =
-    avatar ||
-    (avatarUrl
-      ? {
-          src: avatarUrl,
-          alt: typeof name === "string" ? name : "Profile avatar",
-        }
-      : undefined);
-
   const renderProfile = useMemo(() => {
     if (profileSlot) return profileSlot;
+    const resolvedAvatar =
+      avatar ||
+      (avatarUrl
+        ? {
+            src: avatarUrl,
+            alt: typeof name === "string" ? name : "Profile avatar",
+          }
+        : undefined);
 
     return (
       <div
@@ -251,7 +247,6 @@ export function LinkPageMinimalProfile({
           <div
             className={cn(
               "h-20 w-20 overflow-hidden rounded-full",
-              getNestedCardBg(resolvedBackground),
               avatarClassName,
             )}
           >
@@ -267,12 +262,7 @@ export function LinkPageMinimalProfile({
         <div className="space-y-1">
           {name &&
             (typeof name === "string" ? (
-              <h1
-                className={cn(
-                  "text-xl font-semibold",
-                  nameClassName,
-                )}
-              >
+              <h1 className={cn("text-xl font-semibold", nameClassName)}>
                 {name}
               </h1>
             ) : (
@@ -280,22 +270,25 @@ export function LinkPageMinimalProfile({
             ))}
           {bio &&
             (typeof bio === "string" ? (
-              <p
-                className={cn(
-                  "text-sm",
-                  getTextColor(resolvedBackground, 'muted'),
-                  bioClassName,
-                )}
-              >
-                {bio}
-              </p>
+              <p className={cn("text-sm", bioClassName)}>{bio}</p>
             ) : (
               <div className={bioClassName}>{bio}</div>
             ))}
         </div>
       </div>
     );
-  }, [profileSlot, resolvedAvatar, avatarClassName, optixFlowConfig, name, resolvedBackground, nameClassName, bio, bioClassName, headerClassName]);
+  }, [
+    avatar,
+    avatarUrl,
+    profileSlot,
+    avatarClassName,
+    optixFlowConfig,
+    name,
+    nameClassName,
+    bio,
+    bioClassName,
+    headerClassName,
+  ]);
 
   const renderLinks = useMemo(() => {
     if (linksSlot) return linksSlot;
@@ -328,8 +321,6 @@ export function LinkPageMinimalProfile({
                 key={link.id ?? index}
                 className={cn(
                   "flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors",
-                  getNestedCardBg(resolvedBackground),
-                  getNestedCardTextColor(resolvedBackground),
                   "hover:opacity-80",
                   linkClassName,
                   linkItemClassName,
@@ -346,8 +337,6 @@ export function LinkPageMinimalProfile({
               key={link.id ?? index}
               className={cn(
                 "flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors",
-                getNestedCardBg(resolvedBackground),
-                getNestedCardTextColor(resolvedBackground),
                 "hover:opacity-80",
                 linkClassName,
                 linkItemClassName,
@@ -370,7 +359,14 @@ export function LinkPageMinimalProfile({
         })}
       </div>
     );
-  }, [linksSlot, links, linksClassName, linkIconClassName, resolvedBackground, linkClassName, linkLabelClassName]);
+  }, [
+    linksSlot,
+    links,
+    linksClassName,
+    linkIconClassName,
+    linkClassName,
+    linkLabelClassName,
+  ]);
 
   const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
@@ -406,7 +402,6 @@ export function LinkPageMinimalProfile({
               aria-label={ariaLabel}
               className={cn(
                 "rounded-full p-2 transition-colors",
-                getTextColor(resolvedBackground, 'muted'),
                 "hover:opacity-80",
                 socialLinkClassName,
                 social.className,
@@ -418,7 +413,13 @@ export function LinkPageMinimalProfile({
         })}
       </div>
     );
-  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, resolvedBackground, socialLinkClassName]);
+  }, [
+    socialLinksSlot,
+    socialLinks,
+    socialLinksClassName,
+    socialIconClassName,
+    socialLinkClassName,
+  ]);
 
   const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
@@ -444,7 +445,6 @@ export function LinkPageMinimalProfile({
       <Pressable
         className={cn(
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-          getTextColor(resolvedBackground, 'subtle'),
           footerClassName,
           actionClassName,
         )}
@@ -459,11 +459,11 @@ export function LinkPageMinimalProfile({
         )}
       </Pressable>
     );
-  }, [footerSlot, footerAction, resolvedBackground, footerClassName]);
+  }, [footerSlot, footerAction, footerClassName]);
 
   return (
     <Section
-      background={resolvedBackground}
+      background={background}
       spacing={spacing}
       className={className}
       pattern={pattern}

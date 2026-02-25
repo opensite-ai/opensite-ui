@@ -4,7 +4,6 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
-import { Container } from "../../ui/container";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -133,7 +132,7 @@ export function ContactHelpCenter({
   patternOpacity,
   className,
   contactItemsSlot,
-  spacing = "py-8 md:py-32",
+  spacing = "py-16 md:py-322",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   contentClassName,
   leftColumnClassName,
@@ -151,12 +150,12 @@ export function ContactHelpCenter({
       <Pressable
         key={`${item.title}-${idx}`}
         href={item.href}
-        className="flex items-start gap-4 rounded-lg p-4 "
+        className="flex items-start gap-4"
       >
-        <div className="flex h-12 w-12 items-center justify-center rounded-full">
+        <div className="flex size-12 shrink-0 items-center justify-center">
           <DynamicIcon name={item.icon} size={20} />
         </div>
-        <div>
+        <div className="flex flex-col items-start gap-1">
           <p className="font-semibold">{item.title}</p>
           {item.subtitle ? <p className="text-sm">{item.subtitle}</p> : null}
         </div>
@@ -174,7 +173,7 @@ export function ContactHelpCenter({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className={cn("rounded-3xl p-8 md:p-12", contentClassName)}>
+        <div className={cn("relative", contentClassName)}>
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
             <div className={cn("space-y-5", leftColumnClassName)}>
               {eyebrow &&
@@ -194,14 +193,14 @@ export function ContactHelpCenter({
                 (typeof heading === "string" ? (
                   <h2
                     className={cn(
-                      "text-3xl font-bold md:text-4xl text-balance",
+                      "text-3xl font-bold md:text-4xl text-pretty",
                       headingClassName,
                     )}
                   >
                     {heading}
                   </h2>
                 ) : (
-                  <div className={headingClassName}>{heading}</div>
+                  heading
                 ))}
               {description &&
                 (typeof description === "string" ? (
@@ -209,13 +208,13 @@ export function ContactHelpCenter({
                     {description}
                   </p>
                 ) : (
-                  <div className={descriptionClassName}>{description}</div>
+                  description
                 ))}
             </div>
 
             <div
               className={cn(
-                "rounded-2xl bg-background p-8 shadow-lg",
+                "rounded-2xl bg-card text-card-foreground py-8 px-4 md:px-8 shadow-lg",
                 cardPanelClassName,
               )}
             >
@@ -225,7 +224,7 @@ export function ContactHelpCenter({
                     {cardTitle}
                   </h3>
                 ) : (
-                  <div className={cardTitleClassName}>{cardTitle}</div>
+                  cardTitle
                 )
               ) : null}
 
