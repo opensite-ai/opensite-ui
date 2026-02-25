@@ -2,7 +2,13 @@
 
 import * as React from "react";
 import { useMemo, useState } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+  getTextColor,
+  getAccentColor,
+} from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -141,7 +147,6 @@ export interface AboutStartupTeamProps {
 
 export function AboutStartupTeam({
   className,
-  containerClassName,
   title,
   titleClassName,
   description,
@@ -156,7 +161,8 @@ export function AboutStartupTeam({
   teamMembersClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   defaultActiveTab,
@@ -229,10 +235,7 @@ export function AboutStartupTeam({
               "block w-full text-left rounded-lg px-4 py-2 text-sm font-medium transition-colors",
               activeTab === link.value
                 ? "bg-primary text-primary-foreground"
-                : cn(
-                    getTextColor(background, 'muted'),
-                    "hover:bg-muted",
-                  ),
+                : cn(getTextColor(background, "muted"), "hover:bg-muted"),
             )}
           >
             {link.label}
@@ -274,15 +277,17 @@ export function AboutStartupTeam({
                 optixFlowConfig={optixFlowConfig}
               />
             ) : (
-              <div className={cn(
-                "mx-auto flex h-24 w-24 items-center justify-center rounded-full",
-                getNestedCardBg(background),
-                getNestedCardTextColor(background),
-              )}>
+              <div
+                className={cn(
+                  "mx-auto flex h-24 w-24 items-center justify-center rounded-full",
+                  getNestedCardBg(background),
+                  getNestedCardTextColor(background),
+                )}
+              >
                 <DynamicIcon
                   name="lucide/user"
                   size={40}
-                  className={cn(getTextColor(background, 'muted'))}
+                  className={cn(getTextColor(background, "muted"))}
                 />
               </div>
             )}
@@ -294,7 +299,9 @@ export function AboutStartupTeam({
               ))}
             {member.role &&
               (typeof member.role === "string" ? (
-                <p className={cn("text-sm", getTextColor(background, 'muted'))}>{member.role}</p>
+                <p className={cn("text-sm", getTextColor(background, "muted"))}>
+                  {member.role}
+                </p>
               ) : (
                 <div className="text-sm">{member.role}</div>
               ))}
@@ -306,7 +313,7 @@ export function AboutStartupTeam({
                     href={link.url}
                     aria-label={link.label}
                     className={cn(
-                      getTextColor(background, 'muted'),
+                      getTextColor(background, "muted"),
                       `hover:${getAccentColor(background)}`,
                     )}
                   >
@@ -347,7 +354,7 @@ export function AboutStartupTeam({
                   ? "bg-primary text-primary-foreground"
                   : cn(
                       "bg-muted",
-                      getTextColor(background, 'muted'),
+                      getTextColor(background, "muted"),
                       "hover:bg-muted/80",
                     ),
               )}
@@ -366,9 +373,10 @@ export function AboutStartupTeam({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn(containerClassName)}>
+      <div className="relative">
         <div className="grid gap-12 lg:grid-cols-4">
           {/* Desktop sidebar - hidden on mobile */}
           <aside
@@ -399,7 +407,7 @@ export function AboutStartupTeam({
                 <p
                   className={cn(
                     "mt-6 text-lg whitespace-pre-line",
-                    getTextColor(background, 'muted'),
+                    getTextColor(background, "muted"),
                     descriptionClassName,
                   )}
                 >

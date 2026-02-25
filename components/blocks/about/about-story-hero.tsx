@@ -2,7 +2,13 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+  getTextColor,
+  getAccentColor,
+} from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -105,7 +111,6 @@ export function AboutStoryHero({
   teamInfo,
   teamInfoSlot,
   className,
-  containerClassName,
   contentClassName,
   titleClassName,
   subtitleClassName,
@@ -114,7 +119,8 @@ export function AboutStoryHero({
   imageClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: AboutStoryHeroProps): React.JSX.Element {
@@ -137,7 +143,9 @@ export function AboutStoryHero({
           teamInfo.title
         )}
         {typeof teamInfo.description === "string" ? (
-          <p className={cn("mt-1", getTextColor(background, 'muted'))}>{teamInfo.description}</p>
+          <p className={cn("mt-1", getTextColor(background, "muted"))}>
+            {teamInfo.description}
+          </p>
         ) : (
           <div className="mt-1">{teamInfo.description}</div>
         )}
@@ -193,7 +201,7 @@ export function AboutStoryHero({
               <p
                 className={cn(
                   "mt-6 text-lg whitespace-pre-line",
-                  getTextColor(background, 'muted'),
+                  getTextColor(background, "muted"),
                   bodyClassName,
                 )}
               >

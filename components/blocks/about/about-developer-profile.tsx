@@ -154,7 +154,7 @@ export function AboutDeveloperProfile({
   actionsClassName,
   optixFlowConfig,
   background,
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
+  spacing = "xl",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,

@@ -125,7 +125,6 @@ export function AboutMissionDualImage({
   actions,
   actionsSlot,
   className,
-  containerClassName,
   contentClassName,
   missionTitleClassName,
   missionContentClassName,
@@ -136,7 +135,8 @@ export function AboutMissionDualImage({
   actionsClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: AboutMissionDualImageProps): React.JSX.Element {
@@ -204,7 +204,7 @@ export function AboutMissionDualImage({
                 <p
                   className={cn(
                     "mt-4 text-lg",
-                    getTextColor(background, 'muted'),
+                    getTextColor(background, "muted"),
                     missionContentClassName,
                   )}
                 >
@@ -235,7 +235,7 @@ export function AboutMissionDualImage({
                 <p
                   className={cn(
                     "mt-4 text-lg",
-                    getTextColor(background, 'muted'),
+                    getTextColor(background, "muted"),
                     visionContentClassName,
                   )}
                 >

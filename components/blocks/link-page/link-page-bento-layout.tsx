@@ -565,14 +565,24 @@ export function LinkPageBentoLayout({
     const hasRegular = Boolean(regularLinksSlot) || regularLinks.length > 0;
 
     return (
-      <div className={cn("space-y-3", linksClassName)}>
+      <div className={cn("space-y-3 md:space-y-6", linksClassName)}>
         {hasFeatured && (
-          <div className={cn("grid grid-cols-1 gap-3", featuredLinksClassName)}>
+          <div
+            className={cn(
+              "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6",
+              featuredLinksClassName,
+            )}
+          >
             {renderFeaturedLinks}
           </div>
         )}
         {hasRegular && (
-          <div className={cn("grid grid-cols-1 gap-3", regularLinksClassName)}>
+          <div
+            className={cn(
+              "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6",
+              regularLinksClassName,
+            )}
+          >
             {renderRegularLinks}
           </div>
         )}
@@ -627,7 +637,9 @@ export function LinkPageBentoLayout({
             ))}
           {bio &&
             (typeof bio === "string" ? (
-              <p className={cn("max-w-xs text-sm", bioClassName)}>{bio}</p>
+              <p className={cn("max-w-xs text-sm text-balance", bioClassName)}>
+                {bio}
+              </p>
             ) : (
               bio
             ))}

@@ -2,8 +2,9 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
+import { ContentGroup, type ContentGroupItem } from "../../ui/content-group";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
@@ -72,6 +73,10 @@ export interface AlternatingBlocksProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -101,7 +106,8 @@ export function AlternatingBlocks({
   title,
   subtitle,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   className,
   contentClassName,
   sectionsClassName,
@@ -120,9 +126,17 @@ export function AlternatingBlocks({
         {sections.map((section, index) => (
           <div
             key={index}
-            className={cn("grid items-center gap-8 md:grid-cols-2 md:gap-12", sectionItemClassName)}
+            className={cn(
+              "grid items-center gap-8 md:grid-cols-2 md:gap-12",
+              sectionItemClassName,
+            )}
           >
-            <div className={cn(section.mediaLeft ? "md:order-2" : "", sectionContentClassName)}>
+            <div
+              className={cn(
+                section.mediaLeft ? "md:order-2" : "",
+                sectionContentClassName,
+              )}
+            >
               {section.content}
             </div>
 
@@ -141,32 +155,58 @@ export function AlternatingBlocks({
         ))}
       </div>
     );
-  }, [sectionsSlot, sections, sectionsClassName, sectionItemClassName, sectionContentClassName, sectionMediaClassName]);
+  }, [
+    sectionsSlot,
+    sections,
+    sectionsClassName,
+    sectionItemClassName,
+    sectionContentClassName,
+    sectionMediaClassName,
+  ]);
+
+  const headerItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+    if (subtitle) {
+      items.push(
+        typeof subtitle === "string"
+          ? {
+              _type: "text" as const,
+              as: "p" as const,
+              className: "mb-2 text-sm font-semibold uppercase tracking-wider",
+              children: subtitle,
+            }
+          : subtitle,
+      );
+    }
+    if (title) {
+      items.push(
+        typeof title === "string"
+          ? {
+              _type: "text" as const,
+              as: "h2" as const,
+              className:
+                "text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl",
+              children: title,
+            }
+          : title,
+      );
+    }
+    return items;
+  }, [title, subtitle]);
 
   return (
     <Section
-      title={typeof title === "string" ? title : undefined}
-      subtitle={typeof subtitle === "string" ? subtitle : undefined}
       background={background}
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
-      {(title && typeof title !== "string") || (subtitle && typeof subtitle !== "string") ? (
-        <div className="mb-12 text-center md:mb-16">
-          {subtitle && typeof subtitle !== "string" && (
-            <div className={cn("mb-2 text-sm font-semibold uppercase tracking-wider", getAccentColor(background))}>
-              {subtitle}
-            </div>
-          )}
-          {title && typeof title !== "string" && (
-            <div className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-              {title}
-            </div>
-          )}
-        </div>
-      ) : null}
+      <ContentGroup
+        className="mb-12 text-center md:mb-16"
+        items={headerItems}
+      />
       <div className={cn("mx-auto w-full max-w-[900px]", contentClassName)}>
         {sectionsContent}
       </div>

@@ -2,7 +2,12 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+  getTextColor,
+} from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -172,7 +177,6 @@ export interface AboutStatsShowcaseProps {
 
 export function AboutStatsShowcase({
   className,
-  containerClassName,
   title,
   titleClassName,
   description,
@@ -197,7 +201,8 @@ export function AboutStatsShowcase({
   benefitsClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
 }: AboutStatsShowcaseProps): React.JSX.Element {
@@ -241,7 +246,9 @@ export function AboutStatsShowcase({
               ))}
             {stat.label &&
               (typeof stat.label === "string" ? (
-                <p className={getTextColor(background, 'muted')}>{stat.label}</p>
+                <p className={getTextColor(background, "muted")}>
+                  {stat.label}
+                </p>
               ) : (
                 stat.label
               ))}
@@ -256,10 +263,7 @@ export function AboutStatsShowcase({
     if (!logos || logos.length === 0) return null;
 
     return (
-      <div className={cn(
-        "py-24",
-        getNestedCardBg(background, 'subtle'),
-      )}>
+      <div className={cn("py-24", getNestedCardBg(background, "subtle"))}>
         <div className="container flex flex-col items-center gap-11">
           {logosTitle &&
             (typeof logosTitle === "string" ? (
@@ -339,11 +343,13 @@ export function AboutStatsShowcase({
                 />
               )}
               {benefit.stat && (
-                <div className={cn(
-                  "flex flex-col justify-center rounded-xl p-8",
-                  getNestedCardBg(background),
-                  getNestedCardTextColor(background),
-                )}>
+                <div
+                  className={cn(
+                    "flex flex-col justify-center rounded-xl p-8",
+                    getNestedCardBg(background),
+                    getNestedCardTextColor(background),
+                  )}
+                >
                   {benefit.stat.value &&
                     (typeof benefit.stat.value === "string" ? (
                       <p className="mb-2 text-4xl font-medium">
@@ -360,7 +366,7 @@ export function AboutStatsShowcase({
                     ))}
                   {benefit.stat.description &&
                     (typeof benefit.stat.description === "string" ? (
-                      <p className={getTextColor(background, 'muted')}>
+                      <p className={getTextColor(background, "muted")}>
                         {benefit.stat.description}
                       </p>
                     ) : (
@@ -407,7 +413,12 @@ export function AboutStatsShowcase({
                       ))}
                     {benefit.testimonial.role &&
                       (typeof benefit.testimonial.role === "string" ? (
-                        <span className={cn("text-sm", getTextColor(background, 'muted'))}>
+                        <span
+                          className={cn(
+                            "text-sm",
+                            getTextColor(background, "muted"),
+                          )}
+                        >
                           {benefit.testimonial.role}
                         </span>
                       ) : (
@@ -460,7 +471,7 @@ export function AboutStatsShowcase({
                 <p
                   className={cn(
                     "text-lg md:text-xl text-balance",
-                    getTextColor(background, 'muted'),
+                    getTextColor(background, "muted"),
                     descriptionClassName,
                   )}
                 >

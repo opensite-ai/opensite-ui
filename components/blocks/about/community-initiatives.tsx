@@ -2,7 +2,12 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getTextColor,
+  getAccentColor,
+} from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -217,7 +222,6 @@ export function CommunityInitiatives({
   actions,
   actionsSlot,
   className,
-  containerClassName,
   headerClassName,
   badgeClassName,
   headingClassName,
@@ -229,7 +233,8 @@ export function CommunityInitiatives({
   actionsClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: CommunityInitiativesProps): React.JSX.Element {
@@ -312,7 +317,7 @@ export function CommunityInitiatives({
         </div>
 
         <div className="mx-auto max-w-2xl text-left md:text-center">
-          <p className={cn(getTextColor(background, 'muted'))}>
+          <p className={cn(getTextColor(background, "muted"))}>
             {currentCategory?.description}
           </p>
         </div>
@@ -338,7 +343,12 @@ export function CommunityInitiatives({
                     )}
                   >
                     <div className="flex items-center gap-3">
-                      <div className={cn("rounded-md p-2", getNestedCardBg(background, 'muted'))}>
+                      <div
+                        className={cn(
+                          "rounded-md p-2",
+                          getNestedCardBg(background, "muted"),
+                        )}
+                      >
                         <DynamicIcon
                           name={initiative.icon}
                           size={24}
@@ -348,7 +358,7 @@ export function CommunityInitiatives({
                       <h3 className="text-2xl font-bold">{initiative.title}</h3>
                     </div>
 
-                    <p className={cn(getTextColor(background, 'muted'))}>
+                    <p className={cn(getTextColor(background, "muted"))}>
                       {initiative.description}
                     </p>
 
@@ -356,10 +366,20 @@ export function CommunityInitiatives({
                       <div className="grid grid-cols-3 gap-4 pt-2">
                         {initiative.metrics.map((metric, i) => (
                           <div key={i} className="text-center">
-                            <div className={cn("text-2xl font-bold", getAccentColor(background))}>
+                            <div
+                              className={cn(
+                                "text-2xl font-bold",
+                                getAccentColor(background),
+                              )}
+                            >
                               {metric.value}
                             </div>
-                            <div className={cn("mt-1 text-xs", getTextColor(background, 'muted'))}>
+                            <div
+                              className={cn(
+                                "mt-1 text-xs",
+                                getTextColor(background, "muted"),
+                              )}
+                            >
                               {metric.label}
                             </div>
                           </div>
@@ -391,15 +411,21 @@ export function CommunityInitiatives({
                         isEven ? "md:order-2" : "md:order-1",
                       )}
                     >
-                      <Card className={cn(
-                        "flex h-full min-h-[280px] w-full items-center justify-center",
-                        getNestedCardBg(background, 'subtle'),
-                      )}>
+                      <Card
+                        className={cn(
+                          "flex h-full min-h-[280px] w-full items-center justify-center",
+                          getNestedCardBg(background, "subtle"),
+                        )}
+                      >
                         <CardContent className="p-6 text-center">
                           <DynamicIcon
                             name={initiative.icon}
                             size={64}
-                            className={cn("mx-auto mb-4", getTextColor(background, 'muted'), "opacity-50")}
+                            className={cn(
+                              "mx-auto mb-4",
+                              getTextColor(background, "muted"),
+                              "opacity-50",
+                            )}
                           />
                           <Badge variant="secondary" className="mx-auto">
                             Learn more about our{" "}
@@ -433,7 +459,7 @@ export function CommunityInitiatives({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div
@@ -444,18 +470,9 @@ export function CommunityInitiatives({
       >
         {badgeText &&
           (typeof badgeText === "string" ? (
-            <div
-              className={cn(
-                "inline-block rounded-lg px-3 py-1 text-sm",
-                getNestedCardBg(background, 'muted'),
-                getAccentColor(background),
-                badgeClassName,
-              )}
-            >
-              {badgeText}
-            </div>
+            <Badge className={cn("px-3", badgeClassName)}>{badgeText}</Badge>
           ) : (
-            <div className={badgeClassName}>{badgeText}</div>
+            badgeText
           ))}
         {heading &&
           (typeof heading === "string" ? (
@@ -468,15 +485,13 @@ export function CommunityInitiatives({
               {heading}
             </h2>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            heading
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p className={cn(getTextColor(background, 'muted'), descriptionClassName)}>
-              {description}
-            </p>
+            <p className={cn(descriptionClassName)}>{description}</p>
           ) : (
-            <div className={descriptionClassName}>{description}</div>
+            description
           ))}
       </div>
 
@@ -484,10 +499,11 @@ export function CommunityInitiatives({
 
       <div className={cn("mt-20 text-center", ctaClassName)}>
         {ctaBadgeText && (
-          <div className={cn(
-            "mb-8 inline-flex items-center justify-center rounded-full p-1",
-            getNestedCardBg(background),
-          )}>
+          <div
+            className={cn(
+              "mb-8 inline-flex items-center justify-center rounded-full p-1",
+            )}
+          >
             <Badge className="rounded-full bg-primary px-4 py-1 text-primary-foreground">
               {ctaBadgeText}
             </Badge>
@@ -500,25 +516,21 @@ export function CommunityInitiatives({
               {ctaHeading}
             </h3>
           ) : (
-            <div className={cn("mb-4", ctaHeadingClassName)}>{ctaHeading}</div>
+            ctaHeading
           ))}
         {ctaDescription &&
           (typeof ctaDescription === "string" ? (
             <p
               className={cn(
                 "mx-auto mb-8 max-w-2xl",
-                getTextColor(background, 'muted'),
+                getTextColor(background, "muted"),
                 ctaDescriptionClassName,
               )}
             >
               {ctaDescription}
             </p>
           ) : (
-            <div
-              className={cn("mx-auto mb-8 max-w-2xl", ctaDescriptionClassName)}
-            >
-              {ctaDescription}
-            </div>
+            ctaDescription
           ))}
 
         {actionsContent}

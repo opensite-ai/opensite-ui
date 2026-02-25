@@ -2,7 +2,13 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+  getTextColor,
+  getAccentColor,
+} from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -138,7 +144,6 @@ export function AboutMissionFeatures({
   features,
   featuresSlot,
   className,
-  containerClassName,
   titleClassName,
   descriptionClassName,
   missionLabelClassName,
@@ -150,7 +155,8 @@ export function AboutMissionFeatures({
   featuresClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: AboutMissionFeaturesProps): React.JSX.Element {
@@ -177,7 +183,9 @@ export function AboutMissionFeatures({
           ))}
         {feature.description &&
           (typeof feature.description === "string" ? (
-            <p className={getTextColor(background, 'muted')}>{feature.description}</p>
+            <p className={getTextColor(background, "muted")}>
+              {feature.description}
+            </p>
           ) : (
             feature.description
           ))}
@@ -192,8 +200,9 @@ export function AboutMissionFeatures({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("flex flex-col gap-8 lg:gap-16", containerClassName)}>
+      <div className="relative">
         <div className="flex flex-col gap-4 lg:gap-8">
           {title &&
             (typeof title === "string" ? (
@@ -300,7 +309,7 @@ export function AboutMissionFeatures({
                 <p
                   className={cn(
                     "text-lg",
-                    getTextColor(background, 'muted'),
+                    getTextColor(background, "muted"),
                     featuresDescriptionClassName,
                   )}
                 >

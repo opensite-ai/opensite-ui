@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -160,7 +160,6 @@ export interface AboutVisionGalleryProps {
  */
 export function AboutVisionGallery({
   className,
-  containerClassName,
   title,
   titleClassName,
   subtitle,
@@ -185,7 +184,8 @@ export function AboutVisionGallery({
   ctaClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: AboutVisionGalleryProps): React.JSX.Element {
@@ -266,7 +266,7 @@ export function AboutVisionGallery({
               <p
                 className={cn(
                   "text-xl font-medium text-balance",
-                  getTextColor(background, 'muted'),
+                  getTextColor(background, "muted"),
                   subtitleClassName,
                 )}
               >
@@ -302,7 +302,7 @@ export function AboutVisionGallery({
                   <p
                     className={cn(
                       "text-normal md:text-xl leading-8 font-medium whitespace-pre-line",
-                      getTextColor(background, 'muted'),
+                      getTextColor(background, "muted"),
                       primarySectionContentClassName,
                     )}
                   >
@@ -336,7 +336,7 @@ export function AboutVisionGallery({
                 <p
                   className={cn(
                     "text-normal md:text-xl leading-8 font-medium",
-                    getTextColor(background, 'muted'),
+                    getTextColor(background, "muted"),
                     secondarySectionContentClassName,
                   )}
                 >
@@ -359,7 +359,7 @@ export function AboutVisionGallery({
         <div
           className={cn(
             "mx-auto flex max-w-5xl flex-col items-center justify-between gap-8 rounded-2xl p-14 text-center md:flex-row md:text-left",
-            getNestedCardBg(background, 'subtle'),
+            getNestedCardBg(background, "subtle"),
             ctaClassName,
           )}
         >

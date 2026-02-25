@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -183,7 +187,10 @@ export function AboutSplitHero({
       case "dark":
         return "bg-foreground text-background";
       case "gray":
-        return cn(getNestedCardBg(background), getNestedCardTextColor(background));
+        return cn(
+          getNestedCardBg(background),
+          getNestedCardTextColor(background),
+        );
       case "white":
         return "bg-background";
       default:
@@ -215,7 +222,14 @@ export function AboutSplitHero({
       )}
 
       {/* Content */}
-      <div className="relative z-10 w-full px-8 py-16 sm:px-12 sm:py-20 lg:px-16 lg:py-24 xl:px-24">
+      <div
+        className={cn(
+          "relative z-10 w-full",
+          "px-8 sm:px-12 lg:px-16 xl:px-24",
+          directionConfig.mobile === "mediaTop" ? "pt-16" : "pt-32",
+          "pb-16 md:pb-24 md:pt-24",
+        )}
+      >
         <div className="mx-auto max-w-xl space-y-8">
           {/* Brand Text */}
           {(brandText || brandHighlight) && (

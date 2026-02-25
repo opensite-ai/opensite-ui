@@ -2,10 +2,20 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+  getTextColor,
+} from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { FeatureItem, StatItem, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  FeatureItem,
+  StatItem,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 interface ExtendedStatItem extends StatItem {
   description?: React.ReactNode;
@@ -90,14 +100,14 @@ export function AboutStatsSidebar({
   features,
   featuresSlot,
   className,
-  containerClassName,
   sidebarClassName,
   titleClassName,
   descriptionClassName,
   statsClassName,
   featuresClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
 }: AboutStatsSidebarProps): React.JSX.Element {
@@ -108,11 +118,14 @@ export function AboutStatsSidebar({
     return (
       <div className={cn("grid gap-6 sm:grid-cols-2", statsClassName)}>
         {stats.map((stat, idx) => (
-          <div key={idx} className={cn(
-            "rounded-xl border p-6",
-            getNestedCardBg(background, 'card'),
-            getNestedCardTextColor(background),
-          )}>
+          <div
+            key={idx}
+            className={cn(
+              "rounded-xl border p-6",
+              getNestedCardBg(background, "card"),
+              getNestedCardTextColor(background),
+            )}
+          >
             {stat.icon}
             {typeof stat.value === "string" ? (
               <p className="mt-4 text-4xl font-bold">{stat.value}</p>
@@ -124,13 +137,19 @@ export function AboutStatsSidebar({
             ) : (
               <div className="mt-1">{stat.label}</div>
             )}
-            {stat.description && (
-              typeof stat.description === "string" ? (
-                <p className={cn("mt-2 text-sm", getTextColor(background, 'muted'))}>{stat.description}</p>
+            {stat.description &&
+              (typeof stat.description === "string" ? (
+                <p
+                  className={cn(
+                    "mt-2 text-sm",
+                    getTextColor(background, "muted"),
+                  )}
+                >
+                  {stat.description}
+                </p>
               ) : (
                 <div className="mt-2">{stat.description}</div>
-              )
-            )}
+              ))}
           </div>
         ))}
       </div>
@@ -145,24 +164,29 @@ export function AboutStatsSidebar({
       <div className={cn("mt-12 space-y-6", featuresClassName)}>
         {features.map((feature, idx) => (
           <div key={idx} className="flex gap-4">
-            <div className={cn("flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10", feature.iconBgClass)}>
+            <div
+              className={cn(
+                "flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10",
+                feature.iconBgClass,
+              )}
+            >
               {feature.icon}
             </div>
             <div>
-              {feature.title && (
-                typeof feature.title === "string" ? (
+              {feature.title &&
+                (typeof feature.title === "string" ? (
                   <h3 className="font-semibold">{feature.title}</h3>
                 ) : (
                   feature.title
-                )
-              )}
-              {feature.description && (
-                typeof feature.description === "string" ? (
-                  <p className={getTextColor(background, 'muted')}>{feature.description}</p>
+                ))}
+              {feature.description &&
+                (typeof feature.description === "string" ? (
+                  <p className={getTextColor(background, "muted")}>
+                    {feature.description}
+                  </p>
                 ) : (
                   feature.description
-                )
-              )}
+                ))}
             </div>
           </div>
         ))}
@@ -179,31 +203,47 @@ export function AboutStatsSidebar({
       className={cn(className)}
       containerClassName={containerClassName}
     >
-        <div className="grid gap-12 lg:grid-cols-3">
-          <div className={cn("lg:sticky lg:top-24 lg:self-start", sidebarClassName)}>
-            {title && (
-              typeof title === "string" ? (
-                <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl", titleClassName)}>
-                  {title}
-                </h2>
-              ) : (
-                <div className={titleClassName}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-4 text-lg", getTextColor(background, 'muted'), descriptionClassName)}>{description}</p>
-              ) : (
-                <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-              )
-            )}
-          </div>
-
-          <div className="lg:col-span-2">
-            {(statsSlot || (stats && stats.length > 0)) && statsContent}
-            {(featuresSlot || (features && features.length > 0)) && featuresContent}
-          </div>
+      <div className="grid gap-12 lg:grid-cols-3">
+        <div
+          className={cn("lg:sticky lg:top-24 lg:self-start", sidebarClassName)}
+        >
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight md:text-4xl",
+                  titleClassName,
+                )}
+              >
+                {title}
+              </h2>
+            ) : (
+              <div className={titleClassName}>{title}</div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg",
+                  getTextColor(background, "muted"),
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mt-4", descriptionClassName)}>
+                {description}
+              </div>
+            ))}
         </div>
+
+        <div className="lg:col-span-2">
+          {(statsSlot || (stats && stats.length > 0)) && statsContent}
+          {(featuresSlot || (features && features.length > 0)) &&
+            featuresContent}
+        </div>
+      </div>
     </Section>
   );
 }

@@ -337,8 +337,9 @@ export function LinkPageMinimalProfile({
             <Pressable
               key={link.id ?? index}
               className={cn(
-                "flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors",
-                "hover:opacity-80",
+                "flex w-full items-center gap-3 rounded-lg px-4 py-3",
+                "bg-card text-card-foreground border shadow-lg",
+                "transition-all duration-500 hover:opacity-80",
                 linkClassName,
                 linkItemClassName,
               )}

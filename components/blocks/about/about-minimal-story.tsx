@@ -100,7 +100,6 @@ export function AboutMinimalStory({
   authorSlot,
   featuredImage,
   className,
-  containerClassName,
   contentClassName,
   titleClassName,
   bodyClassName,
@@ -108,7 +107,8 @@ export function AboutMinimalStory({
   imageClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: AboutMinimalStoryProps): React.JSX.Element {
@@ -126,13 +126,20 @@ export function AboutMinimalStory({
             optixFlowConfig={optixFlowConfig}
           />
         ) : (
-          <div className={cn("flex h-16 w-16 items-center justify-center rounded-full text-2xl font-bold text-primary-foreground", getAccentColor(background))}>
+          <div
+            className={cn(
+              "flex h-16 w-16 items-center justify-center rounded-full text-2xl font-bold text-primary-foreground",
+              getAccentColor(background),
+            )}
+          >
             {author.name.charAt(0)}
           </div>
         )}
         <div>
           <p className="font-semibold">{author.name}</p>
-          <p className={cn("text-sm", getTextColor(background, 'muted'))}>{author.role}</p>
+          <p className={cn("text-sm", getTextColor(background, "muted"))}>
+            {author.role}
+          </p>
         </div>
       </div>
     );
@@ -144,7 +151,7 @@ export function AboutMinimalStory({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className={cn("mx-auto max-w-3xl", contentClassName)}>
@@ -169,7 +176,7 @@ export function AboutMinimalStory({
             <p
               className={cn(
                 "mt-8 text-lg leading-relaxed whitespace-pre-line",
-                getTextColor(background, 'muted'),
+                getTextColor(background, "muted"),
                 bodyClassName,
               )}
             >

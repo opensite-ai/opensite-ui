@@ -2,7 +2,13 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+  getTextColor,
+  getAccentColor,
+} from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -173,9 +179,9 @@ export function AboutMissionPrinciples({
   visionActionSlot,
   visionClassName,
   className,
-  containerClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: AboutMissionPrinciplesProps): React.JSX.Element {
@@ -217,10 +223,19 @@ export function AboutMissionPrinciples({
         {principles.map((principle, idx) => (
           <div
             key={idx}
-            className={cn("relative rounded-lg border p-6 transition-colors", `hover:${getNestedCardBg(background, 'muted')}`)}
+            className={cn(
+              "relative rounded-lg border p-6 transition-colors",
+              `hover:${getNestedCardBg(background, "muted")}`,
+            )}
           >
             {principle.number && (
-              <div className={cn("absolute right-4 top-4 text-3xl font-bold", getAccentColor(background), "opacity-20")}>
+              <div
+                className={cn(
+                  "absolute right-4 top-4 text-3xl font-bold",
+                  getAccentColor(background),
+                  "opacity-20",
+                )}
+              >
                 {principle.number}
               </div>
             )}
@@ -233,7 +248,7 @@ export function AboutMissionPrinciples({
                 ))}
               {principle.description &&
                 (typeof principle.description === "string" ? (
-                  <p className={getTextColor(background, 'muted')}>
+                  <p className={getTextColor(background, "muted")}>
                     {principle.description}
                   </p>
                 ) : (
@@ -314,7 +329,7 @@ export function AboutMissionPrinciples({
               <p
                 className={cn(
                   "text-xl",
-                  getTextColor(background, 'muted'),
+                  getTextColor(background, "muted"),
                   missionDescriptionClassName,
                 )}
               >
@@ -362,7 +377,7 @@ export function AboutMissionPrinciples({
                 <p
                   className={cn(
                     "mb-4",
-                    getTextColor(background, 'muted'),
+                    getTextColor(background, "muted"),
                     visionDescriptionClassName,
                   )}
                 >

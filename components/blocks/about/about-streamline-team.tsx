@@ -2,7 +2,12 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+  getTextColor,
+} from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -131,7 +136,6 @@ export interface AboutStreamlineTeamProps {
 
 export function AboutStreamlineTeam({
   className,
-  containerClassName,
   title,
   titleClassName,
   description,
@@ -153,7 +157,8 @@ export function AboutStreamlineTeam({
   teamSectionClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: AboutStreamlineTeamProps): React.JSX.Element {
@@ -182,7 +187,9 @@ export function AboutStreamlineTeam({
                 ))}
               {feature.description &&
                 (typeof feature.description === "string" ? (
-                  <p className={cn("text-sm", getTextColor(background, 'muted'))}>
+                  <p
+                    className={cn("text-sm", getTextColor(background, "muted"))}
+                  >
                     {feature.description}
                   </p>
                 ) : (
@@ -271,7 +278,7 @@ export function AboutStreamlineTeam({
               <p
                 className={cn(
                   "mt-6 text-lg",
-                  getTextColor(background, 'muted'),
+                  getTextColor(background, "muted"),
                   descriptionClassName,
                 )}
               >
@@ -313,7 +320,7 @@ export function AboutStreamlineTeam({
               <p
                 className={cn(
                   "mt-4 text-lg",
-                  getTextColor(background, 'muted'),
+                  getTextColor(background, "muted"),
                   teamDescriptionClassName,
                 )}
               >

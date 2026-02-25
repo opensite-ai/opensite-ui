@@ -155,6 +155,10 @@ export interface AboutStoryExpertiseProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -188,7 +192,8 @@ export function AboutStoryExpertise({
   expertiseSectionClassName,
   className,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -310,6 +315,7 @@ export function AboutStoryExpertise({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
       <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
         <motion.div
