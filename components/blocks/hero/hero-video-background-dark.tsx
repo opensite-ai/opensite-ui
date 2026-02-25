@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import type {
   ActionConfig,
   SectionBackground,
@@ -46,7 +45,13 @@ export interface HeroVideoBackgroundDarkProps {
   /**
    * Custom slot for video (overrides videoSrc prop)
    */
-  videoSlot?: React.ReactNode; /**
+  videoSlot?: React.ReactNode;
+  /**
+   * Granular control of brightness for video
+   * @default "50"
+   */
+  videoBrightness?: "10" | "20" | "25" | "30" | "40" | "50" | "75" | "100";
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -95,6 +100,7 @@ export function HeroVideoBackgroundDark({
   videoSrc,
   videoSlot,
   background,
+  videoBrightness = "50",
   spacing = "py-0 md:py-0",
   pattern,
   patternOpacity,
@@ -112,12 +118,15 @@ export function HeroVideoBackgroundDark({
         loop
         playsInline
         src={videoSrc}
-        className="absolute top-0 left-0 size-full object-cover"
+        className={cn(
+          "absolute top-0 left-0 size-full object-cover",
+          `brightness-${videoBrightness}`,
+        )}
         autoPlay
         muted
       />
     );
-  }, [videoSlot, videoSrc]);
+  }, [videoSlot, videoSrc, videoBrightness]);
 
   return (
     <Section
@@ -131,7 +140,9 @@ export function HeroVideoBackgroundDark({
       <div className="min-h-screen h-full flex flex-col justify-center items-center">
         <div
           className={cn(
-            "relative z-10 mx-auto flex size-full max-w-3xl flex-col justify-center gap-6 lg:items-center text-center px-6",
+            "relative z-10 mx-auto flex size-full max-w-3xl",
+            "flex-col justify-center gap-4 md:gap-6 items-center",
+            "text-center px-4 md:px-6",
             contentClassName,
           )}
         >

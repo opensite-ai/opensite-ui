@@ -351,7 +351,7 @@ export function AboutCompanyProfile({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-balance bg-muted text-muted-foreground",
+                "bg-muted text-lg text-muted-foreground p-6 rounded-xl",
                 descriptionClassName,
               )}
             >
