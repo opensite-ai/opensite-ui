@@ -158,7 +158,7 @@ export function HeroVideoOverlayStars({
           ))}
         </div>
         {trust.message && (
-          <p className="mt-1.5 max-w-40 text-center text-xs leading-snug font-medium text-white text-shadow-2xl">
+          <p className="mt-1.5 max-w-40 text-center text-xs leading-snug font-medium text-white text-shadow-lg">
             {trust.message}
           </p>
         )}
@@ -202,7 +202,7 @@ export function HeroVideoOverlayStars({
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "text-5xl font-semibold md:text-6xl text-balance text-white text-shadow-2xl",
+                    "text-5xl font-semibold md:text-6xl text-balance text-white text-shadow-lg",
                     headingClassName,
                   )}
                 >
@@ -211,7 +211,7 @@ export function HeroVideoOverlayStars({
               ) : (
                 <h1
                   className={cn(
-                    "text-5xl font-semibold md:text-6xl text-balance text-white text-shadow-2xl",
+                    "text-5xl font-semibold md:text-6xl text-balance text-white text-shadow-lg",
                     headingClassName,
                   )}
                 >
@@ -222,7 +222,7 @@ export function HeroVideoOverlayStars({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "text-xl md:text-2xl text-balance text-white text-shadow-2xl",
+                    "text-xl md:text-2xl text-balance text-white text-shadow-lg",
                     descriptionClassName,
                   )}
                 >

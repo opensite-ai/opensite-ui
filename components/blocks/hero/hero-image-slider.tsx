@@ -312,7 +312,7 @@ export function HeroImageSlider({
           typeof heading === "string" ? (
             <h1
               className={cn(
-                "mt-3 text-3xl font-bold tracking-tight text-balance md:text-4xl lg:text-5xl text-white text-shadow-xl",
+                "mt-3 text-3xl font-bold tracking-tight text-balance md:text-4xl lg:text-5xl text-white text-shadow-lg",
                 headingClassName,
               )}
             >
@@ -440,7 +440,8 @@ export function HeroImageSlider({
                       ...formEngineSetup?.formLayoutSettings,
                       formLayout: "standard",
                       submitButtonSetup: {
-                        ...formEngineSetup?.formLayoutSettings?.submitButtonSetup,
+                        ...formEngineSetup?.formLayoutSettings
+                          ?.submitButtonSetup,
                         submitLabel: (
                           <>
                             {buttonIcon}

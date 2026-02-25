@@ -158,7 +158,7 @@ export function HeroArchitectureFullscreen({
               (typeof tagline === "string" ? (
                 <p
                   className={cn(
-                    "text-sm leading-none uppercase text-balance text-white text-shadow-xl",
+                    "text-sm leading-none uppercase text-balance text-white text-shadow-lg",
                     taglineClassName,
                   )}
                 >
@@ -171,7 +171,7 @@ export function HeroArchitectureFullscreen({
               (typeof heading === "string" ? (
                 <motion.h1
                   className={cn(
-                    "text-6xl font-bold md:text-7xl lg:text-8xl text-white text-balance text-shadow-xl tracking-tight leading-[1.1]",
+                    "text-6xl font-bold md:text-7xl lg:text-8xl text-white text-balance text-shadow-lg tracking-tight leading-[1.1]",
                     headingClassName,
                   )}
                   initial="hidden"
@@ -222,7 +222,7 @@ export function HeroArchitectureFullscreen({
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "text-lg md:text-xl text-balance text-white text-shadow-xl",
+                    "text-lg md:text-xl text-balance text-white text-shadow-lg",
                     descriptionClassName,
                   )}
                 >

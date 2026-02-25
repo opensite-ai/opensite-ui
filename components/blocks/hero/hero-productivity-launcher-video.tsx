@@ -229,7 +229,7 @@ export function HeroProductivityLauncherVideo({
                 (typeof heading === "string" ? (
                   <h1
                     className={cn(
-                      "text-center text-4xl leading-tight font-semibold text-shadow-xl sm:text-5xl md:text-6xl text-balance text-white",
+                      "text-center text-4xl leading-tight font-semibold text-shadow-lg sm:text-5xl md:text-6xl text-balance text-white",
                       headingClassName,
                     )}
                   >
@@ -238,7 +238,7 @@ export function HeroProductivityLauncherVideo({
                 ) : (
                   <h1
                     className={cn(
-                      "text-center text-4xl leading-tight font-semibold text-shadow-xl sm:text-5xl md:text-6xl text-balance text-white",
+                      "text-center text-4xl leading-tight font-semibold text-shadow-lg sm:text-5xl md:text-6xl text-balance text-white",
                       headingClassName,
                     )}
                   >

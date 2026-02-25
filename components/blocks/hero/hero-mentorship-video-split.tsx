@@ -272,7 +272,7 @@ export function HeroMentorshipVideoSplit({
                     (typeof heading === "string" ? (
                       <h1
                         className={cn(
-                          "text-4xl font-semibold lg:text-8xl text-balance text-shadow-xl",
+                          "text-4xl font-semibold lg:text-8xl text-balance text-shadow-lg",
                           headingClassName,
                         )}
                       >
@@ -281,7 +281,7 @@ export function HeroMentorshipVideoSplit({
                     ) : (
                       <h1
                         className={cn(
-                          "text-4xl font-semibold lg:text-8xl text-balance text-shadow-xl",
+                          "text-4xl font-semibold lg:text-8xl text-balance text-shadow-lg",
                           headingClassName,
                         )}
                       >

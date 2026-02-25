@@ -157,7 +157,7 @@ export function HeroVideoBackgroundDark({
               <h1
                 className={cn(
                   "font-bold text-5xl md:text-6xl lg:text-8xl",
-                  "text-balance text-white text-shadow-2xl",
+                  "text-balance text-white text-shadow-lg",
                   headingClassName,
                 )}
               >
@@ -170,7 +170,7 @@ export function HeroVideoBackgroundDark({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-lg md:text-xl text-balance text-white text-shadow-xl",
+                  "text-lg md:text-xl text-balance text-white text-shadow-lg",
                   descriptionClassName,
                 )}
               >

@@ -238,7 +238,9 @@ export function HeroEventRegistration({
         className={cn(
           "bg-card text-card-foreground",
           "rounded-xl p-2 md:p-4 shadow-lg",
-          "absolute -bottom-4 -left-4",
+          "absolute -bottom-4",
+          "left-1/2 -translate-x-1/2 w-[90%]",
+          "md:-left-4 md:translate-x-0 md:w-auto",
           "ring-4 ring-primary",
         )}
       >
@@ -299,6 +301,14 @@ export function HeroEventRegistration({
     );
   }, [imageSlot, image, imageClassName, optixFlowConfig, renderLocation]);
 
+  // Determine flex direction based on directionConfig
+  const desktopOrder =
+    directionConfig.desktop === "mediaRight"
+      ? "md:flex-row"
+      : "md:flex-row-reverse";
+  const mobileOrder =
+    directionConfig.mobile === "mediaTop" ? "flex-col-reverse" : "flex-col";
+
   return (
     <Section
       background={background}
@@ -309,7 +319,13 @@ export function HeroEventRegistration({
       containerClassName={containerClassName}
     >
       <div className="pt-8 md:pt-0">
-        <div className="flex items-center flex-col md:flex-row justify-start md:justify-between gap-12 md:gap-24">
+        <div
+          className={cn(
+            "flex items-center justify-start md:justify-between gap-12 md:gap-24",
+            mobileOrder,
+            desktopOrder,
+          )}
+        >
           <div
             className={cn(
               "flex flex-col items-start gap-2 md:gap-4 w-full md:w-[50%]",

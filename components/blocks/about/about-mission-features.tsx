@@ -278,7 +278,7 @@ export function AboutMissionFeatures({
             className={cn(
               "relative flex flex-col justify-between gap-10",
               "overflow-hidden p-4 md:p-6 lg:p-10",
-              "text-white text-shadow-2xl",
+              "text-white text-shadow-lg",
               "rounded-md shadow-lg",
               missionSectionClassName,
             )}

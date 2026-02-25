@@ -120,7 +120,7 @@ export function HeroHiringAnimatedText({
     return (
       <h1
         className={cn(
-          "text-4xl leading-9 font-bold lg:text-5xl lg:leading-12! xl:text-7xl xl:leading-22! text-white text-shadow-xl",
+          "text-4xl leading-9 font-bold lg:text-5xl lg:leading-12! xl:text-7xl xl:leading-22! text-white text-shadow-lg",
           headingClassName,
         )}
       >

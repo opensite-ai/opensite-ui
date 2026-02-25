@@ -162,7 +162,7 @@ export function HeroDigitalAgencyFullscreen({
                   className={cn(
                     "text-4xl font-bold text-balance md:text-7xl",
                     headingClassName,
-                    backgroundImage ? "text-white text-shadow-2xl" : "",
+                    backgroundImage ? "text-white text-shadow-lg" : "",
                   )}
                 >
                   {heading}
@@ -176,7 +176,7 @@ export function HeroDigitalAgencyFullscreen({
                   className={cn(
                     "max-w-full md:max-w-[70%] text-lg md:text-xl font-normal text-balance",
                     descriptionClassName,
-                    backgroundImage ? "text-white text-shadow-2xl" : "",
+                    backgroundImage ? "text-white text-shadow-lg" : "",
                   )}
                 >
                   {description}

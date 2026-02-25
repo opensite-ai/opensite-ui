@@ -144,7 +144,7 @@ export function HeroBadgeShadowOverlay({
             (typeof heading === "string" ? (
               <h1
                 className={cn(
-                  "text-4xl font-semibold lg:text-8xl text-white text-balance text-shadow-2xl text-center",
+                  "text-4xl font-semibold lg:text-8xl text-white text-balance text-shadow-lg text-center",
                   headingClassName,
                 )}
               >
@@ -158,7 +158,7 @@ export function HeroBadgeShadowOverlay({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-lg text-white text-balance text-shadow-xl text-center",
+                  "text-lg text-white text-balance text-shadow-lg text-center",
                   descriptionClassName,
                 )}
               >

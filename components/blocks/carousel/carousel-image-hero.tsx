@@ -315,7 +315,7 @@ export function CarouselImageHero({
                   className={cn(
                     "text-4xl font-bold sm:text-5xl md:text-6xl text-balance",
                     headingClassName,
-                    hasImages ? "text-white text-shadow-2xl" : "",
+                    hasImages ? "text-white text-shadow-lg" : "",
                   )}
                 >
                   {heading}
@@ -329,7 +329,7 @@ export function CarouselImageHero({
                   className={cn(
                     "text-xl text-balance",
                     descriptionClassName,
-                    hasImages ? "text-white text-shadow-2xl" : "",
+                    hasImages ? "text-white text-shadow-lg" : "",
                   )}
                 >
                   {description}
