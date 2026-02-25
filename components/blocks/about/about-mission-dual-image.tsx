@@ -135,7 +135,7 @@ export function AboutMissionDualImage({
   optixFlowConfig,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "lg",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: AboutMissionDualImageProps): React.JSX.Element {

@@ -197,7 +197,7 @@ export interface FeatureImageCardsThreeColumnProps {
 const ASPECT_RATIO_CLASSES = {
   square: "aspect-square",
   horizontal: "aspect-video",
-  vertical: "aspect-[3/4]",
+  vertical: "aspect-[9/16]",
 } as const;
 
 export function FeatureImageCardsThreeColumn({
