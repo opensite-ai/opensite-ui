@@ -7,6 +7,7 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -747,37 +748,22 @@ export function LinkTreeBlock({
           socialLinksClassName,
         )}
       >
-        {socialLinks.map((social, index) => {
-          const { iconName, ...socialPressableProps } = social;
-          const icon =
-            social.icon ||
-            (iconName ? (
-              <DynamicIcon
-                name={iconName}
-                size={20}
-                className={socialIconClassName}
-              />
-            ) : null);
-          const ariaLabel =
-            social["aria-label"] ||
-            (typeof social.label === "string" ? social.label : undefined) ||
-            social.platform;
-
-          return (
-            <Pressable
-              key={social.id ?? index}
-              {...socialPressableProps}
-              aria-label={ariaLabel}
-              className={cn(
-                "flex h-12 w-12 items-center justify-center rounded-full p-2.5 transition-all duration-200",
-                socialLinkClassName,
-                social.className,
-              )}
-            >
-              {icon}
-            </Pressable>
-          );
-        })}
+        {socialLinks.map((social, index) => (
+          <SocialLinkIcon
+            key={social.id ?? social.href ?? index}
+            href={social.href}
+            label={
+              social["aria-label"] ||
+              (typeof social.label === "string" ? social.label : undefined)
+            }
+            className={cn(
+              "flex h-12 w-12 items-center justify-center rounded-full p-2.5 transition-all duration-200",
+              socialLinkClassName,
+              social.className,
+            )}
+            iconClassName={socialIconClassName}
+          />
+        ))}
       </div>
     );
   }, [

@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-02-25T12:35:22.504Z",
+    "exportedAt": "2026-02-25T13:30:52.399Z",
     "totalBlocks": 605,
-    "version": "2.3.3",
+    "version": "2.3.4",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -11129,7 +11129,7 @@
     {
       "id": "footer-split-image-accordion",
       "name": "Footer Split Image Accordion",
-      "description": "A split-layout footer with large image, newsletter signup, accordion navigation, and payment methods. Features a two-column split with image on left, content on right, and responsive accordion links for mobile. Best for e-commerce sites, fashion brands, and lifestyle businesses.",
+      "description": "A split-layout footer with large image, newsletter signup powered by FormEngine, accordion navigation, and payment methods. Features a two-column split with image on left, content on right, and responsive accordion links for mobile. Uses @page-speed/forms/integration for form handling. Best for e-commerce sites, fashion brands, and lifestyle businesses.",
       "semanticTags": [
         "footer",
         "split",
@@ -11142,7 +11142,7 @@
       ],
       "category": "footer",
       "props": "FooterSplitImageAccordionProps",
-      "exampleUsage": "<FooterSplitImageAccordion\n  newsletterTitle=\"Get updates and save 20%\"\n  footerLinks={[\n    { title: \"Collections\", id: \"collections\", items: [...] },\n  ]}\n  footerData={{\n    image: { src: \"/hero.jpg\", alt: \"Hero\" },\n    title: \"Modern Fashion\",\n    description: \"Quality clothing for everyone.\",\n  }}\n/>"
+      "exampleUsage": "<FooterSplitImageAccordion\n  newsletterTitle=\"Get updates and save 20%\"\n  formEngineSetup={{\n    formConfig: { endpoint: \"/api/subscribe\", format: \"json\" },\n  }}\n  footerLinks={[\n    { title: \"Collections\", id: \"collections\", items: [...] },\n  ]}\n  footerData={{\n    image: { src: \"/hero.jpg\", alt: \"Hero\" },\n    title: \"Modern Fashion\",\n    description: \"Quality clothing for everyone.\",\n  }}\n/>"
     },
     {
       "id": "footer-accordion-social",

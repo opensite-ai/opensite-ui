@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Field, Form, useForm } from "@page-speed/forms";
 
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
@@ -15,18 +14,40 @@ import { FooterCopyright } from "../../ui/footer-copyright";
 import { BrandAttribution } from "../../ui/brand-attribution";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
-import {
-  isValidEmail,
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
 import type { FooterSocialLink } from "./types";
+import {
+  FormEngine,
+  type FormEngineProps,
+  type FormEngineStyleRules,
+  type FormFieldConfig,
+} from "@page-speed/forms/integration";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "flex items-stretch w-full",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "",
+};
+
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "Enter your email",
+    required: true,
+    columnSpan: 12,
+  },
+];
 
 export interface FooterSplitImageAccordionLink {
   /**
@@ -61,19 +82,20 @@ export interface FooterSplitImageAccordionData {
   /** Hero image configuration */
   image: {
     src: string;
-    alt: string;
+    alt?: string;
   };
   /** Logo configuration with light/dark variants */
-  logo: {
-    light: string;
-    dark: string;
+  logo?: {
+    src: string;
+    /** Logo link URL */
+    url?: string;
+    /** Brand title */
+    alt?: string;
   };
-  /** Logo link URL */
-  logoUrl: string;
-  /** Brand title */
-  title: string;
+  /** Footer heading */
+  heading?: string;
   /** Brand description */
-  description: string;
+  description?: string;
 }
 
 export interface FooterSplitImageAccordionProps {
@@ -81,10 +103,6 @@ export interface FooterSplitImageAccordionProps {
    * Newsletter title
    */
   newsletterTitle?: React.ReactNode;
-  /**
-   * Email input placeholder text
-   */
-  emailPlaceholder?: string;
   /**
    * Footer link sections
    */
@@ -206,21 +224,17 @@ export interface FooterSplitImageAccordionProps {
    */
   optixFlowConfig?: OptixFlowConfig;
   /**
-   * Optional form submission configuration for newsletter signup.
+   * Full form engine setup and props
    */
-  formConfig?: PageSpeedFormConfig;
+  formEngineSetup?: FormEngineProps;
   /**
-   * Optional custom submission handler for newsletter signup.
+   * Submit button configuration
    */
-  onSubmit?: (email: string) => void | Promise<void>;
+  buttonAction?: ActionConfig;
   /**
-   * Optional success callback invoked after successful submission.
+   * Custom slot for the form (overrides form props)
    */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Optional error callback invoked if submission fails.
-   */
-  onError?: (error: Error) => void;
+  formSlot?: React.ReactNode;
 }
 
 /**
@@ -231,10 +245,16 @@ export interface FooterSplitImageAccordionProps {
  * Key features: Large hero image, organized link sections, payment icons.
  * Best for: E-commerce sites, fashion brands, lifestyle businesses.
  *
+ * The newsletter form is powered by `FormEngine` from `@page-speed/forms/integration`,
+ * which handles validation, submission, error handling, and success states.
+ *
  * @example
  * ```tsx
  * <FooterSplitImageAccordion
  *   newsletterTitle="Get updates and save 20%"
+ *   formEngineSetup={{
+ *     formConfig: { endpoint: "/api/subscribe", format: "json" },
+ *   }}
  *   footerLinks={[
  *     { title: "Collections", id: "collections", items: [...] },
  *   ]}
@@ -248,7 +268,6 @@ export interface FooterSplitImageAccordionProps {
  */
 export function FooterSplitImageAccordion({
   newsletterTitle,
-  emailPlaceholder,
   footerLinks,
   socialLinks,
   paymentPlatforms,
@@ -257,7 +276,7 @@ export function FooterSplitImageAccordion({
   copyright,
   background,
   containerClassName = "w-screen px-0 sm:px-0 lg:px-0 max-w-screen relative z-10",
-  spacing = "py-6 md:py-0",
+  spacing = "none",
   pattern,
   patternOpacity,
   className,
@@ -279,58 +298,48 @@ export function FooterSplitImageAccordion({
   copyrightClassName,
   submenuLinksClassName,
   optixFlowConfig,
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
+  formEngineSetup,
+  buttonAction,
+  formSlot,
 }: FooterSplitImageAccordionProps) {
-  const form = useForm<{ email: string }>({
-    initialValues: {
-      email: "",
-    },
-    validationSchema: {
-      email: (value) => {
-        if (!value) return "Email is required";
-        if (!isValidEmail(value)) return "Please enter a valid email address";
-        return undefined;
-      },
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
+  const renderForm = React.useMemo(() => {
+    if (formSlot) return formSlot;
+    if (!formEngineSetup) return null;
 
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
+    const defaultButtonAction: ActionConfig = {
+      label: "",
+      variant: "default",
+      icon: <DynamicIcon name="lucide/arrow-right" size={16} />,
+    };
 
-      try {
-        let result: unknown;
+    const action = buttonAction || defaultButtonAction;
 
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
-
-        if (onSubmit) {
-          await onSubmit(values.email);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
-  });
-
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
+    return (
+      <FormEngine
+        formEngineSetup={{
+          ...formEngineSetup,
+          formLayoutSettings: {
+            ...formEngineSetup.formLayoutSettings,
+            formLayout: "button-group",
+            buttonGroupSetup: {
+              ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
+              size: "default",
+              submitLabel: action.icon || action.label,
+              submitVariant: action.variant || "default",
+            },
+          },
+        }}
+        defaultFields={DEFAULT_FORM_FIELDS}
+        defaultStyleRules={{
+          ...DEFAULT_STYLE_RULES,
+          formContainer: cn(
+            DEFAULT_STYLE_RULES.formContainer,
+            newsletterFormClassName,
+          ),
+        }}
+      />
+    );
+  }, [formSlot, formEngineSetup, buttonAction, newsletterFormClassName]);
 
   return (
     <Section
@@ -369,35 +378,7 @@ export function FooterSplitImageAccordion({
               >
                 {newsletterTitle}
               </h3>
-              <Form
-                form={form}
-                action={formConfig?.endpoint}
-                method={formMethod}
-                className={cn("flex items-stretch", newsletterFormClassName)}
-              >
-                <Field name="email" className="flex-1">
-                  {({ field }) => (
-                    <input
-                      {...field}
-                      type="email"
-                      placeholder={emailPlaceholder}
-                      className="flex h-10 w-full rounded-l-md rounded-r-none border border-r-0 border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                      aria-label={emailPlaceholder}
-                    />
-                  )}
-                </Field>
-                <Pressable
-                  componentType="button"
-                  type="submit"
-                  variant="default"
-                  size="icon"
-                  asButton
-                  className="rounded-l-none rounded-r-md shrink-0 h-10"
-                  disabled={form.isSubmitting}
-                >
-                  <DynamicIcon name="lucide/arrow-right" size={16} />
-                </Pressable>
-              </Form>
+              {renderForm}
               {socialLinks && socialLinks.length > 0 && (
                 <ul
                   className={cn("flex flex-wrap gap-4", socialLinksClassName)}
@@ -426,20 +407,28 @@ export function FooterSplitImageAccordion({
             <div className={cn("space-y-6", brandSectionClassName)}>
               {footerData.logo && (
                 <FooterLogo
-                  logo={{ ...footerData.logo, url: footerData.logoUrl }}
+                  logo={{ ...footerData.logo, url: footerData.logo.url || "/" }}
                   logoClassName={cn("inline-block max-w-60", logoClassName)}
                   optixFlowConfig={optixFlowConfig}
                 />
               )}
-              {footerData.title && (
+              {footerData.heading && (
                 <h4
-                  className={cn("text-xl font-semibold", brandTitleClassName)}
+                  className={cn(
+                    "text-xl font-semibold text-pretty",
+                    brandTitleClassName,
+                  )}
                 >
-                  {footerData.title}
+                  {footerData.heading}
                 </h4>
               )}
               {footerData.description && (
-                <p className={cn("opacity-80", brandDescriptionClassName)}>
+                <p
+                  className={cn(
+                    "opacity-80 text-balance",
+                    brandDescriptionClassName,
+                  )}
+                >
                   {footerData.description}
                 </p>
               )}

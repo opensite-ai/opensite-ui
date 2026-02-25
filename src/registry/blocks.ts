@@ -18205,7 +18205,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "footer-split-image-accordion",
     name: "Footer Split Image Accordion",
     description:
-      "A split-layout footer with large image, newsletter signup, accordion navigation, and payment methods. Features a two-column split with image on left, content on right, and responsive accordion links for mobile. Best for e-commerce sites, fashion brands, and lifestyle businesses.",
+      "A split-layout footer with large image, newsletter signup powered by FormEngine, accordion navigation, and payment methods. Features a two-column split with image on left, content on right, and responsive accordion links for mobile. Uses @page-speed/forms/integration for form handling. Best for e-commerce sites, fashion brands, and lifestyle businesses.",
     semanticTags: [
       "footer",
       "split",
@@ -18222,6 +18222,9 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     exampleUsage: `
 <FooterSplitImageAccordion
   newsletterTitle="Get updates and save 20%"
+  formEngineSetup={{
+    formConfig: { endpoint: "/api/subscribe", format: "json" },
+  }}
   footerLinks={[
     { title: "Collections", id: "collections", items: [...] },
   ]}

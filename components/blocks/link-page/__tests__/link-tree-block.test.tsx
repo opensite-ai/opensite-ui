@@ -3,20 +3,61 @@ import { render, screen } from "@testing-library/react";
 import { LinkTreeBlock } from "../link-tree-block";
 
 vi.mock("@page-speed/img", () => ({
-  Img: ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
+  Img: ({
+    src,
+    alt,
+    className,
+  }: {
+    src: string;
+    alt: string;
+    className?: string;
+  }) => (
     <img src={src} alt={alt} className={className} data-testid="mock-img" />
   ),
 }));
 
 vi.mock("../../../../lib/Pressable", () => ({
-  Pressable: ({ children, href, className }: { children: React.ReactNode; href?: string; className?: string }) => (
-    <a href={href} className={className} data-testid="mock-pressable">{children}</a>
+  Pressable: ({
+    children,
+    href,
+    className,
+  }: {
+    children: React.ReactNode;
+    href?: string;
+    className?: string;
+  }) => (
+    <a href={href} className={className} data-testid="mock-pressable">
+      {children}
+    </a>
   ),
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
   DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
+    <span data-testid="mock-icon" data-name={name} className={className}>
+      icon
+    </span>
+  ),
+}));
+
+vi.mock("../../../ui/social-link-icon", () => ({
+  SocialLinkIcon: ({
+    href,
+    label,
+    className,
+  }: {
+    href: string;
+    label?: string;
+    className?: string;
+  }) => (
+    <a
+      href={href}
+      aria-label={label}
+      className={className}
+      data-testid="mock-social-link"
+    >
+      social
+    </a>
   ),
 }));
 

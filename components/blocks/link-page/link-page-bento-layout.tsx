@@ -7,6 +7,7 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -311,39 +312,24 @@ export function LinkPageBentoLayout({
 
     return (
       <div className={cn("flex items-center gap-2 pt-1", socialLinksClassName)}>
-        {socialLinks.map((social, index) => {
-          const { iconName, ...socialPressableProps } = social;
-          const icon =
-            social.icon ||
-            (iconName ? (
-              <DynamicIcon
-                name={iconName}
-                size={18}
-                className={socialIconClassName}
-              />
-            ) : null);
-          const ariaLabel =
-            social["aria-label"] ||
-            (typeof social.label === "string" ? social.label : undefined) ||
-            social.platform;
-
-          return (
-            <Pressable
-              key={social.id ?? index}
-              {...socialPressableProps}
-              aria-label={ariaLabel}
-              className={cn(
-                "rounded-full p-2 transition-all duration-200",
-                "hover:scale-110 active:scale-95",
-                "hover:opacity-80",
-                socialLinkClassName,
-                social.className,
-              )}
-            >
-              {icon}
-            </Pressable>
-          );
-        })}
+        {socialLinks.map((social, index) => (
+          <SocialLinkIcon
+            key={social.id ?? social.href ?? index}
+            href={social.href}
+            label={
+              social["aria-label"] ||
+              (typeof social.label === "string" ? social.label : undefined)
+            }
+            className={cn(
+              "rounded-full p-2 transition-all duration-200",
+              "hover:scale-110 active:scale-95",
+              "hover:opacity-80",
+              socialLinkClassName,
+              social.className,
+            )}
+            iconClassName={socialIconClassName}
+          />
+        ))}
       </div>
     );
   }, [

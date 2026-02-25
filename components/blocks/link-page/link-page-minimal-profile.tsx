@@ -16,19 +16,12 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { SocialLinkIcon } from "../../ui/social-link-icon";
 
 /**
  * Link item for the minimal profile link page
  */
 export interface MinimalProfileLink extends ActionConfig {
-  id?: string;
-  iconName?: string;
-}
-
-/**
- * Social link for the minimal profile link page
- */
-export interface MinimalProfileSocialLink extends SocialLinkItem {
   id?: string;
   iconName?: string;
 }
@@ -68,7 +61,7 @@ export interface LinkPageMinimalProfileProps {
   /**
    * Array of social media links
    */
-  socialLinks?: MinimalProfileSocialLink[];
+  socialLinks?: SocialLinkItem[];
   /**
    * Custom slot for rendering social links (overrides socialLinks array)
    */
@@ -381,38 +374,18 @@ export function LinkPageMinimalProfile({
           socialLinksClassName,
         )}
       >
-        {socialLinks.map((social, index) => {
-          const { iconName: socialIconName, ...socialRest } = social;
-          const icon =
-            social.icon ||
-            (socialIconName ? (
-              <DynamicIcon
-                name={socialIconName}
-                size={20}
-                className={socialIconClassName}
-              />
-            ) : null);
-          const ariaLabel =
-            social["aria-label"] ||
-            (typeof social.label === "string" ? social.label : undefined) ||
-            social.platform;
-
-          return (
-            <Pressable
-              key={social.id ?? index}
-              href={social.href}
-              aria-label={ariaLabel}
-              className={cn(
-                "rounded-full p-2 transition-colors",
-                "hover:opacity-80",
-                socialLinkClassName,
-                social.className,
-              )}
-            >
-              {icon}
-            </Pressable>
-          );
-        })}
+        {socialLinks.map((social, index) => (
+          <SocialLinkIcon
+            key={social.href || index}
+            href={social.href}
+            label={
+              social["aria-label"] ||
+              (typeof social.label === "string" ? social.label : undefined)
+            }
+            className={cn(socialLinkClassName, social.className)}
+            iconClassName={socialIconClassName}
+          />
+        ))}
       </div>
     );
   }, [

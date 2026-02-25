@@ -83,6 +83,27 @@ vi.mock("../../../ui/dynamic-icon", () => ({
   ),
 }));
 
+vi.mock("../../../ui/social-link-icon", () => ({
+  SocialLinkIcon: ({
+    href,
+    label,
+    className,
+  }: {
+    href: string;
+    label?: string;
+    className?: string;
+  }) => (
+    <a
+      href={href}
+      aria-label={label}
+      className={className}
+      data-testid="mock-social-link"
+    >
+      social
+    </a>
+  ),
+}));
+
 describe("LinkPageNewsletterSocial", () => {
   beforeEach(() => {
     vi.clearAllMocks();

@@ -11,5 +11,4 @@ export { LinkPageMinimalProfile } from "../components/blocks/link-page/link-page
 export type {
   LinkPageMinimalProfileProps,
   MinimalProfileLink,
-  MinimalProfileSocialLink,
 } from "../components/blocks/link-page/link-page-minimal-profile";
