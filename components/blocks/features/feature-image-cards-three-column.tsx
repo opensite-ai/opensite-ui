@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarImage } from "../../ui/avatar";
@@ -37,6 +37,10 @@ export interface FeatureImageCardsThreeColumnItem {
    * Card title content
    */
   title?: React.ReactNode;
+  /**
+   * Card subtitle content
+   */
+  subtitle?: React.ReactNode;
   /**
    * Link text content
    */
@@ -73,6 +77,10 @@ export interface FeatureImageCardsThreeColumnItem {
    * Additional CSS classes for the title
    */
   titleClassName?: string;
+  /**
+   * Additional CSS classes for the subtitle
+   */
+  subtitleClassName?: string;
   /**
    * Additional CSS classes for the link text
    */
@@ -148,6 +156,14 @@ export interface FeatureImageCardsThreeColumnProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /**
+   * Media card aspect ratios
+   * @default { desktop: "vertical", mobile: "square" }
+   */
+  cardAspectRatios?: {
+    desktop: "square" | "horizontal" | "vertical";
+    mobile: "square" | "horizontal" | "vertical";
+  };
 }
 
 /**
@@ -246,7 +262,7 @@ export function FeatureImageCardsThreeColumn({
           href={card.link}
           onClick={card.onClick}
           className={cn(
-            "group relative overflow-hidden rounded-xl",
+            "group relative overflow-hidden rounded-2xl shadow-xl",
             cardClassName,
             card.className,
           )}
@@ -260,41 +276,50 @@ export function FeatureImageCardsThreeColumn({
               card.iconName) && (
               <Badge
                 variant="default"
-                className={cn("py-1 px-4", card.badgeClassName)}
+                className={cn("py-1 px-3 gap-2", card.badgeClassName)}
               >
                 {renderBadgeIcon(card)}
                 {card.badgeText}
               </Badge>
             )}
-            <div className="flex flex-col gap-2 md:gap-4">
-              {card.title &&
-                (typeof card.title === "string" ? (
-                  <h3
-                    className={cn(
-                      "text-lg md:text-xl font-semibold",
-                      card.titleClassName,
-                    )}
-                  >
-                    {card.title}
-                  </h3>
-                ) : (
-                  <div
-                    className={cn(
-                      "text-lg md:text-xl font-semibold",
-                      card.titleClassName,
-                    )}
-                  >
-                    {card.title}
-                  </div>
-                ))}
-              {card.linkText && card.link && (
+            <div className="flex flex-col items-start gap-4 md:gap-6 text-white">
+              <div className="flex flex-col items-start gap-2 md:gap-4">
+                {card.title &&
+                  (typeof card.title === "string" ? (
+                    <h3
+                      className={cn(
+                        "text-lg md:text-xl font-semibold",
+                        card.titleClassName,
+                      )}
+                    >
+                      {card.title}
+                    </h3>
+                  ) : (
+                    card.title
+                  ))}
+                {card.subtitle &&
+                  (typeof card.subtitle === "string" ? (
+                    <p
+                      className={cn(
+                        "text-base font-normal",
+                        card.subtitleClassName,
+                      )}
+                    >
+                      {card.subtitle}
+                    </p>
+                  ) : (
+                    card.subtitle
+                  ))}
+              </div>
+
+              {card.link && (
                 <div
                   className={cn(
                     "font-bold text-xs uppercase flex items-center gap-2",
                     card.linkClassName,
                   )}
                 >
-                  {card.linkText}
+                  {card.linkText ? card.linkText : "View"}
                   <DynamicIcon name="lucide/arrow-up-right" size={18} />
                 </div>
               )}
@@ -317,38 +342,37 @@ export function FeatureImageCardsThreeColumn({
     >
       <div className="flex flex-col space-y-6 md:space-y-16">
         {title || description ? (
-          <div className={cn("flex flex-col gap-6 text-left", headerClassName)}>
+          <div
+            className={cn(
+              "flex flex-col gap-6 text-left items-start",
+              headerClassName,
+            )}
+          >
             {title &&
               (typeof title === "string" ? (
                 <h2
                   className={cn(
-                    "text-2xl font-semibold text-balance md:text-3xl lg:text-4xl max-w-lg md:max-w-md",
+                    "text-3xl font-semibold text-balance md:text-4xl lg:text-5xl max-w-full md:max-w-md",
                     titleClassName,
                   )}
                 >
                   {title}
                 </h2>
               ) : (
-                <div
-                  className={cn(
-                    "text-2xl font-semibold text-balance md:text-3xl lg:text-4xl max-w-lg md:max-w-md",
-                    titleClassName,
-                  )}
-                >
-                  {title}
-                </div>
+                title
               ))}
             {description &&
               (typeof description === "string" ? (
-                <p className={cn("max-w-lg md:max-w-md", descriptionClassName)}>
+                <p
+                  className={cn(
+                    "text-xl max-w-full md:max-w-md text-balance",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
-                <div
-                  className={cn("max-w-lg md:max-w-md", descriptionClassName)}
-                >
-                  {description}
-                </div>
+                description
               ))}
           </div>
         ) : null}
