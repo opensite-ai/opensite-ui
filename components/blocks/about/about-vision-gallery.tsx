@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -89,14 +89,6 @@ export interface AboutVisionGalleryProps {
    */
   secondarySectionContentClassName?: string;
   /**
-   * Secondary section link text
-   */
-  secondarySectionLinkText?: React.ReactNode;
-  /**
-   * Secondary section link URL
-   */
-  secondarySectionLinkUrl?: string;
-  /**
    * Call-to-action section title
    */
   ctaTitle?: React.ReactNode;
@@ -175,8 +167,6 @@ export function AboutVisionGallery({
   secondarySectionTitleClassName,
   secondarySectionContent,
   secondarySectionContentClassName,
-  secondarySectionLinkText,
-  secondarySectionLinkUrl,
   ctaTitle,
   ctaTitleClassName,
   ctaAction,
@@ -231,10 +221,7 @@ export function AboutVisionGallery({
   }, [ctaSlot, ctaAction]);
 
   const hasPrimarySection = primarySectionTitle || primarySectionContent;
-  const hasSecondarySection =
-    secondarySectionTitle ||
-    secondarySectionContent ||
-    secondarySectionLinkText;
+  const hasSecondarySection = secondarySectionTitle || secondarySectionContent;
   const hasCtaSection = ctaTitle || ctaSlot || ctaAction;
 
   return (
@@ -266,7 +253,6 @@ export function AboutVisionGallery({
               <p
                 className={cn(
                   "text-xl font-medium text-balance",
-                  getTextColor(background, "muted"),
                   subtitleClassName,
                 )}
               >
@@ -279,7 +265,7 @@ export function AboutVisionGallery({
       )}
       {imagesContent}
       {(hasPrimarySection || hasSecondarySection) && (
-        <div className="mx-auto grid max-w-5xl gap:7 md:gap-28 py-6 md:py-16 md:grid-cols-2">
+        <div className="grid gap:7 md:gap-28 py-6 md:py-16 md:grid-cols-2">
           {hasPrimarySection && (
             <div>
               {primarySectionTitle &&
@@ -293,25 +279,20 @@ export function AboutVisionGallery({
                     {primarySectionTitle}
                   </h2>
                 ) : (
-                  <div className={cn("mb-5", primarySectionTitleClassName)}>
-                    {primarySectionTitle}
-                  </div>
+                  primarySectionTitle
                 ))}
               {primarySectionContent &&
                 (typeof primarySectionContent === "string" ? (
                   <p
                     className={cn(
                       "text-normal md:text-xl leading-8 font-medium whitespace-pre-line",
-                      getTextColor(background, "muted"),
                       primarySectionContentClassName,
                     )}
                   >
                     {primarySectionContent}
                   </p>
                 ) : (
-                  <div className={primarySectionContentClassName}>
-                    {primarySectionContent}
-                  </div>
+                  primarySectionContent
                 ))}
             </div>
           )}
@@ -328,29 +309,21 @@ export function AboutVisionGallery({
                     {secondarySectionTitle}
                   </h2>
                 ) : (
-                  <div className={cn("mb-5", secondarySectionTitleClassName)}>
-                    {secondarySectionTitle}
-                  </div>
+                  secondarySectionTitle
                 ))}
-              {(secondarySectionContent || secondarySectionLinkText) && (
-                <p
-                  className={cn(
-                    "text-normal md:text-xl leading-8 font-medium",
-                    getTextColor(background, "muted"),
-                    secondarySectionContentClassName,
-                  )}
-                >
-                  {secondarySectionLinkText && secondarySectionLinkUrl && (
-                    <Pressable
-                      href={secondarySectionLinkUrl}
-                      className="mr-1 underline"
-                    >
-                      {secondarySectionLinkText}
-                    </Pressable>
-                  )}
-                  {secondarySectionContent}
-                </p>
-              )}
+              {secondarySectionContent &&
+                (typeof secondarySectionContent === "string" ? (
+                  <h2
+                    className={cn(
+                      "text-normal md:text-xl leading-8 font-medium",
+                      secondarySectionContentClassName,
+                    )}
+                  >
+                    {secondarySectionContent}
+                  </h2>
+                ) : (
+                  secondarySectionContent
+                ))}
             </div>
           )}
         </div>
@@ -358,8 +331,9 @@ export function AboutVisionGallery({
       {hasCtaSection && (
         <div
           className={cn(
-            "mx-auto flex max-w-5xl flex-col items-center justify-between gap-8 rounded-2xl p-14 text-center md:flex-row md:text-left",
-            getNestedCardBg(background, "subtle"),
+            "flex flex-col items-center justify-between",
+            "gap-8 rounded-2xl p-14 text-center",
+            "md:flex-row md:text-left bg-muted text-muted-foreground",
             ctaClassName,
           )}
         >
@@ -374,7 +348,7 @@ export function AboutVisionGallery({
                 {ctaTitle}
               </h3>
             ) : (
-              <div className={ctaTitleClassName}>{ctaTitle}</div>
+              ctaTitle
             ))}
           {ctaContent}
         </div>

@@ -1,10 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   OptixFlowConfig,
@@ -88,11 +89,36 @@ export function AboutStoryGallery({
   imagesClassName,
   optixFlowConfig,
   background,
-  spacing = "py-8 md:py-32",
+  spacing = "lg",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
 }: AboutStoryGalleryProps): React.JSX.Element {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const lightboxItems: LightboxItem[] = useMemo(
+    () =>
+      (images ?? []).map((img, index) => ({
+        id: `gallery-image-${index}`,
+        type: "image" as const,
+        src: img.src,
+        alt: img.alt,
+        download: true,
+        share: true,
+      })),
+    [images],
+  );
+
+  const handleImageClick = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
   const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
@@ -105,20 +131,35 @@ export function AboutStoryGallery({
         )}
       >
         {images.map((image, idx) => (
-          <Img
+          <div
             key={idx}
-            src={image.src}
-            alt={image.alt}
             className={cn(
-              "h-64 w-full rounded-xl object-cover",
-              image.className,
+              "cursor-pointer overflow-hidden",
+              "rounded-xl transition-transform duration-500",
+              "hover:scale-[1.02] hover:shadow-lg",
             )}
-            optixFlowConfig={optixFlowConfig}
-          />
+            onClick={() => handleImageClick(idx)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleImageClick(idx);
+              }
+            }}
+            aria-label={`View ${image.alt} in lightbox`}
+          >
+            <Img
+              src={image.src}
+              alt={image.alt}
+              className={cn("h-64 w-full object-cover", image.className)}
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
         ))}
       </div>
     );
-  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig, handleImageClick]);
 
   return (
     <Section
@@ -161,6 +202,27 @@ export function AboutStoryGallery({
       </div>
 
       {imagesContent}
+
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }

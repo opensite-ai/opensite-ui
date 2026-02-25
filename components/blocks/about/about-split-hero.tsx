@@ -204,7 +204,7 @@ export function AboutSplitHero({
       ? "lg:flex-row"
       : "lg:flex-row-reverse";
   const mobileOrder =
-    directionConfig.mobile === "mediaTop" ? "flex-col" : "flex-col-reverse";
+    directionConfig.mobile === "mediaTop" ? "flex-col-reverse" : "flex-col";
 
   const contentArea = (
     <div

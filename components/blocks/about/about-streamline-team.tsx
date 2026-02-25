@@ -2,15 +2,8 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-  getTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -20,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface AboutStreamlineTeamProps {
   /**
@@ -172,7 +166,9 @@ export function AboutStreamlineTeam({
           <div key={idx} className="flex gap-4">
             <div
               className={cn(
-                "flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10",
+                "flex  shrink-0 items-center justify-center",
+                "size-12 rounded-lg",
+                "bg-primary text-primary-foreground",
                 feature.iconBgClass,
               )}
             >
@@ -187,11 +183,7 @@ export function AboutStreamlineTeam({
                 ))}
               {feature.description &&
                 (typeof feature.description === "string" ? (
-                  <p
-                    className={cn("text-sm", getTextColor(background, "muted"))}
-                  >
-                    {feature.description}
-                  </p>
+                  <p className="text-sm">{feature.description}</p>
                 ) : (
                   feature.description
                 ))}
@@ -202,36 +194,13 @@ export function AboutStreamlineTeam({
     );
   }, [featuresSlot, features, featuresClassName, background]);
 
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className={cn("mt-8", actionsClassName)}>
-        {actions.map((action, idx) => (
-          <Pressable
-            key={idx}
-            href={action.href}
-            onClick={action.onClick}
-            size={action.size || "lg"}
-            variant={action.variant || "default"}
-            asButton
-          >
-            {action.label}
-            <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
-          </Pressable>
-        ))}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
   return (
     <Section
       background={background}
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
@@ -252,14 +221,17 @@ export function AboutStreamlineTeam({
               src={secondaryImage.src}
               alt={secondaryImage.alt}
               className={cn(
-                "absolute -bottom-8 -right-8 h-48 w-48 rounded-xl border-4 border-background object-cover shadow-lg",
+                "size-24 md:size-48",
+                "rounded-xl object-cover shadow-lg",
+                "border-4 border-background",
+                "absolute -bottom-8 -right-2 md:-right-8",
                 secondaryImageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
             />
           )}
         </div>
-        <div>
+        <div className="pl-0 md:pl-8">
           {title &&
             (typeof title === "string" ? (
               <h1
@@ -271,23 +243,15 @@ export function AboutStreamlineTeam({
                 {title}
               </h1>
             ) : (
-              <div className={titleClassName}>{title}</div>
+              title
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "mt-6 text-lg",
-                  getTextColor(background, "muted"),
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("mt-6 text-lg", descriptionClassName)}>
                 {description}
               </p>
             ) : (
-              <div className={cn("mt-6", descriptionClassName)}>
-                {description}
-              </div>
+              description
             ))}
           {featuresContent}
         </div>
@@ -295,9 +259,9 @@ export function AboutStreamlineTeam({
 
       <div
         className={cn(
-          "mt-6 md:mt-32 rounded-2xl p-8 md:p-16",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background),
+          "mt-10 md:mt-24 p-6 md:p-16",
+          "bg-muted text-muted-foreground",
+          "rounded-2xl shadow-lg",
           teamSectionClassName,
         )}
       >
@@ -313,25 +277,22 @@ export function AboutStreamlineTeam({
                 {teamTitle}
               </h2>
             ) : (
-              <div className={teamTitleClassName}>{teamTitle}</div>
+              teamTitle
             ))}
           {teamDescription &&
             (typeof teamDescription === "string" ? (
-              <p
-                className={cn(
-                  "mt-4 text-lg",
-                  getTextColor(background, "muted"),
-                  teamDescriptionClassName,
-                )}
-              >
+              <p className={cn("mt-4 text-lg", teamDescriptionClassName)}>
                 {teamDescription}
               </p>
             ) : (
-              <div className={cn("mt-4", teamDescriptionClassName)}>
-                {teamDescription}
-              </div>
+              teamDescription
             ))}
-          {actionsContent}
+
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
       </div>
     </Section>
