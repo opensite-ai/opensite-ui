@@ -231,7 +231,7 @@ export function AboutStreamlineTeam({
             />
           )}
         </div>
-        <div className="pl-0 md:pl-8">
+        <div className="pl-0 md:pl-8 lg:pl-16">
           {title &&
             (typeof title === "string" ? (
               <h1
@@ -300,6 +300,7 @@ export function AboutStreamlineTeam({
             actions={actions}
             actionsSlot={actionsSlot}
             actionsClassName={actionsClassName}
+            verticalSpacing="mt-4 md:mt-0"
           />
         </div>
       </div>

@@ -151,7 +151,7 @@ export function AboutMissionDualImage({
       }
 
       return (
-        <div className="flex flex-col items-start gap-4 md:gap-6">
+        <div className="flex flex-col items-start gap-2 md:gap-4">
           {primaryHeading &&
             (typeof primaryHeading === "string" ? (
               <h2
@@ -167,7 +167,7 @@ export function AboutMissionDualImage({
             ))}
           {secondaryContent &&
             (typeof secondaryContent === "string" ? (
-              <p className={cn("mt-4 text-lg", secondaryClassname)}>
+              <p className={cn("text-base md:text-lg", secondaryClassname)}>
                 {secondaryContent}
               </p>
             ) : (
