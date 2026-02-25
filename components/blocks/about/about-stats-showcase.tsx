@@ -236,7 +236,7 @@ export function AboutStatsShowcase({
         )}
       >
         {stats.map((stat, idx) => (
-          <div className="flex flex-col gap-6 border-b pb-8" key={idx}>
+          <div className="flex flex-col gap-6" key={idx}>
             {stat.value &&
               (typeof stat.value === "string" ? (
                 <p className="text-4xl font-medium md:text-5xl">{stat.value}</p>
@@ -284,7 +284,7 @@ export function AboutStatsShowcase({
             className={cn(
               "flex flex-col md:flex-row",
               "justify-center items-center flex-wrap",
-              "gap-6 md:gap-12 opacity-70",
+              "gap-6 md:gap-12 opacity-50",
               logosClassName,
             )}
           >
@@ -293,7 +293,7 @@ export function AboutStatsShowcase({
                 <Img
                   src={logo.src}
                   alt={logo.alt}
-                  className="h-8 object-contain w-auto md:h-14 max-h-14"
+                  className="h-8 object-contain w-auto md:h-10 max-h-10"
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>

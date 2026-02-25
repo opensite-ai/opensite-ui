@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
@@ -97,12 +97,12 @@ export function FaqNumberedGrid({
   items,
   itemsSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -119,7 +119,9 @@ export function FaqNumberedGrid({
     return (
       <div
         className={cn(
-          "mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2",
+          "mx-0 md:mx-auto mt-6 md:mt-10",
+          "max-w-full md:max-w-7xl",
+          "grid gap-3 md:gap-6 grid-cols-1 md:grid-cols-2",
           gridClassName,
         )}
       >
@@ -133,9 +135,9 @@ export function FaqNumberedGrid({
           >
             <span
               className={cn(
-                "flex size-10 shrink-0 items-center justify-center rounded-lg text-md font-semibold",
-                getNestedCardBg(background),
-                getNestedCardTextColor(background),
+                "flex size-10 shrink-0 items-center justify-center",
+                "rounded-lg text-md font-semibold shadow-lg",
+                "bg-primary text-primary-foreground",
                 numberClassName,
               )}
             >
@@ -148,21 +150,15 @@ export function FaqNumberedGrid({
                     {item.question}
                   </h3>
                 ) : (
-                  <div className={questionClassName}>{item.question}</div>
+                  item.question
                 )}
               </div>
               {typeof item.answer === "string" ? (
-                <p
-                  className={cn(
-                    getTextColor(background, "muted"),
-                    "text-sm",
-                    answerClassName,
-                  )}
-                >
+                <p className={cn("text-sm md:text-base", answerClassName)}>
                   {item.answer}
                 </p>
               ) : (
-                <div className={answerClassName}>{item.answer}</div>
+                item.answer
               )}
             </div>
           </div>
@@ -188,8 +184,9 @@ export function FaqNumberedGrid({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={containerClassName}>
+      <div className="relative">
         <div
           className={cn(
             "mx-auto flex max-w-3xl flex-col text-left md:text-center",
@@ -207,21 +204,15 @@ export function FaqNumberedGrid({
                 {heading}
               </h2>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  getTextColor(background, "muted"),
-                  "lg:text-lg",
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("text-md lg:text-lg", descriptionClassName)}>
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
         </div>
         {itemsContent}
