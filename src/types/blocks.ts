@@ -1,11 +1,15 @@
 import type { ReactNode, MouseEventHandler } from "react";
 import type { VariantProps } from "class-variance-authority";
 import type { buttonVariants } from "../../lib/button-variants";
+import type { SocialPlatformName } from "@opensite/hooks/usePlatformFromUrl";
+
+// Re-export for consumers
+export type { SocialPlatformName };
 
 /**
  * Action configuration for semantic UI blocks.
  * Used by the semantic engine to define button/link actions with full flexibility.
- * 
+ *
  * @example
  * ```tsx
  * const actions: ActionConfig[] = [
@@ -56,7 +60,7 @@ export interface ActionConfig extends VariantProps<typeof buttonVariants> {
 /**
  * Logo item configuration for logo grids/carousels.
  * Supports light/dark mode variants and optional linking.
- * 
+ *
  * @example
  * ```tsx
  * const logos: LogoItem[] = [
@@ -90,7 +94,7 @@ export interface LogoItem {
 
 /**
  * Image item configuration for image grids/galleries.
- * 
+ *
  * @example
  * ```tsx
  * const images: ImageItem[] = [
@@ -120,7 +124,7 @@ export interface ImageItem {
 
 /**
  * Feature item configuration for feature lists/grids.
- * 
+ *
  * @example
  * ```tsx
  * const features: FeatureItem[] = [
@@ -165,7 +169,7 @@ export interface FeatureItem {
 
 /**
  * Stat item configuration for stats displays.
- * 
+ *
  * @example
  * ```tsx
  * const stats: StatItem[] = [
@@ -195,7 +199,7 @@ export interface StatItem {
 
 /**
  * Testimonial item configuration.
- * 
+ *
  * @example
  * ```tsx
  * const testimonials: TestimonialItem[] = [
@@ -248,7 +252,7 @@ export interface TestimonialItem {
 
 /**
  * Navigation link item configuration.
- * 
+ *
  * @example
  * ```tsx
  * const links: NavLinkItem[] = [
@@ -278,37 +282,62 @@ export interface NavLinkItem {
 
 /**
  * Social link item configuration.
- * 
+ * Compatible with SocialLinkIcon component for automatic icon resolution.
+ *
  * @example
  * ```tsx
  * const socials: SocialLinkItem[] = [
- *   { platform: "twitter", href: "https://twitter.com/company", icon: <TwitterIcon /> }
+ *   { href: "https://twitter.com/company" }, // Auto-detects platform from URL
+ *   { platformName: "instagram", href: "https://instagram.com/company" },
+ *   { href: "https://github.com/company", iconSize: 24 }
  * ];
  * ```
  */
 export interface SocialLinkItem {
   /**
-   * Social platform name
+   * Social platform name - determines which icon to display.
+   * If not provided, the platform is auto-detected from the href URL.
    */
-  platform?: string;
+  platformName?: SocialPlatformName;
   /**
-   * Display label for the link
+   * @deprecated Use `platformName` instead. Kept for backwards compatibility.
    */
-  label?: ReactNode;
+  platform?: SocialPlatformName;
   /**
-   * Link URL
+   * Link URL (required). Platform is auto-detected from this URL if platformName is not set.
    */
   href: string;
   /**
-   * Platform icon
+   * Display label for the link (used for aria-label if not specified)
+   */
+  label?: string;
+  /**
+   * Platform icon (ReactNode) - overrides automatic icon selection
    */
   icon?: ReactNode;
+  /**
+   * Icon name override for DynamicIcon (e.g., "lucide/twitter")
+   */
+  iconNameOverride?: string;
+  /**
+   * Icon size in pixels
+   * @default 20
+   */
+  iconSize?: number;
+  /**
+   * Icon color - accepts any valid CSS color
+   */
+  iconColor?: string;
+  /**
+   * Additional CSS classes for the icon
+   */
+  iconClassName?: string;
   /**
    * ARIA label for accessibility
    */
   "aria-label"?: string;
   /**
-   * Additional CSS classes
+   * Additional CSS classes for the link wrapper
    */
   className?: string;
 }
@@ -415,13 +444,13 @@ export interface OptixFlowConfig {
 /**
  * Blog post item configuration for blog blocks.
  * Flexible structure supporting various blog layouts.
- * 
+ *
  * @example
  * ```tsx
  * const posts: BlogPostItem[] = [
- *   { 
- *     title: "Getting Started", 
- *     summary: "Learn the basics...", 
+ *   {
+ *     title: "Getting Started",
+ *     summary: "Learn the basics...",
  *     image: "/post1.jpg",
  *     href: "/blog/getting-started"
  *   }
@@ -535,7 +564,7 @@ export interface BlockBlogProps {
 
 /**
  * Breadcrumb item configuration for navigation breadcrumbs.
- * 
+ *
  * @example
  * ```tsx
  * const breadcrumbs: BreadcrumbItem[] = [
@@ -562,7 +591,7 @@ export interface BreadcrumbItem {
 
 /**
  * Detail item configuration for key-value displays (sidebars, info cards).
- * 
+ *
  * @example
  * ```tsx
  * const details: DetailItem[] = [
@@ -601,7 +630,7 @@ export interface DetailItem {
 
 /**
  * Author information configuration for attribution displays.
- * 
+ *
  * @example
  * ```tsx
  * const author: AuthorInfo = {
@@ -636,7 +665,7 @@ export interface AuthorInfo {
 
 /**
  * Section item configuration for content sections with TOC navigation.
- * 
+ *
  * @example
  * ```tsx
  * const sections: SectionItem[] = [
@@ -666,7 +695,7 @@ export interface SectionItem {
 
 /**
  * Outcome item configuration for results/outcomes lists.
- * 
+ *
  * @example
  * ```tsx
  * const outcomes: OutcomeItem[] = [

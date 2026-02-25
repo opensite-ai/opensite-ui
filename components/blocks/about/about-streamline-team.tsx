@@ -269,15 +269,15 @@ export function AboutStreamlineTeam({
           className={cn(
             "flex flex-col md:flex-row",
             "justify-center md:justify-between items-center md:items-start",
-            "gap-8 md:gap-24",
+            "gap-4 md:gap-24",
           )}
         >
-          <div className="flex flex-col gap-6 md:gap-8 text-center md:text-left">
+          <div className="flex flex-col gap-4 md:gap-8 text-center md:text-left">
             {teamTitle &&
               (typeof teamTitle === "string" ? (
                 <h2
                   className={cn(
-                    "text-3xl font-bold md:text-4xl",
+                    "text-3xl font-bold md:text-4xl text-balance",
                     teamTitleClassName,
                   )}
                 >
@@ -288,7 +288,12 @@ export function AboutStreamlineTeam({
               ))}
             {teamDescription &&
               (typeof teamDescription === "string" ? (
-                <p className={cn("text-lg", teamDescriptionClassName)}>
+                <p
+                  className={cn(
+                    "text-lg text-balance",
+                    teamDescriptionClassName,
+                  )}
+                >
                   {teamDescription}
                 </p>
               ) : (

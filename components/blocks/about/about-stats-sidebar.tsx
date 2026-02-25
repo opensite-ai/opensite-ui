@@ -2,12 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-  getTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -107,7 +102,7 @@ export function AboutStatsSidebar({
   featuresClassName,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-32 md:py-32",
+  spacing = "lg",
   pattern,
   patternOpacity,
 }: AboutStatsSidebarProps): React.JSX.Element {
@@ -116,40 +111,44 @@ export function AboutStatsSidebar({
     if (!stats || stats.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-6 sm:grid-cols-2", statsClassName)}>
+      <div
+        className={cn(
+          "grid grid-cols-1 gap-4 md:gap-6 sm:grid-cols-2",
+          statsClassName,
+        )}
+      >
         {stats.map((stat, idx) => (
           <div
             key={idx}
             className={cn(
-              "rounded-xl border p-6",
-              getNestedCardBg(background, "card"),
-              getNestedCardTextColor(background),
+              "p-6 flex flex-col items-start gap-6",
+              "bg-card text-card-foreground",
+              "rounded-xl ring-2",
             )}
           >
             {stat.icon}
-            {typeof stat.value === "string" ? (
-              <p className="mt-4 text-4xl font-bold">{stat.value}</p>
-            ) : (
-              <div className="mt-4">{stat.value}</div>
-            )}
-            {typeof stat.label === "string" ? (
-              <p className="mt-1 font-semibold">{stat.label}</p>
-            ) : (
-              <div className="mt-1">{stat.label}</div>
-            )}
-            {stat.description &&
-              (typeof stat.description === "string" ? (
-                <p
-                  className={cn(
-                    "mt-2 text-sm",
-                    getTextColor(background, "muted"),
-                  )}
-                >
-                  {stat.description}
-                </p>
+            <div className="flex flex-col items-start gap-2">
+              {typeof stat.value === "string" ? (
+                <h3 className="mb-2 text-3xl md:text-4xl font-bold">
+                  {stat.value}
+                </h3>
               ) : (
-                <div className="mt-2">{stat.description}</div>
-              ))}
+                stat.value
+              )}
+              {typeof stat.label === "string" ? (
+                <p className="font-semibold">{stat.label}</p>
+              ) : (
+                stat.label
+              )}
+              {stat.description &&
+                (typeof stat.description === "string" ? (
+                  <p className={cn("text-sm opacity-60 font-semibold")}>
+                    {stat.description}
+                  </p>
+                ) : (
+                  stat.description
+                ))}
+            </div>
           </div>
         ))}
       </div>
@@ -166,7 +165,9 @@ export function AboutStatsSidebar({
           <div key={idx} className="flex gap-4">
             <div
               className={cn(
-                "flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10",
+                "flex size-12 shrink-0 items-center justify-center",
+                "bg-primary text-primary-foreground",
+                "shadow-lg rounded-lg",
                 feature.iconBgClass,
               )}
             >
@@ -181,9 +182,7 @@ export function AboutStatsSidebar({
                 ))}
               {feature.description &&
                 (typeof feature.description === "string" ? (
-                  <p className={getTextColor(background, "muted")}>
-                    {feature.description}
-                  </p>
+                  <p className="opacity-75">{feature.description}</p>
                 ) : (
                   feature.description
                 ))}
@@ -200,7 +199,7 @@ export function AboutStatsSidebar({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className="grid gap-12 lg:grid-cols-3">
@@ -222,13 +221,7 @@ export function AboutStatsSidebar({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "mt-4 text-lg",
-                  getTextColor(background, "muted"),
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("mt-4 text-lg", descriptionClassName)}>
                 {description}
               </p>
             ) : (

@@ -18,6 +18,11 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
 
+export interface DirectionConfig {
+  desktop: "mediaRight" | "mediaLeft";
+  mobile: "mediaTop" | "mediaBottom";
+}
+
 export interface HeroEventRegistrationProps {
   /**
    * Badge text content (e.g., event date)
@@ -134,6 +139,11 @@ export interface HeroEventRegistrationProps {
     src: string;
     alt: string;
   };
+  /**
+   * Direction configuration for desktop and mobile layouts
+   * @default { desktop: 'mediaRight', mobile: 'mediaTop' }
+   */
+  directionConfig?: DirectionConfig;
 }
 
 export function HeroEventRegistration({
@@ -152,7 +162,7 @@ export function HeroEventRegistration({
   locationSublabel,
   locationSlot,
   background,
-  containerClassName = "px-6 sm:px-0 md:px-0 lg:px-0",
+  containerClassName = "mx-auto w-full max-w-full md:max-w-7xl relative z-10 px-6 sm:px-8 md:px-12 lg:px-18",
   spacing = "xl",
   pattern,
   patternOpacity,
@@ -165,6 +175,7 @@ export function HeroEventRegistration({
   imageClassName,
   optixFlowConfig,
   logo,
+  directionConfig = { desktop: "mediaRight", mobile: "mediaTop" },
 }: HeroEventRegistrationProps): React.JSX.Element {
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
@@ -223,7 +234,14 @@ export function HeroEventRegistration({
     if (!locationLabel && !locationSublabel) return null;
 
     return (
-      <div className="absolute -bottom-4 -left-4 rounded-xl bg-card text-card-foreground p-2 md:p-4 shadow-lg ring-4 ring-primary">
+      <div
+        className={cn(
+          "bg-card text-card-foreground",
+          "rounded-xl p-2 md:p-4 shadow-lg",
+          "absolute -bottom-4 -left-4",
+          "ring-4 ring-primary",
+        )}
+      >
         <div className="flex items-center gap-3">
           <div
             className={cn(
@@ -236,7 +254,7 @@ export function HeroEventRegistration({
           <div
             className={cn(
               "flex flex-col items-start justify-center",
-              "text-card-foreground gap-0 pr-0 md:pr-2",
+              "text-card-foreground gap-0 pr-1 md:pr-2",
             )}
           >
             {locationLabel &&
@@ -262,8 +280,13 @@ export function HeroEventRegistration({
     if (!image) return null;
 
     return (
-      <div className="relative">
-        <div className={cn("overflow-hidden rounded-2xl", imageClassName)}>
+      <div className="relative w-full md:w-[50%]">
+        <div
+          className={cn(
+            "overflow-hidden rounded-2xl shadow-xl",
+            imageClassName,
+          )}
+        >
           <Img
             src={image.src}
             alt={image.alt}
@@ -286,10 +309,10 @@ export function HeroEventRegistration({
       containerClassName={containerClassName}
     >
       <div className="pt-8 md:pt-0">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+        <div className="flex items-center flex-col md:flex-row justify-start md:justify-between gap-12 md:gap-24">
           <div
             className={cn(
-              "flex flex-col items-start gap-4 md:gap-6",
+              "flex flex-col items-start gap-2 md:gap-4 w-full md:w-[50%]",
               contentClassName,
             )}
           >

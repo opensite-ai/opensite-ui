@@ -348,7 +348,7 @@ export function AboutMissionFeatures({
           </div>
           <div
             className={cn(
-              "grid gap-10 md:grid-cols-3 border-t border-dashed",
+              "grid md:grid-cols-3 border-t border-dashed",
               featuresClassName,
             )}
           >

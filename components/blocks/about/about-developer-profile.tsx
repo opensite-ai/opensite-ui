@@ -4,7 +4,6 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -15,6 +14,8 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { Badge } from "@/components/ui/badge";
+import { SocialLinkIcon } from "@/components/ui/social-link-icon";
 
 export interface AboutDeveloperProfileProps {
   /**
@@ -154,7 +155,7 @@ export function AboutDeveloperProfile({
   actionsClassName,
   optixFlowConfig,
   background,
-  spacing = "xl",
+  spacing = "lg",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
@@ -163,16 +164,18 @@ export function AboutDeveloperProfile({
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
-    return socialLinks.map((link, idx) => (
-      <Pressable
-        key={idx}
-        href={link.href}
-        aria-label={link["aria-label"]}
-        className={cn(link.className)}
+    return (
+      <div
+        className={cn(
+          "flex justify-center gap-4 md:justify-start items-center flex-wrap",
+          socialLinksClassName,
+        )}
       >
-        {link.icon}
-      </Pressable>
-    ));
+        {socialLinks.map((link, idx) => (
+          <SocialLinkIcon key={idx} {...link} size="icon-lg" asButton />
+        ))}
+      </div>
+    );
   }, [socialLinksSlot, socialLinks, background]);
 
   const skillsContent = useMemo(() => {
@@ -180,15 +183,9 @@ export function AboutDeveloperProfile({
     if (!skills || skills.length === 0) return null;
 
     return skills.map((skill, idx) => (
-      <span
-        key={idx}
-        className={cn(
-          "rounded-full px-4 py-2 text-sm font-medium",
-          skillTagClassName,
-        )}
-      >
+      <Badge key={idx} className={cn("px-4", skillTagClassName)}>
         {skill}
-      </span>
+      </Badge>
     ));
   }, [skillsSlot, skills, skillTagClassName, background]);
 
@@ -201,55 +198,59 @@ export function AboutDeveloperProfile({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-4xl", contentClassName)}>
-        <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
+      <div
+        className={cn(
+          "mx-auto max-w-full md:max-w-md bg-muted",
+          "py-8 px-6 md:py-12 md:px-12 text-muted-foreground",
+          "rounded-2xl shadow-xl",
+          "flex flex-col items-center md:items-start gap-8",
+          contentClassName,
+        )}
+      >
+        <div className="flex flex-col gap-8 md:flex-row items-start">
           {avatar && (
             <Img
               src={avatar.src}
               alt={avatar.alt}
               className={cn(
-                "h-48 w-48 rounded-xl object-cover shadow-xl",
+                "h-48 w-full md:w-48 rounded-xl object-cover shadow-xl",
                 avatarClassName,
               )}
               optixFlowConfig={optixFlowConfig}
             />
           )}
-          <div className="text-center md:text-left">
+          <div className="text-left flex flex-col items-start gap-4">
             {name &&
               (typeof name === "string" ? (
-                <h1 className={cn("text-4xl font-bold", nameClassName)}>
+                <h2
+                  className={cn(
+                    "text-3xl md:text-4xl font-bold",
+                    nameClassName,
+                  )}
+                >
                   {name}
-                </h1>
+                </h2>
               ) : (
-                <div className={nameClassName}>{name}</div>
+                name
               ))}
             {role &&
               (typeof role === "string" ? (
-                <p className={cn("mt-2 text-xl", roleClassName)}>{role}</p>
+                <p className={cn("text-xl opacity-50", roleClassName)}>
+                  {role}
+                </p>
               ) : (
-                <div className={cn("mt-2", roleClassName)}>{role}</div>
+                role
               ))}
-            {(socialLinksSlot || (socialLinks && socialLinks.length > 0)) && (
-              <div
-                className={cn(
-                  "mt-4 flex justify-center gap-4 md:justify-start",
-                  socialLinksClassName,
-                )}
-              >
-                {socialLinksContent}
-              </div>
-            )}
+            {socialLinksContent}
           </div>
         </div>
 
         {bio && (
           <div className="mt-12">
             {typeof bio === "string" ? (
-              <p className={cn("text-lg whitespace-pre-line", bioClassName)}>
-                {bio}
-              </p>
+              <p className={cn("text-lg", bioClassName)}>{bio}</p>
             ) : (
-              <div className={bioClassName}>{bio}</div>
+              bio
             )}
           </div>
         )}
@@ -258,7 +259,9 @@ export function AboutDeveloperProfile({
           <div className={cn("mt-12", skillsClassName)}>
             {skillsTitle &&
               (typeof skillsTitle === "string" ? (
-                <h2 className="text-xl font-semibold">{skillsTitle}</h2>
+                <h2 className="text-lg font-semibold opacity-50">
+                  {skillsTitle}
+                </h2>
               ) : (
                 skillsTitle
               ))}

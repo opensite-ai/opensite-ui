@@ -197,7 +197,7 @@ export interface FeatureImageCardsThreeColumnProps {
 const ASPECT_RATIO_VALUES = {
   square: "1 / 1",
   horizontal: "16 / 9",
-  vertical: "9 / 16",
+  vertical: "8 / 12",
 } as const;
 
 export function FeatureImageCardsThreeColumn({
@@ -297,7 +297,7 @@ export function FeatureImageCardsThreeColumn({
           {card.title || card.subtitle || card.linkText ? (
             <div className="flex flex-col items-start gap-4 md:gap-6 text-white">
               {card.title || card.subtitle ? (
-                <div className="flex flex-col items-start gap-2 md:gap-4">
+                <div className="flex flex-col items-start gap-0 md:gap-1">
                   {card.title &&
                     (typeof card.title === "string" ? (
                       <h3
