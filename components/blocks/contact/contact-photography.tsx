@@ -137,7 +137,7 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
 export function ContactPhotography({
   heading,
   description,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  containerClassName = "mx-auto w-full max-w-full relative z-10 px-0",
   className,
   headingClassName,
   descriptionClassName,
