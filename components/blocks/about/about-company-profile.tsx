@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
@@ -178,7 +178,6 @@ export function AboutCompanyProfile({
   achievements,
   achievementsSlot,
   className,
-  containerClassName,
   titleClassName,
   descriptionClassName,
   mainImageClassName,
@@ -190,7 +189,8 @@ export function AboutCompanyProfile({
   achievementsDescriptionClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
 }: AboutCompanyProfileProps): React.JSX.Element {
@@ -201,9 +201,7 @@ export function AboutCompanyProfile({
     return (
       <div
         className={cn(
-          "flex flex-col justify-between gap-6 rounded-xl p-7 md:w-1/2 lg:w-auto",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background),
+          "flex bg-muted text-muted-foreground flex-col justify-between gap-6 rounded-xl p-7 md:w-1/2 lg:w-auto",
           breakoutClassName,
         )}
       >
@@ -211,7 +209,7 @@ export function AboutCompanyProfile({
           <Img
             src={breakout.logo.src}
             alt={breakout.logo.alt}
-            className="mr-auto h-12 dark:invert"
+            className="mr-auto h-12"
             optixFlowConfig={optixFlowConfig}
           />
         )}
@@ -222,7 +220,7 @@ export function AboutCompanyProfile({
             breakout.title
           )}
           {typeof breakout.description === "string" ? (
-            <p className={getTextColor(background, 'muted')}>{breakout.description}</p>
+            <p className="text-base">{breakout.description}</p>
           ) : (
             breakout.description
           )}
@@ -332,7 +330,7 @@ export function AboutCompanyProfile({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className="mb-6 md:mb-14 grid gap-5 md:grid-cols-2 text-left">
@@ -347,21 +345,20 @@ export function AboutCompanyProfile({
               {title}
             </h1>
           ) : (
-            <div className={titleClassName}>{title}</div>
+            title
           ))}
         {description &&
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-balance",
-                getTextColor(background, 'muted'),
+                "text-balance bg-muted text-muted-foreground",
                 descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
-            <div className={descriptionClassName}>{description}</div>
+            description
           ))}
       </div>
       <div className="grid gap-7 lg:grid-cols-3">
@@ -394,9 +391,7 @@ export function AboutCompanyProfile({
       {companiesContent}
       <div
         className={cn(
-          "relative overflow-hidden rounded-xl p-7 md:p-16",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background),
+          "relative overflow-hidden rounded-xl p-7 md:p-16 bg-muted text-muted-foreground",
           achievementsClassName,
         )}
       >
@@ -412,25 +407,15 @@ export function AboutCompanyProfile({
                 {achievementsTitle}
               </h2>
             ) : (
-              <div className={achievementsTitleClassName}>
-                {achievementsTitle}
-              </div>
+              achievementsTitle
             ))}
           {achievementsDescription &&
             (typeof achievementsDescription === "string" ? (
-              <p
-                className={cn(
-                  "max-w-xl",
-                  getTextColor(background, 'muted'),
-                  achievementsDescriptionClassName,
-                )}
-              >
+              <p className={cn("max-w-xl", achievementsDescriptionClassName)}>
                 {achievementsDescription}
               </p>
             ) : (
-              <div className={achievementsDescriptionClassName}>
-                {achievementsDescription}
-              </div>
+              achievementsDescription
             ))}
         </div>
         <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 text-center lg:grid-cols-4">

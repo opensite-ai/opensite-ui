@@ -127,6 +127,13 @@ export interface HeroEventRegistrationProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Logo image configuration
+   */
+  logo?: {
+    src: string;
+    alt: string;
+  };
 }
 
 export function HeroEventRegistration({
@@ -157,6 +164,7 @@ export function HeroEventRegistration({
   statsClassName,
   imageClassName,
   optixFlowConfig,
+  logo,
 }: HeroEventRegistrationProps): React.JSX.Element {
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
@@ -284,6 +292,14 @@ export function HeroEventRegistration({
             )}
           >
             {renderBadge}
+            {logo && (
+              <Img
+                src={logo.src}
+                alt={logo.alt}
+                className="mr-auto h-12 md:h-16"
+                optixFlowConfig={optixFlowConfig}
+              />
+            )}
             {heading &&
               (typeof heading === "string" ? (
                 <h1

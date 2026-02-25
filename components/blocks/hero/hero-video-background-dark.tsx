@@ -12,6 +12,7 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { Badge } from "@/src";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroVideoBackgroundDarkProps {
   /**
@@ -34,6 +35,10 @@ export interface HeroVideoBackgroundDarkProps {
    * Custom slot for rendering actions (overrides actions array)
    */
   actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
   /**
    * Video source URL
    */
@@ -86,6 +91,7 @@ export function HeroVideoBackgroundDark({
   description,
   actions,
   actionsSlot,
+  actionsClassName,
   videoSrc,
   videoSlot,
   background,
@@ -98,44 +104,6 @@ export function HeroVideoBackgroundDark({
   headingClassName,
   descriptionClassName,
 }: HeroVideoBackgroundDarkProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className="flex lg:justify-center">
-        <div className="flex min-w-fit flex-col gap-5 text-sm leading-[.96] whitespace-nowrap lg:flex-row lg:items-stretch">
-          {actions.map((action, index) => {
-            const {
-              label,
-              icon,
-              iconAfter,
-              children,
-              className: actionClassName,
-              ...pressableProps
-            } = action;
-            return (
-              <Pressable
-                key={index}
-                asButton
-                className={actionClassName}
-                {...pressableProps}
-              >
-                {children ?? (
-                  <>
-                    {icon}
-                    {label}
-                    {iconAfter}
-                  </>
-                )}
-              </Pressable>
-            );
-          })}
-        </div>
-      </div>
-    );
-  }, [actionsSlot, actions]);
-
   const renderVideo = useMemo(() => {
     if (videoSlot) return videoSlot;
 
@@ -163,7 +131,7 @@ export function HeroVideoBackgroundDark({
       <div className="min-h-screen h-full flex flex-col justify-center items-center">
         <div
           className={cn(
-            "relative z-10 mx-auto flex size-full max-w-3xl flex-col justify-center gap-6 lg:items-center lg:text-center px-6",
+            "relative z-10 mx-auto flex size-full max-w-3xl flex-col justify-center gap-6 lg:items-center text-center px-6",
             contentClassName,
           )}
         >
@@ -177,21 +145,14 @@ export function HeroVideoBackgroundDark({
             (typeof heading === "string" ? (
               <h1
                 className={cn(
-                  "text-4xl font-bold md:text-5xl text-balance text-white text-shadow-xl",
+                  "text-4xl font-bold md:text-6xl lg:text-7xl text-balance text-white text-shadow-2xl",
                   headingClassName,
                 )}
               >
                 {heading}
               </h1>
             ) : (
-              <h1
-                className={cn(
-                  "text-4xl font-bold md:text-5xl text-balance text-white text-shadow-xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
@@ -204,9 +165,13 @@ export function HeroVideoBackgroundDark({
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
-          {renderActions}
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
         {renderVideo}
       </div>
