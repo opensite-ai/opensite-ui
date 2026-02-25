@@ -2,12 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getTextColor,
-  getAccentColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -22,6 +17,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface CommunityMetric {
   /**
@@ -253,30 +249,6 @@ export function CommunityInitiatives({
     [],
   );
 
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div
-        className={cn("flex flex-wrap justify-center gap-4", actionsClassName)}
-      >
-        {actions.map((action, idx) => (
-          <Pressable
-            key={idx}
-            href={action.href}
-            onClick={action.onClick}
-            variant={action.variant || "default"}
-            size={action.size || "lg"}
-            asButton
-          >
-            {action.label}
-          </Pressable>
-        ))}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
   const categoriesContent = useMemo(() => {
     if (categoriesSlot) return categoriesSlot;
     if (!categories || categories.length === 0) return null;
@@ -317,9 +289,7 @@ export function CommunityInitiatives({
         </div>
 
         <div className="mx-auto max-w-2xl text-left md:text-center">
-          <p className={cn(getTextColor(background, "muted"))}>
-            {currentCategory?.description}
-          </p>
+          <p className="relative">{currentCategory?.description}</p>
         </div>
 
         {categories.map((category) => (
@@ -343,43 +313,22 @@ export function CommunityInitiatives({
                     )}
                   >
                     <div className="flex items-center gap-3">
-                      <div
-                        className={cn(
-                          "rounded-md p-2",
-                          getNestedCardBg(background, "muted"),
-                        )}
-                      >
-                        <DynamicIcon
-                          name={initiative.icon}
-                          size={24}
-                          className={cn(getAccentColor(background))}
-                        />
+                      <div className={cn("rounded-md p-2")}>
+                        <DynamicIcon name={initiative.icon} size={24} />
                       </div>
                       <h3 className="text-2xl font-bold">{initiative.title}</h3>
                     </div>
 
-                    <p className={cn(getTextColor(background, "muted"))}>
-                      {initiative.description}
-                    </p>
+                    <p className="relative">{initiative.description}</p>
 
                     {initiative.metrics && (
                       <div className="grid grid-cols-3 gap-4 pt-2">
                         {initiative.metrics.map((metric, i) => (
                           <div key={i} className="text-center">
-                            <div
-                              className={cn(
-                                "text-2xl font-bold",
-                                getAccentColor(background),
-                              )}
-                            >
+                            <div className={cn("text-2xl font-bold")}>
                               {metric.value}
                             </div>
-                            <div
-                              className={cn(
-                                "mt-1 text-xs",
-                                getTextColor(background, "muted"),
-                              )}
-                            >
+                            <div className={cn("mt-1 text-xs")}>
                               {metric.label}
                             </div>
                           </div>
@@ -414,18 +363,13 @@ export function CommunityInitiatives({
                       <Card
                         className={cn(
                           "flex h-full min-h-[280px] w-full items-center justify-center",
-                          getNestedCardBg(background, "subtle"),
                         )}
                       >
                         <CardContent className="p-6 text-center">
                           <DynamicIcon
                             name={initiative.icon}
                             size={64}
-                            className={cn(
-                              "mx-auto mb-4",
-                              getTextColor(background, "muted"),
-                              "opacity-50",
-                            )}
+                            className={cn("mx-auto mb-4", "opacity-50")}
                           />
                           <Badge variant="secondary" className="mx-auto">
                             Learn more about our{" "}
@@ -497,7 +441,15 @@ export function CommunityInitiatives({
 
       {categoriesContent}
 
-      <div className={cn("mt-20 text-center", ctaClassName)}>
+      <div
+        className={cn(
+          "mt-10 md:mt-24 p-6 md:p-16",
+          "text-center flex flex-col items-center",
+          "bg-muted text-muted-foreground",
+          "rounded-2xl shadow-lg",
+          ctaClassName,
+        )}
+      >
         {ctaBadgeText && (
           <div
             className={cn(
@@ -521,11 +473,7 @@ export function CommunityInitiatives({
         {ctaDescription &&
           (typeof ctaDescription === "string" ? (
             <p
-              className={cn(
-                "mx-auto mb-8 max-w-2xl",
-                getTextColor(background, "muted"),
-                ctaDescriptionClassName,
-              )}
+              className={cn("mx-auto mb-8 max-w-2xl", ctaDescriptionClassName)}
             >
               {ctaDescription}
             </p>
@@ -533,7 +481,11 @@ export function CommunityInitiatives({
             ctaDescription
           ))}
 
-        {actionsContent}
+        <BlockActions
+          actions={actions}
+          actionsSlot={actionsSlot}
+          actionsClassName={actionsClassName}
+        />
       </div>
     </Section>
   );

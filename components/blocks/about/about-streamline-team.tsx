@@ -265,28 +265,36 @@ export function AboutStreamlineTeam({
           teamSectionClassName,
         )}
       >
-        <div className="mx-auto max-w-2xl text-center">
-          {teamTitle &&
-            (typeof teamTitle === "string" ? (
-              <h2
-                className={cn(
-                  "text-3xl font-bold md:text-4xl",
-                  teamTitleClassName,
-                )}
-              >
-                {teamTitle}
-              </h2>
-            ) : (
-              teamTitle
-            ))}
-          {teamDescription &&
-            (typeof teamDescription === "string" ? (
-              <p className={cn("mt-4 text-lg", teamDescriptionClassName)}>
-                {teamDescription}
-              </p>
-            ) : (
-              teamDescription
-            ))}
+        <div
+          className={cn(
+            "flex flex-col md:flex-row",
+            "justify-center md:justify-between items-center md:items-start",
+            "gap-8 md:gap-24",
+          )}
+        >
+          <div className="flex flex-col gap-6 md:gap-8 text-center md:text-left">
+            {teamTitle &&
+              (typeof teamTitle === "string" ? (
+                <h2
+                  className={cn(
+                    "text-3xl font-bold md:text-4xl",
+                    teamTitleClassName,
+                  )}
+                >
+                  {teamTitle}
+                </h2>
+              ) : (
+                teamTitle
+              ))}
+            {teamDescription &&
+              (typeof teamDescription === "string" ? (
+                <p className={cn("text-lg", teamDescriptionClassName)}>
+                  {teamDescription}
+                </p>
+              ) : (
+                teamDescription
+              ))}
+          </div>
 
           <BlockActions
             actions={actions}
