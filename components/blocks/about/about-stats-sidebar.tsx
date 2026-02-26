@@ -160,7 +160,9 @@ export function AboutStatsSidebar({
     return (
       <div
         className={cn(
-          "mt-8 space-y-6 p-6 bg-card text-card-foreground rounded-xl shadow-xl",
+          "bg-card text-card-foreground",
+          "mt-4 md:mt-6 space-y-6 p-6",
+          "rounded-xl shadow-xl",
           featuresClassName,
         )}
       >
@@ -220,7 +222,7 @@ export function AboutStatsSidebar({
                 {title}
               </h2>
             ) : (
-              <div className={titleClassName}>{title}</div>
+              title
             ))}
           {description &&
             (typeof description === "string" ? (
@@ -228,9 +230,7 @@ export function AboutStatsSidebar({
                 {description}
               </p>
             ) : (
-              <div className={cn("mt-4", descriptionClassName)}>
-                {description}
-              </div>
+              description
             ))}
         </div>
 
