@@ -367,18 +367,29 @@ export function FooterSplitImageAccordion({
           </div>
         )}
 
-        <div className={cn("space-y-10 p-6 lg:p-12", contentColumnClassName)}>
-          {newsletterTitle && (
-            <div className={cn("space-y-6", newsletterSectionClassName)}>
-              <h3
-                className={cn(
-                  "text-2xl font-semibold lg:text-3xl",
-                  newsletterTitleClassName,
+        <div
+          className={cn(
+            "flex flex-col items-start justify-start md:justify-between",
+            "p-6 md:p-12 lg:p-18",
+            "space-y-16",
+            contentColumnClassName,
+          )}
+        >
+          <div className="space-y-16">
+            <div className="space-y-12">
+              <div className={cn("space-y-6", newsletterSectionClassName)}>
+                {newsletterTitle && (
+                  <h3
+                    className={cn(
+                      "text-2xl font-semibold lg:text-3xl",
+                      newsletterTitleClassName,
+                    )}
+                  >
+                    {newsletterTitle}
+                  </h3>
                 )}
-              >
-                {newsletterTitle}
-              </h3>
-              {renderForm}
+                {renderForm}
+              </div>
               {socialLinks && socialLinks.length > 0 && (
                 <ul
                   className={cn("flex flex-wrap gap-4", socialLinksClassName)}
@@ -399,85 +410,86 @@ export function FooterSplitImageAccordion({
                 </ul>
               )}
             </div>
-          )}
 
-          <Separator />
+            {footerData && (
+              <div className={cn("space-y-6", brandSectionClassName)}>
+                {footerData.logo && (
+                  <FooterLogo
+                    logo={{
+                      ...footerData.logo,
+                      url: footerData.logo.url || "/",
+                    }}
+                    logoClassName={cn("inline-block max-w-60", logoClassName)}
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                )}
+                {footerData.heading && (
+                  <h4
+                    className={cn(
+                      "text-xl font-semibold text-pretty",
+                      brandTitleClassName,
+                    )}
+                  >
+                    {footerData.heading}
+                  </h4>
+                )}
+                {footerData.description && (
+                  <p
+                    className={cn(
+                      "opacity-80 text-balance",
+                      brandDescriptionClassName,
+                    )}
+                  >
+                    {footerData.description}
+                  </p>
+                )}
+              </div>
+            )}
 
-          {footerData && (
-            <div className={cn("space-y-6", brandSectionClassName)}>
-              {footerData.logo && (
-                <FooterLogo
-                  logo={{ ...footerData.logo, url: footerData.logo.url || "/" }}
-                  logoClassName={cn("inline-block max-w-60", logoClassName)}
-                  optixFlowConfig={optixFlowConfig}
-                />
-              )}
-              {footerData.heading && (
-                <h4
-                  className={cn(
-                    "text-xl font-semibold text-pretty",
-                    brandTitleClassName,
-                  )}
-                >
-                  {footerData.heading}
-                </h4>
-              )}
-              {footerData.description && (
-                <p
-                  className={cn(
-                    "opacity-80 text-balance",
-                    brandDescriptionClassName,
-                  )}
-                >
-                  {footerData.description}
-                </p>
-              )}
-            </div>
-          )}
+            {footerLinks && footerLinks.length > 0 && (
+              <div
+                className={cn(
+                  "grid gap-8 grid-cols-2 lg:grid-cols-3",
+                  linksGridClassName,
+                )}
+              >
+                {footerLinks.map((section) => (
+                  <div key={section.id}>
+                    <h3 className="mb-4 text-base font-bold">
+                      {section.title}
+                    </h3>
+                    <ul className="space-y-3 text-sm opacity-80">
+                      {section.items.map((item, idx) => (
+                        <li key={idx}>
+                          <Pressable
+                            href={item.link}
+                            className="hover:opacity-100"
+                          >
+                            {item.text}
+                          </Pressable>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
 
-          {footerLinks && footerLinks.length > 0 && (
-            <div
-              className={cn(
-                "grid gap-8 grid-cols-2 lg:grid-cols-3",
-                linksGridClassName,
-              )}
-            >
-              {footerLinks.map((section) => (
-                <div key={section.id}>
-                  <h3 className="mb-4 text-base font-bold">{section.title}</h3>
-                  <ul className="space-y-3 text-sm opacity-80">
-                    {section.items.map((item, idx) => (
-                      <li key={idx}>
-                        <Pressable
-                          href={item.link}
-                          className="hover:opacity-100"
-                        >
-                          {item.text}
-                        </Pressable>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          )}
-
-          <Separator />
-
-          {paymentPlatforms && paymentPlatforms.length > 0 && (
-            <ul
-              className={cn(
-                "flex flex-wrap items-center gap-3",
-                paymentMethodsClassName,
-              )}
-            >
-              {paymentPlatforms.map((platform, idx) => (
-                <li key={idx}>
-                  <PaymentPlatformIcon platform={platform} size={30} />
-                </li>
-              ))}
-            </ul>
-          )}
+            {paymentPlatforms && paymentPlatforms.length > 0 && (
+              <ul
+                className={cn(
+                  "flex flex-wrap items-center gap-3",
+                  paymentMethodsClassName,
+                )}
+              >
+                {paymentPlatforms.map((platform, idx) => (
+                  <li key={idx}>
+                    <PaymentPlatformIcon platform={platform} size={30} />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
 
           <div
             className={cn(
