@@ -2,8 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import type {
@@ -16,6 +15,8 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
+import { Badge } from "@/src";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FloatingStatItem {
   /**
@@ -137,6 +138,10 @@ export interface HeroProductShowcaseFloatingProps {
    */
   headingClassName?: string;
   /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
@@ -177,6 +182,7 @@ export function HeroProductShowcaseFloating({
   spacing = "xl",
   contentClassName,
   headingClassName,
+  headerClassName,
   descriptionClassName,
   showcaseClassName,
   optixFlowConfig,
@@ -185,16 +191,10 @@ export function HeroProductShowcaseFloating({
     if (badgeSlot) return badgeSlot;
 
     return (
-      <div
-        className={cn(
-          "inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm font-medium",
-          `${getAccentColor(background)}/10`,
-          getAccentColor(background),
-        )}
-      >
+      <Badge className={cn("px-2")}>
         {badgeIcon && <DynamicIcon name={badgeIcon} size={16} />}
         {badgeText && <span>{badgeText}</span>}
-      </div>
+      </Badge>
     );
   }, [badgeSlot, badgeIcon, badgeText]);
 
@@ -203,22 +203,16 @@ export function HeroProductShowcaseFloating({
     if (!floatingStat) return null;
 
     return (
-      <div className="absolute -top-4 -right-4 rounded-xl bg-background p-4 shadow-lg">
-        <div className="flex items-center gap-2">
+      <div className="absolute -top-4 -right-4 rounded-xl bg-card text-card-foreground p-4 shadow-lg border">
+        <div className="flex items-center gap-3">
           {floatingStat.icon && (
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-success/10">
-              <DynamicIcon
-                name={floatingStat.icon}
-                size={20}
-                className="text-success"
-              />
+            <div className="flex shrink-0 size-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
+              <DynamicIcon name={floatingStat.icon} />
             </div>
           )}
-          <div>
-            <div className="text-2xl font-bold ">{floatingStat.value}</div>
-            <div className={cn("text-xs", getTextColor(background, "muted"))}>
-              {floatingStat.label}
-            </div>
+          <div className="text-sm">
+            <div className="font-semibold">{floatingStat.value}</div>
+            <div className="font-normal opacity-70">{floatingStat.label}</div>
           </div>
         </div>
       </div>
@@ -230,7 +224,7 @@ export function HeroProductShowcaseFloating({
     if (!userCount) return null;
 
     return (
-      <div className="absolute -bottom-4 -left-4 rounded-xl bg-background p-4 shadow-lg">
+      <div className="absolute -bottom-4 -left-4 rounded-xl bg-card text-card-foreground p-4 shadow-lg border">
         <div className="flex items-center gap-3">
           {userCount.avatars && userCount.avatars.length > 0 && (
             <div className="flex -space-x-2">
@@ -240,7 +234,7 @@ export function HeroProductShowcaseFloating({
                   src={avatar.src}
                   alt={avatar.alt}
                   className={cn(
-                    "h-8 w-8 rounded-full border-2 border-background object-cover",
+                    "size-8 rounded-full border-2 border-background object-cover",
                     avatar.className,
                   )}
                   optixFlowConfig={optixFlowConfig}
@@ -249,10 +243,8 @@ export function HeroProductShowcaseFloating({
             </div>
           )}
           <div className="text-sm">
-            <div className="font-semibold ">{userCount.count}</div>
-            <div className={getTextColor(background, "muted")}>
-              {userCount.label}
-            </div>
+            <div className="font-semibold">{userCount.count}</div>
+            <div className="font-normal opacity-70">{userCount.label}</div>
           </div>
         </div>
       </div>
@@ -266,7 +258,7 @@ export function HeroProductShowcaseFloating({
     return (
       <div className={cn("order-1", showcaseClassName)}>
         <div className="relative">
-          <div className="aspect-4/3 overflow-hidden rounded-2xl bg-linear-to-br from-primary/20 to-purple-500/20 p-8">
+          <div className="aspect-square overflow-hidden rounded-2xl bg-linear-to-br from-primary/20 to-primary/80 p-8">
             <Img
               src={productImage.src}
               alt={productImage.alt}
@@ -291,54 +283,63 @@ export function HeroProductShowcaseFloating({
     renderUserCount,
   ]);
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "text-2xl font-semibold md:text-3xl lg:text-4xl",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn("text-lg opacity-70", descriptionClassName),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
-      <div className="pt-10 md:pt-0">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <div className="relative">
+        <div className="grid items-center gap-12 grid-cols-1 md:grid-cols-2 lg:gap-20">
           {renderProductShowcase}
           <div className={cn("flex flex-col gap-8 order-2", contentClassName)}>
             {renderBadge}
-            {heading &&
-              (typeof heading === "string" ? (
-                <h1
-                  className={cn(
-                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h1>
-              ) : (
-                <h1
-                  className={cn(
-                    "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h1>
-              ))}
-            {description &&
-              (typeof description === "string" ? (
-                <p
-                  className={cn(
-                    "text-lg",
-                    getTextColor(background, "muted"),
-                    descriptionClassName,
-                  )}
-                >
-                  {description}
-                </p>
-              ) : (
-                <div className={descriptionClassName}>{description}</div>
-              ))}
+
+            <ContentGroup
+              items={contentItems}
+              className={cn(
+                "text-left text-balance space-y-0 md:space-y-2",
+                headerClassName,
+              )}
+            />
 
             <BlockActions
               actions={actions}

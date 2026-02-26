@@ -136,12 +136,7 @@ export function FaqSimpleAccordion({
             >
               {item.question}
             </AccordionTrigger>
-            <AccordionContent
-              className={cn(
-                getTextColor(background, "muted"),
-                accordionContentClassName,
-              )}
-            >
+            <AccordionContent className={cn(accordionContentClassName)}>
               {item.answer}
             </AccordionContent>
           </AccordionItem>

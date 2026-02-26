@@ -185,7 +185,6 @@ export function FeatureAccordionImage({
 }: FeatureAccordionImageProps): React.JSX.Element {
   const [activeItem, setActiveItem] = React.useState(defaultValue || "item-0");
   const activeIndex = parseInt(activeItem.replace("item-", ""), 10) || 0;
-  const currentImage = items?.[activeIndex] || items?.[0];
 
   const accordionItemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
@@ -217,22 +216,48 @@ export function FeatureAccordionImage({
   }, [itemsSlot, items]);
 
   const imageContent = useMemo(() => {
-    if (currentImage?.imageSlot) return currentImage.imageSlot;
-    if (!currentImage?.imageSrc) return null;
+    if (!items || items.length === 0) return null;
 
-    return (
-      <Img
-        src={currentImage.imageSrc}
-        alt={currentImage.imageAlt || "FAQ Image Banner"}
-        className={cn(
-          "h-full w-full object-cover transition-all duration-500",
-          imageClassName,
-        )}
-        loading="eager"
-        optixFlowConfig={optixFlowConfig}
-      />
-    );
-  }, [currentImage, imageClassName, optixFlowConfig]);
+    // Check if any item uses imageSlot - if so, fall back to single image mode
+    const hasImageSlot = items.some((item) => item.imageSlot);
+    if (hasImageSlot) {
+      const current = items[activeIndex] || items[0];
+      if (current?.imageSlot) return current.imageSlot;
+      if (!current?.imageSrc) return null;
+      return (
+        <Img
+          src={current.imageSrc}
+          alt={current.imageAlt || "Feature Image"}
+          className={cn(
+            "h-full w-full object-cover transition-opacity duration-500",
+            imageClassName,
+          )}
+          loading="eager"
+          optixFlowConfig={optixFlowConfig}
+        />
+      );
+    }
+
+    // Render all images stacked for smooth crossfade transitions
+    return items.map((item, index) => {
+      if (!item.imageSrc) return null;
+      const isActive = index === activeIndex;
+      return (
+        <Img
+          key={index}
+          src={item.imageSrc}
+          alt={item.imageAlt || "Feature Image"}
+          className={cn(
+            "absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ease-in-out",
+            isActive ? "opacity-100" : "opacity-0",
+            imageClassName,
+          )}
+          loading="eager"
+          optixFlowConfig={optixFlowConfig}
+        />
+      );
+    });
+  }, [items, activeIndex, imageClassName, optixFlowConfig]);
 
   const contentItems = useMemo(() => {
     const items: ContentGroupItem[] = [];
