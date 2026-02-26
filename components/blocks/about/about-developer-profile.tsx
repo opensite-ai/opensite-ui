@@ -167,12 +167,18 @@ export function AboutDeveloperProfile({
     return (
       <div
         className={cn(
-          "flex justify-center gap-4 md:justify-start items-center flex-wrap",
+          "flex justify-center gap-2 md:justify-start items-center flex-wrap",
           socialLinksClassName,
         )}
       >
         {socialLinks.map((link, idx) => (
-          <SocialLinkIcon key={idx} {...link} size="icon-lg" asButton />
+          <SocialLinkIcon
+            key={idx}
+            {...link}
+            size="icon-lg"
+            variant="outline"
+            asButton
+          />
         ))}
       </div>
     );
@@ -220,33 +226,40 @@ export function AboutDeveloperProfile({
             />
           )}
           <div className="text-left flex flex-col items-start gap-4">
-            {name &&
-              (typeof name === "string" ? (
-                <h2
-                  className={cn(
-                    "text-3xl md:text-4xl font-bold",
-                    nameClassName,
-                  )}
-                >
-                  {name}
-                </h2>
-              ) : (
-                name
-              ))}
-            {role &&
-              (typeof role === "string" ? (
-                <p className={cn("text-xl opacity-50", roleClassName)}>
-                  {role}
-                </p>
-              ) : (
-                role
-              ))}
+            <div className="text-left flex flex-col items-start gap-0">
+              {name &&
+                (typeof name === "string" ? (
+                  <h2
+                    className={cn(
+                      "text-3xl md:text-4xl font-bold",
+                      nameClassName,
+                    )}
+                  >
+                    {name}
+                  </h2>
+                ) : (
+                  name
+                ))}
+              {role &&
+                (typeof role === "string" ? (
+                  <p
+                    className={cn(
+                      "text-lg md:text-xl opacity-60",
+                      roleClassName,
+                    )}
+                  >
+                    {role}
+                  </p>
+                ) : (
+                  role
+                ))}
+            </div>
             {socialLinksContent}
           </div>
         </div>
 
         {bio && (
-          <div className="mt-12">
+          <div className="relative">
             {typeof bio === "string" ? (
               <p className={cn("text-lg", bioClassName)}>{bio}</p>
             ) : (
@@ -256,16 +269,14 @@ export function AboutDeveloperProfile({
         )}
 
         {(skillsSlot || (skills && skills.length > 0)) && (
-          <div className={cn("mt-12", skillsClassName)}>
+          <div className={cn("relative", skillsClassName)}>
             {skillsTitle &&
               (typeof skillsTitle === "string" ? (
-                <h2 className="text-lg font-semibold opacity-50">
-                  {skillsTitle}
-                </h2>
+                <h3 className="text-lg opacity-60">{skillsTitle}</h3>
               ) : (
                 skillsTitle
               ))}
-            <div className="mt-4 flex flex-wrap gap-2">{skillsContent}</div>
+            <div className="mt-3 flex flex-wrap gap-2">{skillsContent}</div>
           </div>
         )}
 

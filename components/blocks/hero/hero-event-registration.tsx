@@ -163,7 +163,7 @@ export function HeroEventRegistration({
   locationSlot,
   background,
   containerClassName = "mx-auto w-full max-w-full md:max-w-7xl relative z-10 px-6 sm:px-8 md:px-12 lg:px-18",
-  spacing = "xl",
+  spacing = "py-16 md:py-40",
   pattern,
   patternOpacity,
   className,
@@ -321,9 +321,11 @@ export function HeroEventRegistration({
       <div className="pt-8 md:pt-0">
         <div
           className={cn(
-            "flex items-center justify-start md:justify-between gap-12 md:gap-24",
+            "flex items-center justify-start md:justify-between",
             mobileOrder,
             desktopOrder,
+            directionConfig.mobile === "mediaTop" ? "gap-20" : "gap-12",
+            "md:gap-24",
           )}
         >
           <div

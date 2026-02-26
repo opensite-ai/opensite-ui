@@ -121,13 +121,13 @@ export function AboutStatsSidebar({
           <div
             key={idx}
             className={cn(
-              "p-6 flex flex-col items-start gap-6",
+              "p-6 flex flex-col items-between gap-12",
               "bg-card text-card-foreground",
               "rounded-xl ring-2",
             )}
           >
             {stat.icon}
-            <div className="flex flex-col items-start gap-2">
+            <div className="flex flex-col items-start gap-0">
               {typeof stat.value === "string" ? (
                 <h3 className="mb-2 text-3xl md:text-4xl font-bold">
                   {stat.value}
@@ -142,9 +142,7 @@ export function AboutStatsSidebar({
               )}
               {stat.description &&
                 (typeof stat.description === "string" ? (
-                  <p className={cn("text-sm opacity-60 font-semibold")}>
-                    {stat.description}
-                  </p>
+                  <p className={cn("text-sm opacity-75")}>{stat.description}</p>
                 ) : (
                   stat.description
                 ))}
@@ -160,7 +158,12 @@ export function AboutStatsSidebar({
     if (!features || features.length === 0) return null;
 
     return (
-      <div className={cn("mt-12 space-y-6", featuresClassName)}>
+      <div
+        className={cn(
+          "mt-8 space-y-6 p-6 bg-card text-card-foreground rounded-xl shadow-xl",
+          featuresClassName,
+        )}
+      >
         {features.map((feature, idx) => (
           <div key={idx} className="flex gap-4">
             <div
@@ -199,7 +202,7 @@ export function AboutStatsSidebar({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      className={cn(pattern && "overflow-visible", className)}
       containerClassName={containerClassName}
     >
       <div className="grid gap-12 lg:grid-cols-3">
