@@ -41,8 +41,10 @@ When in doubt, favor: **(1) tests passing, (2) Core Web Vitals + bundle size, (3
 6. **Blocks must stay JSON‑serializable.**
    - Props for `components/blocks/*` should be plain data (no functions, React nodes, or non‑serializable values in block configuration).
 
-7. **Form behavior stays abstract.**
-   - Use the `formConfig` + `onSubmit` patterns from `docs/FORMS_INTEGRATION_GUIDE.md` instead of custom ad‑hoc networking inside blocks.
+7. **Form behavior uses FormEngine.**
+   - Use `FormEngine` from `@page-speed/forms/integration` for all block forms.
+   - Expose `formEngineSetup?: FormEngineProps` (not raw `formConfig`/`onSubmit`).
+   - See `docs/FORMS_INTEGRATION_GUIDE.md` for implementation patterns.
 
 8. **Prefer copying a proven pattern.**
    - For new work, start from the closest existing component/block and adapt it rather than designing a completely new structure.
@@ -123,19 +125,57 @@ When changing or adding blocks in the registry:
 
 ---
 
-## 7. Forms & `@page-speed/forms`
+## 7. Forms & `FormEngine` from `@page-speed/forms/integration`
 
-- Form‑enabled blocks expose a consistent prop surface:
-  - `formConfig?: PageSpeedFormConfig`
-  - `onSubmit?(email: string)`
-  - `onSuccess?(data: unknown)` / `onError?(error: Error)`
-- Valid submission modes:
-  1. Generic JSON (`format: "json"`) hitting arbitrary REST endpoints.
-  2. Custom `onSubmit` handler for special workflows.
-  3. DashTrack Rails (`format: "rails"`) using serializers from `@page-speed/forms` (see guide).
-  4. Client‑side only (no `formConfig`, optional `onSubmit`).
-- Keep everything in `formConfig` **JSON‑serializable** so it can flow through design payloads.
-- Do not embed API keys or environment‑specific URLs directly in reusable blocks.
+Form‑enabled blocks use the `FormEngine` component from `@page-speed/forms/integration`. This provides a unified, streamlined API for all form handling.
+
+### Block Props Pattern
+
+Form blocks expose these props:
+
+- `formEngineSetup?: FormEngineProps` – Full form configuration (endpoint, callbacks, fields, layout)
+- `buttonAction?: ActionConfig` – Submit button customization (for newsletter/button‑group forms)
+- `formSlot?: React.ReactNode` – Escape hatch for fully custom form rendering
+
+### Two Form Patterns
+
+1. **Newsletter/Button‑Group** (single‑field forms like email signup):
+   - Uses `formLayout: "button-group"` in formLayoutSettings
+   - Input field with inline submit button
+   - `buttonAction` controls button icon/label/variant
+   - Reference: `components/blocks/footers/footer-split-image-accordion.tsx`
+
+2. **Standard Multi‑Field** (contact forms, support forms, etc.):
+   - Uses default or `formLayout: "standard"` layout
+   - Grid of fields with submit button below
+   - Reference: `components/blocks/contact/contact-support.tsx`
+
+### Implementation Requirements
+
+When adding forms to blocks:
+
+1. Import from `@page-speed/forms/integration`:
+   ```tsx
+   import {
+     FormEngine,
+     type FormEngineProps,
+     type FormEngineStyleRules,
+     type FormFieldConfig,
+   } from "@page-speed/forms/integration";
+   ```
+
+2. Define `DEFAULT_STYLE_RULES` and `DEFAULT_FORM_FIELDS` at module level.
+
+3. Implement `renderForm` using `React.useMemo`:
+   - Check `formSlot` first (escape hatch)
+   - Return `null` if no `formEngineSetup` provided
+   - Pass defaults via `defaultFields` and `defaultStyleRules` props
+
+4. Keep `formEngineSetup` **JSON‑serializable** so it flows through design payloads.
+
+5. Do not embed API keys or environment‑specific URLs directly in reusable blocks.
+
+See `docs/FORMS_INTEGRATION_GUIDE.md` for complete implementation examples.
 
 ---
 
@@ -178,9 +218,16 @@ When changing or adding blocks in the registry:
 
 ### 9.4 Update forms behavior
 
-1. Read the relevant section in `docs/FORMS_INTEGRATION_GUIDE.md`.
-2. Modify blocks to rely on `formConfig` / `onSubmit`, not inline fetch logic.
-3. Ensure resulting props are still serializable and well‑typed.
+1. Read `docs/FORMS_INTEGRATION_GUIDE.md` for the current FormEngine patterns.
+2. Use `FormEngine` from `@page-speed/forms/integration` – do NOT use raw `useForm`/`Form`/`Field` directly in blocks.
+3. Expose `formEngineSetup?: FormEngineProps` as the primary form configuration prop.
+4. For newsletter/button‑group forms, also expose `buttonAction?: ActionConfig`.
+5. Always provide `formSlot?: React.ReactNode` as an escape hatch for custom forms.
+6. Define `DEFAULT_STYLE_RULES` and `DEFAULT_FORM_FIELDS` at module level.
+7. Ensure all props remain JSON‑serializable for design payload compatibility.
+8. Reference existing blocks:
+   - Newsletter pattern: `components/blocks/footers/footer-split-image-accordion.tsx`
+   - Standard form pattern: `components/blocks/contact/contact-support.tsx`
 
 ---
 

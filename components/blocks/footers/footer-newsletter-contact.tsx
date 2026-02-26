@@ -72,11 +72,11 @@ export interface FooterNewsletterContactDetail {
   /**
    * Display text
    */
-  text: string;
+  label: React.ReactNode;
   /**
    * Link type: "none" | "email" | "phone"
    */
-  type: "none" | "email" | "phone";
+  type?: "none" | "email" | "phone";
   /**
    * Link value (email address or phone number)
    */
@@ -233,23 +233,17 @@ export function FooterNewsletterContact({
     if (!contactDetails || contactDetails.length === 0) return null;
 
     return contactDetails.map((item, idx) => (
-      <li key={idx} className="flex items-center gap-3">
-        <DynamicIcon name={item.icon} size={16} className="shrink-0" />
+      <li key={idx} className="flex items-start gap-3">
+        <div className="flex items-center justify-center shrink-0 mt-1">
+          <DynamicIcon name={item.icon} size={16} />
+        </div>
         <div className="flex-1">
-          {item.type === "none" ? (
-            <p>{item.text}</p>
-          ) : (
-            <Pressable
-              href={
-                item.type === "email"
-                  ? `mailto:${item.link}`
-                  : `tel:${item.link}`
-              }
-              className="underline-offset-4 hover:underline"
-            >
-              {item.text}
-            </Pressable>
-          )}
+          <Pressable
+            href={item.link}
+            className="underline-offset-4 hover:underline"
+          >
+            {item.label}
+          </Pressable>
         </div>
       </li>
     ));
@@ -321,11 +315,11 @@ export function FooterNewsletterContact({
       containerClassName={containerClassName}
     >
       <div className="space-y-10">
-        <div className="grid grid-cols-1 gap-x-16 gap-y-8 md:grid-cols-2 xl:grid-cols-4">
-          {formEngineSetup && (newsletterTitle || newsletterDescription) && (
-            <div className="space-y-6 col-span-2 md:col-span-1">
+        <div className="grid grid-cols-1 gap-x-6 md:gap-x-8 lg:gap-x-12 xl:gap-x-16 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
+          {formEngineSetup && (
+            <div className="space-y-4 md:space-y-6 col-span-2 md:col-span-1">
               {newsletterTitle && (
-                <h3 className="text-3xl font-medium font-serif leading-none">
+                <h3 className="text-2xl md:text-3xl font-medium leading-none">
                   {newsletterTitle}
                 </h3>
               )}

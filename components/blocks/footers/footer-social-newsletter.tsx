@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { cn } from "../../../lib/utils";
-import { FooterLogo } from "../../ui/footer-logo";
 import { FooterCopyright } from "../../ui/footer-copyright";
 import { BrandAttribution } from "../../ui/brand-attribution";
 import { Pressable } from "../../../lib/Pressable";
@@ -14,21 +13,27 @@ import type { PatternName } from "../../ui/pattern-background";
 import type { FooterSocialLink } from "./types";
 import { Form } from "@page-speed/forms";
 import {
-  DynamicFormField,
-  useContactForm,
-  useFileUpload,
+  FormEngine,
+  type FormEngineProps,
+  type FormEngineStyleRules,
   type FormFieldConfig,
-  type PageSpeedFormConfig,
 } from "@page-speed/forms/integration";
-import { Icon } from "@page-speed/icon";
 import { DynamicIcon } from "@/src";
+import { Img } from "@page-speed/img";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "flex items-stretch w-full",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "",
+};
 
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
   {
     name: "email",
     type: "email",
     label: "Email Address",
-    placeholder: "Enter your email",
+    placeholder: "Email Address",
     required: true,
     columnSpan: 12,
   },
@@ -72,8 +77,18 @@ export interface FooterSocialNewsletterSection {
  * Props for the FooterSocialNewsletter component
  */
 export interface FooterSocialNewsletterProps {
-  /** Logo configuration */
-  logo?: FooterSocialNewsletterLogo;
+  /**
+   * Logo configuration
+   */
+  logo?: {
+    src: string;
+    /** Logo link URL */
+    url?: string;
+    /** Brand title */
+    alt?: string;
+    /** img tag class name */
+    className?: string;
+  };
   /** Navigation sections */
   sections?: FooterSocialNewsletterSection[];
   /** Social media links */
@@ -86,8 +101,6 @@ export interface FooterSocialNewsletterProps {
   contentClassName?: string;
   /** Additional CSS classes for the logo wrapper */
   logoWrapperClassName?: string;
-  /** Additional CSS classes for the logo image */
-  logoClassName?: string;
   /** Additional CSS classes for the main grid */
   gridClassName?: string;
   /** Additional CSS classes for navigation sections */
@@ -124,43 +137,10 @@ export interface FooterSocialNewsletterProps {
   patternOpacity?: number;
   /** Optional Optix Flow configuration for @page-speed/img */
   optixFlowConfig?: OptixFlowConfig;
-
   /**
-   * Form field configuration
+   * Full form engine setup and props
    */
-  formFields?: FormFieldConfig[];
-  /**
-   * Form configuration for submission
-   */
-  formConfig?: PageSpeedFormConfig;
-  /**
-   * Custom submit handler
-   */
-  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
-  /**
-   * Success callback
-   */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Error callback
-   */
-  onError?: (error: Error) => void;
-  /**
-   * Success message to display
-   */
-  successMessage?: React.ReactNode;
-  /**
-   * Submit button configuration
-   */
-  buttonAction?: ActionConfig;
-  /**
-   * Helper text below form
-   */
-  helperText?: React.ReactNode;
-  /**
-   * Custom slot for form (overrides form props)
-   */
-  formSlot?: React.ReactNode;
+  formEngineSetup?: FormEngineProps;
 }
 
 /**
@@ -178,7 +158,6 @@ export function FooterSocialNewsletter({
   className,
   contentClassName,
   logoWrapperClassName,
-  logoClassName,
   gridClassName,
   navSectionClassName,
   navTitleClassName,
@@ -187,16 +166,7 @@ export function FooterSocialNewsletter({
   socialColumnClassName,
   socialLinksClassName,
   socialLinkClassName,
-  formFields = DEFAULT_FORM_FIELDS,
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
-  successMessage,
-  buttonAction,
-  helperText,
-  formSlot,
-  privacyClassName,
+  formEngineSetup,
   bottomClassName,
   copyrightClassName,
   background,
@@ -206,112 +176,37 @@ export function FooterSocialNewsletter({
   patternOpacity,
   optixFlowConfig,
 }: FooterSocialNewsletterProps): React.JSX.Element {
-  const {
-    uploadTokens,
-    uploadProgress,
-    isUploading,
-    uploadFiles,
-    removeFile,
-    resetUpload,
-  } = useFileUpload({ onError });
-
-  const { form, submissionError, formMethod, resetSubmissionState } =
-    useContactForm({
-      formFields,
-      formConfig,
-      onSubmit,
-      onSuccess: (data) => {
-        resetUpload();
-        onSuccess?.(data);
-      },
-      onError,
-      uploadTokens,
-    });
-
   const renderForm = React.useMemo(() => {
-    if (formSlot) return formSlot;
+    if (!formEngineSetup) return null;
 
-    const defaultButtonAction: ActionConfig = {
-      label: "Subscribe",
+    const action: ActionConfig = {
       variant: "default",
-      className: "h-12",
+      icon: <DynamicIcon name="lucide/arrow-right" size={16} />,
     };
 
-    const action = buttonAction || defaultButtonAction;
-
     return (
-      <Form
-        form={form}
-        fields={formFields}
-        notificationConfig={{
-          submissionError,
-          successMessage,
+      <FormEngine
+        formEngineSetup={{
+          ...formEngineSetup,
+          formLayoutSettings: {
+            ...formEngineSetup.formLayoutSettings,
+            formLayout: "button-group",
+            buttonGroupSetup: {
+              ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
+              size: "default",
+              submitLabel: action.icon || action.label,
+              submitVariant: action.variant || "default",
+            },
+          },
         }}
-        formConfig={{
-          endpoint: formConfig?.endpoint,
-          method: formMethod,
-          submissionConfig: formConfig?.submissionConfig,
-          formLayout: "button-group",
-          buttonGroupSize: "sm",
-          submitLabel: action.label,
-          submitVariant: action.variant || "default",
-          submitIconComponent: action.icon || (
-            <DynamicIcon name="lucide/send" />
-          ),
+        defaultFields={DEFAULT_FORM_FIELDS}
+        defaultStyleRules={{
+          ...DEFAULT_STYLE_RULES,
+          formContainer: cn(DEFAULT_STYLE_RULES.formContainer),
         }}
-        onNewSubmission={() => {
-          resetUpload();
-          resetSubmissionState();
-        }}
-      >
-        <div className="flex flex-col gap-4 sm:flex-row">
-          {formFields.map((field) => (
-            <div key={field.name} className="flex-1">
-              <DynamicFormField
-                field={field}
-                uploadProgress={uploadProgress}
-                onFileUpload={uploadFiles}
-                onFileRemove={removeFile}
-                isUploading={isUploading}
-              />
-            </div>
-          ))}
-          <Pressable
-            onClick={form.handleSubmit}
-            asButton
-            variant={action.variant}
-            className={cn("h-12", action.className)}
-            disabled={form.isSubmitting}
-          >
-            {action.label}
-            {action.iconAfter}
-          </Pressable>
-        </div>
-        {helperText &&
-          (typeof helperText === "string" ? (
-            <p className={cn("text-sm mt-2")}>{helperText}</p>
-          ) : (
-            helperText
-          ))}
-      </Form>
+      />
     );
-  }, [
-    formSlot,
-    formFields,
-    form,
-    formConfig,
-    formMethod,
-    buttonAction,
-    uploadProgress,
-    uploadFiles,
-    removeFile,
-    isUploading,
-    submissionError,
-    successMessage,
-    helperText,
-    resetUpload,
-    resetSubmissionState,
-  ]);
+  }, [formEngineSetup]);
 
   return (
     <Section
@@ -319,7 +214,7 @@ export function FooterSocialNewsletter({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div className={cn(contentClassName)}>
@@ -327,15 +222,19 @@ export function FooterSocialNewsletter({
           {/* Logo and Social Icons Section */}
           <div className="mb-20">
             {logo && (
-              <FooterLogo
-                logo={logo}
-                logoClassName={cn(
-                  "flex items-center gap-2",
-                  logoWrapperClassName,
-                )}
-                logoImageClassName={cn("h-10", logoClassName)}
-                optixFlowConfig={optixFlowConfig}
-              />
+              <Pressable
+                href={logo.url || "/"}
+                className={cn("block mb-8 md:mb-12", logoWrapperClassName)}
+              >
+                <Img
+                  src={logo.src}
+                  className={cn(
+                    "h-16 object-contain w-auto max-w-full",
+                    logo.className,
+                  )}
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </Pressable>
             )}
 
             {/* Social icons directly below logo */}
@@ -350,10 +249,9 @@ export function FooterSocialNewsletter({
                   {socialLinks.map((social, idx) => (
                     <li key={idx}>
                       <SocialLinkIcon
-                        href={social.href}
-                        label={social.label}
-                        iconNameOverride={social.iconNameOverride}
-                        iconSize={20}
+                        size="icon-lg"
+                        variant="ghost"
+                        {...social}
                         className={cn(
                           "opacity-80 transition-colors hover:opacity-100",
                           socialLinkClassName,

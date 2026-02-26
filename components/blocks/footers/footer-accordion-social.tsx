@@ -3,7 +3,6 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { FooterLogo } from "../../ui/footer-logo";
 import { FooterCopyright } from "../../ui/footer-copyright";
 import { BrandAttribution } from "../../ui/brand-attribution";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -22,6 +21,7 @@ import {
   type FormEngineStyleRules,
   type FormFieldConfig,
 } from "@page-speed/forms/integration";
+import { Img } from "@page-speed/img";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "flex items-stretch w-full",
@@ -88,9 +88,11 @@ export interface FooterAccordionSocialProps {
    * Logo configuration
    */
   logo?: {
-    light: string;
-    dark: string;
-    url: string;
+    src: string;
+    /** Logo link URL */
+    url?: string;
+    /** Brand title */
+    alt?: string;
   };
   /**
    * Brand/company name for the copyright notice
@@ -135,18 +137,6 @@ export interface FooterAccordionSocialProps {
    * Full form engine setup and props
    */
   formEngineSetup?: FormEngineProps;
-  /**
-   * Submit button configuration
-   */
-  buttonAction?: ActionConfig;
-  /**
-   * Custom slot for the form (overrides form props)
-   */
-  formSlot?: React.ReactNode;
-  /**
-   * Additional CSS classes for the newsletter form
-   */
-  newsletterFormClassName?: string;
 }
 
 /**
@@ -190,21 +180,15 @@ export function FooterAccordionSocial({
   patternOpacity,
   patternClassName,
   formEngineSetup,
-  buttonAction,
-  formSlot,
-  newsletterFormClassName,
 }: FooterAccordionSocialProps) {
   const renderForm = React.useMemo(() => {
-    if (formSlot) return formSlot;
     if (!formEngineSetup) return null;
 
-    const defaultButtonAction: ActionConfig = {
+    const action: ActionConfig = {
       label: "",
       variant: "default",
       icon: <DynamicIcon name="lucide/arrow-right" size={16} />,
     };
-
-    const action = buttonAction || defaultButtonAction;
 
     return (
       <FormEngine
@@ -224,14 +208,11 @@ export function FooterAccordionSocial({
         defaultFields={DEFAULT_FORM_FIELDS}
         defaultStyleRules={{
           ...DEFAULT_STYLE_RULES,
-          formContainer: cn(
-            DEFAULT_STYLE_RULES.formContainer,
-            newsletterFormClassName,
-          ),
+          formContainer: cn(DEFAULT_STYLE_RULES.formContainer),
         }}
       />
     );
-  }, [formSlot, formEngineSetup, buttonAction, newsletterFormClassName]);
+  }, [formEngineSetup]);
 
   return (
     <Section
@@ -247,20 +228,30 @@ export function FooterAccordionSocial({
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
           <div className="space-y-6">
             {logo && (
-              <FooterLogo
-                logo={logo}
-                logoClassName="inline-block max-w-48"
-                optixFlowConfig={optixFlowConfig}
-              />
+              <Pressable href={logo.url || "/"} className="block mb-8 md:mb-12">
+                <Img
+                  src={logo.src}
+                  className="h-16 object-contain w-auto max-w-full"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </Pressable>
             )}
             {formEngineSetup && (
-              <>
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-semibold">{newsletterTitle}</h3>
-                  <p className="opacity-80">{newsletterDescription}</p>
-                </div>
+              <div className="space-y-2">
+                {newsletterTitle || newsletterDescription ? (
+                  <div className="space-y-2">
+                    {newsletterTitle ? (
+                      <h3 className="text-xl font-semibold">
+                        {newsletterTitle}
+                      </h3>
+                    ) : null}
+                    {newsletterDescription ? (
+                      <p className="opacity-70">{newsletterDescription}</p>
+                    ) : null}
+                  </div>
+                ) : null}
                 {renderForm}
-              </>
+              </div>
             )}
           </div>
 
@@ -289,12 +280,12 @@ export function FooterAccordionSocial({
 
         <div className="flex flex-wrap items-center justify-between gap-6 border-t pt-8">
           <div className="flex flex-col gap-2 text-sm opacity-80 md:flex-row md:items-center md:gap-4">
-            <FooterCopyright copyright={copyright} />
+            <FooterCopyright copyright={copyright} className="opacity-50" />
             <BrandAttribution
               internalBrandSlug="open_site_ai"
               optionIndex={1}
               variant="span"
-              linkClassName="hover:opacity-100"
+              linkClassName="opacity-50 hover:opacity-100"
             />
           </div>
           {socialLinks && socialLinks.length > 0 && (
@@ -302,13 +293,10 @@ export function FooterAccordionSocial({
               {socialLinks.map((social, idx) => (
                 <li key={idx}>
                   <SocialLinkIcon
-                    href={social.href}
-                    label={social.label}
-                    iconNameOverride={social.iconNameOverride}
-                    variant="outline"
-                    size="icon"
+                    {...social}
+                    variant="ghost"
+                    size="icon-lg"
                     asButton
-                    className="rounded-full"
                   />
                 </li>
               ))}

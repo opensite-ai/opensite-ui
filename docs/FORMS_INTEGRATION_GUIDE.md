@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide explains how to integrate the `@page-speed/forms` library with OpenSite UI components in a **universal, framework-agnostic way**. The integration is designed to work across any React context:
+This guide explains how to integrate forms with OpenSite UI components using the `FormEngine` from `@page-speed/forms/integration`. The integration is designed to be **universal and framework-agnostic**, working across any React context:
 
 - Next.js applications (App Router, Pages Router)
 - Standard React applications (CRA, Vite, etc.)
@@ -10,48 +10,47 @@ This guide explains how to integrate the `@page-speed/forms` library with OpenSi
 - Server-side rendering (SSR) and client-side rendering (CSR)
 - Any custom React rendering system
 
-**Key Principle**: The `@page-speed/forms` library is completely abstract and framework-agnostic. Platform-specific behavior (like DashTrack Rails integration) is implemented through optional configuration, not through library coupling.
+**Key Principle**: Forms in OpenSite UI blocks are powered by the `FormEngine` component, which handles validation, submission, error handling, and success states. Block components expose a simple `formEngineSetup` prop that configures all form behavior.
 
 ## Core Architecture
 
-### Separation of Concerns
+### FormEngine-Based Approach
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ @page-speed/forms (Core Library)                            │
+│ @page-speed/forms/integration (FormEngine)                   │
 │ • Framework-agnostic                                         │
-│ • Field-level reactivity (~1 re-render per change)         │
-│ • Validation with race condition prevention                 │
+│ • Handles validation, submission, success/error states       │
+│ • Supports multiple layouts (button-group, standard, etc.)   │
+│ • Field-level reactivity (~1 re-render per change)          │
 └─────────────────────────────────────────────────────────────┘
                             │
                             ├── Used by
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│ OpenSite UI Components                                       │
-│ • Newsletter forms, CTAs, modals, footers                   │
-│ • Accept formConfig (optional) + onSubmit (optional)        │
-│ • Work with or without backend                               │
+│ OpenSite UI Blocks                                           │
+│ • Newsletter forms, CTAs, modals, footers, contact forms    │
+│ • Accept formEngineSetup prop                                │
+│ • Optionally accept buttonAction for button customization    │
+│ • Support formSlot for fully custom form rendering          │
 └─────────────────────────────────────────────────────────────┘
                             │
-                            ├── Submit via (choose one)
+                            ├── Submit via formEngineSetup.formConfig
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│ Submission Strategy (Developer's Choice)                    │
+│ Submission Strategy (configured in formEngineSetup)          │
 │                                                              │
 │ 1. Generic JSON Endpoint                                    │
 │    • formConfig.endpoint + format: "json"                   │
 │    • Works with ANY REST API                                │
 │                                                              │
-│ 2. Custom Handler                                           │
-│    • onSubmit={(values) => /* your logic */}                │
-│    • Maximum flexibility                                     │
-│                                                              │
-│ 3. Platform-Specific (DashTrack Rails)                      │
+│ 2. Platform-Specific (DashTrack Rails)                      │
 │    • formConfig with apiKey, contactCategoryToken, etc.     │
-│    • Uses submitPageSpeedForm from lib/forms.ts             │
+│    • Uses format: "rails"                                   │
 │                                                              │
-│ 4. Client-Side Only                                         │
-│    • No backend, local validation only                      │
+│ 3. Custom Callbacks                                         │
+│    • formEngineSetup.onSuccess / onError                    │
+│    • Handle post-submission logic                           │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -67,9 +66,7 @@ pnpm add @legendapp/state valibot
 
 ### Base Styles (Shadcn-compatible)
 
-The OpenSite UI library includes `src/styles/forms.css` (a direct copy of
-`prototypes/client-canyon-lands/app/forms.css`). `src/styles/globals.css`
-imports it by default.
+The OpenSite UI library includes `src/styles/forms.css`. `src/styles/globals.css` imports it by default.
 
 If you are **already importing OpenSite UI global styles**, nothing else is required.
 
@@ -80,36 +77,40 @@ If you are **not** using OpenSite UI global styles, import the base styles direc
 @import "@opensite/ui/src/styles/forms.css";
 ```
 
-## 2. Usage Patterns
+## 2. FormEngine Usage Patterns
 
-### Pattern 1: Generic JSON Endpoint (Most Abstract)
+### Pattern 1: Newsletter Form (Button-Group Layout)
 
-Use this pattern when you have **any REST API** that accepts JSON payloads.
+Use this pattern for **single-field forms** like newsletter signups. The button-group layout displays an input field with an inline submit button.
 
 ```tsx
-import { OfferModalNewsletterDiscount } from "@opensite/ui/blocks/offer-modal";
+import { CtaNewsletterFeatures } from "@opensite/ui/blocks/cta";
 
 function MyApp() {
   return (
-    <OfferModalNewsletterDiscount
-      title="Join our newsletter"
-      buttonText="Subscribe"
-      formConfig={{
-        endpoint: "https://api.mycompany.com/subscribe",
-        method: "POST",
-        format: "json", // Generic JSON format
-        headers: {
-          "Content-Type": "application/json",
-          "X-API-Key": process.env.NEXT_PUBLIC_API_KEY,
+    <CtaNewsletterFeatures
+      badge="Newsletter"
+      heading="Stay in the loop"
+      description="Get the latest updates delivered to your inbox."
+      formEngineSetup={{
+        formConfig: {
+          endpoint: "https://api.mycompany.com/subscribe",
+          method: "POST",
+          format: "json",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+        onSuccess: (data) => {
+          console.log("Subscription successful:", data);
+        },
+        onError: (error) => {
+          console.error("Subscription failed:", error);
         },
       }}
-      onSuccess={(data) => {
-        console.log("Subscription successful:", data);
-        // Show success toast, redirect, etc.
-      }}
-      onError={(error) => {
-        console.error("Subscription failed:", error);
-        // Show error toast
+      buttonAction={{
+        label: "Subscribe",
+        variant: "default",
       }}
     />
   );
@@ -133,101 +134,61 @@ function MyApp() {
 - Go/Gin APIs
 - Serverless functions (Vercel, Netlify, AWS Lambda)
 
-### Pattern 2: Custom Submission Handler (Maximum Flexibility)
+### Pattern 2: Standard Multi-Field Form
 
-Use this pattern when you need **complete control** over submission logic.
+Use this pattern for **contact forms, support forms, or any multi-field form**. The standard layout displays fields in a grid with a submit button below.
 
 ```tsx
-import { FooterNewsletterMinimal } from "@opensite/ui/blocks/footers";
-import { useState } from "react";
+import { ContactSupport } from "@opensite/ui/blocks/contact";
 
 function MyApp() {
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = async (email: string) => {
-    // Your custom logic here
-    const response = await fetch("/api/newsletter/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        source: "footer",
-        timestamp: new Date().toISOString(),
-        // Add any custom fields you need
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Subscription failed");
-    }
-
-    const data = await response.json();
-
-    // Custom post-submission logic
-    setSubscribed(true);
-    localStorage.setItem("newsletter_subscribed", "true");
-
-    // Track analytics
-    if (typeof window !== "undefined" && window.gtag) {
-      window.gtag("event", "newsletter_subscribe", {
-        email_domain: email.split("@")[1],
-      });
-    }
-
-    return data;
-  };
-
   return (
-    <FooterNewsletterMinimal
-      heading="Stay Updated"
-      newsletterLabel="Subscribe to our newsletter:"
-      onSubmit={handleSubscribe}
-      onSuccess={() => {
-        alert("Thanks for subscribing!");
-      }}
-      onError={(error) => {
-        console.error("Failed:", error);
+    <ContactSupport
+      heading="Contact Us"
+      description="We'd love to hear from you."
+      formEngineSetup={{
+        formConfig: {
+          endpoint: "/api/contact",
+          method: "POST",
+          format: "json",
+        },
+        onSuccess: () => {
+          alert("Message sent successfully!");
+        },
+        onError: (error) => {
+          console.error("Failed to send message:", error);
+        },
       }}
     />
   );
 }
 ```
 
-**Benefits**:
-
-- Full control over request format
-- Custom error handling
-- Analytics integration
-- Local state management
-- Multi-step workflows
-
 ### Pattern 3: DashTrack Rails Backend (Platform-Specific)
 
 Use this pattern when integrating with **DashTrack's Rails backend** (`toastability-service`).
 
 ```tsx
-import { CtaNewsletterFeatures } from "@opensite/ui/blocks/cta";
+import { FooterSplitImageAccordion } from "@opensite/ui/blocks/footers";
 
 function MyDashTrackSite() {
   return (
-    <CtaNewsletterFeatures
-      badgeText="Newsletter"
-      heading="Stay in the loop"
-      buttonText="Subscribe"
-      formConfig={{
-        endpoint: "https://api.dashtrack.com/contacts/quote_request",
-        method: "POST",
-        format: "rails", // Rails-specific format
-        // Platform-specific fields:
-        apiKey: process.env.DASHTRACK_API_KEY,
-        contactCategoryToken: "newsletter_signup",
-        locationId: "loc_123",
-        websiteId: "ws_456",
-        visitorIpAddress: "203.0.113.42",
-      }}
-      onSuccess={() => {
-        // Redirect to thank you page
-        window.location.href = "/thank-you";
+    <FooterSplitImageAccordion
+      newsletterHeading="Stay Updated"
+      formEngineSetup={{
+        formConfig: {
+          endpoint: "https://api.dashtrack.com/contacts/quote_request",
+          method: "POST",
+          format: "rails", // Rails-specific format
+          // Platform-specific fields:
+          apiKey: process.env.DASHTRACK_API_KEY,
+          contactCategoryToken: "newsletter_signup",
+          locationId: "loc_123",
+          websiteId: "ws_456",
+        },
+        onSuccess: () => {
+          window.location.href = "/thank-you";
+        },
       }}
     />
   );
@@ -242,129 +203,92 @@ function MyDashTrackSite() {
     "email": "user@example.com",
     "contact_category_token": "newsletter_signup",
     "location_id": "loc_123",
-    "website_id": "ws_456",
-    "visitor_ip_address": "203.0.113.42"
+    "website_id": "ws_456"
   }
 }
 ```
 
-**Note**: The Rails-specific fields (`apiKey`, `contactCategoryToken`, etc.) are **optional**. Only use them when integrating with DashTrack's backend.
+### Pattern 4: Custom Form Slot (Maximum Flexibility)
 
-### Pattern 4: Client-Side Only (No Backend)
-
-Use this pattern for **local validation** without server submission.
+Use `formSlot` when you need **complete control** over the form rendering.
 
 ```tsx
 import { OfferModalMembershipImage } from "@opensite/ui/blocks/offer-modal";
+import { useForm, Form, Field } from "@page-speed/forms";
+import { TextInput } from "@page-speed/forms/inputs";
 
 function MyApp() {
-  const [emails, setEmails] = React.useState<string[]>([]);
+  const form = useForm({
+    initialValues: { email: "", name: "" },
+    onSubmit: async (values) => {
+      await fetch("/api/custom-signup", {
+        method: "POST",
+        body: JSON.stringify(values),
+      });
+    },
+  });
 
   return (
     <OfferModalMembershipImage
-      overline="Treat Yourself!"
-      title="Join our community"
-      buttonText="Get Started"
-      // No formConfig - client-side only
-      onSubmit={(email) => {
-        // Store locally
-        setEmails((prev) => [...prev, email]);
-        localStorage.setItem("pending_emails", JSON.stringify([...emails, email]));
-        console.log("Email captured locally:", email);
-      }}
-      onSuccess={() => {
-        alert("You're on the list! We'll notify you when we launch.");
-      }}
+      title="Join Our Community"
+      formSlot={
+        <Form form={form} className="space-y-4">
+          <Field name="name">
+            {({ field }) => (
+              <TextInput {...field} placeholder="Your name" />
+            )}
+          </Field>
+          <Field name="email">
+            {({ field }) => (
+              <TextInput {...field} type="email" placeholder="Email" />
+            )}
+          </Field>
+          <button type="submit">Join</button>
+        </Form>
+      }
     />
   );
 }
 ```
 
-**Use Cases**:
+## 3. Block Props Reference
 
-- Coming soon pages
-- Waitlist captures
-- Local storage before backend is ready
-- Offline-first applications
+### Newsletter/Single-Field Blocks
 
-## 3. Basic React Usage (Custom Forms)
+Blocks like `CtaNewsletterFeatures`, `FooterNewsletterMinimal`, `OfferModalNewsletterDiscount`, etc., support:
 
-For custom React forms (like `QuoteForm.tsx`), use `useForm`, `Form`, `Field`, and the input components:
+```typescript
+interface NewsletterBlockProps {
+  // Full form engine configuration
+  formEngineSetup?: FormEngineProps;
 
-```tsx
-import { useForm, Form, Field } from "@page-speed/forms";
-import { TextInput, TextArea } from "@page-speed/forms/inputs";
+  // Button customization (icon, label, variant)
+  buttonAction?: ActionConfig;
 
-type ContactValues = {
-  email: string;
-  message: string;
-};
+  // Escape hatch for fully custom forms
+  formSlot?: React.ReactNode;
 
-export function ContactForm() {
-  const form = useForm<ContactValues>({
-    initialValues: { email: "", message: "" },
-    validationSchema: {
-      email: (value) => (!value ? "Email is required" : undefined),
-      message: (value) => (!value ? "Message is required" : undefined),
-    },
-    onSubmit: async (values, helpers) => {
-      await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      helpers.resetForm();
-    },
-  });
-
-  return (
-    <Form form={form} className="space-y-4">
-      <Field name="email">
-        {({ field, meta }) => (
-          <TextInput
-            {...field}
-            type="email"
-            error={meta.touched && !!meta.error}
-            placeholder="you@example.com"
-          />
-        )}
-      </Field>
-      <Field name="message">
-        {({ field, meta }) => (
-          <TextArea
-            {...field}
-            rows={4}
-            error={meta.touched && !!meta.error}
-            placeholder="How can we help?"
-          />
-        )}
-      </Field>
-      <button type="submit" disabled={form.isSubmitting}>
-        Submit
-      </button>
-    </Form>
-  );
+  // Component-specific visual props (title, description, etc.)
+  // ...
 }
 ```
 
-## 4. Component Integration Reference
+### FormEngineProps
 
-### All Newsletter/Form Components Support
-
-Every form component in `@opensite/ui/blocks` supports these props:
+The `formEngineSetup` prop accepts the full `FormEngineProps` interface:
 
 ```typescript
-interface UniversalFormComponentProps {
-  // Optional: Automatic submission configuration
+interface FormEngineProps {
+  // Form submission configuration
   formConfig?: {
-    endpoint?: string; // API URL
+    endpoint?: string;           // API URL
     method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-    format?: "json" | "rails"; // Payload format
-    headers?: Record<string, string>; // Custom headers
+    format?: "json" | "rails";   // Payload format
+    headers?: Record<string, string>;
     values?: Record<string, unknown>; // Additional fields
-    resetOnSuccess?: boolean; // Default: true
+    resetOnSuccess?: boolean;    // Default: true
 
-    // Optional Rails-specific fields (only needed for DashTrack backend):
+    // Optional Rails-specific fields (DashTrack only):
     apiKey?: string;
     contactCategoryToken?: string;
     locationId?: string;
@@ -373,260 +297,269 @@ interface UniversalFormComponentProps {
     visitorIpAddress?: string;
   };
 
-  // Optional: Custom submission handler
-  onSubmit?: (email: string) => void | Promise<void>;
-
-  // Optional: Lifecycle callbacks
+  // Success/error callbacks
   onSuccess?: (data: unknown) => void;
   onError?: (error: Error) => void;
 
-  // Component-specific props (title, description, etc.)
-  // ...
-}
-```
+  // Form fields configuration (can override block defaults)
+  fields?: FormFieldConfig[];
 
-### Submission Behavior
-
-The components intelligently handle submission based on what you provide:
-
-```typescript
-// Scenario 1: Only formConfig provided
-<Component formConfig={{ endpoint: "/api/subscribe" }} />
-// → Calls submitPageSpeedForm, then onSuccess
-
-// Scenario 2: Only onSubmit provided
-<Component onSubmit={async (email) => { /* ... */ }} />
-// → Calls your onSubmit, then onSuccess
-
-// Scenario 3: Both provided (recommended)
-<Component
-  formConfig={{ endpoint: "/api/subscribe" }}
-  onSubmit={async (email) => { /* custom logic */ }}
-/>
-// → Calls submitPageSpeedForm, then your onSubmit, then onSuccess
-
-// Scenario 4: Neither provided
-<Component />
-// → No submission, only client-side validation
-```
-
-### Preconfigured OpenSite UI Blocks
-
-The following blocks ship with `@page-speed/forms` preconfigured:
-
-- `CtaAppDownloadNewsletter`
-- `CtaNewsletterFeatures`
-- `FooterNewsletterMinimal`
-- `OfferModalMembershipImage`
-- `OfferModalNewsletterDiscount`
-- `OfferModalSheetNewsletter`
-
-Each component has enhanced JSDoc documentation showing universal usage examples.
-
-## 5. Rails Contact API Integration (DashTrack)
-
-Use the serializers shipped with `@page-speed/forms` to integrate with the Rails `ContactsController` API.
-
-### Example Submit Helper
-
-```tsx
-import {
-  serializeForRails,
-  deserializeErrors,
-  type RailsApiConfig,
-  type RailsErrorResponse,
-  type FormErrors,
-} from "@page-speed/forms/integration";
-
-export class FormSubmissionError extends Error {
-  formErrors: FormErrors;
-  status?: number;
-
-  constructor(message: string, formErrors: FormErrors, status?: number) {
-    super(message);
-    this.name = "FormSubmissionError";
-    this.formErrors = formErrors;
-    this.status = status;
-  }
-}
-
-export async function submitContactForm(values: Record<string, unknown>) {
-  const config: RailsApiConfig = {
-    apiKey: process.env.NEXT_PUBLIC_DASHTRACK_API_KEY ?? "",
-    websiteId: "979",
-    contactCategoryToken: "newsletter-token",
+  // Layout settings
+  formLayoutSettings?: {
+    formLayout?: "standard" | "button-group" | "inline";
+    buttonGroupSetup?: {
+      size?: "sm" | "default" | "lg";
+      submitLabel?: React.ReactNode;
+      submitVariant?: string;
+    };
+    // ... other layout options
   };
 
-  const payload = serializeForRails(values, config);
-
-  // Remove upload_ prefix if present (Rails expects raw tokens)
-  if (payload.contact.contact_form_upload_tokens) {
-    payload.contact.contact_form_upload_tokens = (
-      payload.contact.contact_form_upload_tokens as string[]
-    ).map((token) => token.replace(/^upload_/, ""));
-  }
-
-  const response = await fetch("https://api.dashtrack.com/contacts", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-
-  const data = await response.json();
-
-  if (!response.ok || data.errors) {
-    const errorResponse: RailsErrorResponse = {
-      errors: data.errors || { base: ["Submission failed"] },
-      status: data.status || response.status,
-    };
-    const formErrors = deserializeErrors(errorResponse);
-    throw new FormSubmissionError(
-      "Form submission failed",
-      formErrors,
-      errorResponse.status
-    );
-  }
-
-  return data;
+  // Style overrides
+  styleRules?: FormEngineStyleRules;
 }
 ```
 
-### Error Mapping
+### ActionConfig (Button Customization)
 
-Use `deserializeErrors` to map Rails `snake_case` errors to `camelCase` keys that `@page-speed/forms` expects. In your form handler:
-
-```tsx
-try {
-  await submitContactForm(values);
-  helpers.resetForm();
-} catch (error) {
-  if (error instanceof FormSubmissionError) {
-    helpers.setErrors(error.formErrors);
-  }
-  throw error;
+```typescript
+interface ActionConfig {
+  label?: React.ReactNode;      // Button text
+  icon?: React.ReactNode;       // Icon element
+  iconAfter?: React.ReactNode;  // Icon after text
+  variant?: string;             // Button variant
+  size?: string;                // Button size
+  className?: string;           // Additional classes
+  href?: string;                // For link buttons
+  onClick?: () => void;         // Click handler
 }
 ```
 
-## 6. opensite-blocks Rendering (customer-sites)
+## 4. Implementing Forms in New Blocks
 
-For sites rendered via `@opensite/blocks`, register the Page Speed form renderers once at startup:
+### Newsletter Form (Button-Group) Pattern
 
-```tsx
-import { registerPageSpeedFormRenderers } from "@opensite/blocks/integrations/page-speed-forms";
-
-registerPageSpeedFormRenderers();
-```
-
-Ensure your design payload includes the `Form` block with `action` and `method`:
-
-```json
-{
-  "_type": "Form",
-  "_id": "newsletter-form",
-  "action": "https://api.dashtrack.com/contacts",
-  "method": "POST"
-}
-```
-
-Within OpenSite UI blocks rendered by opensite-blocks, pass `formConfig` into the block's `blockProps` so the submission endpoint and Rails credentials are available at runtime:
-
-```json
-{
-  "_id": "newsletter-cta",
-  "_type": "cta-newsletter-features",
-  "blockProps": {
-    "formConfig": {
-      "endpoint": "https://api.dashtrack.com/contacts",
-      "format": "rails",
-      "apiKey": "your-api-key",
-      "websiteId": "979",
-      "contactCategoryToken": "newsletter-token",
-      "values": { "subject": "Newsletter Signup" }
-    }
-  }
-}
-```
-
-## 7. File Uploads (e.g. CareersForm)
-
-File uploads should follow a two-step flow:
-
-1. Upload files to `/contacts/_/contact_form_uploads`
-2. Submit `contact_form_upload_tokens` with the main form payload
-
-### Upload Example
-
-```tsx
-import { useFileUpload } from "@page-speed/forms/upload";
-
-const { upload, state } = useFileUpload({
-  endpoint: "https://api.toastability.com/contacts/_/contact_form_uploads",
-  format: "legacy",
-  onComplete: (token) => {
-    const tokens = Array.isArray(token) ? token : [token];
-    form.setFieldValue(
-      "contact_form_upload_tokens",
-      tokens.map((value) => `upload_${value}`)
-    );
-  },
-});
-```
-
-### Submission Example
-
-```tsx
-const form = useForm({
-  initialValues: {
-    name: "",
-    contact_form_upload_tokens: [],
-  },
-  onSubmit: async (values) => {
-    const payload = serializeForRails(values, {
-      apiKey: "your-api-key",
-      contactCategoryToken: "careers",
-      websiteId: "979",
-    });
-
-    // Remove upload_ prefix if present
-    if (payload.contact.contact_form_upload_tokens) {
-      payload.contact.contact_form_upload_tokens = (
-        payload.contact.contact_form_upload_tokens as string[]
-      ).map((token) => token.replace(/^upload_/, ""));
-    }
-
-    await fetch("https://api.dashtrack.com/contacts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-  },
-});
-```
-
-## 8. Framework-Specific Examples
-
-### Next.js App Router (Server Actions)
+For blocks with single-field newsletter forms, follow this pattern:
 
 ```tsx
 "use client";
 
-import { CtaNewsletterFeatures } from "@opensite/ui/blocks/cta";
-import { subscribeAction } from "./actions";
+import * as React from "react";
+import { cn } from "../../../lib/utils";
+import { DynamicIcon } from "../../ui/dynamic-icon";
+import type { ActionConfig, SectionBackground } from "../../../src/types";
+import {
+  FormEngine,
+  type FormEngineProps,
+  type FormEngineStyleRules,
+  type FormFieldConfig,
+} from "@page-speed/forms/integration";
 
-export function NewsletterSection() {
+// Default style rules for the form container
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "flex items-stretch w-full",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "",
+};
+
+// Default email field configuration
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "Enter your email",
+    required: true,
+    columnSpan: 12,
+  },
+];
+
+interface MyNewsletterBlockProps {
+  heading?: React.ReactNode;
+  formEngineSetup?: FormEngineProps;
+  buttonAction?: ActionConfig;
+  formSlot?: React.ReactNode;
+  formClassName?: string;
+  // ... other props
+}
+
+export function MyNewsletterBlock({
+  heading,
+  formEngineSetup,
+  buttonAction,
+  formSlot,
+  formClassName,
+}: MyNewsletterBlockProps) {
+  const renderForm = React.useMemo(() => {
+    // Allow custom form override
+    if (formSlot) return formSlot;
+    // No form if no setup provided
+    if (!formEngineSetup) return null;
+
+    // Default button action (arrow icon)
+    const defaultButtonAction: ActionConfig = {
+      label: "",
+      variant: "default",
+      icon: <DynamicIcon name="lucide/arrow-right" size={16} />,
+    };
+
+    const action = buttonAction || defaultButtonAction;
+
+    return (
+      <FormEngine
+        formEngineSetup={{
+          ...formEngineSetup,
+          formLayoutSettings: {
+            ...formEngineSetup.formLayoutSettings,
+            formLayout: "button-group",
+            buttonGroupSetup: {
+              ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
+              size: "default",
+              submitLabel: action.icon || action.label,
+              submitVariant: action.variant || "default",
+            },
+          },
+        }}
+        defaultFields={DEFAULT_FORM_FIELDS}
+        defaultStyleRules={{
+          ...DEFAULT_STYLE_RULES,
+          formContainer: cn(
+            DEFAULT_STYLE_RULES.formContainer,
+            formClassName,
+          ),
+        }}
+      />
+    );
+  }, [formSlot, formEngineSetup, buttonAction, formClassName]);
+
+  return (
+    <section>
+      <h2>{heading}</h2>
+      {renderForm}
+    </section>
+  );
+}
+```
+
+### Standard Multi-Field Form Pattern
+
+For blocks with multi-field forms (contact, support, etc.), follow this simpler pattern:
+
+```tsx
+"use client";
+
+import * as React from "react";
+import { cn } from "../../../lib/utils";
+import type { SectionBackground } from "../../../src/types";
+import {
+  FormEngine,
+  type FormEngineProps,
+  type FormEngineStyleRules,
+  type FormFieldConfig,
+} from "@page-speed/forms/integration";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "space-y-6",
+  fieldsContainer: "grid gap-4",
+  fieldClassName: "",
+  formClassName: "",
+};
+
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "name",
+    type: "text",
+    label: "Full Name",
+    placeholder: "Your name",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "you@example.com",
+    required: true,
+    columnSpan: 6,
+  },
+  {
+    name: "message",
+    type: "textarea",
+    label: "Message",
+    placeholder: "How can we help?",
+    required: true,
+    columnSpan: 12,
+  },
+];
+
+interface MyContactBlockProps {
+  heading?: React.ReactNode;
+  formEngineSetup?: FormEngineProps;
+  formSlot?: React.ReactNode;
+  formClassName?: string;
+}
+
+export function MyContactBlock({
+  heading,
+  formEngineSetup,
+  formSlot,
+  formClassName,
+}: MyContactBlockProps) {
+  const renderForm = React.useMemo(() => {
+    if (formSlot) return formSlot;
+    if (!formEngineSetup) return null;
+
+    return (
+      <FormEngine
+        formEngineSetup={formEngineSetup}
+        defaultFields={DEFAULT_FORM_FIELDS}
+        defaultStyleRules={{
+          ...DEFAULT_STYLE_RULES,
+          formContainer: cn(
+            DEFAULT_STYLE_RULES.formContainer,
+            formClassName,
+          ),
+        }}
+      />
+    );
+  }, [formSlot, formEngineSetup, formClassName]);
+
+  return (
+    <section>
+      <h2>{heading}</h2>
+      {renderForm}
+    </section>
+  );
+}
+```
+
+## 5. Framework-Specific Examples
+
+### Next.js App Router
+
+```tsx
+import { CtaNewsletterFeatures } from "@opensite/ui/blocks/cta";
+
+export default function NewsletterSection() {
   return (
     <CtaNewsletterFeatures
       heading="Get Updates"
-      onSubmit={async (email) => {
-        "use server"; // This is a Server Action
-        await subscribeAction({ email });
+      formEngineSetup={{
+        formConfig: {
+          endpoint: "/api/subscribe",
+          format: "json",
+        },
+        onSuccess: () => {
+          // Handle success (toast, redirect, etc.)
+        },
       }}
     />
   );
 }
 ```
 
-### Next.js Pages Router (API Routes)
+### Next.js Pages Router
 
 ```tsx
 import { FooterNewsletterMinimal } from "@opensite/ui/blocks/footers";
@@ -634,10 +567,13 @@ import { FooterNewsletterMinimal } from "@opensite/ui/blocks/footers";
 export default function Layout() {
   return (
     <FooterNewsletterMinimal
-      formConfig={{
-        endpoint: "/api/subscribe",
-        method: "POST",
-        format: "json",
+      heading="Stay Connected"
+      formEngineSetup={{
+        formConfig: {
+          endpoint: "/api/subscribe",
+          method: "POST",
+          format: "json",
+        },
       }}
     />
   );
@@ -653,10 +589,12 @@ function App() {
   return (
     <OfferModalSheetNewsletter
       title="Join our mailing list"
-      formConfig={{
-        endpoint: import.meta.env.VITE_API_URL + "/newsletter",
-        method: "POST",
-        format: "json",
+      formEngineSetup={{
+        formConfig: {
+          endpoint: import.meta.env.VITE_API_URL + "/newsletter",
+          method: "POST",
+          format: "json",
+        },
       }}
     />
   );
@@ -668,325 +606,124 @@ function App() {
 When used in the OpenSite rendering system, components receive configuration from the page builder:
 
 ```tsx
-// In customer-sites entry point
-import { OfferModalNewsletterDiscount } from "@opensite/ui/blocks/offer-modal";
-
 // Configuration comes from ChaiBuilder design payload
 const blockConfig = {
-  title: page.blocks.offerModal.title,
-  formConfig: {
-    endpoint: website.apiEndpoint,
-    apiKey: website.apiKey,
-    contactCategoryToken: page.blocks.offerModal.contactCategory,
-    websiteId: website.id,
+  heading: page.blocks.newsletter.heading,
+  formEngineSetup: {
+    formConfig: {
+      endpoint: website.apiEndpoint,
+      apiKey: website.apiKey,
+      contactCategoryToken: page.blocks.newsletter.contactCategory,
+      websiteId: website.id,
+      format: "rails",
+    },
   },
 };
 
-<OfferModalNewsletterDiscount {...blockConfig} />
+<CtaNewsletterFeatures {...blockConfig} />
 ```
 
-## 9. Advanced Patterns
+## 6. Rails Contact API Integration (DashTrack)
 
-### Multi-Step Forms
+For direct Rails API integration (outside of blocks), use the serializers from `@page-speed/forms`:
 
 ```tsx
-import { useState } from "react";
-import { OfferModalNewsletterDiscount } from "@opensite/ui/blocks/offer-modal";
+import {
+  serializeForRails,
+  deserializeErrors,
+  type RailsApiConfig,
+  type RailsErrorResponse,
+} from "@page-speed/forms/integration";
 
-function MultiStepSignup() {
-  const [step, setStep] = useState<"email" | "details">("email");
-  const [email, setEmail] = useState("");
+export async function submitContactForm(values: Record<string, unknown>) {
+  const config: RailsApiConfig = {
+    apiKey: process.env.NEXT_PUBLIC_DASHTRACK_API_KEY ?? "",
+    websiteId: "979",
+    contactCategoryToken: "newsletter-token",
+  };
 
-  if (step === "email") {
-    return (
-      <OfferModalNewsletterDiscount
-        title="Step 1: Enter your email"
-        onSubmit={async (submittedEmail) => {
-          setEmail(submittedEmail);
-          setStep("details");
-        }}
-      />
-    );
+  const payload = serializeForRails(values, config);
+
+  const response = await fetch("https://api.dashtrack.com/contacts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok || data.errors) {
+    const formErrors = deserializeErrors(data);
+    throw new Error(JSON.stringify(formErrors));
   }
 
-  return <DetailsForm email={email} />;
+  return data;
 }
 ```
 
-### Conditional Backend Integration
+## 7. File Uploads
+
+File uploads follow a two-step flow:
+
+1. Upload files to `/contacts/_/contact_form_uploads`
+2. Submit `contact_form_upload_tokens` with the main form payload
 
 ```tsx
+import { useFileUpload } from "@page-speed/forms/upload";
+
+const { upload, state } = useFileUpload({
+  endpoint: "https://api.toastability.com/contacts/_/contact_form_uploads",
+  format: "legacy",
+  onComplete: (token) => {
+    // Store tokens in form state
+    const tokens = Array.isArray(token) ? token : [token];
+    form.setFieldValue(
+      "contact_form_upload_tokens",
+      tokens.map((value) => `upload_${value}`)
+    );
+  },
+});
+```
+
+## 8. Testing
+
+### Testing Form Blocks
+
+```tsx
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { CtaNewsletterFeatures } from "@opensite/ui/blocks/cta";
 
-function SmartNewsletter() {
-  const isDevelopment = process.env.NODE_ENV === "development";
-
-  return (
-    <CtaNewsletterFeatures
-      heading="Subscribe"
-      formConfig={isDevelopment ? undefined : {
-        endpoint: "/api/subscribe",
-        format: "json",
-      }}
-      onSubmit={async (email) => {
-        if (isDevelopment) {
-          console.log("Dev mode - email captured:", email);
-          return;
-        }
-        // Production logic handled by formConfig
-      }}
-    />
-  );
-}
-```
-
-### Progressive Enhancement
-
-```tsx
-import { FooterNewsletterMinimal } from "@opensite/ui/blocks/footers";
-
-function EnhancedFooter() {
-  const hasJavaScript = typeof window !== "undefined";
-
-  return (
-    <FooterNewsletterMinimal
-      newsletterLabel="Subscribe:"
-      formConfig={{
-        endpoint: "/api/subscribe",
-        method: "POST",
-        format: "json",
-      }}
-      onSubmit={hasJavaScript ? async (email) => {
-        // Enhanced client-side behavior
-        await trackSubscription(email);
-        showSuccessAnimation();
-      } : undefined}
-    />
-  );
-}
-```
-
-## 10. API Reference
-
-### PageSpeedFormConfig
-
-Complete configuration interface for form submission:
-
-```typescript
-interface PageSpeedFormConfig {
-  // ===== Universal Fields (work with any backend) =====
-
-  endpoint?: string;
-  // API endpoint URL
-  // Example: "https://api.mysite.com/subscribe"
-
-  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-  // HTTP method (default: "POST")
-
-  format?: "json" | "rails";
-  // Payload format:
-  // - "json": Generic { email: "..." } format (default)
-  // - "rails": DashTrack-specific { contact: { email: "..." } } format
-
-  headers?: Record<string, string>;
-  // Custom HTTP headers
-  // Example: { "Authorization": "Bearer token123", "X-Custom": "value" }
-
-  values?: Record<string, unknown>;
-  // Additional fields to merge into the payload
-  // Example: { source: "homepage", campaign_id: 42 }
-
-  resetOnSuccess?: boolean;
-  // Clear form after successful submission (default: true)
-
-  // ===== Platform-Specific Fields (optional, DashTrack only) =====
-
-  apiKey?: string;
-  // DashTrack API authentication key
-  // Only required when format: "rails"
-
-  contactCategoryToken?: string;
-  // DashTrack contact category identifier
-  // Example: "newsletter_signup", "quote_request"
-
-  locationId?: string;
-  // DashTrack location ID
-
-  websiteId?: string;
-  // DashTrack website ID
-
-  websiteFormAssignmentId?: string;
-  // DashTrack form assignment ID
-
-  visitorIpAddress?: string;
-  // Visitor IP for tracking (optional)
-}
-```
-
-### Component Props Pattern
-
-All form components follow this prop pattern:
-
-```typescript
-interface FormComponentProps {
-  // Component-specific visual props
-  title?: string;
-  description?: string;
-  buttonText?: string;
-  emailPlaceholder?: string;
-  // ... etc
-
-  // Universal form integration props
-  formConfig?: PageSpeedFormConfig;
-  onSubmit?: (email: string) => void | Promise<void>;
-  onSuccess?: (data: unknown) => void;
-  onError?: (error: Error) => void;
-}
-```
-
-## 11. Validation
-
-Email validation is handled automatically using the `isValidEmail` utility:
-
-```typescript
-import { isValidEmail } from "@opensite/ui/lib/forms";
-
-// Used internally by all components:
-validationSchema: {
-  email: (value) => {
-    if (!value) return "Email is required";
-    if (!isValidEmail(value)) return "Please enter a valid email address";
-    return undefined;
-  },
-}
-```
-
-The validator checks for:
-
-- Valid email format (RFC 5322 compliant)
-- Common typos (gmail.con → gmail.com suggestions)
-- Disposable email domains (optional filtering)
-
-## 12. Error Handling
-
-### Automatic Error Display
-
-Components automatically display validation errors:
-
-```tsx
-<OfferModalNewsletterDiscount
-  onError={(error) => {
-    console.error("Subscription failed:", error);
-    // Optional: Custom error tracking
-    trackError("newsletter_subscription", error);
-  }}
-/>
-```
-
-### Custom Error Messages
-
-Validation errors are shown inline automatically:
-
-```tsx
-// If user enters invalid email:
-// → "Please enter a valid email address" (shown below input)
-
-// If user leaves field empty and tries to submit:
-// → "Email is required" (shown below input)
-```
-
-### Network Error Handling
-
-```tsx
-<CtaNewsletterFeatures
-  formConfig={{
-    endpoint: "/api/subscribe",
-  }}
-  onError={(error) => {
-    if (error.message.includes("Failed to fetch")) {
-      alert("Network error. Please check your connection.");
-    } else if (error.message.includes("429")) {
-      alert("Too many requests. Please try again later.");
-    } else {
-      alert("Subscription failed. Please try again.");
-    }
-  }}
-/>
-```
-
-## 13. Performance Considerations
-
-### Bundle Size
-
-The `@page-speed/forms` library is optimized for minimal bundle impact:
-
-- **Core library**: ~3KB gzipped
-- **Field-level reactivity**: ~1 re-render per change (vs ~10 for useState)
-- **Tree-shakable**: Import only what you use
-
-### Lazy Loading
-
-For modals, consider lazy loading:
-
-```tsx
-import dynamic from "next/dynamic";
-
-const OfferModal = dynamic(
-  () => import("@opensite/ui/blocks/offer-modal").then((m) => m.OfferModalNewsletterDiscount),
-  { ssr: false }
-);
-
-function App() {
-  return <OfferModal title="Subscribe" />;
-}
-```
-
-### Caching
-
-API responses can be cached for better performance:
-
-```tsx
-<FooterNewsletterMinimal
-  formConfig={{
-    endpoint: "/api/subscribe",
-    headers: {
-      "Cache-Control": "no-cache",
-    },
-  }}
-/>
-```
-
-## 14. Testing
-
-### Unit Testing Components
-
-```tsx
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { OfferModalNewsletterDiscount } from "@opensite/ui/blocks/offer-modal";
-
-test("submits email via custom handler", async () => {
-  const mockSubmit = jest.fn();
+test("submits newsletter form", async () => {
+  const user = userEvent.setup();
+  const mockSuccess = vi.fn();
 
   render(
-    <OfferModalNewsletterDiscount
-      title="Subscribe"
-      onSubmit={mockSubmit}
+    <CtaNewsletterFeatures
+      heading="Subscribe"
+      formEngineSetup={{
+        formConfig: {
+          endpoint: "/api/subscribe",
+          format: "json",
+        },
+        onSuccess: mockSuccess,
+      }}
     />
   );
 
-  const input = screen.getByPlaceholderText(/email/i);
-  const button = screen.getByRole("button", { name: /subscribe/i });
+  const input = screen.getByRole("textbox");
+  await user.type(input, "test@example.com");
 
-  fireEvent.change(input, { target: { value: "test@example.com" } });
-  fireEvent.click(button);
+  const button = screen.getByRole("button");
+  await user.click(button);
 
   await waitFor(() => {
-    expect(mockSubmit).toHaveBeenCalledWith("test@example.com");
+    expect(mockSuccess).toHaveBeenCalled();
   });
 });
 ```
 
-### Integration Testing with Mock API
+### Testing with Mock API
 
 ```tsx
 import { rest } from "msw";
@@ -1001,377 +738,81 @@ const server = setupServer(
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
-
-test("submits to API endpoint", async () => {
-  const mockSuccess = jest.fn();
-
-  render(
-    <CtaNewsletterFeatures
-      formConfig={{
-        endpoint: "/api/subscribe",
-        format: "json",
-      }}
-      onSuccess={mockSuccess}
-    />
-  );
-
-  // ... submit form ...
-
-  await waitFor(() => {
-    expect(mockSuccess).toHaveBeenCalled();
-  });
-});
 ```
 
-### Testing Validation Errors
+## 9. Checklist for Adding Forms to New Blocks
 
-When testing form validation errors with `@page-speed/forms`, there are important behaviors to understand:
+1. **Import FormEngine and types**:
+   ```tsx
+   import {
+     FormEngine,
+     type FormEngineProps,
+     type FormEngineStyleRules,
+     type FormFieldConfig,
+   } from "@page-speed/forms/integration";
+   ```
 
-#### Understanding Validation vs Touched State
+2. **Define DEFAULT_STYLE_RULES** for the block's form container styling.
 
-The `@page-speed/forms` library validates fields on form submission but does **not** automatically set the `touched` state for fields. This means:
+3. **Define DEFAULT_FORM_FIELDS** with appropriate field configurations.
 
-1. After submission, validation errors exist in `meta.error`
-2. However, `meta.touched` may still be `false`
-3. Components should show errors when either:
-   - The field has been touched AND has an error, OR
-   - The form has validation errors (status === 'error')
+4. **Add props to the block interface**:
+   - `formEngineSetup?: FormEngineProps`
+   - `buttonAction?: ActionConfig` (for newsletter/button-group forms)
+   - `formSlot?: React.ReactNode` (escape hatch)
+   - `formClassName?: string` (optional styling override)
 
-#### Recommended Error Display Pattern
+5. **Implement `renderForm` using `React.useMemo`**:
+   - Check for `formSlot` override first
+   - Return `null` if no `formEngineSetup` provided
+   - For newsletter forms, configure `formLayout: "button-group"`
+   - For standard forms, use the simpler pattern
+
+6. **Keep props JSON-serializable** for design payload compatibility.
+
+7. **Test with both patterns**:
+   - Generic JSON endpoint
+   - DashTrack Rails integration
+
+## 10. Performance Considerations
+
+### Bundle Size
+
+The FormEngine is optimized for minimal bundle impact:
+
+- **Core library**: ~3KB gzipped
+- **Field-level reactivity**: ~1 re-render per change
+- **Tree-shakable**: Import only what you use
+
+### Lazy Loading
+
+For modals, consider lazy loading:
 
 ```tsx
-import { useForm, Form, Field } from "@page-speed/forms";
+import dynamic from "next/dynamic";
 
-function MyFormComponent() {
-  const form = useForm({
-    defaultValues: { email: "" },
-    validate: (values) => {
-      const errors: Record<string, string> = {};
-      if (!values.email) {
-        errors.email = "Please enter an email address";
-      }
-      return errors;
-    },
-  });
-
-  return (
-    <Form form={form}>
-      <Field name="email">
-        {({ field, meta }) => (
-          <div>
-            <input {...field} type="email" />
-            {/* Show error when touched OR when form has validation errors */}
-            {(meta.touched || form.status === 'error') && meta.error && (
-              <div className="text-destructive text-xs mt-1">
-                {meta.error}
-              </div>
-            )}
-          </div>
-        )}
-      </Field>
-    </Form>
-  );
-}
+const OfferModal = dynamic(
+  () => import("@opensite/ui/blocks/offer-modal").then(
+    (m) => m.OfferModalNewsletterDiscount
+  ),
+  { ssr: false }
+);
 ```
-
-#### Testing Error Messages with Duplicate Elements
-
-The `@page-speed/forms` `Field` component may render its own error message with class `field-error`. When testing, you may encounter multiple elements with the same error text. Use this pattern to find your specific error element:
-
-```tsx
-import { render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-
-test("shows error for empty email", async () => {
-  const user = userEvent.setup();
-  render(<MyFormComponent />);
-
-  // Submit the form without entering an email
-  const submitButton = screen.getByRole("button", { name: /submit/i });
-  await user.click(submitButton);
-
-  // Wait for validation and find the specific error element
-  await waitFor(async () => {
-    // Use getAllByText since Field component may also render an error
-    const errors = screen.getAllByText("Please enter an email address");
-    // Find your specific error element by class
-    const errorMessage = errors.find(el =>
-      el.classList.contains("text-destructive")
-    );
-    expect(errorMessage).toBeInTheDocument();
-  }, { timeout: 3000 });
-});
-```
-
-#### Testing Invalid Email Format
-
-```tsx
-test("shows error for invalid email format", async () => {
-  const user = userEvent.setup();
-  render(<MyFormComponent />);
-
-  // Enter an invalid email
-  const emailInput = screen.getByPlaceholderText(/email/i);
-  await user.type(emailInput, "invalid-email");
-
-  // Submit the form
-  const submitButton = screen.getByRole("button", { name: /submit/i });
-  await user.click(submitButton);
-
-  // Wait for validation error
-  await waitFor(async () => {
-    const errors = screen.getAllByText("Please enter a valid email address");
-    const errorMessage = errors.find(el =>
-      el.classList.contains("text-destructive")
-    );
-    expect(errorMessage).toBeInTheDocument();
-  }, { timeout: 3000 });
-});
-```
-
-#### Key Testing Tips
-
-1. **Use `userEvent` over `fireEvent`**: `userEvent` better simulates real user interactions and handles async state updates properly.
-
-2. **Always use `waitFor` for error assertions**: Form validation is asynchronous, so wrap error assertions in `waitFor`.
-
-3. **Handle duplicate error elements**: The `Field` component renders its own error with class `field-error`. Use `getAllByText` and filter by your custom class.
-
-4. **Set appropriate timeouts**: Form validation may take time; use `{ timeout: 3000 }` or higher for `waitFor`.
-
-5. **Check form status for error display**: Use `form.status === 'error'` in addition to `meta.touched` to ensure errors show after submission.
-
-## 15. Migration Guide
-
-### From Custom Forms to @page-speed/forms
-
-If you have existing custom form implementations:
-
-**Before:**
-```tsx
-function Newsletter() {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!email.includes("@")) {
-      setError("Invalid email");
-      return;
-    }
-    await fetch("/api/subscribe", {
-      method: "POST",
-      body: JSON.stringify({ email }),
-    });
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input value={email} onChange={(e) => setEmail(e.target.value)} />
-      {error && <span>{error}</span>}
-      <button type="submit">Subscribe</button>
-    </form>
-  );
-}
-```
-
-**After:**
-
-```tsx
-import { OfferModalNewsletterDiscount } from "@opensite/ui/blocks/offer-modal";
-
-function Newsletter() {
-  return (
-    <OfferModalNewsletterDiscount
-      formConfig={{
-        endpoint: "/api/subscribe",
-        format: "json",
-      }}
-    />
-  );
-}
-```
-
-**Benefits:**
-
-- Automatic validation ✓
-- Field-level reactivity ✓
-- Consistent error handling ✓
-- Built-in accessibility ✓
-- ~50% less code ✓
-
-## 16. Troubleshooting
-
-### Issue: Form doesn't submit
-
-**Check:**
-
-1. Did you provide either `formConfig.endpoint` OR `onSubmit`?
-2. Is the endpoint URL correct?
-3. Are there CORS issues? (Check browser console)
-
-```tsx
-// ❌ Won't submit (no endpoint or handler)
-<Component />
-
-// ✅ Will submit
-<Component onSubmit={(email) => console.log(email)} />
-```
-
-### Issue: Validation not working
-
-**Check:**
-
-1. Is `isValidEmail` imported correctly?
-2. Are you using the latest version of `@opensite/ui`?
-
-```bash
-# Update to latest
-pnpm update @opensite/ui @page-speed/forms
-```
-
-### Issue: TypeScript errors with formConfig
-
-The platform-specific fields are optional. TypeScript errors mean you're trying to use them incorrectly:
-
-```tsx
-// ❌ TypeScript error if apiKey is wrong type
-<Component formConfig={{ apiKey: 123 }} />
-
-// ✅ Correct
-<Component formConfig={{ apiKey: "sk_test_123" }} />
-
-// ✅ Also correct (omit platform-specific fields)
-<Component formConfig={{ endpoint: "/api/subscribe" }} />
-```
-
-## 17. Best Practices
-
-### 1. Keep It Simple
-
-Start with the simplest pattern that works:
-
-```tsx
-// Good: Simple and clear
-<Component
-  formConfig={{ endpoint: "/api/subscribe" }}
-/>
-
-// Over-engineered: Unnecessary complexity
-<Component
-  formConfig={{ endpoint: "/api/subscribe" }}
-  onSubmit={async (email) => {
-    // Just logging, not needed
-    console.log(email);
-  }}
-/>
-```
-
-### 2. Separate Concerns
-
-Keep business logic separate from presentation:
-
-```tsx
-// Good: Logic in separate file
-import { subscribeToNewsletter } from "./services/newsletter";
-
-<Component onSubmit={subscribeToNewsletter} />
-
-// Bad: Logic mixed with JSX
-<Component onSubmit={async (email) => {
-  const response = await fetch(/* ... */);
-  const data = await response.json();
-  if (data.error) { /* ... */ }
-  // ... 30 more lines ...
-}} />
-```
-
-### 3. Handle Errors Gracefully
-
-Always provide user-friendly error messages:
-
-```tsx
-<Component
-  formConfig={{ endpoint: "/api/subscribe" }}
-  onError={(error) => {
-    // Good: User-friendly message
-    toast.error("Oops! Something went wrong. Please try again.");
-
-    // Also log for debugging
-    console.error("Newsletter subscription error:", error);
-  }}
-/>
-```
-
-### 4. Type Your Handlers
-
-Use TypeScript for type safety:
-
-```tsx
-import type { FormSubmitHandler } from "@opensite/ui/lib/forms";
-
-const handleSubmit: FormSubmitHandler = async (email) => {
-  // TypeScript knows email is a string
-  await api.subscribe({ email });
-};
-
-<Component onSubmit={handleSubmit} />
-```
-
-### 5. Test Both Modes
-
-Test your components with and without a backend:
-
-```tsx
-// Test with backend
-<Component formConfig={{ endpoint: "/api/subscribe" }} />
-
-// Test without backend (offline mode)
-<Component onSubmit={(email) => {
-  localStorage.setItem("pending_email", email);
-}} />
-```
-
-### 6. Additional Recommendations
-
-- Prefer `@page-speed/forms/inputs` to keep consistent BEM class names.
-- Always map Rails errors with `deserializeErrors`.
-- Store API credentials outside components (env or centralized config).
-- Use `formConfig.values` to inject hidden metadata (subjects, tags, etc).
-- Prefix upload tokens with `upload_` so Rails serialization can detect them.
-
-## 18. Adding New Forms (Checklist)
-
-1. Define a strict `FormValues` type for the new form.
-2. Initialize `useForm` with `initialValues` + `validationSchema`.
-3. Render `<Form>` with `<Field>` + inputs from `@page-speed/forms/inputs`.
-4. Create a submission helper:
-   - **Generic JSON**: Use `formConfig` with `format: "json"`
-   - **Custom Logic**: Use `onSubmit` callback
-   - **Rails**: use `serializeForRails` / `deserializeErrors` + a `FormSubmissionError`.
-5. For uploads, use `useFileUpload` and store tokens as `upload_*` strings.
-6. For OpenSite UI blocks, expose a `formConfig` prop and keep it JSON-serializable for `blockProps`.
-7. Confirm base form styles are loaded.
-8. Add comprehensive JSDoc comments to props emphasizing universal usage.
-9. Test with multiple patterns (generic JSON, custom handler, etc.).
 
 ## Summary
 
-The `@page-speed/forms` integration in OpenSite UI components is designed to be:
+The FormEngine-based approach in OpenSite UI provides:
 
-✅ **Universal**: Works in any React environment
-✅ **Abstract**: No coupling to specific backends
-✅ **Flexible**: Multiple integration patterns
-✅ **Performant**: Field-level reactivity, minimal re-renders
-✅ **Type-Safe**: Full TypeScript support
-✅ **Progressive**: Works with or without JavaScript
-✅ **Accessible**: WCAG 2.1 AA compliant
+- **Unified API**: All form blocks use `formEngineSetup` prop
+- **Flexibility**: `buttonAction` for button customization, `formSlot` for full control
+- **Universal**: Works in any React environment
+- **Type-Safe**: Full TypeScript support
+- **Performant**: Field-level reactivity, minimal re-renders
+- **Accessible**: WCAG 2.1 AA compliant
 
-Choose the pattern that fits your use case:
+Two primary patterns:
 
-- **Generic JSON** for standard REST APIs
-- **Custom Handler** for maximum control
-- **Rails Format** for DashTrack platform integration
-- **Client-Side Only** for offline/local scenarios
+1. **Newsletter/Button-Group**: Single-field forms with inline submit button
+2. **Standard**: Multi-field forms with grid layout and separate submit button
 
-All components work identically regardless of which pattern you choose, ensuring consistency across your application.
+All blocks work consistently regardless of which backend you're integrating with (generic JSON, DashTrack Rails, etc.).
