@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import {
   Accordion,
   AccordionContent,
@@ -12,6 +12,7 @@ import {
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FaqItem {
   id: string;
@@ -81,6 +82,18 @@ export interface FaqSimpleAccordionProps {
    * Additional CSS classes for accordion content
    */
   accordionContentClassName?: string;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
 }
 
 export function FaqSimpleAccordion({
@@ -88,13 +101,16 @@ export function FaqSimpleAccordion({
   items,
   itemsSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
+  description,
+  descriptionClassName,
   headingClassName,
+  headerClassName,
   accordionClassName,
   accordionItemClassName,
   accordionTriggerClassName,
@@ -121,7 +137,10 @@ export function FaqSimpleAccordion({
               {item.question}
             </AccordionTrigger>
             <AccordionContent
-              className={cn(getTextColor(background, "muted"), accordionContentClassName)}
+              className={cn(
+                getTextColor(background, "muted"),
+                accordionContentClassName,
+              )}
             >
               {item.answer}
             </AccordionContent>
@@ -139,6 +158,41 @@ export function FaqSimpleAccordion({
     background,
   ]);
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "font-semibold text-4xl md:text-5xl lg:text-6xl",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn("text-lg opacity-70", descriptionClassName),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -147,21 +201,17 @@ export function FaqSimpleAccordion({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-3xl", containerClassName)}>
-        {heading &&
-          (typeof heading === "string" ? (
-            <h1
-              className={cn(
-                "mb-4 text-3xl font-semibold md:mb-11 md:text-4xl",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h1>
-          ) : (
-            <div className={headingClassName}>{heading}</div>
-          ))}
+      <div className="mx-auto max-w-full md:max-w-3xl space-y-4 md:space-y-8">
+        <ContentGroup
+          items={contentItems}
+          className={cn(
+            "flex flex-col gap-2 text-left items-start",
+            headerClassName,
+          )}
+        />
+
         {itemsContent}
       </div>
     </Section>

@@ -128,6 +128,7 @@ export interface FaqSidebarNavigationProps {
 export function FaqSidebarNavigation({
   heading,
   description,
+  descriptionClassName,
   categories,
   categoriesSlot,
   background,
@@ -139,7 +140,6 @@ export function FaqSidebarNavigation({
   className,
   headerClassName,
   headingClassName,
-  descriptionClassName,
   contentWrapperClassName,
   navClassName,
   navButtonClassName,
@@ -270,7 +270,7 @@ export function FaqSidebarNavigation({
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
-      className={className}
+      className={cn(pattern && "overflow-visible", className)}
       containerClassName={containerClassName}
     >
       <div className="relative">

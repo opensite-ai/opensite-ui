@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import {
   Accordion,
@@ -17,6 +17,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FeatureAccordionImageItem {
   /**
@@ -199,7 +200,7 @@ export function FeatureAccordionImage({
         {item.title && (
           <AccordionTrigger
             className={cn(
-              "text-left text-md md:text-lg font-medium",
+              "text-left md:text-lg font-medium",
               item.triggerClassName,
             )}
           >
@@ -207,12 +208,7 @@ export function FeatureAccordionImage({
           </AccordionTrigger>
         )}
         {item.content && (
-          <AccordionContent
-            className={cn(
-              getTextColor(background, "muted"),
-              item.contentClassName,
-            )}
-          >
+          <AccordionContent className={cn(item.contentClassName)}>
             {item.content}
           </AccordionContent>
         )}
@@ -227,16 +223,51 @@ export function FeatureAccordionImage({
     return (
       <Img
         src={currentImage.imageSrc}
-        alt={currentImage.imageAlt || ""}
+        alt={currentImage.imageAlt || "FAQ Image Banner"}
         className={cn(
-          "h-full w-full object-cover transition-opacity duration-300",
+          "h-full w-full object-cover transition-all duration-500",
           imageClassName,
         )}
-        loading="lazy"
+        loading="eager"
         optixFlowConfig={optixFlowConfig}
       />
     );
   }, [currentImage, imageClassName, optixFlowConfig]);
+
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (title) {
+      if (typeof title === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "text-2xl font-semibold md:text-3xl lg:text-4xl",
+            titleClassName,
+          ),
+          children: title,
+        });
+      } else {
+        items.push(title);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn("text-lg opacity-70", descriptionClassName),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [title, titleClassName, description, descriptionClassName]);
 
   return (
     <Section
@@ -249,45 +280,14 @@ export function FeatureAccordionImage({
       containerClassName={containerClassName}
     >
       <div className="flex flex-col items-center space-y-6 md:space-y-16">
-        {(title || description) && (
-          <div
-            className={cn(
-              "text-left md:text-center max-w-full md:max-w-md text-balance",
-              headerClassName,
-            )}
-          >
-            {title &&
-              (typeof title === "string" ? (
-                <h2
-                  className={cn(
-                    "text-2xl font-semibold md:text-3xl lg:text-4xl",
-                    titleClassName,
-                  )}
-                >
-                  {title}
-                </h2>
-              ) : (
-                <div
-                  className={cn(
-                    "text-xl font-semibold md:text-2xl lg:text-3xl",
-                    titleClassName,
-                  )}
-                >
-                  {title}
-                </div>
-              ))}
-            {description &&
-              (typeof description === "string" ? (
-                <p className={cn("mt-4 lg:text-lg", descriptionClassName)}>
-                  {description}
-                </p>
-              ) : (
-                <div className={cn("mt-4 lg:text-lg", descriptionClassName)}>
-                  {description}
-                </div>
-              ))}
-          </div>
-        )}
+        <ContentGroup
+          items={contentItems}
+          className={cn(
+            "text-left md:text-center max-w-full md:max-w-md text-balance",
+            headerClassName,
+          )}
+        />
+
         {(itemsSlot || (items && items.length > 0)) && (
           <div
             className={cn(
