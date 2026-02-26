@@ -238,7 +238,7 @@ export function HeroEventRegistration({
         className={cn(
           "bg-card text-card-foreground",
           "rounded-2xl p-2 md:p-4 shadow-lg",
-          "absolute bottom-1/2 -translate-y-1/2",
+          "absolute -bottom-1/2 -translate-y-1/2",
           "left-1/2 -translate-x-1/2 w-[90%]",
           "md:-left-4 md:translate-x-0 md:w-auto",
           "ring-4 ring-primary",
