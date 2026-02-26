@@ -1,22 +1,40 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
-import {
-  isValidEmail,
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import {
+  FormEngine,
+  type FormEngineProps,
+  type FormEngineStyleRules,
+  type FormFieldConfig,
+} from "@page-speed/forms/integration";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "mx-auto mb-8 flex max-w-md items-stretch w-full",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "",
+};
+
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "Enter your email",
+    required: true,
+    columnSpan: 12,
+  },
+];
 
 export interface CtaNewsletterFeature {
   /**
@@ -50,14 +68,6 @@ export interface CtaNewsletterFeaturesProps {
    * Description content below the heading
    */
   description?: React.ReactNode;
-  /**
-   * Email input placeholder
-   */
-  emailPlaceholder?: string;
-  /**
-   * Submit button text
-   */
-  buttonText?: React.ReactNode;
   /**
    * Array of features to display
    */
@@ -119,59 +129,13 @@ export interface CtaNewsletterFeaturesProps {
    */
   patternOpacity?: number;
   /**
-   * Optional form submission configuration.
-   *
-   * **Universal Usage**: Works with ANY REST API endpoint. Simply provide an `endpoint` URL
-   * and the form will submit to it in JSON format.
-   *
-   * @example
-   * // Works with any API
-   * formConfig={{ endpoint: "https://api.mysite.com/subscribe", format: "json" }}
-   *
-   * @example
-   * // With custom headers (e.g., authentication)
-   * formConfig={{
-   *   endpoint: "/api/newsletter",
-   *   headers: { "Authorization": "Bearer token123" }
-   * }}
-   *
-   * **Note**: The `apiKey`, `contactCategoryToken`, and other platform-specific fields
-   * are OPTIONAL and only needed when integrating with DashTrack's Rails backend.
-   * For generic REST APIs, just use `endpoint`, `method`, `format`, and `headers`.
-   *
-   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples with Next.js, React, and more.
+   * Full form engine setup and props
    */
-  formConfig?: PageSpeedFormConfig;
+  formEngineSetup?: FormEngineProps;
   /**
-   * Optional custom submission handler for maximum flexibility.
-   *
-   * Use this when you need complete control over the submission logic,
-   * such as custom API calls, analytics tracking, or multi-step workflows.
-   *
-   * Can be used alone or in combination with `formConfig` for hybrid approaches.
-   *
-   * @example
-   * onSubmit={async (email) => {
-   *   await fetch("/api/subscribe", {
-   *     method: "POST",
-   *     body: JSON.stringify({ email, campaign: "cta-features" })
-   *   });
-   * }}
+   * Submit button configuration
    */
-  onSubmit?: (email: string) => void | Promise<void>;
-  /**
-   * Optional success callback invoked after successful submission.
-   *
-   * Called after `formConfig` submission and/or `onSubmit` completes successfully.
-   * Use for showing success messages, redirecting, analytics tracking, etc.
-   */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Optional error callback invoked if submission fails.
-   *
-   * Receives the error object for custom error handling, logging, or user notifications.
-   */
-  onError?: (error: Error) => void;
+  buttonAction?: ActionConfig;
 }
 
 /**
@@ -179,13 +143,18 @@ export interface CtaNewsletterFeaturesProps {
  * email form, and a list of subscription benefits. Encourages sign-ups by
  * highlighting value.
  *
+ * The newsletter form is powered by `FormEngine` from `@page-speed/forms/integration`,
+ * which handles validation, submission, error handling, and success states.
+ *
  * @example
  * ```tsx
  * <CtaNewsletterFeatures
  *   badge="Newsletter"
  *   heading="Stay in the loop"
  *   description="Get the latest updates delivered to your inbox."
- *   buttonText="Subscribe"
+ *   formEngineSetup={{
+ *     formConfig: { endpoint: "/api/subscribe", format: "json" },
+ *   }}
  *   features={[
  *     { iconName: "lucide/check", text: "Weekly insights" },
  *     { iconName: "lucide/check", text: "Exclusive content" }
@@ -197,8 +166,6 @@ export function CtaNewsletterFeatures({
   badge,
   heading,
   description,
-  emailPlaceholder,
-  buttonText,
   features,
   featuresSlot,
   formSlot,
@@ -214,108 +181,46 @@ export function CtaNewsletterFeatures({
   spacing,
   pattern,
   patternOpacity,
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
+  formEngineSetup,
+  buttonAction,
 }: CtaNewsletterFeaturesProps): React.JSX.Element {
-  const form = useForm<{ email: string }>({
-    initialValues: {
-      email: "",
-    },
-    validationSchema: {
-      email: (value) => {
-        if (!value) return "Email is required";
-        if (!isValidEmail(value)) return "Please enter a valid email address";
-        return undefined;
-      },
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
-
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
-
-      try {
-        let result: unknown;
-
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
-
-        if (onSubmit) {
-          await onSubmit(values.email);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
-  });
-
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
-
-  const formContent = useMemo(() => {
+  const renderForm = React.useMemo(() => {
     if (formSlot) return formSlot;
+    if (!formEngineSetup) return null;
+
+    const defaultButtonAction: ActionConfig = {
+      label: "",
+      variant: "default",
+      icon: <DynamicIcon name="lucide/arrow-right" size={16} />,
+    };
+
+    const action = buttonAction || defaultButtonAction;
 
     return (
-      <Form
-        form={form}
-        action={formConfig?.endpoint}
-        method={formMethod}
-        className={cn(
-          "mx-auto mb-8 flex max-w-md flex-col gap-3 sm:flex-row",
-          formClassName,
-        )}
-      >
-        <Field name="email" className="flex-1">
-          {({ field, meta }) => (
-            <TextInput
-              {...field}
-              type="email"
-              placeholder={emailPlaceholder}
-              error={meta.touched && !!meta.error}
-              className="w-full"
-              aria-label={emailPlaceholder || "Email address"}
-            />
-          )}
-        </Field>
-        <Pressable
-          componentType="button"
-          type="submit"
-          variant="default"
-          className="shrink-0"
-          asButton
-          disabled={form.isSubmitting}
-        >
-          {buttonText}
-          <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
-        </Pressable>
-      </Form>
+      <FormEngine
+        formEngineSetup={{
+          ...formEngineSetup,
+          formLayoutSettings: {
+            ...formEngineSetup.formLayoutSettings,
+            formLayout: "button-group",
+            buttonGroupSetup: {
+              ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
+              size: "default",
+              submitLabel: action.icon || action.label,
+              submitVariant: action.variant || "default",
+            },
+          },
+        }}
+        defaultFields={DEFAULT_FORM_FIELDS}
+        defaultStyleRules={{
+          ...DEFAULT_STYLE_RULES,
+          formContainer: cn(DEFAULT_STYLE_RULES.formContainer, formClassName),
+        }}
+      />
     );
-  }, [
-    formSlot,
-    form,
-    formConfig?.endpoint,
-    formMethod,
-    formClassName,
-    emailPlaceholder,
-    buttonText,
-  ]);
+  }, [formSlot, formEngineSetup, buttonAction, formClassName]);
 
-  const featuresContent = useMemo(() => {
+  const featuresContent = React.useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -392,7 +297,7 @@ export function CtaNewsletterFeatures({
                 {description}
               </div>
             ))}
-          {formContent}
+          {renderForm}
           {featuresContent}
         </div>
       </div>

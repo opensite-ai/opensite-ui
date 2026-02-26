@@ -1,9 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput } from "../../ui/form-inputs";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { FooterLogo } from "../../ui/footer-logo";
 import { FooterCopyright } from "../../ui/footer-copyright";
@@ -11,16 +9,38 @@ import { BrandAttribution } from "../../ui/brand-attribution";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
 import type { FooterSocialLink } from "./types";
-import {
-  isValidEmail,
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import {
+  FormEngine,
+  type FormEngineProps,
+  type FormEngineStyleRules,
+  type FormFieldConfig,
+} from "@page-speed/forms/integration";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "space-y-4",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "",
+};
+
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "Enter your email",
+    required: true,
+    columnSpan: 12,
+  },
+];
 
 export interface FooterNewsletterContactLink {
   /**
@@ -73,14 +93,6 @@ export interface FooterNewsletterContactProps {
    */
   newsletterDescription?: string;
   /**
-   * Newsletter placeholder text
-   */
-  newsletterPlaceholder?: string;
-  /**
-   * Newsletter button text
-   */
-  newsletterButtonText?: string;
-  /**
    * Footer link sections
    */
   footerLinks?: FooterNewsletterContactSection[];
@@ -128,22 +140,21 @@ export interface FooterNewsletterContactProps {
     compression?: number;
   };
   /**
-   * Optional form submission configuration for newsletter signup.
-   * Requires `token` to render the newsletter UI.
+   * Full form engine setup and props
    */
-  formConfig?: PageSpeedFormConfig & { token: string };
+  formEngineSetup?: FormEngineProps;
   /**
-   * Optional custom submission handler for newsletter signup.
+   * Submit button configuration
    */
-  onSubmit?: (email: string) => void | Promise<void>;
+  buttonAction?: ActionConfig;
   /**
-   * Optional success callback invoked after successful submission.
+   * Custom slot for the form (overrides form props)
    */
-  onSuccess?: (data: unknown) => void;
+  formSlot?: React.ReactNode;
   /**
-   * Optional error callback invoked if submission fails.
+   * Additional CSS classes for the newsletter form
    */
-  onError?: (error: Error) => void;
+  newsletterFormClassName?: string;
 }
 
 /**
@@ -154,11 +165,17 @@ export interface FooterNewsletterContactProps {
  * Key features: Newsletter form, contact details with icons, social links.
  * Best for: E-commerce sites, business websites, service-based companies.
  *
+ * The newsletter form is powered by `FormEngine` from `@page-speed/forms/integration`,
+ * which handles validation, submission, error handling, and success states.
+ *
  * @example
  * ```tsx
  * <FooterNewsletterContact
  *   newsletterTitle="Newsletter"
  *   newsletterDescription="Join our newsletter for exclusive deals."
+ *   formEngineSetup={{
+ *     formConfig: { endpoint: "/api/subscribe", format: "json" },
+ *   }}
  *   footerLinks={[
  *     { title: "Information", items: [...] },
  *   ]}
@@ -171,8 +188,6 @@ export interface FooterNewsletterContactProps {
 export function FooterNewsletterContact({
   newsletterTitle,
   newsletterDescription,
-  newsletterPlaceholder,
-  newsletterButtonText,
   footerLinks,
   contactDetails,
   socialLinks,
@@ -185,12 +200,12 @@ export function FooterNewsletterContact({
   pattern,
   patternOpacity,
   optixFlowConfig,
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
+  formEngineSetup,
+  buttonAction,
+  formSlot,
+  newsletterFormClassName,
 }: FooterNewsletterContactProps) {
-  const linkSectionsContent = useMemo(() => {
+  const linkSectionsContent = React.useMemo(() => {
     if (!footerLinks || footerLinks.length === 0) return null;
 
     return footerLinks.map((section, idx) => (
@@ -214,7 +229,7 @@ export function FooterNewsletterContact({
     ));
   }, [footerLinks]);
 
-  const contactDetailsContent = useMemo(() => {
+  const contactDetailsContent = React.useMemo(() => {
     if (!contactDetails || contactDetails.length === 0) return null;
 
     return contactDetails.map((item, idx) => (
@@ -240,7 +255,7 @@ export function FooterNewsletterContact({
     ));
   }, [contactDetails]);
 
-  const socialLinksContent = useMemo(() => {
+  const socialLinksContent = React.useMemo(() => {
     if (!socialLinks || socialLinks.length === 0) return null;
 
     return socialLinks.map((social, idx) => (
@@ -256,53 +271,45 @@ export function FooterNewsletterContact({
       </li>
     ));
   }, [socialLinks]);
-  const form = useForm<{ email: string }>({
-    initialValues: {
-      email: "",
-    },
-    validationSchema: {
-      email: (value) => {
-        if (!value) return "Email is required";
-        if (!isValidEmail(value)) return "Please enter a valid email address";
-        return undefined;
-      },
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
 
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
+  const renderForm = React.useMemo(() => {
+    if (formSlot) return formSlot;
+    if (!formEngineSetup) return null;
 
-      try {
-        let result: unknown;
+    const defaultButtonAction: ActionConfig = {
+      label: "",
+      variant: "default",
+      icon: <DynamicIcon name="lucide/arrow-right" size={16} />,
+    };
 
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
+    const action = buttonAction || defaultButtonAction;
 
-        if (onSubmit) {
-          await onSubmit(values.email);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
-  });
-
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
+    return (
+      <FormEngine
+        formEngineSetup={{
+          ...formEngineSetup,
+          formLayoutSettings: {
+            ...formEngineSetup.formLayoutSettings,
+            formLayout: "button-group",
+            buttonGroupSetup: {
+              ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
+              size: "default",
+              submitLabel: action.icon || action.label,
+              submitVariant: action.variant || "default",
+            },
+          },
+        }}
+        defaultFields={DEFAULT_FORM_FIELDS}
+        defaultStyleRules={{
+          ...DEFAULT_STYLE_RULES,
+          formContainer: cn(
+            DEFAULT_STYLE_RULES.formContainer,
+            newsletterFormClassName,
+          ),
+        }}
+      />
+    );
+  }, [formSlot, formEngineSetup, buttonAction, newsletterFormClassName]);
 
   return (
     <Section
@@ -315,52 +322,21 @@ export function FooterNewsletterContact({
     >
       <div className="space-y-10">
         <div className="grid grid-cols-1 gap-x-16 gap-y-8 md:grid-cols-2 xl:grid-cols-4">
-          {formConfig?.token &&
-            (newsletterTitle ||
-              newsletterDescription ||
-              newsletterButtonText) && (
-              <div className="space-y-6 col-span-2 md:col-span-1">
-                {newsletterTitle && (
-                  <h3 className="text-3xl font-medium font-serif leading-none">
-                    {newsletterTitle}
-                  </h3>
-                )}
-                {newsletterDescription && (
-                  <p className="font-light leading-normal">
-                    {newsletterDescription}
-                  </p>
-                )}
-                <Form
-                  form={form}
-                  action={formConfig?.endpoint}
-                  method={formMethod}
-                  className="space-y-4"
-                >
-                  <Field name="email">
-                    {({ field, meta }) => (
-                      <TextInput
-                        {...field}
-                        type="email"
-                        placeholder={newsletterPlaceholder}
-                        error={meta.touched && !!meta.error}
-                        className="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                        aria-label={newsletterPlaceholder || "Email address"}
-                      />
-                    )}
-                  </Field>
-                  <Pressable
-                    componentType="button"
-                    type="submit"
-                    variant="default"
-                    asButton
-                    className="w-full"
-                    disabled={form.isSubmitting}
-                  >
-                    {newsletterButtonText}
-                  </Pressable>
-                </Form>
-              </div>
-            )}
+          {formEngineSetup && (newsletterTitle || newsletterDescription) && (
+            <div className="space-y-6 col-span-2 md:col-span-1">
+              {newsletterTitle && (
+                <h3 className="text-3xl font-medium font-serif leading-none">
+                  {newsletterTitle}
+                </h3>
+              )}
+              {newsletterDescription && (
+                <p className="font-light leading-normal">
+                  {newsletterDescription}
+                </p>
+              )}
+              {renderForm}
+            </div>
+          )}
 
           {linkSectionsContent}
 

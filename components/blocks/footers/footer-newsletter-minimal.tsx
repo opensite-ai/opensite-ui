@@ -1,9 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
-import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput } from "../../ui/form-inputs";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -11,17 +8,39 @@ import { FooterCopyright } from "../../ui/footer-copyright";
 import { BrandAttribution } from "../../ui/brand-attribution";
 import { Pressable } from "../../../lib/Pressable";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
-import {
-  isValidEmail,
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
 import { Section } from "../../ui/section";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import type { OptixFlowConfig, NavLinkItem } from "../../../src/types/blocks";
 import type { PatternName } from "../../ui/pattern-background";
 import type { FooterSocialLink } from "./types";
+import {
+  FormEngine,
+  type FormEngineProps,
+  type FormEngineStyleRules,
+  type FormFieldConfig,
+} from "@page-speed/forms/integration";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "flex w-full items-end border-b border-b-foreground/10",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "",
+};
+
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "Enter your email",
+    required: true,
+    columnSpan: 12,
+  },
+];
 
 /**
  * Footer link configuration
@@ -51,8 +70,6 @@ export interface FooterNewsletterMinimalProps {
   footerLinks?: FooterNewsletterMinimalFooterLink[];
   /** Newsletter label */
   newsletterLabel?: React.ReactNode;
-  /** Newsletter placeholder */
-  newsletterPlaceholder?: string;
   /** Brand text displayed at the bottom */
   brandText?: React.ReactNode;
   /** Brand/company name for the copyright notice */
@@ -83,10 +100,6 @@ export interface FooterNewsletterMinimalProps {
   newsletterSectionClassName?: string;
   /** Additional CSS classes for the newsletter form */
   newsletterFormClassName?: string;
-  /** Additional CSS classes for the newsletter input */
-  newsletterInputClassName?: string;
-  /** Additional CSS classes for the newsletter submit button */
-  newsletterButtonClassName?: string;
   /** Additional CSS classes for the location/footer links section */
   bottomGridClassName?: string;
   /** Additional CSS classes for the location text */
@@ -103,73 +116,30 @@ export interface FooterNewsletterMinimalProps {
   copyrightClassName?: string;
   /** Section background variant */
   background?: SectionBackground;
-  /** Section spacing variant */
   /**
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Optional background pattern */
   pattern?: PatternName;
   /** Pattern opacity (0-1) */
   patternOpacity?: number;
-  /**
-   * Optional form submission configuration.
-   * Requires `token` to render the newsletter UI.
-   *
-   * **Universal Usage**: Works with ANY REST API endpoint. Simply provide an `endpoint` URL
-   * and the form will submit to it in JSON format.
-   *
-   * @example
-   * // Works with any API
-   * formConfig={{ endpoint: "https://api.mysite.com/subscribe", format: "json" }}
-   *
-   * @example
-   * // With custom headers (e.g., authentication)
-   * formConfig={{
-   *   endpoint: "/api/newsletter",
-   *   headers: { "Authorization": "Bearer token123" }
-   * }}
-   *
-   * **Note**: The `apiKey`, `contactCategoryToken`, and other platform-specific fields
-   * are OPTIONAL and only needed when integrating with DashTrack's Rails backend.
-   * For generic REST APIs, just use `endpoint`, `method`, `format`, and `headers`.
-   *
-   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples with Next.js, React, and more.
-   */
-  formConfig?: PageSpeedFormConfig & { token: string };
-  /**
-   * Optional custom submission handler for maximum flexibility.
-   *
-   * Use this when you need complete control over the submission logic,
-   * such as custom API calls, analytics tracking, or multi-step workflows.
-   *
-   * Can be used alone or in combination with `formConfig` for hybrid approaches.
-   *
-   * @example
-   * onSubmit={async (email) => {
-   *   await fetch("/api/subscribe", {
-   *     method: "POST",
-   *     body: JSON.stringify({ email, source: "footer" })
-   *   });
-   * }}
-   */
-  onSubmit?: (email: string) => void | Promise<void>;
-  /**
-   * Optional success callback invoked after successful submission.
-   *
-   * Called after `formConfig` submission and/or `onSubmit` completes successfully.
-   * Use for showing success messages, redirecting, analytics tracking, etc.
-   */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Optional error callback invoked if submission fails.
-   *
-   * Receives the error object for custom error handling, logging, or user notifications.
-   */
-  onError?: (error: Error) => void;
   /** Optional Optix Flow configuration for image optimization */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Full form engine setup and props
+   */
+  formEngineSetup?: FormEngineProps;
+  /**
+   * Submit button configuration
+   */
+  buttonAction?: ActionConfig;
+  /**
+   * Custom slot for the form (overrides form props)
+   */
+  formSlot?: React.ReactNode;
 }
 
 /**
@@ -179,6 +149,22 @@ export interface FooterNewsletterMinimalProps {
  * newsletter signup form, and a large animated brand logo. Ideal for modern SaaS products,
  * creative agencies, and businesses that want a sophisticated, dark-themed footer
  * with strong visual branding.
+ *
+ * The newsletter form is powered by `FormEngine` from `@page-speed/forms/integration`,
+ * which handles validation, submission, error handling, and success states.
+ *
+ * @example
+ * ```tsx
+ * <FooterNewsletterMinimal
+ *   heading="Let's Build Together"
+ *   formEngineSetup={{
+ *     formConfig: { endpoint: "/api/subscribe", format: "json" },
+ *   }}
+ *   navLinks={[
+ *     { label: "About", href: "/about" },
+ *   ]}
+ * />
+ * ```
  */
 export function FooterNewsletterMinimal({
   heading,
@@ -188,7 +174,6 @@ export function FooterNewsletterMinimal({
   socialLinks,
   footerLinks,
   newsletterLabel,
-  newsletterPlaceholder,
   brandText,
   copyright,
   location,
@@ -204,8 +189,6 @@ export function FooterNewsletterMinimal({
   socialLinkClassName,
   newsletterSectionClassName,
   newsletterFormClassName,
-  newsletterInputClassName,
-  newsletterButtonClassName,
   bottomGridClassName,
   locationClassName,
   footerLinksClassName,
@@ -218,12 +201,11 @@ export function FooterNewsletterMinimal({
   spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
-  formConfig,
-  onSubmit,
-  onSuccess,
-  onError,
+  formEngineSetup,
+  buttonAction,
+  formSlot,
 }: FooterNewsletterMinimalProps): React.JSX.Element {
-  const navLinksContent = useMemo(() => {
+  const navLinksContent = React.useMemo(() => {
     if (!navLinks || navLinks.length === 0) return null;
 
     return navLinks.map((item, idx) => (
@@ -238,7 +220,7 @@ export function FooterNewsletterMinimal({
     ));
   }, [navLinks, navLinkClassName]);
 
-  const socialLinksContent = useMemo(() => {
+  const socialLinksContent = React.useMemo(() => {
     if (!socialLinks || socialLinks.length === 0) return null;
 
     return socialLinks.map((item, idx) => (
@@ -257,7 +239,7 @@ export function FooterNewsletterMinimal({
     ));
   }, [socialLinks, socialLinkClassName]);
 
-  const footerLinksContent = useMemo(() => {
+  const footerLinksContent = React.useMemo(() => {
     if (!footerLinks || footerLinks.length === 0) return null;
 
     return footerLinks.map((item) => (
@@ -275,53 +257,44 @@ export function FooterNewsletterMinimal({
     ));
   }, [footerLinks, footerLinkClassName]);
 
-  const form = useForm<{ email: string }>({
-    initialValues: {
-      email: "",
-    },
-    validationSchema: {
-      email: (value) => {
-        if (!value) return "Email is required";
-        if (!isValidEmail(value)) return "Please enter a valid email address";
-        return undefined;
-      },
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
+  const renderForm = React.useMemo(() => {
+    if (formSlot) return formSlot;
+    if (!formEngineSetup) return null;
 
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
+    const defaultButtonAction: ActionConfig = {
+      label: "",
+      variant: "default",
+      icon: <DynamicIcon name="lucide/arrow-right" size={20} />,
+    };
 
-      try {
-        let result: unknown;
+    const action = buttonAction || defaultButtonAction;
 
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
-
-        if (onSubmit) {
-          await onSubmit(values.email);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
-  });
-
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
+    return (
+      <FormEngine
+        formEngineSetup={{
+          ...formEngineSetup,
+          formLayoutSettings: {
+            ...formEngineSetup.formLayoutSettings,
+            formLayout: "button-group",
+            buttonGroupSetup: {
+              ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
+              size: "default",
+              submitLabel: action.icon || action.label,
+              submitVariant: action.variant || "default",
+            },
+          },
+        }}
+        defaultFields={DEFAULT_FORM_FIELDS}
+        defaultStyleRules={{
+          ...DEFAULT_STYLE_RULES,
+          formContainer: cn(
+            DEFAULT_STYLE_RULES.formContainer,
+            newsletterFormClassName,
+          ),
+        }}
+      />
+    );
+  }, [formSlot, formEngineSetup, buttonAction, newsletterFormClassName]);
 
   return (
     <Section
@@ -386,47 +359,11 @@ export function FooterNewsletterMinimal({
             newsletterSectionClassName,
           )}
         >
-          {formConfig?.token && (
+          {formEngineSetup && (
             <div className="flex w-full max-w-md flex-col gap-10">
               <div className="space-y-1 text-sm font-light tracking-tight lg:text-base">
                 {newsletterLabel && <p>{newsletterLabel}</p>}
-                <Form
-                  form={form}
-                  action={formConfig?.endpoint}
-                  method={formMethod}
-                  className={cn(
-                    "flex w-full items-end border-b border-b-foreground/10",
-                    newsletterFormClassName,
-                  )}
-                >
-                  <Field name="email" className="flex-1">
-                    {({ field, meta }) => (
-                      <TextInput
-                        {...field}
-                        type="email"
-                        placeholder={newsletterPlaceholder}
-                        error={meta.touched && !!meta.error}
-                        className={cn(
-                          "mt-10 h-auto w-full rounded-none border-0 bg-transparent p-0 uppercase shadow-none placeholder:text-foreground/20 focus:outline-none focus:ring-0 lg:text-base",
-                          newsletterInputClassName,
-                        )}
-                        aria-label={newsletterPlaceholder || "Email address"}
-                      />
-                    )}
-                  </Field>
-                  <Pressable
-                    componentType="button"
-                    type="submit"
-                    className={cn(
-                      "p-2 hover:opacity-80",
-                      newsletterButtonClassName,
-                    )}
-                    asButton={false}
-                    disabled={form.isSubmitting}
-                  >
-                    <DynamicIcon name="lucide/arrow-right" size={20} />
-                  </Pressable>
-                </Form>
+                {renderForm}
               </div>
             </div>
           )}

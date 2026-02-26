@@ -1,12 +1,10 @@
 "use client";
 
 import * as React from "react";
-const { useMemo } = React;
-import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import {
   Sheet,
@@ -16,18 +14,37 @@ import {
   SheetTitle,
 } from "../../ui/sheet";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import {
-  isValidEmail,
-  PageSpeedFormSubmissionError,
-  submitPageSpeedForm,
-  type PageSpeedFormConfig,
-} from "../../../lib/forms";
 import type {
+  ActionConfig,
   ImageItem,
   LogoItem,
   OptixFlowConfig,
   SectionBackground,
 } from "../../../src/types";
+import {
+  FormEngine,
+  type FormEngineProps,
+  type FormEngineStyleRules,
+  type FormFieldConfig,
+} from "@page-speed/forms/integration";
+
+const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
+  formContainer: "flex items-stretch w-full",
+  fieldsContainer: "",
+  fieldClassName: "",
+  formClassName: "",
+};
+
+const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
+  {
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    placeholder: "Enter your email",
+    required: true,
+    columnSpan: 12,
+  },
+];
 
 export interface OfferModalSheetNewsletterProps {
   /**
@@ -54,14 +71,6 @@ export interface OfferModalSheetNewsletterProps {
    * Custom slot for rendering the image (overrides image prop)
    */
   imageSlot?: React.ReactNode;
-  /**
-   * Placeholder text for the email input
-   */
-  emailPlaceholder?: string;
-  /**
-   * Text/content for the submit button
-   */
-  buttonText?: React.ReactNode;
   /**
    * Terms of use link URL
    */
@@ -107,60 +116,6 @@ export interface OfferModalSheetNewsletterProps {
    */
   defaultOpen?: boolean;
   /**
-   * Optional custom submission handler for maximum flexibility.
-   *
-   * Use this when you need complete control over the submission logic,
-   * such as custom API calls, analytics tracking, or multi-step workflows.
-   *
-   * Can be used alone or in combination with `formConfig` for hybrid approaches.
-   *
-   * @example
-   * onSubmit={async (email) => {
-   *   await fetch("/api/subscribe", {
-   *     method: "POST",
-   *     body: JSON.stringify({ email, source: "offer-modal" })
-   *   });
-   * }}
-   */
-  onSubmit?: (email: string) => void | Promise<void>;
-  /**
-   * Optional form submission configuration.
-   *
-   * **Universal Usage**: Works with ANY REST API endpoint. Simply provide an `endpoint` URL
-   * and the form will submit to it in JSON format.
-   *
-   * @example
-   * // Works with any API
-   * formConfig={{ endpoint: "https://api.mysite.com/subscribe", format: "json" }}
-   *
-   * @example
-   * // With custom headers (e.g., authentication)
-   * formConfig={{
-   *   endpoint: "/api/newsletter",
-   *   headers: { "Authorization": "Bearer token123" }
-   * }}
-   *
-   * **Note**: The `apiKey`, `contactCategoryToken`, and other platform-specific fields
-   * are OPTIONAL and only needed when integrating with DashTrack's Rails backend.
-   * For generic REST APIs, just use `endpoint`, `method`, `format`, and `headers`.
-   *
-   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples with Next.js, React, and more.
-   */
-  formConfig?: PageSpeedFormConfig;
-  /**
-   * Optional success callback invoked after successful submission.
-   *
-   * Called after `formConfig` submission and/or `onSubmit` completes successfully.
-   * Use for showing success messages, redirecting, analytics tracking, etc.
-   */
-  onSuccess?: (data: unknown) => void;
-  /**
-   * Optional error callback invoked if submission fails.
-   *
-   * Receives the error object for custom error handling, logging, or user notifications.
-   */
-  onError?: (error: Error) => void;
-  /**
    * Additional CSS classes for the sheet content wrapper
    */
   className?: string;
@@ -189,14 +144,6 @@ export interface OfferModalSheetNewsletterProps {
    */
   formClassName?: string;
   /**
-   * Additional CSS classes for the email input
-   */
-  inputClassName?: string;
-  /**
-   * Additional CSS classes for the submit button
-   */
-  submitClassName?: string;
-  /**
    * Additional CSS classes for the legal text
    */
   legalClassName?: string;
@@ -217,6 +164,14 @@ export interface OfferModalSheetNewsletterProps {
    * @default "default"
    */
   background?: SectionBackground;
+  /**
+   * Full form engine setup and props
+   */
+  formEngineSetup?: FormEngineProps;
+  /**
+   * Submit button configuration
+   */
+  buttonAction?: ActionConfig;
 }
 
 /**
@@ -225,6 +180,9 @@ export interface OfferModalSheetNewsletterProps {
  * inputs, legal consent links, and a square aspect ratio promotional image. The sheet design
  * provides a more immersive experience while maintaining easy dismissal. Perfect for premium
  * brands, lifestyle products, or any site wanting a sophisticated newsletter capture experience.
+ *
+ * The newsletter form is powered by `FormEngine` from `@page-speed/forms/integration`,
+ * which handles validation, submission, error handling, and success states.
  *
  * @example
  * ```tsx
@@ -235,7 +193,9 @@ export interface OfferModalSheetNewsletterProps {
  *   image={{ src: "/promo.jpg", alt: "Promotional image" }}
  *   termsUrl="/terms"
  *   privacyUrl="/privacy"
- *   onSubmit={(email) => console.log('Subscribed:', email)}
+ *   formEngineSetup={{
+ *     formConfig: { endpoint: "/api/subscribe", format: "json" },
+ *   }}
  * />
  * ```
  */
@@ -246,8 +206,6 @@ export function OfferModalSheetNewsletter({
   description,
   image,
   imageSlot,
-  emailPlaceholder,
-  buttonText,
   termsUrl,
   termsText,
   privacyUrl,
@@ -259,10 +217,6 @@ export function OfferModalSheetNewsletter({
   open,
   onOpenChange,
   defaultOpen = true,
-  onSubmit,
-  formConfig,
-  onSuccess,
-  onError,
   className,
   contentClassName,
   headerClassName,
@@ -270,68 +224,18 @@ export function OfferModalSheetNewsletter({
   titleClassName,
   descriptionClassName,
   formClassName,
-  inputClassName,
-  submitClassName,
   legalClassName,
   imageWrapperClassName,
   imageClassName,
   optixFlowConfig,
   background = "default",
+  formEngineSetup,
+  buttonAction,
 }: OfferModalSheetNewsletterProps): React.JSX.Element {
-  const form = useForm<{ email: string }>({
-    initialValues: {
-      email: "",
-    },
-    validationSchema: {
-      email: (value) => {
-        if (!value) return "Please enter an email address";
-        if (!isValidEmail(value)) {
-          return "Please enter a valid email address";
-        }
-        return undefined;
-      },
-    },
-    onSubmit: async (values, helpers) => {
-      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
-
-      if (!shouldAutoSubmit && !onSubmit) {
-        return;
-      }
-
-      try {
-        let result: unknown;
-
-        if (shouldAutoSubmit) {
-          result = await submitPageSpeedForm(values, formConfig);
-        }
-
-        if (onSubmit) {
-          await onSubmit(values.email);
-        }
-
-        if (shouldAutoSubmit || onSubmit) {
-          if (formConfig?.resetOnSuccess !== false) {
-            helpers.resetForm();
-          }
-          onSuccess?.(result);
-        }
-      } catch (error) {
-        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
-          helpers.setErrors(error.formErrors);
-        }
-        onError?.(error as Error);
-        throw error;
-      }
-    },
-  });
-
-  const formMethod =
-    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
-
   const sheetProps =
     open !== undefined ? { open, onOpenChange } : { defaultOpen };
 
-  const renderLogo = useMemo(() => {
+  const renderLogo = React.useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -347,7 +251,7 @@ export function OfferModalSheetNewsletter({
     );
   }, [logoSlot, logo, logoClassName, optixFlowConfig]);
 
-  const renderHeader = useMemo(() => {
+  const renderHeader = React.useMemo(() => {
     if (headerSlot) return headerSlot;
 
     return (
@@ -384,71 +288,43 @@ export function OfferModalSheetNewsletter({
     descriptionClassName,
   ]);
 
-  const renderForm = useMemo(() => {
+  const renderForm = React.useMemo(() => {
     if (formSlot) return formSlot;
+    if (!formEngineSetup) return null;
+
+    const defaultButtonAction: ActionConfig = {
+      label: "",
+      variant: "default",
+      icon: <DynamicIcon name="lucide/arrow-right" size={16} />,
+    };
+
+    const action = buttonAction || defaultButtonAction;
 
     return (
-      <Form
-        form={form}
-        action={formConfig?.endpoint}
-        method={formMethod}
-        className={formClassName}
-      >
-        <div className="flex items-start gap-3 max-sm:flex-col">
-          <Field name="email" className="w-full flex-1">
-            {({ field, meta }) => (
-              <div className="w-full">
-                <TextInput
-                  {...field}
-                  type="email"
-                  className={cn(
-                    "h-10 w-full rounded-full px-6",
-                    inputClassName,
-                  )}
-                  placeholder={emailPlaceholder}
-                  error={
-                    (meta.touched || form.status === "error") && !!meta.error
-                  }
-                  aria-label={emailPlaceholder || "Email address"}
-                />
-                {(meta.touched || form.status === "error") && meta.error && (
-                  <div className="text-destructive mt-1 text-xs">
-                    {meta.error}
-                  </div>
-                )}
-              </div>
-            )}
-          </Field>
-          <Pressable
-            size="lg"
-            variant="default"
-            className={cn(
-              "sm:basis-30 rounded-full max-sm:w-full",
-              submitClassName,
-            )}
-            asButton
-            componentType="button"
-            type="submit"
-            disabled={form.isSubmitting}
-          >
-            {buttonText}
-          </Pressable>
-        </div>
-      </Form>
+      <FormEngine
+        formEngineSetup={{
+          ...formEngineSetup,
+          formLayoutSettings: {
+            ...formEngineSetup.formLayoutSettings,
+            formLayout: "button-group",
+            buttonGroupSetup: {
+              ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
+              size: "default",
+              submitLabel: action.icon || action.label,
+              submitVariant: action.variant || "default",
+            },
+          },
+        }}
+        defaultFields={DEFAULT_FORM_FIELDS}
+        defaultStyleRules={{
+          ...DEFAULT_STYLE_RULES,
+          formContainer: cn(DEFAULT_STYLE_RULES.formContainer, formClassName),
+        }}
+      />
     );
-  }, [
-    formSlot,
-    form,
-    formConfig,
-    formMethod,
-    emailPlaceholder,
-    inputClassName,
-    submitClassName,
-    buttonText,
-    formClassName,
-  ]);
+  }, [formSlot, formEngineSetup, buttonAction, formClassName]);
 
-  const renderLegal = useMemo(() => {
+  const renderLegal = React.useMemo(() => {
     if (legalSlot) return legalSlot;
     if (!termsUrl || !termsText || !privacyUrl || !privacyText) return null;
 
@@ -467,7 +343,7 @@ export function OfferModalSheetNewsletter({
     );
   }, [legalSlot, termsUrl, termsText, privacyUrl, privacyText, legalClassName]);
 
-  const renderImage = useMemo(() => {
+  const renderImage = React.useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
