@@ -36,6 +36,14 @@ export interface ArticleSidebarStickyProps {
    */
   titleClassName?: string;
   /**
+   * Optional Summary to be placed below the title
+   */
+  summary?: React.ReactNode;
+  /**
+   * Additional CSS classes for the summary
+   */
+  summaryClassName?: string;
+  /**
    * Additional CSS classes for the author info
    */
   authorClassName?: string;
@@ -104,6 +112,10 @@ export interface ArticleSidebarStickyProps {
    */
   children?: React.ReactNode;
   /**
+   * Sidebar content
+   */
+  sidebarContent?: React.ReactNode;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -127,7 +139,7 @@ export interface ArticleSidebarStickyProps {
 
 export function ArticleSidebarStickyComponent({
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   sidebarClassName,
   articleClassName,
   titleClassName,
@@ -139,6 +151,8 @@ export function ArticleSidebarStickyComponent({
   backIcon,
   backLinkSlot,
   title,
+  summary,
+  summaryClassName,
   authorName,
   authorImage,
   authorHref,
@@ -153,6 +167,7 @@ export function ArticleSidebarStickyComponent({
   spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
+  sidebarContent,
 }: ArticleSidebarStickyProps) {
   const backLinkContent = React.useMemo(() => {
     if (backLinkSlot) return backLinkSlot;
@@ -222,7 +237,7 @@ export function ArticleSidebarStickyComponent({
         src={heroImageSrc}
         alt={heroImageAlt}
         className={cn(
-          "my-8 aspect-video w-full rounded-lg object-cover",
+          "my-8 aspect-video w-full rounded-xl object-cover shadow-lg",
           heroImageClassName,
         )}
         optixFlowConfig={optixFlowConfig}
@@ -242,14 +257,16 @@ export function ArticleSidebarStickyComponent({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      className={cn(pattern && "overflow-visible", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="grid gap-10 lg:grid-cols-[1fr_minmax(0,2fr)]">
           <aside className={cn("hidden lg:block", sidebarClassName)}>
             <div className="sticky top-8 space-y-6">
               {backLinkContent}
               <div className="space-y-4">{renderAuthor(false)}</div>
+              {sidebarContent ? sidebarContent : null}
             </div>
           </aside>
           <article
@@ -259,20 +276,35 @@ export function ArticleSidebarStickyComponent({
             )}
           >
             <div className="mb-8 lg:hidden">{backLinkContent}</div>
-            {title &&
-              (typeof title === "string" ? (
-                <h1
-                  className={cn(
-                    "text-4xl font-bold tracking-tight md:text-5xl",
-                    titleClassName,
-                  )}
-                >
-                  {title}
-                </h1>
-              ) : (
-                <div className={titleClassName}>{title}</div>
-              ))}
+            <div className="space-y-2 mb-4 md:mb-8">
+              {title &&
+                (typeof title === "string" ? (
+                  <h1
+                    className={cn(
+                      "text-4xl font-bold tracking-tight md:text-5xl",
+                      titleClassName,
+                    )}
+                  >
+                    {title}
+                  </h1>
+                ) : (
+                  title
+                ))}
+
+              {summary &&
+                (typeof summary === "string" ? (
+                  <div className={cn("text-lg font-normal", summaryClassName)}>
+                    {title}
+                  </div>
+                ) : (
+                  summary
+                ))}
+            </div>
+
             <div className="not-prose mt-4 lg:hidden">{renderAuthor(true)}</div>
+            {sidebarContent ? (
+              <div className="not-prose mt-4 lg:hidden">{sidebarContent}</div>
+            ) : null}
             {heroMediaContent}
             {children}
           </article>

@@ -2,12 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-  getTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -192,7 +187,7 @@ export function FeatureCardGridLinked({
           <Img
             src={feature.image}
             alt={imageAlt}
-            className="h-full w-full rounded-t-lg object-cover transition-opacity hover:opacity-80"
+            className="h-full w-full rounded-tr-lg object-cover transition-opacity hover:opacity-80"
             loading="lazy"
             optixFlowConfig={optixFlowConfig}
           />
@@ -220,8 +215,7 @@ export function FeatureCardGridLinked({
           key={featureKey}
           className={cn(
             "flex flex-col justify-between rounded-lg border",
-            getNestedCardBg(background),
-            getNestedCardTextColor(background),
+            "bg-muted text-muted-foreground",
             cardClassName,
             feature.className,
           )}
@@ -250,32 +244,19 @@ export function FeatureCardGridLinked({
                       {feature.heading}
                     </h3>
                   ) : (
-                    <div
-                      className={cn(
-                        "text-lg md:text-xl transition-all hover:opacity-80 lg:text-2xl font-semibold leading-snug ",
-                        feature.headingClassName,
-                      )}
-                    >
-                      {feature.heading}
-                    </div>
+                    feature.heading
                   )}
                 </Pressable>
               )}
             </div>
-            <div className="md:1/3 w-2/5 shrink-0 rounded-r-lg border-l">
+            <div className="md:1/3 w-2/5 shrink-0 border-l">
               <Pressable href={feature.url}>
                 {renderImage(feature, imageAlt)}
               </Pressable>
             </div>
           </div>
           {feature.description && (
-            <p
-              className={cn(
-                "p-4 md:p-8",
-                getTextColor(background, "muted"),
-                feature.descriptionClassName,
-              )}
-            >
+            <p className={cn("p-4 md:p-8", feature.descriptionClassName)}>
               {feature.description}
             </p>
           )}
@@ -301,14 +282,14 @@ export function FeatureCardGridLinked({
               (typeof title === "string" ? (
                 <h2
                   className={cn(
-                    "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl text-balance",
+                    "text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl text-balance",
                     titleClassName,
                   )}
                 >
                   {title}
                 </h2>
               ) : (
-                <div className={titleClassName}>{title}</div>
+                title
               ))}
             {description &&
               (typeof description === "string" ? (
@@ -318,11 +299,7 @@ export function FeatureCardGridLinked({
                   {description}
                 </p>
               ) : (
-                <div
-                  className={cn("max-w-lg text-balance", descriptionClassName)}
-                >
-                  {description}
-                </div>
+                description
               ))}
           </div>
         ) : null}

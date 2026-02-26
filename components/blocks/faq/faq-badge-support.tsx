@@ -295,18 +295,17 @@ export function FaqBadgeSupport({
       <div className="space-y-8 md:space-y-16">
         <div
           className={cn(
-            "mx-auto flex max-w-full md:max-w-3xl flex-col text-left md:text-center",
-            headerClassName,
+            "mx-auto flex max-w-full md:max-w-3xl flex-col items-center text-center gap-4",
           )}
         >
           {badge && (
-            <Badge className={cn("px-2", badgeClassName)}>{badge}</Badge>
+            <Badge className={cn("px-3 py-1", badgeClassName)}>{badge}</Badge>
           )}
 
           <ContentGroup
             items={contentItems}
             className={cn(
-              "flex flex-col gap-2 text-left md:text-center items-start",
+              "flex flex-col gap-2 text-center items-center",
               headerClassName,
             )}
           />

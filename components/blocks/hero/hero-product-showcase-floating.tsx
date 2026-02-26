@@ -179,7 +179,7 @@ export function HeroProductShowcaseFloating({
   patternOpacity,
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "xl",
+  spacing = "hero",
   contentClassName,
   headingClassName,
   headerClassName,
@@ -191,7 +191,7 @@ export function HeroProductShowcaseFloating({
     if (badgeSlot) return badgeSlot;
 
     return (
-      <Badge className={cn("px-2")}>
+      <Badge className="px-3 py-1">
         {badgeIcon && <DynamicIcon name={badgeIcon} size={16} />}
         {badgeText && <span>{badgeText}</span>}
       </Badge>
@@ -207,7 +207,7 @@ export function HeroProductShowcaseFloating({
         <div className="flex items-center gap-3">
           {floatingStat.icon && (
             <div className="flex shrink-0 size-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
-              <DynamicIcon name={floatingStat.icon} />
+              <DynamicIcon name={floatingStat.icon} size={16} />
             </div>
           )}
           <div className="text-sm">
@@ -292,7 +292,8 @@ export function HeroProductShowcaseFloating({
           _type: "text",
           as: "h2",
           className: cn(
-            "text-2xl font-semibold md:text-3xl lg:text-4xl",
+            "text-3xl md:text-4xl lg:text-5xl",
+            "font-semibold text-balance",
             headingClassName,
           ),
           children: heading,
@@ -307,7 +308,10 @@ export function HeroProductShowcaseFloating({
         items.push({
           _type: "text",
           as: "p",
-          className: cn("text-lg opacity-70", descriptionClassName),
+          className: cn(
+            "text-lg opacity-70 text-pretty md:text-balance",
+            descriptionClassName,
+          ),
           children: description,
         });
       } else {
@@ -330,15 +334,17 @@ export function HeroProductShowcaseFloating({
       <div className="relative">
         <div className="grid items-center gap-12 grid-cols-1 md:grid-cols-2 lg:gap-20">
           {renderProductShowcase}
-          <div className={cn("flex flex-col gap-8 order-2", contentClassName)}>
+          <div
+            className={cn(
+              "flex flex-col gap-8 order-2 mt-8 md:mt-0",
+              contentClassName,
+            )}
+          >
             {renderBadge}
 
             <ContentGroup
               items={contentItems}
-              className={cn(
-                "text-left text-balance space-y-0 md:space-y-2",
-                headerClassName,
-              )}
+              className={cn("text-left space-y-2", headerClassName)}
             />
 
             <BlockActions

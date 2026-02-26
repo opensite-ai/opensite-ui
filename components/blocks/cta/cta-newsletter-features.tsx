@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -305,7 +305,15 @@ export function CtaNewsletterFeatures({
         </Pressable>
       </Form>
     );
-  }, [formSlot, form, formConfig?.endpoint, formMethod, formClassName, emailPlaceholder, buttonText]);
+  }, [
+    formSlot,
+    form,
+    formConfig?.endpoint,
+    formMethod,
+    formClassName,
+    emailPlaceholder,
+    buttonText,
+  ]);
 
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
@@ -348,17 +356,16 @@ export function CtaNewsletterFeatures({
     >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-2xl text-center", contentClassName)}>
-          {badge && (
-            typeof badge === "string" ? (
+          {badge &&
+            (typeof badge === "string" ? (
               <Badge variant="secondary" className={cn("mb-4", badgeClassName)}>
                 {badge}
               </Badge>
             ) : (
               <div className={cn("mb-4", badgeClassName)}>{badge}</div>
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
               <h2
                 className={cn(
                   "mb-4 text-3xl font-bold md:text-4xl",
@@ -369,10 +376,9 @@ export function CtaNewsletterFeatures({
               </h2>
             ) : (
               <div className={cn("mb-4", headingClassName)}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
+            ))}
+          {description &&
+            (typeof description === "string" ? (
               <p
                 className={cn(
                   "mb-8 text-lg text-muted-foreground",
@@ -382,9 +388,10 @@ export function CtaNewsletterFeatures({
                 {description}
               </p>
             ) : (
-              <div className={cn("mb-8", descriptionClassName)}>{description}</div>
-            )
-          )}
+              <div className={cn("mb-8", descriptionClassName)}>
+                {description}
+              </div>
+            ))}
           {formContent}
           {featuresContent}
         </div>

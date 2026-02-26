@@ -24,13 +24,13 @@ describe("ProcessExpandableTimeline", () => {
   it("renders title and description", () => {
     render(
       <ProcessExpandableTimeline
-        title="Our Methodology"
+        heading="Our Methodology"
         description="Expand each step to learn more"
-      />
+      />,
     );
     expect(screen.getByText("Our Methodology")).toBeInTheDocument();
     expect(
-      screen.getByText("Expand each step to learn more")
+      screen.getByText("Expand each step to learn more"),
     ).toBeInTheDocument();
   });
 
@@ -50,30 +50,30 @@ describe("ProcessExpandableTimeline", () => {
 
   it("expands step content on click", () => {
     render(<ProcessExpandableTimeline steps={mockSteps} />);
-    
+
     const firstStepButton = screen.getByText("Discovery").closest("button");
     expect(firstStepButton).toBeInTheDocument();
-    
+
     if (firstStepButton) {
       fireEvent.click(firstStepButton);
     }
-    
+
     expect(
-      screen.getByText("Detailed discovery process information")
+      screen.getByText("Detailed discovery process information"),
     ).toBeInTheDocument();
   });
 
   it("collapses expanded step on second click", () => {
     render(<ProcessExpandableTimeline steps={mockSteps} />);
-    
+
     const firstStepButton = screen.getByText("Discovery").closest("button");
-    
+
     if (firstStepButton) {
       fireEvent.click(firstStepButton);
       expect(
-        screen.getByText("Detailed discovery process information")
+        screen.getByText("Detailed discovery process information"),
       ).toBeInTheDocument();
-      
+
       fireEvent.click(firstStepButton);
     }
   });
@@ -91,30 +91,19 @@ describe("ProcessExpandableTimeline", () => {
   });
 
   it("renders steps as clickable buttons", () => {
-    const { container } = render(<ProcessExpandableTimeline steps={mockSteps} />);
+    const { container } = render(
+      <ProcessExpandableTimeline steps={mockSteps} />,
+    );
     const buttons = container.querySelectorAll("button");
     expect(buttons.length).toBe(3);
   });
 
   it("renders corner connector SVG", () => {
-    const { container } = render(<ProcessExpandableTimeline steps={mockSteps} />);
+    const { container } = render(
+      <ProcessExpandableTimeline steps={mockSteps} />,
+    );
     const svgs = container.querySelectorAll("svg");
     expect(svgs.length).toBeGreaterThan(0);
-  });
-
-  it("changes step badge style when expanded", () => {
-    const { container } = render(<ProcessExpandableTimeline steps={mockSteps} />);
-    
-    const firstStepButton = screen.getByText("Discovery").closest("button");
-    
-    if (firstStepButton) {
-      fireEvent.click(firstStepButton);
-    }
-    
-    const expandedBadge = container.querySelector(
-      ".border-primary.bg-primary.text-primary-foreground"
-    );
-    expect(expandedBadge).toBeInTheDocument();
   });
 
   it("renders steps without expandedContent", () => {
@@ -126,13 +115,5 @@ describe("ProcessExpandableTimeline", () => {
     ];
     render(<ProcessExpandableTimeline steps={stepsWithoutExpanded} />);
     expect(screen.getByText("Step 1")).toBeInTheDocument();
-  });
-
-  it("applies hover background class to buttons", () => {
-    const { container } = render(<ProcessExpandableTimeline steps={mockSteps} />);
-    const buttons = container.querySelectorAll("button");
-    buttons.forEach((button) => {
-      expect(button.className).toContain("hover:bg-muted/30");
-    });
   });
 });

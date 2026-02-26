@@ -3,9 +3,8 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -110,9 +109,9 @@ export interface ProcessHoverCardsProps {
    */
   optixFlowConfig?: OptixFlowConfig;
   /**
-   * @deprecated Use `heading` instead
+   * Additional CSS classes for the container
    */
-  title?: string;
+  containerClassName?: string;
 }
 
 interface ProcessCardProps {
@@ -121,7 +120,6 @@ interface ProcessCardProps {
   optixFlowConfig?: OptixFlowConfig;
   itemClassName?: string;
   hoverImageClassName?: string;
-  background?: SectionBackground;
 }
 
 const ProcessCard = ({
@@ -130,7 +128,6 @@ const ProcessCard = ({
   optixFlowConfig,
   itemClassName,
   hoverImageClassName,
-  background,
 }: ProcessCardProps) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
@@ -140,7 +137,8 @@ const ProcessCard = ({
   return (
     <li
       className={cn(
-        "group relative flex flex-col justify-between gap-12 border-b py-8 lg:py-16",
+        "group relative flex flex-col justify-between gap-12 border-b-0 md:border-b py-8 lg:py-16",
+        "process-hover-cards",
         itemClassName,
         step.className,
       )}
@@ -155,7 +153,11 @@ const ProcessCard = ({
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3 }}
             className={cn(
-              "pointer-events-none absolute top-1/2 right-10 z-10 hidden h-60 w-80 -translate-y-1/2 overflow-hidden lg:block",
+              "pointer-events-none absolute top-1/2 right-0",
+              "z-10 hidden h-60 w-80 -translate-y-1/2",
+              "overflow-hidden lg:block",
+              "rounded-xl shadow-lg",
+              "ring-2 ring-primary",
               hoverImageClassName,
             )}
           >
@@ -168,29 +170,44 @@ const ProcessCard = ({
           </motion.div>
         )}
       </AnimatePresence>
+      {step.image && (
+        <Img
+          src={step.image}
+          alt={titleText}
+          className="mb-4 md:mb-0 md:hidden h-full w-full object-cover aspect-square rounded-xl shadow-lg ring-2 ring-primary"
+          optixFlowConfig={optixFlowConfig}
+        />
+      )}
       <div className="flex items-start justify-between gap-8">
-        <div className="flex items-center gap-8">
-          <div className={cn("flex w-fit items-center justify-center font-mono text-sm tracking-tighter", getTextColor(background, 'muted'))}>
+        <div className="flex items-start md:items-center gap-4 md:gap-8">
+          <div
+            className={cn(
+              "flex w-fit items-center justify-center text-base font-bold tracking-tighter mt-1.5 md:mt-0",
+            )}
+          >
             {step.step ?? `0${index + 1}`}
           </div>
           <div>
             {step.title &&
               (typeof step.title === "string" ? (
-                <h3 className={cn("mb-2 text-2xl font-semibold tracking-tighter transition-colors lg:text-3xl", `group-hover:${getAccentColor(background)}`)}>
+                <h3
+                  className={cn(
+                    "mb-2 text-2xl font-semibold tracking-tighter transition-opacity opacity-90 lg:text-3xl",
+                    `group-hover:opacity-100`,
+                  )}
+                >
                   {step.title}
                 </h3>
               ) : (
-                <div className="mb-2">{step.title}</div>
+                step.title
               ))}
             {step.description &&
               (typeof step.description === "string" ? (
-                <p className={cn("max-w-md", getTextColor(background, 'muted'))}>
+                <p className={cn("max-w-md text-pretty text-lg")}>
                   {step.description}
                 </p>
               ) : (
-                <div className={cn("max-w-md", getTextColor(background, 'muted'))}>
-                  {step.description}
-                </div>
+                step.description
               ))}
           </div>
         </div>
@@ -216,16 +233,12 @@ export function ProcessHoverCards({
   stepItemClassName,
   hoverImageClassName,
   background,
-  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
-  // Backwards compatibility
-  title,
+  spacing = "xl",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessHoverCardsProps): React.JSX.Element {
-  // Handle backwards compatibility
-  const resolvedHeading = title ?? heading;
-
   const renderSteps = useMemo(() => {
     if (stepsSlot) return stepsSlot;
     if (!steps?.length) return null;
@@ -240,12 +253,18 @@ export function ProcessHoverCards({
             optixFlowConfig={optixFlowConfig}
             itemClassName={stepItemClassName}
             hoverImageClassName={hoverImageClassName}
-            background={background}
           />
         ))}
       </ul>
     );
-  }, [stepsSlot, steps, stepsClassName, stepItemClassName, hoverImageClassName, optixFlowConfig]);
+  }, [
+    stepsSlot,
+    steps,
+    stepsClassName,
+    stepItemClassName,
+    hoverImageClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -254,35 +273,35 @@ export function ProcessHoverCards({
       className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
       <div className={contentClassName}>
-        <div className={cn("mb-16 max-w-2xl", headerClassName)}>
-          {resolvedHeading &&
-            (typeof resolvedHeading === "string" ? (
-              <h1
+        <div className={cn("mb-16 max-w-2xl space-y-2", headerClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
                 className={cn(
-                  "mb-4 text-5xl font-semibold tracking-tight lg:text-7xl",
+                  "text-4xl font-semibold tracking-tight lg:text-5xl text-balance",
                   headingClassName,
                 )}
               >
-                {resolvedHeading}
-              </h1>
+                {heading}
+              </h2>
             ) : (
-              <div className={headingClassName}>{resolvedHeading}</div>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-lg",
-                  getTextColor(background, 'muted'),
+                  "text-lg opacity-75 text-balance",
                   descriptionClassName,
                 )}
               >
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
         </div>
         {renderSteps}

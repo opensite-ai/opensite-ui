@@ -17,16 +17,17 @@ import {
 } from "../../ui/sheet";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import {
-  logoPlaceholders,
-  imagePlaceholders,
-} from "../../../lib/mediaPlaceholders";
-import {
   isValidEmail,
   PageSpeedFormSubmissionError,
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
-import type { ImageItem, LogoItem, OptixFlowConfig, SectionBackground } from "../../../src/types";
+import type {
+  ImageItem,
+  LogoItem,
+  OptixFlowConfig,
+  SectionBackground,
+} from "../../../src/types";
 
 export interface OfferModalSheetNewsletterProps {
   /**
@@ -315,10 +316,7 @@ export function OfferModalSheetNewsletter({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -330,9 +328,8 @@ export function OfferModalSheetNewsletter({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  const sheetProps = open !== undefined
-    ? { open, onOpenChange }
-    : { defaultOpen };
+  const sheetProps =
+    open !== undefined ? { open, onOpenChange } : { defaultOpen };
 
   const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
@@ -358,19 +355,34 @@ export function OfferModalSheetNewsletter({
         {renderLogo}
         <div className="space-y-4">
           {title && (
-            <SheetTitle className={cn("text-2xl font-medium leading-tight md:text-3xl lg:text-4xl", titleClassName)}>
+            <SheetTitle
+              className={cn(
+                "text-2xl font-medium leading-tight md:text-3xl lg:text-4xl",
+                titleClassName,
+              )}
+            >
               {title}
             </SheetTitle>
           )}
           {description && (
-            <SheetDescription className={cn("text-xl leading-tight", descriptionClassName)}>
+            <SheetDescription
+              className={cn("text-xl leading-tight", descriptionClassName)}
+            >
               {description}
             </SheetDescription>
           )}
         </div>
       </SheetHeader>
     );
-  }, [headerSlot, renderLogo, headerClassName, title, titleClassName, description, descriptionClassName]);
+  }, [
+    headerSlot,
+    renderLogo,
+    headerClassName,
+    title,
+    titleClassName,
+    description,
+    descriptionClassName,
+  ]);
 
   const renderForm = useMemo(() => {
     if (formSlot) return formSlot;
@@ -383,21 +395,23 @@ export function OfferModalSheetNewsletter({
         className={formClassName}
       >
         <div className="flex items-start gap-3 max-sm:flex-col">
-          <Field
-            name="email"
-            className="w-full flex-1"
-          >
+          <Field name="email" className="w-full flex-1">
             {({ field, meta }) => (
               <div className="w-full">
                 <TextInput
                   {...field}
                   type="email"
-                  className={cn("h-10 w-full rounded-full px-6", inputClassName)}
+                  className={cn(
+                    "h-10 w-full rounded-full px-6",
+                    inputClassName,
+                  )}
                   placeholder={emailPlaceholder}
-                  error={(meta.touched || form.status === 'error') && !!meta.error}
+                  error={
+                    (meta.touched || form.status === "error") && !!meta.error
+                  }
                   aria-label={emailPlaceholder || "Email address"}
                 />
-                {(meta.touched || form.status === 'error') && meta.error && (
+                {(meta.touched || form.status === "error") && meta.error && (
                   <div className="text-destructive mt-1 text-xs">
                     {meta.error}
                   </div>
@@ -408,7 +422,10 @@ export function OfferModalSheetNewsletter({
           <Pressable
             size="lg"
             variant="default"
-            className={cn("sm:basis-30 rounded-full max-sm:w-full", submitClassName)}
+            className={cn(
+              "sm:basis-30 rounded-full max-sm:w-full",
+              submitClassName,
+            )}
             asButton
             componentType="button"
             type="submit"
@@ -419,7 +436,17 @@ export function OfferModalSheetNewsletter({
         </div>
       </Form>
     );
-  }, [formSlot, form, formConfig, formMethod, emailPlaceholder, inputClassName, submitClassName, buttonText, formClassName]);
+  }, [
+    formSlot,
+    form,
+    formConfig,
+    formMethod,
+    emailPlaceholder,
+    inputClassName,
+    submitClassName,
+    buttonText,
+    formClassName,
+  ]);
 
   const renderLegal = useMemo(() => {
     if (legalSlot) return legalSlot;
@@ -450,20 +477,29 @@ export function OfferModalSheetNewsletter({
           <Img
             src={image.src}
             alt={image.alt}
-            className={cn("block size-full object-cover object-center", imageClassName)}
+            className={cn(
+              "block size-full object-cover object-center",
+              imageClassName,
+            )}
             optixFlowConfig={optixFlowConfig}
           />
         </AspectRatio>
       </div>
     );
-  }, [imageSlot, image, imageWrapperClassName, imageClassName, optixFlowConfig]);
+  }, [
+    imageSlot,
+    image,
+    imageWrapperClassName,
+    imageClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Sheet {...sheetProps}>
       <SheetContent
         className={cn(
           "md:max-w-[600px] w-full max-md:max-w-[calc(100dvw-2.5rem)]! [&>button:hover>svg]:rotate-180 [&>button>svg]:size-5 [&>button>svg]:transition-all",
-          className
+          className,
         )}
       >
         <Section background={background} spacing="none">

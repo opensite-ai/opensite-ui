@@ -60,7 +60,14 @@ export type SectionBackground =
  * @example "py-8 md:py-16" // custom spacing classes
  * @example "pt-4 pb-12 lg:pt-8 lg:pb-24" // asymmetric top/bottom spacing
  */
-export type SectionSpacing = "none" | "sm" | "md" | "lg" | "xl" | (string & {});
+export type SectionSpacing =
+  | "none"
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | "hero"
+  | (string & {});
 
 /**
  * Size variants for AnimatedDialog component
@@ -435,7 +442,10 @@ export interface MediaHoverCtasProps {
 /**
  * About Block Prop Types - Re-exported from component files
  */
-export type { AboutSplitHeroProps, DirectionConfig } from "../../components/blocks/about/about-split-hero";
+export type {
+  AboutSplitHeroProps,
+  DirectionConfig,
+} from "../../components/blocks/about/about-split-hero";
 export type { AboutMissionPrinciplesProps } from "../../components/blocks/about/about-mission-principles";
 export type { AboutExpandableValuesProps } from "../../components/blocks/about/about-expandable-values";
 export type { CommunityInitiativesProps } from "../../components/blocks/about/community-initiatives";

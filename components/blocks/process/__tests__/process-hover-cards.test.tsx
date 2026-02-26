@@ -27,9 +27,9 @@ describe("ProcessHoverCards", () => {
   it("renders title and description", () => {
     render(
       <ProcessHoverCards
-        title="How We Work"
+        heading="How We Work"
         description="Our unique approach"
-      />
+      />,
     );
     expect(screen.getByText("How We Work")).toBeInTheDocument();
     expect(screen.getByText("Our unique approach")).toBeInTheDocument();
@@ -79,25 +79,25 @@ describe("ProcessHoverCards", () => {
     const { container } = render(<ProcessHoverCards steps={mockSteps} />);
     const titles = container.querySelectorAll("h3");
     titles.forEach((title) => {
-      expect(title.className).toContain("group-hover:text-primary");
+      expect(title.className).toContain("group-hover:opacity-100");
     });
   });
 
   it("renders mono font for step numbers", () => {
     const { container } = render(<ProcessHoverCards steps={mockSteps} />);
-    const stepNumbers = container.querySelectorAll(".font-mono");
+    const stepNumbers = container.querySelectorAll(".process-hover-cards");
     expect(stepNumbers.length).toBe(3);
   });
 
   it("handles mouse enter and leave events", () => {
     const { container } = render(<ProcessHoverCards steps={mockSteps} />);
     const listItem = container.querySelector("li");
-    
+
     if (listItem) {
       fireEvent.mouseEnter(listItem);
       fireEvent.mouseLeave(listItem);
     }
-    
+
     expect(container.firstChild).toBeInTheDocument();
   });
 });

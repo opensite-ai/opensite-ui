@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor, getBorderColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -113,9 +113,9 @@ export interface ProcessExpandableTimelineProps {
    */
   optixFlowConfig?: OptixFlowConfig;
   /**
-   * @deprecated Use `heading` instead
+   * Additional CSS classes for the container
    */
-  title?: string;
+  containerClassName?: string;
 }
 
 const CornerConnector = ({ className }: { className?: string }) => (
@@ -165,16 +165,12 @@ export function ProcessExpandableTimeline({
   stepBadgeClassName,
   expandedContentClassName,
   background,
-  spacing,
   pattern,
   patternOpacity,
-  // Backwards compatibility
-  title,
+  spacing = "xl",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessExpandableTimelineProps): React.JSX.Element {
   const [expandedIndex, setExpandedIndex] = React.useState<number | null>(null);
-
-  // Handle backwards compatibility
-  const resolvedHeading = title ?? heading;
 
   const toggleExpand = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
@@ -191,18 +187,23 @@ export function ProcessExpandableTimeline({
             <button
               onClick={() => toggleExpand(index)}
               className={cn(
-                "group relative flex w-full items-start gap-6 border-b py-6 pl-16 text-left transition-colors",
-                `hover:${getNestedCardBg(background, 'muted')}/30`,
+                "group relative flex w-full items-start gap-6 border-b p-6 text-left transition-colors",
+                `hover:bg-card hover:text-card-foreground`,
                 stepItemClassName,
               )}
             >
+              <CornerConnector
+                className={cn("absolute right-4 top-4", "opacity-30")}
+              />
+
               <div
                 className={cn(
-                  "absolute left-0 flex size-12 items-center justify-center rounded-full border-2 transition-colors",
-                  getNestedCardBg(background, 'card'),
+                  "shrink-0 flex size-12 items-center justify-center rounded-full border-2 transition-colors",
                   expandedIndex === index
-                    ? cn(getBorderColor(background, 'accent'), "bg-primary text-primary-foreground")
-                    : cn(getBorderColor(background, 'default'), getTextColor(background, 'muted'), `group-hover:${getBorderColor(background, 'accent')}`),
+                    ? cn("bg-primary text-primary-foreground")
+                    : cn(
+                        `group-hover:bg-primary group-hover:text-primary-foreground`,
+                      ),
                   stepBadgeClassName,
                 )}
               >
@@ -211,19 +212,19 @@ export function ProcessExpandableTimeline({
                 </span>
               </div>
 
-              <CornerConnector className={cn("absolute right-4 top-4", getTextColor(background, 'muted'), "opacity-30")} />
-
-              <div className="flex-1 pr-12">
+              <div className="flex-1 pr-8 md:pr-12">
                 <div className="flex items-center gap-2">
                   {step.title &&
                     (typeof step.title === "string" ? (
-                      <h3 className={cn("text-xl font-semibold tracking-tight transition-colors", `group-hover:${getAccentColor(background)}`)}>
+                      <h3
+                        className={cn(
+                          "text-xl font-semibold tracking-tight transition-colors",
+                        )}
+                      >
                         {step.title}
                       </h3>
                     ) : (
-                      <div className={cn("text-xl font-semibold tracking-tight transition-colors", `group-hover:${getAccentColor(background)}`)}>
-                        {step.title}
-                      </div>
+                      step.title
                     ))}
                   <DynamicIcon
                     name={
@@ -232,18 +233,13 @@ export function ProcessExpandableTimeline({
                         : "lucide/chevron-down"
                     }
                     size={20}
-                    className={getTextColor(background, 'muted')}
                   />
                 </div>
                 {step.description &&
                   (typeof step.description === "string" ? (
-                    <p className={cn("mt-1", getTextColor(background, 'muted'))}>
-                      {step.description}
-                    </p>
+                    <p className="text-lg">{step.description}</p>
                   ) : (
-                    <div className={cn("mt-1", getTextColor(background, 'muted'))}>
-                      {step.description}
-                    </div>
+                    step.description
                   ))}
               </div>
             </button>
@@ -259,20 +255,15 @@ export function ProcessExpandableTimeline({
                 >
                   <div
                     className={cn(
-                      "border-b py-6 pl-16 pr-6",
-                      getNestedCardBg(background, 'muted'),
-                      getNestedCardTextColor(background),
+                      "border-b p-6",
+                      "bg-card text-bg-foreground",
                       expandedContentClassName,
                     )}
                   >
                     {typeof step.expandedContent === "string" ? (
-                      <p className={getTextColor(background, 'muted')}>
-                        {step.expandedContent}
-                      </p>
+                      <p className="text-lg">{step.expandedContent}</p>
                     ) : (
-                      <div className={getTextColor(background, 'muted')}>
-                        {step.expandedContent}
-                      </div>
+                      step.expandedContent
                     )}
                   </div>
                 </motion.div>
@@ -282,7 +273,16 @@ export function ProcessExpandableTimeline({
         ))}
       </div>
     );
-  }, [stepsSlot, steps, background, stepItemClassName, stepBadgeClassName, expandedContentClassName, expandedIndex, toggleExpand]);
+  }, [
+    stepsSlot,
+    steps,
+    background,
+    stepItemClassName,
+    stepBadgeClassName,
+    expandedContentClassName,
+    expandedIndex,
+    toggleExpand,
+  ]);
 
   return (
     <Section
@@ -291,35 +291,35 @@ export function ProcessExpandableTimeline({
       className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
       <div className={contentClassName}>
-        <div className={cn("mb-16 max-w-2xl", headerClassName)}>
-          {resolvedHeading &&
-            (typeof resolvedHeading === "string" ? (
-              <h1
+        <div className={cn("mb-16 max-w-2xl space-y-2", headerClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
                 className={cn(
-                  "mb-4 text-4xl font-semibold tracking-tight lg:text-5xl",
+                  "text-4xl font-semibold tracking-tight lg:text-5xl text-balance",
                   headingClassName,
                 )}
               >
-                {resolvedHeading}
-              </h1>
+                {heading}
+              </h2>
             ) : (
-              <div className={headingClassName}>{resolvedHeading}</div>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-lg",
-                  getTextColor(background, 'muted'),
+                  "text-lg opacity-75 text-balance",
                   descriptionClassName,
                 )}
               >
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
         </div>
 
@@ -327,7 +327,7 @@ export function ProcessExpandableTimeline({
           <div
             className={cn(
               "absolute left-6 top-0 bottom-0 w-px",
-              getBorderColor(background, 'default'),
+              "border-2 border-dashed",
               timelineLineClassName,
             )}
           />

@@ -17,14 +17,17 @@ import {
   DialogFooter,
   DialogTitle,
 } from "../../ui/dialog";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import {
   isValidEmail,
   PageSpeedFormSubmissionError,
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
-import type { ImageItem, OptixFlowConfig, SectionBackground } from "../../../src/types";
+import type {
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+} from "../../../src/types";
 
 export interface OfferModalMembershipImageProps {
   /**
@@ -280,10 +283,7 @@ export function OfferModalMembershipImage({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -295,25 +295,38 @@ export function OfferModalMembershipImage({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  const dialogProps = open !== undefined
-    ? { open, onOpenChange }
-    : { defaultOpen };
+  const dialogProps =
+    open !== undefined ? { open, onOpenChange } : { defaultOpen };
 
   const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
     return (
-      <div className={cn("max-h-[290px] h-full overflow-hidden max-lg:hidden", imageWrapperClassName)}>
+      <div
+        className={cn(
+          "max-h-[290px] h-full overflow-hidden max-lg:hidden",
+          imageWrapperClassName,
+        )}
+      >
         <Img
           src={image.src}
           alt={image.alt}
-          className={cn("block size-full object-cover object-[50%_15%]", imageClassName)}
+          className={cn(
+            "block size-full object-cover object-[50%_15%]",
+            imageClassName,
+          )}
           optixFlowConfig={optixFlowConfig}
         />
       </div>
     );
-  }, [imageSlot, image, imageWrapperClassName, imageClassName, optixFlowConfig]);
+  }, [
+    imageSlot,
+    image,
+    imageWrapperClassName,
+    imageClassName,
+    optixFlowConfig,
+  ]);
 
   const renderCloseButton = useMemo(() => {
     if (closeButtonSlot) return closeButtonSlot;
@@ -326,7 +339,7 @@ export function OfferModalMembershipImage({
             variant="default"
             className={cn(
               "origin-top-right rounded-none transition-all duration-300 lg:scale-50 lg:opacity-0 lg:group-hover:scale-100 lg:group-hover:opacity-100 [@media(hover:none)]:scale-100 [@media(hover:none)]:opacity-100",
-              closeClassName
+              closeClassName,
             )}
             asButton
           >
@@ -348,24 +361,23 @@ export function OfferModalMembershipImage({
         className={cn("space-y-2.5", formClassName)}
       >
         <div className="flex items-center gap-2.5">
-          <Field
-            name="email"
-            className="flex-1"
-          >
+          <Field name="email" className="flex-1">
             {({ field, meta }) => (
               <div className="relative flex-1">
                 <TextInput
                   {...field}
                   type="email"
                   placeholder={emailPlaceholder}
-                  error={(meta.touched || form.status === 'error') && !!meta.error}
+                  error={
+                    (meta.touched || form.status === "error") && !!meta.error
+                  }
                   className={cn("w-full pr-10", inputClassName)}
                   aria-label={emailPlaceholder || "Email address"}
                 />
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                   <DynamicIcon name="lucide/mail" size={16} />
                 </div>
-                {(meta.touched || form.status === 'error') && meta.error && (
+                {(meta.touched || form.status === "error") && meta.error && (
                   <div className="text-destructive mt-1 text-xs">
                     {meta.error}
                   </div>
@@ -397,7 +409,17 @@ export function OfferModalMembershipImage({
         </Pressable>
       </Form>
     );
-  }, [formSlot, form, formConfig, formMethod, emailPlaceholder, inputClassName, submitClassName, buttonText, formClassName]);
+  }, [
+    formSlot,
+    form,
+    formConfig,
+    formMethod,
+    emailPlaceholder,
+    inputClassName,
+    submitClassName,
+    buttonText,
+    formClassName,
+  ]);
 
   const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
@@ -405,7 +427,12 @@ export function OfferModalMembershipImage({
 
     return (
       <DialogFooter className={footerClassName}>
-        <DialogDescription className={cn("text-muted-foreground text-center text-xs leading-relaxed", descriptionClassName)}>
+        <DialogDescription
+          className={cn(
+            "text-muted-foreground text-center text-xs leading-relaxed",
+            descriptionClassName,
+          )}
+        >
           {description}
         </DialogDescription>
       </DialogFooter>
@@ -418,25 +445,39 @@ export function OfferModalMembershipImage({
         showCloseButton={false}
         className={cn(
           "data-[state=closed]:slide-out-to-bottom-30 data-[state=open]:slide-in-from-bottom-30 sm:max-w-[760px] lg:max-w-[470px] group max-h-[calc(100dvh-2rem)] max-w-full gap-0 rounded-none border-none p-0 max-lg:bottom-0 max-lg:top-auto max-lg:translate-y-0",
-          className
+          className,
         )}
       >
         {renderCloseButton}
         {renderImage}
         <Section background={background} spacing="none">
-          <div className={cn("lg:px-15 space-y-5 overflow-y-auto px-9 py-5 lg:py-7", contentClassName)}>
+          <div
+            className={cn(
+              "lg:px-15 space-y-5 overflow-y-auto px-9 py-5 lg:py-7",
+              contentClassName,
+            )}
+          >
             <div className="space-y-2.5">
-              {overline && (
-                typeof overline === "string" ? (
-                  <p className={cn("text-center text-sm font-bold uppercase leading-none", overlineClassName)}>
+              {overline &&
+                (typeof overline === "string" ? (
+                  <p
+                    className={cn(
+                      "text-center text-sm font-bold uppercase leading-none",
+                      overlineClassName,
+                    )}
+                  >
                     {overline}
                   </p>
                 ) : (
                   <div className={overlineClassName}>{overline}</div>
-                )
-              )}
+                ))}
               {title && (
-                <DialogTitle className={cn("text-center text-3xl font-bold", titleClassName)}>
+                <DialogTitle
+                  className={cn(
+                    "text-center text-3xl font-bold",
+                    titleClassName,
+                  )}
+                >
                   {title}
                 </DialogTitle>
               )}

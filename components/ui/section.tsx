@@ -30,6 +30,7 @@ const spacingStyles = {
   md: "py-16 md:py-24",
   lg: "py-20 md:py-32",
   xl: "py-24 md:py-40",
+  hero: "pt-32 pb-12 md:pt-40 md:pb-40",
 };
 
 /**

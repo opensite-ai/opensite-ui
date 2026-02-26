@@ -316,7 +316,7 @@ export function FeatureAccordionImage({
         {(itemsSlot || (items && items.length > 0)) && (
           <div
             className={cn(
-              "grid gap-10 lg:grid-cols-2 lg:gap-16",
+              "grid gap-10 lg:grid-cols-2 lg:gap-16 w-full",
               gridClassName,
             )}
           >
