@@ -237,8 +237,8 @@ export function HeroEventRegistration({
       <div
         className={cn(
           "bg-card text-card-foreground",
-          "rounded-xl p-2 md:p-4 shadow-lg",
-          "absolute -bottom-4",
+          "rounded-2xl p-2 md:p-4 shadow-lg",
+          "absolute bottom-1/2 -translate-y-1/2",
           "left-1/2 -translate-x-1/2 w-[90%]",
           "md:-left-4 md:translate-x-0 md:w-auto",
           "ring-4 ring-primary",
@@ -256,18 +256,26 @@ export function HeroEventRegistration({
           <div
             className={cn(
               "flex flex-col items-start justify-center",
-              "text-card-foreground gap-0 pr-1 md:pr-2",
+              "text-card-foreground gap-0 pr-0 md:pr-2",
             )}
           >
             {locationLabel &&
               (typeof locationLabel === "string" ? (
-                <div className="font-semibold">{locationLabel}</div>
+                <div className="text-sm md:text-base text-balance leading-tight md:leading-normal tracking-tighter md:tracking-normal font-semibold">
+                  {locationLabel}
+                </div>
               ) : (
                 locationLabel
               ))}
             {locationSublabel &&
               (typeof locationSublabel === "string" ? (
-                <div className={cn("text-xs")}>{locationSublabel}</div>
+                <div
+                  className={cn(
+                    "text-xs md:text-sm text-balance leading-tight md:leading-normal tracking-tighter md:tracking-normal",
+                  )}
+                >
+                  {locationSublabel}
+                </div>
               ) : (
                 locationSublabel
               ))}
@@ -285,14 +293,14 @@ export function HeroEventRegistration({
       <div className="relative w-full md:w-[50%]">
         <div
           className={cn(
-            "overflow-hidden rounded-2xl shadow-xl",
+            "overflow-hidden rounded-2xl shadow-xl ring-4 ring-primary",
             imageClassName,
           )}
         >
           <Img
             src={image.src}
             alt={image.alt}
-            className={cn("aspect-4/3 w-full object-cover", image.className)}
+            className={cn("aspect-square w-full object-cover", image.className)}
             optixFlowConfig={optixFlowConfig}
           />
         </div>
@@ -367,7 +375,7 @@ export function HeroEventRegistration({
             <BlockActions
               actions={actions}
               actionsSlot={actionsSlot}
-              actionsClassName={actionsClassName}
+              actionsClassName={cn("w-full md:w-fit", actionsClassName)}
             />
             {renderStats}
           </div>
