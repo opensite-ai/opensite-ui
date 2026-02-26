@@ -98,6 +98,8 @@ export interface FooterNewsletterMinimalProps {
   socialLinkClassName?: string;
   /** Additional CSS classes for the newsletter section */
   newsletterSectionClassName?: string;
+  /** Additional CSS classes for the newsletter heading styles */
+  newsletterLabelClassName?: string;
   /** Additional CSS classes for the newsletter form */
   newsletterFormClassName?: string;
   /** Additional CSS classes for the location/footer links section */
@@ -188,6 +190,7 @@ export function FooterNewsletterMinimal({
   socialLinksClassName,
   socialLinkClassName,
   newsletterSectionClassName,
+  newsletterLabelClassName,
   newsletterFormClassName,
   bottomGridClassName,
   locationClassName,
@@ -313,31 +316,49 @@ export function FooterNewsletterMinimal({
           )}
         >
           <div className="flex flex-col gap-10">
-            {heading && (
-              <p
-                className={cn(
-                  "relative text-4xl font-medium tracking-tight lg:text-5xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </p>
-            )}
-            {(supportLabel || supportEmail) && (
-              <div
-                className={cn(
-                  "space-y-1 text-sm font-light tracking-tight lg:text-base",
-                  supportClassName,
-                )}
-              >
-                {supportLabel && <p>{supportLabel}</p>}
-                {supportEmail && (
-                  <Pressable href={`mailto:${supportEmail}`}>
-                    {supportEmail}
-                  </Pressable>
-                )}
-              </div>
-            )}
+            <div className="flex flex-col gap-4">
+              {heading && (
+                <h2
+                  className={cn(
+                    "relative text-4xl font-semibold tracking-tight lg:text-5xl text-balance",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              )}
+
+              {location && (
+                <div
+                  className={cn(
+                    "font-semibold text-lg opacity-75",
+                    locationClassName,
+                  )}
+                >
+                  {location}
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-4">
+              {(supportLabel || supportEmail) && (
+                <div
+                  className={cn(
+                    "space-y-1 text-sm tracking-tight lg:text-base",
+                    supportClassName,
+                  )}
+                >
+                  {supportLabel && (
+                    <p className="font-light opacity-75">{supportLabel}</p>
+                  )}
+                  {supportEmail && (
+                    <Pressable className="font-semibold" href={supportEmail}>
+                      {supportEmail}
+                    </Pressable>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
           <div
             className={cn(
@@ -361,33 +382,29 @@ export function FooterNewsletterMinimal({
         >
           {formEngineSetup && (
             <div className="flex w-full max-w-md flex-col gap-10">
-              <div className="space-y-1 text-sm font-light tracking-tight lg:text-base">
-                {newsletterLabel && <p>{newsletterLabel}</p>}
+              <div className="space-y-4">
+                {newsletterLabel && (
+                  <p
+                    className={cn(
+                      "text-xl font-light tracking-tight",
+                      newsletterLabelClassName,
+                    )}
+                  >
+                    {newsletterLabel}
+                  </p>
+                )}
                 {renderForm}
               </div>
             </div>
           )}
-          <div
-            className={cn(
-              "grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base",
-              bottomGridClassName,
-            )}
-          >
-            {location && (
-              <div className={cn("w-32", locationClassName)}>{location}</div>
-            )}
-            <ul className={cn("space-y-1", footerLinksClassName)}>
-              {footerLinksContent}
-            </ul>
-          </div>
         </div>
         {brandText && (
           <div className={cn("mt-20 w-full lg:mt-32", brandSectionClassName)}>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 80 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className="text-center"
             >
               <span
@@ -401,20 +418,45 @@ export function FooterNewsletterMinimal({
             </motion.div>
           </div>
         )}
+
         <div
           className={cn(
-            "mt-8 text-center text-sm opacity-80",
+            "flex flex-col items-center space-y-6",
+            brandText ? "mb-24" : "mt-8",
             copyrightClassName,
           )}
         >
-          <FooterCopyright copyright={copyright} />
-          <BrandAttribution
-            internalBrandSlug="open_site_ai"
-            optionIndex={4}
-            variant="div"
-            containerClassName="mt-2"
-            linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
-          />
+          <div
+            className={cn(
+              "flex items-center justify-center",
+              bottomGridClassName,
+            )}
+          >
+            <div
+              className={cn(
+                "flex gap-4 md:gap-6 text-sm font-light lg:text-base",
+                "text-center items-center justify-center flex-wrap",
+                footerLinksClassName,
+              )}
+            >
+              {footerLinksContent}
+            </div>
+          </div>
+          <div
+            className={cn(
+              "mt-8 text-center text-sm opacity-50",
+              copyrightClassName,
+            )}
+          >
+            <FooterCopyright copyright={copyright} />
+            <BrandAttribution
+              internalBrandSlug="open_site_ai"
+              optionIndex={4}
+              variant="div"
+              containerClassName="mt-2"
+              linkClassName="underline underline-offset-4 transition-colors hover:opacity-100"
+            />
+          </div>
         </div>
       </div>
     </Section>
