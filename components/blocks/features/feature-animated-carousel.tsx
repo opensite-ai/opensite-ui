@@ -223,7 +223,7 @@ const FeatureCard = React.memo(
                 delay: 0.3,
                 ease: "easeOut",
               }}
-              className="p-6 text-sm md:p-8 md:text-base"
+              className="p-6 text-sm md:p-8 md:text-base text-balance"
             >
               {(feature.title || feature.description) && (
                 <p>
@@ -532,7 +532,7 @@ export function FeatureAnimatedCarousel({
           as: "h2",
           className: cn(
             "text-3xl font-semibold text-balance md:text-4xl lg:text-5xl max-w-full md:max-w-md",
-            title,
+            titleClassName,
           ),
           children: title,
         });

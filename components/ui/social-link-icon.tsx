@@ -25,7 +25,7 @@ const platformIconMap: Record<SocialPlatformName, string> = {
   yelp: "cib/yelp",
   spotify: "cib/spotify",
   apple: "cib/apple",
-  x: "line-md/twitter-x-alt",
+  x: "prime/twitter",
   github: "cib/github",
   snapchat: "cib/snapchat",
   discord: "cib/discord",

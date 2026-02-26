@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import {
   Accordion,
   AccordionContent,
@@ -12,6 +12,7 @@ import {
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FaqItem {
   id: string;
@@ -130,12 +131,12 @@ export function FaqSidebarNavigation({
   categories,
   categoriesSlot,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -152,7 +153,7 @@ export function FaqSidebarNavigation({
 }: FaqSidebarNavigationProps) {
   // Default to "all" when multiple categories exist, otherwise first category
   const [activeCategory, setActiveCategory] = React.useState(
-    categories && categories.length > 1 ? "all" : (categories?.[0]?.id || ""),
+    categories && categories.length > 1 ? "all" : categories?.[0]?.id || "",
   );
 
   // Filter categories based on active selection
@@ -206,9 +207,7 @@ export function FaqSidebarNavigation({
                   <AccordionContent
                     className={cn("sm:mb-1 lg:mb-2", accordionContentClassName)}
                   >
-                    <div className={cn(getTextColor(background, "muted"), "lg:text-lg")}>
-                      {item.answer}
-                    </div>
+                    <div className={cn("lg:text-lg")}>{item.answer}</div>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -217,7 +216,52 @@ export function FaqSidebarNavigation({
         ))}
       </div>
     );
-  }, [categoriesSlot, filteredCategories, categoriesWrapperClassName, categoryTitleClassName, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName, background]);
+  }, [
+    categoriesSlot,
+    filteredCategories,
+    categoriesWrapperClassName,
+    categoryTitleClassName,
+    accordionClassName,
+    accordionItemClassName,
+    accordionTriggerClassName,
+    accordionContentClassName,
+    background,
+  ]);
+
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "font-semibold text-4xl md:text-5xl lg:text-6xl",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn("text-lg opacity-70", descriptionClassName),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
 
   return (
     <Section
@@ -227,42 +271,17 @@ export function FaqSidebarNavigation({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={containerClassName}>
-        <div
+      <div className="relative">
+        <ContentGroup
+          items={contentItems}
           className={cn(
-            "mx-auto flex max-w-3xl flex-col text-left md:text-center",
+            "flex flex-col text-left mb-12 md:mb-24 gap-0 text-balance items-start max-w-full md:max-w-md",
             headerClassName,
           )}
-        >
-          {heading &&
-            (typeof heading === "string" ? (
-              <h2
-                className={cn(
-                  "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p
-                className={cn(
-                  getTextColor(background, "muted"),
-                  "lg:text-lg",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
-        </div>
+        />
+
         <div
           className={cn(
             "mx-auto mt-10 flex max-w-7xl flex-col gap-10 lg:flex-row lg:gap-16",
@@ -270,19 +289,23 @@ export function FaqSidebarNavigation({
           )}
         >
           <nav className={cn("lg:w-1/4", navClassName)}>
-            <div className="sticky top-24 flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:gap-2 lg:overflow-visible lg:pb-0">
+            <div className="sticky top-24 flex gap-1 overflow-x-auto lg:flex-col lg:gap-2 lg:overflow-visible p-2 ring-2 rounded-lg">
               {/* Show "All" tab when more than one category exists */}
               {categories && categories.length > 1 && (
                 <button
                   onClick={() => setActiveCategory("all")}
                   className={cn(
-                    "shrink-0 whitespace-nowrap rounded-lg px-4 py-2 text-left text-sm font-medium transition-colors lg:w-full",
+                    "cursor-pointer",
+                    "shrink-0 whitespace-nowrap rounded-md px-4 py-2 text-left text-sm font-medium transition-colors lg:w-full",
                     activeCategory === "all"
                       ? cn(
                           "bg-primary text-primary-foreground",
                           navButtonActiveClassName,
                         )
-                      : cn("hover:bg-muted", navButtonClassName),
+                      : cn(
+                          "hover:bg-muted hover:text-muted-foreground",
+                          navButtonClassName,
+                        ),
                   )}
                 >
                   All
@@ -293,13 +316,17 @@ export function FaqSidebarNavigation({
                   key={category.id}
                   onClick={() => setActiveCategory(category.id)}
                   className={cn(
-                    "shrink-0 whitespace-nowrap rounded-lg px-4 py-2 text-left text-sm font-medium transition-colors lg:w-full",
+                    "cursor-pointer",
+                    "shrink-0 whitespace-nowrap rounded-md px-4 py-2 text-left text-sm font-medium transition-colors lg:w-full",
                     activeCategory === category.id
                       ? cn(
                           "bg-primary text-primary-foreground",
                           navButtonActiveClassName,
                         )
-                      : cn("hover:bg-muted", navButtonClassName),
+                      : cn(
+                          "hover:bg-muted hover:text-muted-foreground",
+                          navButtonClassName,
+                        ),
                   )}
                 >
                   {category.title}

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Separator } from "../../ui/separator";
 import {
@@ -19,6 +19,7 @@ import type {
   ActionConfig,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FaqItem {
   id: string;
@@ -135,12 +136,12 @@ export function FaqBadgeSupport({
   supportAction,
   supportSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
   headerClassName,
   badgeClassName,
   headingClassName,
@@ -173,16 +174,14 @@ export function FaqBadgeSupport({
                 accordionTriggerClassName,
               )}
             >
-              <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
+              <div className="font-semibold py-1 lg:py-2 text-lg leading-tight">
                 {item.question}
               </div>
             </AccordionTrigger>
             <AccordionContent
               className={cn("sm:mb-1 lg:mb-2", accordionContentClassName)}
             >
-              <div className={cn(getTextColor(background, "muted"), "lg:text-lg")}>
-                {item.answer}
-              </div>
+              <div className="text-lg">{item.answer}</div>
             </AccordionContent>
           </AccordionItem>
         ))}
@@ -204,13 +203,18 @@ export function FaqBadgeSupport({
     return (
       <div
         className={cn(
-          "mx-auto flex max-w-3xl flex-col items-center gap-4 text-center md:flex-row md:justify-between md:text-left",
+          "mx-auto max-w-full md:max-w-3xl",
+          "flex flex-col items-center md:flex-row md:justify-between",
+          "bg-card text-card-foreground",
+          "text-center md:text-left",
+          "gap-4 p-6 md:p-12",
+          "rounded-lg shadow-lg ring-2",
           supportSectionClassName,
         )}
       >
         {supportText &&
           (typeof supportText === "string" ? (
-            <p className={getTextColor(background, "muted")}>{supportText}</p>
+            <h3 className="text-lg font-semibold">{supportText}</h3>
           ) : (
             supportText
           ))}
@@ -230,7 +234,53 @@ export function FaqBadgeSupport({
         )}
       </div>
     );
-  }, [supportSlot, supportText, supportAction, supportSectionClassName, background]);
+  }, [
+    supportSlot,
+    supportText,
+    supportAction,
+    supportSectionClassName,
+    background,
+  ]);
+
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "max-w-full md:max-w-md",
+            "text-3xl md:text-4xl lg:text-5xl",
+            "font-semibold text-balance",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "text-base md:text-lg max-w-full md:max-w-md text-balance",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
 
   return (
     <Section
@@ -240,52 +290,28 @@ export function FaqBadgeSupport({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("space-y-8 md:space-y-16", containerClassName)}>
+      <div className="space-y-8 md:space-y-16">
         <div
           className={cn(
-            "mx-auto flex max-w-3xl flex-col text-left md:text-center",
+            "mx-auto flex max-w-full md:max-w-3xl flex-col text-left md:text-center",
             headerClassName,
           )}
         >
           {badge && (
-            <Badge
-              variant="outline"
-              className={cn("w-fit md:mx-auto", badgeClassName)}
-            >
-              {badge}
-            </Badge>
+            <Badge className={cn("px-2", badgeClassName)}>{badge}</Badge>
           )}
-          {heading &&
-            (typeof heading === "string" ? (
-              <h2
-                className={cn(
-                  "mt-4 text-3xl font-semibold md:text-4xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p
-                className={cn(
-                  getTextColor(background, "muted"),
-                  "mt-6 text-base md:text-lg",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
+
+          <ContentGroup
+            items={contentItems}
+            className={cn(
+              "flex flex-col gap-2 text-left md:text-center items-start",
+              headerClassName,
+            )}
+          />
         </div>
         {itemsContent}
-        <Separator />
         {supportSectionContent}
       </div>
     </Section>

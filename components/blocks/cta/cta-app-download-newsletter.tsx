@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Form, useForm, Field } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -329,8 +329,9 @@ export function CtaAppDownloadNewsletter({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className={cn("grid gap-8 lg:grid-cols-2", gridClassName)}>
           <div
             className={cn(
@@ -339,8 +340,8 @@ export function CtaAppDownloadNewsletter({
             )}
           >
             <div className="relative z-10 max-w-sm">
-              {appHeading && (
-                typeof appHeading === "string" ? (
+              {appHeading &&
+                (typeof appHeading === "string" ? (
                   <h2
                     className={cn(
                       "mb-4 text-2xl font-bold md:text-3xl",
@@ -350,24 +351,20 @@ export function CtaAppDownloadNewsletter({
                     {appHeading}
                   </h2>
                 ) : (
-                  <div className={cn("mb-4", appHeadingClassName)}>{appHeading}</div>
-                )
-              )}
-              {appDescription && (
-                typeof appDescription === "string" ? (
-                  <p
-                    className={cn(
-                      "mb-8",
-                      getTextColor(background, 'muted'),
-                      appDescriptionClassName,
-                    )}
-                  >
+                  <div className={cn("mb-4", appHeadingClassName)}>
+                    {appHeading}
+                  </div>
+                ))}
+              {appDescription &&
+                (typeof appDescription === "string" ? (
+                  <p className={cn("mb-8", appDescriptionClassName)}>
                     {appDescription}
                   </p>
                 ) : (
-                  <div className={cn("mb-8", appDescriptionClassName)}>{appDescription}</div>
-                )
-              )}
+                  <div className={cn("mb-8", appDescriptionClassName)}>
+                    {appDescription}
+                  </div>
+                ))}
               {appActionsContent}
             </div>
             {phoneMockupImage && (
@@ -385,13 +382,11 @@ export function CtaAppDownloadNewsletter({
           <div
             className={cn(
               "flex flex-col justify-center rounded-2xl border p-8 lg:p-12",
-              getNestedCardBg(background, "card"),
-              getNestedCardTextColor(background),
               newsletterCardClassName,
             )}
           >
-            {newsletterHeading && (
-              typeof newsletterHeading === "string" ? (
+            {newsletterHeading &&
+              (typeof newsletterHeading === "string" ? (
                 <h2
                   className={cn(
                     "mb-4 text-2xl font-bold md:text-3xl",
@@ -401,24 +396,20 @@ export function CtaAppDownloadNewsletter({
                   {newsletterHeading}
                 </h2>
               ) : (
-                <div className={cn("mb-4", newsletterHeadingClassName)}>{newsletterHeading}</div>
-              )
-            )}
-            {newsletterDescription && (
-              typeof newsletterDescription === "string" ? (
-                <p
-                  className={cn(
-                    "mb-8",
-                    getTextColor(background, 'muted'),
-                    newsletterDescriptionClassName,
-                  )}
-                >
+                <div className={cn("mb-4", newsletterHeadingClassName)}>
+                  {newsletterHeading}
+                </div>
+              ))}
+            {newsletterDescription &&
+              (typeof newsletterDescription === "string" ? (
+                <p className={cn("mb-8", newsletterDescriptionClassName)}>
                   {newsletterDescription}
                 </p>
               ) : (
-                <div className={cn("mb-8", newsletterDescriptionClassName)}>{newsletterDescription}</div>
-              )
-            )}
+                <div className={cn("mb-8", newsletterDescriptionClassName)}>
+                  {newsletterDescription}
+                </div>
+              ))}
             <Form
               form={form}
               action={formConfig?.endpoint}

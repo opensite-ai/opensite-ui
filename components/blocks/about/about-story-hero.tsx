@@ -2,13 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-  getTextColor,
-  getAccentColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -17,6 +11,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface AboutStoryHeroProps {
   /**
@@ -131,27 +126,84 @@ export function AboutStoryHero({
     return (
       <div
         className={cn(
-          "mt-6 md:mt-8 rounded-2xl p-6",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background),
+          "rounded-2xl bg-muted text-muted-foreground",
+          "flex flex-col items-start gap-2",
           teamInfoClassName,
         )}
       >
-        {typeof teamInfo.title === "string" ? (
-          <p className="text-2xl font-bold">{teamInfo.title}</p>
-        ) : (
-          teamInfo.title
-        )}
-        {typeof teamInfo.description === "string" ? (
-          <p className={cn("mt-1", getTextColor(background, "muted"))}>
-            {teamInfo.description}
-          </p>
-        ) : (
-          <div className="mt-1">{teamInfo.description}</div>
-        )}
+        {teamInfo.title ? (
+          typeof teamInfo.title === "string" ? (
+            <h2 className="text-xl md:text-2xl font-bold">{teamInfo.title}</h2>
+          ) : (
+            teamInfo.title
+          )
+        ) : null}
+        {teamInfo.description ? (
+          typeof teamInfo.description === "string" ? (
+            <p className="text-lg">{teamInfo.description}</p>
+          ) : (
+            teamInfo.description
+          )
+        ) : null}
       </div>
     );
   }, [teamInfoSlot, teamInfo, teamInfoClassName, background]);
+
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (subtitle) {
+      if (typeof subtitle === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "text-sm font-semibold",
+            "uppercase tracking-wider opacity-65",
+            subtitleClassName,
+          ),
+          children: subtitle,
+        });
+      } else {
+        items.push(subtitle);
+      }
+    }
+
+    if (title) {
+      if (typeof title === "string") {
+        items.push({
+          _type: "text",
+          as: "h1",
+          className: cn("text-4xl font-bold tracking-tight md:text-5xl", title),
+          children: title,
+        });
+      } else {
+        items.push(title);
+      }
+    }
+
+    if (content) {
+      if (typeof content === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn("text-lg whitespace-pre-line", bodyClassName),
+          children: content,
+        });
+      } else {
+        items.push(content);
+      }
+    }
+
+    return items;
+  }, [
+    subtitle,
+    subtitleClassName,
+    title,
+    titleClassName,
+    content,
+    bodyClassName,
+  ]);
 
   return (
     <Section
@@ -159,57 +211,21 @@ export function AboutStoryHero({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div
         className={cn(
-          "grid gap:6 md:gap-12 lg:grid-cols-2 lg:items-center",
+          "grid gap-6 md:gap-12 grid-cols-1 lg:grid-cols-2 items-center",
           contentClassName,
         )}
       >
-        <div>
-          {subtitle &&
-            (typeof subtitle === "string" ? (
-              <p
-                className={cn(
-                  "text-sm font-semibold uppercase tracking-wider",
-                  getAccentColor(background),
-                  subtitleClassName,
-                )}
-              >
-                {subtitle}
-              </p>
-            ) : (
-              <div className={subtitleClassName}>{subtitle}</div>
-            ))}
-          {title &&
-            (typeof title === "string" ? (
-              <h1
-                className={cn(
-                  "mt-4 text-4xl font-bold tracking-tight md:text-5xl",
-                  titleClassName,
-                )}
-              >
-                {title}
-              </h1>
-            ) : (
-              <div className={cn("mt-4", titleClassName)}>{title}</div>
-            ))}
-          {content &&
-            (typeof content === "string" ? (
-              <p
-                className={cn(
-                  "mt-6 text-lg whitespace-pre-line",
-                  getTextColor(background, "muted"),
-                  bodyClassName,
-                )}
-              >
-                {content}
-              </p>
-            ) : (
-              <div className={cn("mt-6", bodyClassName)}>{content}</div>
-            ))}
+        <div className="space-y-6 md:space-y-8">
+          <ContentGroup
+            items={contentItems}
+            className="space-y-4 md:space-y-6"
+          />
+
           {(teamInfoSlot || teamInfo) && teamInfoContent}
         </div>
         {heroImage && (
@@ -217,7 +233,8 @@ export function AboutStoryHero({
             src={heroImage.src}
             alt={heroImage.alt}
             className={cn(
-              "mt-6 md:mt-0 w-full h-auto rounded-2xl object-cover sm:h-full",
+              "w-full h-auto sm:h-full",
+              "rounded-2xl object-cover shadow-xl",
               imageClassName,
             )}
             optixFlowConfig={optixFlowConfig}

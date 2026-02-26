@@ -18,8 +18,8 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/img':
-        specifier: 0.4.5
-        version: 0.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.4.6
+        version: 0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/lightbox':
         specifier: 0.2.1
         version: 0.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -736,13 +736,6 @@ packages:
     resolution: {integrity: sha512-7GjmkMirJHejeALCqUnZY3QwID7bbumOiLrqq2LKgxrdjdmxWQBTc6rcASa2u8wuWrH7qo4/4n/VNrOwCoKlKg==}
     engines: {node: '>= 10'}
 
-  '@opensite/hooks@2.0.3':
-    resolution: {integrity: sha512-9QYpJwHyGmCjJ9zO43n1Aq+5dx9hmZyPgdAQWFlxVWdg43sa2R82JIAfWJ5YEPYVUosnQS1oezMN/ZEe9wJU1w==}
-    engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
-    peerDependencies:
-      react: '>=17.0.0'
-      react-dom: '>=17.0.0'
-
   '@opensite/hooks@2.0.8':
     resolution: {integrity: sha512-cdklMZq+CYdBSNtAhcjs/y15xViKeAvAEs7UPUWHz9saPR5PeNGjOQtA2VFoctzTp/30/e95R3U1WzsfTuBulQ==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
@@ -771,8 +764,8 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@page-speed/img@0.4.5':
-    resolution: {integrity: sha512-S1xot5BN1X5bnYdH3PryOQw8GHry/zjPfDt+RVorZXbt1ELt3uzy0lQAEhBZ2XPyTwhPatOLKRa0OEC7bKu93g==}
+  '@page-speed/img@0.4.6':
+    resolution: {integrity: sha512-wGsLP+ttmrFlGEWKcgSaorxQC33m5he3ULkEKQotoOAw+gIDAV52RJcKjHj9Y3mz0sg6gGMwQI1tGC2sFEODSQ==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       react: '>=17.0.0'
@@ -3175,11 +3168,6 @@ snapshots:
       '@napi-rs/canvas-win32-x64-msvc': 0.1.89
     optional: true
 
-  '@opensite/hooks@2.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
   '@opensite/hooks@2.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
@@ -3223,16 +3211,16 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@page-speed/img@0.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@opensite/hooks': 2.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@opensite/hooks': 2.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/hooks': 0.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
   '@page-speed/lightbox@0.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@page-speed/img': 0.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/img': 0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer': 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
       react: 18.3.1

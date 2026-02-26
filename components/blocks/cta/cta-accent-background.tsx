@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -98,14 +98,14 @@ export function CtaAccentBackground({
   actions,
   actionsSlot,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
   actionsClassName,
   cardClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
 }: CtaAccentBackgroundProps): React.JSX.Element {
@@ -144,22 +144,18 @@ export function CtaAccentBackground({
     <Section
       background={background}
       spacing={spacing}
-      className={cn(className)}
+      className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div
-          className={cn(
-            "rounded-lg p-8 md:rounded-xl lg:p-12",
-            getNestedCardBg(background, "accent"),
-            getNestedCardTextColor(background),
-            cardClassName,
-          )}
+          className={cn("rounded-lg p-8 md:rounded-xl lg:p-12", cardClassName)}
         >
           <div className={cn("max-w-4xl", contentClassName)}>
-            {heading && (
-              typeof heading === "string" ? (
+            {heading &&
+              (typeof heading === "string" ? (
                 <h3
                   className={cn(
                     "mb-4 text-3xl font-semibold md:text-5xl lg:mb-6 lg:text-6xl",
@@ -169,24 +165,21 @@ export function CtaAccentBackground({
                   {heading}
                 </h3>
               ) : (
-                <div className={cn("mb-4 lg:mb-6", headingClassName)}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
+                heading
+              ))}
+            {description &&
+              (typeof description === "string" ? (
                 <p
                   className={cn(
                     "mb-8 text-lg font-medium lg:text-xl",
-                    getTextColor(background, 'muted'),
                     descriptionClassName,
                   )}
                 >
                   {description}
                 </p>
               ) : (
-                <div className={cn("mb-8", descriptionClassName)}>{description}</div>
-              )
-            )}
+                description
+              ))}
             {actionsContent}
           </div>
         </div>

@@ -368,7 +368,7 @@ export function FeatureImageCardsThreeColumn({
           style={aspectRatioStyle}
           className={cn(
             "group relative overflow-hidden rounded-2xl shadow-xl",
-            "aspect-[var(--aspect-mobile)] md:aspect-[var(--aspect-desktop)]",
+            "aspect-(--aspect-mobile) `md:aspect-(--aspect-desktop)",
             cardClassName,
             card.className,
           )}
@@ -401,7 +401,7 @@ export function FeatureImageCardsThreeColumn({
           as: "h2",
           className: cn(
             "text-3xl font-semibold text-balance md:text-4xl lg:text-5xl max-w-full md:max-w-md",
-            title,
+            titleClassName,
           ),
           children: title,
         });
