@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@opensite/hooks':
-        specifier: 2.0.8
-        version: 2.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 2.1.0
+        version: 2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/forms':
         specifier: 0.7.1
         version: 0.7.1(@types/react-dom@18.3.7(@types/react@18.3.27))(@types/react@18.3.27)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
@@ -738,6 +738,13 @@ packages:
 
   '@opensite/hooks@2.0.8':
     resolution: {integrity: sha512-cdklMZq+CYdBSNtAhcjs/y15xViKeAvAEs7UPUWHz9saPR5PeNGjOQtA2VFoctzTp/30/e95R3U1WzsfTuBulQ==}
+    engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
+    peerDependencies:
+      react: '>=17.0.0'
+      react-dom: '>=17.0.0'
+
+  '@opensite/hooks@2.1.0':
+    resolution: {integrity: sha512-ATjSyaUVFAgaudNZXv2tVjjRIl4DAZUzLS4f4aqQA92V4WMMimNLgIfgzPF1/7BEMiEyMqd7vmUmnkXK+DGzdw==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       react: '>=17.0.0'
@@ -3169,6 +3176,11 @@ snapshots:
     optional: true
 
   '@opensite/hooks@2.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)

@@ -3398,7 +3398,7 @@
     "vitest": "^4.0.10"
   },
   "dependencies": {
-    "@opensite/hooks": "2.0.8",
+    "@opensite/hooks": "2.1.0",
     "@page-speed/forms": "0.7.1",
     "@page-speed/icon": "^0.1.0",
     "@page-speed/img": "0.4.6",
