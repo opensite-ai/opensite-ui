@@ -346,12 +346,7 @@ export function ContactCareers({
             >
               {job.title}
             </AccordionTrigger>
-            <AccordionContent
-              className={cn(
-                "pb-4 bg-card text-card-foreground",
-                accordionContentClassName,
-              )}
-            >
+            <AccordionContent className={cn("pb-4", accordionContentClassName)}>
               {job.description}
             </AccordionContent>
           </AccordionItem>
