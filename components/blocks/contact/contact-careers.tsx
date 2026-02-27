@@ -328,19 +328,30 @@ export function ContactCareers({
             key={job.id}
             value={job.id}
             className={cn(
-              "rounded-xl border border-border/60 px-5 shadow-sm transition-shadow hover:shadow-md data-[state=open]:shadow-md",
+              "rounded-xl border border-border/60",
+              "px-5 shadow-sm transition-all hover:shadow-md",
+              "data-[state=open]:shadow-md",
+              "data-[state=open]:bg-card data-[state=open]:text-card-foreground",
               accordionItemClassName,
             )}
           >
             <AccordionTrigger
               className={cn(
-                "py-4 font-medium transition-opacity hover:no-underline hover:opacity-70 lg:text-lg [&[data-state=open]>svg]:rotate-180",
+                "py-4 font-medium transition-opacity",
+                "hover:no-underline hover:opacity-70 lg:text-lg",
+                "[&[data-state=open]>svg]:rotate-180",
+                "cursor-pointer",
                 accordionTriggerClassName,
               )}
             >
               {job.title}
             </AccordionTrigger>
-            <AccordionContent className={cn("pb-4", accordionContentClassName)}>
+            <AccordionContent
+              className={cn(
+                "pb-4 bg-card text-card-foreground",
+                accordionContentClassName,
+              )}
+            >
               {job.description}
             </AccordionContent>
           </AccordionItem>
@@ -421,16 +432,18 @@ export function ContactCareers({
               )}
             >
               <div className={cn("lg:sticky lg:top-8", sidebarStickyClassName)}>
-                <div className="rounded-xl p-6">
+                <div className="py-0 px-0 md:px-6">
                   {(sidebarTitle || sidebarDescription) && (
-                    <div className="mb-4">
+                    <div className="space-y-4 mb-6 md:mb-8">
                       {sidebarTitle && (
-                        <h3 className="text-lg font-semibold">
+                        <div className="text-base uppercase font-bold opacity-60">
                           {sidebarTitle}
-                        </h3>
+                        </div>
                       )}
                       {sidebarDescription && (
-                        <p className="text-sm ">{sidebarDescription}</p>
+                        <div className="text-sm text-pretty">
+                          {sidebarDescription}
+                        </div>
                       )}
                     </div>
                   )}
@@ -451,7 +464,9 @@ export function ContactCareers({
                   )}
                 </CardHeader>
               )}
-              <CardContent className={cn("p-6", cardContentClassName)}>
+              <CardContent
+                className={cn("pt-6 md:pt-0 p-6", cardContentClassName)}
+              >
                 {formEngineSetup ? (
                   <FormEngine
                     formEngineSetup={formEngineSetup}
