@@ -189,6 +189,7 @@ export function ProcessExpandableTimeline({
               className={cn(
                 "group relative flex w-full items-start gap-6 border-b p-6 text-left transition-colors",
                 `hover:bg-card hover:text-card-foreground`,
+                expandedIndex === index ? "bg-card text-card-foreground" : "",
                 stepItemClassName,
               )}
             >
@@ -200,10 +201,8 @@ export function ProcessExpandableTimeline({
                 className={cn(
                   "shrink-0 flex size-12 items-center justify-center rounded-full border-2 transition-colors",
                   expandedIndex === index
-                    ? cn("bg-primary text-primary-foreground")
-                    : cn(
-                        `group-hover:bg-primary group-hover:text-primary-foreground`,
-                      ),
+                    ? "bg-primary text-primary-foreground"
+                    : "group-hover:bg-primary group-hover:text-primary-foreground",
                   stepBadgeClassName,
                 )}
               >
@@ -212,7 +211,7 @@ export function ProcessExpandableTimeline({
                 </span>
               </div>
 
-              <div className="flex-1 pr-8 md:pr-12">
+              <div className="flex-1 pr-8 md:pr-12 space-y-2">
                 <div className="flex items-center gap-2">
                   {step.title &&
                     (typeof step.title === "string" ? (
@@ -237,7 +236,7 @@ export function ProcessExpandableTimeline({
                 </div>
                 {step.description &&
                   (typeof step.description === "string" ? (
-                    <p className="text-lg">{step.description}</p>
+                    <p className="text-sm font-normal">{step.description}</p>
                   ) : (
                     step.description
                   ))}
@@ -256,7 +255,7 @@ export function ProcessExpandableTimeline({
                   <div
                     className={cn(
                       "border-b p-6",
-                      "bg-card text-bg-foreground",
+                      "bg-card text-card-foreground",
                       expandedContentClassName,
                     )}
                   >

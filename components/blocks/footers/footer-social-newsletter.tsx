@@ -11,7 +11,6 @@ import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { ActionConfig, OptixFlowConfig } from "../../../src/types/blocks";
 import type { PatternName } from "../../ui/pattern-background";
 import type { FooterSocialLink } from "./types";
-import { Form } from "@page-speed/forms";
 import {
   FormEngine,
   type FormEngineProps,
@@ -22,7 +21,7 @@ import { DynamicIcon } from "@/src";
 import { Img } from "@page-speed/img";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
-  formContainer: "flex items-stretch w-full",
+  formContainer: "flex justify-center md:justify-end w-full",
   fieldsContainer: "",
   fieldClassName: "",
   formClassName: "",
@@ -171,7 +170,7 @@ export function FooterSocialNewsletter({
   copyrightClassName,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-6 md:py-32",
+  spacing = "py-16 md:py-32",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -250,12 +249,9 @@ export function FooterSocialNewsletter({
                     <li key={idx}>
                       <SocialLinkIcon
                         size="icon-lg"
-                        variant="ghost"
+                        variant="outline"
                         {...social}
-                        className={cn(
-                          "opacity-80 transition-colors hover:opacity-100",
-                          socialLinkClassName,
-                        )}
+                        className={cn(socialLinkClassName)}
                       />
                     </li>
                   ))}
@@ -295,14 +291,16 @@ export function FooterSocialNewsletter({
           {/* Bottom Bar - Copyright left, Newsletter right */}
           <div
             className={cn(
-              "gap-14 md:gap-4 mt-16 flex flex-col-reverse border-t-0 md:border-t pt-4 md:pt-10 lg:flex-row lg:items-start lg:justify-between",
+              "gap-14 md:gap-4 mt-8 md:mt-16 flex flex-col-reverse border-t-0 md:border-t pt-4 md:pt-10 md:flex-row md:items-start md:justify-between w-full",
               bottomClassName,
             )}
           >
             {/* Copyright and Attribution - Left side */}
             <div
               className={cn(
-                "flex flex-col gap-2 text-sm font-medium opacity-80 md:flex-row md:items-center md:gap-4",
+                "flex shrink-0 w-full md:w-fit flex-col gap-2 text-sm",
+                "font-medium opacity-70 md:flex-row md:items-center md:gap-4",
+                "text-center md:text-left",
                 copyrightClassName,
               )}
             >
