@@ -407,8 +407,8 @@ export function ContactCareers({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className={cn("mb-10 text-center", headerClassName)}>
-          <ContentGroup items={contentItems} />
+        <div className={cn("mb-10", headerClassName)}>
+          <ContentGroup className="space-y-3" items={contentItems} />
         </div>
 
         <div className={cn("grid gap-8", hasSidebar && "lg:grid-cols-5")}>

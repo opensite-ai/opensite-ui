@@ -247,7 +247,7 @@ export function AboutStatsSidebar({
         <div
           className={cn("lg:sticky lg:top-24 lg:self-start", sidebarClassName)}
         >
-          <ContentGroup items={contentItems} />
+          <ContentGroup items={contentItems} className="space-y-3" />
         </div>
 
         <div className="lg:col-span-2">
