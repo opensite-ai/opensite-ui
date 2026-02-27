@@ -76,7 +76,7 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
     options: BUDGETS,
   },
   {
-    name: "firstName",
+    name: "first_name",
     type: "text",
     label: "First Name",
     placeholder: "John",
@@ -84,7 +84,7 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
     columnSpan: 6,
   },
   {
-    name: "lastName",
+    name: "last_name",
     type: "text",
     label: "Last Name",
     placeholder: "Doe",

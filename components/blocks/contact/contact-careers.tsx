@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import {
   FormEngine,
   FormEngineProps,
@@ -8,10 +9,23 @@ import {
   type FormFieldConfig,
 } from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
-import { Card, CardContent } from "../../ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../ui/accordion";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "",
@@ -19,6 +33,24 @@ const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   fieldClassName: "",
   formClassName: "space-y-6",
 };
+
+/**
+ * A job listing item for the sidebar accordion
+ */
+export interface JobListingItem {
+  /**
+   * Unique identifier for the job listing
+   */
+  id: string;
+  /**
+   * Job title (displayed as accordion trigger)
+   */
+  title: React.ReactNode;
+  /**
+   * Job description/details (displayed in accordion content)
+   */
+  description: React.ReactNode;
+}
 
 // Default form fields for careers application
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
@@ -40,7 +72,7 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
     ],
   },
   {
-    name: "firstName",
+    name: "first_name",
     type: "text",
     label: "First Name",
     placeholder: "John",
@@ -48,7 +80,7 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
     columnSpan: 6,
   },
   {
-    name: "lastName",
+    name: "last_name",
     type: "text",
     label: "Last Name",
     placeholder: "Doe",
@@ -180,11 +212,64 @@ export interface ContactCareersProps {
    * Full form engine setup and props
    */
   formEngineSetup?: FormEngineProps;
+  /**
+   * Array of job listings to display in the sidebar accordion.
+   * Each item will render as an expandable card showing job details.
+   */
+  jobListings?: JobListingItem[];
+  /**
+   * Custom sidebar component that replaces the default job listings accordion.
+   * Use this for fully custom sidebar content.
+   */
+  sidebarComponent?: React.ReactNode;
+  /**
+   * Title for the sidebar section
+   * @default "Open Positions"
+   */
+  sidebarTitle?: string;
+  /**
+   * Description for the sidebar section
+   */
+  sidebarDescription?: string;
+  /**
+   * Additional CSS classes for the sidebar wrapper
+   */
+  sidebarClassName?: string;
+  /**
+   * Additional CSS classes for the sticky container inside the sidebar
+   */
+  sidebarStickyClassName?: string;
+  /**
+   * Additional CSS classes for the accordion
+   */
+  accordionClassName?: string;
+  /**
+   * Additional CSS classes for accordion items
+   */
+  accordionItemClassName?: string;
+  /**
+   * Additional CSS classes for accordion triggers
+   */
+  accordionTriggerClassName?: string;
+  /**
+   * Additional CSS classes for accordion content
+   */
+  accordionContentClassName?: string;
+  /**
+   * Title for the form card
+   */
+  formCardTitle?: string;
+  /**
+   * Description for the form card
+   */
+  formCardDescription?: string;
 }
 
 /**
  * ContactCareers - A comprehensive job application form with position selection,
- * resume upload, and availability options. Perfect for career pages and job applications.
+ * resume upload, and availability options. Features a sticky sidebar that can display
+ * expandable job listings or custom content, allowing applicants to reference job
+ * details while completing their application.
  *
  * @example
  * ```tsx
@@ -192,6 +277,10 @@ export interface ContactCareersProps {
  *   heading="Join Our Team"
  *   description="We're always looking for talented people to join us."
  *   formEngineSetup={{ formConfig: { endpoint: "/api/careers", format: "json" } }}
+ *   jobListings={[
+ *     { id: "1", title: "Frontend Developer", description: "Build amazing UIs..." },
+ *     { id: "2", title: "Backend Developer", description: "Design robust APIs..." },
+ *   ]}
  * />
  * ```
  */
@@ -206,61 +295,174 @@ export function ContactCareers({
   cardClassName,
   cardContentClassName,
   background,
-  spacing = "py-8 md:py-32",
+  spacing = "xl",
   pattern,
   patternOpacity,
   formEngineSetup,
+  jobListings,
+  sidebarComponent,
+  sidebarTitle = "Open Positions",
+  sidebarDescription,
+  sidebarClassName,
+  sidebarStickyClassName,
+  accordionClassName,
+  accordionItemClassName,
+  accordionTriggerClassName,
+  accordionContentClassName,
+  formCardTitle,
+  formCardDescription,
 }: ContactCareersProps): React.JSX.Element {
+  // Memoize the job listings accordion content
+  const jobListingsContent = useMemo(() => {
+    if (sidebarComponent) return sidebarComponent;
+    if (!jobListings || jobListings.length === 0) return null;
+
+    return (
+      <Accordion
+        type="single"
+        collapsible
+        className={cn("space-y-3", accordionClassName)}
+      >
+        {jobListings.map((job) => (
+          <AccordionItem
+            key={job.id}
+            value={job.id}
+            className={cn(
+              "rounded-xl border border-border/60 px-5 shadow-sm transition-shadow hover:shadow-md data-[state=open]:shadow-md",
+              accordionItemClassName,
+            )}
+          >
+            <AccordionTrigger
+              className={cn(
+                "py-4 font-medium transition-opacity hover:no-underline hover:opacity-70 lg:text-lg [&[data-state=open]>svg]:rotate-180",
+                accordionTriggerClassName,
+              )}
+            >
+              {job.title}
+            </AccordionTrigger>
+            <AccordionContent className={cn("pb-4", accordionContentClassName)}>
+              {job.description}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    );
+  }, [
+    sidebarComponent,
+    jobListings,
+    accordionClassName,
+    accordionItemClassName,
+    accordionTriggerClassName,
+    accordionContentClassName,
+  ]);
+
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h1",
+          className: cn(
+            "text-4xl font-bold tracking-tight md:text-6xl text-balance",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "max-w-2xl text-lg md:text-xl text-balance",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
+  const hasSidebar =
+    sidebarComponent || (jobListings && jobListings.length > 0);
+
   return (
     <Section
       background={background}
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      className={cn(pattern && "overflow-visible", className)}
       containerClassName={containerClassName}
     >
       <div className="relative">
         <div className={cn("mb-10 text-center", headerClassName)}>
-          {heading &&
-            (typeof heading === "string" ? (
-              <h2
-                className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight text-balance",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "leading-relaxed text-balance",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
+          <ContentGroup items={contentItems} />
         </div>
 
-        <Card className={cardClassName}>
-          <CardContent className={cn("p-0", cardContentClassName)}>
-            {formEngineSetup ? (
-              <FormEngine
-                formEngineSetup={formEngineSetup}
-                defaultFields={DEFAULT_FORM_FIELDS}
-                defaultStyleRules={DEFAULT_STYLE_RULES}
-              />
-            ) : null}
-          </CardContent>
-        </Card>
+        <div className={cn("grid gap-8", hasSidebar && "lg:grid-cols-5")}>
+          {/* Job Listings Sidebar - Mobile: stacked on top, Desktop: sticky right column */}
+          {hasSidebar && (
+            <div
+              className={cn(
+                "order-first lg:order-last lg:col-span-2",
+                sidebarClassName,
+              )}
+            >
+              <div className={cn("lg:sticky lg:top-8", sidebarStickyClassName)}>
+                <div className="rounded-xl p-6">
+                  {(sidebarTitle || sidebarDescription) && (
+                    <div className="mb-4">
+                      {sidebarTitle && (
+                        <h3 className="text-lg font-semibold">
+                          {sidebarTitle}
+                        </h3>
+                      )}
+                      {sidebarDescription && (
+                        <p className="text-sm ">{sidebarDescription}</p>
+                      )}
+                    </div>
+                  )}
+                  {jobListingsContent}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Application Form - Takes more space */}
+          <div className={cn(hasSidebar && "lg:col-span-3")}>
+            <Card className={cardClassName}>
+              {(formCardTitle || formCardDescription) && (
+                <CardHeader>
+                  {formCardTitle && <CardTitle>{formCardTitle}</CardTitle>}
+                  {formCardDescription && (
+                    <CardDescription>{formCardDescription}</CardDescription>
+                  )}
+                </CardHeader>
+              )}
+              <CardContent className={cn("p-6", cardContentClassName)}>
+                {formEngineSetup ? (
+                  <FormEngine
+                    formEngineSetup={formEngineSetup}
+                    defaultFields={DEFAULT_FORM_FIELDS}
+                    defaultStyleRules={DEFAULT_STYLE_RULES}
+                  />
+                ) : null}
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </div>
     </Section>
   );

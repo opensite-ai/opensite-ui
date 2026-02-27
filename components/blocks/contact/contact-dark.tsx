@@ -150,7 +150,7 @@ export interface ContactDarkProps {
 // Default form fields
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
   {
-    name: "firstName",
+    name: "first_name",
     type: "text",
     label: "First Name",
     placeholder: "First name",
@@ -158,7 +158,7 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
     columnSpan: 6,
   },
   {
-    name: "lastName",
+    name: "last_name",
     type: "text",
     label: "Last Name",
     placeholder: "Last name",

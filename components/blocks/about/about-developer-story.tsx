@@ -242,7 +242,7 @@ export function AboutDeveloperStory({
           as: "h1",
           className: cn(
             "text-4xl font-bold tracking-tight md:text-6xl text-balance",
-            title,
+            titleClassName,
           ),
           children: title,
         });

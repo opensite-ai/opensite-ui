@@ -30,7 +30,7 @@ const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
 
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
   {
-    name: "firstName",
+    name: "first_name",
     type: "text",
     label: "First name",
     placeholder: "John",
@@ -38,7 +38,7 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
     columnSpan: 12,
   },
   {
-    name: "lastName",
+    name: "last_name",
     type: "text",
     label: "Last name",
     placeholder: "Doe",

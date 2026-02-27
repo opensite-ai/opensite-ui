@@ -11,6 +11,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 interface ExtendedStatItem extends StatItem {
   description?: React.ReactNode;
@@ -198,6 +199,41 @@ export function AboutStatsSidebar({
     );
   }, [featuresSlot, features, featuresClassName]);
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (title) {
+      if (typeof title === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "text-3xl font-bold tracking-tight md:text-4xl",
+            titleClassName,
+          ),
+          children: title,
+        });
+      } else {
+        items.push(title);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn("mt-4 text-lg", descriptionClassName),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [title, titleClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -211,27 +247,7 @@ export function AboutStatsSidebar({
         <div
           className={cn("lg:sticky lg:top-24 lg:self-start", sidebarClassName)}
         >
-          {title &&
-            (typeof title === "string" ? (
-              <h2
-                className={cn(
-                  "text-3xl font-bold tracking-tight md:text-4xl",
-                  titleClassName,
-                )}
-              >
-                {title}
-              </h2>
-            ) : (
-              title
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p className={cn("mt-4 text-lg", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              description
-            ))}
+          <ContentGroup items={contentItems} />
         </div>
 
         <div className="lg:col-span-2">
