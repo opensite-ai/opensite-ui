@@ -101,7 +101,7 @@ export function FaqCenteredAccordion({
   itemsSlot,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "md",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
@@ -136,7 +136,7 @@ export function FaqCenteredAccordion({
                 accordionTriggerClassName,
               )}
             >
-              <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
+              <div className="font-medium py-1 md:py-2 text-lg">
                 {item.question}
               </div>
             </AccordionTrigger>
