@@ -167,6 +167,10 @@ export interface ArticleBreadcrumbSocialProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 export function ArticleBreadcrumbSocialComponent({
@@ -201,6 +205,7 @@ export function ArticleBreadcrumbSocialComponent({
   spacing = "hero",
   pattern,
   patternOpacity,
+  patternClassName,
 }: ArticleBreadcrumbSocialProps) {
   const [activeSection, setActiveSection] = React.useState<string>(
     sections?.[0]?.id || "",
@@ -301,7 +306,7 @@ export function ArticleBreadcrumbSocialComponent({
         <div>
           {author.name && <p className="font-medium">{author.name}</p>}
           {(author.role || publishDate || readTime) && (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm">
               {[author.role, publishDate, readTime].filter(Boolean).join(" · ")}
             </p>
           )}
@@ -356,9 +361,7 @@ export function ArticleBreadcrumbSocialComponent({
                 href={`#${section.id}`}
                 className={cn(
                   "block text-sm transition-colors",
-                  isActive
-                    ? "font-medium"
-                    : "text-muted-foreground hover:text-foreground",
+                  isActive ? "underline" : "",
                 )}
               >
                 {section.title}
@@ -376,7 +379,8 @@ export function ArticleBreadcrumbSocialComponent({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      patternClassName={patternClassName}
+      className={cn(pattern && "overflow-visible", className)}
       containerClassName={containerClassName}
     >
       <div className="relative">
@@ -406,8 +410,6 @@ export function ArticleBreadcrumbSocialComponent({
 
               {authorContent}
 
-              <Separator className="my-8" />
-
               {heroMediaContent}
 
               {children}
@@ -423,7 +425,7 @@ export function ArticleBreadcrumbSocialComponent({
       {enableBackToTop && showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-opacity hover:opacity-90"
+          className="fixed bottom-8 right-8 flex h-10 w-10 items-center justify-center rounded-full shadow-lg transition-opacity hover:opacity-90"
           aria-label="Back to top"
         >
           <DynamicIcon name="lucide/arrow-up" size={20} />

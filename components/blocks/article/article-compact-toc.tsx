@@ -171,6 +171,10 @@ export interface ArticleCompactTocProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 export function ArticleCompactTocComponent({
@@ -207,6 +211,7 @@ export function ArticleCompactTocComponent({
   spacing = "hero",
   pattern,
   patternOpacity,
+  patternClassName,
 }: ArticleCompactTocProps) {
   const [activeSection, setActiveSection] = React.useState<string>(
     sections?.[0]?.id || "",
@@ -274,7 +279,7 @@ export function ArticleCompactTocComponent({
 
     return (
       <div className={cn("mt-6 flex items-center gap-2", shareClassName)}>
-        <span className="text-sm text-muted-foreground">Share:</span>
+        <span className="text-sm">Share:</span>
         {socialLinks.map((link, index) => (
           <Pressable
             key={index}
@@ -307,9 +312,7 @@ export function ArticleCompactTocComponent({
             href={`#${section.id}`}
             className={cn(
               "block text-sm transition-colors",
-              isActive
-                ? "font-medium"
-                : "text-muted-foreground hover:text-foreground",
+              isActive ? "underline" : "",
             )}
             onClick={onLinkClick}
           >
@@ -364,7 +367,7 @@ export function ArticleCompactTocComponent({
           tocClassName,
         )}
       >
-        <nav className="space-y-2 rounded-lg border bg-background p-4">
+        <nav className="space-y-2 rounded-lg border p-4">
           <span className="mb-3 block text-sm font-semibold">
             Table of Contents
           </span>
@@ -403,11 +406,12 @@ export function ArticleCompactTocComponent({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("relative", className)}
+      patternClassName={patternClassName}
+      className={cn(pattern && "overflow-visible", className)}
       containerClassName={containerClassName}
     >
       {desktopTocContent}
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         {breadcrumbsContent}
 
         <div className="relative">
@@ -428,18 +432,13 @@ export function ArticleCompactTocComponent({
           {(authorName || publishDate || readTime) && (
             <div
               className={cn(
-                "mt-4 flex flex-wrap items-center gap-4 text-sm text-muted-foreground",
+                "mt-4 flex flex-wrap items-center gap-4 text-sm",
                 metaClassName,
               )}
             >
-              {authorName &&
-                (authorHref ? (
-                  <Pressable href={authorHref} className="hover:underline">
-                    {authorName}
-                  </Pressable>
-                ) : (
-                  <span>{authorName}</span>
-                ))}
+              {authorName && (
+                <Pressable href={authorHref}>{authorName}</Pressable>
+              )}
               {authorName && publishDate && (
                 <Separator orientation="vertical" className="h-4" />
               )}
@@ -452,8 +451,6 @@ export function ArticleCompactTocComponent({
           )}
 
           {shareContent}
-
-          <Separator className="my-8" />
 
           {tocContent}
 

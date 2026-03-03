@@ -309,7 +309,7 @@ export function CarouselPortfolioHero({
 
               <div
                 className={cn(
-                  "ml-auto flex items-center gap-2",
+                  "ml-auto flex items-center gap-2 mt-4 md:mt-8",
                   navigationClassName,
                 )}
               >

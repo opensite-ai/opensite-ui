@@ -177,7 +177,7 @@ export function ArticleSidebarStickyComponent({
       <Pressable
         href={backHref}
         className={cn(
-          "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground",
+          "inline-flex items-center gap-2 text-sm",
           backLinkClassName,
         )}
       >
@@ -211,9 +211,7 @@ export function ArticleSidebarStickyComponent({
             ) : (
               <p className="text-sm font-medium">{authorName}</p>
             )}
-            {publishDate && (
-              <p className="text-xs text-muted-foreground">{publishDate}</p>
-            )}
+            {publishDate && <p className="text-xs">{publishDate}</p>}
           </div>
         </div>
       );

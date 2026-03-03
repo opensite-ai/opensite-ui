@@ -115,7 +115,7 @@ export function ArticleHeroProseComponent({
   dateFormat = "MMMM d, yyyy",
   optixFlowConfig,
   background,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  containerClassName,
   spacing = "hero",
   pattern,
   patternOpacity,
