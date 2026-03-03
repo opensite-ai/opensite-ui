@@ -23,6 +23,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { SocialLinkIcon } from "@/src";
 
 export interface ArticleChapter {
   id: string;
@@ -365,19 +366,7 @@ export function ArticleChaptersAuthorComponent({
           socialLinksContent = (
             <div className="mt-4 flex gap-2">
               {author.socialLinks.map((link, index) => (
-                <Pressable
-                  key={index}
-                  href={link.href}
-                  className={cn(
-                    "flex h-8 w-8 items-center justify-center rounded-md border",
-                    link.className,
-                  )}
-                  aria-label={link["aria-label"]}
-                >
-                  {link.icon ?? (
-                    <DynamicIcon name={`lucide/${link.platform}`} size={14} />
-                  )}
-                </Pressable>
+                <SocialLinkIcon key={index} href={link.href} />
               ))}
             </div>
           );

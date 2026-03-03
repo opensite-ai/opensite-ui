@@ -162,7 +162,7 @@ export function HeroEventRegistration({
   locationSublabel,
   locationSlot,
   background,
-  containerClassName = "mx-auto w-full max-w-full md:max-w-7xl relative z-10 px-6 sm:px-8 md:px-12 lg:px-18",
+  containerClassName = "mx-auto w-full max-w-full md:max-w-7xl relative z-10 px-6",
   spacing = "py-16 md:py-40",
   pattern,
   patternOpacity,

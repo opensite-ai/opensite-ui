@@ -273,27 +273,6 @@ export function ArticleCompactTocComponent({
     );
   }, [breadcrumbsSlot, breadcrumbs, currentPage, breadcrumbClassName]);
 
-  const shareContent = React.useMemo(() => {
-    if (shareSlot) return shareSlot;
-    if (!socialLinks || socialLinks.length === 0) return null;
-
-    return (
-      <div className={cn("mt-6 flex items-center gap-2", shareClassName)}>
-        <span className="text-sm">Share:</span>
-        {socialLinks.map((link, index) => (
-          <Pressable
-            key={index}
-            href={link.href}
-            className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
-            aria-label={link["aria-label"] || `Share on ${link.platform}`}
-          >
-            <DynamicIcon name={`lucide/${link.platform}`} size={16} />
-          </Pressable>
-        ))}
-      </div>
-    );
-  }, [shareSlot, socialLinks, shareClassName]);
-
   const renderTocLinks = React.useCallback(
     (onLinkClick?: () => void) => {
       if (!sections) return null;
@@ -445,8 +424,6 @@ export function ArticleCompactTocComponent({
                 {readTime && <span>{readTime}</span>}
               </div>
             )}
-
-            {shareContent}
 
             {tocContent}
 
