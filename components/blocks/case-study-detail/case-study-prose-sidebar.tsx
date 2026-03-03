@@ -2,10 +2,9 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getProseClassName } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -151,12 +150,12 @@ export function CaseStudyProseSidebar({
   companyLogoSlot,
   details,
   sidebarSlot,
-  background = "white",
-  spacing = "xl",
+  background,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "hero",
   pattern,
   patternOpacity,
   className,
-  containerClassName,
   articleClassName,
   heroImageClassName,
   proseClassName,
@@ -174,19 +173,28 @@ export function CaseStudyProseSidebar({
       <Img
         src={heroImageSrc}
         alt={heroImageAlt}
-        className={cn("mb-8 aspect-video w-full max-w-3xl rounded-lg border object-cover", heroImageClassName)}
+        className={cn(
+          "mb-8 aspect-video w-full max-w-3xl rounded-lg border object-cover",
+          heroImageClassName,
+        )}
         loading="lazy"
         optixFlowConfig={optixFlowConfig}
       />
     );
-  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
+  }, [
+    heroMediaSlot,
+    heroImageSrc,
+    heroImageAlt,
+    heroImageClassName,
+    optixFlowConfig,
+  ]);
 
   const contentArea = useMemo(() => {
     if (contentSlot) return contentSlot;
     if (!content) return null;
 
     return (
-      <div className={cn("prose dark:prose-invert", proseClassName)}>
+      <div className={cn(getProseClassName(background, ""), proseClassName)}>
         {content}
       </div>
     );
@@ -207,30 +215,44 @@ export function CaseStudyProseSidebar({
         />
       </div>
     );
-  }, [companyLogoSlot, companyLogoSrc, companyLogoAlt, companyLogoClassName, optixFlowConfig]);
+  }, [
+    companyLogoSlot,
+    companyLogoSrc,
+    companyLogoAlt,
+    companyLogoClassName,
+    optixFlowConfig,
+  ]);
 
-  const renderDetailItem = useCallback((detail: DetailItem, index: number, isFirstAfterBorder: boolean = false) => {
-    const baseClassName = isFirstAfterBorder
-      ? "mb-5 w-full border-t border-border px-6 pt-5 last:mb-0"
-      : "mb-5 px-6 last:mb-0";
+  const renderDetailItem = useCallback(
+    (
+      detail: DetailItem,
+      index: number,
+      isFirstAfterBorder: boolean = false,
+    ) => {
+      const baseClassName = isFirstAfterBorder
+        ? "mb-5 w-full border-t border-border px-6 pt-5 last:mb-0"
+        : "mb-5 px-6 last:mb-0";
 
-    return (
-      <div key={index} className={cn(baseClassName, detail.className, detailItemClassName)}>
-        <div className="mb-2 text-xs font-semibold">
-          {detail.label}
+      return (
+        <div
+          key={index}
+          className={cn(baseClassName, detail.className, detailItemClassName)}
+        >
+          <div className="mb-2 text-xs font-semibold">{detail.label}</div>
+          <div className="overflow-hidden text-xs md:text-sm">
+            {detail.href ? (
+              <Pressable href={detail.href} className="underline">
+                {detail.value}
+              </Pressable>
+            ) : (
+              detail.value
+            )}
+          </div>
         </div>
-        <div className="overflow-hidden text-xs text-muted-foreground md:text-sm">
-          {detail.href ? (
-            <Pressable href={detail.href} className="underline">
-              {detail.value}
-            </Pressable>
-          ) : (
-            detail.value
-          )}
-        </div>
-      </div>
-    );
-  }, [detailItemClassName]);
+      );
+    },
+    [detailItemClassName],
+  );
 
   const detailsContent = useMemo(() => {
     if (!details || details.length === 0) return null;
@@ -247,23 +269,35 @@ export function CaseStudyProseSidebar({
 
     return (
       <aside className={cn("lg:max-w-[300px]", sidebarClassName)}>
-        <div className={cn("flex flex-col items-start rounded-lg border border-border py-6 md:py-8", getNestedCardBg(background, "accent"), getNestedCardTextColor(background), sidebarCardClassName)}>
+        <div
+          className={cn(
+            "flex flex-col items-start rounded-lg border border-border py-6 md:py-8",
+            sidebarCardClassName,
+          )}
+        >
           {logoContent}
           {detailsContent}
         </div>
       </aside>
     );
-  }, [sidebarSlot, logoContent, detailsContent, sidebarClassName, sidebarCardClassName]);
+  }, [
+    sidebarSlot,
+    logoContent,
+    detailsContent,
+    sidebarClassName,
+    sidebarCardClassName,
+  ]);
 
   return (
     <Section
       background={background}
       spacing={spacing}
-      className={cn(className)}
+      className={cn(pattern && "overflow-visible", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container flex flex-col gap-12 lg:flex-row lg:gap-24", containerClassName)}>
+      <div className="container flex flex-col gap-12 lg:flex-row lg:gap-24">
         <article className={cn("mx-auto", articleClassName)}>
           {heroMediaContent}
           {contentArea}

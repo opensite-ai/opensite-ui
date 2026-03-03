@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getProseClassName } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -97,21 +97,6 @@ export interface ArticleBreadcrumbSocialProps {
    */
   author?: ArticleAuthorConfig;
   /**
-   * @deprecated Use author.name instead
-   * Author name (backward compatibility)
-   */
-  authorName?: string;
-  /**
-   * @deprecated Use author.image instead
-   * Author image URL (backward compatibility)
-   */
-  authorImage?: string;
-  /**
-   * @deprecated Use author.role instead
-   * Author role (backward compatibility)
-   */
-  authorRole?: string;
-  /**
    * Custom slot for rendering author info (overrides author config)
    */
   authorSlot?: React.ReactNode;
@@ -186,7 +171,6 @@ export interface ArticleBreadcrumbSocialProps {
 
 export function ArticleBreadcrumbSocialComponent({
   className,
-  containerClassName,
   breadcrumbClassName,
   articleClassName,
   sidebarClassName,
@@ -198,10 +182,7 @@ export function ArticleBreadcrumbSocialComponent({
   breadcrumbsSlot,
   currentPage,
   title,
-  author: authorProp,
-  authorName,
-  authorImage,
-  authorRole,
+  author,
   authorSlot,
   publishDate,
   readTime,
@@ -216,16 +197,11 @@ export function ArticleBreadcrumbSocialComponent({
   enableBackToTop,
   optixFlowConfig,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "hero",
   pattern,
   patternOpacity,
 }: ArticleBreadcrumbSocialProps) {
-  const author =
-    authorProp ??
-    (authorName
-      ? { name: authorName, image: authorImage, role: authorRole }
-      : undefined);
-
   const [activeSection, setActiveSection] = React.useState<string>(
     sections?.[0]?.id || "",
   );
@@ -401,15 +377,16 @@ export function ArticleBreadcrumbSocialComponent({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         {breadcrumbsContent}
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
           {children && (
             <article
               className={cn(
-                "prose max-w-none dark:prose-invert",
+                getProseClassName(background, "max-w-none"),
                 articleClassName,
               )}
             >
@@ -424,7 +401,7 @@ export function ArticleBreadcrumbSocialComponent({
                     {title}
                   </h1>
                 ) : (
-                  <div className={titleClassName}>{title}</div>
+                  title
                 ))}
 
               {authorContent}
@@ -438,9 +415,7 @@ export function ArticleBreadcrumbSocialComponent({
           )}
 
           <aside className={cn("hidden lg:block", sidebarClassName)}>
-            <div className="sticky top-8 space-y-6">
-              {tocContent}
-            </div>
+            <div className="sticky top-8 space-y-6">{tocContent}</div>
           </aside>
         </div>
       </div>

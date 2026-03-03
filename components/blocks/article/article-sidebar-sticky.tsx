@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getProseClassName } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -139,7 +139,6 @@ export interface ArticleSidebarStickyProps {
 
 export function ArticleSidebarStickyComponent({
   className,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   sidebarClassName,
   articleClassName,
   titleClassName,
@@ -164,7 +163,8 @@ export function ArticleSidebarStickyComponent({
   children,
   optixFlowConfig,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "hero",
   pattern,
   patternOpacity,
   sidebarContent,
@@ -271,7 +271,7 @@ export function ArticleSidebarStickyComponent({
           </aside>
           <article
             className={cn(
-              "prose max-w-none dark:prose-invert",
+              getProseClassName(background, "max-w-none"),
               articleClassName,
             )}
           >

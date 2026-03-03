@@ -1,7 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+  getProseClassName,
+} from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -168,16 +173,6 @@ export interface ArticleChaptersAuthorProps {
    */
   conclusionActions?: ActionConfig[];
   /**
-   * @deprecated Use conclusionActions instead
-   * Conclusion button text (backward compatibility)
-   */
-  conclusionButtonText?: string;
-  /**
-   * @deprecated Use conclusionActions instead
-   * Conclusion button href (backward compatibility)
-   */
-  conclusionButtonHref?: string;
-  /**
    * Custom slot for conclusion section (overrides conclusion props)
    */
   conclusionSlot?: React.ReactNode;
@@ -214,7 +209,6 @@ export interface ArticleChaptersAuthorProps {
 
 export function ArticleChaptersAuthorComponent({
   className,
-  containerClassName,
   breadcrumbClassName,
   headerClassName,
   titleClassName,
@@ -240,29 +234,17 @@ export function ArticleChaptersAuthorComponent({
   heroMediaSlot,
   conclusionTitle,
   conclusionDescription,
-  conclusionActions: conclusionActionsProp,
-  conclusionButtonText,
-  conclusionButtonHref,
+  conclusionActions,
   conclusionSlot,
   children,
   enableChapterTracking = true,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "hero",
   pattern,
   patternOpacity,
 }: ArticleChaptersAuthorProps) {
-  const conclusionActions =
-    conclusionActionsProp ??
-    (conclusionButtonText
-      ? [
-          {
-            label: conclusionButtonText,
-            href: conclusionButtonHref || "#",
-            variant: "default" as const,
-          },
-        ]
-      : []);
   const [activeChapter, setActiveChapter] = React.useState<string>(
     chapters?.[0]?.id || "",
   );
@@ -347,12 +329,16 @@ export function ArticleChaptersAuthorComponent({
                 href={`#${chapter.id}`}
                 className={cn(
                   "flex items-center gap-3 text-sm transition-colors",
-                  isActive
-                    ? "font-medium"
-                    : "text-muted-foreground hover:text-foreground",
+                  isActive ? "font-medium" : "",
                 )}
               >
-                <span className={cn("flex h-6 w-6 items-center justify-center rounded-full text-xs", getNestedCardBg(background), getNestedCardTextColor(background))}>
+                <span
+                  className={cn(
+                    "flex h-6 w-6 items-center justify-center rounded-full text-xs",
+                    getNestedCardBg(background),
+                    getNestedCardTextColor(background),
+                  )}
+                >
                   {chapter.number}
                 </span>
                 {chapter.title}
@@ -385,7 +371,7 @@ export function ArticleChaptersAuthorComponent({
                   key={index}
                   href={link.href}
                   className={cn(
-                    "flex h-8 w-8 items-center justify-center rounded-md border hover:bg-muted",
+                    "flex h-8 w-8 items-center justify-center rounded-md border",
                     link.className,
                   )}
                   aria-label={link["aria-label"]}
@@ -500,9 +486,7 @@ export function ArticleChaptersAuthorComponent({
           ))}
         {conclusionDescription &&
           (typeof conclusionDescription === "string" ? (
-            <p className="mt-2 text-muted-foreground">
-              {conclusionDescription}
-            </p>
+            <p className="mt-2">{conclusionDescription}</p>
           ) : (
             <div className="mt-2">{conclusionDescription}</div>
           ))}
@@ -553,8 +537,9 @@ export function ArticleChaptersAuthorComponent({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         {breadcrumbsContent}
 
         <div className={cn("mb-12 text-center px-8 md:px-0", headerClassName)}>
@@ -569,20 +554,20 @@ export function ArticleChaptersAuthorComponent({
                 {title}
               </h1>
             ) : (
-              <div className={titleClassName}>{title}</div>
+              title
             ))}
           {subtitle &&
             (typeof subtitle === "string" ? (
               <p
                 className={cn(
-                  "mt-4 text-lg text-muted-foreground md:text-xl text-balance",
+                  "mt-4 text-lg md:text-xl text-balance",
                   subtitleClassName,
                 )}
               >
                 {subtitle}
               </p>
             ) : (
-              <div className={cn("mt-4", subtitleClassName)}>{subtitle}</div>
+              subtitle
             ))}
         </div>
 
@@ -596,7 +581,7 @@ export function ArticleChaptersAuthorComponent({
 
           <article
             className={cn(
-              "prose max-w-none dark:prose-invert",
+              getProseClassName(background, "max-w-none"),
               articleClassName,
             )}
           >

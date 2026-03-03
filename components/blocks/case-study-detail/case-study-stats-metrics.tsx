@@ -1,13 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { useMemo } from "react";
+import { cn, getProseClassName } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import { Alert, AlertDescription, AlertTitle } from "../../ui/alert";
 import {
   Breadcrumb,
   BreadcrumbItem as BreadcrumbItemUI,
@@ -286,7 +284,9 @@ export function CaseStudyStatsMetrics({
             <BreadcrumbItemUI key={index} className={crumb.className}>
               {crumb.href ? (
                 <>
-                  <BreadcrumbLink href={crumb.href}>{crumb.label}</BreadcrumbLink>
+                  <BreadcrumbLink href={crumb.href}>
+                    {crumb.label}
+                  </BreadcrumbLink>
                   {index < breadcrumbs.length - 1 && (
                     <BreadcrumbSeparator>/</BreadcrumbSeparator>
                   )}
@@ -309,33 +309,53 @@ export function CaseStudyStatsMetrics({
       <Img
         src={heroImageSrc}
         alt={heroImageAlt}
-        className={cn("my-8 aspect-video w-full rounded-lg object-cover", heroImageClassName)}
+        className={cn(
+          "my-8 aspect-video w-full rounded-lg object-cover",
+          heroImageClassName,
+        )}
         loading="lazy"
         optixFlowConfig={optixFlowConfig}
       />
     );
-  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
+  }, [
+    heroMediaSlot,
+    heroImageSrc,
+    heroImageAlt,
+    heroImageClassName,
+    optixFlowConfig,
+  ]);
 
   const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
     return (
-      <div className={cn("mb-8 grid grid-cols-2 gap-5 lg:grid-cols-4", statsClassName)}>
+      <div
+        className={cn(
+          "mb-8 grid grid-cols-2 gap-5 lg:grid-cols-4",
+          statsClassName,
+        )}
+      >
         {stats.map((stat, index) => (
-          <div key={index} className={cn("flex flex-col gap-2", stat.className, statItemClassName)}>
+          <div
+            key={index}
+            className={cn(
+              "flex flex-col gap-2",
+              stat.className,
+              statItemClassName,
+            )}
+          >
             {typeof stat.value === "string" ? (
               <p className="text-4xl font-semibold sm:text-5xl">{stat.value}</p>
             ) : (
               stat.value
             )}
-            {stat.label && (
-              typeof stat.label === "string" ? (
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
+            {stat.label &&
+              (typeof stat.label === "string" ? (
+                <p className="text-sm">{stat.label}</p>
               ) : (
                 stat.label
-              )
-            )}
+              ))}
           </div>
         ))}
       </div>
@@ -347,7 +367,12 @@ export function CaseStudyStatsMetrics({
     if (!content) return null;
 
     return (
-      <div className={cn("prose mb-8 max-w-full lg:max-w-prose dark:prose-invert", proseClassName)}>
+      <div
+        className={cn(
+          getProseClassName(background, "mb-8 max-w-full"),
+          proseClassName,
+        )}
+      >
         {content}
       </div>
     );
@@ -366,7 +391,13 @@ export function CaseStudyStatsMetrics({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  }, [companyLogoSlot, companyLogoSrc, companyLogoAlt, companyLogoClassName, optixFlowConfig]);
+  }, [
+    companyLogoSlot,
+    companyLogoSrc,
+    companyLogoAlt,
+    companyLogoClassName,
+    optixFlowConfig,
+  ]);
 
   const solutionContent = useMemo(() => {
     if (solutionSlot) return solutionSlot;
@@ -380,7 +411,9 @@ export function CaseStudyStatsMetrics({
         asButton
         className="inline-flex items-center gap-2"
       >
-        {solutionIcon && <DynamicIcon name={solutionIcon} size={16} className="opacity-60" />}
+        {solutionIcon && (
+          <DynamicIcon name={solutionIcon} size={16} className="opacity-60" />
+        )}
         {solutionLabel}
       </Pressable>
     );
@@ -390,14 +423,17 @@ export function CaseStudyStatsMetrics({
     if (ctaSlot) return ctaSlot;
     if (!ctaAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = ctaAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = ctaAction;
 
     return (
-      <Pressable
-        asButton
-        className={actionClassName}
-        {...pressableProps}
-      >
+      <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
           <>
             {icon}
@@ -411,18 +447,21 @@ export function CaseStudyStatsMetrics({
 
   const sidebarContent = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
-    if (!logoContent && !overview && !sector && !solutionContent && !ctaContent) return null;
+    if (!logoContent && !overview && !sector && !solutionContent && !ctaContent)
+      return null;
 
     return (
-      <div className={cn("h-fit lg:sticky lg:top-8 lg:max-w-80", sidebarClassName)}>
+      <div
+        className={cn("h-fit lg:sticky lg:top-8 lg:max-w-80", sidebarClassName)}
+      >
         {logoContent}
         {overview && (
           <>
             <p className="mb-1.5 text-sm font-semibold">Overview</p>
             {typeof overview === "string" ? (
-              <p className="mb-5 text-sm text-muted-foreground">{overview}</p>
+              <p className="mb-5 text-sm">{overview}</p>
             ) : (
-              <div className="mb-5 text-sm text-muted-foreground">{overview}</div>
+              <div className="mb-5 text-sm">{overview}</div>
             )}
           </>
         )}
@@ -447,55 +486,82 @@ export function CaseStudyStatsMetrics({
         )}
         {ctaContent && (
           <>
-            {ctaLabel && (
-              typeof ctaLabel === "string" ? (
+            {ctaLabel &&
+              (typeof ctaLabel === "string" ? (
                 <p className="mb-3 text-sm font-semibold">{ctaLabel}</p>
               ) : (
                 <div className="mb-3 text-sm font-semibold">{ctaLabel}</div>
-              )
-            )}
+              ))}
             {ctaContent}
           </>
         )}
       </div>
     );
-  }, [sidebarSlot, logoContent, overview, sector, solutionContent, ctaContent, ctaLabel, sidebarClassName]);
+  }, [
+    sidebarSlot,
+    logoContent,
+    overview,
+    sector,
+    solutionContent,
+    ctaContent,
+    ctaLabel,
+    sidebarClassName,
+  ]);
 
   return (
     <Section
       background={background}
       spacing={spacing}
-      className={cn(className)}
+      className={cn(pattern && "overflow-visible", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className={cn("mx-auto max-w-7xl", contentWrapperClassName)}>
           {breadcrumbsContent}
-          <div className={cn("relative flex-col gap-10 lg:flex lg:flex-row lg:justify-between", layoutClassName)}>
+          <div
+            className={cn(
+              "relative flex-col gap-10 lg:flex lg:flex-row lg:justify-between",
+              layoutClassName,
+            )}
+          >
             <div className={cn("lg:max-w-[692px]", mainClassName)}>
               <div className="max lg:col-span-2">
                 <div>
-                  {title && (
-                    typeof title === "string" ? (
-                      <h1 className={cn("text-3xl font-extrabold text-pretty", titleClassName)}>
+                  {title &&
+                    (typeof title === "string" ? (
+                      <h1
+                        className={cn(
+                          "text-3xl font-extrabold text-pretty",
+                          titleClassName,
+                        )}
+                      >
                         {title}
                       </h1>
                     ) : (
                       <div className={titleClassName}>{title}</div>
-                    )
-                  )}
-                  {subtitle && (
-                    typeof subtitle === "string" ? (
-                      <p className={cn("mt-2 text-lg text-muted-foreground", subtitleClassName)}>
+                    ))}
+                  {subtitle &&
+                    (typeof subtitle === "string" ? (
+                      <p
+                        className={cn(
+                          "mt-2 text-lg text-muted-foreground",
+                          subtitleClassName,
+                        )}
+                      >
                         {subtitle}
                       </p>
                     ) : (
-                      <div className={cn("mt-2 text-lg text-muted-foreground", subtitleClassName)}>
+                      <div
+                        className={cn(
+                          "mt-2 text-lg text-muted-foreground",
+                          subtitleClassName,
+                        )}
+                      >
                         {subtitle}
                       </div>
-                    )
-                  )}
+                    ))}
                   {heroMediaContent}
                   {statsContent}
                 </div>

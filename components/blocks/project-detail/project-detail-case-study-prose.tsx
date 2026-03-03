@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn, getProseClassName } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import type {
@@ -119,7 +119,7 @@ export function ProjectDetailCaseStudyProse(
     return (
       <Pressable
         className={cn(
-          "inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+          "inline-flex items-center gap-2 text-sm font-medium transition-colors",
           actionClassName,
         )}
         {...pressableProps}
@@ -142,8 +142,9 @@ export function ProjectDetailCaseStudyProse(
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
-      <article className={cn("max-w-4xl mx-auto", containerClassName)}>
+      <article className={cn("max-w-4xl mx-auto")}>
         {(backActionSlot || backAction) && (
           <motion.div {...fadeInUp} className="mb-12">
             {renderedBackAction}
@@ -154,12 +155,8 @@ export function ProjectDetailCaseStudyProse(
           {...fadeInUp}
           className={cn("mb-16 space-y-6", headerClassName)}
         >
-          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-            <span className={cn(
-              "rounded-full px-3 py-1 font-medium",
-              getNestedCardBg(background),
-              getNestedCardTextColor(background)
-            )}>
+          <div className="flex flex-wrap items-center gap-4 text-sm">
+            <span className={cn("rounded-full px-3 py-1 font-medium")}>
               {category}
             </span>
             <span>{year}</span>
@@ -177,21 +174,14 @@ export function ProjectDetailCaseStudyProse(
               {title}
             </h1>
           ) : (
-            <div className={titleClassName}>{title}</div>
+            title
           )}
 
           {subtitle &&
             (typeof subtitle === "string" ? (
-              <p
-                className={cn(
-                  "text-xl text-muted-foreground",
-                  subtitleClassName,
-                )}
-              >
-                {subtitle}
-              </p>
+              <p className={cn("text-xl", subtitleClassName)}>{subtitle}</p>
             ) : (
-              <div className={subtitleClassName}>{subtitle}</div>
+              subtitle
             ))}
         </motion.header>
 
@@ -213,13 +203,11 @@ export function ProjectDetailCaseStudyProse(
 
         {overview && (
           <motion.div {...fadeInUp} className={cn("mb-16", overviewClassName)}>
-            <h2 className="mb-4 text-sm font-medium tracking-wider text-muted-foreground uppercase">
+            <h2 className="mb-4 text-sm font-medium tracking-wider uppercase">
               Overview
             </h2>
             {typeof overview === "string" ? (
-              <p className="text-lg leading-relaxed">
-                {overview}
-              </p>
+              <p className="text-lg leading-relaxed">{overview}</p>
             ) : (
               overview
             )}
@@ -235,13 +223,17 @@ export function ProjectDetailCaseStudyProse(
               className={section.className}
             >
               {typeof section.title === "string" ? (
-                <h2 className="mb-6 text-2xl font-semibold">
-                  {section.title}
-                </h2>
+                <h2 className="mb-6 text-2xl font-semibold">{section.title}</h2>
               ) : (
                 section.title
               )}
-              <div className="prose prose-lg max-w-none text-muted-foreground">
+              <div
+                className={cn(
+                  getProseClassName(background, "prose-lg"),
+                  section.className,
+                  "max-w-none",
+                )}
+              >
                 {typeof section.content === "string" ? (
                   <p className="leading-relaxed">{section.content}</p>
                 ) : (

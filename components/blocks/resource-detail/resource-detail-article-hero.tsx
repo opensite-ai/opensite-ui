@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getProseClassName } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -159,35 +159,23 @@ export interface ResourceDetailArticleHeroProps {
   /**
    * Hero section background style
    */
-  heroBackground?: SectionBackground;
+  background?: SectionBackground;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /**
    * Hero section spacing
    */
-  heroSpacing?: SectionSpacing;
+  spacing?: SectionSpacing;
   /**
    * Hero section pattern
    */
-  heroPattern?: PatternName | undefined;
+  battern?: PatternName | undefined;
   /**
    * Hero section pattern opacity
    */
-  heroPatternOpacity?: number;
-  /**
-   * Additional CSS classes for the hero section
-   */
-  heroClassName?: string;
-  /**
-   * Content section background style
-   */
-  contentBackground?: SectionBackground;
-  /**
-   * Content section spacing
-   */
-  contentSpacing?: SectionSpacing;
-  /**
-   * Content section pattern
-   */
-  contentPattern?: PatternName | undefined;
+  patternOpacity?: number;
   /**
    * Content section pattern opacity
    */
@@ -200,6 +188,10 @@ export interface ResourceDetailArticleHeroProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
 }
 
 /**
@@ -228,13 +220,11 @@ export interface ResourceDetailArticleHeroProps {
  *     imageSrc: "/images/hero.jpg",
  *     imageAlt: "Article hero image",
  *   }}
- *   heroBackground="primary"
- *   contentBackground="white"
+ *   background="dark"
  * />
  * ```
  */
 export function ResourceDetailArticleHero({
-  className,
   navigation,
   navigationSlot,
   navigationClassName,
@@ -254,15 +244,12 @@ export function ResourceDetailArticleHero({
   authorClassName,
   contentClassName,
   contentSlot,
-  heroBackground,
-  heroSpacing,
-  heroPattern,
-  heroPatternOpacity,
-  heroClassName,
-  contentBackground,
-  contentSpacing,
-  contentPattern,
-  contentPatternOpacity,
+  background,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "hero",
+  pattern,
+  patternOpacity,
+  className,
   contentSectionClassName,
   optixFlowConfig,
 }: ResourceDetailArticleHeroProps) {
@@ -294,7 +281,13 @@ export function ResourceDetailArticleHero({
         </Pressable>
       </div>
     );
-  }, [navigationSlot, navigationClassName, navigation?.backHref, navigation?.backIcon, navigation?.backText]);
+  }, [
+    navigationSlot,
+    navigationClassName,
+    navigation?.backHref,
+    navigation?.backIcon,
+    navigation?.backText,
+  ]);
 
   const renderedBlogMeta = useMemo(() => {
     if (blogMetaSlot) return blogMetaSlot;
@@ -316,47 +309,56 @@ export function ResourceDetailArticleHero({
         </p>
       </div>
     );
-  }, [blogMetaSlot, blogMetaClassName, blog?.author, blog?.date, blog?.readTime]);
+  }, [
+    blogMetaSlot,
+    blogMetaClassName,
+    blog?.author,
+    blog?.date,
+    blog?.readTime,
+  ]);
 
-  const renderShareActions = useCallback((variant: "hero" | "content") => {
-    if (shareActionsSlot) return shareActionsSlot;
-    if (!shareActions || shareActions.length === 0) return null;
+  const renderShareActions = useCallback(
+    (variant: "hero" | "content") => {
+      if (shareActionsSlot) return shareActionsSlot;
+      if (!shareActions || shareActions.length === 0) return null;
 
-    const isHero = variant === "hero";
-    const baseClassName = isHero
-      ? "group/btn h-12 w-12 rounded-full border-border/10 bg-muted/20 transition-colors hover:bg-transparent hover:text-muted"
-      : "group/btn h-12 w-12 rounded-full border-border bg-muted transition-colors hover:bg-transparent hover:text-muted";
+      const isHero = variant === "hero";
+      const baseClassName = isHero
+        ? "group/btn h-12 w-12 rounded-full border-border/10 transition-colors "
+        : "group/btn h-12 w-12 rounded-full border-border transition-colors ";
 
-    return (
-      <div className={cn("flex gap-3", shareActionsClassName)}>
-        {shareActions.map((action, index) => {
-          const {
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            label,
-            ...pressableProps
-          } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={cn(baseClassName, actionClassName)}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  }, [shareActionsSlot, shareActions, shareActionsClassName]);
+      return (
+        <div className={cn("flex gap-3", shareActionsClassName)}>
+          {shareActions.map((action, index) => {
+            const {
+              icon,
+              iconAfter,
+              children,
+              className: actionClassName,
+              label,
+              ...pressableProps
+            } = action;
+            return (
+              <Pressable
+                key={index}
+                asButton
+                className={cn(baseClassName, actionClassName)}
+                {...pressableProps}
+              >
+                {children ?? (
+                  <>
+                    {icon}
+                    {iconAfter}
+                  </>
+                )}
+              </Pressable>
+            );
+          })}
+        </div>
+      );
+    },
+    [shareActionsSlot, shareActions, shareActionsClassName],
+  );
 
   const renderedIllustration = useMemo(() => {
     if (illustrationSlot) return illustrationSlot;
@@ -375,7 +377,13 @@ export function ResourceDetailArticleHero({
         )}
       </div>
     );
-  }, [illustrationSlot, illustrationClassName, illustration?.imageSrc, illustration?.imageAlt, optixFlowConfig]);
+  }, [
+    illustrationSlot,
+    illustrationClassName,
+    illustration?.imageSrc,
+    illustration?.imageAlt,
+    optixFlowConfig,
+  ]);
 
   const renderedAuthor = useMemo(() => {
     if (authorSlot) return authorSlot;
@@ -397,14 +405,20 @@ export function ResourceDetailArticleHero({
             ))}
           {author?.role &&
             (typeof author.role === "string" ? (
-              <p className="text-sm text-muted-foreground">{author.role}</p>
+              <p className="text-sm ">{author.role}</p>
             ) : (
               author.role
             ))}
         </div>
       </div>
     );
-  }, [authorSlot, authorClassName, author?.avatarSrc, author?.name, author?.role]);
+  }, [
+    authorSlot,
+    authorClassName,
+    author?.avatarSrc,
+    author?.name,
+    author?.role,
+  ]);
 
   const renderedContent = useMemo(() => {
     if (contentSlot) return contentSlot;
@@ -412,61 +426,54 @@ export function ResourceDetailArticleHero({
   }, [contentSlot, blog?.content]);
 
   return (
-    <div className={cn(className)}>
-      <Section
-        background={heroBackground}
-        spacing={heroSpacing}
-        pattern={heroPattern}
-        patternOpacity={heroPatternOpacity}
-        className={cn("text-primary-foreground", heroClassName)}
-      >
-        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-3">
-          <div className="flex h-full max-w-md flex-col justify-between gap-8">
-            <div className="space-y-6">
-              {renderedNavigation}
-              {blog?.title &&
-                (typeof blog.title === "string" ? (
-                  <h1
-                    className={cn(
-                      "text-3xl font-medium leading-tight",
-                      titleClassName,
-                    )}
-                  >
-                    {blog.title}
-                  </h1>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
+    >
+      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-3">
+        <div className="flex h-full max-w-md flex-col justify-between gap-8">
+          <div className="space-y-6">
+            {renderedNavigation}
+            {blog?.title &&
+              (typeof blog.title === "string" ? (
+                <h1
+                  className={cn(
+                    "text-3xl font-medium leading-tight",
+                    titleClassName,
+                  )}
+                >
+                  {blog.title}
+                </h1>
+              ) : (
+                <div className={titleClassName}>{blog.title}</div>
+              ))}
+          </div>
+          <div className="flex flex-col gap-8">
+            {renderedBlogMeta}
+            <div className="space-y-4">
+              {shareHeading &&
+                (typeof shareHeading === "string" ? (
+                  <h3>{shareHeading}</h3>
                 ) : (
-                  <div className={titleClassName}>{blog.title}</div>
+                  shareHeading
                 ))}
-            </div>
-            <div className="flex flex-col gap-8">
-              {renderedBlogMeta}
-              <div className="space-y-4">
-                {shareHeading &&
-                  (typeof shareHeading === "string" ? (
-                    <h3>{shareHeading}</h3>
-                  ) : (
-                    shareHeading
-                  ))}
-                {renderShareActions("hero")}
-              </div>
+              {renderShareActions("hero")}
             </div>
           </div>
-
-          <div className="col-span-2 h-full w-full">{renderedIllustration}</div>
         </div>
-      </Section>
 
-      <Section
-        background={contentBackground}
-        spacing={contentSpacing}
-        pattern={contentPattern}
-        patternOpacity={contentPatternOpacity}
-        className={contentSectionClassName}
-      >
+        <div className="col-span-2 h-full w-full">{renderedIllustration}</div>
+      </div>
+
+      <div className={contentSectionClassName}>
         <div className="mx-auto md:max-w-2xl xl:max-w-5xl">
           <div
             className={cn(
-              "prose max-w-none pb-16 prose-p:text-muted-foreground prose-blockquote:border-l-primary prose-blockquote:text-muted-foreground prose-ol:text-muted-foreground prose-ul:text-muted-foreground prose-li:text-muted-foreground",
+              getProseClassName(background, "max-w-none pb-16"),
               contentClassName,
             )}
           >
@@ -485,7 +492,7 @@ export function ResourceDetailArticleHero({
             </div>
           </div>
         </div>
-      </Section>
-    </div>
+      </div>
+    </Section>
   );
 }

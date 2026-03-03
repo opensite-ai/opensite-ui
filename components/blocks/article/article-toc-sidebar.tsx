@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getProseClassName } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -422,7 +422,12 @@ export function ArticleTocSidebarComponent({
     >
       <div className="relative">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
-          <article className={cn("prose max-w-none", articleClassName)}>
+          <article
+            className={cn(
+              getProseClassName(background, "max-w-none"),
+              articleClassName,
+            )}
+          >
             <div className={cn("mb-8 not-prose", headerClassName)}>
               {categoryContent}
               {title &&

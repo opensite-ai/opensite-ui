@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, getProseClassName } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -17,8 +17,6 @@ import {
 } from "../../ui/breadcrumb";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -147,6 +145,10 @@ export interface ResourceDetailDocumentSidebarProps {
    */
   spacing?: SectionSpacing;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Section pattern
    */
   pattern?: PatternName | undefined;
@@ -205,7 +207,8 @@ export function ResourceDetailDocumentSidebar({
   sidebarSlot,
   sidebarClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "hero",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -253,7 +256,7 @@ export function ResourceDetailDocumentSidebar({
     return (
       <article
         className={cn(
-          "order-2 mx-auto prose md:order-1 dark:prose-invert",
+          getProseClassName(background, "order-2 mx-auto md:order-1"),
           articleClassName,
         )}
       >
@@ -270,7 +273,13 @@ export function ResourceDetailDocumentSidebar({
         {article?.content}
       </article>
     );
-  }, [articleSlot, articleClassName, article?.featuredImage, article?.content, optixFlowConfig]);
+  }, [
+    articleSlot,
+    articleClassName,
+    article?.featuredImage,
+    article?.content,
+    optixFlowConfig,
+  ]);
 
   const renderedSidebar = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
@@ -446,7 +455,8 @@ export function ResourceDetailDocumentSidebar({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      className={cn(pattern && "overflow-visible", className)}
+      containerClassName={containerClassName}
     >
       {renderedBreadcrumbs}
       {title &&
