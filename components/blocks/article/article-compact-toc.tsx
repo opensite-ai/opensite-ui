@@ -394,7 +394,7 @@ export function ArticleCompactTocComponent({
               (typeof title === "string" ? (
                 <h1
                   className={cn(
-                    "text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl",
+                    "text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl mb-6",
                     titleClassName,
                   )}
                 >
@@ -407,7 +407,7 @@ export function ArticleCompactTocComponent({
             {(authorName || publishDate || readTime) && (
               <div
                 className={cn(
-                  "mt-4 flex flex-wrap items-center gap-4 text-sm",
+                  "mt-4 flex flex-wrap items-center gap-2 md:gap-4 text-sm mb-6 md:mb-12",
                   metaClassName,
                 )}
               >

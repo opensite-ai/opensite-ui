@@ -223,7 +223,7 @@ export function ArticleHeroProseComponent({
         </div>
       </div>
       {children && (
-        <div className={cn("flex flex-col items-center", containerClassName)}>
+        <div className="flex flex-col items-center">
           <div
             className={cn(
               getProseClassName(background, "max-w-3xl"),
