@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
@@ -244,7 +244,6 @@ export function FeatureBadgeGridSix({
                 <p
                   className={cn(
                     "text-sm md:text-base",
-                    getTextColor(background, "muted"),
                     feature.descriptionClassName,
                   )}
                 >
@@ -254,7 +253,6 @@ export function FeatureBadgeGridSix({
                 <div
                   className={cn(
                     "text-sm md:text-base",
-                    getTextColor(background, "muted"),
                     feature.descriptionClassName,
                   )}
                 >
@@ -329,14 +327,7 @@ export function FeatureBadgeGridSix({
                   {title}
                 </h2>
               ) : (
-                <div
-                  className={cn(
-                    "text-2xl font-bold md:text-3xl lg:text-4xl",
-                    titleClassName,
-                  )}
-                >
-                  {title}
-                </div>
+                title
               ))}
           </div>
         )}

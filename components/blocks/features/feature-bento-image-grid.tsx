@@ -182,7 +182,6 @@ export function FeatureBentoImageGrid({
   items,
   itemsSlot,
   className,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   titleClassName,
   descriptionClassName,
   gridClassName,
@@ -190,6 +189,7 @@ export function FeatureBentoImageGrid({
   smallCardClassName,
   optixFlowConfig,
   background,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
@@ -455,14 +455,7 @@ export function FeatureBentoImageGrid({
             {title}
           </h2>
         ) : (
-          <div
-            className={cn(
-              "mb-4 text-center text-4xl font-semibold text-balance",
-              titleClassName,
-            )}
-          >
-            {title}
-          </div>
+          title
         ))}
       {description &&
         (typeof description === "string" ? (
@@ -470,9 +463,7 @@ export function FeatureBentoImageGrid({
             {description}
           </p>
         ) : (
-          <div className={cn("text-center text-balance", descriptionClassName)}>
-            {description}
-          </div>
+          description
         ))}
       <div
         className={cn(

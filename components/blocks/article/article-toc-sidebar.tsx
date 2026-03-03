@@ -1,13 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
-import type { OptixFlowConfig, ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 export interface ArticleTocSection {
@@ -111,7 +116,10 @@ export interface ArticleTocSidebarProps {
   /**
    * Render callback for section links (overrides default rendering)
    */
-  renderSectionLink?: (section: ArticleTocSection, isActive: boolean) => React.ReactNode;
+  renderSectionLink?: (
+    section: ArticleTocSection,
+    isActive: boolean,
+  ) => React.ReactNode;
   /**
    * Hero image source URL
    */
@@ -136,16 +144,6 @@ export interface ArticleTocSidebarProps {
    * CTA actions
    */
   ctaActions?: ActionConfig[];
-  /**
-   * @deprecated Use ctaActions instead
-   * CTA button text (backward compatibility)
-   */
-  ctaButtonText?: string;
-  /**
-   * @deprecated Use ctaActions instead
-   * CTA button href (backward compatibility)
-   */
-  ctaButtonHref?: string;
   /**
    * Custom slot for CTA section (overrides CTA props)
    */
@@ -179,11 +177,14 @@ export interface ArticleTocSidebarProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 export function ArticleTocSidebarComponent({
   className,
-  containerClassName,
   articleClassName,
   sidebarClassName,
   headerClassName,
@@ -211,22 +212,20 @@ export function ArticleTocSidebarComponent({
   heroMediaSlot,
   ctaTitle,
   ctaDescription,
-  ctaActions: ctaActionsProp,
-  ctaButtonText,
-  ctaButtonHref,
+  ctaActions,
   ctaSlot,
   children,
   enableTocTracking = true,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "hero",
   pattern,
   patternOpacity,
+  patternClassName,
 }: ArticleTocSidebarProps) {
-  const ctaActions = ctaActionsProp ?? (ctaButtonText ? [{ label: ctaButtonText, href: ctaButtonHref || "#", variant: "default" as const, className: "w-full" }] : []);
-
   const [activeSection, setActiveSection] = React.useState<string>(
-    sections?.[0]?.id || ""
+    sections?.[0]?.id || "",
   );
 
   React.useEffect(() => {
@@ -240,7 +239,7 @@ export function ArticleTocSidebarComponent({
           }
         });
       },
-      { rootMargin: "-20% 0px -80% 0px" }
+      { rootMargin: "-20% 0px -80% 0px" },
     );
 
     sections.forEach((section) => {
@@ -270,19 +269,31 @@ export function ArticleTocSidebarComponent({
         </Avatar>
         <div>
           {authorHref ? (
-            <Pressable href={authorHref} className="text-sm font-medium hover:underline">
+            <Pressable
+              href={authorHref}
+              className="text-sm font-medium hover:underline"
+            >
               {authorName}
             </Pressable>
           ) : (
             <p className="text-sm font-medium">{authorName}</p>
           )}
           <p className="text-xs text-muted-foreground">
-            {publishDate}{readTime && <> · {readTime}</>}
+            {publishDate}
+            {readTime && <> · {readTime}</>}
           </p>
         </div>
       </div>
     );
-  }, [authorSlot, authorName, authorImage, authorHref, publishDate, readTime, authorClassName]);
+  }, [
+    authorSlot,
+    authorName,
+    authorImage,
+    authorHref,
+    publishDate,
+    readTime,
+    authorClassName,
+  ]);
 
   const heroMediaContent = React.useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
@@ -292,11 +303,20 @@ export function ArticleTocSidebarComponent({
       <Img
         src={heroImageSrc}
         alt={heroImageAlt}
-        className={cn("my-8 aspect-video w-full rounded-lg object-cover", heroImageClassName)}
+        className={cn(
+          "my-8 aspect-video w-full rounded-lg object-cover",
+          heroImageClassName,
+        )}
         optixFlowConfig={optixFlowConfig}
       />
     );
-  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
+  }, [
+    heroMediaSlot,
+    heroImageSrc,
+    heroImageAlt,
+    heroImageClassName,
+    optixFlowConfig,
+  ]);
 
   const tocContent = React.useMemo(() => {
     if (tocSlot) return tocSlot;
@@ -309,7 +329,11 @@ export function ArticleTocSidebarComponent({
           {sections.map((section) => {
             const isActive = activeSection === section.id;
             if (renderSectionLink) {
-              return <React.Fragment key={section.id}>{renderSectionLink(section, isActive)}</React.Fragment>;
+              return (
+                <React.Fragment key={section.id}>
+                  {renderSectionLink(section, isActive)}
+                </React.Fragment>
+              );
             }
             return (
               <Pressable
@@ -319,7 +343,7 @@ export function ArticleTocSidebarComponent({
                   "block text-sm transition-colors",
                   isActive
                     ? "font-medium"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {section.title}
@@ -333,28 +357,38 @@ export function ArticleTocSidebarComponent({
 
   const ctaContent = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
-    if (!ctaTitle && !ctaDescription && (!ctaActions || ctaActions.length === 0)) return null;
+    if (
+      !ctaTitle &&
+      !ctaDescription &&
+      (!ctaActions || ctaActions.length === 0)
+    )
+      return null;
 
     return (
-      <div className={cn("rounded-lg border p-4", getNestedCardBg(background, "subtle"), getNestedCardTextColor(background), ctaClassName)}>
-        {ctaTitle && (
-          typeof ctaTitle === "string" ? (
+      <div className={cn("rounded-lg border p-4", ctaClassName)}>
+        {ctaTitle &&
+          (typeof ctaTitle === "string" ? (
             <h3 className="mb-2 text-sm font-semibold">{ctaTitle}</h3>
           ) : (
             ctaTitle
-          )
-        )}
-        {ctaDescription && (
-          typeof ctaDescription === "string" ? (
-            <p className="mb-4 text-sm text-muted-foreground">{ctaDescription}</p>
+          ))}
+        {ctaDescription &&
+          (typeof ctaDescription === "string" ? (
+            <p className="mb-4 text-sm">{ctaDescription}</p>
           ) : (
             <div className="mb-4">{ctaDescription}</div>
-          )
-        )}
+          ))}
         {ctaActions && ctaActions.length > 0 && (
           <div className="flex flex-col gap-2">
             {ctaActions.map((action, index) => {
-              const { label, icon, iconAfter, children: actionChildren, className: actionClassName, ...pressableProps } = action;
+              const {
+                label,
+                icon,
+                iconAfter,
+                children: actionChildren,
+                className: actionClassName,
+                ...pressableProps
+              } = action;
               return (
                 <Pressable
                   key={index}
@@ -384,31 +418,41 @@ export function ArticleTocSidebarComponent({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      patternClassName={patternClassName}
+      className={cn(pattern && "overflow-visible", className)}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
-          <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
+          <article
+            className={cn(
+              "prose max-w-none dark:prose-invert",
+              articleClassName,
+            )}
+          >
             <div className={cn("mb-8 not-prose", headerClassName)}>
               {categoryContent}
-              {title && (
-                typeof title === "string" ? (
-                  <h1 className={cn("mt-4 text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
+              {title &&
+                (typeof title === "string" ? (
+                  <h1
+                    className={cn(
+                      "mt-4 text-2xl font-bold tracking-tight md:text-4xl",
+                      titleClassName,
+                    )}
+                  >
                     {title}
                   </h1>
                 ) : (
-                  <div className={cn("mt-4", titleClassName)}>{title}</div>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+                  title
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p className={cn("mt-4 text-lg", descriptionClassName)}>
                     {description}
                   </p>
                 ) : (
-                  <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-                )
-              )}
+                  description
+                ))}
               {authorContent}
             </div>
 

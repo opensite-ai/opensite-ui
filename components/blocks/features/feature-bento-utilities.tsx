@@ -15,7 +15,6 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import { getTextColor } from "../../../lib/utils";
 import { Pressable } from "@/src";
 
 export interface FeatureBentoUtilitiesCardItem {
@@ -265,11 +264,7 @@ export function FeatureBentoUtilities({
       return (
         <Card key={index} className={cardClasses}>
           {renderTitle()}
-          {card.description && (
-            <p className={getTextColor(background, "muted")}>
-              {card.description}
-            </p>
-          )}
+          {card.description && <p className="relative">{card.description}</p>}
         </Card>
       );
     },
@@ -305,13 +300,7 @@ export function FeatureBentoUtilities({
       containerClassName={cn("max-w-7xl", containerClassName)}
     >
       {(labelIconElement || label) && (
-        <div
-          className={cn(
-            "flex items-center gap-2",
-            getTextColor(background, "muted"),
-            labelClassName,
-          )}
-        >
+        <div className={cn("flex items-center gap-2", labelClassName)}>
           {labelIconElement}
           {label &&
             (typeof label === "string" ? (

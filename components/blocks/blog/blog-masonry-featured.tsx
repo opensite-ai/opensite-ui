@@ -19,6 +19,10 @@ export interface BlogMasonryFeaturedProps {
    */
   heading?: React.ReactNode;
   /**
+   * Slide description
+   */
+  description?: React.ReactNode;
+  /**
    * Array of content items (first item is featured)
    */
   posts?: BlogPostItem[];
@@ -82,11 +86,11 @@ export interface BlogMasonryFeaturedProps {
 
 export function BlogMasonryFeaturedComponent({
   heading,
+  description,
   posts,
   featuredSlot,
   postsSlot,
   className,
-  containerClassName,
   headingClassName,
   postsClassName,
   featuredClassName,
@@ -94,7 +98,8 @@ export function BlogMasonryFeaturedComponent({
   postCardClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   pattern,
   patternOpacity,
 }: BlogMasonryFeaturedProps): React.JSX.Element {
@@ -105,8 +110,7 @@ export function BlogMasonryFeaturedComponent({
     if (featuredSlot) return featuredSlot;
     if (!featuredPost) return null;
 
-    const postHref =
-      featuredPost.href || featuredPost.url || featuredPost.link || "#";
+    const postHref = featuredPost.href || featuredPost.url || featuredPost.link;
 
     return (
       <div
@@ -135,7 +139,7 @@ export function BlogMasonryFeaturedComponent({
             />
           )}
           <div className="mt-5">
-            <div className="mb-2.5 flex items-center gap-1 text-sm text-muted-foreground">
+            <div className="mb-2.5 flex items-center gap-1 text-sm">
               {(featuredPost.date || featuredPost.published) && (
                 <time>{featuredPost.date || featuredPost.published}</time>
               )}
@@ -146,16 +150,12 @@ export function BlogMasonryFeaturedComponent({
             </div>
             {featuredPost.title &&
               (typeof featuredPost.title === "string" ? (
-                <h3 className="text-lg md:text-3xl lg:text-4xl">
-                  {featuredPost.title}
-                </h3>
+                <h3 className="text-lg">{featuredPost.title}</h3>
               ) : (
-                <div className="text-lg md:text-3xl lg:text-4xl">
-                  {featuredPost.title}
-                </div>
+                <div className="text-lg">{featuredPost.title}</div>
               ))}
             {(featuredPost.description || featuredPost.summary) && (
-              <p className="mt-4 text-muted-foreground">
+              <p className="mt-4">
                 {featuredPost.description || featuredPost.summary}
               </p>
             )}
@@ -220,25 +220,32 @@ export function BlogMasonryFeaturedComponent({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         {heading &&
           (typeof heading === "string" ? (
             <h1
               className={cn(
-                "mb-6 md:mb-12 text-center text-4xl font-medium md:text-6xl text-balance",
+                "mb-6 md:mb-12 text-center text-2xl font-medium md:text-4xl text-balance",
                 headingClassName,
               )}
             >
               {heading}
             </h1>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            heading
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p className="text-balance">{description}</p>
+          ) : (
+            description
           ))}
 
         <div
           className={cn(
-            "xs:grid-cols-1 mt-6 md:mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4",
+            "grid-cols-1 mt-6 md:mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4",
             postsClassName,
           )}
         >

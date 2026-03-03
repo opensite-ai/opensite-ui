@@ -103,7 +103,6 @@ export interface ArticleHeroProseProps {
 export function ArticleHeroProseComponent({
   post,
   className,
-  containerClassName,
   headerClassName,
   titleClassName,
   descriptionClassName,
@@ -116,7 +115,8 @@ export function ArticleHeroProseComponent({
   dateFormat = "MMMM d, yyyy",
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "hero",
   pattern,
   patternOpacity,
 }: ArticleHeroProseProps) {
@@ -189,8 +189,9 @@ export function ArticleHeroProseComponent({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div
           className={cn(
             "mx-auto flex max-w-5xl flex-col items-center gap-4 text-center",
@@ -200,7 +201,7 @@ export function ArticleHeroProseComponent({
           {title && (
             <h1
               className={cn(
-                "max-w-3xl text-5xl font-semibold text-pretty md:text-6xl",
+                "max-w-full md:max-w-3xl text-2xl font-semibold text-pretty md:text-5xl",
                 titleClassName,
               )}
             >
@@ -210,7 +211,7 @@ export function ArticleHeroProseComponent({
           {description && (
             <h3
               className={cn(
-                "max-w-3xl text-lg text-muted-foreground md:text-xl text-balance",
+                "max-w-full md:max-w-3xl text-lg text-muted-foreground md:text-xl text-balance",
                 descriptionClassName,
               )}
             >
@@ -222,7 +223,7 @@ export function ArticleHeroProseComponent({
         </div>
       </div>
       {children && (
-        <div className={cn("container", containerClassName)}>
+        <div className={cn("relative", containerClassName)}>
           <div
             className={cn(
               "mx-auto prose max-w-3xl dark:prose-invert",

@@ -15,7 +15,12 @@
  */
 
 import * as React from "react";
-import { BRIGHTNESS_CLASS_MAP, cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  BRIGHTNESS_CLASS_MAP,
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -28,6 +33,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface PortfolioSlide {
   /**
@@ -159,7 +165,7 @@ export function CarouselPortfolioHero({
   navigationClassName,
   counterClassName,
   optixFlowConfig,
-  background = "dark",
+  background,
   spacing = "none",
   pattern,
   patternOpacity,
@@ -200,38 +206,6 @@ export function CarouselPortfolioHero({
       }
     };
   }, [resetInterval]);
-
-  const renderActions = () => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const {
-        label,
-        icon,
-        iconAfter,
-        children,
-        className: actionClassName,
-        ...pressableProps
-      } = action;
-      return (
-        <Pressable
-          key={index}
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  };
 
   const currentSlide = slides?.[currentIndex];
 
@@ -280,7 +254,7 @@ export function CarouselPortfolioHero({
         )}
       >
         <div className="relative">
-          <div className={cn("max-w-4xl", contentClassName)}>
+          <div className={cn("w-full", contentClassName)}>
             {currentSlide?.tag && (
               <div className="mb-4">
                 {typeof currentSlide.tag === "string" ? (
@@ -331,7 +305,11 @@ export function CarouselPortfolioHero({
             <div
               className={cn("mt-8 flex items-center gap-4", actionsClassName)}
             >
-              {renderActions()}
+              <BlockActions
+                actions={actions}
+                actionsSlot={actionsSlot}
+                actionsClassName={actionsClassName}
+              />
 
               <div
                 className={cn(
@@ -342,7 +320,11 @@ export function CarouselPortfolioHero({
                 <Pressable
                   variant="outline"
                   size="icon"
-                  className={cn("rounded-full border-foreground/40", getNestedCardBg(background), getNestedCardTextColor(background))}
+                  className={cn(
+                    "rounded-full border-foreground/40",
+                    getNestedCardBg(background),
+                    getNestedCardTextColor(background),
+                  )}
                   onClick={goToPrev}
                   asButton
                 >
