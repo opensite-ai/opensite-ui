@@ -4,7 +4,15 @@ import { ArticleSplitAnimated } from "../article-split-animated";
 
 // Mock the Img component from @page-speed/img
 vi.mock("@page-speed/img", () => ({
-  Img: ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
+  Img: ({
+    src,
+    alt,
+    className,
+  }: {
+    src: string;
+    alt: string;
+    className?: string;
+  }) => (
     <img src={src} alt={alt} className={className} data-testid="mock-img" />
   ),
 }));
@@ -12,7 +20,11 @@ vi.mock("@page-speed/img", () => ({
 // Mock framer-motion to avoid animation issues in tests
 vi.mock("framer-motion", () => ({
   motion: {
-    div: ({ children, className, ...props }: React.PropsWithChildren<{ className?: string }>) => (
+    div: ({
+      children,
+      className,
+      ...props
+    }: React.PropsWithChildren<{ className?: string }>) => (
       <div className={className} data-testid="motion-div" {...props}>
         {children}
       </div>
@@ -21,27 +33,17 @@ vi.mock("framer-motion", () => ({
 }));
 
 describe("ArticleSplitAnimated", () => {
-
   it("renders custom title and description", () => {
     render(
       <ArticleSplitAnimated
         title="Custom Article Title"
         description="This is a custom description for the article."
-      />
+      />,
     );
     expect(screen.getByText("Custom Article Title")).toBeInTheDocument();
-    expect(screen.getByText("This is a custom description for the article.")).toBeInTheDocument();
-  });
-
-  it("renders CTA button", () => {
-    render(
-      <ArticleSplitAnimated
-        title="Test Title"
-        ctaText="Read More"
-        ctaHref="/article"
-      />
-    );
-    expect(screen.getByText("Read More")).toBeInTheDocument();
+    expect(
+      screen.getByText("This is a custom description for the article."),
+    ).toBeInTheDocument();
   });
 
   it("renders image with correct alt text", () => {
@@ -50,4 +52,3 @@ describe("ArticleSplitAnimated", () => {
     expect(img).toHaveAttribute("alt", "Test Title");
   });
 });
-

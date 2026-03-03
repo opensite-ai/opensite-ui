@@ -1,12 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-  getProseClassName,
-} from "../../../lib/utils";
+import { cn, getProseClassName } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -205,6 +200,10 @@ export interface ArticleChaptersAuthorProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 export function ArticleChaptersAuthorComponent({
@@ -242,6 +241,7 @@ export function ArticleChaptersAuthorComponent({
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "hero",
+  patternClassName,
   pattern,
   patternOpacity,
 }: ArticleChaptersAuthorProps) {
@@ -329,14 +329,12 @@ export function ArticleChaptersAuthorComponent({
                 href={`#${chapter.id}`}
                 className={cn(
                   "flex items-center gap-3 text-sm transition-colors",
-                  isActive ? "font-medium" : "",
+                  isActive ? "underline" : "",
                 )}
               >
                 <span
                   className={cn(
                     "flex h-6 w-6 items-center justify-center rounded-full text-xs",
-                    getNestedCardBg(background),
-                    getNestedCardTextColor(background),
                   )}
                 >
                   {chapter.number}
@@ -426,12 +424,10 @@ export function ArticleChaptersAuthorComponent({
           </Avatar>
           <div>
             <p className="font-medium">{author.name}</p>
-            <p className="text-xs text-muted-foreground">{author.role}</p>
+            <p className="text-xs">{author.role}</p>
           </div>
         </div>
-        {author.bio && (
-          <p className="mt-3 text-sm text-muted-foreground">{author.bio}</p>
-        )}
+        {author.bio && <p className="mt-3 text-sm">{author.bio}</p>}
         {socialLinksContent}
       </div>
     );
@@ -473,8 +469,6 @@ export function ArticleChaptersAuthorComponent({
       <div
         className={cn(
           "mt-12 rounded-lg border p-6 not-prose",
-          getNestedCardBg(background, "subtle"),
-          getNestedCardTextColor(background),
           conclusionClassName,
         )}
       >
@@ -536,7 +530,8 @@ export function ArticleChaptersAuthorComponent({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      patternClassName={patternClassName}
+      className={cn(pattern && "overflow-visible", className)}
       containerClassName={containerClassName}
     >
       <div className="relative">

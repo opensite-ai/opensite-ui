@@ -356,18 +356,14 @@ export function ArticleCompactTocComponent({
     );
   }, [tocSlot, sections, isTocOpen, tocClassName, renderTocLinks]);
 
+  const hasDesktopToc = !tocSlot && sections && sections.length > 0;
+
   const desktopTocContent = React.useMemo(() => {
-    if (tocSlot) return null;
-    if (!sections || sections.length === 0) return null;
+    if (!hasDesktopToc) return null;
 
     return (
-      <aside
-        className={cn(
-          "hidden lg:block fixed top-24 right-8 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto",
-          tocClassName,
-        )}
-      >
-        <nav className="space-y-2 rounded-lg border p-4">
+      <aside className={cn("hidden lg:block w-64 shrink-0", tocClassName)}>
+        <nav className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto space-y-2 rounded-lg border p-4">
           <span className="mb-3 block text-sm font-semibold">
             Table of Contents
           </span>
@@ -375,7 +371,7 @@ export function ArticleCompactTocComponent({
         </nav>
       </aside>
     );
-  }, [tocSlot, sections, tocClassName, renderTocLinks]);
+  }, [hasDesktopToc, tocClassName, renderTocLinks]);
 
   const heroMediaContent = React.useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
@@ -410,61 +406,64 @@ export function ArticleCompactTocComponent({
       className={cn(pattern && "overflow-visible", className)}
       containerClassName={containerClassName}
     >
-      {desktopTocContent}
       <div className="relative">
         {breadcrumbsContent}
 
-        <div className="relative">
-          {title &&
-            (typeof title === "string" ? (
-              <h1
+        <div className={cn("relative", hasDesktopToc && "lg:flex lg:gap-8")}>
+          <div className={cn(hasDesktopToc && "min-w-0 lg:flex-1")}>
+            {title &&
+              (typeof title === "string" ? (
+                <h1
+                  className={cn(
+                    "text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h1>
+              ) : (
+                title
+              ))}
+
+            {(authorName || publishDate || readTime) && (
+              <div
                 className={cn(
-                  "text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl",
-                  titleClassName,
+                  "mt-4 flex flex-wrap items-center gap-4 text-sm",
+                  metaClassName,
                 )}
               >
-                {title}
-              </h1>
-            ) : (
-              title
-            ))}
+                {authorName && (
+                  <Pressable href={authorHref}>{authorName}</Pressable>
+                )}
+                {authorName && publishDate && (
+                  <Separator orientation="vertical" className="h-4" />
+                )}
+                {publishDate && <span>{publishDate}</span>}
+                {publishDate && readTime && (
+                  <Separator orientation="vertical" className="h-4" />
+                )}
+                {readTime && <span>{readTime}</span>}
+              </div>
+            )}
 
-          {(authorName || publishDate || readTime) && (
-            <div
-              className={cn(
-                "mt-4 flex flex-wrap items-center gap-4 text-sm",
-                metaClassName,
-              )}
-            >
-              {authorName && (
-                <Pressable href={authorHref}>{authorName}</Pressable>
-              )}
-              {authorName && publishDate && (
-                <Separator orientation="vertical" className="h-4" />
-              )}
-              {publishDate && <span>{publishDate}</span>}
-              {publishDate && readTime && (
-                <Separator orientation="vertical" className="h-4" />
-              )}
-              {readTime && <span>{readTime}</span>}
-            </div>
-          )}
+            {shareContent}
 
-          {shareContent}
+            {tocContent}
 
-          {tocContent}
+            {children && (
+              <article
+                className={cn(
+                  getProseClassName(background, "max-w-none"),
+                  articleClassName,
+                )}
+              >
+                {heroMediaContent}
+                {children}
+              </article>
+            )}
+          </div>
 
-          {children && (
-            <article
-              className={cn(
-                getProseClassName(background, "max-w-none"),
-                articleClassName,
-              )}
-            >
-              {heroMediaContent}
-              {children}
-            </article>
-          )}
+          {desktopTocContent}
         </div>
       </div>
     </Section>

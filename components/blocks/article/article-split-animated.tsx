@@ -122,16 +122,6 @@ export interface ArticleSplitAnimatedProps {
    */
   ctaActions?: ActionConfig[];
   /**
-   * @deprecated Use ctaActions instead
-   * CTA button text (backward compatibility)
-   */
-  ctaText?: string;
-  /**
-   * @deprecated Use ctaActions instead
-   * CTA button href (backward compatibility)
-   */
-  ctaHref?: string;
-  /**
    * Custom slot for CTA section (overrides ctaActions)
    */
   ctaSlot?: React.ReactNode;
@@ -164,7 +154,6 @@ export interface ArticleSplitAnimatedProps {
 
 export function ArticleSplitAnimatedComponent({
   className,
-  containerClassName,
   imageContainerClassName,
   contentClassName,
   titleClassName,
@@ -188,30 +177,16 @@ export function ArticleSplitAnimatedComponent({
   category,
   categoryHref,
   categorySlot,
-  ctaActions: ctaActionsProp,
-  ctaText,
-  ctaHref,
+  ctaActions,
   ctaSlot,
   enableAnimations = true,
   optixFlowConfig,
   background,
-  spacing,
   pattern,
   patternOpacity,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
 }: ArticleSplitAnimatedProps) {
-  const ctaActions =
-    ctaActionsProp ??
-    (ctaText
-      ? [
-          {
-            label: ctaText,
-            href: ctaHref || "#",
-            variant: "default" as const,
-            size: "lg" as const,
-          },
-        ]
-      : []);
-
   const MotionWrapper = enableAnimations ? motion.div : "div";
 
   const categoryContent = React.useMemo(() => {
@@ -222,7 +197,7 @@ export function ArticleSplitAnimatedComponent({
       <Pressable
         href={categoryHref}
         className={cn(
-          "inline-block rounded-full bg-primary/20 px-3 py-1 text-sm font-medium text-primary-foreground backdrop-blur-sm transition-colors hover:bg-primary/30",
+          "inline-block rounded-full bg-primary px-3 py-1 text-sm font-medium text-primary-foreground backdrop-blur-sm transition-colors",
           categoryClassName,
         )}
       >
@@ -266,9 +241,7 @@ export function ArticleSplitAnimatedComponent({
           ) : (
             <p className="font-medium">{authorName}</p>
           )}
-          {authorRole && (
-            <p className="text-sm text-muted-foreground">{authorRole}</p>
-          )}
+          {authorRole && <p className="text-sm ">{authorRole}</p>}
         </div>
       </div>
     );
@@ -366,7 +339,7 @@ export function ArticleSplitAnimatedComponent({
             {(publishDate || readTime) && (
               <div
                 className={cn(
-                  "flex items-center gap-4 text-sm text-muted-foreground",
+                  "flex items-center gap-4 text-sm ",
                   metaClassName,
                 )}
               >
@@ -389,23 +362,16 @@ export function ArticleSplitAnimatedComponent({
                   {title}
                 </h2>
               ) : (
-                <div className={cn("mt-4", titleClassName)}>{title}</div>
+                title
               ))}
 
             {description &&
               (typeof description === "string" ? (
-                <p
-                  className={cn(
-                    "mt-4 text-lg text-muted-foreground",
-                    descriptionClassName,
-                  )}
-                >
+                <p className={cn("mt-4 text-lg", descriptionClassName)}>
                   {description}
                 </p>
               ) : (
-                <div className={cn("mt-4", descriptionClassName)}>
-                  {description}
-                </div>
+                description
               ))}
 
             {authorContent}
