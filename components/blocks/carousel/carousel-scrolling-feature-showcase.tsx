@@ -126,6 +126,10 @@ export interface CarouselScrollingFeatureShowcaseProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 export function CarouselScrollingFeatureShowcase({
@@ -134,7 +138,6 @@ export function CarouselScrollingFeatureShowcase({
   features,
   featuresSlot,
   className,
-  containerClassName,
   headerClassName,
   headingClassName,
   subheadingClassName,
@@ -144,9 +147,11 @@ export function CarouselScrollingFeatureShowcase({
   numberBadgeClassName,
   optixFlowConfig,
   background,
-  spacing = "md",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
+  patternClassName,
 }: CarouselScrollingFeatureShowcaseProps): React.JSX.Element {
   const [activeFeature, setActiveFeature] = React.useState<string>(
     features?.[0]?.id ?? "",
@@ -196,11 +201,13 @@ export function CarouselScrollingFeatureShowcase({
     <Section
       background={background}
       spacing={spacing}
-      className={cn(className)}
+      className={cn(pattern && "overflow-visible", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container mx-auto px-4", containerClassName)}>
+      <div className="relative">
         {/* Header */}
         <div className={cn("mb-12 text-center", headerClassName)}>
           {heading &&
@@ -214,22 +221,15 @@ export function CarouselScrollingFeatureShowcase({
                 {heading}
               </h2>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {subheading &&
             (typeof subheading === "string" ? (
-              <p
-                className={cn(
-                  "mt-4 text-lg text-muted-foreground",
-                  subheadingClassName,
-                )}
-              >
+              <p className={cn("mt-4 text-lg", subheadingClassName)}>
                 {subheading}
               </p>
             ) : (
-              <div className={cn("mt-4", subheadingClassName)}>
-                {subheading}
-              </div>
+              subheading
             ))}
         </div>
 
@@ -245,8 +245,7 @@ export function CarouselScrollingFeatureShowcase({
             <div className="sticky top-24">
               <div
                 className={cn(
-                  "aspect-video overflow-hidden rounded-xl",
-                  getNestedCardBg(background),
+                  "aspect-square overflow-hidden rounded-xl",
                   imageClassName,
                 )}
               >
@@ -281,7 +280,7 @@ export function CarouselScrollingFeatureShowcase({
           </div>
 
           {/* Feature descriptions */}
-          <div className={cn("space-y-24 lg:space-y-32", featuresClassName)}>
+          <div className={cn("space-y-12 lg:space-y-32", featuresClassName)}>
             {featuresSlot
               ? featuresSlot
               : features?.map((feature, index) => (
@@ -328,19 +327,19 @@ export function CarouselScrollingFeatureShowcase({
                       <div>
                         {feature.title &&
                           (typeof feature.title === "string" ? (
-                            <h3 className="text-2xl font-semibold">
+                            <h3 className="text-xl md:text-2xl font-semibold">
                               {feature.title}
                             </h3>
                           ) : (
-                            <div>{feature.title}</div>
+                            feature.title
                           ))}
                         {feature.description &&
                           (typeof feature.description === "string" ? (
-                            <p className="mt-4 text-lg text-muted-foreground">
+                            <p className="mt-4 text-lg">
                               {feature.description}
                             </p>
                           ) : (
-                            <div className="mt-4">{feature.description}</div>
+                            feature.description
                           ))}
                       </div>
                     </div>
