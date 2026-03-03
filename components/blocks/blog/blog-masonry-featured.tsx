@@ -132,7 +132,7 @@ export function BlogMasonryFeaturedComponent({
                   : "Featured content"
               }
               className={cn(
-                "h-48 w-full rounded-lg object-cover hover:opacity-80 md:h-80 lg:h-96",
+                "h-48 w-full rounded-xl shadow-xl object-cover md:h-80 lg:h-96 transition-all duration-500 hover:opacity-80",
                 featuredImageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
@@ -152,10 +152,10 @@ export function BlogMasonryFeaturedComponent({
               (typeof featuredPost.title === "string" ? (
                 <h3 className="text-lg">{featuredPost.title}</h3>
               ) : (
-                <div className="text-lg">{featuredPost.title}</div>
+                featuredPost.title
               ))}
             {(featuredPost.description || featuredPost.summary) && (
-              <p className="mt-4">
+              <p className="mt-4 text-sm font-normal">
                 {featuredPost.description || featuredPost.summary}
               </p>
             )}
@@ -189,12 +189,12 @@ export function BlogMasonryFeaturedComponent({
             <Img
               src={post.image}
               alt={typeof post.title === "string" ? post.title : "Content item"}
-              className="h-48 w-full rounded-lg object-cover hover:opacity-80"
+              className="h-48 w-full rounded-xl shadow-lg object-cover transition-all duration-500 hover:opacity-80"
               optixFlowConfig={optixFlowConfig}
             />
           )}
           <div className="mt-5">
-            <div className="mb-2.5 flex items-center gap-1 text-sm text-muted-foreground">
+            <div className="mb-2.5 flex items-center gap-1 text-sm">
               {(post.date || post.published) && (
                 <time>{post.date || post.published}</time>
               )}
@@ -227,7 +227,7 @@ export function BlogMasonryFeaturedComponent({
           (typeof heading === "string" ? (
             <h1
               className={cn(
-                "mb-6 md:mb-12 text-center text-2xl font-medium md:text-4xl text-balance",
+                "mb-4 text-center text-2xl font-medium md:text-4xl text-balance",
                 headingClassName,
               )}
             >
@@ -238,7 +238,7 @@ export function BlogMasonryFeaturedComponent({
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p className="text-balance">{description}</p>
+            <p className="text-balance text-left text-lg">{description}</p>
           ) : (
             description
           ))}

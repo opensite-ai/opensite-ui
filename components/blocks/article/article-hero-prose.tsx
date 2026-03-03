@@ -115,7 +115,7 @@ export function ArticleHeroProseComponent({
   dateFormat = "MMMM d, yyyy",
   optixFlowConfig,
   background,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  containerClassName,
   spacing = "hero",
   pattern,
   patternOpacity,
@@ -201,7 +201,7 @@ export function ArticleHeroProseComponent({
           {title && (
             <h1
               className={cn(
-                "max-w-full md:max-w-3xl text-2xl font-semibold text-pretty md:text-5xl",
+                "max-w-full md:max-w-3xl text-2xl font-semibold text-balance md:text-5xl",
                 titleClassName,
               )}
             >
@@ -211,7 +211,7 @@ export function ArticleHeroProseComponent({
           {description && (
             <h3
               className={cn(
-                "max-w-full md:max-w-3xl text-lg text-muted-foreground md:text-xl text-balance",
+                "max-w-full md:max-w-3xl text-lg md:text-xl text-balance",
                 descriptionClassName,
               )}
             >

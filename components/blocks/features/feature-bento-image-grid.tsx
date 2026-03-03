@@ -13,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { Badge } from "@/src";
 
 export interface FeatureBentoImageGridItem {
   /**
@@ -235,7 +236,7 @@ export function FeatureBentoImageGrid({
         <>
           {renderItemImage(
             item,
-            "h-full max-h-[580px] w-full rounded-xl object-cover object-center",
+            "h-full max-h-[580px] w-full rounded-xl object-cover object-center shadow-lg",
           )}
           <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 rounded-xl bg-linear-to-t from-black to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
           <div className="absolute top-0 flex h-full w-full flex-col justify-between px-5 md:px-8 py-6 md:py-6">
@@ -250,26 +251,19 @@ export function FeatureBentoImageGrid({
                 {item.iconBadge}
               </span>
             )}
-            <div className="flex flex-col gap-2 md:gap-5 text-white">
+            <div className="flex flex-col gap-2 md:gap-4 text-white text-shadow-lg">
               {item.title &&
                 (typeof item.title === "string" ? (
                   <h4
                     className={cn(
-                      "text-2xl font-medium lg:text-3xl",
+                      "text-2xl font-semibold lg:text-3xl",
                       item.titleClassName,
                     )}
                   >
                     {item.title}
                   </h4>
                 ) : (
-                  <div
-                    className={cn(
-                      "text-2xl font-medium lg:text-3xl",
-                      item.titleClassName,
-                    )}
-                  >
-                    {item.title}
-                  </div>
+                  item.title
                 ))}
               {item.linkText && (
                 <p
@@ -327,43 +321,31 @@ export function FeatureBentoImageGrid({
           {renderItemImage(
             item,
             cn(
-              "h-full w-full rounded-xl object-cover object-center",
+              "h-full w-full rounded-xl object-cover object-center shadow-lg",
               index === 0 ? "max-h-44" : "max-h-96",
             ),
           )}
           <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 rounded-xl bg-linear-to-t from-black to-transparent opacity-80 transition-transform duration-300 group-hover:translate-y-0"></div>
           <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
             {hasIconBadgeContent && (
-              <span
-                className={cn(
-                  "ml-auto flex w-fit items-center gap-1 p-2.5 text-sm font-semibold ",
-                  item.iconBadgeClassName,
-                )}
-              >
+              <Badge className={cn("px-2 py-1", item.iconBadgeClassName)}>
                 {iconContent}
                 {item.iconBadge}
-              </span>
+              </Badge>
             )}
-            <div className="flex flex-col gap-5 ">
+            <div className="flex flex-col gap-0 text-white text-shadow-lg">
               {item.title &&
                 (typeof item.title === "string" ? (
                   <h4
                     className={cn(
-                      "text-2xl font-semibold lg:text-3xl",
+                      "text-xl font-semibold lg:text-2xl",
                       item.titleClassName,
                     )}
                   >
                     {item.title}
                   </h4>
                 ) : (
-                  <div
-                    className={cn(
-                      "text-2xl font-semibold lg:text-3xl",
-                      item.titleClassName,
-                    )}
-                  >
-                    {item.title}
-                  </div>
+                  item.title
                 ))}
               {item.linkText && (
                 <p

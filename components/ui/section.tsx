@@ -36,7 +36,7 @@ const spacingStyles = {
 /**
  * Predefined spacing keys for type checking
  */
-const predefinedSpacings = ["none", "sm", "md", "lg", "xl"] as const;
+const predefinedSpacings = ["none", "sm", "md", "lg", "xl", "hero"] as const;
 
 /**
  * Check if a spacing value is a predefined variant

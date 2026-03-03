@@ -278,7 +278,7 @@ export function ArticleTocSidebarComponent({
           ) : (
             <p className="text-sm font-medium">{authorName}</p>
           )}
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs">
             {publishDate}
             {readTime && <> · {readTime}</>}
           </p>
@@ -341,9 +341,7 @@ export function ArticleTocSidebarComponent({
                 href={`#${section.id}`}
                 className={cn(
                   "block text-sm transition-colors",
-                  isActive
-                    ? "font-medium"
-                    : "text-muted-foreground hover:text-foreground",
+                  isActive ? "font-medium" : "",
                 )}
               >
                 {section.title}
@@ -424,12 +422,7 @@ export function ArticleTocSidebarComponent({
     >
       <div className="relative">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
-          <article
-            className={cn(
-              "prose max-w-none dark:prose-invert",
-              articleClassName,
-            )}
-          >
+          <article className={cn("prose max-w-none", articleClassName)}>
             <div className={cn("mb-8 not-prose", headerClassName)}>
               {categoryContent}
               {title &&

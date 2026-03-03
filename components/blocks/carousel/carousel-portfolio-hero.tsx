@@ -34,6 +34,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { Badge } from "@/src";
 
 export interface PortfolioSlide {
   /**
@@ -258,16 +259,11 @@ export function CarouselPortfolioHero({
             {currentSlide?.tag && (
               <div className="mb-4">
                 {typeof currentSlide.tag === "string" ? (
-                  <span
-                    className={cn(
-                      "inline-block rounded-full bg-primary px-3 py-1 text-sm font-medium",
-                      tagClassName,
-                    )}
-                  >
+                  <Badge className={cn("px-3 py-1", tagClassName)}>
                     {currentSlide.tag}
-                  </span>
+                  </Badge>
                 ) : (
-                  <div className={tagClassName}>{currentSlide.tag}</div>
+                  currentSlide.tag
                 )}
               </div>
             )}
@@ -276,7 +272,7 @@ export function CarouselPortfolioHero({
               (typeof currentSlide.title === "string" ? (
                 <h1
                   className={cn(
-                    "text-4xl font-bold sm:text-5xl md:text-6xl text-balance text-shadow",
+                    "text-4xl font-bold sm:text-5xl md:text-6xl text-balance text-shadow-lg text-white",
                     titleClassName,
                   )}
                 >
@@ -290,7 +286,7 @@ export function CarouselPortfolioHero({
               (typeof currentSlide.description === "string" ? (
                 <p
                   className={cn(
-                    "mt-4 text-lg opacity-80 sm:text-xl md:max-w-2xl  text-balance text-shadow",
+                    "mt-4 text-lg opacity-80 sm:text-xl md:max-w-2xl text-balance text-shadow-lg text-white",
                     descriptionClassName,
                   )}
                 >
