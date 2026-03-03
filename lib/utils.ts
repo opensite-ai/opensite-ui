@@ -103,9 +103,7 @@ export function getNestedCardBg(
 
   // Priority 3: Smart inversion based on parent background
   const isDark =
-    parentBg === "dark" ||
-    parentBg === "secondary" ||
-    parentBg === "primary";
+    parentBg === "dark" || parentBg === "secondary" || parentBg === "primary";
 
   if (isDark) {
     // For dark backgrounds, use lighter backgrounds for contrast
@@ -171,9 +169,7 @@ export function getNestedCardTextColor(
   if (options?.override) return options.override;
 
   const isDark =
-    parentBg === "dark" ||
-    parentBg === "secondary" ||
-    parentBg === "primary";
+    parentBg === "dark" || parentBg === "secondary" || parentBg === "primary";
 
   // When using inverted background on dark parent, ensure text is visible
   return isDark ? "text-foreground" : "";
@@ -231,9 +227,7 @@ export function getTextColor(
   if (options?.override) return options.override;
 
   const isDark =
-    parentBg === "dark" ||
-    parentBg === "secondary" ||
-    parentBg === "primary";
+    parentBg === "dark" || parentBg === "secondary" || parentBg === "primary";
 
   if (isDark) {
     // For dark backgrounds, use lighter text colors
@@ -293,12 +287,85 @@ export function getAccentColor(
   if (options?.override) return options.override;
 
   const isDark =
-    parentBg === "dark" ||
-    parentBg === "secondary" ||
-    parentBg === "primary";
+    parentBg === "dark" || parentBg === "secondary" || parentBg === "primary";
 
   // On dark backgrounds, use lighter accent; on light backgrounds, use primary
   return isDark ? "text-accent-foreground" : "text-primary";
+}
+
+/**
+ * Determines if a Section background variant is "dark" (requires light text).
+ *
+ * This utility identifies backgrounds that use light-colored text (text-background,
+ * text-primary-foreground, etc.) where nested content may need inverted styling.
+ *
+ * **Dark backgrounds:**
+ * - `dark`: Uses `bg-foreground text-background`
+ * - `gradient`: Uses `text-primary-foreground`
+ * - `primary`: Uses `text-primary-foreground`
+ * - `secondary`: Uses `text-secondary-foreground` (typically light on dark secondary)
+ *
+ * @param bg - The Section's background variant
+ * @returns true if the background is dark and requires light text
+ *
+ * @example
+ * if (isDarkBackground(background)) {
+ *   // Apply inverted styling
+ * }
+ */
+export function isDarkBackground(bg?: SectionBackground): boolean {
+  return (
+    bg === "dark" || bg === "gradient" || bg === "primary" || bg === "secondary"
+  );
+}
+
+/**
+ * Get the appropriate prose classes based on parent Section background.
+ *
+ * This utility provides **context-aware prose styling** that ensures typography
+ * content remains readable regardless of the Section's background color.
+ *
+ * **How it works:**
+ * - On **dark backgrounds** (dark, gradient, primary, secondary): Uses `prose-invert`
+ *   directly to ensure light text on dark backgrounds
+ * - On **light backgrounds**: Uses `dark:prose-invert` so prose inverts only in
+ *   system/page dark mode
+ *
+ * **Required:** The `@tailwindcss/typography` plugin must be installed.
+ *
+ * @param parentBg - The parent Section's background variant
+ * @param additionalClasses - Additional prose modifier classes (e.g., "prose-sm", "max-w-none")
+ * @returns Tailwind prose class string
+ *
+ * @example
+ * // Basic usage in a block component
+ * <div className={cn(getProseClassName(background), "mx-auto max-w-3xl")}>
+ *   {children}
+ * </div>
+ *
+ * @example
+ * // With additional prose modifiers
+ * <div className={cn(getProseClassName(background, "prose-sm max-w-none"))}>
+ *   {children}
+ * </div>
+ *
+ * @example
+ * // In ArticleHeroProse
+ * <div className={cn(getProseClassName(background), proseClassName)}>
+ *   {children}
+ * </div>
+ */
+export function getProseClassName(
+  parentBg?: SectionBackground,
+  additionalClasses?: string,
+): string {
+  const baseClasses = isDarkBackground(parentBg)
+    ? "prose prose-invert"
+    : "prose dark:prose-invert";
+
+  return additionalClasses
+    ? `${baseClasses} ${additionalClasses}`
+    : baseClasses;
 }
 
 /**
@@ -346,9 +413,7 @@ export function getBorderColor(
   if (options?.override) return options.override;
 
   const isDark =
-    parentBg === "dark" ||
-    parentBg === "secondary" ||
-    parentBg === "primary";
+    parentBg === "dark" || parentBg === "secondary" || parentBg === "primary";
 
   if (isDark) {
     // For dark backgrounds, use lighter borders

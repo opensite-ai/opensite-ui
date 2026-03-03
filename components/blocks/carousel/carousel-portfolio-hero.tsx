@@ -299,7 +299,7 @@ export function CarouselPortfolioHero({
               ))}
 
             <div
-              className={cn("mt-8 flex items-center gap-4", actionsClassName)}
+              className={cn("mt-2 flex items-center gap-4", actionsClassName)}
             >
               <BlockActions
                 actions={actions}
@@ -338,7 +338,10 @@ export function CarouselPortfolioHero({
                 </Pressable>
 
                 <div
-                  className={cn("ml-3 text-sm opacity-80", counterClassName)}
+                  className={cn(
+                    "ml-3 text-sm opacity-80 text-white text-shadow-lg",
+                    counterClassName,
+                  )}
                 >
                   {currentIndex + 1} / {slides?.length ?? 0}
                 </div>

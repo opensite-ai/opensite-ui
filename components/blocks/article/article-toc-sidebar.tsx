@@ -254,7 +254,7 @@ export function ArticleTocSidebarComponent({
     if (categorySlot) return categorySlot;
     if (!category) return null;
 
-    return <Badge variant="secondary">{category}</Badge>;
+    return <Badge>{category}</Badge>;
   }, [categorySlot, category]);
 
   const authorContent = React.useMemo(() => {

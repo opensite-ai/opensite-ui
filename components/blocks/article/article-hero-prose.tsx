@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { format } from "date-fns";
-import { cn } from "../../../lib/utils";
+import { cn, getProseClassName } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -223,10 +223,11 @@ export function ArticleHeroProseComponent({
         </div>
       </div>
       {children && (
-        <div className={cn("relative", containerClassName)}>
+        <div className={cn("flex flex-col items-center", containerClassName)}>
           <div
             className={cn(
-              "mx-auto prose max-w-3xl dark:prose-invert",
+              getProseClassName(background, "max-w-3xl"),
+              "mx-auto",
               proseClassName,
             )}
           >

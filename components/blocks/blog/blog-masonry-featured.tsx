@@ -238,7 +238,7 @@ export function BlogMasonryFeaturedComponent({
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p className="text-balance text-left text-lg">{description}</p>
+            <p className="text-balance text-center text-lg">{description}</p>
           ) : (
             description
           ))}
