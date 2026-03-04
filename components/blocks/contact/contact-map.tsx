@@ -12,7 +12,11 @@ import { Card, CardContent } from "../../ui/card";
 import { GeoMap, type GeoMapProps } from "../../ui/geo-map";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "",
@@ -102,6 +106,10 @@ export interface ContactMapProps {
   formEngineSetup?: FormEngineProps;
   /** Geo map configuration and marker data */
   mapProps?: GeoMapProps;
+  /**
+   * Optional Optix Flow configuration for image optimization
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 /**
@@ -134,6 +142,7 @@ export function ContactMap({
   pattern,
   patternOpacity,
   mapProps,
+  optixFlowConfig,
 }: ContactMapProps): React.JSX.Element {
   const renderForm = React.useMemo(() => {
     if (!formEngineSetup) {
@@ -155,8 +164,9 @@ export function ContactMap({
       panelPosition: "top-left",
       ...mapProps,
       className: cn("h-full w-full", mapClassName, mapProps?.className),
+      optixFlowConfig,
     };
-  }, [mapClassName, mapProps]);
+  }, [mapClassName, mapProps, optixFlowConfig]);
 
   return (
     <Section

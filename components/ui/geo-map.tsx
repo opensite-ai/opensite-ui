@@ -11,8 +11,9 @@ import {
 } from "@page-speed/maps";
 import { cn } from "../../lib/utils";
 import { Pressable } from "../../lib/Pressable";
-import type { ActionConfig } from "../../src/types";
+import type { ActionConfig, OptixFlowConfig } from "../../src/types";
 import { DynamicIcon } from "./dynamic-icon";
+import { Img } from "@page-speed/img";
 
 type PanelPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 
@@ -101,6 +102,7 @@ export interface GeoMapProps {
   onSelectionChange?: (selection: GeoMapSelection) => void;
   clearSelectionOnMapClick?: boolean;
   mapChildren?: React.ReactNode;
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 type NormalizedMarker = Omit<GeoMapMarker, "id"> & {
@@ -232,8 +234,10 @@ function MarkerActions({ actions }: { actions?: ActionConfig[] }) {
 
 function MarkerMediaCarousel({
   mediaItems,
+  optixFlowConfig,
 }: {
   mediaItems: GeoMapMediaItem[];
+  optixFlowConfig?: OptixFlowConfig;
 }) {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const totalItems = mediaItems.length;
@@ -258,11 +262,12 @@ function MarkerMediaCarousel({
             <source src={activeMediaItem.src} />
           </video>
         ) : (
-          <img
+          <Img
             src={activeMediaItem.src}
             alt={activeMediaItem.alt ?? "Map marker media"}
             className="h-full w-full object-cover"
-            loading="lazy"
+            loading="eager"
+            optixFlowConfig={optixFlowConfig}
           />
         )}
       </div>
@@ -358,6 +363,7 @@ export function GeoMap({
   onSelectionChange,
   clearSelectionOnMapClick = true,
   mapChildren,
+  optixFlowConfig,
 }: GeoMapProps): React.JSX.Element {
   const normalizedStandaloneMarkers = React.useMemo<NormalizedMarker[]>(
     () =>
@@ -722,7 +728,10 @@ export function GeoMap({
           </button>
 
           {markerMediaItems.length > 0 ? (
-            <MarkerMediaCarousel mediaItems={markerMediaItems} />
+            <MarkerMediaCarousel
+              mediaItems={markerMediaItems}
+              optixFlowConfig={optixFlowConfig}
+            />
           ) : null}
 
           <div className="space-y-2 p-4">
