@@ -2,8 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -12,6 +11,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface ChecklistItem {
   /**
@@ -130,7 +130,6 @@ export function CtaFeatureChecklist({
   items,
   itemsSlot,
   className,
-  containerClassName,
   cardClassName,
   contentClassName,
   headingClassName,
@@ -139,42 +138,11 @@ export function CtaFeatureChecklist({
   checklistClassName,
   checklistItemClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
 }: CtaFeatureChecklistProps): React.JSX.Element {
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className={cn("mt-6", actionsClassName)}>
-        {actions.map((action, index) => (
-          <Pressable
-            key={index}
-            href={action.href}
-            onClick={action.onClick}
-            variant={action.variant}
-            size={action.size}
-            className={action.className}
-            aria-label={action["aria-label"]}
-            asButton
-          >
-            {action.icon}
-            {action.children ?? action.label}
-            {action.iconAfter ?? (
-              <DynamicIcon
-                name="lucide/arrow-right"
-                size={16}
-                className="ml-2"
-              />
-            )}
-          </Pressable>
-        ))}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
   const checklistContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
@@ -183,13 +151,15 @@ export function CtaFeatureChecklist({
       <ul
         className={cn(
           "flex flex-col space-y-2 text-sm font-medium",
-          checklistClassName
+          checklistClassName,
         )}
       >
         {items.map((item, idx) => {
           const isString = typeof item === "string";
           const text = isString ? item : item.text;
-          const iconName = isString ? "lucide/check" : item.iconName || "lucide/check";
+          const iconName = isString
+            ? "lucide/check"
+            : item.iconName || "lucide/check";
           const icon = isString ? null : item.icon;
 
           return (
@@ -219,45 +189,42 @@ export function CtaFeatureChecklist({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container mx-auto", containerClassName)}>
+      <div className="relative">
         <div className="flex justify-center">
           <div className="max-w-5xl">
             <div
               className={cn(
                 "flex flex-col items-start justify-between gap-8 rounded-lg px-6 py-10 md:flex-row lg:px-20 lg:py-16",
-                getNestedCardBg(background),
-                getNestedCardTextColor(background),
-                cardClassName
+                cardClassName,
               )}
             >
               <div className={cn("md:w-1/2", contentClassName)}>
-                {heading && (
-                  typeof heading === "string" ? (
+                {heading &&
+                  (typeof heading === "string" ? (
                     <h4
                       className={cn(
                         "mb-1 text-2xl font-bold md:text-3xl",
-                        headingClassName
+                        headingClassName,
                       )}
                     >
                       {heading}
                     </h4>
                   ) : (
-                    <div className={cn("mb-1", headingClassName)}>{heading}</div>
-                  )
-                )}
-                {description && (
-                  typeof description === "string" ? (
-                    <p
-                      className={cn(getTextColor(background, 'muted'), descriptionClassName)}
-                    >
-                      {description}
-                    </p>
+                    heading
+                  ))}
+                {description &&
+                  (typeof description === "string" ? (
+                    <p className={cn(descriptionClassName)}>{description}</p>
                   ) : (
-                    <div className={descriptionClassName}>{description}</div>
-                  )
-                )}
-                {actionsContent}
+                    description
+                  ))}
+                <BlockActions
+                  actions={actions}
+                  actionsClassName={actionsClassName}
+                  actionsSlot={actionsSlot}
+                />
               </div>
               <div className="md:w-1/3">{checklistContent}</div>
             </div>

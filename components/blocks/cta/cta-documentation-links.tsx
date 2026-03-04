@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Card } from "../../ui/card";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -150,7 +150,6 @@ export function CtaDocumentationLinks({
   links,
   linksSlot,
   className,
-  containerClassName,
   cardClassName,
   contentClassName,
   headingClassName,
@@ -159,7 +158,8 @@ export function CtaDocumentationLinks({
   linksClassName,
   linkCardClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
 }: CtaDocumentationLinksProps): React.JSX.Element {
@@ -171,7 +171,7 @@ export function CtaDocumentationLinks({
       <div
         className={cn(
           "mt-8 flex flex-col items-center gap-2 sm:flex-row",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => {
@@ -216,7 +216,7 @@ export function CtaDocumentationLinks({
               className={cn(
                 "flex flex-row items-center justify-between gap-2 px-6 py-4 shadow-none hover:bg-accent",
                 linkCardClassName,
-                link.className
+                link.className,
               )}
             >
               <div className="flex items-start gap-2">
@@ -229,11 +229,11 @@ export function CtaDocumentationLinks({
                     />
                   ))}
                 <div>
-                  {link.title && <h5 className="mb-2 leading-4 font-medium">{link.title}</h5>}
+                  {link.title && (
+                    <h5 className="mb-2 leading-4 font-medium">{link.title}</h5>
+                  )}
                   {link.description && (
-                    <p className={cn("text-sm", getTextColor(background, 'muted'))}>
-                      {link.description}
-                    </p>
+                    <p className={cn("text-sm")}>{link.description}</p>
                   )}
                 </div>
               </div>
@@ -252,38 +252,35 @@ export function CtaDocumentationLinks({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div
           className={cn(
             "grid grid-cols-1 flex-col gap-10 rounded-lg border p-6 shadow-sm lg:grid-cols-2 lg:px-20 lg:py-16",
-            cardClassName
+            cardClassName,
           )}
         >
           <div className={contentClassName}>
-            {heading && (
-              typeof heading === "string" ? (
+            {heading &&
+              (typeof heading === "string" ? (
                 <h4
                   className={cn(
                     "mb-2 text-2xl font-bold lg:text-4xl",
-                    headingClassName
+                    headingClassName,
                   )}
                 >
                   {heading}
                 </h4>
               ) : (
                 <div className={cn("mb-2", headingClassName)}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn(getTextColor(background, 'muted'), descriptionClassName)}>
-                  {description}
-                </p>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p className={cn(descriptionClassName)}>{description}</p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
             {actionsContent}
           </div>
           {linksContent}

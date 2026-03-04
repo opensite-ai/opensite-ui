@@ -223,12 +223,12 @@ export function AboutStoryExpertise({
       <div
         className={cn(
           "bg-card text-card-foreground",
-          "rounded-2xl border border-border/60 p-6 shadow-xl",
+          "rounded-2xl border p-5 shadow-xl",
           highlightClassName,
         )}
       >
-        <div className="mb-3 flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
+        <div className="mb-3 flex items-center gap-3 md:gap-4">
+          <div className="flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground shrink-0">
             {highlight.icon}
           </div>
           <div>
@@ -246,7 +246,9 @@ export function AboutStoryExpertise({
               ))}
             {highlight.title &&
               (typeof highlight.title === "string" ? (
-                <div className="text-lg font-bold">{highlight.title}</div>
+                <div className="text-lg font-bold leading-tight">
+                  {highlight.title}
+                </div>
               ) : (
                 highlight.title
               ))}
@@ -324,9 +326,9 @@ export function AboutStoryExpertise({
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
-          className="order-2 space-y-6 lg:order-1"
+          className="order-2 space-y-8 lg:order-1"
         >
-          <div>
+          <div className="space-y-6">
             {eyebrow &&
               (typeof eyebrow === "string" ? (
                 <p
@@ -374,7 +376,7 @@ export function AboutStoryExpertise({
             <div
               className={cn(
                 "relative overflow-hidden rounded-3xl",
-                "border border-border shadow-2xl aspect-square",
+                "shadow-2xl aspect-square",
                 imageClassName,
               )}
             >
@@ -384,8 +386,7 @@ export function AboutStoryExpertise({
                 className="h-full w-full object-cover"
                 optixFlowConfig={optixFlowConfig}
               />
-              <div className="absolute inset-0 bg-linear-to-tr from-foreground/60 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6">
+              <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 right-4 md:right-6">
                 {highlightContent}
               </div>
             </div>
@@ -393,12 +394,7 @@ export function AboutStoryExpertise({
         )}
       </div>
 
-      <div
-        className={cn(
-          "mt-20 rounded-3xl p-8 md:p-12",
-          expertiseSectionClassName,
-        )}
-      >
+      <div className={cn("mt-20 rounded-3xl", expertiseSectionClassName)}>
         <div className="text-center">
           {expertiseHeading &&
             (typeof expertiseHeading === "string" ? (

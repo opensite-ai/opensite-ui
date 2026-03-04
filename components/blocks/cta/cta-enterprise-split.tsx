@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card } from "../../ui/card";
@@ -148,7 +148,6 @@ export function CtaEnterpriseSplit({
   links,
   linksSlot,
   className,
-  containerClassName,
   gridClassName,
   contentClassName,
   headingClassName,
@@ -157,7 +156,8 @@ export function CtaEnterpriseSplit({
   linksClassName,
   linkCardClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
 }: CtaEnterpriseSplitProps): React.JSX.Element {
@@ -248,14 +248,15 @@ export function CtaEnterpriseSplit({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div
           className={cn("grid gap-8 lg:grid-cols-2 lg:gap-16", gridClassName)}
         >
           <div className={cn("flex flex-col justify-center", contentClassName)}>
-            {heading && (
-              typeof heading === "string" ? (
+            {heading &&
+              (typeof heading === "string" ? (
                 <h2
                   className={cn(
                     "mb-4 text-3xl font-bold md:text-5xl",
@@ -266,10 +267,9 @@ export function CtaEnterpriseSplit({
                 </h2>
               ) : (
                 <div className={cn("mb-4", headingClassName)}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
+              ))}
+            {description &&
+              (typeof description === "string" ? (
                 <p
                   className={cn(
                     "mb-8 text-lg text-muted-foreground",
@@ -279,9 +279,10 @@ export function CtaEnterpriseSplit({
                   {description}
                 </p>
               ) : (
-                <div className={cn("mb-8", descriptionClassName)}>{description}</div>
-              )
-            )}
+                <div className={cn("mb-8", descriptionClassName)}>
+                  {description}
+                </div>
+              ))}
             {actionsContent}
           </div>
           {linksContent}

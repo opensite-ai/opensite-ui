@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card } from "../../ui/card";
@@ -118,7 +118,6 @@ export function CtaFeatureCardsGrid({
   features,
   featuresSlot,
   className,
-  containerClassName,
   contentClassName,
   headingClassName,
   descriptionClassName,
@@ -126,7 +125,8 @@ export function CtaFeatureCardsGrid({
   featuresClassName,
   featureCardClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
 }: CtaFeatureCardsGridProps): React.JSX.Element {
@@ -180,19 +180,15 @@ export function CtaFeatureCardsGrid({
             {(feature.icon || feature.iconName) && (
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                 {feature.icon ?? (
-                  <DynamicIcon
-                    name={feature.iconName || ""}
-                    size={24}
-                    className={getAccentColor(background)}
-                  />
+                  <DynamicIcon name={feature.iconName || ""} size={24} />
                 )}
               </div>
             )}
-            {feature.title && <h3 className="mb-2 font-semibold">{feature.title}</h3>}
+            {feature.title && (
+              <h3 className="mb-2 font-semibold">{feature.title}</h3>
+            )}
             {feature.description && (
-              <p className={cn("text-sm", getTextColor(background, 'muted'))}>
-                {feature.description}
-              </p>
+              <p className="text-sm">{feature.description}</p>
             )}
           </Card>
         ))}
@@ -204,14 +200,15 @@ export function CtaFeatureCardsGrid({
     <Section
       background={background}
       spacing={spacing}
-      className={cn(className)}
+      className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className={cn("text-center", contentClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
+          {heading &&
+            (typeof heading === "string" ? (
               <h2
                 className={cn(
                   "mb-4 text-3xl font-bold md:text-5xl",
@@ -221,26 +218,21 @@ export function CtaFeatureCardsGrid({
                 {heading}
               </h2>
             ) : (
-              <div className={cn("mb-4", headingClassName)}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
+              heading
+            ))}
+          {description &&
+            (typeof description === "string" ? (
               <p
                 className={cn(
                   "mx-auto mb-8 max-w-2xl text-lg",
-                  getTextColor(background, 'muted'),
                   descriptionClassName,
                 )}
               >
                 {description}
               </p>
             ) : (
-              <div className={cn("mx-auto mb-8 max-w-2xl", descriptionClassName)}>
-                {description}
-              </div>
-            )
-          )}
+              description
+            ))}
           {actionsContent}
         </div>
         {featuresContent}

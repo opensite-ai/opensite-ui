@@ -369,7 +369,12 @@ export function StatsImpactGrid({
       targetPercent !== undefined;
 
     return (
-      <div className={cn("mb-16 rounded-xl p-8", comparisonClassName)}>
+      <div
+        className={cn(
+          "mb-16 rounded-xl p-8 bg-card text-card-foreground",
+          comparisonClassName,
+        )}
+      >
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,240px)] md:items-start md:gap-12">
           <div>
             {comparisonHeading &&
@@ -380,18 +385,16 @@ export function StatsImpactGrid({
               ))}
             {comparisonDescription &&
               (typeof comparisonDescription === "string" ? (
-                <p className="mb-6 text-muted-foreground">
-                  {comparisonDescription}
-                </p>
+                <p className="mb-6">{comparisonDescription}</p>
               ) : (
                 comparisonDescription
               ))}
             {hasProgressBars && (
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-muted-foreground/20">
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-card/20 invert">
                     <div
-                      className="h-full bg-muted-foreground"
+                      className="h-full bg-card"
                       style={{ width: `${baselinePercent}%` }}
                     />
                   </div>
@@ -414,12 +417,12 @@ export function StatsImpactGrid({
             )}
           </div>
           {(baselineValue || targetValue) && (
-            <div className="rounded-lg border bg-background/70 p-6 text-center shadow-sm md:text-left">
+            <div className="rounded-lg border p-6 text-center shadow-sm md:text-left">
               <div className="space-y-4">
                 {baselineValue && (
                   <div>
                     {baselineLabel && (
-                      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                      <div className="text-xs font-semibold uppercase tracking-wide">
                         {baselineLabel}
                       </div>
                     )}
@@ -509,10 +512,10 @@ export function StatsImpactGrid({
     if (!ctaHeading && (!actions || actions.length === 0)) return null;
 
     return (
-      <div className={cn("text-center", ctaClassName)}>
+      <div className={cn("text-center mb-12", ctaClassName)}>
         {ctaHeading &&
           (typeof ctaHeading === "string" ? (
-            <h3 className="mb-6 text-2xl font-bold">{ctaHeading}</h3>
+            <h3 className="mb-6 text-2xl font-semibold">{ctaHeading}</h3>
           ) : (
             ctaHeading
           ))}

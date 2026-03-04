@@ -223,7 +223,7 @@ const FeatureCard = React.memo(
                 delay: 0.3,
                 ease: "easeOut",
               }}
-              className="p-6 text-sm md:p-8 md:text-base text-balance"
+              className="p-6 text-sm md:p-8 md:text-base text-pretty"
             >
               {(feature.title || feature.description) && (
                 <p>

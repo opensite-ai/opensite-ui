@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor, getBorderColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -12,6 +12,7 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
+  OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
@@ -182,14 +183,7 @@ export interface CtaCaseStudyTestimonialProps {
   /**
    * Optional Optix Flow configuration for image optimization
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
-  /**
-   * @deprecated Use badge instead
-   */
-  badgeText?: string;
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 /**
@@ -213,7 +207,6 @@ export interface CtaCaseStudyTestimonialProps {
  */
 export function CtaCaseStudyTestimonial({
   badge,
-  badgeText,
   heading,
   description,
   sections,
@@ -230,7 +223,6 @@ export function CtaCaseStudyTestimonial({
   industryBadge,
   companyDetails,
   className,
-  containerClassName,
   gridClassName,
   contentClassName,
   badgeClassName,
@@ -241,7 +233,8 @@ export function CtaCaseStudyTestimonial({
   actionsClassName,
   sidebarClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-32 md:py-32",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -268,8 +261,12 @@ export function CtaCaseStudyTestimonial({
                 ))}
             </div>
             <div>
-              {section.title && <h3 className="text-lg font-medium">{section.title}</h3>}
-              {section.description && <p className="text-muted-foreground">{section.description}</p>}
+              {section.title && (
+                <h3 className="text-lg font-medium">{section.title}</h3>
+              )}
+              {section.description && (
+                <p className="text-muted-foreground">{section.description}</p>
+              )}
             </div>
           </div>
         ))}
@@ -332,15 +329,21 @@ export function CtaCaseStudyTestimonial({
             key={index}
             className={cn("rounded-lg border p-4 text-center", stat.className)}
           >
-            {stat.value && <div className="text-3xl font-bold text-primary">{stat.value}</div>}
-            {stat.label && <p className="text-sm text-muted-foreground">{stat.label}</p>}
+            {stat.value && (
+              <div className="text-3xl font-bold text-primary">
+                {stat.value}
+              </div>
+            )}
+            {stat.label && (
+              <p className="text-sm text-muted-foreground">{stat.label}</p>
+            )}
           </Card>
         ))}
       </div>
     );
   }, [statsSlot, stats]);
 
-  const badgeContent = badge ?? badgeText;
+  const badgeContent = badge;
 
   return (
     <Section
@@ -358,8 +361,8 @@ export function CtaCaseStudyTestimonial({
                 {badgeContent}
               </Badge>
             )}
-            {heading && (
-              typeof heading === "string" ? (
+            {heading &&
+              (typeof heading === "string" ? (
                 <h2
                   className={cn(
                     "mb-4 text-3xl font-bold md:text-4xl",
@@ -370,10 +373,9 @@ export function CtaCaseStudyTestimonial({
                 </h2>
               ) : (
                 <div className={cn("mb-4", headingClassName)}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
+              ))}
+            {description &&
+              (typeof description === "string" ? (
                 <p
                   className={cn(
                     "mb-8 text-lg text-muted-foreground",
@@ -383,23 +385,24 @@ export function CtaCaseStudyTestimonial({
                   {description}
                 </p>
               ) : (
-                <div className={cn("mb-8", descriptionClassName)}>{description}</div>
-              )
-            )}
+                <div className={cn("mb-8", descriptionClassName)}>
+                  {description}
+                </div>
+              ))}
 
             {sectionsContent}
 
             {testimonialQuote && (
               <div
                 className={cn(
-                  "relative mt-8 border-l-4 border-primary/20 pl-6 italic text-muted-foreground",
+                  "relative mt-8 border-l-4 border-primary/20 pl-6 italic",
                   testimonialClassName,
                 )}
               >
                 <DynamicIcon
                   name="lucide/quote"
                   size={24}
-                  className="absolute -left-3 -top-2 rounded-full bg-background text-primary"
+                  className="absolute -left-3 -top-2 rounded-full"
                 />
                 <p className="md:text-lg">&ldquo;{testimonialQuote}&rdquo;</p>
               </div>
@@ -431,12 +434,11 @@ export function CtaCaseStudyTestimonial({
 
             {statsContent}
 
-            {(companyLogo || companyName || industryBadge || companyDetails) && (
-              <Card className={cn(
-                "mt-6 rounded-lg border p-4",
-                getNestedCardBg(background),
-                getNestedCardTextColor(background)
-              )}>
+            {(companyLogo ||
+              companyName ||
+              industryBadge ||
+              companyDetails) && (
+              <Card className={cn("mt-6 rounded-lg border p-4")}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     {companyLogo && (
@@ -447,9 +449,13 @@ export function CtaCaseStudyTestimonial({
                         optixFlowConfig={optixFlowConfig}
                       />
                     )}
-                    {companyName && <span className="font-medium">{companyName}</span>}
+                    {companyName && (
+                      <span className="font-medium">{companyName}</span>
+                    )}
                   </div>
-                  {industryBadge && <Badge variant="outline">{industryBadge}</Badge>}
+                  {industryBadge && (
+                    <Badge variant="outline">{industryBadge}</Badge>
+                  )}
                 </div>
                 {companyDetails && (
                   <div className="mt-2 text-xs text-muted-foreground">

@@ -316,7 +316,7 @@ export function BlogTechInsights({
     <Section
       background={background}
       spacing={spacing}
-      className={cn("dark relative", className)}
+      className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
       containerClassName={containerClassName}
@@ -327,7 +327,7 @@ export function BlogTechInsights({
             (typeof heading === "string" ? (
               <h1
                 className={cn(
-                  "text-3xl font-bold md:text-4xl lg:text-5xl",
+                  "text-2xl font-bold lg:text-3xl",
                   headingClassName,
                 )}
               >

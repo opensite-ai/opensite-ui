@@ -259,8 +259,7 @@ export function AboutNetworkSpotlight({
                 className={cn("h-full w-full object-cover", imageClassName)}
                 optixFlowConfig={optixFlowConfig}
               />
-              <div className="absolute inset-0 bg-linear-to-tr from-black/70 via-transparent to-transparent" />
-              <div className="absolute bottom-2 md:bottom-6 left-2 md:left-6 right-2 md:right-6">
+              <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 right-4 md:right-6">
                 {spotlightCardContent}
               </div>
             </div>

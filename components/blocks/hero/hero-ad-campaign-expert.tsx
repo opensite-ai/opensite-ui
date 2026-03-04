@@ -254,8 +254,12 @@ export function HeroAdCampaignExpert({
           />
 
           {hasMedia && (
-            <div className={cn("relative flex w-full justify-center lg:w-1/2")}>
-              <div className="relative z-10 -mb-16 h-auto w-[80%] max-w-[355px] lg:w-[520px]">
+            <div
+              className={cn(
+                "relative flex w-full justify-center overflow-hidden lg:w-1/2",
+              )}
+            >
+              <div className="relative h-auto w-[80%] max-w-[355px] lg:w-full lg:max-w-[520px]">
                 {/* Mobile aspect ratio */}
                 <div className="lg:hidden">
                   <AspectRatio
