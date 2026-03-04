@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import {
   Accordion,
   AccordionContent,
@@ -12,6 +12,7 @@ import {
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FaqItem {
   id: string;
@@ -117,12 +118,12 @@ export function FaqGradientCategories({
   categories,
   categoriesSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
   gradientWrapperClassName,
   headerClassName,
   headingClassName,
@@ -168,20 +169,20 @@ export function FaqGradientCategories({
                 >
                   <AccordionTrigger
                     className={cn(
-                      "transition-opacity duration-200 hover:no-underline hover:opacity-60",
+                      "transition-opacity",
+                      "hover:no-underline hover:opacity-75",
+                      "cursor-pointer duration-200",
                       accordionTriggerClassName,
                     )}
                   >
-                    <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
+                    <div className="font-medium py-1 md:py-2 text-lg">
                       {item.question}
                     </div>
                   </AccordionTrigger>
                   <AccordionContent
-                    className={cn("sm:mb-1 lg:mb-2", accordionContentClassName)}
+                    className={cn("mb-1 md:mb-2", accordionContentClassName)}
                   >
-                    <div className={cn(getTextColor(background, "muted"), "lg:text-lg")}>
-                      {item.answer}
-                    </div>
+                    <div className="text-lg">{item.answer}</div>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -202,6 +203,44 @@ export function FaqGradientCategories({
     background,
   ]);
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "mb-4 text-3xl font-semibold lg:text-4xl text-pretty",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "text-xl max-w-full md:max-w-md text-balance",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -210,48 +249,25 @@ export function FaqGradientCategories({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={containerClassName}>
+      <div className="relative">
         <div
           className={cn(
-            "rounded-lg bg-linear-to-b from-muted/50 to-muted p-8 md:p-12 lg:p-16",
+            "rounded-lg bg-card text-card-foreground p-8 md:p-12 lg:p-16",
             gradientWrapperClassName,
           )}
         >
-          <div
+          <ContentGroup
             className={cn(
-              "mx-auto flex max-w-3xl flex-col text-left md:text-center",
+              "mx-auto flex flex-col",
+              "max-w-full md:max-w-3xl",
+              "text-left md:text-center",
+              "mb-12 md:mb-20",
               headerClassName,
             )}
-          >
-            {heading &&
-              (typeof heading === "string" ? (
-                <h2
-                  className={cn(
-                    "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h2>
-              ) : (
-                <div className={headingClassName}>{heading}</div>
-              ))}
-            {description &&
-              (typeof description === "string" ? (
-                <p
-                  className={cn(
-                    getTextColor(background, "muted"),
-                    "lg:text-lg",
-                    descriptionClassName,
-                  )}
-                >
-                  {description}
-                </p>
-              ) : (
-                <div className={descriptionClassName}>{description}</div>
-              ))}
-          </div>
+            items={contentItems}
+          />
           {categoriesContent}
         </div>
       </div>

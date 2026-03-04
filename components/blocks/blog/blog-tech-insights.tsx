@@ -156,7 +156,7 @@ export function BlogTechInsights({
     return (
       <Pressable
         asButton
-        className={cn("ml-auto", actionClassName, readMoreClassName)}
+        className={cn(actionClassName, readMoreClassName)}
         {...pressableProps}
       >
         {children ?? (
@@ -179,7 +179,7 @@ export function BlogTechInsights({
         {featuredPost.image && (
           <Img
             className={cn(
-              "w-full rounded-lg object-cover",
+              "w-full rounded-lg shadow-xl object-cover",
               featuredImageClassName,
             )}
             src={featuredPost.image}
@@ -194,13 +194,11 @@ export function BlogTechInsights({
         <div className="mt-4">
           {featuredPost.title &&
             (typeof featuredPost.title === "string" ? (
-              <h2 className="text-2xl font-bold md:text-3xl lg:text-4xl">
+              <h2 className="text-2xl font-bold md:text-3xl">
                 {featuredPost.title}
               </h2>
             ) : (
-              <div className="text-2xl font-bold md:text-3xl lg:text-4xl">
-                {featuredPost.title}
-              </div>
+              featuredPost.title
             ))}
         </div>
         {(featuredPost.author || featuredPost.authorAvatar) && (
@@ -267,7 +265,7 @@ export function BlogTechInsights({
           <div className="w-24 shrink-0 sm:w-28 md:w-32">
             {post.image && (
               <Img
-                className="aspect-4/3 w-full rounded-md object-cover"
+                className="aspect-4/3 w-full shadow-lg rounded-md object-cover"
                 src={post.image}
                 alt={
                   typeof post.title === "string" ? post.title : "Content item"
@@ -337,12 +335,12 @@ export function BlogTechInsights({
               heading
             ))}
 
-          <div className="mt-4 flex justify-start">
+          <div className="mt-4 flex flex-col md:flex-row items-stretch md:items-center justify-start md:justify-between gap-6 w-full">
             {description &&
               (typeof description === "string" ? (
                 <span
                   className={cn(
-                    "mt-2 block text-sm md:text-base",
+                    "mt-2 block text-base md:text-lg text-balance",
                     descriptionClassName,
                   )}
                 >

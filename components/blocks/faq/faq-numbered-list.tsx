@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -103,12 +103,12 @@ export function FaqNumberedList({
   items,
   itemsSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
   badgeClassName,
   headingClassName,
   descriptionClassName,
@@ -125,7 +125,7 @@ export function FaqNumberedList({
     return (
       <div
         className={cn(
-          "mt-10 w-full max-w-3xl space-y-4 text-left",
+          "mt-8 md:mt-12 w-full max-w-3xl space-y-4 text-left",
           itemsWrapperClassName,
         )}
       >
@@ -133,42 +133,44 @@ export function FaqNumberedList({
           <div
             key={index}
             className={cn(
-              "flex gap-4 rounded-lg border p-4 md:p-5",
+              "flex gap-4 p-4 md:p-5",
+              "bg-card text-card-foreground",
+              "rounded-lg border shadow-lg",
               itemClassName,
             )}
           >
             <span
               className={cn(
-                "flex size-10 shrink-0 items-center justify-center rounded-lg text-md font-semibold",
-                getNestedCardBg(background),
-                getNestedCardTextColor(background),
+                "flex items-center justify-center",
+                "rounded-lg shadow-lg",
+                "bg-primary text-primary-foreground",
+                "text-base font-semibold",
+                "size-10 shrink-0",
+                "text-center",
                 numberClassName,
               )}
             >
               {index + 1}
             </span>
             <div>
-              <div className="mb-1 flex items-center justify-between">
-                {typeof item.question === "string" ? (
-                  <h3 className={cn("font-medium", questionClassName)}>
-                    {item.question}
-                  </h3>
-                ) : (
-                  <div className={questionClassName}>{item.question}</div>
-                )}
-              </div>
-              {typeof item.answer === "string" ? (
-                <p
+              {typeof item.question === "string" ? (
+                <div
                   className={cn(
-                    getTextColor(background, "muted"),
-                    "text-sm",
-                    answerClassName,
+                    "mb-1 font-semibold text-lg",
+                    questionClassName,
                   )}
                 >
+                  {item.question}
+                </div>
+              ) : (
+                item.question
+              )}
+              {typeof item.answer === "string" ? (
+                <p className={cn("text-base", answerClassName)}>
                   {item.answer}
                 </p>
               ) : (
-                <div className={answerClassName}>{item.answer}</div>
+                item.answer
               )}
             </div>
           </div>
@@ -194,49 +196,44 @@ export function FaqNumberedList({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "container flex flex-col items-center text-center",
-          containerClassName,
-        )}
-      >
-        {badge &&
-          (typeof badge === "string" ? (
-            <Badge variant="outline" className={badgeClassName}>
-              {badge}
-            </Badge>
-          ) : (
-            <div className={badgeClassName}>{badge}</div>
-          ))}
-        {heading &&
-          (typeof heading === "string" ? (
-            <h2
-              className={cn(
-                "mt-4 text-3xl font-semibold md:text-4xl",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h2>
-          ) : (
-            <div className={headingClassName}>{heading}</div>
-          ))}
-        {description &&
-          (typeof description === "string" ? (
-            <p
-              className={cn(
-                getTextColor(background, "muted"),
-                "mt-6 max-w-xl text-base md:text-lg",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-          ) : (
-            <div className={descriptionClassName}>{description}</div>
-          ))}
-        {itemsContent}
+      <div className="flex flex-col items-center">
+        <div className="max-w-full md:max-w-3xl space-y-6">
+          {badge &&
+            (typeof badge === "string" ? (
+              <Badge className={badgeClassName}>{badge}</Badge>
+            ) : (
+              badge
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold md:text-4xl text-pretty text-center",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-balance text-base md:text-lg text-center",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            ))}
+          {itemsContent}
+        </div>
       </div>
     </Section>
   );

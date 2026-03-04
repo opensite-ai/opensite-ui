@@ -19,11 +19,9 @@ import type {
   OptixFlowConfig,
   SectionBackground,
 } from "../../../src/types";
+import type { DirectionConfig } from "@/src/types/blocks";
 
-export interface DirectionConfig {
-  desktop: "mediaRight" | "mediaLeft";
-  mobile: "mediaTop" | "mediaBottom";
-}
+export type { DirectionConfig };
 
 export interface AboutSplitHeroProps {
   /**

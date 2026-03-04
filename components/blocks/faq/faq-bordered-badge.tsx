@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import {
   Accordion,
@@ -120,12 +120,12 @@ export function FaqBorderedBadge({
   items,
   itemsSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
   headerClassName,
   badgeClassName,
   headingClassName,
@@ -160,9 +160,7 @@ export function FaqBorderedBadge({
             >
               {item.question}
             </AccordionTrigger>
-            <AccordionContent
-              className={cn(getTextColor(background, "muted"), accordionContentClassName)}
-            >
+            <AccordionContent className={cn(accordionContentClassName)}>
               {item.answer}
             </AccordionContent>
           </AccordionItem>
@@ -187,8 +185,9 @@ export function FaqBorderedBadge({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={containerClassName}>
+      <div className="relative">
         <div
           className={cn(
             "flex flex-col items-center gap-4 text-center",
@@ -196,16 +195,8 @@ export function FaqBorderedBadge({
           )}
         >
           {badge && (
-            <Badge
-              variant="outline"
-              className={cn(
-                "gap-1.5 px-2.5 py-1 text-sm font-medium",
-                badgeClassName,
-              )}
-            >
-              {badgeIcon && (
-                <DynamicIcon name={badgeIcon} size={16} className="shrink-0" />
-              )}
+            <Badge className={cn("px-2.5 py-1", badgeClassName)}>
+              {badgeIcon && <DynamicIcon name={badgeIcon} size={16} />}
               {badge}
             </Badge>
           )}
@@ -220,21 +211,15 @@ export function FaqBorderedBadge({
                 {heading}
               </h2>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  getTextColor(background, "muted"),
-                  "max-w-2xl text-balance",
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("max-w-2xl text-balance", descriptionClassName)}>
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
         </div>
         <div

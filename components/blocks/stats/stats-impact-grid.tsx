@@ -253,7 +253,7 @@ export function StatsImpactGrid({
   patternClassName,
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-6 md:py-32",
+  spacing = "xl",
   headerClassName,
   badgeClassName,
   headingClassName,
@@ -371,7 +371,9 @@ export function StatsImpactGrid({
     return (
       <div
         className={cn(
-          "mb-16 rounded-xl p-8 bg-card text-card-foreground",
+          "mb-16 rounded-xl p-8 ",
+          "bg-card text-card-foreground",
+          "border shadow-sm",
           comparisonClassName,
         )}
       >
@@ -515,7 +517,9 @@ export function StatsImpactGrid({
       <div className={cn("text-center mb-12", ctaClassName)}>
         {ctaHeading &&
           (typeof ctaHeading === "string" ? (
-            <h3 className="mb-6 text-2xl font-semibold">{ctaHeading}</h3>
+            <h3 className="mb-6 text-2xl font-semibold text-balance">
+              {ctaHeading}
+            </h3>
           ) : (
             ctaHeading
           ))}

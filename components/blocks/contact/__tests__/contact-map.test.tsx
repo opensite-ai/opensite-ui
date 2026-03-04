@@ -2,9 +2,11 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { ContactMap } from "../contact-map";
 
-vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
+vi.mock("../../../ui/geo-map", () => ({
+  GeoMap: ({ className }: { className?: string }) => (
+    <div data-testid="mock-geo-map" className={className}>
+      map
+    </div>
   ),
 }));
 
@@ -17,6 +19,7 @@ describe("ContactMap", () => {
       />
     );
     expect(container).toBeInTheDocument();
+    expect(screen.getByTestId("mock-geo-map")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

@@ -6,6 +6,7 @@ import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FaqItem {
   question: React.ReactNode;
@@ -58,6 +59,10 @@ export interface FaqStaticListProps {
    */
   headingClassName?: string;
   /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
    * Additional CSS classes for the items wrapper
    */
   itemsWrapperClassName?: string;
@@ -73,20 +78,31 @@ export interface FaqStaticListProps {
    * Additional CSS classes for answers
    */
   answerClassName?: string;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
 }
 
 export function FaqStaticList({
+  headerClassName,
   heading,
+  headingClassName,
+  description,
+  descriptionClassName,
   items,
   itemsSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
-  headingClassName,
   itemsWrapperClassName,
   itemClassName,
   questionClassName,
@@ -99,20 +115,28 @@ export function FaqStaticList({
     return (
       <div className={cn("space-y-8", itemsWrapperClassName)}>
         {items.map((item, index) => (
-          <div key={index} className={cn("border-b pb-6", itemClassName)}>
+          <div
+            key={index}
+            className={cn("border-b border-border/50 pb-6", itemClassName)}
+          >
             {typeof item.question === "string" ? (
-              <h3 className={cn("mb-2 font-semibold", questionClassName)}>
+              <div
+                className={cn(
+                  "text-lg md:text-xl mb-2 font-semibold",
+                  questionClassName,
+                )}
+              >
                 {item.question}
-              </h3>
+              </div>
             ) : (
-              <div className={questionClassName}>{item.question}</div>
+              item.question
             )}
             {typeof item.answer === "string" ? (
               <p className={cn("leading-snug", answerClassName)}>
                 {item.answer}
               </p>
             ) : (
-              <div className={answerClassName}>{item.answer}</div>
+              item.answer
             )}
           </div>
         ))}
@@ -127,6 +151,44 @@ export function FaqStaticList({
     answerClassName,
   ]);
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "mb-4 text-3xl font-semibold lg:text-4xl text-pretty",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "text-xl max-w-full md:max-w-md text-balance",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -135,22 +197,16 @@ export function FaqStaticList({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container max-w-3xl", containerClassName)}>
-        {heading &&
-          (typeof heading === "string" ? (
-            <h1
-              className={cn(
-                "mb-4 text-3xl font-semibold md:mb-11 md:text-4xl",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h1>
-          ) : (
-            <div className={headingClassName}>{heading}</div>
-          ))}
-        {itemsContent}
+      <div className="flex flex-col items-start gap-8 md:gap-12">
+        <div className="max-w-full md:max-w-3xl">
+          <ContentGroup
+            className={cn("flex flex-col", "text-left", headerClassName)}
+            items={contentItems}
+          />
+          {itemsContent}
+        </div>
       </div>
     </Section>
   );

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import {
   Accordion,
   AccordionContent,
@@ -12,6 +12,7 @@ import {
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FaqItem {
   id: string;
@@ -80,20 +81,40 @@ export interface FaqMutedCardsProps {
    * Additional CSS classes for accordion content
    */
   accordionContentClassName?: string;
+  /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentWrapperClassName?: string;
 }
 
 export function FaqMutedCards({
+  headerClassName,
   heading,
+  headingClassName,
+  description,
+  descriptionClassName,
   items,
   itemsSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
+  contentWrapperClassName,
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
-  headingClassName,
   accordionClassName,
   accordionItemClassName,
   accordionTriggerClassName,
@@ -113,25 +134,24 @@ export function FaqMutedCards({
           <AccordionItem
             key={item.id}
             value={item.id}
-            className={cn(
-              "rounded-lg border-none px-4",
-              getNestedCardBg(background),
-              getNestedCardTextColor(background),
-              accordionItemClassName,
-            )}
+            className={accordionItemClassName}
           >
             <AccordionTrigger
               className={cn(
-                "font-semibold hover:no-underline",
+                "transition-opacity",
+                "hover:no-underline hover:opacity-75",
+                "cursor-pointer duration-200",
                 accordionTriggerClassName,
               )}
             >
-              {item.question}
+              <div className="font-medium py-1 md:py-2 text-lg">
+                {item.question}
+              </div>
             </AccordionTrigger>
             <AccordionContent
-              className={cn(getTextColor(background, "muted"), accordionContentClassName)}
+              className={cn("mb-1 md:mb-2", accordionContentClassName)}
             >
-              {item.answer}
+              <div className="text-lg">{item.answer}</div>
             </AccordionContent>
           </AccordionItem>
         ))}
@@ -147,6 +167,44 @@ export function FaqMutedCards({
     background,
   ]);
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "mb-4 text-3xl font-semibold lg:text-4xl text-pretty",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "text-xl max-w-full md:max-w-md text-balance",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -155,22 +213,28 @@ export function FaqMutedCards({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container max-w-3xl", containerClassName)}>
-        {heading &&
-          (typeof heading === "string" ? (
-            <h2
-              className={cn(
-                "mb-4 text-3xl font-bold md:mb-11 md:text-4xl px-4",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h2>
-          ) : (
-            <div className={headingClassName}>{heading}</div>
-          ))}
-        {itemsContent}
+      <div className="flex flex-col items-center">
+        <div
+          className={cn(
+            "max-w-full md:max-w-3xl",
+            "flex flex-col items-start gap-8",
+            contentWrapperClassName,
+          )}
+        >
+          <ContentGroup
+            className={cn(
+              "mx-auto flex flex-col",
+              "max-w-full md:max-w-3xl",
+              "text-left md:text-center",
+              "mb-12 md:mb-20",
+              headerClassName,
+            )}
+            items={contentItems}
+          />
+          {itemsContent}
+        </div>
       </div>
     </Section>
   );

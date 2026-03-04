@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import {
   Accordion,
   AccordionContent,
@@ -113,12 +113,12 @@ export function FaqCategorizedSections({
   categories,
   categoriesSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -174,9 +174,7 @@ export function FaqCategorizedSections({
                   <AccordionContent
                     className={cn("sm:mb-1 lg:mb-2", accordionContentClassName)}
                   >
-                    <div className={cn(getTextColor(background, "muted"), "lg:text-lg")}>
-                      {item.answer}
-                    </div>
+                    <div className={cn("lg:text-lg")}>{item.answer}</div>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -209,7 +207,7 @@ export function FaqCategorizedSections({
       <div className={containerClassName}>
         <div
           className={cn(
-            "mx-auto flex max-w-3xl flex-col text-left md:text-center",
+            "mx-auto flex max-w-full md:max-w-3xl flex-col text-left md:text-center",
             headerClassName,
           )}
         >
@@ -224,21 +222,15 @@ export function FaqCategorizedSections({
                 {heading}
               </h2>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  getTextColor(background, "muted"),
-                  "lg:text-lg",
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("text-lg", descriptionClassName)}>
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
         </div>
         {categoriesContent}

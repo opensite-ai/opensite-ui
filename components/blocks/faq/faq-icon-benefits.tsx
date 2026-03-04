@@ -2,11 +2,12 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getAccentColor, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FaqBenefit {
   icon: string;
@@ -103,12 +104,12 @@ export function FaqIconBenefits({
   benefits,
   benefitsSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -134,44 +135,43 @@ export function FaqIconBenefits({
           <div
             key={index}
             className={cn(
-              "flex flex-col items-center gap-4 rounded-lg border p-6 text-center",
+              "flex flex-col items-center",
+              "gap-4 p-4 md:p-6 text-center",
+              "shadow-md rounded-lg",
+              "bg-card text-card-foreground",
+              "ring-4 ring-primary",
               benefitCardClassName,
             )}
           >
-            <div
-              className={cn(
-                "flex size-12 items-center justify-center rounded-full",
-                getAccentColor(background),
-                "opacity-10",
-                iconWrapperClassName,
-              )}
-            >
-              <DynamicIcon
-                name={benefit.icon}
-                className={cn("size-6", getAccentColor(background), iconClassName)}
-              />
-            </div>
+            {benefit.icon && (
+              <div
+                className={cn(
+                  "flex size-12 items-center",
+                  "justify-center rounded-lg shadow-lg",
+                  "bg-primary text-primary-foreground",
+                  "mb-4",
+                  iconWrapperClassName,
+                )}
+              >
+                <DynamicIcon
+                  name={benefit.icon}
+                  className={cn("size-6", iconClassName)}
+                />
+              </div>
+            )}
             {typeof benefit.title === "string" ? (
               <h3 className={cn("text-lg font-semibold", titleClassName)}>
                 {benefit.title}
               </h3>
             ) : (
-              <div className={titleClassName}>{benefit.title}</div>
+              benefit.title
             )}
             {typeof benefit.description === "string" ? (
-              <p
-                className={cn(
-                  getTextColor(background, "muted"),
-                  "text-sm",
-                  benefitDescriptionClassName,
-                )}
-              >
+              <p className={cn("text-sm", benefitDescriptionClassName)}>
                 {benefit.description}
               </p>
             ) : (
-              <div className={benefitDescriptionClassName}>
-                {benefit.description}
-              </div>
+              benefit.description
             )}
           </div>
         ))}
@@ -189,6 +189,44 @@ export function FaqIconBenefits({
     background,
   ]);
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "mb-4 text-3xl font-semibold lg:text-4xl text-pretty",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "text-xl max-w-full md:max-w-md text-balance",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -197,42 +235,20 @@ export function FaqIconBenefits({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={containerClassName}>
-        <div
+      <div className="relative">
+        <ContentGroup
           className={cn(
-            "mx-auto flex max-w-3xl flex-col text-left md:text-center",
+            "mx-auto flex flex-col",
+            "max-w-full md:max-w-3xl",
+            "text-left md:text-center",
+            "mb-12 md:mb-20",
             headerClassName,
           )}
-        >
-          {heading &&
-            (typeof heading === "string" ? (
-              <h2
-                className={cn(
-                  "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p
-                className={cn(
-                  getTextColor(background, "muted"),
-                  "lg:text-lg",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
-        </div>
+          items={contentItems}
+        />
+
         {benefitsContent}
       </div>
     </Section>

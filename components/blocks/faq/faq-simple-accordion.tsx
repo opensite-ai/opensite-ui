@@ -130,13 +130,16 @@ export function FaqSimpleAccordion({
           >
             <AccordionTrigger
               className={cn(
+                "cursor-pointer text-lg",
                 "font-semibold hover:no-underline",
                 accordionTriggerClassName,
               )}
             >
               {item.question}
             </AccordionTrigger>
-            <AccordionContent className={cn(accordionContentClassName)}>
+            <AccordionContent
+              className={cn("text-base", accordionContentClassName)}
+            >
               {item.answer}
             </AccordionContent>
           </AccordionItem>

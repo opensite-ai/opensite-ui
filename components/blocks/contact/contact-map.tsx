@@ -9,6 +9,7 @@ import {
 } from "@page-speed/forms/integration";
 import { cn } from "../../../lib/utils";
 import { Card, CardContent } from "../../ui/card";
+import { GeoMap, type GeoMapProps } from "../../ui/geo-map";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -83,6 +84,14 @@ export interface ContactMapProps {
   cardClassName?: string;
   /** Additional CSS classes for the card content */
   cardContentClassName?: string;
+  /** Additional CSS classes for the left panel wrapper */
+  panelClassName?: string;
+  /** Additional CSS classes for the content grid */
+  contentGridClassName?: string;
+  /** Additional CSS classes for the map column wrapper */
+  mapColumnClassName?: string;
+  /** Additional CSS classes for the map component wrapper */
+  mapClassName?: string;
   /** Background style for the section */
   background?: SectionBackground;
   /** Vertical spacing for the section */
@@ -93,6 +102,8 @@ export interface ContactMapProps {
   patternOpacity?: number;
   /** Full form engine setup and props */
   formEngineSetup?: FormEngineProps;
+  /** Geo map configuration and marker data */
+  mapProps?: GeoMapProps;
 }
 
 /**
@@ -117,11 +128,39 @@ export function ContactMap({
   descriptionClassName,
   cardClassName,
   cardContentClassName,
-  background = "white",
+  panelClassName,
+  contentGridClassName,
+  mapColumnClassName,
+  mapClassName,
+  background,
   spacing = "xl",
   pattern,
   patternOpacity = 0.1,
+  mapProps,
 }: ContactMapProps): React.JSX.Element {
+  const renderForm = React.useMemo(() => {
+    if (!formEngineSetup) {
+      return null;
+    }
+
+    return (
+      <FormEngine
+        formEngineSetup={formEngineSetup}
+        defaultFields={DEFAULT_FORM_FIELDS}
+        defaultStyleRules={DEFAULT_STYLE_RULES}
+      />
+    );
+  }, [formEngineSetup]);
+
+  const resolvedMapProps = React.useMemo<GeoMapProps>(() => {
+    return {
+      mapWrapperClassName: "h-[420px] md:h-[520px]",
+      panelPosition: "top-left",
+      ...mapProps,
+      className: cn("h-full w-full", mapClassName, mapProps?.className),
+    };
+  }, [mapClassName, mapProps]);
+
   return (
     <Section
       background={background}
@@ -131,47 +170,62 @@ export function ContactMap({
       className={cn("py-12", className)}
       containerClassName={containerClassName}
     >
-      <div className="mx-auto max-w-4xl">
-        <div className={cn("mb-10 text-center", headerClassName)}>
-          {heading &&
-            (typeof heading === "string" ? (
-              <h2
-                className={cn(
-                  "mb-3 text-3xl font-bold tracking-tight text-balance",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "leading-relaxed text-balance",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
+      <div
+        className={cn(
+          "mx-auto grid max-w-7xl gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]",
+          contentGridClassName,
+        )}
+      >
+        <div
+          className={cn(
+            "flex flex-col rounded-2xl bg-slate-900 p-6 md:p-8 text-slate-100",
+            panelClassName,
+          )}
+        >
+          <div className={cn("mb-6", headerClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-3 text-3xl font-bold tracking-tight text-balance text-white md:text-5xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "leading-relaxed text-balance text-slate-300",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              ))}
+          </div>
+
+          <Card
+            className={cn(
+              "mt-4 border-0 bg-rose-500 text-rose-50 shadow-none",
+              cardClassName,
+            )}
+          >
+            <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
+              {renderForm}
+            </CardContent>
+          </Card>
         </div>
 
-        <Card className={cn("mx-auto max-w-xl", cardClassName)}>
-          <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
-            {formEngineSetup ? (
-              <FormEngine
-                formEngineSetup={formEngineSetup}
-                defaultFields={DEFAULT_FORM_FIELDS}
-                defaultStyleRules={DEFAULT_STYLE_RULES}
-              />
-            ) : null}
-          </CardContent>
-        </Card>
+        <div className={cn("h-full", mapColumnClassName)}>
+          <GeoMap {...resolvedMapProps} />
+        </div>
       </div>
     </Section>
   );

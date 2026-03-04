@@ -7,7 +7,8 @@
 export { useNavigation } from "./useNavigation";
 export type { UseNavigationArgs, UseNavigationReturn } from "./useNavigation";
 
+export { useResponsiveLayout } from "./useResponsiveLayout";
+export type { UseResponsiveLayoutArgs } from "./useResponsiveLayout";
+
 // Re-export types for convenience
-export type {
-  LinkType,
-} from "./useNavigation";
+export type { LinkType } from "./useNavigation";

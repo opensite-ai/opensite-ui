@@ -301,7 +301,10 @@ export function AboutNetworkSpotlight({
           {description &&
             (typeof description === "string" ? (
               <p
-                className={cn("mt-4 text-lg text-pretty", descriptionClassName)}
+                className={cn(
+                  "mt-4 text-base md:text-lg text-pretty",
+                  descriptionClassName,
+                )}
               >
                 {description}
               </p>
@@ -314,7 +317,7 @@ export function AboutNetworkSpotlight({
           <BlockActions
             actions={actions}
             actionsSlot={actionsSlot}
-            actionsClassName={actionsClassName}
+            actionsClassName={cn("mt-8 md:mt-8", actionsClassName)}
           />
         </motion.div>
       </div>

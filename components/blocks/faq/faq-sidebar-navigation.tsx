@@ -168,7 +168,9 @@ export function FaqSidebarNavigation({
     if (filteredCategories.length === 0) return null;
 
     return (
-      <div className={cn("space-y-10 lg:w-3/4", categoriesWrapperClassName)}>
+      <div
+        className={cn("space-y-10 w-full lg:w-3/4", categoriesWrapperClassName)}
+      >
         {filteredCategories.map((category) => (
           <div
             key={category.id}
@@ -185,7 +187,7 @@ export function FaqSidebarNavigation({
                 {category.title}
               </h3>
             ) : (
-              <div className={categoryTitleClassName}>{category.title}</div>
+              category.title
             )}
             <Accordion type="single" collapsible className={accordionClassName}>
               {category.items.map((item) => (
@@ -200,14 +202,14 @@ export function FaqSidebarNavigation({
                       accordionTriggerClassName,
                     )}
                   >
-                    <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
+                    <div className="font-medium py-1 lg:py-2 text-lg">
                       {item.question}
                     </div>
                   </AccordionTrigger>
                   <AccordionContent
-                    className={cn("sm:mb-1 lg:mb-2", accordionContentClassName)}
+                    className={cn("mb-1 lg:mb-2", accordionContentClassName)}
                   >
-                    <div className={cn("lg:text-lg")}>{item.answer}</div>
+                    <div className={cn("text-base")}>{item.answer}</div>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -288,15 +290,19 @@ export function FaqSidebarNavigation({
             contentWrapperClassName,
           )}
         >
-          <nav className={cn("lg:w-1/4", navClassName)}>
-            <div className="sticky top-24 flex gap-1 overflow-x-auto lg:flex-col lg:gap-2 lg:overflow-visible p-2 ring-2 rounded-lg">
+          <nav className={cn("w-full lg:w-1/4", navClassName)}>
+            <div className="sticky top-24 flex overflow-x-auto lg:flex-col gap-1 lg:gap-2 lg:overflow-visible p-1 md:p-2 ring-2 rounded-lg">
               {/* Show "All" tab when more than one category exists */}
               {categories && categories.length > 1 && (
                 <button
                   onClick={() => setActiveCategory("all")}
                   className={cn(
                     "cursor-pointer",
-                    "shrink-0 whitespace-nowrap rounded-md px-4 py-2 text-left text-sm font-medium transition-colors lg:w-full",
+                    "w-full lg:w-full",
+                    "shrink-0 whitespace-nowrap",
+                    "rounded-md px-4 py-2",
+                    "text-left text-sm font-medium",
+                    "transition-colors",
                     activeCategory === "all"
                       ? cn(
                           "bg-primary text-primary-foreground",
@@ -317,7 +323,11 @@ export function FaqSidebarNavigation({
                   onClick={() => setActiveCategory(category.id)}
                   className={cn(
                     "cursor-pointer",
-                    "shrink-0 whitespace-nowrap rounded-md px-4 py-2 text-left text-sm font-medium transition-colors lg:w-full",
+                    "w-full lg:w-full",
+                    "shrink-0 whitespace-nowrap",
+                    "rounded-md px-4 py-2",
+                    "text-left text-sm font-medium",
+                    "transition-colors",
                     activeCategory === category.id
                       ? cn(
                           "bg-primary text-primary-foreground",

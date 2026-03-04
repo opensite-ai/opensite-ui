@@ -1,0 +1,832 @@
+"use client";
+
+import * as React from "react";
+import {
+  MapLibre,
+  type BasicMarkerInput,
+  type MapControlPosition,
+  type MapCoordinate,
+  type MapLibreFlyToOptions,
+  type MapViewState,
+} from "@page-speed/maps";
+import { cn } from "../../lib/utils";
+import { Pressable } from "../../lib/Pressable";
+import type { ActionConfig } from "../../src/types";
+
+type PanelPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+
+export type GeoMapMediaType = "image" | "video";
+
+export interface GeoMapMediaItem {
+  id?: string | number;
+  src: string;
+  type?: GeoMapMediaType;
+  alt?: string;
+  poster?: string;
+}
+
+export interface GeoMapMarker {
+  id?: string | number;
+  latitude: number;
+  longitude: number;
+  label?: React.ReactNode;
+  eyebrow?: React.ReactNode;
+  title?: React.ReactNode;
+  summary?: React.ReactNode;
+  locationLine?: React.ReactNode;
+  hoursLine?: React.ReactNode;
+  mediaItems?: GeoMapMediaItem[];
+  markerContentComponent?: React.ReactNode;
+  actions?: ActionConfig[];
+  draggable?: boolean;
+  pinColor?: string;
+  pinClassName?: string;
+  markerElement?: React.ReactNode | ((args: { isSelected: boolean }) => React.ReactNode);
+}
+
+export interface GeoMapCluster {
+  id?: string | number;
+  label?: React.ReactNode;
+  title?: React.ReactNode;
+  summary?: React.ReactNode;
+  latitude?: number;
+  longitude?: number;
+  markers: GeoMapMarker[];
+  pinColor?: string;
+  pinClassName?: string;
+  markerElement?:
+    | React.ReactNode
+    | ((args: { isSelected: boolean; count: number }) => React.ReactNode);
+}
+
+export interface GeoMapSelection {
+  type: "none" | "marker" | "cluster";
+  marker?: GeoMapMarker;
+  cluster?: GeoMapCluster;
+}
+
+export interface GeoMapProps {
+  className?: string;
+  mapWrapperClassName?: string;
+  mapClassName?: string;
+  panelClassName?: string;
+  panelPosition?: PanelPosition;
+  stadiaApiKey?: string;
+  mapStyle?: string;
+  styleUrl?: string;
+  mapLibreCssHref?: string;
+  markers?: GeoMapMarker[];
+  clusters?: GeoMapCluster[];
+  viewState?: Partial<MapViewState>;
+  defaultViewState?: Partial<MapViewState>;
+  onViewStateChange?: (state: Partial<MapViewState>) => void;
+  onMapClick?: (coord: MapCoordinate) => void;
+  onMarkerDrag?: (markerId: string | number | null, coord: MapCoordinate) => void;
+  showNavigationControl?: boolean;
+  showGeolocateControl?: boolean;
+  navigationControlPosition?: MapControlPosition;
+  geolocateControlPosition?: MapControlPosition;
+  flyToOptions?: MapLibreFlyToOptions;
+  markerFocusZoom?: number;
+  clusterFocusZoom?: number;
+  selectedMarkerId?: string | number;
+  initialSelectedMarkerId?: string | number;
+  onSelectionChange?: (selection: GeoMapSelection) => void;
+  clearSelectionOnMapClick?: boolean;
+  mapChildren?: React.ReactNode;
+}
+
+type NormalizedMarker = Omit<GeoMapMarker, "id"> & {
+  id: string;
+  clusterId?: string;
+};
+
+type NormalizedCluster = Omit<
+  GeoMapCluster,
+  "id" | "markers" | "latitude" | "longitude"
+> & {
+  id: string;
+  latitude: number;
+  longitude: number;
+  markers: NormalizedMarker[];
+};
+
+const PANEL_POSITION_CLASS: Record<PanelPosition, string> = {
+  "top-left": "left-4 top-4",
+  "top-right": "right-4 top-4",
+  "bottom-left": "bottom-4 left-4",
+  "bottom-right": "bottom-4 right-4",
+};
+
+const DEFAULT_VIEW_STATE: MapViewState = {
+  latitude: 39.5,
+  longitude: -98.35,
+  zoom: 3,
+};
+
+const VIDEO_FILE_EXTENSION_REGEX = /\.(mp4|webm|ogg|mov|m4v|m3u8)(\?.*)?$/i;
+
+function resolveMediaType(item: GeoMapMediaItem): GeoMapMediaType {
+  if (item.type) {
+    return item.type;
+  }
+
+  return VIDEO_FILE_EXTENSION_REGEX.test(item.src) ? "video" : "image";
+}
+
+function normalizeId(value: string | number | undefined, fallback: string): string {
+  if (value === null || value === undefined || value === "") {
+    return fallback;
+  }
+
+  return String(value);
+}
+
+function buildClusterCenter(markers: GeoMapMarker[]): MapCoordinate | null {
+  if (!markers.length) {
+    return null;
+  }
+
+  const total = markers.reduce(
+    (accumulator, marker) => ({
+      latitude: accumulator.latitude + marker.latitude,
+      longitude: accumulator.longitude + marker.longitude,
+    }),
+    { latitude: 0, longitude: 0 },
+  );
+
+  return {
+    latitude: total.latitude / markers.length,
+    longitude: total.longitude / markers.length,
+  };
+}
+
+function resolveActionKey(action: ActionConfig, index: number): string {
+  if (typeof action.label === "string" && action.label.trim().length > 0) {
+    return `label:${action.label}:${index}`;
+  }
+
+  if (action.href) {
+    return `href:${action.href}:${index}`;
+  }
+
+  return `action:${index}`;
+}
+
+function MarkerActions({ actions }: { actions?: ActionConfig[] }) {
+  if (!actions || actions.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="mt-4 flex flex-wrap gap-2">
+      {actions.map((action, index) => {
+        const {
+          label,
+          icon,
+          iconAfter,
+          children,
+          href,
+          onClick,
+          className: actionClassName,
+          variant,
+          size,
+          asButton,
+          ...rest
+        } = action;
+
+        return (
+          <Pressable
+            key={resolveActionKey(action, index)}
+            href={href}
+            onClick={onClick}
+            variant={variant ?? (index === 0 ? "default" : "outline")}
+            size={size ?? "sm"}
+            asButton={asButton ?? true}
+            className={cn("inline-flex items-center gap-2", actionClassName)}
+            {...rest}
+          >
+            {children ?? (
+              <>
+                {icon}
+                {label}
+                {iconAfter}
+              </>
+            )}
+          </Pressable>
+        );
+      })}
+    </div>
+  );
+}
+
+function MarkerMediaCarousel({ mediaItems }: { mediaItems: GeoMapMediaItem[] }) {
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const totalItems = mediaItems.length;
+
+  React.useEffect(() => {
+    setActiveIndex(0);
+  }, [mediaItems]);
+
+  const activeMediaItem = mediaItems[activeIndex];
+  const mediaType = resolveMediaType(activeMediaItem);
+
+  return (
+    <div className="relative border-b border-border/60 bg-muted/40">
+      <div className="relative h-44 w-full overflow-hidden">
+        {mediaType === "video" ? (
+          <video
+            className="h-full w-full object-cover"
+            controls
+            preload="metadata"
+            poster={activeMediaItem.poster}
+          >
+            <source src={activeMediaItem.src} />
+          </video>
+        ) : (
+          <img
+            src={activeMediaItem.src}
+            alt={activeMediaItem.alt ?? "Map marker media"}
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
+        )}
+      </div>
+
+      {totalItems > 1 ? (
+        <>
+          <button
+            type="button"
+            aria-label="Show previous media"
+            className="absolute left-2 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm transition hover:bg-background"
+            onClick={() => {
+              setActiveIndex((current) => (current - 1 + totalItems) % totalItems);
+            }}
+          >
+            {"<"}
+          </button>
+          <button
+            type="button"
+            aria-label="Show next media"
+            className="absolute right-2 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm transition hover:bg-background"
+            onClick={() => {
+              setActiveIndex((current) => (current + 1) % totalItems);
+            }}
+          >
+            {">"}
+          </button>
+
+          <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
+            {mediaItems.map((item, index) => (
+              <button
+                key={normalizeId(item.id, `media-dot-${index}`)}
+                type="button"
+                aria-label={`Show media item ${index + 1}`}
+                className={cn(
+                  "h-2 rounded-full transition-all",
+                  index === activeIndex
+                    ? "w-6 bg-white"
+                    : "w-2 bg-white/70 hover:bg-white/90",
+                )}
+                onClick={() => setActiveIndex(index)}
+              />
+            ))}
+          </div>
+        </>
+      ) : null}
+    </div>
+  );
+}
+
+function getMarkerTitle(marker: NormalizedMarker, markerIndex: number): React.ReactNode {
+  if (marker.title !== undefined && marker.title !== null) {
+    return marker.title;
+  }
+
+  if (marker.label !== undefined && marker.label !== null) {
+    return marker.label;
+  }
+
+  return `Location ${markerIndex + 1}`;
+}
+
+export function GeoMap({
+  className,
+  mapWrapperClassName,
+  mapClassName,
+  panelClassName,
+  panelPosition = "top-left",
+  stadiaApiKey = "",
+  mapStyle = "osm-bright",
+  styleUrl,
+  mapLibreCssHref,
+  markers = [],
+  clusters = [],
+  viewState,
+  defaultViewState,
+  onViewStateChange,
+  onMapClick,
+  onMarkerDrag,
+  showNavigationControl = true,
+  showGeolocateControl = false,
+  navigationControlPosition = "top-right",
+  geolocateControlPosition = "top-left",
+  flyToOptions,
+  markerFocusZoom = 14,
+  clusterFocusZoom = 5,
+  selectedMarkerId,
+  initialSelectedMarkerId,
+  onSelectionChange,
+  clearSelectionOnMapClick = true,
+  mapChildren,
+}: GeoMapProps): React.JSX.Element {
+  const normalizedStandaloneMarkers = React.useMemo<NormalizedMarker[]>(
+    () =>
+      markers.map((marker, index) => ({
+        ...marker,
+        id: normalizeId(marker.id, `marker-${index}`),
+      })),
+    [markers],
+  );
+
+  const normalizedClusters = React.useMemo<NormalizedCluster[]>(() => {
+    const results: NormalizedCluster[] = [];
+
+    clusters.forEach((cluster, clusterIndex) => {
+      const clusterId = normalizeId(cluster.id, `cluster-${clusterIndex}`);
+      const normalizedClusterMarkers: NormalizedMarker[] = cluster.markers.map(
+        (marker, markerIndex) => ({
+          ...marker,
+          id: normalizeId(marker.id, `${clusterId}-marker-${markerIndex}`),
+          clusterId,
+        }),
+      );
+
+      const clusterCenter =
+        cluster.latitude !== undefined && cluster.longitude !== undefined
+          ? { latitude: cluster.latitude, longitude: cluster.longitude }
+          : buildClusterCenter(normalizedClusterMarkers);
+
+      if (!clusterCenter) {
+        return;
+      }
+
+      results.push({
+        ...cluster,
+        id: clusterId,
+        latitude: clusterCenter.latitude,
+        longitude: clusterCenter.longitude,
+        markers: normalizedClusterMarkers,
+      });
+    });
+
+    return results;
+  }, [clusters]);
+
+  const markerLookup = React.useMemo(() => {
+    const lookup = new Map<string, NormalizedMarker>();
+
+    normalizedStandaloneMarkers.forEach((marker) => {
+      lookup.set(marker.id, marker);
+    });
+
+    normalizedClusters.forEach((cluster) => {
+      cluster.markers.forEach((marker) => {
+        lookup.set(marker.id, marker);
+      });
+    });
+
+    return lookup;
+  }, [normalizedClusters, normalizedStandaloneMarkers]);
+
+  const clusterLookup = React.useMemo(() => {
+    const lookup = new Map<string, NormalizedCluster>();
+    normalizedClusters.forEach((cluster) => {
+      lookup.set(cluster.id, cluster);
+    });
+    return lookup;
+  }, [normalizedClusters]);
+
+  const firstCoordinate = React.useMemo(() => {
+    if (normalizedStandaloneMarkers.length > 0) {
+      const firstStandaloneMarker = normalizedStandaloneMarkers[0];
+      return {
+        latitude: firstStandaloneMarker.latitude,
+        longitude: firstStandaloneMarker.longitude,
+      };
+    }
+
+    if (normalizedClusters.length > 0) {
+      const firstCluster = normalizedClusters[0];
+      return {
+        latitude: firstCluster.latitude,
+        longitude: firstCluster.longitude,
+      };
+    }
+
+    return {
+      latitude: DEFAULT_VIEW_STATE.latitude,
+      longitude: DEFAULT_VIEW_STATE.longitude,
+    };
+  }, [normalizedClusters, normalizedStandaloneMarkers]);
+
+  const [uncontrolledViewState, setUncontrolledViewState] = React.useState<
+    Partial<MapViewState>
+  >({
+    latitude: defaultViewState?.latitude ?? firstCoordinate.latitude,
+    longitude: defaultViewState?.longitude ?? firstCoordinate.longitude,
+    zoom: defaultViewState?.zoom ?? DEFAULT_VIEW_STATE.zoom,
+  });
+
+  const isControlledViewState = viewState !== undefined;
+
+  const resolvedViewState = isControlledViewState ? viewState : uncontrolledViewState;
+
+  const applyViewState = React.useCallback(
+    (nextState: Partial<MapViewState>) => {
+      if (!isControlledViewState) {
+        setUncontrolledViewState((current) => ({ ...current, ...nextState }));
+      }
+
+      onViewStateChange?.(nextState);
+    },
+    [isControlledViewState, onViewStateChange],
+  );
+
+  const [selection, setSelection] = React.useState<{
+    type: "none" | "marker" | "cluster";
+    markerId?: string;
+    clusterId?: string;
+  }>(() => {
+    if (initialSelectedMarkerId !== undefined && initialSelectedMarkerId !== null) {
+      return {
+        type: "marker",
+        markerId: String(initialSelectedMarkerId),
+      };
+    }
+
+    return { type: "none" };
+  });
+
+  React.useEffect(() => {
+    if (selectedMarkerId === undefined || selectedMarkerId === null) {
+      return;
+    }
+
+    setSelection({
+      type: "marker",
+      markerId: String(selectedMarkerId),
+    });
+  }, [selectedMarkerId]);
+
+  const selectedMarker = selection.markerId
+    ? markerLookup.get(selection.markerId)
+    : undefined;
+  const selectedCluster = selection.clusterId
+    ? clusterLookup.get(selection.clusterId)
+    : undefined;
+
+  React.useEffect(() => {
+    if (selection.type === "marker" && selection.markerId && !selectedMarker) {
+      setSelection({ type: "none" });
+      onSelectionChange?.({ type: "none" });
+    }
+  }, [onSelectionChange, selectedMarker, selection]);
+
+  const emitSelectionChange = React.useCallback(
+    (
+      nextSelection: { type: "none" } | { type: "marker"; marker: NormalizedMarker } | { type: "cluster"; cluster: NormalizedCluster },
+    ) => {
+      if (nextSelection.type === "none") {
+        onSelectionChange?.({ type: "none" });
+        return;
+      }
+
+      if (nextSelection.type === "marker") {
+        const parentCluster = nextSelection.marker.clusterId
+          ? clusterLookup.get(nextSelection.marker.clusterId)
+          : undefined;
+        onSelectionChange?.({
+          type: "marker",
+          marker: nextSelection.marker,
+          cluster: parentCluster,
+        });
+        return;
+      }
+
+      onSelectionChange?.({
+        type: "cluster",
+        cluster: nextSelection.cluster,
+      });
+    },
+    [clusterLookup, onSelectionChange],
+  );
+
+  const selectMarker = React.useCallback(
+    (marker: NormalizedMarker) => {
+      setSelection({
+        type: "marker",
+        markerId: marker.id,
+        clusterId: marker.clusterId,
+      });
+
+      applyViewState({
+        latitude: marker.latitude,
+        longitude: marker.longitude,
+        zoom: markerFocusZoom,
+      });
+
+      emitSelectionChange({ type: "marker", marker });
+    },
+    [applyViewState, emitSelectionChange, markerFocusZoom],
+  );
+
+  const selectCluster = React.useCallback(
+    (cluster: NormalizedCluster) => {
+      setSelection({
+        type: "cluster",
+        clusterId: cluster.id,
+      });
+
+      applyViewState({
+        latitude: cluster.latitude,
+        longitude: cluster.longitude,
+        zoom: clusterFocusZoom,
+      });
+
+      emitSelectionChange({ type: "cluster", cluster });
+    },
+    [applyViewState, clusterFocusZoom, emitSelectionChange],
+  );
+
+  const clearSelection = React.useCallback(() => {
+    setSelection({ type: "none" });
+    emitSelectionChange({ type: "none" });
+  }, [emitSelectionChange]);
+
+  const mapMarkers = React.useMemo<BasicMarkerInput[]>(() => {
+    const resolvedMarkers: BasicMarkerInput[] = [];
+
+    normalizedClusters.forEach((cluster) => {
+      const isSelected = selection.type === "cluster" && selection.clusterId === cluster.id;
+
+      resolvedMarkers.push({
+        id: `cluster-pin:${cluster.id}`,
+        latitude: cluster.latitude,
+        longitude: cluster.longitude,
+        element: () => {
+          const customMarkerElement = cluster.markerElement;
+          const markerBody =
+            typeof customMarkerElement === "function"
+              ? customMarkerElement({
+                  isSelected,
+                  count: cluster.markers.length,
+                })
+              : customMarkerElement;
+
+          return (
+            <button
+              type="button"
+              className="group cursor-pointer"
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                selectCluster(cluster);
+              }}
+              aria-label={`View ${cluster.markers.length} clustered locations`}
+            >
+              {markerBody ?? (
+                <span
+                  className={cn(
+                    "inline-flex min-h-10 min-w-10 items-center justify-center rounded-full border-2 border-white px-2 text-xs font-semibold text-white shadow-lg transition-transform duration-200 group-hover:scale-105",
+                    isSelected && "ring-4 ring-primary/30",
+                    cluster.pinClassName,
+                  )}
+                  style={{
+                    backgroundColor: cluster.pinColor ?? "var(--foreground)",
+                  }}
+                >
+                  {cluster.markers.length}
+                </span>
+              )}
+            </button>
+          );
+        },
+      });
+    });
+
+    normalizedStandaloneMarkers.forEach((marker) => {
+      const isSelected = selection.type === "marker" && selection.markerId === marker.id;
+      const customMarkerElement = marker.markerElement;
+
+      resolvedMarkers.push({
+        id: marker.id,
+        latitude: marker.latitude,
+        longitude: marker.longitude,
+        draggable: marker.draggable,
+        element: () => {
+          const markerBody =
+            typeof customMarkerElement === "function"
+              ? customMarkerElement({ isSelected })
+              : customMarkerElement;
+
+          return (
+            <button
+              type="button"
+              className="group cursor-pointer"
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                selectMarker(marker);
+              }}
+              aria-label={
+                typeof marker.title === "string"
+                  ? `View ${marker.title}`
+                  : "View location details"
+              }
+            >
+              {markerBody ?? (
+                <span
+                  className={cn(
+                    "inline-flex h-4 w-4 rounded-full border-2 border-white shadow-md transition-transform duration-200 group-hover:scale-110",
+                    isSelected && "h-5 w-5 ring-4 ring-primary/30",
+                    marker.pinClassName,
+                  )}
+                  style={{
+                    backgroundColor: marker.pinColor ?? "#f43f5e",
+                  }}
+                />
+              )}
+            </button>
+          );
+        },
+      });
+    });
+
+    return resolvedMarkers;
+  }, [normalizedClusters, normalizedStandaloneMarkers, selectCluster, selectMarker, selection]);
+
+  const renderMarkerPanel = () => {
+    if (selectedMarker) {
+      const markerMediaItems = selectedMarker.mediaItems ?? [];
+
+      return (
+        <div
+          className={cn(
+            "w-[min(24rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-border bg-background shadow-2xl",
+            panelClassName,
+          )}
+        >
+          {markerMediaItems.length > 0 ? (
+            <MarkerMediaCarousel mediaItems={markerMediaItems} />
+          ) : null}
+
+          <div className="space-y-2 p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0 space-y-1">
+                {selectedMarker.eyebrow ? (
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    {selectedMarker.eyebrow}
+                  </p>
+                ) : null}
+                <div className="text-base font-semibold leading-tight text-foreground">
+                  {selectedMarker.title ?? selectedMarker.label ?? "Location"}
+                </div>
+              </div>
+              <button
+                type="button"
+                aria-label="Close marker details"
+                className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border/70 text-muted-foreground transition hover:bg-muted hover:text-foreground"
+                onClick={clearSelection}
+              >
+                x
+              </button>
+            </div>
+
+            {selectedMarker.summary ? (
+              <div className="text-sm leading-relaxed text-muted-foreground">
+                {selectedMarker.summary}
+              </div>
+            ) : null}
+
+            {selectedMarker.locationLine ? (
+              <div className="text-sm font-medium text-foreground">
+                {selectedMarker.locationLine}
+              </div>
+            ) : null}
+
+            {selectedMarker.hoursLine ? (
+              <div className="text-sm text-muted-foreground">{selectedMarker.hoursLine}</div>
+            ) : null}
+
+            {selectedMarker.markerContentComponent ? (
+              <div className="text-sm">{selectedMarker.markerContentComponent}</div>
+            ) : null}
+
+            <MarkerActions actions={selectedMarker.actions} />
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedCluster) {
+      return (
+        <div
+          className={cn(
+            "w-[min(24rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-border bg-background p-4 shadow-2xl",
+            panelClassName,
+          )}
+        >
+          <div className="mb-3 flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              {selectedCluster.label ? (
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  {selectedCluster.label}
+                </p>
+              ) : null}
+              <div className="text-base font-semibold leading-tight text-foreground">
+                {selectedCluster.title ?? "Clustered Locations"}
+              </div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {selectedCluster.summary ??
+                  `${selectedCluster.markers.length} location${selectedCluster.markers.length === 1 ? "" : "s"} in this cluster.`}
+              </p>
+            </div>
+            <button
+              type="button"
+              aria-label="Close cluster details"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border/70 text-muted-foreground transition hover:bg-muted hover:text-foreground"
+              onClick={clearSelection}
+            >
+              x
+            </button>
+          </div>
+
+          <div className="max-h-56 space-y-2 overflow-y-auto pr-1">
+            {selectedCluster.markers.map((marker, markerIndex) => (
+              <button
+                key={marker.id}
+                type="button"
+                className="w-full rounded-lg border border-border/60 p-3 text-left transition hover:border-border hover:bg-muted/50"
+                onClick={() => selectMarker(marker)}
+              >
+                <div className="line-clamp-1 text-sm font-semibold text-foreground">
+                  {getMarkerTitle(marker, markerIndex)}
+                </div>
+                {marker.summary ? (
+                  <div className="mt-1 line-clamp-2 text-xs text-muted-foreground">
+                    {marker.summary}
+                  </div>
+                ) : null}
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
+  return (
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-2xl border border-border bg-background",
+        className,
+      )}
+    >
+      <div className={cn("h-[520px] w-full", mapWrapperClassName)}>
+        <MapLibre
+          stadiaApiKey={stadiaApiKey}
+          mapStyle={mapStyle}
+          styleUrl={styleUrl}
+          mapLibreCssHref={mapLibreCssHref}
+          viewState={resolvedViewState}
+          onViewStateChange={applyViewState}
+          markers={mapMarkers}
+          onClick={(coord) => {
+            onMapClick?.(coord);
+            if (clearSelectionOnMapClick) {
+              clearSelection();
+            }
+          }}
+          onMarkerDrag={onMarkerDrag}
+          showNavigationControl={showNavigationControl}
+          showGeolocateControl={showGeolocateControl}
+          navigationControlPosition={navigationControlPosition}
+          geolocateControlPosition={geolocateControlPosition}
+          flyToOptions={flyToOptions}
+          className={cn("h-full w-full", mapClassName)}
+        >
+          {mapChildren}
+        </MapLibre>
+      </div>
+
+      {selection.type !== "none" ? (
+        <div className={cn("pointer-events-none absolute z-20", PANEL_POSITION_CLASS[panelPosition])}>
+          <div className="pointer-events-auto">{renderMarkerPanel()}</div>
+        </div>
+      ) : null}
+    </div>
+  );
+}

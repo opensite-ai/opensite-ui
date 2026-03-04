@@ -219,7 +219,7 @@ export function AboutMissionFeatures({
           as: "h1",
           className: cn(
             "text-4xl font-semibold tracking-tighter lg:text-7xl",
-            title,
+            titleClassName,
           ),
           children: title,
         });

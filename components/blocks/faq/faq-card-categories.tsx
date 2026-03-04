@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import {
   Accordion,
@@ -13,6 +13,7 @@ import {
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FaqItem {
   id: string;
@@ -117,21 +118,21 @@ export interface FaqCardCategoriesProps {
 }
 
 export function FaqCardCategories({
+  headerClassName,
   heading,
+  headingClassName,
   description,
+  descriptionClassName,
   categories,
   categoriesSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
   contentWrapperClassName,
-  headerClassName,
-  headingClassName,
-  descriptionClassName,
   gridClassName,
   cardClassName,
   categoryTitleClassName,
@@ -152,17 +153,14 @@ export function FaqCardCategories({
         )}
       >
         {categories.map((category, categoryIndex) => (
-          <Card
-            key={categoryIndex}
-            className={cn("bg-background", cardClassName)}
-          >
+          <Card key={categoryIndex} className={cardClassName}>
             <CardHeader>
               {typeof category.title === "string" ? (
                 <CardTitle className={categoryTitleClassName}>
                   {category.title}
                 </CardTitle>
               ) : (
-                <div className={categoryTitleClassName}>{category.title}</div>
+                category.title
               )}
             </CardHeader>
             <CardContent>
@@ -186,11 +184,7 @@ export function FaqCardCategories({
                       {item.question}
                     </AccordionTrigger>
                     <AccordionContent
-                      className={cn(
-                        getTextColor(background, "muted"),
-                        "text-sm",
-                        accordionContentClassName,
-                      )}
+                      className={cn("text-sm", accordionContentClassName)}
                     >
                       {item.answer}
                     </AccordionContent>
@@ -215,6 +209,44 @@ export function FaqCardCategories({
     background,
   ]);
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "mb-4 text-3xl font-semibold lg:text-4xl text-pretty",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "text-xl max-w-full md:max-w-md text-balance",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -223,52 +255,25 @@ export function FaqCardCategories({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={containerClassName}>
+      <div className="relative">
         <div
           className={cn(
             "relative rounded-lg p-8 md:p-12 lg:p-16",
-            getNestedCardBg(background, "muted"),
             contentWrapperClassName,
           )}
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
         >
-          <div
+          <ContentGroup
             className={cn(
-              "mx-auto flex max-w-3xl flex-col text-left md:text-center",
+              "mx-auto flex flex-col",
+              "max-w-full md:max-w-3xl",
+              "text-left md:text-center",
+              "mb-12 md:mb-20",
               headerClassName,
             )}
-          >
-            {heading &&
-              (typeof heading === "string" ? (
-                <h2
-                  className={cn(
-                    "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h2>
-              ) : (
-                <div className={headingClassName}>{heading}</div>
-              ))}
-            {description &&
-              (typeof description === "string" ? (
-                <p
-                  className={cn(
-                    getTextColor(background, "muted"),
-                    "lg:text-lg",
-                    descriptionClassName,
-                  )}
-                >
-                  {description}
-                </p>
-              ) : (
-                <div className={descriptionClassName}>{description}</div>
-              ))}
-          </div>
+            items={contentItems}
+          />
           {categoriesContent}
         </div>
       </div>

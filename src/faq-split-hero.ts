@@ -8,4 +8,8 @@
  */
 
 export { FaqSplitHero } from "../components/blocks/faq/faq-split-hero";
-export type { FaqSplitHeroProps } from "../components/blocks/faq/faq-split-hero";
+export type {
+  FaqSplitHeroProps,
+  FaqItem,
+  DirectionConfig,
+} from "../components/blocks/faq/faq-split-hero";

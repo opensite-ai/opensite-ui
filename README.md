@@ -1,8 +1,17 @@
-![Opensite Semantic UI](https://octane.cdn.ing/api/v1/images/transform?url=https://cdn.ing/assets/i/r/285962/rjrtx8dtbh6y34ae0h9li9v0xfw9/banner-short.png&q=90)
-
 # @opensite/ui
 
-Foundational UI component library for the OpenSite Semantic Site Builder ecosystem. Provides tree-shakable, performance-optimized components with abstract styling support.
+## Foundational UI component library for the [OpenSite Semantic Site Builder](https://opensite.ai) ecosystem. Provides tree-shakable, performance-optimized components with abstract styling support.
+
+![Opensite Semantic UI](https://octane.cdn.ing/api/v1/images/transform?url=https://cdn.ing/assets/i/r/285962/rjrtx8dtbh6y34ae0h9li9v0xfw9/banner-short.png&q=90)
+
+<br />
+
+[![npm version](https://img.shields.io/npm/v/@page-speed/ui?style=for-the-badge)](https://www.npmjs.com/package/@page-speed/ui)
+[![npm downloads](https://img.shields.io/npm/dm/@page-speed/ui?style=for-the-badge)](https://www.npmjs.com/package/@page-speed/ui)
+[![License](https://img.shields.io/npm/l/@page-speed/ui?style=for-the-badge)](./LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?style=for-the-badge)](./tsconfig.json)
+[![Tree-Shakeable](https://img.shields.io/badge/Tree%20Shakeable-Yes-brightgreen?style=for-the-badge)](#tree-shaking)
+
 
 ## Features
 

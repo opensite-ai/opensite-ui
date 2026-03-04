@@ -6,6 +6,7 @@ import type { PatternName } from "../../components/ui/pattern-background";
  */
 export type {
   ActionConfig,
+  DirectionConfig,
   LogoItem,
   ImageItem,
   FeatureItem,
@@ -443,10 +444,7 @@ export interface MediaHoverCtasProps {
 /**
  * About Block Prop Types - Re-exported from component files
  */
-export type {
-  AboutSplitHeroProps,
-  DirectionConfig,
-} from "../../components/blocks/about/about-split-hero";
+export type { AboutSplitHeroProps } from "../../components/blocks/about/about-split-hero";
 export type { AboutMissionPrinciplesProps } from "../../components/blocks/about/about-mission-principles";
 export type { AboutExpandableValuesProps } from "../../components/blocks/about/about-expandable-values";
 export type { CommunityInitiativesProps } from "../../components/blocks/about/community-initiatives";

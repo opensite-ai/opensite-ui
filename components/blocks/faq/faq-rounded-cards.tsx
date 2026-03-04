@@ -12,6 +12,7 @@ import {
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FaqItem {
   id: string;
@@ -104,12 +105,12 @@ export function FaqRoundedCards({
   items,
   itemsSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -134,21 +135,29 @@ export function FaqRoundedCards({
             key={item.id}
             value={item.id}
             className={cn(
-              "rounded-xl border border-border/60 px-5 shadow-sm transition-shadow hover:shadow-md data-[state=open]:shadow-md",
+              "border border-border/50",
+              "px-5",
+              "transition-shadow",
+              "rounded-xl shadow-sm",
+              "hover:shadow-lg data-[state=open]:shadow-lg",
+              "data-[state=open]:bg-card",
+              "data-[state=open]:text-card-foreground",
               accordionItemClassName,
             )}
           >
             <AccordionTrigger
               className={cn(
-                "py-4 font-medium transition-opacity hover:no-underline hover:opacity-70 lg:text-lg [&[data-state=open]>svg]:rotate-180",
+                "text-lg",
+                "cursor-pointer py-4 font-medium",
+                "transition-opacity",
+                "hover:no-underline hover:opacity-70",
+                "[&[data-state=open]>svg]:rotate-180",
                 accordionTriggerClassName,
               )}
             >
               {item.question}
             </AccordionTrigger>
-            <AccordionContent
-              className={cn("pb-4 ", accordionContentClassName)}
-            >
+            <AccordionContent className={cn("pb-4", accordionContentClassName)}>
               {item.answer}
             </AccordionContent>
           </AccordionItem>
@@ -164,6 +173,44 @@ export function FaqRoundedCards({
     accordionContentClassName,
   ]);
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "mb-4 text-3xl font-semibold lg:text-4xl text-pretty",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "text-xl max-w-full md:max-w-md text-balance",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -171,39 +218,22 @@ export function FaqRoundedCards({
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
-      className={className}
+      containerClassName={containerClassName}
     >
-      <div className={containerClassName}>
-        <div
-          className={cn(
-            "mx-auto flex max-w-3xl flex-col text-left md:text-center",
-            headerClassName,
-          )}
-        >
-          {heading &&
-            (typeof heading === "string" ? (
-              <h2
-                className={cn(
-                  "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p className={cn("lg:text-lg", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
-        </div>
-        <div className={cn("mx-auto mt-10 max-w-3xl", cardsWrapperClassName)}>
-          {itemsContent}
+      <div className="flex flex-col items-center">
+        <div className="max-w-full md:max-w-3xl">
+          <ContentGroup
+            className={cn(
+              "flex flex-col",
+              "text-left md:text-center",
+              "mb-12 md:mb-20",
+              headerClassName,
+            )}
+            items={contentItems}
+          />
+          <div className={cn("mt-10", cardsWrapperClassName)}>
+            {itemsContent}
+          </div>
         </div>
       </div>
     </Section>

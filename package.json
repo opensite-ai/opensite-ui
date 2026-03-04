@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "2.7.6",
+  "version": "2.7.7",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -20,7 +20,7 @@
     "url": "https://github.com/opensite-ai/opensite-ui/issues"
   },
   "author": "OpenSite AI (https://opensite.ai)",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -3090,6 +3090,11 @@
       "types": "./dist/form-inputs.d.ts",
       "import": "./dist/form-inputs.js",
       "require": "./dist/form-inputs.cjs"
+    },
+    "./components/geo-map": {
+      "types": "./dist/geo-map.d.ts",
+      "import": "./dist/geo-map.js",
+      "require": "./dist/geo-map.cjs"
     },
     "./components/image-slider": {
       "types": "./dist/image-slider.d.ts",

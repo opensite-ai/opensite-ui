@@ -10,21 +10,18 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../../ui/accordion";
-import {
-  PatternBackground,
-  type PatternName,
-} from "../../ui/pattern-background";
+import type { PatternName } from "../../ui/pattern-background";
 import { Section } from "../../ui/section";
 import type {
+  DirectionConfig,
+  MediaItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { useResponsiveLayout } from "@/lib/useResponsiveLayout";
 
-export interface DirectionConfig {
-  desktop: "mediaRight" | "mediaLeft";
-  mobile: "mediaTop" | "mediaBottom";
-}
+export type { DirectionConfig };
 
 export interface FaqItem {
   id: string;
@@ -50,23 +47,21 @@ export interface FaqSplitHeroProps {
    */
   itemsSlot?: React.ReactNode;
   /**
-   * Custom slot for rendering the image section
+   * Media item configuration for image and/or video rendering.
    */
-  imageSlot?: React.ReactNode;
+  mediaItem?: MediaItem;
   /**
-   * Image source URL
+   * Custom slot for rendering the media section (overrides mediaItem)
    */
-  imageSrc?: string;
-  /**
-   * Image alt text
-   */
-  imageAlt?: string;
+  mediaSlot?: React.ReactNode;
   /**
    * Background style for the section
    */
   background?: SectionBackground;
   /**
-   * Vertical spacing for the section
+   * Vertical spacing for the section.
+   * Defaults to "none" since this block manages its own internal spacing.
+   * @default "none"
    */
   spacing?: SectionSpacing;
   /**
@@ -114,10 +109,6 @@ export interface FaqSplitHeroProps {
    */
   accordionContentClassName?: string;
   /**
-   * Additional CSS classes for the image
-   */
-  imageClassName?: string;
-  /**
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -126,6 +117,10 @@ export interface FaqSplitHeroProps {
    * @default { desktop: 'mediaRight', mobile: 'mediaTop' }
    */
   directionConfig?: DirectionConfig;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 export function FaqSplitHero({
@@ -133,10 +128,11 @@ export function FaqSplitHero({
   subheading,
   items,
   itemsSlot,
-  imageSlot,
-  imageSrc,
-  imageAlt,
-  background = "dark",
+  mediaItem,
+  mediaSlot,
+  containerClassName = "px-0 sm:px-0 lg:px-0",
+  background,
+  spacing = "none",
   pattern,
   patternOpacity,
   className,
@@ -148,31 +144,10 @@ export function FaqSplitHero({
   accordionItemClassName,
   accordionTriggerClassName,
   accordionContentClassName,
-  imageClassName,
   optixFlowConfig,
   directionConfig = { desktop: "mediaRight", mobile: "mediaTop" },
 }: FaqSplitHeroProps): React.JSX.Element {
-  // Determine background color based on background variant
-  const bgColorClass = useMemo(() => {
-    switch (background) {
-      case "dark":
-        return "bg-foreground text-background";
-      case "gray":
-        return "bg-muted/30";
-      case "white":
-        return "bg-background";
-      default:
-        return "bg-background";
-    }
-  }, [background]);
-
-  // Determine flex direction based on directionConfig
-  const desktopOrder =
-    directionConfig.desktop === "mediaRight"
-      ? "lg:flex-row"
-      : "lg:flex-row-reverse";
-  const mobileOrder =
-    directionConfig.mobile === "mediaTop" ? "flex-col" : "flex-col-reverse";
+  const { responsiveClassName } = useResponsiveLayout({ directionConfig });
 
   const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
@@ -192,14 +167,16 @@ export function FaqSplitHero({
           >
             <AccordionTrigger
               className={cn(
-                "py-4 text-left text-base font-medium transition-opacity hover:opacity-70 hover:no-underline lg:text-lg",
+                "font-semibold text-lg",
+                "py-4 transition-opacity",
+                "hover:opacity-70 hover:no-underline",
                 accordionTriggerClassName,
               )}
             >
               {item.question}
             </AccordionTrigger>
             <AccordionContent
-              className={cn("pb-4 opacity-80", accordionContentClassName)}
+              className={cn("pb-4 text-base", accordionContentClassName)}
             >
               {item.answer}
             </AccordionContent>
@@ -216,82 +193,113 @@ export function FaqSplitHero({
     accordionContentClassName,
   ]);
 
-  const contentArea = (
-    <div
-      className={cn(
-        "relative flex w-full items-center lg:w-1/2",
-        bgColorClass,
-        contentClassName,
-      )}
-    >
-      {/* Pattern Background */}
-      {pattern && (
-        <div className="absolute inset-0 overflow-hidden">
-          <PatternBackground pattern={pattern} opacity={patternOpacity} />
-        </div>
-      )}
+  const renderMedia = useMemo(() => {
+    if (!mediaItem) return null;
 
-      {/* Content */}
-      <div className="relative z-10 w-full px-8 py-16 sm:px-12 sm:py-20 lg:px-16 lg:py-24 xl:px-24">
-        <div className="mx-auto max-w-xl space-y-8">
-          {/* Header */}
-          <div className={cn("space-y-4", headerClassName)}>
-            {heading &&
-              (typeof heading === "string" ? (
-                <h2
-                  className={cn(
-                    "text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h2>
-              ) : (
-                <div className={headingClassName}>{heading}</div>
-              ))}
-            {subheading &&
-              (typeof subheading === "string" ? (
-                <p
-                  className={cn(
-                    "text-base leading-relaxed opacity-80 sm:text-lg",
-                    subheadingClassName,
-                  )}
-                >
-                  {subheading}
-                </p>
-              ) : (
-                <div className={subheadingClassName}>{subheading}</div>
-              ))}
-          </div>
+    const { image, video } = mediaItem;
 
-          {/* FAQ Items */}
-          {itemsContent}
-        </div>
-      </div>
-    </div>
-  );
+    // Video takes priority when provided
+    if (video) {
+      const { src, className: videoClassName, ...videoRest } = video;
+      return (
+        <video
+          src={src}
+          className={cn("h-full w-full object-cover", videoClassName)}
+          {...videoRest}
+        />
+      );
+    }
 
-  const imageArea = imageSlot ? (
-    <div className="relative h-64 w-full sm:h-96 lg:h-auto lg:w-1/2">
-      {imageSlot}
-    </div>
-  ) : imageSrc ? (
-    <div className="relative h-64 w-full sm:h-96 lg:h-auto lg:w-1/2">
-      <Img
-        src={imageSrc}
-        alt={imageAlt || "FAQ section image"}
-        className={cn("h-full w-full object-cover", imageClassName)}
-        optixFlowConfig={optixFlowConfig}
-      />
-    </div>
-  ) : null;
+    if (image) {
+      const { src, alt, className: imgClassName, ...imgRest } = image;
+      return (
+        <Img
+          src={src as string}
+          alt={alt || "FAQ section image"}
+          className={cn("h-full w-full object-cover", imgClassName)}
+          optixFlowConfig={optixFlowConfig}
+          {...imgRest}
+        />
+      );
+    }
+
+    return null;
+  }, [mediaItem, optixFlowConfig]);
+
+  const hasMedia = mediaSlot || mediaItem?.image || mediaItem?.video;
 
   return (
-    <section className={cn("relative w-full overflow-hidden", className)}>
-      <div className={cn("flex min-h-screen", mobileOrder, desktopOrder)}>
-        {contentArea}
-        {imageArea}
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("w-full overflow-hidden", className)}
+      containerMaxWidth="full"
+      containerClassName={containerClassName}
+    >
+      <div className={cn("flex min-h-screen", responsiveClassName)}>
+        {/* Content Area */}
+        <div
+          className={cn(
+            "relative flex w-full items-center lg:w-1/2",
+            contentClassName,
+          )}
+        >
+          <div className="relative z-10 w-full px-8 py-16 sm:px-12 sm:py-20 lg:px-16 lg:py-24 xl:px-24">
+            <div className="mx-auto max-w-xl space-y-8">
+              {/* Header */}
+              <div className={cn("space-y-4", headerClassName)}>
+                {heading &&
+                  (typeof heading === "string" ? (
+                    <h2
+                      className={cn(
+                        "font-bold text-pretty",
+                        "text-3xl md:text-4xl lg:text-5xl",
+                        "leading-tight tracking-tight",
+                        headingClassName,
+                      )}
+                    >
+                      {heading}
+                    </h2>
+                  ) : (
+                    heading
+                  ))}
+                {subheading &&
+                  (typeof subheading === "string" ? (
+                    <p
+                      className={cn(
+                        "text-base md:text-lg",
+                        "text-pretty leading-relaxed",
+                        "opacity-80",
+                        subheadingClassName,
+                      )}
+                    >
+                      {subheading}
+                    </p>
+                  ) : (
+                    subheading
+                  ))}
+              </div>
+
+              {/* FAQ Items */}
+              {itemsContent}
+            </div>
+          </div>
+        </div>
+
+        {/* Media Area */}
+        {hasMedia && (
+          <div
+            className={cn(
+              "relative h-64 w-full sm:h-96 lg:h-screen lg:w-1/2",
+              mediaItem?.containerClassName,
+            )}
+          >
+            {mediaSlot || renderMedia}
+          </div>
+        )}
       </div>
-    </section>
+    </Section>
   );
 }

@@ -4,7 +4,6 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
-import { Separator } from "../../ui/separator";
 import {
   Accordion,
   AccordionContent,
@@ -137,7 +136,7 @@ export function FaqBadgeSupport({
   supportSlot,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-12 md:py-32",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,

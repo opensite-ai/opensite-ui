@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 import {
   Accordion,
@@ -15,6 +15,7 @@ import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 import type { ActionConfig } from "../../../src/types";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FaqItem {
   id: string;
@@ -174,12 +175,12 @@ export function FaqProfileSidebar({
   contactText,
   contactAction,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
   contentWrapperClassName,
   sidebarClassName,
   headingClassName,
@@ -211,20 +212,20 @@ export function FaqProfileSidebar({
           >
             <AccordionTrigger
               className={cn(
-                "transition-opacity duration-200 hover:no-underline hover:opacity-60",
+                "transition-opacity duration-200",
+                "hover:no-underline hover:opacity-75",
+                "cursor-pointer",
                 accordionTriggerClassName,
               )}
             >
-              <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
+              <div className="font-medium py-1 lg:py-2 text-lg">
                 {item.question}
               </div>
             </AccordionTrigger>
             <AccordionContent
-              className={cn("sm:mb-1 lg:mb-2", accordionContentClassName)}
+              className={cn("mb-1 lg:mb-2", accordionContentClassName)}
             >
-              <div className={cn(getTextColor(background, "muted"), "lg:text-lg")}>
-                {item.answer}
-              </div>
+              <div className={cn("text-lg")}>{item.answer}</div>
             </AccordionContent>
           </AccordionItem>
         ))}
@@ -244,7 +245,14 @@ export function FaqProfileSidebar({
     if (profileSlot) return profileSlot;
 
     return (
-      <div className={cn("rounded-lg border p-6", profileCardClassName)}>
+      <div
+        className={cn(
+          "bg-card text-card-foreground",
+          "rounded-lg border",
+          "p-4 md:p-6",
+          profileCardClassName,
+        )}
+      >
         <div className="flex items-center gap-4">
           {profileImage && (
             <Img
@@ -260,48 +268,38 @@ export function FaqProfileSidebar({
           <div>
             {profileName &&
               (typeof profileName === "string" ? (
-                <h3 className={cn("font-semibold", profileNameClassName)}>
+                <div
+                  className={cn("text-lg font-semibold", profileNameClassName)}
+                >
                   {profileName}
-                </h3>
+                </div>
               ) : (
-                <div className={profileNameClassName}>{profileName}</div>
+                profileName
               ))}
             {profileRole &&
               (typeof profileRole === "string" ? (
-                <p
-                  className={cn(
-                    getTextColor(background, "muted"),
-                    "text-sm",
-                    profileRoleClassName,
-                  )}
-                >
+                <p className={cn("text-sm opacity-75", profileRoleClassName)}>
                   {profileRole}
                 </p>
               ) : (
-                <div className={profileRoleClassName}>{profileRole}</div>
+                profileRole
               ))}
           </div>
         </div>
         {profileDescription &&
           (typeof profileDescription === "string" ? (
-            <p
-              className={cn(
-                getTextColor(background, "muted"),
-                "mt-4 text-sm",
-                profileDescriptionClassName,
-              )}
-            >
+            <p className={cn("mt-4 text-sm", profileDescriptionClassName)}>
               {profileDescription}
             </p>
           ) : (
-            <div className={profileDescriptionClassName}>
-              {profileDescription}
-            </div>
+            profileDescription
           ))}
         {contactAction && (
           <div
             className={cn(
-              "mt-6 border-t pt-6 flex flex-col space-y-4",
+              "border-t border-border/50",
+              "mt-6 pt-6 space-y-4",
+              "flex flex-col",
               contactSectionClassName,
             )}
           >
@@ -342,6 +340,41 @@ export function FaqProfileSidebar({
     background,
   ]);
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "mb-3 text-xl font-semibold md:mb-4 lg:text-2xl",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn("text-lg", descriptionClassName),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -349,49 +382,26 @@ export function FaqProfileSidebar({
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
-      className={className}
+      className={cn(pattern && "overflow-visible", className)}
+      containerClassName={containerClassName}
     >
-      <div className={containerClassName}>
+      <div className="relative">
         <div
           className={cn(
-            "flex flex-col gap-6 lg:flex-row lg:gap-16",
+            "flex flex-col lg:flex-row",
+            "items-center lg:items-start",
+            "gap-6 lg:gap-16",
             contentWrapperClassName,
           )}
         >
-          <div className={cn("lg:w-1/3", sidebarClassName)}>
+          <div className={cn("w-full lg:w-1/3", sidebarClassName)}>
             <div className="sticky top-24 space-y-6">
-              <div>
-                {heading &&
-                  (typeof heading === "string" ? (
-                    <h2
-                      className={cn(
-                        "mb-3 text-xl font-semibold md:mb-4 lg:text-2xl",
-                        headingClassName,
-                      )}
-                    >
-                      {heading}
-                    </h2>
-                  ) : (
-                    <div className={headingClassName}>{heading}</div>
-                  ))}
-                {description &&
-                  (typeof description === "string" ? (
-                    <p
-                      className={cn(
-                        getTextColor(background, "muted"),
-                        descriptionClassName,
-                      )}
-                    >
-                      {description}
-                    </p>
-                  ) : (
-                    <div className={descriptionClassName}>{description}</div>
-                  ))}
-              </div>
+              <ContentGroup items={contentItems} />
+
               {profileSectionContent}
             </div>
           </div>
-          <div className={cn("lg:w-2/3", faqColumnClassName)}>
+          <div className={cn("w-full lg:w-2/3", faqColumnClassName)}>
             {itemsContent}
           </div>
         </div>

@@ -7,6 +7,11 @@ import type { SocialPlatformName } from "@opensite/hooks/usePlatformFromUrl";
 // Re-export for consumers
 export type { SocialPlatformName };
 
+export interface DirectionConfig {
+  desktop: "mediaRight" | "mediaLeft";
+  mobile: "mediaTop" | "mediaBottom";
+}
+
 /**
  * Action configuration for semantic UI blocks.
  * Used by the semantic engine to define button/link actions with full flexibility.

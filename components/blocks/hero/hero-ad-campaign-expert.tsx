@@ -118,7 +118,7 @@ export function HeroAdCampaignExpert({
   mediaItem,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
+  spacing = "hero",
   mediaAspectRatios = { desktop: "vertical", mobile: "vertical" },
   directionConfig = { desktop: "mediaRight", mobile: "mediaTop" },
   pattern,
@@ -254,7 +254,7 @@ export function HeroAdCampaignExpert({
           <ContentGroup
             items={headerItems}
             className={cn(
-              "relative flex flex-col items-start gap-8 lg:w-1/2",
+              "relative flex flex-col items-start gap-4 md:gap-8 lg:w-1/2",
               contentClassName,
             )}
           />
