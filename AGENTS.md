@@ -1,4 +1,4 @@
-## AGENTS.md – Instructions for coding agents working on `@opensite/ui`
+# AGENTS.md – Instructions for coding agents working on `@opensite/ui`
 
 This file is for **AI coding agents and maintainers**. It encodes the non‑obvious rules, constraints, and workflows of this repo so automated changes stay fast, safe, and consistent.
 
