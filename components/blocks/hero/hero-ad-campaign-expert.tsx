@@ -244,21 +244,23 @@ export function HeroAdCampaignExpert({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className={cn("flex items-center", mobileOrder, desktopOrder)}>
+        <div
+          className={cn(
+            "flex items-center gap-12 md:gap-16 lg:gap-24",
+            mobileOrder,
+            desktopOrder,
+          )}
+        >
           <ContentGroup
             items={headerItems}
             className={cn(
-              "relative flex flex-col items-start gap-8 pb-20 lg:w-1/2",
+              "relative flex flex-col items-start gap-8 lg:w-1/2",
               contentClassName,
             )}
           />
 
           {hasMedia && (
-            <div
-              className={cn(
-                "relative flex w-full justify-center overflow-hidden lg:w-1/2",
-              )}
-            >
+            <div className={cn("relative flex w-full justify-center lg:w-1/2")}>
               <div className="relative h-auto w-[80%] max-w-[355px] lg:w-full lg:max-w-[520px]">
                 {/* Mobile aspect ratio */}
                 <div className="lg:hidden">
