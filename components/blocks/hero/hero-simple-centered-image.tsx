@@ -159,7 +159,7 @@ export function HeroSimpleCenteredImage({
     >
       <div
         className={cn(
-          "flex flex-col items-center text-center",
+          "flex flex-col items-center text-center gap-6 md:gap-2",
           contentClassName,
         )}
       >
@@ -167,27 +167,27 @@ export function HeroSimpleCenteredImage({
           (typeof heading === "string" ? (
             <h1
               className={cn(
-                "my-3 text-3xl font-bold text-balance sm:text-4xl md:my-6 lg:text-6xl",
+                "my-4 text-4xl font-bold text-balance md:my-6 md:text-6xl",
                 headingClassName,
               )}
             >
               {heading}
             </h1>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            heading
           ))}
         {description &&
           (typeof description === "string" ? (
             <p
               className={cn(
-                "max-w-xl md:max-w-md lg:text-2xl text-balance",
+                "max-w-full md:max-w-md text-lg text-balance opacity-75 leading-relaxed",
                 descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
-            <div className={descriptionClassName}>{description}</div>
+            description
           ))}
 
         <BlockActions
