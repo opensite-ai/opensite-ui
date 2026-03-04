@@ -71,9 +71,9 @@ export interface FaqGradientCategoriesProps {
    */
   containerClassName?: string;
   /**
-   * Additional CSS classes for the gradient wrapper
+   * Additional CSS classes for the content container wrapper
    */
-  gradientWrapperClassName?: string;
+  contentWrapperClassName?: string;
   /**
    * Additional CSS classes for the header wrapper
    */
@@ -119,12 +119,12 @@ export function FaqGradientCategories({
   categoriesSlot,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "lg",
+  spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  gradientWrapperClassName,
+  contentWrapperClassName,
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -149,16 +149,16 @@ export function FaqGradientCategories({
         {categories.map((category, categoryIndex) => (
           <div key={categoryIndex}>
             {typeof category.title === "string" ? (
-              <h3
+              <div
                 className={cn(
-                  "mb-4 text-xl font-semibold",
+                  "leading-none font-bold opacity-60 uppercase text-sm tracking-widest",
                   categoryTitleClassName,
                 )}
               >
                 {category.title}
-              </h3>
+              </div>
             ) : (
-              <div className={categoryTitleClassName}>{category.title}</div>
+              category.title
             )}
             <Accordion type="single" collapsible className={accordionClassName}>
               {category.items.map((item) => (
@@ -175,14 +175,14 @@ export function FaqGradientCategories({
                       accordionTriggerClassName,
                     )}
                   >
-                    <div className="font-medium py-1 md:py-2 text-lg">
+                    <div className="font-medium py-1 md:py-2 text-lg leading-tight">
                       {item.question}
                     </div>
                   </AccordionTrigger>
                   <AccordionContent
                     className={cn("mb-1 md:mb-2", accordionContentClassName)}
                   >
-                    <div className="text-lg">{item.answer}</div>
+                    <div className="text-base md:text-lg">{item.answer}</div>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -254,8 +254,10 @@ export function FaqGradientCategories({
       <div className="relative">
         <div
           className={cn(
-            "rounded-lg bg-card text-card-foreground p-8 md:p-12 lg:p-16",
-            gradientWrapperClassName,
+            "bg-card text-card-foreground",
+            "p-8 md:p-12 lg:p-16",
+            "rounded-xl shadow-xl",
+            contentWrapperClassName,
           )}
         >
           <ContentGroup

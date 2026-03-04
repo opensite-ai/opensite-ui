@@ -17,6 +17,7 @@ import type {
   ActionConfig,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface FaqItem {
   id: string;
@@ -152,7 +153,7 @@ export function FaqSplitHelp({
       <Accordion
         type="single"
         collapsible
-        className={cn("lg:w-2/3", accordionClassName)}
+        className={cn("w-full lg:w-2/3", accordionClassName)}
       >
         {items.map((item) => (
           <AccordionItem
@@ -242,6 +243,42 @@ export function FaqSplitHelp({
     background,
   ]);
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "text-3xl lg:text-4xl font-semibold",
+            "mb-3  md:mb-4 lg:mb-6",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn("text-base md:text-lg", descriptionClassName),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -253,31 +290,12 @@ export function FaqSplitHelp({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className="flex flex-col gap-10 lg:flex-row lg:gap-20">
-          <div className={cn("lg:w-1/3", leftColumnClassName)}>
-            {heading &&
-              (typeof heading === "string" ? (
-                <h2
-                  className={cn(
-                    "text-3xl lg:text-4xl font-semibold",
-                    "mb-3  md:mb-4 lg:mb-6",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h2>
-              ) : (
-                heading
-              ))}
-            {description &&
-              (typeof description === "string" ? (
-                <p className={cn("text-base md:text-lg", descriptionClassName)}>
-                  {description}
-                </p>
-              ) : (
-                description
-              ))}
-          </div>
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-20">
+          <ContentGroup
+            className={cn("w-full lg:w-1/3", leftColumnClassName)}
+            items={contentItems}
+          />
+
           {itemsContent}
         </div>
         {helpSectionContent}

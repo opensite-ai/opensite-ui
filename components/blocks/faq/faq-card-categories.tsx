@@ -127,7 +127,7 @@ export function FaqCardCategories({
   categoriesSlot,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "lg",
+  spacing = "xl",
   pattern,
   patternOpacity,
   patternClassName,
@@ -156,7 +156,12 @@ export function FaqCardCategories({
           <Card key={categoryIndex} className={cardClassName}>
             <CardHeader>
               {typeof category.title === "string" ? (
-                <CardTitle className={categoryTitleClassName}>
+                <CardTitle
+                  className={cn(
+                    "leading-none font-bold opacity-60 uppercase text-sm tracking-widest",
+                    categoryTitleClassName,
+                  )}
+                >
                   {category.title}
                 </CardTitle>
               ) : (
@@ -177,14 +182,16 @@ export function FaqCardCategories({
                   >
                     <AccordionTrigger
                       className={cn(
-                        "text-sm transition-opacity duration-200 hover:no-underline hover:opacity-60",
+                        "text-sm transition-opacity",
+                        "duration-200 hover:no-underline hover:opacity-60",
+                        "text-lg",
                         accordionTriggerClassName,
                       )}
                     >
                       {item.question}
                     </AccordionTrigger>
                     <AccordionContent
-                      className={cn("text-sm", accordionContentClassName)}
+                      className={cn("text-base", accordionContentClassName)}
                     >
                       {item.answer}
                     </AccordionContent>
@@ -258,12 +265,7 @@ export function FaqCardCategories({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div
-          className={cn(
-            "relative rounded-lg p-8 md:p-12 lg:p-16",
-            contentWrapperClassName,
-          )}
-        >
+        <div className={cn("relative", contentWrapperClassName)}>
           <ContentGroup
             className={cn(
               "mx-auto flex flex-col",

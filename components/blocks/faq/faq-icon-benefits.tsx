@@ -127,7 +127,9 @@ export function FaqIconBenefits({
     return (
       <div
         className={cn(
-          "mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3",
+          "mx-auto mt-10",
+          "grid gap-8 md:gap-12 md:grid-cols-2 lg:grid-cols-3",
+          "max-w-full md:max-w-7xl",
           gridClassName,
         )}
       >
@@ -160,14 +162,24 @@ export function FaqIconBenefits({
               </div>
             )}
             {typeof benefit.title === "string" ? (
-              <h3 className={cn("text-lg font-semibold", titleClassName)}>
+              <div
+                className={cn(
+                  "text-lg md:text-xl font-semibold text-pretty",
+                  titleClassName,
+                )}
+              >
                 {benefit.title}
-              </h3>
+              </div>
             ) : (
               benefit.title
             )}
             {typeof benefit.description === "string" ? (
-              <p className={cn("text-sm", benefitDescriptionClassName)}>
+              <p
+                className={cn(
+                  "text-sm md:text-base text-balance",
+                  benefitDescriptionClassName,
+                )}
+              >
                 {benefit.description}
               </p>
             ) : (

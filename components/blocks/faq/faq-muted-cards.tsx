@@ -128,30 +128,41 @@ export function FaqMutedCards({
       <Accordion
         type="single"
         collapsible
-        className={cn("space-y-4", accordionClassName)}
+        className={cn(
+          "bg-muted text-muted-foreground",
+          "space-y-0 rounded-2xl shadow-2xl",
+          accordionClassName,
+        )}
       >
-        {items.map((item) => (
+        {items.map((item, index) => (
           <AccordionItem
-            key={item.id}
+            key={item.id || index}
             value={item.id}
-            className={accordionItemClassName}
+            className={cn(
+              "border-border/50",
+              index === items.length - 1 ? "border-none" : "",
+              accordionItemClassName,
+            )}
           >
             <AccordionTrigger
               className={cn(
                 "transition-opacity",
                 "hover:no-underline hover:opacity-75",
                 "cursor-pointer duration-200",
+                "px-4 md:px-5",
                 accordionTriggerClassName,
               )}
             >
-              <div className="font-medium py-1 md:py-2 text-lg">
+              <div className="font-semibold py-1 md:py-2 text-lg">
                 {item.question}
               </div>
             </AccordionTrigger>
             <AccordionContent
               className={cn("mb-1 md:mb-2", accordionContentClassName)}
             >
-              <div className="text-lg">{item.answer}</div>
+              <div className="px-4 md:px-5 text-base md:text-lg">
+                {item.answer}
+              </div>
             </AccordionContent>
           </AccordionItem>
         ))}
@@ -218,17 +229,15 @@ export function FaqMutedCards({
       <div className="flex flex-col items-center">
         <div
           className={cn(
-            "max-w-full md:max-w-3xl",
-            "flex flex-col items-start gap-8",
+            "max-w-full md:max-w-3xl w-full",
+            "flex flex-col items-stretch gap-8",
             contentWrapperClassName,
           )}
         >
           <ContentGroup
             className={cn(
               "mx-auto flex flex-col",
-              "max-w-full md:max-w-3xl",
               "text-left md:text-center",
-              "mb-12 md:mb-20",
               headerClassName,
             )}
             items={contentItems}

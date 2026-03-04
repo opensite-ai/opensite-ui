@@ -125,7 +125,7 @@ export function FaqNumberedList({
     return (
       <div
         className={cn(
-          "mt-8 md:mt-12 w-full max-w-3xl space-y-4 text-left",
+          "mt-8 md:mt-12 w-full max-w-3xl space-y-12 text-left",
           itemsWrapperClassName,
         )}
       >
@@ -133,16 +133,17 @@ export function FaqNumberedList({
           <div
             key={index}
             className={cn(
-              "flex gap-4 p-4 md:p-5",
+              "flex gap-4 p-4 md:p-6",
               "bg-card text-card-foreground",
-              "rounded-lg border shadow-lg",
+              "ring-4 ring-primary",
+              "rounded-xl shadow-2xl",
               itemClassName,
             )}
           >
             <span
               className={cn(
                 "flex items-center justify-center",
-                "rounded-lg shadow-lg",
+                "rounded-xl shadow-lg",
                 "bg-primary text-primary-foreground",
                 "text-base font-semibold",
                 "size-10 shrink-0",
@@ -152,11 +153,11 @@ export function FaqNumberedList({
             >
               {index + 1}
             </span>
-            <div>
+            <div className="space-y-2 mt-2">
               {typeof item.question === "string" ? (
                 <div
                   className={cn(
-                    "mb-1 font-semibold text-lg",
+                    "font-semibold text-lg leading-snug",
                     questionClassName,
                   )}
                 >
@@ -199,7 +200,7 @@ export function FaqNumberedList({
       containerClassName={containerClassName}
     >
       <div className="flex flex-col items-center">
-        <div className="max-w-full md:max-w-3xl space-y-6">
+        <div className="max-w-full md:max-w-3xl flex flex-col items-center gap-4">
           {badge &&
             (typeof badge === "string" ? (
               <Badge className={badgeClassName}>{badge}</Badge>
@@ -210,14 +211,15 @@ export function FaqNumberedList({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "text-3xl font-semibold md:text-4xl text-pretty text-center",
+                  "text-2xl md:text-4xl lg:text-5xl",
+                  "font-semibold text-pretty text-center",
                   headingClassName,
                 )}
               >
                 {heading}
               </h2>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
@@ -230,7 +232,7 @@ export function FaqNumberedList({
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
           {itemsContent}
         </div>
