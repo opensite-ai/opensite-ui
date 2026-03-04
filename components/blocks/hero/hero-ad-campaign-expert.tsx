@@ -261,30 +261,32 @@ export function HeroAdCampaignExpert({
 
           {hasMedia && (
             <div className={cn("relative flex w-full justify-center lg:w-1/2")}>
-              <div className="relative h-auto w-[80%] max-w-[355px] lg:w-full lg:max-w-[520px]">
-                {/* Mobile aspect ratio */}
-                <div className="lg:hidden">
-                  <AspectRatio
-                    ratio={ASPECT_RATIOS[mediaAspectRatios.mobile]}
-                    className={cn(
-                      "border-muted border rounded-xl shadow-xl overflow-hidden",
-                      mediaItem?.containerClassName,
-                    )}
-                  >
-                    {renderMedia}
-                  </AspectRatio>
-                </div>
-                {/* Desktop aspect ratio */}
-                <div className="hidden lg:block">
-                  <AspectRatio
-                    ratio={ASPECT_RATIOS[mediaAspectRatios.desktop]}
-                    className={cn(
-                      "border-muted border rounded-xl shadow-xl overflow-hidden",
-                      mediaItem?.containerClassName,
-                    )}
-                  >
-                    {renderMedia}
-                  </AspectRatio>
+              {/* Mobile aspect ratio - uses AspectRatio component */}
+              <div className="relative h-auto w-[80%] max-w-[355px] lg:hidden">
+                <AspectRatio
+                  ratio={ASPECT_RATIOS[mediaAspectRatios.mobile]}
+                  className={cn(
+                    "rounded-xl shadow-2xl overflow-hidden",
+                    mediaItem?.containerClassName,
+                  )}
+                >
+                  {renderMedia}
+                </AspectRatio>
+              </div>
+              {/* Desktop aspect ratio - uses native CSS aspect-ratio with max-height constraint */}
+              <div
+                className="hidden lg:block max-h-[70dvh] w-auto"
+                style={{
+                  aspectRatio: ASPECT_RATIOS[mediaAspectRatios.desktop],
+                }}
+              >
+                <div
+                  className={cn(
+                    "size-full rounded-xl shadow-2xl overflow-hidden",
+                    mediaItem?.containerClassName,
+                  )}
+                >
+                  {renderMedia}
                 </div>
               </div>
             </div>
