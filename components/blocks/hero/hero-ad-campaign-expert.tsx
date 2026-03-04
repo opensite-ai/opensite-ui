@@ -254,18 +254,16 @@ export function HeroAdCampaignExpert({
           />
 
           {hasMedia && (
-            <div
-              className={cn(
-                "relative flex w-full justify-center lg:w-1/2",
-                mediaItem?.containerClassName,
-              )}
-            >
+            <div className={cn("relative flex w-full justify-center lg:w-1/2")}>
               <div className="relative z-10 -mb-16 h-auto w-[80%] max-w-[355px] lg:w-[520px]">
                 {/* Mobile aspect ratio */}
                 <div className="lg:hidden">
                   <AspectRatio
                     ratio={ASPECT_RATIOS[mediaAspectRatios.mobile]}
-                    className="border-muted border rounded-xl shadow-xl overflow-hidden"
+                    className={cn(
+                      "border-muted border rounded-xl shadow-xl overflow-hidden",
+                      mediaItem?.containerClassName,
+                    )}
                   >
                     {renderMedia}
                   </AspectRatio>
@@ -274,7 +272,10 @@ export function HeroAdCampaignExpert({
                 <div className="hidden lg:block">
                   <AspectRatio
                     ratio={ASPECT_RATIOS[mediaAspectRatios.desktop]}
-                    className="border-muted border rounded-xl shadow-xl overflow-hidden"
+                    className={cn(
+                      "border-muted border rounded-xl shadow-xl overflow-hidden",
+                      mediaItem?.containerClassName,
+                    )}
                   >
                     {renderMedia}
                   </AspectRatio>
