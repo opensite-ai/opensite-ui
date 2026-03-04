@@ -9,6 +9,8 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
+  DirectionConfig,
+  MediaItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
@@ -16,10 +18,15 @@ import type {
 import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 import { BlockActions } from "@/components/ui/block-actions";
 
-export interface DirectionConfig {
-  desktop: "mediaRight" | "mediaLeft";
-  mobile: "mediaTop" | "mediaBottom";
-}
+export type { DirectionConfig };
+
+type MediaAspectRatio = "square" | "horizontal" | "vertical";
+
+const ASPECT_RATIOS: Record<MediaAspectRatio, number> = {
+  square: 1,
+  horizontal: 16 / 9,
+  vertical: 355 / 520,
+};
 
 export interface HeroAdCampaignExpertProps {
   /**
@@ -43,13 +50,10 @@ export interface HeroAdCampaignExpertProps {
    */
   actionsClassName?: string;
   /**
-   * Hero image source URL
+   * Media item configuration for image and/or video rendering.
+   * Replaces individual imageSrc/imageAlt/imageClassName props.
    */
-  imageSrc?: string;
-  /**
-   * Hero image alt text
-   */
-  imageAlt?: string;
+  mediaItem?: MediaItem;
   /**
    * Background style for the section
    */
@@ -87,24 +91,16 @@ export interface HeroAdCampaignExpertProps {
    */
   descriptionClassName?: string;
   /**
-   * Additional CSS classes for the image container
-   */
-  imageContainerClassName?: string;
-  /**
-   * Additional CSS classes for the image
-   */
-  imageClassName?: string;
-  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
   /**
-   * Media aspect ratios
+   * Media aspect ratios for desktop and mobile breakpoints
    * @default { desktop: "vertical", mobile: "vertical" }
    */
   mediaAspectRatios?: {
-    desktop: "square" | "horizontal" | "vertical";
-    mobile: "square" | "horizontal" | "vertical";
+    desktop: MediaAspectRatio;
+    mobile: MediaAspectRatio;
   };
   /**
    * Direction configuration for desktop and mobile layouts
@@ -119,10 +115,7 @@ export function HeroAdCampaignExpert({
   actions,
   actionsSlot,
   actionsClassName,
-  imageSrc,
-  imageAlt,
-  imageContainerClassName,
-  imageClassName,
+  mediaItem,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
@@ -198,6 +191,49 @@ export function HeroAdCampaignExpert({
     renderActions,
   ]);
 
+  // Determine flex direction based on directionConfig
+  const desktopOrder =
+    directionConfig.desktop === "mediaRight"
+      ? "lg:flex-row"
+      : "lg:flex-row-reverse";
+  const mobileOrder =
+    directionConfig.mobile === "mediaTop" ? "flex-col-reverse" : "flex-col";
+
+  const hasMedia = mediaItem?.image || mediaItem?.video;
+
+  const renderMedia = useMemo(() => {
+    if (!mediaItem) return null;
+
+    const { image, video } = mediaItem;
+
+    // Video takes priority when provided
+    if (video) {
+      const { src, className: videoClassName, ...videoRest } = video;
+      return (
+        <video
+          src={src}
+          className={cn("size-full object-cover", videoClassName)}
+          {...videoRest}
+        />
+      );
+    }
+
+    if (image) {
+      const { src, alt, className: imgClassName, ...imgRest } = image;
+      return (
+        <Img
+          src={src as string}
+          alt={alt}
+          className={cn("size-full object-cover", imgClassName)}
+          optixFlowConfig={optixFlowConfig}
+          {...imgRest}
+        />
+      );
+    }
+
+    return null;
+  }, [mediaItem, optixFlowConfig]);
+
   return (
     <Section
       background={background}
@@ -208,7 +244,7 @@ export function HeroAdCampaignExpert({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className="flex flex-col items-center lg:flex-row">
+        <div className={cn("flex items-center", mobileOrder, desktopOrder)}>
           <ContentGroup
             items={headerItems}
             className={cn(
@@ -217,28 +253,35 @@ export function HeroAdCampaignExpert({
             )}
           />
 
-          <div
-            className={cn(
-              "relative flex w-full justify-center lg:w-1/2",
-              imageContainerClassName,
-            )}
-          >
-            {imageSrc && (
+          {hasMedia && (
+            <div
+              className={cn(
+                "relative flex w-full justify-center lg:w-1/2",
+                mediaItem?.containerClassName,
+              )}
+            >
               <div className="relative z-10 -mb-16 h-auto w-[80%] max-w-[355px] lg:w-[520px]">
-                <AspectRatio
-                  ratio={355 / 520}
-                  className="border-muted border rounded-xl shadow-xl overflow-hidden"
-                >
-                  <Img
-                    src={imageSrc}
-                    alt={imageAlt}
-                    className={cn("size-full object-cover", imageClassName)}
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </AspectRatio>
+                {/* Mobile aspect ratio */}
+                <div className="lg:hidden">
+                  <AspectRatio
+                    ratio={ASPECT_RATIOS[mediaAspectRatios.mobile]}
+                    className="border-muted border rounded-xl shadow-xl overflow-hidden"
+                  >
+                    {renderMedia}
+                  </AspectRatio>
+                </div>
+                {/* Desktop aspect ratio */}
+                <div className="hidden lg:block">
+                  <AspectRatio
+                    ratio={ASPECT_RATIOS[mediaAspectRatios.desktop]}
+                    className="border-muted border rounded-xl shadow-xl overflow-hidden"
+                  >
+                    {renderMedia}
+                  </AspectRatio>
+                </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </Section>

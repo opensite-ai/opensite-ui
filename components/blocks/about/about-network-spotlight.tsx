@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -191,7 +190,7 @@ export function AboutNetworkSpotlight({
       <div
         className={cn(
           "bg-card text-card-foreground",
-          "rounded-2xl border p-5 backdrop-blur-sm",
+          "rounded-2xl border p-5 shadow-xl",
           spotlightCardClassName,
         )}
       >
@@ -216,18 +215,14 @@ export function AboutNetworkSpotlight({
               spotlightCard.label
             )}
             {typeof spotlightCard.title === "string" ? (
-              <div className="text-lg font-bold text-background">
-                {spotlightCard.title}
-              </div>
+              <div className="text-lg font-bold">{spotlightCard.title}</div>
             ) : (
               spotlightCard.title
             )}
           </div>
         </div>
         {typeof spotlightCard.description === "string" ? (
-          <p className="text-sm text-background/80">
-            {spotlightCard.description}
-          </p>
+          <p className="text-sm">{spotlightCard.description}</p>
         ) : (
           spotlightCard.description
         )}

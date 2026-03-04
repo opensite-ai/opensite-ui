@@ -25,6 +25,7 @@ export type {
   AuthorInfo,
   SectionItem,
   OutcomeItem,
+  MediaItem,
 } from "./blocks";
 
 /**

@@ -1,3 +1,4 @@
+import type React from "react";
 import type { ReactNode, MouseEventHandler } from "react";
 import type { VariantProps } from "class-variance-authority";
 import type { buttonVariants } from "../../lib/button-variants";
@@ -721,4 +722,46 @@ export interface OutcomeItem {
    * Additional CSS classes
    */
   className?: string;
+}
+
+/**
+ * Standardized media item configuration for blocks that render images or videos.
+ * Allows blocks to accept either an image, a video, or both, and render the
+ * appropriate element dynamically.
+ *
+ * @example
+ * ```tsx
+ * // Image-only media item
+ * const imageMedia: MediaItem = {
+ *   image: { src: "/hero.jpg", alt: "Hero image" },
+ * };
+ *
+ * // Video-only media item
+ * const videoMedia: MediaItem = {
+ *   video: { src: "/hero.mp4", autoPlay: true, muted: true, loop: true },
+ * };
+ *
+ * // Both (image used as poster/fallback)
+ * const richMedia: MediaItem = {
+ *   image: { src: "/poster.jpg", alt: "Video poster" },
+ *   video: { src: "/hero.mp4", autoPlay: true, muted: true, loop: true },
+ *   containerClassName: "rounded-xl overflow-hidden",
+ * };
+ * ```
+ */
+export interface MediaItem {
+  /**
+   * Image configuration using standard React img attributes.
+   * When both image and video are provided, image may serve as a poster/fallback.
+   */
+  image?: React.ComponentPropsWithoutRef<"img">;
+  /**
+   * Video configuration using standard React video attributes.
+   * When provided, the block renders a video element instead of (or in addition to) an image.
+   */
+  video?: React.ComponentPropsWithoutRef<"video">;
+  /**
+   * Additional CSS classes for the media container element.
+   */
+  containerClassName?: string;
 }
