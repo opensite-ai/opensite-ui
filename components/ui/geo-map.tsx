@@ -241,12 +241,23 @@ function MarkerMediaCarousel({
 }) {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const totalItems = mediaItems.length;
+  const mediaResetKey = React.useMemo(
+    () =>
+      mediaItems
+        .map((item, index) => {
+          const itemId = normalizeId(item.id, `media-${index}`);
+          return `${itemId}:${item.src}:${item.type ?? ""}:${item.poster ?? ""}`;
+        })
+        .join("|"),
+    [mediaItems],
+  );
+  const activeItemIndex = Math.min(activeIndex, Math.max(0, totalItems - 1));
 
   React.useEffect(() => {
     setActiveIndex(0);
-  }, [mediaItems]);
+  }, [mediaResetKey]);
 
-  const activeMediaItem = mediaItems[activeIndex];
+  const activeMediaItem = mediaItems[activeItemIndex];
   const mediaType = resolveMediaType(activeMediaItem);
 
   return (
@@ -305,7 +316,7 @@ function MarkerMediaCarousel({
                 aria-label={`Show media item ${index + 1}`}
                 className={cn(
                   "h-2 rounded-full transition-all",
-                  index === activeIndex
+                  index === activeItemIndex
                     ? "w-6 bg-card"
                     : "w-2 bg-card opacity-50 hover:opacity-100",
                 )}
@@ -472,7 +483,15 @@ export function GeoMap({
   const applyViewState = React.useCallback(
     (nextState: Partial<MapViewState>) => {
       if (!isControlledViewState) {
-        setUncontrolledViewState((current) => ({ ...current, ...nextState }));
+        setUncontrolledViewState((current) => {
+          const next = { ...current, ...nextState };
+          const hasChanged =
+            current.latitude !== next.latitude ||
+            current.longitude !== next.longitude ||
+            current.zoom !== next.zoom;
+
+          return hasChanged ? next : current;
+        });
       }
 
       onViewStateChange?.(nextState);
