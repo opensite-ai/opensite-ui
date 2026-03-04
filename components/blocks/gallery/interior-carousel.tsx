@@ -1,17 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { useState, useMemo, useCallback } from "react";
+import {
+  startTransition,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "../../ui/carousel";
+import type { CarouselApi } from "../../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
+import { CarouselPagination } from "../../ui/carousel-pagination";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -158,8 +160,39 @@ export function InteriorCarousel({
   patternClassName,
   optixFlowConfig,
 }: InteriorCarouselProps): React.JSX.Element {
+  const [api, setApi] = useState<CarouselApi>();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [canScrollPrevious, setCanScrollPrevious] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const updateState = () => {
+      startTransition(() => {
+        setCanScrollPrevious(api.canScrollPrev());
+        setCanScrollNext(api.canScrollNext());
+      });
+    };
+
+    updateState();
+    api.on("select", updateState);
+    api.on("reInit", updateState);
+
+    return () => {
+      api.off("select", updateState);
+      api.off("reInit", updateState);
+    };
+  }, [api]);
+
+  const scrollPrevious = useCallback(() => {
+    api?.scrollPrev();
+  }, [api]);
+
+  const scrollNext = useCallback(() => {
+    api?.scrollNext();
+  }, [api]);
 
   const lightboxItems: LightboxItem[] = useMemo(() => {
     if (!images || images.length === 0) return [];
@@ -266,64 +299,69 @@ export function InteriorCarousel({
       className={className}
     >
       {heading || description ? (
-        <div className="flex flex-col gap-4 mb-6 md:mb-16 px-6 md:px-8">
+        <div className="flex flex-col gap-2 mb-6 md:mb-16 px-6 md:px-8 max-w-full md:max-w-md">
           {heading &&
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl text-balance",
+                  "text-2xl font-semibold tracking-tight md:text-4xl lg:text-6xl text-pretty",
                   headingClassName,
                 )}
               >
                 {heading}
               </h2>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {descriptionContent &&
             (typeof description === "string" ? (
-              <p className={cn("max-w-lg text-balance", descriptionClassName)}>
+              <p
+                className={cn(
+                  "text-lg text-balance opacity-75",
+                  descriptionClassName,
+                )}
+              >
                 {descriptionContent}
               </p>
             ) : (
-              <div
-                className={cn("max-w-lg text-balance", descriptionClassName)}
-              >
-                {descriptionContent}
-              </div>
+              descriptionContent
             ))}
         </div>
       ) : null}
 
       <div className="px-6 md:px-0">
-        <Carousel
-          opts={{
-            align: "start",
-            loop,
-          }}
-          className={cn("mx-auto w-full max-w-6xl", carouselClassName)}
-        >
-          <CarouselContent
-            style={{
-              backfaceVisibility: "hidden",
+        <div className="relative">
+          <Carousel
+            opts={{
+              align: "start",
+              loop,
             }}
-            className={carouselContentClassName}
+            setApi={setApi}
+            className={cn("mx-auto w-full max-w-6xl", carouselClassName)}
           >
-            {imagesContent}
-          </CarouselContent>
-          <CarouselPrevious
+            <CarouselContent
+              style={{
+                backfaceVisibility: "hidden",
+              }}
+              className={carouselContentClassName}
+            >
+              {imagesContent}
+            </CarouselContent>
+          </Carousel>
+          <CarouselPagination
+            onPrevious={scrollPrevious}
+            onNext={scrollNext}
+            canScrollPrevious={canScrollPrevious}
+            canScrollNext={canScrollNext}
+            size="lg"
+            mobileSize="md"
             className={cn(
-              "left-5 scale-120 border-none bg-foreground/30 text-background hover:bg-foreground/50",
+              "mt-4 justify-end md:mt-0 md:absolute md:inset-x-0 md:top-1/2 md:-translate-y-1/2 md:justify-between md:pointer-events-none",
               controlsClassName,
             )}
+            buttonClassName="bg-foreground text-background hover:bg-foreground/80 pointer-events-auto md:mx-5"
           />
-          <CarouselNext
-            className={cn(
-              "right-5 scale-120 border-none bg-foreground/30 text-background hover:bg-foreground/50",
-              controlsClassName,
-            )}
-          />
-        </Carousel>
+        </div>
       </div>
       {lightboxOpen && (
         <Lightbox

@@ -229,6 +229,7 @@ export function CarouselGradientText({
           href={item.href}
           className={cn(
             "relative flex aspect-4/5 max-h-[500px] rounded-2xl",
+            "transition-all duration-500 shadow-sm hover:shadow-xl",
             item.className,
             cardClassName,
           )}
@@ -306,13 +307,11 @@ export function CarouselGradientText({
             )}
             {tagline ? (
               typeof tagline === "string" ? (
-                <p className={cn("mt-2 md:mt-8 text-xl", taglineClassName)}>
+                <p className={cn("mt-2 md:mt-4 text-xl", taglineClassName)}>
                   {tagline}
                 </p>
               ) : (
-                <div className={cn("mt-2 md:mt-8 text-xl", taglineClassName)}>
-                  {tagline}
-                </div>
+                tagline
               )
             ) : null}
             <div
@@ -343,8 +342,14 @@ export function CarouselGradientText({
           <span
             key={index}
             className={cn(
-              "flex h-8 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-muted-foreground/15 text-xs font-semibold whitespace-nowrap transition-all duration-300",
-              index + 1 === current ? "w-fit px-4" : "my-4 mx-2 md:mx-4 size-4",
+              "transition-all duration-500",
+              "bg-card text-card-foreground",
+              "ring-4 ring-primary",
+              "flex shrink-0 items-center justify-center",
+              "h-8 overflow-hidden rounded-full text-xs font-semibold whitespace-nowrap",
+              index + 1 === current
+                ? "w-fit px-4 mx-2"
+                : "my-4 mx-2 md:mx-4 size-4 hover:bg-primary hover:text-primary-foreground cursor-pointer",
             )}
             onClick={() => api && api.scrollTo(index)}
           >

@@ -192,7 +192,8 @@ const FeatureCard = React.memo(
             borderRadius: "24px",
           }}
           className={cn(
-            "relative flex items-start gap-4 bg-background text-foreground md:w-fit md:max-w-sm",
+            "bg-card text-card-foreground",
+            "relative flex items-start gap-4 md:w-fit md:max-w-sm",
             isActive
               ? "shadow-xl overflow-visible"
               : "cursor-pointer shadow-none hover:shadow-xl transition-shadow duration-500 overflow-hidden",
@@ -200,7 +201,7 @@ const FeatureCard = React.memo(
           onClick={onClick}
         >
           {isActive && feature.href && (
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-background rounded-full h-fit w-fit p-2 flex items-center justify-center z-10">
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-card rounded-full h-fit w-fit p-2 flex items-center justify-center z-10">
               <Pressable
                 href={feature.href}
                 size="icon-lg"
@@ -376,7 +377,7 @@ const FeaturesMobile = React.memo(
                   x: { type: "spring", stiffness: 300, damping: 30 },
                   opacity: { duration: 0.2 },
                 }}
-                className="rounded-3xl bg-background p-4 text-left"
+                className="border border-muted/50 rounded-3xl bg-card text-card-foreground p-4 text-left"
               >
                 {(currentFeature?.title || currentFeature?.description) && (
                   <div className="text-sm">
@@ -513,7 +514,8 @@ export function FeatureAnimatedCarousel({
       >
         <div
           className={cn(
-            "relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl bg-muted p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]",
+            "bg-muted border border-muted/50",
+            "relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]",
           )}
         />
       </Section>

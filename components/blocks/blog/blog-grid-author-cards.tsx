@@ -103,7 +103,8 @@ export function BlogGridAuthorCardsComponent({
   viewAllAction,
   viewAllSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -112,7 +113,6 @@ export function BlogGridAuthorCardsComponent({
   viewAllClassName,
   optixFlowConfig,
   background,
-  spacing,
   pattern,
   patternOpacity,
 }: BlogGridAuthorCardsProps): React.JSX.Element {
@@ -163,7 +163,7 @@ export function BlogGridAuthorCardsComponent({
           className={cn("group flex flex-col", postCardClassName)}
         >
           {post.image && (
-            <div className="mb-4 flex overflow-clip rounded-xl md:mb-5">
+            <div className="shadow-xl mb-6 flex overflow-clip rounded-xl md:mb-8">
               <div className="transition-opacity duration-300 group-hover:opacity-80">
                 <Img
                   src={post.image}
@@ -177,41 +177,38 @@ export function BlogGridAuthorCardsComponent({
             </div>
           )}
 
-          {(post.label || post.category) && (
-            <div>
-              <Badge variant="secondary">{post.label || post.category}</Badge>
-            </div>
-          )}
+          {post.label || post.category ? (
+            <Badge>{post.label || post.category}</Badge>
+          ) : null}
+
           {post.title &&
             (typeof post.title === "string" ? (
-              <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium wrap-break-word md:mb-3 md:pt-4 md:text-2xl lg:pt-4 lg:text-3xl">
+              <div className="mb-2 line-clamp-3 pt-4 text-lg font-semibold wrap-break-word md:mb-3 md:pt-4 md:text-xl lg:pt-4 leading-tight transition-all duration-300 group-hover:underline group-hover:underline-offset-4">
                 {post.title}
               </div>
             ) : (
-              <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium wrap-break-word md:mb-3 md:pt-4 md:text-2xl lg:pt-4 lg:text-3xl">
-                {post.title}
-              </div>
+              post.title
             ))}
           {(post.summary || post.description) && (
-            <div className="mb-4 line-clamp-2 text-sm text-muted-foreground md:mb-5 md:text-base">
+            <div className="mb-4 line-clamp-2 text-sm md:mb-5 md:text-base">
               {post.summary || post.description}
             </div>
           )}
           {(post.author || post.authorAvatar) && (
-            <div className="flex items-center gap-2">
-              <Avatar className="size-12">
+            <div className="flex items-center gap-3">
+              <Avatar className="size-12 ring-4 ring-primary shadow-lg">
                 {post.authorAvatar && <AvatarImage src={post.authorAvatar} />}
                 <AvatarFallback>
                   {post.authorInitials ||
                     (authorStr ? authorStr.slice(0, 2).toUpperCase() : "")}
                 </AvatarFallback>
               </Avatar>
-              <div className="flex flex-col gap-px">
+              <div className="flex flex-col gap-px text-sm">
                 {post.author && (
-                  <span className="text-xs font-medium">{post.author}</span>
+                  <span className="font-semibold">{post.author}</span>
                 )}
                 {(post.published || post.date) && (
-                  <span className="text-xs text-muted-foreground">
+                  <span className="opacity-75">
                     {post.published || post.date}
                   </span>
                 )}
@@ -230,8 +227,9 @@ export function BlogGridAuthorCardsComponent({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         {(heading || description) && (
           <div className={cn("mb-6 md:mb-14 lg:mb-16", headerClassName)}>
             <div className="flex items-start justify-between gap-8">
@@ -240,28 +238,37 @@ export function BlogGridAuthorCardsComponent({
                   (typeof heading === "string" ? (
                     <h2
                       className={cn(
-                        "mb-4 w-full text-4xl font-medium md:mb-5 md:text-5xl lg:mb-6 lg:text-6xl",
+                        "text-2xl font-semibold tracking-tight md:text-4xl lg:text-6xl text-pretty",
                         headingClassName,
                       )}
                     >
                       {heading}
                     </h2>
                   ) : (
-                    <div className={headingClassName}>{heading}</div>
+                    heading
                   ))}
               </div>
             </div>
             {description &&
               (typeof description === "string" ? (
-                <p className={descriptionClassName}>{description}</p>
+                <p
+                  className={cn(
+                    "text-lg text-balance opacity-75",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
           </div>
         )}
         <div
           className={cn(
-            "grid gap-x-4 gap-y-8 md:grid-cols-2 lg:gap-x-6 lg:gap-y-12 2xl:grid-cols-3",
+            "grid",
+            "grid-cols-1 md:grid-cols-2 2xl:grid-cols-3",
+            "gap-8 md:gap-12",
             postsClassName,
           )}
         >
@@ -269,10 +276,7 @@ export function BlogGridAuthorCardsComponent({
         </div>
         {(viewAllSlot || viewAllAction) && (
           <div
-            className={cn(
-              "mt-8 flex flex-col items-center py-2 md:hidden",
-              viewAllClassName,
-            )}
+            className={cn("mt-16 flex flex-col items-center", viewAllClassName)}
           >
             {viewAllActionContent}
           </div>

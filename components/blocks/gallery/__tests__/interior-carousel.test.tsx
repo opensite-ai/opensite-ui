@@ -3,17 +3,49 @@ import { render, screen } from "@testing-library/react";
 import { InteriorCarousel } from "../interior-carousel";
 
 vi.mock("@page-speed/img", () => ({
-  Img: ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
+  Img: ({
+    src,
+    alt,
+    className,
+  }: {
+    src: string;
+    alt: string;
+    className?: string;
+  }) => (
     <img src={src} alt={alt} className={className} data-testid="mock-img" />
   ),
 }));
 
 vi.mock("../../../ui/carousel", () => ({
-  Carousel: ({ children }: { children: React.ReactNode }) => <div data-testid="carousel">{children}</div>,
-  CarouselContent: ({ children }: { children: React.ReactNode }) => <div data-testid="carousel-content">{children}</div>,
-  CarouselItem: ({ children }: { children: React.ReactNode }) => <div data-testid="carousel-item">{children}</div>,
-  CarouselNext: () => <button data-testid="carousel-next">Next</button>,
-  CarouselPrevious: () => <button data-testid="carousel-prev">Prev</button>,
+  Carousel: ({
+    children,
+    setApi,
+  }: {
+    children: React.ReactNode;
+    setApi?: (api: unknown) => void;
+  }) => <div data-testid="carousel">{children}</div>,
+  CarouselContent: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="carousel-content">{children}</div>
+  ),
+  CarouselItem: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="carousel-item">{children}</div>
+  ),
+}));
+
+vi.mock("../../../ui/carousel-pagination", () => ({
+  CarouselPagination: (props: Record<string, unknown>) => (
+    <div data-testid="carousel-pagination">
+      <button
+        data-testid="carousel-prev"
+        onClick={props.onPrevious as () => void}
+      >
+        Prev
+      </button>
+      <button data-testid="carousel-next" onClick={props.onNext as () => void}>
+        Next
+      </button>
+    </div>
+  ),
 }));
 
 vi.mock("../../../lib/mediaPlaceholders", () => ({
@@ -26,18 +58,33 @@ describe("InteriorCarousel", () => {
   });
 
   it("renders with required props", () => {
-    render(<InteriorCarousel heading="Test Heading" description="Test description" />);
+    render(
+      <InteriorCarousel
+        heading="Test Heading"
+        description="Test description"
+      />,
+    );
     expect(screen.getByText("Test Heading")).toBeInTheDocument();
     expect(screen.getByText("Test description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
-    render(<InteriorCarousel heading="Custom Heading" description="Test description" />);
+    render(
+      <InteriorCarousel
+        heading="Custom Heading"
+        description="Test description"
+      />,
+    );
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders custom description", () => {
-    render(<InteriorCarousel heading="Test Heading" description="Custom description text" />);
+    render(
+      <InteriorCarousel
+        heading="Test Heading"
+        description="Custom description text"
+      />,
+    );
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
