@@ -284,7 +284,7 @@ function MarkerMediaCarousel({
               );
             }}
           >
-            <DynamicIcon name="lucide/arrow-left" />
+            <DynamicIcon name="lucide/arrow-left" size={16} />
           </button>
           <button
             type="button"
@@ -294,7 +294,7 @@ function MarkerMediaCarousel({
               setActiveIndex((current) => (current + 1) % totalItems);
             }}
           >
-            <DynamicIcon name="lucide/arrow-right" />
+            <DynamicIcon name="lucide/arrow-right" size={16} />
           </button>
 
           <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
@@ -724,7 +724,7 @@ export function GeoMap({
             className="flex size-8 items-center justify-center rounded-full border border-border bg-card text-card-foreground transition hover:bg-muted hover:text-foreground absolute top-2 right-2 z-10"
             onClick={clearSelection}
           >
-            <DynamicIcon name="lucide/x" />
+            <DynamicIcon name="lucide/x" size={16} />
           </button>
 
           {markerMediaItems.length > 0 ? (
@@ -755,23 +755,29 @@ export function GeoMap({
             ) : null}
 
             {selectedMarker.locationLine ? (
-              <Pressable
-                href={selectedMarker.locationUrl}
-                className="flex flex-row items-center justify-start text-sm gap-2"
-              >
+              <div className="flex flex-row items-center justify-start text-sm gap-2">
                 <DynamicIcon
                   name="lucide:map-pin"
                   className="opacity-50"
-                  size={12}
+                  size={14}
                 />
                 {typeof selectedMarker.locationLine === "string" ? (
-                  <div className="font-medium">
+                  <Pressable
+                    href={selectedMarker.locationUrl}
+                    className={cn(
+                      "transition-all duration-500",
+                      "font-medium opacity-75 hover:opacity-100",
+                      selectedMarker.locationUrl
+                        ? "underline underline-offset-4"
+                        : "",
+                    )}
+                  >
                     {selectedMarker.locationLine}
-                  </div>
+                  </Pressable>
                 ) : (
                   selectedMarker.locationLine
                 )}
-              </Pressable>
+              </div>
             ) : null}
 
             {selectedMarker.hoursLine ? (
@@ -779,7 +785,7 @@ export function GeoMap({
                 <DynamicIcon
                   name="lucide:clock"
                   className="opacity-50"
-                  size={12}
+                  size={14}
                 />
                 {typeof selectedMarker.hoursLine === "string" ? (
                   <div className="font-medium">{selectedMarker.hoursLine}</div>
@@ -790,7 +796,7 @@ export function GeoMap({
             ) : null}
 
             {selectedMarker.markerContentComponent ? (
-              <div className="text-sm">
+              <div className="relative">
                 {selectedMarker.markerContentComponent}
               </div>
             ) : null}
@@ -815,7 +821,7 @@ export function GeoMap({
             className="flex size-8 items-center justify-center rounded-full border border-border bg-card text-card-foreground transition hover:bg-muted hover:text-foreground absolute top-2 right-2 z-10"
             onClick={clearSelection}
           >
-            <DynamicIcon name="lucide/x" />
+            <DynamicIcon name="lucide/x" size={16} />
           </button>
 
           <div className="mb-3 flex items-start justify-between gap-3">

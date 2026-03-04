@@ -8,7 +8,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@opensite/ui?style=for-the-badge)](https://www.npmjs.com/package/@opensite/ui)
 [![npm downloads](https://img.shields.io/npm/dm/@opensite/ui?style=for-the-badge)](https://www.npmjs.com/package/@opensite/ui)
-[![License](https://img.shields.io/npm/l/@opensite/ui?style=for-the-badge)](https://github.com/opensite-ai/opensite-ui/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/@opensite/ui?style=for-the-badge)](./LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?style=for-the-badge)](./tsconfig.json)
 [![Tree-Shakeable](https://img.shields.io/badge/Tree%20Shakeable-Yes-brightgreen?style=for-the-badge)](#tree-shaking)
 
