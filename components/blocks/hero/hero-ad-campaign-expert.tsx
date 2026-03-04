@@ -121,6 +121,8 @@ export function HeroAdCampaignExpert({
   actionsClassName,
   imageSrc,
   imageAlt,
+  imageContainerClassName,
+  imageClassName,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
@@ -132,8 +134,6 @@ export function HeroAdCampaignExpert({
   contentClassName,
   headingClassName,
   descriptionClassName,
-  imageContainerClassName,
-  imageClassName,
   optixFlowConfig,
 }: HeroAdCampaignExpertProps): React.JSX.Element {
   const renderActions = useMemo(() => {
@@ -208,7 +208,7 @@ export function HeroAdCampaignExpert({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className="flex flex-col items-center lg:flex-row lg:items-start">
+        <div className="flex flex-col items-center lg:flex-row">
           <ContentGroup
             items={headerItems}
             className={cn(
