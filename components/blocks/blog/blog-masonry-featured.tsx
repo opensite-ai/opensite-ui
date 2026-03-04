@@ -99,7 +99,7 @@ export function BlogMasonryFeaturedComponent({
   optixFlowConfig,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-12 md:py-32",
+  spacing = "hero",
   pattern,
   patternOpacity,
 }: BlogMasonryFeaturedProps): React.JSX.Element {
@@ -150,7 +150,9 @@ export function BlogMasonryFeaturedComponent({
             </div>
             {featuredPost.title &&
               (typeof featuredPost.title === "string" ? (
-                <h3 className="text-lg">{featuredPost.title}</h3>
+                <div className="text-2xl font-semibold">
+                  {featuredPost.title}
+                </div>
               ) : (
                 featuredPost.title
               ))}
@@ -203,9 +205,9 @@ export function BlogMasonryFeaturedComponent({
             </div>
             {post.title &&
               (typeof post.title === "string" ? (
-                <h3 className="text-lg">{post.title}</h3>
+                <div className="text-lg font-semibold">{post.title}</div>
               ) : (
-                <div className="text-lg">{post.title}</div>
+                post.title
               ))}
           </div>
         </Pressable>
@@ -217,7 +219,7 @@ export function BlogMasonryFeaturedComponent({
     <Section
       background={background}
       spacing={spacing}
-      className={cn(className)}
+      className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
       containerClassName={containerClassName}

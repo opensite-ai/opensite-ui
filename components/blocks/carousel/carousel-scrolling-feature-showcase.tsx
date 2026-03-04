@@ -16,7 +16,7 @@
 
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { cn, getNestedCardBg } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -245,7 +245,7 @@ export function CarouselScrollingFeatureShowcase({
             <div className="sticky top-24">
               <div
                 className={cn(
-                  "aspect-square overflow-hidden rounded-xl",
+                  "aspect-square overflow-hidden rounded-xl shadow-xl",
                   imageClassName,
                 )}
               >
@@ -298,7 +298,7 @@ export function CarouselScrollingFeatureShowcase({
                   >
                     {/* Mobile image */}
                     <div className="mb-6 lg:hidden">
-                      <div className="aspect-video overflow-hidden rounded-lg bg-muted">
+                      <div className="aspect-video overflow-hidden rounded-xl shadow-xl">
                         <Img
                           src={feature.image}
                           alt={
@@ -335,7 +335,7 @@ export function CarouselScrollingFeatureShowcase({
                           ))}
                         {feature.description &&
                           (typeof feature.description === "string" ? (
-                            <p className="mt-4 text-lg">
+                            <p className="mt-4 text-base md:text-lg">
                               {feature.description}
                             </p>
                           ) : (

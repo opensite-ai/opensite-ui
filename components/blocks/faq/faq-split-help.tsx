@@ -2,11 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import {
   Accordion,
   AccordionContent,
@@ -133,12 +129,12 @@ export function FaqSplitHelp({
   helpAction,
   helpSlot,
   background,
-  spacing = "py-6 md:py-32",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
   patternClassName,
   className,
-  containerClassName,
   leftColumnClassName,
   headingClassName,
   descriptionClassName,
@@ -170,14 +166,14 @@ export function FaqSplitHelp({
                 accordionTriggerClassName,
               )}
             >
-              <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
+              <div className="font-medium py-1 md:py-2 text-lg">
                 {item.question}
               </div>
             </AccordionTrigger>
             <AccordionContent
-              className={cn("sm:mb-1 lg:mb-2", accordionContentClassName)}
+              className={cn("mb-1 md:mb-2", accordionContentClassName)}
             >
-              <div className=" lg:text-lg">{item.answer}</div>
+              <div className="text-base md:text-lg">{item.answer}</div>
             </AccordionContent>
           </AccordionItem>
         ))}
@@ -198,9 +194,12 @@ export function FaqSplitHelp({
     return (
       <div
         className={cn(
-          "mt-8 md:mt-16 flex flex-col items-center gap-4 rounded-lg p-6 text-center md:flex-row md:justify-between md:text-left lg:p-8",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background),
+          "flex flex-col items-center",
+          "md:flex-row md:justify-between",
+          "mt-8 md:mt-16 p-6 lg:p-8",
+          "gap-4 text-center md:text-left",
+          "rounded-lg shadow-lg",
+          "bg-card text-card-foreground",
           helpSectionClassName,
         )}
       >
@@ -251,30 +250,32 @@ export function FaqSplitHelp({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={containerClassName}>
+      <div className="relative">
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-20">
           <div className={cn("lg:w-1/3", leftColumnClassName)}>
             {heading &&
               (typeof heading === "string" ? (
                 <h2
                   className={cn(
-                    "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
+                    "text-3xl lg:text-4xl font-semibold",
+                    "mb-3  md:mb-4 lg:mb-6",
                     headingClassName,
                   )}
                 >
                   {heading}
                 </h2>
               ) : (
-                <div className={headingClassName}>{heading}</div>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
-                <p className={cn("lg:text-lg", descriptionClassName)}>
+                <p className={cn("text-base md:text-lg", descriptionClassName)}>
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
           </div>
           {itemsContent}

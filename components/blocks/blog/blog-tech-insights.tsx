@@ -125,7 +125,6 @@ export function BlogTechInsights({
   secondaryPosts,
   secondaryPostsSlot,
   className,
-  containerClassName,
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -137,7 +136,8 @@ export function BlogTechInsights({
   secondaryPostItemClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
 }: BlogTechInsightsProps): React.JSX.Element {
@@ -156,11 +156,7 @@ export function BlogTechInsights({
     return (
       <Pressable
         asButton
-        className={cn(
-          "ml-auto rounded-full border-foreground",
-          actionClassName,
-          readMoreClassName,
-        )}
+        className={cn("ml-auto", actionClassName, readMoreClassName)}
         {...pressableProps}
       >
         {children ?? (
@@ -216,12 +212,10 @@ export function BlogTechInsights({
             </Avatar>
             <span className="text-sm md:text-base">
               {featuredPost.author && (
-                <span className="block">
-                  {featuredPost.author}
-                </span>
+                <span className="block">{featuredPost.author}</span>
               )}
               {featuredPost.authorRole && (
-                <span className="text-xs text-muted-foreground md:text-sm">
+                <span className="text-xs md:text-sm">
                   {featuredPost.authorRole}
                 </span>
               )}
@@ -289,7 +283,7 @@ export function BlogTechInsights({
               </h3>
             )}
             {truncatedDescription && (
-              <p className="mt-1 text-sm leading-snug text-muted-foreground md:text-base line-clamp-2">
+              <p className="mt-1 text-sm leading-snug md:text-base line-clamp-2">
                 {truncatedDescription}
               </p>
             )}
@@ -325,13 +319,9 @@ export function BlogTechInsights({
       className={cn("dark relative", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "flex flex-col items-center gap-8 md:gap-14",
-          containerClassName,
-        )}
-      >
+      <div className={cn("flex flex-col items-center gap-8 md:gap-14")}>
         <div className={cn("w-full", headerClassName)}>
           {heading &&
             (typeof heading === "string" ? (
@@ -344,7 +334,7 @@ export function BlogTechInsights({
                 {heading}
               </h1>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
 
           <div className="mt-4 flex justify-start">
@@ -352,14 +342,14 @@ export function BlogTechInsights({
               (typeof description === "string" ? (
                 <span
                   className={cn(
-                    "mt-2 block text-sm text-muted-foreground md:text-base",
+                    "mt-2 block text-sm md:text-base",
                     descriptionClassName,
                   )}
                 >
                   {description}
                 </span>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
             {readMoreActionContent}
           </div>
@@ -374,10 +364,7 @@ export function BlogTechInsights({
           {featuredPostContent}
 
           <div
-            className={cn(
-              "space-y-6 md:space-y-8",
-              secondaryPostsClassName,
-            )}
+            className={cn("space-y-6 md:space-y-8", secondaryPostsClassName)}
           >
             {secondaryPostsContent}
           </div>

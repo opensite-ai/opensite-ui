@@ -152,8 +152,8 @@ export const AppleCarousel = ({
 
           <div
             className={cn(
-              "flex flex-row justify-start gap-4 pl-4",
-              "mx-auto max-w-7xl", // remove max-w-4xl if you want the carousel to span the full width of its container
+              "flex flex-row justify-start",
+              "mx-auto gap-4 pl-4",
               containerClassName,
             )}
           >
@@ -268,19 +268,21 @@ export const AppleCarouselCard = ({
     <>
       <div
         className={cn(
-          "relative z-40 p-4 md:p-8 text-shadow-lg",
+          "text-left text-white text-shadow-lg",
+          "relative z-40 p-4 md:p-8",
+          "text-balance",
           contentClassName,
         )}
       >
         <motion.p
           layoutId={layout ? `category-${card.category}-${index}` : undefined}
-          className="text-left font-sans text-sm font-medium text-white md:text-base"
+          className="text-sm font-bold md:text-base tracking-tight uppercase"
         >
           {card.category}
         </motion.p>
         <motion.p
           layoutId={layout ? `title-${card.title}-${index}` : undefined}
-          className="mt-2 max-w-xs text-left font-sans text-lg font-semibold text-balance text-white md:text-2xl"
+          className="mt-2 text-lg md:text-2xl font-semibold"
         >
           {card.title}
         </motion.p>
@@ -289,7 +291,11 @@ export const AppleCarouselCard = ({
         src={card.src}
         alt={card.title}
         className={cn(
-          "absolute inset-0 z-10 h-full w-full object-cover brightness-50",
+          "absolute inset-0 z-10",
+          "h-full w-full object-cover",
+          action.type !== "none"
+            ? "cursor-pointer transition-all duration-500 brightness-75 hover:brightness-50"
+            : "brightness-75",
           imageClassName,
         )}
         optixFlowConfig={optixFlowConfig}

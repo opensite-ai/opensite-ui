@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
 import {
   AppleCarousel,
   AppleCarouselCard,
@@ -201,7 +200,7 @@ export function BlogCarouselAppleComponent({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
     >
       <AppleCarousel
         items={cardElements}

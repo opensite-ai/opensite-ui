@@ -193,7 +193,7 @@ export function AboutStoryExpertise({
   className,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "xl",
+  spacing = "hero",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -222,6 +222,7 @@ export function AboutStoryExpertise({
     return (
       <div
         className={cn(
+          "bg-card text-card-foreground",
           "rounded-2xl border border-border/60 p-6 shadow-xl",
           highlightClassName,
         )}
@@ -245,7 +246,7 @@ export function AboutStoryExpertise({
               ))}
             {highlight.title &&
               (typeof highlight.title === "string" ? (
-                <h3 className="text-lg font-bold">{highlight.title}</h3>
+                <div className="text-lg font-bold">{highlight.title}</div>
               ) : (
                 highlight.title
               ))}
@@ -279,7 +280,7 @@ export function AboutStoryExpertise({
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.3, delay: idx * 0.05 }}
-            className="flex items-start gap-4 rounded-2xl bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            className="flex items-start gap-4 rounded-2xl bg-card text-card-foreground p-6 shadow-md transition-all duration-300 hover:shadow-xl"
           >
             <div
               className={cn(
@@ -291,7 +292,7 @@ export function AboutStoryExpertise({
             <div>
               {area.title &&
                 (typeof area.title === "string" ? (
-                  <h4 className="text-lg font-bold">{area.title}</h4>
+                  <div className="text-lg font-bold">{area.title}</div>
                 ) : (
                   area.title
                 ))}
@@ -312,7 +313,7 @@ export function AboutStoryExpertise({
     <Section
       background={background}
       spacing={spacing}
-      className={cn(className)}
+      className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
       containerClassName={containerClassName}
@@ -337,7 +338,7 @@ export function AboutStoryExpertise({
                   {eyebrow}
                 </p>
               ) : (
-                <div className={eyebrowClassName}>{eyebrow}</div>
+                eyebrow
               ))}
             {heading &&
               (typeof heading === "string" ? (
@@ -350,7 +351,7 @@ export function AboutStoryExpertise({
                   {heading}
                 </h2>
               ) : (
-                <div className={cn("mt-2", headingClassName)}>{heading}</div>
+                heading
               ))}
           </div>
           {storyContent}
@@ -372,7 +373,8 @@ export function AboutStoryExpertise({
           >
             <div
               className={cn(
-                "relative overflow-hidden rounded-3xl border border-border shadow-2xl",
+                "relative overflow-hidden rounded-3xl",
+                "border border-border shadow-2xl aspect-square",
                 imageClassName,
               )}
             >
@@ -398,9 +400,6 @@ export function AboutStoryExpertise({
         )}
       >
         <div className="text-center">
-          <p className={cn("text-sm font-semibold uppercase tracking-[0.2em]")}>
-            Our Expertise
-          </p>
           {expertiseHeading &&
             (typeof expertiseHeading === "string" ? (
               <h3
@@ -412,9 +411,7 @@ export function AboutStoryExpertise({
                 {expertiseHeading}
               </h3>
             ) : (
-              <div className={cn("mt-2", expertiseHeadingClassName)}>
-                {expertiseHeading}
-              </div>
+              expertiseHeading
             ))}
           {expertiseDescription &&
             (typeof expertiseDescription === "string" ? (
@@ -427,14 +424,7 @@ export function AboutStoryExpertise({
                 {expertiseDescription}
               </p>
             ) : (
-              <div
-                className={cn(
-                  "mx-auto mt-3 max-w-2xl",
-                  expertiseDescriptionClassName,
-                )}
-              >
-                {expertiseDescription}
-              </div>
+              expertiseDescription
             ))}
         </div>
         {expertiseAreasContent}

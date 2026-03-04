@@ -2,11 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Card, CardContent } from "../../ui/card";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -280,11 +276,7 @@ export function StatsImpactGrid({
     if (!stat.icon) return null;
     return (
       <div className="mb-6">
-        <DynamicIcon
-          name={stat.icon}
-          size={32}
-          className={stat.iconColor || "text-primary"}
-        />
+        <DynamicIcon name={stat.icon} size={32} className={stat.iconColor} />
       </div>
     );
   }, []);
@@ -334,11 +326,9 @@ export function StatsImpactGrid({
               )}
               {stat.description &&
                 (typeof stat.description === "string" ? (
-                  <p className="text-muted-foreground">{stat.description}</p>
+                  <p className="opacity-75">{stat.description}</p>
                 ) : (
-                  <div className="text-muted-foreground">
-                    {stat.description}
-                  </div>
+                  stat.description
                 ))}
             </CardContent>
           </Card>
@@ -379,21 +369,14 @@ export function StatsImpactGrid({
       targetPercent !== undefined;
 
     return (
-      <div
-        className={cn(
-          "mb-16 rounded-xl p-8",
-          getNestedCardBg(background, "muted"),
-          getNestedCardTextColor(background),
-          comparisonClassName,
-        )}
-      >
+      <div className={cn("mb-16 rounded-xl p-8", comparisonClassName)}>
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,240px)] md:items-start md:gap-12">
           <div>
             {comparisonHeading &&
               (typeof comparisonHeading === "string" ? (
                 <h3 className="mb-4 text-2xl font-bold">{comparisonHeading}</h3>
               ) : (
-                <div className="mb-4">{comparisonHeading}</div>
+                comparisonHeading
               ))}
             {comparisonDescription &&
               (typeof comparisonDescription === "string" ? (
@@ -401,7 +384,7 @@ export function StatsImpactGrid({
                   {comparisonDescription}
                 </p>
               ) : (
-                <div className="mb-6">{comparisonDescription}</div>
+                comparisonDescription
               ))}
             {hasProgressBars && (
               <div className="space-y-4">
@@ -531,7 +514,7 @@ export function StatsImpactGrid({
           (typeof ctaHeading === "string" ? (
             <h3 className="mb-6 text-2xl font-bold">{ctaHeading}</h3>
           ) : (
-            <div className="mb-6">{ctaHeading}</div>
+            ctaHeading
           ))}
         {actionsContent}
       </div>
@@ -559,29 +542,27 @@ export function StatsImpactGrid({
               (typeof heading === "string" ? (
                 <h2
                   className={cn(
-                    "mb-4 text-3xl font-bold md:text-5xl",
+                    "mb-4 text-3xl font-bold md:text-5xl text-balance",
                     headingClassName,
                   )}
                 >
                   {heading}
                 </h2>
               ) : (
-                <div className={cn("mb-4", headingClassName)}>{heading}</div>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mx-auto max-w-3xl text-lg text-muted-foreground",
+                    "mx-auto max-w-3xl text-lg text-balance",
                     descriptionClassName,
                   )}
                 >
                   {description}
                 </p>
               ) : (
-                <div className={cn("mx-auto max-w-3xl", descriptionClassName)}>
-                  {description}
-                </div>
+                description
               ))}
           </div>
         )}

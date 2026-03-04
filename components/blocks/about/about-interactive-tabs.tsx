@@ -162,7 +162,10 @@ export function AboutInteractiveTabs({
       <div className="mt-16">
         <div
           className={cn(
-            "flex overflow-x-auto gap-2 border-b scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 sm:justify-center",
+            "flex sm:justify-center",
+            "border-b border-border/50",
+            "-mx-4 px-4 sm:mx-0 sm:px-0",
+            "overflow-x-auto gap-2 scrollbar-none",
             tabsContainerClassName,
           )}
         >
@@ -171,7 +174,8 @@ export function AboutInteractiveTabs({
               key={tab.id}
               onClick={() => handleTabChange(tab.id)}
               className={cn(
-                "shrink-0 whitespace-nowrap px-6 py-3 text-sm font-medium transition-colors",
+                "shrink-0 whitespace-nowrap px-6 py-3",
+                "text-sm font-medium transition-colors rounded-t-lg",
                 activeTab === tab.id
                   ? cn(
                       "border-b-2 border-primary",
@@ -182,6 +186,7 @@ export function AboutInteractiveTabs({
                       "border-b-2 border-muted",
                       "bg-muted text-muted-foreground",
                       "hover:bg-primary hover:text-primary-foreground hover:border-primary",
+                      "cursor-pointer",
                     ),
                 tabButtonClassName,
               )}
@@ -200,15 +205,11 @@ export function AboutInteractiveTabs({
           >
             <div>
               {typeof activeContent.title === "string" ? (
-                <h2
-                  className={cn("text-3xl font-bold", tabContentTitleClassName)}
-                >
+                <h2 className={cn("font-bold", tabContentTitleClassName)}>
                   {activeContent.title}
                 </h2>
               ) : (
-                <div className={tabContentTitleClassName}>
-                  {activeContent.title}
-                </div>
+                activeContent.title
               )}
               {typeof activeContent.description === "string" ? (
                 <p
@@ -217,9 +218,7 @@ export function AboutInteractiveTabs({
                   {activeContent.description}
                 </p>
               ) : (
-                <div className={cn("mt-4", tabContentDescriptionClassName)}>
-                  {activeContent.description}
-                </div>
+                activeContent.description
               )}
             </div>
             {activeContent.image && (
@@ -227,7 +226,8 @@ export function AboutInteractiveTabs({
                 src={activeContent.image.src}
                 alt={activeContent.image.alt}
                 className={cn(
-                  "w-full h-auto rounded-2xl object-cover lg:h-full",
+                  "aspect-video w-full h-full",
+                  "rounded-2xl shadow-xl object-cover",
                   tabContentImageClassName,
                 )}
                 optixFlowConfig={optixFlowConfig}

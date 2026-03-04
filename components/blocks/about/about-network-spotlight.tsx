@@ -164,12 +164,14 @@ export function AboutNetworkSpotlight({
     if (!highlights || highlights.length === 0) return null;
 
     return (
-      <ul className={cn("mt-6 space-y-3", highlightsClassName)}>
+      <ul className={cn("mt-6 space-y-6 md:space-y-3", highlightsClassName)}>
         {highlights.map((item, index) => (
-          <li key={index} className="flex items-start gap-3 text-background/80">
+          <li key={index} className="flex items-start gap-3">
             <span
               className={cn(
-                "mt-1 flex size-fit p-2 items-center justify-center rounded-full bg-primary text-primary-foreground",
+                "flex items-center justify-center shrink-0",
+                "bg-primary text-primary-foreground",
+                "size-fit p-2 rounded-full",
               )}
             >
               <DynamicIcon name="lucide/check" size={14} />
@@ -181,38 +183,6 @@ export function AboutNetworkSpotlight({
     );
   }, [highlightsSlot, highlights, highlightsClassName]);
 
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const {
-        label,
-        icon,
-        iconAfter,
-        children,
-        className: actionClassName,
-        ...pressableProps
-      } = action;
-      return (
-        <Pressable
-          key={index}
-          className={actionClassName}
-          asButton
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
-
   const spotlightCardContent = useMemo(() => {
     if (spotlightCardSlot) return spotlightCardSlot;
     if (!spotlightCard) return null;
@@ -220,18 +190,23 @@ export function AboutNetworkSpotlight({
     return (
       <div
         className={cn(
-          "rounded-2xl border bg-foreground/80 p-5 backdrop-blur-sm",
+          "bg-card text-card-foreground",
+          "rounded-2xl border p-5 backdrop-blur-sm",
           spotlightCardClassName,
         )}
       >
         <div className="mb-2 flex items-center gap-3">
-          <div
-            className={cn(
-              "flex size-fit p-2 items-center justify-center rounded-full bg-primary text-primary-foreground",
-            )}
-          >
-            {spotlightCard.icon}
-          </div>
+          {spotlightCard.icon && (
+            <div
+              className={cn(
+                "flex items-center justify-center shrink-0",
+                "bg-primary text-primary-foreground",
+                "size-fit p-2 rounded-full",
+              )}
+            >
+              {spotlightCard.icon}
+            </div>
+          )}
           <div>
             {typeof spotlightCard.label === "string" ? (
               <p className={cn("text-xs font-bold uppercase tracking-[0.2em]")}>
@@ -241,9 +216,9 @@ export function AboutNetworkSpotlight({
               spotlightCard.label
             )}
             {typeof spotlightCard.title === "string" ? (
-              <h3 className="text-lg font-bold text-background">
+              <div className="text-lg font-bold text-background">
                 {spotlightCard.title}
-              </h3>
+              </div>
             ) : (
               spotlightCard.title
             )}
@@ -282,7 +257,7 @@ export function AboutNetworkSpotlight({
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5 }}
           >
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl aspect-square md:aspect-auto">
+            <div className="relative overflow-hidden rounded-3xl shadow-2xl aspect-square">
               <Img
                 src={image.src}
                 alt={image.alt}
