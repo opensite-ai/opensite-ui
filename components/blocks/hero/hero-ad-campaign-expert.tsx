@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import { Section } from "../../ui/section";
@@ -14,6 +13,13 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
+import { BlockActions } from "@/components/ui/block-actions";
+
+export interface DirectionConfig {
+  desktop: "mediaRight" | "mediaLeft";
+  mobile: "mediaTop" | "mediaBottom";
+}
 
 export interface HeroAdCampaignExpertProps {
   /**
@@ -25,13 +31,17 @@ export interface HeroAdCampaignExpertProps {
    */
   description?: React.ReactNode;
   /**
-   * CTA action configuration
+   * Array of action configurations for CTA buttons
    */
-  action?: ActionConfig;
+  actions?: ActionConfig[];
   /**
-   * Custom slot for rendering action (overrides action)
+   * Custom slot for rendering actions (overrides actions array)
    */
-  actionSlot?: React.ReactNode;
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
   /**
    * Hero image source URL
    */
@@ -88,18 +98,34 @@ export interface HeroAdCampaignExpertProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Media aspect ratios
+   * @default { desktop: "vertical", mobile: "vertical" }
+   */
+  mediaAspectRatios?: {
+    desktop: "square" | "horizontal" | "vertical";
+    mobile: "square" | "horizontal" | "vertical";
+  };
+  /**
+   * Direction configuration for desktop and mobile layouts
+   * @default { desktop: 'mediaRight', mobile: 'mediaTop' }
+   */
+  directionConfig?: DirectionConfig;
 }
 
 export function HeroAdCampaignExpert({
   heading,
   description,
-  action,
-  actionSlot,
+  actions,
+  actionsSlot,
+  actionsClassName,
   imageSrc,
   imageAlt,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
+  mediaAspectRatios = { desktop: "vertical", mobile: "vertical" },
+  directionConfig = { desktop: "mediaRight", mobile: "mediaTop" },
   pattern,
   patternOpacity,
   className,
@@ -110,30 +136,67 @@ export function HeroAdCampaignExpert({
   imageClassName,
   optixFlowConfig,
 }: HeroAdCampaignExpertProps): React.JSX.Element {
-  const renderAction = useMemo(() => {
-    if (actionSlot) return actionSlot;
-    if (!action) return null;
+  const renderActions = useMemo(() => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
-    const {
-      label,
-      icon,
-      iconAfter,
-      children,
-      className: actionClassName,
-      ...pressableProps
-    } = action;
     return (
-      <Pressable asButton className={actionClassName} {...pressableProps}>
-        {children ?? (
-          <>
-            {icon}
-            {label}
-            {iconAfter}
-          </>
-        )}
-      </Pressable>
+      <BlockActions
+        actions={actions}
+        actionsSlot={actionsSlot}
+        actionsClassName={actionsClassName}
+      />
     );
-  }, [actionSlot, action]);
+  }, [actionsSlot, actions, actionsClassName]);
+
+  const headerItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h1",
+          className: cn(
+            "text-3xl leading-tight font-bold tracking-tighter lg:text-5xl text-balance",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn("text-lg text-balance", descriptionClassName),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    if (renderActions) {
+      items.push({
+        _type: "text",
+        as: "div",
+        children: renderActions,
+      });
+    }
+
+    return items;
+  }, [
+    heading,
+    headingClassName,
+    description,
+    descriptionClassName,
+    renderActions,
+  ]);
 
   return (
     <Section
@@ -146,35 +209,14 @@ export function HeroAdCampaignExpert({
     >
       <div className="relative">
         <div className="flex flex-col items-center lg:flex-row lg:items-start">
-          <div
+          <ContentGroup
+            items={headerItems}
             className={cn(
               "relative flex flex-col items-start gap-8 pb-20 lg:w-1/2",
               contentClassName,
             )}
-          >
-            {heading &&
-              (typeof heading === "string" ? (
-                <h2
-                  className={cn(
-                    "text-3xl leading-tight font-bold tracking-tighter lg:text-5xl text-balance",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h2>
-              ) : heading ? (
-                <div className={headingClassName}>{heading}</div>
-              ) : null)}
-            {description &&
-              (typeof description === "string" ? (
-                <p className={cn("text-lg text-balance", descriptionClassName)}>
-                  {description}
-                </p>
-              ) : (
-                <div className={descriptionClassName}>{description}</div>
-              ))}
-            {renderAction}
-          </div>
+          />
+
           <div
             className={cn(
               "relative flex w-full justify-center lg:w-1/2",
@@ -196,14 +238,6 @@ export function HeroAdCampaignExpert({
                 </AspectRatio>
               </div>
             )}
-            <div className="absolute bottom-0 w-full overflow-hidden">
-              <AspectRatio ratio={2} className="relative">
-                <AspectRatio
-                  ratio={1}
-                  className={cn("absolute w-full rounded-full bg-muted")}
-                />
-              </AspectRatio>
-            </div>
           </div>
         </div>
       </div>
