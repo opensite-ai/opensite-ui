@@ -12,6 +12,7 @@ import {
 import { cn } from "../../lib/utils";
 import { Pressable } from "../../lib/Pressable";
 import type { ActionConfig } from "../../src/types";
+import { DynamicIcon } from "./dynamic-icon";
 
 type PanelPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 
@@ -34,6 +35,7 @@ export interface GeoMapMarker {
   title?: React.ReactNode;
   summary?: React.ReactNode;
   locationLine?: React.ReactNode;
+  locationUrl?: string;
   hoursLine?: React.ReactNode;
   mediaItems?: GeoMapMediaItem[];
   markerContentComponent?: React.ReactNode;
@@ -41,7 +43,9 @@ export interface GeoMapMarker {
   draggable?: boolean;
   pinColor?: string;
   pinClassName?: string;
-  markerElement?: React.ReactNode | ((args: { isSelected: boolean }) => React.ReactNode);
+  markerElement?:
+    | React.ReactNode
+    | ((args: { isSelected: boolean }) => React.ReactNode);
 }
 
 export interface GeoMapCluster {
@@ -81,7 +85,10 @@ export interface GeoMapProps {
   defaultViewState?: Partial<MapViewState>;
   onViewStateChange?: (state: Partial<MapViewState>) => void;
   onMapClick?: (coord: MapCoordinate) => void;
-  onMarkerDrag?: (markerId: string | number | null, coord: MapCoordinate) => void;
+  onMarkerDrag?: (
+    markerId: string | number | null,
+    coord: MapCoordinate,
+  ) => void;
   showNavigationControl?: boolean;
   showGeolocateControl?: boolean;
   navigationControlPosition?: MapControlPosition;
@@ -134,7 +141,10 @@ function resolveMediaType(item: GeoMapMediaItem): GeoMapMediaType {
   return VIDEO_FILE_EXTENSION_REGEX.test(item.src) ? "video" : "image";
 }
 
-function normalizeId(value: string | number | undefined, fallback: string): string {
+function normalizeId(
+  value: string | number | undefined,
+  fallback: string,
+): string {
   if (value === null || value === undefined || value === "") {
     return fallback;
   }
@@ -220,7 +230,11 @@ function MarkerActions({ actions }: { actions?: ActionConfig[] }) {
   );
 }
 
-function MarkerMediaCarousel({ mediaItems }: { mediaItems: GeoMapMediaItem[] }) {
+function MarkerMediaCarousel({
+  mediaItems,
+}: {
+  mediaItems: GeoMapMediaItem[];
+}) {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const totalItems = mediaItems.length;
 
@@ -258,22 +272,24 @@ function MarkerMediaCarousel({ mediaItems }: { mediaItems: GeoMapMediaItem[] }) 
           <button
             type="button"
             aria-label="Show previous media"
-            className="absolute left-2 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm transition hover:bg-background"
+            className="absolute left-2 top-1/2 inline-flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-card text-card-foreground shadow-sm transition hover:bg-muted hover:text-muted-foreground"
             onClick={() => {
-              setActiveIndex((current) => (current - 1 + totalItems) % totalItems);
+              setActiveIndex(
+                (current) => (current - 1 + totalItems) % totalItems,
+              );
             }}
           >
-            {"<"}
+            <DynamicIcon name="lucide/arrow-left" />
           </button>
           <button
             type="button"
             aria-label="Show next media"
-            className="absolute right-2 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm transition hover:bg-background"
+            className="absolute right-2 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-card text-card-foreground shadow-sm transition hover:bg-muted hover:text-muted-foreground"
             onClick={() => {
               setActiveIndex((current) => (current + 1) % totalItems);
             }}
           >
-            {">"}
+            <DynamicIcon name="lucide/arrow-right" />
           </button>
 
           <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
@@ -285,8 +301,8 @@ function MarkerMediaCarousel({ mediaItems }: { mediaItems: GeoMapMediaItem[] }) 
                 className={cn(
                   "h-2 rounded-full transition-all",
                   index === activeIndex
-                    ? "w-6 bg-white"
-                    : "w-2 bg-white/70 hover:bg-white/90",
+                    ? "w-6 bg-card"
+                    : "w-2 bg-card opacity-50 hover:opacity-100",
                 )}
                 onClick={() => setActiveIndex(index)}
               />
@@ -298,7 +314,10 @@ function MarkerMediaCarousel({ mediaItems }: { mediaItems: GeoMapMediaItem[] }) 
   );
 }
 
-function getMarkerTitle(marker: NormalizedMarker, markerIndex: number): React.ReactNode {
+function getMarkerTitle(
+  marker: NormalizedMarker,
+  markerIndex: number,
+): React.ReactNode {
   if (marker.title !== undefined && marker.title !== null) {
     return marker.title;
   }
@@ -440,7 +459,9 @@ export function GeoMap({
 
   const isControlledViewState = viewState !== undefined;
 
-  const resolvedViewState = isControlledViewState ? viewState : uncontrolledViewState;
+  const resolvedViewState = isControlledViewState
+    ? viewState
+    : uncontrolledViewState;
 
   const applyViewState = React.useCallback(
     (nextState: Partial<MapViewState>) => {
@@ -458,7 +479,10 @@ export function GeoMap({
     markerId?: string;
     clusterId?: string;
   }>(() => {
-    if (initialSelectedMarkerId !== undefined && initialSelectedMarkerId !== null) {
+    if (
+      initialSelectedMarkerId !== undefined &&
+      initialSelectedMarkerId !== null
+    ) {
       return {
         type: "marker",
         markerId: String(initialSelectedMarkerId),
@@ -495,7 +519,10 @@ export function GeoMap({
 
   const emitSelectionChange = React.useCallback(
     (
-      nextSelection: { type: "none" } | { type: "marker"; marker: NormalizedMarker } | { type: "cluster"; cluster: NormalizedCluster },
+      nextSelection:
+        | { type: "none" }
+        | { type: "marker"; marker: NormalizedMarker }
+        | { type: "cluster"; cluster: NormalizedCluster },
     ) => {
       if (nextSelection.type === "none") {
         onSelectionChange?.({ type: "none" });
@@ -568,7 +595,8 @@ export function GeoMap({
     const resolvedMarkers: BasicMarkerInput[] = [];
 
     normalizedClusters.forEach((cluster) => {
-      const isSelected = selection.type === "cluster" && selection.clusterId === cluster.id;
+      const isSelected =
+        selection.type === "cluster" && selection.clusterId === cluster.id;
 
       resolvedMarkers.push({
         id: `cluster-pin:${cluster.id}`,
@@ -616,7 +644,8 @@ export function GeoMap({
     });
 
     normalizedStandaloneMarkers.forEach((marker) => {
-      const isSelected = selection.type === "marker" && selection.markerId === marker.id;
+      const isSelected =
+        selection.type === "marker" && selection.markerId === marker.id;
       const customMarkerElement = marker.markerElement;
 
       resolvedMarkers.push({
@@ -664,7 +693,13 @@ export function GeoMap({
     });
 
     return resolvedMarkers;
-  }, [normalizedClusters, normalizedStandaloneMarkers, selectCluster, selectMarker, selection]);
+  }, [
+    normalizedClusters,
+    normalizedStandaloneMarkers,
+    selectCluster,
+    selectMarker,
+    selection,
+  ]);
 
   const renderMarkerPanel = () => {
     if (selectedMarker) {
@@ -673,10 +708,19 @@ export function GeoMap({
       return (
         <div
           className={cn(
-            "w-[min(24rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-border bg-background shadow-2xl",
+            "relative w-[min(24rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-2xl",
             panelClassName,
           )}
         >
+          <button
+            type="button"
+            aria-label="Close marker details"
+            className="flex size-8 items-center justify-center rounded-full border border-border bg-card text-card-foreground transition hover:bg-muted hover:text-foreground absolute top-2 right-2 z-10"
+            onClick={clearSelection}
+          >
+            <DynamicIcon name="lucide/x" />
+          </button>
+
           {markerMediaItems.length > 0 ? (
             <MarkerMediaCarousel mediaItems={markerMediaItems} />
           ) : null}
@@ -685,42 +729,61 @@ export function GeoMap({
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 space-y-1">
                 {selectedMarker.eyebrow ? (
-                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  <p className="text-xs font-semibold uppercase tracking-wide">
                     {selectedMarker.eyebrow}
                   </p>
                 ) : null}
-                <div className="text-base font-semibold leading-tight text-foreground">
+                <div className="text-base font-semibold leading-tight">
                   {selectedMarker.title ?? selectedMarker.label ?? "Location"}
                 </div>
               </div>
-              <button
-                type="button"
-                aria-label="Close marker details"
-                className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border/70 text-muted-foreground transition hover:bg-muted hover:text-foreground"
-                onClick={clearSelection}
-              >
-                x
-              </button>
             </div>
 
             {selectedMarker.summary ? (
-              <div className="text-sm leading-relaxed text-muted-foreground">
+              <div className="text-sm leading-relaxed">
                 {selectedMarker.summary}
               </div>
             ) : null}
 
             {selectedMarker.locationLine ? (
-              <div className="text-sm font-medium text-foreground">
-                {selectedMarker.locationLine}
-              </div>
+              <Pressable
+                href={selectedMarker.locationUrl}
+                className="flex flex-row items-center justify-start text-sm gap-2"
+              >
+                <DynamicIcon
+                  name="lucide:map-pin"
+                  className="opacity-50"
+                  size={12}
+                />
+                {typeof selectedMarker.locationLine === "string" ? (
+                  <div className="font-medium">
+                    {selectedMarker.locationLine}
+                  </div>
+                ) : (
+                  selectedMarker.locationLine
+                )}
+              </Pressable>
             ) : null}
 
             {selectedMarker.hoursLine ? (
-              <div className="text-sm text-muted-foreground">{selectedMarker.hoursLine}</div>
+              <div className="flex flex-row items-center justify-start text-sm gap-2">
+                <DynamicIcon
+                  name="lucide:clock"
+                  className="opacity-50"
+                  size={12}
+                />
+                {typeof selectedMarker.hoursLine === "string" ? (
+                  <div className="font-medium">{selectedMarker.hoursLine}</div>
+                ) : (
+                  selectedMarker.hoursLine
+                )}
+              </div>
             ) : null}
 
             {selectedMarker.markerContentComponent ? (
-              <div className="text-sm">{selectedMarker.markerContentComponent}</div>
+              <div className="text-sm">
+                {selectedMarker.markerContentComponent}
+              </div>
             ) : null}
 
             <MarkerActions actions={selectedMarker.actions} />
@@ -733,10 +796,19 @@ export function GeoMap({
       return (
         <div
           className={cn(
-            "w-[min(24rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-border bg-background p-4 shadow-2xl",
+            "relative w-[min(24rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-border bg-card text-card-foreground p-4 shadow-2xl",
             panelClassName,
           )}
         >
+          <button
+            type="button"
+            aria-label="Close cluster details"
+            className="flex size-8 items-center justify-center rounded-full border border-border bg-card text-card-foreground transition hover:bg-muted hover:text-foreground absolute top-2 right-2 z-10"
+            onClick={clearSelection}
+          >
+            <DynamicIcon name="lucide/x" />
+          </button>
+
           <div className="mb-3 flex items-start justify-between gap-3">
             <div className="min-w-0">
               {selectedCluster.label ? (
@@ -752,14 +824,6 @@ export function GeoMap({
                   `${selectedCluster.markers.length} location${selectedCluster.markers.length === 1 ? "" : "s"} in this cluster.`}
               </p>
             </div>
-            <button
-              type="button"
-              aria-label="Close cluster details"
-              className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border/70 text-muted-foreground transition hover:bg-muted hover:text-foreground"
-              onClick={clearSelection}
-            >
-              x
-            </button>
           </div>
 
           <div className="max-h-56 space-y-2 overflow-y-auto pr-1">
@@ -823,7 +887,12 @@ export function GeoMap({
       </div>
 
       {selection.type !== "none" ? (
-        <div className={cn("pointer-events-none absolute z-20", PANEL_POSITION_CLASS[panelPosition])}>
+        <div
+          className={cn(
+            "pointer-events-none absolute z-20",
+            PANEL_POSITION_CLASS[panelPosition],
+          )}
+        >
           <div className="pointer-events-auto">{renderMarkerPanel()}</div>
         </div>
       ) : null}

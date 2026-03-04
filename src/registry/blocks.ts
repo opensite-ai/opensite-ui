@@ -18301,16 +18301,25 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "faq-split-hero",
     name: "FAQ Split Hero",
     description:
-      "A dark-themed split-screen FAQ section with animated accordion on the left and a large image on the right. Features prominent heading and subheading with animated accordion FAQ items. Best for landing pages, product pages, and service pages requiring FAQ visibility.",
+      "A full-width split-screen FAQ section with animated accordion on one side and image or video media on the other. Supports configurable layout direction for desktop (media left/right) and mobile stacking order (media top/bottom), pattern background overlays with adjustable opacity, section background theming, image optimization via OptixFlow, and extensive className overrides for every sub-element. Media supports both images and videos with a slot escape hatch for fully custom rendering. Best for landing pages, product pages, and service pages requiring prominent FAQ visibility.",
     semanticTags: [
       "faq",
       "split",
       "hero",
-      "dark-theme",
       "accordion",
       "animated",
       "landing",
       "questions",
+      "full-width",
+      "split-screen",
+      "image",
+      "video",
+      "media",
+      "responsive",
+      "layout-direction",
+      "pattern-background",
+      "customizable",
+      "two-column",
     ],
     category: "faq",
     component: FaqSplitHero,
@@ -18322,6 +18331,13 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   items={[
     { id: "1", question: "What services do you offer?", answer: "..." },
   ]}
+  mediaItem={{
+    image: { src: "/images/faq-hero.jpg", alt: "FAQ illustration" }
+  }}
+  directionConfig={{ desktop: "mediaRight", mobile: "mediaTop" }}
+  background="muted"
+  pattern="grid"
+  patternOpacity={0.3}
 />`.trim(),
   },
 };

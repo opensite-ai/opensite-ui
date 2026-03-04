@@ -180,7 +180,7 @@ export function ContactMap({
                 (typeof heading === "string" ? (
                   <h2
                     className={cn(
-                      "mb-3 text-3xl font-bold tracking-tight text-balance md:text-5xl",
+                      "mb-3 text-2xl font-bold tracking-tight text-pretty md:text-4xl",
                       headingClassName,
                     )}
                   >
@@ -193,7 +193,7 @@ export function ContactMap({
                 (typeof description === "string" ? (
                   <p
                     className={cn(
-                      "leading-relaxed text-balance ",
+                      "leading-relaxed text-pretty",
                       descriptionClassName,
                     )}
                   >

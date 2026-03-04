@@ -174,11 +174,14 @@ export function FaqCardCategories({
                 collapsible
                 className={accordionClassName}
               >
-                {category.items?.map((item) => (
+                {category.items?.map((item, index) => (
                   <AccordionItem
                     key={item.id}
                     value={item.id}
-                    className={accordionItemClassName}
+                    className={cn(
+                      categories?.length === index + 1 && "border-b-0",
+                      accordionItemClassName,
+                    )}
                   >
                     <AccordionTrigger
                       className={cn(

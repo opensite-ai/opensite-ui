@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "exportedAt": "2026-03-04T11:06:33.472Z",
+    "exportedAt": "2026-03-04T11:08:40.164Z",
     "totalBlocks": 605,
     "version": "2.7.9",
     "source": "@opensite/ui"
@@ -1160,13 +1160,7 @@
       "id": "contact-map",
       "name": "Contact Map",
       "description": "Contact form with integrated map display. Shows location information alongside contact form fields.",
-      "semanticTags": [
-        "contact",
-        "map",
-        "location",
-        "form",
-        "address"
-      ],
+      "semanticTags": ["contact", "map", "location", "form", "address"],
       "category": "contact",
       "props": "ContactMapProps",
       "exampleUsage": "<ContactMap\n  heading=\"Contact Us\"\n  description=\"Find us on the map and get in touch\"\n  buttonText=\"Send Message\"\n  formConfig={{ endpoint: \"/api/contact\", format: \"json\" }}\n/>"
@@ -1175,13 +1169,7 @@
       "id": "contact-minimal",
       "name": "Contact Minimal",
       "description": "Minimal contact form with just name, email, and message fields. Clean and simple design for basic contact needs.",
-      "semanticTags": [
-        "contact",
-        "minimal",
-        "simple",
-        "form",
-        "basic"
-      ],
+      "semanticTags": ["contact", "minimal", "simple", "form", "basic"],
       "category": "contact",
       "props": "ContactMinimalProps",
       "exampleUsage": "<ContactMinimal\n  heading=\"Let's Talk\"\n  description=\"Send us a message\"\n  buttonText=\"Send Message\"\n  formConfig={{ endpoint: \"/api/contact\", format: \"json\" }}\n/>"
@@ -1255,14 +1243,7 @@
       "id": "contact-press",
       "name": "Contact Press Inquiries",
       "description": "Press and media inquiry form with publication details and story information. Designed for PR teams and media relations.",
-      "semanticTags": [
-        "contact",
-        "press",
-        "media",
-        "form",
-        "pr",
-        "journalism"
-      ],
+      "semanticTags": ["contact", "press", "media", "form", "pr", "journalism"],
       "category": "contact",
       "props": "ContactPressProps",
       "exampleUsage": "<ContactPress\n  heading=\"Press Inquiries\"\n  description=\"Media and press contact form\"\n  buttonText=\"Submit Inquiry\"\n  formConfig={{ endpoint: \"/api/press\", format: \"json\" }}\n/>"
@@ -1368,14 +1349,7 @@
       "id": "contact-sales",
       "name": "Contact Sales",
       "description": "Sales inquiry form with company information and product interest. Designed for B2B sales teams and lead generation.",
-      "semanticTags": [
-        "contact",
-        "sales",
-        "inquiry",
-        "form",
-        "b2b",
-        "leads"
-      ],
+      "semanticTags": ["contact", "sales", "inquiry", "form", "b2b", "leads"],
       "category": "contact",
       "props": "ContactSalesProps",
       "exampleUsage": "<ContactSales\n  heading=\"Talk to Sales\"\n  description=\"Interested in our products?\"\n  buttonText=\"Contact Sales\"\n  formConfig={{ endpoint: \"/api/sales\", format: \"json\" }}\n/>"
@@ -11184,20 +11158,29 @@
     {
       "id": "faq-split-hero",
       "name": "FAQ Split Hero",
-      "description": "A dark-themed split-screen FAQ section with animated accordion on the left and a large image on the right. Features prominent heading and subheading with animated accordion FAQ items. Best for landing pages, product pages, and service pages requiring FAQ visibility.",
+      "description": "A full-width split-screen FAQ section with animated accordion on one side and image or video media on the other. Supports configurable layout direction for desktop (media left/right) and mobile stacking order (media top/bottom), pattern background overlays with adjustable opacity, section background theming, image optimization via OptixFlow, and extensive className overrides for every sub-element. Media supports both images and videos with a slot escape hatch for fully custom rendering. Best for landing pages, product pages, and service pages requiring prominent FAQ visibility.",
       "semanticTags": [
         "faq",
         "split",
         "hero",
-        "dark-theme",
         "accordion",
         "animated",
         "landing",
-        "questions"
+        "questions",
+        "full-width",
+        "split-screen",
+        "image",
+        "video",
+        "media",
+        "responsive",
+        "layout-direction",
+        "pattern-background",
+        "customizable",
+        "two-column"
       ],
       "category": "faq",
       "props": "FaqSplitHeroProps",
-      "exampleUsage": "<FaqSplitHero\n  heading=\"Frequently Asked Questions\"\n  subheading=\"Find answers to common questions about our services.\"\n  items={[\n    { id: \"1\", question: \"What services do you offer?\", answer: \"...\" },\n  ]}\n/>"
+      "exampleUsage": "<FaqSplitHero\n  heading=\"Frequently Asked Questions\"\n  subheading=\"Find answers to common questions about our services.\"\n  items={[\n    { id: \"1\", question: \"What services do you offer?\", answer: \"...\" },\n  ]}\n  mediaItem={{\n    image: { src: \"/images/faq-hero.jpg\", alt: \"FAQ illustration\" }\n  }}\n  directionConfig={{ desktop: \"mediaRight\", mobile: \"mediaTop\" }}\n  background=\"muted\"\n  pattern=\"grid\"\n  patternOpacity={0.3}\n/>"
     }
   ]
 }
