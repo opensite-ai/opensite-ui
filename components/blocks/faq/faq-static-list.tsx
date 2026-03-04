@@ -117,12 +117,12 @@ export function FaqStaticList({
         {items.map((item, index) => (
           <div
             key={index}
-            className={cn("border-b border-border/50 pb-6", itemClassName)}
+            className={cn("border-b border-border/30 pb-8", itemClassName)}
           >
             {typeof item.question === "string" ? (
               <div
                 className={cn(
-                  "text-lg md:text-xl mb-2 font-semibold",
+                  "text-lg md:text-xl mb-4 font-medium",
                   questionClassName,
                 )}
               >
@@ -132,7 +132,7 @@ export function FaqStaticList({
               item.question
             )}
             {typeof item.answer === "string" ? (
-              <p className={cn("leading-snug", answerClassName)}>
+              <p className={cn("leading-normal", answerClassName)}>
                 {item.answer}
               </p>
             ) : (
@@ -176,7 +176,7 @@ export function FaqStaticList({
           _type: "text",
           as: "p",
           className: cn(
-            "text-xl max-w-full md:max-w-md text-balance",
+            "text-lg md:text-xl max-w-full md:max-w-md text-balance opacity-75",
             descriptionClassName,
           ),
           children: description,
@@ -200,9 +200,13 @@ export function FaqStaticList({
       containerClassName={containerClassName}
     >
       <div className="flex flex-col items-start gap-8 md:gap-12">
-        <div className="max-w-full md:max-w-3xl">
+        <div className="max-w-full md:max-w-3xl space-y-12 md:space-y-16">
           <ContentGroup
-            className={cn("flex flex-col", "text-left", headerClassName)}
+            className={cn(
+              "flex flex-col items-start",
+              "text-left",
+              headerClassName,
+            )}
             items={contentItems}
           />
           {itemsContent}

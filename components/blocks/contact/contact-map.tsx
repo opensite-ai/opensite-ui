@@ -84,8 +84,6 @@ export interface ContactMapProps {
   cardClassName?: string;
   /** Additional CSS classes for the card content */
   cardContentClassName?: string;
-  /** Additional CSS classes for the left panel wrapper */
-  panelClassName?: string;
   /** Additional CSS classes for the content grid */
   contentGridClassName?: string;
   /** Additional CSS classes for the map column wrapper */
@@ -128,14 +126,13 @@ export function ContactMap({
   descriptionClassName,
   cardClassName,
   cardContentClassName,
-  panelClassName,
   contentGridClassName,
   mapColumnClassName,
   mapClassName,
   background,
   spacing = "xl",
   pattern,
-  patternOpacity = 0.1,
+  patternOpacity,
   mapProps,
 }: ContactMapProps): React.JSX.Element {
   const renderForm = React.useMemo(() => {
@@ -167,61 +164,49 @@ export function ContactMap({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn("py-12", className)}
+      className={className}
       containerClassName={containerClassName}
     >
       <div
         className={cn(
-          "mx-auto grid max-w-7xl gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]",
+          "mx-auto grid max-w-full md:max-w-7xl gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]",
           contentGridClassName,
         )}
       >
-        <div
-          className={cn(
-            "flex flex-col rounded-2xl bg-slate-900 p-6 md:p-8 text-slate-100",
-            panelClassName,
-          )}
-        >
-          <div className={cn("mb-6", headerClassName)}>
-            {heading &&
-              (typeof heading === "string" ? (
-                <h2
-                  className={cn(
-                    "mb-3 text-3xl font-bold tracking-tight text-balance text-white md:text-5xl",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h2>
-              ) : (
-                <div className={headingClassName}>{heading}</div>
-              ))}
-            {description &&
-              (typeof description === "string" ? (
-                <p
-                  className={cn(
-                    "leading-relaxed text-balance text-slate-300",
-                    descriptionClassName,
-                  )}
-                >
-                  {description}
-                </p>
-              ) : (
-                <div className={descriptionClassName}>{description}</div>
-              ))}
-          </div>
+        <Card className={cardClassName}>
+          <CardContent className={cardContentClassName}>
+            <div className={cn("mb-6", headerClassName)}>
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h2
+                    className={cn(
+                      "mb-3 text-3xl font-bold tracking-tight text-balance md:text-5xl",
+                      headingClassName,
+                    )}
+                  >
+                    {heading}
+                  </h2>
+                ) : (
+                  heading
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "leading-relaxed text-balance ",
+                      descriptionClassName,
+                    )}
+                  >
+                    {description}
+                  </p>
+                ) : (
+                  description
+                ))}
+            </div>
 
-          <Card
-            className={cn(
-              "mt-4 border-0 bg-rose-500 text-rose-50 shadow-none",
-              cardClassName,
-            )}
-          >
-            <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
-              {renderForm}
-            </CardContent>
-          </Card>
-        </div>
+            {renderForm}
+          </CardContent>
+        </Card>
 
         <div className={cn("h-full", mapColumnClassName)}>
           <GeoMap {...resolvedMapProps} />

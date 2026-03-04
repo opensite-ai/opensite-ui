@@ -17,7 +17,7 @@ function AccordionItem({
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
-      className={cn("border-b ", className)}
+      className={cn(className, "border-b")}
       {...props}
     />
   );
@@ -41,7 +41,7 @@ function AccordionTrigger({
         {children}
         <DynamicIcon
           name="lucide/chevron-down"
-          className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200"
+          className="pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200"
         />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
@@ -56,7 +56,7 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"
-      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
+      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-base"
       {...props}
     >
       <div className={cn("pt-0 pb-4", className)}>{children}</div>

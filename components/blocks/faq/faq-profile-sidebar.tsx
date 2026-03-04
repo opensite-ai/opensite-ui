@@ -394,7 +394,9 @@ export function FaqProfileSidebar({
             contentWrapperClassName,
           )}
         >
-          <div className={cn("w-full lg:w-1/3", sidebarClassName)}>
+          <div
+            className={cn("w-full lg:w-1/3 lg:self-stretch", sidebarClassName)}
+          >
             <div className="sticky top-24 space-y-6">
               <ContentGroup items={contentItems} />
 

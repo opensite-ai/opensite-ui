@@ -298,7 +298,7 @@ export function FaqSidebarNavigation({
                   onClick={() => setActiveCategory("all")}
                   className={cn(
                     "cursor-pointer",
-                    "w-full lg:w-full",
+                    "w-fit lg:w-full",
                     "shrink-0 whitespace-nowrap",
                     "rounded-md px-4 py-2",
                     "text-left text-sm font-medium",

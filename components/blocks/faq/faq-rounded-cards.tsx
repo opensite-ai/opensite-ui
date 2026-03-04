@@ -128,7 +128,7 @@ export function FaqRoundedCards({
       <Accordion
         type="single"
         collapsible
-        className={cn("space-y-3", accordionClassName)}
+        className={cn("space-y-4", accordionClassName)}
       >
         {items.map((item) => (
           <AccordionItem
@@ -136,10 +136,9 @@ export function FaqRoundedCards({
             value={item.id}
             className={cn(
               "border border-border/50",
-              "px-5",
-              "transition-shadow",
-              "rounded-xl shadow-sm",
-              "hover:shadow-lg data-[state=open]:shadow-lg",
+              "transition-all duration-500",
+              "rounded-xl shadow-lg px-5",
+              "backdrop-blur-xs hover:backdrop-blur-lg",
               "data-[state=open]:bg-card",
               "data-[state=open]:text-card-foreground",
               accordionItemClassName,
@@ -147,17 +146,22 @@ export function FaqRoundedCards({
           >
             <AccordionTrigger
               className={cn(
-                "text-lg",
-                "cursor-pointer py-4 font-medium",
+                "text-base md:text-lg",
+                "cursor-pointer py-4 font-semibold",
                 "transition-opacity",
                 "hover:no-underline hover:opacity-70",
-                "[&[data-state=open]>svg]:rotate-180",
+                "leading-tight",
                 accordionTriggerClassName,
               )}
             >
               {item.question}
             </AccordionTrigger>
-            <AccordionContent className={cn("pb-4", accordionContentClassName)}>
+            <AccordionContent
+              className={cn(
+                "pb-4 text-base md:text-lg",
+                accordionContentClassName,
+              )}
+            >
               {item.answer}
             </AccordionContent>
           </AccordionItem>
@@ -182,7 +186,10 @@ export function FaqRoundedCards({
           _type: "text",
           as: "h2",
           className: cn(
-            "mb-4 text-3xl font-semibold lg:text-4xl text-pretty",
+            "font-bold ",
+            "mb-4 text-pretty",
+            "text-3xl lg:text-4xl",
+            "max-w-full md:max-w-sm",
             headingClassName,
           ),
           children: heading,
@@ -198,7 +205,8 @@ export function FaqRoundedCards({
           _type: "text",
           as: "p",
           className: cn(
-            "text-xl max-w-full md:max-w-md text-balance",
+            "text-lg md:text-xl text-balance",
+            "max-w-full md:max-w-sm",
             descriptionClassName,
           ),
           children: description,
@@ -221,19 +229,17 @@ export function FaqRoundedCards({
       containerClassName={containerClassName}
     >
       <div className="flex flex-col items-center">
-        <div className="max-w-full md:max-w-3xl">
+        <div className="max-w-full md:max-w-3xl w-full space-y-8 md:space-y-12">
           <ContentGroup
             className={cn(
               "flex flex-col",
+              "items-start md:items-center",
               "text-left md:text-center",
-              "mb-12 md:mb-20",
               headerClassName,
             )}
             items={contentItems}
           />
-          <div className={cn("mt-10", cardsWrapperClassName)}>
-            {itemsContent}
-          </div>
+          <div className={cardsWrapperClassName}>{itemsContent}</div>
         </div>
       </div>
     </Section>
