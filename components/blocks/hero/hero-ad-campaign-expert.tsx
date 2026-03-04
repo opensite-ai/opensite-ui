@@ -17,6 +17,7 @@ import type {
 } from "../../../src/types";
 import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 import { BlockActions } from "@/components/ui/block-actions";
+import { useResponsiveLayout } from "@/src";
 
 export type { DirectionConfig };
 
@@ -129,6 +130,8 @@ export function HeroAdCampaignExpert({
   descriptionClassName,
   optixFlowConfig,
 }: HeroAdCampaignExpertProps): React.JSX.Element {
+  const { responsiveClassName } = useResponsiveLayout({ directionConfig });
+
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
@@ -137,7 +140,7 @@ export function HeroAdCampaignExpert({
       <BlockActions
         actions={actions}
         actionsSlot={actionsSlot}
-        actionsClassName={actionsClassName}
+        actionsClassName={cn("mt-4 md:mt-4", actionsClassName)}
       />
     );
   }, [actionsSlot, actions, actionsClassName]);
@@ -191,14 +194,6 @@ export function HeroAdCampaignExpert({
     renderActions,
   ]);
 
-  // Determine flex direction based on directionConfig
-  const desktopOrder =
-    directionConfig.desktop === "mediaRight"
-      ? "lg:flex-row"
-      : "lg:flex-row-reverse";
-  const mobileOrder =
-    directionConfig.mobile === "mediaTop" ? "flex-col-reverse" : "flex-col";
-
   const hasMedia = mediaItem?.image || mediaItem?.video;
 
   const renderMedia = useMemo(() => {
@@ -247,14 +242,13 @@ export function HeroAdCampaignExpert({
         <div
           className={cn(
             "flex items-center gap-12 md:gap-16 lg:gap-24",
-            mobileOrder,
-            desktopOrder,
+            responsiveClassName,
           )}
         >
           <ContentGroup
             items={headerItems}
             className={cn(
-              "relative flex flex-col items-start gap-4 md:gap-8 lg:w-1/2",
+              "relative flex flex-col items-start gap-4 w-full lg:w-1/2",
               contentClassName,
             )}
           />

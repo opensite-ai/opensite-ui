@@ -250,13 +250,14 @@ export function CarouselGradientText({
               "size-full rounded-2xl bg-cover object-cover",
               imageClassName,
             )}
-            loading="lazy"
             optixFlowConfig={optixFlowConfig}
           />
           <div className="absolute inset-0 p-8">
-            <div className="text-sm font-semibold text-white/70">
-              <div className="mr-1 text-white">{item.title}.</div>
-              <div>{item.description}</div>
+            <div className="text-white space-y-2 text-pretty text-shadow-lg">
+              <div className="text-lg font-semibold">{item.title}.</div>
+              <div className="opacity-75 text-base font-normal">
+                {item.description}
+              </div>
             </div>
           </div>
         </Pressable>
