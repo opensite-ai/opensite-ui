@@ -186,10 +186,13 @@ export function TestimonialsBentoGrid({
           gridClassName,
         )}
       >
-        <Card
-          className={cn("md:col-span-2 lg:row-span-2", featuredCardClassName)}
+        <div
+          className={cn(
+            "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border shadow-sm md:col-span-2 lg:row-span-2",
+            featuredCardClassName,
+          )}
         >
-          <CardContent className="flex h-full flex-col justify-between p-6 md:p-8">
+          <div className="flex h-full flex-col justify-between p-6 md:p-8">
             <div>
               <DynamicIcon
                 name="lucide/quote"
@@ -215,13 +218,13 @@ export function TestimonialsBentoGrid({
             <div
               className={cn("mt-6 flex items-center gap-4", authorClassName)}
             >
-              <Avatar className="size-12">
+              <Avatar className="relative flex shrink-0 overflow-hidden rounded-full size-12 ring-4 ring-primary shadow-lg">
                 <AvatarImage src={featuredAvatarSrc} alt={featuredAuthorName} />
                 <AvatarFallback>
                   {getInitials(featuredAuthorName)}
                 </AvatarFallback>
               </Avatar>
-              <div>
+              <div className="space-y-0 leading-tight">
                 {featured.author &&
                   (typeof featured.author === "string" ? (
                     <p className="font-semibold">{featured.author}</p>
@@ -244,7 +247,8 @@ export function TestimonialsBentoGrid({
                   <Pressable
                     href={featured.linkConfig.href}
                     className={cn(
-                      "text-sm text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors",
+                      "text-sm  transition-all duration-300",
+                      "underline underline-offset-4",
                       featured.linkConfig.className,
                     )}
                   >
@@ -253,8 +257,8 @@ export function TestimonialsBentoGrid({
                 )}
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {others.slice(0, 5).map((testimonial, index) => {
           const authorName = getAuthorName(testimonial);
@@ -271,13 +275,13 @@ export function TestimonialsBentoGrid({
                     <div className="line-clamp-3">{testimonial.quote}</div>
                   ))}
                 <div className="mt-4 flex items-center gap-3">
-                  <Avatar className="size-9">
+                  <Avatar className="relative flex shrink-0 overflow-hidden rounded-full size-12 ring-4 ring-primary shadow-lg">
                     <AvatarImage src={avatarSrc} alt={authorName} />
                     <AvatarFallback className="text-xs">
                       {getInitials(authorName)}
                     </AvatarFallback>
                   </Avatar>
-                  <div>
+                  <div className="space-y-0 leading-tight">
                     {testimonial.author &&
                       (typeof testimonial.author === "string" ? (
                         <p className="text-sm font-medium">
@@ -298,7 +302,8 @@ export function TestimonialsBentoGrid({
                       <Pressable
                         href={testimonial.linkConfig.href}
                         className={cn(
-                          "text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors",
+                          "text-sm  transition-all duration-300",
+                          "underline underline-offset-4",
                           testimonial.linkConfig.className,
                         )}
                       >

@@ -107,7 +107,7 @@ export function HeroBadgeShadowOverlay({
   backgroundImageUrl,
   optixFlowConfig,
   background,
-  spacing = "py-0 md:py-0",
+  spacing = "none",
   pattern,
   patternOpacity,
   className,

@@ -202,13 +202,16 @@ export function TestimonialsTwitterCards({
               key={index}
               href={testimonial.linkConfig?.href}
               className={cn(
-                "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-xl group hover:bg-primary hover:text-primary-foreground transition-all duration-500",
+                testimonial.linkConfig?.href
+                  ? "cursor-pointer hover:bg-primary hover:text-primary-foreground transition-all duration-500"
+                  : "",
+                "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-xl group ",
                 cardClassName,
               )}
             >
               <CardContent
                 className={cn(
-                  "px-6 h-full flex flex-col-reverse items-stretch justify-between",
+                  "px-6 h-full flex flex-col-reverse items-stretch justify-between gap-12",
                   cardContentClassName,
                 )}
               >
@@ -242,7 +245,7 @@ export function TestimonialsTwitterCards({
                   {testimonial.linkConfig?.href && (
                     <SocialLinkIcon
                       href={testimonial.linkConfig.href}
-                      iconSize={18}
+                      iconSize={24}
                     />
                   )}
                 </div>

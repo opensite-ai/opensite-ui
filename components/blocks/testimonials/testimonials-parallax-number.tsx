@@ -380,7 +380,9 @@ export function TestimonialsParallaxNumber({
                       <Pressable
                         href={current.linkConfig.href}
                         className={cn(
-                          "text-sm text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors",
+                          "transition-all duration-500",
+                          "hover:underline hover:underline-offset-4",
+                          "text-sm",
                           current.linkConfig.className,
                         )}
                       >

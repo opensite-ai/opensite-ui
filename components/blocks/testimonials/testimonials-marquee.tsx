@@ -86,6 +86,10 @@ export interface TestimonialsMarqueeProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 const speedMap = {
@@ -137,11 +141,14 @@ export function TestimonialsMarquee({
   quoteClassName,
   authorClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: TestimonialsMarqueeProps): React.JSX.Element {
-  const duplicatedTestimonials = testimonials ? [...testimonials, ...testimonials] : [];
+  const duplicatedTestimonials = testimonials
+    ? [...testimonials, ...testimonials]
+    : [];
   const effectiveSpeed = speed || "normal";
 
   const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
@@ -149,9 +156,12 @@ export function TestimonialsMarquee({
     return "";
   }, []);
 
-  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  }, []);
+  const getAvatarSrc = useCallback(
+    (testimonial: TestimonialItem): string | undefined => {
+      return testimonial.avatarSrc || testimonial.avatar?.src;
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -225,9 +235,7 @@ export function TestimonialsMarquee({
                           ))}
                         {testimonial.role &&
                           (typeof testimonial.role === "string" ? (
-                            <p className="text-xs text-muted-foreground">
-                              {testimonial.role}
-                            </p>
+                            <p className="text-xs">{testimonial.role}</p>
                           ) : (
                             testimonial.role
                           ))}
@@ -241,7 +249,20 @@ export function TestimonialsMarquee({
         </div>
       </div>
     );
-  }, [testimonialsSlot, marqueeClassName, pauseOnHover, effectiveSpeed, duplicatedTestimonials, cardClassName, quoteClassName, authorClassName, testimonials, getAuthorName, getAvatarSrc, getInitials]);
+  }, [
+    testimonialsSlot,
+    marqueeClassName,
+    pauseOnHover,
+    effectiveSpeed,
+    duplicatedTestimonials,
+    cardClassName,
+    quoteClassName,
+    authorClassName,
+    testimonials,
+    getAuthorName,
+    getAvatarSrc,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -250,6 +271,7 @@ export function TestimonialsMarquee({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn("overflow-hidden", className)}
+      containerClassName={containerClassName}
     >
       <div className={cn("mb-12", headerClassName)}>
         <div className="mx-auto max-w-2xl text-center">
@@ -264,22 +286,15 @@ export function TestimonialsMarquee({
                 {heading}
               </h2>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "mt-4 text-lg text-muted-foreground",
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("mt-4 text-lg", descriptionClassName)}>
                 {description}
               </p>
             ) : (
-              <div className={cn("mt-4", descriptionClassName)}>
-                {description}
-              </div>
+              description
             ))}
         </div>
       </div>

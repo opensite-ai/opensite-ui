@@ -82,6 +82,10 @@ export interface TestimonialsCenteredAvatarsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -125,7 +129,8 @@ export function TestimonialsCenteredAvatars({
   quoteClassName,
   authorClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: TestimonialsCenteredAvatarsProps): React.JSX.Element {
@@ -134,9 +139,12 @@ export function TestimonialsCenteredAvatars({
     return "";
   }, []);
 
-  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  }, []);
+  const getAvatarSrc = useCallback(
+    (testimonial: TestimonialItem): string | undefined => {
+      return testimonial.avatarSrc || testimonial.avatar?.src;
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -150,7 +158,9 @@ export function TestimonialsCenteredAvatars({
     if (!testimonials || testimonials.length === 0) return null;
 
     return (
-      <div className={cn("mt-12 space-y-8", testimonialsClassName)}>
+      <div
+        className={cn("mt-12 space-y-8 md:space-y-12", testimonialsClassName)}
+      >
         {testimonials.map((testimonial, index) => (
           <div
             key={index}
@@ -160,7 +170,7 @@ export function TestimonialsCenteredAvatars({
               (typeof testimonial.quote === "string" ? (
                 <blockquote
                   className={cn(
-                    "text-lg leading-relaxed text-muted-foreground md:text-xl",
+                    "text-lg leading-relaxed md:text-xl text-balance",
                     quoteClassName,
                   )}
                 >
@@ -177,7 +187,7 @@ export function TestimonialsCenteredAvatars({
                   testimonial.author
                 ))}
               {(testimonial.role || testimonial.company) && (
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm opacity-75">
                   {testimonial.role &&
                     (typeof testimonial.role === "string"
                       ? testimonial.role
@@ -193,7 +203,14 @@ export function TestimonialsCenteredAvatars({
         ))}
       </div>
     );
-  }, [testimonialsSlot, testimonialsClassName, testimonials, testimonialItemClassName, quoteClassName, authorClassName]);
+  }, [
+    testimonialsSlot,
+    testimonialsClassName,
+    testimonials,
+    testimonialItemClassName,
+    quoteClassName,
+    authorClassName,
+  ]);
 
   return (
     <Section
@@ -202,21 +219,25 @@ export function TestimonialsCenteredAvatars({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-3xl text-center", contentClassName)}>
+      <div
+        className={cn(
+          "mx-auto max-w-full md:max-w-md text-center flex flex-col items-center gap-6",
+          contentClassName,
+        )}
+      >
         {badge &&
           (typeof badge === "string" ? (
-            <Badge variant="secondary" className={cn("mb-4", badgeClassName)}>
-              {badge}
-            </Badge>
+            <Badge className={badgeClassName}>{badge}</Badge>
           ) : (
-            <div className={cn("mb-4", badgeClassName)}>{badge}</div>
+            badge
           ))}
         {heading &&
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-semibold tracking-tight md:text-4xl",
+                "text-2xl font-semibold tracking-tight md:text-4xl lg:text-6xl text-balance",
                 headingClassName,
               )}
             >
@@ -235,7 +256,7 @@ export function TestimonialsCenteredAvatars({
                 return (
                   <Avatar
                     key={index}
-                    className="size-16 border-4 border-background ring-2 ring-border md:size-20"
+                    className="relative flex shrink-0 overflow-hidden rounded-full size-16 ring-4 ring-primary md:size-20 shadow-xl"
                   >
                     <AvatarImage src={avatarSrc} alt={authorName} />
                     <AvatarFallback className="text-lg">

@@ -13,7 +13,7 @@ import type {
   SectionSpacing,
   TestimonialItem,
 } from "../../../src/types";
-import { Pressable } from "@/src";
+import { Pressable } from "../../../lib/Pressable";
 
 export interface TestimonialsCompanyLogoProps {
   /**
@@ -143,7 +143,7 @@ export function TestimonialsCompanyLogo({
     if (!testimonial) return null;
 
     return (
-      <div className={cn("space-y-8", contentClassName)}>
+      <div className={cn("space-y-12 md:space-y-16", contentClassName)}>
         <div className="relative">
           <DynamicIcon name="mdi/comment-quote-outline" size={48} />
 
@@ -151,7 +151,7 @@ export function TestimonialsCompanyLogo({
             (typeof testimonial.quote === "string" ? (
               <blockquote
                 className={cn(
-                  "relative text-xl font-medium leading-relaxed md:text-2xl",
+                  "relative text-lg font-light leading-relaxed md:text-2xl",
                   quoteClassName,
                 )}
               >
@@ -172,7 +172,7 @@ export function TestimonialsCompanyLogo({
             />
           )}
           <div className={cn("space-y-1 text-right", authorClassName)}>
-            <div className="space-x-2">
+            <div className="flex flex-col items-end">
               {testimonial.author &&
                 (typeof testimonial.author === "string" ? (
                   <span className="font-semibold">{testimonial.author}</span>
@@ -181,14 +181,14 @@ export function TestimonialsCompanyLogo({
                 ))}
               {testimonial.role &&
                 (typeof testimonial.role === "string" ? (
-                  <span className="text-sm">{testimonial.role}</span>
+                  <span className="text-sm opacity-75">{testimonial.role}</span>
                 ) : (
                   testimonial.role
                 ))}
             </div>
             <Pressable
               href={testimonial.linkConfig?.href}
-              className="text-sm font-bold uppercase transition-all duration-300 hover:underline hover:underline-offset-4"
+              className="cursor-pointer text-sm font-bold uppercase transition-all duration-500 hover:underline hover:underline-offset-4"
             >
               {testimonial.linkConfig?.label || "Learn more"}
             </Pressable>
@@ -219,7 +219,7 @@ export function TestimonialsCompanyLogo({
     >
       <div
         className={cn(
-          "grid items-center gap-12 lg:gap-24 grid-cols-1 lg:grid-cols-2",
+          "grid items-center gap-16 lg:gap-24 grid-cols-1 lg:grid-cols-2",
           gridClassName,
         )}
       >

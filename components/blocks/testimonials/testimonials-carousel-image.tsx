@@ -88,6 +88,22 @@ export interface TestimonialsCarouselImageProps {
    * Background style for the section
    */
   background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -117,8 +133,8 @@ export interface TestimonialsCarouselImageProps {
 export function TestimonialsCarouselImage({
   testimonials,
   testimonialsSlot,
-  height,
-  overlayOpacity,
+  height = "h-70dvh lg:h-60dvh",
+  overlayOpacity = 0.6,
   previousButtonAriaLabel,
   nextButtonAriaLabel,
   className,
@@ -130,22 +146,23 @@ export function TestimonialsCarouselImage({
   navButtonClassName,
   dotsClassName,
   optixFlowConfig,
+  background,
+  containerClassName = "mx-0 w-screen px-0 sm:px-0 lg:px-0 max-w-screen relative z-10",
+  spacing = "none",
+  pattern,
+  patternOpacity,
 }: TestimonialsCarouselImageProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalTestimonials = testimonials?.length ?? 0;
 
   const goToPrevious = useCallback(() => {
     if (totalTestimonials === 0) return;
-    setCurrentIndex((prev) =>
-      prev === 0 ? totalTestimonials - 1 : prev - 1
-    );
+    setCurrentIndex((prev) => (prev === 0 ? totalTestimonials - 1 : prev - 1));
   }, [totalTestimonials]);
 
   const goToNext = useCallback(() => {
     if (totalTestimonials === 0) return;
-    setCurrentIndex((prev) =>
-      prev === totalTestimonials - 1 ? 0 : prev + 1
-    );
+    setCurrentIndex((prev) => (prev === totalTestimonials - 1 ? 0 : prev + 1));
   }, [totalTestimonials]);
 
   const current = testimonials?.[currentIndex];
@@ -155,59 +172,99 @@ export function TestimonialsCarouselImage({
     if (!current) return null;
 
     return (
-      <div className={cn("mx-auto max-w-4xl text-center text-background", contentClassName)}>
+      <div
+        className={cn(
+          "mx-auto max-w-full md:max-w-md text-center text-shadow-lg text-white pb-32 pt-20",
+          contentClassName,
+        )}
+      >
         <DynamicIcon
-          name="lucide/quote"
+          name="mdi/comment-quote-outline"
           size={48}
           className={cn("mx-auto mb-6 opacity-50", quoteIconClassName)}
         />
-        {current.quote && (
-          typeof current.quote === "string" ? (
-            <blockquote className={cn("text-2xl font-light leading-relaxed md:text-4xl", quoteClassName)}>
+        {current.quote &&
+          (typeof current.quote === "string" ? (
+            <blockquote
+              className={cn(
+                "text-xl font-light leading-relaxed md:text-2xl text-balance",
+                quoteClassName,
+              )}
+            >
               &ldquo;{current.quote}&rdquo;
             </blockquote>
           ) : (
             <div className={quoteClassName}>{current.quote}</div>
-          )
-        )}
-        <div className={cn("mt-8", authorClassName)}>
-          {current.author && (
-            typeof current.author === "string" ? (
+          ))}
+        <div
+          className={cn(
+            "mt-8 text-balance flex flex-col items-center",
+            authorClassName,
+          )}
+        >
+          {current.author &&
+            (typeof current.author === "string" ? (
               <p className="text-lg font-semibold">{current.author}</p>
             ) : (
               current.author
-            )
-          )}
+            ))}
           {(current.role || current.company) && (
             <p className="text-sm opacity-80">
-              {current.role && (
-                typeof current.role === "string" ? current.role : current.role
-              )}
-              {current.company && (
-                typeof current.company === "string"
+              {current.role &&
+                (typeof current.role === "string"
+                  ? current.role
+                  : current.role)}
+              {current.company &&
+                (typeof current.company === "string"
                   ? `, ${current.company}`
-                  : current.company
-              )}
+                  : current.company)}
             </p>
+          )}
+          {current.linkConfig?.href && (
+            <Pressable
+              href={current.linkConfig.href}
+              className={cn(
+                "transition-all duration-500",
+                "hover:underline hover:underline-offset-4",
+                "text-sm",
+                current.linkConfig.className,
+              )}
+            >
+              {current.linkConfig.label}
+            </Pressable>
           )}
         </div>
       </div>
     );
-  }, [testimonialsSlot, contentClassName, quoteIconClassName, current, quoteClassName, authorClassName]);
+  }, [
+    testimonialsSlot,
+    contentClassName,
+    quoteIconClassName,
+    current,
+    quoteClassName,
+    authorClassName,
+  ]);
 
   return (
-    <section className={cn("relative", height, className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("relative", height, className)}
+      containerClassName={containerClassName}
+    >
       <div className="absolute inset-0">
         {current?.backgroundImage && (
           <Img
             src={current.backgroundImage}
-            alt=""
+            alt="Testimonial background image"
             className="size-full object-cover"
             optixFlowConfig={optixFlowConfig}
           />
         )}
         <div
-          className="absolute inset-0 bg-foreground"
+          className="absolute inset-0 bg-black"
           style={{ opacity: overlayOpacity }}
         />
       </div>
@@ -215,12 +272,17 @@ export function TestimonialsCarouselImage({
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4">
         {renderedTestimonialContent}
 
-        <div className={cn("absolute bottom-8 left-0 right-0 flex items-center justify-center gap-4", navigationClassName)}>
+        <div
+          className={cn(
+            "absolute bottom-8 left-0 right-0 flex items-center justify-center gap-4",
+            navigationClassName,
+          )}
+        >
           <Pressable
             asButton
-            variant="ghost"
+            variant="default"
             size="icon"
-            className={cn("size-10 rounded-full bg-white/10 text-white backdrop-blur-sm hover:bg-white/20", navButtonClassName)}
+            className={cn("size-10 rounded-full", navButtonClassName)}
             onClick={goToPrevious}
             aria-label={previousButtonAriaLabel ?? "Previous testimonial"}
           >
@@ -235,8 +297,8 @@ export function TestimonialsCarouselImage({
                 className={cn(
                   "size-2 rounded-full transition-all",
                   index === currentIndex
-                    ? "w-6 bg-white"
-                    : "bg-white/40 hover:bg-white/60"
+                    ? "w-6 bg-primary"
+                    : "bg-white/40 hover:bg-white/60",
                 )}
                 aria-label={`Go to testimonial ${index + 1}`}
               />
@@ -245,9 +307,9 @@ export function TestimonialsCarouselImage({
 
           <Pressable
             asButton
-            variant="ghost"
+            variant="default"
             size="icon"
-            className={cn("size-10 rounded-full bg-white/10 text-white backdrop-blur-sm hover:bg-white/20", navButtonClassName)}
+            className={cn("size-10 rounded-full", navButtonClassName)}
             onClick={goToNext}
             aria-label={nextButtonAriaLabel ?? "Next testimonial"}
           >
@@ -255,6 +317,6 @@ export function TestimonialsCarouselImage({
           </Pressable>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

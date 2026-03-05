@@ -250,7 +250,7 @@ export function TestimonialsAnimatedSplit({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
-              className="space-y-6"
+              className="space-y-4 md:space-y-6"
             >
               <DynamicIcon name="mdi/comment-quote-outline" size={48} />
 
@@ -258,7 +258,7 @@ export function TestimonialsAnimatedSplit({
                 (typeof current.quote === "string" ? (
                   <blockquote
                     className={cn(
-                      "text-lg font-base leading-relaxed md:text-2xl",
+                      "text-base md:text-lg font-thin leading-normal md:leading-relaxed md:text-2xl line-clamp-4",
                       quoteClassName,
                     )}
                   >
@@ -274,14 +274,16 @@ export function TestimonialsAnimatedSplit({
                   <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
                 </Avatar>
                 <div className="space-y-1">
-                  <div className="flex gap-1">
+                  <div className="flex flex-col md:flex-row items-start md:items-center gap-0 md:gap-1">
                     {current.author &&
                       (typeof current.author === "string" ? (
-                        <span className="font-semibold">{current.author}</span>
+                        <span className="text-sm md:text-base font-semibold">
+                          {current.author}
+                        </span>
                       ) : (
                         current.author
                       ))}
-                    <span className="font-base tracking-wide">
+                    <span className="text-sm md:text-base font-normal tracking-normal md:tracking-wide">
                       {current.role &&
                         (typeof current.role === "string"
                           ? current.role
