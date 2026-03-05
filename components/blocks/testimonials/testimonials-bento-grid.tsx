@@ -192,7 +192,7 @@ export function TestimonialsBentoGrid({
             featuredCardClassName,
           )}
         >
-          <div className="flex h-full flex-col justify-between p-6 md:p-8">
+          <div className="flex h-full flex-col justify-between p-6 md:p-8 gap-8 md:gap-12">
             <div>
               <DynamicIcon
                 name="lucide/quote"
@@ -264,8 +264,14 @@ export function TestimonialsBentoGrid({
           const authorName = getAuthorName(testimonial);
           const avatarSrc = getAvatarSrc(testimonial);
           return (
-            <Card key={index} className={cardClassName}>
-              <CardContent className="flex h-full flex-col justify-between p-6">
+            <div
+              key={index}
+              className={cn(
+                cardClassName,
+                "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border shadow-sm",
+              )}
+            >
+              <div className="flex h-full flex-col justify-between p-6 gap-8">
                 {testimonial.quote &&
                   (typeof testimonial.quote === "string" ? (
                     <blockquote className="text-sm leading-relaxed line-clamp-3">
@@ -312,8 +318,8 @@ export function TestimonialsBentoGrid({
                     )}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           );
         })}
       </div>

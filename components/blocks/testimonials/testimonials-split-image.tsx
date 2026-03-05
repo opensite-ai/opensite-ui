@@ -216,7 +216,7 @@ export function TestimonialsSplitImage({
               <Pressable
                 href={testimonial.linkConfig.href}
                 className={cn(
-                  current.linkConfig.className,
+                  testimonial.linkConfig.className,
                   "text-sm font-bold tracking-wide uppercase",
                   "hover:underline hover:underline-offset-2",
                 )}

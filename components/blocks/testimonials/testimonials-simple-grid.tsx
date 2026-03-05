@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { Pressable } from "../../../lib/Pressable";
 import type {
   SectionBackground,
   SectionSpacing,
@@ -55,10 +56,6 @@ export interface TestimonialsSimpleGridProps {
    */
   gridClassName?: string;
   /**
-   * Additional CSS classes for each card
-   */
-  cardClassName?: string;
-  /**
    * Additional CSS classes for the quote text
    */
   quoteClassName?: string;
@@ -86,6 +83,14 @@ export interface TestimonialsSimpleGridProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the card content
+   */
+  cardContentClassName?: string;
 }
 
 /**
@@ -125,6 +130,7 @@ export function TestimonialsSimpleGrid({
   headerClassName,
   headingClassName,
   descriptionClassName,
+  cardContentClassName,
   gridClassName,
   cardClassName,
   quoteClassName,
@@ -221,13 +227,13 @@ export function TestimonialsSimpleGrid({
                     </div>
                   </div>
                 </div>
-                {testimonial.content &&
-                  (typeof testimonial.content === "string" ? (
+                {testimonial.quote &&
+                  (typeof testimonial.quote === "string" ? (
                     <p className="text-sm leading-relaxed">
-                      {testimonial.content}
+                      {testimonial.quote}
                     </p>
                   ) : (
-                    testimonial.content
+                    testimonial.quote
                   ))}
               </CardContent>
             </Pressable>

@@ -111,7 +111,7 @@ describe("TestimonialsBentoGrid", () => {
     const { container } = render(
       <TestimonialsBentoGrid testimonials={testimonials} />,
     );
-    const cards = container.querySelectorAll("[data-testid='mock-card']");
+    const cards = container.querySelectorAll(".bg-card");
     expect(cards).toHaveLength(6);
   });
 
