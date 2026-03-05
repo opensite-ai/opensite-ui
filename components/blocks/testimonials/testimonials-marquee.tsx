@@ -175,16 +175,14 @@ export function TestimonialsMarquee({
     if (!testimonials || testimonials.length === 0) return null;
 
     return (
-      <div className={cn("relative", marqueeClassName)}>
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-background to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-background to-transparent" />
-
-        <div
-          className={cn(
-            "flex gap-4",
-            pauseOnHover !== false && "[&:hover_.marquee-content]:pause",
-          )}
-        >
+      <div
+        className={cn(
+          "relative marquee-fade",
+          pauseOnHover && "marquee-pause-on-hover",
+          marqueeClassName,
+        )}
+      >
+        <div className="flex gap-4">
           <div
             className="marquee-content flex shrink-0 animate-marquee gap-4"
             style={{
@@ -313,8 +311,12 @@ export function TestimonialsMarquee({
         .animate-marquee {
           animation: marquee linear infinite;
         }
-        .pause {
+        .marquee-pause-on-hover:hover .marquee-content {
           animation-play-state: paused;
+        }
+        .marquee-fade {
+          -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+          mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
         }
       `}</style>
     </Section>

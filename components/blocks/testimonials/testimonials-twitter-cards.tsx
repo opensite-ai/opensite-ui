@@ -202,10 +202,13 @@ export function TestimonialsTwitterCards({
               key={index}
               href={testimonial.linkConfig?.href}
               className={cn(
+                "bg-card text-card-foreground",
+                "flex flex-col gap-6",
                 testimonial.linkConfig?.href
                   ? "cursor-pointer hover:bg-primary hover:text-primary-foreground transition-all duration-500"
                   : "",
-                "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-xl group ",
+                "rounded-2xl py-6 shadow-xl group",
+                "ring-4 ring-primary",
                 cardClassName,
               )}
             >
