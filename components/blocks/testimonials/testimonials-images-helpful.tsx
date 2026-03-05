@@ -137,6 +137,10 @@ export interface TestimonialsImagesHelpfulProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
@@ -203,7 +207,8 @@ export function TestimonialsImagesHelpful({
   imagesClassName,
   onWriteReview,
   background,
-  spacing = "py-6 md:py-32",
+  spacing = "lg",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
   optixFlowConfig,
