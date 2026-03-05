@@ -167,72 +167,82 @@ export function TestimonialsSimpleGrid({
 
     return (
       <div
-        className={cn("grid gap-6", gridCols[effectiveColumns], gridClassName)}
+        className={cn(
+          "grid gap-4 md:gap-6 lg:gap-8 md:grid-cols-2 lg:grid-cols-3",
+          gridClassName,
+        )}
       >
         {testimonials.map((testimonial, index) => {
           const authorName = getAuthorName(testimonial);
-          const avatarSrc = getAvatarSrc(testimonial);
           return (
-            <Card key={index} className={cardClassName}>
-              <CardContent className="p-6">
-                {testimonial.quote &&
-                  (typeof testimonial.quote === "string" ? (
-                    <p
-                      className={cn(
-                        "mb-6 text-sm leading-relaxed ",
-                        quoteClassName,
-                      )}
-                    >
-                      &ldquo;{testimonial.quote}&rdquo;
-                    </p>
-                  ) : (
-                    <div className={cn("mb-6", quoteClassName)}>
-                      {testimonial.quote}
+            <Pressable
+              key={index}
+              href={testimonial.linkConfig?.href}
+              className={cn(
+                "bg-card text-card-foreground",
+                "flex flex-col gap-6",
+                testimonial.linkConfig?.href
+                  ? "cursor-pointer hover:bg-black hover:text-white transition-all duration-500"
+                  : "",
+                "rounded-2xl py-6 shadow-xl group",
+                "ring-4 ring-ring",
+                cardClassName,
+              )}
+            >
+              <CardContent
+                className={cn(
+                  "px-6 h-full flex flex-col-reverse items-stretch justify-between gap-12",
+                  cardContentClassName,
+                )}
+              >
+                <div
+                  className={cn(
+                    "flex items-center justify-between",
+                    authorClassName,
+                  )}
+                >
+                  <div className="flex items-center gap-4">
+                    <Avatar className="relative flex shrink-0 overflow-hidden rounded-full size-12 ring-4 ring-primary shadow-lg">
+                      <AvatarImage
+                        src={testimonial.avatarSrc}
+                        alt={authorName}
+                      />
+                      <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      {testimonial.author &&
+                        (typeof testimonial.author === "string" ? (
+                          <p className="font-medium leading-none">
+                            {testimonial.author}
+                          </p>
+                        ) : (
+                          testimonial.author
+                        ))}
                     </div>
-                  ))}
-                <div className={cn("flex items-center gap-3", authorClassName)}>
-                  <Avatar className="size-10">
-                    <AvatarImage src={avatarSrc} alt={authorName} />
-                    <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    {testimonial.author &&
-                      (typeof testimonial.author === "string" ? (
-                        <p className="text-sm font-medium">
-                          {testimonial.author}
-                        </p>
-                      ) : (
-                        testimonial.author
-                      ))}
-                    <p className="text-xs ">
-                      {testimonial.role &&
-                        (typeof testimonial.role === "string"
-                          ? testimonial.role
-                          : null)}
-                      {testimonial.company &&
-                        (typeof testimonial.company === "string"
-                          ? `, ${testimonial.company}`
-                          : null)}
-                    </p>
                   </div>
                 </div>
+                {testimonial.content &&
+                  (typeof testimonial.content === "string" ? (
+                    <p className="text-sm leading-relaxed">
+                      {testimonial.content}
+                    </p>
+                  ) : (
+                    testimonial.content
+                  ))}
               </CardContent>
-            </Card>
+            </Pressable>
           );
         })}
       </div>
     );
   }, [
     testimonialsSlot,
-    gridCols,
-    effectiveColumns,
     gridClassName,
     testimonials,
     cardClassName,
-    quoteClassName,
+    cardContentClassName,
     authorClassName,
     getAuthorName,
-    getAvatarSrc,
     getInitials,
   ]);
 
@@ -246,30 +256,34 @@ export function TestimonialsSimpleGrid({
       containerClassName={containerClassName}
     >
       <div
-        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        className={cn(
+          "mx-auto mb-12 max-w-full md:max-w-2xl text-center",
+          headerClassName,
+        )}
       >
         {heading &&
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-semibold tracking-tight md:text-4xl",
+                "text-pretty text-3xl md:text-4xl lg:text-6xl",
+                "font-semibold tracking-tight",
                 headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            heading
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg ", descriptionClassName)}>
+            <p
+              className={cn("mt-4 text-lg text-balance", descriptionClassName)}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>
-              {description}
-            </div>
+            description
           ))}
       </div>
 
