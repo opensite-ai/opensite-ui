@@ -96,11 +96,11 @@ export interface TestimonialsMiniDividersProps {
 }
 
 /**
- * TestimonialsMiniDividers - A grid of compact testimonial cards separated by subtle
- * dividers. Each card displays a short quote, star rating, author avatar, name, and
- * role. The divider pattern creates visual separation while maintaining a cohesive
- * layout. Ideal for displaying multiple brief testimonials in a structured, scannable
- * format.
+ * TestimonialsMiniDividers - A grid of compact testimonial cards with dashed border
+ * styling and sparkle decorations. Each card displays a short quote, star rating,
+ * author avatar, name, and role inside a structured dashed-border layout inspired
+ * by the hero-dashed-border-features pattern. Ideal for displaying multiple brief
+ * testimonials in a visually distinctive, scannable format.
  *
  * @example
  * ```tsx
@@ -169,10 +169,20 @@ export function TestimonialsMiniDividers({
     return (
       <div
         className={cn(
-          "grid divide-y sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-3 lg:divide-x",
+          "relative grid border-x border-dashed md:grid-cols-3",
           gridClassName,
         )}
       >
+        <DynamicIcon
+          name="lucide/sparkle"
+          size={20}
+          className="absolute top-0 right-0 translate-x-2.5 -translate-y-2.5 fill-primary"
+        />
+        <DynamicIcon
+          name="lucide/sparkle"
+          size={20}
+          className="absolute top-0 left-0 -translate-x-2.5 -translate-y-2.5 fill-primary"
+        />
         {testimonials.map((testimonial, index) => {
           const authorName = getAuthorName(testimonial);
           const avatarSrc = getAvatarSrc(testimonial);
@@ -180,41 +190,23 @@ export function TestimonialsMiniDividers({
             <div
               key={index}
               className={cn(
-                "p-6",
-                index >= 2 && "lg:border-t-0",
-                index >= 3 && "sm:border-t lg:border-t-0",
+                "group flex flex-col gap-4 border-t border-dashed p-4 transition-colors duration-300 hover:bg-muted/50 lg:p-8",
+                index === 1 && "md:border-x md:border-dashed",
+                index === 2 ? "border-b" : "md:border-b",
                 itemClassName,
               )}
             >
-              {testimonial.rating && <StarRating rating={testimonial.rating} />}
-              {testimonial.quote &&
-                (typeof testimonial.quote === "string" ? (
-                  <p
-                    className={cn(
-                      "mt-3 text-sm leading-relaxed",
-                      quoteClassName,
-                    )}
-                  >
-                    &ldquo;{testimonial.quote}&rdquo;
-                  </p>
-                ) : (
-                  <div className={cn("mt-3", quoteClassName)}>
-                    {testimonial.quote}
-                  </div>
-                ))}
-              <div
-                className={cn("mt-4 flex items-center gap-3", authorClassName)}
-              >
-                <Avatar className="size-8">
+              <div className="flex items-center gap-4">
+                <Avatar className="size-10 shrink-0 rounded-md bg-card shadow-sm lg:size-12">
                   <AvatarImage src={avatarSrc} alt={authorName} />
-                  <AvatarFallback className="text-xs">
+                  <AvatarFallback className="rounded-md bg-card text-card-foreground text-sm">
                     {getInitials(authorName)}
                   </AvatarFallback>
                 </Avatar>
-                <div>
+                <div className={cn("min-w-0", authorClassName)}>
                   {testimonial.author &&
                     (typeof testimonial.author === "string" ? (
-                      <p className="text-sm font-medium">
+                      <p className="truncate font-medium">
                         {testimonial.author}
                       </p>
                     ) : (
@@ -222,12 +214,32 @@ export function TestimonialsMiniDividers({
                     ))}
                   {testimonial.role &&
                     (typeof testimonial.role === "string" ? (
-                      <p className="text-xs">{testimonial.role}</p>
+                      <p className="truncate text-sm text-muted-foreground">
+                        {testimonial.role}
+                      </p>
                     ) : (
                       testimonial.role
                     ))}
                 </div>
               </div>
+              {testimonial.rating != null && (
+                <StarRating rating={testimonial.rating} />
+              )}
+              {testimonial.quote &&
+                (typeof testimonial.quote === "string" ? (
+                  <p
+                    className={cn(
+                      "text-sm leading-relaxed text-muted-foreground",
+                      quoteClassName,
+                    )}
+                  >
+                    &ldquo;{testimonial.quote}&rdquo;
+                  </p>
+                ) : (
+                  <div className={cn("text-sm", quoteClassName)}>
+                    {testimonial.quote}
+                  </div>
+                ))}
             </div>
           );
         })}
@@ -251,39 +263,48 @@ export function TestimonialsMiniDividers({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      className={cn("relative flex items-center justify-center", className)}
       containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "mx-auto mb-12 max-w-full md:max-w-2xl text-center",
-          headerClassName,
-        )}
-      >
-        {heading &&
-          (typeof heading === "string" ? (
-            <h2
-              className={cn(
-                "text-3xl font-semibold tracking-tight md:text-4xl",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h2>
-          ) : (
-            heading
-          ))}
-        {description &&
-          (typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg", descriptionClassName)}>
-              {description}
-            </p>
-          ) : (
-            description
-          ))}
-      </div>
+      <div className="relative">
+        <div
+          className={cn(
+            "border-x border-t border-dashed px-4 py-6 md:py-16 md:px-16",
+            headerClassName,
+          )}
+        >
+          <div className="mx-auto max-w-3xl">
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "text-center text-3xl font-semibold tracking-tight md:text-4xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mx-auto mt-4 max-w-2xl text-center text-lg text-balance",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              ))}
+          </div>
+        </div>
 
-      {renderedTestimonials}
+        {renderedTestimonials}
+      </div>
     </Section>
   );
 }
