@@ -15113,8 +15113,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "testimonials-twitter-cards": {
     id: "testimonials-twitter-cards",
     name: "Testimonials Twitter/X Style Cards",
-    description:
-      "Twitter/X-style testimonial cards displayed in a responsive grid. Each card mimics the social media post format with author avatar, name, handle, quote content, and a link to the original tweet. Perfect for showcasing social media mentions and building credibility through real social proof.",
+    description: "TODO",
     semanticTags: [
       "testimonials",
       "twitter",
