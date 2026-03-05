@@ -222,9 +222,7 @@ export function TestimonialsMiniDividers({
                     ))}
                   {testimonial.role &&
                     (typeof testimonial.role === "string" ? (
-                      <p className="text-xs text-muted-foreground">
-                        {testimonial.role}
-                      </p>
+                      <p className="text-xs">{testimonial.role}</p>
                     ) : (
                       testimonial.role
                     ))}
