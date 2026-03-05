@@ -50,6 +50,8 @@ export {
   PopoverContent,
 } from "../components/ui/popover";
 export { DynamicIcon } from "../components/ui/dynamic-icon";
+export { StarRating } from "../components/ui/star-rating";
+export type { StarRatingProps } from "../components/ui/star-rating";
 export { CarouselPagination } from "../components/ui/carousel-pagination";
 export type { CarouselPaginationProps } from "../components/ui/carousel-pagination";
 export { SocialLinkIcon } from "../components/ui/social-link-icon";

@@ -4,6 +4,7 @@ import * as React from "react";
 import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { StarRating } from "../../ui/star-rating";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
@@ -105,25 +106,6 @@ export interface TestimonialsListVerifiedProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
-}
-
-function StarRating({ rating, size = 18 }: { rating: number; size?: number }) {
-  return (
-    <div className="flex items-center gap-0.5">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <DynamicIcon
-          key={star}
-          name="icon-park-solid/star"
-          size={size}
-          className={cn(
-            star <= rating
-              ? "fill-primary text-primary"
-              : "fill-muted text-muted",
-          )}
-        />
-      ))}
-    </div>
-  );
 }
 
 /**

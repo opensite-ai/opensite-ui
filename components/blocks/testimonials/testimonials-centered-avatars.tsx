@@ -223,7 +223,7 @@ export function TestimonialsCenteredAvatars({
     >
       <div
         className={cn(
-          "mx-auto max-w-full md:max-w-md text-center flex flex-col items-center gap-6",
+          "mx-auto max-w-full md:max-w-md text-center flex flex-col items-center gap-6 bg-card/50 px-10 py-20 shadow-xl border border-border/50 rounded-3xl backdrop-blur-md",
           contentClassName,
         )}
       >

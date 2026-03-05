@@ -64,6 +64,10 @@ export interface TestimonialsCarouselImageProps {
    */
   quoteIconClassName?: string;
   /**
+   * Additional CSS classes for the company logo
+   */
+  logoClassName?: string;
+  /**
    * Additional CSS classes for the quote text
    */
   quoteClassName?: string;
@@ -148,6 +152,7 @@ export function TestimonialsCarouselImage({
   className,
   contentClassName,
   quoteIconClassName,
+  logoClassName,
   quoteClassName,
   authorClassName,
   navigationClassName,
@@ -155,7 +160,7 @@ export function TestimonialsCarouselImage({
   dotsClassName,
   optixFlowConfig,
   background,
-  containerClassName = "mx-0 w-screen px-0 sm:px-0 lg:px-0 max-w-screen relative z-10",
+  containerClassName = "mx-0 w-screen px-0 sm:px-0 lg:px-0 max-w-screen relative z-10 h-full",
   spacing = "none",
   pattern,
   patternOpacity,
@@ -220,11 +225,29 @@ export function TestimonialsCarouselImage({
           contentClassName,
         )}
       >
-        <DynamicIcon
-          name="mdi/comment-quote-outline"
-          size={48}
-          className={cn("mx-auto mb-6 opacity-50", quoteIconClassName)}
-        />
+        {current?.logoSrc ? (
+          <Img
+            src={current.logoSrc}
+            alt={
+              typeof current.company === "string"
+                ? `${current.company} logo`
+                : typeof current.author === "string"
+                  ? `${current.author} company logo`
+                  : "Company logo"
+            }
+            className={cn(
+              "mx-auto mb-6 max-h-12 max-w-32 object-contain md:max-h-16 md:max-w-48",
+              logoClassName,
+            )}
+            optixFlowConfig={optixFlowConfig}
+          />
+        ) : (
+          <DynamicIcon
+            name="mdi/comment-quote-outline"
+            size={48}
+            className={cn("mx-auto mb-6 opacity-50", quoteIconClassName)}
+          />
+        )}
         {current.quote &&
           (typeof current.quote === "string" ? (
             <blockquote
@@ -282,6 +305,8 @@ export function TestimonialsCarouselImage({
     testimonialsSlot,
     contentClassName,
     quoteIconClassName,
+    logoClassName,
+    optixFlowConfig,
     current,
     quoteClassName,
     authorClassName,

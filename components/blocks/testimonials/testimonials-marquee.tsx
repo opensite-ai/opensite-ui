@@ -193,11 +193,19 @@ export function TestimonialsMarquee({
               const authorName = getAuthorName(testimonial);
               const avatarSrc = getAvatarSrc(testimonial);
               return (
-                <Card
+                <Pressable
+                  href={testimonial?.linkConfig?.href}
                   key={index}
-                  className={cn("w-80 shrink-0", cardClassName)}
+                  className={cn(
+                    "bg-card text-card-foreground",
+                    "rounded-2xl border shadow-xl",
+                    "cursor-pointer transition-all duration-500",
+                    "hover:bg-primary hover:text-primary-foreground",
+                    "flex flex-col gap-6 w-80 shrink-0",
+                    cardClassName,
+                  )}
                 >
-                  <CardContent className="p-6">
+                  <CardContent className="p-6 h-full flex flex-col justify-between gap-12">
                     {testimonial.quote &&
                       (typeof testimonial.quote === "string" ? (
                         <p
@@ -214,9 +222,9 @@ export function TestimonialsMarquee({
                         </div>
                       ))}
                     <div
-                      className={cn("flex items-center gap-3", authorClassName)}
+                      className={cn("flex items-center gap-4", authorClassName)}
                     >
-                      <Avatar className="size-9">
+                      <Avatar className="relative flex shrink-0 overflow-hidden rounded-full size-10 ring-4 ring-primary shadow-lg">
                         <AvatarImage src={avatarSrc} alt={authorName} />
                         <AvatarFallback className="text-xs">
                           {getInitials(authorName)}
@@ -225,7 +233,7 @@ export function TestimonialsMarquee({
                       <div>
                         {testimonial.author &&
                           (typeof testimonial.author === "string" ? (
-                            <p className="text-sm font-medium">
+                            <p className="text-base font-medium">
                               {testimonial.author}
                             </p>
                           ) : (
@@ -233,7 +241,7 @@ export function TestimonialsMarquee({
                           ))}
                         {testimonial.role &&
                           (typeof testimonial.role === "string" ? (
-                            <p className="text-xs">{testimonial.role}</p>
+                            <p className="text-sm">{testimonial.role}</p>
                           ) : (
                             testimonial.role
                           ))}
@@ -272,12 +280,12 @@ export function TestimonialsMarquee({
       containerClassName={containerClassName}
     >
       <div className={cn("mb-12", headerClassName)}>
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto max-w-full md:max-w-2xl text-center space-y-2">
           {heading &&
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  "text-3xl font-semibold tracking-tight md:text-4xl lg:text-6xl text-pretty",
                   headingClassName,
                 )}
               >
@@ -288,7 +296,7 @@ export function TestimonialsMarquee({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("mt-4 text-lg", descriptionClassName)}>
+              <p className={cn("text-lg text-balance", descriptionClassName)}>
                 {description}
               </p>
             ) : (

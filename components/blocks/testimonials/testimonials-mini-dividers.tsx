@@ -4,6 +4,7 @@ import * as React from "react";
 import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { StarRating } from "../../ui/star-rating";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -88,25 +89,10 @@ export interface TestimonialsMiniDividersProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
-}
-
-function StarRating({ rating, size = 14 }: { rating: number; size?: number }) {
-  return (
-    <div className="flex items-center gap-0.5">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <DynamicIcon
-          key={star}
-          name="lucide/star"
-          size={size}
-          className={cn(
-            star <= rating
-              ? "fill-primary text-primary"
-              : "fill-muted text-muted",
-          )}
-        />
-      ))}
-    </div>
-  );
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -149,20 +135,25 @@ export function TestimonialsMiniDividers({
   quoteClassName,
   authorClassName,
   background,
-  spacing,
+  spacing = "lg",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
 }: TestimonialsMiniDividersProps): React.JSX.Element {
-  const getAuthorName = useCallback((testimonial: MiniTestimonialItem): string => {
-    if (typeof testimonial.author === "string") return testimonial.author;
-    return "";
-  }, []);
+  const getAuthorName = useCallback(
+    (testimonial: MiniTestimonialItem): string => {
+      if (typeof testimonial.author === "string") return testimonial.author;
+      return "";
+    },
+    [],
+  );
 
-  const getAvatarSrc = useCallback((
-    testimonial: MiniTestimonialItem,
-  ): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  }, []);
+  const getAvatarSrc = useCallback(
+    (testimonial: MiniTestimonialItem): string | undefined => {
+      return testimonial.avatarSrc || testimonial.avatar?.src;
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -244,7 +235,17 @@ export function TestimonialsMiniDividers({
         })}
       </div>
     );
-  }, [testimonialsSlot, gridClassName, testimonials, itemClassName, quoteClassName, authorClassName, getAuthorName, getAvatarSrc, getInitials]);
+  }, [
+    testimonialsSlot,
+    gridClassName,
+    testimonials,
+    itemClassName,
+    quoteClassName,
+    authorClassName,
+    getAuthorName,
+    getAvatarSrc,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -253,9 +254,13 @@ export function TestimonialsMiniDividers({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div
-        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        className={cn(
+          "mx-auto mb-12 max-w-full md:max-w-2xl text-center",
+          headerClassName,
+        )}
       >
         {heading &&
           (typeof heading === "string" ? (
@@ -268,22 +273,15 @@ export function TestimonialsMiniDividers({
               {heading}
             </h2>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            heading
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p
-              className={cn(
-                "mt-4 text-lg text-muted-foreground",
-                descriptionClassName,
-              )}
-            >
+            <p className={cn("mt-4 text-lg", descriptionClassName)}>
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>
-              {description}
-            </div>
+            description
           ))}
       </div>
 

@@ -15208,9 +15208,9 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   },
   "testimonials-centered-avatars": {
     id: "testimonials-centered-avatars",
-    name: "Testimonials Centered with Avatar Stack",
+    name: "Testimonials Centered with Glassmorphism Card",
     description:
-      "A centered testimonial section featuring an overlapping avatar stack at the top, creating a community feel. Displays a rotating testimonial with quote, author name, role, and navigation dots. The stacked avatars create visual interest and suggest multiple satisfied customers. Perfect for SaaS landing pages.",
+      "A modern testimonial section featuring a glassmorphism card with frosted glass effect as the primary focal point. Displays an overlapping avatar stack at the top, creating a community feel, with rotating testimonials including quote, author name, role, and navigation dots. The translucent card design creates visual depth and sophistication. Perfect for SaaS landing pages and premium marketing sites.",
     semanticTags: [
       "testimonials",
       "centered",
@@ -15218,7 +15218,11 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       "stack",
       "community",
       "social-proof",
-      "minimal",
+      "glassmorphism",
+      "glass",
+      "frosted",
+      "modern",
+      "premium",
       "rotating",
     ],
     category: "testimonials",

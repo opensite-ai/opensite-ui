@@ -233,7 +233,7 @@ export function TestimonialsSliderMinimal({
         >
           <Avatar
             className={cn(
-              "relative flex shrink-0 overflow-hidden rounded-3xl ring-8 ring-primary shadow-xl size-24",
+              "relative flex shrink-0 overflow-hidden rounded-full ring-4 ring-primary shadow-xl size-12",
               avatarClassName,
             )}
           >

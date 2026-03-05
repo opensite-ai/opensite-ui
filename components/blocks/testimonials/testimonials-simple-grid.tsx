@@ -190,14 +190,14 @@ export function TestimonialsSimpleGrid({
                 testimonial.linkConfig?.href
                   ? "cursor-pointer hover:bg-black hover:text-white transition-all duration-500"
                   : "",
-                "rounded-2xl py-6 shadow-xl group",
+                "rounded-2xl py-0 shadow-xl group",
                 "ring-4 ring-ring",
                 cardClassName,
               )}
             >
               <CardContent
                 className={cn(
-                  "px-6 h-full flex flex-col-reverse items-stretch justify-between gap-12",
+                  "px-0 h-full flex flex-col-reverse items-stretch justify-between gap-12",
                   cardContentClassName,
                 )}
               >
@@ -208,33 +208,57 @@ export function TestimonialsSimpleGrid({
                   )}
                 >
                   <div className="flex items-center gap-4">
-                    <Avatar className="relative flex shrink-0 overflow-hidden rounded-full size-12 ring-4 ring-primary shadow-lg">
+                    <Avatar className="relative flex shrink-0 size-24 border-t-4 border-r-4 border-primary rounded-tr-xl rounded-tl-none rounded-br-none rounded-bl-none shadow-xl">
                       <AvatarImage
                         src={testimonial.avatarSrc}
                         alt={authorName}
                       />
                       <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
                     </Avatar>
-                    <div>
-                      {testimonial.author &&
-                        (typeof testimonial.author === "string" ? (
-                          <p className="font-medium leading-none">
-                            {testimonial.author}
-                          </p>
-                        ) : (
-                          testimonial.author
-                        ))}
+                    <div className="space-y-1 pt-2 pr-6 pb-2">
+                      <div className="space-y-0">
+                        {testimonial.author &&
+                          (typeof testimonial.author === "string" ? (
+                            <p className="text-lg font-semibold leading-relaxed">
+                              {testimonial.author}
+                            </p>
+                          ) : (
+                            testimonial.author
+                          ))}
+
+                        {testimonial.role &&
+                          (typeof testimonial.role === "string" ? (
+                            <p className="text-base">{testimonial.role}</p>
+                          ) : (
+                            testimonial.role
+                          ))}
+                      </div>
+
+                      {testimonial.linkConfig?.href && (
+                        <Pressable
+                          href={testimonial.linkConfig.href}
+                          className={cn(
+                            "text-base  transition-all duration-300",
+                            "underline underline-offset-4",
+                            testimonial.linkConfig.className,
+                          )}
+                        >
+                          {testimonial.linkConfig.label}
+                        </Pressable>
+                      )}
                     </div>
                   </div>
                 </div>
-                {testimonial.quote &&
-                  (typeof testimonial.quote === "string" ? (
-                    <p className="text-sm leading-relaxed">
-                      {testimonial.quote}
-                    </p>
-                  ) : (
-                    testimonial.quote
-                  ))}
+                <div className="pt-6 md: pt-8 px-6 md:px-8">
+                  {testimonial.quote &&
+                    (typeof testimonial.quote === "string" ? (
+                      <p className="text-sm leading-relaxed">
+                        {testimonial.quote}
+                      </p>
+                    ) : (
+                      testimonial.quote
+                    ))}
+                </div>
               </CardContent>
             </Pressable>
           );

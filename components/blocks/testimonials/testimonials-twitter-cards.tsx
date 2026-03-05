@@ -191,7 +191,7 @@ export function TestimonialsTwitterCards({
     return (
       <div
         className={cn(
-          "grid gap-4 md:gap-6 lg:gap-8 md:grid-cols-2 lg:grid-cols-3",
+          "grid gap-6 lg:gap-8 md:grid-cols-2 lg:grid-cols-3",
           gridClassName,
         )}
       >
@@ -249,6 +249,7 @@ export function TestimonialsTwitterCards({
                     <SocialLinkIcon
                       href={testimonial.linkConfig.href}
                       iconSize={24}
+                      iconOnly
                     />
                   )}
                 </div>

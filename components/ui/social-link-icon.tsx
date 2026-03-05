@@ -90,6 +90,11 @@ export interface SocialLinkIconProps
    * Required href for the link
    */
   href: string;
+  /**
+   * Return icon only
+   * @default false
+   */
+  iconOnly?: boolean;
 }
 
 /**
@@ -135,6 +140,7 @@ export const SocialLinkIcon = React.forwardRef<
       iconClassName,
       className,
       iconNameOverride,
+      iconOnly = false,
       ...pressableProps
     },
     ref,
@@ -153,6 +159,22 @@ export const SocialLinkIcon = React.forwardRef<
       return label || platformName;
     }, [label, platformName]);
 
+    const icon = React.useMemo(() => {
+      return (
+        <DynamicIcon
+          name={iconName}
+          size={iconSize}
+          color={iconColor}
+          className={iconClassName}
+          alt={accessibleLabel}
+        />
+      );
+    }, [iconName, iconSize, iconColor, iconClassName, accessibleLabel]);
+
+    if (iconOnly) {
+      return icon;
+    }
+
     return (
       <Pressable
         ref={ref}
@@ -164,13 +186,7 @@ export const SocialLinkIcon = React.forwardRef<
         )}
         {...pressableProps}
       >
-        <DynamicIcon
-          name={iconName}
-          size={iconSize}
-          color={iconColor}
-          className={iconClassName}
-          alt={accessibleLabel}
-        />
+        {icon}
       </Pressable>
     );
   },

@@ -2,8 +2,13 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { StarRating } from "../../ui/star-rating";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
@@ -111,25 +116,6 @@ export interface TestimonialsGridAddReviewProps {
   patternOpacity?: number;
 }
 
-function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
-  return (
-    <div className="flex items-center gap-0.5">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <DynamicIcon
-          key={star}
-          name="lucide/star"
-          size={size}
-          className={cn(
-            star <= rating
-              ? "fill-primary text-primary"
-              : "fill-muted text-muted",
-          )}
-        />
-      ))}
-    </div>
-  );
-}
-
 /**
  * TestimonialsGridAddReview - A testimonial grid layout featuring review cards with
  * star ratings and an interactive "Add Review" card. The add review card uses a dashed
@@ -206,10 +192,12 @@ export function TestimonialsGridAddReview({
           )}
           onClick={onAddReview}
         >
-          <CardContent className={cn(
-            "flex flex-col items-center gap-3 py-12 text-center",
-            getNestedCardTextColor(background)
-          )}>
+          <CardContent
+            className={cn(
+              "flex flex-col items-center gap-3 py-12 text-center",
+              getNestedCardTextColor(background),
+            )}
+          >
             <div className="flex size-12 items-center justify-center rounded-full bg-primary/10">
               <DynamicIcon
                 name="lucide/plus"
@@ -268,7 +256,19 @@ export function TestimonialsGridAddReview({
         })}
       </div>
     );
-  }, [reviewsSlot, gridClassName, addReviewCardClassName, onAddReview, addReviewText, addReviewSubtext, reviews, cardClassName, authorClassName, getAuthorName, getInitials]);
+  }, [
+    reviewsSlot,
+    gridClassName,
+    addReviewCardClassName,
+    onAddReview,
+    addReviewText,
+    addReviewSubtext,
+    reviews,
+    cardClassName,
+    authorClassName,
+    getAuthorName,
+    getInitials,
+  ]);
 
   return (
     <Section
