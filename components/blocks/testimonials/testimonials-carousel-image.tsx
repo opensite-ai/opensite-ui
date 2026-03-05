@@ -1,16 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { useState, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 import type {
   OptixFlowConfig,
   TestimonialItem,
   SectionBackground,
+  SectionSpacing,
 } from "../../../src/types";
 
 /**
@@ -104,6 +107,10 @@ export interface TestimonialsCarouselImageProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /**
+   * Auto-play interval in milliseconds (0 to disable)
+   */
+  autoPlayInterval?: number;
 }
 
 /**
@@ -133,6 +140,7 @@ export interface TestimonialsCarouselImageProps {
 export function TestimonialsCarouselImage({
   testimonials,
   testimonialsSlot,
+  autoPlayInterval,
   height = "h-70dvh lg:h-60dvh",
   overlayOpacity = 0.6,
   previousButtonAriaLabel,
@@ -154,16 +162,50 @@ export function TestimonialsCarouselImage({
 }: TestimonialsCarouselImageProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalTestimonials = testimonials?.length ?? 0;
+  const autoPlayTimerRef = React.useRef<ReturnType<typeof setInterval> | null>(
+    null,
+  );
 
-  const goToPrevious = useCallback(() => {
-    if (totalTestimonials === 0) return;
-    setCurrentIndex((prev) => (prev === 0 ? totalTestimonials - 1 : prev - 1));
-  }, [totalTestimonials]);
+  const resetAutoPlay = useCallback(() => {
+    if (autoPlayTimerRef.current) {
+      clearInterval(autoPlayTimerRef.current);
+      autoPlayTimerRef.current = null;
+    }
+    if (!autoPlayInterval || autoPlayInterval <= 0 || totalTestimonials === 0)
+      return;
+    autoPlayTimerRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % totalTestimonials);
+    }, autoPlayInterval);
+  }, [autoPlayInterval, totalTestimonials]);
 
   const goToNext = useCallback(() => {
     if (totalTestimonials === 0) return;
     setCurrentIndex((prev) => (prev === totalTestimonials - 1 ? 0 : prev + 1));
-  }, [totalTestimonials]);
+    resetAutoPlay();
+  }, [totalTestimonials, resetAutoPlay]);
+
+  const goToPrevious = useCallback(() => {
+    if (totalTestimonials === 0) return;
+    setCurrentIndex((prev) => (prev === 0 ? totalTestimonials - 1 : prev - 1));
+    resetAutoPlay();
+  }, [totalTestimonials, resetAutoPlay]);
+
+  const goToIndex = useCallback(
+    (index: number) => {
+      setCurrentIndex(index);
+      resetAutoPlay();
+    },
+    [resetAutoPlay],
+  );
+
+  useEffect(() => {
+    resetAutoPlay();
+    return () => {
+      if (autoPlayTimerRef.current) {
+        clearInterval(autoPlayTimerRef.current);
+      }
+    };
+  }, [resetAutoPlay]);
 
   const current = testimonials?.[currentIndex];
 
@@ -255,14 +297,25 @@ export function TestimonialsCarouselImage({
       containerClassName={containerClassName}
     >
       <div className="absolute inset-0">
-        {current?.backgroundImage && (
-          <Img
-            src={current.backgroundImage}
-            alt="Testimonial background image"
-            className="size-full object-cover"
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
+        <AnimatePresence initial={false}>
+          {current?.backgroundImage && (
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              className="absolute inset-0"
+            >
+              <Img
+                src={current.backgroundImage}
+                alt="Testimonial background image"
+                className="size-full object-cover"
+                optixFlowConfig={optixFlowConfig}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
         <div
           className="absolute inset-0 bg-black"
           style={{ opacity: overlayOpacity }}
@@ -270,7 +323,17 @@ export function TestimonialsCarouselImage({
       </div>
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4">
-        {renderedTestimonialContent}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          >
+            {renderedTestimonialContent}
+          </motion.div>
+        </AnimatePresence>
 
         <div
           className={cn(
@@ -293,7 +356,7 @@ export function TestimonialsCarouselImage({
             {testimonials?.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => goToIndex(index)}
                 className={cn(
                   "size-2 rounded-full transition-all",
                   index === currentIndex

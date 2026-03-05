@@ -69,6 +69,10 @@ export interface TestimonialsSliderMinimalProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /**
+   * Additional CSS classes for the navigation buttons
+   */
+  navButtonClassName?: string;
 }
 
 /**
@@ -104,6 +108,7 @@ export function TestimonialsSliderMinimal({
   quoteClassName,
   authorClassName,
   avatarClassName,
+  navButtonClassName,
   dotsClassName,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
@@ -111,9 +116,56 @@ export function TestimonialsSliderMinimal({
   pattern,
   patternOpacity,
 }: TestimonialsSliderMinimalProps): React.JSX.Element {
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const totalTestimonials = testimonials?.length ?? 0;
+  const autoPlayTimerRef = React.useRef<ReturnType<typeof setInterval> | null>(
+    null,
+  );
+
+  const resetAutoPlay = useCallback(() => {
+    if (autoPlayTimerRef.current) {
+      clearInterval(autoPlayTimerRef.current);
+      autoPlayTimerRef.current = null;
+    }
+    if (!autoPlayInterval || autoPlayInterval <= 0 || totalTestimonials === 0)
+      return;
+    autoPlayTimerRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % totalTestimonials);
+    }, autoPlayInterval);
+  }, [autoPlayInterval, totalTestimonials]);
+
+  const goToNext = useCallback(() => {
+    if (totalTestimonials === 0) return;
+    setCurrentIndex((prev) => (prev === totalTestimonials - 1 ? 0 : prev + 1));
+    resetAutoPlay();
+  }, [totalTestimonials, resetAutoPlay]);
+
+  const goToPrevious = useCallback(() => {
+    if (totalTestimonials === 0) return;
+    setCurrentIndex((prev) => (prev === 0 ? totalTestimonials - 1 : prev - 1));
+    resetAutoPlay();
+  }, [totalTestimonials, resetAutoPlay]);
+
+  const goToIndex = useCallback(
+    (index: number) => {
+      setCurrentIndex(index);
+      resetAutoPlay();
+    },
+    [resetAutoPlay],
+  );
+
+  useEffect(() => {
+    resetAutoPlay();
+    return () => {
+      if (autoPlayTimerRef.current) {
+        clearInterval(autoPlayTimerRef.current);
+      }
+    };
+  }, [resetAutoPlay]);
+
+  const current = testimonials?.[currentIndex];
+
   const effectiveAutoPlayInterval = autoPlayInterval ?? 5000;
 
   const goToSlide = useCallback(
@@ -170,7 +222,7 @@ export function TestimonialsSliderMinimal({
     return (
       <div
         className={cn(
-          "transition-opacity duration-300",
+          "transition-opacity duration-500 space-y-12 md:space-y-24",
           isTransitioning ? "opacity-0" : "opacity-100",
         )}
       >
@@ -178,27 +230,32 @@ export function TestimonialsSliderMinimal({
           (typeof current.quote === "string" ? (
             <blockquote
               className={cn(
-                "text-xl font-medium leading-relaxed md:text-2xl lg:text-3xl",
+                "text-xl font-thin leading-relaxed md:text-2xl text-balance",
                 quoteClassName,
               )}
             >
               &ldquo;{current.quote}&rdquo;
             </blockquote>
           ) : (
-            <div className={quoteClassName}>{current.quote}</div>
+            current.quote
           ))}
 
         <div
           className={cn(
-            "mt-8 flex flex-col items-center gap-4",
+            "mt-8 flex flex-col items-center gap-6 md:gap-12",
             authorClassName,
           )}
         >
-          <Avatar className={cn("size-14", avatarClassName)}>
+          <Avatar
+            className={cn(
+              "relative flex shrink-0 overflow-hidden rounded-3xl ring-8 ring-primary shadow-xl size-24",
+              avatarClassName,
+            )}
+          >
             <AvatarImage src={avatarSrc} alt={authorName} />
             <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
           </Avatar>
-          <div>
+          <div className="flex flex-col items-center gap-0">
             {current.author &&
               (typeof current.author === "string" ? (
                 <p className="font-semibold">{current.author}</p>
@@ -212,6 +269,18 @@ export function TestimonialsSliderMinimal({
                 current.role
               ))}
           </div>
+          {current.linkConfig?.href && (
+            <Pressable
+              href={current.linkConfig.href}
+              className={cn(
+                current.linkConfig.className,
+                "text-sm font-bold tracking-wide uppercase",
+                "hover:underline hover:underline-offset-2",
+              )}
+            >
+              {current.linkConfig.label}
+            </Pressable>
+          )}
         </div>
       </div>
     );
@@ -241,19 +310,43 @@ export function TestimonialsSliderMinimal({
 
         {testimonials && testimonials.length > 0 && (
           <div className={cn("mt-8 flex justify-center gap-2", dotsClassName)}>
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={cn(
-                  "size-2 rounded-full transition-all",
-                  index === currentIndex
-                    ? "w-6 bg-primary text-primary-foreground"
-                    : "",
-                )}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
-            ))}
+            <Pressable
+              asButton
+              variant="default"
+              size="icon"
+              className={cn("size-10 rounded-full", navButtonClassName)}
+              onClick={goToPrevious}
+              aria-label={previousButtonAriaLabel ?? "Previous testimonial"}
+            >
+              <DynamicIcon name="lucide/chevron-left" size={24} />
+            </Pressable>
+
+            <div className={cn("flex gap-2", dotsClassName)}>
+              {testimonials?.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToIndex(index)}
+                  className={cn(
+                    "size-2 rounded-full transition-all",
+                    index === currentIndex
+                      ? "w-6 bg-primary"
+                      : "bg-white/40 hover:bg-white/60",
+                  )}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            <Pressable
+              asButton
+              variant="default"
+              size="icon"
+              className={cn("size-10 rounded-full", navButtonClassName)}
+              onClick={goToNext}
+              aria-label={nextButtonAriaLabel ?? "Next testimonial"}
+            >
+              <DynamicIcon name="lucide/chevron-right" size={24} />
+            </Pressable>
           </div>
         )}
       </div>
