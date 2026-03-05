@@ -10,6 +10,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { cn } from "../../../lib/utils";
+import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -17,12 +18,26 @@ import type {
   SectionSpacing,
   TestimonialItem,
 } from "../../../src/types";
+import { DynamicIcon } from "../../ui/dynamic-icon";
+
+export interface TestimonialParallaxItem extends TestimonialItem {
+  /**
+   * Giant background icon name displayed behind the testimonial content (e.g. "material-symbols/award-star-outline").
+   * When not provided, no background icon is rendered.
+   */
+  backgroundIcon?: string;
+  /**
+   * Giant background text label displayed behind the testimonial content (e.g. "01", "A+").
+   * Only used when `backgroundIcon` is not provided.
+   */
+  backgroundLabel?: React.ReactNode;
+}
 
 export interface TestimonialsParallaxNumberProps {
   /**
    * Array of testimonials to display
    */
-  testimonials?: TestimonialItem[];
+  testimonials?: TestimonialParallaxItem[];
   /**
    * Custom slot for rendering testimonials (overrides testimonials array)
    */
@@ -118,16 +133,27 @@ export function TestimonialsParallaxNumber({
   authorClassName,
   navigationClassName,
   background,
-  spacing,
   pattern,
   patternOpacity,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "xl",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: TestimonialsParallaxNumberProps): React.JSX.Element {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const totalTestimonials = testimonials?.length ?? 0;
-  const effectiveAutoPlayInterval = autoPlayInterval ?? 6000;
+  const autoPlayTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const resetAutoPlay = useCallback(() => {
+    if (autoPlayTimerRef.current) {
+      clearInterval(autoPlayTimerRef.current);
+      autoPlayTimerRef.current = null;
+    }
+    const interval = autoPlayInterval ?? 6000;
+    if (interval <= 0 || totalTestimonials === 0) return;
+    autoPlayTimerRef.current = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % totalTestimonials);
+    }, interval);
+  }, [autoPlayInterval, totalTestimonials]);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -155,38 +181,51 @@ export function TestimonialsParallaxNumber({
   const goNext = useCallback(() => {
     if (totalTestimonials === 0) return;
     setActiveIndex((prev) => (prev + 1) % totalTestimonials);
-  }, [totalTestimonials]);
+    resetAutoPlay();
+  }, [totalTestimonials, resetAutoPlay]);
 
   const goPrev = useCallback(() => {
     if (totalTestimonials === 0) return;
     setActiveIndex(
       (prev) => (prev - 1 + totalTestimonials) % totalTestimonials,
     );
-  }, [totalTestimonials]);
+    resetAutoPlay();
+  }, [totalTestimonials, resetAutoPlay]);
 
   useEffect(() => {
-    if (effectiveAutoPlayInterval <= 0 || totalTestimonials === 0) return;
-
-    const timer = setInterval(goNext, effectiveAutoPlayInterval);
-    return () => clearInterval(timer);
-  }, [effectiveAutoPlayInterval, goNext, totalTestimonials]);
+    resetAutoPlay();
+    return () => {
+      if (autoPlayTimerRef.current) {
+        clearInterval(autoPlayTimerRef.current);
+      }
+    };
+  }, [resetAutoPlay]);
 
   const current = testimonials?.[activeIndex];
 
-  const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
-    if (typeof testimonial.author === "string") return testimonial.author;
-    return "";
-  }, []);
+  const getAuthorName = useCallback(
+    (testimonial: TestimonialParallaxItem): string => {
+      if (typeof testimonial.author === "string") return testimonial.author;
+      return "";
+    },
+    [],
+  );
 
-  const getQuoteText = useCallback((testimonial: TestimonialItem): string => {
-    if (typeof testimonial.quote === "string") return testimonial.quote;
-    return "";
-  }, []);
+  const getQuoteText = useCallback(
+    (testimonial: TestimonialParallaxItem): string => {
+      if (typeof testimonial.quote === "string") return testimonial.quote;
+      return "";
+    },
+    [],
+  );
 
-  const getCompanyName = useCallback((testimonial: TestimonialItem): string => {
-    if (typeof testimonial.company === "string") return testimonial.company;
-    return "";
-  }, []);
+  const getCompanyName = useCallback(
+    (testimonial: TestimonialParallaxItem): string => {
+      if (typeof testimonial.company === "string") return testimonial.company;
+      return "";
+    },
+    [],
+  );
 
   const renderedTestimonial = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
@@ -218,7 +257,11 @@ export function TestimonialsParallaxNumber({
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="block"
             >
-              {String(activeIndex + 1).padStart(2, "0")}
+              {current.backgroundIcon ? (
+                <DynamicIcon name={current.backgroundIcon} />
+              ) : current.backgroundLabel != null ? (
+                current.backgroundLabel
+              ) : null}
             </motion.span>
           </AnimatePresence>
         </motion.div>
@@ -318,13 +361,6 @@ export function TestimonialsParallaxNumber({
                   transition={{ duration: 0.4, delay: 0.2 }}
                   className={cn("flex items-center gap-4", authorClassName)}
                 >
-                  <motion.div
-                    className="h-px w-8"
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    style={{ originX: 0 }}
-                  />
                   <div>
                     {current.author &&
                       (typeof current.author === "string" ? (
@@ -340,6 +376,17 @@ export function TestimonialsParallaxNumber({
                       ) : (
                         current.role
                       ))}
+                    {current.linkConfig?.href && (
+                      <Pressable
+                        href={current.linkConfig.href}
+                        className={cn(
+                          "text-sm text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors",
+                          current.linkConfig.className,
+                        )}
+                      >
+                        {current.linkConfig.label}
+                      </Pressable>
+                    )}
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -349,7 +396,7 @@ export function TestimonialsParallaxNumber({
               >
                 <motion.button
                   onClick={goPrev}
-                  className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full border border-border"
+                  className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full bg-primary text-primary-foreground"
                   whileTap={{ scale: 0.95 }}
                 >
                   <svg
@@ -357,7 +404,7 @@ export function TestimonialsParallaxNumber({
                     height="18"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="relative z-10  transition-colors "
+                    className="relative z-10 transition-colors"
                   >
                     <path
                       d="M10 12L6 8L10 4"
@@ -371,7 +418,7 @@ export function TestimonialsParallaxNumber({
 
                 <motion.button
                   onClick={goNext}
-                  className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full border border-border"
+                  className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full bg-primary text-primary-foreground"
                   whileTap={{ scale: 0.95 }}
                 >
                   <svg
@@ -379,7 +426,7 @@ export function TestimonialsParallaxNumber({
                     height="18"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="relative z-10  transition-colors "
+                    className="relative z-10 transition-colors"
                   >
                     <path
                       d="M6 4L10 8L6 12"

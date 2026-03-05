@@ -11,12 +11,10 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
-/**
- * Twitter/X testimonial item interface
- */
-export interface TwitterTestimonialItem {
+export interface TwitterTestimonialItem extends SocialTestimonialItem {}
+export interface SocialTestimonialItem {
   /**
-   * Tweet/post content
+   * post content
    */
   content: React.ReactNode;
   /**
@@ -24,7 +22,7 @@ export interface TwitterTestimonialItem {
    */
   author?: React.ReactNode;
   /**
-   * Twitter/X handle (e.g., "@username")
+   * social handle (e.g., "@username")
    */
   handle?: string;
   /**
@@ -32,16 +30,20 @@ export interface TwitterTestimonialItem {
    */
   avatarSrc?: string;
   /**
-   * Link to the original tweet/post
+   * Link to the original post
    */
-  twitterUrl?: string;
+  linkConfig?: {
+    label: React.ReactNode;
+    href: string;
+    className?: string;
+  };
 }
 
 export interface TestimonialsTwitterCardsProps {
   /**
-   * Array of Twitter testimonials to display
+   * Array of social testimonials to display
    */
-  testimonials?: TwitterTestimonialItem[];
+  testimonials?: SocialTestimonialItem[];
   /**
    * Custom slot for rendering testimonials (overrides testimonials array)
    */
@@ -102,12 +104,16 @@ export interface TestimonialsTwitterCardsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
- * TestimonialsTwitterCards - A grid of Twitter/X-style testimonial cards featuring
- * user content, profile avatars, handles, and links to original tweets. Each card
- * displays the Twitter/X logo and links to the author's profile. Ideal for showcasing
+ * TestimonialsTwitterCards - A grid of social testimonial cards featuring
+ * user content, profile avatars, handles, and links to original posts. Each card
+ * displays the social platforms logo and links to the author's profile. Ideal for showcasing
  * social proof from real social media posts and building credibility through authentic
  * user endorsements.
  *
@@ -122,7 +128,20 @@ export interface TestimonialsTwitterCardsProps {
  *       author: "John Doe",
  *       handle: "@johndoe",
  *       avatarSrc: "/avatars/john.jpg",
- *       twitterUrl: "https://twitter.com/johndoe/status/123"
+ *       linkConfig: {
+ *         label: "Read on Twitter",
+ *         href: "https://twitter.com/johndoe/status/123",
+ *       }
+ *     },
+ *     {
+ *       content: "So Good!!",
+ *       author: "Jon Snow",
+ *       handle: "@jonsnow",
+ *       avatarSrc: "/avatars/jon.jpg",
+ *       linkConfig: {
+ *         label: "See on Instagram",
+ *         href: "https://instagram.com/jonsnow/status/123",
+ *       }
  *     }
  *   ]}
  *   background="gray"
@@ -144,14 +163,18 @@ export function TestimonialsTwitterCards({
   cardContentClassName,
   authorClassName,
   background,
-  spacing,
+  spacing = "lg",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
 }: TestimonialsTwitterCardsProps): React.JSX.Element {
-  const getAuthorName = useCallback((testimonial: TwitterTestimonialItem): string => {
-    if (typeof testimonial.author === "string") return testimonial.author;
-    return "";
-  }, []);
+  const getAuthorName = useCallback(
+    (testimonial: TwitterTestimonialItem): string => {
+      if (typeof testimonial.author === "string") return testimonial.author;
+      return "";
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -167,23 +190,34 @@ export function TestimonialsTwitterCards({
     return (
       <div
         className={cn(
-          "grid gap-4 sm:grid-cols-2 lg:grid-cols-3",
+          "grid gap-4 md:gap-6 lg:gap-8 md:grid-cols-2 lg:grid-cols-3",
           gridClassName,
         )}
       >
         {testimonials.map((testimonial, index) => {
           const authorName = getAuthorName(testimonial);
           return (
-            <Card key={index} className={cn("group", cardClassName)}>
-              <CardContent className={cn("p-6", cardContentClassName)}>
+            <Pressable
+              key={index}
+              className={cn(
+                "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-xl group hover:bg-primary hover:text-primary-foreground transition-all duration-500",
+                cardClassName,
+              )}
+            >
+              <CardContent
+                className={cn(
+                  "px-6 h-full flex flex-col-reverse items-stretch justify-between",
+                  cardContentClassName,
+                )}
+              >
                 <div
                   className={cn(
-                    "mb-4 flex items-start justify-between",
+                    "flex items-center justify-between",
                     authorClassName,
                   )}
                 >
-                  <div className="flex items-center gap-3">
-                    <Avatar className="size-10">
+                  <div className="flex items-center gap-4">
+                    <Avatar className="relative flex shrink-0 overflow-hidden rounded-full size-12 ring-4 ring-primary shadow-lg">
                       <AvatarImage
                         src={testimonial.avatarSrc}
                         alt={authorName}
@@ -199,17 +233,13 @@ export function TestimonialsTwitterCards({
                         ) : (
                           testimonial.author
                         ))}
-                      {testimonial.handle && (
-                        <p className="text-sm text-muted-foreground">
-                          {testimonial.handle}
-                        </p>
-                      )}
+                      {testimonial.handle && testimonial.handle}
                     </div>
                   </div>
                   {testimonial.twitterUrl && (
                     <Pressable
                       href={testimonial.twitterUrl}
-                      className="text-muted-foreground transition-colors hover:text-foreground"
+                      className="h-full flex items-center justify-center"
                       aria-label="View on Twitter"
                     >
                       <DynamicIcon name="simple-icons/x" size={18} />
@@ -225,12 +255,21 @@ export function TestimonialsTwitterCards({
                     testimonial.content
                   ))}
               </CardContent>
-            </Card>
+            </Pressable>
           );
         })}
       </div>
     );
-  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, cardContentClassName, authorClassName, getAuthorName, getInitials]);
+  }, [
+    testimonialsSlot,
+    gridClassName,
+    testimonials,
+    cardClassName,
+    cardContentClassName,
+    authorClassName,
+    getAuthorName,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -239,6 +278,7 @@ export function TestimonialsTwitterCards({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div
         className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
@@ -247,29 +287,22 @@ export function TestimonialsTwitterCards({
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-semibold tracking-tight md:text-4xl",
+                "text-3xl font-semibold tracking-tight md:text-4xl lg:text-6xl",
                 headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            heading
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p
-              className={cn(
-                "mt-4 text-lg text-muted-foreground",
-                descriptionClassName,
-              )}
-            >
+            <p className={cn("mt-4 text-lg", descriptionClassName)}>
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>
-              {description}
-            </div>
+            description
           ))}
       </div>
 

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
+import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
@@ -93,6 +94,10 @@ export interface TestimonialsBentoGridProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -137,23 +142,28 @@ export function TestimonialsBentoGrid({
   quoteClassName,
   authorClassName,
   background,
-  spacing,
   pattern,
   patternOpacity,
+  spacing = "lg",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: TestimonialsBentoGridProps): React.JSX.Element {
   const featured = testimonials?.find((t) => t.featured) || testimonials?.[0];
   const others = testimonials?.filter((t) => t !== featured) ?? [];
 
-  const getAuthorName = useCallback((testimonial: BentoTestimonialItem): string => {
-    if (typeof testimonial.author === "string") return testimonial.author;
-    return "";
-  }, []);
+  const getAuthorName = useCallback(
+    (testimonial: BentoTestimonialItem): string => {
+      if (typeof testimonial.author === "string") return testimonial.author;
+      return "";
+    },
+    [],
+  );
 
-  const getAvatarSrc = useCallback((
-    testimonial: BentoTestimonialItem,
-  ): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  }, []);
+  const getAvatarSrc = useCallback(
+    (testimonial: BentoTestimonialItem): string | undefined => {
+      return testimonial.avatarSrc || testimonial.avatar?.src;
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -172,7 +182,7 @@ export function TestimonialsBentoGrid({
     return (
       <div
         className={cn(
-          "grid gap-4 md:grid-cols-2 lg:grid-cols-3",
+          "grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-[auto_auto_auto]",
           gridClassName,
         )}
       >
@@ -190,14 +200,16 @@ export function TestimonialsBentoGrid({
                 (typeof featured.quote === "string" ? (
                   <blockquote
                     className={cn(
-                      "text-xl font-medium leading-relaxed md:text-2xl",
+                      "text-xl font-medium leading-relaxed md:text-2xl line-clamp-5",
                       quoteClassName,
                     )}
                   >
                     &ldquo;{featured.quote}&rdquo;
                   </blockquote>
                 ) : (
-                  <div className={quoteClassName}>{featured.quote}</div>
+                  <div className={cn("line-clamp-5", quoteClassName)}>
+                    {featured.quote}
+                  </div>
                 ))}
             </div>
             <div
@@ -228,12 +240,23 @@ export function TestimonialsBentoGrid({
                         : featured.company)}
                   </p>
                 )}
+                {featured.linkConfig?.href && (
+                  <Pressable
+                    href={featured.linkConfig.href}
+                    className={cn(
+                      "text-sm text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors",
+                      featured.linkConfig.className,
+                    )}
+                  >
+                    {featured.linkConfig.label}
+                  </Pressable>
+                )}
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {others.slice(0, 4).map((testimonial, index) => {
+        {others.slice(0, 5).map((testimonial, index) => {
           const authorName = getAuthorName(testimonial);
           const avatarSrc = getAvatarSrc(testimonial);
           return (
@@ -241,11 +264,11 @@ export function TestimonialsBentoGrid({
               <CardContent className="flex h-full flex-col justify-between p-6">
                 {testimonial.quote &&
                   (typeof testimonial.quote === "string" ? (
-                    <blockquote className="text-sm leading-relaxed">
+                    <blockquote className="text-sm leading-relaxed line-clamp-3">
                       &ldquo;{testimonial.quote}&rdquo;
                     </blockquote>
                   ) : (
-                    testimonial.quote
+                    <div className="line-clamp-3">{testimonial.quote}</div>
                   ))}
                 <div className="mt-4 flex items-center gap-3">
                   <Avatar className="size-9">
@@ -271,6 +294,17 @@ export function TestimonialsBentoGrid({
                       ) : (
                         testimonial.role
                       ))}
+                    {testimonial.linkConfig?.href && (
+                      <Pressable
+                        href={testimonial.linkConfig.href}
+                        className={cn(
+                          "text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors",
+                          testimonial.linkConfig.className,
+                        )}
+                      >
+                        {testimonial.linkConfig.label}
+                      </Pressable>
+                    )}
                   </div>
                 </div>
               </CardContent>
@@ -279,7 +313,19 @@ export function TestimonialsBentoGrid({
         })}
       </div>
     );
-  }, [testimonialsSlot, gridClassName, featuredCardClassName, quoteClassName, authorClassName, cardClassName, featured, others, getAuthorName, getAvatarSrc, getInitials]);
+  }, [
+    testimonialsSlot,
+    gridClassName,
+    featuredCardClassName,
+    quoteClassName,
+    authorClassName,
+    cardClassName,
+    featured,
+    others,
+    getAuthorName,
+    getAvatarSrc,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -288,6 +334,7 @@ export function TestimonialsBentoGrid({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div
         className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
