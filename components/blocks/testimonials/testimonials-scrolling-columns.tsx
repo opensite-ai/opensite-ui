@@ -195,7 +195,7 @@ export function TestimonialsScrollingColumns({
             <motion.div
               key={index}
               className={cn(
-                "relative overflow-hidden rounded-lg bg-card shadow-sm",
+                "relative overflow-hidden rounded-2xl bg-card text-card-foreground shadow-sm",
                 cardClassName,
               )}
               variants={itemVariants}
@@ -212,12 +212,8 @@ export function TestimonialsScrollingColumns({
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/40 to-transparent" />
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-left text-background">
-                <DynamicIcon
-                  name="lucide/quote"
-                  size={32}
-                  className="mb-4 text-background/40"
-                />
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-left">
+                <DynamicIcon name="lucide/quote" size={32} className="mb-4" />
                 {testimonial.quote &&
                   (typeof testimonial.quote === "string" ? (
                     <blockquote
@@ -240,9 +236,7 @@ export function TestimonialsScrollingColumns({
                         : null)}
                     {testimonial.role &&
                       (typeof testimonial.role === "string" ? (
-                        <span className="ml-1 text-background/60">
-                          , {testimonial.role}
-                        </span>
+                        <span className="ml-1">, {testimonial.role}</span>
                       ) : null)}
                   </p>
                 </figcaption>
@@ -273,30 +267,31 @@ export function TestimonialsScrollingColumns({
       containerClassName={containerClassName}
     >
       <div
-        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        className={cn(
+          "mx-auto mb-12 max-w-full md:max-w-2xl space-y-4 text-center",
+          headerClassName,
+        )}
       >
         {heading &&
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-semibold tracking-tight md:text-4xl",
+                "text-3xl font-semibold tracking-tight md:text-4xl lg:text-6xl",
                 headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            heading
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg ", descriptionClassName)}>
+            <p className={cn("text-base md:text-lg ", descriptionClassName)}>
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>
-              {description}
-            </div>
+            description
           ))}
       </div>
 
