@@ -75,6 +75,10 @@ export interface TestimonialsParallaxNumberProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -117,6 +121,8 @@ export function TestimonialsParallaxNumber({
   spacing,
   pattern,
   patternOpacity,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
 }: TestimonialsParallaxNumberProps): React.JSX.Element {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -133,15 +139,18 @@ export function TestimonialsParallaxNumber({
   const numberX = useTransform(x, [-200, 200], [-20, 20]);
   const numberY = useTransform(y, [-200, 200], [-10, 10]);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (rect) {
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      mouseX.set(e.clientX - centerX);
-      mouseY.set(e.clientY - centerY);
-    }
-  }, [mouseX, mouseY]);
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      const rect = containerRef.current?.getBoundingClientRect();
+      if (rect) {
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        mouseX.set(e.clientX - centerX);
+        mouseY.set(e.clientY - centerY);
+      }
+    },
+    [mouseX, mouseY],
+  );
 
   const goNext = useCallback(() => {
     if (totalTestimonials === 0) return;
@@ -195,7 +204,7 @@ export function TestimonialsParallaxNumber({
       >
         <motion.div
           className={cn(
-            "pointer-events-none absolute -left-8 top-1/2 -translate-y-1/2 select-none text-[20rem] font-bold leading-none tracking-tighter text-muted-foreground/[0.05]",
+            "pointer-events-none absolute -left-8 top-1/2 -translate-y-1/2 select-none text-[20rem] font-bold leading-none tracking-tighter ",
             numberClassName,
           )}
           style={{ x: numberX, y: numberY }}
@@ -215,23 +224,24 @@ export function TestimonialsParallaxNumber({
         </motion.div>
 
         <div className="relative flex">
-          <div className="flex flex-col items-center justify-center border-r border-border pr-16">
+          <div className="flex flex-col items-center justify-center border-r border-border/50 pr-16">
             <motion.span
-              className="text-xs font-mono tracking-widest text-muted-foreground uppercase"
+              className="text-sm tracking-widest uppercase"
               style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              {verticalLabel && (
-                typeof verticalLabel === "string" ? verticalLabel : verticalLabel
-              )}
+              {verticalLabel &&
+                (typeof verticalLabel === "string"
+                  ? verticalLabel
+                  : verticalLabel)}
               {!verticalLabel && "Testimonials"}
             </motion.span>
 
-            <div className="relative mt-8 h-32 w-px bg-border">
+            <div className="relative mt-8 h-32 w-4 bg-muted ring-2 ring-primary rounded">
               <motion.div
-                className="absolute left-0 top-0 w-full origin-top bg-primary"
+                className="absolute left-0 top-0 w-full origin-top bg-primary rounded"
                 animate={{
                   height: `${((activeIndex + 1) / testimonials.length) * 100}%`,
                 }}
@@ -250,8 +260,7 @@ export function TestimonialsParallaxNumber({
                 transition={{ duration: 0.4 }}
                 className="mb-8"
               >
-                <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 font-mono text-xs text-muted-foreground">
-                  <span className="size-1.5 rounded-full bg-primary" />
+                <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 text-xs ">
                   {companyName}
                 </span>
               </motion.div>
@@ -310,7 +319,7 @@ export function TestimonialsParallaxNumber({
                   className={cn("flex items-center gap-4", authorClassName)}
                 >
                   <motion.div
-                    className="h-px w-8 bg-primary"
+                    className="h-px w-8"
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{ duration: 0.6, delay: 0.3 }}
@@ -327,9 +336,7 @@ export function TestimonialsParallaxNumber({
                       ))}
                     {current.role &&
                       (typeof current.role === "string" ? (
-                        <p className="text-sm text-muted-foreground">
-                          {current.role}
-                        </p>
+                        <p className="text-sm">{current.role}</p>
                       ) : (
                         current.role
                       ))}
@@ -350,7 +357,7 @@ export function TestimonialsParallaxNumber({
                     height="18"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="relative z-10 text-muted-foreground transition-colors group-hover:text-foreground"
+                    className="relative z-10  transition-colors "
                   >
                     <path
                       d="M10 12L6 8L10 4"
@@ -372,7 +379,7 @@ export function TestimonialsParallaxNumber({
                     height="18"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="relative z-10 text-muted-foreground transition-colors group-hover:text-foreground"
+                    className="relative z-10  transition-colors "
                   >
                     <path
                       d="M6 4L10 8L6 12"
@@ -387,27 +394,29 @@ export function TestimonialsParallaxNumber({
             </div>
           </div>
         </div>
-
-        <div className="pointer-events-none absolute -bottom-20 left-0 right-0 overflow-hidden opacity-[0.08]">
-          <motion.div
-            className="flex whitespace-nowrap text-6xl font-bold tracking-tight"
-            animate={{ x: [0, -1000] }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          >
-            {[...Array(10)].map((_, i) => (
-              <span key={i} className="mx-8">
-                {testimonials.map((t) => getCompanyName(t)).join(" • ")} •
-              </span>
-            ))}
-          </motion.div>
-        </div>
       </div>
     );
-  }, [testimonialsSlot, contentClassName, numberX, numberY, numberClassName, activeIndex, testimonials, verticalLabel, quoteClassName, authorClassName, current, navigationClassName, handleMouseMove, goPrev, goNext, totalTestimonials, getAuthorName, getQuoteText, getCompanyName]);
+  }, [
+    testimonialsSlot,
+    contentClassName,
+    numberX,
+    numberY,
+    numberClassName,
+    activeIndex,
+    testimonials,
+    verticalLabel,
+    quoteClassName,
+    authorClassName,
+    current,
+    navigationClassName,
+    handleMouseMove,
+    goPrev,
+    goNext,
+    totalTestimonials,
+    getAuthorName,
+    getQuoteText,
+    getCompanyName,
+  ]);
 
   return (
     <Section
@@ -416,6 +425,7 @@ export function TestimonialsParallaxNumber({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn("overflow-hidden", className)}
+      containerClassName={containerClassName}
     >
       <div className="flex min-h-[500px] items-center justify-center">
         {renderedTestimonial}

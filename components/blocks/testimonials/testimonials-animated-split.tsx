@@ -4,6 +4,7 @@ import * as React from "react";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../../../lib/utils";
+import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
@@ -134,25 +135,52 @@ export function TestimonialsAnimatedSplit({
 }: TestimonialsAnimatedSplitProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalTestimonials = testimonials?.length ?? 0;
+  const autoPlayTimerRef = React.useRef<ReturnType<typeof setInterval> | null>(
+    null,
+  );
+
+  const resetAutoPlay = useCallback(() => {
+    if (autoPlayTimerRef.current) {
+      clearInterval(autoPlayTimerRef.current);
+      autoPlayTimerRef.current = null;
+    }
+    if (!autoPlayInterval || autoPlayInterval <= 0 || totalTestimonials === 0)
+      return;
+    autoPlayTimerRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % totalTestimonials);
+    }, autoPlayInterval);
+  }, [autoPlayInterval, totalTestimonials]);
 
   const goToNext = useCallback(() => {
     if (totalTestimonials === 0) return;
     setCurrentIndex((prev) => (prev + 1) % totalTestimonials);
-  }, [totalTestimonials]);
+    resetAutoPlay();
+  }, [totalTestimonials, resetAutoPlay]);
 
   const goToPrev = useCallback(() => {
     if (totalTestimonials === 0) return;
     setCurrentIndex(
       (prev) => (prev - 1 + totalTestimonials) % totalTestimonials,
     );
-  }, [totalTestimonials]);
+    resetAutoPlay();
+  }, [totalTestimonials, resetAutoPlay]);
+
+  const goToIndex = useCallback(
+    (index: number) => {
+      setCurrentIndex(index);
+      resetAutoPlay();
+    },
+    [resetAutoPlay],
+  );
 
   useEffect(() => {
-    if (!autoPlayInterval || autoPlayInterval <= 0) return;
-
-    const interval = setInterval(goToNext, autoPlayInterval);
-    return () => clearInterval(interval);
-  }, [autoPlayInterval, goToNext]);
+    resetAutoPlay();
+    return () => {
+      if (autoPlayTimerRef.current) {
+        clearInterval(autoPlayTimerRef.current);
+      }
+    };
+  }, [resetAutoPlay]);
 
   const current = testimonials?.[currentIndex];
 
@@ -224,7 +252,7 @@ export function TestimonialsAnimatedSplit({
               transition={{ duration: 0.4 }}
               className="space-y-6"
             >
-              <DynamicIcon name="lucide/quote" size={48} />
+              <DynamicIcon name="mdi/comment-quote-outline" size={48} />
 
               {current.quote &&
                 (typeof current.quote === "string" ? (
@@ -264,7 +292,18 @@ export function TestimonialsAnimatedSplit({
                           : null)}
                     </span>
                   </div>
-                  {/* TODO implement <Pressable with linkConfig if provided for the testimonials record*/}
+                  {current.linkConfig?.href && (
+                    <Pressable
+                      href={current.linkConfig.href}
+                      className={cn(
+                        current.linkConfig.className,
+                        "text-sm font-bold tracking-wide uppercase",
+                        "hover:underline hover:underline-offset-2",
+                      )}
+                    >
+                      {current.linkConfig.label}
+                    </Pressable>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -283,7 +322,7 @@ export function TestimonialsAnimatedSplit({
               {testimonials.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentIndex(index)}
+                  onClick={() => goToIndex(index)}
                   className={cn(
                     "size-2 rounded-full transition-all",
                     index === currentIndex
@@ -319,6 +358,7 @@ export function TestimonialsAnimatedSplit({
     testimonials,
     goToPrev,
     goToNext,
+    goToIndex,
     getAuthorName,
     getAvatarSrc,
     getInitials,
