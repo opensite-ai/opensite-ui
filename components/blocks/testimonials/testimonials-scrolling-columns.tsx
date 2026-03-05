@@ -94,6 +94,10 @@ export interface TestimonialsScrollingColumnsProps {
    * OptixFlow image optimization config
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 const containerVariants = {
@@ -156,17 +160,19 @@ export function TestimonialsScrollingColumns({
   quoteClassName,
   authorClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: TestimonialsScrollingColumnsProps): React.JSX.Element {
-  const getAuthorName = useCallback((
-    testimonial: ScrollingColumnTestimonialItem,
-  ): string => {
-    if (typeof testimonial.author === "string") return testimonial.author;
-    return "";
-  }, []);
+  const getAuthorName = useCallback(
+    (testimonial: ScrollingColumnTestimonialItem): string => {
+      if (typeof testimonial.author === "string") return testimonial.author;
+      return "";
+    },
+    [],
+  );
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
@@ -246,7 +252,16 @@ export function TestimonialsScrollingColumns({
         })}
       </motion.div>
     );
-  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, optixFlowConfig, quoteClassName, authorClassName, getAuthorName]);
+  }, [
+    testimonialsSlot,
+    gridClassName,
+    testimonials,
+    cardClassName,
+    optixFlowConfig,
+    quoteClassName,
+    authorClassName,
+    getAuthorName,
+  ]);
 
   return (
     <Section
@@ -255,6 +270,7 @@ export function TestimonialsScrollingColumns({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div
         className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
@@ -274,12 +290,7 @@ export function TestimonialsScrollingColumns({
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p
-              className={cn(
-                "mt-4 text-lg text-muted-foreground",
-                descriptionClassName,
-              )}
-            >
+            <p className={cn("mt-4 text-lg ", descriptionClassName)}>
               {description}
             </p>
           ) : (

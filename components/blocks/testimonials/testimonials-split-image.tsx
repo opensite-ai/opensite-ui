@@ -84,6 +84,10 @@ export interface TestimonialsSplitImageProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -124,7 +128,8 @@ export function TestimonialsSplitImage({
   quoteClassName,
   authorClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -195,7 +200,7 @@ export function TestimonialsSplitImage({
                 testimonial.author
               ))}
             {(testimonial.role || testimonial.company) && (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm ">
                 {testimonial.role &&
                   (typeof testimonial.role === "string"
                     ? testimonial.role
@@ -210,7 +215,18 @@ export function TestimonialsSplitImage({
         </div>
       </div>
     );
-  }, [testimonialSlot, effectiveImagePosition, contentClassName, quoteIconClassName, testimonial, quoteClassName, authorClassName, getAuthorName, getAvatarSrc, getInitials]);
+  }, [
+    testimonialSlot,
+    effectiveImagePosition,
+    contentClassName,
+    quoteIconClassName,
+    testimonial,
+    quoteClassName,
+    authorClassName,
+    getAuthorName,
+    getAvatarSrc,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -219,6 +235,7 @@ export function TestimonialsSplitImage({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div
         className={cn("grid items-center gap-12 lg:grid-cols-2", gridClassName)}

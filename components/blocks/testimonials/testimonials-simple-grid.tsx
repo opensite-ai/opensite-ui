@@ -82,6 +82,10 @@ export interface TestimonialsSimpleGridProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -126,7 +130,8 @@ export function TestimonialsSimpleGrid({
   quoteClassName,
   authorClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: TestimonialsSimpleGridProps): React.JSX.Element {
@@ -142,9 +147,12 @@ export function TestimonialsSimpleGrid({
     return "";
   }, []);
 
-  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  }, []);
+  const getAvatarSrc = useCallback(
+    (testimonial: TestimonialItem): string | undefined => {
+      return testimonial.avatarSrc || testimonial.avatar?.src;
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -158,7 +166,9 @@ export function TestimonialsSimpleGrid({
     if (!testimonials || testimonials.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-6", gridCols[effectiveColumns], gridClassName)}>
+      <div
+        className={cn("grid gap-6", gridCols[effectiveColumns], gridClassName)}
+      >
         {testimonials.map((testimonial, index) => {
           const authorName = getAuthorName(testimonial);
           const avatarSrc = getAvatarSrc(testimonial);
@@ -169,7 +179,7 @@ export function TestimonialsSimpleGrid({
                   (typeof testimonial.quote === "string" ? (
                     <p
                       className={cn(
-                        "mb-6 text-sm leading-relaxed text-muted-foreground",
+                        "mb-6 text-sm leading-relaxed ",
                         quoteClassName,
                       )}
                     >
@@ -194,7 +204,7 @@ export function TestimonialsSimpleGrid({
                       ) : (
                         testimonial.author
                       ))}
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-xs ">
                       {testimonial.role &&
                         (typeof testimonial.role === "string"
                           ? testimonial.role
@@ -212,7 +222,19 @@ export function TestimonialsSimpleGrid({
         })}
       </div>
     );
-  }, [testimonialsSlot, gridCols, effectiveColumns, gridClassName, testimonials, cardClassName, quoteClassName, authorClassName, getAuthorName, getAvatarSrc, getInitials]);
+  }, [
+    testimonialsSlot,
+    gridCols,
+    effectiveColumns,
+    gridClassName,
+    testimonials,
+    cardClassName,
+    quoteClassName,
+    authorClassName,
+    getAuthorName,
+    getAvatarSrc,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -221,6 +243,7 @@ export function TestimonialsSimpleGrid({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div
         className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
@@ -240,12 +263,7 @@ export function TestimonialsSimpleGrid({
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p
-              className={cn(
-                "mt-4 text-lg text-muted-foreground",
-                descriptionClassName,
-              )}
-            >
+            <p className={cn("mt-4 text-lg ", descriptionClassName)}>
               {description}
             </p>
           ) : (

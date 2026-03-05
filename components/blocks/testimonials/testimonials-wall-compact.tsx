@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
@@ -92,6 +96,10 @@ export interface TestimonialsWallCompactProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -134,20 +142,25 @@ export function TestimonialsWallCompact({
   authorClassName,
   quoteClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: TestimonialsWallCompactProps): React.JSX.Element {
-  const getAuthorName = useCallback((testimonial: WallTestimonialItem): string => {
-    if (typeof testimonial.author === "string") return testimonial.author;
-    return "";
-  }, []);
+  const getAuthorName = useCallback(
+    (testimonial: WallTestimonialItem): string => {
+      if (typeof testimonial.author === "string") return testimonial.author;
+      return "";
+    },
+    [],
+  );
 
-  const getAvatarSrc = useCallback((
-    testimonial: WallTestimonialItem,
-  ): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  }, []);
+  const getAvatarSrc = useCallback(
+    (testimonial: WallTestimonialItem): string | undefined => {
+      return testimonial.avatarSrc || testimonial.avatar?.src;
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -175,7 +188,7 @@ export function TestimonialsWallCompact({
               key={index}
               className={cn(
                 "rounded-lg border p-4 transition-shadow hover:shadow-md",
-                getNestedCardBg(background, 'card'),
+                getNestedCardBg(background, "card"),
                 getNestedCardTextColor(background),
                 cardClassName,
               )}
@@ -203,9 +216,7 @@ export function TestimonialsWallCompact({
                         testimonial.author
                       ))}
                     {testimonial.handle && (
-                      <p className="truncate text-xs text-muted-foreground">
-                        {testimonial.handle}
-                      </p>
+                      <p className="truncate text-xs ">{testimonial.handle}</p>
                     )}
                   </div>
                 </div>
@@ -231,7 +242,17 @@ export function TestimonialsWallCompact({
         })}
       </div>
     );
-  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, authorClassName, quoteClassName, getAuthorName, getAvatarSrc, getInitials]);
+  }, [
+    testimonialsSlot,
+    gridClassName,
+    testimonials,
+    cardClassName,
+    authorClassName,
+    quoteClassName,
+    getAuthorName,
+    getAvatarSrc,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -240,6 +261,7 @@ export function TestimonialsWallCompact({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div
         className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
@@ -259,12 +281,7 @@ export function TestimonialsWallCompact({
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p
-              className={cn(
-                "mt-4 text-lg text-muted-foreground",
-                descriptionClassName,
-              )}
-            >
+            <p className={cn("mt-4 text-lg", descriptionClassName)}>
               {description}
             </p>
           ) : (

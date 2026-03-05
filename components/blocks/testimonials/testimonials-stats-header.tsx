@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import {
+  cn,
+  getNestedCardBg,
+  getNestedCardTextColor,
+} from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
@@ -109,8 +113,11 @@ export interface TestimonialsStatsHeaderProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
-
 
 /**
  * TestimonialsStatsHeader - A testimonial section featuring a prominent statistics
@@ -159,7 +166,8 @@ export function TestimonialsStatsHeader({
   quoteClassName,
   authorClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: TestimonialsStatsHeaderProps): React.JSX.Element {
@@ -168,9 +176,12 @@ export function TestimonialsStatsHeader({
     return "";
   }, []);
 
-  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  }, []);
+  const getAvatarSrc = useCallback(
+    (testimonial: TestimonialItem): string | undefined => {
+      return testimonial.avatarSrc || testimonial.avatar?.src;
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -287,7 +298,17 @@ export function TestimonialsStatsHeader({
         })}
       </div>
     );
-  }, [testimonialsSlot, testimonialsGridClassName, testimonials, cardClassName, quoteClassName, authorClassName, getAuthorName, getAvatarSrc, getInitials]);
+  }, [
+    testimonialsSlot,
+    testimonialsGridClassName,
+    testimonials,
+    cardClassName,
+    quoteClassName,
+    authorClassName,
+    getAuthorName,
+    getAvatarSrc,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -296,6 +317,7 @@ export function TestimonialsStatsHeader({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div
         className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}

@@ -65,6 +65,10 @@ export interface TestimonialsSliderMinimalProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -102,7 +106,8 @@ export function TestimonialsSliderMinimal({
   avatarClassName,
   dotsClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: TestimonialsSliderMinimalProps): React.JSX.Element {
@@ -141,9 +146,12 @@ export function TestimonialsSliderMinimal({
     return "";
   }, []);
 
-  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  }, []);
+  const getAvatarSrc = useCallback(
+    (testimonial: TestimonialItem): string | undefined => {
+      return testimonial.avatarSrc || testimonial.avatar?.src;
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -199,7 +207,7 @@ export function TestimonialsSliderMinimal({
               ))}
             {current.role &&
               (typeof current.role === "string" ? (
-                <p className="text-sm text-muted-foreground">{current.role}</p>
+                <p className="text-sm ">{current.role}</p>
               ) : (
                 current.role
               ))}
@@ -207,7 +215,17 @@ export function TestimonialsSliderMinimal({
         </div>
       </div>
     );
-  }, [testimonialsSlot, isTransitioning, current, quoteClassName, authorClassName, avatarClassName, getAuthorName, getAvatarSrc, getInitials]);
+  }, [
+    testimonialsSlot,
+    isTransitioning,
+    current,
+    quoteClassName,
+    authorClassName,
+    avatarClassName,
+    getAuthorName,
+    getAvatarSrc,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -216,6 +234,7 @@ export function TestimonialsSliderMinimal({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div className={cn("mx-auto max-w-3xl text-center", contentClassName)}>
         {renderedTestimonial}
@@ -229,8 +248,8 @@ export function TestimonialsSliderMinimal({
                 className={cn(
                   "size-2 rounded-full transition-all",
                   index === currentIndex
-                    ? "w-6 bg-primary"
-                    : "bg-muted-foreground/30 hover:bg-muted-foreground/50",
+                    ? "w-6 bg-primary text-primary-foreground"
+                    : "",
                 )}
                 aria-label={`Go to testimonial ${index + 1}`}
               />
