@@ -10,6 +10,7 @@ import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { SocialLinkIcon } from "@/components/ui/social-link-icon";
 
 export interface TwitterTestimonialItem extends SocialTestimonialItem {}
 export interface SocialTestimonialItem {
@@ -169,7 +170,7 @@ export function TestimonialsTwitterCards({
   patternOpacity,
 }: TestimonialsTwitterCardsProps): React.JSX.Element {
   const getAuthorName = useCallback(
-    (testimonial: TwitterTestimonialItem): string => {
+    (testimonial: SocialTestimonialItem): string => {
       if (typeof testimonial.author === "string") return testimonial.author;
       return "";
     },
@@ -199,6 +200,7 @@ export function TestimonialsTwitterCards({
           return (
             <Pressable
               key={index}
+              href={testimonial.linkConfig?.href}
               className={cn(
                 "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-xl group hover:bg-primary hover:text-primary-foreground transition-all duration-500",
                 cardClassName,
@@ -233,17 +235,15 @@ export function TestimonialsTwitterCards({
                         ) : (
                           testimonial.author
                         ))}
-                      {testimonial.handle && testimonial.handle}
+                      {testimonial.handle ? testimonial.handle : null}
                     </div>
                   </div>
-                  {testimonial.twitterUrl && (
-                    <Pressable
-                      href={testimonial.twitterUrl}
-                      className="h-full flex items-center justify-center"
-                      aria-label="View on Twitter"
-                    >
-                      <DynamicIcon name="simple-icons/x" size={18} />
-                    </Pressable>
+
+                  {testimonial.linkConfig?.href && (
+                    <SocialLinkIcon
+                      href={testimonial.linkConfig.href}
+                      iconSize={18}
+                    />
                   )}
                 </div>
                 {testimonial.content &&
@@ -281,13 +281,17 @@ export function TestimonialsTwitterCards({
       containerClassName={containerClassName}
     >
       <div
-        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        className={cn(
+          "mx-auto mb-12 max-w-full md:max-w-2xl text-center",
+          headerClassName,
+        )}
       >
         {heading &&
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-semibold tracking-tight md:text-4xl lg:text-6xl",
+                "text-pretty text-3xl md:text-4xl lg:text-6xl",
+                "font-semibold tracking-tight",
                 headingClassName,
               )}
             >
@@ -298,7 +302,9 @@ export function TestimonialsTwitterCards({
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg", descriptionClassName)}>
+            <p
+              className={cn("mt-4 text-lg text-balance", descriptionClassName)}
+            >
               {description}
             </p>
           ) : (

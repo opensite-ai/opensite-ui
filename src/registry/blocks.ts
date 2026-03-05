@@ -15113,31 +15113,66 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "testimonials-twitter-cards": {
     id: "testimonials-twitter-cards",
     name: "Testimonials Twitter/X Style Cards",
-    description: "TODO",
+    description:
+      "A responsive grid of social media testimonial cards supporting multiple platforms (Twitter/X, Instagram, Facebook, LinkedIn, TikTok, YouTube, etc.). Each card displays post content, author avatar, display name, social handle, and links to the original post. The SocialLinkIcon automatically detects the platform from the URL and displays the appropriate brand icon. Cards feature hover effects transitioning to primary colors. Ideal for showcasing authentic social proof from real user posts across any social platform.",
     semanticTags: [
       "testimonials",
-      "twitter",
       "social-media",
+      "social-proof",
       "cards",
       "grid",
-      "social-proof",
-      "tweets",
+      "twitter",
+      "instagram",
+      "facebook",
+      "linkedin",
+      "tiktok",
+      "youtube",
+      "reviews",
+      "user-generated-content",
       "mentions",
+      "multi-platform",
     ],
     category: "testimonials",
     component: TestimonialsTwitterCards,
     props: "TestimonialsTwitterCardsProps",
     exampleUsage: `
 <TestimonialsTwitterCards
-  title="What People Are Saying"
+  heading="What People Are Saying"
+  description="Real posts from real users across social platforms"
   testimonials={[
     {
-      id: "1",
-      quote: "Just tried @company and it's amazing!",
-      author: { name: "John Doe", handle: "@johndoe", avatar: "/avatars/john.jpg" },
-      twitterUrl: "https://twitter.com/johndoe/status/123"
+      content: "Just tried @company and it's amazing! The best tool I've used.",
+      author: "John Doe",
+      handle: "@johndoe",
+      avatarSrc: "/avatars/john.jpg",
+      linkConfig: {
+        label: "View on Twitter",
+        href: "https://twitter.com/johndoe/status/123456789"
+      }
+    },
+    {
+      content: "This changed my workflow completely. Highly recommend!",
+      author: "Jane Smith",
+      handle: "@janesmith",
+      avatarSrc: "/avatars/jane.jpg",
+      linkConfig: {
+        label: "See on Instagram",
+        href: "https://instagram.com/p/ABC123"
+      }
+    },
+    {
+      content: "Our team productivity increased 40% after implementing this solution.",
+      author: "Tech Corp",
+      handle: "Tech Corp",
+      avatarSrc: "/avatars/techcorp.jpg",
+      linkConfig: {
+        label: "Read on LinkedIn",
+        href: "https://linkedin.com/posts/techcorp_123"
+      }
     }
   ]}
+  background="gray"
+  spacing="lg"
 />`.trim(),
   },
   "testimonials-carousel-image": {

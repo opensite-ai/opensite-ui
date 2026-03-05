@@ -13,6 +13,7 @@ import type {
   SectionSpacing,
   TestimonialItem,
 } from "../../../src/types";
+import { Pressable } from "@/src";
 
 export interface TestimonialsCompanyLogoProps {
   /**
@@ -87,6 +88,10 @@ export interface TestimonialsCompanyLogoProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -127,7 +132,8 @@ export function TestimonialsCompanyLogo({
   authorClassName,
   imageClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -138,21 +144,9 @@ export function TestimonialsCompanyLogo({
 
     return (
       <div className={cn("space-y-8", contentClassName)}>
-        {companyLogo && (
-          <Img
-            src={companyLogo}
-            alt={companyLogoAlt}
-            className={cn("h-10 w-auto object-contain", logoClassName)}
-            optixFlowConfig={optixFlowConfig}
-          />
-        )}
-
         <div className="relative">
-          <DynamicIcon
-            name="lucide/quote"
-            size={40}
-            className="absolute -left-2 -top-4 text-primary/10"
-          />
+          <DynamicIcon name="mdi/comment-quote-outline" size={48} />
+
           {testimonial.quote &&
             (typeof testimonial.quote === "string" ? (
               <blockquote
@@ -164,32 +158,55 @@ export function TestimonialsCompanyLogo({
                 {testimonial.quote}
               </blockquote>
             ) : (
-              <div className={quoteClassName}>{testimonial.quote}</div>
+              testimonial.quote
             ))}
         </div>
 
-        <div className={cn("flex items-center gap-4", authorClassName)}>
-          <div className="h-px flex-1 bg-border" />
-          <div className="text-right">
-            {testimonial.author &&
-              (typeof testimonial.author === "string" ? (
-                <p className="font-semibold">{testimonial.author}</p>
-              ) : (
-                testimonial.author
-              ))}
-            {testimonial.role &&
-              (typeof testimonial.role === "string" ? (
-                <p className="text-sm text-muted-foreground">
-                  {testimonial.role}
-                </p>
-              ) : (
-                testimonial.role
-              ))}
+        <div className={cn("flex flex-row justify-between items-center gap-4")}>
+          {companyLogo && (
+            <Img
+              src={companyLogo}
+              alt={companyLogoAlt}
+              className={cn("h-12 w-auto object-contain", logoClassName)}
+              optixFlowConfig={optixFlowConfig}
+            />
+          )}
+          <div className={cn("space-y-1 text-right", authorClassName)}>
+            <div className="space-x-2">
+              {testimonial.author &&
+                (typeof testimonial.author === "string" ? (
+                  <span className="font-semibold">{testimonial.author}</span>
+                ) : (
+                  testimonial.author
+                ))}
+              {testimonial.role &&
+                (typeof testimonial.role === "string" ? (
+                  <span className="text-sm">{testimonial.role}</span>
+                ) : (
+                  testimonial.role
+                ))}
+            </div>
+            <Pressable
+              href={testimonial.linkConfig?.href}
+              className="text-sm font-bold uppercase transition-all duration-300 hover:underline hover:underline-offset-4"
+            >
+              {testimonial.linkConfig?.label || "Learn more"}
+            </Pressable>
           </div>
         </div>
       </div>
     );
-  }, [testimonialSlot, contentClassName, companyLogo, companyLogoAlt, logoClassName, optixFlowConfig, testimonial, quoteClassName, authorClassName]);
+  }, [
+    testimonialSlot,
+    contentClassName,
+    companyLogo,
+    companyLogoAlt,
+    logoClassName,
+    optixFlowConfig,
+    testimonial,
+    quoteClassName,
+    authorClassName,
+  ]);
 
   return (
     <Section
@@ -198,16 +215,22 @@ export function TestimonialsCompanyLogo({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div
-        className={cn("grid items-center gap-12 lg:grid-cols-2", gridClassName)}
+        className={cn(
+          "grid items-center gap-12 lg:gap-24 grid-cols-1 lg:grid-cols-2",
+          gridClassName,
+        )}
       >
         {renderedTestimonial}
 
         {imageSrc && (
           <div
             className={cn(
-              "relative aspect-4/3 overflow-hidden rounded-2xl",
+              "ring-8 ring-primary",
+              "relative aspect-4/3 overflow-hidden",
+              "rounded-2xl shadow-xl",
               imageClassName,
             )}
           >
