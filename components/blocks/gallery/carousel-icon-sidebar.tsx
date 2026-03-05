@@ -155,6 +155,10 @@ export interface CarouselIconSidebarProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -199,7 +203,8 @@ export function CarouselIconSidebar({
   itemClassName,
   imageClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   patternClassName,
@@ -258,16 +263,16 @@ export function CarouselIconSidebar({
     return (
       <div
         className={cn(
-          "flex h-full flex-row md:flex-col gap-4 md:gap-8 rounded-lg p-4 md:p-8",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background),
+          "flex h-full flex-row md:flex-col",
+          "gap-4 md:gap-8 rounded-2xl p-4 md:p-8",
+          "bg-card text-card-foreground shadow-lg",
+          "border border-muted/10",
           sidebarClassName,
         )}
       >
         <div
           className={cn(
             "flex h-fit w-fit p-3 items-center justify-center rounded-lg shadow-lg ring-1 ring-border bg-card",
-            getNestedCardBg(background, "card"),
             iconClassName,
           )}
         >
@@ -295,21 +300,11 @@ export function CarouselIconSidebar({
               </div>
             )}
             {typeof activeItem.description === "string" ? (
-              <p
-                className={cn(
-                  "mb-4 text-base text-muted-foreground",
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("mb-4 text-base", descriptionClassName)}>
                 {activeItem.description}
               </p>
             ) : (
-              <div
-                className={cn(
-                  "mb-4 text-base text-muted-foreground",
-                  descriptionClassName,
-                )}
-              >
+              <div className={cn("mb-4 text-base", descriptionClassName)}>
                 {activeItem.description}
               </div>
             )}
@@ -381,6 +376,7 @@ export function CarouselIconSidebar({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
       {title || description ? (
         <div className="flex flex-col gap-4 mb-6 md:mb-16 px-4 md:px-0">
@@ -395,7 +391,7 @@ export function CarouselIconSidebar({
                 {title}
               </h2>
             ) : (
-              <div className={sectionTitleClassName}>{title}</div>
+              title
             ))}
           {description &&
             (typeof description === "string" ? (
@@ -408,14 +404,7 @@ export function CarouselIconSidebar({
                 {description}
               </p>
             ) : (
-              <div
-                className={cn(
-                  "max-w-lg text-balance",
-                  sectionDescriptionClassName,
-                )}
-              >
-                {description}
-              </div>
+              description
             ))}
         </div>
       ) : null}
@@ -425,7 +414,12 @@ export function CarouselIconSidebar({
           <div className="md:col-span-2">{sidebarContent}</div>
 
           <div className="h-full md:col-span-3">
-            <CarouselContent className={cn("h-full", carouselContentClassName)}>
+            <CarouselContent
+              className={cn(
+                "overflow-hidden rounded-2xl shadow-lg h-full",
+                carouselContentClassName,
+              )}
+            >
               {itemsContent}
             </CarouselContent>
           </div>

@@ -254,6 +254,14 @@ export interface TestimonialItem {
    * Additional CSS classes
    */
   className?: string;
+  /**
+   * Review linking config
+   */
+  linkConfig?: {
+    label: React.ReactNode;
+    href: string;
+    className?: string;
+  };
 }
 
 /**

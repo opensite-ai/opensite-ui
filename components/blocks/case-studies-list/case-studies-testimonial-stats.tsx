@@ -206,14 +206,23 @@ export function CaseStudiesTestimonialStats({
           <div className="flex flex-col gap-10 border-border sm:flex-row lg:col-span-2 lg:border-r lg:pr-16 xl:pr-24">
             <Img
               src={testimonial.image}
-              alt={typeof testimonial.authorName === "string" ? testimonial.authorName : "Testimonial author"}
-              className={cn("aspect-29/35 h-full w-full max-w-60 rounded-2xl object-cover", imageClassName)}
+              alt={
+                typeof testimonial.authorName === "string"
+                  ? testimonial.authorName
+                  : "Testimonial author"
+              }
+              className={cn(
+                "aspect-29/35 h-full w-full max-w-60 rounded-2xl object-cover",
+                imageClassName,
+              )}
               loading="lazy"
               optixFlowConfig={optixFlowConfig}
             />
             <div className="flex h-full flex-col justify-between gap-10">
               {typeof testimonial.quote === "string" ? (
-                <q className={cn("sm:text-xl", quoteClassName)}>{testimonial.quote}</q>
+                <q className={cn("sm:text-xl", quoteClassName)}>
+                  {testimonial.quote}
+                </q>
               ) : (
                 <div className={quoteClassName}>{testimonial.quote}</div>
               )}
@@ -243,7 +252,12 @@ export function CaseStudiesTestimonialStats({
               </div>
             </div>
           </div>
-          <div className={cn("flex gap-10 self-center lg:flex-col", statsClassName)}>
+          <div
+            className={cn(
+              "flex gap-10 self-center lg:flex-col",
+              statsClassName,
+            )}
+          >
             {testimonial.stats.map((stat, statIndex) => (
               <div key={statIndex} className="flex flex-col gap-2">
                 {typeof stat.value === "string" ? (
@@ -259,9 +273,7 @@ export function CaseStudiesTestimonialStats({
                   stat.label
                 )}
                 {typeof stat.description === "string" ? (
-                  <p className="text-muted-foreground">
-                    {stat.description}
-                  </p>
+                  <p className="text-muted-foreground">{stat.description}</p>
                 ) : (
                   stat.description
                 )}
@@ -293,20 +305,25 @@ export function CaseStudiesTestimonialStats({
     >
       <div className={cn("container", containerClassName)}>
         <div className={cn("flex flex-col gap-6 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
+          {heading &&
+            (typeof heading === "string" ? (
               <p className={cn("font-medium", headingClassName)}>{heading}</p>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {subheading && (
-            typeof subheading === "string" ? (
-              <h2 className={cn("text-4xl font-medium md:text-5xl", subheadingClassName)}>{subheading}</h2>
+            ))}
+          {subheading &&
+            (typeof subheading === "string" ? (
+              <h2
+                className={cn(
+                  "text-4xl font-medium md:text-5xl",
+                  subheadingClassName,
+                )}
+              >
+                {subheading}
+              </h2>
             ) : (
               <div className={subheadingClassName}>{subheading}</div>
-            )
-          )}
+            ))}
         </div>
         <div className={cn("mt-20", testimonialsClassName)}>
           {renderedTestimonials}

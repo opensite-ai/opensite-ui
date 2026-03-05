@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn, getNestedCardTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
@@ -83,6 +83,10 @@ export interface TestimonialsAnimatedSplitProps {
    * OptixFlow image optimization config
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -122,7 +126,8 @@ export function TestimonialsAnimatedSplit({
   authorClassName,
   navigationClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -151,16 +156,20 @@ export function TestimonialsAnimatedSplit({
 
   const current = testimonials?.[currentIndex];
 
-  const getAuthorName = useCallback((testimonial: AnimatedSplitTestimonialItem): string => {
-    if (typeof testimonial.author === "string") return testimonial.author;
-    return "";
-  }, []);
+  const getAuthorName = useCallback(
+    (testimonial: AnimatedSplitTestimonialItem): string => {
+      if (typeof testimonial.author === "string") return testimonial.author;
+      return "";
+    },
+    [],
+  );
 
-  const getAvatarSrc = useCallback((
-    testimonial: AnimatedSplitTestimonialItem,
-  ): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  }, []);
+  const getAvatarSrc = useCallback(
+    (testimonial: AnimatedSplitTestimonialItem): string | undefined => {
+      return testimonial.avatarSrc || testimonial.avatar?.src;
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -177,10 +186,10 @@ export function TestimonialsAnimatedSplit({
     const avatarSrc = getAvatarSrc(current);
 
     return (
-      <div className="grid items-center gap-12 lg:grid-cols-2">
+      <div className="grid items-center gap-12 lg:gap-24 lg:grid-cols-2">
         <div
           className={cn(
-            "relative aspect-4/3 overflow-hidden rounded-2xl lg:aspect-square",
+            "relative aspect-4/3 overflow-hidden rounded-2xl lg:aspect-square shadow-2xl",
             imageClassName,
           )}
         >
@@ -197,7 +206,7 @@ export function TestimonialsAnimatedSplit({
                 <Img
                   src={current.image}
                   alt="Testimonial"
-                  className="size-full object-cover"
+                  className="size-full object-cover "
                   optixFlowConfig={optixFlowConfig}
                 />
               )}
@@ -215,24 +224,20 @@ export function TestimonialsAnimatedSplit({
               transition={{ duration: 0.4 }}
               className="space-y-6"
             >
-              <DynamicIcon
-                name="lucide/quote"
-                size={48}
-                className="text-primary/20"
-              />
+              <DynamicIcon name="lucide/quote" size={48} />
 
               {current.quote &&
                 (typeof current.quote === "string" ? (
                   <blockquote
                     className={cn(
-                      "text-xl font-medium leading-relaxed md:text-2xl",
+                      "text-lg font-base leading-relaxed md:text-2xl",
                       quoteClassName,
                     )}
                   >
                     {current.quote}
                   </blockquote>
                 ) : (
-                  <div className={quoteClassName}>{current.quote}</div>
+                  current.quote
                 ))}
 
               <div className={cn("flex items-center gap-4", authorClassName)}>
@@ -240,21 +245,26 @@ export function TestimonialsAnimatedSplit({
                   <AvatarImage src={avatarSrc} alt={authorName} />
                   <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
                 </Avatar>
-                <div>
-                  {current.author &&
-                    (typeof current.author === "string" ? (
-                      <p className="font-semibold">{current.author}</p>
-                    ) : (
-                      current.author
-                    ))}
-                  <p className="text-sm text-muted-foreground">
-                    {current.role &&
-                      (typeof current.role === "string" ? current.role : null)}
-                    {current.company &&
-                      (typeof current.company === "string"
-                        ? ` at ${current.company}`
-                        : null)}
-                  </p>
+                <div className="space-y-1">
+                  <div className="flex gap-1">
+                    {current.author &&
+                      (typeof current.author === "string" ? (
+                        <span className="font-semibold">{current.author}</span>
+                      ) : (
+                        current.author
+                      ))}
+                    <span className="font-base tracking-wide">
+                      {current.role &&
+                        (typeof current.role === "string"
+                          ? current.role
+                          : null)}
+                      {current.company &&
+                        (typeof current.company === "string"
+                          ? ` at ${current.company}`
+                          : null)}
+                    </span>
+                  </div>
+                  {/* TODO implement <Pressable with linkConfig if provided for the testimonials record*/}
                 </div>
               </div>
             </motion.div>
@@ -263,7 +273,7 @@ export function TestimonialsAnimatedSplit({
           <div className={cn("flex items-center gap-4", navigationClassName)}>
             <button
               onClick={goToPrev}
-              className="flex size-10 items-center justify-center rounded-full border transition-colors hover:bg-muted"
+              className="flex size-10 items-center justify-center rounded-full border transition-colors"
               aria-label="Previous testimonial"
             >
               <DynamicIcon name="lucide/chevron-left" size={20} />
@@ -277,8 +287,8 @@ export function TestimonialsAnimatedSplit({
                   className={cn(
                     "size-2 rounded-full transition-all",
                     index === currentIndex
-                      ? "w-6 bg-primary"
-                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50",
+                      ? "w-6 bg-primary text-primary-foreground"
+                      : "bg-card text-card-foreground",
                   )}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
@@ -287,7 +297,7 @@ export function TestimonialsAnimatedSplit({
 
             <button
               onClick={goToNext}
-              className="flex size-10 items-center justify-center rounded-full border transition-colors hover:bg-muted"
+              className="flex size-10 items-center justify-center rounded-full border transition-colors"
               aria-label="Next testimonial"
             >
               <DynamicIcon name="lucide/chevron-right" size={20} />
@@ -296,7 +306,23 @@ export function TestimonialsAnimatedSplit({
         </div>
       </div>
     );
-  }, [testimonialsSlot, imageClassName, currentIndex, current, optixFlowConfig, contentClassName, quoteClassName, authorClassName, navigationClassName, testimonials, goToPrev, goToNext, getAuthorName, getAvatarSrc, getInitials]);
+  }, [
+    testimonialsSlot,
+    imageClassName,
+    currentIndex,
+    current,
+    optixFlowConfig,
+    contentClassName,
+    quoteClassName,
+    authorClassName,
+    navigationClassName,
+    testimonials,
+    goToPrev,
+    goToNext,
+    getAuthorName,
+    getAvatarSrc,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -305,6 +331,7 @@ export function TestimonialsAnimatedSplit({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn("overflow-hidden", className)}
+      containerClassName={containerClassName}
     >
       {renderedTestimonial}
     </Section>
