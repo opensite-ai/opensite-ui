@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-03-04T20:22:59.863Z",
+    "exportedAt": "2026-03-05T09:53:10.310Z",
     "totalBlocks": 605,
-    "version": "2.8.3",
+    "version": "2.8.4",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -9336,20 +9336,27 @@
     {
       "id": "testimonials-twitter-cards",
       "name": "Testimonials Twitter/X Style Cards",
-      "description": "Twitter/X-style testimonial cards displayed in a responsive grid. Each card mimics the social media post format with author avatar, name, handle, quote content, and a link to the original tweet. Perfect for showcasing social media mentions and building credibility through real social proof.",
+      "description": "A responsive grid of social media testimonial cards supporting multiple platforms (Twitter/X, Instagram, Facebook, LinkedIn, TikTok, YouTube, etc.). Each card displays post content, author avatar, display name, social handle, and links to the original post. The SocialLinkIcon automatically detects the platform from the URL and displays the appropriate brand icon. Cards feature hover effects transitioning to primary colors. Ideal for showcasing authentic social proof from real user posts across any social platform.",
       "semanticTags": [
         "testimonials",
-        "twitter",
         "social-media",
+        "social-proof",
         "cards",
         "grid",
-        "social-proof",
-        "tweets",
-        "mentions"
+        "twitter",
+        "instagram",
+        "facebook",
+        "linkedin",
+        "tiktok",
+        "youtube",
+        "reviews",
+        "user-generated-content",
+        "mentions",
+        "multi-platform"
       ],
       "category": "testimonials",
       "props": "TestimonialsTwitterCardsProps",
-      "exampleUsage": "<TestimonialsTwitterCards\n  title=\"What People Are Saying\"\n  testimonials={[\n    {\n      id: \"1\",\n      quote: \"Just tried @company and it's amazing!\",\n      author: { name: \"John Doe\", handle: \"@johndoe\", avatar: \"/avatars/john.jpg\" },\n      twitterUrl: \"https://twitter.com/johndoe/status/123\"\n    }\n  ]}\n/>"
+      "exampleUsage": "<TestimonialsTwitterCards\n  heading=\"What People Are Saying\"\n  description=\"Real posts from real users across social platforms\"\n  testimonials={[\n    {\n      content: \"Just tried @company and it's amazing! The best tool I've used.\",\n      author: \"John Doe\",\n      handle: \"@johndoe\",\n      avatarSrc: \"/avatars/john.jpg\",\n      linkConfig: {\n        label: \"View on Twitter\",\n        href: \"https://twitter.com/johndoe/status/123456789\"\n      }\n    },\n    {\n      content: \"This changed my workflow completely. Highly recommend!\",\n      author: \"Jane Smith\",\n      handle: \"@janesmith\",\n      avatarSrc: \"/avatars/jane.jpg\",\n      linkConfig: {\n        label: \"See on Instagram\",\n        href: \"https://instagram.com/p/ABC123\"\n      }\n    },\n    {\n      content: \"Our team productivity increased 40% after implementing this solution.\",\n      author: \"Tech Corp\",\n      handle: \"Tech Corp\",\n      avatarSrc: \"/avatars/techcorp.jpg\",\n      linkConfig: {\n        label: \"Read on LinkedIn\",\n        href: \"https://linkedin.com/posts/techcorp_123\"\n      }\n    }\n  ]}\n  background=\"gray\"\n  spacing=\"lg\"\n/>"
     },
     {
       "id": "testimonials-carousel-image",
