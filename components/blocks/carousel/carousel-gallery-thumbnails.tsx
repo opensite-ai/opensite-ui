@@ -15,9 +15,10 @@
  */
 
 import * as React from "react";
-import { BRIGHTNESS_CLASS_MAP, cn } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { GradientOverlay } from "../../ui/gradient-overlay";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -124,7 +125,12 @@ export interface CarouselGalleryThumbnailsProps {
    */
   patternOpacity?: number;
   /**
-   * Brightness level for slide images (controls overlay visibility)
+   * Intensity of the gradient overlay on slide images
+   * @default "default"
+   */
+  slideMediaOverlayIntensity?: "low" | "default" | "high" | "very-high";
+  /**
+   * Brightness level for slide images (deprecated - prefer slideMediaOverlayIntensity)
    */
   slideMediaBrightness?: "10" | "20" | "25" | "30" | "40" | "50" | "75" | "100";
 }
@@ -147,7 +153,8 @@ export function CarouselGalleryThumbnails({
   spacing = "sm",
   pattern,
   patternOpacity,
-  slideMediaBrightness = "100",
+  slideMediaBrightness,
+  slideMediaOverlayIntensity = "default",
 }: CarouselGalleryThumbnailsProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
@@ -229,11 +236,11 @@ export function CarouselGalleryThumbnails({
                     }
                     className={cn(
                       "h-full w-full object-cover",
-                      BRIGHTNESS_CLASS_MAP[slideMediaBrightness],
                       image.imageClassName,
                     )}
                     optixFlowConfig={optixFlowConfig}
                   />
+                  <GradientOverlay intensity={slideMediaOverlayIntensity} />
                 </div>
               ))}
         </div>

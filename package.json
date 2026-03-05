@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "2.8.6",
+  "version": "2.8.7",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -3096,6 +3096,11 @@
       "import": "./dist/geo-map.js",
       "require": "./dist/geo-map.cjs"
     },
+    "./components/gradient-overlay": {
+      "types": "./dist/gradient-overlay.d.ts",
+      "import": "./dist/gradient-overlay.js",
+      "require": "./dist/gradient-overlay.cjs"
+    },
     "./components/image-slider": {
       "types": "./dist/image-slider.d.ts",
       "import": "./dist/image-slider.js",
@@ -3175,6 +3180,11 @@
       "types": "./dist/social-link-icon.d.ts",
       "import": "./dist/social-link-icon.js",
       "require": "./dist/social-link-icon.cjs"
+    },
+    "./components/star-rating": {
+      "types": "./dist/star-rating.d.ts",
+      "import": "./dist/star-rating.js",
+      "require": "./dist/star-rating.cjs"
     },
     "./components/switch": {
       "types": "./dist/switch.d.ts",

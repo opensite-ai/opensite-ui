@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-03-05T12:59:59.578Z",
+    "exportedAt": "2026-03-05T16:38:52.294Z",
     "totalBlocks": 605,
-    "version": "2.8.6",
+    "version": "2.8.7",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -9378,8 +9378,8 @@
     },
     {
       "id": "testimonials-centered-avatars",
-      "name": "Testimonials Centered with Avatar Stack",
-      "description": "A centered testimonial section featuring an overlapping avatar stack at the top, creating a community feel. Displays a rotating testimonial with quote, author name, role, and navigation dots. The stacked avatars create visual interest and suggest multiple satisfied customers. Perfect for SaaS landing pages.",
+      "name": "Testimonials Centered with Glassmorphism Card",
+      "description": "A modern testimonial section featuring a glassmorphism card with frosted glass effect as the primary focal point. Displays an overlapping avatar stack at the top, creating a community feel, with rotating testimonials including quote, author name, role, and navigation dots. The translucent card design creates visual depth and sophistication. Perfect for SaaS landing pages and premium marketing sites.",
       "semanticTags": [
         "testimonials",
         "centered",
@@ -9387,7 +9387,11 @@
         "stack",
         "community",
         "social-proof",
-        "minimal",
+        "glassmorphism",
+        "glass",
+        "frosted",
+        "modern",
+        "premium",
         "rotating"
       ],
       "category": "testimonials",

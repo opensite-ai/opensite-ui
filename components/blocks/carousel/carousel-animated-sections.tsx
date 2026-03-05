@@ -16,9 +16,10 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BRIGHTNESS_CLASS_MAP, cn } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { GradientOverlay } from "../../ui/gradient-overlay";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -131,7 +132,12 @@ export interface CarouselAnimatedSectionsProps {
    */
   counterClassName?: string;
   /**
-   * Granular control of brightness for slide media
+   * Intensity of the gradient overlay on slide media
+   * @default "high"
+   */
+  slideMediaOverlayIntensity?: "low" | "default" | "high" | "very-high";
+  /**
+   * Granular control of brightness for slide media (deprecated - prefer slideMediaOverlayIntensity)
    * Values 10-40 use arbitrary Tailwind values for finer control on bright images
    */
   slideMediaBrightness?: "10" | "20" | "25" | "30" | "40" | "50" | "75" | "100";
@@ -176,7 +182,8 @@ export function CarouselAnimatedSections({
   navigationClassName,
   arrowsClassName,
   counterClassName,
-  slideMediaBrightness = "50",
+  slideMediaBrightness,
+  slideMediaOverlayIntensity = "high",
   optixFlowConfig,
   background = "dark",
   spacing = "py-0",
@@ -297,11 +304,11 @@ export function CarouselAnimatedSections({
               }
               className={cn(
                 "h-full w-full object-cover",
-                BRIGHTNESS_CLASS_MAP[slideMediaBrightness],
                 currentSection?.imageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
             />
+            <GradientOverlay intensity={slideMediaOverlayIntensity} />
           </motion.div>
         </AnimatePresence>
       ) : null}

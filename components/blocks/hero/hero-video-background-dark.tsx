@@ -9,6 +9,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { Section } from "../../ui/section";
+import { GradientOverlay } from "../../ui/gradient-overlay";
 import type { PatternName } from "../../ui/pattern-background";
 import { Badge } from "@/src";
 import { BlockActions } from "@/components/ui/block-actions";
@@ -47,7 +48,12 @@ export interface HeroVideoBackgroundDarkProps {
    */
   videoSlot?: React.ReactNode;
   /**
-   * Granular control of brightness for video
+   * Intensity of the gradient overlay on the video
+   * @default "high"
+   */
+  videoOverlayIntensity?: "low" | "default" | "high" | "very-high";
+  /**
+   * Granular control of brightness for video (deprecated - prefer videoOverlayIntensity)
    * @default "50"
    */
   videoBrightness?: "10" | "20" | "25" | "30" | "40" | "50" | "75" | "100";
@@ -100,7 +106,8 @@ export function HeroVideoBackgroundDark({
   videoSrc,
   videoSlot,
   background,
-  videoBrightness = "50",
+  videoBrightness,
+  videoOverlayIntensity = "high",
   spacing = "py-0 md:py-0",
   pattern,
   patternOpacity,
@@ -114,19 +121,19 @@ export function HeroVideoBackgroundDark({
     if (videoSlot) return videoSlot;
 
     return (
-      <video
-        loop
-        playsInline
-        src={videoSrc}
-        className={cn(
-          "absolute top-0 left-0 size-full object-cover",
-          `brightness-${videoBrightness}`,
-        )}
-        autoPlay
-        muted
-      />
+      <>
+        <video
+          loop
+          playsInline
+          src={videoSrc}
+          className="absolute top-0 left-0 size-full object-cover"
+          autoPlay
+          muted
+        />
+        <GradientOverlay intensity={videoOverlayIntensity} />
+      </>
     );
-  }, [videoSlot, videoSrc, videoBrightness]);
+  }, [videoSlot, videoSrc, videoOverlayIntensity]);
 
   return (
     <Section

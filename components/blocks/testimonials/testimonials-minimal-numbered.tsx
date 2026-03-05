@@ -66,6 +66,10 @@ export interface TestimonialsMinimalNumberedProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -104,7 +108,8 @@ export function TestimonialsMinimalNumbered({
   authorClassName,
   navigationClassName,
   background,
-  spacing,
+  spacing = "lg",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
 }: TestimonialsMinimalNumberedProps): React.JSX.Element {
@@ -176,7 +181,7 @@ export function TestimonialsMinimalNumbered({
       <div className={cn("flex items-start gap-8", contentClassName)}>
         <span
           className={cn(
-            "text-8xl font-light leading-none select-none transition-all duration-500 md:text-9xl",
+            "text-4xl md:text-8xl font-light leading-none select-none transition-all duration-500 md:text-9xl",
             numberClassName,
           )}
           style={{ fontFeatureSettings: '"tnum"' }}
@@ -184,7 +189,7 @@ export function TestimonialsMinimalNumbered({
           {String(active + 1).padStart(2, "0")}
         </span>
 
-        <div className="flex-1 pt-6">
+        <div className="flex-1 pt-0 md:pt-6">
           {current.quote &&
             (typeof current.quote === "string" ? (
               <blockquote
@@ -306,18 +311,18 @@ export function TestimonialsMinimalNumbered({
             )}
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
             <button
               onClick={handlePrev}
               className="rounded-full p-2 transition-all duration-300 "
             >
-              <DynamicIcon name="lucide/chevron-left" size={20} />
+              <DynamicIcon name="lucide/chevron-left" size={24} />
             </button>
             <button
               onClick={handleNext}
               className="rounded-full p-2  transition-all duration-300 "
             >
-              <DynamicIcon name="lucide/chevron-right" size={20} />
+              <DynamicIcon name="lucide/chevron-right" size={24} />
             </button>
           </div>
         </div>

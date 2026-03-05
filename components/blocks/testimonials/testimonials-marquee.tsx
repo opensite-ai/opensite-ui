@@ -5,6 +5,7 @@ import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
+import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -248,7 +249,7 @@ export function TestimonialsMarquee({
                       </div>
                     </div>
                   </CardContent>
-                </Card>
+                </Pressable>
               );
             })}
           </div>

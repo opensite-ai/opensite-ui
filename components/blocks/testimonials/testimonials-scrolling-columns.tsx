@@ -5,6 +5,7 @@ import { useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { GradientOverlay } from "../../ui/gradient-overlay";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
 import type { PatternName } from "../../ui/pattern-background";
@@ -209,11 +210,32 @@ export function TestimonialsScrollingColumns({
                     optixFlowConfig={optixFlowConfig}
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/40 to-transparent" />
+                <GradientOverlay />
               </div>
 
               <div className="absolute bottom-0 left-0 right-0 p-6 text-left">
-                <DynamicIcon name="lucide/quote" size={32} className="mb-4" />
+                {testimonial?.logoSrc ? (
+                  <Img
+                    src={testimonial.logoSrc}
+                    alt={
+                      typeof testimonial.company === "string"
+                        ? `${testimonial.company} logo`
+                        : typeof testimonial.author === "string"
+                          ? `${testimonial.author} company logo`
+                          : "Company logo"
+                    }
+                    className={cn(
+                      "mx-auto mb-6 max-h-12 max-w-32 object-contain md:max-h-16 md:max-w-48",
+                    )}
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                ) : (
+                  <DynamicIcon
+                    name="mdi/comment-quote-outline"
+                    size={42}
+                    className={cn("opacity-50")}
+                  />
+                )}
                 {testimonial.quote &&
                   (typeof testimonial.quote === "string" ? (
                     <blockquote
@@ -225,7 +247,7 @@ export function TestimonialsScrollingColumns({
                       {testimonial.quote}
                     </blockquote>
                   ) : (
-                    <div className={quoteClassName}>{testimonial.quote}</div>
+                    testimonial.quote
                   ))}
                 <figcaption className={cn("mt-4", authorClassName)}>
                   <p className="font-semibold">
@@ -276,7 +298,8 @@ export function TestimonialsScrollingColumns({
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-semibold tracking-tight md:text-4xl lg:text-6xl",
+                "text-pretty text-3xl md:text-4xl lg:text-6xl",
+                "font-semibold tracking-tight",
                 headingClassName,
               )}
             >
@@ -287,7 +310,12 @@ export function TestimonialsScrollingColumns({
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p className={cn("text-base md:text-lg ", descriptionClassName)}>
+            <p
+              className={cn(
+                "text-base text-base md:text-lg text-balance",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (

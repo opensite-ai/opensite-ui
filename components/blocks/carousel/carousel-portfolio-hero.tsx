@@ -16,13 +16,13 @@
 
 import * as React from "react";
 import {
-  BRIGHTNESS_CLASS_MAP,
   cn,
   getNestedCardBg,
   getNestedCardTextColor,
 } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { GradientOverlay } from "../../ui/gradient-overlay";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
@@ -145,7 +145,12 @@ export interface CarouselPortfolioHeroProps {
    */
   patternOpacity?: number;
   /**
-   * Brightness level for slide images (controls overlay visibility)
+   * Intensity of the gradient overlay on slide images
+   * @default "high"
+   */
+  slideMediaOverlayIntensity?: "low" | "default" | "high" | "very-high";
+  /**
+   * Brightness level for slide images (deprecated - prefer slideMediaOverlayIntensity)
    */
   slideMediaBrightness?: "10" | "20" | "25" | "30" | "40" | "50" | "75" | "100";
 }
@@ -170,7 +175,8 @@ export function CarouselPortfolioHero({
   spacing = "none",
   pattern,
   patternOpacity,
-  slideMediaBrightness = "50",
+  slideMediaBrightness,
+  slideMediaOverlayIntensity = "high",
 }: CarouselPortfolioHeroProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -240,11 +246,11 @@ export function CarouselPortfolioHero({
                 }
                 className={cn(
                   "h-full w-full object-cover",
-                  BRIGHTNESS_CLASS_MAP[slideMediaBrightness],
                   slide.imageClassName,
                 )}
                 optixFlowConfig={optixFlowConfig}
               />
+              <GradientOverlay intensity={slideMediaOverlayIntensity} />
             </div>
           ))}
 
