@@ -5,6 +5,7 @@ import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
+import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -168,16 +169,16 @@ export function TestimonialsSplitImage({
         )}
       >
         <DynamicIcon
-          name="lucide/quote"
+          name="mdi/comment-quote-outline"
           size={48}
-          className={cn("text-primary/20", quoteIconClassName)}
+          className={quoteIconClassName}
         />
 
         {testimonial.quote &&
           (typeof testimonial.quote === "string" ? (
             <blockquote
               className={cn(
-                "text-xl font-medium leading-relaxed md:text-2xl",
+                "text-lg font-light leading-relaxed md:text-2xl lg:text-3xl",
                 quoteClassName,
               )}
             >
@@ -188,11 +189,11 @@ export function TestimonialsSplitImage({
           ))}
 
         <div className={cn("flex items-center gap-4 pt-4", authorClassName)}>
-          <Avatar className="size-12">
+          <Avatar className="relative flex shrink-0 overflow-hidden shadow-xl rounded-2xl size-18">
             <AvatarImage src={avatarSrc} alt={authorName} />
             <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
           </Avatar>
-          <div>
+          <div className="flex flex-col gap-0">
             {testimonial.author &&
               (typeof testimonial.author === "string" ? (
                 <p className="font-semibold">{testimonial.author}</p>
@@ -210,6 +211,18 @@ export function TestimonialsSplitImage({
                     ? ` at ${testimonial.company}`
                     : testimonial.company)}
               </p>
+            )}
+            {testimonial.linkConfig?.href && (
+              <Pressable
+                href={testimonial.linkConfig.href}
+                className={cn(
+                  current.linkConfig.className,
+                  "text-sm font-bold tracking-wide uppercase",
+                  "hover:underline hover:underline-offset-2",
+                )}
+              >
+                {testimonial.linkConfig.label}
+              </Pressable>
             )}
           </div>
         </div>
@@ -238,12 +251,16 @@ export function TestimonialsSplitImage({
       containerClassName={containerClassName}
     >
       <div
-        className={cn("grid items-center gap-12 lg:grid-cols-2", gridClassName)}
+        className={cn(
+          "grid items-center gap-10 md:gap-12 grid-cols-1 lg:grid-cols-2",
+          gridClassName,
+        )}
       >
         {imageSrc && (
           <div
             className={cn(
-              "relative aspect-4/3 overflow-hidden rounded-2xl lg:aspect-square",
+              "shadow-xl rounded-2xl",
+              "relative aspect-4/3 overflow-hidden lg:aspect-square",
               effectiveImagePosition === "right" && "lg:order-2",
               imageClassName,
             )}

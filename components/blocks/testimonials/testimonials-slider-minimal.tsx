@@ -2,7 +2,10 @@
 
 import * as React from "react";
 import { useState, useEffect, useCallback, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../../../lib/utils";
+import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -73,6 +76,18 @@ export interface TestimonialsSliderMinimalProps {
    * Additional CSS classes for the navigation buttons
    */
   navButtonClassName?: string;
+  /**
+   * Aria label for the previous button
+   */
+  previousButtonAriaLabel?: string;
+  /**
+   * Aria label for the next button
+   */
+  nextButtonAriaLabel?: string;
+  /**
+   * Additional CSS classes for the navigation container
+   */
+  navigationClassName?: string;
 }
 
 /**
@@ -112,11 +127,13 @@ export function TestimonialsSliderMinimal({
   dotsClassName,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "xl",
+  spacing = "none",
   pattern,
   patternOpacity,
+  previousButtonAriaLabel,
+  nextButtonAriaLabel,
+  navigationClassName,
 }: TestimonialsSliderMinimalProps): React.JSX.Element {
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalTestimonials = testimonials?.length ?? 0;
   const autoPlayTimerRef = React.useRef<ReturnType<typeof setInterval> | null>(
@@ -166,33 +183,6 @@ export function TestimonialsSliderMinimal({
 
   const current = testimonials?.[currentIndex];
 
-  const effectiveAutoPlayInterval = autoPlayInterval ?? 5000;
-
-  const goToSlide = useCallback(
-    (index: number) => {
-      if (index === currentIndex) return;
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentIndex(index);
-        setIsTransitioning(false);
-      }, 300);
-    },
-    [currentIndex],
-  );
-
-  useEffect(() => {
-    if (effectiveAutoPlayInterval <= 0 || totalTestimonials === 0) return;
-
-    const interval = setInterval(() => {
-      const nextIndex = (currentIndex + 1) % totalTestimonials;
-      goToSlide(nextIndex);
-    }, effectiveAutoPlayInterval);
-
-    return () => clearInterval(interval);
-  }, [currentIndex, effectiveAutoPlayInterval, totalTestimonials, goToSlide]);
-
-  const current = testimonials?.[currentIndex];
-
   const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
@@ -220,17 +210,12 @@ export function TestimonialsSliderMinimal({
     const avatarSrc = getAvatarSrc(current);
 
     return (
-      <div
-        className={cn(
-          "transition-opacity duration-500 space-y-12 md:space-y-24",
-          isTransitioning ? "opacity-0" : "opacity-100",
-        )}
-      >
+      <div className="space-y-12 md:space-y-24">
         {current.quote &&
           (typeof current.quote === "string" ? (
             <blockquote
               className={cn(
-                "text-xl font-thin leading-relaxed md:text-2xl text-balance",
+                "text-xl font-thin leading-relaxed md:text-2xl text-balance line-clamp-6",
                 quoteClassName,
               )}
             >
@@ -286,7 +271,6 @@ export function TestimonialsSliderMinimal({
     );
   }, [
     testimonialsSlot,
-    isTransitioning,
     current,
     quoteClassName,
     authorClassName,
@@ -305,11 +289,31 @@ export function TestimonialsSliderMinimal({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto max-w-3xl text-center", contentClassName)}>
-        {renderedTestimonial}
+      <div
+        className={cn(
+          "mx-auto max-w-3xl text-center min-h-[700px] flex flex-col items-center justify-center",
+          contentClassName,
+        )}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          >
+            {renderedTestimonial}
+          </motion.div>
+        </AnimatePresence>
 
-        {testimonials && testimonials.length > 0 && (
-          <div className={cn("mt-8 flex justify-center gap-2", dotsClassName)}>
+        {testimonials && testimonials.length > 1 && (
+          <div
+            className={cn(
+              "mt-8 flex items-center justify-center gap-4",
+              navigationClassName,
+            )}
+          >
             <Pressable
               asButton
               variant="default"
@@ -321,16 +325,16 @@ export function TestimonialsSliderMinimal({
               <DynamicIcon name="lucide/chevron-left" size={24} />
             </Pressable>
 
-            <div className={cn("flex gap-2", dotsClassName)}>
-              {testimonials?.map((_, index) => (
+            <div className={cn("flex items-center gap-2", dotsClassName)}>
+              {testimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToIndex(index)}
                   className={cn(
                     "size-2 rounded-full transition-all",
                     index === currentIndex
-                      ? "w-6 bg-primary"
-                      : "bg-white/40 hover:bg-white/60",
+                      ? "w-6 bg-primary text-primary-foreground"
+                      : "bg-card text-card-foreground",
                   )}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
