@@ -243,10 +243,11 @@ export function TestimonialsParallaxNumber({
       >
         <motion.div
           className={cn(
+            "opacity-15",
             "pointer-events-none absolute -left-8 top-1/2 -translate-y-1/2 select-none text-[20rem] font-bold leading-none tracking-tighter ",
             numberClassName,
           )}
-          style={{ x: numberX, y: numberY }}
+          style={{ x: numberX, y: numberY, opacity: 0.1 }}
         >
           <AnimatePresence mode="wait">
             <motion.span
@@ -258,7 +259,7 @@ export function TestimonialsParallaxNumber({
               className="block"
             >
               {current.backgroundIcon ? (
-                <DynamicIcon name={current.backgroundIcon} />
+                <DynamicIcon name={current.backgroundIcon} size={320} />
               ) : current.backgroundLabel != null ? (
                 current.backgroundLabel
               ) : null}
@@ -267,7 +268,7 @@ export function TestimonialsParallaxNumber({
         </motion.div>
 
         <div className="relative flex">
-          <div className="flex flex-col items-center justify-center border-r border-border/50 pr-16">
+          <div className="flex flex-col items-center justify-center border-r-0 md:border-r border-border/50 pr-4 md:pr-16">
             <motion.span
               className="text-sm tracking-widest uppercase"
               style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
@@ -293,7 +294,7 @@ export function TestimonialsParallaxNumber({
             </div>
           </div>
 
-          <div className="flex-1 py-12 pl-16">
+          <div className="flex-1 py-6 md:py-12 pl-4 md:pl-16">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeIndex}
@@ -314,7 +315,7 @@ export function TestimonialsParallaxNumber({
                 <motion.blockquote
                   key={activeIndex}
                   className={cn(
-                    "text-3xl font-light leading-[1.15] tracking-tight md:text-4xl lg:text-5xl",
+                    "text-2xl md:text-3xl font-light leading-[1.15] tracking-tight md:text-4xl lg:text-5xl",
                     quoteClassName,
                   )}
                   initial="hidden"
@@ -351,7 +352,7 @@ export function TestimonialsParallaxNumber({
               </AnimatePresence>
             </div>
 
-            <div className="flex items-end justify-between">
+            <div className="flex items-start md:items-end justify-between">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}
@@ -394,7 +395,10 @@ export function TestimonialsParallaxNumber({
               </AnimatePresence>
 
               <div
-                className={cn("flex items-center gap-4", navigationClassName)}
+                className={cn(
+                  "flex items-center gap-4 flex-col md:flex-row",
+                  navigationClassName,
+                )}
               >
                 <motion.button
                   onClick={goPrev}

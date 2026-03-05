@@ -101,15 +101,19 @@ export interface TestimonialsListVerifiedProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
-function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
+function StarRating({ rating, size = 18 }: { rating: number; size?: number }) {
   return (
     <div className="flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map((star) => (
         <DynamicIcon
           key={star}
-          name="lucide/star"
+          name="icon-park-solid/star"
           size={size}
           className={cn(
             star <= rating
@@ -160,14 +164,17 @@ export function TestimonialsListVerified({
   contentClassName,
   authorClassName,
   background,
-  spacing,
+  spacing = "lg",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
 }: TestimonialsListVerifiedProps): React.JSX.Element {
   const totalReviews = reviews?.length ?? 0;
-  const averageRating = totalReviews > 0
-    ? (reviews?.reduce((sum, review) => sum + review.rating, 0) ?? 0) / totalReviews
-    : 0;
+  const averageRating =
+    totalReviews > 0
+      ? (reviews?.reduce((sum, review) => sum + review.rating, 0) ?? 0) /
+        totalReviews
+      : 0;
 
   const getAuthorName = useCallback((review: ReviewItem): string => {
     if (typeof review.author === "string") return review.author;
@@ -191,65 +198,67 @@ export function TestimonialsListVerified({
           const authorName = getAuthorName(review);
           return (
             <div key={index} className={reviewClassName}>
-              {index > 0 && <Separator className="my-6" />}
-              <div className={cn("space-y-3", contentClassName)}>
-                <div>
-                  <StarRating rating={review.rating} size={16} />
+              {index > 0 && (
+                <Separator className="bg-border/50 shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-12 md:my-16" />
+              )}
+              <div className={cn("space-y-6 md:space-y-12", contentClassName)}>
+                <div className="space-y-4">
+                  <StarRating rating={review.rating} size={22} />
                   {review.title &&
                     (typeof review.title === "string" ? (
-                      <h3 className="mt-2 font-medium">{review.title}</h3>
+                      <h3 className="font-medium">{review.title}</h3>
                     ) : (
-                      <div className="mt-2">{review.title}</div>
+                      review.title
                     ))}
                 </div>
 
                 {review.content &&
                   (typeof review.content === "string" ? (
-                    <p className="text-sm leading-relaxed text-muted-foreground">
+                    <p className="text-base md:text-lg leading-relaxed font-light">
                       {review.content}
                     </p>
                   ) : (
                     review.content
                   ))}
 
-                <div className={cn("flex items-center gap-3", authorClassName)}>
-                  <Avatar className="size-8">
-                    <AvatarImage src={review.avatarSrc} alt={authorName} />
-                    <AvatarFallback className="text-xs">
-                      {getInitials(authorName)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex items-center gap-2 text-sm">
-                    {review.author &&
-                      (typeof review.author === "string" ? (
-                        <span className="font-medium">{review.author}</span>
-                      ) : (
-                        review.author
-                      ))}
-                    {review.verified && (
-                      <span className="flex items-center gap-1 text-emerald-600">
-                        <DynamicIcon name="lucide/badge-check" size={16} />
-                        {verifiedPurchaseLabel && (
-                          typeof verifiedPurchaseLabel === "string" ? (
-                            <span className="text-xs">{verifiedPurchaseLabel}</span>
-                          ) : (
-                            verifiedPurchaseLabel
-                          )
-                        )}
-                        {!verifiedPurchaseLabel && (
-                          <span className="text-xs">Verified Purchase</span>
-                        )}
-                      </span>
-                    )}
-                    {review.date && (
-                      <>
-                        <span className="text-muted-foreground">·</span>
-                        <span className="text-muted-foreground">
-                          {review.date}
+                <div className={cn("flex items-center justify-between w-full")}>
+                  <div
+                    className={cn("flex items-center gap-5", authorClassName)}
+                  >
+                    <Avatar className="size-12 ring-4 ring-primary shadow-lg">
+                      <AvatarImage src={review.avatarSrc} alt={authorName} />
+                      <AvatarFallback className="text-md">
+                        {getInitials(authorName)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex items-center gap-1 text-base flex-col items-start">
+                      {review.author &&
+                        (typeof review.author === "string" ? (
+                          <span className="font-medium">{review.author}</span>
+                        ) : (
+                          review.author
+                        ))}
+                      {review.verified && (
+                        <span className="flex items-center gap-1">
+                          <DynamicIcon name="lucide/badge-check" size={18} />
+                          {verifiedPurchaseLabel &&
+                            (typeof verifiedPurchaseLabel === "string" ? (
+                              <span className="text-sm">
+                                {verifiedPurchaseLabel}
+                              </span>
+                            ) : (
+                              verifiedPurchaseLabel
+                            ))}
+                          {!verifiedPurchaseLabel && (
+                            <span className="text-sm">Verified Purchase</span>
+                          )}
                         </span>
-                      </>
-                    )}
+                      )}
+                    </div>
                   </div>
+                  {review.date && (
+                    <span className="relative">{review.date}</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -257,7 +266,16 @@ export function TestimonialsListVerified({
         })}
       </div>
     );
-  }, [reviewsSlot, reviews, reviewClassName, contentClassName, authorClassName, verifiedPurchaseLabel, getAuthorName, getInitials]);
+  }, [
+    reviewsSlot,
+    reviews,
+    reviewClassName,
+    contentClassName,
+    authorClassName,
+    verifiedPurchaseLabel,
+    getAuthorName,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -267,25 +285,25 @@ export function TestimonialsListVerified({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className="mx-auto max-w-3xl">
-        <div className={cn("mb-8", headerClassName)}>
+      <div className="mx-auto max-w-full md:max-w-3xl">
+        <div className={cn("mb-12 md:mb-24 space-y-6", headerClassName)}>
           {heading &&
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "text-2xl font-semibold tracking-tight md:text-3xl",
+                  "text-2xl font-semibold tracking-tight md:text-3xl lg:text-4xl",
                   headingClassName,
                 )}
               >
                 {heading}
               </h2>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {totalReviews > 0 && (
             <div className="mt-2 flex items-center gap-3">
-              <StarRating rating={Math.round(averageRating)} size={20} />
-              <span className="text-sm text-muted-foreground">
+              <StarRating rating={Math.round(averageRating)} size={22} />
+              <span className="text-sm">
                 {averageRating.toFixed(1)} out of 5 · {totalReviews} reviews
               </span>
             </div>
