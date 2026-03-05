@@ -2,11 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
@@ -17,19 +13,52 @@ import type {
   SectionSpacing,
   TestimonialItem,
 } from "../../../src/types";
+import { Pressable, StarRating } from "@/src";
 
 /**
  * Stat item interface for displaying metrics
  */
 export interface StatItem {
   /**
-   * The stat value (e.g., "10K+", "4.9")
+   * Unique identifier for the stat
+   */
+  id: string;
+  /**
+   * The stat value (e.g., "437", "2.4", "89")
    */
   value: React.ReactNode;
   /**
-   * The stat label (e.g., "Happy Customers")
+   * Prefix for the value (e.g., "$", "€", "£")
+   */
+  prefix?: React.ReactNode;
+  /**
+   * Suffix for the value (e.g., "%", "B+", "x", "K")
+   */
+  suffix?: React.ReactNode;
+  /**
+   * The label for the stat
    */
   label: React.ReactNode;
+  /**
+   * Description or context for the stat
+   */
+  description?: React.ReactNode;
+  /**
+   * Icon name in format: prefix/name (e.g., "lucide/line-chart")
+   */
+  icon?: string;
+  /**
+   * Custom slot for icon (overrides icon prop)
+   */
+  iconSlot?: React.ReactNode;
+  /**
+   * Icon color class (e.g., "text-primary", "text-emerald-500")
+   */
+  iconColor?: string;
+  /**
+   * Additional CSS classes for the stat card
+   */
+  className?: string;
 }
 
 export interface TestimonialsStatsHeaderProps {
@@ -117,6 +146,10 @@ export interface TestimonialsStatsHeaderProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /**
+   * Additional CSS classes for stat cards
+   */
+  statCardClassName?: string;
 }
 
 /**
@@ -163,6 +196,7 @@ export function TestimonialsStatsHeader({
   statItemClassName,
   testimonialsGridClassName,
   cardClassName,
+  statCardClassName,
   quoteClassName,
   authorClassName,
   background,
@@ -183,6 +217,17 @@ export function TestimonialsStatsHeader({
     [],
   );
 
+  // Callback for rendering stat icons - takes argument (stat)
+  const renderStatIcon = useCallback((stat: StatItem) => {
+    if (stat.iconSlot) return stat.iconSlot;
+    if (!stat.icon) return null;
+    return (
+      <div className="mb-6">
+        <DynamicIcon name={stat.icon} size={32} className={stat.iconColor} />
+      </div>
+    );
+  }, []);
+
   const getInitials = useCallback((name: string): string => {
     return name
       .split(" ")
@@ -197,33 +242,49 @@ export function TestimonialsStatsHeader({
     return (
       <div
         className={cn(
-          "mb-12 grid grid-cols-2 gap-4 md:grid-cols-4",
+          "mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3",
           statsGridClassName,
         )}
       >
-        {stats.map((stat, index) => (
-          <div
-            key={index}
+        {stats.map((stat) => (
+          <Card
+            key={stat.id}
             className={cn(
-              "rounded-lg p-6 text-center",
-              getNestedCardBg(background),
-              getNestedCardTextColor(background),
-              statItemClassName,
+              "overflow-hidden border p-0",
+              stat.className,
+              statCardClassName,
             )}
           >
-            {typeof stat.value === "string" ? (
-              <p className="text-3xl font-bold text-primary md:text-4xl">
-                {stat.value}
-              </p>
-            ) : (
-              stat.value
-            )}
-            {typeof stat.label === "string" ? (
-              <p className="mt-1 text-sm text-muted-foreground">{stat.label}</p>
-            ) : (
-              stat.label
-            )}
-          </div>
+            <CardContent className="p-6 md:p-8">
+              {renderStatIcon(stat)}
+
+              <div className="mb-2 flex items-end">
+                {stat.prefix && (
+                  <span className="mb-1 mr-1 text-2xl font-bold">
+                    {stat.prefix}
+                  </span>
+                )}
+                <h3 className="text-4xl font-bold tracking-tight leading-tight md:text-5xl">
+                  {stat.value}
+                </h3>
+                {stat.suffix && (
+                  <span className="mb-1 ml-1 text-2xl font-bold">
+                    {stat.suffix}
+                  </span>
+                )}
+              </div>
+
+              {stat.label && (
+                <div className="mb-4 text-xl font-semibold">{stat.label}</div>
+              )}
+              {stat.description &&
+                (typeof stat.description === "string" ? (
+                  <p className="opacity-75">{stat.description}</p>
+                ) : (
+                  stat.description
+                ))}
+            </CardContent>
+          </Card>
         ))}
       </div>
     );
@@ -241,59 +302,79 @@ export function TestimonialsStatsHeader({
           const authorName = getAuthorName(testimonial);
           const avatarSrc = getAvatarSrc(testimonial);
           return (
-            <Card key={index} className={cardClassName}>
+            <div
+              key={index}
+              className={cn(
+                "bg-card text-card-foreground flex flex-col gap-6 rounded-2xl border py-0 shadow-xl",
+                cardClassName,
+              )}
+            >
               <CardContent className="p-6">
-                <div className="mb-4 flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <DynamicIcon
-                      key={i}
-                      name="lucide/star"
-                      size={16}
-                      className="fill-primary text-primary"
-                    />
-                  ))}
-                </div>
-                {testimonial.quote &&
-                  (typeof testimonial.quote === "string" ? (
-                    <p
-                      className={cn(
-                        "mb-6 text-sm leading-relaxed",
-                        quoteClassName,
+                <div className="flex flex-col items-start gap-12 justify-between">
+                  <div className="flex flex-col items-start gap-4">
+                    <StarRating rating={5} size={20} />
+
+                    {testimonial.quote &&
+                      (typeof testimonial.quote === "string" ? (
+                        <p
+                          className={cn(
+                            "mb-6 text-sm leading-relaxed",
+                            quoteClassName,
+                          )}
+                        >
+                          &ldquo;{testimonial.quote}&rdquo;
+                        </p>
+                      ) : (
+                        <div className={cn("mb-6", quoteClassName)}>
+                          {testimonial.quote}
+                        </div>
+                      ))}
+                  </div>
+
+                  <div
+                    className={cn("flex items-center gap-3", authorClassName)}
+                  >
+                    <Avatar className="size-10">
+                      <AvatarImage src={avatarSrc} alt={authorName} />
+                      <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
+                    </Avatar>
+                    <div className="space-y-2">
+                      <div>
+                        {testimonial.author &&
+                          (typeof testimonial.author === "string" ? (
+                            <p className="text-base font-medium">
+                              {testimonial.author}
+                            </p>
+                          ) : (
+                            testimonial.author
+                          ))}
+                        {testimonial.role &&
+                          (typeof testimonial.role === "string" ? (
+                            <p className="text-sm opacity-75">
+                              {testimonial.role}
+                            </p>
+                          ) : (
+                            testimonial.role
+                          ))}
+                      </div>
+
+                      {testimonial.linkConfig?.href && (
+                        <Pressable
+                          href={testimonial.linkConfig.href}
+                          className={cn(
+                            "text-sm  transition-all duration-300",
+                            "hover:underline hover:underline-offset-4",
+                            testimonial.linkConfig.className,
+                          )}
+                        >
+                          {testimonial.linkConfig.label}
+                        </Pressable>
                       )}
-                    >
-                      &ldquo;{testimonial.quote}&rdquo;
-                    </p>
-                  ) : (
-                    <div className={cn("mb-6", quoteClassName)}>
-                      {testimonial.quote}
                     </div>
-                  ))}
-                <div className={cn("flex items-center gap-3", authorClassName)}>
-                  <Avatar className="size-10">
-                    <AvatarImage src={avatarSrc} alt={authorName} />
-                    <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    {testimonial.author &&
-                      (typeof testimonial.author === "string" ? (
-                        <p className="text-sm font-medium">
-                          {testimonial.author}
-                        </p>
-                      ) : (
-                        testimonial.author
-                      ))}
-                    {testimonial.role &&
-                      (typeof testimonial.role === "string" ? (
-                        <p className="text-xs text-muted-foreground">
-                          {testimonial.role}
-                        </p>
-                      ) : (
-                        testimonial.role
-                      ))}
                   </div>
                 </div>
               </CardContent>
-            </Card>
+            </div>
           );
         })}
       </div>

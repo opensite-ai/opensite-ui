@@ -305,7 +305,7 @@ export function TestimonialsLogoCards({
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-semibold tracking-tight md:text-4xl",
+                "text-3xl font-semibold tracking-tight md:text-4xl text-balance",
                 headingClassName,
               )}
             >
@@ -316,7 +316,9 @@ export function TestimonialsLogoCards({
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg", descriptionClassName)}>
+            <p
+              className={cn("mt-4 text-lg text-balance", descriptionClassName)}
+            >
               {description}
             </p>
           ) : (

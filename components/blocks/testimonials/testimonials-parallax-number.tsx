@@ -244,7 +244,7 @@ export function TestimonialsParallaxNumber({
         <motion.div
           className={cn(
             "opacity-15",
-            "pointer-events-none absolute -left-8 top-1/2 -translate-y-1/2 select-none text-[20rem] font-bold leading-none tracking-tighter ",
+            "pointer-events-none absolute -left-8 top-1/2 -translate-y-1/2 select-none text-[20rem] font-bold leading-none tracking-tighter",
             numberClassName,
           )}
           style={{ x: numberX, y: numberY, opacity: 0.1 }}
@@ -268,7 +268,7 @@ export function TestimonialsParallaxNumber({
         </motion.div>
 
         <div className="relative flex">
-          <div className="flex flex-col items-center justify-center border-r-0 md:border-r border-border/50 pr-4 md:pr-16">
+          <div className="flex flex-col items-center justify-center border-r-0 md:border-r border-border/30 pr-4 md:pr-16">
             <motion.span
               className="text-sm tracking-widest uppercase"
               style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
@@ -304,7 +304,7 @@ export function TestimonialsParallaxNumber({
                 transition={{ duration: 0.4 }}
                 className="mb-8"
               >
-                <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 text-xs ">
+                <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm">
                   {companyName}
                 </span>
               </motion.div>
@@ -315,7 +315,8 @@ export function TestimonialsParallaxNumber({
                 <motion.blockquote
                   key={activeIndex}
                   className={cn(
-                    "text-2xl md:text-3xl font-light leading-[1.15] tracking-tight md:text-4xl lg:text-5xl",
+                    "text-2xl md:text-4xl lg:text-5xl",
+                    "font-light leading-[1.15] tracking-tight",
                     quoteClassName,
                   )}
                   initial="hidden"

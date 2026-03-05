@@ -341,7 +341,8 @@ export function CarouselIconSidebar({
                 : image.alt || "Carousel image"
             }
             className={cn(
-              "h-full w-full rounded-lg object-cover cursor-pointer",
+              "aspect-4/3",
+              "h-full w-full object-cover cursor-pointer aspect-4/3",
               imageClassName,
             )}
             loading="lazy"
@@ -414,14 +415,14 @@ export function CarouselIconSidebar({
           <div className="md:col-span-2">{sidebarContent}</div>
 
           <div className="h-full md:col-span-3">
-            <CarouselContent
+            <div
               className={cn(
-                "overflow-hidden rounded-2xl shadow-lg h-full",
+                "overflow-hidden rounded-2xl shadow-lg",
                 carouselContentClassName,
               )}
             >
-              {itemsContent}
-            </CarouselContent>
+              <CarouselContent>{itemsContent}</CarouselContent>
+            </div>
           </div>
         </div>
       </Carousel>

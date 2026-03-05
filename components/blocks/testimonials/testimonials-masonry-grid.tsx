@@ -4,7 +4,6 @@ import * as React from "react";
 import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -12,6 +11,7 @@ import type {
   SectionSpacing,
   TestimonialItem,
 } from "../../../src/types";
+import { Pressable } from "@/src";
 
 export interface TestimonialsMasonryGridProps {
   /**
@@ -78,6 +78,10 @@ export interface TestimonialsMasonryGridProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -119,24 +123,30 @@ export function TestimonialsMasonryGrid({
   quoteClassName,
   authorClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: TestimonialsMasonryGridProps): React.JSX.Element {
-  const columns = testimonials ? [
-    testimonials.filter((_, i) => i % 3 === 0),
-    testimonials.filter((_, i) => i % 3 === 1),
-    testimonials.filter((_, i) => i % 3 === 2),
-  ] : [];
+  const columns = testimonials
+    ? [
+        testimonials.filter((_, i) => i % 3 === 0),
+        testimonials.filter((_, i) => i % 3 === 1),
+        testimonials.filter((_, i) => i % 3 === 2),
+      ]
+    : [];
 
   const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
   }, []);
 
-  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  }, []);
+  const getAvatarSrc = useCallback(
+    (testimonial: TestimonialItem): string | undefined => {
+      return testimonial.avatarSrc || testimonial.avatar?.src;
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -162,33 +172,30 @@ export function TestimonialsMasonryGrid({
               const authorName = getAuthorName(testimonial);
               const avatarSrc = getAvatarSrc(testimonial);
               return (
-                <Card key={index} className={cardClassName}>
-                  <CardContent className="p-6">
+                <div
+                  key={index}
+                  className={cn(
+                    cardClassName,
+                    "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border shadow-sm",
+                  )}
+                >
+                  <div className="flex h-full flex-col justify-between p-6 gap-8">
                     {testimonial.quote &&
                       (typeof testimonial.quote === "string" ? (
-                        <p
-                          className={cn(
-                            "mb-4 text-sm leading-relaxed",
-                            quoteClassName,
-                          )}
-                        >
+                        <blockquote className="text-sm leading-relaxed line-clamp-3">
                           &ldquo;{testimonial.quote}&rdquo;
-                        </p>
+                        </blockquote>
                       ) : (
-                        <div className={cn("mb-4", quoteClassName)}>
-                          {testimonial.quote}
-                        </div>
+                        <div className="line-clamp-3">{testimonial.quote}</div>
                       ))}
-                    <div
-                      className={cn("flex items-center gap-3", authorClassName)}
-                    >
-                      <Avatar className="size-9">
+                    <div className="mt-4 flex items-center gap-3">
+                      <Avatar className="relative flex shrink-0 overflow-hidden rounded-full size-12 ring-4 ring-primary shadow-lg">
                         <AvatarImage src={avatarSrc} alt={authorName} />
                         <AvatarFallback className="text-xs">
                           {getInitials(authorName)}
                         </AvatarFallback>
                       </Avatar>
-                      <div>
+                      <div className="space-y-0 leading-tight">
                         {testimonial.author &&
                           (typeof testimonial.author === "string" ? (
                             <p className="text-sm font-medium">
@@ -199,23 +206,44 @@ export function TestimonialsMasonryGrid({
                           ))}
                         {testimonial.role &&
                           (typeof testimonial.role === "string" ? (
-                            <p className="text-xs text-muted-foreground">
-                              {testimonial.role}
-                            </p>
+                            <p className="text-xs">{testimonial.role}</p>
                           ) : (
                             testimonial.role
                           ))}
+                        {testimonial.linkConfig?.href && (
+                          <Pressable
+                            href={testimonial.linkConfig.href}
+                            className={cn(
+                              "text-sm  transition-all duration-300",
+                              "underline underline-offset-4",
+                              testimonial.linkConfig.className,
+                            )}
+                          >
+                            {testimonial.linkConfig.label}
+                          </Pressable>
+                        )}
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               );
             })}
           </div>
         ))}
       </div>
     );
-  }, [testimonialsSlot, gridClassName, columns, cardClassName, quoteClassName, authorClassName, testimonials, getAuthorName, getAvatarSrc, getInitials]);
+  }, [
+    testimonialsSlot,
+    gridClassName,
+    columns,
+    cardClassName,
+    quoteClassName,
+    authorClassName,
+    testimonials,
+    getAuthorName,
+    getAvatarSrc,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -224,37 +252,36 @@ export function TestimonialsMasonryGrid({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div
-        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        className={cn(
+          "mx-auto mb-12 max-w-full md:max-w-2xl text-center",
+          headerClassName,
+        )}
       >
         {heading &&
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-semibold tracking-tight md:text-4xl",
+                "text-3xl font-semibold tracking-tight md:text-4xl lg:text-6xl text-balance",
                 headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            heading
           ))}
         {description &&
           (typeof description === "string" ? (
             <p
-              className={cn(
-                "mt-4 text-lg text-muted-foreground",
-                descriptionClassName,
-              )}
+              className={cn("mt-4 text-lg text-balance", descriptionClassName)}
             >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>
-              {description}
-            </div>
+            description
           ))}
       </div>
 

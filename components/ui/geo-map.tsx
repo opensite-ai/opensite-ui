@@ -262,7 +262,7 @@ function MarkerMediaCarousel({
 
   return (
     <div className="relative border-b border-border/60 bg-muted/40">
-      <div className="relative h-44 w-full overflow-hidden">
+      <div className="relative h-full aspect-video w-full overflow-hidden">
         {mediaType === "video" ? (
           <video
             className="h-full w-full object-cover"
@@ -288,24 +288,24 @@ function MarkerMediaCarousel({
           <button
             type="button"
             aria-label="Show previous media"
-            className="absolute left-2 top-1/2 inline-flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-card text-card-foreground shadow-sm transition hover:bg-muted hover:text-muted-foreground"
+            className="absolute left-4 top-1/2 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-2xl bg-card text-card-foreground shadow-lg border-4 border-black hover:border-white hover:bg-black hover:text-white transition-all duration-500"
             onClick={() => {
               setActiveIndex(
                 (current) => (current - 1 + totalItems) % totalItems,
               );
             }}
           >
-            <DynamicIcon name="lucide/arrow-left" size={16} />
+            <DynamicIcon name="lucide/arrow-left" size={18} />
           </button>
           <button
             type="button"
             aria-label="Show next media"
-            className="absolute right-2 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-card text-card-foreground shadow-sm transition hover:bg-muted hover:text-muted-foreground"
+            className="absolute right-4 top-1/2 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-2xl bg-card text-card-foreground shadow-lg border-4 border-black hover:border-white hover:bg-black hover:text-white transition-all duration-500"
             onClick={() => {
               setActiveIndex((current) => (current + 1) % totalItems);
             }}
           >
-            <DynamicIcon name="lucide/arrow-right" size={16} />
+            <DynamicIcon name="lucide/arrow-right" size={18} />
           </button>
 
           <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
@@ -740,10 +740,12 @@ export function GeoMap({
           <button
             type="button"
             aria-label="Close marker details"
-            className="flex size-8 items-center justify-center rounded-full border border-border bg-card text-card-foreground transition hover:bg-muted hover:text-foreground absolute top-2 right-2 z-10"
+            className="
+            flex size-12 items-center justify-center rounded-bl-lg rounded-br-0 rounded-t-0 bg-black text-white transition-all duration-500 absolute top-0 right-0 z-10 cursor-pointer ring-4 ring-white
+"
             onClick={clearSelection}
           >
-            <DynamicIcon name="lucide/x" size={16} />
+            <DynamicIcon name="lucide/x" size={20} />
           </button>
 
           {markerMediaItems.length > 0 ? (
@@ -778,7 +780,7 @@ export function GeoMap({
                 <DynamicIcon
                   name="lucide:map-pin"
                   className="opacity-50"
-                  size={14}
+                  size={18}
                 />
                 {typeof selectedMarker.locationLine === "string" ? (
                   <Pressable
@@ -804,7 +806,7 @@ export function GeoMap({
                 <DynamicIcon
                   name="lucide:clock"
                   className="opacity-50"
-                  size={14}
+                  size={18}
                 />
                 {typeof selectedMarker.hoursLine === "string" ? (
                   <div className="font-medium">{selectedMarker.hoursLine}</div>
@@ -840,7 +842,7 @@ export function GeoMap({
             className="flex size-8 items-center justify-center rounded-full border border-border bg-card text-card-foreground transition hover:bg-muted hover:text-foreground absolute top-2 right-2 z-10"
             onClick={clearSelection}
           >
-            <DynamicIcon name="lucide/x" size={16} />
+            <DynamicIcon name="lucide/x" size={20} />
           </button>
 
           <div className="mb-3 flex items-start justify-between gap-3">

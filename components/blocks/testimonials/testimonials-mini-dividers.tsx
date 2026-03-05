@@ -169,7 +169,7 @@ export function TestimonialsMiniDividers({
     return (
       <div
         className={cn(
-          "relative grid border-x border-dashed md:grid-cols-3",
+          "relative grid border-x border-b border-dashed md:grid-cols-3",
           gridClassName,
         )}
       >
@@ -191,8 +191,7 @@ export function TestimonialsMiniDividers({
               key={index}
               className={cn(
                 "group flex flex-col gap-4 border-t border-dashed p-4 transition-colors duration-300 hover:bg-muted/50 lg:p-8",
-                index === 1 && "md:border-x md:border-dashed",
-                index === 2 ? "border-b" : "md:border-b",
+                index % 3 === 1 && "md:border-x md:border-dashed",
                 itemClassName,
               )}
             >

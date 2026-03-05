@@ -196,7 +196,7 @@ export function TestimonialsScrollingColumns({
             <motion.div
               key={index}
               className={cn(
-                "relative overflow-hidden rounded-2xl bg-card text-card-foreground shadow-sm",
+                "relative overflow-hidden rounded-2xl shadow-sm",
                 cardClassName,
               )}
               variants={itemVariants}
@@ -225,7 +225,7 @@ export function TestimonialsScrollingColumns({
                           : "Company logo"
                     }
                     className={cn(
-                      "mx-auto mb-6 max-h-12 max-w-32 object-contain md:max-h-16 md:max-w-48",
+                      "flex justify-start items-start mb-6 max-h-10 max-w-32 object-contain md:max-h-10 md:max-w-48",
                     )}
                     optixFlowConfig={optixFlowConfig}
                   />
@@ -240,7 +240,7 @@ export function TestimonialsScrollingColumns({
                   (typeof testimonial.quote === "string" ? (
                     <blockquote
                       className={cn(
-                        "text-base font-medium leading-relaxed",
+                        "text-base font-base leading-relaxed",
                         quoteClassName,
                       )}
                     >
@@ -250,17 +250,21 @@ export function TestimonialsScrollingColumns({
                     testimonial.quote
                   ))}
                 <figcaption className={cn("mt-4", authorClassName)}>
-                  <p className="font-semibold">
-                    &mdash;{" "}
+                  <div className="space-y-1">
                     {testimonial.author &&
-                      (typeof testimonial.author === "string"
-                        ? testimonial.author
-                        : null)}
+                      (typeof testimonial.author === "string" ? (
+                        <div className="uppercase text-base font-semibold">
+                          {testimonial.author}
+                        </div>
+                      ) : null)}
+
                     {testimonial.role &&
                       (typeof testimonial.role === "string" ? (
-                        <span className="ml-1">, {testimonial.role}</span>
+                        <div className="text-sm font-thin">
+                          {testimonial.role}
+                        </div>
                       ) : null)}
-                  </p>
+                  </div>
                 </figcaption>
               </div>
             </motion.div>
@@ -312,7 +316,7 @@ export function TestimonialsScrollingColumns({
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-base text-base md:text-lg text-balance",
+                "text-base md:text-lg text-balance",
                 descriptionClassName,
               )}
             >

@@ -62,6 +62,10 @@ export interface TestimonialsLargeQuoteProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -96,7 +100,8 @@ export function TestimonialsLargeQuote({
   authorClassName,
   avatarClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
 }: TestimonialsLargeQuoteProps): React.JSX.Element {
@@ -124,18 +129,23 @@ export function TestimonialsLargeQuote({
     const avatarSrc = getAvatarSrc();
 
     return (
-      <div className={cn("mx-auto max-w-4xl text-center", contentClassName)}>
+      <div
+        className={cn(
+          "mx-auto max-full md:max-w-lg text-center",
+          contentClassName,
+        )}
+      >
         <DynamicIcon
-          name="lucide/quote"
-          size={64}
-          className={cn("mx-auto mb-8 text-primary/20", quoteIconClassName)}
+          name="mdi/comment-quote-outline"
+          size={48}
+          className={cn("mx-auto mb-8 ", quoteIconClassName)}
         />
 
         {testimonial.quote &&
           (typeof testimonial.quote === "string" ? (
             <blockquote
               className={cn(
-                "text-2xl font-medium leading-relaxed md:text-3xl lg:text-4xl",
+                "text-2xl font-light leading-relaxed md:text-3xl lg:text-4xl text-balance",
                 quoteClassName,
               )}
             >
@@ -147,17 +157,22 @@ export function TestimonialsLargeQuote({
 
         <div
           className={cn(
-            "mt-10 flex flex-col items-center gap-4",
+            "mt-10 md:mt-16 flex flex-col items-center gap-4 md:gap-8",
             authorClassName,
           )}
         >
-          <Avatar className={cn("size-16", avatarClassName)}>
+          <Avatar
+            className={cn(
+              "relative flex shrink-0 overflow-hidden rounded-full size-16 ring-4 ring-primary shadow-lg",
+              avatarClassName,
+            )}
+          >
             <AvatarImage src={avatarSrc} alt={authorName} />
             <AvatarFallback className="text-lg">
               {getInitials(authorName)}
             </AvatarFallback>
           </Avatar>
-          <div>
+          <div className="flex flex-col items-center gap-4">
             {testimonial.author &&
               (typeof testimonial.author === "string" ? (
                 <p className="text-lg font-semibold">{testimonial.author}</p>
@@ -165,22 +180,37 @@ export function TestimonialsLargeQuote({
                 testimonial.author
               ))}
             {(testimonial.role || testimonial.company) && (
-              <p className="text-muted-foreground">
-                {testimonial.role &&
-                  (typeof testimonial.role === "string"
-                    ? testimonial.role
-                    : testimonial.role)}
-                {testimonial.company &&
-                  (typeof testimonial.company === "string"
-                    ? ` at ${testimonial.company}`
-                    : testimonial.company)}
-              </p>
+              <div className="flex flex-col items-center gap-2">
+                <div className="text-base font-normal opacity-75">
+                  {testimonial.role &&
+                    (typeof testimonial.role === "string"
+                      ? testimonial.role
+                      : testimonial.role)}
+                </div>
+                <div className="text-sm uppercase font-semibold opacity-75">
+                  {testimonial.company &&
+                    (typeof testimonial.company === "string"
+                      ? ` at ${testimonial.company}`
+                      : testimonial.company)}
+                </div>
+              </div>
             )}
           </div>
         </div>
       </div>
     );
-  }, [testimonialSlot, contentClassName, quoteIconClassName, testimonial, quoteClassName, authorClassName, avatarClassName, getAuthorName, getAvatarSrc, getInitials]);
+  }, [
+    testimonialSlot,
+    contentClassName,
+    quoteIconClassName,
+    testimonial,
+    quoteClassName,
+    authorClassName,
+    avatarClassName,
+    getAuthorName,
+    getAvatarSrc,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -189,6 +219,7 @@ export function TestimonialsLargeQuote({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       {renderedTestimonial}
     </Section>

@@ -108,8 +108,8 @@ export function TestimonialsMinimalNumbered({
   authorClassName,
   navigationClassName,
   background,
-  spacing = "lg",
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-8 md:py-12",
+  containerClassName = "w-full px-6 sm:px-6 md:px-8 lg:px-0 max-w-full md:max-w-lg min-h-70dvh h-70dvh flex flex-col items-center justify-center",
   pattern,
   patternOpacity,
 }: TestimonialsMinimalNumberedProps): React.JSX.Element {
@@ -178,10 +178,10 @@ export function TestimonialsMinimalNumbered({
     const avatarSrc = getAvatarSrc(current);
 
     return (
-      <div className={cn("flex items-start gap-8", contentClassName)}>
+      <div className={cn("flex items-start gap-4 md:gap-8", contentClassName)}>
         <span
           className={cn(
-            "text-4xl md:text-8xl font-light leading-none select-none transition-all duration-500 md:text-9xl",
+            "text-4xl md:text-8xl font-light leading-none select-none transition-all duration-500",
             numberClassName,
           )}
           style={{ fontFeatureSettings: '"tnum"' }}
@@ -274,6 +274,7 @@ export function TestimonialsMinimalNumbered({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div className="max-w-4xl mx-auto">
         {renderedTestimonial}
