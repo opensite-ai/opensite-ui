@@ -9,7 +9,7 @@ const clientEntryNames = new Set([
   "social-link-icon",
   "payment-platform-icon",
   "carousel-pagination",
-  "geo-map",
+  
   "pressable",
   "hooks",
   "use-navigation",
@@ -652,7 +652,6 @@ const allEntries = {
   "animated-dialog": "components/ui/animated-dialog.tsx",
   "page-hero-banner": "components/ui/page-hero-banner.tsx",
   "image-slider": "components/ui/image-slider.tsx",
-  "geo-map": "src/geo-map.ts",
   button: "components/ui/button.tsx",
   card: "components/ui/card.tsx",
   badge: "components/ui/badge.tsx",

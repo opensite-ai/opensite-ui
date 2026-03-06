@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { ContactMap } from "../contact-map";
 
-vi.mock("../../../ui/geo-map", () => ({
+vi.mock("@page-speed/maps", () => ({
   GeoMap: ({ className }: { className?: string }) => (
     <div data-testid="mock-geo-map" className={className}>
       map

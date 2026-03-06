@@ -196,13 +196,6 @@
   }
 ,
   {
-    "path": "./components/geo-map",
-    "types": "./dist/geo-map.d.ts",
-    "import": "./dist/geo-map.js",
-    "require": "./dist/geo-map.cjs"
-  }
-,
-  {
     "path": "./components/gradient-overlay",
     "types": "./dist/gradient-overlay.d.ts",
     "import": "./dist/gradient-overlay.js",

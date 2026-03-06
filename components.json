@@ -10,6 +10,7 @@
     "cssVariables": true,
     "prefix": ""
   },
+  "iconLibrary": "lucide",
   "aliases": {
     "components": "@/components",
     "utils": "@/lib/utils",
@@ -24,7 +25,7 @@
       "headers": {
         "Authorization": "Bearer ${SHADCN_BLOCKS_API_KEY}"
       }
-    }
-  },
-  "iconLibrary": "lucide"
+    },
+    "@mapcn": "https://mapcn.dev/r/{name}.json"
+  }
 }

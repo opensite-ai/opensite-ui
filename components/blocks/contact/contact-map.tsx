@@ -7,9 +7,9 @@ import {
   FormEngineStyleRules,
   type FormFieldConfig,
 } from "@page-speed/forms/integration";
+import { GeoMap, type GeoMapProps } from "@page-speed/maps";
 import { cn } from "../../../lib/utils";
 import { Card, CardContent } from "../../ui/card";
-import { GeoMap, type GeoMapProps } from "../../ui/geo-map";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -17,6 +17,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Img } from "@page-speed/img";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "",
@@ -113,13 +115,24 @@ export interface ContactMapProps {
 }
 
 /**
- * ContactMap - Contact form with flexible field configuration
+ * ContactMap - Contact form with flexible field configuration and integrated map
+ *
+ * Now uses @page-speed/maps for optimal tree-shaking and performance.
  *
  * @example
  * ```tsx
  * <ContactMap
  *   heading="Get In Touch"
  *   formEngineSetup={{ formConfig: { endpoint: "/api/contact", format: "json" } }}
+ *   mapProps={{
+ *     markers: [{
+ *       id: 'office',
+ *       latitude: 40.7128,
+ *       longitude: -74.0060,
+ *       title: 'Our Office',
+ *     }],
+ *     stadiaApiKey: process.env.NEXT_PUBLIC_STADIA_API_KEY,
+ *   }}
  * />
  * ```
  */
@@ -165,6 +178,9 @@ export function ContactMap({
       ...mapProps,
       className: cn("h-full w-full", mapClassName, mapProps?.className),
       optixFlowConfig,
+      // Provide icon and image components for rich marker panels
+      IconComponent: DynamicIcon,
+      ImgComponent: Img,
     };
   }, [mapClassName, mapProps, optixFlowConfig]);
 
