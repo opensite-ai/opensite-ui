@@ -24,14 +24,14 @@ importers:
         specifier: 0.2.1
         version: 0.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/maps':
-        specifier: 0.2.2
-        version: 0.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.2.3
+        version: 0.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer':
         specifier: 0.1.9
         version: 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/social-share':
-        specifier: 0.1.3
-        version: 0.1.3(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.1.4
+        version: 0.1.4(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -852,8 +852,8 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@page-speed/maps@0.2.2':
-    resolution: {integrity: sha512-20pnk3WFRmCyEam7V4gBjCrDaXOagLVeU5qzneP/IfV9XkVVYE+Z1BRJQvyFi3jJDLSZhx8iQNfU8vfDKLixOg==}
+  '@page-speed/maps@0.2.3':
+    resolution: {integrity: sha512-K2oPyyOW5uaF4dznmM7M27/fnfAzUEFFZ2oeVlNQtqU/29oq+RThF4vT2AvuNg+bq06+tmuRjcXfoPT8gqckxg==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       react: '>=18.0.0'
@@ -865,8 +865,8 @@ packages:
       react: ^18.0.0
       react-dom: ^18.0.0
 
-  '@page-speed/social-share@0.1.3':
-    resolution: {integrity: sha512-fQA4iy+wMgByiqaIY2IH7EeGL/SsEZCkfdc1vTExmnibBaHGiTQfINwg+3TgWSbFx1bI8gCG3/auAZCKDwMx4A==}
+  '@page-speed/social-share@0.1.4':
+    resolution: {integrity: sha512-QzfwoHX6RExTKk8+2Wi/L/WP0U1X69LktA3O249s3vJlFUVW1hR4fqj5QINC71xfJFiI2fcknRjdJIwl0KDptg==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       '@opensite/hooks': '>=2.0.0'
@@ -3570,7 +3570,7 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       tailwind-merge: 3.5.0
 
-  '@page-speed/maps@0.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/maps@0.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       clsx: 2.1.1
       maplibre-gl: 5.19.0
@@ -3587,7 +3587,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@page-speed/social-share@0.1.3(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/social-share@0.1.4(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@opensite/hooks': 2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
