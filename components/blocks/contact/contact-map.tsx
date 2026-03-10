@@ -200,7 +200,7 @@ export function ContactMap({
           contentGridClassName,
         )}
       >
-        <Card className={cardClassName}>
+        <Card className={cn("shadow-lg rounded-xl", cardClassName)}>
           <CardContent className={cardContentClassName}>
             <div className={cn("mb-6", headerClassName)}>
               {heading &&
@@ -238,12 +238,12 @@ export function ContactMap({
         <div
           className={cn(
             // Allow map panels to overflow outside container
-            "relative",
-            mapColumnClassName
+            "relative shadow-lg rounded-xl",
+            mapColumnClassName,
           )}
           style={{
             // Explicitly allow overflow for marker panels
-            overflow: "visible"
+            overflow: "visible",
           }}
         >
           <GeoMap {...resolvedMapProps} />
