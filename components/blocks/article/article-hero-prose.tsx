@@ -1,5 +1,6 @@
 "use client";
 
+import { SocialShare } from "@page-speed/social-share";
 import * as React from "react";
 import { format } from "date-fns";
 import { cn, getProseClassName } from "../../../lib/utils";
@@ -235,6 +236,18 @@ export function ArticleHeroProseComponent({
           </div>
         </div>
       )}
+
+      <div className="flex items-center justify-center py-24">
+        <SocialShare
+          variant="combo"
+          postTitle={title && typeof title === "string" ? title : ""}
+          shareUrl={window?.location?.href}
+          summaryContent={
+            description && typeof description === "string" ? description : ""
+          }
+          disableImageAttachments
+        />
+      </div>
     </Section>
   );
 }
