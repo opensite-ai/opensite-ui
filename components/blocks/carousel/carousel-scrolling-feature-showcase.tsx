@@ -280,7 +280,12 @@ export function CarouselScrollingFeatureShowcase({
           </div>
 
           {/* Feature descriptions */}
-          <div className={cn("space-y-12 lg:space-y-32", featuresClassName)}>
+          <div
+            className={cn(
+              "space-y-12 lg:space-y-32 lg:pb-[60vh]",
+              featuresClassName,
+            )}
+          >
             {featuresSlot
               ? featuresSlot
               : features?.map((feature, index) => (
