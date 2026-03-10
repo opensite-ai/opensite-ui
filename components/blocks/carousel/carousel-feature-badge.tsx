@@ -28,6 +28,9 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
+import { ActionConfig } from "@page-speed/maps/components/geo-map";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface CarouselFeatureBadgeProps {
   /**
@@ -110,6 +113,18 @@ export interface CarouselFeatureBadgeProps {
    * Optional max width for the content container
    */
   containerMaxWidth?: ContainerMaxWidth;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 /**
@@ -139,8 +154,11 @@ export function CarouselFeatureBadge({
   carouselClassName,
   carouselItemClassName,
   optixFlowConfig,
+  actions,
+  actionsSlot,
+  actionsClassName,
   background,
-  spacing,
+  spacing = "none",
   pattern,
   patternOpacity,
   slideLayoutVariant = "square",
@@ -205,11 +223,49 @@ export function CarouselFeatureBadge({
     ));
   };
 
+  const headerItems = React.useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "text-left text-2xl font-semibold md:text-4xl lg:max-w-xl lg:text-6xl text-pretty",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "max-w-full text-left text-lg leading-snug lg:max-w-sm text-balance text-lg",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
       spacing={spacing}
-      className={cn(className)}
+      className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
       containerMaxWidth={containerMaxWidth}
@@ -219,46 +275,24 @@ export function CarouselFeatureBadge({
           <div
             className={cn("flex flex-col items-start gap-4", contentClassName)}
           >
-            {badge && (
-              <div className={badgeClassName}>
-                {typeof badge === "string" ? <Badge>{badge}</Badge> : badge}
-              </div>
-            )}
-            <div className="flex flex-col gap-2">
-              {heading &&
-                (typeof heading === "string" ? (
-                  <h2
-                    className={cn(
-                      "text-left text-xl font-semibold md:text-3xl lg:max-w-xl lg:text-4xl",
-                      headingClassName,
-                    )}
-                  >
-                    {heading}
-                  </h2>
-                ) : (
-                  <div className={headingClassName}>{heading}</div>
-                ))}
-              {description &&
-                (typeof description === "string" ? (
-                  <p
-                    className={cn(
-                      "max-w-xl text-left text-lg leading-snug lg:max-w-sm",
-                      descriptionClassName,
-                    )}
-                  >
-                    {description}
-                  </p>
-                ) : (
-                  <div className={descriptionClassName}>{description}</div>
-                ))}
-            </div>
+            {badge &&
+              (typeof badge === "string" ? (
+                <Badge className={badgeClassName}>{badge}</Badge>
+              ) : (
+                badge
+              ))}
+            <ContentGroup items={headerItems} className="flex flex-col gap-2" />
+
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
           </div>
           <div className={cn("w-full max-w-full", carouselClassName)}>
             <div className="relative">
               <div ref={emblaRef} className="overflow-hidden">
-                <div className="flex -ml-4">
-                  {renderCarouselItems()}
-                </div>
+                <div className="flex -ml-4">{renderCarouselItems()}</div>
               </div>
               <CarouselPagination
                 onPrevious={scrollPrev}
