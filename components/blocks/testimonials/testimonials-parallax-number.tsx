@@ -295,27 +295,29 @@ export function TestimonialsParallaxNumber({
           </div>
 
           <div className="flex-1 py-6 md:py-12 pl-4 md:pl-16">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                transition={{ duration: 0.4 }}
-                className="mb-8"
-              >
-                <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm">
-                  {companyName}
-                </span>
-              </motion.div>
-            </AnimatePresence>
+            {companyName ? (
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.4 }}
+                  className="mb-8"
+                >
+                  <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm">
+                    {companyName}
+                  </span>
+                </motion.div>
+              </AnimatePresence>
+            ) : null}
 
             <div className="relative mb-12 min-h-[140px]">
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={activeIndex}
                   className={cn(
-                    "text-2xl md:text-4xl lg:text-5xl",
+                    "text-2xl md:text-3xl lg:text-4xl xl:text-5xl",
                     "font-light leading-[1.15] tracking-tight",
                     quoteClassName,
                   )}
