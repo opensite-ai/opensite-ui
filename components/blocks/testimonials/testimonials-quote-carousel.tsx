@@ -182,7 +182,8 @@ export function TestimonialsQuoteCarousel({
                 >
                   <div
                     className={cn(
-                      "flex h-full flex-col rounded-xl border bg-background p-6 shadow-sm transition-all hover:shadow-md",
+                      "bg-card text-card-foreground",
+                      "flex h-full flex-col rounded-xl border p-6 shadow-sm transition-all hover:shadow-md",
                       cardClassName,
                     )}
                   >
@@ -203,7 +204,7 @@ export function TestimonialsQuoteCarousel({
                     </blockquote>
                     <div
                       className={cn(
-                        "mt-auto flex items-center gap-3",
+                        "mt-auto flex items-center gap-4",
                         authorClassName,
                       )}
                     >

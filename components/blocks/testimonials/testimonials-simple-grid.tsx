@@ -13,6 +13,8 @@ import type {
   SectionSpacing,
   TestimonialItem,
 } from "../../../src/types";
+import { ActionConfig } from "@page-speed/maps/components/geo-map";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface TestimonialsSimpleGridProps {
   /**
@@ -91,6 +93,18 @@ export interface TestimonialsSimpleGridProps {
    * Additional CSS classes for the card content
    */
   cardContentClassName?: string;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 /**
@@ -140,6 +154,9 @@ export function TestimonialsSimpleGrid({
   spacing = "xl",
   pattern,
   patternOpacity,
+  actions,
+  actionsSlot,
+  actionsClassName,
 }: TestimonialsSimpleGridProps): React.JSX.Element {
   const gridCols = {
     2: "sm:grid-cols-2",
@@ -318,6 +335,13 @@ export function TestimonialsSimpleGrid({
       </div>
 
       {renderedTestimonials}
+
+      <BlockActions
+        actions={actions}
+        actionsSlot={actionsSlot}
+        actionsClassName={cn("mt-8 md:mt-12 justify-center", actionsClassName)}
+        mobileConfig={{ width: "full", position: "center" }}
+      />
     </Section>
   );
 }

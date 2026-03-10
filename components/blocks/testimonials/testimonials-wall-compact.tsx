@@ -318,7 +318,7 @@ export function TestimonialsWallCompact({
       <BlockActions
         actions={actions}
         actionsSlot={actionsSlot}
-        actionsClassName={cn("mt-8 md:mt-12", actionsClassName)}
+        actionsClassName={cn("mt-8 md:mt-12 justify-center", actionsClassName)}
         mobileConfig={{ width: "full", position: "center" }}
       />
     </Section>

@@ -10,6 +10,9 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import { SocialLinkIcon } from "@/components/ui/social-link-icon";
+import { BlockActions } from "@/components/ui/block-actions";
+import { ActionConfig } from "@page-speed/maps/components/geo-map";
+import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface TwitterTestimonialItem extends SocialTestimonialItem {}
 export interface SocialTestimonialItem {
@@ -108,6 +111,18 @@ export interface TestimonialsTwitterCardsProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 /**
@@ -167,6 +182,9 @@ export function TestimonialsTwitterCards({
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
+  actions,
+  actionsSlot,
+  actionsClassName,
 }: TestimonialsTwitterCardsProps): React.JSX.Element {
   const getAuthorName = useCallback(
     (testimonial: SocialTestimonialItem): string => {
@@ -277,6 +295,45 @@ export function TestimonialsTwitterCards({
     getInitials,
   ]);
 
+  const contentItems = useMemo(() => {
+    const items: ContentGroupItem[] = [];
+
+    if (heading) {
+      if (typeof heading === "string") {
+        items.push({
+          _type: "text",
+          as: "h2",
+          className: cn(
+            "text-pretty text-3xl md:text-4xl lg:text-6xl",
+            "font-semibold tracking-tight",
+            headingClassName,
+          ),
+          children: heading,
+        });
+      } else {
+        items.push(heading);
+      }
+    }
+
+    if (description) {
+      if (typeof description === "string") {
+        items.push({
+          _type: "text",
+          as: "p",
+          className: cn(
+            "max-w-full md:max-w-md text-lg text-balance",
+            descriptionClassName,
+          ),
+          children: description,
+        });
+      } else {
+        items.push(description);
+      }
+    }
+
+    return items;
+  }, [heading, headingClassName, description, descriptionClassName]);
+
   return (
     <Section
       background={background}
@@ -286,42 +343,23 @@ export function TestimonialsTwitterCards({
       className={className}
       containerClassName={containerClassName}
     >
-      <div
+      <ContentGroup
+        items={contentItems}
         className={cn(
+          "flex flex-col items-center",
           "mx-auto mb-12 max-w-full md:max-w-2xl text-center",
           headerClassName,
         )}
-      >
-        {heading &&
-          (typeof heading === "string" ? (
-            <h2
-              className={cn(
-                "text-pretty text-3xl md:text-4xl lg:text-6xl",
-                "font-semibold tracking-tight",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h2>
-          ) : (
-            heading
-          ))}
-        {description &&
-          (typeof description === "string" ? (
-            <p
-              className={cn(
-                "mt-4 max-w-full md:max-w-md text-lg text-balance",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-          ) : (
-            description
-          ))}
-      </div>
+      />
 
       {renderedTestimonials}
+
+      <BlockActions
+        actions={actions}
+        actionsSlot={actionsSlot}
+        actionsClassName={cn("mt-8 md:mt-12 justify-center", actionsClassName)}
+        mobileConfig={{ width: "full", position: "center" }}
+      />
     </Section>
   );
 }

@@ -14,6 +14,8 @@ import type {
   TestimonialItem,
 } from "../../../src/types";
 import { Pressable, StarRating } from "@/src";
+import { BlockActions } from "@/components/ui/block-actions";
+import { ActionConfig } from "@page-speed/maps/components/geo-map";
 
 /**
  * Stat item interface for displaying metrics
@@ -150,6 +152,18 @@ export interface TestimonialsStatsHeaderProps {
    * Additional CSS classes for stat cards
    */
   statCardClassName?: string;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 /**
@@ -204,6 +218,9 @@ export function TestimonialsStatsHeader({
   spacing = "xl",
   pattern,
   patternOpacity,
+  actions,
+  actionsSlot,
+  actionsClassName,
 }: TestimonialsStatsHeaderProps): React.JSX.Element {
   const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
@@ -297,7 +314,10 @@ export function TestimonialsStatsHeader({
 
     return (
       <div
-        className={cn("grid gap-6 md:grid-cols-3", testimonialsGridClassName)}
+        className={cn(
+          "grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+          testimonialsGridClassName,
+        )}
       >
         {testimonials.map((testimonial, index) => {
           const authorName = getAuthorName(testimonial);
@@ -333,14 +353,14 @@ export function TestimonialsStatsHeader({
                   </div>
 
                   <div
-                    className={cn("flex items-center gap-3", authorClassName)}
+                    className={cn("flex items-center gap-4", authorClassName)}
                   >
-                    <Avatar className="size-10">
+                    <Avatar className="size-14 ring-4 ring-primary shadow-lg">
                       <AvatarImage src={avatarSrc} alt={authorName} />
                       <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
                     </Avatar>
-                    <div className="space-y-2">
-                      <div>
+                    <div className="flex flex-col items-start gap-1">
+                      <div className="space-y-0">
                         {testimonial.author &&
                           (typeof testimonial.author === "string" ? (
                             <p className="text-base font-medium">
@@ -363,7 +383,7 @@ export function TestimonialsStatsHeader({
                         <Pressable
                           href={testimonial.linkConfig.href}
                           className={cn(
-                            "text-sm  transition-all duration-300",
+                            "text-sm transition-all duration-500",
                             "hover:underline hover:underline-offset-4",
                             testimonial.linkConfig.className,
                           )}
@@ -436,6 +456,13 @@ export function TestimonialsStatsHeader({
 
       {renderedStats}
       {renderedTestimonials}
+
+      <BlockActions
+        actions={actions}
+        actionsSlot={actionsSlot}
+        actionsClassName={cn("mt-8 md:mt-12 justify-center", actionsClassName)}
+        mobileConfig={{ width: "full", position: "center" }}
+      />
     </Section>
   );
 }

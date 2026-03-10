@@ -9,37 +9,20 @@ import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  TestimonialItem,
+} from "../../../src/types";
 import { ActionConfig } from "@page-speed/maps/components/geo-map";
 import { BlockActions } from "@/components/ui/block-actions";
-
-/**
- * Review item interface for grid with add review
- */
-export interface GridReviewItem {
-  /**
-   * Star rating (1-5)
-   */
-  rating: number;
-  /**
-   * Review content/body
-   */
-  content: React.ReactNode;
-  /**
-   * Author name
-   */
-  author?: React.ReactNode;
-  /**
-   * Author avatar image URL
-   */
-  avatarSrc?: string;
-}
+import { Pressable } from "@/src";
 
 export interface TestimonialsGridAddReviewProps {
   /**
    * Array of reviews to display
    */
-  reviews?: GridReviewItem[];
+  reviews?: TestimonialItem[];
   /**
    * Custom slot for rendering reviews (overrides reviews array)
    */
@@ -128,6 +111,10 @@ export interface TestimonialsGridAddReviewProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /**
+   * Additional CSS classes for the quote text
+   */
+  quoteClassName?: string;
 }
 
 /**
@@ -170,6 +157,7 @@ export function TestimonialsGridAddReview({
   descriptionClassName,
   gridClassName,
   cardClassName,
+  quoteClassName,
   addReviewCardClassName,
   authorClassName,
   background,
@@ -181,10 +169,17 @@ export function TestimonialsGridAddReview({
   actionsSlot,
   actionsClassName,
 }: TestimonialsGridAddReviewProps): React.JSX.Element {
-  const getAuthorName = useCallback((review: GridReviewItem): string => {
-    if (typeof review.author === "string") return review.author;
+  const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
+    if (typeof testimonial.author === "string") return testimonial.author;
     return "";
   }, []);
+
+  const getAvatarSrc = useCallback(
+    (testimonial: TestimonialItem): string | undefined => {
+      return testimonial.avatarSrc || testimonial.avatar?.src;
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -237,38 +232,74 @@ export function TestimonialsGridAddReview({
           </CardContent>
         </Card>
 
-        {reviews?.map((review, index) => {
-          const authorName = getAuthorName(review);
+        {reviews?.map((testimonial, index) => {
+          const authorName = getAuthorName(testimonial);
+          const avatarSrc = getAvatarSrc(testimonial);
           return (
             <Card key={index} className={cardClassName}>
-              <CardContent className="space-y-4 p-6">
-                <StarRating rating={review.rating} />
-                {review.content &&
-                  (typeof review.content === "string" ? (
-                    <p className="text-sm leading-relaxed">{review.content}</p>
-                  ) : (
-                    review.content
-                  ))}
-                <div
-                  className={cn(
-                    "flex items-center gap-3 mt-12",
-                    authorClassName,
-                  )}
-                >
-                  <Avatar className="size-8">
-                    <AvatarImage src={review.avatarSrc} alt={authorName} />
-                    <AvatarFallback className="text-xs">
-                      {getInitials(authorName)}
-                    </AvatarFallback>
-                  </Avatar>
-                  {review.author &&
-                    (typeof review.author === "string" ? (
-                      <span className="text-sm font-medium">
-                        {review.author}
-                      </span>
-                    ) : (
-                      review.author
-                    ))}
+              <CardContent className="p-6">
+                <div className="flex flex-col items-start gap-12 justify-between">
+                  <div className="flex flex-col items-start gap-4">
+                    <StarRating rating={5} size={20} />
+
+                    {testimonial.quote &&
+                      (typeof testimonial.quote === "string" ? (
+                        <p
+                          className={cn(
+                            "mb-6 text-sm leading-relaxed",
+                            quoteClassName,
+                          )}
+                        >
+                          &ldquo;{testimonial.quote}&rdquo;
+                        </p>
+                      ) : (
+                        <div className={cn("mb-6", quoteClassName)}>
+                          {testimonial.quote}
+                        </div>
+                      ))}
+                  </div>
+
+                  <div
+                    className={cn("flex items-center gap-4", authorClassName)}
+                  >
+                    <Avatar className="size-14 ring-4 ring-primary shadow-lg">
+                      <AvatarImage src={avatarSrc} alt={authorName} />
+                      <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col items-start gap-1">
+                      <div className="space-y-0">
+                        {testimonial.author &&
+                          (typeof testimonial.author === "string" ? (
+                            <p className="text-base font-medium">
+                              {testimonial.author}
+                            </p>
+                          ) : (
+                            testimonial.author
+                          ))}
+                        {testimonial.role &&
+                          (typeof testimonial.role === "string" ? (
+                            <p className="text-sm opacity-75">
+                              {testimonial.role}
+                            </p>
+                          ) : (
+                            testimonial.role
+                          ))}
+                      </div>
+
+                      {testimonial.linkConfig?.href && (
+                        <Pressable
+                          href={testimonial.linkConfig.href}
+                          className={cn(
+                            "text-sm transition-all duration-500",
+                            "hover:underline hover:underline-offset-4",
+                            testimonial.linkConfig.className,
+                          )}
+                        >
+                          {testimonial.linkConfig.label}
+                        </Pressable>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -338,7 +369,7 @@ export function TestimonialsGridAddReview({
       <BlockActions
         actions={actions}
         actionsSlot={actionsSlot}
-        actionsClassName={cn("mt-8 md:mt-12", actionsClassName)}
+        actionsClassName={cn("mt-8 md:mt-12 justify-center", actionsClassName)}
         mobileConfig={{ width: "full", position: "center" }}
       />
     </Section>

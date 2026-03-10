@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsGridAddReview } from "../components/blocks/testimonials/testimonials-grid-add-review";
-export type { TestimonialsGridAddReviewProps, GridReviewItem } from "../components/blocks/testimonials/testimonials-grid-add-review";
+export type { TestimonialsGridAddReviewProps } from "../components/blocks/testimonials/testimonials-grid-add-review";

@@ -12,6 +12,8 @@ import type {
   TestimonialItem,
 } from "../../../src/types";
 import { Pressable } from "@/src";
+import { ActionConfig } from "@page-speed/maps/components/geo-map";
+import { BlockActions } from "@/components/ui/block-actions";
 
 export interface TestimonialsMasonryGridProps {
   /**
@@ -82,6 +84,18 @@ export interface TestimonialsMasonryGridProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 /**
@@ -127,6 +141,9 @@ export function TestimonialsMasonryGrid({
   spacing = "lg",
   pattern,
   patternOpacity,
+  actions,
+  actionsSlot,
+  actionsClassName,
 }: TestimonialsMasonryGridProps): React.JSX.Element {
   const columns = testimonials
     ? [
@@ -182,7 +199,7 @@ export function TestimonialsMasonryGrid({
                   <div className="flex h-full flex-col justify-between p-6 gap-8">
                     {testimonial.quote &&
                       (typeof testimonial.quote === "string" ? (
-                        <blockquote className="text-base leading-relaxed line-clamp-3 font-thin">
+                        <blockquote className="text-lg leading-relaxed line-clamp-6 md:line-clamp-3 font-thin">
                           &ldquo;{testimonial.quote}&rdquo;
                         </blockquote>
                       ) : (
@@ -206,7 +223,7 @@ export function TestimonialsMasonryGrid({
                           ))}
                         {testimonial.role &&
                           (typeof testimonial.role === "string" ? (
-                            <p className="text-sm font-semibold opacity-75">
+                            <p className="text-sm font-thin opacity-75">
                               {testimonial.role}
                             </p>
                           ) : (
@@ -288,6 +305,12 @@ export function TestimonialsMasonryGrid({
       </div>
 
       {renderedTestimonials}
+      <BlockActions
+        actions={actions}
+        actionsSlot={actionsSlot}
+        actionsClassName={cn("mt-8 md:mt-12 justify-center", actionsClassName)}
+        mobileConfig={{ width: "full", position: "center" }}
+      />
     </Section>
   );
 }

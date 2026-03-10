@@ -269,7 +269,6 @@ export function TestimonialsScrollingColumns({
                     {testimonial.linkConfig?.href ? (
                       <Pressable
                         href={testimonial.linkConfig.href}
-                        variant="link"
                         className={cn(
                           "text-base font-bold",
                           testimonial.linkConfig.className,
