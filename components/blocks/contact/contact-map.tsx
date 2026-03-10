@@ -171,22 +171,10 @@ export function ContactMap({
     );
   }, [formEngineSetup]);
 
-  // Detect if we're in an iframe to adjust map height behavior
-  const isInIframe = React.useMemo(() => {
-    if (typeof window === "undefined") return false;
-    try {
-      return window.self !== window.top;
-    } catch {
-      return true; // Blocked by same-origin policy means we're in an iframe
-    }
-  }, []);
-
   const resolvedMapProps = React.useMemo<GeoMapProps>(() => {
     return {
-      // Use simpler height rules when in iframe to avoid resize loops
-      mapWrapperClassName: isInIframe
-        ? "h-full min-h-[420px]"
-        : "h-full min-h-[420px] md:min-h-[520px]",
+      // Use explicit height to prevent MapLibre canvas expansion issues
+      mapWrapperClassName: "h-[520px]",
       panelPosition: "top-left",
       ...mapProps,
       className: cn("h-full w-full", mapClassName, mapProps?.className),
@@ -195,7 +183,7 @@ export function ContactMap({
       IconComponent: DynamicIcon,
       ImgComponent: Img,
     };
-  }, [isInIframe, mapClassName, mapProps, optixFlowConfig]);
+  }, [mapClassName, mapProps, optixFlowConfig]);
 
   return (
     <Section
@@ -249,12 +237,14 @@ export function ContactMap({
 
         <div
           className={cn(
-            // Add overflow hidden and relative positioning to contain the map properly
-            "relative h-full overflow-hidden",
-            // In iframe contexts, ensure proper containment without fixed aspect ratios
-            isInIframe && "min-h-0", // Allow flexible height but prevent infinite expansion
+            // Strict height containment to prevent MapLibre canvas expansion
+            "relative overflow-hidden",
             mapColumnClassName
           )}
+          style={{
+            height: "520px",
+            maxHeight: "90vh"
+          }}
         >
           <GeoMap {...resolvedMapProps} />
         </div>

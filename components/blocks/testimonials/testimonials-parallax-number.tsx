@@ -317,7 +317,7 @@ export function TestimonialsParallaxNumber({
                 <motion.blockquote
                   key={activeIndex}
                   className={cn(
-                    "text-2xl md:text-3xl lg:text-4xl xl:text-5xl",
+                    "text-2xl md:text-3xl lg:text-4xl",
                     "font-light leading-[1.15] tracking-tight",
                     quoteClassName,
                   )}
