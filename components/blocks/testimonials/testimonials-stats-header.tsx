@@ -422,35 +422,36 @@ export function TestimonialsStatsHeader({
       containerClassName={containerClassName}
     >
       <div
-        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        className={cn(
+          "mx-auto mb-12 max-w-full md:max-w-md text-center",
+          headerClassName,
+        )}
       >
         {heading &&
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-semibold tracking-tight md:text-4xl",
+                "text-3xl font-semibold tracking-tight md:text-4xl text-pretty",
                 headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            heading
           ))}
         {description &&
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mt-4 text-lg text-muted-foreground",
+                "mt-2 md:mt-4 text-lg text-balance",
                 descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>
-              {description}
-            </div>
+            description
           ))}
       </div>
 

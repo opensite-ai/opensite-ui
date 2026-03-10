@@ -215,7 +215,7 @@ export function TestimonialsMasonryGrid({
                       <div className="space-y-0 leading-tight">
                         {testimonial.author &&
                           (typeof testimonial.author === "string" ? (
-                            <p className="text-sm font-medium">
+                            <p className="text-base font-medium">
                               {testimonial.author}
                             </p>
                           ) : (
@@ -223,7 +223,7 @@ export function TestimonialsMasonryGrid({
                           ))}
                         {testimonial.role &&
                           (typeof testimonial.role === "string" ? (
-                            <p className="text-sm font-thin opacity-75">
+                            <p className="text-base font-thin opacity-75">
                               {testimonial.role}
                             </p>
                           ) : (
@@ -233,7 +233,7 @@ export function TestimonialsMasonryGrid({
                           <Pressable
                             href={testimonial.linkConfig.href}
                             className={cn(
-                              "text-sm transition-all duration-500",
+                              "text-base transition-all duration-500",
                               "hover:underline hover:underline-offset-4",
                               testimonial.linkConfig.className,
                             )}

@@ -18,6 +18,7 @@ import type {
   SectionSpacing,
   TestimonialItem,
 } from "../../../src/types";
+import { Pressable } from "@/src";
 
 export interface TestimonialsQuoteCarouselProps {
   /**
@@ -208,7 +209,7 @@ export function TestimonialsQuoteCarousel({
                         authorClassName,
                       )}
                     >
-                      <Avatar className="size-10 ring-4 ring-primary">
+                      <Avatar className="size-12 ring-4 ring-primary">
                         <AvatarImage src={avatarSrc} alt={authorName} />
                         <AvatarFallback>
                           {getInitials(authorName)}
@@ -225,12 +226,24 @@ export function TestimonialsQuoteCarousel({
                           ))}
                         {testimonial.role &&
                           (typeof testimonial.role === "string" ? (
-                            <p className="text-sm opacity-75 font-semibold">
+                            <p className="text-sm opacity-75 font-thin">
                               {testimonial.role}
                             </p>
                           ) : (
                             testimonial.role
                           ))}
+                        {testimonial.linkConfig?.href && (
+                          <Pressable
+                            href={testimonial.linkConfig.href}
+                            className={cn(
+                              "text-sm transition-all duration-500",
+                              "hover:underline hover:underline-offset-4",
+                              testimonial.linkConfig.className,
+                            )}
+                          >
+                            {testimonial.linkConfig.label}
+                          </Pressable>
+                        )}
                       </div>
                     </div>
                   </div>

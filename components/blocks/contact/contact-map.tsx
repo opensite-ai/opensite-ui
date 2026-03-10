@@ -173,7 +173,7 @@ export function ContactMap({
 
   const resolvedMapProps = React.useMemo<GeoMapProps>(() => {
     return {
-      mapWrapperClassName: "h-[420px] md:h-[520px]",
+      mapWrapperClassName: "h-full min-h-[420px] md:min-h-[520px]",
       panelPosition: "top-left",
       ...mapProps,
       className: cn("h-full w-full", mapClassName, mapProps?.className),

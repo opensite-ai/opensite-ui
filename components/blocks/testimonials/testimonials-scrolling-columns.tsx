@@ -271,6 +271,7 @@ export function TestimonialsScrollingColumns({
                         href={testimonial.linkConfig.href}
                         className={cn(
                           "text-base font-bold",
+                          "transition-all duration-500 hover:opacity-75",
                           testimonial.linkConfig.className,
                         )}
                       >

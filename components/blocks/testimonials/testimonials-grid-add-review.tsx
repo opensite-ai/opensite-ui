@@ -332,7 +332,7 @@ export function TestimonialsGridAddReview({
     >
       <div
         className={cn(
-          "mx-auto mb-12 max-w-full md:max-w-2xl text-center",
+          "mx-auto mb-12 max-w-full md:max-w-md text-center",
           headerClassName,
         )}
       >
