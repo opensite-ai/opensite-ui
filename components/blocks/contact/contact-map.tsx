@@ -220,7 +220,7 @@ export function ContactMap({
                 (typeof description === "string" ? (
                   <p
                     className={cn(
-                      "leading-relaxed text-pretty",
+                      "leading-relaxed text-balance",
                       descriptionClassName,
                     )}
                   >
