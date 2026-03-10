@@ -266,6 +266,7 @@ export function TestimonialsListVerified({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div className="mx-auto max-w-full md:max-w-3xl">
         <div className={cn("mb-12 md:mb-24 space-y-6", headerClassName)}>

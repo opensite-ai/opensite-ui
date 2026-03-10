@@ -15,6 +15,7 @@ import type {
   TestimonialItem,
   OptixFlowConfig,
 } from "../../../src/types";
+import { Pressable } from "@/src";
 
 /**
  * Extended testimonial item with image for scrolling columns display
@@ -260,10 +261,23 @@ export function TestimonialsScrollingColumns({
 
                     {testimonial.role &&
                       (typeof testimonial.role === "string" ? (
-                        <div className="text-sm font-thin">
+                        <div className="text-sm font-thin opacity-75">
                           {testimonial.role}
                         </div>
                       ) : null)}
+
+                    {testimonial.linkConfig?.href ? (
+                      <Pressable
+                        href={testimonial.linkConfig.href}
+                        variant="link"
+                        className={cn(
+                          "text-base font-bold",
+                          testimonial.linkConfig.className,
+                        )}
+                      >
+                        {testimonial.linkConfig.label || "Full Review"}
+                      </Pressable>
+                    ) : null}
                   </div>
                 </figcaption>
               </div>

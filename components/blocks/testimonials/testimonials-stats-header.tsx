@@ -251,6 +251,7 @@ export function TestimonialsStatsHeader({
             key={stat.id}
             className={cn(
               "overflow-hidden border p-0",
+              "rounded-2xl shadow-xl",
               stat.className,
               statCardClassName,
             )}

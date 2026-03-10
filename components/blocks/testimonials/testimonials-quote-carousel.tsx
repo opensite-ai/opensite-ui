@@ -88,6 +88,10 @@ export interface TestimonialsQuoteCarouselProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -130,18 +134,22 @@ export function TestimonialsQuoteCarousel({
   authorClassName,
   navigationClassName,
   background,
-  spacing,
   pattern,
   patternOpacity,
+  spacing = "lg",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: TestimonialsQuoteCarouselProps): React.JSX.Element {
   const getAuthorName = useCallback((testimonial: TestimonialItem): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
   }, []);
 
-  const getAvatarSrc = useCallback((testimonial: TestimonialItem): string | undefined => {
-    return testimonial.avatarSrc || testimonial.avatar?.src;
-  }, []);
+  const getAvatarSrc = useCallback(
+    (testimonial: TestimonialItem): string | undefined => {
+      return testimonial.avatarSrc || testimonial.avatar?.src;
+    },
+    [],
+  );
 
   const getInitials = useCallback((name: string): string => {
     return name
@@ -149,21 +157,6 @@ export function TestimonialsQuoteCarousel({
       .map((n) => n[0])
       .join("");
   }, []);
-
-  const renderedHeading = useMemo(() => {
-    if (typeof heading === "string") {
-      return heading.split(" ").map((word, i) =>
-        i === 1 ? (
-          <span key={i} className="text-primary">
-            {word}{" "}
-          </span>
-        ) : (
-          <span key={i}>{word} </span>
-        ),
-      );
-    }
-    return heading;
-  }, [heading]);
 
   const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
@@ -193,24 +186,19 @@ export function TestimonialsQuoteCarousel({
                       cardClassName,
                     )}
                   >
-                    <div className="mb-4 font-serif text-4xl text-primary">
-                      &ldquo;
-                    </div>
                     <blockquote className="mb-6 flex-1">
                       {testimonial.quote &&
                         (typeof testimonial.quote === "string" ? (
                           <p
                             className={cn(
-                              "text-sm leading-relaxed",
+                              "text-base leading-relaxed",
                               quoteClassName,
                             )}
                           >
                             {testimonial.quote}
                           </p>
                         ) : (
-                          <div className={quoteClassName}>
-                            {testimonial.quote}
-                          </div>
+                          testimonial.quote
                         ))}
                     </blockquote>
                     <div
@@ -219,7 +207,7 @@ export function TestimonialsQuoteCarousel({
                         authorClassName,
                       )}
                     >
-                      <Avatar className="size-10">
+                      <Avatar className="size-10 ring-4 ring-primary">
                         <AvatarImage src={avatarSrc} alt={authorName} />
                         <AvatarFallback>
                           {getInitials(authorName)}
@@ -228,7 +216,7 @@ export function TestimonialsQuoteCarousel({
                       <div className="text-left">
                         {testimonial.author &&
                           (typeof testimonial.author === "string" ? (
-                            <p className="text-sm font-medium">
+                            <p className="text-sm md:text-base font-medium">
                               {testimonial.author}
                             </p>
                           ) : (
@@ -236,7 +224,7 @@ export function TestimonialsQuoteCarousel({
                           ))}
                         {testimonial.role &&
                           (typeof testimonial.role === "string" ? (
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-sm opacity-75 font-semibold">
                               {testimonial.role}
                             </p>
                           ) : (
@@ -261,7 +249,18 @@ export function TestimonialsQuoteCarousel({
         </Carousel>
       </div>
     );
-  }, [testimonialsSlot, carouselClassName, testimonials, cardClassName, quoteClassName, authorClassName, navigationClassName, getAuthorName, getAvatarSrc, getInitials]);
+  }, [
+    testimonialsSlot,
+    carouselClassName,
+    testimonials,
+    cardClassName,
+    quoteClassName,
+    authorClassName,
+    navigationClassName,
+    getAuthorName,
+    getAvatarSrc,
+    getInitials,
+  ]);
 
   return (
     <Section
@@ -270,37 +269,36 @@ export function TestimonialsQuoteCarousel({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div
-        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        className={cn(
+          "mx-auto mb-12 max-w-full md:max-w-2xl text-center",
+          headerClassName,
+        )}
       >
         {heading &&
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-semibold tracking-tight md:text-4xl",
+                "text-3xl font-semibold tracking-tight md:text-4xl text-balance",
                 headingClassName,
               )}
             >
-              {renderedHeading}
+              {heading}
             </h2>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            heading
           ))}
         {description &&
           (typeof description === "string" ? (
             <p
-              className={cn(
-                "mt-4 text-lg text-muted-foreground",
-                descriptionClassName,
-              )}
+              className={cn("mt-4 text-lg text-balance", descriptionClassName)}
             >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>
-              {description}
-            </div>
+            description
           ))}
       </div>
 

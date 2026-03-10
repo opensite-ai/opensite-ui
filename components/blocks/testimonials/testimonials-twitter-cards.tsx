@@ -309,7 +309,10 @@ export function TestimonialsTwitterCards({
         {description &&
           (typeof description === "string" ? (
             <p
-              className={cn("mt-4 text-lg text-balance", descriptionClassName)}
+              className={cn(
+                "mt-4 max-w-full md:max-w-md text-lg text-balance",
+                descriptionClassName,
+              )}
             >
               {description}
             </p>

@@ -146,7 +146,6 @@ export function CarouselFeatureBadge({
   items,
   itemsSlot,
   className,
-  containerClassName,
   contentClassName,
   badgeClassName,
   headingClassName,
@@ -158,7 +157,8 @@ export function CarouselFeatureBadge({
   actionsSlot,
   actionsClassName,
   background,
-  spacing = "none",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "xl",
   pattern,
   patternOpacity,
   slideLayoutVariant = "square",
@@ -269,8 +269,9 @@ export function CarouselFeatureBadge({
       pattern={pattern}
       patternOpacity={patternOpacity}
       containerMaxWidth={containerMaxWidth}
+      containerClassName={containerClassName}
     >
-      <div className={cn("mx-auto", containerClassName)}>
+      <div className="relative">
         <div className="grid grid-cols-1 items-end justify-end gap-6 md:gap-20 lg:grid-cols-2">
           <div
             className={cn("flex flex-col items-start gap-4", contentClassName)}

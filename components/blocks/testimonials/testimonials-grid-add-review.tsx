@@ -2,11 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { StarRating } from "../../ui/star-rating";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -14,6 +10,8 @@ import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { ActionConfig } from "@page-speed/maps/components/geo-map";
+import { BlockActions } from "@/components/ui/block-actions";
 
 /**
  * Review item interface for grid with add review
@@ -114,6 +112,22 @@ export interface TestimonialsGridAddReviewProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 /**
@@ -159,9 +173,13 @@ export function TestimonialsGridAddReview({
   addReviewCardClassName,
   authorClassName,
   background,
-  spacing,
+  spacing = "lg",
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
+  actions,
+  actionsSlot,
+  actionsClassName,
 }: TestimonialsGridAddReviewProps): React.JSX.Element {
   const getAuthorName = useCallback((review: GridReviewItem): string => {
     if (typeof review.author === "string") return review.author;
@@ -187,16 +205,13 @@ export function TestimonialsGridAddReview({
       >
         <Card
           className={cn(
-            "flex cursor-pointer items-center justify-center border-2 border-dashed transition-colors hover:border-primary hover:bg-muted/50",
+            "flex cursor-pointer items-center justify-center border-2 border-dashed transition-all duration-500 opacity-100 hover:border-primary hover:opacity-75",
             addReviewCardClassName,
           )}
           onClick={onAddReview}
         >
           <CardContent
-            className={cn(
-              "flex flex-col items-center gap-3 py-12 text-center",
-              getNestedCardTextColor(background),
-            )}
+            className={cn("flex flex-col items-center gap-3 py-12 text-center")}
           >
             <div className="flex size-12 items-center justify-center rounded-full bg-primary/10">
               <DynamicIcon
@@ -234,7 +249,12 @@ export function TestimonialsGridAddReview({
                   ) : (
                     review.content
                   ))}
-                <div className={cn("flex items-center gap-3", authorClassName)}>
+                <div
+                  className={cn(
+                    "flex items-center gap-3 mt-12",
+                    authorClassName,
+                  )}
+                >
                   <Avatar className="size-8">
                     <AvatarImage src={review.avatarSrc} alt={authorName} />
                     <AvatarFallback className="text-xs">
@@ -277,41 +297,50 @@ export function TestimonialsGridAddReview({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
       <div
-        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        className={cn(
+          "mx-auto mb-12 max-w-full md:max-w-2xl text-center",
+          headerClassName,
+        )}
       >
         {heading &&
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-semibold tracking-tight md:text-4xl",
+                "text-3xl font-semibold tracking-tight md:text-4xl text-pretty",
                 headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            heading
           ))}
         {description &&
           (typeof description === "string" ? (
             <p
               className={cn(
-                "mt-4 text-lg text-muted-foreground",
+                "mt-2 md:mt-4 text-lg text-balance",
                 descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>
-              {description}
-            </div>
+            description
           ))}
       </div>
 
       {renderedReviews}
+
+      <BlockActions
+        actions={actions}
+        actionsSlot={actionsSlot}
+        actionsClassName={cn("mt-8 md:mt-12", actionsClassName)}
+        mobileConfig={{ width: "full", position: "center" }}
+      />
     </Section>
   );
 }

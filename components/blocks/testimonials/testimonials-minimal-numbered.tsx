@@ -108,7 +108,7 @@ export function TestimonialsMinimalNumbered({
   authorClassName,
   navigationClassName,
   background,
-  spacing = "py-8 md:py-12",
+  spacing = "xl",
   containerClassName = "w-full px-6 sm:px-6 md:px-8 lg:px-0 max-w-full md:max-w-lg min-h-70dvh h-70dvh flex flex-col items-center justify-center",
   pattern,
   patternOpacity,

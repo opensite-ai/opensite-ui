@@ -2,11 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
@@ -16,6 +12,8 @@ import type {
   SectionSpacing,
   TestimonialItem,
 } from "../../../src/types";
+import { ActionConfig } from "@page-speed/maps/components/geo-map";
+import { BlockActions } from "@/components/ui/block-actions";
 
 /**
  * Extended testimonial item with handle and badge for wall display
@@ -100,6 +98,18 @@ export interface TestimonialsWallCompactProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 /**
@@ -143,9 +153,12 @@ export function TestimonialsWallCompact({
   quoteClassName,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "xl",
+  spacing = "lg",
   pattern,
   patternOpacity,
+  actions,
+  actionsSlot,
+  actionsClassName,
 }: TestimonialsWallCompactProps): React.JSX.Element {
   const getAuthorName = useCallback(
     (testimonial: WallTestimonialItem): string => {
@@ -187,9 +200,8 @@ export function TestimonialsWallCompact({
             <div
               key={index}
               className={cn(
+                "bg-card text-card-foreground",
                 "rounded-lg border p-4 transition-shadow hover:shadow-md",
-                getNestedCardBg(background, "card"),
-                getNestedCardTextColor(background),
                 cardClassName,
               )}
             >
@@ -216,7 +228,9 @@ export function TestimonialsWallCompact({
                         testimonial.author
                       ))}
                     {testimonial.handle && (
-                      <p className="truncate text-xs ">{testimonial.handle}</p>
+                      <p className="truncate text-xs font-semibold opacity-75">
+                        {testimonial.handle}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -231,11 +245,16 @@ export function TestimonialsWallCompact({
               </div>
               {testimonial.quote &&
                 (typeof testimonial.quote === "string" ? (
-                  <p className={cn("text-sm leading-relaxed", quoteClassName)}>
+                  <p
+                    className={cn(
+                      "text-sm leading-relaxed pt-2",
+                      quoteClassName,
+                    )}
+                  >
                     {testimonial.quote}
                   </p>
                 ) : (
-                  <div className={quoteClassName}>{testimonial.quote}</div>
+                  testimonial.quote
                 ))}
             </div>
           );
@@ -264,13 +283,16 @@ export function TestimonialsWallCompact({
       containerClassName={containerClassName}
     >
       <div
-        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        className={cn(
+          "mx-auto mb-12 max-w-full md:max-w-md text-center",
+          headerClassName,
+        )}
       >
         {heading &&
           (typeof heading === "string" ? (
             <h2
               className={cn(
-                "text-3xl font-semibold tracking-tight md:text-4xl",
+                "text-3xl font-semibold tracking-tight md:text-4xl text-pretty",
                 headingClassName,
               )}
             >
@@ -281,17 +303,24 @@ export function TestimonialsWallCompact({
           ))}
         {description &&
           (typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg", descriptionClassName)}>
+            <p
+              className={cn("mt-4 text-lg text-balance", descriptionClassName)}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>
-              {description}
-            </div>
+            description
           ))}
       </div>
 
       {renderedTestimonials}
+
+      <BlockActions
+        actions={actions}
+        actionsSlot={actionsSlot}
+        actionsClassName={cn("mt-8 md:mt-12", actionsClassName)}
+        mobileConfig={{ width: "full", position: "center" }}
+      />
     </Section>
   );
 }

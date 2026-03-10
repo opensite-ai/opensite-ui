@@ -13,6 +13,7 @@ import type {
   SectionSpacing,
   TestimonialItem,
 } from "../../../src/types";
+import { Pressable } from "@/src";
 
 /**
  * Extended testimonial item with rating for mini dividers display
@@ -187,11 +188,15 @@ export function TestimonialsMiniDividers({
           const authorName = getAuthorName(testimonial);
           const avatarSrc = getAvatarSrc(testimonial);
           return (
-            <div
+            <Pressable
               key={index}
+              href={testimonial.linkConfig?.href}
               className={cn(
-                "group flex flex-col gap-4 border-t border-dashed p-4 transition-colors duration-300 hover:bg-muted/50 lg:p-8",
+                "group flex flex-col gap-4 border-t border-dashed p-6 lg:p-8",
                 index % 3 === 1 && "md:border-x md:border-dashed",
+                testimonial.linkConfig?.href
+                  ? "transition-all duration-500 hover:opacity-75 cursor-pointer"
+                  : "",
                 itemClassName,
               )}
             >
@@ -213,9 +218,7 @@ export function TestimonialsMiniDividers({
                     ))}
                   {testimonial.role &&
                     (typeof testimonial.role === "string" ? (
-                      <p className="truncate text-sm text-muted-foreground">
-                        {testimonial.role}
-                      </p>
+                      <p className="truncate text-sm">{testimonial.role}</p>
                     ) : (
                       testimonial.role
                     ))}
@@ -226,20 +229,13 @@ export function TestimonialsMiniDividers({
               )}
               {testimonial.quote &&
                 (typeof testimonial.quote === "string" ? (
-                  <p
-                    className={cn(
-                      "text-sm leading-relaxed text-muted-foreground",
-                      quoteClassName,
-                    )}
-                  >
+                  <p className={cn("text-sm leading-relaxed", quoteClassName)}>
                     &ldquo;{testimonial.quote}&rdquo;
                   </p>
                 ) : (
-                  <div className={cn("text-sm", quoteClassName)}>
-                    {testimonial.quote}
-                  </div>
+                  testimonial.quote
                 ))}
-            </div>
+            </Pressable>
           );
         })}
       </div>

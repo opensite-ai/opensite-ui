@@ -290,11 +290,11 @@ export function TestimonialsImagesHelpful({
                   ))}
 
                 {review.images && review.images.length > 0 && (
-                  <div className={cn("flex gap-3", imagesClassName)}>
+                  <div className={cn("flex flex-wrap gap-4", imagesClassName)}>
                     {review.images.map((image, imgIndex) => (
                       <div
                         key={imgIndex}
-                        className="size-20 cursor-pointer overflow-hidden rounded-lg sm:size-24 transition-transform duration-300 hover:scale-[1.03] shadow-sm hover:shadow-lg"
+                        className="size-20 cursor-pointer overflow-hidden rounded-lg sm:size-24 transition-transform duration-300 hover:scale-[1.03] shadow-lg hover:shadow-xl ring-4 ring-primary"
                         onClick={() =>
                           handleImageClick(review.images!, imgIndex)
                         }
@@ -319,9 +319,16 @@ export function TestimonialsImagesHelpful({
                   </div>
                 )}
 
-                <div className={cn("flex items-center justify-between w-full")}>
+                <div
+                  className={cn(
+                    "flex items-center justify-between w-full flex-col md:flex-row gap-4",
+                  )}
+                >
                   <div
-                    className={cn("flex items-center gap-5", authorClassName)}
+                    className={cn(
+                      "flex items-center gap-5 w-full",
+                      authorClassName,
+                    )}
                   >
                     <Avatar className="size-12 ring-4 ring-primary shadow-lg">
                       <AvatarImage src={review.avatarSrc} alt={authorName} />
@@ -330,7 +337,7 @@ export function TestimonialsImagesHelpful({
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col items-start gap-0">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-col md:flex-row">
                         {review.author &&
                           (typeof review.author === "string" ? (
                             <span className="font-medium">{review.author}</span>

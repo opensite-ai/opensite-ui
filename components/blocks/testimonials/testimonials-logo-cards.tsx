@@ -212,7 +212,7 @@ export function TestimonialsLogoCards({
                     src={testimonial.companyLogo}
                     alt={testimonial.companyLogoAlt || "Company logo"}
                     className={cn(
-                      index === 0 ? "h-10" : "h-5",
+                      index === 0 ? "h-10" : "h-10 md:h-5",
                       "w-auto object-contain",
                     )}
                     optixFlowConfig={optixFlowConfig}
@@ -229,10 +229,10 @@ export function TestimonialsLogoCards({
                   (typeof testimonial.quote === "string" ? (
                     <blockquote
                       className={cn(
-                        "leading-relaxed",
+                        "leading-relaxed font-light",
                         index === 0
-                          ? "text-lg md:text-xl font-light"
-                          : "text-sm md:text-base",
+                          ? "text-base md:text-xl"
+                          : "text-base md:text-base",
                         quoteClassName,
                       )}
                     >
@@ -262,7 +262,9 @@ export function TestimonialsLogoCards({
                       ))}
                     {testimonial.role &&
                       (typeof testimonial.role === "string" ? (
-                        <p className="text-xs md:text-sm">{testimonial.role}</p>
+                        <p className="text-sm opacity-75 font-semibold">
+                          {testimonial.role}
+                        </p>
                       ) : (
                         testimonial.role
                       ))}
@@ -299,7 +301,10 @@ export function TestimonialsLogoCards({
       containerClassName={containerClassName}
     >
       <div
-        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        className={cn(
+          "mx-auto mb-12 max-w-full md:max-w-2xl text-center",
+          headerClassName,
+        )}
       >
         {heading &&
           (typeof heading === "string" ? (

@@ -124,7 +124,7 @@ export function TestimonialsMasonryGrid({
   authorClassName,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "xl",
+  spacing = "lg",
   pattern,
   patternOpacity,
 }: TestimonialsMasonryGridProps): React.JSX.Element {
@@ -182,14 +182,14 @@ export function TestimonialsMasonryGrid({
                   <div className="flex h-full flex-col justify-between p-6 gap-8">
                     {testimonial.quote &&
                       (typeof testimonial.quote === "string" ? (
-                        <blockquote className="text-sm leading-relaxed line-clamp-3">
+                        <blockquote className="text-base leading-relaxed line-clamp-3 font-thin">
                           &ldquo;{testimonial.quote}&rdquo;
                         </blockquote>
                       ) : (
-                        <div className="line-clamp-3">{testimonial.quote}</div>
+                        testimonial.quote
                       ))}
-                    <div className="mt-4 flex items-center gap-3">
-                      <Avatar className="relative flex shrink-0 overflow-hidden rounded-full size-12 ring-4 ring-primary shadow-lg">
+                    <div className="mt-4 flex items-center gap-4">
+                      <Avatar className="relative flex shrink-0 overflow-hidden rounded-full size-14 ring-4 ring-primary shadow-lg">
                         <AvatarImage src={avatarSrc} alt={authorName} />
                         <AvatarFallback className="text-xs">
                           {getInitials(authorName)}
@@ -206,7 +206,9 @@ export function TestimonialsMasonryGrid({
                           ))}
                         {testimonial.role &&
                           (typeof testimonial.role === "string" ? (
-                            <p className="text-xs">{testimonial.role}</p>
+                            <p className="text-sm font-semibold opacity-75">
+                              {testimonial.role}
+                            </p>
                           ) : (
                             testimonial.role
                           ))}
@@ -214,12 +216,12 @@ export function TestimonialsMasonryGrid({
                           <Pressable
                             href={testimonial.linkConfig.href}
                             className={cn(
-                              "text-sm  transition-all duration-300",
-                              "underline underline-offset-4",
+                              "text-sm transition-all duration-500",
+                              "hover:underline hover:underline-offset-4",
                               testimonial.linkConfig.className,
                             )}
                           >
-                            {testimonial.linkConfig.label}
+                            {testimonial.linkConfig.label || "Full Review"}
                           </Pressable>
                         )}
                       </div>

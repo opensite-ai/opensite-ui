@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import { Card, CardContent } from "../../ui/card";
+import { CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { Pressable } from "../../../lib/Pressable";
@@ -174,7 +174,7 @@ export function TestimonialsSimpleGrid({
     return (
       <div
         className={cn(
-          "grid gap-4 md:gap-6 lg:gap-8 md:grid-cols-2 lg:grid-cols-3",
+          "grid gap-8 md:gap-6 lg:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
           gridClassName,
         )}
       >
@@ -188,9 +188,9 @@ export function TestimonialsSimpleGrid({
                 "bg-card text-card-foreground",
                 "flex flex-col gap-6",
                 testimonial.linkConfig?.href
-                  ? "cursor-pointer hover:bg-black hover:text-white transition-all duration-500"
-                  : "",
-                "rounded-2xl py-0 shadow-xl group",
+                  ? "cursor-pointer hover:opacity-75 transition-all duration-500"
+                  : "opacity-100",
+                "rounded-2xl py-0 shadow-xl group overflow-hidden",
                 "ring-4 ring-ring",
                 cardClassName,
               )}
@@ -249,10 +249,10 @@ export function TestimonialsSimpleGrid({
                     </div>
                   </div>
                 </div>
-                <div className="pt-6 md: pt-8 px-6 md:px-8">
+                <div className="pt-6 md:pt-8 px-6 md:px-8">
                   {testimonial.quote &&
                     (typeof testimonial.quote === "string" ? (
-                      <p className="text-sm leading-relaxed">
+                      <p className="text-base leading-relaxed">
                         {testimonial.quote}
                       </p>
                     ) : (

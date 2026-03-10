@@ -397,7 +397,7 @@ export function TestimonialsParallaxNumber({
 
               <div
                 className={cn(
-                  "flex items-center gap-4 flex-col md:flex-row",
+                  "flex items-center gap-4 flex-col-reverse md:flex-row",
                   navigationClassName,
                 )}
               >
