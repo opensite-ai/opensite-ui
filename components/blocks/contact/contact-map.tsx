@@ -173,11 +173,11 @@ export function ContactMap({
 
   const resolvedMapProps = React.useMemo<GeoMapProps>(() => {
     return {
-      // Use explicit height to prevent MapLibre canvas expansion issues
-      mapWrapperClassName: "h-[520px]",
       panelPosition: "top-left",
       ...mapProps,
-      className: cn("h-full w-full", mapClassName, mapProps?.className),
+      // Don't override mapWrapperClassName if it's provided in mapProps
+      mapWrapperClassName: mapProps?.mapWrapperClassName,
+      className: cn(mapClassName, mapProps?.className),
       optixFlowConfig,
       // Provide icon and image components for rich marker panels
       IconComponent: DynamicIcon,
@@ -237,13 +237,13 @@ export function ContactMap({
 
         <div
           className={cn(
-            // Strict height containment to prevent MapLibre canvas expansion
-            "relative overflow-hidden",
+            // Allow map panels to overflow outside container
+            "relative",
             mapColumnClassName
           )}
           style={{
-            height: "520px",
-            maxHeight: "90vh"
+            // Explicitly allow overflow for marker panels
+            overflow: "visible"
           }}
         >
           <GeoMap {...resolvedMapProps} />
