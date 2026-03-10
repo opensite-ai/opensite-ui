@@ -24,8 +24,8 @@ importers:
         specifier: 0.2.1
         version: 0.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/maps':
-        specifier: 0.1.5
-        version: 0.1.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.1.6
+        version: 0.1.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer':
         specifier: 0.1.9
         version: 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -852,8 +852,8 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@page-speed/maps@0.1.5':
-    resolution: {integrity: sha512-u+PPFcB2kSZTenlz902ZA53AoACRQihKwQ+iSuof9ZTQbrawwDoAiMaWybC22imgXALpMdfDw0Yt3NhcakyNUA==}
+  '@page-speed/maps@0.1.6':
+    resolution: {integrity: sha512-SY/aa0lICV9VdV9toYumOK0o2zd9MGIkiYLXPb72W4wXOOk3F/xms3E8N9kq2brNLPdpZI46PfxNiQuksbV3mQ==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       react: '>=18.0.0'
@@ -3570,7 +3570,7 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       tailwind-merge: 3.5.0
 
-  '@page-speed/maps@0.1.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/maps@0.1.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       clsx: 2.1.1
       maplibre-gl: 5.19.0
