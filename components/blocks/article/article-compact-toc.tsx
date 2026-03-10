@@ -23,6 +23,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { SocialShare } from "@page-speed/social-share";
 
 export interface ArticleCompactTocSection {
   id: string;
@@ -60,10 +61,6 @@ export interface ArticleCompactTocProps {
    */
   metaClassName?: string;
   /**
-   * Additional CSS classes for the share section
-   */
-  shareClassName?: string;
-  /**
    * Additional CSS classes for the TOC
    */
   tocClassName?: string;
@@ -91,6 +88,10 @@ export interface ArticleCompactTocProps {
    * Article title
    */
   title?: React.ReactNode;
+  /**
+   * Article summary/description
+   */
+  description?: string;
   /**
    * Author name
    */
@@ -122,14 +123,6 @@ export interface ArticleCompactTocProps {
     section: ArticleCompactTocSection,
     isActive: boolean,
   ) => React.ReactNode;
-  /**
-   * Social share links
-   */
-  socialLinks?: SocialLinkItem[];
-  /**
-   * Custom slot for share buttons (overrides socialLinks)
-   */
-  shareSlot?: React.ReactNode;
   /**
    * Hero image source URL
    */
@@ -183,7 +176,6 @@ export function ArticleCompactTocComponent({
   contentClassName,
   titleClassName,
   metaClassName,
-  shareClassName,
   tocClassName,
   articleClassName,
   heroImageClassName,
@@ -198,8 +190,7 @@ export function ArticleCompactTocComponent({
   sections,
   tocSlot,
   renderSectionLink,
-  socialLinks,
-  shareSlot,
+  description,
   heroImageSrc,
   heroImageAlt,
   heroMediaSlot,
@@ -436,6 +427,20 @@ export function ArticleCompactTocComponent({
               >
                 {heroMediaContent}
                 {children}
+
+                <div className="flex items-center justify-center py-24">
+                  <SocialShare
+                    variant="combo"
+                    postTitle={title && typeof title === "string" ? title : ""}
+                    shareUrl={window?.location?.href}
+                    summaryContent={
+                      description && typeof description === "string"
+                        ? description
+                        : ""
+                    }
+                    disableImageAttachments
+                  />
+                </div>
               </article>
             )}
           </div>

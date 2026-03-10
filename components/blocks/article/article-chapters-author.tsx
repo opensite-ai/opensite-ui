@@ -24,6 +24,7 @@ import type {
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 import { SocialLinkIcon } from "@/src";
+import { SocialShare } from "@page-speed/social-share";
 
 export interface ArticleChapter {
   id: string;
@@ -572,6 +573,18 @@ export function ArticleChaptersAuthorComponent({
             {heroMediaContent}
 
             {children}
+
+            <div className="flex items-center justify-center py-24">
+              <SocialShare
+                variant="combo"
+                postTitle={title && typeof title === "string" ? title : ""}
+                shareUrl={window?.location?.href}
+                summaryContent={
+                  subtitle && typeof subtitle === "string" ? subtitle : ""
+                }
+                disableImageAttachments
+              />
+            </div>
 
             {conclusionContent}
           </article>

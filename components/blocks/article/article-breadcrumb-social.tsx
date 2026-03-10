@@ -14,7 +14,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
-import { Separator } from "../../ui/separator";
+
 import { Section } from "../../ui/section";
 import type {
   OptixFlowConfig,
@@ -22,6 +22,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { SocialShare } from "@page-speed/social-share";
 
 export interface ArticleBreadcrumbSection {
   id: string;
@@ -92,6 +93,10 @@ export interface ArticleBreadcrumbSocialProps {
    * Article title
    */
   title?: React.ReactNode;
+  /**
+   * Article summary/description
+   */
+  description?: string;
   /**
    * Author configuration
    */
@@ -186,6 +191,7 @@ export function ArticleBreadcrumbSocialComponent({
   breadcrumbsSlot,
   currentPage,
   title,
+  description,
   author,
   authorSlot,
   publishDate,
@@ -324,7 +330,7 @@ export function ArticleBreadcrumbSocialComponent({
         src={heroImageSrc}
         alt={heroImageAlt}
         className={cn(
-          "my-8 aspect-video w-full rounded-lg object-cover",
+          "my-8 aspect-video w-full rounded-2xl shadow-xl object-cover",
           heroImageClassName,
         )}
         optixFlowConfig={optixFlowConfig}
@@ -413,6 +419,20 @@ export function ArticleBreadcrumbSocialComponent({
               {heroMediaContent}
 
               {children}
+
+              <div className="flex items-center justify-center py-24">
+                <SocialShare
+                  variant="combo"
+                  postTitle={title && typeof title === "string" ? title : ""}
+                  shareUrl={window?.location?.href}
+                  summaryContent={
+                    description && typeof description === "string"
+                      ? description
+                      : ""
+                  }
+                  disableImageAttachments
+                />
+              </div>
             </article>
           )}
 

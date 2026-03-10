@@ -315,8 +315,9 @@ export function ArticleSplitAnimatedComponent({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={className}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           <MotionWrapper
             {...imageAnimationProps}

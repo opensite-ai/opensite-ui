@@ -13,6 +13,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { SocialShare } from "@page-speed/social-share";
 
 export interface ArticleSidebarStickyProps {
   /**
@@ -305,6 +306,18 @@ export function ArticleSidebarStickyComponent({
             ) : null}
             {heroMediaContent}
             {children}
+
+            <div className="flex items-center justify-center py-24">
+              <SocialShare
+                variant="combo"
+                postTitle={title && typeof title === "string" ? title : ""}
+                shareUrl={window?.location?.href}
+                summaryContent={
+                  summary && typeof summary === "string" ? summary : ""
+                }
+                disableImageAttachments
+              />
+            </div>
           </article>
         </div>
       </div>
