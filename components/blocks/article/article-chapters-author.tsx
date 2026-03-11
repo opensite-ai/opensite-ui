@@ -14,6 +14,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
+import { Markdown } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import type {
   SocialLinkItem,
@@ -178,6 +179,15 @@ export interface ArticleChaptersAuthorProps {
    */
   children?: React.ReactNode;
   /**
+   * Render mode for content
+   * @default "jsx"
+   */
+  renderMode?: "jsx" | "markdown";
+  /**
+   * Markdown string to render (when renderMode is "markdown")
+   */
+  markdownString?: string;
+  /**
    * Enable scroll-based chapter tracking
    * @default true
    */
@@ -238,6 +248,8 @@ export function ArticleChaptersAuthorComponent({
   conclusionActions,
   conclusionSlot,
   children,
+  renderMode = "jsx",
+  markdownString,
   enableChapterTracking = true,
   optixFlowConfig,
   background,
@@ -572,7 +584,18 @@ export function ArticleChaptersAuthorComponent({
           >
             {heroMediaContent}
 
-            {children}
+            {renderMode === "markdown" && markdownString ? (
+              <Markdown
+                overrides={{
+                  img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
+                  a: Pressable,
+                }}
+              >
+                {markdownString}
+              </Markdown>
+            ) : (
+              children
+            )}
 
             <div className="flex items-center justify-center py-24">
               <SocialShare

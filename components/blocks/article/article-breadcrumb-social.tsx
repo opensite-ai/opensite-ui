@@ -14,7 +14,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
-
+import { Markdown } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import type {
   OptixFlowConfig,
@@ -145,6 +145,15 @@ export interface ArticleBreadcrumbSocialProps {
    */
   children?: React.ReactNode;
   /**
+   * Render mode for content
+   * @default "jsx"
+   */
+  renderMode?: "jsx" | "markdown";
+  /**
+   * Markdown string to render (when renderMode is "markdown")
+   */
+  markdownString?: string;
+  /**
    * Enable scroll-based TOC tracking
    */
   enableTocTracking?: boolean;
@@ -203,6 +212,8 @@ export function ArticleBreadcrumbSocialComponent({
   heroImageAlt,
   heroMediaSlot,
   children,
+  renderMode = "jsx",
+  markdownString,
   enableTocTracking,
   enableBackToTop,
   optixFlowConfig,
@@ -393,7 +404,7 @@ export function ArticleBreadcrumbSocialComponent({
         {breadcrumbsContent}
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
-          {children && (
+          {(children || (renderMode === "markdown" && markdownString)) && (
             <article
               className={cn(
                 getProseClassName(background, "max-w-none"),
@@ -418,7 +429,18 @@ export function ArticleBreadcrumbSocialComponent({
 
               {heroMediaContent}
 
-              {children}
+              {renderMode === "markdown" && markdownString ? (
+                <Markdown
+                  overrides={{
+                    img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
+                    a: Pressable,
+                  }}
+                >
+                  {markdownString}
+                </Markdown>
+              ) : (
+                children
+              )}
 
               <div className="flex items-center justify-center py-24">
                 <SocialShare

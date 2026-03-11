@@ -14,6 +14,7 @@ import {
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
 import { Separator } from "../../ui/separator";
+import { Markdown } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import type {
@@ -140,6 +141,15 @@ export interface ArticleCompactTocProps {
    */
   children?: React.ReactNode;
   /**
+   * Render mode for content
+   * @default "jsx"
+   */
+  renderMode?: "jsx" | "markdown";
+  /**
+   * Markdown string to render (when renderMode is "markdown")
+   */
+  markdownString?: string;
+  /**
    * Enable scroll-based section tracking
    * @default true
    */
@@ -195,6 +205,8 @@ export function ArticleCompactTocComponent({
   heroImageAlt,
   heroMediaSlot,
   children,
+  renderMode = "jsx",
+  markdownString,
   enableTocTracking = true,
   optixFlowConfig,
   background,
@@ -418,7 +430,7 @@ export function ArticleCompactTocComponent({
 
             {tocContent}
 
-            {children && (
+            {(children || (renderMode === "markdown" && markdownString)) && (
               <article
                 className={cn(
                   getProseClassName(background, "max-w-none"),
@@ -426,7 +438,18 @@ export function ArticleCompactTocComponent({
                 )}
               >
                 {heroMediaContent}
-                {children}
+                {renderMode === "markdown" && markdownString ? (
+                  <Markdown
+                    overrides={{
+                      img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
+                      a: Pressable,
+                    }}
+                  >
+                    {markdownString}
+                  </Markdown>
+                ) : (
+                  children
+                )}
 
                 <div className="flex items-center justify-center py-24">
                   <SocialShare

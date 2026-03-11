@@ -26,9 +26,15 @@ importers:
       '@page-speed/maps':
         specifier: 0.2.4
         version: 0.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/markdown-to-jsx':
+        specifier: ^0.0.2
+        version: 0.0.2(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer':
         specifier: 0.1.9
         version: 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/pressable':
+        specifier: ^0.0.1
+        version: 0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/social-share':
         specifier: 0.1.5
         version: 0.1.5(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -859,11 +865,30 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
+  '@page-speed/markdown-to-jsx@0.0.2':
+    resolution: {integrity: sha512-U744RwZlNuYVQVVri0UGUCnNqQ59wQawlk2S2vytTNT/jKh08UhHTRcS5I73q+Dcu6BIK7kiY+rVOI+705KSuw==}
+    peerDependencies:
+      '@page-speed/img': 0.4.6
+      '@page-speed/pressable': '>=0.0.1'
+      react: '>=17.0.0'
+      react-dom: '>=17.0.0'
+    peerDependenciesMeta:
+      '@page-speed/img':
+        optional: true
+      '@page-speed/pressable':
+        optional: true
+
   '@page-speed/pdf-viewer@0.1.9':
     resolution: {integrity: sha512-oLst8BHaj2iNQ6dllo0rrNzHd6TfV988aBmT5YTmT0bW/PRzPqGPPSoaPfCDoAmbsmVLde54D5ETx8MWJHJK0Q==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
+
+  '@page-speed/pressable@0.0.1':
+    resolution: {integrity: sha512-abHqsBp9O+242JGm8/3+km03S5oFfdwYAB2N750dCvceAhij5pcR4UvGvvrw+c8OHeCJpqiVXPcbp854maaETw==}
+    peerDependencies:
+      react: '>=17.0.0'
+      react-dom: '>=17.0.0'
 
   '@page-speed/social-share@0.1.5':
     resolution: {integrity: sha512-K5RtmvlS/f5WbWgt7fGWOl0NuyEGkNdOokne1Jz+41xYqtV2lYJFeAfwLDP85jh+VyzPDclBve0SJYzWgf7zpA==}
@@ -2421,6 +2446,15 @@ packages:
     resolution: {integrity: sha512-REhYUN8gNP3HlcIZS6QU2uy8iovl31cXsrNDkCcqWSQbCkcpdYLczqDz5PVIwNH42UQNyvukjes/RoHPDrOUmQ==}
     engines: {node: '>=16.14.0', npm: '>=8.1.0'}
 
+  markdown-to-jsx@7.7.17:
+    resolution: {integrity: sha512-7mG/1feQ0TX5I7YyMZVDgCC/y2I3CiEhIRQIhyov9nGBP5eoVrOXXHuL5ZP8GRfxVZKRiXWJgwXkb9It+nQZfQ==}
+    engines: {node: '>= 10'}
+    peerDependencies:
+      react: '>= 0.14.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+
   mdn-data@2.12.2:
     resolution: {integrity: sha512-IEn+pegP1aManZuckezWCO+XZQDplx1366JoVhTpMpBB1sPey/SbveZQUosKiKiGYjg1wH4pMlNgXbCiYgihQA==}
 
@@ -3581,11 +3615,28 @@ snapshots:
     transitivePeerDependencies:
       - mapbox-gl
 
+  '@page-speed/markdown-to-jsx@0.0.2(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      markdown-to-jsx: 7.7.17(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    optionalDependencies:
+      '@page-speed/img': 0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/pressable': 0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
   '@page-speed/pdf-viewer@0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       pdfjs-dist: 4.10.38
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+
+  '@page-speed/pressable@0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      class-variance-authority: 0.7.1
+      clsx: 2.1.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      tailwind-merge: 2.6.1
 
   '@page-speed/social-share@0.1.5(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -5148,6 +5199,10 @@ snapshots:
       quickselect: 3.0.0
       supercluster: 8.0.1
       tinyqueue: 3.0.0
+
+  markdown-to-jsx@7.7.17(react@18.3.1):
+    optionalDependencies:
+      react: 18.3.1
 
   mdn-data@2.12.2: {}
 

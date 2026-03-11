@@ -6,6 +6,7 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
+import { Markdown } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import type {
   OptixFlowConfig,
@@ -113,6 +114,15 @@ export interface ArticleSidebarStickyProps {
    */
   children?: React.ReactNode;
   /**
+   * Render mode for content
+   * @default "jsx"
+   */
+  renderMode?: "jsx" | "markdown";
+  /**
+   * Markdown string to render (when renderMode is "markdown")
+   */
+  markdownString?: string;
+  /**
    * Sidebar content
    */
   sidebarContent?: React.ReactNode;
@@ -162,6 +172,8 @@ export function ArticleSidebarStickyComponent({
   heroImageAlt,
   heroMediaSlot,
   children,
+  renderMode = "jsx",
+  markdownString,
   optixFlowConfig,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
@@ -305,7 +317,18 @@ export function ArticleSidebarStickyComponent({
               <div className="not-prose mt-4 lg:hidden">{sidebarContent}</div>
             ) : null}
             {heroMediaContent}
-            {children}
+            {renderMode === "markdown" && markdownString ? (
+              <Markdown
+                overrides={{
+                  img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
+                  a: Pressable,
+                }}
+              >
+                {markdownString}
+              </Markdown>
+            ) : (
+              children
+            )}
 
             <div className="flex items-center justify-center py-24">
               <SocialShare

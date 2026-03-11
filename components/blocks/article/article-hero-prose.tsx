@@ -8,6 +8,7 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
+import { Markdown } from "@page-speed/markdown-to-jsx";
 import type {
   OptixFlowConfig,
   SectionBackground,
@@ -75,6 +76,15 @@ export interface ArticleHeroProseProps {
    */
   children?: React.ReactNode;
   /**
+   * Render mode for content
+   * @default "jsx"
+   */
+  renderMode?: "jsx" | "markdown";
+  /**
+   * Markdown string to render (when renderMode is "markdown")
+   */
+  markdownString?: string;
+  /**
    * Date format string (date-fns format)
    * @default "MMMM d, yyyy"
    */
@@ -113,6 +123,8 @@ export function ArticleHeroProseComponent({
   heroMediaSlot,
   authorSlot,
   children,
+  renderMode = "jsx",
+  markdownString,
   dateFormat = "MMMM d, yyyy",
   optixFlowConfig,
   background,
@@ -223,7 +235,7 @@ export function ArticleHeroProseComponent({
           {heroMediaContent}
         </div>
       </div>
-      {children && (
+      {(children || (renderMode === "markdown" && markdownString)) && (
         <div className="flex flex-col items-center">
           <div
             className={cn(
@@ -232,7 +244,18 @@ export function ArticleHeroProseComponent({
               proseClassName,
             )}
           >
-            {children}
+            {renderMode === "markdown" && markdownString ? (
+              <Markdown
+                overrides={{
+                  img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
+                  a: Pressable,
+                }}
+              >
+                {markdownString}
+              </Markdown>
+            ) : (
+              children
+            )}
           </div>
         </div>
       )}

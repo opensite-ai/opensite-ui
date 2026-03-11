@@ -6,6 +6,7 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
+import { Markdown } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import type {
   OptixFlowConfig,
@@ -154,6 +155,15 @@ export interface ArticleTocSidebarProps {
    */
   children?: React.ReactNode;
   /**
+   * Render mode for content
+   * @default "jsx"
+   */
+  renderMode?: "jsx" | "markdown";
+  /**
+   * Markdown string to render (when renderMode is "markdown")
+   */
+  markdownString?: string;
+  /**
    * Enable scroll-based section tracking
    * @default true
    */
@@ -216,6 +226,8 @@ export function ArticleTocSidebarComponent({
   ctaActions,
   ctaSlot,
   children,
+  renderMode = "jsx",
+  markdownString,
   enableTocTracking = true,
   optixFlowConfig,
   background,
@@ -457,7 +469,18 @@ export function ArticleTocSidebarComponent({
 
             {heroMediaContent}
 
-            {children}
+            {renderMode === "markdown" && markdownString ? (
+              <Markdown
+                overrides={{
+                  img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
+                  a: Pressable,
+                }}
+              >
+                {markdownString}
+              </Markdown>
+            ) : (
+              children
+            )}
 
             <div className="flex items-center justify-center py-24">
               <SocialShare
