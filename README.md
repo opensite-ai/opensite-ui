@@ -509,7 +509,7 @@ pnpm type-check
 
 ## License
 
-MIT
+BSD 3-Claus
 
 ## Related Packages
 
