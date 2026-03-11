@@ -14,7 +14,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
-import { Markdown } from "@page-speed/markdown-to-jsx/core";
 import type { MarkdownStylesMap } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import type {
@@ -27,6 +26,7 @@ import type {
 import type { PatternName } from "../../ui/pattern-background";
 import { SocialLinkIcon } from "@/src";
 import { SocialShare } from "@page-speed/social-share";
+import { LongformContent } from "@/components/ui/longform-content";
 
 export interface ArticleChapter {
   id: string;
@@ -591,21 +591,16 @@ export function ArticleChaptersAuthorComponent({
           >
             {heroMediaContent}
 
-            {renderMode === "markdown" && markdownString ? (
-              <Markdown
-                overrides={{
-                  img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
-                  a: Pressable,
-                }}
-                markdownStyles={markdownStyles}
-              >
-                {markdownString}
-              </Markdown>
-            ) : (
-              children
-            )}
+            <LongformContent
+              renderMode={renderMode}
+              markdownString={markdownString}
+              optixFlowConfig={optixFlowConfig}
+              markdownStyles={markdownStyles}
+            >
+              {children}
+            </LongformContent>
 
-            <div className="flex items-center justify-center py-24">
+            <div className="flex items-center justify-center py-12">
               <SocialShare
                 variant="combo"
                 postTitle={title && typeof title === "string" ? title : ""}

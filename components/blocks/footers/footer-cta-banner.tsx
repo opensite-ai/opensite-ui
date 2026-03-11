@@ -134,6 +134,8 @@ export interface FooterCtaBannerProps {
   patternOpacity?: number;
   /** Optional Optix Flow configuration for @page-speed/img */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -144,6 +146,7 @@ export interface FooterCtaBannerProps {
  * marketing sites, and businesses that want to drive conversions directly from the footer.
  */
 export function FooterCtaBanner({
+  sectionId = "footer-cta-banner",
   logo,
   ctaHeading,
   ctaDescription,
@@ -188,6 +191,7 @@ export function FooterCtaBanner({
 }: FooterCtaBannerProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}
@@ -220,7 +224,12 @@ export function FooterCtaBanner({
             >
               {ctaDescription}
             </p>
-            <Pressable href={ctaButtonUrl} asButton variant="default">
+            <Pressable
+              href={ctaButtonUrl}
+              asButton
+              variant="default"
+              className={ctaButtonClassName}
+            >
               {ctaButtonText}
             </Pressable>
           </div>

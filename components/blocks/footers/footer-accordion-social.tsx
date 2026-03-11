@@ -137,6 +137,8 @@ export interface FooterAccordionSocialProps {
    * Full form engine setup and props
    */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -165,6 +167,7 @@ export interface FooterAccordionSocialProps {
  * ```
  */
 export function FooterAccordionSocial({
+  sectionId = "footer-accordion-social",
   newsletterTitle,
   newsletterDescription,
   footerLinks,
@@ -216,6 +219,7 @@ export function FooterAccordionSocial({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

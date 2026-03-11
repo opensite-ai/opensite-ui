@@ -20,12 +20,12 @@ import { Section } from "../../ui/section";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import type {
   OptixFlowConfig,
-  SocialLinkItem,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 import { SocialShare } from "@page-speed/social-share";
+import { LongformContent } from "@/components/ui/longform-content";
 
 export interface ArticleCompactTocSection {
   id: string;
@@ -445,21 +445,17 @@ export function ArticleCompactTocComponent({
                 )}
               >
                 {heroMediaContent}
-                {renderMode === "markdown" && markdownString ? (
-                  <Markdown
-                    overrides={{
-                      img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
-                      a: Pressable,
-                    }}
-                    markdownStyles={markdownStyles}
-                  >
-                    {markdownString}
-                  </Markdown>
-                ) : (
-                  children
-                )}
 
-                <div className="flex items-center justify-center py-24">
+                <LongformContent
+                  renderMode={renderMode}
+                  markdownString={markdownString}
+                  optixFlowConfig={optixFlowConfig}
+                  markdownStyles={markdownStyles}
+                >
+                  {children}
+                </LongformContent>
+
+                <div className="flex items-center justify-center py-12">
                   <SocialShare
                     variant="combo"
                     postTitle={title && typeof title === "string" ? title : ""}

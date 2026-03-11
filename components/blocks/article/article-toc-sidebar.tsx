@@ -6,7 +6,6 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
-import { Markdown } from "@page-speed/markdown-to-jsx/core";
 import type { MarkdownStylesMap } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import type {
@@ -17,6 +16,7 @@ import type {
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 import { SocialShare } from "@page-speed/social-share";
+import { LongformContent } from "@/components/ui/longform-content";
 
 export interface ArticleTocSection {
   id: string;
@@ -324,7 +324,7 @@ export function ArticleTocSidebarComponent({
         src={heroImageSrc}
         alt={heroImageAlt}
         className={cn(
-          "my-8 aspect-video w-full rounded-lg object-cover",
+          "my-8 aspect-video w-full rounded-xl shadow-xl object-cover",
           heroImageClassName,
         )}
         optixFlowConfig={optixFlowConfig}
@@ -360,8 +360,8 @@ export function ArticleTocSidebarComponent({
                 key={section.id}
                 href={`#${section.id}`}
                 className={cn(
-                  "block text-sm transition-colors",
-                  isActive ? "font-medium" : "",
+                  "block text-sm transition-all duration-500",
+                  isActive ? "font-medium" : "font-base",
                 )}
               >
                 {section.title}
@@ -476,21 +476,16 @@ export function ArticleTocSidebarComponent({
 
             {heroMediaContent}
 
-            {renderMode === "markdown" && markdownString ? (
-              <Markdown
-                overrides={{
-                  img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
-                  a: Pressable,
-                }}
-                markdownStyles={markdownStyles}
-              >
-                {markdownString}
-              </Markdown>
-            ) : (
-              children
-            )}
+            <LongformContent
+              renderMode={renderMode}
+              markdownString={markdownString}
+              optixFlowConfig={optixFlowConfig}
+              markdownStyles={markdownStyles}
+            >
+              {children}
+            </LongformContent>
 
-            <div className="flex items-center justify-center py-24">
+            <div className="flex items-center justify-center py-12">
               <SocialShare
                 variant="combo"
                 postTitle={title && typeof title === "string" ? title : ""}

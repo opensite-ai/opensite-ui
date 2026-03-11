@@ -8,7 +8,6 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
-import { Markdown } from "@page-speed/markdown-to-jsx/core";
 import type { MarkdownStylesMap } from "@page-speed/markdown-to-jsx";
 import type {
   OptixFlowConfig,
@@ -16,6 +15,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { LongformContent } from "@/components/ui/longform-content";
 
 export interface ArticleHeroProsePost {
   title?: string;
@@ -251,26 +251,19 @@ export function ArticleHeroProseComponent({
               proseClassName,
             )}
           >
-            {renderMode === "markdown" && markdownString ? (
-              <Markdown
-                overrides={{
-                  img: (props: any) => (
-                    <Img {...props} optixFlowConfig={optixFlowConfig} />
-                  ),
-                  a: Pressable,
-                }}
-                markdownStyles={markdownStyles}
-              >
-                {markdownString}
-              </Markdown>
-            ) : (
-              children
-            )}
+            <LongformContent
+              renderMode={renderMode}
+              markdownString={markdownString}
+              optixFlowConfig={optixFlowConfig}
+              markdownStyles={markdownStyles}
+            >
+              {children}
+            </LongformContent>
           </div>
         </div>
       )}
 
-      <div className="flex items-center justify-center py-24">
+      <div className="flex items-center justify-center py-12">
         <SocialShare
           variant="combo"
           postTitle={title && typeof title === "string" ? title : ""}

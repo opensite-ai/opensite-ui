@@ -9,7 +9,7 @@ const clientEntryNames = new Set([
   "social-link-icon",
   "payment-platform-icon",
   "carousel-pagination",
-  
+
   "pressable",
   "hooks",
   "use-navigation",
@@ -622,6 +622,7 @@ const clientEntryNames = new Set([
   "services-list-video-showcase",
   "components",
   "index",
+  "longform-content",
 ]);
 
 // Shared configuration
@@ -662,6 +663,7 @@ const allEntries = {
   "carousel-pagination": "components/ui/carousel-pagination.tsx",
   pressable: "lib/Pressable.tsx",
   hooks: "lib/hooks.ts",
+  "longform-content": "src/longform-content.ts",
   "use-navigation": "lib/useNavigation.ts",
   "use-responsive-layout": "lib/useResponsiveLayout.ts",
   "alternating-blocks": "src/alternating-blocks.ts",
