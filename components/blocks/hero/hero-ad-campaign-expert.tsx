@@ -3,8 +3,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Img } from "@page-speed/img";
-import { AspectRatio } from "../../ui/aspect-ratio";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -18,16 +16,12 @@ import type {
 import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 import { BlockActions } from "@/components/ui/block-actions";
 import { useResponsiveLayout } from "@/src";
+import {
+  MediaAspectRatio,
+  ResponsiveMediaAspectRatioProps,
+} from "@/components/ui/media-aspect-ratio";
 
 export type { DirectionConfig };
-
-type MediaAspectRatio = "square" | "horizontal" | "vertical";
-
-const ASPECT_RATIOS: Record<MediaAspectRatio, number> = {
-  square: 1,
-  horizontal: 16 / 9,
-  vertical: 355 / 520,
-};
 
 export interface HeroAdCampaignExpertProps {
   /**
@@ -99,10 +93,7 @@ export interface HeroAdCampaignExpertProps {
    * Media aspect ratios for desktop and mobile breakpoints
    * @default { desktop: "vertical", mobile: "vertical" }
    */
-  mediaAspectRatios?: {
-    desktop: MediaAspectRatio;
-    mobile: MediaAspectRatio;
-  };
+  mediaAspectRatios?: ResponsiveMediaAspectRatioProps;
   /**
    * Direction configuration for desktop and mobile layouts
    * @default { desktop: 'mediaRight', mobile: 'mediaTop' }
@@ -197,41 +188,6 @@ export function HeroAdCampaignExpert({
     renderActions,
   ]);
 
-  const hasMedia = mediaItem?.image || mediaItem?.video;
-
-  const renderMedia = useMemo(() => {
-    if (!mediaItem) return null;
-
-    const { image, video } = mediaItem;
-
-    // Video takes priority when provided
-    if (video) {
-      const { src, className: videoClassName, ...videoRest } = video;
-      return (
-        <video
-          src={src}
-          className={cn("size-full object-cover", videoClassName)}
-          {...videoRest}
-        />
-      );
-    }
-
-    if (image) {
-      const { src, alt, className: imgClassName, ...imgRest } = image;
-      return (
-        <Img
-          src={src as string}
-          alt={alt}
-          className={cn("size-full object-cover", imgClassName)}
-          optixFlowConfig={optixFlowConfig}
-          {...imgRest}
-        />
-      );
-    }
-
-    return null;
-  }, [mediaItem, optixFlowConfig]);
-
   return (
     <Section
       id={sectionId}
@@ -257,38 +213,15 @@ export function HeroAdCampaignExpert({
             )}
           />
 
-          {hasMedia && (
-            <div className={cn("relative flex w-full justify-center lg:w-1/2")}>
-              {/* Mobile aspect ratio - uses AspectRatio component */}
-              <div className="relative h-auto w-[80%] max-w-[355px] lg:hidden">
-                <AspectRatio
-                  ratio={ASPECT_RATIOS[mediaAspectRatios.mobile]}
-                  className={cn(
-                    "rounded-xl shadow-2xl overflow-hidden",
-                    mediaItem?.containerClassName,
-                  )}
-                >
-                  {renderMedia}
-                </AspectRatio>
-              </div>
-              {/* Desktop aspect ratio - uses native CSS aspect-ratio with max-height constraint */}
-              <div
-                className="hidden lg:block max-h-[70dvh] w-auto"
-                style={{
-                  aspectRatio: ASPECT_RATIOS[mediaAspectRatios.desktop],
-                }}
-              >
-                <div
-                  className={cn(
-                    "size-full rounded-xl shadow-2xl overflow-hidden",
-                    mediaItem?.containerClassName,
-                  )}
-                >
-                  {renderMedia}
-                </div>
-              </div>
-            </div>
-          )}
+          <MediaAspectRatio
+            containerClassName="relative flex w-full justify-center lg:w-1/2"
+            desktopClassName="max-h-[70dvh] w-auto"
+            mobileClassName="h-auto w-[80%] max-w-[355px]"
+            frameClassName="rounded-xl shadow-2xl"
+            mediaItem={mediaItem}
+            optixFlowConfig={optixFlowConfig}
+            deviceAspectRatios={mediaAspectRatios}
+          />
         </div>
       </div>
     </Section>

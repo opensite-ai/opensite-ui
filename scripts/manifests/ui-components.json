@@ -231,6 +231,13 @@
   }
 ,
   {
+    "path": "./components/media-aspect-ratio",
+    "types": "./dist/media-aspect-ratio.d.ts",
+    "import": "./dist/media-aspect-ratio.js",
+    "require": "./dist/media-aspect-ratio.cjs"
+  }
+,
+  {
     "path": "./components/navbar-logo",
     "types": "./dist/navbar-logo.d.ts",
     "import": "./dist/navbar-logo.js",

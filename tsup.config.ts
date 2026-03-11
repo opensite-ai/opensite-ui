@@ -653,6 +653,8 @@ const allEntries = {
   "animated-dialog": "components/ui/animated-dialog.tsx",
   "page-hero-banner": "components/ui/page-hero-banner.tsx",
   "image-slider": "components/ui/image-slider.tsx",
+  "aspect-ratio": "components/ui/aspect-ratio.tsx",
+  "media-aspect-ratio": "components/ui/media-aspect-ratio.tsx",
   button: "components/ui/button.tsx",
   card: "components/ui/card.tsx",
   badge: "components/ui/badge.tsx",

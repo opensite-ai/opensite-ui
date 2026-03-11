@@ -49,4 +49,32 @@ describe("HeroPremiumSplitAvatars", () => {
     const { container } = render(<HeroPremiumSplitAvatars heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
+
+  it("renders the image through MediaAspectRatio when provided", () => {
+    render(
+      <HeroPremiumSplitAvatars
+        heading="Test Heading"
+        image={{ src: "/hero.jpg", alt: "Hero" }}
+      />,
+    );
+
+    expect(screen.getAllByAltText("Hero").length).toBeGreaterThan(0);
+  });
+
+  it("supports responsive direction overrides", () => {
+    const { container } = render(
+      <HeroPremiumSplitAvatars
+        heading="Direction Test"
+        image={{ src: "/hero.jpg", alt: "Hero" }}
+        directionConfig={{ desktop: "mediaLeft", mobile: "mediaTop" }}
+      />,
+    );
+
+    const flexContainer = container.querySelector(
+      "[class*='md\\:flex-row-reverse']",
+    );
+
+    expect(flexContainer).toBeInTheDocument();
+    expect(flexContainer).toHaveClass("flex-col-reverse");
+  });
 });

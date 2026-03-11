@@ -5,9 +5,9 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import { Img } from "@page-speed/img";
 import type {
   ActionConfig,
+  DirectionConfig,
   ImageItem,
   OptixFlowConfig,
   SectionBackground,
@@ -15,6 +15,12 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import {
+  MediaAspectRatio,
+  ResponsiveMediaAspectRatioProps,
+} from "../../ui/media-aspect-ratio";
+
+export type { DirectionConfig };
 
 export interface AvatarItem {
   /**
@@ -75,7 +81,8 @@ export interface HeroPremiumSplitAvatarsProps {
   /**
    * Custom slot for image (overrides image prop)
    */
-  imageSlot?: React.ReactNode; /**
+  imageSlot?: React.ReactNode;
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -122,6 +129,16 @@ export interface HeroPremiumSplitAvatarsProps {
   optixFlowConfig?: OptixFlowConfig;
   /** Optional Section ID */
   sectionId?: string;
+  /**
+   * Media aspect ratios for desktop and mobile breakpoints
+   * @default { desktop: "vertical", mobile: "vertical" }
+   */
+  mediaAspectRatios?: ResponsiveMediaAspectRatioProps;
+  /**
+   * Direction configuration for desktop and mobile layouts
+   * @default { desktop: 'mediaRight', mobile: 'mediaBottom' }
+   */
+  directionConfig?: DirectionConfig;
 }
 
 export function HeroPremiumSplitAvatars({
@@ -139,7 +156,7 @@ export function HeroPremiumSplitAvatars({
   image,
   imageSlot,
   className,
-  spacing = "pt-28 pb-8 md:pt-32 md:pb-32",
+  spacing = "hero",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   background,
   pattern,
@@ -149,7 +166,21 @@ export function HeroPremiumSplitAvatars({
   descriptionClassName,
   imageClassName,
   optixFlowConfig,
+  mediaAspectRatios = { desktop: "vertical", mobile: "vertical" },
+  directionConfig = { desktop: "mediaRight", mobile: "mediaBottom" },
 }: HeroPremiumSplitAvatarsProps): React.JSX.Element {
+  const responsiveClassName = useMemo(() => {
+    const desktopOrder =
+      directionConfig.desktop === "mediaRight"
+        ? "md:flex-row"
+        : "md:flex-row-reverse";
+
+    const mobileOrder =
+      directionConfig.mobile === "mediaTop" ? "flex-col-reverse" : "flex-col";
+
+    return `${mobileOrder} ${desktopOrder}`;
+  }, [directionConfig.desktop, directionConfig.mobile]);
+
   const renderBrand = useMemo(() => {
     if (brandSlot) return brandSlot;
 
@@ -220,18 +251,30 @@ export function HeroPremiumSplitAvatars({
     if (!image) return null;
 
     return (
-      <Img
-        src={image.src}
-        alt={image.alt}
-        className={cn(
-          "h-full w-full md:w-1/2 object-cover block rounded-xl shadow-xl",
-          imageClassName,
-          image.className,
-        )}
+      <MediaAspectRatio
+        breakpoint="md"
+        containerClassName="relative flex w-full justify-center md:w-1/2"
+        mobileClassName="w-full"
+        desktopClassName="w-full max-h-[70dvh]"
+        frameClassName="rounded-xl shadow-xl"
+        imageClassName={cn("block", imageClassName)}
+        mediaItem={{
+          image: {
+            ...image,
+            loading: "eager",
+          },
+        }}
         optixFlowConfig={optixFlowConfig}
+        deviceAspectRatios={mediaAspectRatios}
       />
     );
-  }, [imageSlot, image, imageClassName, optixFlowConfig]);
+  }, [
+    imageSlot,
+    image,
+    imageClassName,
+    optixFlowConfig,
+    mediaAspectRatios,
+  ]);
 
   return (
     <Section
@@ -243,7 +286,12 @@ export function HeroPremiumSplitAvatars({
       className={cn("relative flex items-center justify-center", className)}
       containerClassName={containerClassName}
     >
-      <div className="relative flex w-full flex-col md:flex-row gap-8 md:gap-20">
+      <div
+        className={cn(
+          "relative flex w-full gap-8 md:gap-20",
+          responsiveClassName,
+        )}
+      >
         <div className="flex w-full items-center justify-center lg:w-1/2">
           <div
             className={cn(

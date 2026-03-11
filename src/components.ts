@@ -23,6 +23,13 @@ export { AnimatedDialog } from "../components/ui/animated-dialog";
 // Hero components
 export { PageHeroBanner } from "../components/ui/page-hero-banner";
 export { ImageSlider } from "../components/ui/image-slider";
+export { MediaAspectRatio } from "../components/ui/media-aspect-ratio";
+export type {
+  MediaAspectRatioProps,
+  MediaAspectRatioVariant,
+  MediaAspectRatioBreakpoint,
+  ResponsiveMediaAspectRatioProps,
+} from "../components/ui/media-aspect-ratio";
 
 // shadcn UI components
 export { Button } from "../components/ui/button";
