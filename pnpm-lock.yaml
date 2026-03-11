@@ -30,8 +30,8 @@ importers:
         specifier: 0.1.9
         version: 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/social-share':
-        specifier: 0.1.4
-        version: 0.1.4(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.1.5
+        version: 0.1.5(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -865,8 +865,8 @@ packages:
       react: ^18.0.0
       react-dom: ^18.0.0
 
-  '@page-speed/social-share@0.1.4':
-    resolution: {integrity: sha512-QzfwoHX6RExTKk8+2Wi/L/WP0U1X69LktA3O249s3vJlFUVW1hR4fqj5QINC71xfJFiI2fcknRjdJIwl0KDptg==}
+  '@page-speed/social-share@0.1.5':
+    resolution: {integrity: sha512-K5RtmvlS/f5WbWgt7fGWOl0NuyEGkNdOokne1Jz+41xYqtV2lYJFeAfwLDP85jh+VyzPDclBve0SJYzWgf7zpA==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       '@opensite/hooks': '>=2.0.0'
@@ -3587,7 +3587,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@page-speed/social-share@0.1.4(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/social-share@0.1.5(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@opensite/hooks': 2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
