@@ -509,7 +509,7 @@ pnpm type-check
 
 ## License
 
-BSD 3-Claus
+BSD 3-Clause
 
 ## Related Packages
 

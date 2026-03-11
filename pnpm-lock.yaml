@@ -18,8 +18,8 @@ importers:
         specifier: 0.1.2
         version: 0.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/img':
-        specifier: 0.4.6
-        version: 0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.4.7
+        version: 0.4.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/lightbox':
         specifier: 0.2.1
         version: 0.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -28,7 +28,7 @@ importers:
         version: 0.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/markdown-to-jsx':
         specifier: 0.0.5
-        version: 0.0.5(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 0.0.5(@page-speed/img@0.4.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer':
         specifier: 0.1.9
         version: 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -806,13 +806,6 @@ packages:
     resolution: {integrity: sha512-lkg23ge+rgyhgUwXmlbkPEhuhHq/hUi/gXKH+4I7vO+lJrbNfEYcQdJLIGjKyXLQzgFiiyDAwh5vAe/tITAE+w==}
     engines: {node: '>= 10'}
 
-  '@opensite/hooks@2.0.8':
-    resolution: {integrity: sha512-cdklMZq+CYdBSNtAhcjs/y15xViKeAvAEs7UPUWHz9saPR5PeNGjOQtA2VFoctzTp/30/e95R3U1WzsfTuBulQ==}
-    engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
-    peerDependencies:
-      react: '>=17.0.0'
-      react-dom: '>=17.0.0'
-
   '@opensite/hooks@2.1.0':
     resolution: {integrity: sha512-ATjSyaUVFAgaudNZXv2tVjjRIl4DAZUzLS4f4aqQA92V4WMMimNLgIfgzPF1/7BEMiEyMqd7vmUmnkXK+DGzdw==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
@@ -848,8 +841,8 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@page-speed/img@0.4.6':
-    resolution: {integrity: sha512-wGsLP+ttmrFlGEWKcgSaorxQC33m5he3ULkEKQotoOAw+gIDAV52RJcKjHj9Y3mz0sg6gGMwQI1tGC2sFEODSQ==}
+  '@page-speed/img@0.4.7':
+    resolution: {integrity: sha512-sbEALG6/vlgVsS6urvyw0badqzyxSZEOnxW3zmCEXgO/68uz/sBMRJEzUQPD7fjhMmWpkyGlb6jDzGIcAvAAHA==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       react: '>=17.0.0'
@@ -3545,11 +3538,6 @@ snapshots:
       '@napi-rs/canvas-win32-x64-msvc': 0.1.95
     optional: true
 
-  '@opensite/hooks@2.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
   '@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
@@ -3598,16 +3586,16 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/img@0.4.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@opensite/hooks': 2.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@opensite/hooks': 2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/hooks': 0.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
   '@page-speed/lightbox@0.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@page-speed/img': 0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/img': 0.4.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer': 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
       react: 18.3.1
@@ -3625,13 +3613,13 @@ snapshots:
     transitivePeerDependencies:
       - mapbox-gl
 
-  '@page-speed/markdown-to-jsx@0.0.5(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/markdown-to-jsx@0.0.5(@page-speed/img@0.4.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       markdown-to-jsx: 7.7.17(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     optionalDependencies:
-      '@page-speed/img': 0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/img': 0.4.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pressable': 0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   '@page-speed/pdf-viewer@0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
