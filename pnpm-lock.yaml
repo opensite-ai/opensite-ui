@@ -27,8 +27,8 @@ importers:
         specifier: 0.2.4
         version: 0.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/markdown-to-jsx':
-        specifier: ^0.0.2
-        version: 0.0.2(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.0.4
+        version: 0.0.4(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer':
         specifier: 0.1.9
         version: 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -865,8 +865,8 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@page-speed/markdown-to-jsx@0.0.2':
-    resolution: {integrity: sha512-U744RwZlNuYVQVVri0UGUCnNqQ59wQawlk2S2vytTNT/jKh08UhHTRcS5I73q+Dcu6BIK7kiY+rVOI+705KSuw==}
+  '@page-speed/markdown-to-jsx@0.0.4':
+    resolution: {integrity: sha512-9fIzXiSNcJ+ecoEFAKbJFelCmNm2Htv5iDEQPkAJAox4mfA1B0L36V+oxEuTVNynFvCaL13vZ9fgj5fJucBnxg==}
     peerDependencies:
       '@page-speed/img': 0.4.6
       '@page-speed/pressable': '>=0.0.1'
@@ -3615,7 +3615,7 @@ snapshots:
     transitivePeerDependencies:
       - mapbox-gl
 
-  '@page-speed/markdown-to-jsx@0.0.2(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/markdown-to-jsx@0.0.4(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       markdown-to-jsx: 7.7.17(react@18.3.1)
       react: 18.3.1

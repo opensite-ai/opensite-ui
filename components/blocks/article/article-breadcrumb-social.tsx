@@ -14,7 +14,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
-import { Markdown } from "@page-speed/markdown-to-jsx";
+import { Markdown } from "@page-speed/markdown-to-jsx/core";
+import type { MarkdownStylesMap } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import type {
   OptixFlowConfig,
@@ -154,6 +155,11 @@ export interface ArticleBreadcrumbSocialProps {
    */
   markdownString?: string;
   /**
+   * Custom className mappings for markdown elements
+   * @example { h2: 'text-3xl font-bold', img: 'rounded-lg shadow-md' }
+   */
+  markdownStyles?: MarkdownStylesMap;
+  /**
    * Enable scroll-based TOC tracking
    */
   enableTocTracking?: boolean;
@@ -214,6 +220,7 @@ export function ArticleBreadcrumbSocialComponent({
   children,
   renderMode = "jsx",
   markdownString,
+  markdownStyles,
   enableTocTracking,
   enableBackToTop,
   optixFlowConfig,
@@ -435,6 +442,7 @@ export function ArticleBreadcrumbSocialComponent({
                     img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
                     a: Pressable,
                   }}
+                  markdownStyles={markdownStyles}
                 >
                   {markdownString}
                 </Markdown>

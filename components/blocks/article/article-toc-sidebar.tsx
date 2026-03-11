@@ -6,7 +6,8 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
-import { Markdown } from "@page-speed/markdown-to-jsx";
+import { Markdown } from "@page-speed/markdown-to-jsx/core";
+import type { MarkdownStylesMap } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import type {
   OptixFlowConfig,
@@ -164,6 +165,11 @@ export interface ArticleTocSidebarProps {
    */
   markdownString?: string;
   /**
+   * Custom className mappings for markdown elements
+   * @example { h2: 'text-3xl font-bold', img: 'rounded-lg shadow-md' }
+   */
+  markdownStyles?: MarkdownStylesMap;
+  /**
    * Enable scroll-based section tracking
    * @default true
    */
@@ -228,6 +234,7 @@ export function ArticleTocSidebarComponent({
   children,
   renderMode = "jsx",
   markdownString,
+  markdownStyles,
   enableTocTracking = true,
   optixFlowConfig,
   background,
@@ -475,6 +482,7 @@ export function ArticleTocSidebarComponent({
                   img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
                   a: Pressable,
                 }}
+                markdownStyles={markdownStyles}
               >
                 {markdownString}
               </Markdown>

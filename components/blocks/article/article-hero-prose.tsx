@@ -2,13 +2,14 @@
 
 import { SocialShare } from "@page-speed/social-share";
 import * as React from "react";
-import { format } from "date-fns";
+import { format } from "date-fns/format";
 import { cn, getProseClassName } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
-import { Markdown } from "@page-speed/markdown-to-jsx";
+import { Markdown } from "@page-speed/markdown-to-jsx/core";
+import type { MarkdownStylesMap } from "@page-speed/markdown-to-jsx";
 import type {
   OptixFlowConfig,
   SectionBackground,
@@ -85,6 +86,11 @@ export interface ArticleHeroProseProps {
    */
   markdownString?: string;
   /**
+   * Custom className mappings for markdown elements
+   * @example { h2: 'text-3xl font-bold', img: 'rounded-lg shadow-md' }
+   */
+  markdownStyles?: MarkdownStylesMap;
+  /**
    * Date format string (date-fns format)
    * @default "MMMM d, yyyy"
    */
@@ -125,6 +131,7 @@ export function ArticleHeroProseComponent({
   children,
   renderMode = "jsx",
   markdownString,
+  markdownStyles,
   dateFormat = "MMMM d, yyyy",
   optixFlowConfig,
   background,
@@ -247,9 +254,12 @@ export function ArticleHeroProseComponent({
             {renderMode === "markdown" && markdownString ? (
               <Markdown
                 overrides={{
-                  img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
+                  img: (props: any) => (
+                    <Img {...props} optixFlowConfig={optixFlowConfig} />
+                  ),
                   a: Pressable,
                 }}
+                markdownStyles={markdownStyles}
               >
                 {markdownString}
               </Markdown>

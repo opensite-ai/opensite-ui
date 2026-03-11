@@ -14,7 +14,8 @@ import {
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
 import { Separator } from "../../ui/separator";
-import { Markdown } from "@page-speed/markdown-to-jsx";
+import { Markdown } from "@page-speed/markdown-to-jsx/core";
+import type { MarkdownStylesMap } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import type {
@@ -150,6 +151,11 @@ export interface ArticleCompactTocProps {
    */
   markdownString?: string;
   /**
+   * Custom className mappings for markdown elements
+   * @example { h2: 'text-3xl font-bold', img: 'rounded-lg shadow-md' }
+   */
+  markdownStyles?: MarkdownStylesMap;
+  /**
    * Enable scroll-based section tracking
    * @default true
    */
@@ -207,6 +213,7 @@ export function ArticleCompactTocComponent({
   children,
   renderMode = "jsx",
   markdownString,
+  markdownStyles,
   enableTocTracking = true,
   optixFlowConfig,
   background,
@@ -444,6 +451,7 @@ export function ArticleCompactTocComponent({
                       img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
                       a: Pressable,
                     }}
+                    markdownStyles={markdownStyles}
                   >
                     {markdownString}
                   </Markdown>

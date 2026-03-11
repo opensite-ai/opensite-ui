@@ -14,7 +14,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
-import { Markdown } from "@page-speed/markdown-to-jsx";
+import { Markdown } from "@page-speed/markdown-to-jsx/core";
+import type { MarkdownStylesMap } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import type {
   SocialLinkItem,
@@ -188,6 +189,11 @@ export interface ArticleChaptersAuthorProps {
    */
   markdownString?: string;
   /**
+   * Custom className mappings for markdown elements
+   * @example { h2: 'text-3xl font-bold', img: 'rounded-lg shadow-md' }
+   */
+  markdownStyles?: MarkdownStylesMap;
+  /**
    * Enable scroll-based chapter tracking
    * @default true
    */
@@ -250,6 +256,7 @@ export function ArticleChaptersAuthorComponent({
   children,
   renderMode = "jsx",
   markdownString,
+  markdownStyles,
   enableChapterTracking = true,
   optixFlowConfig,
   background,
@@ -590,6 +597,7 @@ export function ArticleChaptersAuthorComponent({
                   img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
                   a: Pressable,
                 }}
+                markdownStyles={markdownStyles}
               >
                 {markdownString}
               </Markdown>

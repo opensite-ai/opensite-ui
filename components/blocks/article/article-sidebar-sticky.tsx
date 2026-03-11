@@ -6,7 +6,8 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import { Markdown } from "@page-speed/markdown-to-jsx";
+import { Markdown } from "@page-speed/markdown-to-jsx/core";
+import type { MarkdownStylesMap } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import type {
   OptixFlowConfig,
@@ -123,6 +124,11 @@ export interface ArticleSidebarStickyProps {
    */
   markdownString?: string;
   /**
+   * Custom className mappings for markdown elements
+   * @example { h2: 'text-3xl font-bold', img: 'rounded-lg shadow-md' }
+   */
+  markdownStyles?: MarkdownStylesMap;
+  /**
    * Sidebar content
    */
   sidebarContent?: React.ReactNode;
@@ -174,6 +180,7 @@ export function ArticleSidebarStickyComponent({
   children,
   renderMode = "jsx",
   markdownString,
+  markdownStyles,
   optixFlowConfig,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
@@ -323,6 +330,7 @@ export function ArticleSidebarStickyComponent({
                   img: (props: any) => <Img {...props} optixFlowConfig={optixFlowConfig} />,
                   a: Pressable,
                 }}
+                markdownStyles={markdownStyles}
               >
                 {markdownString}
               </Markdown>
