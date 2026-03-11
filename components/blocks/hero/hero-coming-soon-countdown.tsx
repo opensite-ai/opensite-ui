@@ -203,9 +203,12 @@ export interface HeroComingSoonCountdownProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroComingSoonCountdown({
+  sectionId = "hero-coming-soon-countdown",
   badgeIcon,
   badgeText,
   heading,
@@ -391,6 +394,7 @@ export function HeroComingSoonCountdown({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

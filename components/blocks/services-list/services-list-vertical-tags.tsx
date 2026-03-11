@@ -102,6 +102,8 @@ export interface ServicesListVerticalTagsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -121,6 +123,7 @@ export interface ServicesListVerticalTagsProps {
  * ```
  */
 export function ServicesListVerticalTags({
+  sectionId = "services-list-vertical-tags",
   heading,
   description,
   services,
@@ -214,6 +217,7 @@ export function ServicesListVerticalTags({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

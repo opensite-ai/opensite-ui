@@ -80,6 +80,8 @@ export interface ProjectCarouselMinimalProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -93,6 +95,7 @@ export interface ProjectCarouselMinimalProps {
  * geographic context is important.
  */
 export function ProjectCarouselMinimal({
+  sectionId = "project-carousel-minimal",
   heading,
   projects,
   projectsSlot,
@@ -157,6 +160,7 @@ export function ProjectCarouselMinimal({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

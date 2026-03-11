@@ -83,6 +83,8 @@ export interface ProjectAlternatingMotionProps {
    * Additional CSS classes for the image container
    */
   imageContainerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -95,6 +97,7 @@ export interface ProjectAlternatingMotionProps {
  * listing that benefits from dramatic reveal animations and clean alternating presentation.
  */
 export function ProjectAlternatingMotion({
+  sectionId = "project-alternating-motion",
   heading,
   projects,
   projectsSlot,
@@ -165,6 +168,7 @@ export function ProjectAlternatingMotion({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

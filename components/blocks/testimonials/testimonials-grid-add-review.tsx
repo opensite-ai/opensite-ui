@@ -115,6 +115,8 @@ export interface TestimonialsGridAddReviewProps {
    * Additional CSS classes for the quote text
    */
   quoteClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -144,6 +146,7 @@ export interface TestimonialsGridAddReviewProps {
  * ```
  */
 export function TestimonialsGridAddReview({
+  sectionId = "testimonials-grid-add-review",
   reviews,
   reviewsSlot,
   heading,
@@ -323,6 +326,7 @@ export function TestimonialsGridAddReview({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

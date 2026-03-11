@@ -145,6 +145,8 @@ export interface TestimonialsImagesHelpfulProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -178,6 +180,7 @@ export interface TestimonialsImagesHelpfulProps {
  * ```
  */
 export function TestimonialsImagesHelpful({
+  sectionId = "testimonials-images-helpful",
   reviews,
   reviewsSlot,
   heading,
@@ -436,6 +439,7 @@ export function TestimonialsImagesHelpful({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

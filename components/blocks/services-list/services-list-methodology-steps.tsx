@@ -111,6 +111,8 @@ export interface ServicesListMethodologyStepsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -131,6 +133,7 @@ export interface ServicesListMethodologyStepsProps {
  * ```
  */
 export function ServicesListMethodologySteps({
+  sectionId = "services-list-methodology-steps",
   heading,
   description,
   primaryAction,
@@ -253,6 +256,7 @@ export function ServicesListMethodologySteps({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

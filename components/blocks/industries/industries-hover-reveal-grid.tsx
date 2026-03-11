@@ -109,6 +109,8 @@ export interface IndustriesHoverRevealGridProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -137,6 +139,7 @@ export interface IndustriesHoverRevealGridProps {
  * ```
  */
 export function IndustriesHoverRevealGrid({
+  sectionId = "industries-hover-reveal-grid",
   heading,
   headingSlot,
   industryLabel,
@@ -288,6 +291,7 @@ export function IndustriesHoverRevealGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

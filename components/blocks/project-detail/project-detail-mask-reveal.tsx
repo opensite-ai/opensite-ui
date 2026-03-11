@@ -65,6 +65,8 @@ export interface ProjectDetailMaskRevealProps {
   heroImageClassName?: string;
   /** Additional CSS classes for the reveal images section */
   revealImagesClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -142,6 +144,7 @@ export function ProjectDetailMaskReveal(
   props: ProjectDetailMaskRevealProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -163,6 +166,7 @@ export function ProjectDetailMaskReveal(
     heroImageClassName,
     revealImagesClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-mask-reveal";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -197,6 +201,7 @@ export function ProjectDetailMaskReveal(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

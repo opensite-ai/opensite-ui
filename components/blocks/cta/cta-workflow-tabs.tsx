@@ -146,6 +146,8 @@ export interface CtaWorkflowTabsProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -169,6 +171,7 @@ export interface CtaWorkflowTabsProps {
  * ```
  */
 export function CtaWorkflowTabs({
+  sectionId = "cta-workflow-tabs",
   heading,
   description,
   actions,
@@ -347,6 +350,7 @@ export function CtaWorkflowTabs({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

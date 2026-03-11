@@ -82,6 +82,8 @@ export interface LogosMinimalCarouselProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -89,6 +91,7 @@ export interface LogosMinimalCarouselProps {
  * Features grayscale logos with hover effects in a clean, bordered design.
  */
 export function LogosMinimalCarousel({
+  sectionId = "logos-minimal-carousel",
   className,
   logos,
   logosSlot,
@@ -149,6 +152,7 @@ export function LogosMinimalCarousel({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

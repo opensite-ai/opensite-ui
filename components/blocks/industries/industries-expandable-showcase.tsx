@@ -119,6 +119,8 @@ export interface IndustriesExpandableShowcaseProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -147,6 +149,7 @@ export interface IndustriesExpandableShowcaseProps {
  * ```
  */
 export function IndustriesExpandableShowcase({
+  sectionId = "industries-expandable-showcase",
   heading,
   headingSlot,
   contractors,
@@ -326,6 +329,7 @@ export function IndustriesExpandableShowcase({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

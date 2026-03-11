@@ -101,9 +101,12 @@ export interface TimelineScrollStickyImageProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function TimelineScrollStickyImage({
+  sectionId = "timeline-scroll-sticky-image",
   heading,
   sections,
   className,
@@ -168,7 +171,7 @@ export function TimelineScrollStickyImage({
   if (!sections || sections.length === 0) {
     return (
       <Section
-        id={id}
+        id={sectionId}
         background={background}
         spacing={spacing}
         className={className}

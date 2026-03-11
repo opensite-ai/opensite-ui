@@ -160,6 +160,8 @@ export interface ResourceDetailDocumentSidebarProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -194,6 +196,7 @@ export interface ResourceDetailDocumentSidebarProps {
  * ```
  */
 export function ResourceDetailDocumentSidebar({
+  sectionId = "resource-detail-document-sidebar",
   className,
   breadcrumbs,
   breadcrumbsSlot,
@@ -451,6 +454,7 @@ export function ResourceDetailDocumentSidebar({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

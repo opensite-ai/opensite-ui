@@ -245,6 +245,8 @@ export interface PricingGradientCardsProps {
    * Additional CSS classes for the action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -265,6 +267,7 @@ export interface PricingGradientCardsProps {
  * ```
  */
 export function PricingGradientCards({
+  sectionId = "pricing-gradient-cards",
   heading,
   description,
   monthlyLabel,
@@ -498,6 +501,7 @@ export function PricingGradientCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

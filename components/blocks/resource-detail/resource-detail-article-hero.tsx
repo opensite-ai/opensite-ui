@@ -192,6 +192,8 @@ export interface ResourceDetailArticleHeroProps {
    * Background pattern
    */
   pattern?: PatternName;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -225,6 +227,7 @@ export interface ResourceDetailArticleHeroProps {
  * ```
  */
 export function ResourceDetailArticleHero({
+  sectionId = "resource-detail-article-hero",
   navigation,
   navigationSlot,
   navigationClassName,
@@ -427,6 +430,7 @@ export function ResourceDetailArticleHero({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

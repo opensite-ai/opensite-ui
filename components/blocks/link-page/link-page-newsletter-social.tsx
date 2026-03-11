@@ -238,6 +238,8 @@ export interface LinkPageNewsletterSocialProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -276,6 +278,7 @@ export interface LinkPageNewsletterSocialProps {
  * ```
  */
 export function LinkPageNewsletterSocial({
+  sectionId = "link-page-newsletter-social",
   name,
   bio,
   avatar,
@@ -662,6 +665,7 @@ export function LinkPageNewsletterSocial({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

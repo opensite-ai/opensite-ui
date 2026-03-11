@@ -138,6 +138,8 @@ export interface FeatureIntegrationCardsProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -160,6 +162,7 @@ export interface FeatureIntegrationCardsProps {
  * ```
  */
 export function FeatureIntegrationCards({
+  sectionId = "feature-integration-cards",
   title,
   description,
   integrations,
@@ -292,6 +295,7 @@ export function FeatureIntegrationCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

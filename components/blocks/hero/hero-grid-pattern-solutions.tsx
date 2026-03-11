@@ -105,9 +105,12 @@ export interface HeroGridPatternSolutionsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroGridPatternSolutions({
+  sectionId = "hero-grid-pattern-solutions",
   badgeText,
   badgeHref,
   badgeSlot,
@@ -212,6 +215,7 @@ export function HeroGridPatternSolutions({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -114,9 +114,12 @@ export interface HeroCommunitySurveyCtaProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroCommunitySurveyCta({
+  sectionId = "hero-community-survey-cta",
   announcementPrimary,
   announcementLinkText,
   announcementHref,
@@ -282,6 +285,7 @@ export function HeroCommunitySurveyCta({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

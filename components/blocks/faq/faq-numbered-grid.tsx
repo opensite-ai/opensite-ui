@@ -111,9 +111,12 @@ export interface FaqNumberedGridProps {
    * Additional CSS classes for item answers
    */
   answerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqNumberedGrid({
+  sectionId = "faq-numbered-grid",
   heading,
   description,
   items,
@@ -246,6 +249,7 @@ export function FaqNumberedGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

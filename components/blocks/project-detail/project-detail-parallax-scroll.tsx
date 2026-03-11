@@ -68,6 +68,8 @@ export interface ProjectDetailParallaxScrollProps {
   heroImageClassName?: string;
   /** Additional CSS classes for the parallax sections */
   sectionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -153,6 +155,7 @@ export function ProjectDetailParallaxScroll(
   props: ProjectDetailParallaxScrollProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -174,6 +177,7 @@ export function ProjectDetailParallaxScroll(
     heroImageClassName,
     sectionsClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-parallax-scroll";
 
   const heroRef = React.useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -217,6 +221,7 @@ export function ProjectDetailParallaxScroll(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -73,6 +73,8 @@ export interface ProjectGridGalleryProps {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -85,6 +87,7 @@ export interface ProjectGridGalleryProps {
  * Responsive design collapses to single column on mobile.
  */
 export function ProjectGridGallery({
+  sectionId = "project-grid-gallery",
   images,
   imagesSlot,
   optixFlowConfig,
@@ -143,6 +146,7 @@ export function ProjectGridGallery({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

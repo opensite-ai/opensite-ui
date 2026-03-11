@@ -63,6 +63,8 @@ export interface ProjectDetailCompactMetadataProps {
   metadataClassName?: string;
   /** Additional CSS classes for the gallery section */
   galleryClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -76,6 +78,7 @@ export function ProjectDetailCompactMetadata(
   props: ProjectDetailCompactMetadataProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     heroImage,
@@ -98,6 +101,7 @@ export function ProjectDetailCompactMetadata(
     metadataClassName,
     galleryClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-compact-metadata";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -132,6 +136,7 @@ export function ProjectDetailCompactMetadata(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

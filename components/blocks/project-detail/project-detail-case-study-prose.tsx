@@ -66,6 +66,8 @@ export interface ProjectDetailCaseStudyProseProps {
   overviewClassName?: string;
   /** Additional CSS classes for the sections container */
   sectionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -79,6 +81,7 @@ export function ProjectDetailCaseStudyProse(
   props: ProjectDetailCaseStudyProseProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -103,6 +106,7 @@ export function ProjectDetailCaseStudyProse(
     overviewClassName,
     sectionsClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-case-study-prose";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -137,6 +141,7 @@ export function ProjectDetailCaseStudyProse(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -100,9 +100,12 @@ export interface HeroDashedBorderFeaturesProps {
    * Additional CSS classes for the features container
    */
   featuresClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroDashedBorderFeatures({
+  sectionId = "hero-dashed-border-features",
   badgeText,
   announcementText,
   announcementHref,
@@ -214,6 +217,7 @@ export function HeroDashedBorderFeatures({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

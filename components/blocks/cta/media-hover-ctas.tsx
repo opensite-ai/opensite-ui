@@ -91,6 +91,8 @@ export interface MediaHoverCtasProps {
    * @deprecated Use className instead
    */
   sectionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -118,6 +120,7 @@ export interface MediaHoverCtasProps {
  * ```
  */
 export function MediaHoverCtas({
+  sectionId = "media-hover-ctas",
   className,
   sectionClassName,
   gridClassName,
@@ -196,6 +199,7 @@ export function MediaHoverCtas({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className, sectionClassName)}

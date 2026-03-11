@@ -90,6 +90,8 @@ export interface BannerSurveyIncentiveProps {
    * Additional CSS classes for the dismiss button
    */
   dismissButtonClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -111,6 +113,7 @@ export interface BannerSurveyIncentiveProps {
  * ```
  */
 export function BannerSurveyIncentive({
+  sectionId = "banner-survey-incentive",
   icon,
   iconName,
   title,
@@ -213,7 +216,8 @@ export function BannerSurveyIncentive({
   }
 
   return (
-    <Section background={background} spacing="none" className={cn("border-b text-sm", className)}>
+    <Section
+      id={sectionId} background={background} spacing="none" className={cn("border-b text-sm", className)}>
       <div className={cn("flex md:items-center justify-between max-w-7xl mx-auto px-4 py-4", containerClassName)}>
         <div className={cn("flex items-center gap-2", contentClassName)}>
           {iconContent}

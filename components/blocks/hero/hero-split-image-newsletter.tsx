@@ -130,9 +130,12 @@ export interface HeroSplitImageNewsletterProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroSplitImageNewsletter({
+  sectionId = "hero-split-image-newsletter",
   heading,
   description,
   formFields = DEFAULT_FORM_FIELDS,
@@ -285,6 +288,7 @@ export function HeroSplitImageNewsletter({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

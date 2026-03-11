@@ -66,6 +66,8 @@ export interface TestimonialsLargeQuoteProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -91,6 +93,7 @@ export interface TestimonialsLargeQuoteProps {
  * ```
  */
 export function TestimonialsLargeQuote({
+  sectionId = "testimonials-large-quote",
   testimonial,
   testimonialSlot,
   className,
@@ -214,6 +217,7 @@ export function TestimonialsLargeQuote({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

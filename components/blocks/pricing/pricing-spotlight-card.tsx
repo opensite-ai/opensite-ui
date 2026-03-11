@@ -185,6 +185,8 @@ export interface PricingSpotlightCardProps {
    * Additional CSS classes for the fine print
    */
   finePrintClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -206,6 +208,7 @@ export interface PricingSpotlightCardProps {
  * ```
  */
 export function PricingSpotlightCard({
+  sectionId = "pricing-spotlight-card",
   title,
   subtitle,
   price,
@@ -353,6 +356,7 @@ export function PricingSpotlightCard({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

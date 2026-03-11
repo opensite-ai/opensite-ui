@@ -92,9 +92,12 @@ export interface HeroCenteredImageGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroCenteredImageGrid({
+  sectionId = "hero-centered-image-grid",
   heading,
   description,
   actions,
@@ -172,6 +175,7 @@ export function HeroCenteredImageGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

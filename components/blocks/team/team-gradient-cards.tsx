@@ -117,6 +117,8 @@ export interface TeamGradientCardsProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -145,6 +147,7 @@ export interface TeamGradientCardsProps {
  * ```
  */
 export function TeamGradientCards({
+  sectionId = "team-gradient-cards",
   heading,
   description,
   members,
@@ -246,6 +249,7 @@ export function TeamGradientCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

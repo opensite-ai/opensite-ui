@@ -164,6 +164,8 @@ export interface StatsCircularProgressProps {
    * Additional CSS classes for stat info
    */
   statInfoClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -247,6 +249,7 @@ function CircularProgressIndicator({
  * ```
  */
 export function StatsCircularProgress({
+  sectionId = "stats-circular-progress",
   badge,
   badgeSlot,
   heading,
@@ -416,6 +419,7 @@ export function StatsCircularProgress({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

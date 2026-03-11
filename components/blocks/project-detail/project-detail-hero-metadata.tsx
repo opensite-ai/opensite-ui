@@ -61,6 +61,8 @@ export interface ProjectDetailHeroMetadataProps {
   metadataClassName?: string;
   /** Additional CSS classes for the hero image container */
   heroImageClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -81,6 +83,7 @@ export function ProjectDetailHeroMetadata(
   props: ProjectDetailHeroMetadataProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     description,
@@ -103,6 +106,7 @@ export function ProjectDetailHeroMetadata(
     metadataClassName,
     heroImageClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-hero-metadata";
 
   const renderedAction = useMemo(() => {
     if (actionSlot) return actionSlot;
@@ -137,6 +141,7 @@ export function ProjectDetailHeroMetadata(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

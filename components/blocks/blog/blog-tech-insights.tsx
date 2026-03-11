@@ -113,9 +113,12 @@ export interface BlogTechInsightsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function BlogTechInsights({
+  sectionId = "blog-tech-insights",
   heading,
   description,
   readMoreAction,
@@ -312,6 +315,7 @@ export function BlogTechInsights({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

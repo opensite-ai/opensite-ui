@@ -61,6 +61,8 @@ export interface ProjectHoverRevealGridProps {
    * Additional CSS classes for each image card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -73,6 +75,7 @@ export interface ProjectHoverRevealGridProps {
  * image presentation is preferred while maintaining the interactive hover reveal.
  */
 export function ProjectHoverRevealGrid({
+  sectionId = "project-hover-reveal-grid",
   images,
   imagesSlot,
   optixFlowConfig,
@@ -118,6 +121,7 @@ export function ProjectHoverRevealGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

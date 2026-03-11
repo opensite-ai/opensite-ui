@@ -153,6 +153,8 @@ export interface FeatureBentoUtilitiesProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -177,6 +179,7 @@ export interface FeatureBentoUtilitiesProps {
  * ```
  */
 export function FeatureBentoUtilities({
+  sectionId = "feature-bento-utilities",
   label,
   labelIconName,
   labelIcon,
@@ -291,6 +294,7 @@ export function FeatureBentoUtilities({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

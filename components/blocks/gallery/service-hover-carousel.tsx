@@ -145,6 +145,8 @@ export interface ServiceHoverCarouselProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -174,6 +176,7 @@ export interface ServiceHoverCarouselProps {
  * ```
  */
 export function ServiceHoverCarousel({
+  sectionId = "service-hover-carousel",
   heading,
   items,
   itemsSlot,
@@ -407,6 +410,7 @@ export function ServiceHoverCarousel({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

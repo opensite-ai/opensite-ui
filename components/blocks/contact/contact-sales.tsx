@@ -94,6 +94,8 @@ export interface ContactSalesProps {
   patternOpacity?: number;
   /** Full form engine setup and props */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -108,6 +110,7 @@ export interface ContactSalesProps {
  * ```
  */
 export function ContactSales({
+  sectionId = "contact-sales",
   heading,
   description,
   className,
@@ -125,6 +128,7 @@ export function ContactSales({
 }: ContactSalesProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

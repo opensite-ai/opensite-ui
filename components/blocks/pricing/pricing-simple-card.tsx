@@ -158,6 +158,8 @@ export interface PricingSimpleCardProps {
    * Additional CSS classes for the action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -180,6 +182,7 @@ export interface PricingSimpleCardProps {
  * ```
  */
 export function PricingSimpleCard({
+  sectionId = "pricing-simple-card",
   title,
   description,
   price,
@@ -308,6 +311,7 @@ export function PricingSimpleCard({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

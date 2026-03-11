@@ -129,9 +129,12 @@ export interface AboutDeveloperProfileProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function AboutDeveloperProfile({
+  sectionId = "about-developer-profile",
   name,
   role,
   bio,
@@ -197,6 +200,7 @@ export function AboutDeveloperProfile({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

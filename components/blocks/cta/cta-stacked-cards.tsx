@@ -78,6 +78,8 @@ export interface CtaStackedCardsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -95,6 +97,7 @@ export interface CtaStackedCardsProps {
  * ```
  */
 export function CtaStackedCards({
+  sectionId = "cta-stacked-cards",
   heading,
   description,
   actions,
@@ -140,6 +143,7 @@ export function CtaStackedCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

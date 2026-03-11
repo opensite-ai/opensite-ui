@@ -125,6 +125,8 @@ export interface LogosDoubleCarouselPatternProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -132,6 +134,7 @@ export interface LogosDoubleCarouselPatternProps {
  * Features two auto-scrolling rows moving in opposite directions with CTA buttons.
  */
 export function LogosDoubleCarouselPattern({
+  sectionId = "logos-double-carousel-pattern",
   className,
   title,
   titleClassName,
@@ -270,6 +273,7 @@ export function LogosDoubleCarouselPattern({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

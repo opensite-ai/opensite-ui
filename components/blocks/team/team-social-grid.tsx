@@ -116,6 +116,8 @@ export interface TeamSocialGridProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -144,6 +146,7 @@ export interface TeamSocialGridProps {
  * ```
  */
 export function TeamSocialGrid({
+  sectionId = "team-social-grid",
   heading,
   description,
   members,
@@ -235,6 +238,7 @@ export function TeamSocialGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

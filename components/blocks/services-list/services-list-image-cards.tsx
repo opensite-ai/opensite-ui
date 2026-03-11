@@ -133,6 +133,8 @@ export interface ServicesListImageCardsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -153,6 +155,7 @@ export interface ServicesListImageCardsProps {
  * ```
  */
 export function ServicesListImageCards({
+  sectionId = "services-list-image-cards",
   heading,
   description,
   primaryAction,
@@ -275,6 +278,7 @@ export function ServicesListImageCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

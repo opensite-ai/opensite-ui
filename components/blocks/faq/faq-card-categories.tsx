@@ -115,9 +115,12 @@ export interface FaqCardCategoriesProps {
    * Additional CSS classes for accordion content
    */
   accordionContentClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqCardCategories({
+  sectionId = "faq-card-categories",
   headerClassName,
   heading,
   headingClassName,
@@ -259,6 +262,7 @@ export function FaqCardCategories({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

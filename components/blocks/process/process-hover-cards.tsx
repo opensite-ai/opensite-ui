@@ -112,6 +112,8 @@ export interface ProcessHoverCardsProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 interface ProcessCardProps {
@@ -220,6 +222,7 @@ const ProcessCard = ({
  * ProcessHoverCards - A process section with hover-reveal images for each step.
  */
 export function ProcessHoverCards({
+  sectionId = "process-hover-cards",
   heading,
   description,
   steps,
@@ -268,6 +271,7 @@ export function ProcessHoverCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

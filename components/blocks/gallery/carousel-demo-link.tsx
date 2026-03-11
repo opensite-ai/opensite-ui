@@ -140,6 +140,8 @@ export interface CarouselDemoLinkProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -168,6 +170,7 @@ export interface CarouselDemoLinkProps {
  * ```
  */
 export function CarouselDemoLink({
+  sectionId = "carousel-demo-link",
   heading,
   demoAction,
   demoActionSlot,
@@ -314,6 +317,7 @@ export function CarouselDemoLink({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -147,6 +147,8 @@ export interface AboutLocationInfoHeroProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -155,6 +157,7 @@ export interface AboutLocationInfoHeroProps {
  * service hubs or flagship office pages.
  */
 export function AboutLocationInfoHero({
+  sectionId = "about-location-info-hero",
   headline,
   headlineClassName,
   address,
@@ -313,6 +316,7 @@ export function AboutLocationInfoHero({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

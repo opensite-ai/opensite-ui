@@ -93,6 +93,8 @@ export interface ContactFitnessProps {
   patternOpacity?: number;
   /** Full form engine setup and props */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -107,6 +109,7 @@ export interface ContactFitnessProps {
  * ```
  */
 export function ContactFitness({
+  sectionId = "contact-fitness",
   heading,
   description,
   className,
@@ -124,6 +127,7 @@ export function ContactFitness({
 }: ContactFitnessProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

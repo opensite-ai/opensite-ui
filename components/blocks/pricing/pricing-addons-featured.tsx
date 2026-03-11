@@ -255,6 +255,8 @@ export interface PricingAddonsFeaturedProps {
    * Additional CSS classes for additional item price
    */
   additionalItemPriceClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -278,6 +280,7 @@ export interface PricingAddonsFeaturedProps {
  * ```
  */
 export function PricingAddonsFeatured({
+  sectionId = "pricing-addons-featured",
   heading,
   subtitle,
   featuredAddons,
@@ -574,6 +577,7 @@ export function PricingAddonsFeatured({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

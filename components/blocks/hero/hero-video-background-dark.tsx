@@ -94,9 +94,12 @@ export interface HeroVideoBackgroundDarkProps {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroVideoBackgroundDark({
+  sectionId = "hero-video-background-dark",
   badgeText,
   heading,
   description,
@@ -137,6 +140,7 @@ export function HeroVideoBackgroundDark({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

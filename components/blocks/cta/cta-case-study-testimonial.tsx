@@ -184,6 +184,8 @@ export interface CtaCaseStudyTestimonialProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -206,6 +208,7 @@ export interface CtaCaseStudyTestimonialProps {
  * ```
  */
 export function CtaCaseStudyTestimonial({
+  sectionId = "cta-case-study-testimonial",
   badge,
   heading,
   description,
@@ -347,6 +350,7 @@ export function CtaCaseStudyTestimonial({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

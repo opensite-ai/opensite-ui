@@ -117,6 +117,8 @@ export interface TeamHoverHighlightProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -145,6 +147,7 @@ export interface TeamHoverHighlightProps {
  * ```
  */
 export function TeamHoverHighlight({
+  sectionId = "team-hover-highlight",
   heading,
   description,
   members,
@@ -240,6 +243,7 @@ export function TeamHoverHighlight({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

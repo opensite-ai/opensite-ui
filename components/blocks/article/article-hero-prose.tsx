@@ -115,9 +115,12 @@ export interface ArticleHeroProseProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function ArticleHeroProseComponent({
+  sectionId = "article-hero-prose",
   post,
   className,
   headerClassName,
@@ -204,6 +207,7 @@ export function ArticleHeroProseComponent({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

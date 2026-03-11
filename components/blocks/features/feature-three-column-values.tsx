@@ -109,6 +109,8 @@ export interface FeatureThreeColumnValuesProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -133,6 +135,7 @@ export interface FeatureThreeColumnValuesProps {
  * ```
  */
 export function FeatureThreeColumnValues({
+  sectionId = "feature-three-column-values",
   label,
   title,
   values,
@@ -218,6 +221,7 @@ export function FeatureThreeColumnValues({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

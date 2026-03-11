@@ -101,9 +101,12 @@ export interface TimelineChangelogBadgesProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function TimelineChangelogBadges({
+  sectionId = "timeline-changelog-badges",
   heading,
   entries,
   className,
@@ -125,7 +128,7 @@ export function TimelineChangelogBadges({
   if (!entries || entries.length === 0) {
     return (
       <Section
-        id={id}
+        id={sectionId}
         background={background}
         spacing={spacing}
         className={className}

@@ -88,6 +88,8 @@ export interface ProjectCarouselCinematicProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -100,6 +102,7 @@ export interface ProjectCarouselCinematicProps {
  * any project collection where widescreen presentation enhances the visual impact.
  */
 export function ProjectCarouselCinematic({
+  sectionId = "project-carousel-cinematic",
   heading,
   subheading,
   projects,
@@ -166,6 +169,7 @@ export function ProjectCarouselCinematic({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

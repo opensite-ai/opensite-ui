@@ -165,6 +165,8 @@ export interface FeatureImageCardsThreeColumnProps {
     desktop: "square" | "horizontal" | "vertical";
     mobile: "square" | "horizontal" | "vertical";
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -201,6 +203,7 @@ const ASPECT_RATIO_VALUES = {
 } as const;
 
 export function FeatureImageCardsThreeColumn({
+  sectionId = "feature-image-cards-three-column",
   title,
   description,
   headerClassName,
@@ -431,6 +434,7 @@ export function FeatureImageCardsThreeColumn({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

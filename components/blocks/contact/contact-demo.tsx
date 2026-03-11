@@ -95,6 +95,8 @@ export interface ContactDemoProps {
   patternOpacity?: number;
   /** Full form engine setup and props */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -109,6 +111,7 @@ export interface ContactDemoProps {
  * ```
  */
 export function ContactDemo({
+  sectionId = "contact-demo",
   heading,
   description,
   className,
@@ -126,6 +129,7 @@ export function ContactDemo({
 }: ContactDemoProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

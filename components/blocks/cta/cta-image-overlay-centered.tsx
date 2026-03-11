@@ -90,6 +90,8 @@ export interface CtaImageOverlayCenteredProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -97,6 +99,7 @@ export interface CtaImageOverlayCenteredProps {
  * dark overlay, and centered text/CTAs. Best for final conversion sections.
  */
 export function CtaImageOverlayCentered({
+  sectionId = "cta-image-overlay-centered",
   heading,
   description,
   actions,
@@ -149,6 +152,7 @@ export function CtaImageOverlayCentered({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

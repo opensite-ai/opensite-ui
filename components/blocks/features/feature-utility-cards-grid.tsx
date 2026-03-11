@@ -153,6 +153,8 @@ export interface FeatureUtilityCardsGridProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -175,6 +177,7 @@ export interface FeatureUtilityCardsGridProps {
  * ```
  */
 export function FeatureUtilityCardsGrid({
+  sectionId = "feature-utility-cards-grid",
   label,
   labelIcon,
   labelIconName,
@@ -342,6 +345,7 @@ export function FeatureUtilityCardsGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -113,6 +113,8 @@ export interface IndustriesBadgeListBorderedProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -140,6 +142,7 @@ export interface IndustriesBadgeListBorderedProps {
  * ```
  */
 export function IndustriesBadgeListBordered({
+  sectionId = "industries-badge-list-bordered",
   badge,
   badgeSlot,
   heading,
@@ -249,6 +252,7 @@ export function IndustriesBadgeListBordered({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

@@ -110,9 +110,12 @@ export interface HeroSharedInboxLayeredProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroSharedInboxLayered({
+  sectionId = "hero-shared-inbox-layered",
   eyebrow,
   eyebrowClassName,
   heading,
@@ -178,6 +181,7 @@ export function HeroSharedInboxLayered({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

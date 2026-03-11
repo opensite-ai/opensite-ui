@@ -83,9 +83,12 @@ export interface ServiceDetailCompactCardsProps {
   pattern?: PatternName | undefined;
   patternOpacity?: number;
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function ServiceDetailCompactCards({
+  sectionId = "service-detail-compact-cards",
   title,
   titleClassName,
   serviceIcon,
@@ -347,6 +350,7 @@ export function ServiceDetailCompactCards({
 
   return (
     <Section
+      id={sectionId}
       className={className}
       background={background}
       spacing={spacing}

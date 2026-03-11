@@ -91,6 +91,8 @@ export interface ProjectDetailArchitectureCarouselProps {
   showPdfTab?: boolean;
   /** Whether to enable lightbox for carousel images */
   enableLightbox?: boolean;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -104,6 +106,7 @@ export function ProjectDetailArchitectureCarousel(
   props: ProjectDetailArchitectureCarouselProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -136,6 +139,7 @@ export function ProjectDetailArchitectureCarousel(
     showPdfTab,
     enableLightbox,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-architecture-carousel";
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedTab, setSelectedTab] = useState<"slides" | "video" | "pdf">(
@@ -217,6 +221,7 @@ export function ProjectDetailArchitectureCarousel(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

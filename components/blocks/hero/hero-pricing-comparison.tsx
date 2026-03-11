@@ -110,9 +110,12 @@ export interface HeroPricingComparisonProps {
    * Additional CSS classes for the plans grid
    */
   plansClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroPricingComparison({
+  sectionId = "hero-pricing-comparison",
   badgeText,
   badgeSlot,
   heading,
@@ -202,6 +205,7 @@ export function HeroPricingComparison({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

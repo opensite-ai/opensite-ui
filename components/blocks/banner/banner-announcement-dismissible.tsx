@@ -78,6 +78,8 @@ export interface BannerAnnouncementDismissibleProps {
    * Additional CSS classes for the dismiss button
    */
   dismissButtonClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -98,6 +100,7 @@ export interface BannerAnnouncementDismissibleProps {
  * ```
  */
 export function BannerAnnouncementDismissible({
+  sectionId = "banner-announcement-dismissible",
   icon,
   iconName,
   message,
@@ -188,7 +191,8 @@ export function BannerAnnouncementDismissible({
   }
 
   return (
-    <Section background={background} spacing="none" className={cn("border-b", className)}>
+    <Section
+      id={sectionId} background={background} spacing="none" className={cn("border-b", className)}>
       <div className={cn("max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-2", containerClassName)}>
         <div className={cn("flex items-center gap-4", contentClassName)}>
           {iconContent}

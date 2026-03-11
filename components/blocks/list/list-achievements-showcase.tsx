@@ -110,6 +110,8 @@ export interface ListAchievementsShowcaseProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -137,6 +139,7 @@ export interface ListAchievementsShowcaseProps {
  * ```
  */
 export function ListAchievementsShowcase({
+  sectionId = "list-achievements-showcase",
   heading,
   headingClassName,
   items,
@@ -286,6 +289,7 @@ export function ListAchievementsShowcase({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

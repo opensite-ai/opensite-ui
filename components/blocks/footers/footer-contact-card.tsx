@@ -112,6 +112,8 @@ export interface FooterContactCardProps {
   patternOpacity?: number;
   /** Optional Optix Flow configuration for @page-speed/img */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -122,6 +124,7 @@ export interface FooterContactCardProps {
  * that want to emphasize contact information and make it easy for visitors to get in touch.
  */
 export function FooterContactCard({
+  sectionId = "footer-contact-card",
   logo,
   heading,
   email,
@@ -160,6 +163,7 @@ export function FooterContactCard({
 }: FooterContactCardProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

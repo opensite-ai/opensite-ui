@@ -118,9 +118,12 @@ export interface FaqSplitHelpProps {
    * Additional CSS classes for the help section
    */
   helpSectionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqSplitHelp({
+  sectionId = "faq-split-help",
   heading,
   description,
   items,
@@ -281,6 +284,7 @@ export function FaqSplitHelp({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

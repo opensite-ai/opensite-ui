@@ -108,9 +108,12 @@ export interface HeroImageLeftContentProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroImageLeftContent({
+  sectionId = "hero-image-left-content",
   badge,
   badgeIcon,
   badgeVariant,
@@ -137,6 +140,7 @@ export function HeroImageLeftContent({
 }: HeroImageLeftContentProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

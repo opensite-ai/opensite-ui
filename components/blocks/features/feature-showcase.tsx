@@ -88,6 +88,8 @@ export interface FeatureShowcaseProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -114,6 +116,7 @@ export interface FeatureShowcaseProps {
  * ```
  */
 export function FeatureShowcase({
+  sectionId = "feature-showcase",
   items,
   children,
   className,
@@ -286,6 +289,7 @@ export function FeatureShowcase({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

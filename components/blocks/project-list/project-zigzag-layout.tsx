@@ -27,6 +27,8 @@ export interface ProjectZigzagLayoutProps {
   projects?: ProjectZigzagLayoutItem[];
   optixFlowConfig?: OptixFlowConfig;
   background?: SectionBackground;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -40,6 +42,7 @@ export interface ProjectZigzagLayoutProps {
  * studies, or any showcase where detailed project information needs prominent display.
  */
 export function ProjectZigzagLayout({
+  sectionId = "project-zigzag-layout",
   className,
   heading,
   subheading,
@@ -48,7 +51,8 @@ export function ProjectZigzagLayout({
   background = "default",
 }: ProjectZigzagLayoutProps) {
   return (
-    <Section background={background} spacing="lg" className={className}>
+    <Section
+      id={sectionId} background={background} spacing="lg" className={className}>
         <div className="mb-16 text-center md:mb-24">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
             {heading}

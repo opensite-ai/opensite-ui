@@ -102,9 +102,12 @@ export interface HeroAiPoweredCarouselProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroAiPoweredCarousel({
+  sectionId = "hero-ai-powered-carousel",
   badge,
   badgeTagline,
   heading,
@@ -129,6 +132,7 @@ export function HeroAiPoweredCarousel({
 }: HeroAiPoweredCarouselProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -116,6 +116,8 @@ export interface ServicesListTabsFeaturesProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -136,6 +138,7 @@ export interface ServicesListTabsFeaturesProps {
  * ```
  */
 export function ServicesListTabsFeatures({
+  sectionId = "services-list-tabs-features",
   heading,
   description,
   services,
@@ -245,6 +248,7 @@ export function ServicesListTabsFeatures({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

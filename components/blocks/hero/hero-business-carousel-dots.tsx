@@ -118,9 +118,12 @@ export interface HeroBusinessCarouselDotsProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroBusinessCarouselDots({
+  sectionId = "hero-business-carousel-dots",
   badge,
   badgeVariant,
   heading,
@@ -169,6 +172,7 @@ export function HeroBusinessCarouselDots({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

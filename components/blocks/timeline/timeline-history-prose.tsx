@@ -97,9 +97,12 @@ export interface TimelineHistoryProseProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function TimelineHistoryProse({
+  sectionId = "timeline-history-prose",
   heading,
   entries,
   className,
@@ -121,7 +124,7 @@ export function TimelineHistoryProse({
   if (!entries || entries.length === 0) {
     return (
       <Section
-        id={id}
+        id={sectionId}
         background={background}
         spacing={spacing}
         className={className}

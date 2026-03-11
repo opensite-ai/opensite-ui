@@ -115,6 +115,8 @@ export interface ServicesListCardsHoverProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -137,6 +139,7 @@ export interface ServicesListCardsHoverProps {
  * ```
  */
 export function ServicesListCardsHover({
+  sectionId = "services-list-cards-hover",
   heading,
   description,
   services,
@@ -261,6 +264,7 @@ export function ServicesListCardsHover({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

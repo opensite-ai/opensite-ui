@@ -113,6 +113,8 @@ export interface FeatureIconGridMutedProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -135,6 +137,7 @@ export interface FeatureIconGridMutedProps {
  * ```
  */
 export function FeatureIconGridMuted({
+  sectionId = "feature-icon-grid-muted",
   title,
   description,
   features,
@@ -221,6 +224,7 @@ export function FeatureIconGridMuted({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

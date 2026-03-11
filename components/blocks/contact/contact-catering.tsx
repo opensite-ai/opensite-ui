@@ -249,6 +249,8 @@ export interface ContactCateringProps {
    * Full form engine setup and props
    */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -266,6 +268,7 @@ export interface ContactCateringProps {
  * ```
  */
 export function ContactCatering({
+  sectionId = "contact-catering",
   heading,
   description,
   className,
@@ -283,6 +286,7 @@ export function ContactCatering({
 }: ContactCateringProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

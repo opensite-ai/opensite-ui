@@ -121,9 +121,12 @@ export interface FaqSplitHeroProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqSplitHero({
+  sectionId = "faq-split-hero",
   heading,
   subheading,
   items,
@@ -230,6 +233,7 @@ export function FaqSplitHero({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

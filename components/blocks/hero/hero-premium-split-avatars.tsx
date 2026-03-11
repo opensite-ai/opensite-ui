@@ -120,9 +120,12 @@ export interface HeroPremiumSplitAvatarsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroPremiumSplitAvatars({
+  sectionId = "hero-premium-split-avatars",
   brandName,
   brandSuffix,
   brandSlot,
@@ -232,6 +235,7 @@ export function HeroPremiumSplitAvatars({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

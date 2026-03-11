@@ -133,9 +133,12 @@ export interface HeroStartupLaunchCtaProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroStartupLaunchCta({
+  sectionId = "hero-startup-launch-cta",
   badge,
   badgeIcon,
   badgeCard,
@@ -215,6 +218,7 @@ export function HeroStartupLaunchCta({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

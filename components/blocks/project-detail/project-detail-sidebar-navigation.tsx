@@ -66,12 +66,15 @@ export interface ProjectDetailSidebarNavigationProps {
   heroImageClassName?: string;
   /** Additional CSS classes for the metadata section */
   metadataClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function ProjectDetailSidebarNavigation(
   props: ProjectDetailSidebarNavigationProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -96,6 +99,7 @@ export function ProjectDetailSidebarNavigation(
     heroImageClassName,
     metadataClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-sidebar-navigation";
 
   const [activeSection, setActiveSection] = React.useState(
     sections?.[0]?.id || "",
@@ -161,6 +165,7 @@ export function ProjectDetailSidebarNavigation(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

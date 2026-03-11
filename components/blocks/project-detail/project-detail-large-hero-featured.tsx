@@ -68,6 +68,8 @@ export interface ProjectDetailLargeHeroFeaturedProps {
   sectionsClassName?: string;
   /** Additional CSS classes for the gallery */
   galleryClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -81,6 +83,7 @@ export function ProjectDetailLargeHeroFeatured(
   props: ProjectDetailLargeHeroFeaturedProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     heroImage,
@@ -103,6 +106,7 @@ export function ProjectDetailLargeHeroFeatured(
     sectionsClassName,
     galleryClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-large-hero-featured";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -137,6 +141,7 @@ export function ProjectDetailLargeHeroFeatured(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

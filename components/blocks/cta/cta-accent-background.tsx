@@ -73,6 +73,8 @@ export interface CtaAccentBackgroundProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -93,6 +95,7 @@ export interface CtaAccentBackgroundProps {
  * ```
  */
 export function CtaAccentBackground({
+  sectionId = "cta-accent-background",
   heading,
   description,
   actions,
@@ -142,6 +145,7 @@ export function CtaAccentBackground({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

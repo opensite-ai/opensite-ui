@@ -125,6 +125,8 @@ export interface CarouselFeatureBadgeProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -140,6 +142,7 @@ const SLIDE_LAYOUT_ASPECT_MAP: Record<
 };
 
 export function CarouselFeatureBadge({
+  sectionId = "carousel-feature-badge",
   badge,
   heading,
   description,
@@ -263,6 +266,7 @@ export function CarouselFeatureBadge({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

@@ -93,6 +93,8 @@ export interface ProjectFeaturedCarouselProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -105,6 +107,7 @@ export interface ProjectFeaturedCarouselProps {
  * listing where client relationships and comprehensive project details need to be highlighted.
  */
 export function ProjectFeaturedCarousel({
+  sectionId = "project-featured-carousel",
   heading,
   subheading,
   projects,
@@ -175,6 +178,7 @@ export function ProjectFeaturedCarousel({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

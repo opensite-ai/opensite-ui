@@ -93,6 +93,8 @@ export interface ContactGuestProps {
   patternOpacity?: number;
   /** Full form engine setup and props */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -107,6 +109,7 @@ export interface ContactGuestProps {
  * ```
  */
 export function ContactGuest({
+  sectionId = "contact-guest",
   heading,
   description,
   className,
@@ -124,6 +127,7 @@ export function ContactGuest({
 }: ContactGuestProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

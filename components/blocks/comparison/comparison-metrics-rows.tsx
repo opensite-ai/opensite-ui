@@ -115,6 +115,8 @@ export interface ComparisonMetricsRowsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -129,6 +131,7 @@ export interface ComparisonMetricsRowsProps {
  * metrics, quantitative feature breakdowns.
  */
 export function ComparisonMetricsRows({
+  sectionId = "comparison-metrics-rows",
   heading,
   description,
   optionALabel,
@@ -259,6 +262,7 @@ export function ComparisonMetricsRows({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

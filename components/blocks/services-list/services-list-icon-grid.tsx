@@ -102,6 +102,8 @@ export interface ServicesListIconGridProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -123,6 +125,7 @@ export interface ServicesListIconGridProps {
  * ```
  */
 export function ServicesListIconGrid({
+  sectionId = "services-list-icon-grid",
   heading,
   description,
   services,
@@ -212,6 +215,7 @@ export function ServicesListIconGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

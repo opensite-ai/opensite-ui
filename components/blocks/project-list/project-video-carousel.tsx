@@ -90,6 +90,8 @@ export interface ProjectVideoCarouselProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 interface VideoSectionProps {
@@ -192,6 +194,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
  * from a cinematic, browsable presentation.
  */
 export function ProjectVideoCarousel({
+  sectionId = "project-video-carousel",
   heading,
   subheading,
   videoSections,
@@ -234,6 +237,7 @@ export function ProjectVideoCarousel({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

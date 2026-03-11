@@ -28,16 +28,16 @@ importers:
         version: 0.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/markdown-to-jsx':
         specifier: 0.0.5
-        version: 0.0.5(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 0.0.5(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer':
         specifier: 0.1.9
         version: 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pressable':
-        specifier: 0.0.2
-        version: 0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.0.5
+        version: 0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/router':
-        specifier: 1.0.0
-        version: 1.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.0.2
+        version: 1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/social-share':
         specifier: 0.1.7
         version: 0.1.7(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -887,14 +887,14 @@ packages:
       react: ^18.0.0
       react-dom: ^18.0.0
 
-  '@page-speed/pressable@0.0.2':
-    resolution: {integrity: sha512-mKdsgGwVJKJW9+ye7fMQrOTd3bhVKzcGGjgpDzp4lr5G3wA28sSiwl09C7VUOJW51C50tZJLxUm+aoliZkNE3A==}
+  '@page-speed/pressable@0.0.5':
+    resolution: {integrity: sha512-/hoj301Ie7zHjPNlSU6v6uYQ9Pclflpjrq9XR8zdqdS3L0cUuI2XZPxyEGTp4gRBwjbCHCELtRrKykWZNE3sCg==}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
 
-  '@page-speed/router@1.0.0':
-    resolution: {integrity: sha512-JO7W42vKhetNgx6xvYsQiB3N+0R8KeSbKo9TxTc+c60RiZbZZXrUqkFcaMeBfid/ZkARfPu0p39Nl5WfwkYCSg==}
+  '@page-speed/router@1.0.2':
+    resolution: {integrity: sha512-4yPyIJVZ0fgZYYLTbVq1+s88qddD9pnWHPPm0sRdPufMSBiUdypFLR/2aEg+vT/YOdJ0YUqm5Rb1AYOmTe14Ug==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       react: '>=17.0.0'
@@ -3625,14 +3625,14 @@ snapshots:
     transitivePeerDependencies:
       - mapbox-gl
 
-  '@page-speed/markdown-to-jsx@0.0.5(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/markdown-to-jsx@0.0.5(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       markdown-to-jsx: 7.7.17(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     optionalDependencies:
       '@page-speed/img': 0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@page-speed/pressable': 0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/pressable': 0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   '@page-speed/pdf-viewer@0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -3640,16 +3640,16 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@page-speed/pressable@0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/pressable@0.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@page-speed/router': 1.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/router': 1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       tailwind-merge: 2.6.1
 
-  '@page-speed/router@1.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/router@1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -3657,7 +3657,7 @@ snapshots:
   '@page-speed/social-share@0.1.7(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@opensite/hooks': 2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@page-speed/router': 1.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/router': 1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 

@@ -133,6 +133,8 @@ export interface TeamGridAnimatedProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -162,6 +164,7 @@ export interface TeamGridAnimatedProps {
  * ```
  */
 export function TeamGridAnimated({
+  sectionId = "team-grid-animated",
   title,
   description,
   members,
@@ -309,6 +312,7 @@ export function TeamGridAnimated({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

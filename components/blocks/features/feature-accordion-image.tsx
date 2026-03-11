@@ -135,6 +135,8 @@ export interface FeatureAccordionImageProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -162,6 +164,7 @@ export interface FeatureAccordionImageProps {
  * ```
  */
 export function FeatureAccordionImage({
+  sectionId = "feature-accordion-image",
   title,
   description,
   items,
@@ -296,6 +299,7 @@ export function FeatureAccordionImage({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

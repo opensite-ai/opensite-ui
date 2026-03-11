@@ -108,9 +108,12 @@ export interface HeroMentalHealthTeamProps {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroMentalHealthTeam({
+  sectionId = "hero-mental-health-team",
   description,
   descriptionClassName,
   actions,
@@ -230,6 +233,7 @@ export function HeroMentalHealthTeam({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

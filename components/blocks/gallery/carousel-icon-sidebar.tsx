@@ -159,6 +159,8 @@ export interface CarouselIconSidebarProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -185,6 +187,7 @@ export interface CarouselIconSidebarProps {
  * ```
  */
 export function CarouselIconSidebar({
+  sectionId = "carousel-icon-sidebar",
   title,
   description,
   items,
@@ -371,6 +374,7 @@ export function CarouselIconSidebar({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

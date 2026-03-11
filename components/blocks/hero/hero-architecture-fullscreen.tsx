@@ -82,9 +82,12 @@ export interface HeroArchitectureFullscreenProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroArchitectureFullscreen({
+  sectionId = "hero-architecture-fullscreen",
   tagline,
   heading,
   description,
@@ -133,6 +136,7 @@ export function HeroArchitectureFullscreen({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

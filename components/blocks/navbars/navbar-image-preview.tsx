@@ -155,6 +155,8 @@ export interface NavbarImagePreviewProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const MOBILE_BREAKPOINT = 1024;
@@ -168,6 +170,7 @@ const MOBILE_BREAKPOINT = 1024;
  * social links. Ideal for content-rich sites where visual previews enhance navigation.
  */
 export const NavbarImagePreview = ({
+  sectionId = "navbar-image-preview",
   className,
   containerClassName,
   navClassName,
@@ -297,6 +300,7 @@ export const NavbarImagePreview = ({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

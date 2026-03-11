@@ -132,9 +132,12 @@ export interface HeroAgencyAnimatedImagesProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroAgencyAnimatedImages({
+  sectionId = "hero-agency-animated-images",
   heading,
   description,
   descriptionClassName,
@@ -228,6 +231,7 @@ export function HeroAgencyAnimatedImages({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -79,6 +79,8 @@ export interface ProjectNatureMosaicProps {
    * Additional CSS classes for the link
    */
   linkClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -92,6 +94,7 @@ export interface ProjectNatureMosaicProps {
  * image compositions create an organic, editorial feel.
  */
 export function ProjectNatureMosaic({
+  sectionId = "project-nature-mosaic",
   heading,
   description,
   linkText,
@@ -157,6 +160,7 @@ export function ProjectNatureMosaic({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

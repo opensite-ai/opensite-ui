@@ -132,6 +132,8 @@ export interface MasonryMotionGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -157,6 +159,7 @@ export interface MasonryMotionGridProps {
  * ```
  */
 export function MasonryMotionGrid({
+  sectionId = "masonry-motion-grid",
   title,
   description,
   titleClassName,
@@ -372,6 +375,7 @@ export function MasonryMotionGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

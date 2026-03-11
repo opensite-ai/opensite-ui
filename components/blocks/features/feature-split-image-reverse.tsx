@@ -99,6 +99,8 @@ export interface FeatureSplitImageReverseProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -123,6 +125,7 @@ export interface FeatureSplitImageReverseProps {
  * ```
  */
 export function FeatureSplitImageReverse({
+  sectionId = "feature-split-image-reverse",
   title,
   description,
   imageSrc,
@@ -197,6 +200,7 @@ export function FeatureSplitImageReverse({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

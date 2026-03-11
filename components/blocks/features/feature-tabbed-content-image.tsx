@@ -191,6 +191,8 @@ export interface FeatureTabbedContentImageProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -220,6 +222,7 @@ export interface FeatureTabbedContentImageProps {
  * ```
  */
 export function FeatureTabbedContentImage({
+  sectionId = "feature-tabbed-content-image",
   title,
   description,
   slides,
@@ -449,6 +452,7 @@ export function FeatureTabbedContentImage({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

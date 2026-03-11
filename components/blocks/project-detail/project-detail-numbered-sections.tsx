@@ -69,6 +69,8 @@ export interface ProjectDetailNumberedSectionsProps {
   heroImageClassName?: string;
   /** Additional CSS classes for the numbered sections */
   sectionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -82,6 +84,7 @@ export function ProjectDetailNumberedSections(
   props: ProjectDetailNumberedSectionsProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -103,6 +106,7 @@ export function ProjectDetailNumberedSections(
     heroImageClassName,
     sectionsClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-numbered-sections";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -137,6 +141,7 @@ export function ProjectDetailNumberedSections(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

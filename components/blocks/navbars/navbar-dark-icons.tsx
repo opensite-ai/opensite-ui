@@ -135,6 +135,8 @@ export interface NavbarDarkIconsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const MOBILE_BREAKPOINT = 1024;
@@ -148,6 +150,7 @@ const MOBILE_BREAKPOINT = 1024;
  * tools, open-source projects, and tech-focused applications.
  */
 export const NavbarDarkIcons = ({
+  sectionId = "navbar-dark-icons",
   className,
   containerClassName,
   navClassName,
@@ -265,6 +268,7 @@ export const NavbarDarkIcons = ({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacingOverride ?? spacing}
       className={cn("dark pointer-events-auto relative z-999", sectionClasses)}

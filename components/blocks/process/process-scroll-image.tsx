@@ -147,6 +147,8 @@ export interface ProcessScrollImageProps {
    * @deprecated Use `actions` instead
    */
   ctaUrl?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 interface ProcessCardProps {
@@ -213,6 +215,7 @@ const ProcessCard = ({
  * ProcessScrollImage - A process section with scroll-triggered image transitions.
  */
 export function ProcessScrollImage({
+  sectionId = "process-scroll-image",
   heading,
   description,
   actions,
@@ -333,6 +336,7 @@ export function ProcessScrollImage({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

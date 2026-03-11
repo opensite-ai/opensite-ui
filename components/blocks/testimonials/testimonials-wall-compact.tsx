@@ -110,6 +110,8 @@ export interface TestimonialsWallCompactProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -139,6 +141,7 @@ export interface TestimonialsWallCompactProps {
  * ```
  */
 export function TestimonialsWallCompact({
+  sectionId = "testimonials-wall-compact",
   testimonials,
   testimonialsSlot,
   heading,
@@ -275,6 +278,7 @@ export function TestimonialsWallCompact({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

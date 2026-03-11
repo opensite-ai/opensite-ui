@@ -263,6 +263,8 @@ export interface PricingTabsToggleProps {
    * Additional CSS classes for action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -283,6 +285,7 @@ export interface PricingTabsToggleProps {
  * ```
  */
 export function PricingTabsToggle({
+  sectionId = "pricing-tabs-toggle",
   title,
   subtitle,
   monthlyLabel,
@@ -542,6 +545,7 @@ export function PricingTabsToggle({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

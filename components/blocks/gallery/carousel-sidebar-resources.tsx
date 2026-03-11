@@ -133,6 +133,8 @@ export interface CarouselSidebarResourcesProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -162,6 +164,7 @@ export interface CarouselSidebarResourcesProps {
  * ```
  */
 export function CarouselSidebarResources({
+  sectionId = "carousel-sidebar-resources",
   heading,
   resources,
   resourcesSlot,
@@ -327,6 +330,7 @@ export function CarouselSidebarResources({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

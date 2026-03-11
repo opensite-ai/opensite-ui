@@ -93,6 +93,8 @@ export interface ContactMovingProps {
   patternOpacity?: number;
   /** Full form engine setup and props */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -107,6 +109,7 @@ export interface ContactMovingProps {
  * ```
  */
 export function ContactMoving({
+  sectionId = "contact-moving",
   heading,
   description,
   className,
@@ -124,6 +127,7 @@ export function ContactMoving({
 }: ContactMovingProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

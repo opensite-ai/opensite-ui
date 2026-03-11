@@ -115,6 +115,8 @@ export interface LogosPartnerNetworkProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -122,6 +124,7 @@ export interface LogosPartnerNetworkProps {
  * Features a centered header with CTA button and responsive logo grid below.
  */
 export function LogosPartnerNetwork({
+  sectionId = "logos-partner-network",
   className,
   badge,
   badgeClassName,
@@ -190,6 +193,7 @@ export function LogosPartnerNetwork({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -91,9 +91,12 @@ export interface HeroInnovationImageGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroInnovationImageGrid({
+  sectionId = "hero-innovation-image-grid",
   heading,
   description,
   actions,
@@ -173,6 +176,7 @@ export function HeroInnovationImageGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

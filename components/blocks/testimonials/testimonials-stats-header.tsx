@@ -164,6 +164,8 @@ export interface TestimonialsStatsHeaderProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -196,6 +198,7 @@ export interface TestimonialsStatsHeaderProps {
  * ```
  */
 export function TestimonialsStatsHeader({
+  sectionId = "testimonials-stats-header",
   stats,
   statsSlot,
   testimonials,
@@ -414,6 +417,7 @@ export function TestimonialsStatsHeader({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

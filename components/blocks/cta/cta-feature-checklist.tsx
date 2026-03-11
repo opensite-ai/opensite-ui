@@ -105,6 +105,8 @@ export interface CtaFeatureChecklistProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -123,6 +125,7 @@ export interface CtaFeatureChecklistProps {
  * ```
  */
 export function CtaFeatureChecklist({
+  sectionId = "cta-feature-checklist",
   heading,
   description,
   actions,
@@ -184,6 +187,7 @@ export function CtaFeatureChecklist({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

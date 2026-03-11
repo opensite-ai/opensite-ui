@@ -138,6 +138,8 @@ export interface ComparisonAiModelsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -152,6 +154,7 @@ export interface ComparisonAiModelsProps {
  * specification matrices, performance benchmarks.
  */
 export function ComparisonAiModels({
+  sectionId = "comparison-ai-models",
   heading,
   description,
   models,
@@ -377,6 +380,7 @@ export function ComparisonAiModels({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

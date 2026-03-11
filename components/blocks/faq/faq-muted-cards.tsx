@@ -97,9 +97,12 @@ export interface FaqMutedCardsProps {
    * Additional CSS classes for the content wrapper
    */
   contentWrapperClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqMutedCards({
+  sectionId = "faq-muted-cards",
   headerClassName,
   heading,
   headingClassName,
@@ -218,6 +221,7 @@ export function FaqMutedCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

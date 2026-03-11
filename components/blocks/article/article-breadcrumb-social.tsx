@@ -191,9 +191,12 @@ export interface ArticleBreadcrumbSocialProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function ArticleBreadcrumbSocialComponent({
+  sectionId = "article-breadcrumb-social",
   className,
   breadcrumbClassName,
   articleClassName,
@@ -399,6 +402,7 @@ export function ArticleBreadcrumbSocialComponent({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

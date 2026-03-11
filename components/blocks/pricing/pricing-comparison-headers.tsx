@@ -233,6 +233,8 @@ export interface PricingComparisonHeadersProps {
    * Additional CSS classes for feature value cell
    */
   featureValueClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -252,6 +254,7 @@ export interface PricingComparisonHeadersProps {
  * ```
  */
 export function PricingComparisonHeaders({
+  sectionId = "pricing-comparison-headers",
   title,
   subtitle,
   monthlyLabel,
@@ -452,6 +455,7 @@ export function PricingComparisonHeaders({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

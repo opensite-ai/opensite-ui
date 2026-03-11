@@ -114,6 +114,8 @@ export interface ContactHelpCenterProps {
    * Additional CSS classes for the contact items container
    */
   contactItemsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -122,6 +124,7 @@ export interface ContactHelpCenterProps {
  * support hubs, and onboarding touchpoints.
  */
 export function ContactHelpCenter({
+  sectionId = "contact-help-center",
   eyebrow,
   heading,
   description,
@@ -165,6 +168,7 @@ export function ContactHelpCenter({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

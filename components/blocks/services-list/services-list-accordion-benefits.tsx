@@ -141,6 +141,8 @@ export interface ServicesListAccordionBenefitsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -164,6 +166,7 @@ export interface ServicesListAccordionBenefitsProps {
  * ```
  */
 export function ServicesListAccordionBenefits({
+  sectionId = "services-list-accordion-benefits",
   heading,
   description,
   services,
@@ -314,6 +317,7 @@ export function ServicesListAccordionBenefits({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

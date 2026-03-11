@@ -129,6 +129,8 @@ export interface ProcessRoadmapTimelineProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const StatusBadge = ({
@@ -169,6 +171,7 @@ const StatusBadge = ({
  * ProcessRoadmapTimeline - A roadmap timeline showing project milestones with status indicators.
  */
 export function ProcessRoadmapTimeline({
+  sectionId = "process-roadmap-timeline",
   heading,
   description,
   milestones,
@@ -299,6 +302,7 @@ export function ProcessRoadmapTimeline({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

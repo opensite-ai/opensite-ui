@@ -94,6 +94,8 @@ export interface LogosMarqueeMutedProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -101,6 +103,7 @@ export interface LogosMarqueeMutedProps {
  * Features grayscale logos on a muted background with fade gradients on edges.
  */
 export function LogosMarqueeMuted({
+  sectionId = "logos-marquee-muted",
   className,
   heading,
   headingClassName,
@@ -164,6 +167,7 @@ export function LogosMarqueeMuted({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

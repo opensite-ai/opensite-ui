@@ -74,9 +74,12 @@ export interface HeroGridPatternEfficiencyProps {
    * Additional CSS classes for the action container
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroGridPatternEfficiency({
+  sectionId = "hero-grid-pattern-efficiency",
   heading,
   description,
   action,
@@ -146,6 +149,7 @@ export function HeroGridPatternEfficiency({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -105,9 +105,12 @@ export interface FaqCategorizedSectionsProps {
    * Additional CSS classes for accordion content
    */
   accordionContentClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqCategorizedSections({
+  sectionId = "faq-categorized-sections",
   heading,
   description,
   categories,
@@ -197,6 +200,7 @@ export function FaqCategorizedSections({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

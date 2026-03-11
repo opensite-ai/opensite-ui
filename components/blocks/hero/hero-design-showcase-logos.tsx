@@ -106,9 +106,12 @@ export interface HeroDesignShowcaseLogosProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroDesignShowcaseLogos({
+  sectionId = "hero-design-showcase-logos",
   heading,
   description,
   actions,
@@ -200,6 +203,7 @@ export function HeroDesignShowcaseLogos({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

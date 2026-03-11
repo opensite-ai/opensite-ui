@@ -178,6 +178,8 @@ export interface NavbarPlatformResourcesProps {
    * Layout variant for the navbar
    */
   layoutVariant?: NavbarLayoutVariant;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -188,6 +190,7 @@ export interface NavbarPlatformResourcesProps {
  * Ideal for platforms that need configurable navigation and supporting resources.
  */
 export const NavbarPlatformResources = ({
+  sectionId = "navbar-platform-resources",
   className,
   containerClassName,
   navigationMenuClassName,
@@ -661,6 +664,7 @@ export const NavbarPlatformResources = ({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

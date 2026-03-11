@@ -77,6 +77,8 @@ export interface BannerCountdownSaleProps {
    * Additional CSS classes for the separator
    */
   separatorClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -96,6 +98,7 @@ export interface BannerCountdownSaleProps {
  * ```
  */
 export function BannerCountdownSale({
+  sectionId = "banner-countdown-sale",
   endTime,
   message,
   description,
@@ -193,7 +196,8 @@ export function BannerCountdownSale({
   }, [description, descriptionClassName]);
 
   return (
-    <Section background={background} spacing="none" className={cn("bg-destructive text-destructive-foreground", className)}>
+    <Section
+      id={sectionId} background={background} spacing="none" className={cn("bg-destructive text-destructive-foreground", className)}>
       <div className={cn("container py-2.5", containerClassName)}>
         <div className={cn("flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm", contentClassName)}>
           {messageContent}

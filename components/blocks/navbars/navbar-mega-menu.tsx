@@ -124,6 +124,8 @@ export interface NavbarMegaMenuProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -489,6 +491,7 @@ const DesktopMenuItem = ({
  * Ideal for enterprise applications and complex product offerings.
  */
 export const NavbarMegaMenu = ({
+  sectionId = "navbar-mega-menu",
   className,
   containerClassName,
   navClassName,
@@ -559,6 +562,7 @@ export const NavbarMegaMenu = ({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

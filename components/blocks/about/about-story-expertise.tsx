@@ -159,6 +159,8 @@ export interface AboutStoryExpertiseProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -167,6 +169,7 @@ export interface AboutStoryExpertiseProps {
  * trust-building pages that need narrative plus proof points.
  */
 export function AboutStoryExpertise({
+  sectionId = "about-story-expertise",
   eyebrow,
   eyebrowClassName,
   heading,
@@ -313,6 +316,7 @@ export function AboutStoryExpertise({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

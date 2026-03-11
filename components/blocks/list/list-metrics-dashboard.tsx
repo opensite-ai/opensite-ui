@@ -170,6 +170,8 @@ export interface ListMetricsDashboardProps {
    * Callback when active category changes
    */
   onActiveCategoryChange?: (category: string) => void;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -202,6 +204,7 @@ export interface ListMetricsDashboardProps {
  * ```
  */
 export function ListMetricsDashboard({
+  sectionId = "list-metrics-dashboard",
   badge,
   badgeSlot,
   badgeClassName,
@@ -386,6 +389,7 @@ export function ListMetricsDashboard({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

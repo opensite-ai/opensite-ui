@@ -119,9 +119,12 @@ export interface HeroEcommerceProductShowcaseProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroEcommerceProductShowcase({
+  sectionId = "hero-ecommerce-product-showcase",
   badgeText,
   badgeIcon,
   badgeSlot,
@@ -270,6 +273,7 @@ export function HeroEcommerceProductShowcase({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

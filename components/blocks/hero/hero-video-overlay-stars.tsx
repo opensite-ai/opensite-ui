@@ -118,6 +118,8 @@ export interface HeroVideoOverlayStarsProps {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -125,6 +127,7 @@ export interface HeroVideoOverlayStarsProps {
  * prominent CTA button, and star rating trust indicator. Ideal for product launches.
  */
 export function HeroVideoOverlayStars({
+  sectionId = "hero-video-overlay-stars",
   heading,
   actions,
   actionsSlot,
@@ -185,6 +188,7 @@ export function HeroVideoOverlayStars({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

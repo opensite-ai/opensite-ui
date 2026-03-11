@@ -123,9 +123,12 @@ export interface FaqSidebarNavigationProps {
    * Additional CSS classes for accordion content
    */
   accordionContentClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqSidebarNavigation({
+  sectionId = "faq-sidebar-navigation",
   heading,
   description,
   descriptionClassName,
@@ -267,6 +270,7 @@ export function FaqSidebarNavigation({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

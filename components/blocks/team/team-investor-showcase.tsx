@@ -88,6 +88,8 @@ export interface TeamInvestorShowcaseProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -113,6 +115,7 @@ export interface TeamInvestorShowcaseProps {
  * ```
  */
 export function TeamInvestorShowcase({
+  sectionId = "team-investor-showcase",
   heading,
   investors,
   investorsSlot,
@@ -155,6 +158,7 @@ export function TeamInvestorShowcase({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

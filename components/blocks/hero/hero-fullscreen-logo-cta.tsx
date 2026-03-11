@@ -84,9 +84,12 @@ export interface HeroFullscreenLogoCtaProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroFullscreenLogoCta({
+  sectionId = "hero-fullscreen-logo-cta",
   logo,
   logoSlot,
   heading,
@@ -164,6 +167,7 @@ export function HeroFullscreenLogoCta({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

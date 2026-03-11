@@ -122,6 +122,8 @@ export interface TeamHoverOverlayProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -150,6 +152,7 @@ export interface TeamHoverOverlayProps {
  * ```
  */
 export function TeamHoverOverlay({
+  sectionId = "team-hover-overlay",
   heading,
   description,
   members,
@@ -270,6 +273,7 @@ export function TeamHoverOverlay({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

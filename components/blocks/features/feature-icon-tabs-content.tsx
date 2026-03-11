@@ -192,6 +192,8 @@ export interface FeatureIconTabsContentProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -226,6 +228,7 @@ export interface FeatureIconTabsContentProps {
  * ```
  */
 export function FeatureIconTabsContent({
+  sectionId = "feature-icon-tabs-content",
   badge,
   heading,
   description,
@@ -463,6 +466,7 @@ export function FeatureIconTabsContent({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

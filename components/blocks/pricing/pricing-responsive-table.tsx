@@ -41,6 +41,8 @@ export interface PricingResponsiveTableProps {
   plans?: PricingPlan[];
   features?: PlanFeature[];
   background?: SectionBackground;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -64,6 +66,7 @@ export interface PricingResponsiveTableProps {
  * ```
  */
 export function PricingResponsiveTable({
+  sectionId = "pricing-responsive-table",
   className,
   title,
   subtitle,
@@ -87,7 +90,8 @@ export function PricingResponsiveTable({
   }, []);
 
   return (
-    <Section background={background} className={className}>
+    <Section
+      id={sectionId} background={background} className={className}>
       <div className="mx-auto mb-12 max-w-2xl text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
           {title}

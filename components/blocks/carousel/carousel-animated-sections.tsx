@@ -165,9 +165,12 @@ export interface CarouselAnimatedSectionsProps {
    * Optional max width for the content container
    */
   containerMaxWidth?: ContainerMaxWidth;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function CarouselAnimatedSections({
+  sectionId = "carousel-animated-sections",
   sections,
   sectionsSlot,
   actionsSlot,
@@ -271,6 +274,7 @@ export function CarouselAnimatedSections({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn("relative h-screen w-full overflow-hidden", className)}

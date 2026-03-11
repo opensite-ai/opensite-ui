@@ -99,9 +99,12 @@ export interface HeroBadgeImageSplitProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroBadgeImageSplit({
+  sectionId = "hero-badge-image-split",
   badge,
   badgeIcon,
   heading,
@@ -126,6 +129,7 @@ export function HeroBadgeImageSplit({
 }: HeroBadgeImageSplitProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

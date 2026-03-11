@@ -91,6 +91,8 @@ export interface ComparisonGridBadgesProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -105,6 +107,7 @@ export interface ComparisonGridBadgesProps {
  * tier breakdowns, capability matrices.
  */
 export function ComparisonGridBadges({
+  sectionId = "comparison-grid-badges",
   heading,
   description,
   optionALabel,
@@ -190,6 +193,7 @@ export function ComparisonGridBadges({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

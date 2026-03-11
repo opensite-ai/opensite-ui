@@ -110,9 +110,12 @@ export interface FaqGradientCategoriesProps {
    * Additional CSS classes for accordion content
    */
   accordionContentClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqGradientCategories({
+  sectionId = "faq-gradient-categories",
   heading,
   description,
   categories,
@@ -243,6 +246,7 @@ export function FaqGradientCategories({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

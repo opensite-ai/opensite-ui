@@ -133,6 +133,8 @@ export interface FeatureCardGridLinkedProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -161,6 +163,7 @@ export interface FeatureCardGridLinkedProps {
  * ```
  */
 export function FeatureCardGridLinked({
+  sectionId = "feature-card-grid-linked",
   title,
   description,
   features,
@@ -267,6 +270,7 @@ export function FeatureCardGridLinked({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

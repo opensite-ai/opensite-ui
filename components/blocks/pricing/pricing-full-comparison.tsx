@@ -253,6 +253,8 @@ export interface PricingFullComparisonProps {
    * Additional CSS classes for feature value cell
    */
   featureValueClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -272,6 +274,7 @@ export interface PricingFullComparisonProps {
  * ```
  */
 export function PricingFullComparison({
+  sectionId = "pricing-full-comparison",
   title,
   subtitle,
   monthlyLabel,
@@ -534,6 +537,7 @@ export function PricingFullComparison({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

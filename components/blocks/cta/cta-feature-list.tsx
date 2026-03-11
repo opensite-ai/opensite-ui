@@ -117,6 +117,8 @@ export interface CtaFeatureListProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -141,6 +143,7 @@ export interface CtaFeatureListProps {
  * ```
  */
 export function CtaFeatureList({
+  sectionId = "cta-feature-list",
   heading,
   description,
   actions,
@@ -218,6 +221,7 @@ export function CtaFeatureList({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

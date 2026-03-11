@@ -94,6 +94,8 @@ export interface StatsSimpleGridProps {
    * Additional CSS classes for stat labels
    */
   statLabelClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -117,6 +119,7 @@ export interface StatsSimpleGridProps {
  * ```
  */
 export function StatsSimpleGrid({
+  sectionId = "stats-simple-grid",
   heading,
   stats,
   statsSlot,
@@ -217,6 +220,7 @@ export function StatsSimpleGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

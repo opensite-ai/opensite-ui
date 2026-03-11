@@ -102,9 +102,12 @@ export interface HeroPatternBadgeLogosProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroPatternBadgeLogos({
+  sectionId = "hero-pattern-badge-logos",
   badge,
   heading,
   description,
@@ -223,6 +226,7 @@ export function HeroPatternBadgeLogos({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -117,9 +117,12 @@ export interface TimelineTabbedPhasesProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function TimelineTabbedPhases({
+  sectionId = "timeline-tabbed-phases",
   heading,
   phases,
   downloadAction,
@@ -177,7 +180,7 @@ export function TimelineTabbedPhases({
   if (!phases || phases.length === 0) {
     return (
       <Section
-        id={id}
+        id={sectionId}
         background={background}
         spacing={spacing}
         className={className}

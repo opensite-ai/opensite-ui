@@ -241,6 +241,8 @@ export interface PricingSwitchCardsProps {
    * Additional CSS classes for the action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -261,6 +263,7 @@ export interface PricingSwitchCardsProps {
  * ```
  */
 export function PricingSwitchCards({
+  sectionId = "pricing-switch-cards",
   heading,
   subtitle,
   monthlyLabel,
@@ -490,6 +493,7 @@ export function PricingSwitchCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

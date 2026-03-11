@@ -135,6 +135,8 @@ export interface FeatureCategoryImageCardsProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -157,6 +159,7 @@ export interface FeatureCategoryImageCardsProps {
  * ```
  */
 export function FeatureCategoryImageCards({
+  sectionId = "feature-category-image-cards",
   badge,
   title,
   description,
@@ -257,6 +260,7 @@ export function FeatureCategoryImageCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

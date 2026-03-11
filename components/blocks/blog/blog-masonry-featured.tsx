@@ -82,9 +82,12 @@ export interface BlogMasonryFeaturedProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function BlogMasonryFeaturedComponent({
+  sectionId = "blog-masonry-featured",
   heading,
   description,
   posts,
@@ -217,6 +220,7 @@ export function BlogMasonryFeaturedComponent({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

@@ -79,6 +79,8 @@ export interface ProjectVideoHoverBentoProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 interface VideoSectionProps {
@@ -181,6 +183,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
  * cohesive grid presentation.
  */
 export function ProjectVideoHoverBento({
+  sectionId = "project-video-hover-bento",
   heading,
   subheading,
   videoSections,
@@ -216,6 +219,7 @@ export function ProjectVideoHoverBento({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

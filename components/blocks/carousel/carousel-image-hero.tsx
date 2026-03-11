@@ -121,9 +121,12 @@ export interface CarouselImageHeroProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function CarouselImageHero({
+  sectionId = "carousel-image-hero",
   badge,
   heading,
   description,
@@ -208,6 +211,7 @@ export function CarouselImageHero({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(

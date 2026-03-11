@@ -148,6 +148,8 @@ export interface CarouselGradientTextProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -175,6 +177,7 @@ export interface CarouselGradientTextProps {
  * ```
  */
 export function CarouselGradientText({
+  sectionId = "carousel-gradient-text",
   heading,
   subheading,
   tagline,
@@ -276,6 +279,7 @@ export function CarouselGradientText({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

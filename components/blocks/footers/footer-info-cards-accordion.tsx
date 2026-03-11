@@ -259,6 +259,8 @@ export interface FooterInfoCardsAccordionProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -284,6 +286,7 @@ export interface FooterInfoCardsAccordionProps {
  * ```
  */
 export function FooterInfoCardsAccordion({
+  sectionId = "footer-info-cards-accordion",
   newsletterTitle,
   newsletterDescription,
   emailPlaceholder,
@@ -340,6 +343,7 @@ export function FooterInfoCardsAccordion({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

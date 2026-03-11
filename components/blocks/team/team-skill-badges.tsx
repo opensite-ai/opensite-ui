@@ -128,6 +128,8 @@ export interface TeamSkillBadgesProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -158,6 +160,7 @@ export interface TeamSkillBadgesProps {
  * ```
  */
 export function TeamSkillBadges({
+  sectionId = "team-skill-badges",
   heading,
   description,
   members,
@@ -293,6 +296,7 @@ export function TeamSkillBadges({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

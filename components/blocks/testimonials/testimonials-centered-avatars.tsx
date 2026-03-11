@@ -86,6 +86,8 @@ export interface TestimonialsCenteredAvatarsProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -115,6 +117,7 @@ export interface TestimonialsCenteredAvatarsProps {
  * ```
  */
 export function TestimonialsCenteredAvatars({
+  sectionId = "testimonials-centered-avatars",
   testimonials,
   testimonialsSlot,
   badge,
@@ -214,6 +217,7 @@ export function TestimonialsCenteredAvatars({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

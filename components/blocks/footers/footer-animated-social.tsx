@@ -67,6 +67,8 @@ export interface FooterAnimatedSocialProps {
   pattern?: PatternName;
   /** Pattern opacity (0-1) */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const containerVariants = {
@@ -98,6 +100,7 @@ const itemVariants = {
  * polish and interactivity to their footer.
  */
 export function FooterAnimatedSocial({
+  sectionId = "footer-animated-social",
   heading,
   description,
   ctaText,
@@ -153,6 +156,7 @@ export function FooterAnimatedSocial({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

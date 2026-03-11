@@ -89,9 +89,12 @@ export interface TimelineProductivityListProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function TimelineProductivityList({
+  sectionId = "timeline-productivity-list",
   heading,
   items,
   className,
@@ -112,7 +115,7 @@ export function TimelineProductivityList({
 }: TimelineProductivityListProps) {
   return (
     <Section
-      id={id}
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

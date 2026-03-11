@@ -128,6 +128,8 @@ export interface ServicesListAccordionProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -150,6 +152,7 @@ export interface ServicesListAccordionProps {
  * ```
  */
 export function ServicesListAccordion({
+  sectionId = "services-list-accordion",
   heading,
   description,
   services,
@@ -311,6 +314,7 @@ export function ServicesListAccordion({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

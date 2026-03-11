@@ -133,9 +133,12 @@ export interface CarouselGalleryThumbnailsProps {
    * Brightness level for slide images (deprecated - prefer slideMediaOverlayIntensity)
    */
   slideMediaBrightness?: "10" | "20" | "25" | "30" | "40" | "50" | "75" | "100";
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function CarouselGalleryThumbnails({
+  sectionId = "carousel-gallery-thumbnails",
   images,
   imagesSlot,
   autoPlay = true,
@@ -197,6 +200,7 @@ export function CarouselGalleryThumbnails({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

@@ -165,6 +165,8 @@ export interface StatsTimelineTabsProps {
    * Additional CSS classes for stat cards
    */
   statCardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -185,6 +187,7 @@ export interface StatsTimelineTabsProps {
  * ```
  */
 export function StatsTimelineTabs({
+  sectionId = "stats-timeline-tabs",
   badge,
   badgeSlot,
   heading,
@@ -338,6 +341,7 @@ export function StatsTimelineTabs({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

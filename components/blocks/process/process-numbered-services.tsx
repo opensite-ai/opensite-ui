@@ -140,12 +140,15 @@ export interface ProcessNumberedServicesProps {
    * @deprecated Use `heading` instead
    */
   title?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
  * ProcessNumberedServices - A numbered services section with capabilities grid.
  */
 export function ProcessNumberedServices({
+  sectionId = "process-numbered-services",
   heading,
   description,
   services,
@@ -306,6 +309,7 @@ export function ProcessNumberedServices({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

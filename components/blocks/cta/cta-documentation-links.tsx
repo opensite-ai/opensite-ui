@@ -118,6 +118,8 @@ export interface CtaDocumentationLinksProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -143,6 +145,7 @@ export interface CtaDocumentationLinksProps {
  * ```
  */
 export function CtaDocumentationLinks({
+  sectionId = "cta-documentation-links",
   heading,
   description,
   actions,
@@ -247,6 +250,7 @@ export function CtaDocumentationLinks({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

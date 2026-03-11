@@ -126,6 +126,8 @@ export interface TeamAlternatingBiosProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -154,6 +156,7 @@ export interface TeamAlternatingBiosProps {
  * ```
  */
 export function TeamAlternatingBios({
+  sectionId = "team-alternating-bios",
   heading,
   description,
   members,
@@ -293,6 +296,7 @@ export function TeamAlternatingBios({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

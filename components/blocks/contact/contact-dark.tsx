@@ -145,6 +145,8 @@ export interface ContactDarkProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 // Default form fields
@@ -199,6 +201,7 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
  * ```
  */
 export function ContactDark({
+  sectionId = "contact-dark",
   heading,
   description,
   contactHeading = "Contact Information",
@@ -273,6 +276,7 @@ export function ContactDark({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

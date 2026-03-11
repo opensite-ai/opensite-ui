@@ -158,6 +158,8 @@ export interface FeatureNumberedCardsProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -183,6 +185,7 @@ export interface FeatureNumberedCardsProps {
  * ```
  */
 export function FeatureNumberedCards({
+  sectionId = "feature-numbered-cards",
   title,
   description,
   features,
@@ -419,6 +422,7 @@ export function FeatureNumberedCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -128,6 +128,8 @@ export interface TeamBioBadgesProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -158,6 +160,7 @@ export interface TeamBioBadgesProps {
  * ```
  */
 export function TeamBioBadges({
+  sectionId = "team-bio-badges",
   heading,
   description,
   members,
@@ -284,6 +287,7 @@ export function TeamBioBadges({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

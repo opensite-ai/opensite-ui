@@ -60,6 +60,8 @@ export interface ProjectDetailPhotographyBreadcrumbProps {
   heroImageClassName?: string;
   /** Additional CSS classes for the gallery */
   galleryClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -73,6 +75,7 @@ export function ProjectDetailPhotographyBreadcrumb(
   props: ProjectDetailPhotographyBreadcrumbProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -94,9 +97,11 @@ export function ProjectDetailPhotographyBreadcrumb(
     heroImageClassName,
     galleryClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-photography-breadcrumb";
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

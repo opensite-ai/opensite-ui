@@ -228,6 +228,8 @@ export interface PricingPackagesRadioProps {
    * Additional CSS classes for action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -249,6 +251,7 @@ export interface PricingPackagesRadioProps {
  * ```
  */
 export function PricingPackagesRadio({
+  sectionId = "pricing-packages-radio",
   title,
   subtitle,
   packages = [],
@@ -513,6 +516,7 @@ export function PricingPackagesRadio({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -69,6 +69,8 @@ export interface ProjectDetailFashionEditorialProps {
   creditsClassName?: string;
   /** Additional CSS classes for the gallery */
   galleryClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -82,6 +84,7 @@ export function ProjectDetailFashionEditorial(
   props: ProjectDetailFashionEditorialProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -105,6 +108,7 @@ export function ProjectDetailFashionEditorial(
     creditsClassName,
     galleryClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-fashion-editorial";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -139,6 +143,7 @@ export function ProjectDetailFashionEditorial(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

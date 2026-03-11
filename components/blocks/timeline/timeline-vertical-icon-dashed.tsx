@@ -85,9 +85,12 @@ export interface TimelineVerticalIconDashedProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function TimelineVerticalIconDashed({
+  sectionId = "timeline-vertical-icon-dashed",
   steps,
   className,
   containerClassName,
@@ -108,7 +111,7 @@ export function TimelineVerticalIconDashed({
   if (!steps || steps.length === 0) {
     return (
       <Section
-        id={id}
+        id={sectionId}
         background={background}
         spacing={spacing}
         className={className}

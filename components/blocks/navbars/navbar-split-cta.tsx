@@ -119,6 +119,8 @@ export interface NavbarSplitCtaProps {
    * Layout variant for the navbar
    */
   layoutVariant?: NavbarLayoutVariant;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -131,6 +133,7 @@ export interface NavbarSplitCtaProps {
  * and services that want to emphasize both login/signup or demo/trial actions.
  */
 export const NavbarSplitCta = ({
+  sectionId = "navbar-split-cta",
   logo,
   logoSlot,
   logoClassName,
@@ -204,6 +207,7 @@ export const NavbarSplitCta = ({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

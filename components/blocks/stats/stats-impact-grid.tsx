@@ -199,6 +199,8 @@ export interface StatsImpactGridProps {
    * Additional CSS classes for the CTA section
    */
   ctaClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -229,6 +231,7 @@ export interface StatsImpactGridProps {
  * ```
  */
 export function StatsImpactGrid({
+  sectionId = "stats-impact-grid",
   badge,
   badgeSlot,
   heading,
@@ -533,6 +536,7 @@ export function StatsImpactGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -64,6 +64,8 @@ export interface ProjectDetailCardHeaderProps {
   heroImageClassName?: string;
   /** Additional CSS classes for the gallery section */
   galleryClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -77,6 +79,7 @@ export function ProjectDetailCardHeader(
   props: ProjectDetailCardHeaderProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -100,6 +103,7 @@ export function ProjectDetailCardHeader(
     heroImageClassName,
     galleryClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-card-header";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -134,6 +138,7 @@ export function ProjectDetailCardHeader(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

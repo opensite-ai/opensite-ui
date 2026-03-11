@@ -83,6 +83,8 @@ export interface ProjectStudioHoverPreviewProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -97,6 +99,7 @@ export interface ProjectStudioHoverPreviewProps {
  * their portfolio with an interactive, premium feel.
  */
 export function ProjectStudioHoverPreview({
+  sectionId = "project-studio-hover-preview",
   heading,
   projects,
   projectsSlot,
@@ -190,6 +193,7 @@ export function ProjectStudioHoverPreview({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -185,6 +185,8 @@ export interface ContactConsultationProps {
    * Full form engine setup and props
    */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -202,6 +204,7 @@ export interface ContactConsultationProps {
  * ```
  */
 export function ContactConsultation({
+  sectionId = "contact-consultation",
   heading,
   description,
   className,
@@ -254,6 +257,7 @@ export function ContactConsultation({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

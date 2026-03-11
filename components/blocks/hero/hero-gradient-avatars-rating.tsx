@@ -122,9 +122,12 @@ export interface HeroGradientAvatarsRatingProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroGradientAvatarsRating({
+  sectionId = "hero-gradient-avatars-rating",
   heading,
   description,
   actions,
@@ -244,6 +247,7 @@ export function HeroGradientAvatarsRating({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -100,6 +100,8 @@ export interface ResourceListNewsUpdatesProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -119,6 +121,7 @@ export interface ResourceListNewsUpdatesProps {
  * from a timeline-style presentation with author attribution.
  */
 export function ResourceListNewsUpdates({
+  sectionId = "resource-list-news-updates",
   className,
   sectionLabel,
   sectionLabelClassName,
@@ -192,6 +195,7 @@ export function ResourceListNewsUpdates({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

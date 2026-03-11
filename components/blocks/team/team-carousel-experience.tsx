@@ -114,6 +114,8 @@ export interface TeamCarouselExperienceProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -143,6 +145,7 @@ export interface TeamCarouselExperienceProps {
  * ```
  */
 export function TeamCarouselExperience({
+  sectionId = "team-carousel-experience",
   heading,
   headingHighlight,
   description,
@@ -215,6 +218,7 @@ export function TeamCarouselExperience({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

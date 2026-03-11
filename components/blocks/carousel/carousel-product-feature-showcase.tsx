@@ -166,9 +166,12 @@ export interface CarouselProductFeatureShowcaseProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function CarouselProductFeatureShowcase({
+  sectionId = "carousel-product-feature-showcase",
   heading,
   subheading,
   features,
@@ -274,6 +277,7 @@ export function CarouselProductFeatureShowcase({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

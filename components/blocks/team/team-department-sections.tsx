@@ -105,6 +105,8 @@ export interface TeamDepartmentSectionsProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -131,6 +133,7 @@ export interface TeamDepartmentSectionsProps {
  * ```
  */
 export function TeamDepartmentSections({
+  sectionId = "team-department-sections",
   heading,
   departments,
   departmentsSlot,
@@ -205,6 +208,7 @@ export function TeamDepartmentSections({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

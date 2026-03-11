@@ -110,6 +110,8 @@ export interface ComparisonTableTabsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -124,6 +126,7 @@ export interface ComparisonTableTabsProps {
  * options, tier comparisons with detailed attributes.
  */
 export function ComparisonTableTabs({
+  sectionId = "comparison-table-tabs",
   heading,
   description,
   features,
@@ -267,6 +270,7 @@ export function ComparisonTableTabs({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

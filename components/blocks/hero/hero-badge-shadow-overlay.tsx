@@ -93,9 +93,12 @@ export interface HeroBadgeShadowOverlayProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroBadgeShadowOverlay({
+  sectionId = "hero-badge-shadow-overlay",
   announcementBadge,
   announcementText,
   announcementHref,
@@ -118,6 +121,7 @@ export function HeroBadgeShadowOverlay({
 }: HeroBadgeShadowOverlayProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

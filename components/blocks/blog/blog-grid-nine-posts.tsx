@@ -93,9 +93,12 @@ export interface BlogGridNinePostsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function BlogGridNinePosts({
+  sectionId = "blog-grid-nine-posts",
   heading,
   description,
   posts,
@@ -221,6 +224,7 @@ export function BlogGridNinePosts({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

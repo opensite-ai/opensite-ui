@@ -101,9 +101,12 @@ export interface TimelineAIWorkflowCardsProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function TimelineAIWorkflowCards({
+  sectionId = "timeline-ai-workflow-cards",
   heading,
   subheading,
   items,
@@ -127,7 +130,7 @@ export function TimelineAIWorkflowCards({
 }: TimelineAIWorkflowCardsProps) {
   return (
     <Section
-      id={id}
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

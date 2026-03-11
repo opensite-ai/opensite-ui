@@ -121,6 +121,8 @@ export interface HeroFloatingImagesProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -155,6 +157,7 @@ export interface HeroFloatingImagesProps {
  * ```
  */
 export function HeroFloatingImages({
+  sectionId = "hero-floating-images",
   children,
   images,
   imagesSlot,
@@ -378,6 +381,7 @@ export function HeroFloatingImages({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

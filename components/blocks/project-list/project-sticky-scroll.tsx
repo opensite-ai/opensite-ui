@@ -73,6 +73,8 @@ export interface ProjectStickyScrollProps {
    * Additional CSS classes for each description
    */
   descriptionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -86,6 +88,7 @@ export interface ProjectStickyScrollProps {
  * or any narrative content where visual context should remain visible while scrolling.
  */
 export function ProjectStickyScroll({
+  sectionId = "project-sticky-scroll",
   content,
   contentSlot,
   backgroundColors,
@@ -170,6 +173,7 @@ export function ProjectStickyScroll({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

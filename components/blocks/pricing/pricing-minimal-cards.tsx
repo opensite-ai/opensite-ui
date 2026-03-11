@@ -196,6 +196,8 @@ export interface PricingMinimalCardsProps {
    * Additional CSS classes for the action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -216,6 +218,7 @@ export interface PricingMinimalCardsProps {
  * ```
  */
 export function PricingMinimalCards({
+  sectionId = "pricing-minimal-cards",
   heading,
   subtitle,
   plans,
@@ -418,6 +421,7 @@ export function PricingMinimalCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

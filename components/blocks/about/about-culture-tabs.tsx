@@ -173,6 +173,8 @@ export interface AboutCultureTabsProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -201,6 +203,7 @@ export interface AboutCultureTabsProps {
  * ```
  */
 export function AboutCultureTabs({
+  sectionId = "about-culture-tabs",
   badgeText,
   heading,
   description,
@@ -309,6 +312,7 @@ export function AboutCultureTabs({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

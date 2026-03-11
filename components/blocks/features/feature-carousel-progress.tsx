@@ -144,6 +144,8 @@ export interface FeatureCarouselProgressProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -167,6 +169,7 @@ export interface FeatureCarouselProgressProps {
  * ```
  */
 export function FeatureCarouselProgress({
+  sectionId = "feature-carousel-progress",
   badge,
   title,
   description,
@@ -292,6 +295,7 @@ export function FeatureCarouselProgress({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

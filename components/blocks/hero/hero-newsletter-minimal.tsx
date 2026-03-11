@@ -121,9 +121,12 @@ export interface HeroNewsletterMinimalProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroNewsletterMinimal({
+  sectionId = "hero-newsletter-minimal",
   heading,
   description,
   formEngineSetup,
@@ -223,6 +226,7 @@ export function HeroNewsletterMinimal({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

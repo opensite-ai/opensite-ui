@@ -106,9 +106,12 @@ export interface BlogCardsTaglineCtaProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function BlogCardsTaglineCta({
+  sectionId = "blog-cards-tagline-cta",
   badge,
   heading,
   description,
@@ -232,6 +235,7 @@ export function BlogCardsTaglineCta({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

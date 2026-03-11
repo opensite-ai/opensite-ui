@@ -150,6 +150,8 @@ export interface FeatureImageOverlayBadgeProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -176,6 +178,7 @@ export interface FeatureImageOverlayBadgeProps {
  * ```
  */
 export function FeatureImageOverlayBadge({
+  sectionId = "feature-image-overlay-badge",
   badge,
   title,
   description,
@@ -272,6 +275,7 @@ export function FeatureImageOverlayBadge({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -263,6 +263,8 @@ export interface ContactCareersProps {
    * Description for the form card
    */
   formCardDescription?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -285,6 +287,7 @@ export interface ContactCareersProps {
  * ```
  */
 export function ContactCareers({
+  sectionId = "contact-careers",
   heading,
   description,
   className,
@@ -405,6 +408,7 @@ export function ContactCareers({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

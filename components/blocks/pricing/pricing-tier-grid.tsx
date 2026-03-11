@@ -208,6 +208,8 @@ export interface PricingTierGridProps {
    * Additional CSS classes for feature text
    */
   featureTextClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -230,6 +232,7 @@ export interface PricingTierGridProps {
  * ```
  */
 export function PricingTierGrid({
+  sectionId = "pricing-tier-grid",
   title,
   subtitle,
   tiers,
@@ -484,6 +487,7 @@ export function PricingTierGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

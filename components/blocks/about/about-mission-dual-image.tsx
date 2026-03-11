@@ -112,9 +112,12 @@ export interface AboutMissionDualImageProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function AboutMissionDualImage({
+  sectionId = "about-mission-dual-image",
   missionTitle,
   missionContent,
   visionTitle,
@@ -181,6 +184,7 @@ export function AboutMissionDualImage({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

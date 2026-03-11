@@ -132,12 +132,15 @@ export interface ProcessMissionPrinciplesProps {
    * @deprecated Use `missionHeading` instead
    */
   missionTitle?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
  * ProcessMissionPrinciples - A mission statement and principles section.
  */
 export function ProcessMissionPrinciples({
+  sectionId = "process-mission-principles",
   missionLabel,
   missionHeading,
   missionDescription,
@@ -232,6 +235,7 @@ export function ProcessMissionPrinciples({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

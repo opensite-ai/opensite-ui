@@ -77,6 +77,8 @@ export interface AlternatingBlocksProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -101,6 +103,7 @@ export interface AlternatingBlocksProps {
  * ```
  */
 export function AlternatingBlocks({
+  sectionId = "alternating-blocks",
   sections,
   sectionsSlot,
   title,
@@ -196,6 +199,7 @@ export function AlternatingBlocks({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

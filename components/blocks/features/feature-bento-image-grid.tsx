@@ -147,6 +147,8 @@ export interface FeatureBentoImageGridProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -178,6 +180,7 @@ export interface FeatureBentoImageGridProps {
  * ```
  */
 export function FeatureBentoImageGrid({
+  sectionId = "feature-bento-image-grid",
   title,
   description,
   items,
@@ -418,6 +421,7 @@ export function FeatureBentoImageGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

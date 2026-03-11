@@ -134,6 +134,8 @@ export interface ServicesListSplitChecklistProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -156,6 +158,7 @@ export interface ServicesListSplitChecklistProps {
  * ```
  */
 export function ServicesListSplitChecklist({
+  sectionId = "services-list-split-checklist",
   badge,
   heading,
   description,
@@ -261,6 +264,7 @@ export function ServicesListSplitChecklist({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

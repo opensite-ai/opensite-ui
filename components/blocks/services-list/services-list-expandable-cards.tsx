@@ -113,6 +113,8 @@ export interface ServicesListExpandableCardsProps {
    * Additional CSS classes for individual cards
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -131,6 +133,7 @@ export interface ServicesListExpandableCardsProps {
  * ```
  */
 export function ServicesListExpandableCards({
+  sectionId = "services-list-expandable-cards",
   title,
   subtitle,
   services = [],
@@ -160,6 +163,7 @@ export function ServicesListExpandableCards({
 
   return (
     <Section
+      id={sectionId}
       title={title}
       subtitle={subtitle}
       background={background}

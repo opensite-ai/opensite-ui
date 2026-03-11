@@ -154,6 +154,8 @@ export interface ResourceDetailWhitepaperSidebarProps {
    * Aria label for the close viewer button
    */
   closeViewerAriaLabel?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -183,6 +185,7 @@ export interface ResourceDetailWhitepaperSidebarProps {
  * ```
  */
 export function ResourceDetailWhitepaperSidebar({
+  sectionId = "resource-detail-whitepaper-sidebar",
   className,
   sidebar,
   sidebarSlot,
@@ -469,6 +472,7 @@ export function ResourceDetailWhitepaperSidebar({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

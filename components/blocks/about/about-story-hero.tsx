@@ -96,9 +96,12 @@ export interface AboutStoryHeroProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function AboutStoryHero({
+  sectionId = "about-story-hero",
   title,
   subtitle,
   content,
@@ -207,6 +210,7 @@ export function AboutStoryHero({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

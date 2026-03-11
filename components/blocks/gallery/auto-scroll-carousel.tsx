@@ -125,6 +125,8 @@ export interface AutoScrollCarouselProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -150,6 +152,7 @@ export interface AutoScrollCarouselProps {
  * ```
  */
 export function AutoScrollCarousel({
+  sectionId = "auto-scroll-carousel",
   heading,
   description,
   action,
@@ -239,6 +242,7 @@ export function AutoScrollCarousel({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

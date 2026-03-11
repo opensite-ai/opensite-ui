@@ -116,6 +116,8 @@ export interface TimelineAlternatingDiagonalProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const DiagonalPattern = React.memo(({
@@ -138,6 +140,7 @@ const DiagonalPattern = React.memo(({
 });
 
 export function TimelineAlternatingDiagonal({
+  sectionId = "timeline-alternating-diagonal",
   badge,
   badgeSlot,
   heading,
@@ -181,7 +184,7 @@ export function TimelineAlternatingDiagonal({
 
   return (
     <Section
-      id={id}
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

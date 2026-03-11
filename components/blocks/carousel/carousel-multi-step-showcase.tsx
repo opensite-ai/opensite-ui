@@ -146,9 +146,12 @@ export interface CarouselMultiStepShowcaseProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function CarouselMultiStepShowcase({
+  sectionId = "carousel-multi-step-showcase",
   heading,
   subheading,
   steps,
@@ -251,6 +254,7 @@ export function CarouselMultiStepShowcase({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

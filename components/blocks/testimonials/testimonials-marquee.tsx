@@ -91,6 +91,8 @@ export interface TestimonialsMarqueeProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const speedMap = {
@@ -127,6 +129,7 @@ const speedMap = {
  * ```
  */
 export function TestimonialsMarquee({
+  sectionId = "testimonials-marquee",
   testimonials,
   testimonialsSlot,
   heading,
@@ -273,6 +276,7 @@ export function TestimonialsMarquee({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

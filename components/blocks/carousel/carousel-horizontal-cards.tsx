@@ -134,9 +134,12 @@ export interface CarouselHorizontalCardsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function CarouselHorizontalCards({
+  sectionId = "carousel-horizontal-cards",
   heading,
   subtitle,
   headingHref = "#",
@@ -198,6 +201,7 @@ export function CarouselHorizontalCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

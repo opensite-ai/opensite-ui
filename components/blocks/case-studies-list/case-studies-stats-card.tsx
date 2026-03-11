@@ -147,6 +147,8 @@ export interface CaseStudiesStatsCardProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -180,6 +182,7 @@ export interface CaseStudiesStatsCardProps {
  * ```
  */
 export function CaseStudiesStatsCard({
+  sectionId = "case-studies-stats-card",
   companyLogo,
   companyName,
   stats,
@@ -278,6 +281,7 @@ export function CaseStudiesStatsCard({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

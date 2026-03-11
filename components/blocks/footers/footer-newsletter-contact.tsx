@@ -155,6 +155,8 @@ export interface FooterNewsletterContactProps {
    * Additional CSS classes for the newsletter form
    */
   newsletterFormClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -186,6 +188,7 @@ export interface FooterNewsletterContactProps {
  * ```
  */
 export function FooterNewsletterContact({
+  sectionId = "footer-newsletter-contact",
   newsletterTitle,
   newsletterDescription,
   footerLinks,
@@ -307,6 +310,7 @@ export function FooterNewsletterContact({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

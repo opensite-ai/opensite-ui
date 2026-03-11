@@ -148,6 +148,8 @@ export interface BlurVignetteGridProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 interface BlurVignetteProps {
@@ -266,6 +268,7 @@ function BlurVignette({
  * ```
  */
 export function BlurVignetteGrid({
+  sectionId = "blur-vignette-grid",
   title,
   description,
   titleClassName,
@@ -335,6 +338,7 @@ export function BlurVignetteGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

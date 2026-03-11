@@ -119,9 +119,12 @@ export interface AboutInteractiveTabsProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function AboutInteractiveTabs({
+  sectionId = "about-interactive-tabs",
   title,
   subtitle,
   tabs,
@@ -255,6 +258,7 @@ export function AboutInteractiveTabs({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

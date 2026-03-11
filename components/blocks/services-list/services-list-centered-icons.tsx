@@ -102,6 +102,8 @@ export interface ServicesListCenteredIconsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -123,6 +125,7 @@ export interface ServicesListCenteredIconsProps {
  * ```
  */
 export function ServicesListCenteredIcons({
+  sectionId = "services-list-centered-icons",
   heading,
   description,
   services,
@@ -219,6 +222,7 @@ export function ServicesListCenteredIcons({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

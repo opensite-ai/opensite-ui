@@ -69,6 +69,8 @@ export interface BannerEventPromoProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -89,6 +91,7 @@ export interface BannerEventPromoProps {
  * ```
  */
 export function BannerEventPromo({
+  sectionId = "banner-event-promo",
   eventName,
   eventDetails,
   separator,
@@ -164,7 +167,8 @@ export function BannerEventPromo({
   }, [eventDetails, eventDetailsClassName]);
 
   return (
-    <Section background={background} spacing="none" className={className}>
+    <Section
+      id={sectionId} background={background} spacing="none" className={className}>
       <div className={cn("container mx-auto px-4 md:px-6 2xl:max-w-[1400px]", containerClassName)}>
         <div className={cn("flex items-center justify-between gap-x-6 p-4", contentClassName)}>
           <div className={cn("flex flex-wrap justify-between w-full items-center gap-x-4 gap-y-2", textClassName)}>

@@ -158,6 +158,8 @@ export interface TeamFilterableSearchProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -190,6 +192,7 @@ export interface TeamFilterableSearchProps {
  * ```
  */
 export function TeamFilterableSearch({
+  sectionId = "team-filterable-search",
   heading,
   description,
   searchPlaceholder,
@@ -402,6 +405,7 @@ export function TeamFilterableSearch({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

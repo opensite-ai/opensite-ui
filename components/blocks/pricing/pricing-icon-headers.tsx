@@ -204,6 +204,8 @@ export interface PricingIconHeadersProps {
    * Additional CSS classes for the action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -224,6 +226,7 @@ export interface PricingIconHeadersProps {
  * ```
  */
 export function PricingIconHeaders({
+  sectionId = "pricing-icon-headers",
   heading,
   subtitle,
   plans,
@@ -448,6 +451,7 @@ export function PricingIconHeaders({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

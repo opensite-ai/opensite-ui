@@ -96,9 +96,12 @@ export interface HeroMinimalCenteredDarkProps {
    * Additional CSS classes for the stats container
    */
   statsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroMinimalCenteredDark({
+  sectionId = "hero-minimal-centered-dark",
   badge,
   heading,
   headingHighlight,
@@ -136,6 +139,7 @@ export function HeroMinimalCenteredDark({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

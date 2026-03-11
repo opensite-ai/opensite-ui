@@ -79,9 +79,12 @@ export interface HeroDigitalAgencyFullscreenProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroDigitalAgencyFullscreen({
+  sectionId = "hero-digital-agency-fullscreen",
   heading,
   description,
   actions,
@@ -121,6 +124,7 @@ export function HeroDigitalAgencyFullscreen({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

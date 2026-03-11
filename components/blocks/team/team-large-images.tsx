@@ -121,6 +121,8 @@ export interface TeamLargeImagesProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -149,6 +151,7 @@ export interface TeamLargeImagesProps {
  * ```
  */
 export function TeamLargeImages({
+  sectionId = "team-large-images",
   heading,
   description,
   members,
@@ -266,6 +269,7 @@ export function TeamLargeImages({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

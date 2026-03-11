@@ -70,6 +70,8 @@ export interface TestimonialsMinimalNumberedProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -98,6 +100,7 @@ export interface TestimonialsMinimalNumberedProps {
  * ```
  */
 export function TestimonialsMinimalNumbered({
+  sectionId = "testimonials-minimal-numbered",
   testimonials,
   testimonialsSlot,
   autoPlayInterval,
@@ -269,6 +272,7 @@ export function TestimonialsMinimalNumbered({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

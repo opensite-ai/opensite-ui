@@ -75,6 +75,8 @@ export interface ProjectDetailSplitMaterialsProps {
   materialsClassName?: string;
   /** Additional CSS classes for the secondary image */
   secondaryImageClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -88,6 +90,7 @@ export function ProjectDetailSplitMaterials(
   props: ProjectDetailSplitMaterialsProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -115,6 +118,7 @@ export function ProjectDetailSplitMaterials(
     materialsClassName,
     secondaryImageClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-split-materials";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -149,6 +153,7 @@ export function ProjectDetailSplitMaterials(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

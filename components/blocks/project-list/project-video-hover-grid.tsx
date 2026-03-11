@@ -83,6 +83,8 @@ export interface ProjectVideoHoverGridProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 interface VideoSectionProps {
@@ -185,6 +187,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
  * hover-to-play interaction.
  */
 export function ProjectVideoHoverGrid({
+  sectionId = "project-video-hover-grid",
   heading,
   subheading,
   videoSections,
@@ -221,6 +224,7 @@ export function ProjectVideoHoverGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -69,6 +69,8 @@ export interface ProjectShowcaseAlternatingProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -82,6 +84,7 @@ export interface ProjectShowcaseAlternatingProps {
  * important.
  */
 export function ProjectShowcaseAlternating({
+  sectionId = "project-showcase-alternating",
   heading,
   projects,
   projectsSlot,
@@ -133,6 +136,7 @@ export function ProjectShowcaseAlternating({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

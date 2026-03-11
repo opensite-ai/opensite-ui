@@ -105,6 +105,8 @@ export interface TestimonialsSimpleGridProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -135,6 +137,7 @@ export interface TestimonialsSimpleGridProps {
  * ```
  */
 export function TestimonialsSimpleGrid({
+  sectionId = "testimonials-simple-grid",
   testimonials,
   testimonialsSlot,
   heading,
@@ -295,6 +298,7 @@ export function TestimonialsSimpleGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

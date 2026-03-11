@@ -136,9 +136,12 @@ export interface CarouselFullscreenScrollFxProps {
    * Optional max width for the content container
    */
   containerMaxWidth?: ContainerMaxWidth;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function CarouselFullscreenScrollFx({
+  sectionId = "carousel-fullscreen-scroll-fx",
   slides,
   slidesSlot,
   className,
@@ -197,6 +200,7 @@ export function CarouselFullscreenScrollFx({
 
   return (
     <Section
+      id={sectionId}
       ref={containerRef}
       background={background}
       spacing={spacing}

@@ -130,6 +130,8 @@ export interface CarouselAutoProgressSlidesProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const variants: Variants = {
@@ -153,6 +155,7 @@ const variants: Variants = {
 };
 
 export function CarouselAutoProgressSlides({
+  sectionId = "carousel-auto-progress-slides",
   heading,
   subheading,
   items,
@@ -227,6 +230,7 @@ export function CarouselAutoProgressSlides({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(

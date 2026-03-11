@@ -238,6 +238,8 @@ export interface PricingRadioToggleProps {
    * Additional CSS classes for action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -259,6 +261,7 @@ export interface PricingRadioToggleProps {
  * ```
  */
 export function PricingRadioToggle({
+  sectionId = "pricing-radio-toggle",
   title,
   description,
   monthlyLabel,
@@ -490,6 +493,7 @@ export function PricingRadioToggle({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

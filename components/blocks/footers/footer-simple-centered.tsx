@@ -106,6 +106,8 @@ export interface FooterSimpleCenteredProps {
   patternOpacity?: number;
   /** Optional Optix Flow configuration for @page-speed/img */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -116,6 +118,7 @@ export interface FooterSimpleCenteredProps {
  * uncluttered footer design without social media or newsletter elements.
  */
 export function FooterSimpleCentered({
+  sectionId = "footer-simple-centered",
   logo,
   tagline,
   sitemap,
@@ -197,6 +200,7 @@ export function FooterSimpleCentered({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

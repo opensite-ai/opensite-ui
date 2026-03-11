@@ -90,9 +90,12 @@ export interface HeroAdaptableProductGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroAdaptableProductGrid({
+  sectionId = "hero-adaptable-product-grid",
   heading,
   description,
   actions,
@@ -115,6 +118,7 @@ export function HeroAdaptableProductGrid({
 }: HeroAdaptableProductGridProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

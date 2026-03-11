@@ -115,6 +115,8 @@ export interface TestimonialsCarouselImageProps {
    * Auto-play interval in milliseconds (0 to disable)
    */
   autoPlayInterval?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -142,6 +144,7 @@ export interface TestimonialsCarouselImageProps {
  * ```
  */
 export function TestimonialsCarouselImage({
+  sectionId = "testimonials-carousel-image",
   testimonials,
   testimonialsSlot,
   autoPlayInterval,
@@ -314,6 +317,7 @@ export function TestimonialsCarouselImage({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

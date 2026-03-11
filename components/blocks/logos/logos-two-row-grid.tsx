@@ -89,6 +89,8 @@ export interface LogosTwoRowGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -96,6 +98,7 @@ export interface LogosTwoRowGridProps {
  * Features grayscale logos with hover effects arranged in two centered rows.
  */
 export function LogosTwoRowGrid({
+  sectionId = "logos-two-row-grid",
   className,
   heading,
   headingClassName,
@@ -175,6 +178,7 @@ export function LogosTwoRowGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

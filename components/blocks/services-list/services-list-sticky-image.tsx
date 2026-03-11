@@ -124,6 +124,8 @@ export interface ServicesListStickyImageProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -144,6 +146,7 @@ export interface ServicesListStickyImageProps {
  * ```
  */
 export function ServicesListStickyImage({
+  sectionId = "services-list-sticky-image",
   heading,
   description,
   services,
@@ -248,6 +251,7 @@ export function ServicesListStickyImage({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

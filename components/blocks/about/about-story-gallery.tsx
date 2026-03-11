@@ -76,9 +76,12 @@ export interface AboutStoryGalleryProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function AboutStoryGallery({
+  sectionId = "about-story-gallery",
   className,
   title,
   titleClassName,
@@ -163,6 +166,7 @@ export function AboutStoryGallery({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

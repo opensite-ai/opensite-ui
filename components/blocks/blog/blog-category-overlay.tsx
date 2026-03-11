@@ -109,9 +109,12 @@ export interface BlogCategoryOverlayProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function BlogCategoryOverlay({
+  sectionId = "blog-category-overlay",
   badge,
   heading,
   description,
@@ -245,6 +248,7 @@ export function BlogCategoryOverlay({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

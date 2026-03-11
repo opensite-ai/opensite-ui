@@ -128,6 +128,8 @@ export interface AboutVisionGalleryProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -151,6 +153,7 @@ export interface AboutVisionGalleryProps {
  * ```
  */
 export function AboutVisionGallery({
+  sectionId = "about-vision-gallery",
   className,
   title,
   titleClassName,
@@ -226,6 +229,7 @@ export function AboutVisionGallery({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

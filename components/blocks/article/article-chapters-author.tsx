@@ -222,9 +222,12 @@ export interface ArticleChaptersAuthorProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function ArticleChaptersAuthorComponent({
+  sectionId = "article-chapters-author",
   className,
   breadcrumbClassName,
   headerClassName,
@@ -535,6 +538,7 @@ export function ArticleChaptersAuthorComponent({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

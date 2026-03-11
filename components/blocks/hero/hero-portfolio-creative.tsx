@@ -117,9 +117,12 @@ export interface HeroPortfolioCreativeProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroPortfolioCreative({
+  sectionId = "hero-portfolio-creative",
   profile,
   profileSlot,
   heading,
@@ -310,6 +313,7 @@ export function HeroPortfolioCreative({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

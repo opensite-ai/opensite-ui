@@ -116,6 +116,8 @@ export interface TeamAvatarSocialProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -143,6 +145,7 @@ export interface TeamAvatarSocialProps {
  * ```
  */
 export function TeamAvatarSocial({
+  sectionId = "team-avatar-social",
   heading,
   description,
   members,
@@ -237,6 +240,7 @@ export function TeamAvatarSocial({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

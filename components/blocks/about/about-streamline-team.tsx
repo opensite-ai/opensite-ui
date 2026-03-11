@@ -126,9 +126,12 @@ export interface AboutStreamlineTeamProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function AboutStreamlineTeam({
+  sectionId = "about-streamline-team",
   className,
   title,
   titleClassName,
@@ -196,6 +199,7 @@ export function AboutStreamlineTeam({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

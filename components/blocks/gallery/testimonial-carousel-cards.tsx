@@ -156,6 +156,8 @@ export interface TestimonialCarouselCardsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -186,6 +188,7 @@ export interface TestimonialCarouselCardsProps {
  * ```
  */
 export function TestimonialCarouselCards({
+  sectionId = "testimonial-carousel-cards",
   heading,
   description,
   items,
@@ -388,6 +391,7 @@ export function TestimonialCarouselCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

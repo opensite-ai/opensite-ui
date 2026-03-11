@@ -97,9 +97,12 @@ export interface FaqRoundedCardsProps {
    * Additional CSS classes for accordion content
    */
   accordionContentClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqRoundedCards({
+  sectionId = "faq-rounded-cards",
   heading,
   description,
   items,
@@ -221,6 +224,7 @@ export function FaqRoundedCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -57,6 +57,8 @@ export interface ProjectDetailMinimalCenteredProps {
   descriptionClassName?: string;
   /** Additional CSS classes for the images section */
   imagesClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -70,6 +72,7 @@ export function ProjectDetailMinimalCentered(
   props: ProjectDetailMinimalCenteredProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -91,6 +94,7 @@ export function ProjectDetailMinimalCentered(
     descriptionClassName,
     imagesClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-minimal-centered";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -125,6 +129,7 @@ export function ProjectDetailMinimalCentered(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

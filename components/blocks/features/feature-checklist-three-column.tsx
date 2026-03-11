@@ -171,6 +171,8 @@ export interface FeatureChecklistThreeColumnProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -201,6 +203,7 @@ export interface FeatureChecklistThreeColumnProps {
  * ```
  */
 export function FeatureChecklistThreeColumn({
+  sectionId = "feature-checklist-three-column",
   title,
   checklistColumn1,
   checklistColumn1Slot,
@@ -438,6 +441,7 @@ export function FeatureChecklistThreeColumn({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

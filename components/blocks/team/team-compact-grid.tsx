@@ -144,6 +144,8 @@ export interface TeamCompactGridProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -175,6 +177,7 @@ export interface TeamCompactGridProps {
  * ```
  */
 export function TeamCompactGrid({
+  sectionId = "team-compact-grid",
   heading,
   description,
   members,
@@ -306,6 +309,7 @@ export function TeamCompactGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

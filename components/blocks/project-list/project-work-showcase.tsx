@@ -98,6 +98,8 @@ export interface ProjectWorkShowcaseProps {
    * Additional CSS classes for each experience card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -111,6 +113,7 @@ export interface ProjectWorkShowcaseProps {
  * and project outcomes.
  */
 export function ProjectWorkShowcase({
+  sectionId = "project-work-showcase",
   heading,
   subheading,
   experiences,
@@ -211,6 +214,7 @@ export function ProjectWorkShowcase({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

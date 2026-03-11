@@ -101,6 +101,8 @@ export interface CaseStudiesImageGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -127,6 +129,7 @@ export interface CaseStudiesImageGridProps {
  * ```
  */
 export function CaseStudiesImageGrid({
+  sectionId = "case-studies-image-grid",
   items,
   itemsSlot,
   className,
@@ -203,6 +206,7 @@ export function CaseStudiesImageGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

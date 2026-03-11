@@ -114,9 +114,12 @@ export interface HeroSplitGeometricShapesProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroSplitGeometricShapes({
+  sectionId = "hero-split-geometric-shapes",
   badgeText,
   heading,
   description,
@@ -240,6 +243,7 @@ export function HeroSplitGeometricShapes({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

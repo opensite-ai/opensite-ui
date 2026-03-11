@@ -86,6 +86,8 @@ export interface BannerDeliveryCountdownProps {
    * Additional CSS classes for the delivery date
    */
   deliveryDateClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -104,6 +106,7 @@ export interface BannerDeliveryCountdownProps {
  * ```
  */
 export function BannerDeliveryCountdown({
+  sectionId = "banner-delivery-countdown",
   icon,
   iconName,
   deliveryDate,
@@ -196,7 +199,8 @@ export function BannerDeliveryCountdown({
   }, [prefixText, timerContent, middleText, deliveryDateContent]);
 
   return (
-    <Section background={background} spacing="none" className={cn("bg-accent text-accent-foreground", className)}>
+    <Section
+      id={sectionId} background={background} spacing="none" className={cn("bg-accent text-accent-foreground", className)}>
       <div className={cn("container py-2.5", containerClassName)}>
         <div className={cn("flex flex-wrap items-center justify-center gap-3 text-sm", contentClassName)}>
           <div className={cn("flex items-center gap-2", messageClassName)}>

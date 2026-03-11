@@ -93,6 +93,8 @@ export interface ContactPartnershipProps {
   patternOpacity?: number;
   /** Full form engine setup and props */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -107,6 +109,7 @@ export interface ContactPartnershipProps {
  * ```
  */
 export function ContactPartnership({
+  sectionId = "contact-partnership",
   heading,
   description,
   className,
@@ -124,6 +127,7 @@ export function ContactPartnership({
 }: ContactPartnershipProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -74,6 +74,8 @@ export interface BannerSocialFollowProps {
    * Additional CSS classes for the dismiss button
    */
   dismissButtonClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -93,6 +95,7 @@ export interface BannerSocialFollowProps {
  * ```
  */
 export function BannerSocialFollow({
+  sectionId = "banner-social-follow",
   icon,
   iconName,
   message,
@@ -180,7 +183,8 @@ export function BannerSocialFollow({
   }
 
   return (
-    <Section background={background} spacing="none" className={className}>
+    <Section
+      id={sectionId} background={background} spacing="none" className={className}>
       <div className={cn("max-w-7xl mx-auto px-3 py-3 flex items-center justify-center text-left md:text-center gap-2", containerClassName)}>
         {iconContent}
         {messageContent}

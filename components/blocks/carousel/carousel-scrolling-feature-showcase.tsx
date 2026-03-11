@@ -130,9 +130,12 @@ export interface CarouselScrollingFeatureShowcaseProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function CarouselScrollingFeatureShowcase({
+  sectionId = "carousel-scrolling-feature-showcase",
   heading,
   subheading,
   features,
@@ -199,6 +202,7 @@ export function CarouselScrollingFeatureShowcase({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(pattern && "overflow-visible", className)}

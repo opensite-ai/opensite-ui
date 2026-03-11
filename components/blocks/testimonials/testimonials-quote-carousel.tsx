@@ -93,6 +93,8 @@ export interface TestimonialsQuoteCarouselProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -121,6 +123,7 @@ export interface TestimonialsQuoteCarouselProps {
  * ```
  */
 export function TestimonialsQuoteCarousel({
+  sectionId = "testimonials-quote-carousel",
   testimonials,
   testimonialsSlot,
   heading,
@@ -278,6 +281,7 @@ export function TestimonialsQuoteCarousel({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

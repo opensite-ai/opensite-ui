@@ -229,6 +229,8 @@ export interface PricingTwoColumnBasicProps {
    * Additional CSS classes for the action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -251,6 +253,7 @@ export interface PricingTwoColumnBasicProps {
  * ```
  */
 export function PricingTwoColumnBasic({
+  sectionId = "pricing-two-column-basic",
   title,
   subtitle,
   monthlyLabel,
@@ -480,6 +483,7 @@ export function PricingTwoColumnBasic({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

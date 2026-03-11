@@ -112,6 +112,8 @@ export interface ContactMapProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -137,6 +139,7 @@ export interface ContactMapProps {
  * ```
  */
 export function ContactMap({
+  sectionId = "contact-map",
   heading,
   description,
   className,
@@ -187,6 +190,7 @@ export function ContactMap({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

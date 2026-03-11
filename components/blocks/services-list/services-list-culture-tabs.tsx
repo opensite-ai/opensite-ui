@@ -173,6 +173,8 @@ export interface ServicesListCultureTabsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -197,6 +199,7 @@ export interface ServicesListCultureTabsProps {
  * ```
  */
 export function ServicesListCultureTabs({
+  sectionId = "services-list-culture-tabs",
   badge,
   heading,
   description,
@@ -416,6 +419,7 @@ export function ServicesListCultureTabs({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

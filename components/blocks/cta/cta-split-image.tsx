@@ -95,6 +95,8 @@ export interface CtaSplitImageProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -114,6 +116,7 @@ export interface CtaSplitImageProps {
  * ```
  */
 export function CtaSplitImage({
+  sectionId = "cta-split-image",
   heading,
   description,
   actions,
@@ -235,6 +238,7 @@ export function CtaSplitImage({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

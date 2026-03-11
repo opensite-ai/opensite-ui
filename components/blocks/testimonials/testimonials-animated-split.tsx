@@ -88,6 +88,8 @@ export interface TestimonialsAnimatedSplitProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -117,6 +119,7 @@ export interface TestimonialsAnimatedSplitProps {
  * ```
  */
 export function TestimonialsAnimatedSplit({
+  sectionId = "testimonials-animated-split",
   testimonials,
   testimonialsSlot,
   autoPlayInterval,
@@ -368,6 +371,7 @@ export function TestimonialsAnimatedSplit({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

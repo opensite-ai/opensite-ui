@@ -73,6 +73,8 @@ export interface ProjectDetailExhibitionSidebarProps {
   sidebarClassName?: string;
   /** Additional CSS classes for the gallery section */
   galleryClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -86,6 +88,7 @@ export function ProjectDetailExhibitionSidebar(
   props: ProjectDetailExhibitionSidebarProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -110,6 +113,7 @@ export function ProjectDetailExhibitionSidebar(
     sidebarClassName,
     galleryClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-exhibition-sidebar";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -144,6 +148,7 @@ export function ProjectDetailExhibitionSidebar(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -90,9 +90,12 @@ export interface HeroTaskTimerAnimatedProps {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroTaskTimerAnimated({
+  sectionId = "hero-task-timer-animated",
   heading,
   description,
   descriptionClassName,
@@ -159,6 +162,7 @@ export function HeroTaskTimerAnimated({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

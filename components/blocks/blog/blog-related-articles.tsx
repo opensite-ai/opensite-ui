@@ -82,9 +82,12 @@ export interface BlogRelatedArticlesProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function BlogRelatedArticles({
+  sectionId = "blog-related-articles",
   heading,
   seeAllAction,
   seeAllSlot,
@@ -177,6 +180,7 @@ export function BlogRelatedArticles({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

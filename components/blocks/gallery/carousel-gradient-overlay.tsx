@@ -143,6 +143,8 @@ export interface CarouselGradientOverlayProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -171,6 +173,7 @@ export interface CarouselGradientOverlayProps {
  * ```
  */
 export function CarouselGradientOverlay({
+  sectionId = "carousel-gradient-overlay",
   title,
   description,
   items,
@@ -285,6 +288,7 @@ export function CarouselGradientOverlay({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

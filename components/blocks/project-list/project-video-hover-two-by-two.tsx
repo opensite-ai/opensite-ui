@@ -83,6 +83,8 @@ export interface ProjectVideoHoverTwoByTwoProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 interface VideoSectionProps {
@@ -187,6 +189,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
  * presentation.
  */
 export function ProjectVideoHoverTwoByTwo({
+  sectionId = "project-video-hover-two-by-two",
   heading,
   subheading,
   videoSections,
@@ -223,6 +226,7 @@ export function ProjectVideoHoverTwoByTwo({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

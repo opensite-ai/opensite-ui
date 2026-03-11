@@ -261,6 +261,8 @@ export interface PricingToggleCardsProps {
    * Additional CSS classes for the action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -282,6 +284,7 @@ export interface PricingToggleCardsProps {
  * ```
  */
 export function PricingToggleCards({
+  sectionId = "pricing-toggle-cards",
   heading,
   description,
   monthlyLabel,
@@ -528,6 +531,7 @@ export function PricingToggleCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

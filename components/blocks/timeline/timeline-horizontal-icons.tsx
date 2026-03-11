@@ -106,9 +106,12 @@ export interface TimelineHorizontalIconsProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function TimelineHorizontalIcons({
+  sectionId = "timeline-horizontal-icons",
   heading,
   currentPhase,
   phases,
@@ -138,7 +141,7 @@ export function TimelineHorizontalIcons({
   if (!phases || phases.length === 0) {
     return (
       <Section
-        id={id}
+        id={sectionId}
         background={background}
         spacing={spacing}
         className={className}

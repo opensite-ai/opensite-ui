@@ -65,6 +65,8 @@ export interface BannerPromoCtaProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -84,6 +86,7 @@ export interface BannerPromoCtaProps {
  * ```
  */
 export function BannerPromoCta({
+  sectionId = "banner-promo-cta",
   message,
   discount,
   separator,
@@ -149,7 +152,8 @@ export function BannerPromoCta({
   }, [discount, discountClassName]);
 
   return (
-    <Section background={background} spacing="none" className={className}>
+    <Section
+      id={sectionId} background={background} spacing="none" className={className}>
       <div className={cn("container py-2.5", containerClassName)}>
         <div className={cn("flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center text-sm", contentClassName)}>
           {messageContent}

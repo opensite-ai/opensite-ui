@@ -110,9 +110,12 @@ export interface FaqBorderedBadgeProps {
    * Additional CSS classes for accordion content
    */
   accordionContentClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqBorderedBadge({
+  sectionId = "faq-bordered-badge",
   badge,
   badgeIcon = "lucide/circle-help",
   heading,
@@ -179,6 +182,7 @@ export function FaqBorderedBadge({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

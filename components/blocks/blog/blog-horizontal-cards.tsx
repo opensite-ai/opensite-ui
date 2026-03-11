@@ -106,9 +106,12 @@ export interface BlogHorizontalCardsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function BlogHorizontalCards({
+  sectionId = "blog-horizontal-cards",
   badge,
   heading,
   description,
@@ -236,6 +239,7 @@ export function BlogHorizontalCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

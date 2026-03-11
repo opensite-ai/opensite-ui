@@ -116,6 +116,8 @@ export interface ProcessExpandableTimelineProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const CornerConnector = ({ className }: { className?: string }) => (
@@ -150,6 +152,7 @@ const CornerConnector = ({ className }: { className?: string }) => (
  * ProcessExpandableTimeline - A process section with expandable timeline steps.
  */
 export function ProcessExpandableTimeline({
+  sectionId = "process-expandable-timeline",
   heading,
   description,
   steps,
@@ -285,6 +288,7 @@ export function ProcessExpandableTimeline({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

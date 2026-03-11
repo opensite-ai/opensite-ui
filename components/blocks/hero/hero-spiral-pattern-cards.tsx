@@ -90,9 +90,12 @@ export interface HeroSpiralPatternCardsProps {
    * Additional CSS classes for the images container
    */
   imagesClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroSpiralPatternCards({
+  sectionId = "hero-spiral-pattern-cards",
   badgeText,
   heading,
   description,
@@ -170,6 +173,7 @@ export function HeroSpiralPatternCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

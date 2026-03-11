@@ -78,6 +78,8 @@ export interface ContactPhotographyProps {
    * Full form engine setup and props
    */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 // Default form fields
@@ -135,6 +137,7 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
  * Best for: Photography studios, creative services, visual-first contact pages.
  */
 export function ContactPhotography({
+  sectionId = "contact-photography",
   heading,
   description,
   containerClassName = "px-0 sm:px-0 md:px-0 lg:px-0 mx-0 w-full max-w-full relative z-10",
@@ -244,6 +247,7 @@ export function ContactPhotography({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

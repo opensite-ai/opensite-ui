@@ -44,6 +44,8 @@ export interface PricingFeatureMatrixProps {
   plans?: PricingPlan[];
   featureCategories?: FeatureCategory[];
   background?: SectionBackground;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -65,6 +67,7 @@ export interface PricingFeatureMatrixProps {
  * ```
  */
 export function PricingFeatureMatrix({
+  sectionId = "pricing-feature-matrix",
   className,
   title,
   subtitle,
@@ -101,7 +104,8 @@ export function PricingFeatureMatrix({
   }, []);
 
   return (
-    <Section background={background} className={className}>
+    <Section
+      id={sectionId} background={background} className={className}>
       <div className="mx-auto mb-12 max-w-2xl text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
           {title}

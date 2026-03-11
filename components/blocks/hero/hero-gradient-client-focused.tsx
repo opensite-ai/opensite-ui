@@ -84,9 +84,12 @@ export interface HeroGradientClientFocusedProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroGradientClientFocused({
+  sectionId = "hero-gradient-client-focused",
   heading,
   description,
   actions,
@@ -125,6 +128,7 @@ export function HeroGradientClientFocused({
 
   return (
     <Section
+      id={sectionId}
       className={cn("text-center", className)}
       background={background}
       spacing={spacing}

@@ -93,6 +93,8 @@ export interface ContactInsuranceProps {
   patternOpacity?: number;
   /** Full form engine setup and props */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -107,6 +109,7 @@ export interface ContactInsuranceProps {
  * ```
  */
 export function ContactInsurance({
+  sectionId = "contact-insurance",
   heading,
   description,
   className,
@@ -124,6 +127,7 @@ export function ContactInsurance({
 }: ContactInsuranceProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

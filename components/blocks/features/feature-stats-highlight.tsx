@@ -129,6 +129,8 @@ export interface FeatureStatsHighlightProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -154,6 +156,7 @@ export interface FeatureStatsHighlightProps {
  * ```
  */
 export function FeatureStatsHighlight({
+  sectionId = "feature-stats-highlight",
   badge,
   title,
   description,
@@ -248,6 +251,7 @@ export function FeatureStatsHighlight({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

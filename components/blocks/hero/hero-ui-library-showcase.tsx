@@ -97,9 +97,12 @@ export interface HeroUiLibraryShowcaseProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroUiLibraryShowcase({
+  sectionId = "hero-ui-library-showcase",
   logo,
   logoSlot,
   heading,
@@ -159,6 +162,7 @@ export function HeroUiLibraryShowcase({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

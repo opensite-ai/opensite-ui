@@ -86,9 +86,12 @@ export interface FaqStaticListProps {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqStaticList({
+  sectionId = "faq-static-list",
   headerClassName,
   heading,
   headingClassName,
@@ -191,6 +194,7 @@ export function FaqStaticList({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -98,6 +98,8 @@ export interface CtaPlatformDemoProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -118,6 +120,7 @@ export interface CtaPlatformDemoProps {
  * ```
  */
 export function CtaPlatformDemo({
+  sectionId = "cta-platform-demo",
   heading,
   description,
   actions,
@@ -177,6 +180,7 @@ export function CtaPlatformDemo({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

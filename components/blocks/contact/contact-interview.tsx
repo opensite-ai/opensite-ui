@@ -95,6 +95,8 @@ export interface ContactInterviewProps {
   patternOpacity?: number;
   /** Full form engine setup and props */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -109,6 +111,7 @@ export interface ContactInterviewProps {
  * ```
  */
 export function ContactInterview({
+  sectionId = "contact-interview",
   heading,
   description,
   className,
@@ -164,6 +167,7 @@ export function ContactInterview({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

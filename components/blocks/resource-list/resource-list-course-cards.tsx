@@ -151,6 +151,8 @@ export interface ResourceListCourseCardsProps {
    * Default fallback label for videos count (defaults to "Videos")
    */
   defaultVideosLabel?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -170,6 +172,7 @@ export interface ResourceListCourseCardsProps {
  * that need to showcase course details with instructor information.
  */
 export function ResourceListCourseCards({
+  sectionId = "resource-list-course-cards",
   className,
   courses,
   coursesSlot,
@@ -349,6 +352,7 @@ export function ResourceListCourseCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

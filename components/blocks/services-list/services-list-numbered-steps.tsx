@@ -107,6 +107,8 @@ export interface ServicesListNumberedStepsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -128,6 +130,7 @@ export interface ServicesListNumberedStepsProps {
  * ```
  */
 export function ServicesListNumberedSteps({
+  sectionId = "services-list-numbered-steps",
   heading,
   description,
   primaryAction,
@@ -239,6 +242,7 @@ export function ServicesListNumberedSteps({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

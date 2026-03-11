@@ -110,6 +110,8 @@ export interface HeroSplitIconCardsProps {
   containerClassName?: string;
   /** Section spacing variant */
   spacing?: SectionSpacing;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -118,6 +120,7 @@ export interface HeroSplitIconCardsProps {
  * an explanatory hero plus quick benefit callouts.
  */
 export function HeroSplitIconCards({
+  sectionId = "hero-split-icon-cards",
   eyebrow,
   heading,
   description,
@@ -208,6 +211,7 @@ export function HeroSplitIconCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={verticalSpacing || spacing}
       pattern={pattern}

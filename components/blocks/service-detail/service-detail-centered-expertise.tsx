@@ -251,9 +251,12 @@ export interface ServiceDetailCenteredExpertiseProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function ServiceDetailCenteredExpertise({
+  sectionId = "service-detail-centered-expertise",
   title,
   titleClassName,
   serviceIcon,
@@ -518,6 +521,7 @@ export function ServiceDetailCenteredExpertise({
 
   return (
     <Section
+      id={sectionId}
       className={className}
       background={background}
       spacing={spacing}

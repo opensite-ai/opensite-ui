@@ -99,6 +99,8 @@ export interface TimelineStepperAnimatedProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const ProcessBar = React.memo<{
@@ -214,6 +216,7 @@ const NavButtons = React.memo<{
 ));
 
 export function TimelineStepperAnimated({
+  sectionId = "timeline-stepper-animated",
   heading,
   steps,
   initialStep,
@@ -256,7 +259,7 @@ export function TimelineStepperAnimated({
   if (!steps || steps.length === 0) {
     return (
       <Section
-        id={id}
+        id={sectionId}
         background={background}
         spacing={spacing}
         className={className}

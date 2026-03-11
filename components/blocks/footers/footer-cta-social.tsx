@@ -69,6 +69,8 @@ export interface FooterCtaSocialProps {
   pattern?: PatternName;
   /** Pattern opacity (0-1) */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -80,6 +82,7 @@ export interface FooterCtaSocialProps {
  * that want a conversion-focused footer with strong visual appeal.
  */
 export function FooterCtaSocial({
+  sectionId = "footer-cta-social",
   preHeading,
   heading,
   description,
@@ -126,6 +129,7 @@ export function FooterCtaSocial({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

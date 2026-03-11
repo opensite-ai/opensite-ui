@@ -118,6 +118,8 @@ export interface InteriorCarouselProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -140,6 +142,7 @@ export interface InteriorCarouselProps {
  * ```
  */
 export function InteriorCarousel({
+  sectionId = "interior-carousel",
   heading,
   description,
   images,
@@ -291,6 +294,7 @@ export function InteriorCarousel({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

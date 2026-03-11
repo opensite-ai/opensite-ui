@@ -70,6 +70,8 @@ export interface CtaSimpleCenteredProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -90,6 +92,7 @@ export interface CtaSimpleCenteredProps {
  * ```
  */
 export function CtaSimpleCentered({
+  sectionId = "cta-simple-centered",
   heading,
   description,
   actions,
@@ -145,6 +148,7 @@ export function CtaSimpleCentered({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

@@ -120,6 +120,8 @@ export interface TeamCompactCtaProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -145,6 +147,7 @@ export interface TeamCompactCtaProps {
  * ```
  */
 export function TeamCompactCta({
+  sectionId = "team-compact-cta",
   heading,
   description,
   members,
@@ -218,6 +221,7 @@ export function TeamCompactCta({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

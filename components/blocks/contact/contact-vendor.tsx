@@ -104,6 +104,8 @@ export interface ContactVendorProps {
    * Full form engine setup and props
    */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -118,6 +120,7 @@ export interface ContactVendorProps {
  * ```
  */
 export function ContactVendor({
+  sectionId = "contact-vendor",
   heading,
   description,
   className,
@@ -135,6 +138,7 @@ export function ContactVendor({
 }: ContactVendorProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

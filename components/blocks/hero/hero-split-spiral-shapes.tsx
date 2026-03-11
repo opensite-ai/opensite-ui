@@ -90,9 +90,12 @@ export interface HeroSplitSpiralShapesProps {
    * Additional CSS classes for the images container
    */
   imagesClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroSplitSpiralShapes({
+  sectionId = "hero-split-spiral-shapes",
   badgeText,
   heading,
   description,
@@ -210,6 +213,7 @@ export function HeroSplitSpiralShapes({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

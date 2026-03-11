@@ -100,6 +100,8 @@ export interface TestimonialsScrollingColumnsProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const containerVariants = {
@@ -149,6 +151,7 @@ const itemVariants = {
  * ```
  */
 export function TestimonialsScrollingColumns({
+  sectionId = "testimonials-scrolling-columns",
   testimonials,
   testimonialsSlot,
   heading,
@@ -299,6 +302,7 @@ export function TestimonialsScrollingColumns({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

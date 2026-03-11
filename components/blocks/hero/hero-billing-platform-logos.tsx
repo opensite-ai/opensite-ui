@@ -108,9 +108,12 @@ export interface HeroBillingPlatformLogosProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroBillingPlatformLogos({
+  sectionId = "hero-billing-platform-logos",
   heading,
   description,
   actions,
@@ -188,6 +191,7 @@ export function HeroBillingPlatformLogos({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

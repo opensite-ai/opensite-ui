@@ -106,6 +106,8 @@ export interface LogosNumberedCarouselProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -113,6 +115,7 @@ export interface LogosNumberedCarouselProps {
  * Features grayscale logos with hover effects and numbered indicators.
  */
 export function LogosNumberedCarousel({
+  sectionId = "logos-numbered-carousel",
   className,
   headline,
   headlineClassName,
@@ -182,6 +185,7 @@ export function LogosNumberedCarousel({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

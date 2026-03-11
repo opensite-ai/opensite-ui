@@ -92,9 +92,12 @@ export interface FaqCenteredAccordionProps {
    * Additional CSS classes for accordion content
    */
   accordionContentClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqCenteredAccordion({
+  sectionId = "faq-centered-accordion",
   heading,
   description,
   items,
@@ -161,6 +164,7 @@ export function FaqCenteredAccordion({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

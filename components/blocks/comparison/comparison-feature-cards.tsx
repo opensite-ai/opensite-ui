@@ -119,6 +119,8 @@ export interface ComparisonFeatureCardsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -134,6 +136,7 @@ export interface ComparisonFeatureCardsProps {
  * feature analysis, package breakdowns.
  */
 export function ComparisonFeatureCards({
+  sectionId = "comparison-feature-cards",
   heading,
   description,
   productA,
@@ -291,6 +294,7 @@ export function ComparisonFeatureCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

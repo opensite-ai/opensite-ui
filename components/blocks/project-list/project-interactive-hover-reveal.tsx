@@ -96,6 +96,8 @@ export interface ProjectInteractiveHoverRevealProps {
    * Additional CSS classes for each project card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -109,6 +111,7 @@ export interface ProjectInteractiveHoverRevealProps {
  * but detailed information should be accessible on demand.
  */
 export function ProjectInteractiveHoverReveal({
+  sectionId = "project-interactive-hover-reveal",
   heading,
   subheading,
   projects,
@@ -198,6 +201,7 @@ export function ProjectInteractiveHoverReveal({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -64,6 +64,8 @@ export interface ProjectDetailGridGalleryProps {
   gridClassName?: string;
   /** Additional CSS classes for the gallery section */
   galleryClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -77,6 +79,7 @@ export function ProjectDetailGridGallery(
   props: ProjectDetailGridGalleryProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -99,6 +102,7 @@ export function ProjectDetailGridGallery(
     gridClassName,
     galleryClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-grid-gallery";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -133,6 +137,7 @@ export function ProjectDetailGridGallery(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

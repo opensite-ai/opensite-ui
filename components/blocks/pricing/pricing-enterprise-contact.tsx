@@ -153,6 +153,8 @@ export interface PricingEnterpriseContactProps {
    * Additional CSS classes for the features column
    */
   featuresClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -175,6 +177,7 @@ export interface PricingEnterpriseContactProps {
  * ```
  */
 export function PricingEnterpriseContact({
+  sectionId = "pricing-enterprise-contact",
   title,
   subtitle,
   description,
@@ -295,6 +298,7 @@ export function PricingEnterpriseContact({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

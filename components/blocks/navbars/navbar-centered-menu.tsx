@@ -127,6 +127,8 @@ export interface NavbarCenteredMenuProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const NavigationMenuWithoutViewport = ({
@@ -237,6 +239,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
  * trigger elements for a balanced visual appearance.
  */
 export const NavbarCenteredMenu = ({
+  sectionId = "navbar-centered-menu",
   logo,
   logoSlot,
   logoClassName,
@@ -317,6 +320,7 @@ export const NavbarCenteredMenu = ({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

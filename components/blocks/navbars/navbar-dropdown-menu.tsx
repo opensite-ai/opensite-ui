@@ -127,6 +127,8 @@ export interface NavbarDropdownMenuProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const SubMenuLink = ({
@@ -223,6 +225,7 @@ const renderMobileMenuItem = (
  * The dropdown menus display icons and descriptions for each submenu item.
  */
 export const NavbarDropdownMenu = ({
+  sectionId = "navbar-dropdown-menu",
   logo,
   logoSlot,
   logoClassName,
@@ -303,6 +306,7 @@ export const NavbarDropdownMenu = ({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

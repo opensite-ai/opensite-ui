@@ -133,6 +133,8 @@ export interface ExpandableCaseStudyCardsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -174,6 +176,7 @@ export interface ExpandableCaseStudyCardsProps {
  * ```
  */
 export function ExpandableCaseStudyCards({
+  sectionId = "expandable-case-study-cards",
   title,
   description,
   items,
@@ -304,6 +307,7 @@ export function ExpandableCaseStudyCards({
 
   return (
     <Section
+      id={sectionId}
       title={title}
       subtitle={description}
       background={background}

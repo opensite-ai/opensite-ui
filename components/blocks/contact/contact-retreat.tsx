@@ -95,6 +95,8 @@ export interface ContactRetreatProps {
   patternOpacity?: number;
   /** Full form engine setup and props */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -109,6 +111,7 @@ export interface ContactRetreatProps {
  * ```
  */
 export function ContactRetreat({
+  sectionId = "contact-retreat",
   heading,
   description,
   className,
@@ -161,6 +164,7 @@ export function ContactRetreat({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

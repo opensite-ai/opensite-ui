@@ -115,6 +115,8 @@ export interface ServicesListTimelineProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -136,6 +138,7 @@ export interface ServicesListTimelineProps {
  * ```
  */
 export function ServicesListTimeline({
+  sectionId = "services-list-timeline",
   heading,
   description,
   primaryAction,
@@ -297,6 +300,7 @@ export function ServicesListTimeline({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

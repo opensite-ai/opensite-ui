@@ -144,6 +144,8 @@ export interface StatsCardGroupProps {
    * Optional configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -164,6 +166,7 @@ export interface StatsCardGroupProps {
  * ```
  */
 export function StatsCardGroup({
+  sectionId = "stats-card-group",
   stats,
   statsSlot,
   avatars,
@@ -285,6 +288,7 @@ export function StatsCardGroup({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -130,6 +130,8 @@ export interface FeatureBadgeGridSixProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -152,6 +154,7 @@ export interface FeatureBadgeGridSixProps {
  * ```
  */
 export function FeatureBadgeGridSix({
+  sectionId = "feature-badge-grid-six",
   label,
   badgeSlot,
   title,
@@ -304,6 +307,7 @@ export function FeatureBadgeGridSix({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

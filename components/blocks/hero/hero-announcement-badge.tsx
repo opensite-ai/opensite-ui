@@ -77,9 +77,12 @@ export interface HeroAnnouncementBadgeProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroAnnouncementBadge({
+  sectionId = "hero-announcement-badge",
   badge,
   badgeIcon,
   heading,
@@ -99,6 +102,7 @@ export function HeroAnnouncementBadge({
 }: HeroAnnouncementBadgeProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -142,6 +142,8 @@ export interface FooterNewsletterMinimalProps {
    * Custom slot for the form (overrides form props)
    */
   formSlot?: React.ReactNode;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -169,6 +171,7 @@ export interface FooterNewsletterMinimalProps {
  * ```
  */
 export function FooterNewsletterMinimal({
+  sectionId = "footer-newsletter-minimal",
   heading,
   supportLabel,
   supportEmail,
@@ -301,6 +304,7 @@ export function FooterNewsletterMinimal({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

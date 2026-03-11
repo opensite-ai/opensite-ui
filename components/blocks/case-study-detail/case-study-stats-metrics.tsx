@@ -199,6 +199,8 @@ export interface CaseStudyStatsMetricsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -229,6 +231,7 @@ export interface CaseStudyStatsMetricsProps {
  * ```
  */
 export function CaseStudyStatsMetrics({
+  sectionId = "case-study-stats-metrics",
   breadcrumbs,
   breadcrumbsSlot,
   title,
@@ -510,6 +513,7 @@ export function CaseStudyStatsMetrics({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(pattern && "overflow-visible", className)}

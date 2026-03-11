@@ -123,6 +123,8 @@ export interface TeamSocialCardsProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -153,6 +155,7 @@ export interface TeamSocialCardsProps {
  * ```
  */
 export function TeamSocialCards({
+  sectionId = "team-social-cards",
   heading,
   description,
   members,
@@ -267,6 +270,7 @@ export function TeamSocialCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

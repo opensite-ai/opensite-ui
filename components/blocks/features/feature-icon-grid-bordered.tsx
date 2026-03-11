@@ -109,6 +109,8 @@ export interface FeatureIconGridBorderedProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -132,6 +134,7 @@ export interface FeatureIconGridBorderedProps {
  * ```
  */
 export function FeatureIconGridBordered({
+  sectionId = "feature-icon-grid-bordered",
   label,
   title,
   features,
@@ -230,6 +233,7 @@ export function FeatureIconGridBordered({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

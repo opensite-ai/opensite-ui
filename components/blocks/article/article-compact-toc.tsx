@@ -14,7 +14,6 @@ import {
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
 import { Separator } from "../../ui/separator";
-import { Markdown } from "@page-speed/markdown-to-jsx/core";
 import type { MarkdownStylesMap } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
@@ -184,9 +183,12 @@ export interface ArticleCompactTocProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function ArticleCompactTocComponent({
+  sectionId = "article-compact-toc",
   className,
   breadcrumbClassName,
   contentClassName,
@@ -387,6 +389,7 @@ export function ArticleCompactTocComponent({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

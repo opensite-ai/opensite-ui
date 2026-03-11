@@ -128,6 +128,8 @@ export interface ServicesListTwoColumnGridProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -150,6 +152,7 @@ export interface ServicesListTwoColumnGridProps {
  * ```
  */
 export function ServicesListTwoColumnGrid({
+  sectionId = "services-list-two-column-grid",
   badge,
   heading,
   description,
@@ -268,6 +271,7 @@ export function ServicesListTwoColumnGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

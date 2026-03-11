@@ -141,6 +141,8 @@ export interface StatsNumberTickerProps {
    * Additional CSS classes for stat descriptions
    */
   statDescriptionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -291,6 +293,7 @@ function TickerStatItem({
  * ```
  */
 export function StatsNumberTicker({
+  sectionId = "stats-number-ticker",
   badge,
   badgeSlot,
   heading,
@@ -388,6 +391,7 @@ export function StatsNumberTicker({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

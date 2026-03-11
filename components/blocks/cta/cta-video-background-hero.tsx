@@ -98,6 +98,8 @@ export interface CtaVideoBackgroundHeroProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -119,6 +121,7 @@ export interface CtaVideoBackgroundHeroProps {
  * ```
  */
 export function CtaVideoBackgroundHero({
+  sectionId = "cta-video-background-hero",
   heading,
   description,
   actions,
@@ -241,6 +244,7 @@ export function CtaVideoBackgroundHero({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

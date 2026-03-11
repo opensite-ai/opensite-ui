@@ -138,6 +138,8 @@ export interface ContactFaqProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 // Default form fields
@@ -181,6 +183,7 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
  * ContactFaq - FAQ contact form with flexible field configuration
  */
 export function ContactFaq({
+  sectionId = "contact-faq",
   heading,
   description,
   formHeading,
@@ -248,6 +251,7 @@ export function ContactFaq({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

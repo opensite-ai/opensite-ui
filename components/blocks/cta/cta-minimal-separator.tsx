@@ -66,6 +66,8 @@ export interface CtaMinimalSeparatorProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -84,6 +86,7 @@ export interface CtaMinimalSeparatorProps {
  * ```
  */
 export function CtaMinimalSeparator({
+  sectionId = "cta-minimal-separator",
   text,
   actions,
   actionsSlot,
@@ -122,6 +125,7 @@ export function CtaMinimalSeparator({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

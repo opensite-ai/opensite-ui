@@ -138,6 +138,8 @@ export interface TeamContactCardsProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -171,6 +173,7 @@ export interface TeamContactCardsProps {
  * ```
  */
 export function TeamContactCards({
+  sectionId = "team-contact-cards",
   heading,
   description,
   members,
@@ -337,6 +340,7 @@ export function TeamContactCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

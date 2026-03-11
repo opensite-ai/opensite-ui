@@ -265,6 +265,8 @@ export interface LinkTreeBlockProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -304,6 +306,7 @@ export interface LinkTreeBlockProps {
  * ```
  */
 export function LinkTreeBlock({
+  sectionId = "link-tree-block",
   brandName,
   brandTagline,
   brandLogo,
@@ -816,6 +819,7 @@ export function LinkTreeBlock({
 
   return (
     <Section
+      id={sectionId}
       background={resolvedBackground}
       spacing={spacing}
       className={className}

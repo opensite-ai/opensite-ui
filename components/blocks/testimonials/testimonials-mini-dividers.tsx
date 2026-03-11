@@ -94,6 +94,8 @@ export interface TestimonialsMiniDividersProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -123,6 +125,7 @@ export interface TestimonialsMiniDividersProps {
  * ```
  */
 export function TestimonialsMiniDividers({
+  sectionId = "testimonials-mini-dividers",
   testimonials,
   testimonialsSlot,
   heading,
@@ -254,6 +257,7 @@ export function TestimonialsMiniDividers({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

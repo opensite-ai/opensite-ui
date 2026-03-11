@@ -118,6 +118,8 @@ export interface ComparisonTableTooltipsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -132,6 +134,7 @@ export interface ComparisonTableTooltipsProps {
  * feature matrices where some items need additional explanation.
  */
 export function ComparisonTableTooltips({
+  sectionId = "comparison-table-tooltips",
   heading,
   description,
   optionALabel,
@@ -257,6 +260,7 @@ export function ComparisonTableTooltips({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

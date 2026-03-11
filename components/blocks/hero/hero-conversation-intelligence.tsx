@@ -93,9 +93,12 @@ export interface HeroConversationIntelligenceProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroConversationIntelligence({
+  sectionId = "hero-conversation-intelligence",
   headingPrimary,
   description,
   actions,
@@ -142,6 +145,7 @@ export function HeroConversationIntelligence({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -78,6 +78,8 @@ export interface ProjectScrollRevealProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 interface ProjectItemProps {
@@ -256,6 +258,7 @@ const ProjectItem = ({
  * storytelling and interactive hover states create an engaging browsing experience.
  */
 export function ProjectScrollReveal({
+  sectionId = "project-scroll-reveal",
   heading,
   projects,
   projectsSlot,
@@ -296,6 +299,7 @@ export function ProjectScrollReveal({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

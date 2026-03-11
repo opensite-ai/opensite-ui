@@ -157,9 +157,12 @@ export interface HeroProductShowcaseFloatingProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroProductShowcaseFloating({
+  sectionId = "hero-product-showcase-floating",
   badgeText,
   badgeIcon,
   badgeSlot,
@@ -324,6 +327,7 @@ export function HeroProductShowcaseFloating({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

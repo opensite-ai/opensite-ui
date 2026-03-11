@@ -130,6 +130,8 @@ export interface CarouselScaleFocusProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -153,6 +155,7 @@ export interface CarouselScaleFocusProps {
  * ```
  */
 export function CarouselScaleFocus({
+  sectionId = "carousel-scale-focus",
   title,
   description,
   titleClassName,
@@ -287,6 +290,7 @@ export function CarouselScaleFocus({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

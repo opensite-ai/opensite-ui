@@ -108,9 +108,12 @@ export interface HeroAdCampaignExpertProps {
    * @default { desktop: 'mediaRight', mobile: 'mediaTop' }
    */
   directionConfig?: DirectionConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroAdCampaignExpert({
+  sectionId = "hero-ad-campaign-expert",
   heading,
   description,
   actions,
@@ -231,6 +234,7 @@ export function HeroAdCampaignExpert({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

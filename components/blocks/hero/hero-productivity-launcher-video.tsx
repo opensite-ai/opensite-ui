@@ -115,9 +115,12 @@ export interface HeroProductivityLauncherVideoProps {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroProductivityLauncherVideo({
+  sectionId = "hero-productivity-launcher-video",
   heading,
   description,
   actions,
@@ -214,6 +217,7 @@ export function HeroProductivityLauncherVideo({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

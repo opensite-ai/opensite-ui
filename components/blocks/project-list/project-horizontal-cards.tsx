@@ -100,6 +100,8 @@ export interface ProjectHorizontalCardsProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -112,6 +114,7 @@ export interface ProjectHorizontalCardsProps {
  * showcase where project context (client, role, year) is as important as the visual.
  */
 export function ProjectHorizontalCards({
+  sectionId = "project-horizontal-cards",
   heading,
   subheading,
   projects,
@@ -203,6 +206,7 @@ export function ProjectHorizontalCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

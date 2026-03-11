@@ -111,6 +111,8 @@ export interface ServicesListMinimalGridProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -133,6 +135,7 @@ export interface ServicesListMinimalGridProps {
  * ```
  */
 export function ServicesListMinimalGrid({
+  sectionId = "services-list-minimal-grid",
   heading,
   description,
   services,
@@ -226,6 +229,7 @@ export function ServicesListMinimalGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

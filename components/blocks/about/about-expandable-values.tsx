@@ -139,6 +139,8 @@ export interface AboutExpandableValuesProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -168,6 +170,7 @@ export interface AboutExpandableValuesProps {
  * ```
  */
 export function AboutExpandableValues({
+  sectionId = "about-expandable-values",
   badgeText,
   heading,
   description,
@@ -323,6 +326,7 @@ export function AboutExpandableValues({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

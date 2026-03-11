@@ -86,9 +86,12 @@ export interface AboutStatsSidebarProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function AboutStatsSidebar({
+  sectionId = "about-stats-sidebar",
   title,
   description,
   stats,
@@ -236,6 +239,7 @@ export function AboutStatsSidebar({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

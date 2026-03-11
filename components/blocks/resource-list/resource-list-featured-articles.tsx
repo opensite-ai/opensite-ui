@@ -131,6 +131,8 @@ export interface ResourceListFeaturedArticlesProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 interface FeaturedPostComponentProps {
@@ -234,6 +236,7 @@ const FeaturedPostComponent = ({
  * highlight a featured piece while providing easy access to other articles.
  */
 export function ResourceListFeaturedArticles({
+  sectionId = "resource-list-featured-articles",
   className,
   featuredPost,
   featuredPostSlot,
@@ -309,6 +312,7 @@ export function ResourceListFeaturedArticles({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

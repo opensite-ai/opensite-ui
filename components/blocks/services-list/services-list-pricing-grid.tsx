@@ -123,6 +123,8 @@ export interface ServicesListPricingGridProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -144,6 +146,7 @@ export interface ServicesListPricingGridProps {
  * ```
  */
 export function ServicesListPricingGrid({
+  sectionId = "services-list-pricing-grid",
   heading,
   description,
   services,
@@ -286,6 +289,7 @@ export function ServicesListPricingGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

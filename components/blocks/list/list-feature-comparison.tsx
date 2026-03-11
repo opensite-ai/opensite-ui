@@ -166,6 +166,8 @@ export interface ListFeatureComparisonProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -196,6 +198,7 @@ export interface ListFeatureComparisonProps {
  * ```
  */
 export function ListFeatureComparison({
+  sectionId = "list-feature-comparison",
   badge,
   badgeSlot,
   badgeClassName,
@@ -416,6 +419,7 @@ export function ListFeatureComparison({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

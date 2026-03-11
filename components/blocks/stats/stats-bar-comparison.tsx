@@ -160,6 +160,8 @@ export interface StatsBarComparisonProps {
    * Additional CSS classes for bar tracks
    */
   barTrackClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -187,6 +189,7 @@ export interface StatsBarComparisonProps {
  * ```
  */
 export function StatsBarComparison({
+  sectionId = "stats-bar-comparison",
   badge,
   badgeSlot,
   heading,
@@ -323,6 +326,7 @@ export function StatsBarComparison({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

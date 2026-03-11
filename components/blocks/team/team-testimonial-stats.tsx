@@ -137,6 +137,8 @@ export interface TeamTestimonialStatsProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -167,6 +169,7 @@ export interface TeamTestimonialStatsProps {
  * ```
  */
 export function TeamTestimonialStats({
+  sectionId = "team-testimonial-stats",
   heading,
   description,
   members,
@@ -318,6 +321,7 @@ export function TeamTestimonialStats({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

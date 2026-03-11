@@ -87,9 +87,12 @@ export interface HeroCenteredScreenshotProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroCenteredScreenshot({
+  sectionId = "hero-centered-screenshot",
   heading,
   description,
   actions,
@@ -143,6 +146,7 @@ export function HeroCenteredScreenshot({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

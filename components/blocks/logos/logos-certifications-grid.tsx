@@ -111,6 +111,8 @@ export interface LogosCertificationsGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -118,6 +120,7 @@ export interface LogosCertificationsGridProps {
  * Features a bordered card design with CTA button and 3-column logo grid.
  */
 export function LogosCertificationsGrid({
+  sectionId = "logos-certifications-grid",
   className,
   title,
   titleClassName,
@@ -185,6 +188,7 @@ export function LogosCertificationsGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

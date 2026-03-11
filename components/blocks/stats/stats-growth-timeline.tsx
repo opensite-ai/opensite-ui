@@ -200,6 +200,8 @@ export interface StatsGrowthTimelineProps {
    * Additional CSS classes for the future section
    */
   futureClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -220,6 +222,7 @@ export interface StatsGrowthTimelineProps {
  * ```
  */
 export function StatsGrowthTimeline({
+  sectionId = "stats-growth-timeline",
   badge,
   badgeSlot,
   heading,
@@ -463,6 +466,7 @@ export function StatsGrowthTimeline({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

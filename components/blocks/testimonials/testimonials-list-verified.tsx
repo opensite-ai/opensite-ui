@@ -106,6 +106,8 @@ export interface TestimonialsListVerifiedProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -135,6 +137,7 @@ export interface TestimonialsListVerifiedProps {
  * ```
  */
 export function TestimonialsListVerified({
+  sectionId = "testimonials-list-verified",
   reviews,
   reviewsSlot,
   heading,
@@ -261,6 +264,7 @@ export function TestimonialsListVerified({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -141,6 +141,8 @@ export interface FooterBackgroundCardProps {
   patternOpacity?: number;
   /** Optional Optix Flow configuration for @page-speed/img */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -152,6 +154,7 @@ export interface FooterBackgroundCardProps {
  * striking footer with a personal touch.
  */
 export function FooterBackgroundCard({
+  sectionId = "footer-background-card",
   logo,
   backgroundImage,
   profileImage,
@@ -204,6 +207,7 @@ export function FooterBackgroundCard({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

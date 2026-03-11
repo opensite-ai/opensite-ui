@@ -204,6 +204,8 @@ export interface HeroImageSliderProps {
    * Additional CSS classes for the grid layout
    */
   gridClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -211,6 +213,7 @@ export interface HeroImageSliderProps {
  * split layout with content on the left and a form card on the right.
  */
 export function HeroImageSlider({
+  sectionId = "hero-image-slider",
   eyebrow,
   heading,
   description,
@@ -369,6 +372,7 @@ export function HeroImageSlider({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

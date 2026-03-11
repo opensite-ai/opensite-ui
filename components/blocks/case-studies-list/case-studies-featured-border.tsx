@@ -142,6 +142,8 @@ export interface CaseStudiesFeaturedBorderProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -183,6 +185,7 @@ export interface CaseStudiesFeaturedBorderProps {
  * ```
  */
 export function CaseStudiesFeaturedBorder({
+  sectionId = "case-studies-featured-border",
   featuredCaseStudy,
   featuredSlot,
   caseStudies,
@@ -352,6 +355,7 @@ export function CaseStudiesFeaturedBorder({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

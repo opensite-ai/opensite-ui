@@ -179,6 +179,8 @@ export interface LinkPageGridCardsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -208,6 +210,7 @@ export interface LinkPageGridCardsProps {
  * ```
  */
 export function LinkPageGridCards({
+  sectionId = "link-page-grid-cards",
   name,
   bio,
   avatar,
@@ -510,6 +513,7 @@ export function LinkPageGridCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

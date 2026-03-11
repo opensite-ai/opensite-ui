@@ -111,6 +111,8 @@ export interface CaseStudyProseSidebarProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -140,6 +142,7 @@ export interface CaseStudyProseSidebarProps {
  * ```
  */
 export function CaseStudyProseSidebar({
+  sectionId = "case-study-prose-sidebar",
   heroImageSrc,
   heroImageAlt,
   heroMediaSlot,
@@ -290,6 +293,7 @@ export function CaseStudyProseSidebar({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(pattern && "overflow-visible", className)}

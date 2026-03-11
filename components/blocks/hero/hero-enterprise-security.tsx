@@ -106,9 +106,12 @@ export interface HeroEnterpriseSecurityProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroEnterpriseSecurity({
+  sectionId = "hero-enterprise-security",
   badge,
   badgeIcon,
   badgeClassName,
@@ -177,6 +180,7 @@ export function HeroEnterpriseSecurity({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

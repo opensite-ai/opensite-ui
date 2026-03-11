@@ -160,9 +160,12 @@ export interface FaqProfileSidebarProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqProfileSidebar({
+  sectionId = "faq-profile-sidebar",
   heading,
   description,
   items,
@@ -377,6 +380,7 @@ export function FaqProfileSidebar({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

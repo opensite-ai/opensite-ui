@@ -134,6 +134,8 @@ export interface CtaHeroFeatureCardsProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -158,6 +160,7 @@ export interface CtaHeroFeatureCardsProps {
  * ```
  */
 export function CtaHeroFeatureCards({
+  sectionId = "cta-hero-feature-cards",
   heading,
   description,
   actions,
@@ -275,6 +278,7 @@ export function CtaHeroFeatureCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

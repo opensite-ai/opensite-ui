@@ -185,6 +185,8 @@ export interface ContactEmergencyProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -200,6 +202,7 @@ export interface ContactEmergencyProps {
  * ```
  */
 export function ContactEmergency({
+  sectionId = "contact-emergency",
   heading,
   description,
   contactItems,
@@ -254,6 +257,7 @@ export function ContactEmergency({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

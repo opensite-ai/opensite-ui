@@ -125,9 +125,12 @@ export interface HeroStatsSocialProofProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroStatsSocialProof({
+  sectionId = "hero-stats-social-proof",
   badge,
   badgeIcon,
   heading,
@@ -204,6 +207,7 @@ export function HeroStatsSocialProof({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

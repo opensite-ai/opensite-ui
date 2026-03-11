@@ -133,6 +133,8 @@ export interface NavbarTabbedSectionsProps {
    * Layout variant for the navbar
    */
   layoutVariant?: NavbarLayoutVariant;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -145,6 +147,7 @@ export interface NavbarTabbedSectionsProps {
  * products with many features organized into logical categories.
  */
 export const NavbarTabbedSections = ({
+  sectionId = "navbar-tabbed-sections",
   logo,
   logoSlot,
   logoClassName,
@@ -393,6 +396,7 @@ export const NavbarTabbedSections = ({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

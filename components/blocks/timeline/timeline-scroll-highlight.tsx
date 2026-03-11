@@ -97,9 +97,12 @@ export interface TimelineScrollHighlightProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function TimelineScrollHighlight({
+  sectionId = "timeline-scroll-highlight",
   heading,
   items,
   className,
@@ -169,7 +172,7 @@ export function TimelineScrollHighlight({
   if (!items || items.length === 0) {
     return (
       <Section
-        id={id}
+        id={sectionId}
         background={background}
         spacing={spacing}
         className={className}

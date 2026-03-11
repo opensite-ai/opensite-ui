@@ -116,6 +116,8 @@ export interface ListServiceCategoryTableProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -143,6 +145,7 @@ export interface ListServiceCategoryTableProps {
  * ```
  */
 export function ListServiceCategoryTable({
+  sectionId = "list-service-category-table",
   heading,
   headingClassName,
   description,
@@ -242,6 +245,7 @@ export function ListServiceCategoryTable({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

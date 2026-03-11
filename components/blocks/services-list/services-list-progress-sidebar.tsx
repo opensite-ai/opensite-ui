@@ -119,6 +119,8 @@ export interface ServicesListProgressSidebarProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -139,6 +141,7 @@ export interface ServicesListProgressSidebarProps {
  * ```
  */
 export function ServicesListProgressSidebar({
+  sectionId = "services-list-progress-sidebar",
   sidebarHeading,
   sidebarDescription,
   primaryAction,
@@ -279,6 +282,7 @@ export function ServicesListProgressSidebar({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

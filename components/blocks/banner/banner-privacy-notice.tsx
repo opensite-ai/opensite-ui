@@ -86,6 +86,8 @@ export interface BannerPrivacyNoticeProps {
    * @default "default"
    */
   background?: SectionBackground;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -107,6 +109,7 @@ export interface BannerPrivacyNoticeProps {
  * ```
  */
 export function BannerPrivacyNotice({
+  sectionId = "banner-privacy-notice",
   icon,
   iconName,
   title,
@@ -209,7 +212,8 @@ export function BannerPrivacyNotice({
   }
 
   return (
-    <Section background={background} spacing="none" className={cn("border-t fixed bottom-0 left-0 right-0 z-50", className)}>
+    <Section
+      id={sectionId} background={background} spacing="none" className={cn("border-t fixed bottom-0 left-0 right-0 z-50", className)}>
       <div className={cn("flex items-start justify-between gap-4 max-w-7xl mx-auto px-4 py-4", containerClassName)}>
         <div className={cn("flex items-start gap-4", contentClassName)}>
           {iconContent}

@@ -251,6 +251,8 @@ export interface PricingTogglePeriodProps {
    * Additional CSS classes for the action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -272,6 +274,7 @@ export interface PricingTogglePeriodProps {
  * ```
  */
 export function PricingTogglePeriod({
+  sectionId = "pricing-toggle-period",
   title,
   subtitle,
   periods = [],
@@ -515,6 +518,7 @@ export function PricingTogglePeriod({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

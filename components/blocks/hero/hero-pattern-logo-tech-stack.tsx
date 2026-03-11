@@ -105,9 +105,12 @@ export interface HeroPatternLogoTechStackProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroPatternLogoTechStack({
+  sectionId = "hero-pattern-logo-tech-stack",
   logo,
   logoSlot,
   heading,
@@ -246,6 +249,7 @@ export function HeroPatternLogoTechStack({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

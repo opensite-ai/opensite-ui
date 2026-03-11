@@ -122,6 +122,8 @@ export interface NavbarFeatureGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -133,6 +135,7 @@ export interface NavbarFeatureGridProps {
  * with multiple feature categories.
  */
 export const NavbarFeatureGrid = ({
+  sectionId = "navbar-feature-grid",
   className,
   containerClassName,
   navClassName,
@@ -193,6 +196,7 @@ export const NavbarFeatureGrid = ({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

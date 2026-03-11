@@ -279,6 +279,8 @@ export interface PricingComparisonTableProps {
    * Additional CSS classes for table cells
    */
   tableCellClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -303,6 +305,7 @@ export interface PricingComparisonTableProps {
  * ```
  */
 export function PricingComparisonTable({
+  sectionId = "pricing-comparison-table",
   title,
   subtitle,
   plans = [],
@@ -605,6 +608,7 @@ export function PricingComparisonTable({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

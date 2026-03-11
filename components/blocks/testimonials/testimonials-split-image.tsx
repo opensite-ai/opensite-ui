@@ -89,6 +89,8 @@ export interface TestimonialsSplitImageProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -116,6 +118,7 @@ export interface TestimonialsSplitImageProps {
  * ```
  */
 export function TestimonialsSplitImage({
+  sectionId = "testimonials-split-image",
   testimonial,
   testimonialSlot,
   imageSrc,
@@ -243,6 +246,7 @@ export function TestimonialsSplitImage({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

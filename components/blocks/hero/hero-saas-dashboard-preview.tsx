@@ -154,9 +154,12 @@ export interface HeroSaasDashboardPreviewProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroSaasDashboardPreview({
+  sectionId = "hero-saas-dashboard-preview",
   badgeText,
   badgeIcon,
   badgeSlot,
@@ -350,6 +353,7 @@ export function HeroSaasDashboardPreview({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -61,6 +61,8 @@ export interface ProjectDetailHoverGalleryProps {
   titleClassName?: string;
   /** Additional CSS classes for the gallery grid */
   galleryClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -74,6 +76,7 @@ export function ProjectDetailHoverGallery(
   props: ProjectDetailHoverGalleryProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -94,6 +97,7 @@ export function ProjectDetailHoverGallery(
     titleClassName,
     galleryClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-hover-gallery";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -128,6 +132,7 @@ export function ProjectDetailHoverGallery(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

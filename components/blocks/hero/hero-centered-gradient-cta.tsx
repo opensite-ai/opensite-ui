@@ -100,9 +100,12 @@ export interface HeroCenteredGradientCtaProps {
    * Additional CSS classes for the features container
    */
   featuresClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroCenteredGradientCta({
+  sectionId = "hero-centered-gradient-cta",
   badge,
   badgeIcon,
   heading,
@@ -142,6 +145,7 @@ export function HeroCenteredGradientCta({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

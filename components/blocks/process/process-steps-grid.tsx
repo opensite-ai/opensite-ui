@@ -111,12 +111,15 @@ export interface ProcessStepsGridProps {
    * @deprecated Use `heading` instead
    */
   title?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
  * ProcessStepsGrid - A grid-based process section with numbered step cards.
  */
 export function ProcessStepsGrid({
+  sectionId = "process-steps-grid",
   heading,
   description,
   steps,
@@ -209,6 +212,7 @@ export function ProcessStepsGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

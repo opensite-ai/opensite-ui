@@ -179,6 +179,8 @@ export interface PricingDiscountCardProps {
    * Additional CSS classes for the action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -202,6 +204,7 @@ export interface PricingDiscountCardProps {
  * ```
  */
 export function PricingDiscountCard({
+  sectionId = "pricing-discount-card",
   title,
   description,
   originalPrice,
@@ -335,6 +338,7 @@ export function PricingDiscountCard({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

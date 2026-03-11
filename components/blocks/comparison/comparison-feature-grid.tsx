@@ -93,6 +93,8 @@ export interface ComparisonFeatureGridProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -107,6 +109,7 @@ export interface ComparisonFeatureGridProps {
  * matrices, technology stack evaluations.
  */
 export function ComparisonFeatureGrid({
+  sectionId = "comparison-feature-grid",
   heading,
   description,
   optionALabel,
@@ -227,6 +230,7 @@ export function ComparisonFeatureGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

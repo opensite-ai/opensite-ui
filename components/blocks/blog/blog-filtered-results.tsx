@@ -165,6 +165,8 @@ export interface BlogFilteredResultsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const POSTS_PER_PAGE = 6;
@@ -306,6 +308,7 @@ const BreadcrumbBlog = React.memo(function BreadcrumbBlog({
 });
 
 export function BlogFilteredResultsComponent({
+  sectionId = "blog-filtered-results",
   heading,
   description,
   allContentHeading,
@@ -478,6 +481,7 @@ export function BlogFilteredResultsComponent({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

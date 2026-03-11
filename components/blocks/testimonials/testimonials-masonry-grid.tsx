@@ -96,6 +96,8 @@ export interface TestimonialsMasonryGridProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -124,6 +126,7 @@ export interface TestimonialsMasonryGridProps {
  * ```
  */
 export function TestimonialsMasonryGrid({
+  sectionId = "testimonials-masonry-grid",
   testimonials,
   testimonialsSlot,
   heading,
@@ -266,6 +269,7 @@ export function TestimonialsMasonryGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

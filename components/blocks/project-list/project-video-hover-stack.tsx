@@ -79,6 +79,8 @@ export interface ProjectVideoHoverStackProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 interface VideoSectionProps {
@@ -180,6 +182,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
  * or any portfolio showcasing video content with an immersive, cinematic presentation.
  */
 export function ProjectVideoHoverStack({
+  sectionId = "project-video-hover-stack",
   heading,
   subheading,
   videoSections,
@@ -215,6 +218,7 @@ export function ProjectVideoHoverStack({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -153,9 +153,12 @@ export interface CarouselPortfolioHeroProps {
    * Brightness level for slide images (deprecated - prefer slideMediaOverlayIntensity)
    */
   slideMediaBrightness?: "10" | "20" | "25" | "30" | "40" | "50" | "75" | "100";
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function CarouselPortfolioHero({
+  sectionId = "carousel-portfolio-hero",
   slides,
   slidesSlot,
   actions,
@@ -218,6 +221,7 @@ export function CarouselPortfolioHero({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn("relative h-screen w-full overflow-hidden", className)}

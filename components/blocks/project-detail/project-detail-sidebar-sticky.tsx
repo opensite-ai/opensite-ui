@@ -66,6 +66,8 @@ export interface ProjectDetailSidebarStickyProps {
   imagesClassName?: string;
   /** Additional CSS classes for the related projects section */
   relatedProjectsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 function ImageBlock({
@@ -177,6 +179,7 @@ export function ProjectDetailSidebarSticky(
   props: ProjectDetailSidebarStickyProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     category,
@@ -199,9 +202,11 @@ export function ProjectDetailSidebarSticky(
     imagesClassName,
     relatedProjectsClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-sidebar-sticky";
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

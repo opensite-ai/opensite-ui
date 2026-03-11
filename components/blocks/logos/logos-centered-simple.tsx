@@ -92,6 +92,8 @@ export interface LogosCenteredSimpleProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -99,6 +101,7 @@ export interface LogosCenteredSimpleProps {
  * Features grayscale logos with hover effects for color reveal.
  */
 export function LogosCenteredSimple({
+  sectionId = "logos-centered-simple",
   className,
   title,
   titleClassName,
@@ -142,6 +145,7 @@ export function LogosCenteredSimple({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

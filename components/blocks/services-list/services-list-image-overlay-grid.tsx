@@ -121,6 +121,8 @@ export interface ServicesListImageOverlayGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -141,6 +143,7 @@ export interface ServicesListImageOverlayGridProps {
  * ```
  */
 export function ServicesListImageOverlayGrid({
+  sectionId = "services-list-image-overlay-grid",
   heading,
   description,
   primaryAction,
@@ -248,6 +251,7 @@ export function ServicesListImageOverlayGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

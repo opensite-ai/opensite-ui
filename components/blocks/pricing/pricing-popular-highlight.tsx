@@ -241,6 +241,8 @@ export interface PricingPopularHighlightProps {
    * Additional CSS classes for the action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -262,6 +264,7 @@ export interface PricingPopularHighlightProps {
  * ```
  */
 export function PricingPopularHighlight({
+  sectionId = "pricing-popular-highlight",
   heading,
   subtitle,
   monthlyLabel,
@@ -502,6 +505,7 @@ export function PricingPopularHighlight({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -192,6 +192,8 @@ export interface ResourceListFeaturedGridProps {
    * Label for the "All" category in the filter tabs (defaults to "All")
    */
   allCategoryLabel?: React.ReactNode;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -210,6 +212,7 @@ export interface ResourceListFeaturedGridProps {
  * content while providing easy category-based navigation.
  */
 export function ResourceListFeaturedGrid({
+  sectionId = "resource-list-featured-grid",
   className,
   title,
   titleClassName,
@@ -443,6 +446,7 @@ export function ResourceListFeaturedGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

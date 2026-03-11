@@ -127,6 +127,8 @@ export interface ListCareerTimelineProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -154,6 +156,7 @@ export interface ListCareerTimelineProps {
  * ```
  */
 export function ListCareerTimeline({
+  sectionId = "list-career-timeline",
   sectionLabel,
   sectionLabelClassName,
   heading,
@@ -263,6 +266,7 @@ export function ListCareerTimeline({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

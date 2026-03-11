@@ -82,9 +82,12 @@ export interface HeroFullscreenBackgroundImageProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroFullscreenBackgroundImage({
+  sectionId = "hero-fullscreen-background-image",
   heading,
   description,
   actions,
@@ -121,6 +124,7 @@ export function HeroFullscreenBackgroundImage({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

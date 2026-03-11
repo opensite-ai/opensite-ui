@@ -113,6 +113,8 @@ export interface ProcessStickyStepsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const CornerIllustration = (props: React.SVGProps<SVGSVGElement>) => {
@@ -150,6 +152,7 @@ const CornerIllustration = (props: React.SVGProps<SVGSVGElement>) => {
  * description, and CTA, with scrollable steps on the right side.
  */
 export function ProcessStickySteps({
+  sectionId = "process-sticky-steps",
   heading,
   description,
   actions,
@@ -259,6 +262,7 @@ export function ProcessStickySteps({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

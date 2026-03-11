@@ -123,12 +123,15 @@ export interface ProcessIconTimelineProps {
    * @deprecated Use `heading` instead
    */
   title?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
  * ProcessIconTimeline - A process section with icon-based timeline steps.
  */
 export function ProcessIconTimeline({
+  sectionId = "process-icon-timeline",
   heading,
   description,
   steps,
@@ -246,6 +249,7 @@ export function ProcessIconTimeline({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

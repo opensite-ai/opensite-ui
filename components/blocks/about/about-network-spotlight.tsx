@@ -125,6 +125,8 @@ export interface AboutNetworkSpotlightProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -132,6 +134,7 @@ export interface AboutNetworkSpotlightProps {
  * Ideal for partner programs, network invitations, or alliance highlights.
  */
 export function AboutNetworkSpotlight({
+  sectionId = "about-network-spotlight",
   eyebrow,
   heading,
   description,
@@ -232,6 +235,7 @@ export function AboutNetworkSpotlight({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

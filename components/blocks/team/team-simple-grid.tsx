@@ -101,6 +101,8 @@ export interface TeamSimpleGridProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -123,6 +125,7 @@ export interface TeamSimpleGridProps {
  * ```
  */
 export function TeamSimpleGrid({
+  sectionId = "team-simple-grid",
   heading,
   description,
   members,
@@ -182,6 +185,7 @@ export function TeamSimpleGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

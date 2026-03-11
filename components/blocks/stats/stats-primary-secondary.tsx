@@ -117,6 +117,8 @@ export interface StatsPrimarySecondaryProps {
    * Additional CSS classes for secondary stat labels
    */
   secondaryLabelClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -140,6 +142,7 @@ export interface StatsPrimarySecondaryProps {
  * ```
  */
 export function StatsPrimarySecondary({
+  sectionId = "stats-primary-secondary",
   primaryValue,
   primaryBadge,
   primaryBadgeSlot,
@@ -262,6 +265,7 @@ export function StatsPrimarySecondary({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -129,6 +129,8 @@ export interface StatsIconCardsProps {
    * Additional CSS classes for stat icons
    */
   statIconClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -151,6 +153,7 @@ export interface StatsIconCardsProps {
  * ```
  */
 export function StatsIconCards({
+  sectionId = "stats-icon-cards",
   heading,
   description,
   stats,
@@ -264,6 +267,7 @@ export function StatsIconCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

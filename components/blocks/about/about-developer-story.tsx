@@ -125,9 +125,12 @@ export interface AboutDeveloperStoryProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function AboutDeveloperStory({
+  sectionId = "about-developer-story",
   className,
   title,
   titleClassName,
@@ -272,6 +275,7 @@ export function AboutDeveloperStory({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

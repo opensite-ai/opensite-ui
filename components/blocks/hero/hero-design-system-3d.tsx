@@ -102,9 +102,12 @@ export interface HeroDesignSystem3dProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroDesignSystem3d({
+  sectionId = "hero-design-system-3d",
   trustBadge,
   trustBadgeSlot,
   heading,
@@ -208,6 +211,7 @@ export function HeroDesignSystem3d({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

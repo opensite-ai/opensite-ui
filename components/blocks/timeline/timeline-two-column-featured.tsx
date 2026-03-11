@@ -117,9 +117,12 @@ export interface TimelineTwoColumnFeaturedProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function TimelineTwoColumnFeatured({
+  sectionId = "timeline-two-column-featured",
   heading,
   description,
   primaryAction,
@@ -182,7 +185,7 @@ export function TimelineTwoColumnFeatured({
 
   return (
     <Section
-      id={id}
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

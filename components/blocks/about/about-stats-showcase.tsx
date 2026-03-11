@@ -168,9 +168,12 @@ export interface AboutStatsShowcaseProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function AboutStatsShowcase({
+  sectionId = "about-stats-showcase",
   className,
   title,
   titleClassName,
@@ -440,6 +443,7 @@ export function AboutStatsShowcase({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

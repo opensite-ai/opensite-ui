@@ -134,6 +134,8 @@ export interface TeamRoleFilterProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -163,6 +165,7 @@ export interface TeamRoleFilterProps {
  * ```
  */
 export function TeamRoleFilter({
+  sectionId = "team-role-filter",
   heading,
   description,
   members,
@@ -307,6 +310,7 @@ export function TeamRoleFilter({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -121,6 +121,8 @@ export interface CtaEnterpriseDarkFeaturesProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -144,6 +146,7 @@ export interface CtaEnterpriseDarkFeaturesProps {
  * ```
  */
 export function CtaEnterpriseDarkFeatures({
+  sectionId = "cta-enterprise-dark-features",
   heading,
   description,
   actions,
@@ -240,6 +243,7 @@ export function CtaEnterpriseDarkFeatures({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

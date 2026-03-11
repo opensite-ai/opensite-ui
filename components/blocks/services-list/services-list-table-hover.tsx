@@ -116,6 +116,8 @@ export interface ServicesListTableHoverProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -136,6 +138,7 @@ export interface ServicesListTableHoverProps {
  * ```
  */
 export function ServicesListTableHover({
+  sectionId = "services-list-table-hover",
   heading,
   description,
   services,
@@ -244,6 +247,7 @@ export function ServicesListTableHover({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

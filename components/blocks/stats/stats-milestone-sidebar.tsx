@@ -115,6 +115,8 @@ export interface StatsMilestoneSidebarProps {
    * Additional CSS classes for milestone descriptions
    */
   milestoneDescriptionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -136,6 +138,7 @@ export interface StatsMilestoneSidebarProps {
  * ```
  */
 export function StatsMilestoneSidebar({
+  sectionId = "stats-milestone-sidebar",
   heading,
   description,
   sidebarSlot,
@@ -285,6 +288,7 @@ export function StatsMilestoneSidebar({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

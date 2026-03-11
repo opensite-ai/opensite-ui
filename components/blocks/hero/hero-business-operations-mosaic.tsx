@@ -89,9 +89,12 @@ export interface HeroBusinessOperationsMosaicProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroBusinessOperationsMosaic({
+  sectionId = "hero-business-operations-mosaic",
   heading,
   description,
   descriptionClassName,
@@ -168,6 +171,7 @@ export function HeroBusinessOperationsMosaic({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

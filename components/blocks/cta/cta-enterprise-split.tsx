@@ -118,6 +118,8 @@ export interface CtaEnterpriseSplitProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -141,6 +143,7 @@ export interface CtaEnterpriseSplitProps {
  * ```
  */
 export function CtaEnterpriseSplit({
+  sectionId = "cta-enterprise-split",
   heading,
   description,
   actions,
@@ -243,6 +246,7 @@ export function CtaEnterpriseSplit({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

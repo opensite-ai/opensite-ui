@@ -88,9 +88,12 @@ export interface HeroTechCarouselProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroTechCarousel({
+  sectionId = "hero-tech-carousel",
   heading,
   description,
   technologies,
@@ -196,6 +199,7 @@ export function HeroTechCarousel({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

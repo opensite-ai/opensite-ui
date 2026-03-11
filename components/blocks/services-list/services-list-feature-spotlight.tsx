@@ -124,6 +124,8 @@ export interface ServicesListFeatureSpotlightProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -145,6 +147,7 @@ export interface ServicesListFeatureSpotlightProps {
  * ```
  */
 export function ServicesListFeatureSpotlight({
+  sectionId = "services-list-feature-spotlight",
   heading,
   subheading,
   features,
@@ -273,6 +276,7 @@ export function ServicesListFeatureSpotlight({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

@@ -94,9 +94,12 @@ export interface HeroPlatformFeaturesGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroPlatformFeaturesGrid({
+  sectionId = "hero-platform-features-grid",
   logo,
   logoSlot,
   subtitle,
@@ -201,6 +204,7 @@ export function HeroPlatformFeaturesGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -106,6 +106,8 @@ export interface FooterComprehensiveLinksProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -114,6 +116,7 @@ export interface FooterComprehensiveLinksProps {
  * and a bottom legal bar with links.
  */
 export function FooterComprehensiveLinks({
+  sectionId = "footer-comprehensive-links",
   logoSrc,
   logoAlt,
   logoHref,
@@ -136,6 +139,7 @@ export function FooterComprehensiveLinks({
 }: FooterComprehensiveLinksProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

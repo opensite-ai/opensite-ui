@@ -67,6 +67,8 @@ export interface ProjectDetailListRelatedProps {
   imagesClassName?: string;
   /** Additional CSS classes for the related projects section */
   relatedClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -80,6 +82,7 @@ export function ProjectDetailListRelated(
   props: ProjectDetailListRelatedProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     category,
@@ -101,6 +104,7 @@ export function ProjectDetailListRelated(
     imagesClassName,
     relatedClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-list-related";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -135,6 +139,7 @@ export function ProjectDetailListRelated(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

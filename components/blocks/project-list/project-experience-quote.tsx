@@ -87,6 +87,8 @@ export interface ProjectExperienceQuoteProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -100,6 +102,7 @@ export interface ProjectExperienceQuoteProps {
  * history needs to be presented alongside endorsements.
  */
 export function ProjectExperienceQuote({
+  sectionId = "project-experience-quote",
   heading,
   subheading,
   experiences,
@@ -215,6 +218,7 @@ export function ProjectExperienceQuote({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

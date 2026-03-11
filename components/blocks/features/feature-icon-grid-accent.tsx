@@ -116,6 +116,8 @@ export interface FeatureIconGridAccentProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -139,6 +141,7 @@ export interface FeatureIconGridAccentProps {
  * ```
  */
 export function FeatureIconGridAccent({
+  sectionId = "feature-icon-grid-accent",
   label,
   title,
   description,
@@ -217,6 +220,7 @@ export function FeatureIconGridAccent({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

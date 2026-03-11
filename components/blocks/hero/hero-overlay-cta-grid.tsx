@@ -132,6 +132,8 @@ export interface HeroOverlayCtaGridProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -140,6 +142,7 @@ export interface HeroOverlayCtaGridProps {
  * need a strong hero statement plus quick navigation to top offerings.
  */
 export function HeroOverlayCtaGrid({
+  sectionId = "hero-overlay-cta-grid",
   badgeText,
   badgeIcon,
   badgeSlot,
@@ -251,6 +254,7 @@ export function HeroOverlayCtaGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

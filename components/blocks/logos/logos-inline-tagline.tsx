@@ -76,6 +76,8 @@ export interface LogosInlineTaglineProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -83,6 +85,7 @@ export interface LogosInlineTaglineProps {
  * Features grayscale logos with a prominent tagline for social proof.
  */
 export function LogosInlineTagline({
+  sectionId = "logos-inline-tagline",
   className,
   containerClassName,
   tagline,
@@ -115,6 +118,7 @@ export function LogosInlineTagline({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

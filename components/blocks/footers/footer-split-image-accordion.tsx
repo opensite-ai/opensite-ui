@@ -235,6 +235,8 @@ export interface FooterSplitImageAccordionProps {
    * Custom slot for the form (overrides form props)
    */
   formSlot?: React.ReactNode;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -267,6 +269,7 @@ export interface FooterSplitImageAccordionProps {
  * ```
  */
 export function FooterSplitImageAccordion({
+  sectionId = "footer-split-image-accordion",
   newsletterTitle,
   footerLinks,
   socialLinks,
@@ -343,6 +346,7 @@ export function FooterSplitImageAccordion({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

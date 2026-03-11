@@ -116,6 +116,8 @@ export interface FeatureAnimatedCarouselProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 interface ControlsProps {
@@ -439,6 +441,7 @@ const FeaturesMobile = React.memo(
  * ```
  */
 export function FeatureAnimatedCarousel({
+  sectionId = "feature-animated-carousel",
   title,
   description,
   titleClassName,
@@ -504,6 +507,7 @@ export function FeatureAnimatedCarousel({
   if (!features || features.length === 0) {
     return (
       <Section
+        id={sectionId}
         background={background}
         spacing={spacing}
         pattern={pattern}

@@ -198,9 +198,12 @@ export interface ArticleTocSidebarProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function ArticleTocSidebarComponent({
+  sectionId = "article-toc-sidebar",
   className,
   articleClassName,
   sidebarClassName,
@@ -432,6 +435,7 @@ export function ArticleTocSidebarComponent({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -81,6 +81,8 @@ export interface ProjectFilterableGalleryProps {
    * Additional CSS classes for the empty state
    */
   emptyStateClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -94,6 +96,7 @@ export interface ProjectFilterableGalleryProps {
  * category-based filtering.
  */
 export function ProjectFilterableGallery({
+  sectionId = "project-filterable-gallery",
   projects,
   projectsSlot,
   categories,
@@ -175,6 +178,7 @@ export function ProjectFilterableGallery({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

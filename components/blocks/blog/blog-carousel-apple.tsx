@@ -99,6 +99,8 @@ export interface BlogCarouselAppleProps {
    * Additional CSS classes for individual cards
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -119,6 +121,7 @@ export interface BlogCarouselAppleProps {
  * ```
  */
 export function BlogCarouselAppleComponent({
+  sectionId = "blog-carousel-apple",
   title,
   subtitle,
   posts,
@@ -194,6 +197,7 @@ export function BlogCarouselAppleComponent({
 
   return (
     <Section
+      id={sectionId}
       title={title}
       subtitle={subtitle}
       background={background}

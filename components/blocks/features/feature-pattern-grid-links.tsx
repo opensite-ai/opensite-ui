@@ -125,6 +125,8 @@ export interface FeaturePatternGridLinksProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -145,6 +147,7 @@ export interface FeaturePatternGridLinksProps {
  * ```
  */
 export function FeaturePatternGridLinks({
+  sectionId = "feature-pattern-grid-links",
   title,
   description,
   titleClassName,
@@ -268,6 +271,7 @@ export function FeaturePatternGridLinks({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

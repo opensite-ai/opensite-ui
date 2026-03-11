@@ -108,9 +108,12 @@ export interface HeroTherapyTestimonialGridProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroTherapyTestimonialGrid({
+  sectionId = "hero-therapy-testimonial-grid",
   heading,
   description,
   actions,
@@ -214,6 +217,7 @@ export function HeroTherapyTestimonialGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

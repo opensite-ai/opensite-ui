@@ -123,6 +123,8 @@ export interface CarouselAutoplayProgressProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 // Hook for dot button navigation
@@ -254,6 +256,7 @@ function useAutoplayProgress(
 }
 
 export function CarouselAutoplayProgress({
+  sectionId = "carousel-autoplay-progress",
   slides,
   slidesSlot,
   options,
@@ -286,6 +289,7 @@ export function CarouselAutoplayProgress({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

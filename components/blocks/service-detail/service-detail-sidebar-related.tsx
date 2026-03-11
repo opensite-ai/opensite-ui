@@ -80,9 +80,12 @@ export interface ServiceDetailSidebarRelatedProps {
   pattern?: PatternName | undefined;
   patternOpacity?: number;
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function ServiceDetailSidebarRelated({
+  sectionId = "service-detail-sidebar-related",
   title,
   titleClassName,
   serviceIcon,
@@ -322,6 +325,7 @@ export function ServiceDetailSidebarRelated({
 
   return (
     <Section
+      id={sectionId}
       className={className}
       background={background}
       spacing={spacing}

@@ -100,9 +100,12 @@ export interface HeroCustomerSupportLayeredProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroCustomerSupportLayered({
+  sectionId = "hero-customer-support-layered",
   tagline,
   heading,
   description,
@@ -172,6 +175,7 @@ export function HeroCustomerSupportLayered({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

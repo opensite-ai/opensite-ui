@@ -137,9 +137,12 @@ export interface AboutStartupTeamProps {
    * Label for the "All" tab (defaults to "All")
    */
   allTabLabel?: React.ReactNode;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function AboutStartupTeam({
+  sectionId = "about-startup-team",
   className,
   title,
   titleClassName,
@@ -347,6 +350,7 @@ export function AboutStartupTeam({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

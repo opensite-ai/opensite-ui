@@ -127,6 +127,8 @@ export interface LogosPartnerGridSidebarProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -134,6 +136,7 @@ export interface LogosPartnerGridSidebarProps {
  * Features a sticky sidebar with year milestones and a responsive partner logo grid.
  */
 export function LogosPartnerGridSidebar({
+  sectionId = "logos-partner-grid-sidebar",
   className,
   sidebarTitle,
   sidebarTitleClassName,
@@ -212,6 +215,7 @@ export function LogosPartnerGridSidebar({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -130,9 +130,12 @@ export interface AboutMissionFeaturesProps {
    * Additional CSS classes for the header
    */
   headerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function AboutMissionFeatures({
+  sectionId = "about-mission-features",
   title,
   description,
   missionLabel,
@@ -249,6 +252,7 @@ export function AboutMissionFeatures({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

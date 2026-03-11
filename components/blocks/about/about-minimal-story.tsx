@@ -91,9 +91,12 @@ export interface AboutMinimalStoryProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function AboutMinimalStory({
+  sectionId = "about-minimal-story",
   title,
   content,
   author,
@@ -144,6 +147,7 @@ export function AboutMinimalStory({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

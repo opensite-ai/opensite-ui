@@ -140,6 +140,8 @@ export interface CaseStudiesTestimonialStatsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -173,6 +175,7 @@ export interface CaseStudiesTestimonialStatsProps {
  * ```
  */
 export function CaseStudiesTestimonialStats({
+  sectionId = "case-studies-testimonial-stats",
   heading,
   subheading,
   testimonials,
@@ -297,6 +300,7 @@ export function CaseStudiesTestimonialStats({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

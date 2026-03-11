@@ -150,9 +150,12 @@ export interface ArticleSplitAnimatedProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function ArticleSplitAnimatedComponent({
+  sectionId = "article-split-animated",
   className,
   imageContainerClassName,
   contentClassName,
@@ -310,6 +313,7 @@ export function ArticleSplitAnimatedComponent({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

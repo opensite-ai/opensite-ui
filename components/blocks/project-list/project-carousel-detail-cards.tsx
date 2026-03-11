@@ -89,6 +89,8 @@ export interface ProjectCarouselDetailCardsProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -101,6 +103,7 @@ export interface ProjectCarouselDetailCardsProps {
  * or any showcase where comprehensive project information is important alongside visuals.
  */
 export function ProjectCarouselDetailCards({
+  sectionId = "project-carousel-detail-cards",
   heading,
   subheading,
   projects,
@@ -192,6 +195,7 @@ export function ProjectCarouselDetailCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -84,6 +84,8 @@ export interface HeroWelcomeAsymmetricImagesProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -91,6 +93,7 @@ export interface HeroWelcomeAsymmetricImagesProps {
  * and an asymmetric 2x2 image grid. Ideal for welcoming visitors with visual impact.
  */
 export function HeroWelcomeAsymmetricImages({
+  sectionId = "hero-welcome-asymmetric-images",
   heading,
   description,
   actions,
@@ -151,6 +154,7 @@ export function HeroWelcomeAsymmetricImages({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

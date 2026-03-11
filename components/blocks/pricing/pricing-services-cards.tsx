@@ -216,6 +216,8 @@ export interface PricingServicesCardsProps {
    * Additional CSS classes for the action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -236,6 +238,7 @@ export interface PricingServicesCardsProps {
  * ```
  */
 export function PricingServicesCards({
+  sectionId = "pricing-services-cards",
   heading,
   subtitle,
   plans,
@@ -477,6 +480,7 @@ export function PricingServicesCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

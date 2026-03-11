@@ -123,9 +123,12 @@ export interface FaqBadgeSupportProps {
    * Additional CSS classes for the support section
    */
   supportSectionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqBadgeSupport({
+  sectionId = "faq-badge-support",
   badge,
   heading,
   description,
@@ -283,6 +286,7 @@ export function FaqBadgeSupport({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

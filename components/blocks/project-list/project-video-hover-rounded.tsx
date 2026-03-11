@@ -83,6 +83,8 @@ export interface ProjectVideoHoverRoundedProps {
    * Additional CSS classes for each video card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 interface VideoSectionProps {
@@ -185,6 +187,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
  * presentation of video content.
  */
 export function ProjectVideoHoverRounded({
+  sectionId = "project-video-hover-rounded",
   heading,
   subheading,
   videoSections,
@@ -221,6 +224,7 @@ export function ProjectVideoHoverRounded({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

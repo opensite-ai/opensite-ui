@@ -115,6 +115,8 @@ export interface ComparisonTableTwoColumnProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -128,6 +130,7 @@ export interface ComparisonTableTwoColumnProps {
  * feature-by-feature breakdowns where one option is clearly preferred.
  */
 export function ComparisonTableTwoColumn({
+  sectionId = "comparison-table-two-column",
   heading,
   description,
   rows,
@@ -267,6 +270,7 @@ export function ComparisonTableTwoColumn({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

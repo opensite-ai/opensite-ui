@@ -123,9 +123,12 @@ export interface HeroDeveloperToolsCodeProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroDeveloperToolsCode({
+  sectionId = "hero-developer-tools-code",
   badgeText,
   badgeIcon,
   badgeSlot,
@@ -205,6 +208,7 @@ export function HeroDeveloperToolsCode({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

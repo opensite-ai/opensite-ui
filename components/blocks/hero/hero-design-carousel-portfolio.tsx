@@ -114,9 +114,12 @@ export interface HeroDesignCarouselPortfolioProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroDesignCarouselPortfolio({
+  sectionId = "hero-design-carousel-portfolio",
   logo,
   logoSlot,
   features,
@@ -223,6 +226,7 @@ export function HeroDesignCarouselPortfolio({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

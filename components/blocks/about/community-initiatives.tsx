@@ -180,6 +180,8 @@ export interface CommunityInitiativesProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -207,6 +209,7 @@ export interface CommunityInitiativesProps {
  * ```
  */
 export function CommunityInitiatives({
+  sectionId = "community-initiatives",
   badgeText,
   heading,
   description,
@@ -406,6 +409,7 @@ export function CommunityInitiatives({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

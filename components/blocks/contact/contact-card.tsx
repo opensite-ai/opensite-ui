@@ -161,6 +161,8 @@ export interface ContactCardProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -181,6 +183,7 @@ export interface ContactCardProps {
  * ```
  */
 export function ContactCard({
+  sectionId = "contact-card",
   heading = "Get In Touch",
   description = "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
   contactOptions,
@@ -254,6 +257,7 @@ export function ContactCard({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

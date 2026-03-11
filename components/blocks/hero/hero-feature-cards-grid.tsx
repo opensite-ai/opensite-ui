@@ -84,9 +84,12 @@ export interface HeroFeatureCardsGridProps {
    * Additional CSS classes for the features container
    */
   featuresClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroFeatureCardsGrid({
+  sectionId = "hero-feature-cards-grid",
   heading,
   description,
   actions,
@@ -148,6 +151,7 @@ export function HeroFeatureCardsGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

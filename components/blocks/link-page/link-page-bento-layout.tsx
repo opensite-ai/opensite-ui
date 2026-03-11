@@ -214,6 +214,8 @@ export interface LinkPageBentoLayoutProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -250,6 +252,7 @@ export interface LinkPageBentoLayoutProps {
  * ```
  */
 export function LinkPageBentoLayout({
+  sectionId = "link-page-bento-layout",
   name,
   bio,
   avatar,
@@ -690,6 +693,7 @@ export function LinkPageBentoLayout({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

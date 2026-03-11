@@ -152,9 +152,12 @@ export interface ArticleSidebarStickyProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function ArticleSidebarStickyComponent({
+  sectionId = "article-sidebar-sticky",
   className,
   sidebarClassName,
   articleClassName,
@@ -271,6 +274,7 @@ export function ArticleSidebarStickyComponent({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

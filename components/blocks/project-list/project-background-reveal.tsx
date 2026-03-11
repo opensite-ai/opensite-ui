@@ -100,6 +100,8 @@ export interface ProjectBackgroundRevealProps {
    * Additional CSS classes for each project card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -114,6 +116,7 @@ export interface ProjectBackgroundRevealProps {
  * immersive imagery and detailed descriptions work together.
  */
 export function ProjectBackgroundReveal({
+  sectionId = "project-background-reveal",
   heading,
   subheading,
   description,
@@ -188,6 +191,7 @@ export function ProjectBackgroundReveal({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

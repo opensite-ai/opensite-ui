@@ -94,6 +94,8 @@ export interface ProjectDetailTabbedCaseStudyProps {
   testimonialClassName?: string;
   /** Additional CSS classes for the tools section */
   toolsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -107,6 +109,7 @@ export function ProjectDetailTabbedCaseStudy(
   props: ProjectDetailTabbedCaseStudyProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     heroImage,
@@ -131,6 +134,7 @@ export function ProjectDetailTabbedCaseStudy(
     testimonialClassName,
     toolsClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-tabbed-case-study";
 
   const [activeTab, setActiveTab] = React.useState(tabs?.[0]?.id || "");
 
@@ -167,6 +171,7 @@ export function ProjectDetailTabbedCaseStudy(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

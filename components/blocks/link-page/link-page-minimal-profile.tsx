@@ -158,6 +158,8 @@ export interface LinkPageMinimalProfileProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -185,6 +187,7 @@ export interface LinkPageMinimalProfileProps {
  * ```
  */
 export function LinkPageMinimalProfile({
+  sectionId = "link-page-minimal-profile",
   name,
   bio,
   avatar,
@@ -438,6 +441,7 @@ export function LinkPageMinimalProfile({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

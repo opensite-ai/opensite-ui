@@ -64,6 +64,8 @@ export interface ProjectMasonryColumnsProps {
    * Additional CSS classes for the image wrapper
    */
   imageWrapperClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -77,6 +79,7 @@ export interface ProjectMasonryColumnsProps {
  * create visual interest.
  */
 export function ProjectMasonryColumns({
+  sectionId = "project-masonry-columns",
   images,
   imagesSlot,
   optixFlowConfig,
@@ -123,6 +126,7 @@ export function ProjectMasonryColumns({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

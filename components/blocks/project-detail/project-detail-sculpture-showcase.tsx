@@ -72,6 +72,8 @@ export interface ProjectDetailSculptureShowcaseProps {
   metadataClassName?: string;
   /** Additional CSS classes for the gallery section */
   galleryClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const fadeInUp = {
@@ -85,6 +87,7 @@ export function ProjectDetailSculptureShowcase(
   props: ProjectDetailSculptureShowcaseProps,
 ): React.JSX.Element {
   const {
+    sectionId: sectionIdProp,
     title,
     subtitle,
     year,
@@ -112,6 +115,7 @@ export function ProjectDetailSculptureShowcase(
     metadataClassName,
     galleryClassName,
   } = props;
+  const sectionId = sectionIdProp ?? "project-detail-sculpture-showcase";
 
   const renderedBackAction = useMemo(() => {
     if (backActionSlot) return backActionSlot;
@@ -146,6 +150,7 @@ export function ProjectDetailSculptureShowcase(
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -187,6 +187,8 @@ export interface ContactImageProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -209,6 +211,7 @@ export interface ContactImageProps {
  * ```
  */
 export function ContactImage({
+  sectionId = "contact-image",
   eyebrow,
   heading,
   description,
@@ -341,6 +344,7 @@ export function ContactImage({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

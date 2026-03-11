@@ -145,6 +145,8 @@ export interface CtaAppDownloadNewsletterProps {
    * Custom slot for the form (overrides form props)
    */
   formSlot?: React.ReactNode;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -173,6 +175,7 @@ export interface CtaAppDownloadNewsletterProps {
  * ```
  */
 export function CtaAppDownloadNewsletter({
+  sectionId = "cta-app-download-newsletter",
   appHeading,
   appDescription,
   appActions,
@@ -280,6 +283,7 @@ export function CtaAppDownloadNewsletter({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

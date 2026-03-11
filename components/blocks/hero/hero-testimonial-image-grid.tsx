@@ -134,6 +134,8 @@ export interface HeroTestimonialImageGridProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -141,6 +143,7 @@ export interface HeroTestimonialImageGridProps {
  * and a creative 2x2 image grid. Ideal for showcasing product features or portfolio work.
  */
 export function HeroTestimonialImageGrid({
+  sectionId = "hero-testimonial-image-grid",
   heading,
   description,
   actions,
@@ -220,6 +223,7 @@ export function HeroTestimonialImageGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

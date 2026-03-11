@@ -94,6 +94,8 @@ export interface TestimonialsParallaxNumberProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -122,6 +124,7 @@ export interface TestimonialsParallaxNumberProps {
  * ```
  */
 export function TestimonialsParallaxNumber({
+  sectionId = "testimonials-parallax-number",
   testimonials,
   testimonialsSlot,
   autoPlayInterval,
@@ -476,6 +479,7 @@ export function TestimonialsParallaxNumber({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

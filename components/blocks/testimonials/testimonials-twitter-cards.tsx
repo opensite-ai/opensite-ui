@@ -123,6 +123,8 @@ export interface TestimonialsTwitterCardsProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -165,6 +167,7 @@ export interface TestimonialsTwitterCardsProps {
  * ```
  */
 export function TestimonialsTwitterCards({
+  sectionId = "testimonials-twitter-cards",
   testimonials,
   testimonialsSlot,
   heading,
@@ -336,6 +339,7 @@ export function TestimonialsTwitterCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

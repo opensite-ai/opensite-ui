@@ -118,6 +118,8 @@ export interface IndustriesTimelineTableProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -147,6 +149,7 @@ export interface IndustriesTimelineTableProps {
  * ```
  */
 export function IndustriesTimelineTable({
+  sectionId = "industries-timeline-table",
   heading,
   headingSlot,
   labels,
@@ -264,6 +267,7 @@ export function IndustriesTimelineTable({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn("min-h-screen", className)}

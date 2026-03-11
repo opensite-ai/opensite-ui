@@ -125,6 +125,8 @@ export interface StatsAnimatedCounterProps {
    * Additional CSS classes for stat icons
    */
   statIconClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -245,6 +247,7 @@ function AnimatedStatItem({
  * ```
  */
 export function StatsAnimatedCounter({
+  sectionId = "stats-animated-counter",
   heading,
   description,
   stats,
@@ -317,6 +320,7 @@ export function StatsAnimatedCounter({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

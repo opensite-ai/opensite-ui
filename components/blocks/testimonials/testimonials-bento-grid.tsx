@@ -97,6 +97,8 @@ export interface TestimonialsBentoGridProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -127,6 +129,7 @@ export interface TestimonialsBentoGridProps {
  * ```
  */
 export function TestimonialsBentoGrid({
+  sectionId = "testimonials-bento-grid",
   testimonials,
   testimonialsSlot,
   heading,
@@ -337,6 +340,7 @@ export function TestimonialsBentoGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

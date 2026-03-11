@@ -78,6 +78,8 @@ export interface ContactFloatingBannerProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -97,6 +99,7 @@ export interface ContactFloatingBannerProps {
  * ```
  */
 export function ContactFloatingBanner({
+  sectionId = "contact-floating-banner",
   badgeText,
   message,
   buttonText,
@@ -150,6 +153,7 @@ export function ContactFloatingBanner({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

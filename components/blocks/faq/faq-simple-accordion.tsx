@@ -94,9 +94,12 @@ export interface FaqSimpleAccordionProps {
    * Additional CSS classes for the header wrapper
    */
   headerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqSimpleAccordion({
+  sectionId = "faq-simple-accordion",
   heading,
   items,
   itemsSlot,
@@ -193,6 +196,7 @@ export function FaqSimpleAccordion({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

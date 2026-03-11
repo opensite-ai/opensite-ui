@@ -123,6 +123,8 @@ export interface FooterBrandLinksContactProps {
   patternOpacity?: number;
   /** Optional Optix Flow configuration for image optimization */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -130,6 +132,7 @@ export interface FooterBrandLinksContactProps {
  * link groups, contact details, and social icons plus a legal bar.
  */
 export function FooterBrandLinksContact({
+  sectionId = "footer-brand-links-contact",
   logoSrc,
   logoAlt = "Logo",
   tagline,
@@ -251,6 +254,7 @@ export function FooterBrandLinksContact({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

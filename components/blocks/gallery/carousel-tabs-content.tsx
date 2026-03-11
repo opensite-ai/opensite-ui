@@ -148,6 +148,8 @@ export interface CarouselTabsContentProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -175,6 +177,7 @@ export interface CarouselTabsContentProps {
  * ```
  */
 export function CarouselTabsContent({
+  sectionId = "carousel-tabs-content",
   title,
   description,
   titleClassName,
@@ -389,6 +392,7 @@ export function CarouselTabsContent({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

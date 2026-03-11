@@ -136,6 +136,8 @@ export interface CtaNewsletterFeaturesProps {
    * Submit button configuration
    */
   buttonAction?: ActionConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -163,6 +165,7 @@ export interface CtaNewsletterFeaturesProps {
  * ```
  */
 export function CtaNewsletterFeatures({
+  sectionId = "cta-newsletter-features",
   badge,
   heading,
   description,
@@ -253,6 +256,7 @@ export function CtaNewsletterFeatures({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

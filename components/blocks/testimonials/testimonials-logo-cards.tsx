@@ -110,6 +110,8 @@ export interface TestimonialsLogoCardsProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -140,6 +142,7 @@ export interface TestimonialsLogoCardsProps {
  * ```
  */
 export function TestimonialsLogoCards({
+  sectionId = "testimonials-logo-cards",
   testimonials,
   testimonialsSlot,
   heading,
@@ -293,6 +296,7 @@ export function TestimonialsLogoCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

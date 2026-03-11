@@ -161,9 +161,12 @@ export interface AboutCompanyProfileProps {
    * Pattern opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function AboutCompanyProfile({
+  sectionId = "about-company-profile",
   title,
   description,
   mainImage,
@@ -326,6 +329,7 @@ export function AboutCompanyProfile({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -148,6 +148,8 @@ export interface CarouselIconTabsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -176,6 +178,7 @@ export interface CarouselIconTabsProps {
  * ```
  */
 export function CarouselIconTabs({
+  sectionId = "carousel-icon-tabs",
   heading,
   badge,
   sections,
@@ -372,6 +375,7 @@ export function CarouselIconTabs({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

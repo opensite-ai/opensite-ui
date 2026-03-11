@@ -96,9 +96,12 @@ export interface FaqIconBenefitsProps {
    * Additional CSS classes for benefit descriptions
    */
   benefitDescriptionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqIconBenefits({
+  sectionId = "faq-icon-benefits",
   heading,
   description,
   benefits,
@@ -241,6 +244,7 @@ export function FaqIconBenefits({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

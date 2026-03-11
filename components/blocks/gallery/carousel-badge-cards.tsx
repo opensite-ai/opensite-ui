@@ -140,6 +140,8 @@ export interface CarouselBadgeCardsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -168,6 +170,7 @@ export interface CarouselBadgeCardsProps {
  * ```
  */
 export function CarouselBadgeCards({
+  sectionId = "carousel-badge-cards",
   heading,
   items,
   itemsSlot,
@@ -285,6 +288,7 @@ export function CarouselBadgeCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

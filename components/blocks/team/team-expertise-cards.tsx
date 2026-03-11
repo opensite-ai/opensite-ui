@@ -155,6 +155,8 @@ export interface TeamExpertiseCardsProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -189,6 +191,7 @@ export interface TeamExpertiseCardsProps {
  * ```
  */
 export function TeamExpertiseCards({
+  sectionId = "team-expertise-cards",
   heading,
   description,
   members,
@@ -348,6 +351,7 @@ export function TeamExpertiseCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

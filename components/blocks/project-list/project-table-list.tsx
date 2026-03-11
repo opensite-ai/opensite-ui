@@ -90,6 +90,8 @@ export interface ProjectTableListProps {
    * Additional CSS classes for the gallery column
    */
   galleryColumnClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -103,6 +105,7 @@ export interface ProjectTableListProps {
  * and chronological ordering are important. Responsive layout stacks columns on mobile.
  */
 export function ProjectTableList({
+  sectionId = "project-table-list",
   projects,
   projectsSlot,
   projectsHeaderLabel,
@@ -173,6 +176,7 @@ export function ProjectTableList({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

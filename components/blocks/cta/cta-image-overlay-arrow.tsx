@@ -70,6 +70,8 @@ export interface CtaImageOverlayArrowProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -89,6 +91,7 @@ export interface CtaImageOverlayArrowProps {
  * ```
  */
 export function CtaImageOverlayArrow({
+  sectionId = "cta-image-overlay-arrow",
   heading,
   actions,
   actionsSlot,
@@ -134,6 +137,7 @@ export function CtaImageOverlayArrow({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

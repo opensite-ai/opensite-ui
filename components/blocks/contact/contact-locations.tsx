@@ -93,6 +93,8 @@ export interface ContactLocationsProps {
   patternOpacity?: number;
   /** Full form engine setup and props */
   formEngineSetup?: FormEngineProps;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -107,6 +109,7 @@ export interface ContactLocationsProps {
  * ```
  */
 export function ContactLocations({
+  sectionId = "contact-locations",
   heading,
   description,
   className,
@@ -124,6 +127,7 @@ export function ContactLocations({
 }: ContactLocationsProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -116,6 +116,8 @@ export interface NavbarFloatingPillProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -127,6 +129,7 @@ export interface NavbarFloatingPillProps {
  * sites where the navbar should float over hero content.
  */
 export const NavbarFloatingPill = ({
+  sectionId = "navbar-floating-pill",
   logo,
   logoSlot,
   logoClassName,
@@ -201,6 +204,7 @@ export const NavbarFloatingPill = ({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

@@ -76,6 +76,8 @@ export interface ProjectFilterableThreeColumnProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -89,6 +91,7 @@ export interface ProjectFilterableThreeColumnProps {
  * filtering experience.
  */
 export function ProjectFilterableThreeColumn({
+  sectionId = "project-filterable-three-column",
   projects,
   projectsSlot,
   categories,
@@ -170,6 +173,7 @@ export function ProjectFilterableThreeColumn({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

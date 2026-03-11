@@ -110,6 +110,8 @@ export interface CtaGradientLogosFloatingProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -133,6 +135,7 @@ export interface CtaGradientLogosFloatingProps {
  * ```
  */
 export function CtaGradientLogosFloating({
+  sectionId = "cta-gradient-logos-floating",
   heading,
   headingGradient,
   description,
@@ -262,6 +265,7 @@ export function CtaGradientLogosFloating({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn("overflow-hidden", className)}

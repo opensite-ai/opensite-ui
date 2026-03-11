@@ -188,6 +188,8 @@ export interface PricingAddonsCardsProps {
    * Additional CSS classes for the action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -209,6 +211,7 @@ export interface PricingAddonsCardsProps {
  * ```
  */
 export function PricingAddonsCards({
+  sectionId = "pricing-addons-cards",
   heading,
   subtitle,
   addons,
@@ -408,6 +411,7 @@ export function PricingAddonsCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

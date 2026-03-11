@@ -93,9 +93,12 @@ export interface BlogGridAuthorCardsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function BlogGridAuthorCardsComponent({
+  sectionId = "blog-grid-author-cards",
   heading,
   description,
   posts,
@@ -222,6 +225,7 @@ export function BlogGridAuthorCardsComponent({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

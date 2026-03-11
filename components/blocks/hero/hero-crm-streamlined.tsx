@@ -95,9 +95,12 @@ export interface HeroCrmStreamlinedProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroCrmStreamlined({
+  sectionId = "hero-crm-streamlined",
   tagline,
   heading,
   description,
@@ -121,6 +124,7 @@ export function HeroCrmStreamlined({
 }: HeroCrmStreamlinedProps): React.JSX.Element {
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

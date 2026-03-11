@@ -118,6 +118,8 @@ export interface NavbarIconLinksProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -131,6 +133,7 @@ export interface NavbarIconLinksProps {
  * with the navigation structure.
  */
 export const NavbarIconLinks = ({
+  sectionId = "navbar-icon-links",
   logo,
   logoSlot,
   logoClassName,
@@ -219,6 +222,7 @@ export const NavbarIconLinks = ({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

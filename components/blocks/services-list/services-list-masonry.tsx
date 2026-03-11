@@ -119,6 +119,8 @@ export interface ServicesListMasonryProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -141,6 +143,7 @@ export interface ServicesListMasonryProps {
  * ```
  */
 export function ServicesListMasonry({
+  sectionId = "services-list-masonry",
   heading,
   description,
   services,
@@ -263,6 +266,7 @@ export function ServicesListMasonry({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

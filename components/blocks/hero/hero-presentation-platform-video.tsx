@@ -90,9 +90,12 @@ export interface HeroPresentationPlatformVideoProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroPresentationPlatformVideo({
+  sectionId = "hero-presentation-platform-video",
   subtitle,
   heading,
   description,
@@ -187,6 +190,7 @@ export function HeroPresentationPlatformVideo({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

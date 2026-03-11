@@ -105,6 +105,8 @@ export interface ComparisonLegacyModernProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -119,6 +121,7 @@ export interface ComparisonLegacyModernProps {
  * before/after comparisons, migration benefits, upgrade justifications.
  */
 export function ComparisonLegacyModern({
+  sectionId = "comparison-legacy-modern",
   heading,
   headingHighlight,
   description,
@@ -228,6 +231,7 @@ export function ComparisonLegacyModern({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

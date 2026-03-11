@@ -144,9 +144,12 @@ export interface HeroEventRegistrationProps {
    * @default { desktop: 'mediaRight', mobile: 'mediaTop' }
    */
   directionConfig?: DirectionConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroEventRegistration({
+  sectionId = "hero-event-registration",
   badgeText,
   badgeIcon,
   badgeSlot,
@@ -319,6 +322,7 @@ export function HeroEventRegistration({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

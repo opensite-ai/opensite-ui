@@ -93,9 +93,12 @@ export interface HeroSimpleCenteredImageProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroSimpleCenteredImage({
+  sectionId = "hero-simple-centered-image",
   heading,
   description,
   actions,
@@ -150,6 +153,7 @@ export function HeroSimpleCenteredImage({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

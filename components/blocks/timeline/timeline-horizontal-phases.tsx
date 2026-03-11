@@ -100,9 +100,12 @@ export interface TimelineHorizontalPhasesProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function TimelineHorizontalPhases({
+  sectionId = "timeline-horizontal-phases",
   heading,
   currentPhase,
   phases,
@@ -131,7 +134,7 @@ export function TimelineHorizontalPhases({
   if (!phases || phases.length === 0) {
     return (
       <Section
-        id={id}
+        id={sectionId}
         background={background}
         spacing={spacing}
         className={className}

@@ -122,9 +122,12 @@ export interface TimelineProductLaunchProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function TimelineProductLaunch({
+  sectionId = "timeline-product-launch",
   heading,
   description,
   cardHeading,
@@ -174,7 +177,7 @@ export function TimelineProductLaunch({
 
   return (
     <Section
-      id={id}
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

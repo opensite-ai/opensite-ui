@@ -98,9 +98,12 @@ export interface HeroMarketplaceScatteredImagesProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroMarketplaceScatteredImages({
+  sectionId = "hero-marketplace-scattered-images",
   heading,
   description,
   action,
@@ -254,6 +257,7 @@ export function HeroMarketplaceScatteredImages({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

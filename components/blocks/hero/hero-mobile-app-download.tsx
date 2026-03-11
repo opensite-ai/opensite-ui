@@ -160,9 +160,12 @@ export interface HeroMobileAppDownloadProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function HeroMobileAppDownload({
+  sectionId = "hero-mobile-app-download",
   badgeText,
   badgeIcon,
   badgeSlot,
@@ -326,6 +329,7 @@ export function HeroMobileAppDownload({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

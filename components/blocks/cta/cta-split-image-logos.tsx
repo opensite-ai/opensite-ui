@@ -110,6 +110,8 @@ export interface CtaSplitImageLogosProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -132,6 +134,7 @@ export interface CtaSplitImageLogosProps {
  * ```
  */
 export function CtaSplitImageLogos({
+  sectionId = "cta-split-image-logos",
   heading,
   description,
   actions,
@@ -221,6 +224,7 @@ export function CtaSplitImageLogos({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

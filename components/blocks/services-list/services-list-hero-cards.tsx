@@ -166,6 +166,8 @@ export interface ServicesListHeroCardsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -187,6 +189,7 @@ export interface ServicesListHeroCardsProps {
  * ```
  */
 export function ServicesListHeroCards({
+  sectionId = "services-list-hero-cards",
   heading,
   description,
   featuredService,
@@ -326,6 +329,7 @@ export function ServicesListHeroCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

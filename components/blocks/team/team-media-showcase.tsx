@@ -110,6 +110,8 @@ export interface TeamMediaShowcaseProps {
    * Optional Optix Flow configuration for @page-speed/img
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -207,6 +209,7 @@ TeamMemberBackgroundImageCard.displayName = "TeamMemberBackgroundImageCard";
  * ```
  */
 export function TeamMediaShowcase({
+  sectionId = "team-media-showcase",
   items,
   itemsSlot,
   children,
@@ -292,6 +295,7 @@ export function TeamMediaShowcase({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

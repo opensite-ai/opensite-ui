@@ -94,9 +94,12 @@ export interface FaqNumberedListProps {
    * Additional CSS classes for answers
    */
   answerClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 export function FaqNumberedList({
+  sectionId = "faq-numbered-list",
   badge,
   heading,
   description,
@@ -191,6 +194,7 @@ export function FaqNumberedList({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

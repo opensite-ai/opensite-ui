@@ -102,6 +102,8 @@ export interface LogosCarouselHeadingProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -109,6 +111,7 @@ export interface LogosCarouselHeadingProps {
  * Features auto-scrolling logos with fade gradients on edges.
  */
 export function LogosCarouselHeading({
+  sectionId = "logos-carousel-heading",
   className,
   heading,
   headingClassName,
@@ -170,6 +173,7 @@ export function LogosCarouselHeading({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

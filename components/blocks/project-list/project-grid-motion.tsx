@@ -78,6 +78,8 @@ export interface ProjectGridMotionProps {
    * Additional CSS classes for the card footer
    */
   cardFooterClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -91,6 +93,7 @@ export interface ProjectGridMotionProps {
  * card presentation are important.
  */
 export function ProjectGridMotion({
+  sectionId = "project-grid-motion",
   heading,
   projects,
   projectsSlot,
@@ -151,6 +154,7 @@ export function ProjectGridMotion({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

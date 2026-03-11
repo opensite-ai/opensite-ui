@@ -255,6 +255,8 @@ export interface PricingFourTierToggleProps {
    * Additional CSS classes for action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -275,6 +277,7 @@ export interface PricingFourTierToggleProps {
  * ```
  */
 export function PricingFourTierToggle({
+  sectionId = "pricing-four-tier-toggle",
   title,
   subtitle,
   monthlyLabel,
@@ -522,6 +525,7 @@ export function PricingFourTierToggle({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -106,6 +106,8 @@ export interface ServicesListMutedCardsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -127,6 +129,7 @@ export interface ServicesListMutedCardsProps {
  * ```
  */
 export function ServicesListMutedCards({
+  sectionId = "services-list-muted-cards",
   heading,
   description,
   services,
@@ -233,6 +236,7 @@ export function ServicesListMutedCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

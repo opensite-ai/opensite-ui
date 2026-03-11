@@ -131,6 +131,8 @@ export interface FeatureChecklistImageProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -153,6 +155,7 @@ export interface FeatureChecklistImageProps {
  * ```
  */
 export function FeatureChecklistImage({
+  sectionId = "feature-checklist-image",
   title,
   description,
   titleClassName,
@@ -267,6 +270,7 @@ export function FeatureChecklistImage({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

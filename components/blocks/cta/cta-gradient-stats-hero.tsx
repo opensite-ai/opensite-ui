@@ -92,6 +92,8 @@ export interface CtaGradientStatsHeroProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -116,6 +118,7 @@ export interface CtaGradientStatsHeroProps {
  * ```
  */
 export function CtaGradientStatsHero({
+  sectionId = "cta-gradient-stats-hero",
   heading,
   description,
   actions,
@@ -216,6 +219,7 @@ export function CtaGradientStatsHero({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

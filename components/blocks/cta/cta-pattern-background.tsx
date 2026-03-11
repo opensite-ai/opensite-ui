@@ -73,6 +73,8 @@ export interface CtaPatternBackgroundProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -93,6 +95,7 @@ export interface CtaPatternBackgroundProps {
  * ```
  */
 export function CtaPatternBackground({
+  sectionId = "cta-pattern-background",
   heading,
   description,
   actions,
@@ -142,6 +145,7 @@ export function CtaPatternBackground({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

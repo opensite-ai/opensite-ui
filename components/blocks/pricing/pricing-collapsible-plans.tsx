@@ -244,6 +244,8 @@ export interface PricingCollapsiblePlansProps {
    * Additional CSS classes for the action
    */
   actionClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -264,6 +266,7 @@ export interface PricingCollapsiblePlansProps {
  * ```
  */
 export function PricingCollapsiblePlans({
+  sectionId = "pricing-collapsible-plans",
   title,
   subtitle,
   plans = [],
@@ -520,6 +523,7 @@ export function PricingCollapsiblePlans({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

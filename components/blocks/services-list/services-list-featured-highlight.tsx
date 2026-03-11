@@ -120,6 +120,8 @@ export interface ServicesListFeaturedHighlightProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -142,6 +144,7 @@ export interface ServicesListFeaturedHighlightProps {
  * ```
  */
 export function ServicesListFeaturedHighlight({
+  sectionId = "services-list-featured-highlight",
   heading,
   description,
   services,
@@ -276,6 +279,7 @@ export function ServicesListFeaturedHighlight({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

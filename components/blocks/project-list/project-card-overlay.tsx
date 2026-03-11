@@ -84,6 +84,8 @@ export interface ProjectCardOverlayProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 const containerVariants: Variants = {
@@ -178,6 +180,7 @@ const ProjectCard = ({
  * where bold visuals and interactive hover states create impact.
  */
 export function ProjectCardOverlay({
+  sectionId = "project-card-overlay",
   heading,
   subheading,
   projects,
@@ -211,6 +214,7 @@ export function ProjectCardOverlay({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -113,6 +113,8 @@ export interface ComparisonImageCardsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -127,6 +129,7 @@ export interface ComparisonImageCardsProps {
  * two-option comparisons with strong visual differentiation.
  */
 export function ComparisonImageCards({
+  sectionId = "comparison-image-cards",
   heading,
   description,
   optionA,
@@ -226,6 +229,7 @@ export function ComparisonImageCards({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

@@ -101,6 +101,8 @@ export interface CtaSplitGradientImageProps {
     apiKey: string;
     compression?: number;
   };
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -123,6 +125,7 @@ export interface CtaSplitGradientImageProps {
  * ```
  */
 export function CtaSplitGradientImage({
+  sectionId = "cta-split-gradient-image",
   label,
   heading,
   description,
@@ -178,6 +181,7 @@ export function CtaSplitGradientImage({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={cn(className)}

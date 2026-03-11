@@ -140,6 +140,8 @@ export interface ListSearchableGridProps {
    * Callback when search term changes
    */
   onSearchTermChange?: (term: string) => void;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -147,6 +149,7 @@ export interface ListSearchableGridProps {
  * Perfect for resource directories, service catalogs, or partner listings.
  */
 export function ListSearchableGrid({
+  sectionId = "list-searchable-grid",
   heading,
   headingClassName,
   description,
@@ -298,6 +301,7 @@ export function ListSearchableGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

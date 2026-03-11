@@ -88,6 +88,8 @@ export interface CtaFeatureCardsGridProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -111,6 +113,7 @@ export interface CtaFeatureCardsGridProps {
  * ```
  */
 export function CtaFeatureCardsGrid({
+  sectionId = "cta-feature-cards-grid",
   heading,
   description,
   actions,
@@ -198,6 +201,7 @@ export function CtaFeatureCardsGrid({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       className={className}

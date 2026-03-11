@@ -20,6 +20,8 @@ export interface PricingSplitLayoutProps {
   secondaryButtonText?: string;
   secondaryButtonHref?: string;
   background?: SectionBackground;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -42,6 +44,7 @@ export interface PricingSplitLayoutProps {
  * ```
  */
 export function PricingSplitLayout({
+  sectionId = "pricing-split-layout",
   className,
   title,
   subtitle,
@@ -56,7 +59,8 @@ export function PricingSplitLayout({
   background = "default",
 }: PricingSplitLayoutProps) {
   return (
-    <Section background={background} className={className}>
+    <Section
+      id={sectionId} background={background} className={className}>
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left - Marketing Content */}
           <div className="flex flex-col justify-center">

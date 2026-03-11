@@ -88,6 +88,8 @@ export interface TestimonialsSliderMinimalProps {
    * Additional CSS classes for the navigation container
    */
   navigationClassName?: string;
+  /** Optional Section ID */
+  sectionId?: string;
 }
 
 /**
@@ -115,6 +117,7 @@ export interface TestimonialsSliderMinimalProps {
  * ```
  */
 export function TestimonialsSliderMinimal({
+  sectionId = "testimonials-slider-minimal",
   testimonials,
   testimonialsSlot,
   autoPlayInterval,
@@ -282,6 +285,7 @@ export function TestimonialsSliderMinimal({
 
   return (
     <Section
+      id={sectionId}
       background={background}
       spacing={spacing}
       pattern={pattern}
