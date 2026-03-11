@@ -37,7 +37,6 @@ export interface NavbarLogoProps {
  * - Image logos via `logo.src`
  * - Text logos via `logo.title` (string or React element)
  * - Custom logo slots via `logoSlot`
- * - Responsive logos via `logo.desktopSrc` and `logo.mobileSrc`
  */
 export const NavbarLogo = ({
   logo,
@@ -48,49 +47,25 @@ export const NavbarLogo = ({
   if (logoSlot) return <>{logoSlot}</>;
   if (!logo) return null;
 
-  // Check if using responsive logo sources
-  const hasResponsiveSources = logo.desktopSrc || logo.mobileSrc;
-
   return (
     <Pressable
       href={logo.url || "/"}
       className={cn("flex items-center", logoClassName)}
     >
-      {hasResponsiveSources ? (
-        // Responsive logo with desktop/mobile sources
-        <>
-          <Img
-            src={logo.desktopSrc || logo.src || ""}
-            className={cn(
-              "hidden h-8 w-auto object-contain md:block",
-              logo.className,
-            )}
-            alt={logo.alt || "Logo"}
-            optixFlowConfig={optixFlowConfig}
-          />
-          <Img
-            src={logo.mobileSrc || logo.src || ""}
-            className={cn(
-              "h-8 w-auto object-contain md:hidden",
-              logo.className,
-            )}
-            alt={logo.alt || "Logo"}
-            optixFlowConfig={optixFlowConfig}
-          />
-        </>
-      ) : logo.src ? (
+      {logo.src ? (
         // Standard single logo image
         <Img
           src={logo.src}
           className={cn("max-h-8 w-auto object-contain", logo.className)}
           alt={logo.alt || "Logo"}
           optixFlowConfig={optixFlowConfig}
+          loading="eager"
         />
       ) : (
         // Text-based logo (title as string or React element)
         logo.title &&
         (typeof logo.title === "string" ? (
-          <span className="text-lg font-semibold tracking-tighter">
+          <span className="text-xl md:text-2xl font-semibold tracking-tighter">
             {logo.title}
           </span>
         ) : (
@@ -102,4 +77,3 @@ export const NavbarLogo = ({
 };
 
 export default NavbarLogo;
-

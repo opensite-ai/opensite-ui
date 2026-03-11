@@ -4,7 +4,15 @@ import { NavbarMegaMenu } from "../navbar-mega-menu";
 import type { IMenuLink, ILinkItem } from "../navbar-mega-menu";
 
 vi.mock("@page-speed/img", () => ({
-  Img: ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
+  Img: ({
+    src,
+    alt,
+    className,
+  }: {
+    src: string;
+    alt: string;
+    className?: string;
+  }) => (
     <img src={src} alt={alt} className={className} data-testid="mock-img" />
   ),
 }));
@@ -12,15 +20,29 @@ vi.mock("@page-speed/img", () => ({
 vi.mock("../../../lib/Pressable", () => ({
   Pressable: ({ children, href, className, onClick, asButton }: any) => {
     if (asButton || onClick) {
-      return <button onClick={onClick} className={className} data-testid="mock-pressable">{children}</button>;
+      return (
+        <button
+          onClick={onClick}
+          className={className}
+          data-testid="mock-pressable"
+        >
+          {children}
+        </button>
+      );
     }
-    return <a href={href} className={className} data-testid="mock-pressable">{children}</a>;
+    return (
+      <a href={href} className={className} data-testid="mock-pressable">
+        {children}
+      </a>
+    );
   },
 }));
 
 vi.mock("../../ui/dynamic-icon", () => ({
   DynamicIcon: ({ name, size }: { name: string; size?: number }) => (
-    <span data-testid="mock-icon" data-icon={name} data-size={size}>Icon</span>
+    <span data-testid="mock-icon" data-icon={name} data-size={size}>
+      Icon
+    </span>
   ),
 }));
 
@@ -31,8 +53,7 @@ describe("NavbarMegaMenu", () => {
 
   const mockLogo = {
     url: "/",
-    desktopSrc: "/logo.png",
-    mobileSrc: "/logo-mobile.png",
+    src: "/logo.png",
     alt: "Test Logo",
   };
 
@@ -266,7 +287,7 @@ describe("NavbarMegaMenu", () => {
 
   it("applies custom className to section", () => {
     const { container } = render(
-      <NavbarMegaMenu logo={mockLogo} className="custom-navbar" />
+      <NavbarMegaMenu logo={mockLogo} className="custom-navbar" />,
     );
     const section = container.querySelector("section");
     expect(section).toHaveClass("custom-navbar");
@@ -274,10 +295,9 @@ describe("NavbarMegaMenu", () => {
 
   it("applies custom background and spacing", () => {
     const { container } = render(
-      <NavbarMegaMenu logo={mockLogo} background="muted" spacing="md" />
+      <NavbarMegaMenu logo={mockLogo} background="muted" spacing="md" />,
     );
     const section = container.querySelector("section");
     expect(section).toBeInTheDocument();
   });
 });
-

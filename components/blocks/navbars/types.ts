@@ -20,10 +20,6 @@ export interface LogoConfig {
   url?: string;
   /** Image source for the logo */
   src?: string;
-  /** Desktop-specific image source (for responsive logos) */
-  desktopSrc?: string;
-  /** Mobile-specific image source (for responsive logos) */
-  mobileSrc?: string;
   /** Alt text for the logo image */
   alt?: string;
   /** Text title to display (alternative to image) */
@@ -201,4 +197,3 @@ export interface NavbarWithAuthActionsProps extends NavbarWithMenuProps {
   /** Custom slot for auth actions (overrides authActions array) */
   authActionsSlot?: React.ReactNode;
 }
-

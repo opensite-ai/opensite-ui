@@ -214,6 +214,7 @@ export function HeroSimpleCenteredImage({
               "h-full w-full rounded-t-2xl object-cover",
               imageClassName,
             )}
+            loading="eager"
             optixFlowConfig={optixFlowConfig}
           />
         </div>
