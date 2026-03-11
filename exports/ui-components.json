@@ -159,6 +159,11 @@
     "import": "./dist/label.js",
     "require": "./dist/label.cjs"
   },
+  "./components/longform-content": {
+    "types": "./dist/longform-content.d.ts",
+    "import": "./dist/longform-content.js",
+    "require": "./dist/longform-content.cjs"
+  },
   "./components/navbar-logo": {
     "types": "./dist/navbar-logo.d.ts",
     "import": "./dist/navbar-logo.js",

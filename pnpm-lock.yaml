@@ -27,17 +27,20 @@ importers:
         specifier: 0.2.4
         version: 0.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/markdown-to-jsx':
-        specifier: 0.0.4
-        version: 0.0.4(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.0.5
+        version: 0.0.5(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer':
         specifier: 0.1.9
         version: 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pressable':
-        specifier: ^0.0.1
-        version: 0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.0.2
+        version: 0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/router':
+        specifier: 1.0.0
+        version: 1.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/social-share':
-        specifier: 0.1.5
-        version: 0.1.5(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.1.7
+        version: 0.1.7(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -865,8 +868,8 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@page-speed/markdown-to-jsx@0.0.4':
-    resolution: {integrity: sha512-9fIzXiSNcJ+ecoEFAKbJFelCmNm2Htv5iDEQPkAJAox4mfA1B0L36V+oxEuTVNynFvCaL13vZ9fgj5fJucBnxg==}
+  '@page-speed/markdown-to-jsx@0.0.5':
+    resolution: {integrity: sha512-OR9U1fOdeWWWjJX6J2WUwfGD75Prd2tIasxwjPEyOTkUuvpLV2St5+n1oKrXgHpoX+aTM1hTqzAaASkzjot3cw==}
     peerDependencies:
       '@page-speed/img': 0.4.6
       '@page-speed/pressable': '>=0.0.1'
@@ -884,14 +887,21 @@ packages:
       react: ^18.0.0
       react-dom: ^18.0.0
 
-  '@page-speed/pressable@0.0.1':
-    resolution: {integrity: sha512-abHqsBp9O+242JGm8/3+km03S5oFfdwYAB2N750dCvceAhij5pcR4UvGvvrw+c8OHeCJpqiVXPcbp854maaETw==}
+  '@page-speed/pressable@0.0.2':
+    resolution: {integrity: sha512-mKdsgGwVJKJW9+ye7fMQrOTd3bhVKzcGGjgpDzp4lr5G3wA28sSiwl09C7VUOJW51C50tZJLxUm+aoliZkNE3A==}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
 
-  '@page-speed/social-share@0.1.5':
-    resolution: {integrity: sha512-K5RtmvlS/f5WbWgt7fGWOl0NuyEGkNdOokne1Jz+41xYqtV2lYJFeAfwLDP85jh+VyzPDclBve0SJYzWgf7zpA==}
+  '@page-speed/router@1.0.0':
+    resolution: {integrity: sha512-JO7W42vKhetNgx6xvYsQiB3N+0R8KeSbKo9TxTc+c60RiZbZZXrUqkFcaMeBfid/ZkARfPu0p39Nl5WfwkYCSg==}
+    engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
+    peerDependencies:
+      react: '>=17.0.0'
+      react-dom: '>=17.0.0'
+
+  '@page-speed/social-share@0.1.7':
+    resolution: {integrity: sha512-xj8trH8EBhe+QENQFobYykbcQ3yVm5GfxKIAoX/1l3mrX5/zqk4MVvn0l+VasZDEckirID0yqghH9An2ifdQnQ==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       '@opensite/hooks': '>=2.0.0'
@@ -3615,14 +3625,14 @@ snapshots:
     transitivePeerDependencies:
       - mapbox-gl
 
-  '@page-speed/markdown-to-jsx@0.0.4(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/markdown-to-jsx@0.0.5(@page-speed/img@0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       markdown-to-jsx: 7.7.17(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     optionalDependencies:
       '@page-speed/img': 0.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@page-speed/pressable': 0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/pressable': 0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   '@page-speed/pdf-viewer@0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -3630,17 +3640,24 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@page-speed/pressable@0.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/pressable@0.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
+      '@page-speed/router': 1.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       tailwind-merge: 2.6.1
 
-  '@page-speed/social-share@0.1.5(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/router@1.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@page-speed/social-share@0.1.7(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@opensite/hooks': 2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/router': 1.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 

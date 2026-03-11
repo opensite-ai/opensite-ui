@@ -336,12 +336,8 @@ export function ArticleSidebarStickyComponent({
             <div className="flex items-center justify-center py-12">
               <SocialShare
                 variant="combo"
-                postTitle={title && typeof title === "string" ? title : ""}
-                shareUrl={window?.location?.href}
-                summaryContent={
-                  summary && typeof summary === "string" ? summary : ""
-                }
-                disableImageAttachments
+                postTitle={title as string}
+                summaryContent={summary as string}
               />
             </div>
           </article>

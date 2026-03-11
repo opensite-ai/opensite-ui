@@ -3111,6 +3111,11 @@
       "import": "./dist/label.js",
       "require": "./dist/label.cjs"
     },
+    "./components/longform-content": {
+      "types": "./dist/longform-content.d.ts",
+      "import": "./dist/longform-content.js",
+      "require": "./dist/longform-content.cjs"
+    },
     "./components/navbar-logo": {
       "types": "./dist/navbar-logo.d.ts",
       "import": "./dist/navbar-logo.js",
@@ -3414,10 +3419,11 @@
     "@page-speed/img": "0.4.6",
     "@page-speed/lightbox": "0.2.1",
     "@page-speed/maps": "0.2.4",
-    "@page-speed/markdown-to-jsx": "0.0.4",
+    "@page-speed/markdown-to-jsx": "0.0.5",
     "@page-speed/pdf-viewer": "0.1.9",
-    "@page-speed/pressable": "^0.0.1",
-    "@page-speed/social-share": "0.1.5",
+    "@page-speed/pressable": "0.0.2",
+    "@page-speed/router": "1.0.0",
+    "@page-speed/social-share": "0.1.7",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-aspect-ratio": "^1.1.8",
     "@radix-ui/react-avatar": "^1.1.11",

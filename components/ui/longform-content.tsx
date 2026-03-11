@@ -97,10 +97,9 @@ export function LongformContent({
     return (
       <Markdown
         markdownStyles={markdownStyles}
+        optixFlowConfig={optixFlowConfig}
         overrides={{
-          img: (props: React.ComponentProps<typeof Img>) => (
-            <Img {...props} optixFlowConfig={optixFlowConfig} />
-          ),
+          img: Img,
           a: Pressable,
         }}
       >

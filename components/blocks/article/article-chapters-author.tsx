@@ -603,12 +603,8 @@ export function ArticleChaptersAuthorComponent({
             <div className="flex items-center justify-center py-12">
               <SocialShare
                 variant="combo"
-                postTitle={title && typeof title === "string" ? title : ""}
-                shareUrl={window?.location?.href}
-                summaryContent={
-                  subtitle && typeof subtitle === "string" ? subtitle : ""
-                }
-                disableImageAttachments
+                postTitle={title as string}
+                summaryContent={subtitle as string}
               />
             </div>
 

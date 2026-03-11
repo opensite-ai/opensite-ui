@@ -488,14 +488,8 @@ export function ArticleTocSidebarComponent({
             <div className="flex items-center justify-center py-12">
               <SocialShare
                 variant="combo"
-                postTitle={title && typeof title === "string" ? title : ""}
-                shareUrl={window?.location?.href}
-                summaryContent={
-                  description && typeof description === "string"
-                    ? description
-                    : ""
-                }
-                disableImageAttachments
+                postTitle={title as string}
+                summaryContent={description as string}
               />
             </div>
           </article>

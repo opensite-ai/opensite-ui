@@ -224,6 +224,13 @@
   }
 ,
   {
+    "path": "./components/longform-content",
+    "types": "./dist/longform-content.d.ts",
+    "import": "./dist/longform-content.js",
+    "require": "./dist/longform-content.cjs"
+  }
+,
+  {
     "path": "./components/navbar-logo",
     "types": "./dist/navbar-logo.d.ts",
     "import": "./dist/navbar-logo.js",
