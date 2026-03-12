@@ -147,7 +147,7 @@ export function HeroDigitalAgencyFullscreen({
             src={backgroundImage}
             alt="Hero Background Image"
             className="h-full w-full brightness-50 object-cover object-center"
-            eager
+            loading="eager"
             optixFlowConfig={optixFlowConfig}
           />
         </div>

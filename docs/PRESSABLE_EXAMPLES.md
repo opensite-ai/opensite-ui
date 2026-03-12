@@ -161,6 +161,7 @@ Renders as an `<a>` tag styled like a ShadCN button with proper flex layout for 
     src={logo.src}
     alt={logo.alt}
     className="h-10"
+    loading="eager"
     optixFlowConfig={optixFlowConfig}
   />
 </Pressable>

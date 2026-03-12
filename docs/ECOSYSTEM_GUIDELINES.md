@@ -170,7 +170,10 @@ import { parseDesignPayload } from "@opensite/blocks/utils/design";
 // Usage pattern for optimal performance
 <Img 
   src={mediaRecord.file_data_url} 
+  loading="eager"
+  fetchPriority="high"
   optixFlowConfig={{ apiKey: API_KEY }}
+  // Use native <img> props instead of legacy aliases like `eager`
   // Generates <picture> with full srcset variants
   // Automatically transforms image to pixel perfect image in the optimal format & caches then streams from CDN
 />

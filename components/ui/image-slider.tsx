@@ -282,7 +282,7 @@ export const ImageSlider = ({
                 activeImage.className,
               )}
               optixFlowConfig={activeImage.optixFlowConfig ?? optixFlowConfig}
-              eager
+              loading="eager"
             />
           </motion.div>
         ) : null}
