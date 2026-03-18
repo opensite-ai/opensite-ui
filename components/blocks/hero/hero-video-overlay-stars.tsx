@@ -9,6 +9,7 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
+  MediaItem,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
@@ -100,13 +101,17 @@ export interface HeroVideoOverlayStarsProps {
    */
   headingClassName?: string;
   /**
-   * Video source URL
+   * Background video configuration
    */
-  videoSrc?: string;
+  backgroundVideo?: MediaItem;
   /**
-   * Custom slot for video background (overrides videoSrc)
+   * Custom slot for video background (overrides backgroundVideo)
    */
   videoSlot?: React.ReactNode;
+  /**
+   * @deprecated Use backgroundVideo instead
+   */
+  videoSrc?: string;
   /**
    * Additional CSS classes for the actions container
    */
@@ -145,6 +150,7 @@ export function HeroVideoOverlayStars({
   contentClassName,
   className,
   headingClassName,
+  backgroundVideo,
   videoSrc,
   videoSlot,
 }: HeroVideoOverlayStarsProps): React.JSX.Element {
@@ -176,17 +182,21 @@ export function HeroVideoOverlayStars({
     return (
       <div className="absolute inset-0 size-full before:absolute brightness-50">
         <Video
-          src={videoSrc}
+          src={backgroundVideo?.video?.src || videoSrc}
+          masterPlaylistUrl={backgroundVideo?.video?.masterPlaylistUrl}
+          fallbackSrc={backgroundVideo?.video?.fallbackSrc}
+          poster={backgroundVideo?.video?.poster || backgroundVideo?.image?.src}
           muted
           autoPlay
           loop
           playsInline
           controls={false}
           className="size-full object-cover object-center"
+          {...backgroundVideo?.video}
         />
       </div>
     );
-  }, [videoSlot, videoSrc]);
+  }, [videoSlot, backgroundVideo, videoSrc]);
 
   return (
     <Section

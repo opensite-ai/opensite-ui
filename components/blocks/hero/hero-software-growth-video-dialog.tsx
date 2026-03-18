@@ -17,6 +17,7 @@ import {
 import type {
   ActionConfig,
   ImageItem,
+  MediaItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
@@ -25,6 +26,9 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { ActionComponent } from "@/components/ui/block-actions";
 
+/**
+ * @deprecated Use modalVideo prop with MediaItem type instead
+ */
 export interface VideoDialogConfig {
   /**
    * Dialog title
@@ -62,7 +66,15 @@ export interface HeroSoftwareGrowthVideoDialogProps {
    */
   showcaseImagesSlot?: React.ReactNode;
   /**
-   * Video dialog configuration
+   * Video configuration for modal/dialog
+   */
+  modalVideo?: MediaItem;
+  /**
+   * Video dialog title
+   */
+  videoDialogTitle?: string;
+  /**
+   * @deprecated Use modalVideo instead
    */
   videoDialog?: VideoDialogConfig;
   /**
@@ -124,6 +136,8 @@ export function HeroSoftwareGrowthVideoDialog({
   actions,
   showcaseImages,
   showcaseImagesSlot,
+  modalVideo,
+  videoDialogTitle,
   videoDialog,
   onVideoClick,
   background,
@@ -257,7 +271,7 @@ export function HeroSoftwareGrowthVideoDialog({
                   <div className={descriptionClassName}>{description}</div>
                 ))}
               <div className="flex flex-col md:flex-row flex-wrap gap-4">
-                {videoAction && videoDialog?.videoUrl ? (
+                {videoAction && (modalVideo || videoDialog?.videoUrl) ? (
                   <ActionComponent
                     action={{
                       ...videoAction,
@@ -281,7 +295,7 @@ export function HeroSoftwareGrowthVideoDialog({
           )}
         >
           <DialogHeader>
-            <DialogTitle>{videoDialog?.title}</DialogTitle>
+            <DialogTitle>{videoDialogTitle || videoDialog?.title}</DialogTitle>
           </DialogHeader>
           <div
             className={
@@ -289,12 +303,16 @@ export function HeroSoftwareGrowthVideoDialog({
             }
           >
             <Video
-              src={videoDialog?.videoUrl}
+              src={modalVideo?.video?.src || videoDialog?.videoUrl}
+              masterPlaylistUrl={modalVideo?.video?.masterPlaylistUrl}
+              fallbackSrc={modalVideo?.video?.fallbackSrc}
+              poster={modalVideo?.video?.poster || modalVideo?.image?.src}
               controls={true}
               autoPlay
               skinClasses={skinClasses || undefined}
               skinStyle={skinStyle || undefined}
               className="h-full w-full rounded-lg"
+              {...modalVideo?.video}
             />
           </div>
         </DialogContent>

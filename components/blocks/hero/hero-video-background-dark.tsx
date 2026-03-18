@@ -6,6 +6,7 @@ import { Video } from "@page-speed/video";
 import { cn } from "../../../lib/utils";
 import type {
   ActionConfig,
+  MediaItem,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
@@ -41,13 +42,17 @@ export interface HeroVideoBackgroundDarkProps {
    */
   actionsClassName?: string;
   /**
-   * Video source URL
+   * Background video configuration
    */
-  videoSrc?: string;
+  backgroundVideo?: MediaItem;
   /**
-   * Custom slot for video (overrides videoSrc prop)
+   * Custom slot for video (overrides backgroundVideo prop)
    */
   videoSlot?: React.ReactNode;
+  /**
+   * @deprecated Use backgroundVideo instead
+   */
+  videoSrc?: string;
   /**
    * Intensity of the gradient overlay on the video
    * @default "high"
@@ -107,6 +112,7 @@ export function HeroVideoBackgroundDark({
   actions,
   actionsSlot,
   actionsClassName,
+  backgroundVideo,
   videoSrc,
   videoSlot,
   background,
@@ -127,18 +133,22 @@ export function HeroVideoBackgroundDark({
     return (
       <>
         <Video
-          src={videoSrc}
+          src={backgroundVideo?.video?.src || videoSrc}
+          masterPlaylistUrl={backgroundVideo?.video?.masterPlaylistUrl}
+          fallbackSrc={backgroundVideo?.video?.fallbackSrc}
+          poster={backgroundVideo?.video?.poster || backgroundVideo?.image?.src}
           loop
           playsInline
           autoPlay
           muted
           controls={false}
           className="absolute top-0 left-0 size-full object-cover"
+          {...backgroundVideo?.video}
         />
         <GradientOverlay intensity={videoOverlayIntensity} />
       </>
     );
-  }, [videoSlot, videoSrc, videoOverlayIntensity]);
+  }, [videoSlot, backgroundVideo, videoSrc, videoOverlayIntensity]);
 
   return (
     <Section

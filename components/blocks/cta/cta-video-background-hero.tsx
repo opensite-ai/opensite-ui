@@ -11,6 +11,7 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
+  MediaItem,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
@@ -33,11 +34,19 @@ export interface CtaVideoBackgroundHeroProps {
    */
   actionsSlot?: React.ReactNode;
   /**
-   * Video URL for the modal
+   * Video configuration for modal/dialog
+   */
+  modalVideo?: MediaItem;
+  /**
+   * Background video configuration
+   */
+  backgroundVideo?: MediaItem;
+  /**
+   * @deprecated Use modalVideo instead
    */
   modalVideoUrl?: string;
   /**
-   * Background video URL
+   * @deprecated Use backgroundVideo instead
    */
   backgroundVideoUrl?: string;
   /**
@@ -128,6 +137,8 @@ export function CtaVideoBackgroundHero({
   description,
   actions,
   actionsSlot,
+  modalVideo,
+  backgroundVideo,
   modalVideoUrl,
   backgroundVideoUrl,
   modalSlot,
@@ -243,14 +254,18 @@ export function CtaVideoBackgroundHero({
           >
             <DynamicIcon name="lucide/x" size={20} />
           </button>
-          {modalVideoUrl && (
+          {(modalVideo || modalVideoUrl) && (
             <Video
-              src={modalVideoUrl}
+              src={modalVideo?.video?.src || modalVideoUrl}
+              masterPlaylistUrl={modalVideo?.video?.masterPlaylistUrl}
+              fallbackSrc={modalVideo?.video?.fallbackSrc}
+              poster={modalVideo?.video?.poster || modalVideo?.image?.src}
               controls={true}
               autoPlay
               skinClasses={skinClasses || undefined}
               skinStyle={skinStyle || undefined}
               className="h-full w-full rounded-lg"
+              {...modalVideo?.video}
             />
           )}
         </div>
@@ -274,15 +289,19 @@ export function CtaVideoBackgroundHero({
             videoWrapperClassName,
           )}
         >
-          {backgroundVideoUrl && (
+          {(backgroundVideo || backgroundVideoUrl) && (
             <Video
-              src={backgroundVideoUrl}
+              src={backgroundVideo?.video?.src || backgroundVideoUrl}
+              masterPlaylistUrl={backgroundVideo?.video?.masterPlaylistUrl}
+              fallbackSrc={backgroundVideo?.video?.fallbackSrc}
+              poster={backgroundVideo?.video?.poster || backgroundVideo?.image?.src}
               autoPlay
               loop
               muted
               playsInline
               controls={false}
               className="absolute inset-0 h-full w-full object-cover"
+              {...backgroundVideo?.video}
             />
           )}
           <div

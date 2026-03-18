@@ -19,6 +19,7 @@ import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
   ImageItem,
+  MediaItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
@@ -48,7 +49,15 @@ export interface HeroCreativeStudioStackedProps {
    */
   videoAction?: ActionConfig;
   /**
-   * Video dialog configuration
+   * Video configuration for modal/dialog
+   */
+  modalVideo?: MediaItem;
+  /**
+   * Video dialog title
+   */
+  videoDialogTitle?: string;
+  /**
+   * @deprecated Use modalVideo instead
    */
   videoDialog?: VideoDialogConfig;
   /**
@@ -134,6 +143,8 @@ export function HeroCreativeStudioStacked({
   patternClassName,
   actions,
   onVideoClick,
+  modalVideo,
+  videoDialogTitle,
   videoDialog,
   images,
   imagesSlot,
@@ -303,7 +314,7 @@ export function HeroCreativeStudioStacked({
                   actionsClassName,
                 )}
               >
-                {videoAction && videoDialog?.videoUrl ? (
+                {videoAction && (modalVideo || videoDialog?.videoUrl) ? (
                   <ActionComponent
                     action={{
                       ...videoAction,
@@ -327,7 +338,7 @@ export function HeroCreativeStudioStacked({
           )}
         >
           <DialogHeader>
-            <DialogTitle>{videoDialog?.title}</DialogTitle>
+            <DialogTitle>{videoDialogTitle || videoDialog?.title}</DialogTitle>
           </DialogHeader>
           <div
             className={
@@ -335,12 +346,16 @@ export function HeroCreativeStudioStacked({
             }
           >
             <Video
-              src={videoDialog?.videoUrl}
+              src={modalVideo?.video?.src || videoDialog?.videoUrl}
+              masterPlaylistUrl={modalVideo?.video?.masterPlaylistUrl}
+              fallbackSrc={modalVideo?.video?.fallbackSrc}
+              poster={modalVideo?.video?.poster || modalVideo?.image?.src}
               controls={true}
               autoPlay
               skinClasses={skinClasses || undefined}
               skinStyle={skinStyle || undefined}
               className="h-full w-full rounded-lg"
+              {...modalVideo?.video}
             />
           </div>
         </DialogContent>

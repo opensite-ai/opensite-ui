@@ -19,6 +19,7 @@ import {
 import type {
   ActionConfig,
   ImageItem,
+  MediaItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
@@ -48,17 +49,21 @@ export interface HeroMentorshipVideoSplitProps {
    */
   videoLabel?: React.ReactNode;
   /**
-   * Video thumbnail image
+   * Video configuration for modal/dialog
    */
-  videoThumbnail?: ImageItem;
-  /**
-   * Video embed URL
-   */
-  videoUrl?: string;
+  modalVideo?: MediaItem;
   /**
    * Video dialog title
    */
   videoTitle?: string;
+  /**
+   * @deprecated Use modalVideo instead
+   */
+  videoThumbnail?: ImageItem;
+  /**
+   * @deprecated Use modalVideo instead
+   */
+  videoUrl?: string;
   /**
    * Custom slot for video section (overrides video props)
    */
@@ -128,6 +133,7 @@ export function HeroMentorshipVideoSplit({
   action,
   actionSlot,
   videoLabel,
+  modalVideo,
   videoThumbnail,
   videoUrl,
   videoTitle,
@@ -186,7 +192,8 @@ export function HeroMentorshipVideoSplit({
 
   const renderVideoSection = useMemo(() => {
     if (videoSlot) return videoSlot;
-    if (!videoThumbnail) return null;
+    const thumbnail = modalVideo?.image || videoThumbnail;
+    if (!thumbnail) return null;
 
     const aspectRatio = videoAspectRatio === "vertical" ? 9 / 16 : 16 / 9;
 
@@ -211,11 +218,11 @@ export function HeroMentorshipVideoSplit({
         >
           <AspectRatio ratio={aspectRatio} className="flex h-full w-full">
             <Img
-              src={videoThumbnail.src}
-              alt={videoThumbnail.alt}
+              src={thumbnail.src}
+              alt={thumbnail.alt}
               className={cn(
                 "absolute inset-0 h-full w-full object-cover",
-                videoThumbnail.className,
+                thumbnail.className,
               )}
               optixFlowConfig={optixFlowConfig}
             />
@@ -232,6 +239,7 @@ export function HeroMentorshipVideoSplit({
     );
   }, [
     videoSlot,
+    modalVideo,
     videoThumbnail,
     videoLabel,
     videoAspectRatio,
@@ -336,12 +344,16 @@ export function HeroMentorshipVideoSplit({
             }
           >
             <Video
-              src={videoUrl}
+              src={modalVideo?.video?.src || videoUrl}
+              masterPlaylistUrl={modalVideo?.video?.masterPlaylistUrl}
+              fallbackSrc={modalVideo?.video?.fallbackSrc}
+              poster={modalVideo?.video?.poster || modalVideo?.image?.src}
               controls={true}
               autoPlay
               skinClasses={skinClasses || undefined}
               skinStyle={skinStyle || undefined}
               className="h-full w-full rounded-lg"
+              {...modalVideo?.video}
             />
           </div>
         </DialogContent>

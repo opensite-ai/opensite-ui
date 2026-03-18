@@ -24,6 +24,7 @@ import type {
   ActionConfig,
   ImageItem,
   LogoItem,
+  MediaItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
@@ -47,13 +48,17 @@ export interface HeroConversionVideoPlayProps {
    */
   videoButtonLabel?: React.ReactNode;
   /**
-   * Video URL for the dialog
+   * Video configuration for modal/dialog
    */
-  videoUrl?: string;
+  modalVideo?: MediaItem;
   /**
    * Video dialog title
    */
   videoDialogTitle?: string;
+  /**
+   * @deprecated Use modalVideo instead
+   */
+  videoUrl?: string;
   /**
    * Custom slot for actions (overrides primaryAction and video button)
    */
@@ -137,6 +142,7 @@ export function HeroConversionVideoPlay({
   description,
   primaryAction,
   videoButtonLabel = "Play Video",
+  modalVideo,
   videoUrl,
   videoDialogTitle,
   actionsSlot,
@@ -202,7 +208,7 @@ export function HeroConversionVideoPlay({
             );
           })()}
 
-        {videoUrl && (
+        {(modalVideo || videoUrl) && (
           <Pressable
             onClick={() => setIsVideoOpen(true)}
             asButton
@@ -344,12 +350,16 @@ export function HeroConversionVideoPlay({
           </DialogHeader>
           <div className="aspect-video">
             <Video
-              src={videoUrl}
+              src={modalVideo?.video?.src || videoUrl}
+              masterPlaylistUrl={modalVideo?.video?.masterPlaylistUrl}
+              fallbackSrc={modalVideo?.video?.fallbackSrc}
+              poster={modalVideo?.video?.poster || modalVideo?.image?.src}
               controls={true}
               autoPlay
               skinClasses={skinClasses || undefined}
               skinStyle={skinStyle || undefined}
               className="h-full w-full rounded-lg"
+              {...modalVideo?.video}
             />
           </div>
         </DialogContent>

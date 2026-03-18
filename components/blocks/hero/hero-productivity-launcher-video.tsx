@@ -7,6 +7,7 @@ import { Pressable } from "../../../lib/Pressable";
 import { Video } from "@page-speed/video";
 import type {
   ActionConfig,
+  MediaItem,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
@@ -73,13 +74,18 @@ export interface HeroProductivityLauncherVideoProps {
    */
   versionInfoSlot?: React.ReactNode;
   /**
-   * Video source URL
+   * Background video configuration
+   */
+  backgroundVideo?: MediaItem;
+  /**
+   * Custom slot for video (overrides backgroundVideo prop)
+   */
+  videoSlot?: React.ReactNode;
+  /**
+   * @deprecated Use backgroundVideo instead
    */
   videoSrc?: string;
   /**
-   * Custom slot for video (overrides videoSrc prop)
-   */
-  videoSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -128,6 +134,7 @@ export function HeroProductivityLauncherVideo({
   actionsSlot,
   versionInfo,
   versionInfoSlot,
+  backgroundVideo,
   videoSrc,
   videoSlot,
   background,
@@ -205,17 +212,21 @@ export function HeroProductivityLauncherVideo({
     return (
       <div className="absolute top-0 z-10 h-full w-full inset-0">
         <Video
-          src={videoSrc}
+          src={backgroundVideo?.video?.src || videoSrc}
+          masterPlaylistUrl={backgroundVideo?.video?.masterPlaylistUrl}
+          fallbackSrc={backgroundVideo?.video?.fallbackSrc}
+          poster={backgroundVideo?.video?.poster || backgroundVideo?.image?.src}
           loop
           muted
           autoPlay
           playsInline
           controls={false}
           className="block size-full object-cover object-center brightness-50"
+          {...backgroundVideo?.video}
         />
       </div>
     );
-  }, [videoSlot, videoSrc]);
+  }, [videoSlot, backgroundVideo, videoSrc]);
 
   return (
     <Section

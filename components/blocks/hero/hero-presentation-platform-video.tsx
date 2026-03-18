@@ -7,6 +7,7 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import type {
   ActionConfig,
+  MediaItem,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
@@ -40,13 +41,18 @@ export interface HeroPresentationPlatformVideoProps {
    */
   actionsSlot?: React.ReactNode;
   /**
-   * Video source URL
+   * Background video configuration
+   */
+  backgroundVideo?: MediaItem;
+  /**
+   * Custom slot for video (overrides backgroundVideo prop)
+   */
+  videoSlot?: React.ReactNode;
+  /**
+   * @deprecated Use backgroundVideo instead
    */
   videoSrc?: string;
   /**
-   * Custom slot for video (overrides videoSrc prop)
-   */
-  videoSlot?: React.ReactNode; /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -103,6 +109,7 @@ export function HeroPresentationPlatformVideo({
   actions,
   actionsSlot,
   actionsClassName,
+  backgroundVideo,
   videoSrc,
   videoSlot,
   background,
@@ -175,7 +182,10 @@ export function HeroPresentationPlatformVideo({
         )}
       >
         <Video
-          src={videoSrc}
+          src={backgroundVideo?.video?.src || videoSrc}
+          masterPlaylistUrl={backgroundVideo?.video?.masterPlaylistUrl}
+          fallbackSrc={backgroundVideo?.video?.fallbackSrc}
+          poster={backgroundVideo?.video?.poster || backgroundVideo?.image?.src}
           autoPlay
           loop
           muted
@@ -184,10 +194,11 @@ export function HeroPresentationPlatformVideo({
           data-wf-ignore="true"
           data-object-fit="cover"
           className="h-full w-full rounded-tl-xl object-cover"
+          {...backgroundVideo?.video}
         />
       </div>
     );
-  }, [videoSlot, videoSrc, videoClassName]);
+  }, [videoSlot, backgroundVideo, videoSrc, videoClassName]);
 
   return (
     <Section
