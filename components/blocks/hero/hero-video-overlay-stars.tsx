@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
+import { Video } from "@page-speed/video";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -174,7 +175,7 @@ export function HeroVideoOverlayStars({
 
     return (
       <div className="absolute inset-0 size-full before:absolute brightness-50">
-        <video
+        <Video
           src={videoSrc}
           muted
           autoPlay

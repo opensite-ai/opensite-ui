@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { Fragment, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import { Video } from "@page-speed/video";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import {
   Dialog,
@@ -323,9 +324,12 @@ export function HeroCreativeStudioStacked({
               videoAspectRatio === "vertical" ? "aspect-9/16" : "aspect-video"
             }
           >
-            <video controls autoPlay className="h-full w-full rounded-lg">
-              <source src={videoDialog?.videoUrl} type="video/mp4" />
-            </video>
+            <Video
+              src={videoDialog?.videoUrl}
+              controls
+              autoPlay
+              className="h-full w-full rounded-lg"
+            />
           </div>
         </DialogContent>
       </Dialog>

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
+import { Video } from "@page-speed/video";
 import { cn } from "../../../lib/utils";
 import type {
   ActionConfig,
@@ -125,13 +126,13 @@ export function HeroVideoBackgroundDark({
 
     return (
       <>
-        <video
+        <Video
+          src={videoSrc}
           loop
           playsInline
-          src={videoSrc}
-          className="absolute top-0 left-0 size-full object-cover"
           autoPlay
           muted
+          className="absolute top-0 left-0 size-full object-cover"
         />
         <GradientOverlay intensity={videoOverlayIntensity} />
       </>

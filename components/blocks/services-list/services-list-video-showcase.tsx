@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import { Video } from "@page-speed/video";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import {
@@ -231,7 +232,7 @@ export function ServicesListVideoShowcase({
                 />
               )}
               {service.videoUrl && (
-                <video
+                <Video
                   ref={(el) => {
                     videoRefs.current[index] = el;
                   }}

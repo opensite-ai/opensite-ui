@@ -4,6 +4,7 @@ import * as React from "react";
 import { useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
+import { Video } from "@page-speed/video";
 import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
@@ -484,7 +485,7 @@ export function ProjectDetailArchitectureCarousel(
             className="mb-16"
           >
             <div className="relative aspect-video overflow-hidden rounded-2xl">
-              <video
+              <Video
                 src={videoUrl}
                 poster={videoPoster}
                 controls
@@ -492,7 +493,7 @@ export function ProjectDetailArchitectureCarousel(
                 controlsList="nodownload"
               >
                 <track kind="captions" />
-              </video>
+              </Video>
             </div>
           </motion.div>
         )}

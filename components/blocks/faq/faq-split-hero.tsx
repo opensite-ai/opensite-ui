@@ -4,6 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import { Video } from "@page-speed/video";
 import {
   Accordion,
   AccordionContent,
@@ -205,7 +206,7 @@ export function FaqSplitHero({
     if (video) {
       const { src, className: videoClassName, ...videoRest } = video;
       return (
-        <video
+        <Video
           src={src}
           className={cn("h-full w-full object-cover", videoClassName)}
           {...videoRest}

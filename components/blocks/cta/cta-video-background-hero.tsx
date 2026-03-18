@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
+import { Video } from "@page-speed/video";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -233,9 +234,12 @@ export function CtaVideoBackgroundHero({
             <DynamicIcon name="lucide/x" size={20} />
           </button>
           {modalVideoUrl && (
-            <video controls autoPlay className="w-full rounded-lg">
-              <source src={modalVideoUrl} type="video/mp4" />
-            </video>
+            <Video
+              src={modalVideoUrl}
+              controls
+              autoPlay
+              className="w-full rounded-lg"
+            />
           )}
         </div>
       </div>
@@ -259,15 +263,14 @@ export function CtaVideoBackgroundHero({
           )}
         >
           {backgroundVideoUrl && (
-            <video
+            <Video
+              src={backgroundVideoUrl}
               autoPlay
               loop
               muted
               playsInline
               className="absolute inset-0 h-full w-full object-cover"
-            >
-              <source src={backgroundVideoUrl} type="video/mp4" />
-            </video>
+            />
           )}
           <div
             className={cn(

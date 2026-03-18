@@ -4,6 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Video } from "@page-speed/video";
 
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -142,8 +143,9 @@ const VideoSection: React.FC<VideoSectionProps> = ({
         optixFlowConfig={optixFlowConfig}
       />
 
-      <video
+      <Video
         ref={videoRef}
+        src={videoSrc}
         className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out ${
           isHovered ? "opacity-100" : "opacity-0"
         }`}
@@ -151,10 +153,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
         loop
         playsInline
         preload="metadata"
-      >
-        <source src={videoSrc} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      />
 
       <div className="absolute inset-0 bg-foreground/30 transition-all duration-500 group-hover:bg-foreground/20" />
 

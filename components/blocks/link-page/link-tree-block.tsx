@@ -6,6 +6,7 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Img } from "@page-speed/img";
+import { Video } from "@page-speed/video";
 import { Section } from "../../ui/section";
 import { SocialLinkIcon } from "../../ui/social-link-icon";
 import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
@@ -672,7 +673,7 @@ export function LinkTreeBlock({
               aria-label={`View ${item.alt || item.type} in lightbox`}
             >
               {item.type === "video" ? (
-                <video
+                <Video
                   src={item.src}
                   poster={item.poster}
                   className={cn(

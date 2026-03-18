@@ -4,6 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Fragment, useState } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
+import { Video } from "@page-speed/video";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -332,9 +333,12 @@ export function HeroConversionVideoPlay({
             <DialogTitle>{videoDialogTitle}</DialogTitle>
           </DialogHeader>
           <div className="aspect-video">
-            <video controls autoPlay className="h-full w-full rounded-lg">
-              <source src={videoUrl} type="video/mp4" />
-            </video>
+            <Video
+              src={videoUrl}
+              controls
+              autoPlay
+              className="h-full w-full rounded-lg"
+            />
           </div>
         </DialogContent>
       </Dialog>

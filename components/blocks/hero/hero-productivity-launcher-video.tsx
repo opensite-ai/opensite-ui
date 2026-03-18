@@ -4,6 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
+import { Video } from "@page-speed/video";
 import type {
   ActionConfig,
   SectionBackground,
@@ -203,7 +204,7 @@ export function HeroProductivityLauncherVideo({
 
     return (
       <div className="absolute top-0 z-10 h-full w-full inset-0">
-        <video
+        <Video
           src={videoSrc}
           loop
           muted

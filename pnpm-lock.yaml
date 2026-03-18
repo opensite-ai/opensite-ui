@@ -38,9 +38,15 @@ importers:
       '@page-speed/router':
         specifier: 1.0.2
         version: 1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/skins':
+        specifier: ^0.1.1
+        version: 0.1.1(react@18.3.1)
       '@page-speed/social-share':
         specifier: 0.1.7
         version: 0.1.7(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/video':
+        specifier: ^0.0.3
+        version: 0.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -893,6 +899,15 @@ packages:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
 
+  '@page-speed/skins@0.1.1':
+    resolution: {integrity: sha512-XW0vlnVzIrXY6baaN4hpE+DWR6UiRhQHFgymdpyYgZlycaWvKtU2VwkK89MKeWmIIL1YIoWlWrcmC09xd/jb4A==}
+    engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
+    peerDependencies:
+      react: '>=17.0.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+
   '@page-speed/social-share@0.1.7':
     resolution: {integrity: sha512-xj8trH8EBhe+QENQFobYykbcQ3yVm5GfxKIAoX/1l3mrX5/zqk4MVvn0l+VasZDEckirID0yqghH9An2ifdQnQ==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
@@ -900,6 +915,13 @@ packages:
       '@opensite/hooks': '>=2.0.0'
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
+
+  '@page-speed/video@0.0.3':
+    resolution: {integrity: sha512-DwGkuwcXAdXCj7ymz+7LsMdkjSMTfrCFLAq8efPAZjZuWwlfXH5C7FA88K8C+4GeGY278SYRXlh4yMlrmu5r5A==}
+    engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
+    peerDependencies:
+      react: '>=17.0.0'
+      react-dom: '>=17.0.0'
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
@@ -2312,6 +2334,9 @@ packages:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
 
+  hls.js@1.6.15:
+    resolution: {integrity: sha512-E3a5VwgXimGHwpRGV+WxRTKeSp2DW5DI5MWv34ulL3t5UNmyJWCQ1KmLEHbYzcfThfXG8amBL+fCYPneGHC4VA==}
+
   html-encoding-sniffer@6.0.0:
     resolution: {integrity: sha512-CV9TW3Y3f8/wT0BRFc1/KAVQ3TUHiXmaAb6VW9vtiMFf7SLoMd1PdAc4W3KFOFETBJUb90KatHqlsZMWV+R9Gg==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
@@ -3642,10 +3667,20 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
+  '@page-speed/skins@0.1.1(react@18.3.1)':
+    optionalDependencies:
+      react: 18.3.1
+
   '@page-speed/social-share@0.1.7(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@opensite/hooks': 2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/router': 1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@page-speed/video@0.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      hls.js: 1.6.15
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -5046,6 +5081,8 @@ snapshots:
       - utf-8-validate
 
   has-flag@4.0.0: {}
+
+  hls.js@1.6.15: {}
 
   html-encoding-sniffer@6.0.0:
     dependencies:

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
+import { Video } from "@page-speed/video";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import type {
@@ -173,7 +174,8 @@ export function HeroPresentationPlatformVideo({
           videoClassName,
         )}
       >
-        <video
+        <Video
+          src={videoSrc}
           autoPlay
           loop
           muted
@@ -181,9 +183,7 @@ export function HeroPresentationPlatformVideo({
           data-wf-ignore="true"
           data-object-fit="cover"
           className="h-full w-full rounded-tl-xl object-cover"
-        >
-          <source src={videoSrc} type="video/mp4" />
-        </video>
+        />
       </div>
     );
   }, [videoSlot, videoSrc, videoClassName]);
