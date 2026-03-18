@@ -769,10 +769,50 @@ export interface MediaItem {
    */
   image?: React.ComponentPropsWithoutRef<"img">;
   /**
-   * Video configuration using standard React video attributes.
-   * When provided, the block renders a video element instead of (or in addition to) an image.
+   * Video configuration using @page-speed/video component props.
+   * Supports HLS streaming, progressive fallback, poster optimization, and custom skins.
    */
-  video?: React.ComponentPropsWithoutRef<"video">;
+  video?: React.ComponentPropsWithoutRef<"video"> & {
+    /**
+     * Direct HLS master playlist URL (skips transform call)
+     */
+    masterPlaylistUrl?: string;
+    /**
+     * Fallback progressive MP4 URL if HLS fails
+     */
+    fallbackSrc?: string;
+    /**
+     * OptixFlow API key for poster optimization
+     */
+    optixFlowApiKey?: string;
+    /**
+     * Skin classes for custom controls (from @page-speed/skins)
+     */
+    skinClasses?: {
+      container?: string;
+      video?: string;
+      controlsBar?: string;
+      playButton?: string;
+      timeline?: string;
+      timelineProgress?: string;
+      timelineBuffered?: string;
+      timeText?: string;
+      volumeControl?: string;
+      fullscreenButton?: string;
+      settingsButton?: string;
+      loadingSpinner?: string;
+      playOverlay?: string;
+      playOverlayButton?: string;
+    };
+    /**
+     * CSS custom properties from skin tokens
+     */
+    skinStyle?: Record<string, string>;
+    /**
+     * Enable debug logging
+     */
+    debug?: boolean;
+  };
   /**
    * Additional CSS classes for the media container element.
    */

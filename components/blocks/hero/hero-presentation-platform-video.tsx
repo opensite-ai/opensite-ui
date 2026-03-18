@@ -180,6 +180,7 @@ export function HeroPresentationPlatformVideo({
           loop
           muted
           playsInline
+          controls={false}
           data-wf-ignore="true"
           data-object-fit="cover"
           className="h-full w-full rounded-tl-xl object-cover"

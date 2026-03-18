@@ -209,6 +209,7 @@ export function HeroProductivityLauncherVideo({
           loop
           muted
           autoPlay
+          playsInline
           controls={false}
           className="block size-full object-cover object-center brightness-50"
         />

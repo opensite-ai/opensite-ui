@@ -1,9 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { Fragment, useState } from "react";
 import { Video } from "@page-speed/video";
+import { loadSkinFromJsDelivr, resolveVideoClasses, getSkinStyleObject } from '@page-speed/skins';
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -146,6 +147,15 @@ export function HeroMentorshipVideoSplit({
   optixFlowConfig,
 }: HeroMentorshipVideoSplitProps): React.JSX.Element {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [skinClasses, setSkinClasses] = useState<any>(null);
+  const [skinStyle, setSkinStyle] = useState<any>(null);
+
+  useEffect(() => {
+    loadSkinFromJsDelivr('0.1.2', 'skins/video/base.json').then(skin => {
+      setSkinClasses(resolveVideoClasses(skin));
+      setSkinStyle(getSkinStyleObject(skin));
+    });
+  }, []);
 
   const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
@@ -327,8 +337,10 @@ export function HeroMentorshipVideoSplit({
           >
             <Video
               src={videoUrl}
-              controls
+              controls={true}
               autoPlay
+              skinClasses={skinClasses || undefined}
+              skinStyle={skinStyle || undefined}
               className="h-full w-full rounded-lg"
             />
           </div>

@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Video } from "@page-speed/video";
+import { loadSkinFromJsDelivr, resolveVideoClasses, getSkinStyleObject } from '@page-speed/skins';
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -146,6 +147,15 @@ export function CtaVideoBackgroundHero({
   patternOpacity,
 }: CtaVideoBackgroundHeroProps): React.JSX.Element {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [skinClasses, setSkinClasses] = useState<any>(null);
+  const [skinStyle, setSkinStyle] = useState<any>(null);
+
+  useEffect(() => {
+    loadSkinFromJsDelivr('0.1.2', 'skins/video/base.json').then(skin => {
+      setSkinClasses(resolveVideoClasses(skin));
+      setSkinStyle(getSkinStyleObject(skin));
+    });
+  }, []);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -236,9 +246,11 @@ export function CtaVideoBackgroundHero({
           {modalVideoUrl && (
             <Video
               src={modalVideoUrl}
-              controls
+              controls={true}
               autoPlay
-              className="w-full rounded-lg"
+              skinClasses={skinClasses || undefined}
+              skinStyle={skinStyle || undefined}
+              className="h-full w-full rounded-lg"
             />
           )}
         </div>
@@ -269,6 +281,7 @@ export function CtaVideoBackgroundHero({
               loop
               muted
               playsInline
+              controls={false}
               className="absolute inset-0 h-full w-full object-cover"
             />
           )}

@@ -132,6 +132,7 @@ export function HeroVideoBackgroundDark({
           playsInline
           autoPlay
           muted
+          controls={false}
           className="absolute top-0 left-0 size-full object-cover"
         />
         <GradientOverlay intensity={videoOverlayIntensity} />

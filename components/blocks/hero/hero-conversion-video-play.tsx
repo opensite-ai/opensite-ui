@@ -1,10 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { Fragment, useState } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { Video } from "@page-speed/video";
+import { loadSkinFromJsDelivr, resolveVideoClasses, getSkinStyleObject } from '@page-speed/skins';
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -159,6 +160,15 @@ export function HeroConversionVideoPlay({
   optixFlowConfig,
 }: HeroConversionVideoPlayProps): React.JSX.Element {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [skinClasses, setSkinClasses] = useState<any>(null);
+  const [skinStyle, setSkinStyle] = useState<any>(null);
+
+  useEffect(() => {
+    loadSkinFromJsDelivr('0.1.2', 'skins/video/base.json').then(skin => {
+      setSkinClasses(resolveVideoClasses(skin));
+      setSkinStyle(getSkinStyleObject(skin));
+    });
+  }, []);
 
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -335,8 +345,10 @@ export function HeroConversionVideoPlay({
           <div className="aspect-video">
             <Video
               src={videoUrl}
-              controls
+              controls={true}
               autoPlay
+              skinClasses={skinClasses || undefined}
+              skinStyle={skinStyle || undefined}
               className="h-full w-full rounded-lg"
             />
           </div>

@@ -208,6 +208,11 @@ export function FaqSplitHero({
       return (
         <Video
           src={src}
+          autoPlay
+          loop
+          muted
+          playsInline
+          controls={false}
           className={cn("h-full w-full object-cover", videoClassName)}
           {...videoRest}
         />

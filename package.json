@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -3428,9 +3428,9 @@
     "@page-speed/pdf-viewer": "0.1.9",
     "@page-speed/pressable": "0.0.6",
     "@page-speed/router": "1.0.2",
-    "@page-speed/skins": "0.1.1",
+    "@page-speed/skins": "0.1.2",
     "@page-speed/social-share": "0.1.7",
-    "@page-speed/video": "0.0.3",
+    "@page-speed/video": "0.0.4",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-aspect-ratio": "^1.1.8",
     "@radix-ui/react-avatar": "^1.1.11",

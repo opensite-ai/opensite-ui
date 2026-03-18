@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { Fragment, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Video } from "@page-speed/video";
+import { loadSkinFromJsDelivr, resolveVideoClasses, getSkinStyleObject } from '@page-speed/skins';
 import { AspectRatio } from "../../ui/aspect-ratio";
 import {
   Dialog,
@@ -137,6 +138,15 @@ export function HeroSoftwareGrowthVideoDialog({
   optixFlowConfig,
 }: HeroSoftwareGrowthVideoDialogProps): React.JSX.Element {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [skinClasses, setSkinClasses] = useState<any>(null);
+  const [skinStyle, setSkinStyle] = useState<any>(null);
+
+  useEffect(() => {
+    loadSkinFromJsDelivr('0.1.2', 'skins/video/base.json').then(skin => {
+      setSkinClasses(resolveVideoClasses(skin));
+      setSkinStyle(getSkinStyleObject(skin));
+    });
+  }, []);
 
   const handleVideoClick = () => {
     if (onVideoClick) {
@@ -280,8 +290,10 @@ export function HeroSoftwareGrowthVideoDialog({
           >
             <Video
               src={videoDialog?.videoUrl}
-              controls
+              controls={true}
               autoPlay
+              skinClasses={skinClasses || undefined}
+              skinStyle={skinStyle || undefined}
               className="h-full w-full rounded-lg"
             />
           </div>

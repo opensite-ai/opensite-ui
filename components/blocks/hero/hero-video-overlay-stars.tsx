@@ -180,6 +180,7 @@ export function HeroVideoOverlayStars({
           muted
           autoPlay
           loop
+          playsInline
           controls={false}
           className="size-full object-cover object-center"
         />
