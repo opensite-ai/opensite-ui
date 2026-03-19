@@ -40,6 +40,97 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* ============================================
+     BUTTONS - Required for @page-speed/pressable
+     ============================================ */
+
+  /* Master Button Styles (apply to all variants) */
+  --button-font-family: inherit;
+  --button-font-weight: 500;
+  --button-letter-spacing: 0;
+  --button-line-height: 1.25;
+  --button-text-transform: none;
+  --button-transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --button-radius: var(--radius);
+  --button-shadow: none;
+  --button-shadow-hover: none;
+
+  /* Size Variants */
+  --button-height-sm: 2rem;
+  --button-height-md: 2.25rem;
+  --button-height-lg: 2.5rem;
+  --button-padding-x-sm: 0.75rem;
+  --button-padding-x-md: 1rem;
+  --button-padding-x-lg: 1.5rem;
+  --button-padding-y-sm: 0.25rem;
+  --button-padding-y-md: 0.5rem;
+  --button-padding-y-lg: 0.5rem;
+
+  /* Default (Primary) Variant */
+  --button-default-bg: var(--primary);
+  --button-default-fg: var(--primary-foreground);
+  --button-default-border: transparent;
+  --button-default-border-width: 0px;
+  --button-default-shadow: var(--button-shadow);
+  --button-default-hover-bg: color-mix(in oklch, var(--primary), transparent 10%);
+  --button-default-hover-fg: var(--primary-foreground);
+  --button-default-hover-border: transparent;
+  --button-default-shadow-hover: var(--button-shadow-hover);
+
+  /* Destructive Variant */
+  --button-destructive-bg: var(--destructive);
+  --button-destructive-fg: var(--destructive-foreground);
+  --button-destructive-border: transparent;
+  --button-destructive-border-width: 0px;
+  --button-destructive-shadow: var(--button-shadow);
+  --button-destructive-hover-bg: color-mix(in oklch, var(--destructive), transparent 10%);
+  --button-destructive-hover-fg: var(--destructive-foreground);
+  --button-destructive-hover-border: transparent;
+  --button-destructive-shadow-hover: var(--button-shadow-hover);
+
+  /* Outline Variant */
+  --button-outline-bg: var(--background);
+  --button-outline-fg: inherit;
+  --button-outline-border: var(--border);
+  --button-outline-border-width: 1px;
+  --button-outline-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --button-outline-hover-bg: var(--accent);
+  --button-outline-hover-fg: var(--accent-foreground);
+  --button-outline-hover-border: var(--border);
+  --button-outline-shadow-hover: var(--button-shadow-hover);
+
+  /* Secondary Variant */
+  --button-secondary-bg: var(--secondary);
+  --button-secondary-fg: var(--secondary-foreground);
+  --button-secondary-border: transparent;
+  --button-secondary-border-width: 0px;
+  --button-secondary-shadow: var(--button-shadow);
+  --button-secondary-hover-bg: color-mix(in oklch, var(--secondary), transparent 20%);
+  --button-secondary-hover-fg: var(--secondary-foreground);
+  --button-secondary-hover-border: transparent;
+  --button-secondary-shadow-hover: var(--button-shadow-hover);
+
+  /* Ghost Variant */
+  --button-ghost-bg: transparent;
+  --button-ghost-fg: inherit;
+  --button-ghost-border: transparent;
+  --button-ghost-border-width: 0px;
+  --button-ghost-shadow: none;
+  --button-ghost-hover-bg: var(--accent);
+  --button-ghost-hover-fg: var(--accent-foreground);
+  --button-ghost-hover-border: transparent;
+  --button-ghost-shadow-hover: none;
+
+  /* Link Variant */
+  --button-link-bg: transparent;
+  --button-link-fg: var(--primary);
+  --button-link-border: transparent;
+  --button-link-border-width: 0px;
+  --button-link-shadow: none;
+  --button-link-hover-bg: transparent;
+  --button-link-hover-fg: var(--primary);
+  --button-link-shadow-hover: none;
 }
 
 .dark {
@@ -75,6 +166,12 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+
+  /* Dark mode button adjustments */
+  --button-outline-shadow: none;
+  --button-outline-hover-bg: oklch(0.35 0 0);
+  --button-secondary-hover-bg: color-mix(in oklch, var(--secondary), transparent 20%);
+  --button-ghost-hover-bg: oklch(0.35 0 0);
 }
 
 @theme inline {

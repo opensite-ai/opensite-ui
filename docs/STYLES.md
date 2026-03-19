@@ -560,6 +560,12 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@opensite/ui/dist/**/*.{js,mjs}",
+
+    // Include @page-speed/pressable for button/link styles
+    "./node_modules/@page-speed/pressable/dist/**/*.{js,cjs}",
+
+    // For pnpm monorepos:
+    "./node_modules/.pnpm/@page-speed+pressable*/node_modules/@page-speed/pressable/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
@@ -601,9 +607,11 @@ export default config;
 
 Both the `Button` and `Pressable` components share the same comprehensive styling system through CSS variables. This allows for complete control over appearance across your entire application.
 
+**Important:** The `Pressable` component is now provided by the `@page-speed/pressable` package, which is a dependency of `@opensite/ui`. Make sure to include its path in your Tailwind content configuration (see [Tailwind CSS Integration](#tailwind-css-integration) section).
+
 ```tsx
 import { Button } from "@opensite/ui/components/button";
-import { Pressable } from "@opensite/ui/lib/pressable";
+import { Pressable } from "@opensite/ui/lib/pressable"; // Re-exported from @page-speed/pressable
 
 // Using variant and size props (works identically for both components)
 <Button variant="default" size="default">Default Button</Button>
@@ -928,7 +936,7 @@ import { PageHeroBanner } from "@opensite/ui/components/page-hero-banner";
 
 ## Tailwind CSS Integration
 
-### Step 1: Include @opensite/ui in Tailwind Content
+### Step 1: Include @opensite/ui and @page-speed/pressable in Tailwind Content
 
 ```js
 // tailwind.config.js
@@ -936,10 +944,19 @@ module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@opensite/ui/dist/**/*.{js,mjs}",
+
+    // IMPORTANT: Include @page-speed/pressable for button/link styles
+    // For standard npm/yarn installations:
+    "./node_modules/@page-speed/pressable/dist/**/*.{js,cjs}",
+
+    // For pnpm monorepos (use both if unsure):
+    "./node_modules/.pnpm/@page-speed+pressable*/node_modules/@page-speed/pressable/**/*.{js,jsx,ts,tsx}",
   ],
   // ... rest of config
 }
 ```
+
+> **Note:** Since the `Pressable` component has been extracted to `@page-speed/pressable`, you must include its paths in your Tailwind content configuration for button and link styles to work properly.
 
 ### Step 2: Use Tailwind Classes with Components
 
