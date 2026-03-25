@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Fragment, useCallback, useMemo, useState } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { AspectRatio } from "../../ui/aspect-ratio";
@@ -17,7 +17,6 @@ import { Card, CardContent } from "../../ui/card";
 import { Checkbox } from "../../ui/checkbox";
 import { Label } from "../../ui/label";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -157,6 +156,10 @@ export interface BlogFilteredResultsProps {
    * Vertical spacing for the section
    */
   spacing?: SectionSpacing;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /**
    * Optional background pattern name or URL
    */
@@ -336,8 +339,9 @@ export function BlogFilteredResultsComponent({
   loadMoreClassName,
   optixFlowConfig,
   background,
-  spacing = "pt-6 pb-16 lg:pt-12 lg:pb-32",
+  spacing = "hero",
   pattern,
+  containerClassName = "mx-auto w-full px-4 lg:px-8 max-w-full md:max-w-7xl relative z-10 flex justify-center",
   patternOpacity,
 }: BlogFilteredResultsProps): React.JSX.Element {
   const effectivePostsPerPage = postsPerPage || POSTS_PER_PAGE;
@@ -487,12 +491,12 @@ export function BlogFilteredResultsComponent({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
       <div
         className={cn(
           "bg-size-[3.125rem_3.125rem] bg-repeat rounded-2xl shadow-xl",
-          getNestedCardBg(background),
-          getNestedCardTextColor(background),
+          "bg-muted text-muted-foreground",
           heroClassName,
         )}
       >

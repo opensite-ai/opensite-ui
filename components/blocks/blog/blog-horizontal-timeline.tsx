@@ -91,7 +91,7 @@ export function BlogHorizontalTimelineComponent({
   postsSlot,
   readText,
   className,
-  containerClassName,
+  containerClassName = "mx-auto w-full px-4 lg:px-8 max-w-full md:max-w-7xl relative z-10 flex justify-center",
   headingClassName,
   postsClassName,
   postItemClassName,
@@ -139,13 +139,13 @@ export function BlogHorizontalTimelineComponent({
               />
             </div>
           )}
-          <Card
+          <div
             className={cn(
               "w-full border-none shadow-none pt-0 pb-6 md:pt-6 md:pb-6",
               postCardClassName,
             )}
           >
-            <CardContent className="p-0">
+            <div className="p-0">
               <div
                 className={cn(
                   "flex flex-col gap-4 border-b h-full justify-between md:items-start md:gap-0 md:border-t py-6 mb-6 md:mb-0",
@@ -159,7 +159,7 @@ export function BlogHorizontalTimelineComponent({
                     </h2>
                   )}
                   {postDate && (
-                    <p className="text-xs font-semibold tracking-widest text-muted-foreground uppercase md:mt-2 md:text-sm">
+                    <p className="text-xs font-semibold tracking-widest uppercase md:mt-2 md:text-sm opacity-75">
                       {postDate}
                     </p>
                   )}
@@ -171,15 +171,15 @@ export function BlogHorizontalTimelineComponent({
                     </p>
                   )}
                   {readText && (
-                    <Pressable href={postHref} asButton variant="ghost">
+                    <Pressable href={postHref} asButton variant="outline">
                       {readText}
                       <DynamicIcon name="lucide/arrow-up-right" size={20} />
                     </Pressable>
                   )}
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       );
     });
@@ -201,8 +201,9 @@ export function BlogHorizontalTimelineComponent({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         {heading &&
           (typeof heading === "string" ? (
             <h1
@@ -214,7 +215,7 @@ export function BlogHorizontalTimelineComponent({
               {heading}
             </h1>
           ) : (
-            <div className={cn("mb-12", headingClassName)}>{heading}</div>
+            heading
           ))}
 
         <div className={cn("flex flex-col gap-0 md:gap-20", postsClassName)}>
