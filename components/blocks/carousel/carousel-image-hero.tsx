@@ -16,11 +16,7 @@
 
 import * as React from "react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -222,7 +218,12 @@ export function CarouselImageHero({
       patternOpacity={patternOpacity}
       containerClassName={containerClassName}
     >
-      <div className={cn("absolute inset-0", imageClassName)}>
+      <div
+        className={cn(
+          "absolute inset-0 mx-4 md:mx-8 rounded-2xl overflow-hidden",
+          imageClassName,
+        )}
+      >
         {!hasImages
           ? null
           : images?.map((image, index) => (
@@ -246,7 +247,7 @@ export function CarouselImageHero({
         {/* Navigation Controls */}
         <div
           className={cn(
-            "absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center justify-center gap-5",
+            "absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center justify-center gap-5",
             indicatorsClassName,
           )}
         >
@@ -343,11 +344,13 @@ export function CarouselImageHero({
               ))}
           </div>
 
-          <BlockActions
-            actions={actions}
-            actionsSlot={actionsSlot}
-            actionsClassName={actionsClassName}
-          />
+          <div className="flex justify-center items-center">
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+            />
+          </div>
         </div>
       </div>
     </Section>

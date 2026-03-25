@@ -313,7 +313,7 @@ export function CarouselGalleryThumbnails({
               <Img
                 src={image.src}
                 alt={`Thumbnail ${index + 1}`}
-                className="h-full w-full rounded-sm object-cover"
+                className="h-full w-full rounded-lg object-cover"
                 optixFlowConfig={optixFlowConfig}
               />
             </button>

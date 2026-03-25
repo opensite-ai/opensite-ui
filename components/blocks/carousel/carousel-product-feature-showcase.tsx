@@ -21,7 +21,6 @@ import { cn, getNestedCardBg } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -179,7 +178,7 @@ export function CarouselProductFeatureShowcase({
   actions,
   actionsSlot,
   className,
-  containerClassName,
+  containerClassName = "px-4 md:px-10 lg:px-16",
   headerClassName,
   headingClassName,
   subheadingClassName,
@@ -283,8 +282,9 @@ export function CarouselProductFeatureShowcase({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("relative", containerClassName)}>
+      <div className="relative">
         {/* Header */}
         <div className={cn("mb-12 text-center", headerClassName)}>
           {heading &&
@@ -298,20 +298,17 @@ export function CarouselProductFeatureShowcase({
                 {heading}
               </h2>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {subheading &&
             (typeof subheading === "string" ? (
               <p
-                className={cn(
-                  "mt-4 text-lg text-muted-foreground",
-                  subheadingClassName,
-                )}
+                className={cn("mt-4 text-lg text-balance", subheadingClassName)}
               >
                 {subheading}
               </p>
             ) : (
-              <div className={subheadingClassName}>{subheading}</div>
+              subheading
             ))}
         </div>
 
@@ -406,7 +403,7 @@ export function CarouselProductFeatureShowcase({
                     ))}
                   {activeFeature?.description &&
                     (typeof activeFeature.description === "string" ? (
-                      <p className="mt-4 text-lg text-muted-foreground">
+                      <p className="mt-4 text-lg text-balance">
                         {activeFeature.description}
                       </p>
                     ) : (

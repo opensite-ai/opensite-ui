@@ -16,7 +16,7 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn, getNestedCardBg, getNestedCardTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -237,7 +237,7 @@ export function CarouselProgressSlider({
   fastDuration = 400,
   vertical = false,
   className,
-  containerClassName,
+  containerClassName = "px-4 md:px-10 lg:px-16",
   contentClassName,
   imageClassName,
   navigationClassName,
@@ -338,9 +338,15 @@ export function CarouselProgressSlider({
         className={cn(className)}
         pattern={pattern}
         patternOpacity={patternOpacity}
+        containerClassName={containerClassName}
       >
-        <div className={cn("relative", containerClassName)}>
-          <div className={cn("grid gap-4 lg:gap-8 lg:grid-cols-2", contentClassName)}>
+        <div className="relative">
+          <div
+            className={cn(
+              "grid gap-4 lg:gap-8 lg:grid-cols-2",
+              contentClassName,
+            )}
+          >
             {/* Content area */}
             <div className={cn("relative", imageClassName)}>
               <div className="relative aspect-video">
@@ -412,15 +418,15 @@ export function CarouselProgressSlider({
                     (typeof slide.title === "string" ? (
                       <h3 className="text-lg font-semibold">{slide.title}</h3>
                     ) : (
-                      <div>{slide.title}</div>
+                      slide.title
                     ))}
                   {slide.description &&
                     (typeof slide.description === "string" ? (
-                      <p className="mt-1 text-sm text-muted-foreground">
+                      <p className="mt-1 text-sm text-balance">
                         {slide.description}
                       </p>
                     ) : (
-                      <div className="mt-1">{slide.description}</div>
+                      slide.description
                     ))}
                 </SliderBtn>
               ))}

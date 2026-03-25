@@ -218,7 +218,7 @@ export function CarouselScrollingFeatureShowcase({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "text-3xl font-bold tracking-tight md:text-4xl",
+                  "text-3xl font-bold tracking-tight md:text-4xl text-pretty",
                   headingClassName,
                 )}
               >
@@ -229,7 +229,9 @@ export function CarouselScrollingFeatureShowcase({
             ))}
           {subheading &&
             (typeof subheading === "string" ? (
-              <p className={cn("mt-4 text-lg", subheadingClassName)}>
+              <p
+                className={cn("mt-4 text-lg text-balance", subheadingClassName)}
+              >
                 {subheading}
               </p>
             ) : (

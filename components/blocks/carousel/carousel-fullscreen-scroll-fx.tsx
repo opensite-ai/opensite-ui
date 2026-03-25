@@ -222,10 +222,10 @@ export function CarouselFullscreenScrollFx({
             key={slide.id}
             onClick={() => scrollToSlide(index)}
             className={cn(
-              "h-3 w-3 rounded-full border-2 transition-all",
+              "h-3 w-3 rounded-full border-2 transition-all cursor-pointer",
               activeIndex === index
-                ? "scale-125 border-foreground bg-foreground"
-                : "border-foreground/50 bg-transparent hover:border-foreground",
+                ? "scale-125 border-white bg-white"
+                : "border-white bg-transparent hover:bg-white",
             )}
             aria-label={`Go to ${typeof slide.title === "string" ? slide.title : `Slide ${index + 1}`}`}
           />
@@ -344,7 +344,8 @@ export function CarouselFullscreenScrollFx({
                   {/* Content */}
                   <div
                     className={cn(
-                      "relative z-10 mx-auto max-w-4xl md:max-w-xl px-6 text-center text-shadow",
+                      "relative z-10 mx-auto max-w-full md:max-w-md",
+                      "px-6 text-center text-shadow",
                       contentClassName,
                     )}
                   >
