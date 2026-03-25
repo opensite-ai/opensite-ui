@@ -190,7 +190,7 @@ export function CarouselProductFeatureShowcase({
   indicatorsClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "hero",
   pattern,
   patternOpacity,
 }: CarouselProductFeatureShowcaseProps): React.JSX.Element {

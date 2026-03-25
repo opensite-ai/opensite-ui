@@ -141,7 +141,7 @@ export function CarouselImageHero({
   indicatorsClassName,
   optixFlowConfig,
   background,
-  spacing = "py-0 md:py-32",
+  spacing = "hero",
   pattern,
   patternOpacity,
 }: CarouselImageHeroProps): React.JSX.Element {

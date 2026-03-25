@@ -302,7 +302,7 @@ export function CarouselGalleryThumbnails({
             <button
               key={`thumb-${index}`}
               className={cn(
-                "relative h-20 w-20 shrink-0 transition-all duration-200",
+                "relative h-20 w-20 shrink-0 transition-all duration-200 rounded-lg",
                 index === currentIndex
                   ? "ring-2 ring-primary ring-offset-2"
                   : "opacity-70 hover:opacity-100",
