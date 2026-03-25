@@ -341,7 +341,7 @@ export function BlogFilteredResultsComponent({
   background,
   spacing = "hero",
   pattern,
-  containerClassName = "mx-auto w-full px-4 lg:px-8 max-w-full md:max-w-7xl relative z-10 flex justify-center",
+  containerClassName = "mx-auto w-full px-4 lg:px-8 max-w-full md:max-w-7xl relative z-10 flex items-center flex-col",
   patternOpacity,
 }: BlogFilteredResultsProps): React.JSX.Element {
   const effectivePostsPerPage = postsPerPage || POSTS_PER_PAGE;
