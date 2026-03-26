@@ -85,3 +85,119 @@ export type LazyBlockLoader<T = any> = () => Promise<{
   default?: React.ComponentType<T>;
   [key: string]: React.ComponentType<T> | undefined;
 }>;
+
+export type BuilderContractLayoutRole = "page" | "header" | "footer";
+
+export interface BuilderContractBlockSource {
+  exportPath: string;
+  modulePath: string;
+  typesPath?: string;
+  importPath?: string;
+  requirePath?: string;
+}
+
+export interface BuilderContractPropsContract {
+  type: "typescript-type-reference";
+  reference: string;
+  runtimeSchema: null;
+  runtimeSchemaStatus: "missing";
+}
+
+export interface BuilderContractExamples {
+  exampleUsage: string | null;
+  defaultData: null;
+}
+
+export interface BuilderContractBlock {
+  componentId: string;
+  blockName: string;
+  blockRef: string;
+  displayName: string;
+  description: string;
+  category: BlockCategory;
+  semanticTags: string[];
+  layoutRole: BuilderContractLayoutRole;
+  propsContract: BuilderContractPropsContract;
+  examples: BuilderContractExamples;
+  source: BuilderContractBlockSource | null;
+}
+
+export interface BuilderContractMetadata {
+  contractVersion: string;
+  uiVersion: string;
+  exportedAt: string;
+  source: string;
+  totalBlocks: number;
+}
+
+export interface BuilderContractSharedLayoutSection {
+  sourceType: string;
+  sourceOfTruth: string;
+  aiAuthoring: "variant_request_only";
+  canonicalPayloadKey: "header" | "footer";
+  allowedBlockRefs: string[];
+}
+
+export interface BuilderContractSharedLayout {
+  canonicalLayoutKey: "_layout";
+  sections: {
+    header: BuilderContractSharedLayoutSection;
+    footer: BuilderContractSharedLayoutSection;
+  };
+}
+
+export interface BuilderContractDynamicSourceDefinition {
+  sourceType: string;
+  symbolic: true;
+  hydrationOwner: string;
+  hydrationPhase: string;
+  canonicalPayloadExpectation: string;
+  requiredFields: string[];
+  optionalFields: string[];
+}
+
+export interface BuilderContractDynamicSources {
+  blog_feed: BuilderContractDynamicSourceDefinition;
+}
+
+export interface BuilderContractDesignTokens {
+  canonicalSource: "theme_config";
+  derivedArtifacts: ["tailwind_css"];
+  requiredTokenFamilies: string[];
+  requiredSemanticColorRoles: string[];
+  policy: string;
+}
+
+export interface BuilderContractPageRules {
+  outputFormat: "route-map";
+  routeKeyPattern: string;
+  sharedLayoutKey: "_layout";
+  routeEntry: {
+    requiredKeys: string[];
+    blocksKey: "blocks";
+  };
+  blockEntry: {
+    requiredKeys: string[];
+    blockRefSource: string;
+    blockNameSource: string;
+  };
+  sharedLayoutComposition: {
+    owner: string;
+    headerSource: string;
+    footerSource: string;
+  };
+  dynamicHydration: {
+    symbolicInCanonicalPageJson: true;
+    owner: string;
+    phase: string;
+  };
+}
+
+export interface BuilderContractBundle {
+  metadata: BuilderContractMetadata;
+  blocks: BuilderContractBlock[];
+  sharedLayout: BuilderContractSharedLayout;
+  dynamicSources: BuilderContractDynamicSources;
+  designTokens: BuilderContractDesignTokens;
+  pageRules: BuilderContractPageRules;
+}

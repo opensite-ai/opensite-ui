@@ -445,6 +445,18 @@ const results = searchBlocks("alternating");
 - `getAllCategories()` - Get all available categories
 - `searchBlocks(query: string)` - Search blocks by name/description/tags
 
+### Builder Contract Bundle
+
+`builder-contract-bundle.json` is the versioned machine-readable contract for the semantic builder pipeline. It is generated from the same registry/export path as `registry-export.json`, but adds the structural rules that downstream services enforce:
+
+- `blocks` expose stable `blockRef` values derived from public `@opensite/ui/blocks/*` exports.
+- `sharedLayout` declares the canonical `_layout.header` and `_layout.footer` sources.
+- `dynamicSources` keeps symbolic sources such as `blog_feed` in canonical page JSON until `dashtrack-ai` hydrates them at routing-build time.
+- `designTokens` treats `theme_config` as canonical and `tailwind_css` as derived.
+- `pageRules` documents the route-centric payload shape (`block_name`, `block_ref`, `data`) that rendering must follow exactly.
+
+If you change a block's public export path, ID, category, semantic tags, or registry description, rebuild the package so the contract bundle stays authoritative.
+
 **Block Categories:**
 
 - about, features, cta, testimonials, services, hero, footer, header, pricing, team, stats, faq, contact, gallery, timeline, process, benefits, comparison
@@ -558,9 +570,10 @@ pnpm build
 
 - `package.json` export maps (via `generate:exports`)
 - `registry-export.json` (via `scripts/export-registry.js`)
+- `builder-contract-bundle.json` (via `scripts/export-registry.js`)
 
 If you change a block's design/intent, update its registry metadata in
-`src/registry/blocks.ts` before building so the exported JSON stays accurate.
+`src/registry/blocks.ts` before building so the exported JSON and builder contract stay accurate.
 
 ### Testing
 

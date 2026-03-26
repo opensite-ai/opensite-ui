@@ -194,6 +194,13 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
 
 **Important:** The `category` field must match the directory where your component is located.
 
+**Builder contract requirements:**
+
+- Keep the registry `id` stable. It becomes the contract `componentId`.
+- Keep the public export path stable. The builder contract derives `blockRef` from the generated `@opensite/ui/blocks/*` export path.
+- Maintain strong `description`, `semanticTags`, and `exampleUsage` metadata. The semantic builder consumes those fields directly.
+- Runtime props schemas are not exported yet, so the registry `props` type reference must stay accurate and intentional.
+
 **Semantic Tags Best Practices:**
 
 - Include **functional tags** (what it does): "showcase", "grid", "list"
@@ -257,6 +264,8 @@ Add export path to `package.json` **with category in the path**:
   }
 }
 ```
+
+In practice, this repo generates the large `exports` map from the scripts under `scripts/`. Follow the existing manifest/generation flow and run `pnpm build` or `pnpm generate:exports` instead of hand-editing the full `package.json` exports block.
 
 This allows consumers to import using:
 

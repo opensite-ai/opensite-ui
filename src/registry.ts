@@ -11,6 +11,8 @@
 
 export {
   BLOCK_REGISTRY,
+  BUILDER_CONTRACT_VERSION,
+  createBuilderContractBundle,
   getBlocksBySemanticTag,
   getBlocksByCategory,
   getBlockById,
@@ -19,4 +21,21 @@ export {
   searchBlocks,
 } from "./registry/index";
 
-export type { BlockRegistryEntry, BlockCategory } from "./registry/index";
+export type {
+  BlockCategory,
+  BlockMetadata,
+  BlockRegistryEntry,
+  BuilderContractBlock,
+  BuilderContractBlockSource,
+  BuilderContractBundle,
+  BuilderContractDesignTokens,
+  BuilderContractDynamicSourceDefinition,
+  BuilderContractDynamicSources,
+  BuilderContractExamples,
+  BuilderContractLayoutRole,
+  BuilderContractMetadata,
+  BuilderContractPageRules,
+  BuilderContractPropsContract,
+  BuilderContractSharedLayout,
+  BuilderContractSharedLayoutSection,
+} from "./registry/index";

@@ -12,6 +12,7 @@
  *
  * Output:
  *   registry-export.json (root directory)
+ *   builder-contract-bundle.json (root directory)
  */
 
 import fs from 'fs';
@@ -23,7 +24,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Import the compiled registry (ES module version)
-import { getAllBlocks } from '../dist/registry.js';
+import {
+  createBuilderContractBundle,
+  getAllBlocks,
+} from '../dist/registry.js';
 
 /**
  * Serialize a block entry to JSON-safe format
@@ -42,6 +46,33 @@ function serializeBlockEntry(block) {
   };
 }
 
+function loadBlockSources() {
+  const manifestsDir = path.join(__dirname, 'manifests');
+  const manifestFiles = fs
+    .readdirSync(manifestsDir)
+    .filter((fileName) => /^blocks-.*\.json$/.test(fileName));
+
+  return manifestFiles.reduce((accumulator, fileName) => {
+    const manifestPath = path.join(manifestsDir, fileName);
+    const entries = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+
+    for (const entry of entries) {
+      const exportPath = entry.path;
+      const blockId = exportPath.split('/').pop();
+
+      accumulator[blockId] = {
+        exportPath,
+        modulePath: `@opensite/ui/${exportPath.replace(/^\.\//, '')}`,
+        typesPath: entry.types,
+        importPath: entry.import,
+        requirePath: entry.require,
+      };
+    }
+
+    return accumulator;
+  }, {});
+}
+
 /**
  * Export the registry to JSON
  */
@@ -51,6 +82,8 @@ function exportRegistry() {
   try {
     // Get all blocks from the registry
     const blocks = getAllBlocks();
+    const blockSources = loadBlockSources();
+    const exportedAt = new Date().toISOString();
 
     console.log(`📦 Found ${blocks.length} blocks in registry`);
 
@@ -64,7 +97,7 @@ function exportRegistry() {
     // Create export object
     const exportData = {
       metadata: {
-        exportedAt: new Date().toISOString(),
+        exportedAt,
         totalBlocks: serializedBlocks.length,
         version: packageJson.version,
         source: '@opensite/ui',
@@ -72,15 +105,35 @@ function exportRegistry() {
       blocks: serializedBlocks,
     };
 
+    const builderContractBundle = createBuilderContractBundle({
+      blocks,
+      uiVersion: packageJson.version,
+      exportedAt,
+      source: packageJson.name,
+      blockSources,
+    });
+
     // Write to JSON file
     const outputPath = path.join(__dirname, '..', 'registry-export.json');
+    const contractOutputPath = path.join(
+      __dirname,
+      '..',
+      'builder-contract-bundle.json',
+    );
+
     fs.writeFileSync(
       outputPath,
       JSON.stringify(exportData, null, 2),
       'utf8'
     );
+    fs.writeFileSync(
+      contractOutputPath,
+      JSON.stringify(builderContractBundle, null, 2),
+      'utf8'
+    );
 
     console.log(`✅ Registry exported to: ${outputPath}`);
+    console.log(`✅ Builder contract exported to: ${contractOutputPath}`);
     console.log(`📊 Total blocks exported: ${serializedBlocks.length}`);
 
     // Print category breakdown
