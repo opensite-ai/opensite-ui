@@ -167,7 +167,14 @@ This template uses Tailwind CSS 4's `@theme inline` directive to map CSS variabl
 
   /* Font Families */
   --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-sans-weight: 400;
+  --font-sans-style: normal;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif-weight: 400;
+  --font-serif-style: normal;
   --font-mono: ui-monospace, monospace;
+  --font-mono-weight: 400;
+  --font-mono-style: normal;
 
   /* Font Sizes (rem units) */
   --text-xs: 0.75rem;    /* 12px */
@@ -627,6 +634,7 @@ These variables control the base styling for all button variants:
 
 | `--button-font-family` | `inherit` | Font family for button text |
 | `--button-font-weight` | `500` | Font weight (medium) |
+| `--button-font-style` | `normal` | Font style (normal, italic, oblique) |
 | `--button-letter-spacing` | `0` | Letter spacing |
 | `--button-line-height` | `1.25` | Line height |
 | `--button-text-transform` | `none` | Text transform (none, uppercase, lowercase, capitalize) |

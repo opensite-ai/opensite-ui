@@ -42,12 +42,26 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* ============================================
+     TYPOGRAPHY ROLES
+     ============================================ */
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-sans-weight: 400;
+  --font-sans-style: normal;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif-weight: 400;
+  --font-serif-style: normal;
+  --font-mono: ui-monospace, monospace;
+  --font-mono-weight: 400;
+  --font-mono-style: normal;
+
+  /* ============================================
      BUTTONS - Required for @page-speed/pressable
      ============================================ */
 
   /* Master Button Styles (apply to all variants) */
   --button-font-family: inherit;
   --button-font-weight: 500;
+  --button-font-style: normal;
   --button-letter-spacing: 0;
   --button-line-height: 1.25;
   --button-text-transform: none;
@@ -219,6 +233,17 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-weight: var(--font-sans-weight, 400);
+    font-style: var(--font-sans-style, normal);
+  }
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: var(--font-mono);
+    font-weight: var(--font-mono-weight, 400);
+    font-style: var(--font-mono-style, normal);
   }
   .maplibregl-popup-content {
     @apply bg-transparent! shadow-none! p-0! rounded-none!;
