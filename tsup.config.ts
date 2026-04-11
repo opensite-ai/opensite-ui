@@ -641,6 +641,8 @@ const sharedConfig: Partial<Options> = {
     "framer-motion",
     "@opensite/hooks",
     "valibot",
+    "@page-speed/router",
+    "@page-speed/pressable",
   ],
 };
 
