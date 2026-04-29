@@ -137,16 +137,7 @@ export interface ArticleCompactTocProps {
    */
   heroMediaSlot?: React.ReactNode;
   /**
-   * Article body content (replaces hardcoded prose)
-   */
-  children?: React.ReactNode;
-  /**
-   * Render mode for content
-   * @default "jsx"
-   */
-  renderMode?: "jsx" | "markdown";
-  /**
-   * Markdown string to render (when renderMode is "markdown")
+   * Markdown string to render
    */
   markdownString?: string;
   /**
@@ -212,8 +203,6 @@ export function ArticleCompactTocComponent({
   heroImageSrc,
   heroImageAlt,
   heroMediaSlot,
-  children,
-  renderMode = "jsx",
   markdownString,
   markdownStyles,
   enableTocTracking = true,
@@ -440,7 +429,7 @@ export function ArticleCompactTocComponent({
 
             {tocContent}
 
-            {(children || (renderMode === "markdown" && markdownString)) && (
+            {markdownString && (
               <article
                 className={cn(
                   getProseClassName(background, "max-w-none"),
@@ -450,13 +439,11 @@ export function ArticleCompactTocComponent({
                 {heroMediaContent}
 
                 <LongformContent
-                  renderMode={renderMode}
+                  renderMode="markdown"
                   markdownString={markdownString}
                   optixFlowConfig={optixFlowConfig}
                   markdownStyles={markdownStyles}
-                >
-                  {children}
-                </LongformContent>
+                />
 
                 <div className="flex items-center justify-center py-12">
                   <SocialShare

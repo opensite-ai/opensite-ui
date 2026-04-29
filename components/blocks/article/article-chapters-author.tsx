@@ -176,16 +176,7 @@ export interface ArticleChaptersAuthorProps {
    */
   conclusionSlot?: React.ReactNode;
   /**
-   * Article body content (replaces hardcoded prose)
-   */
-  children?: React.ReactNode;
-  /**
-   * Render mode for content
-   * @default "jsx"
-   */
-  renderMode?: "jsx" | "markdown";
-  /**
-   * Markdown string to render (when renderMode is "markdown")
+   * Markdown string to render
    */
   markdownString?: string;
   /**
@@ -256,8 +247,6 @@ export function ArticleChaptersAuthorComponent({
   conclusionDescription,
   conclusionActions,
   conclusionSlot,
-  children,
-  renderMode = "jsx",
   markdownString,
   markdownStyles,
   enableChapterTracking = true,
@@ -596,13 +585,11 @@ export function ArticleChaptersAuthorComponent({
             {heroMediaContent}
 
             <LongformContent
-              renderMode={renderMode}
+              renderMode="markdown"
               markdownString={markdownString}
               optixFlowConfig={optixFlowConfig}
               markdownStyles={markdownStyles}
-            >
-              {children}
-            </LongformContent>
+            />
 
             <div className="flex items-center justify-center py-12">
               <SocialShare

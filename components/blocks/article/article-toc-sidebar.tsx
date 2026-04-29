@@ -152,15 +152,6 @@ export interface ArticleTocSidebarProps {
    */
   ctaSlot?: React.ReactNode;
   /**
-   * Article body content (replaces hardcoded prose)
-   */
-  children?: React.ReactNode;
-  /**
-   * Render mode for content
-   * @default "jsx"
-   */
-  renderMode?: "jsx" | "markdown";
-  /**
    * Markdown string to render (when renderMode is "markdown")
    */
   markdownString?: string;
@@ -234,8 +225,6 @@ export function ArticleTocSidebarComponent({
   ctaDescription,
   ctaActions,
   ctaSlot,
-  children,
-  renderMode = "jsx",
   markdownString,
   markdownStyles,
   enableTocTracking = true,
@@ -481,13 +470,11 @@ export function ArticleTocSidebarComponent({
             {heroMediaContent}
 
             <LongformContent
-              renderMode={renderMode}
+              renderMode="markdown"
               markdownString={markdownString}
               optixFlowConfig={optixFlowConfig}
               markdownStyles={markdownStyles}
-            >
-              {children}
-            </LongformContent>
+            />
 
             <div className="flex items-center justify-center py-12">
               <SocialShare

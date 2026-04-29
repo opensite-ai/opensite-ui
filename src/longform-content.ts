@@ -1,5 +1,5 @@
 /**
- * LongformContent component for rendering article content in JSX or markdown mode.
+ * LongformContent component for rendering article content in JSX or markdown (default) mode.
  *
  * @example
  * ```tsx
@@ -17,4 +17,7 @@
  * />
  * ```
  */
-export { LongformContent, type LongformContentProps } from "../components/ui/longform-content";
+export {
+  LongformContent,
+  type LongformContentProps,
+} from "../components/ui/longform-content";

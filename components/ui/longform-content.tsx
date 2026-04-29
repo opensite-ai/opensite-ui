@@ -25,7 +25,7 @@ export interface LongformContentProps {
    * Controls the rendering strategy for article content.
    * - "jsx": Renders the `children` prop as-is
    * - "markdown": Parses and renders the `markdownString` prop
-   * @default "jsx"
+   * @default "markdown"
    */
   renderMode?: "jsx" | "markdown";
   /**
@@ -74,7 +74,7 @@ export interface LongformContentProps {
  */
 export function LongformContent({
   children,
-  renderMode = "jsx",
+  renderMode = "markdown",
   markdownString,
   optixFlowConfig,
   markdownStyles,

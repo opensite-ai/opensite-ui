@@ -73,16 +73,7 @@ export interface ArticleHeroProseProps {
    */
   authorSlot?: React.ReactNode;
   /**
-   * Main body content
-   */
-  children?: React.ReactNode;
-  /**
-   * Render mode for content
-   * @default "jsx"
-   */
-  renderMode?: "jsx" | "markdown";
-  /**
-   * Markdown string to render (when renderMode is "markdown")
+   * Markdown string to render
    */
   markdownString?: string;
   /**
@@ -131,8 +122,6 @@ export function ArticleHeroProseComponent({
   proseClassName,
   heroMediaSlot,
   authorSlot,
-  children,
-  renderMode = "jsx",
   markdownString,
   markdownStyles,
   dateFormat = "MMMM d, yyyy",
@@ -246,7 +235,7 @@ export function ArticleHeroProseComponent({
           {heroMediaContent}
         </div>
       </div>
-      {(children || (renderMode === "markdown" && markdownString)) && (
+      {markdownString && (
         <div className="flex flex-col items-center">
           <div
             className={cn(
@@ -256,13 +245,11 @@ export function ArticleHeroProseComponent({
             )}
           >
             <LongformContent
-              renderMode={renderMode}
+              renderMode="markdown"
               markdownString={markdownString}
               optixFlowConfig={optixFlowConfig}
               markdownStyles={markdownStyles}
-            >
-              {children}
-            </LongformContent>
+            />
           </div>
         </div>
       )}
