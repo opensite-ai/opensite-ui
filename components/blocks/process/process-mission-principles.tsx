@@ -2,13 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-  getTextColor,
-  getAccentColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -129,9 +123,9 @@ export interface ProcessMissionPrinciplesProps {
    */
   optixFlowConfig?: OptixFlowConfig;
   /**
-   * @deprecated Use `missionHeading` instead
+   * Additional CSS classes for the container
    */
-  missionTitle?: string;
+  containerClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -162,11 +156,10 @@ export function ProcessMissionPrinciples({
   spacing,
   pattern,
   patternOpacity,
-  // Backwards compatibility
-  missionTitle,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessMissionPrinciplesProps): React.JSX.Element {
   // Handle backwards compatibility
-  const resolvedMissionHeading = missionTitle ?? missionHeading;
+  const resolvedMissionHeading = missionHeading;
 
   const renderPrinciples = useMemo(() => {
     if (principlesSlot) return principlesSlot;
@@ -184,8 +177,7 @@ export function ProcessMissionPrinciples({
             key={index}
             className={cn(
               "group relative rounded-lg border p-6 transition-shadow hover:shadow-md",
-              getNestedCardBg(background, "card"),
-              getNestedCardTextColor(background),
+              "bg-card text-card-foreground",
               principleCardClassName,
               principle.className,
             )}
@@ -211,11 +203,11 @@ export function ProcessMissionPrinciples({
                 ))}
               {principle.description &&
                 (typeof principle.description === "string" ? (
-                  <p className={cn("leading-relaxed", getTextColor(background, 'muted'))}>
+                  <p className={cn("leading-relaxed")}>
                     {principle.description}
                   </p>
                 ) : (
-                  <div className={cn("leading-relaxed", getTextColor(background, 'muted'))}>
+                  <div className={cn("leading-relaxed")}>
                     {principle.description}
                   </div>
                 ))}
@@ -241,6 +233,7 @@ export function ProcessMissionPrinciples({
       className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
       <div className={contentClassName}>
         <div className={cn("mb-20 max-w-3xl", missionClassName)}>
@@ -249,7 +242,6 @@ export function ProcessMissionPrinciples({
               <span
                 className={cn(
                   "mb-4 inline-block text-sm font-semibold uppercase tracking-wider",
-                  getAccentColor(background),
                   missionLabelClassName,
                 )}
               >

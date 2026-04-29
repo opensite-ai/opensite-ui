@@ -284,7 +284,10 @@ export function AboutDeveloperStory({
       containerClassName={containerClassName}
     >
       <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 text-center">
-        <ContentGroup items={contentItems} />
+        <ContentGroup
+          items={contentItems}
+          className="flex flex-col justify-center items-center gap-6"
+        />
 
         <BlockActions
           actions={actions}

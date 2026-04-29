@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getBorderColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -120,9 +120,9 @@ export interface ProcessIconTimelineProps {
    */
   optixFlowConfig?: OptixFlowConfig;
   /**
-   * @deprecated Use `heading` instead
+   * Additional CSS classes for the container
    */
-  title?: string;
+  containerClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -149,11 +149,10 @@ export function ProcessIconTimeline({
   spacing,
   pattern,
   patternOpacity,
-  // Backwards compatibility
-  title,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessIconTimelineProps): React.JSX.Element {
   // Handle backwards compatibility
-  const resolvedHeading = title ?? heading;
+  const resolvedHeading = heading;
 
   const renderSteps = useMemo(() => {
     if (stepsSlot) return stepsSlot;
@@ -190,8 +189,7 @@ export function ProcessIconTimeline({
               <div
                 className={cn(
                   "rounded-lg border p-6 shadow-sm",
-                  getNestedCardBg(background, 'card'),
-                  getNestedCardTextColor(background),
+                  "bg-card text-card-foreground",
                   index % 2 === 0 ? "lg:mr-12" : "lg:ml-12",
                   stepCardClassName,
                 )}
@@ -208,13 +206,9 @@ export function ProcessIconTimeline({
                   ))}
                 {step.description &&
                   (typeof step.description === "string" ? (
-                    <p className={cn("mb-4", getTextColor(background, 'muted'))}>
-                      {step.description}
-                    </p>
+                    <p className={cn("mb-4")}>{step.description}</p>
                   ) : (
-                    <div className={cn("mb-4", getTextColor(background, 'muted'))}>
-                      {step.description}
-                    </div>
+                    <div className={cn("mb-4")}>{step.description}</div>
                   ))}
                 {step.highlights?.length ? (
                   <div
@@ -228,8 +222,7 @@ export function ProcessIconTimeline({
                         key={hIndex}
                         className={cn(
                           "rounded-full px-3 py-1 text-xs font-medium",
-                          getNestedCardBg(background, 'muted'),
-                          getNestedCardTextColor(background)
+                          "bg-primary text-primary-foreground",
                         )}
                       >
                         {highlight}
@@ -255,6 +248,7 @@ export function ProcessIconTimeline({
       className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
       <div className={contentClassName}>
         <div className={cn("mb-16 max-w-2xl", headerClassName)}>
@@ -269,21 +263,15 @@ export function ProcessIconTimeline({
                 {resolvedHeading}
               </h1>
             ) : (
-              <div className={headingClassName}>{resolvedHeading}</div>
+              resolvedHeading
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "text-lg",
-                  getTextColor(background, 'muted'),
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("text-lg", descriptionClassName)}>
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
         </div>
 
@@ -291,7 +279,7 @@ export function ProcessIconTimeline({
           <div
             className={cn(
               "absolute left-6 top-0 bottom-0 w-px lg:left-1/2 lg:-translate-x-1/2",
-              getBorderColor(background, 'default'),
+              "border-border border",
               timelineLineClassName,
             )}
           />

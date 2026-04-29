@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { motion, useInView } from "framer-motion";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -136,17 +136,9 @@ export interface ProcessScrollImageProps {
    */
   optixFlowConfig?: OptixFlowConfig;
   /**
-   * @deprecated Use `heading` instead
+   * Additional CSS classes for the container
    */
-  title?: string;
-  /**
-   * @deprecated Use `actions` instead
-   */
-  ctaText?: string;
-  /**
-   * @deprecated Use `actions` instead
-   */
-  ctaUrl?: string;
+  containerClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -188,7 +180,7 @@ const ProcessCard = ({
         step.className,
       )}
     >
-      <div className="flex w-fit items-center justify-center px-4 py-1 text-9xl tracking-tighter">
+      <div className="flex w-fit items-center justify-center px-4 py-1 text-5xl md:text-7xl tracking-tighter">
         {step.step ?? `0${index + 1}`}
       </div>
       <div>
@@ -202,9 +194,9 @@ const ProcessCard = ({
           ))}
         {step.description &&
           (typeof step.description === "string" ? (
-            <p className={getTextColor(background, 'muted')}>{step.description}</p>
+            <p>{step.description}</p>
           ) : (
-            <div className={getTextColor(background, 'muted')}>{step.description}</div>
+            step.description
           ))}
       </div>
     </li>
@@ -236,34 +228,12 @@ export function ProcessScrollImage({
   pattern,
   patternOpacity,
   optixFlowConfig,
-  // Backwards compatibility
-  title,
-  ctaText,
-  ctaUrl,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessScrollImageProps): React.JSX.Element {
   const [active, setActive] = React.useState<number>(0);
   const previousActive = usePrevious(active);
-
-  // Handle backwards compatibility
-  const resolvedHeading = title ?? heading;
-  const resolvedActions: ActionConfig[] =
-    actions ??
-    (ctaText && ctaUrl
-      ? [
-          {
-            label: ctaText,
-            href: ctaUrl,
-            variant: "ghost" as const,
-            icon: (
-              <DynamicIcon
-                name="lucide/corner-down-right"
-                size={20}
-                className={getAccentColor(background)}
-              />
-            ),
-          },
-        ]
-      : []);
+  const resolvedHeading = heading;
+  const resolvedActions: ActionConfig[] = actions || [];
 
   const renderActions = useMemo(() => {
     return () => {
@@ -342,6 +312,7 @@ export function ProcessScrollImage({
       className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
       <div
         className={cn(
@@ -366,21 +337,15 @@ export function ProcessScrollImage({
                 {resolvedHeading}
               </h1>
             ) : (
-              <div className={headingClassName}>{resolvedHeading}</div>
+              resolvedHeading
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "text-base",
-                  getTextColor(background, 'muted'),
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("text-base", descriptionClassName)}>
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
           <div
             className={cn(

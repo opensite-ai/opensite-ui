@@ -58,9 +58,9 @@ describe("HeroOverlayCtaGrid", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders primaryCta when provided", () => {
-    const primaryCta = { label: "Get Started", href: "/start" };
-    render(<HeroOverlayCtaGrid primaryCta={primaryCta} />);
+  it("renders actions when provided", () => {
+    const actions = [{ label: "Get Started", href: "/start" }];
+    render(<HeroOverlayCtaGrid actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
   });
 

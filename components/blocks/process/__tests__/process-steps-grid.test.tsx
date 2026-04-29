@@ -24,7 +24,7 @@ describe("ProcessStepsGrid", () => {
   it("renders title and description", () => {
     render(
       <ProcessStepsGrid
-        title="Custom Process"
+        heading="Custom Process"
         description="Custom description for our process"
       />
     );
@@ -65,7 +65,7 @@ describe("ProcessStepsGrid", () => {
     const cards = container.querySelectorAll(".group");
     expect(cards.length).toBe(3);
     cards.forEach((card) => {
-      expect(card.className).toContain("hover:border-primary/50");
+      expect(card.className).toContain("hover:border-primary");
       expect(card.className).toContain("hover:shadow-lg");
     });
   });

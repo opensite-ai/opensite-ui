@@ -27,7 +27,7 @@ describe("ProcessScrollImage", () => {
   it("renders title and description", () => {
     render(
       <ProcessScrollImage
-        title="Development Process"
+        heading="Development Process"
         description="Our approach to building products"
       />
     );
@@ -53,8 +53,8 @@ describe("ProcessScrollImage", () => {
     expect(screen.getByText("Developing the product")).toBeInTheDocument();
   });
 
-  it("renders CTA button when ctaText and ctaUrl provided", () => {
-    render(<ProcessScrollImage ctaText="Learn More" ctaUrl="/learn" />);
+  it("renders action button when actions provided", () => {
+    render(<ProcessScrollImage actions={[{ label: "Learn More", href: "/learn" }]} />);
     expect(screen.getByText("Learn More")).toBeInTheDocument();
   });
 
@@ -82,7 +82,9 @@ describe("ProcessScrollImage", () => {
   });
 
   it("renders CTA as Pressable link", () => {
-    render(<ProcessScrollImage ctaText="Get Started" ctaUrl="/start" />);
+    render(
+      <ProcessScrollImage actions={[{ label: "Get Started", href: "/start" }]} />
+    );
     const link = screen.getByText("Get Started").closest("a");
     expect(link).toHaveAttribute("href", "/start");
   });

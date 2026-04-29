@@ -191,7 +191,7 @@ export function ProcessExpandableTimeline({
               onClick={() => toggleExpand(index)}
               className={cn(
                 "group relative flex w-full items-start gap-6 border-b p-6 text-left transition-colors",
-                `hover:bg-card hover:text-card-foreground`,
+                "hover:bg-card hover:text-card-foreground",
                 expandedIndex === index ? "bg-card text-card-foreground" : "",
                 stepItemClassName,
               )}
@@ -330,7 +330,6 @@ export function ProcessExpandableTimeline({
           <div
             className={cn(
               "absolute left-6 top-0 bottom-0 w-px",
-              "border-2 border-dashed",
               timelineLineClassName,
             )}
           />

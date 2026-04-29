@@ -299,25 +299,25 @@ This template uses Tailwind CSS 4's `@theme inline` directive to map CSS variabl
   /* -----------------------------------------
      DEFAULT (PRIMARY) VARIANT
      ----------------------------------------- */
-  --button-default-bg: hsl(var(--primary));
-  --button-default-fg: hsl(var(--primary-foreground));
+  --button-default-bg: var(--primary);
+  --button-default-fg: var(--primary-foreground);
   --button-default-border: transparent;
   --button-default-border-width: 0px;
   --button-default-shadow: var(--button-shadow);
-  --button-default-hover-bg: hsl(var(--primary) / 0.9);
-  --button-default-hover-fg: hsl(var(--primary-foreground));
+  --button-default-hover-bg: color-mix(in oklch, var(--primary), transparent 10%);
+  --button-default-hover-fg: var(--primary-foreground);
   --button-default-hover-border: transparent;
   --button-default-shadow-hover: var(--button-shadow-hover);
 
   /* -----------------------------------------
      DESTRUCTIVE VARIANT
      ----------------------------------------- */
-  --button-destructive-bg: hsl(var(--destructive));
+  --button-destructive-bg: var(--destructive);
   --button-destructive-fg: white;
   --button-destructive-border: transparent;
   --button-destructive-border-width: 0px;
   --button-destructive-shadow: var(--button-shadow);
-  --button-destructive-hover-bg: hsl(var(--destructive) / 0.9);
+  --button-destructive-hover-bg: color-mix(in oklch, var(--destructive), transparent 10%);
   --button-destructive-hover-fg: white;
   --button-destructive-hover-border: transparent;
   --button-destructive-shadow-hover: var(--button-shadow-hover);
@@ -325,26 +325,26 @@ This template uses Tailwind CSS 4's `@theme inline` directive to map CSS variabl
   /* -----------------------------------------
      OUTLINE VARIANT
      ----------------------------------------- */
-  --button-outline-bg: hsl(var(--background));
+  --button-outline-bg: var(--background);
   --button-outline-fg: inherit;
-  --button-outline-border: hsl(var(--border));
+  --button-outline-border: var(--border);
   --button-outline-border-width: 1px;
   --button-outline-shadow: var(--button-shadow);
-  --button-outline-hover-bg: hsl(var(--accent));
-  --button-outline-hover-fg: hsl(var(--accent-foreground));
-  --button-outline-hover-border: hsl(var(--border));
+  --button-outline-hover-bg: var(--accent);
+  --button-outline-hover-fg: var(--accent-foreground);
+  --button-outline-hover-border: var(--border);
   --button-outline-shadow-hover: var(--button-shadow-hover);
 
   /* -----------------------------------------
      SECONDARY VARIANT
      ----------------------------------------- */
-  --button-secondary-bg: hsl(var(--secondary));
-  --button-secondary-fg: hsl(var(--secondary-foreground));
+  --button-secondary-bg: var(--secondary);
+  --button-secondary-fg: var(--secondary-foreground);
   --button-secondary-border: transparent;
   --button-secondary-border-width: 0px;
   --button-secondary-shadow: var(--button-shadow);
-  --button-secondary-hover-bg: hsl(var(--secondary) / 0.8);
-  --button-secondary-hover-fg: hsl(var(--secondary-foreground));
+  --button-secondary-hover-bg: color-mix(in oklch, var(--secondary), transparent 20%);
+  --button-secondary-hover-fg: var(--secondary-foreground);
   --button-secondary-hover-border: transparent;
   --button-secondary-shadow-hover: var(--button-shadow-hover);
 
@@ -356,8 +356,8 @@ This template uses Tailwind CSS 4's `@theme inline` directive to map CSS variabl
   --button-ghost-border: transparent;
   --button-ghost-border-width: 0px;
   --button-ghost-shadow: var(--button-shadow);
-  --button-ghost-hover-bg: hsl(var(--accent));
-  --button-ghost-hover-fg: hsl(var(--accent-foreground));
+  --button-ghost-hover-bg: var(--accent);
+  --button-ghost-hover-fg: var(--accent-foreground);
   --button-ghost-hover-border: transparent;
   --button-ghost-shadow-hover: var(--button-shadow-hover);
 
@@ -365,12 +365,12 @@ This template uses Tailwind CSS 4's `@theme inline` directive to map CSS variabl
      LINK VARIANT
      ----------------------------------------- */
   --button-link-bg: transparent;
-  --button-link-fg: hsl(var(--primary));
+  --button-link-fg: var(--primary);
   --button-link-border: transparent;
   --button-link-border-width: 0px;
   --button-link-shadow: var(--button-shadow);
   --button-link-hover-bg: transparent;
-  --button-link-hover-fg: hsl(var(--primary));
+  --button-link-hover-fg: var(--primary);
   --button-link-shadow-hover: var(--button-shadow-hover);
 
   /* ============================================

@@ -9,31 +9,28 @@ describe("ProcessNumberedServices", () => {
       title: "Consulting",
       description: "Strategic guidance for your business",
       capabilities: ["Strategy", "Planning"],
-      ctaText: "Learn more",
-      ctaUrl: "/consulting",
+      action: { label: "Learn more", href: "/consulting" },
     },
     {
       number: "02",
       title: "Development",
       description: "Building robust solutions",
       capabilities: ["Web", "Mobile"],
-      ctaText: "Learn more",
-      ctaUrl: "/development",
+      action: { label: "Learn more", href: "/development" },
     },
     {
       number: "03",
       title: "Support",
       description: "Ongoing maintenance and support",
       capabilities: ["24/7 Support", "Monitoring"],
-      ctaText: "Learn more",
-      ctaUrl: "/support",
+      action: { label: "Learn more", href: "/support" },
     },
   ];
 
   it("renders title and description", () => {
     render(
       <ProcessNumberedServices
-        title="What We Offer"
+        heading="What We Offer"
         description="Our range of services"
       />
     );
@@ -147,8 +144,7 @@ describe("ProcessNumberedServices", () => {
         number: "01",
         title: "Service 1",
         description: "Description 1",
-        ctaText: "Learn more",
-        ctaUrl: "/service",
+        action: { label: "Learn more", href: "/service" },
       },
     ];
     render(<ProcessNumberedServices services={servicesWithoutCapabilities} />);

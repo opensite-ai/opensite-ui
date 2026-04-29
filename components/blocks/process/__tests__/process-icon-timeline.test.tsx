@@ -30,7 +30,7 @@ describe("ProcessIconTimeline", () => {
   it("renders title and description", () => {
     render(
       <ProcessIconTimeline
-        title="Development Timeline"
+        heading="Development Timeline"
         description="Our step-by-step approach"
       />
     );
@@ -120,7 +120,7 @@ describe("ProcessIconTimeline", () => {
   it("renders highlight tags with proper styling", () => {
     const { container } = render(<ProcessIconTimeline steps={mockSteps} />);
     const highlightTags = container.querySelectorAll(
-      ".rounded-full.bg-muted.px-3.py-1"
+      ".rounded-full.bg-primary.px-3.py-1"
     );
     expect(highlightTags.length).toBe(6);
   });

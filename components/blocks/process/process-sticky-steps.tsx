@@ -2,11 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -113,6 +109,10 @@ export interface ProcessStickyStepsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -170,8 +170,8 @@ export function ProcessStickySteps({
   spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessStickyStepsProps): React.JSX.Element {
-
   const renderActions = useMemo(() => {
     return () => {
       if (actionsSlot) return actionsSlot;
@@ -232,8 +232,7 @@ export function ProcessStickySteps({
             <div
               className={cn(
                 "flex size-12 items-center justify-center px-4 py-1 tracking-tighter",
-                getNestedCardBg(background, "muted"),
-                getNestedCardTextColor(background),
+                "bg-muted text-muted-foreground",
               )}
             >
               {step.step ?? `0${index + 1}`}
@@ -268,6 +267,7 @@ export function ProcessStickySteps({
       className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
       <div
         className={cn(
@@ -279,11 +279,9 @@ export function ProcessStickySteps({
           <div className="relative w-fit text-5xl font-semibold tracking-tight lg:text-7xl">
             {heading &&
               (typeof heading === "string" ? (
-                <h1 className={cn("w-fit", headingClassName)}>
-                  {heading}
-                </h1>
+                <h1 className={cn("w-fit", headingClassName)}>{heading}</h1>
               ) : (
-                <div className={headingClassName}>{heading}</div>
+                heading
               ))}
             <DynamicIcon
               name="lucide/asterisk"
@@ -297,7 +295,7 @@ export function ProcessStickySteps({
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
           {renderActions()}
         </div>

@@ -2,14 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-  getTextColor,
-  getAccentColor,
-  getBorderColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -137,9 +130,9 @@ export interface ProcessNumberedServicesProps {
    */
   optixFlowConfig?: OptixFlowConfig;
   /**
-   * @deprecated Use `heading` instead
+   * Additional CSS classes for the container
    */
-  title?: string;
+  containerClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -166,11 +159,10 @@ export function ProcessNumberedServices({
   spacing = "py-6 md:py-32",
   pattern,
   patternOpacity,
-  // Backwards compatibility
-  title,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessNumberedServicesProps): React.JSX.Element {
   // Handle backwards compatibility
-  const resolvedHeading = title ?? heading;
+  const resolvedHeading = heading;
 
   const renderServiceAction = useMemo(() => {
     return (service: ProcessNumberedServiceItem) => {
@@ -198,7 +190,11 @@ export function ProcessNumberedServices({
       } = action;
 
       return (
-        <Pressable asButton className={cn(actionClassName)} {...pressableProps}>
+        <Pressable
+          asButton
+          className={cn(actionClassName, "mt-4")}
+          {...pressableProps}
+        >
           {children ?? (
             <>
               {icon}
@@ -229,9 +225,7 @@ export function ProcessNumberedServices({
             <div className="lg:col-span-1">
               <div
                 className={cn(
-                  "flex size-16 items-center justify-center rounded-full border-2 text-xl font-bold transition-colors",
-                  getBorderColor(background, 'accent'),
-                  getAccentColor(background),
+                  "flex size-16 items-center justify-center rounded-full border-2 border-primary text-primary text-xl font-bold transition-colors",
                   "bg-primary/5 group-hover:bg-primary group-hover:text-primary-foreground",
                   serviceBadgeClassName,
                 )}
@@ -247,19 +241,13 @@ export function ProcessNumberedServices({
                     {service.title}
                   </h3>
                 ) : (
-                  <div className="mb-3 text-2xl font-semibold tracking-tight">
-                    {service.title}
-                  </div>
+                  service.title
                 ))}
               {service.description &&
                 (typeof service.description === "string" ? (
-                  <p className={cn("leading-relaxed", getTextColor(background, 'muted'))}>
-                    {service.description}
-                  </p>
+                  <p className={cn("leading-relaxed")}>{service.description}</p>
                 ) : (
-                  <div className={cn("leading-relaxed", getTextColor(background, 'muted'))}>
-                    {service.description}
-                  </div>
+                  service.description
                 ))}
               {renderServiceAction(service)}
             </div>
@@ -277,15 +265,10 @@ export function ProcessNumberedServices({
                       key={cIndex}
                       className={cn(
                         "flex items-center gap-3 rounded-lg px-4 py-3",
-                        getNestedCardBg(background, "muted"),
-                        getNestedCardTextColor(background),
+                        "bg-muted text-muted-foreground",
                       )}
                     >
-                      <DynamicIcon
-                        name="lucide/check-circle-2"
-                        size={18}
-                        className={getAccentColor(background)}
-                      />
+                      <DynamicIcon name="lucide/check-circle-2" size={18} />
                       <span className="text-sm font-medium">{capability}</span>
                     </div>
                   ))}
@@ -315,6 +298,7 @@ export function ProcessNumberedServices({
       className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
       <div className={contentClassName}>
         <div className={cn("mb-16 max-w-2xl", headerClassName)}>
@@ -333,17 +317,11 @@ export function ProcessNumberedServices({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "text-lg",
-                  getTextColor(background, 'muted'),
-                  descriptionClassName,
-                )}
-              >
+              <p className={cn("text-lg", descriptionClassName)}>
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
         </div>
         {renderServices}

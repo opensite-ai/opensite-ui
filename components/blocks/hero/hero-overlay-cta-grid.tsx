@@ -10,6 +10,8 @@ import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
+import { ActionConfig } from "@page-speed/maps/components/geo-map";
 
 export interface HeroOverlayCtaGridCard {
   /**
@@ -52,23 +54,17 @@ export interface HeroOverlayCtaGridProps {
    */
   description?: React.ReactNode;
   /**
-   * Primary call-to-action config
+   * Array of action configurations
    */
-  primaryCta?: {
-    label: string;
-    href: string;
-  };
+  actions?: ActionConfig[];
   /**
-   * Secondary call-to-action config
-   */
-  secondaryCta?: {
-    label: string;
-    href: string;
-  };
-  /**
-   * Custom slot for actions (overrides primaryCta and secondaryCta)
+   * Custom slot for rendering actions (overrides actions array)
    */
   actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
   /**
    * CTA cards displayed beneath the hero copy
    */
@@ -148,9 +144,9 @@ export function HeroOverlayCtaGrid({
   badgeSlot,
   heading,
   description,
-  primaryCta,
-  secondaryCta,
+  actions,
   actionsSlot,
+  actionsClassName,
   cards,
   cardsSlot,
   backgroundImage,
@@ -179,32 +175,12 @@ export function HeroOverlayCtaGrid({
     );
   }, [badgeSlot, badgeText, badgeIcon]);
 
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!primaryCta && !secondaryCta) return null;
-
-    return (
-      <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-        {primaryCta && (
-          <Pressable href={primaryCta.href} size="lg" variant="default">
-            {primaryCta.label}
-          </Pressable>
-        )}
-        {secondaryCta && (
-          <Pressable href={secondaryCta.href} size="lg" variant="secondary">
-            {secondaryCta.label}
-          </Pressable>
-        )}
-      </div>
-    );
-  }, [actionsSlot, primaryCta, secondaryCta]);
-
   const renderCards = useMemo(() => {
     if (cardsSlot) return cardsSlot;
     if (!cards || cards.length === 0) return null;
 
     return (
-      <div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl border border-border bg-white/95 shadow-2xl px-0">
+      <div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl border border-border bg-card shadow-2xl px-0">
         <div className="grid grid-cols-1 divide-y divide-border md:grid-cols-3 md:divide-x md:divide-y-0">
           {cards.map((card) => (
             <Pressable
@@ -212,22 +188,30 @@ export function HeroOverlayCtaGrid({
               href={card.href}
               className="group flex items-center gap-4 px-6 py-6 transition-colors"
             >
-              <div
-                className={cn(
-                  "relative flex h-12 w-12 flex-none items-center justify-center rounded-full bg-primary text-primary-foreground",
-                )}
-              >
-                <DynamicIcon name={card.icon} size={22} />
-              </div>
+              {card.icon ? (
+                <div
+                  className={cn(
+                    "relative flex h-12 w-12 flex-none items-center justify-center rounded-full bg-primary text-primary-foreground",
+                  )}
+                >
+                  <DynamicIcon name={card.icon} size={22} />
+                </div>
+              ) : null}
               <div className="min-w-0">
-                <p className="text-base font-semibold ">{card.label}</p>
-                <p className={cn("text-sm text-black")}>{card.subtitle}</p>
+                <p className="text-base font-semibold text-card-foreground">
+                  {card.label}
+                </p>
+                <p className={cn("text-sm text-card-foreground")}>
+                  {card.subtitle}
+                </p>
               </div>
-              <DynamicIcon
-                name="lucide/arrow-right"
-                size={18}
-                className={cn("ml-auto flex-none text-muted")}
-              />
+              {card.href ? (
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={18}
+                  className={cn("ml-auto flex-none text-card-foreground")}
+                />
+              ) : null}
             </Pressable>
           ))}
         </div>
@@ -315,7 +299,12 @@ export function HeroOverlayCtaGrid({
                 {description}
               </div>
             ))}
-          {renderActions}
+
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </motion.div>
 
         {renderCards}

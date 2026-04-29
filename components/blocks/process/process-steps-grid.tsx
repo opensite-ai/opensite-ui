@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor, getAccentColor, getBorderColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -108,9 +108,9 @@ export interface ProcessStepsGridProps {
    */
   optixFlowConfig?: OptixFlowConfig;
   /**
-   * @deprecated Use `heading` instead
+   * Additional CSS classes for the container
    */
-  title?: string;
+  containerClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -136,11 +136,10 @@ export function ProcessStepsGrid({
   spacing,
   pattern,
   patternOpacity,
-  // Backwards compatibility
-  title,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessStepsGridProps): React.JSX.Element {
   // Handle backwards compatibility
-  const resolvedHeading = title ?? heading;
+  const resolvedHeading = heading;
 
   const renderSteps = useMemo(() => {
     if (stepsSlot) return stepsSlot;
@@ -157,15 +156,20 @@ export function ProcessStepsGrid({
           <div
             key={index}
             className={cn(
-              "group relative overflow-hidden rounded-lg border p-8 transition-all hover:shadow-lg",
-              `hover:${getBorderColor(background, 'accent')}/50`,
-              getNestedCardBg(background, 'card'),
-              getNestedCardTextColor(background),
+              "group relative overflow-hidden rounded-lg p-8 transition-all hover:shadow-lg",
+              "border border-border hover:border-primary",
+              "bg-card text-card-foreground",
               stepCardClassName,
               step.className,
             )}
           >
-            <span className={cn("absolute -right-4 -top-4 text-[120px] font-bold leading-none transition-colors", getTextColor(background, 'muted'), "opacity-20 group-hover:opacity-10", `group-hover:${getAccentColor(background)}`)}>
+            <span
+              className={cn(
+                "absolute -right-4 -top-4 text-[120px] font-bold leading-none transition-colors",
+                "opacity-20 group-hover:opacity-100",
+                "group-hover:text-primary",
+              )}
+            >
               {String(index + 1).padStart(2, "0")}
             </span>
 
@@ -174,7 +178,6 @@ export function ProcessStepsGrid({
                 <div
                   className={cn(
                     "mb-6 flex size-14 items-center justify-center rounded-lg transition-colors",
-                    getAccentColor(background),
                     "bg-primary/10 group-hover:bg-primary group-hover:text-primary-foreground",
                     stepIconClassName,
                   )}
@@ -189,26 +192,27 @@ export function ProcessStepsGrid({
                     {step.title}
                   </h3>
                 ) : (
-                  <div className="mb-3 text-xl font-semibold tracking-tight">
-                    {step.title}
-                  </div>
+                  <div className="mb-3">{step.title}</div>
                 ))}
               {step.description &&
                 (typeof step.description === "string" ? (
-                  <p className={cn("leading-relaxed", getTextColor(background, 'muted'))}>
-                    {step.description}
-                  </p>
+                  <p className={cn("leading-relaxed")}>{step.description}</p>
                 ) : (
-                  <div className={cn("leading-relaxed", getTextColor(background, 'muted'))}>
-                    {step.description}
-                  </div>
+                  step.description
                 ))}
             </div>
           </div>
         ))}
       </div>
     );
-  }, [stepsSlot, steps, background, stepsGridClassName, stepCardClassName, stepIconClassName]);
+  }, [
+    stepsSlot,
+    steps,
+    background,
+    stepsGridClassName,
+    stepCardClassName,
+    stepIconClassName,
+  ]);
 
   return (
     <Section
@@ -218,6 +222,7 @@ export function ProcessStepsGrid({
       className={className}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
       <div className={contentClassName}>
         <div className={cn("mb-16 text-center", headerClassName)}>
@@ -225,28 +230,27 @@ export function ProcessStepsGrid({
             (typeof resolvedHeading === "string" ? (
               <h1
                 className={cn(
-                  "mb-4 text-4xl font-semibold tracking-tight lg:text-5xl",
+                  "mb-4 text-4xl font-semibold tracking-tight lg:text-5xl text-pretty",
                   headingClassName,
                 )}
               >
                 {resolvedHeading}
               </h1>
             ) : (
-              <div className={headingClassName}>{resolvedHeading}</div>
+              resolvedHeading
             ))}
           {description &&
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mx-auto max-w-2xl text-lg",
-                  getTextColor(background, 'muted'),
+                  "mx-auto max-w-2xl text-lg text-balance",
                   descriptionClassName,
                 )}
               >
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
         </div>
         {renderSteps}
