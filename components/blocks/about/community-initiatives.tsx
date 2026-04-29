@@ -4,7 +4,6 @@ import * as React from "react";
 import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Card, CardContent } from "../../ui/card";
@@ -278,7 +277,9 @@ export function CommunityInitiatives({
             </select>
           </div>
 
-          <TabsList className="hidden h-auto grid-cols-4 p-1 md:grid ring-2 ring-primary">
+          <TabsList
+            className={`hidden h-auto grid-cols-${categories.length} p-1 md:grid ring-2 ring-primary`}
+          >
             {categories.map((category) => (
               <TabsTrigger
                 key={category.id}
@@ -382,9 +383,7 @@ export function CommunityInitiatives({
                               "opacity-50",
                             )}
                           />
-                          <Badge variant="secondary" className="mx-auto">
-                            {initiative.title}
-                          </Badge>
+                          <Badge className="mx-auto">{initiative.title}</Badge>
                         </CardContent>
                       </Card>
                     </div>
@@ -462,27 +461,21 @@ export function CommunityInitiatives({
       <div
         className={cn(
           "mt-10 md:mt-24 p-6 md:p-16",
-          "text-center flex flex-col items-center",
-          "bg-muted text-muted-foreground",
+          "text-center flex flex-col items-center justify-center gap-6",
+          "bg-card text-card-foreground",
           "rounded-2xl shadow-lg",
           ctaClassName,
         )}
       >
         {ctaBadgeText && (
-          <div
-            className={cn(
-              "mb-8 inline-flex items-center justify-center rounded-full p-1",
-            )}
-          >
-            <Badge className="rounded-full bg-primary px-4 py-1 text-primary-foreground">
-              {ctaBadgeText}
-            </Badge>
+          <div className={cn("flex items-center justify-center p-1")}>
+            <Badge>{ctaBadgeText}</Badge>
           </div>
         )}
 
         {ctaHeading &&
           (typeof ctaHeading === "string" ? (
-            <h3 className={cn("mb-4 text-2xl font-bold", ctaHeadingClassName)}>
+            <h3 className={cn("text-3xl font-bold", ctaHeadingClassName)}>
               {ctaHeading}
             </h3>
           ) : (
@@ -490,9 +483,7 @@ export function CommunityInitiatives({
           ))}
         {ctaDescription &&
           (typeof ctaDescription === "string" ? (
-            <p
-              className={cn("mx-auto mb-8 max-w-2xl", ctaDescriptionClassName)}
-            >
+            <p className={cn(ctaDescriptionClassName, "text-balance")}>
               {ctaDescription}
             </p>
           ) : (
