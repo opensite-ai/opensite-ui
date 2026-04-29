@@ -202,28 +202,6 @@ export function AboutExpandableValues({
     setExpandedValue((prev) => (prev === id ? null : id));
   }, []);
 
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return (
-      <div className={actionsClassName}>
-        {actions.map((action, idx) => (
-          <Pressable
-            key={idx}
-            href={action.href}
-            onClick={action.onClick}
-            variant={action.variant || "default"}
-            size={action.size}
-            asButton
-          >
-            {action.label}
-          </Pressable>
-        ))}
-      </div>
-    );
-  }, [actionsSlot, actions, actionsClassName]);
-
   const valuesContent = useMemo(() => {
     if (valuesSlot) return valuesSlot;
     if (!values || values.length === 0) return null;
@@ -377,7 +355,7 @@ export function AboutExpandableValues({
           ctaClassName,
         )}
       >
-        <div className="mx-auto max-w-3xl space-y-6 text-center flex flex-col items-center gap-6">
+        <div className="mx-auto max-w-3xl text-center flex flex-col items-center gap-4">
           {ctaHeading &&
             (typeof ctaHeading === "string" ? (
               <h3 className={cn("text-2xl font-bold", ctaHeadingClassName)}>

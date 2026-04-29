@@ -128,15 +128,7 @@ export function AboutMinimalStory({
             className="h-16 w-16 rounded-full object-cover"
             optixFlowConfig={optixFlowConfig}
           />
-        ) : (
-          <div
-            className={cn(
-              "flex h-16 w-16 items-center justify-center rounded-full text-2xl font-bold",
-            )}
-          >
-            {author.name.charAt(0)}
-          </div>
-        )}
+        ) : null}
         <div>
           <p className="font-semibold">{author.name}</p>
           <p className="text-sm">{author.role}</p>

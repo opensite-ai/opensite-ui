@@ -130,7 +130,7 @@ export function AboutStoryHero({
       <div
         className={cn(
           "rounded-2xl bg-muted text-muted-foreground",
-          "flex flex-col items-start gap-2",
+          "flex flex-col items-start gap-2 p-6",
           teamInfoClassName,
         )}
       >

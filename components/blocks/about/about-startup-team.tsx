@@ -326,15 +326,15 @@ export function AboutStartupTeam({
     if (!teamMembers || teamMembers.length === 0) return null; // No need for tabs without team members
 
     return (
-      <div className="w-full min-w-0 max-w-[calc(100vw-1rem)] overflow-hidden sm:max-w-[calc(100vw-2rem)] lg:hidden">
-        <nav className="-mx-2 flex gap-2 overflow-x-auto px-2 pb-2">
+      <div className="w-full min-w-0 max-w-full overflow-hidden lg:hidden">
+        <nav className="flex w-full min-w-0 gap-2 overflow-x-auto pb-2">
           {effectiveTabs.map((link, idx) => (
             <Pressable
               key={idx}
               componentType="button"
               onClick={() => handleTabChange(link.value)}
               className={cn(
-                "shrink-0 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
+                "shrink-0 whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition-colors",
                 activeTab === link.value
                   ? "bg-primary text-primary-foreground"
                   : "bg-card text-card-foreground hover:bg-primary hover:text-primary-foreground",
@@ -370,7 +370,7 @@ export function AboutStartupTeam({
             {renderTabsNav}
           </aside>
 
-          <div className="lg:col-span-3">
+          <div className="min-w-0 lg:col-span-3">
             {title &&
               (typeof title === "string" ? (
                 <h1
