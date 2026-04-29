@@ -13,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 /**
  * Step item configuration for ProcessStickySteps
@@ -34,6 +35,10 @@ export interface ProcessStickyStepItem {
    * Additional CSS classes for the step item
    */
   className?: string;
+  /**
+   * Optional URL
+   */
+  href?: string;
 }
 
 export interface ProcessStickyStepsProps {
@@ -167,51 +172,11 @@ export function ProcessStickySteps({
   stepsClassName,
   stepItemClassName,
   background,
-  spacing = "py-6 md:py-32",
+  spacing = "lg",
   pattern,
   patternOpacity,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessStickyStepsProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    return () => {
-      if (actionsSlot) return actionsSlot;
-      if (!actions?.length) return null;
-
-      return (
-        <div
-          className={cn("flex flex-wrap items-center gap-2", actionsClassName)}
-        >
-          {actions.map((action, index) => {
-            const {
-              label,
-              icon,
-              iconAfter,
-              children,
-              className: actionClassName,
-              ...pressableProps
-            } = action;
-            return (
-              <Pressable
-                key={index}
-                asButton
-                className={cn(actionClassName)}
-                {...pressableProps}
-              >
-                {children ?? (
-                  <>
-                    {icon}
-                    {label}
-                    {iconAfter}
-                  </>
-                )}
-              </Pressable>
-            );
-          })}
-        </div>
-      );
-    };
-  }, [actionsSlot, actions, actionsClassName]);
-
   const renderSteps = useMemo(() => {
     if (stepsSlot) return stepsSlot;
     if (!steps?.length) return null;
@@ -227,7 +192,15 @@ export function ProcessStickySteps({
               step.className,
             )}
           >
-            <CornerIllustration className="absolute top-4 right-0" />
+            <Pressable
+              href={step.href}
+              aria-label={
+                typeof step.title === "string" ? step.title : "View step"
+              }
+              className="absolute top-4 right-0 inline-flex"
+            >
+              <CornerIllustration />
+            </Pressable>
 
             <div
               className={cn(
@@ -240,17 +213,21 @@ export function ProcessStickySteps({
             <div>
               {step.title &&
                 (typeof step.title === "string" ? (
-                  <h3 className="mb-4 text-2xl font-semibold tracking-tighter lg:text-3xl">
-                    {step.title}
-                  </h3>
+                  <Pressable href={step.href} className="mb-4 block">
+                    <h3 className="text-2xl font-semibold tracking-tighter lg:text-3xl">
+                      {step.title}
+                    </h3>
+                  </Pressable>
                 ) : (
-                  <div className="mb-4">{step.title}</div>
+                  <Pressable href={step.href} className="mb-4 block">
+                    {step.title}
+                  </Pressable>
                 ))}
               {step.description &&
                 (typeof step.description === "string" ? (
-                  <p className="">{step.description}</p>
+                  <p>{step.description}</p>
                 ) : (
-                  <div className="">{step.description}</div>
+                  step.description
                 ))}
             </div>
           </li>
@@ -297,7 +274,11 @@ export function ProcessStickySteps({
             ) : (
               description
             ))}
-          {renderActions()}
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
         {renderSteps}
       </div>
