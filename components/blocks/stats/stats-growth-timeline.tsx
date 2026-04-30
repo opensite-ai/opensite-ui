@@ -2,11 +2,7 @@
 
 import * as React from "react";
 import { useMemo, useCallback } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -17,6 +13,7 @@ import type {
   ActionConfig,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 /**
  * A milestone in a timeline.
@@ -141,6 +138,10 @@ export interface StatsGrowthTimelineProps {
    */
   actionsSlot?: React.ReactNode;
   /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -237,6 +238,7 @@ export function StatsGrowthTimeline({
   futureSlot,
   actions,
   actionsSlot,
+  actionsClassName,
   background,
   pattern,
   patternOpacity,
@@ -298,9 +300,8 @@ export function StatsGrowthTimeline({
                 {milestone.year && (
                   <div
                     className={cn(
-                      "mb-4 inline-flex h-9 w-20 items-center justify-center rounded-full text-sm font-semibold",
-                      getNestedCardBg(background, "muted"),
-                      getNestedCardTextColor(background),
+                      "bg-muted text-muted-foreground",
+                      "mb-4 inline-flex h-fit py-2 w-fit px-4 items-center justify-center rounded-full text-sm font-semibold",
                     )}
                   >
                     {milestone.year}
@@ -312,7 +313,7 @@ export function StatsGrowthTimeline({
                       {milestone.title}
                     </h3>
                   ) : (
-                    <div className="mb-2">{milestone.title}</div>
+                    milestone.title
                   ))}
                 {milestone.description &&
                   (typeof milestone.description === "string" ? (
@@ -320,14 +321,14 @@ export function StatsGrowthTimeline({
                       {milestone.description}
                     </p>
                   ) : (
-                    <div className="mb-4">{milestone.description}</div>
+                    milestone.description
                   ))}
 
                 {milestone.metric && (
                   <div className="flex items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
                     {renderMilestoneIcon(milestone)}
                     <div>
-                      <div className="text-3xl font-bold text-primary">
+                      <div className="text-2xl font-bold text-primary">
                         {milestone.metric.value}
                       </div>
                       {milestone.metric.label && (
@@ -366,30 +367,27 @@ export function StatsGrowthTimeline({
     return (
       <div
         className={cn(
-          "mt-24 rounded-lg p-8",
-          getNestedCardBg(background, "muted"),
-          getNestedCardTextColor(background),
+          "p-6 md:p-12 bg-card text-card-foreground",
+          "mt-24 rounded-lg border border-border shadow-md",
           currentStatsClassName,
         )}
       >
         {currentStatsHeading &&
           (typeof currentStatsHeading === "string" ? (
-            <h3 className="mb-6 text-center text-2xl font-bold">
+            <h3 className="mb-12 text-center text-4xl lg:text-5xl font-bold">
               {currentStatsHeading}
             </h3>
           ) : (
-            <div className="mb-6 text-center">{currentStatsHeading}</div>
+            currentStatsHeading
           ))}
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {currentStats.map((stat, index) => (
             <div key={index} className={cn("text-center", stat.className)}>
-              <div className="mb-2 text-3xl font-bold text-primary md:text-4xl">
+              <div className="text-2xl font-semibold text-primary md:text-3xl xl:text-4xl">
                 {stat.value}
               </div>
               {stat.label && (
-                <p className="font-medium text-muted-foreground">
-                  {stat.label}
-                </p>
+                <p className="font-medium text-balance text-sm">{stat.label}</p>
               )}
             </div>
           ))}
@@ -403,25 +401,6 @@ export function StatsGrowthTimeline({
     currentStatsHeading,
     currentStatsClassName,
   ]);
-
-  // Memoized actions rendering
-  const actionsContent = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => (
-      <Pressable
-        key={index}
-        href={action.href}
-        onClick={action.onClick}
-        variant={action.variant}
-        className="inline-flex items-center font-medium text-primary hover:underline"
-      >
-        {action.label}
-        <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
-      </Pressable>
-    ));
-  }, [actionsSlot, actions]);
 
   // Memoized future section rendering
   const futureContent = useMemo(() => {
@@ -443,13 +422,17 @@ export function StatsGrowthTimeline({
           ))}
         {futureDescription &&
           (typeof futureDescription === "string" ? (
-            <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">
+            <p className="mx-auto mb-8 max-w-full md:max-w-lg text-balance">
               {futureDescription}
             </p>
           ) : (
-            <div className="mx-auto mb-8 max-w-2xl">{futureDescription}</div>
+            futureDescription
           ))}
-        {actionsContent}
+        <BlockActions
+          actions={actions}
+          actionsSlot={actionsSlot}
+          actionsClassName={actionsClassName}
+        />
       </div>
     );
   }, [
@@ -457,7 +440,8 @@ export function StatsGrowthTimeline({
     futureHeading,
     futureDescription,
     futureClassName,
-    actionsContent,
+    actionsSlot,
+    actionsClassName,
     actions,
   ]);
 
@@ -503,9 +487,7 @@ export function StatsGrowthTimeline({
                   {description}
                 </p>
               ) : (
-                <div className={cn("mx-auto max-w-3xl", descriptionClassName)}>
-                  {description}
-                </div>
+                description
               ))}
           </div>
         )}

@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -187,7 +186,7 @@ export function HeroConversationIntelligence({
               <BlockActions
                 actions={actions}
                 actionsSlot={actionsSlot}
-                actionsClassName={actionsClassName}
+                actionsClassName={cn(actionsClassName, "justify-center")}
               />
             </div>
           </div>

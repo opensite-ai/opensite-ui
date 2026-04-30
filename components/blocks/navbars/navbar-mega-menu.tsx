@@ -531,7 +531,12 @@ export const NavbarMegaMenu = ({
         ...pressableProps
       } = action;
       return (
-        <Pressable key={index} className={actionClassName} {...pressableProps}>
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
           {children ?? (
             <>
               {icon}

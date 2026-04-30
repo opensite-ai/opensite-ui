@@ -29,10 +29,6 @@ export interface FeatureCapabilitiesGridItem {
    */
   iconName?: string;
   /**
-   * Optional badge label content
-   */
-  badge?: React.ReactNode;
-  /**
    * Additional CSS classes for the item
    */
   className?: string;
@@ -183,7 +179,7 @@ export function FeatureCapabilitiesGrid({
             <div className="absolute -right-2 -bottom-2 h-3 w-3 bg-background" />
           </div>
 
-          <CardHeader className="relative z-10 flex flex-row items-start gap-3 p-6">
+          <CardHeader className="relative z-10 flex flex-row items-start gap-3 pt-6 px-6 pb-0">
             {iconContent && (
               <div
                 className={cn(
@@ -207,22 +203,8 @@ export function FeatureCapabilitiesGrid({
                       {item.title}
                     </h3>
                   ) : (
-                    <div
-                      className={cn("text-lg font-medium", item.titleClassName)}
-                    >
-                      {item.title}
-                    </div>
+                    item.title
                   ))}
-                {item.badge && (
-                  <span
-                    className={cn(
-                      "rounded-full border px-2 py-0.5 text-[10px] leading-none",
-                      item.badgeClassName,
-                    )}
-                  >
-                    {item.badge}
-                  </span>
-                )}
               </div>
             </Pressable>
           </CardHeader>
@@ -269,11 +251,7 @@ export function FeatureCapabilitiesGrid({
                   {eyebrow}
                 </p>
               ) : (
-                <div
-                  className={cn("text-sm tracking-widest", eyebrowClassName)}
-                >
-                  {eyebrow}
-                </div>
+                eyebrow
               ))}
             {heading &&
               (typeof heading === "string" ? (
@@ -286,14 +264,7 @@ export function FeatureCapabilitiesGrid({
                   {heading}
                 </h2>
               ) : (
-                <div
-                  className={cn(
-                    "text-4xl font-semibold sm:text-5xl",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </div>
+                heading
               ))}
           </div>
         ) : null}
