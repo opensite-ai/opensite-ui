@@ -103,4 +103,19 @@ describe("ProcessStickySteps", () => {
     const link = screen.getByText("Get Started").closest("a");
     expect(link).toHaveAttribute("href", "/start");
   });
+
+  it("uses bounded responsive columns to avoid sticky content overlap", () => {
+    const { container } = render(
+      <ProcessStickySteps
+        heading="Understanding the BASIS Enrollment Lottery"
+        steps={mockSteps}
+      />,
+    );
+
+    expect(container.innerHTML).toContain(
+      "lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.35fr)]",
+    );
+    expect(container.innerHTML).toContain("max-w-[12ch]");
+    expect(container.querySelector("ul")).toHaveClass("min-w-0");
+  });
 });

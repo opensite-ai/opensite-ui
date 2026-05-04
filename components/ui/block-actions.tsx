@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from "../../lib/utils";
 import { ActionConfig, Pressable } from "@/src";
+import { buttonVariants } from "../../lib/button-variants";
 
 /**
  * Mobile layout configuration for BlockActions.
@@ -92,16 +93,30 @@ function ActionComponent({ action }: ActionComponentProps) {
     children,
     href,
     onClick,
+    asButton,
+    variant,
+    size,
     className: actionClassName,
     ...pressableProps
   } = action;
+  const shouldStyleAsButton = asButton ?? true;
+  const resolvedVariant = shouldStyleAsButton
+    ? (variant ?? "default")
+    : undefined;
+  const resolvedSize = shouldStyleAsButton ? (size ?? "default") : undefined;
 
   return (
     <Pressable
       href={href}
       onClick={onClick}
-      asButton={action.asButton ?? true}
-      className={actionClassName}
+      asButton={shouldStyleAsButton}
+      variant={resolvedVariant}
+      size={resolvedSize}
+      className={cn(
+        shouldStyleAsButton &&
+          buttonVariants({ variant: resolvedVariant, size: resolvedSize }),
+        actionClassName,
+      )}
       {...pressableProps}
     >
       {children ?? (
