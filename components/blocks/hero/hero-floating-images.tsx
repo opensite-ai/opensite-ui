@@ -7,12 +7,15 @@ import { Img } from "@page-speed/img";
 import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import { Section } from "../../ui/section";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Badge } from "../../ui/badge";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
+  ActionConfig,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BlockActions } from "@/components/ui/block-actions";
 
 /**
  * Image configuration for the gallery section.
@@ -39,11 +42,29 @@ export interface HeroFloatingImagesImage {
 
 export interface HeroFloatingImagesProps {
   /**
-   * Flexible content slot for the left side of the hero.
-   * Renders any content the application/AI builder provides (badges, headings, descriptions, actions, etc.)
-   * This allows maximum flexibility without prescribing specific content structure.
+   * Badge content displayed above the heading
    */
-  children?: React.ReactNode;
+  badge?: React.ReactNode;
+  /**
+   * Badge icon
+   */
+  badgeIcon?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
   /**
    * Array of images for the gallery section.
    * First image with `featured: true` (or first image if none marked) displays as the tall featured image.
@@ -98,6 +119,22 @@ export interface HeroFloatingImagesProps {
    */
   contentClassName?: string;
   /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
    * Additional CSS classes for the gallery container (right side)
    */
   galleryClassName?: string;
@@ -128,37 +165,33 @@ export interface HeroFloatingImagesProps {
 /**
  * HeroFloatingImages - A split-layout hero with flexible content and an interactive image gallery.
  *
- * Features a two-column layout: content on the left (fully customizable via children prop)
- * and a gallery on the right with a featured tall image and stacked secondary images.
+ * Features a two-column layout: named hero content on the left and a gallery on the right
+ * with a featured tall image and stacked secondary images.
  * Each image has a hover effect with zoom indicator and opens in a lightbox when clicked.
- *
- * The component uses the children prop pattern for maximum flexibility - the application
- * or AI builder can render any content structure without being constrained to specific
- * heading/description/badge props.
  *
  * @example
  * ```tsx
  * <HeroFloatingImages
+ *   badge="Featured Work"
+ *   heading="Your Headline Here"
+ *   description="Your description..."
+ *   actions={[{ label: "View Portfolio", href: "/portfolio", variant: "default" }]}
  *   images={[
  *     { src: "/featured.jpg", alt: "Featured work", featured: true },
  *     { src: "/work-1.jpg", alt: "Project 1" },
  *     { src: "/work-2.jpg", alt: "Project 2" },
  *   ]}
- * >
- *   <Badge className="mb-6 w-fit" variant="secondary">Featured Work</Badge>
- *   <h1 className="mb-6 text-4xl font-bold">Your Headline Here</h1>
- *   <p className="mb-8 text-lg text-muted-foreground">Your description...</p>
- *   <div className="flex gap-4">
- *     <Pressable href="/portfolio" variant="default" size="lg" asButton>
- *       View Portfolio
- *     </Pressable>
- *   </div>
- * </HeroFloatingImages>
+ * />
  * ```
  */
 export function HeroFloatingImages({
   sectionId = "hero-floating-images",
-  children,
+  badge,
+  badgeIcon,
+  heading,
+  description,
+  actions,
+  actionsSlot,
   images,
   imagesSlot,
   zoomIconName = "lucide/zoom-in",
@@ -169,6 +202,10 @@ export function HeroFloatingImages({
   className,
   gridClassName,
   contentClassName,
+  badgeClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
   galleryClassName,
   featuredImageClassName,
   secondaryImageClassName,
@@ -370,10 +407,16 @@ export function HeroFloatingImages({
     secondaryImagesContent,
   ]);
 
-  // Determine if we have content to render
   const hasContent = useMemo(() => {
-    return children !== undefined && children !== null;
-  }, [children]);
+    return Boolean(
+      badge ||
+        badgeIcon ||
+        heading ||
+        description ||
+        actionsSlot ||
+        (actions && actions.length > 0),
+    );
+  }, [actions, actionsSlot, badge, badgeIcon, description, heading]);
 
   const hasGallery = useMemo(() => {
     return imagesSlot || (images && images.length > 0);
@@ -398,7 +441,47 @@ export function HeroFloatingImages({
         {/* Content Area */}
         {hasContent ? (
           <div className={cn("flex flex-col justify-center", contentClassName)}>
-            {children}
+            {(badge || badgeIcon) && (
+              <Badge
+                variant="secondary"
+                className={cn("mb-6 w-fit", badgeClassName)}
+              >
+                {badge}
+                {badgeIcon}
+              </Badge>
+            )}
+            {heading &&
+              (typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h1>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mb-8 max-w-lg text-lg text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              ))}
+            <BlockActions
+              actions={actions}
+              actionsSlot={actionsSlot}
+              actionsClassName={actionsClassName}
+              verticalSpacing={description ? "mt-0" : undefined}
+            />
           </div>
         ) : null}
 
