@@ -282,7 +282,7 @@ export function HeroFloatingImages({
           zoomIndicatorClassName,
         )}
       >
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-background/90 shadow-lg">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
           <DynamicIcon name={zoomIconName} size={20} />
         </div>
       </div>
@@ -410,11 +410,11 @@ export function HeroFloatingImages({
   const hasContent = useMemo(() => {
     return Boolean(
       badge ||
-        badgeIcon ||
-        heading ||
-        description ||
-        actionsSlot ||
-        (actions && actions.length > 0),
+      badgeIcon ||
+      heading ||
+      description ||
+      actionsSlot ||
+      (actions && actions.length > 0),
     );
   }, [actions, actionsSlot, badge, badgeIcon, description, heading]);
 
@@ -441,7 +441,7 @@ export function HeroFloatingImages({
         {/* Content Area */}
         {hasContent ? (
           <div className={cn("flex flex-col justify-center", contentClassName)}>
-            {(badge || badgeIcon) && (
+            {badge && (
               <Badge
                 variant="secondary"
                 className={cn("mb-6 w-fit", badgeClassName)}
@@ -461,20 +461,17 @@ export function HeroFloatingImages({
                   {heading}
                 </h1>
               ) : (
-                <div className={headingClassName}>{heading}</div>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
                 <p
-                  className={cn(
-                    "mb-8 max-w-lg text-lg text-muted-foreground",
-                    descriptionClassName,
-                  )}
+                  className={cn("mb-8 max-w-lg text-lg", descriptionClassName)}
                 >
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
             <BlockActions
               actions={actions}

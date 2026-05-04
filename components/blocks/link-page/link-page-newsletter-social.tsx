@@ -350,14 +350,14 @@ export function LinkPageNewsletterSocial({
         {resolvedAvatar && (
           <div
             className={cn(
-              "h-24 w-24 overflow-hidden rounded-full bg-muted ring-4 ring-background shadow-lg",
+              "flex h-24 w-full max-w-72 items-center justify-center",
               avatarClassName,
             )}
           >
             <Img
               src={resolvedAvatar.src}
               alt={resolvedAvatar.alt}
-              className="h-full w-full object-cover"
+              className="h-auto max-h-24 w-auto max-w-full object-contain"
               optixFlowConfig={optixFlowConfig}
             />
           </div>

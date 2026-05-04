@@ -94,4 +94,17 @@ describe("LinkPageBentoLayout", () => {
     render(<LinkPageBentoLayout name="Test" links={links} />);
     expect(screen.getByText("Watch now")).toBeInTheDocument();
   });
+
+  it("renders avatars with responsive containment", () => {
+    render(<LinkPageBentoLayout name="Test" avatarUrl="/logo-wide.png" />);
+
+    expect(screen.getByAltText("Test")).toHaveClass(
+      "h-auto",
+      "max-h-20",
+      "w-auto",
+      "max-w-full",
+      "object-contain",
+      "sm:max-h-24",
+    );
+  });
 });

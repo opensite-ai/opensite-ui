@@ -75,4 +75,17 @@ describe("LinkPageMinimalProfile", () => {
     expect(screen.getByText("Portfolio")).toBeInTheDocument();
     expect(screen.getByText("Blog")).toBeInTheDocument();
   });
+
+  it("renders avatars with responsive containment", () => {
+    render(<LinkPageMinimalProfile name="Test" avatarUrl="/logo-wide.png" />);
+
+    expect(screen.getByAltText("Test")).toHaveClass(
+      "h-auto",
+      "max-h-20",
+      "w-auto",
+      "max-w-full",
+      "object-contain",
+      "sm:max-h-24",
+    );
+  });
 });

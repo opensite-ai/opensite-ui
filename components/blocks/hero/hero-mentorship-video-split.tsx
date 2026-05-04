@@ -157,10 +157,25 @@ export function HeroMentorshipVideoSplit({
   const [skinStyle, setSkinStyle] = useState<any>(null);
 
   useEffect(() => {
-    loadSkinFromJsDelivr('0.1.2', 'skins/video/base.json').then(skin => {
-      setSkinClasses(resolveVideoClasses(skin));
-      setSkinStyle(getSkinStyleObject(skin));
-    });
+    let isMounted = true;
+
+    loadSkinFromJsDelivr("0.1.2", "skins/video/base.json")
+      .then((skin) => {
+        if (!isMounted) return;
+
+        setSkinClasses(resolveVideoClasses(skin));
+        setSkinStyle(getSkinStyleObject(skin));
+      })
+      .catch(() => {
+        if (!isMounted) return;
+
+        setSkinClasses(null);
+        setSkinStyle(null);
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const renderAction = useMemo(() => {

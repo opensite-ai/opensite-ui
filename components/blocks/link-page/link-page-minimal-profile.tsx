@@ -242,14 +242,14 @@ export function LinkPageMinimalProfile({
         {resolvedAvatar && (
           <div
             className={cn(
-              "h-20 w-20 overflow-hidden rounded-full",
+              "flex h-20 w-full max-w-56 items-center justify-center sm:h-24 sm:max-w-72",
               avatarClassName,
             )}
           >
             <Img
               src={resolvedAvatar.src}
               alt={resolvedAvatar.alt}
-              className="h-full w-full object-cover"
+              className="h-auto max-h-20 w-auto max-w-full object-contain sm:max-h-24"
               optixFlowConfig={optixFlowConfig}
             />
           </div>

@@ -158,4 +158,16 @@ describe("LinkPageNewsletterSocial", () => {
     );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
+
+  it("renders avatars with responsive containment", () => {
+    render(<LinkPageNewsletterSocial name="Test" avatarUrl="/logo-wide.png" />);
+
+    expect(screen.getByAltText("Test")).toHaveClass(
+      "h-auto",
+      "max-h-24",
+      "w-auto",
+      "max-w-full",
+      "object-contain",
+    );
+  });
 });

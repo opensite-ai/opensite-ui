@@ -416,7 +416,7 @@ export function LinkTreeBlock({
         <div className="relative">
           <div
             className={cn(
-              "h-24 w-24 overflow-hidden rounded-full border-4 border-background bg-muted shadow-xl",
+              "flex h-24 w-full max-w-72 items-center justify-center",
               avatarClassName,
             )}
           >
@@ -424,7 +424,7 @@ export function LinkTreeBlock({
               <Img
                 src={resolvedAvatar.src}
                 alt={resolvedAvatar.alt}
-                className="h-full w-full object-cover"
+                className="h-auto max-h-24 w-auto max-w-full object-contain"
                 optixFlowConfig={optixFlowConfig}
               />
             )}

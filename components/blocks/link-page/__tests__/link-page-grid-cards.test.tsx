@@ -81,4 +81,17 @@ describe("LinkPageGridCards", () => {
     expect(screen.getByText("Blog")).toBeInTheDocument();
     expect(screen.getByText("View work")).toBeInTheDocument();
   });
+
+  it("renders avatars with responsive containment", () => {
+    render(<LinkPageGridCards name="Test" avatarUrl="/logo-wide.png" />);
+
+    expect(screen.getByAltText("Test")).toHaveClass(
+      "h-auto",
+      "max-h-20",
+      "w-auto",
+      "max-w-full",
+      "object-contain",
+      "sm:max-h-24",
+    );
+  });
 });

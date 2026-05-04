@@ -75,4 +75,21 @@ describe("LinkTreeBlock", () => {
     expect(screen.getByText("Link 1")).toBeInTheDocument();
     expect(screen.getByText("Link 2")).toBeInTheDocument();
   });
+
+  it("renders brand logos with responsive containment", () => {
+    render(
+      <LinkTreeBlock
+        brandName="Test"
+        brandLogo={{ src: "/logo-wide.png", alt: "Test logo" }}
+      />,
+    );
+
+    expect(screen.getByAltText("Test logo")).toHaveClass(
+      "h-auto",
+      "max-h-24",
+      "w-auto",
+      "max-w-full",
+      "object-contain",
+    );
+  });
 });

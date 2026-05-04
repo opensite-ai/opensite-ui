@@ -318,7 +318,7 @@ describe("HeroFloatingImages", () => {
     const { container } = render(<HeroFloatingImages images={images} />);
 
     const zoomIndicators = container.querySelectorAll(
-      ".rounded-full.bg-background\\/90",
+      ".rounded-full.shadow-lg",
     );
     expect(zoomIndicators.length).toBeGreaterThan(0);
   });
