@@ -56,7 +56,7 @@ export interface AboutNetworkSpotlightProps {
    * Spotlight card content overlaid on the image
    */
   spotlightCard?: {
-    icon: React.ReactNode;
+    icon: string;
     label: React.ReactNode;
     title: React.ReactNode;
     description: React.ReactNode;
@@ -206,7 +206,7 @@ export function AboutNetworkSpotlight({
                 "size-fit p-2 rounded-full",
               )}
             >
-              {spotlightCard.icon}
+              <DynamicIcon name={spotlightCard.icon} />
             </div>
           )}
           <div>

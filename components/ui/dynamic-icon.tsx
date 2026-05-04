@@ -5,21 +5,31 @@ import { Icon, type IconProps } from "@page-speed/icon";
 
 const DEFAULT_ICON_API_KEY = "au382bi7fsh96w9h9xlrnat2jglx";
 
-export interface DynamicIconProps extends Omit<IconProps, "apiKey"> {
+export type DynamicIconName = IconProps["name"] | React.ReactNode;
+
+export interface DynamicIconProps extends Omit<IconProps, "apiKey" | "name"> {
+  name?: DynamicIconName;
   apiKey?: string;
 }
 
 /**
  * Compatibility wrapper for legacy DynamicIcon usage across opensite-ui.
  *
- * It forwards all props to @page-speed/icon's Icon component and injects
- * a default API key so existing call sites continue to work unchanged.
+ * String names are forwarded to @page-speed/icon's Icon component with a
+ * default API key. React nodes are rendered as-is for custom icon slots.
  */
 export const DynamicIcon = React.memo(function DynamicIcon({
   apiKey,
+  name,
   ...props
 }: DynamicIconProps) {
-  return <Icon {...props} apiKey={apiKey ?? DEFAULT_ICON_API_KEY} />;
+  if (name == null) return null;
+
+  if (typeof name !== "string") {
+    return <>{name}</>;
+  }
+
+  return <Icon {...props} name={name} apiKey={apiKey ?? DEFAULT_ICON_API_KEY} />;
 });
 
 DynamicIcon.displayName = "DynamicIcon";
