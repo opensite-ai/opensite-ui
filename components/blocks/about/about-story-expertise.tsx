@@ -14,6 +14,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { DynamicIcon } from "@/src";
 
 export interface AboutStoryExpertiseArea {
   /**
@@ -86,7 +87,7 @@ export interface AboutStoryExpertiseProps {
    * Highlight badge content overlaid on the image
    */
   highlight?: {
-    icon?: React.ReactNode;
+    icon?: React.ReactNode | string;
     label?: React.ReactNode;
     title?: React.ReactNode;
     description?: React.ReactNode;
@@ -231,9 +232,11 @@ export function AboutStoryExpertise({
         )}
       >
         <div className="mb-3 flex items-center gap-3 md:gap-4">
-          <div className="flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground shrink-0">
-            {highlight.icon}
-          </div>
+          {highlight.icon ? (
+            <div className="flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground shrink-0">
+              <DynamicIcon name={highlight.icon} />
+            </div>
+          ) : null}
           <div>
             {highlight.label &&
               (typeof highlight.label === "string" ? (
@@ -287,13 +290,15 @@ export function AboutStoryExpertise({
             transition={{ duration: 0.3, delay: idx * 0.05 }}
             className="flex items-start gap-4 rounded-2xl bg-card text-card-foreground p-6 shadow-md transition-all duration-300 hover:shadow-xl"
           >
-            <div
-              className={cn(
-                "flex h-12 w-12 items-center justify-center rounded-xl",
-              )}
-            >
-              {area.icon}
-            </div>
+            {area.icon ? (
+              <div
+                className={cn(
+                  "flex h-12 w-12 items-center justify-center rounded-xl",
+                )}
+              >
+                <DynamicIcon name={area.icon} />
+              </div>
+            ) : null}
             <div>
               {area.title &&
                 (typeof area.title === "string" ? (

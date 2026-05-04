@@ -15,7 +15,6 @@ import type {
 export interface ShowcaseImageItem {
   src: string;
   alt: string;
-  colSpan?: number;
 }
 
 export interface ShowcaseStatItem {
@@ -209,18 +208,25 @@ export function AboutStatsShowcase({
     if (!images || images.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-6 md:grid-cols-12", imagesClassName)}>
+      <div
+        className={cn(
+          "grid w-full grid-cols-1 gap-6",
+          images.length > 1 ? "md:grid-cols-2" : "md:grid-cols-1",
+          imagesClassName,
+        )}
+      >
         {images.map((image, idx) => (
-          <Img
+          <div
             key={idx}
-            src={image.src}
-            alt={image.alt}
-            className={cn(
-              "size-full max-h-96 rounded-xl object-cover",
-              image.colSpan ? `md:col-span-${image.colSpan}` : "md:col-span-4",
-            )}
-            optixFlowConfig={optixFlowConfig}
-          />
+            className="aspect-video w-full overflow-hidden rounded-xl shadow-lg"
+          >
+            <Img
+              src={image.src}
+              alt={image.alt}
+              className="block h-full w-full object-cover object-center"
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
         ))}
       </div>
     );

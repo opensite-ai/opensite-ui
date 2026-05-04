@@ -204,7 +204,7 @@ export function AboutCompanyProfile({
     return (
       <div
         className={cn(
-          "flex bg-muted text-muted-foreground flex-col justify-between gap-6 rounded-xl p-7 md:w-1/2 lg:w-auto",
+          "flex bg-muted text-muted-foreground flex-col justify-between gap-6 rounded-xl p-7",
           breakoutClassName,
         )}
       >
@@ -327,6 +327,8 @@ export function AboutCompanyProfile({
     ));
   }, [achievementsSlot, achievements]);
 
+  const hasMediaSidebar = Boolean(breakoutSlot || breakout || secondaryImage);
+
   return (
     <Section
       id={sectionId}
@@ -365,32 +367,48 @@ export function AboutCompanyProfile({
             description
           ))}
       </div>
-      <div className="grid gap-7 lg:grid-cols-3">
-        {mainImage && (
-          <Img
-            src={mainImage.src}
-            alt={mainImage.alt}
-            className={cn(
-              "size-full max-h-[620px] rounded-xl object-cover lg:col-span-2",
-              mainImageClassName,
-            )}
-            optixFlowConfig={optixFlowConfig}
-          />
+      <div
+        className={cn(
+          "grid gap-7",
+          mainImage && hasMediaSidebar ? "lg:grid-cols-3" : "lg:grid-cols-1",
         )}
-        <div className="flex flex-col gap-7 md:flex-row lg:flex-col">
-          {(breakoutSlot || breakout) && breakoutContent}
-          {secondaryImage && (
+      >
+        {mainImage && (
+          <div
+            className={cn(
+              "aspect-[3/2] w-full overflow-hidden rounded-xl shadow-lg",
+              hasMediaSidebar && "lg:col-span-2",
+            )}
+          >
             <Img
-              src={secondaryImage.src}
-              alt={secondaryImage.alt}
+              src={mainImage.src}
+              alt={mainImage.alt}
               className={cn(
-                "grow basis-0 rounded-xl object-cover w-full h-auto md:w-1/2 lg:min-h-0 lg:w-auto",
-                secondaryImageClassName,
+                "block h-full w-full object-cover object-center",
+                mainImageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
             />
-          )}
-        </div>
+          </div>
+        )}
+        {hasMediaSidebar && (
+          <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-1 lg:grid-rows-[auto_minmax(0,1fr)]">
+            {(breakoutSlot || breakout) && breakoutContent}
+            {secondaryImage && (
+              <div className="aspect-[7/6] w-full overflow-hidden rounded-xl shadow-lg">
+                <Img
+                  src={secondaryImage.src}
+                  alt={secondaryImage.alt}
+                  className={cn(
+                    "block h-full w-full object-cover object-center",
+                    secondaryImageClassName,
+                  )}
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </div>
+            )}
+          </div>
+        )}
       </div>
       {companiesContent}
       <div

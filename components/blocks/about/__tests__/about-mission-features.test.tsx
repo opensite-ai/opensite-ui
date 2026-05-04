@@ -70,6 +70,22 @@ describe("AboutMissionFeatures", () => {
     expect(screen.getByText("Feature 1 description")).toBeInTheDocument();
   });
 
+  it("renders mission images with wrapper-based sizing", () => {
+    render(
+      <AboutMissionFeatures
+        mainImage={{ src: "/main.jpg", alt: "Main mission" }}
+        missionBackgroundImage={{ src: "/mission.jpg", alt: "Mission background" }}
+      />,
+    );
+
+    const mainImage = screen.getByAltText("Main mission");
+    const missionImage = screen.getByAltText("Mission background");
+
+    expect(mainImage.parentElement).toHaveClass("aspect-video");
+    expect(mainImage).toHaveClass("h-full", "w-full", "object-cover");
+    expect(missionImage).toHaveClass("absolute", "h-full", "w-full", "object-cover");
+  });
+
   it("applies custom className", () => {
     const { container } = render(<AboutMissionFeatures className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

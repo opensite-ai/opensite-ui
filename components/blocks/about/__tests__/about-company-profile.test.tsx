@@ -59,6 +59,31 @@ describe("AboutCompanyProfile", () => {
     expect(screen.getByText("Custom Companies")).toBeInTheDocument();
   });
 
+  it("renders the media mosaic with stable wrapper sizing", () => {
+    render(
+      <AboutCompanyProfile
+        mainImage={{ src: "/main.jpg", alt: "Main workspace" }}
+        secondaryImage={{ src: "/secondary.jpg", alt: "Secondary workspace" }}
+        breakout={{
+          title: "15+ Years of Excellence",
+          description: "Delivering innovative solutions since 2009",
+        }}
+      />,
+    );
+
+    const mainImage = screen.getByAltText("Main workspace");
+    const secondaryImage = screen.getByAltText("Secondary workspace");
+    const mainFrame = mainImage.parentElement;
+    const sidebar = mainFrame?.nextElementSibling;
+
+    expect(mainFrame).toHaveClass("aspect-[3/2]", "lg:col-span-2");
+    expect(mainImage).toHaveClass("h-full", "w-full", "object-cover");
+    expect(sidebar).toHaveClass("md:grid-cols-2", "lg:grid-cols-1");
+    expect(sidebar?.className).toContain("lg:grid-rows-[auto_minmax(0,1fr)]");
+    expect(secondaryImage.parentElement).toHaveClass("aspect-[7/6]");
+    expect(secondaryImage).toHaveClass("h-full", "w-full", "object-cover");
+  });
+
   it("applies custom className", () => {
     const { container } = render(<AboutCompanyProfile className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

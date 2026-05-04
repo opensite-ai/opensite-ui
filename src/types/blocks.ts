@@ -150,7 +150,7 @@ export interface FeatureItem {
   /**
    * Feature icon
    */
-  icon?: ReactNode;
+  icon?: ReactNode | string;
   /**
    * Icon name for dynamic icon loading
    */
@@ -196,7 +196,7 @@ export interface StatItem {
   /**
    * Optional icon
    */
-  icon?: ReactNode;
+  icon?: ReactNode | string;
   /**
    * Additional CSS classes
    */

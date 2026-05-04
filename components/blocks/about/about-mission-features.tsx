@@ -13,7 +13,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
-import { Pressable } from "@/src";
+import { DynamicIcon, Pressable } from "@/src";
 
 export interface AboutMissionFeaturesProps {
   /**
@@ -193,7 +193,7 @@ export function AboutMissionFeatures({
               feature.iconBgClass,
             )}
           >
-            {feature.icon}
+            <DynamicIcon name={feature.icon} />
           </div>
         ) : null}
         {feature.title &&
@@ -260,7 +260,7 @@ export function AboutMissionFeatures({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="flex flex-col items-ceenter gap-6 lg:gap-20">
+      <div className="flex flex-col items-stretch gap-6 lg:gap-20">
         <ContentGroup
           items={contentItems}
           className={cn("flex flex-col gap-0 lg:gap-2", headerClassName)}
@@ -268,18 +268,21 @@ export function AboutMissionFeatures({
 
         <div className="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2">
           {mainImage && (
-            <Img
-              src={mainImage.src}
-              alt={mainImage.alt}
-              className={cn(
-                "size-full max-h-96 rounded-md object-cover shadow-lg",
-                mainImageClassName,
-              )}
-              optixFlowConfig={optixFlowConfig}
-            />
+            <div className="aspect-video w-full overflow-hidden rounded-md shadow-lg">
+              <Img
+                src={mainImage.src}
+                alt={mainImage.alt}
+                className={cn(
+                  "block h-full w-full object-cover object-center",
+                  mainImageClassName,
+                )}
+                optixFlowConfig={optixFlowConfig}
+              />
+            </div>
           )}
           <div
             className={cn(
+              "min-h-72 md:min-h-0",
               "relative flex flex-col justify-between gap-10",
               "overflow-hidden p-4 md:p-6 lg:p-10",
               "text-white text-shadow-lg",
@@ -292,7 +295,7 @@ export function AboutMissionFeatures({
                 <Img
                   src={missionBackgroundImage.src}
                   alt={missionBackgroundImage.alt}
-                  className="absolute inset-0 size-full object-cover brightness-50"
+                  className="absolute inset-0 h-full w-full object-cover brightness-50"
                   optixFlowConfig={optixFlowConfig}
                 />
               </>

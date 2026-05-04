@@ -61,6 +61,26 @@ describe("AboutStatsShowcase", () => {
     expect(screen.getByText("Customers")).toBeInTheDocument();
   });
 
+  it("renders showcase images in a static responsive grid", () => {
+    render(
+      <AboutStatsShowcase
+        images={[
+          { src: "/team.jpg", alt: "Team collaboration" },
+          { src: "/office.jpg", alt: "Modern office" },
+        ]}
+      />,
+    );
+
+    const images = screen.getAllByTestId("mock-img");
+    const imageGrid = images[0].parentElement?.parentElement;
+
+    expect(images).toHaveLength(2);
+    expect(imageGrid).toHaveClass("grid-cols-1");
+    expect(imageGrid).toHaveClass("md:grid-cols-2");
+    expect(images[0].parentElement).toHaveClass("aspect-video");
+    expect(images[0]).toHaveClass("h-full", "w-full", "object-cover");
+  });
+
   it("applies custom className", () => {
     const { container } = render(<AboutStatsShowcase className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

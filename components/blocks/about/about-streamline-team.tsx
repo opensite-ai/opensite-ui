@@ -14,6 +14,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { DynamicIcon } from "@/src";
 
 export interface AboutStreamlineTeamProps {
   /**
@@ -167,16 +168,18 @@ export function AboutStreamlineTeam({
       <div className={cn("mt-10 space-y-6", featuresClassName)}>
         {features.map((feature, idx) => (
           <div key={idx} className="flex gap-4">
-            <div
-              className={cn(
-                "flex  shrink-0 items-center justify-center",
-                "size-12 rounded-lg",
-                "bg-primary text-primary-foreground",
-                feature.iconBgClass,
-              )}
-            >
-              {feature.icon}
-            </div>
+            {feature.icon ? (
+              <div
+                className={cn(
+                  "flex  shrink-0 items-center justify-center",
+                  "size-12 rounded-lg",
+                  "bg-primary text-primary-foreground",
+                  feature.iconBgClass,
+                )}
+              >
+                <DynamicIcon name={feature.icon} />
+              </div>
+            ) : null}
             <div>
               {feature.title &&
                 (typeof feature.title === "string" ? (

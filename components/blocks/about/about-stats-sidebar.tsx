@@ -12,6 +12,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
+import { DynamicIcon } from "@/src";
 
 interface ExtendedStatItem extends StatItem {
   description?: React.ReactNode;
@@ -130,7 +131,7 @@ export function AboutStatsSidebar({
               "rounded-xl ring-2",
             )}
           >
-            {stat.icon}
+            <DynamicIcon name={stat.icon} />
             <div className="flex flex-col items-start gap-0">
               {typeof stat.value === "string" ? (
                 <h3 className="mb-2 text-3xl md:text-4xl font-bold">
@@ -172,16 +173,18 @@ export function AboutStatsSidebar({
       >
         {features.map((feature, idx) => (
           <div key={idx} className="flex gap-4">
-            <div
-              className={cn(
-                "flex size-12 shrink-0 items-center justify-center",
-                "bg-primary text-primary-foreground",
-                "shadow-lg rounded-lg",
-                feature.iconBgClass,
-              )}
-            >
-              {feature.icon}
-            </div>
+            {feature.icon ? (
+              <div
+                className={cn(
+                  "flex size-12 shrink-0 items-center justify-center",
+                  "bg-primary text-primary-foreground",
+                  "shadow-lg rounded-lg",
+                  feature.iconBgClass,
+                )}
+              >
+                <DynamicIcon name={feature.icon} />
+              </div>
+            ) : null}
             <div>
               {feature.title &&
                 (typeof feature.title === "string" ? (
