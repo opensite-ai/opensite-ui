@@ -5,7 +5,6 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { ImageSlider, type ImageSliderImage } from "../../ui/image-slider";
-import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent } from "../../ui/card";
 import {
   FormEngine,
@@ -20,6 +19,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { BlockActions } from "@/components/ui/block-actions";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "",
@@ -252,41 +252,6 @@ export function HeroImageSlider({
   privacyNoticeClassName,
   gridClassName,
 }: HeroImageSliderProps): React.JSX.Element {
-  const renderActions = useMemo(() => {
-    if (actionsSlot) return actionsSlot;
-    if (!actions || actions.length === 0) return null;
-
-    return actions.map((action, index) => {
-      const {
-        label,
-        icon,
-        iconAfter,
-        children,
-        className: actionClassName,
-        asButton,
-        ...pressableProps
-      } = action;
-
-      return (
-        <Pressable
-          key={index}
-          asButton={asButton ?? false}
-          variant="link"
-          className={cn("text-primary p-0 h-auto", actionClassName)}
-          {...pressableProps}
-        >
-          {children ?? (
-            <>
-              {icon}
-              {label}
-              {iconAfter}
-            </>
-          )}
-        </Pressable>
-      );
-    });
-  }, [actionsSlot, actions]);
-
   const renderContent = useMemo(() => {
     if (contentSlot) return contentSlot;
 
@@ -341,16 +306,11 @@ export function HeroImageSlider({
             </div>
           )
         ) : null}
-        {actionsSlot || (actions && actions.length > 0) ? (
-          <div
-            className={cn(
-              "mt-6 flex flex-col items-start gap-3 sm:flex-row",
-              actionsClassName,
-            )}
-          >
-            {renderActions}
-          </div>
-        ) : null}
+        <BlockActions
+          actions={actions}
+          actionsSlot={actionsSlot}
+          actionsClassName={actionsClassName}
+        />
       </div>
     );
   }, [
@@ -365,7 +325,6 @@ export function HeroImageSlider({
     headingClassName,
     descriptionClassName,
     actionsClassName,
-    renderActions,
   ]);
 
   const hasForm = formEngineSetup !== undefined;
@@ -394,7 +353,7 @@ export function HeroImageSlider({
             "bg-linear-to-r from-black/70 via-black/50 to-black/30",
             overlayClassName,
           )}
-          className="min-h-full w-full rounded-none border-none shadow-none"
+          className="min-h-full w-full rounded-none md:rounded-2xl border-none shadow-none md:shadow-xl overflow-hidden"
           imageClassName={cn("scale-[1.02]", imageClassName)}
           optixFlowConfig={optixFlowConfig}
         />

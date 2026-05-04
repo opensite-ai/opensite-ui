@@ -106,7 +106,7 @@ export function HeroConversationIntelligence({
   imageSlot,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-32 md:py-32",
+  spacing = "hero",
   pattern,
   patternOpacity,
   patternClassName,
@@ -158,7 +158,7 @@ export function HeroConversationIntelligence({
           <div>
             <div
               className={cn(
-                "relative z-10 mx-auto flex max-w-220 flex-col gap-7",
+                "relative z-10 mx-auto flex max-w-full md:max-w-220 flex-col items-center gap-7",
                 contentClassName,
               )}
             >
@@ -181,7 +181,7 @@ export function HeroConversationIntelligence({
                     {description}
                   </p>
                 ) : (
-                  <div className={descriptionClassName}>{description}</div>
+                  description
                 ))}
               <BlockActions
                 actions={actions}
