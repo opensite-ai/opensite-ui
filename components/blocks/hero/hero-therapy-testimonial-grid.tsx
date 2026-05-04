@@ -228,7 +228,7 @@ export function HeroTherapyTestimonialGrid({
       <div className="pt-10 md:pt-0">
         <div
           className={cn(
-            "mx-auto mb-8 md:mb-12 flex max-w-[900px] flex-col items-center gap-3",
+            "mx-auto mb-8 md:mb-12 flex max-w-full md:max-w-md flex-col items-center gap-3",
             headerClassName,
           )}
         >
@@ -243,14 +243,7 @@ export function HeroTherapyTestimonialGrid({
                 {heading}
               </h1>
             ) : (
-              <h1
-                className={cn(
-                  "text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl text-balance",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
@@ -263,7 +256,7 @@ export function HeroTherapyTestimonialGrid({
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
           <BlockActions
             actions={actions}

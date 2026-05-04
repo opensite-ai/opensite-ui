@@ -4,7 +4,11 @@ import * as React from "react";
 import { useMemo, useEffect } from "react";
 import { Fragment, useState } from "react";
 import { Video } from "@page-speed/video";
-import { loadSkinFromJsDelivr, resolveVideoClasses, getSkinStyleObject } from '@page-speed/skins';
+import {
+  loadSkinFromJsDelivr,
+  resolveVideoClasses,
+  getSkinStyleObject,
+} from "@page-speed/skins";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -301,26 +305,19 @@ export function HeroMentorshipVideoSplit({
                   contentClassName,
                 )}
               >
-                <div className="flex max-w-165 flex-col gap-9">
+                <div className="flex max-w-165 flex-col gap-5 md:gap-8">
                   {heading &&
                     (typeof heading === "string" ? (
                       <h1
                         className={cn(
-                          "text-4xl font-semibold lg:text-8xl text-balance text-shadow-lg",
+                          "text-4xl font-semibold lg:text-8xl text-balance text-shadow-lg leading-none",
                           headingClassName,
                         )}
                       >
                         {heading}
                       </h1>
                     ) : (
-                      <h1
-                        className={cn(
-                          "text-4xl font-semibold lg:text-8xl text-balance text-shadow-lg",
-                          headingClassName,
-                        )}
-                      >
-                        {heading}
-                      </h1>
+                      heading
                     ))}
                   {description &&
                     (typeof description === "string" ? (
@@ -333,7 +330,7 @@ export function HeroMentorshipVideoSplit({
                         {description}
                       </p>
                     ) : (
-                      <div className={descriptionClassName}>{description}</div>
+                      description
                     ))}
                   {renderAction}
                 </div>

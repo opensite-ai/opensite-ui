@@ -315,7 +315,7 @@ export function HeroSaasDashboardPreview({
     if (!browserPreview) return null;
 
     return (
-      <div className={cn("relative mt-12 md:mt-20", previewClassName)}>
+      <div className={cn("relative mt-12 md:mt-20 w-full", previewClassName)}>
         <div className="absolute inset-0 z-10 pointer-events-none"></div>
         <div
           className={cn(

@@ -147,7 +147,7 @@ export function HeroAgencyAnimatedImages({
   images,
   imagesSlot,
   background,
-  spacing = "xl",
+  spacing = "hero",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   pattern,
   patternOpacity,
@@ -251,7 +251,7 @@ export function HeroAgencyAnimatedImages({
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "text-4xl md:text-5xl lg:text-7xl xl:text-[5rem] font-bold text-left text-pretty",
+                    "text-4xl md:text-5xl lg:text-6xl font-bold text-left text-pretty",
                     headingClassName,
                   )}
                 >
