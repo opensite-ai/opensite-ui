@@ -104,7 +104,7 @@ export function HeroBusinessOperationsMosaic({
   actionsSlot,
   actionsClassName,
   background,
-  spacing = "xl",
+  spacing = "hero",
   pattern,
   patternOpacity,
   className,
@@ -179,44 +179,47 @@ export function HeroBusinessOperationsMosaic({
       className={className}
       containerClassName={containerClassName}
     >
-      <div className="pt-10 md:pt-0">
-        <div className="grid grid-cols-1 items-center justify-between gap-14 lg:grid-cols-2">
-          <div className={cn("w-full max-w-166.5", mosaicClassName)}>
-            <AspectRatio ratio={0.815177479 / 1}>{renderMosaic}</AspectRatio>
-          </div>
-          <div
-            className={cn(
-              "flex w-full max-w-125 flex-col gap-6 md:gap-14 lg:max-w-full",
-              contentClassName,
-            )}
-          >
-            {heading &&
-              (typeof heading === "string" ? (
-                <h1
-                  className={cn(
-                    "text-6xl lg:text-7xl xl:text-[5rem] font-semibold",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h1>
-              ) : (
-                <div className={headingClassName}>{heading}</div>
-              ))}
-            {description &&
-              (typeof description === "string" ? (
-                <p className={cn("text-lg md:text-xl", descriptionClassName)}>
-                  {description}
-                </p>
-              ) : (
-                <div className={descriptionClassName}>{description}</div>
-              ))}
-            <BlockActions
-              actions={actions}
-              actionsSlot={actionsSlot}
-              actionsClassName={actionsClassName}
-            />
-          </div>
+      <div className="grid grid-cols-1 items-center justify-between gap-14 lg:grid-cols-2">
+        <div className={cn("w-full max-w-166.5", mosaicClassName)}>
+          <AspectRatio ratio={0.815177479 / 1}>{renderMosaic}</AspectRatio>
+        </div>
+        <div
+          className={cn(
+            "flex w-full max-w-full flex-col gap-6",
+            contentClassName,
+          )}
+        >
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-4xl md:text-5xl lg:text-6xl font-semibold text-pretty leading-tight",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h1>
+            ) : (
+              heading
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-lg md:text-xl text-balance",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              description
+            ))}
+          <BlockActions
+            actions={actions}
+            actionsSlot={actionsSlot}
+            actionsClassName={actionsClassName}
+          />
         </div>
       </div>
     </Section>
