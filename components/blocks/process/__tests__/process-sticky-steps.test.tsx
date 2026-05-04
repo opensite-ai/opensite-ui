@@ -104,7 +104,7 @@ describe("ProcessStickySteps", () => {
     expect(link).toHaveAttribute("href", "/start");
   });
 
-  it("uses bounded responsive columns to avoid sticky content overlap", () => {
+  it("keeps the sticky two-column desktop layout with extra column spacing", () => {
     const { container } = render(
       <ProcessStickySteps
         heading="Understanding the BASIS Enrollment Lottery"
@@ -112,10 +112,8 @@ describe("ProcessStickySteps", () => {
       />,
     );
 
-    expect(container.innerHTML).toContain(
-      "lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.35fr)]",
-    );
-    expect(container.innerHTML).toContain("max-w-[12ch]");
-    expect(container.querySelector("ul")).toHaveClass("min-w-0");
+    expect(container.innerHTML).toContain("lg:grid-cols-6");
+    expect(container.innerHTML).toContain("lg:gap-24");
+    expect(container.querySelector("ul")).toHaveClass("col-span-4", "lg:pl-28");
   });
 });

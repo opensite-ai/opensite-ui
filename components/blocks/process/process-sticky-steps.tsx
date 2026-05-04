@@ -182,12 +182,12 @@ export function ProcessStickySteps({
     if (!steps?.length) return null;
 
     return (
-      <ul className={cn("relative w-full min-w-0", stepsClassName)}>
+      <ul className={cn("relative col-span-4 w-full lg:pl-28", stepsClassName)}>
         {steps.map((step, index) => (
           <li
             key={index}
             className={cn(
-              "relative grid grid-cols-1 gap-6 border-t py-8 md:grid-cols-[auto_minmax(0,1fr)] md:gap-10 lg:py-10",
+              "relative flex flex-col justify-between gap-10 border-t py-8 md:flex-row lg:py-10",
               stepItemClassName,
               step.className,
             )}
@@ -210,7 +210,7 @@ export function ProcessStickySteps({
             >
               {step.step ?? `0${index + 1}`}
             </div>
-            <div className="min-w-0 pr-10">
+            <div>
               {step.title &&
                 (typeof step.title === "string" ? (
                   <Pressable href={step.href} className="mb-4 block">
@@ -248,29 +248,22 @@ export function ProcessStickySteps({
     >
       <div
         className={cn(
-          "grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.35fr)] lg:gap-16 xl:gap-24",
+          "grid grid-cols-1 gap-5 lg:grid-cols-6 lg:gap-24",
           contentClassName,
         )}
       >
-        <div className="top-10 h-fit min-w-0 max-w-full space-y-7 py-8 lg:sticky">
-          <div className="relative max-w-full text-5xl font-semibold tracking-tight lg:text-6xl xl:text-7xl">
+        <div className="top-10 col-span-2 h-fit w-fit gap-3 space-y-7 py-8 lg:sticky">
+          <div className="relative w-fit text-5xl font-semibold tracking-tight lg:text-7xl">
             {heading &&
               (typeof heading === "string" ? (
-                <h1
-                  className={cn(
-                    "max-w-[12ch] text-balance break-words",
-                    headingClassName,
-                  )}
-                >
-                  {heading}
-                </h1>
+                <h1 className={cn("w-fit", headingClassName)}>{heading}</h1>
               ) : (
                 heading
               ))}
             <DynamicIcon
               name="lucide/asterisk"
               size={40}
-              className="absolute -top-2 -right-2 md:size-10 lg:-right-14"
+              className="absolute -top-2 -right-2 md:size-10 lg:-right-10"
             />
           </div>
           {description &&

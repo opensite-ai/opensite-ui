@@ -112,6 +112,9 @@ function ActionComponent({ action }: ActionComponentProps) {
       asButton={shouldStyleAsButton}
       variant={resolvedVariant}
       size={resolvedSize}
+      data-slot={shouldStyleAsButton ? "button" : undefined}
+      data-variant={resolvedVariant}
+      data-size={resolvedSize}
       className={cn(
         shouldStyleAsButton &&
           buttonVariants({ variant: resolvedVariant, size: resolvedSize }),

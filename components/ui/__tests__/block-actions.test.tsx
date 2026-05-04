@@ -21,7 +21,9 @@ describe("BlockActions", () => {
     });
 
     expect(defaultAction).toHaveAttribute("data-variant", "default");
+    expect(linkAction).toHaveAttribute("data-slot", "button");
     expect(linkAction).toHaveAttribute("data-variant", "link");
+    expect(linkAction).toHaveAttribute("data-size", "default");
     expect(linkAction).toHaveClass(
       "inline-flex",
       "items-center",
