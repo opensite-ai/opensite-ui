@@ -112,16 +112,16 @@ export interface IMenuLink {
  */
 export interface NavbarPlatformResourcesProps {
   /**
-     * Logo configuration
-     */
+   * Logo configuration
+   */
   logo?: LogoConfig;
   /**
-     * Navigation menu links with optional dropdown groups
-     */
+   * Navigation menu links with optional dropdown groups
+   */
   menuLinks?: IMenuLink[];
   /**
-     * Actions rendered on the right side (desktop) and bottom (mobile)
-     */
+   * Actions rendered on the right side (desktop) and bottom (mobile)
+   */
   actions?: ActionConfig[];
 }
 
@@ -196,7 +196,6 @@ interface NavbarPlatformResourcesRuntimeProps {
   layoutVariant?: NavbarLayoutVariant;
   /** Optional Section ID */
   sectionId?: string;
-
 }
 
 /**
@@ -269,11 +268,11 @@ export const NavbarPlatformResources = ({
                   </div>
                 )}
                 <div className="min-w-0 flex-1 overflow-hidden">
-                  <div className="break-words text-sm font-medium text-foreground">
+                  <div className="text-sm font-medium truncate">
                     {item.label}
                   </div>
                   {item.description && (
-                    <div className="break-words text-sm font-normal text-muted-foreground">
+                    <div className="truncate text-sm font-normal text-muted-foreground">
                       {item.description}
                     </div>
                   )}
@@ -307,9 +306,11 @@ export const NavbarPlatformResources = ({
                     />
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <div className="text-sm font-medium">{item.label}</div>
+                    <div className="text-sm font-medium truncate">
+                      {item.label}
+                    </div>
                     {item.description && (
-                      <div className="break-words text-xs text-muted-foreground group-hover/link:text-foreground">
+                      <div className="truncate text-xs text-muted-foreground group-hover/link:text-foreground">
                         {item.description}
                       </div>
                     )}
@@ -348,9 +349,11 @@ export const NavbarPlatformResources = ({
                   />
                 </div>
                 <div className="p-5 xl:p-8">
-                  <div className="mb-2 text-base">{featuredItem.label}</div>
+                  <div className="mb-2 text-base truncate">
+                    {featuredItem.label}
+                  </div>
                   {featuredItem.description && (
-                    <div className="text-sm font-normal text-muted-foreground">
+                    <div className="truncate text-sm font-normal text-muted-foreground">
                       {featuredItem.description}
                     </div>
                   )}
@@ -378,11 +381,9 @@ export const NavbarPlatformResources = ({
                         />
                       </div>
                     )}
-                    <div className="mb-1 break-words text-base">
-                      {item.label}
-                    </div>
+                    <div className="mb-1 truncate text-base">{item.label}</div>
                     {item.description && (
-                      <div className="break-words text-sm font-normal text-muted-foreground">
+                      <div className="truncate text-sm font-normal text-muted-foreground">
                         {item.description}
                       </div>
                     )}
@@ -430,7 +431,7 @@ export const NavbarPlatformResources = ({
                             />
                           </div>
                         )}
-                        <div className="min-w-0 break-words text-base">
+                        <div className="min-w-0 truncate text-base">
                           {item.label}
                         </div>
                       </NavigationMenuLink>
@@ -466,11 +467,11 @@ export const NavbarPlatformResources = ({
                       </div>
                     )}
                     <div className="mt-auto">
-                      <div className="mb-4 break-words text-xl">
+                      <div className="mb-4 truncate text-xl">
                         {ctaItem.label}
                       </div>
                       {ctaItem.description && (
-                        <div className="break-words text-sm font-normal text-muted-foreground">
+                        <div className="truncate text-sm font-normal text-muted-foreground">
                           {ctaItem.description}
                         </div>
                       )}
@@ -513,12 +514,13 @@ export const NavbarPlatformResources = ({
                       href={getLinkUrl(item)}
                       className="group !flex !w-full min-w-0 flex-row items-center gap-2.5 rounded-md p-2.5 focus:text-accent-foreground"
                     >
-                      {(item.icon || item.iconName) &&
+                      {(item.icon || item.iconName) && (
                         <DynamicIcon
                           name={item.icon || item.iconName}
                           size={16}
-                        />}
-                      <div className="min-w-0 break-words text-base">
+                        />
+                      )}
+                      <div className="min-w-0 truncate text-base">
                         {item.label}
                       </div>
                     </NavigationMenuLink>
@@ -534,11 +536,11 @@ export const NavbarPlatformResources = ({
                   className="!flex !w-full min-w-0 flex-row items-center overflow-clip rounded-lg border border-input bg-background p-0 hover:bg-transparent"
                 >
                   <div className="min-w-0 flex-1 p-5 xl:p-8">
-                    <div className="mb-2 break-words text-base">
+                    <div className="mb-2 truncate text-base">
                       {showcase.label}
                     </div>
                     {showcase.description && (
-                      <div className="break-words text-sm font-normal text-muted-foreground">
+                      <div className="truncate text-sm font-normal text-muted-foreground">
                         {showcase.description}
                       </div>
                     )}
@@ -589,11 +591,11 @@ export const NavbarPlatformResources = ({
                       className="!flex h-full w-full min-w-0 flex-col overflow-clip rounded-lg border border-input bg-background p-5 hover:bg-accent hover:text-accent-foreground xl:p-8"
                     >
                       <div className="mt-auto">
-                        <div className="mb-2 break-words text-base">
+                        <div className="mb-2 truncate text-base">
                           {item.label}
                         </div>
                         {item.description && (
-                          <div className="break-words text-sm font-normal text-muted-foreground">
+                          <div className="truncate text-sm font-normal text-muted-foreground">
                             {item.description}
                           </div>
                         )}
@@ -610,11 +612,11 @@ export const NavbarPlatformResources = ({
                   className="mb-6 !flex !w-full min-w-0 flex-row overflow-clip rounded-lg border border-input bg-background p-0 hover:bg-transparent"
                 >
                   <div className="min-w-0 flex-1 p-5 xl:p-8">
-                    <div className="mb-2 break-words text-base">
+                    <div className="mb-2 truncate text-base">
                       {ctaItem.label}
                     </div>
                     {ctaItem.description && (
-                      <div className="break-words text-sm font-normal text-muted-foreground">
+                      <div className="truncate text-sm font-normal text-muted-foreground">
                         {ctaItem.description}
                       </div>
                     )}
@@ -640,7 +642,7 @@ export const NavbarPlatformResources = ({
                       {ctaItem.background}
                     </span>
                     {ctaItem.description && (
-                      <span className="text-sm text-ellipsis text-secondary-foreground">
+                      <span className="truncate text-sm text-secondary-foreground">
                         {ctaItem.description}
                       </span>
                     )}
@@ -681,11 +683,11 @@ export const NavbarPlatformResources = ({
                 </div>
               )}
               <div className="min-w-0 flex-1">
-                <div className="break-words text-sm font-medium text-foreground">
+                <div className="truncate text-sm font-medium text-foreground">
                   {item.label}
                 </div>
                 {item.description && (
-                  <div className="break-words text-sm font-normal text-muted-foreground">
+                  <div className="truncate text-sm font-normal text-muted-foreground">
                     {item.description}
                   </div>
                 )}
@@ -841,11 +843,12 @@ export const NavbarPlatformResources = ({
                                   href={getLinkUrl(item)}
                                   className="flex items-center gap-2 pl-4 text-sm text-muted-foreground hover:text-foreground"
                                 >
-                                  {(item.icon || item.iconName) &&
+                                  {(item.icon || item.iconName) && (
                                     <DynamicIcon
                                       name={item.icon || item.iconName}
                                       size={14}
-                                    />}
+                                    />
+                                  )}
                                   {item.label}
                                 </Pressable>
                               ))}
