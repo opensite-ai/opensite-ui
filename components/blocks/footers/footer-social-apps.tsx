@@ -159,6 +159,7 @@ export function FooterSocialApps({
 
   return (
     <Section
+      id="footer-social-apps"
       background={background}
       spacing={spacing}
       pattern={pattern}

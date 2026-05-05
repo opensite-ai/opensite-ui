@@ -41,6 +41,25 @@ export interface NavItem {
  */
 export interface NavbarSearchFocusedProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Search placeholder text
+     */
+  searchPlaceholder?: React.ReactNode;
+  /**
+     * Navigation items for the left side
+     */
+  navItems?: NavItem[];
+  /**
+     * Authentication action configurations for desktop
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarSearchFocusedRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -132,6 +151,7 @@ export interface NavbarSearchFocusedProps {
    * Layout variant for the navbar
    */
   layoutVariant?: NavbarLayoutVariant;
+
 }
 
 /**
@@ -167,7 +187,7 @@ export const NavbarSearchFocused = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarSearchFocusedProps) => {
+}: NavbarSearchFocusedRuntimeProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -271,6 +291,7 @@ export const NavbarSearchFocused = ({
   return (
     <>
       <Section
+        id="navbar-search-focused"
         background={background}
         spacing={spacingOverride ?? spacing}
         className={sectionClasses}

@@ -47,6 +47,21 @@ interface NavItem {
  */
 export interface NavbarIconLinksProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation items with icons
+     */
+  navItems?: NavItem[];
+  /**
+     * Authentication action configurations
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarIconLinksRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -120,6 +135,7 @@ export interface NavbarIconLinksProps {
   optixFlowConfig?: OptixFlowConfig;
   /** Optional Section ID */
   sectionId?: string;
+
 }
 
 /**
@@ -152,7 +168,7 @@ export const NavbarIconLinks = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarIconLinksProps) => {
+}: NavbarIconLinksRuntimeProps) => {
   const [activeItem, setActiveItem] = useState(navItems?.[0]?.title || "");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -226,7 +242,7 @@ export const NavbarIconLinks = ({
 
   return (
     <Section
-      id={sectionId}
+      id="navbar-icon-links"
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

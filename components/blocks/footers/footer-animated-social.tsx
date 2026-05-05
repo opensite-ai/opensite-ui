@@ -156,7 +156,7 @@ export function FooterAnimatedSocial({
 
   return (
     <Section
-      id={sectionId}
+      id="footer-animated-social"
       background={background}
       spacing={spacing}
       pattern={pattern}

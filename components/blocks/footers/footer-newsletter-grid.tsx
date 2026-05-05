@@ -135,6 +135,7 @@ export function FooterNewsletterGrid({
 
   return (
     <Section
+      id="footer-newsletter-grid"
       background={background}
       spacing={spacing}
       pattern={pattern}

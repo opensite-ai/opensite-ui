@@ -248,6 +248,7 @@ export function FooterNavSocial({
 
   return (
     <Section
+      id="footer-nav-social"
       background={background}
       spacing={spacing}
       pattern={pattern}

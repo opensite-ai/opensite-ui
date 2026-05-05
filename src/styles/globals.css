@@ -104,14 +104,14 @@
   --button-destructive-shadow-hover: var(--button-shadow-hover);
 
   /* Outline Variant */
-  --button-outline-bg: var(--background);
-  --button-outline-fg: inherit;
-  --button-outline-border: var(--border);
+  --button-outline-bg: white;
+  --button-outline-fg: var(--primary);
+  --button-outline-border: var(--primary);
   --button-outline-border-width: 1px;
   --button-outline-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --button-outline-hover-bg: var(--accent);
-  --button-outline-hover-fg: var(--accent-foreground);
-  --button-outline-hover-border: var(--border);
+  --button-outline-hover-bg: var(--primary);
+  --button-outline-hover-fg: var(--primary-foreground);
+  --button-outline-hover-border: white;
   --button-outline-shadow-hover: var(--button-shadow-hover);
 
   /* Secondary Variant */

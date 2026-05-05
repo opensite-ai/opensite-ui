@@ -163,7 +163,7 @@ export function FooterContactCard({
 }: FooterContactCardProps): React.JSX.Element {
   return (
     <Section
-      id={sectionId}
+      id="footer-contact-card"
       background={background}
       spacing={spacing}
       pattern={pattern}

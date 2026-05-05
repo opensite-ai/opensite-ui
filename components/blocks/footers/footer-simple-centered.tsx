@@ -200,7 +200,7 @@ export function FooterSimpleCentered({
 
   return (
     <Section
-      id={sectionId}
+      id="footer-simple-centered"
       background={background}
       spacing={spacing}
       pattern={pattern}

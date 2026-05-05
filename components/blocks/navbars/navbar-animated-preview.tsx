@@ -84,6 +84,21 @@ export interface IMenuLink {
  */
 export interface NavbarAnimatedPreviewProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu links with optional dropdown groups
+     */
+  menuLinks?: IMenuLink[];
+  /**
+     * Action configurations (e.g., Sign In, Get Started buttons)
+     */
+  actions?: ActionConfig[];
+}
+
+interface NavbarAnimatedPreviewRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -155,6 +170,7 @@ export interface NavbarAnimatedPreviewProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+
 }
 
 const MOBILE_BREAKPOINT = 1280;
@@ -187,7 +203,7 @@ export const NavbarAnimatedPreview = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarAnimatedPreviewProps) => {
+}: NavbarAnimatedPreviewRuntimeProps) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -289,6 +305,7 @@ export const NavbarAnimatedPreview = ({
   return (
     <>
       <Section
+        id="navbar-animated-preview"
         background={background}
         spacing={spacingOverride ?? spacing}
         className={cn(

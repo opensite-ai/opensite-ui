@@ -53,6 +53,21 @@ interface MenuItem {
  */
 export interface NavbarStickyCompactProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu items
+     */
+  menu?: MenuItem[];
+  /**
+     * Authentication action configurations
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarStickyCompactRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -120,6 +135,7 @@ export interface NavbarStickyCompactProps {
    * Layout variant for the navbar
    */
   layoutVariant?: NavbarLayoutVariant;
+
 }
 
 /**
@@ -149,7 +165,7 @@ export const NavbarStickyCompact = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarStickyCompactProps) => {
+}: NavbarStickyCompactRuntimeProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -263,6 +279,7 @@ export const NavbarStickyCompact = ({
   return (
     <>
       <Section
+        id="navbar-sticky-compact"
         background={background}
         spacing={spacingOverride ?? spacing}
         className={cn(

@@ -48,6 +48,21 @@ interface MenuItem {
  */
 export interface NavbarSplitCtaProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu items
+     */
+  menu?: MenuItem[];
+  /**
+     * Authentication action configurations
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarSplitCtaRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -121,6 +136,7 @@ export interface NavbarSplitCtaProps {
   layoutVariant?: NavbarLayoutVariant;
   /** Optional Section ID */
   sectionId?: string;
+
 }
 
 /**
@@ -152,7 +168,7 @@ export const NavbarSplitCta = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarSplitCtaProps) => {
+}: NavbarSplitCtaRuntimeProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const renderAuthActions = useMemo(() => {
@@ -207,7 +223,7 @@ export const NavbarSplitCta = ({
 
   return (
     <Section
-      id={sectionId}
+      id="navbar-split-cta"
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

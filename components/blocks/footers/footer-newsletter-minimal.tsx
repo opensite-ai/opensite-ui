@@ -304,7 +304,7 @@ export function FooterNewsletterMinimal({
 
   return (
     <Section
-      id={sectionId}
+      id="footer-newsletter-minimal"
       background={background}
       spacing={spacing}
       pattern={pattern}

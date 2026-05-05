@@ -191,7 +191,7 @@ export function FooterCtaBanner({
 }: FooterCtaBannerProps): React.JSX.Element {
   return (
     <Section
-      id={sectionId}
+      id="footer-cta-banner"
       background={background}
       spacing={spacing}
       pattern={pattern}

@@ -52,6 +52,21 @@ export interface MenuItem {
  */
 export interface NavbarCenteredMenuProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu items
+     */
+  menu?: MenuItem[];
+  /**
+     * Authentication action configurations
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarCenteredMenuRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -129,6 +144,7 @@ export interface NavbarCenteredMenuProps {
   optixFlowConfig?: OptixFlowConfig;
   /** Optional Section ID */
   sectionId?: string;
+
 }
 
 const NavigationMenuWithoutViewport = ({
@@ -259,7 +275,7 @@ export const NavbarCenteredMenu = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarCenteredMenuProps) => {
+}: NavbarCenteredMenuRuntimeProps) => {
   const [open, setOpen] = React.useState(false);
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
@@ -320,7 +336,7 @@ export const NavbarCenteredMenu = ({
 
   return (
     <Section
-      id={sectionId}
+      id="navbar-centered-menu"
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

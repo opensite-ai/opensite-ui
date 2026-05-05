@@ -60,6 +60,21 @@ export interface MenuItem {
  */
 export interface NavbarMultiColumnGroupsProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu items
+     */
+  navigation?: MenuItem[];
+  /**
+     * Authentication action configurations for desktop
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarMultiColumnGroupsRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -139,6 +154,7 @@ export interface NavbarMultiColumnGroupsProps {
    * Layout variant for the navbar
    */
   layoutVariant?: NavbarLayoutVariant;
+
 }
 
 const MOBILE_BREAKPOINT = 1024;
@@ -173,7 +189,7 @@ export const NavbarMultiColumnGroups = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarMultiColumnGroupsProps) => {
+}: NavbarMultiColumnGroupsRuntimeProps) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -265,6 +281,7 @@ export const NavbarMultiColumnGroups = ({
   return (
     <>
       <Section
+        id="navbar-multi-column-groups"
         background={background}
         spacing={spacingOverride ?? spacing}
         className={sectionClasses}

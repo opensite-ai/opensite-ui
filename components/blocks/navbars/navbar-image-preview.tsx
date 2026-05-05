@@ -68,6 +68,21 @@ export interface SocialLink {
  */
 export interface NavbarImagePreviewProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu items
+     */
+  navigation?: MenuItem[];
+  /**
+     * Authentication action configurations
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarImagePreviewRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -157,6 +172,7 @@ export interface NavbarImagePreviewProps {
   optixFlowConfig?: OptixFlowConfig;
   /** Optional Section ID */
   sectionId?: string;
+
 }
 
 const MOBILE_BREAKPOINT = 1024;
@@ -193,7 +209,7 @@ export const NavbarImagePreview = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarImagePreviewProps) => {
+}: NavbarImagePreviewRuntimeProps) => {
   const [open, setOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
 
@@ -300,7 +316,7 @@ export const NavbarImagePreview = ({
 
   return (
     <Section
-      id={sectionId}
+      id="navbar-image-preview"
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

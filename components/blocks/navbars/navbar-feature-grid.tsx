@@ -51,6 +51,25 @@ export interface MenuItem {
  */
 export interface NavbarFeatureGridProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Features for Features dropdown
+     */
+  features?: FeatureItem[];
+  /**
+     * Additional menu items (simple links without dropdowns)
+     */
+  menu?: MenuItem[];
+  /**
+     * Authentication action configurations
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarFeatureGridRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -124,6 +143,7 @@ export interface NavbarFeatureGridProps {
   optixFlowConfig?: OptixFlowConfig;
   /** Optional Section ID */
   sectionId?: string;
+
 }
 
 /**
@@ -154,7 +174,7 @@ export const NavbarFeatureGrid = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarFeatureGridProps) => {
+}: NavbarFeatureGridRuntimeProps) => {
   const [open, setOpen] = React.useState(false);
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
@@ -196,7 +216,7 @@ export const NavbarFeatureGrid = ({
 
   return (
     <Section
-      id={sectionId}
+      id="navbar-feature-grid"
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

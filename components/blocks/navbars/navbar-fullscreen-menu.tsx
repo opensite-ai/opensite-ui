@@ -44,6 +44,21 @@ export interface NavbarFullscreenMenuSocialLink {
  */
 export interface NavbarFullscreenMenuProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Menu items for fullscreen navigation
+     */
+  menuItems?: MenuItem[];
+  /**
+     * Social links displayed at bottom of fullscreen menu
+     */
+  socialLinks?: NavbarFullscreenMenuSocialLink[];
+}
+
+interface NavbarFullscreenMenuRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -119,6 +134,7 @@ export interface NavbarFullscreenMenuProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+
 }
 
 /**
@@ -149,7 +165,7 @@ export const NavbarFullscreenMenu = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarFullscreenMenuProps) => {
+}: NavbarFullscreenMenuRuntimeProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -212,6 +228,7 @@ export const NavbarFullscreenMenu = ({
   return (
     <>
       <Section
+        id="navbar-fullscreen-menu"
         background={background}
         spacing={spacingOverride ?? spacing}
         className={sectionClasses}

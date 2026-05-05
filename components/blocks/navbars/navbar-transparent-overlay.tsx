@@ -56,6 +56,21 @@ export interface NavbarTransparentOverlaySocialLink {
  */
 export interface NavbarTransparentOverlayProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation items
+     */
+  navItems?: NavItem[];
+  /**
+     * Authentication action configurations for desktop
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarTransparentOverlayRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -151,6 +166,7 @@ export interface NavbarTransparentOverlayProps {
    * Layout variant for the navbar
    */
   layoutVariant?: NavbarLayoutVariant;
+
 }
 
 /**
@@ -187,7 +203,7 @@ export const NavbarTransparentOverlay = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarTransparentOverlayProps) => {
+}: NavbarTransparentOverlayRuntimeProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -291,6 +307,7 @@ export const NavbarTransparentOverlay = ({
   return (
     <>
       <Section
+        id="navbar-transparent-overlay"
         background={background}
         spacing={spacingOverride ?? spacing}
         className={sectionClasses}

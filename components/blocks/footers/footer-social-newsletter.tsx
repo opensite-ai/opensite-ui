@@ -209,6 +209,7 @@ export function FooterSocialNewsletter({
 
   return (
     <Section
+      id="footer-social-newsletter"
       background={background}
       spacing={spacing}
       pattern={pattern}

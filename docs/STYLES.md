@@ -325,14 +325,14 @@ This template uses Tailwind CSS 4's `@theme inline` directive to map CSS variabl
   /* -----------------------------------------
      OUTLINE VARIANT
      ----------------------------------------- */
-  --button-outline-bg: var(--background);
-  --button-outline-fg: inherit;
-  --button-outline-border: var(--border);
+  --button-outline-bg: white;
+  --button-outline-fg: var(--primary);
+  --button-outline-border: var(--primary);
   --button-outline-border-width: 1px;
   --button-outline-shadow: var(--button-shadow);
-  --button-outline-hover-bg: var(--accent);
-  --button-outline-hover-fg: var(--accent-foreground);
-  --button-outline-hover-border: var(--border);
+  --button-outline-hover-bg: var(--primary);
+  --button-outline-hover-fg: var(--primary-foreground);
+  --button-outline-hover-border: white;
   --button-outline-shadow-hover: var(--button-shadow-hover);
 
   /* -----------------------------------------
@@ -699,14 +699,14 @@ Each variant has a complete, consistent set of customization variables:
 | Variable | Default | Description |
 |----------|---------|-------------|
 
-| `--button-outline-bg` | `hsl(var(--background))` | Background color |
-| `--button-outline-fg` | `inherit` | Text color |
-| `--button-outline-border` | `hsl(var(--border))` | Border color |
+| `--button-outline-bg` | `white` | Background color |
+| `--button-outline-fg` | `hsl(var(--primary))` | Text color |
+| `--button-outline-border` | `hsl(var(--primary))` | Border color |
 | `--button-outline-border-width` | `1px` | Border width |
 | `--button-outline-shadow` | `var(--button-shadow)` | Box shadow (inherits master) |
-| `--button-outline-hover-bg` | `hsl(var(--accent))` | Hover background |
-| `--button-outline-hover-fg` | `hsl(var(--accent-foreground))` | Hover text color |
-| `--button-outline-hover-border` | `hsl(var(--border))` | Hover border color |
+| `--button-outline-hover-bg` | `hsl(var(--primary))` | Hover background |
+| `--button-outline-hover-fg` | `hsl(var(--primary-foreground))` | Hover text color |
+| `--button-outline-hover-border` | `white` | Hover border color |
 | `--button-outline-shadow-hover` | `var(--button-shadow-hover)` | Hover box shadow (inherits master) |
 
 **Secondary Variant:**

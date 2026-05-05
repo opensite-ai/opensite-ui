@@ -56,6 +56,21 @@ export interface MenuItem {
  */
 export interface NavbarDarkIconsProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu items
+     */
+  navigation?: MenuItem[];
+  /**
+     * Authentication action configurations
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarDarkIconsRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -137,6 +152,7 @@ export interface NavbarDarkIconsProps {
   optixFlowConfig?: OptixFlowConfig;
   /** Optional Section ID */
   sectionId?: string;
+
 }
 
 const MOBILE_BREAKPOINT = 1024;
@@ -171,7 +187,7 @@ export const NavbarDarkIcons = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarDarkIconsProps) => {
+}: NavbarDarkIconsRuntimeProps) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -268,7 +284,7 @@ export const NavbarDarkIcons = ({
 
   return (
     <Section
-      id={sectionId}
+      id="navbar-dark-icons"
       background={background}
       spacing={spacingOverride ?? spacing}
       className={cn("dark pointer-events-auto relative z-999", sectionClasses)}

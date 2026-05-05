@@ -296,6 +296,21 @@ export interface IMenuLink {
  */
 export interface NavbarEnterpriseMegaProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu links with mega menu configurations
+     */
+  menuLinks?: IMenuLink[];
+  /**
+     * Action configurations (e.g., login, signup buttons)
+     */
+  actions?: ActionConfig[];
+}
+
+interface NavbarEnterpriseMegaRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -363,6 +378,7 @@ export interface NavbarEnterpriseMegaProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+
 }
 
 const MOBILE_BREAKPOINT = 1024;
@@ -390,12 +406,12 @@ export const NavbarEnterpriseMega = ({
   actions,
   actionsSlot,
   layoutVariant = "fullScreenContainerizedLinks",
-  background,
+  background = "white",
   spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarEnterpriseMegaProps) => {
+}: NavbarEnterpriseMegaRuntimeProps) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -459,6 +475,7 @@ export const NavbarEnterpriseMega = ({
   return (
     <Fragment>
       <Section
+        id="navbar-enterprise-mega"
         background={background}
         spacing={spacingOverride ?? spacing}
         className={cn(

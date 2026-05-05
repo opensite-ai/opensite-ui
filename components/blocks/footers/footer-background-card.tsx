@@ -207,7 +207,7 @@ export function FooterBackgroundCard({
 
   return (
     <Section
-      id={sectionId}
+      id="footer-background-card"
       background={background}
       spacing={spacing}
       pattern={pattern}

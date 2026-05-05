@@ -139,7 +139,7 @@ export function FooterComprehensiveLinks({
 }: FooterComprehensiveLinksProps): React.JSX.Element {
   return (
     <Section
-      id={sectionId}
+      id="footer-comprehensive-links"
       background={background}
       spacing={spacing}
       pattern={pattern}

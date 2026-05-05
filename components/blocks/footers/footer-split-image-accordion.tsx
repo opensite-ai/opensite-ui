@@ -346,7 +346,7 @@ export function FooterSplitImageAccordion({
 
   return (
     <Section
-      id={sectionId}
+      id="footer-split-image-accordion"
       background={background}
       spacing={spacing}
       pattern={pattern}

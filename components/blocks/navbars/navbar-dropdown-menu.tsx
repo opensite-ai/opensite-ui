@@ -52,6 +52,21 @@ export interface MenuItem {
  */
 export interface NavbarDropdownMenuProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu items
+     */
+  menu?: MenuItem[];
+  /**
+     * Authentication action configurations
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarDropdownMenuRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -129,6 +144,7 @@ export interface NavbarDropdownMenuProps {
   optixFlowConfig?: OptixFlowConfig;
   /** Optional Section ID */
   sectionId?: string;
+
 }
 
 const SubMenuLink = ({
@@ -245,7 +261,7 @@ export const NavbarDropdownMenu = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarDropdownMenuProps) => {
+}: NavbarDropdownMenuRuntimeProps) => {
   const [open, setOpen] = React.useState(false);
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
@@ -306,7 +322,7 @@ export const NavbarDropdownMenu = ({
 
   return (
     <Section
-      id={sectionId}
+      id="navbar-dropdown-menu"
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

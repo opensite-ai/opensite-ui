@@ -88,6 +88,7 @@ export function FooterLinksGrid({
 }: FooterLinksGridProps): React.JSX.Element {
   return (
     <Section
+      id="footer-links-grid"
       background={background}
       spacing={spacing}
       pattern={pattern}

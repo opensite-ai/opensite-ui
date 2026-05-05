@@ -13,7 +13,7 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import { Badge } from "@/src";
+import { Badge, DynamicIcon } from "@/src";
 import { BlockActions } from "@/components/ui/block-actions";
 
 export interface HeroStatsSocialProofProps {
@@ -63,7 +63,7 @@ export interface HeroStatsSocialProofProps {
   statusCard?: {
     title?: React.ReactNode;
     subtitle?: React.ReactNode;
-    icon?: React.ReactNode;
+    icon?: React.ReactNode | string;
   };
   /**
    * Custom slot for status card (overrides statusCard)
@@ -183,11 +183,11 @@ export function HeroStatsSocialProof({
         )}
       >
         <div className="flex items-center gap-3">
-          {statusCard.icon && (
+          {statusCard.icon ? (
             <div className="flex shrink-0 h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
-              {statusCard.icon}
+              <DynamicIcon name={statusCard.icon} />
             </div>
-          )}
+          ) : null}
           <div className="text-balance">
             {statusCard.title && (
               <div className="font-semibold text-sm md:text-md leading-snug">

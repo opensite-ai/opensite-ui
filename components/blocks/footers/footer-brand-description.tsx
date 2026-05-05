@@ -155,6 +155,7 @@ export function FooterBrandDescription({
 }: FooterBrandDescriptionProps): React.JSX.Element {
   return (
     <Section
+      id="footer-brand-description"
       background={background}
       spacing={spacing}
       pattern={pattern}

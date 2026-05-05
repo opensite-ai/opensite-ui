@@ -45,6 +45,21 @@ interface NavItem {
  */
 export interface NavbarFloatingPillProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu items
+     */
+  items?: NavItem[];
+  /**
+     * Authentication action configurations
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarFloatingPillRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -118,6 +133,7 @@ export interface NavbarFloatingPillProps {
   optixFlowConfig?: OptixFlowConfig;
   /** Optional Section ID */
   sectionId?: string;
+
 }
 
 /**
@@ -148,7 +164,7 @@ export const NavbarFloatingPill = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarFloatingPillProps) => {
+}: NavbarFloatingPillRuntimeProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
@@ -204,7 +220,7 @@ export const NavbarFloatingPill = ({
 
   return (
     <Section
-      id={sectionId}
+      id="navbar-floating-pill"
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

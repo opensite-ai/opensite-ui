@@ -254,7 +254,7 @@ export function FooterBrandLinksContact({
 
   return (
     <Section
-      id={sectionId}
+      id="footer-brand-links-contact"
       background={background}
       spacing={spacing}
       pattern={pattern}

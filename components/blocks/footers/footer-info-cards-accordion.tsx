@@ -343,7 +343,7 @@ export function FooterInfoCardsAccordion({
 
   return (
     <Section
-      id={sectionId}
+      id="footer-info-cards-accordion"
       background={background}
       spacing={spacing}
       pattern={pattern}

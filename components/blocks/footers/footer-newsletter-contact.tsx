@@ -310,7 +310,7 @@ export function FooterNewsletterContact({
 
   return (
     <Section
-      id={sectionId}
+      id="footer-newsletter-contact"
       background={background}
       spacing={spacing}
       pattern={pattern}

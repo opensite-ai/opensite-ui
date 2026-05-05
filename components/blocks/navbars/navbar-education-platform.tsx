@@ -93,6 +93,21 @@ export interface MenuItem {
  */
 export interface NavbarEducationPlatformProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu items - can be simple links or dropdowns with grouped links
+     */
+  menu?: MenuItem[];
+  /**
+     * Authentication action configurations
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarEducationPlatformRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -176,6 +191,7 @@ export interface NavbarEducationPlatformProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+
 }
 
 const MOBILE_BREAKPOINT = 1024;
@@ -211,7 +227,7 @@ export const NavbarEducationPlatform = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarEducationPlatformProps) => {
+}: NavbarEducationPlatformRuntimeProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -291,6 +307,7 @@ export const NavbarEducationPlatform = ({
   return (
     <>
       <Section
+        id="navbar-education-platform"
         background={background}
         spacing={spacingOverride ?? spacing}
         className={sectionClasses}

@@ -54,6 +54,21 @@ interface MenuItem {
  */
 export interface NavbarSidebarMobileProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu items
+     */
+  menu?: MenuItem[];
+  /**
+     * Authentication action configurations
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarSidebarMobileRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -133,6 +148,7 @@ export interface NavbarSidebarMobileProps {
    * Layout variant for the navbar
    */
   layoutVariant?: NavbarLayoutVariant;
+
 }
 
 /**
@@ -165,7 +181,7 @@ export const NavbarSidebarMobile = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarSidebarMobileProps) => {
+}: NavbarSidebarMobileRuntimeProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const MOBILE_BREAKPOINT = 1024;
@@ -258,6 +274,7 @@ export const NavbarSidebarMobile = ({
   return (
     <>
       <Section
+        id="navbar-sidebar-mobile"
         background={background}
         spacing={spacingOverride ?? spacing}
         className={sectionClasses}

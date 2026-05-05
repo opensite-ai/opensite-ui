@@ -219,7 +219,7 @@ export function FooterAccordionSocial({
 
   return (
     <Section
-      id={sectionId}
+      id="footer-accordion-social"
       background={background}
       spacing={spacing}
       pattern={pattern}

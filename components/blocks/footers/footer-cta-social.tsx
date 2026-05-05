@@ -129,7 +129,7 @@ export function FooterCtaSocial({
 
   return (
     <Section
-      id={sectionId}
+      id="footer-cta-social"
       background={background}
       spacing={spacing}
       pattern={pattern}

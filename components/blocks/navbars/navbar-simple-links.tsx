@@ -40,6 +40,25 @@ export interface NavItem {
  */
 export interface NavbarSimpleLinksProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation items array
+     */
+  navItems?: NavItem[];
+  /**
+     * Initial active item name
+     */
+  defaultActiveItem?: string;
+  /**
+     * Authentication/CTA action configurations
+     */
+  actions?: ActionConfig[];
+}
+
+interface NavbarSimpleLinksRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -131,6 +150,7 @@ export interface NavbarSimpleLinksProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+
 }
 
 const MOBILE_BREAKPOINT = 1024;
@@ -168,7 +188,7 @@ export const NavbarSimpleLinks = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarSimpleLinksProps) => {
+}: NavbarSimpleLinksRuntimeProps) => {
   const [activeItem, setActiveItem] = useState(
     defaultActiveItem || navItems?.[0]?.name || "",
   );
@@ -284,6 +304,7 @@ export const NavbarSimpleLinks = ({
   return (
     <>
     <Section
+        id="navbar-simple-links"
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

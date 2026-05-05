@@ -57,6 +57,21 @@ export type {
  */
 export interface NavbarMegaMenuProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu links with optional dropdown groups
+     */
+  menuLinks?: IMenuLink[];
+  /**
+     * Actions rendered on the right side (desktop) and bottom (mobile)
+     */
+  actions?: ActionConfig[];
+}
+
+interface NavbarMegaMenuRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -126,6 +141,7 @@ export interface NavbarMegaMenuProps {
   optixFlowConfig?: OptixFlowConfig;
   /** Optional Section ID */
   sectionId?: string;
+
 }
 
 /**
@@ -505,7 +521,7 @@ export const NavbarMegaMenu = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarMegaMenuProps) => {
+}: NavbarMegaMenuRuntimeProps) => {
   const [open, setOpen] = useState(false);
 
   const hasDropdownItems = (link: IMenuLink) =>
@@ -563,7 +579,7 @@ export const NavbarMegaMenu = ({
 
   return (
     <Section
-      id={sectionId}
+      id="navbar-mega-menu"
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

@@ -88,6 +88,7 @@ export type { LogoConfig, ILinkItem, IMenuLinkGroup };
  */
 export type DropdownLayout =
   | "simple-list" // Simple vertical list with icons and descriptions
+  | "list-with-icons" // Multi-column boxed icon links
   | "featured-grid" // Featured item (left) + grid of items (right)
   | "two-column-cta" // Two-column grid + featured CTA card
   | "list-showcase" // Vertical list + showcase/highlight cards
@@ -110,6 +111,21 @@ export interface IMenuLink {
  * Props for the NavbarPlatformResources component
  */
 export interface NavbarPlatformResourcesProps {
+  /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu links with optional dropdown groups
+     */
+  menuLinks?: IMenuLink[];
+  /**
+     * Actions rendered on the right side (desktop) and bottom (mobile)
+     */
+  actions?: ActionConfig[];
+}
+
+interface NavbarPlatformResourcesRuntimeProps {
   /**
    * Additional CSS classes for the section
    */
@@ -180,6 +196,7 @@ export interface NavbarPlatformResourcesProps {
   layoutVariant?: NavbarLayoutVariant;
   /** Optional Section ID */
   sectionId?: string;
+
 }
 
 /**
@@ -208,7 +225,7 @@ export const NavbarPlatformResources = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarPlatformResourcesProps) => {
+}: NavbarPlatformResourcesRuntimeProps) => {
   const [open, setOpen] = useState(false);
 
   const hasDropdownItems = (link: IMenuLink) =>
@@ -217,10 +234,61 @@ export const NavbarPlatformResources = ({
   const renderDropdownContent = (link: IMenuLink) => {
     const layout = link.layout || "simple-list";
 
+    // Multi-column boxed icon links layout
+    if (layout === "list-with-icons") {
+      return (
+        <NavigationMenuContent className="md:left-1/2 md:-translate-x-1/2 !w-[900px] max-w-[calc(100vw-2rem)] overflow-y-auto p-4 md:!w-[900px]">
+          <div className="grid w-full grid-cols-3 gap-4">
+            {link.links?.map((item, itemIndex) => (
+              <NavigationMenuLink
+                key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
+                href={getLinkUrl(item)}
+                className="!flex h-full min-h-20 !w-full min-w-0 flex-row items-center gap-4 rounded-lg border border-input bg-background p-4 hover:bg-accent hover:text-accent-foreground"
+              >
+                {item.image && (
+                  <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md border border-border">
+                    <Img
+                      src={item.image}
+                      alt={
+                        typeof item.label === "string"
+                          ? item.label
+                          : "Menu item"
+                      }
+                      className="h-full w-full object-cover object-center"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </div>
+                )}
+                {!item.image && (item.icon || item.iconName) && (
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
+                    <DynamicIcon
+                      name={item.icon || item.iconName}
+                      size={18}
+                      className="shrink-0"
+                    />
+                  </div>
+                )}
+                <div className="min-w-0 flex-1 overflow-hidden">
+                  <div className="break-words text-sm font-medium text-foreground">
+                    {item.label}
+                  </div>
+                  {item.description && (
+                    <div className="break-words text-sm font-normal text-muted-foreground">
+                      {item.description}
+                    </div>
+                  )}
+                </div>
+              </NavigationMenuLink>
+            ))}
+          </div>
+        </NavigationMenuContent>
+      );
+    }
+
     // Simple list layout (default)
     if (layout === "simple-list") {
       return (
-        <NavigationMenuContent className="w-[400px] max-w-[calc(100vw-2rem)] p-3">
+        <NavigationMenuContent className="md:left-1/2 md:-translate-x-1/2 !w-[400px] max-w-[calc(100vw-2rem)] p-3 md:!w-[400px]">
           <ul className="w-full space-y-1">
             {link.links?.map((item, itemIndex) => (
               <li
@@ -260,7 +328,7 @@ export const NavbarPlatformResources = ({
       const gridItems = link.links.slice(1);
 
       return (
-        <NavigationMenuContent className="w-[900px] max-w-[calc(100vw-2rem)] p-6">
+        <NavigationMenuContent className="md:left-1/2 md:-translate-x-1/2 !w-[900px] max-w-[calc(100vw-2rem)] p-6 md:!w-[900px]">
           <div className="grid grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)] gap-8">
             <NavigationMenuLink
               href={getLinkUrl(featuredItem)}
@@ -339,7 +407,7 @@ export const NavbarPlatformResources = ({
           : null;
 
       return (
-        <NavigationMenuContent className="w-[900px] max-w-[calc(100vw-2rem)] p-6">
+        <NavigationMenuContent className="md:left-1/2 md:-translate-x-1/2 !w-[900px] max-w-[calc(100vw-2rem)] p-6 md:!w-[900px]">
           <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-4">
             <div className="min-w-0">
               {link.dropdownGroups[0] && (
@@ -426,7 +494,7 @@ export const NavbarPlatformResources = ({
       const showcaseItems = link.links || [];
 
       return (
-        <NavigationMenuContent className="w-[900px] max-w-[calc(100vw-2rem)] p-6">
+        <NavigationMenuContent className="md:left-1/2 md:-translate-x-1/2 !w-[900px] max-w-[calc(100vw-2rem)] p-6 md:!w-[900px]">
           <div className="grid grid-cols-[minmax(260px,0.7fr)_minmax(0,1.3fr)] gap-8">
             <div className="min-w-0">
               <>
@@ -503,7 +571,7 @@ export const NavbarPlatformResources = ({
           : null;
 
       return (
-        <NavigationMenuContent className="w-[900px] max-w-[calc(100vw-2rem)] p-8">
+        <NavigationMenuContent className="md:left-1/2 md:-translate-x-1/2 !w-[900px] max-w-[calc(100vw-2rem)] p-8 md:!w-[900px]">
           <div className="grid grid-cols-2 gap-8">
             {link.dropdownGroups.map((group, groupIndex) => (
               <div
@@ -587,7 +655,7 @@ export const NavbarPlatformResources = ({
 
     // Fallback to simple list
     return (
-      <NavigationMenuContent className="w-[900px] max-w-[calc(100vw-2rem)] p-4">
+      <NavigationMenuContent className="md:left-1/2 md:-translate-x-1/2 !w-[900px] max-w-[calc(100vw-2rem)] p-4 md:!w-[900px]">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {link.links?.map((item, itemIndex) => (
             <NavigationMenuLink
@@ -668,7 +736,7 @@ export const NavbarPlatformResources = ({
 
   return (
     <Section
-      id={sectionId}
+      id="navbar-platform-resources"
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}

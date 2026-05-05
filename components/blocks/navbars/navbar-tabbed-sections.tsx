@@ -66,6 +66,21 @@ interface MenuItem {
  */
 export interface NavbarTabbedSectionsProps {
   /**
+     * Logo configuration
+     */
+  logo?: LogoConfig;
+  /**
+     * Navigation menu items
+     */
+  menu?: MenuItem[];
+  /**
+     * Authentication action configurations
+     */
+  authActions?: ActionConfig[];
+}
+
+interface NavbarTabbedSectionsRuntimeProps {
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -135,6 +150,7 @@ export interface NavbarTabbedSectionsProps {
   layoutVariant?: NavbarLayoutVariant;
   /** Optional Section ID */
   sectionId?: string;
+
 }
 
 /**
@@ -165,7 +181,7 @@ export const NavbarTabbedSections = ({
   pattern,
   patternOpacity,
   optixFlowConfig,
-}: NavbarTabbedSectionsProps) => {
+}: NavbarTabbedSectionsRuntimeProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const renderAuthActions = useMemo(() => {
@@ -396,7 +412,7 @@ export const NavbarTabbedSections = ({
 
   return (
     <Section
-      id={sectionId}
+      id="navbar-tabbed-sections"
       background={background}
       spacing={spacingOverride ?? spacing}
       className={sectionClasses}
