@@ -305,16 +305,21 @@ export const NavbarStickyCompact = ({
                   {renderAuthActions}
                 </div>
 
-                <Pressable
-                  variant="ghost"
-                  size={isScrolled ? "sm" : "icon"}
-                  asButton
-                  className="lg:hidden transition-all duration-300"
-                  onClick={() => setIsOpen(!isOpen)}
-                >
-                  <DynamicIcon name="lucide/menu" size={isScrolled ? 18 : 20} />
-                  <span className="sr-only">Toggle menu</span>
-                </Pressable>
+                <div className="flex lg:hidden">
+                  <Pressable
+                    variant="ghost"
+                    size={isScrolled ? "sm" : "icon"}
+                    asButton
+                    className="transition-all duration-300"
+                    onClick={() => setIsOpen(!isOpen)}
+                  >
+                    <DynamicIcon
+                      name="lucide/menu"
+                      size={isScrolled ? 18 : 20}
+                    />
+                    <span className="sr-only">Toggle menu</span>
+                  </Pressable>
+                </div>
               </nav>
             </div>
           </div>

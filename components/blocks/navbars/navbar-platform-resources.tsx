@@ -220,15 +220,16 @@ export const NavbarPlatformResources = ({
     // Simple list layout (default)
     if (layout === "simple-list") {
       return (
-        <NavigationMenuContent className="w-[400px] p-3">
-          <ul className="space-y-1">
+        <NavigationMenuContent className="w-[400px] max-w-[calc(100vw-2rem)] p-3">
+          <ul className="w-full space-y-1">
             {link.links?.map((item, itemIndex) => (
               <li
+                className="w-full"
                 key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
               >
                 <NavigationMenuLink
                   href={getLinkUrl(item)}
-                  className="group/link flex-row gap-2 px-3 py-2 transition-colors duration-200"
+                  className="group/link !flex !w-full min-w-0 flex-row items-center gap-2 rounded-md px-3 py-2 transition-colors duration-200"
                 >
                   <div className="flex size-8 shrink-0 rounded-lg border duration-400 fade-in group-hover/link:bg-background">
                     <DynamicIcon
@@ -237,10 +238,10 @@ export const NavbarPlatformResources = ({
                       className="m-auto group-hover/link:stroke-black"
                     />
                   </div>
-                  <div className="flex flex-col gap-0.5">
+                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <div className="text-sm font-medium">{item.label}</div>
                     {item.description && (
-                      <div className="text-xs text-muted-foreground group-hover/link:text-foreground">
+                      <div className="break-words text-xs text-muted-foreground group-hover/link:text-foreground">
                         {item.description}
                       </div>
                     )}
@@ -259,11 +260,11 @@ export const NavbarPlatformResources = ({
       const gridItems = link.links.slice(1);
 
       return (
-        <NavigationMenuContent className="min-w-[900px] p-6">
-          <div className="flex justify-between gap-8">
+        <NavigationMenuContent className="w-[900px] max-w-[calc(100vw-2rem)] p-6">
+          <div className="grid grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)] gap-8">
             <NavigationMenuLink
               href={getLinkUrl(featuredItem)}
-              className="group w-1/3 p-0 hover:bg-transparent"
+              className="group block h-full min-w-0 p-0 hover:bg-transparent"
             >
               <div className="overflow-clip rounded-lg border border-input bg-background">
                 <div>
@@ -288,7 +289,7 @@ export const NavbarPlatformResources = ({
                 </div>
               </div>
             </NavigationMenuLink>
-            <div className="max-w-[760px] flex-1">
+            <div className="min-w-0">
               {link.dropdownGroups && link.dropdownGroups[0] && (
                 <div className="mb-6 text-xs tracking-widest text-muted-foreground uppercase">
                   {link.dropdownGroups[0].label}
@@ -299,7 +300,7 @@ export const NavbarPlatformResources = ({
                   <NavigationMenuLink
                     key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
                     href={getLinkUrl(item)}
-                    className="group block p-4"
+                    className="group block h-full w-full min-w-0 rounded-md p-4"
                   >
                     {(item.icon || item.iconName) && (
                       <div className="mb-5 group-hover:opacity-60">
@@ -309,9 +310,11 @@ export const NavbarPlatformResources = ({
                         />
                       </div>
                     )}
-                    <div className="mb-1 text-base">{item.label}</div>
+                    <div className="mb-1 break-words text-base">
+                      {item.label}
+                    </div>
                     {item.description && (
-                      <div className="text-sm font-normal text-muted-foreground">
+                      <div className="break-words text-sm font-normal text-muted-foreground">
                         {item.description}
                       </div>
                     )}
@@ -336,9 +339,9 @@ export const NavbarPlatformResources = ({
           : null;
 
       return (
-        <NavigationMenuContent className="min-w-[900px] p-6">
-          <div className="flex justify-between gap-4">
-            <div className="w-1/2 max-w-[510px]">
+        <NavigationMenuContent className="w-[900px] max-w-[calc(100vw-2rem)] p-6">
+          <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-4">
+            <div className="min-w-0">
               {link.dropdownGroups[0] && (
                 <>
                   <div className="mb-6 text-xs tracking-widest text-muted-foreground uppercase">
@@ -349,7 +352,7 @@ export const NavbarPlatformResources = ({
                       <NavigationMenuLink
                         key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
                         href={getLinkUrl(item)}
-                        className="group flex flex-row items-center gap-5"
+                        className="group !flex !w-full min-w-0 flex-row items-center gap-5 rounded-md p-2"
                       >
                         {(item.icon || item.iconName) && (
                           <div className="group-hover:opacity-60">
@@ -359,7 +362,9 @@ export const NavbarPlatformResources = ({
                             />
                           </div>
                         )}
-                        <div className="text-base">{item.label}</div>
+                        <div className="min-w-0 break-words text-base">
+                          {item.label}
+                        </div>
                       </NavigationMenuLink>
                     ))}
                   </div>
@@ -369,7 +374,7 @@ export const NavbarPlatformResources = ({
             {ctaItem && (
               <NavigationMenuLink
                 href={getLinkUrl(ctaItem)}
-                className="group flex-1 p-0 hover:bg-transparent"
+                className="group min-w-0 p-0 hover:bg-transparent"
               >
                 <div className="flex h-full rounded-lg border border-input bg-background p-0 hover:bg-transparent">
                   {ctaItem.image && (
@@ -386,16 +391,18 @@ export const NavbarPlatformResources = ({
                       />
                     </div>
                   )}
-                  <div className="flex flex-col p-5 xl:p-8">
+                  <div className="flex min-w-0 flex-col p-5 xl:p-8">
                     {ctaItem.background && (
                       <div className="mb-8 text-xs tracking-widest text-muted-foreground uppercase">
                         {ctaItem.background}
                       </div>
                     )}
                     <div className="mt-auto">
-                      <div className="mb-4 text-xl">{ctaItem.label}</div>
+                      <div className="mb-4 break-words text-xl">
+                        {ctaItem.label}
+                      </div>
                       {ctaItem.description && (
-                        <div className="text-sm font-normal text-muted-foreground">
+                        <div className="break-words text-sm font-normal text-muted-foreground">
                           {ctaItem.description}
                         </div>
                       )}
@@ -419,9 +426,9 @@ export const NavbarPlatformResources = ({
       const showcaseItems = link.links || [];
 
       return (
-        <NavigationMenuContent className="min-w-[900px] p-6">
-          <div className="flex justify-between gap-8">
-            <div className="w-1/3 max-w-[404px]">
+        <NavigationMenuContent className="w-[900px] max-w-[calc(100vw-2rem)] p-6">
+          <div className="grid grid-cols-[minmax(260px,0.7fr)_minmax(0,1.3fr)] gap-8">
+            <div className="min-w-0">
               <>
                 <div className="mb-4 text-xs tracking-widest text-muted-foreground uppercase">
                   {link.dropdownGroups[0].label}
@@ -436,30 +443,34 @@ export const NavbarPlatformResources = ({
                     <NavigationMenuLink
                       key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
                       href={getLinkUrl(item)}
-                      className="group flex flex-row items-center gap-2.5 rounded-md p-2.5 focus:text-accent-foreground"
+                      className="group !flex !w-full min-w-0 flex-row items-center gap-2.5 rounded-md p-2.5 focus:text-accent-foreground"
                     >
                       {(item.icon || item.iconName) &&
                         <DynamicIcon
                           name={item.icon || item.iconName}
                           size={16}
                         />}
-                      <div className="text-base">{item.label}</div>
+                      <div className="min-w-0 break-words text-base">
+                        {item.label}
+                      </div>
                     </NavigationMenuLink>
                   ))}
                 </div>
               </>
             </div>
-            <div className="max-w-[716px] flex-1 space-y-6">
+            <div className="min-w-0 space-y-6">
               {showcaseItems.map((showcase, showcaseIndex) => (
                 <NavigationMenuLink
                   key={`showcase-${showcaseIndex}`}
                   href={getLinkUrl(showcase)}
-                  className="flex flex-row items-center overflow-clip rounded-lg border border-input bg-background p-0 hover:bg-transparent"
+                  className="!flex !w-full min-w-0 flex-row items-center overflow-clip rounded-lg border border-input bg-background p-0 hover:bg-transparent"
                 >
-                  <div className="flex-1 p-5 xl:p-8">
-                    <div className="mb-2 text-base">{showcase.label}</div>
+                  <div className="min-w-0 flex-1 p-5 xl:p-8">
+                    <div className="mb-2 break-words text-base">
+                      {showcase.label}
+                    </div>
                     {showcase.description && (
-                      <div className="text-sm font-normal text-muted-foreground">
+                      <div className="break-words text-sm font-normal text-muted-foreground">
                         {showcase.description}
                       </div>
                     )}
@@ -492,7 +503,7 @@ export const NavbarPlatformResources = ({
           : null;
 
       return (
-        <NavigationMenuContent className="min-w-[900px] p-8">
+        <NavigationMenuContent className="w-[900px] max-w-[calc(100vw-2rem)] p-8">
           <div className="grid grid-cols-2 gap-8">
             {link.dropdownGroups.map((group, groupIndex) => (
               <div
@@ -507,12 +518,14 @@ export const NavbarPlatformResources = ({
                     <NavigationMenuLink
                       key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
                       href={getLinkUrl(item)}
-                      className="flex h-full flex-col overflow-clip rounded-lg border border-input bg-background p-5 hover:bg-accent hover:text-accent-foreground xl:p-8"
+                      className="!flex h-full w-full min-w-0 flex-col overflow-clip rounded-lg border border-input bg-background p-5 hover:bg-accent hover:text-accent-foreground xl:p-8"
                     >
                       <div className="mt-auto">
-                        <div className="mb-2 text-base">{item.label}</div>
+                        <div className="mb-2 break-words text-base">
+                          {item.label}
+                        </div>
                         {item.description && (
-                          <div className="text-sm font-normal text-muted-foreground">
+                          <div className="break-words text-sm font-normal text-muted-foreground">
                             {item.description}
                           </div>
                         )}
@@ -526,12 +539,14 @@ export const NavbarPlatformResources = ({
               <div className="col-span-1">
                 <NavigationMenuLink
                   href={getLinkUrl(ctaItem)}
-                  className="mb-6 flex flex-row overflow-clip rounded-lg border border-input bg-background p-0 hover:bg-transparent"
+                  className="mb-6 !flex !w-full min-w-0 flex-row overflow-clip rounded-lg border border-input bg-background p-0 hover:bg-transparent"
                 >
-                  <div className="flex-1 p-5 xl:p-8">
-                    <div className="mb-2 text-base">{ctaItem.label}</div>
+                  <div className="min-w-0 flex-1 p-5 xl:p-8">
+                    <div className="mb-2 break-words text-base">
+                      {ctaItem.label}
+                    </div>
                     {ctaItem.description && (
-                      <div className="text-sm font-normal text-muted-foreground">
+                      <div className="break-words text-sm font-normal text-muted-foreground">
                         {ctaItem.description}
                       </div>
                     )}
@@ -572,16 +587,16 @@ export const NavbarPlatformResources = ({
 
     // Fallback to simple list
     return (
-      <NavigationMenuContent className="min-w-[640px] p-4">
+      <NavigationMenuContent className="w-[900px] max-w-[calc(100vw-2rem)] p-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {link.links?.map((item, itemIndex) => (
             <NavigationMenuLink
               key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
               href={getLinkUrl(item)}
-              className="flex flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-accent hover:text-accent-foreground"
+              className="!flex !w-full min-w-0 flex-row items-center gap-4 rounded-lg border border-input bg-background p-4 hover:bg-accent hover:text-accent-foreground"
             >
               {item.image && (
-                <div className="h-12 w-12 overflow-hidden rounded-md border border-border">
+                <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md border border-border">
                   <Img
                     src={item.image}
                     alt={
@@ -593,16 +608,16 @@ export const NavbarPlatformResources = ({
                 </div>
               )}
               {!item.image && (item.icon || item.iconName) && (
-                <div className="flex h-12 w-12 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
                   <DynamicIcon name={item.icon || item.iconName} size={18} />
                 </div>
               )}
-              <div>
-                <div className="text-sm font-medium text-foreground">
+              <div className="min-w-0 flex-1">
+                <div className="break-words text-sm font-medium text-foreground">
                   {item.label}
                 </div>
                 {item.description && (
-                  <div className="text-sm font-normal text-muted-foreground">
+                  <div className="break-words text-sm font-normal text-muted-foreground">
                     {item.description}
                   </div>
                 )}

@@ -153,11 +153,11 @@ const NavigationMenuWithoutViewport = ({
 const SubMenuLink = ({ item }: { item: MenuItem }) => {
   return (
     <Pressable
-      className="flex flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-foreground"
+      className="flex flex-row items-center gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-foreground"
       href={item.url}
     >
       {item.icon && (
-        <div className="text-muted-foreground">
+        <div className="flex size-5 shrink-0 items-center justify-center text-muted-foreground">
           <DynamicIcon name={item.icon} size={20} className="shrink-0" />
         </div>
       )}

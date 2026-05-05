@@ -128,53 +128,51 @@ export const SolutionsMenu = ({
   platformItems,
   featuredHeroCard,
   optixFlowConfig,
-}: SolutionsMenuProps) => (
-  <div className="grid w-[1200px] grid-cols-2 gap-4">
-    {featuredHeroCard && (
-      <div className="col-span-1">
-        <Pressable
-          href={featuredHeroCard.href}
-          className={cn(
-            "group flex h-full flex-col overflow-hidden rounded-lg text-primary-foreground",
-            featuredHeroCard.variant === "accent"
-              ? "bg-accent text-accent-foreground"
-              : "bg-primary",
-          )}
-        >
-          <div className="flex flex-1 flex-col justify-between p-5">
-            {featuredHeroCard.subtitle && (
-              <span className="mb-2 text-xs font-medium tracking-wider uppercase">
-                {featuredHeroCard.subtitle}
-              </span>
-            )}
-            <div>
-              <div className="flex items-center gap-1.5 text-base font-semibold">
-                {featuredHeroCard.title}
-                <DynamicIcon
-                  name="lucide/arrow-right"
-                  size={16}
-                  className="transition-transform group-hover:translate-x-1"
-                />
-              </div>
-              <p className="mt-2 text-sm leading-relaxed text-primary-foreground/85">
-                {featuredHeroCard.description}
-              </p>
-            </div>
-          </div>
-          <div className="relative aspect-video w-full overflow-hidden">
-            <Img
-              src={featuredHeroCard.image}
-              alt={featuredHeroCard.title}
-              className="h-full w-full object-cover"
-              optixFlowConfig={optixFlowConfig}
+}: SolutionsMenuProps) => {
+  const featuredCard = featuredHeroCard ? (
+    <Pressable
+      href={featuredHeroCard.href}
+      className={cn(
+        "group flex h-full min-h-[420px] flex-col overflow-hidden rounded-lg text-primary-foreground",
+        featuredHeroCard.variant === "accent"
+          ? "bg-accent text-accent-foreground"
+          : "bg-primary",
+      )}
+    >
+      <div className="flex shrink-0 flex-col justify-between p-5">
+        {featuredHeroCard.subtitle && (
+          <span className="mb-2 text-xs font-medium tracking-wider uppercase">
+            {featuredHeroCard.subtitle}
+          </span>
+        )}
+        <div>
+          <div className="flex items-center gap-1.5 text-base font-semibold">
+            {featuredHeroCard.title}
+            <DynamicIcon
+              name="lucide/arrow-right"
+              size={16}
+              className="transition-transform group-hover:translate-x-1"
             />
           </div>
-        </Pressable>
+          <p className="mt-2 text-sm leading-relaxed text-primary-foreground/85">
+            {featuredHeroCard.description}
+          </p>
+        </div>
       </div>
-    )}
+      <div className="relative min-h-0 flex-1 overflow-hidden">
+        <Img
+          src={featuredHeroCard.image}
+          alt={featuredHeroCard.title}
+          className="h-full w-full object-cover"
+          optixFlowConfig={optixFlowConfig}
+        />
+      </div>
+    </Pressable>
+  ) : null;
 
-    {platformItems.length > 0 && (
-      <div className="col-span-1">
+  const platformSection =
+    platformItems.length > 0 ? (
+      <div className="min-w-0">
         <div className="mb-3 text-left">
           <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
             Developer Platform
@@ -185,9 +183,13 @@ export const SolutionsMenu = ({
             <NavigationMenuLink
               key={technology.id}
               href={technology.href}
-              className="group !flex !w-full items-center gap-2 rounded-lg p-2 hover:bg-muted"
+              className="group !flex !w-full min-w-0 items-center gap-2 rounded-lg p-2 hover:bg-muted"
             >
-              <DynamicIcon name={technology.icon} size={16} className="shrink-0" />
+              <DynamicIcon
+                name={technology.icon}
+                size={16}
+                className="shrink-0"
+              />
               <div className="min-w-0 flex-1 text-sm font-medium">
                 {technology.title}
               </div>
@@ -195,22 +197,23 @@ export const SolutionsMenu = ({
           ))}
         </div>
       </div>
-    )}
+    ) : null;
 
-    {solutionCards.length > 0 && (
-      <div className="col-span-2 mt-2 grid grid-cols-4 gap-3">
+  const solutionSection =
+    solutionCards.length > 0 ? (
+      <div className="grid grid-cols-2 gap-3">
         {solutionCards.map((solution) => (
           <div
             key={solution.id}
-            className="col-span-1 flex w-full flex-col rounded-lg border border-border p-4"
+            className="flex min-w-0 flex-col rounded-lg border border-border p-4"
           >
             <div className="border-b border-border pb-3">
               <Pressable
                 href={solution.href}
-                className="group flex flex-col text-left"
+                className="group flex min-w-0 flex-col text-left"
               >
-                <div className="flex items-center gap-1">
-                  <strong className="text-sm font-medium">
+                <div className="flex min-w-0 items-center gap-1">
+                  <strong className="min-w-0 break-words text-sm font-medium">
                     {solution.title}
                   </strong>
                   <DynamicIcon
@@ -219,7 +222,7 @@ export const SolutionsMenu = ({
                     className="shrink-0 transition-transform group-hover:translate-x-1"
                   />
                 </div>
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-1 break-words text-xs text-muted-foreground">
                   {solution.description}
                 </p>
               </Pressable>
@@ -229,10 +232,14 @@ export const SolutionsMenu = ({
                 <NavigationMenuLink
                   key={subpage.id}
                   href={subpage.href}
-                  className="group !flex !w-full items-center gap-2 rounded-lg p-2 text-left hover:bg-muted"
+                  className="group !flex !w-full min-w-0 items-center gap-2 rounded-lg p-2 text-left hover:bg-muted"
                 >
-                  <DynamicIcon name={subpage.icon} size={14} className="shrink-0" />
-                  <div className="min-w-0 flex-1 text-sm font-medium">
+                  <DynamicIcon
+                    name={subpage.icon}
+                    size={14}
+                    className="shrink-0"
+                  />
+                  <div className="min-w-0 flex-1 break-words text-sm font-medium">
                     {subpage.title}
                   </div>
                 </NavigationMenuLink>
@@ -241,9 +248,75 @@ export const SolutionsMenu = ({
           </div>
         ))}
       </div>
-    )}
-  </div>
-);
+    ) : null;
+
+  if (featuredCard) {
+    return (
+      <div className="grid w-[1200px] max-w-[calc(100vw-4rem)] grid-cols-[minmax(380px,1fr)_minmax(360px,0.95fr)] gap-4">
+        <div className="min-w-0">{featuredCard}</div>
+        <div className="flex min-w-0 flex-col gap-4">
+          {platformSection}
+          {solutionSection}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid w-[1200px] max-w-[calc(100vw-4rem)] grid-cols-2 gap-4">
+      {platformSection}
+      {solutionCards.length > 0 && (
+        <div className="col-span-2 grid grid-cols-4 gap-3">
+          {solutionCards.map((solution) => (
+            <div
+              key={solution.id}
+              className="flex min-w-0 flex-col rounded-lg border border-border p-4"
+            >
+              <div className="border-b border-border pb-3">
+                <Pressable
+                  href={solution.href}
+                  className="group flex min-w-0 flex-col text-left"
+                >
+                  <div className="flex min-w-0 items-center gap-1">
+                    <strong className="min-w-0 break-words text-sm font-medium">
+                      {solution.title}
+                    </strong>
+                    <DynamicIcon
+                      name="lucide/arrow-right"
+                      size={14}
+                      className="shrink-0 transition-transform group-hover:translate-x-1"
+                    />
+                  </div>
+                  <p className="mt-1 break-words text-xs text-muted-foreground">
+                    {solution.description}
+                  </p>
+                </Pressable>
+              </div>
+              <menu className="mt-3 grid gap-2">
+                {solution.subpages.map((subpage) => (
+                  <NavigationMenuLink
+                    key={subpage.id}
+                    href={subpage.href}
+                    className="group !flex !w-full min-w-0 items-center gap-2 rounded-lg p-2 text-left hover:bg-muted"
+                  >
+                    <DynamicIcon
+                      name={subpage.icon}
+                      size={14}
+                      className="shrink-0"
+                    />
+                    <div className="min-w-0 flex-1 break-words text-sm font-medium">
+                      {subpage.title}
+                    </div>
+                  </NavigationMenuLink>
+                ))}
+              </menu>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 // ==================== PRODUCTS MENU ====================
 

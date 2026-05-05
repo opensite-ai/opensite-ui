@@ -571,7 +571,7 @@ const DesktopMenuItem = ({
         <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal hover:bg-muted focus:bg-muted data-[state=open]:bg-muted/50">
           {item.label}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="rounded-xl! border-0! p-4!">
+        <NavigationMenuContent className="max-h-[calc(100vh-6rem)] overflow-y-auto rounded-xl! border-0! p-4!">
           {renderDropdownContent(
             { ...item, layout: effectiveLayout },
             optixFlowConfig,

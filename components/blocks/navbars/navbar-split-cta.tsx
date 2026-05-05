@@ -305,16 +305,17 @@ export const NavbarSplitCta = ({
                 {renderAuthActions}
               </div>
 
-              <Pressable
-                variant="ghost"
-                size="icon"
-                asButton
-                className="lg:hidden"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                <DynamicIcon name="lucide/menu" size={20} />
-                <span className="sr-only">Toggle menu</span>
-              </Pressable>
+              <div className="flex lg:hidden">
+                <Pressable
+                  variant="ghost"
+                  size="icon"
+                  asButton
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  <DynamicIcon name="lucide/menu" size={20} />
+                  <span className="sr-only">Toggle menu</span>
+                </Pressable>
+              </div>
               <NavbarMobileMenu
                 open={isOpen}
                 onClose={() => setIsOpen(false)}

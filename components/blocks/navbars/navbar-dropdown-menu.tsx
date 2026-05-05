@@ -140,11 +140,11 @@ const SubMenuLink = ({
 }) => {
   return (
     <Pressable
-      className="flex min-w-80 flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted"
+      className="flex min-w-80 flex-row items-center gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted"
       href={item.url}
     >
       {item.icon && (
-        <div>
+        <div className="flex size-5 shrink-0 items-center justify-center text-muted-foreground">
           <DynamicIcon name={item.icon} size={20} className="shrink-0" />
         </div>
       )}

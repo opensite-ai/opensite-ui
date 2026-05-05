@@ -387,11 +387,12 @@ const MenuSubLink = ({ link }: MenuSubLinkProps) => {
       className="flex items-center gap-4 rounded-lg p-2 hover:bg-muted"
     >
       <div className="flex w-full items-center justify-between">
-        <div className="flex gap-2.5">
+        <div className="flex items-center gap-2.5">
           <DynamicIcon
             name={link.icon || link.iconName}
             size={20}
             color={link.iconColor}
+            className="shrink-0"
           />
           <div className="flex flex-col gap-1.5">
             <h3 className="text-sm leading-none">{link.label}</h3>
