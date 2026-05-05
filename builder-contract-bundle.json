@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.5.0",
-    "exportedAt": "2026-05-05T16:24:10.905Z",
+    "uiVersion": "3.5.1",
+    "exportedAt": "2026-05-05T17:04:54.917Z",
     "source": "@opensite/ui",
     "totalBlocks": 605
   },
@@ -12450,18 +12450,20 @@
       "componentId": "hero-tech-carousel",
       "blockName": "HeroTechCarousel",
       "blockRef": "hero/hero-tech-carousel",
-      "displayName": "Tech Carousel Hero",
-      "description": "A hero section with a carousel of technology logos or partner brands. Features headline, description, and auto-scrolling logo carousel. Perfect for showcasing integrations.",
+      "displayName": "Multi-Panel Hero",
+      "description": "A full-bleed hero with up to four side-by-side panels on desktop that stack vertically on mobile. Each panel supports an optional logo, title, content, action buttons, and an optional background image or autoplaying image carousel.",
       "category": "hero",
       "semanticTags": [
         "hero",
-        "carousel",
-        "tech",
-        "logos",
-        "partners",
-        "integrations",
+        "multi-panel",
+        "split",
+        "full-bleed",
+        "fullscreen",
+        "background-image",
+        "image-carousel",
         "brands",
-        "auto-scroll"
+        "showcase",
+        "cta"
       ],
       "layoutRole": "page",
       "propsContract": {
@@ -12471,7 +12473,7 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<HeroTechCarousel />",
+        "exampleUsage": "<HeroTechCarousel\n  items={[\n    {\n      logo: { src: \"/logos/insurance.svg\", alt: \"InsuranceSite\" },\n      title: \"InsuranceSite\",\n      content: \"Built for modern brokers\",\n      actions: [{ label: \"Get Started\", href: \"/insurance\" }],\n      backgroundMedia: [\n        { src: \"/img/insurance-1.jpg\", alt: \"\" },\n        { src: \"/img/insurance-2.jpg\", alt: \"\" },\n      ],\n    },\n    {\n      logo: { src: \"/logos/realtor.svg\", alt: \"RealtorSite\" },\n      title: \"RealtorSite\",\n      content: \"For high-volume listing agents\",\n      actions: [{ label: \"Get Started\", href: \"/realtor\" }],\n      backgroundMedia: [{ src: \"/img/realtor.jpg\", alt: \"\" }],\n    },\n    {\n      logo: { src: \"/logos/castkit.svg\", alt: \"CastKit\" },\n      title: \"CastKit\",\n      content: \"AI-powered podcast production\",\n      actions: [{ label: \"Get Started\", href: \"/castkit\" }],\n    },\n    {\n      logo: { src: \"/logos/opensite.svg\", alt: \"OpenSite\" },\n      title: \"OpenSite\",\n      content: \"The platform behind it all\",\n      actions: [{ label: \"Get Started\", href: \"/opensite\" }],\n      backgroundMedia: [{ src: \"/img/opensite.jpg\", alt: \"\" }],\n    },\n  ]}\n/>",
         "defaultData": null
       },
       "source": {
