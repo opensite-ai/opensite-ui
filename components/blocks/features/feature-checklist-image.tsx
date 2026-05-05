@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useMemo, useCallback } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { useMemo } from "react";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -20,6 +20,22 @@ export interface FeatureChecklistItem {
    * Checklist item content
    */
   content?: React.ReactNode;
+  /**
+   * Text content alias used by some generated payloads
+   */
+  text?: React.ReactNode;
+  /**
+   * Label content alias used by some generated payloads
+   */
+  label?: React.ReactNode;
+  /**
+   * Checklist item title
+   */
+  title?: React.ReactNode;
+  /**
+   * Checklist item description
+   */
+  description?: React.ReactNode;
   /**
    * Icon element (overrides default check icon)
    */
@@ -67,6 +83,10 @@ export interface FeatureChecklistImageProps {
    * Array of checklist items (can be strings or FeatureChecklistItem objects)
    */
   checklistItems?: (string | FeatureChecklistItem)[];
+  /**
+   * Alias for checklistItems used by registry examples and builder payloads
+   */
+  benefits?: (string | FeatureChecklistItem)[];
   /**
    * Custom slot for rendering checklist (overrides checklistItems array)
    */
@@ -135,6 +155,21 @@ export interface FeatureChecklistImageProps {
   sectionId?: string;
 }
 
+function isRenderableNode(value: React.ReactNode): boolean {
+  return (
+    value !== null &&
+    value !== undefined &&
+    typeof value !== "boolean" &&
+    !(typeof value === "string" && value.trim().length === 0)
+  );
+}
+
+function firstRenderableNode(
+  ...values: React.ReactNode[]
+): React.ReactNode | undefined {
+  return values.find(isRenderableNode);
+}
+
 /**
  * Feature Checklist Image - Two-column layout with large image and text content
  * featuring a checklist of benefits.
@@ -166,9 +201,10 @@ export function FeatureChecklistImage({
   actions,
   actionsSlot,
   checklistItems,
+  benefits,
   checklistSlot,
   className,
-  containerClassName = "px-6 sm:px-6 md:px-6 lg:px-8",
+  containerClassName = "max-w-screen-2xl px-6 sm:px-6 md:px-6 lg:px-8",
   contentWrapperClassName,
   imageClassName,
   contentClassName,
@@ -227,46 +263,114 @@ export function FeatureChecklistImage({
     if (!imageSrc) return null;
 
     return (
-      <Img
-        src={imageSrc}
-        alt={imageAlt || "Feature illustration"}
+      <div
         className={cn(
-          "max-h-96 w-full rounded-lg object-cover md:max-h-[500px] md:w-1/2 shadow-xl",
+          "relative aspect-[3/2] w-full overflow-hidden rounded-lg shadow-xl",
           imageClassName,
         )}
-        loading="lazy"
-        optixFlowConfig={optixFlowConfig}
-      />
+      >
+        <Img
+          src={imageSrc}
+          alt={imageAlt || "Feature illustration"}
+          className={cn(
+            "block h-full w-full object-cover object-center",
+            imageClassName,
+          )}
+          loading="lazy"
+          optixFlowConfig={optixFlowConfig}
+        />
+      </div>
     );
   }, [imageSlot, imageSrc, imageAlt, imageClassName, optixFlowConfig]);
 
   const checklistContent = useMemo(() => {
     if (checklistSlot) return checklistSlot;
-    if (!checklistItems || checklistItems.length === 0) return null;
+    const items = checklistItems ?? benefits;
+    if (!items || items.length === 0) return null;
 
-    return checklistItems.map((item, index) => {
+    const renderedItems: React.ReactNode[] = [];
+
+    items.forEach((item, index) => {
       const isString = typeof item === "string";
-      const content = isString ? item : item.content;
+      const content = isString
+        ? item
+        : firstRenderableNode(item.content, item.text, item.label);
+      const title = isString ? undefined : item.title;
+      const description = isString ? undefined : item.description;
+
+      if (
+        !isRenderableNode(content) &&
+        !isRenderableNode(title) &&
+        !isRenderableNode(description)
+      ) {
+        return;
+      }
+
       const iconElement = isString ? (
-        <DynamicIcon name="lucide/circle-check-big" size={16} />
+        <DynamicIcon
+          name="lucide/circle-check-big"
+          size={20}
+          className="h-5 w-5"
+        />
       ) : (
         (item.icon ??
         (item.iconName ? (
-          <DynamicIcon name={item.iconName} size={16} />
+          <DynamicIcon name={item.iconName} size={20} className="h-5 w-5" />
         ) : (
-          <DynamicIcon name="lucide/circle-check-big" size={16} />
+          <DynamicIcon
+            name="lucide/circle-check-big"
+            size={20}
+            className="h-5 w-5"
+          />
         )))
       );
       const itemClassName = isString ? undefined : item.className;
 
-      return (
+      renderedItems.push(
         <li key={index} className={cn("flex items-start gap-3", itemClassName)}>
-          <div className="mt-1">{iconElement}</div>
-          {content}
-        </li>
+          <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center">
+            {iconElement}
+          </div>
+          {isRenderableNode(content) ? (
+            typeof content === "string" ? (
+              <span className="text-base font-medium leading-relaxed md:text-lg">
+                {content}
+              </span>
+            ) : (
+              <div className="min-w-0 text-base font-medium leading-relaxed md:text-lg">
+                {content}
+              </div>
+            )
+          ) : (
+            <div className="min-w-0">
+              {isRenderableNode(title) &&
+                (typeof title === "string" ? (
+                  <h3 className="text-base font-semibold leading-snug md:text-lg">
+                    {title}
+                  </h3>
+                ) : (
+                  <div className="text-base font-semibold leading-snug md:text-lg">
+                    {title}
+                  </div>
+                ))}
+              {isRenderableNode(description) &&
+                (typeof description === "string" ? (
+                  <p className="mt-1 text-sm leading-relaxed text-current/75 md:text-base">
+                    {description}
+                  </p>
+                ) : (
+                  <div className="mt-1 text-sm leading-relaxed text-current/75 md:text-base">
+                    {description}
+                  </div>
+                ))}
+            </div>
+          )}
+        </li>,
       );
     });
-  }, [checklistSlot, checklistItems]);
+
+    return renderedItems.length > 0 ? renderedItems : null;
+  }, [checklistSlot, checklistItems, benefits]);
 
   return (
     <Section
@@ -281,14 +385,16 @@ export function FeatureChecklistImage({
     >
       <div
         className={cn(
-          "flex flex-col gap-6 md:gap-12 md:flex-row",
+          "grid gap-8 md:gap-12 lg:items-center",
+          imageContent ? "lg:grid-cols-2" : "lg:grid-cols-1",
           contentWrapperClassName,
         )}
       >
         {imageContent}
         <div
           className={cn(
-            "px-0 md:px-6 lg:px-10 py-4 md:py-0 flex flex-col gap-6 md:gap-10",
+            "flex min-w-0 flex-col gap-6 py-2 md:gap-8 md:py-0 lg:gap-10",
+            imageContent && "lg:pl-8",
             contentClassName,
           )}
         >
@@ -296,7 +402,7 @@ export function FeatureChecklistImage({
             (typeof title === "string" ? (
               <h2
                 className={cn(
-                  "text-xl font-semibold text-balance md:text-2xl lg:text-3xl",
+                  "text-2xl font-semibold text-balance sm:text-3xl lg:text-4xl",
                   titleClassName,
                 )}
               >
@@ -305,7 +411,7 @@ export function FeatureChecklistImage({
             ) : (
               <div
                 className={cn(
-                  "text-xl font-semibold text-balance md:text-2xl lg:text-3xl",
+                  "text-2xl font-semibold text-balance sm:text-3xl lg:text-4xl",
                   titleClassName,
                 )}
               >
@@ -314,18 +420,28 @@ export function FeatureChecklistImage({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("relative", descriptionClassName)}>
+              <p
+                className={cn(
+                  "relative text-base leading-relaxed md:text-lg",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
-              <div className={cn("relative", descriptionClassName)}>
+              <div
+                className={cn(
+                  "relative text-base leading-relaxed md:text-lg",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </div>
             ))}
           {actionsContent && (
             <div
               className={cn(
-                "flex flex-wrap items-center gap-4",
+                "flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center",
                 actionsClassName,
               )}
             >
@@ -335,7 +451,7 @@ export function FeatureChecklistImage({
           {checklistContent && (
             <ul
               className={cn(
-                "flex-wrap items-center space-y-2 md:flex",
+                "flex flex-col space-y-3 md:space-y-4",
                 checklistClassName,
               )}
             >
