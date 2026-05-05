@@ -6,10 +6,7 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import { BlockActions } from "@/components/ui/block-actions";
-import {
-  ImageSlider,
-  type ImageSliderImage,
-} from "../../ui/image-slider";
+import { ImageSlider, type ImageSliderImage } from "../../ui/image-slider";
 import type {
   ActionConfig,
   LogoItem,
@@ -306,7 +303,7 @@ function HeroPanel({
       return (
         <h2
           className={cn(
-            "text-3xl md:text-4xl lg:text-5xl font-semibold text-balance",
+            "text-2xl md:text-3xl lg:text-4xl font-semibold text-balance",
             hasBackground && "text-white text-shadow-lg",
             titleClassName,
           )}
@@ -319,13 +316,14 @@ function HeroPanel({
   }, [title, titleClassName, hasBackground]);
 
   const renderContent = useMemo(() => {
-    if (content === undefined || content === null || content === "") return null;
+    if (content === undefined || content === null || content === "")
+      return null;
     if (typeof content === "string") {
       return (
         <p
           className={cn(
-            "text-base md:text-lg leading-relaxed text-balance",
-            hasBackground ? "text-white/90 text-shadow" : "text-muted-foreground",
+            "text-sm md:text-base leading-snug text-balance",
+            hasBackground ? "text-white text-shadow-lg" : "",
             textClassName,
           )}
         >
