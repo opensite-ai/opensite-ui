@@ -2,200 +2,427 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { useEffect, useRef, useState } from "react";
-import Autoplay from "embla-carousel-autoplay";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import type { CarouselApi } from "../../ui/carousel";
-import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
+import { Section } from "../../ui/section";
+import { BlockActions } from "@/components/ui/block-actions";
+import {
+  ImageSlider,
+  type ImageSliderImage,
+} from "../../ui/image-slider";
 import type {
+  ActionConfig,
+  LogoItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 
-export interface TechnologyItem {
+/**
+ * Maximum number of panels supported by the hero block.
+ */
+export const HERO_TECH_CAROUSEL_MAX_ITEMS = 4;
+
+/**
+ * Configuration for a single panel in the {@link HeroTechCarousel} block.
+ *
+ * Each panel renders as a full-height column on desktop and as a stacked,
+ * content-fit row on mobile. Every visual element is optional so panels can
+ * range from purely visual (background only) to fully populated (logo +
+ * title + content + actions).
+ *
+ * @example
+ * ```tsx
+ * const item: HeroPanelItem = {
+ *   logo: { src: "/logo.svg", alt: "Brand" },
+ *   title: "Item title",
+ *   content: "Short supporting copy",
+ *   actions: [{ label: "Get Started", href: "/start" }],
+ *   backgroundMedia: [
+ *     { src: "/bg-1.jpg", alt: "" },
+ *     { src: "/bg-2.jpg", alt: "" },
+ *   ],
+ * };
+ * ```
+ */
+export interface HeroPanelItem {
   /**
-   * Technology name
+   * Optional logo rendered above the title.
+   * Follows the standard {@link LogoItem} prop shape used across blocks.
+   * Default styling applies `object-contain` so SVG/PNG logos preserve aspect ratio.
    */
-  name: string;
+  logo?: LogoItem;
   /**
-   * Installation command
+   * Custom slot for the logo (overrides the {@link logo} prop).
    */
-  command: string;
+  logoSlot?: React.ReactNode;
   /**
-   * Logo image source (optional, uses default if not provided)
+   * Optional panel title.
    */
-  logo?: string;
+  title?: React.ReactNode | string;
+  /**
+   * Optional supporting content rendered below the title.
+   */
+  content?: React.ReactNode | string;
+  /**
+   * Optional action buttons / links rendered at the bottom of the panel.
+   */
+  actions?: ActionConfig[];
+  /**
+   * Optional background media for the panel.
+   *
+   * - `0` items → no background, panel renders on the section background.
+   * - `1` item  → static background image.
+   * - `2+` items → autoplaying image carousel via {@link ImageSlider}.
+   */
+  backgroundMedia?: ImageSliderImage[];
+  /**
+   * Autoplay interval (ms) for this panel's background carousel.
+   * Falls back to the block-level `backgroundAutoplayIntervalMs` when omitted.
+   */
+  backgroundAutoplayIntervalMs?: number;
+  /**
+   * Optional id for the panel element (for anchor links / analytics).
+   */
+  id?: string;
+  /**
+   * Additional CSS classes for this panel's outer wrapper.
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the panel's content layer (above the background).
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the panel's logo element.
+   */
+  logoClassName?: string;
+  /**
+   * Additional CSS classes for the panel's title element.
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the panel's content paragraph.
+   */
+  textClassName?: string;
+  /**
+   * Additional CSS classes for the panel's actions wrapper.
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes applied to the panel's background overlay.
+   * Useful for tuning legibility per-panel (e.g. `bg-black/60`).
+   */
+  overlayClassName?: string;
+  /**
+   * Per-panel OptixFlow override. Falls back to the block-level config.
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 export interface HeroTechCarouselProps {
   /**
-   * Main heading content
+   * Panels rendered side-by-side on desktop and stacked on mobile.
+   * Capped at {@link HERO_TECH_CAROUSEL_MAX_ITEMS} (4) — additional entries are ignored.
    */
-  heading?: React.ReactNode;
+  items?: HeroPanelItem[];
   /**
-   * Description text below heading
+   * Default autoplay interval (ms) used when a panel has 2+ background media
+   * items and does not specify its own `backgroundAutoplayIntervalMs`.
+   * @default 5000
    */
-  description?: React.ReactNode;
+  backgroundAutoplayIntervalMs?: number;
   /**
-   * Array of technology items for the carousel
-   */
-  technologies?: TechnologyItem[];
-  /**
-   * Custom slot for carousel (overrides technologies array)
-   */
-  carouselSlot?: React.ReactNode;
-  /**
-   * Autoplay delay in milliseconds
-   */
-  autoplayDelay?: number; /**
-   * Background style for the section
+   * Background style for the section.
    */
   background?: SectionBackground;
   /**
-   * Vertical spacing for the section
+   * Vertical spacing for the section. Defaults to `none` so panels can fill
+   * the full viewport on desktop without padding.
    */
   spacing?: SectionSpacing;
   /**
-   * Optional background pattern name
+   * Optional background pattern name applied to the section.
    */
   pattern?: PatternName | undefined;
   /**
-   * Pattern overlay opacity (0-1)
+   * Pattern overlay opacity (0-1).
    */
   patternOpacity?: number;
-
   /**
-   * Additional CSS classes for the section
+   * Additional CSS classes for the section.
    */
   className?: string;
   /**
-   * Additional CSS classes for the container
+   * Additional CSS classes for the section container.
    */
   containerClassName?: string;
   /**
-   * Additional CSS classes for the heading
+   * Additional CSS classes for the panels wrapper (the flex/grid track).
    */
-  headingClassName?: string;
+  panelsClassName?: string;
   /**
-   * Additional CSS classes for the description
+   * Default classes shared by every panel content layer (title/content/actions).
+   * Per-panel `contentClassName` is appended after this.
    */
-  descriptionClassName?: string;
+  panelContentClassName?: string;
   /**
-   * OptixFlow image optimization configuration
+   * Block-level OptixFlow image optimization configuration. Applies to all
+   * panels unless a panel provides its own `optixFlowConfig`.
    */
   optixFlowConfig?: OptixFlowConfig;
   /** Optional Section ID */
   sectionId?: string;
 }
 
+/**
+ * Resolve the proper image src from a {@link LogoItem} (handles light/dark variants).
+ */
+function resolveLogoSrc(logo: LogoItem): string | undefined {
+  if (typeof logo.src === "string") return logo.src;
+  return logo.src?.light;
+}
+
+interface PanelProps {
+  item: HeroPanelItem;
+  defaultAutoplayIntervalMs: number;
+  optixFlowConfig?: OptixFlowConfig;
+  panelContentClassName?: string;
+}
+
+function HeroPanel({
+  item,
+  defaultAutoplayIntervalMs,
+  optixFlowConfig,
+  panelContentClassName,
+}: PanelProps): React.JSX.Element {
+  const {
+    logo,
+    logoSlot,
+    title,
+    content,
+    actions,
+    backgroundMedia,
+    backgroundAutoplayIntervalMs,
+    id,
+    className,
+    contentClassName,
+    logoClassName,
+    titleClassName,
+    textClassName,
+    actionsClassName,
+    overlayClassName,
+    optixFlowConfig: itemOptixFlowConfig,
+  } = item;
+
+  const resolvedOptixFlow = itemOptixFlowConfig ?? optixFlowConfig;
+
+  const renderBackground = useMemo(() => {
+    if (!backgroundMedia || backgroundMedia.length === 0) return null;
+
+    // Single background image — render as a static cover.
+    if (backgroundMedia.length === 1) {
+      const image = backgroundMedia[0];
+      if (!image?.src) return null;
+      return (
+        <div className="absolute inset-0 z-0">
+          <Img
+            src={image.src}
+            alt={image.alt ?? ""}
+            className={cn(
+              "h-full w-full object-cover object-center",
+              image.className,
+            )}
+            optixFlowConfig={image.optixFlowConfig ?? resolvedOptixFlow}
+            loading="eager"
+          />
+          <div
+            className={cn(
+              "absolute inset-0 bg-linear-to-b from-black/55 via-black/45 to-black/65",
+              overlayClassName,
+            )}
+          />
+        </div>
+      );
+    }
+
+    // Multiple background images — autoplay carousel.
+    return (
+      <div className="absolute inset-0 z-0">
+        <ImageSlider
+          images={backgroundMedia}
+          className="h-full w-full rounded-none border-0 shadow-none"
+          imageClassName="object-cover object-center"
+          transition="fade"
+          autoplay
+          autoplayIntervalMs={
+            backgroundAutoplayIntervalMs ?? defaultAutoplayIntervalMs
+          }
+          enableKeyboard={false}
+          overlay={false}
+          optixFlowConfig={resolvedOptixFlow}
+        />
+        <div
+          className={cn(
+            "absolute inset-0 bg-linear-to-b from-black/55 via-black/45 to-black/65",
+            overlayClassName,
+          )}
+        />
+      </div>
+    );
+  }, [
+    backgroundMedia,
+    backgroundAutoplayIntervalMs,
+    defaultAutoplayIntervalMs,
+    resolvedOptixFlow,
+    overlayClassName,
+  ]);
+
+  const hasBackground = !!backgroundMedia && backgroundMedia.length > 0;
+
+  const renderLogo = useMemo(() => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+    const src = resolveLogoSrc(logo);
+    if (!src) return null;
+    return (
+      <Img
+        src={src}
+        alt={logo.alt}
+        className={cn(
+          "h-10 md:h-12 lg:h-14 w-auto max-w-[70%] object-contain",
+          logo.imgClassName,
+          logoClassName,
+        )}
+        optixFlowConfig={resolvedOptixFlow}
+      />
+    );
+  }, [logoSlot, logo, logoClassName, resolvedOptixFlow]);
+
+  const renderTitle = useMemo(() => {
+    if (title === undefined || title === null || title === "") return null;
+    if (typeof title === "string") {
+      return (
+        <h2
+          className={cn(
+            "text-3xl md:text-4xl lg:text-5xl font-semibold text-balance",
+            hasBackground && "text-white text-shadow-lg",
+            titleClassName,
+          )}
+        >
+          {title}
+        </h2>
+      );
+    }
+    return <div className={titleClassName}>{title}</div>;
+  }, [title, titleClassName, hasBackground]);
+
+  const renderContent = useMemo(() => {
+    if (content === undefined || content === null || content === "") return null;
+    if (typeof content === "string") {
+      return (
+        <p
+          className={cn(
+            "text-base md:text-lg leading-relaxed text-balance",
+            hasBackground ? "text-white/90 text-shadow" : "text-muted-foreground",
+            textClassName,
+          )}
+        >
+          {content}
+        </p>
+      );
+    }
+    return <div className={textClassName}>{content}</div>;
+  }, [content, textClassName, hasBackground]);
+
+  return (
+    <div
+      id={id}
+      data-slot="hero-tech-carousel-panel"
+      className={cn(
+        // Mobile: stack vertically with content-fit height + padding.
+        "relative w-full overflow-hidden",
+        // Desktop: flex children share the row equally and fill height.
+        "md:h-full md:flex-1 md:basis-0 md:min-w-0",
+        // Provide a default panel background when no media is supplied so
+        // separators between panels remain visible.
+        !hasBackground && "bg-muted/30",
+        className,
+      )}
+    >
+      {renderBackground}
+
+      <div
+        className={cn(
+          "relative z-10 flex h-full w-full flex-col items-center justify-center gap-4 md:gap-6",
+          // Mobile padding keeps content readable when stacked.
+          "px-6 py-12 md:px-8 md:py-12 lg:px-10",
+          // Center content vertically; on desktop columns can be quite tall.
+          "text-center",
+          panelContentClassName,
+          contentClassName,
+        )}
+      >
+        {renderLogo}
+        {renderTitle}
+        {renderContent}
+        <BlockActions
+          actions={actions}
+          actionsClassName={actionsClassName}
+          verticalSpacing="mt-2 md:mt-4"
+          mobileConfig={{ width: "fit", position: "center" }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Hero block that renders 1–4 side-by-side panels on desktop and stacks them
+ * vertically on mobile. Each panel can include a logo, title, supporting copy,
+ * actions, and an optional background image or autoplaying image carousel.
+ *
+ * - Desktop: full-bleed `100vw` width, `100dvh` height, panels share the row equally.
+ * - Mobile: panels stack vertically with content-fit height and modern padding.
+ *
+ * @example
+ * ```tsx
+ * <HeroTechCarousel
+ *   items={[
+ *     {
+ *       logo: { src: "/logos/insurance.svg", alt: "InsuranceSite" },
+ *       title: "InsuranceSite",
+ *       content: "Built for modern brokers",
+ *       actions: [{ label: "Get Started", href: "/insurance" }],
+ *       backgroundMedia: [
+ *         { src: "/img/insurance-1.jpg", alt: "" },
+ *         { src: "/img/insurance-2.jpg", alt: "" },
+ *       ],
+ *     },
+ *     // ... up to 4 items
+ *   ]}
+ * />
+ * ```
+ */
 export function HeroTechCarousel({
   sectionId = "hero-tech-carousel",
-  heading,
-  description,
-  technologies,
-  carouselSlot,
-  autoplayDelay = 5000,
+  items,
+  backgroundAutoplayIntervalMs = 5000,
   background,
+  spacing = "none",
   pattern,
   patternOpacity,
   className,
-  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "py-32",
-  headingClassName,
-  descriptionClassName,
+  containerClassName = "px-0 sm:px-0 lg:px-0 max-w-full relative z-10 h-auto md:h-dvh w-screen flex items-stretch",
+  panelsClassName,
+  panelContentClassName,
   optixFlowConfig,
 }: HeroTechCarouselProps): React.JSX.Element {
-  const plugin = useRef(
-    Autoplay({ delay: autoplayDelay, stopOnInteraction: false }),
-  );
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const [fadeIn, setFadeIn] = useState(true);
-
-  useEffect(() => {
-    if (!api) return;
-
-    setCurrent(api.selectedScrollSnap());
-
-    const updateCurrent = () => {
-      setFadeIn(false);
-      setTimeout(() => {
-        setCurrent(api.selectedScrollSnap());
-        setFadeIn(true);
-      }, 200);
-    };
-
-    api.on("select", updateCurrent);
-    api.on("settle", updateCurrent);
-
-    return () => {
-      api.off("select", updateCurrent);
-      api.off("settle", updateCurrent);
-    };
-  }, [api]);
-
-  const selectTechnology = (index: number) => {
-    if (api) {
-      api.scrollTo(index);
-    }
-  };
-
-  const renderCarousel = useMemo(() => {
-    if (carouselSlot) return carouselSlot;
-    if (!technologies || technologies.length === 0) return null;
-
-    return (
-      <Carousel
-        setApi={setApi}
-        plugins={[plugin.current]}
-        opts={{
-          loop: true,
-        }}
-        className="relative mx-auto w-full max-w-3xl before:absolute before:top-0 before:bottom-0 before:left-0 before:z-10 before:w-36 before:bg-linear-to-r before:from-background before:to-transparent after:absolute after:top-0 after:right-0 after:bottom-0 after:z-10 after:w-36 after:bg-linear-to-l after:from-background after:to-transparent"
-        onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}
-      >
-        <CarouselContent>
-          {technologies.map((technology, idx) => (
-            <CarouselItem
-              key={idx}
-              className="basis-1/3 select-none sm:basis-1/4 md:basis-1/6"
-            >
-              <div
-                className={cn(
-                  "flex cursor-pointer items-center justify-center gap-2 rounded-md border px-4 py-2",
-                  idx === current ? "border-input" : "border-transparent",
-                )}
-                onClick={() => selectTechnology(idx)}
-              >
-                {technology.logo && (
-                  <Img
-                    className="h-4 shrink-0 md:h-7"
-                    src={technology.logo}
-                    alt={technology.name}
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                )}
-                <p className="text-nowrap">{technology.name}</p>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-    );
-  }, [
-    carouselSlot,
-    technologies,
-    setApi,
-    plugin,
-    current,
-    selectTechnology,
-    optixFlowConfig,
-  ]);
+  const visibleItems = useMemo(() => {
+    if (!items || items.length === 0) return [] as HeroPanelItem[];
+    return items.slice(0, HERO_TECH_CAROUSEL_MAX_ITEMS);
+  }, [items]);
 
   return (
     <Section
@@ -204,85 +431,37 @@ export function HeroTechCarousel({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      className={cn(
+        "relative w-screen overflow-hidden",
+        // Desktop fills the viewport; on mobile content drives the height.
+        "h-auto md:h-dvh",
+        "px-0 pt-0 pb-0",
+        className,
+      )}
       containerClassName={containerClassName}
     >
-      <div className="relative">
-        <div className="flex flex-col justify-center">
-          {heading &&
-            (typeof heading === "string" ? (
-              <h1
-                className={cn(
-                  "mx-auto mb-4 max-w-2xl text-center text-4xl font-bold md:text-6xl text-balance",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
-            ) : (
-              <h1
-                className={cn(
-                  "mx-auto mb-4 max-w-2xl text-center text-4xl font-bold md:text-6xl text-balance",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
-            ))}
-          {description &&
-            (typeof description === "string" ? (
-              <p
-                className={cn(
-                  "mx-auto mt-4 max-w-xl text-center text-lg text-balance",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            ))}
-          {technologies && technologies.length > 0 && (
-            <div
-              className={cn(
-                "mx-auto bg-muted mt-8 mb-12 flex h-[60px] w-fit items-center gap-2 rounded-md px-4 py-2 text-center",
-              )}
-            >
-              <div
-                className={cn(
-                  "flex items-center gap-2 transition-opacity duration-300",
-                  fadeIn ? "opacity-100" : "opacity-0",
-                )}
-              >
-                {technologies &&
-                current &&
-                technologies[current] &&
-                technologies[current].logo ? (
-                  <Img
-                    src={technologies[current]?.logo}
-                    alt={technologies[current]?.name}
-                    className="h-4 md:h-7"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                ) : null}
-                <p
-                  className={cn(
-                    "px-2 font-mono text-sm",
-                    technologies &&
-                      technologies[current] &&
-                      technologies[current].logo
-                      ? "border-l"
-                      : "",
-                  )}
-                >
-                  {technologies[current]?.command}
-                </p>
-              </div>
-            </div>
+      {visibleItems.length === 0 ? null : (
+        <div
+          data-slot="hero-tech-carousel-panels"
+          className={cn(
+            // Mobile: vertical stack with auto height per panel.
+            "flex w-full flex-col",
+            // Desktop: equal-width row that fills section height.
+            "md:h-full md:flex-row md:items-stretch",
+            panelsClassName,
           )}
+        >
+          {visibleItems.map((item, idx) => (
+            <HeroPanel
+              key={item.id ?? idx}
+              item={item}
+              defaultAutoplayIntervalMs={backgroundAutoplayIntervalMs}
+              optixFlowConfig={optixFlowConfig}
+              panelContentClassName={panelContentClassName}
+            />
+          ))}
         </div>
-        {renderCarousel}
-      </div>
+      )}
     </Section>
   );
 }
