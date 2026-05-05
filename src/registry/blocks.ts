@@ -8786,23 +8786,60 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
 
   "hero-tech-carousel": {
     id: "hero-tech-carousel",
-    name: "Tech Carousel Hero",
+    name: "Multi-Panel Hero",
     description:
-      "A hero section with a carousel of technology logos or partner brands. Features headline, description, and auto-scrolling logo carousel. Perfect for showcasing integrations.",
+      "A full-bleed hero with up to four side-by-side panels on desktop that stack vertically on mobile. Each panel supports an optional logo, title, content, action buttons, and an optional background image or autoplaying image carousel.",
     semanticTags: [
       "hero",
-      "carousel",
-      "tech",
-      "logos",
-      "partners",
-      "integrations",
+      "multi-panel",
+      "split",
+      "full-bleed",
+      "fullscreen",
+      "background-image",
+      "image-carousel",
       "brands",
-      "auto-scroll",
+      "showcase",
+      "cta",
     ],
     category: "hero",
     component: HeroTechCarousel,
     props: "HeroTechCarouselProps",
-    exampleUsage: `<HeroTechCarousel />`.trim(),
+    exampleUsage: `
+<HeroTechCarousel
+  items={[
+    {
+      logo: { src: "/logos/insurance.svg", alt: "InsuranceSite" },
+      title: "InsuranceSite",
+      content: "Built for modern brokers",
+      actions: [{ label: "Get Started", href: "/insurance" }],
+      backgroundMedia: [
+        { src: "/img/insurance-1.jpg", alt: "" },
+        { src: "/img/insurance-2.jpg", alt: "" },
+      ],
+    },
+    {
+      logo: { src: "/logos/realtor.svg", alt: "RealtorSite" },
+      title: "RealtorSite",
+      content: "For high-volume listing agents",
+      actions: [{ label: "Get Started", href: "/realtor" }],
+      backgroundMedia: [{ src: "/img/realtor.jpg", alt: "" }],
+    },
+    {
+      logo: { src: "/logos/castkit.svg", alt: "CastKit" },
+      title: "CastKit",
+      content: "AI-powered podcast production",
+      actions: [{ label: "Get Started", href: "/castkit" }],
+    },
+    {
+      logo: { src: "/logos/opensite.svg", alt: "OpenSite" },
+      title: "OpenSite",
+      content: "The platform behind it all",
+      actions: [{ label: "Get Started", href: "/opensite" }],
+      backgroundMedia: [{ src: "/img/opensite.jpg", alt: "" }],
+    },
+  ]}
+/>
+`.trim(),
   },
 
   "hero-simple-centered-image": {
