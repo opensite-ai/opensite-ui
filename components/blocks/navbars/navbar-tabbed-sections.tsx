@@ -328,10 +328,10 @@ export const NavbarTabbedSections = ({
                 <AccordionContent className="overflow-x-none pb-4">
                   {/* Nested accordion for each tab */}
                   <Accordion type="multiple" className="w-full pl-4">
-                    {item.tabs.map((tab) => (
+                    {item.tabs.map((tab, idx: number) => (
                       <AccordionItem
-                        key={tab.id}
-                        value={tab.id}
+                        key={tab.id || idx}
+                        value={tab.id || `tab-${idx}`}
                         className="border-b-0"
                       >
                         <AccordionTrigger className="h-12 items-center p-0 px-4! text-sm leading-[3] font-medium text-muted-foreground hover:bg-muted hover:no-underline">

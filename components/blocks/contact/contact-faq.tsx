@@ -219,10 +219,10 @@ export function ContactFaq({
 
     return (
       <Accordion type="single" collapsible className={accordionClassName}>
-        {items.map((item) => (
+        {items.map((item, idx: number) => (
           <AccordionItem
-            key={item.id}
-            value={item.id}
+            key={item.id || idx}
+            value={item.id || `faq-item-${idx}`}
             className={accordionItemClassName}
           >
             <AccordionTrigger

@@ -193,10 +193,10 @@ export function FaqSidebarNavigation({
               category.title
             )}
             <Accordion type="single" collapsible className={accordionClassName}>
-              {category.items.map((item) => (
+              {category.items.map((item, idx: number) => (
                 <AccordionItem
-                  key={item.id}
-                  value={item.id}
+                  key={item.id || idx}
+                  value={item.id || `faq-item-${idx}`}
                   className={accordionItemClassName}
                 >
                   <AccordionTrigger

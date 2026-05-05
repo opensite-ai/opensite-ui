@@ -179,8 +179,8 @@ export function FaqCardCategories({
               >
                 {category.items?.map((item, index) => (
                   <AccordionItem
-                    key={item.id}
-                    value={item.id}
+                    key={item.id || index}
+                    value={item.id || `faq-item-${index}`}
                     className={cn(
                       categories?.length === index + 1 && "border-b-0",
                       accordionItemClassName,

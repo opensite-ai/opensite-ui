@@ -326,10 +326,10 @@ export function ContactCareers({
         collapsible
         className={cn("space-y-3", accordionClassName)}
       >
-        {jobListings.map((job) => (
+        {jobListings.map((job, idx: number) => (
           <AccordionItem
-            key={job.id}
-            value={job.id}
+            key={job.id || idx}
+            value={job.id || `faq-item-${idx}`}
             className={cn(
               "rounded-xl border border-border/60",
               "px-5 shadow-sm transition-all hover:shadow-md",

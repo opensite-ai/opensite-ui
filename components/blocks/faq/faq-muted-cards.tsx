@@ -140,7 +140,7 @@ export function FaqMutedCards({
         {items.map((item, index) => (
           <AccordionItem
             key={item.id || index}
-            value={item.id}
+            value={item.id || `faq-item-${index}`}
             className={cn(
               "border-border/50",
               index === items.length - 1 ? "border-none" : "",

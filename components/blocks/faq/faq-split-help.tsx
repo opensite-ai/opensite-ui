@@ -158,10 +158,10 @@ export function FaqSplitHelp({
         collapsible
         className={cn("w-full lg:w-2/3", accordionClassName)}
       >
-        {items.map((item) => (
+        {items.map((item, idx: number) => (
           <AccordionItem
-            key={item.id}
-            value={item.id}
+            key={item.id || idx}
+            value={item.id || `faq-item-${idx}`}
             className={accordionItemClassName}
           >
             <AccordionTrigger
