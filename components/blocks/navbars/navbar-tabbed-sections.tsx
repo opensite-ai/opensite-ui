@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { DynamicIcon, type DynamicIconName } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import { NavbarLogo } from "../../ui/navbar-logo";
@@ -40,12 +40,12 @@ export type { LogoConfig };
 interface TabItem {
   id: string;
   title: string;
-  icon?: string;
+  icon?: DynamicIconName;
   links: {
     title: string;
     description?: string;
     url: string;
-    icon?: string;
+    icon?: DynamicIconName;
   }[];
   featured?: {
     title: string;
@@ -190,9 +190,9 @@ export const NavbarTabbedSections = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>

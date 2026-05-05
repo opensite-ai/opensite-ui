@@ -231,15 +231,11 @@ export const NavbarPlatformResources = ({
                   className="group/link flex-row gap-2 px-3 py-2 transition-colors duration-200"
                 >
                   <div className="flex size-8 shrink-0 rounded-lg border duration-400 fade-in group-hover/link:bg-background">
-                    {item.icon ? (
-                      item.icon
-                    ) : item.iconName ? (
-                      <DynamicIcon
-                        name={item.iconName}
-                        size={16}
-                        className="m-auto group-hover/link:stroke-black"
-                      />
-                    ) : null}
+                    <DynamicIcon
+                      name={item.icon || item.iconName}
+                      size={16}
+                      className="m-auto group-hover/link:stroke-black"
+                    />
                   </div>
                   <div className="flex flex-col gap-0.5">
                     <div className="text-sm font-medium">{item.label}</div>
@@ -307,11 +303,10 @@ export const NavbarPlatformResources = ({
                   >
                     {(item.icon || item.iconName) && (
                       <div className="mb-5 group-hover:opacity-60">
-                        {item.icon ? (
-                          item.icon
-                        ) : item.iconName ? (
-                          <DynamicIcon name={item.iconName} size={20} />
-                        ) : null}
+                        <DynamicIcon
+                          name={item.icon || item.iconName}
+                          size={20}
+                        />
                       </div>
                     )}
                     <div className="mb-1 text-base">{item.label}</div>
@@ -358,11 +353,10 @@ export const NavbarPlatformResources = ({
                       >
                         {(item.icon || item.iconName) && (
                           <div className="group-hover:opacity-60">
-                            {item.icon ? (
-                              item.icon
-                            ) : item.iconName ? (
-                              <DynamicIcon name={item.iconName} size={16} />
-                            ) : null}
+                            <DynamicIcon
+                              name={item.icon || item.iconName}
+                              size={16}
+                            />
                           </div>
                         )}
                         <div className="text-base">{item.label}</div>
@@ -445,11 +439,10 @@ export const NavbarPlatformResources = ({
                       className="group flex flex-row items-center gap-2.5 rounded-md p-2.5 focus:text-accent-foreground"
                     >
                       {(item.icon || item.iconName) &&
-                        (item.icon ? (
-                          item.icon
-                        ) : item.iconName ? (
-                          <DynamicIcon name={item.iconName} size={16} />
-                        ) : null)}
+                        <DynamicIcon
+                          name={item.icon || item.iconName}
+                          size={16}
+                        />}
                       <div className="text-base">{item.label}</div>
                     </NavigationMenuLink>
                   ))}
@@ -601,11 +594,7 @@ export const NavbarPlatformResources = ({
               )}
               {!item.image && (item.icon || item.iconName) && (
                 <div className="flex h-12 w-12 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
-                  {item.icon ? (
-                    item.icon
-                  ) : item.iconName ? (
-                    <DynamicIcon name={item.iconName} size={18} />
-                  ) : null}
+                  <DynamicIcon name={item.icon || item.iconName} size={18} />
                 </div>
               )}
               <div>
@@ -641,9 +630,9 @@ export const NavbarPlatformResources = ({
         <Pressable key={index} className={actionClassName} {...pressableProps}>
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>
@@ -770,14 +759,10 @@ export const NavbarPlatformResources = ({
                                   className="flex items-center gap-2 pl-4 text-sm text-muted-foreground hover:text-foreground"
                                 >
                                   {(item.icon || item.iconName) &&
-                                    (item.icon ? (
-                                      item.icon
-                                    ) : item.iconName ? (
-                                      <DynamicIcon
-                                        name={item.iconName}
-                                        size={14}
-                                      />
-                                    ) : null)}
+                                    <DynamicIcon
+                                      name={item.icon || item.iconName}
+                                      size={14}
+                                    />}
                                   {item.label}
                                 </Pressable>
                               ))}

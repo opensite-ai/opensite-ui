@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { DynamicIcon, type DynamicIconName } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import { NavbarLogo } from "../../ui/navbar-logo";
 import { Input } from "../../ui/input";
@@ -32,8 +32,8 @@ export type { LogoConfig };
 export interface NavItem {
   title: React.ReactNode;
   url: string;
-  icon?: React.ReactNode;
-  iconName?: string;
+  icon?: DynamicIconName;
+  iconName?: DynamicIconName;
 }
 
 /**
@@ -189,10 +189,7 @@ export const NavbarSearchFocused = ({
               className={navigationMenuTriggerStyle()}
             >
               <Pressable href={item.url}>
-                {item.icon ??
-                  (item.iconName && (
-                    <DynamicIcon name={item.iconName} size={16} />
-                  ))}
+                <DynamicIcon name={item.icon || item.iconName} size={16} />
                 {item.title}
               </Pressable>
             </NavigationMenuLink>
@@ -226,9 +223,9 @@ export const NavbarSearchFocused = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>
@@ -251,7 +248,7 @@ export const NavbarSearchFocused = ({
               className="flex items-center gap-2 rounded-md py-2 text-sm"
               onClick={() => setIsOpen(false)}
             >
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
             </Pressable>
           );
@@ -408,9 +405,9 @@ const MobileNavigationMenu = ({
             >
               {children ?? (
                 <>
-                  {icon}
+                  <DynamicIcon name={icon} size={16} className="shrink-0" />
                   {label}
-                  {iconAfter}
+                  <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
                 </>
               )}
             </Pressable>
@@ -433,10 +430,7 @@ const MobileNavigationMenu = ({
                   className="flex h-15 items-center gap-2 rounded-md px-4 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all hover:bg-muted focus-visible:ring-4 focus-visible:outline-1"
                   onClick={handleClose}
                 >
-                  {item.icon ??
-                    (item.iconName && (
-                      <DynamicIcon name={item.iconName} size={16} />
-                    ))}
+                  <DynamicIcon name={item.icon || item.iconName} size={16} />
                   {item.title}
                 </Pressable>
               ))}

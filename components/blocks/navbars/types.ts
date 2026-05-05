@@ -1,4 +1,5 @@
 import type * as React from "react";
+import type { DynamicIconName } from "../../ui/dynamic-icon";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -41,10 +42,10 @@ export interface ILinkItem {
   href?: string;
   /** URL the link navigates to (legacy, use href instead) */
   url?: string;
-  /** Icon element to display */
-  icon?: React.ReactNode;
-  /** Icon name for DynamicIcon component */
-  iconName?: string;
+  /** Icon name or element to display */
+  icon?: DynamicIconName;
+  /** Alternate icon name or element for DynamicIcon component */
+  iconName?: DynamicIconName;
   /** Image URL for visual representation */
   image?: string;
   /** Background color or image for the item */

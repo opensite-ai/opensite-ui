@@ -174,9 +174,9 @@ export const NavbarFloatingPill = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>

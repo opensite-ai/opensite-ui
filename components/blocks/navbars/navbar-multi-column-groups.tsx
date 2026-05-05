@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { DynamicIcon, type DynamicIconName } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import { NavbarLogo } from "../../ui/navbar-logo";
 import {
@@ -40,8 +40,8 @@ export interface MenuLink {
   label: React.ReactNode;
   description?: React.ReactNode;
   url: string;
-  icon?: React.ReactNode;
-  iconName?: string;
+  icon?: DynamicIconName;
+  iconName?: DynamicIconName;
 }
 
 export interface MenuGroup {
@@ -241,9 +241,9 @@ export const NavbarMultiColumnGroups = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>
@@ -363,15 +363,11 @@ const DesktopMenuItem = ({ item, index }: DesktopMenuItemProps) => {
                       >
                         <Pressable href={link.url}>
                           <div className="flex size-8 shrink-0 rounded-lg border duration-400 fade-in group-hover/link:bg-background">
-                            {link.icon ? (
-                              link.icon
-                            ) : link.iconName ? (
-                              <DynamicIcon
-                                name={link.iconName}
-                                size={16}
-                                className="m-auto group-hover/link:stroke-black"
-                              />
-                            ) : null}
+                            <DynamicIcon
+                              name={link.icon || link.iconName}
+                              size={16}
+                              className="m-auto group-hover/link:stroke-black"
+                            />
                           </div>
                           <div className="flex flex-col gap-0.5">
                             <div className="text-sm font-medium">
@@ -448,9 +444,9 @@ const MobileNavigationMenu = ({
             >
               {children ?? (
                 <>
-                  {icon}
+                  <DynamicIcon name={icon} size={16} className="shrink-0" />
                   {label}
-                  {iconAfter}
+                  <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
                 </>
               )}
             </Pressable>
@@ -499,15 +495,11 @@ const MobileNavigationMenu = ({
                               className="flex min-h-12 items-center gap-2 rounded-lg px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
                               onClick={handleClose}
                             >
-                              {link.icon ? (
-                                link.icon
-                              ) : link.iconName ? (
-                                <DynamicIcon
-                                  name={link.iconName}
-                                  size={16}
-                                  className="stroke-muted-foreground"
-                                />
-                              ) : null}
+                              <DynamicIcon
+                                name={link.icon || link.iconName}
+                                size={16}
+                                className="stroke-muted-foreground"
+                              />
                               {link.label}
                             </Pressable>
                           ))}

@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { DynamicIcon, type DynamicIconName } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import {
   Accordion,
@@ -40,8 +40,8 @@ export interface MenuLink {
   label: React.ReactNode;
   description?: React.ReactNode;
   url?: string;
-  icon?: React.ReactNode;
-  iconName?: string;
+  icon?: DynamicIconName;
+  iconName?: DynamicIconName;
   iconColor?: string;
 }
 
@@ -222,9 +222,9 @@ export const NavbarDarkIcons = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>
@@ -388,15 +388,11 @@ const MenuSubLink = ({ link }: MenuSubLinkProps) => {
     >
       <div className="flex w-full items-center justify-between">
         <div className="flex gap-2.5">
-          {link.icon ? (
-            link.icon
-          ) : link.iconName ? (
-            <DynamicIcon
-              name={link.iconName}
-              size={20}
-              color={link.iconColor}
-            />
-          ) : null}
+          <DynamicIcon
+            name={link.icon || link.iconName}
+            size={20}
+            color={link.iconColor}
+          />
           <div className="flex flex-col gap-1.5">
             <h3 className="text-sm leading-none">{link.label}</h3>
             <p className="text-sm leading-[1.2] text-muted-foreground/80">
@@ -451,9 +447,9 @@ const MobileNavigationMenu = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>

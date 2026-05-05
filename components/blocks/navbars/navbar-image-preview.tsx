@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useRef, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { DynamicIcon, type DynamicIconName } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import { NavbarLogo } from "../../ui/navbar-logo";
@@ -59,8 +59,8 @@ export interface MenuItem {
 export interface SocialLink {
   label: React.ReactNode;
   url: string;
-  icon?: React.ReactNode;
-  iconName?: string;
+  icon?: DynamicIconName;
+  iconName?: DynamicIconName;
 }
 
 /**
@@ -277,9 +277,9 @@ export const NavbarImagePreview = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>
@@ -507,10 +507,7 @@ const MobileNavigationMenu = ({
               href={link.url}
               onClick={handleClose}
             >
-              {link.icon ??
-                (link.iconName && (
-                  <DynamicIcon name={link.iconName} size={20} />
-                ))}
+              <DynamicIcon name={link.icon || link.iconName} size={20} />
               {!link.icon && !link.iconName && link.label}
             </Pressable>
           ))}
@@ -544,9 +541,9 @@ const MobileNavigationMenu = ({
             >
               {children ?? (
                 <>
-                  {icon}
+                  <DynamicIcon name={icon} size={16} className="shrink-0" />
                   {label}
-                  {iconAfter}
+                  <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
                 </>
               )}
             </Pressable>
@@ -604,15 +601,11 @@ const MobileNavigationMenu = ({
                           className="flex min-h-12 items-center gap-2 rounded-lg px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
                           onClick={handleClose}
                         >
-                          {link.icon ? (
-                            link.icon
-                          ) : link.iconName ? (
-                            <DynamicIcon
-                              name={link.iconName}
-                              size={16}
-                              className="stroke-muted-foreground"
-                            />
-                          ) : null}
+                          <DynamicIcon
+                            name={link.icon || link.iconName}
+                            size={16}
+                            className="stroke-muted-foreground"
+                          />
                           {link.label}
                         </Pressable>
                       ))}

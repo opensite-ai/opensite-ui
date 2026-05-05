@@ -260,9 +260,9 @@ export const NavbarSimpleLinks = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>
@@ -412,9 +412,9 @@ const MobileNavigationMenu = ({
             >
               {children ?? (
                 <>
-                  {icon}
+                  <DynamicIcon name={icon} size={16} className="shrink-0" />
                   {label}
-                  {iconAfter}
+                  <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
                 </>
               )}
             </Pressable>

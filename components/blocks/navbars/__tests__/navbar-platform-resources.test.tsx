@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { NavbarPlatformResources } from "../navbar-platform-resources";
 import type { IMenuLink } from "../navbar-platform-resources";
 
@@ -18,10 +18,11 @@ vi.mock("../../../lib/Pressable", () => ({
   },
 }));
 
-vi.mock("../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, size }: { name: string; size?: number }) => (
-    <span data-testid="mock-icon" data-icon={name} data-size={size}>Icon</span>
-  ),
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({ name, size }: { name: any; size?: number }) =>
+    name == null ? null : (
+      <span data-testid="mock-icon" data-icon={String(name)} data-size={size}>Icon</span>
+    ),
 }));
 
 describe("NavbarPlatformResources", () => {
@@ -175,6 +176,35 @@ describe("NavbarPlatformResources", () => {
     render(<NavbarPlatformResources menuLinks={mockSimpleMenuLinks} />);
     expect(screen.getByText("Products")).toBeInTheDocument();
     expect(screen.getByText("About")).toBeInTheDocument();
+  });
+
+  it("renders icon prop strings through DynamicIcon", () => {
+    const menuLinks: IMenuLink[] = [
+      {
+        label: "Company",
+        links: [
+          {
+            href: "/free-estimate/",
+            icon: "lucide/file-text",
+            label: "Free Estimate",
+            description: "Explore Free Estimate",
+          },
+        ],
+      },
+    ];
+
+    render(<NavbarPlatformResources menuLinks={menuLinks} />);
+    fireEvent.click(screen.getByLabelText("Main Menu"));
+    const companyLabels = screen.getAllByText("Company");
+    fireEvent.click(companyLabels[companyLabels.length - 1]);
+
+    expect(screen.getByText("Free Estimate")).toBeInTheDocument();
+    expect(
+      screen
+        .getAllByTestId("mock-icon")
+        .some((icon) => icon.getAttribute("data-icon") === "lucide/file-text"),
+    ).toBe(true);
+    expect(screen.queryByText("lucide/file-text")).not.toBeInTheDocument();
   });
 
   it("renders featured-grid layout", () => {

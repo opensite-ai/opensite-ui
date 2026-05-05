@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "../../lib/utils";
 import { Pressable } from "../../lib/Pressable";
-import { DynamicIcon } from "./dynamic-icon";
+import { DynamicIcon, type DynamicIconName } from "./dynamic-icon";
 import { Img } from "@page-speed/img";
 import { NavigationMenuLink } from "./navigation-menu";
 import type { OptixFlowConfig } from "../../src/types";
@@ -22,7 +22,7 @@ export interface ISubpageItem {
   id: string;
   title: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 export interface ISolutionCard {
@@ -37,7 +37,7 @@ export interface ITechnologyItem {
   id: string;
   title: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 export interface IProductItem {
@@ -58,7 +58,7 @@ export interface IFeatureItem {
   title: string;
   description: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 export interface IFeatureCategory {
@@ -69,7 +69,7 @@ export interface IFeatureCategory {
 export interface ILocationItem {
   title: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 export interface IRegionItem {
@@ -82,14 +82,14 @@ export interface IResourceItem {
   title: string;
   description: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 export interface ITopicItem {
   id: string;
   title: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 export interface ITopicGroup {
@@ -111,7 +111,7 @@ export interface IPartnerCard {
   title: string;
   description: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 // ==================== SOLUTIONS MENU ====================
@@ -556,7 +556,11 @@ export const GlobalMenu = ({
                     className="group !flex !w-full items-center gap-2 rounded-lg p-2 text-left hover:bg-muted"
                   >
                     <div className="flex size-4 shrink-0 items-center justify-center">
-                      {location.icon}
+                      <DynamicIcon
+                        name={location.icon}
+                        size={16}
+                        className="shrink-0"
+                      />
                     </div>
                     <div className="min-w-0 flex-1 text-sm font-medium">
                       {location.title}

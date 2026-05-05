@@ -238,11 +238,13 @@ export const NavbarAnimatedPreview = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter ?? (
-                <DynamicIcon name="lucide/chevron-right" size={16} />
-              )}
+              <DynamicIcon
+                name={iconAfter ?? "lucide/chevron-right"}
+                size={16}
+                className="shrink-0"
+              />
             </>
           )}
         </Pressable>
@@ -673,15 +675,11 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
     >
       <div className="relative z-10 flex w-full items-center gap-6">
         <div className="flex size-12 shrink-0 rounded-lg border bg-background shadow-lg">
-          {link.icon ? (
-            link.icon
-          ) : link.iconName ? (
-            <DynamicIcon
-              name={link.iconName}
-              size={20}
-              className="m-auto stroke-white"
-            />
-          ) : null}
+          <DynamicIcon
+            name={link.icon || link.iconName}
+            size={20}
+            className="m-auto stroke-white"
+          />
         </div>
         <div className="flex flex-col  text-white text-shadow-lg">
           <div className="text-lg font-semibold">{link.label}</div>
@@ -716,15 +714,11 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
       >
         {(link.icon || link.iconName) && (
           <div className="flex size-6 shrink-0 rounded-md border shadow">
-            {link.icon
-              ? link.icon
-              : link.iconName && (
-                  <DynamicIcon
-                    name={link.iconName}
-                    size={14}
-                    className="m-auto"
-                  />
-                )}
+            <DynamicIcon
+              name={link.icon || link.iconName}
+              size={14}
+              className="m-auto"
+            />
           </div>
         )}
         <div className="flex flex-col items-start gap-2">
@@ -779,9 +773,9 @@ const MobileNavigationMenu = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>

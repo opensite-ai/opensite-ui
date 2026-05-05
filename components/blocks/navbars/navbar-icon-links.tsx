@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { DynamicIcon, type DynamicIconName } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import {
   NavigationMenu,
@@ -39,7 +39,7 @@ export type { LogoConfig };
 interface NavItem {
   title: string;
   url: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 /**
@@ -184,9 +184,13 @@ export const NavbarIconLinks = ({
               >
                 {children ?? (
                   <>
-                    {icon}
+                    <DynamicIcon name={icon} size={18} className="shrink-0" />
                     {label && <span className="sr-only">{label}</span>}
-                    {iconAfter}
+                    <DynamicIcon
+                      name={iconAfter}
+                      size={18}
+                      className="shrink-0"
+                    />
                   </>
                 )}
               </Pressable>
@@ -351,7 +355,11 @@ export const NavbarIconLinks = ({
                         className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                         onClick={() => setIsOpen(false)}
                       >
-                        {action.icon}
+                        <DynamicIcon
+                          name={action.icon}
+                          size={18}
+                          className="shrink-0"
+                        />
                         {action.label}
                       </Pressable>
                     ))}

@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { DynamicIcon, type DynamicIconName } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import {
@@ -46,8 +46,8 @@ export interface MenuLinkItem {
   title: string;
   /** Optional description */
   description?: string;
-  /** Icon name for DynamicIcon */
-  icon?: string;
+  /** Icon name or element for DynamicIcon */
+  icon?: DynamicIconName;
   /** Link URL */
   href: string;
 }
@@ -267,9 +267,9 @@ export const NavbarEducationPlatform = ({
         <Pressable key={index} className={actionClassName} {...pressableProps}>
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>
@@ -517,9 +517,9 @@ const MobileNavigationMenu = ({
             >
               {children ?? (
                 <>
-                  {icon}
+                  <DynamicIcon name={icon} size={16} className="shrink-0" />
                   {label}
-                  {iconAfter}
+                  <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
                 </>
               )}
             </Pressable>

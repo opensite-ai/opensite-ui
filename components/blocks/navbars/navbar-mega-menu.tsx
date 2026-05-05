@@ -275,11 +275,10 @@ const DesktopMenuItem = ({
                         )}
                         {!item.image && (item.icon || item.iconName) && (
                           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
-                            {item.icon ? (
-                              item.icon
-                            ) : item.iconName ? (
-                              <DynamicIcon name={item.iconName} size={20} />
-                            ) : null}
+                            <DynamicIcon
+                              name={item.icon || item.iconName}
+                              size={20}
+                            />
                           </div>
                         )}
                         <div className="flex-1">
@@ -323,11 +322,10 @@ const DesktopMenuItem = ({
                   )}
                   {!item.image && (item.icon || item.iconName) && (
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
-                      {item.icon ? (
-                        item.icon
-                      ) : item.iconName ? (
-                        <DynamicIcon name={item.iconName} size={20} />
-                      ) : null}
+                      <DynamicIcon
+                        name={item.icon || item.iconName}
+                        size={20}
+                      />
                     </div>
                   )}
                   <div className="flex-1">
@@ -396,11 +394,10 @@ const DesktopMenuItem = ({
                           )}
                           {!item.image && (item.icon || item.iconName) && (
                             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-muted/40 text-muted-foreground">
-                              {item.icon ? (
-                                item.icon
-                              ) : item.iconName ? (
-                                <DynamicIcon name={item.iconName} size={16} />
-                              ) : null}
+                              <DynamicIcon
+                                name={item.icon || item.iconName}
+                                size={16}
+                              />
                             </div>
                           )}
                           <div className="flex-1">
@@ -445,11 +442,10 @@ const DesktopMenuItem = ({
                     )}
                     {!item.image && (item.icon || item.iconName) && (
                       <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-muted/40 text-muted-foreground">
-                        {item.icon ? (
-                          item.icon
-                        ) : item.iconName ? (
-                          <DynamicIcon name={item.iconName} size={16} />
-                        ) : null}
+                        <DynamicIcon
+                          name={item.icon || item.iconName}
+                          size={16}
+                        />
                       </div>
                     )}
                     <div className="flex-1">
@@ -539,9 +535,9 @@ export const NavbarMegaMenu = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>
@@ -698,14 +694,12 @@ export const NavbarMegaMenu = ({
                                               className="flex items-center gap-2 rounded-md px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
                                             >
                                               {(item.icon || item.iconName) &&
-                                                (item.icon ? (
-                                                  item.icon
-                                                ) : item.iconName ? (
-                                                  <DynamicIcon
-                                                    name={item.iconName}
-                                                    size={14}
-                                                  />
-                                                ) : null)}
+                                                <DynamicIcon
+                                                  name={
+                                                    item.icon || item.iconName
+                                                  }
+                                                  size={14}
+                                                />}
                                               {item.label}
                                             </Pressable>
                                           ),
@@ -722,14 +716,10 @@ export const NavbarMegaMenu = ({
                                       className="flex items-center gap-2 rounded-md px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
                                     >
                                       {(item.icon || item.iconName) &&
-                                        (item.icon ? (
-                                          item.icon
-                                        ) : item.iconName ? (
-                                          <DynamicIcon
-                                            name={item.iconName}
-                                            size={14}
-                                          />
-                                        ) : null)}
+                                        <DynamicIcon
+                                          name={item.icon || item.iconName}
+                                          size={14}
+                                        />}
                                       {item.label}
                                     </Pressable>
                                   ))}

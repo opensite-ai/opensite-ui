@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { DynamicIcon, type DynamicIconName } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import { NavbarLogo } from "../../ui/navbar-logo";
 import { NavbarMobileMenu } from "../../ui/navbar-mobile-menu";
@@ -35,8 +35,8 @@ export type { LogoConfig };
 export interface NavItem {
   title: React.ReactNode;
   url: string;
-  icon?: React.ReactNode;
-  iconName?: string;
+  icon?: DynamicIconName;
+  iconName?: DynamicIconName;
 }
 
 /**
@@ -224,10 +224,7 @@ export const NavbarTransparentOverlay = ({
               )}
             >
               <Pressable href={item.url}>
-                {item.icon ??
-                  (item.iconName && (
-                    <DynamicIcon name={item.iconName} size={16} />
-                  ))}
+                <DynamicIcon name={item.icon || item.iconName} size={16} />
                 {item.title}
               </Pressable>
             </NavigationMenuLink>
@@ -270,9 +267,9 @@ export const NavbarTransparentOverlay = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>
@@ -427,9 +424,9 @@ const MobileNavigationMenu = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>
@@ -472,10 +469,7 @@ const MobileNavigationMenu = ({
               className="text-3xl font-medium text-white transition-all duration-300 hover:text-white/80"
               onClick={onClose}
             >
-              {item.icon ??
-                (item.iconName && (
-                  <DynamicIcon name={item.iconName} size={24} />
-                ))}
+              <DynamicIcon name={item.icon || item.iconName} size={24} />
               {item.title}
             </Pressable>
           ))}

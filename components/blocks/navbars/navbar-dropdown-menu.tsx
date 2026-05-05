@@ -4,7 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { DynamicIcon, type DynamicIconName } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import {
   Accordion,
@@ -43,7 +43,7 @@ export interface MenuItem {
   title: string;
   url: string;
   description?: string;
-  icon?: string;
+  icon?: DynamicIconName;
   items?: MenuItem[];
 }
 
@@ -269,9 +269,9 @@ export const NavbarDropdownMenu = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>

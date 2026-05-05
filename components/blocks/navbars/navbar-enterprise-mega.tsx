@@ -4,7 +4,7 @@ import * as React from "react";
 import { Fragment, useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { DynamicIcon, type DynamicIconName } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import {
   Accordion,
@@ -70,7 +70,7 @@ export interface ISubpageItem {
   id: string;
   title: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 /**
@@ -91,7 +91,7 @@ export interface ITechnologyItem {
   id: string;
   title: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 /**
@@ -121,7 +121,7 @@ export interface IFeatureItem {
   title: string;
   description: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 /**
@@ -138,7 +138,7 @@ export interface IFeatureCategory {
 export interface ILocationItem {
   title: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 /**
@@ -157,7 +157,7 @@ export interface IResourceItem {
   title: string;
   description: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 /**
@@ -167,7 +167,7 @@ export interface ITopicItem {
   id: string;
   title: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 /**
@@ -198,7 +198,7 @@ export interface IPartnerCard {
   title: string;
   description: string;
   href: string;
-  icon: string;
+  icon: DynamicIconName;
 }
 
 /**
@@ -435,9 +435,9 @@ export const NavbarEnterpriseMega = ({
         <Pressable key={index} className={actionClassName} {...pressableProps}>
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>
@@ -761,9 +761,9 @@ const MobileNavigationMenu = ({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} size={16} className="shrink-0" />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
             </>
           )}
         </Pressable>
