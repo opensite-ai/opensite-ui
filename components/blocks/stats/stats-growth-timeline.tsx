@@ -5,7 +5,6 @@ import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type {
   SectionBackground,
@@ -328,11 +327,11 @@ export function StatsGrowthTimeline({
                   <div className="flex items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
                     {renderMilestoneIcon(milestone)}
                     <div>
-                      <div className="text-2xl font-bold text-primary">
+                      <div className="text-2xl font-semibold">
                         {milestone.metric.value}
                       </div>
                       {milestone.metric.label && (
-                        <div className="text-sm text-muted-foreground">
+                        <div className="text-sm opacity-70">
                           {milestone.metric.label}
                         </div>
                       )}
@@ -383,11 +382,13 @@ export function StatsGrowthTimeline({
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {currentStats.map((stat, index) => (
             <div key={index} className={cn("text-center", stat.className)}>
-              <div className="text-2xl font-semibold text-primary md:text-3xl xl:text-4xl">
+              <div className="text-2xl font-semibold md:text-3xl xl:text-4xl">
                 {stat.value}
               </div>
               {stat.label && (
-                <p className="font-medium text-balance text-sm">{stat.label}</p>
+                <p className="font-medium text-balance text-sm opacity-70">
+                  {stat.label}
+                </p>
               )}
             </div>
           ))}
@@ -413,7 +414,12 @@ export function StatsGrowthTimeline({
       return null;
 
     return (
-      <div className={cn("mt-16 text-center", futureClassName)}>
+      <div
+        className={cn(
+          "mt-16 text-center flex flex-col items-center justify-center",
+          futureClassName,
+        )}
+      >
         {futureHeading &&
           (typeof futureHeading === "string" ? (
             <h3 className="mb-4 text-2xl font-bold">{futureHeading}</h3>

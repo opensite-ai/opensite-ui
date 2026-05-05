@@ -27,11 +27,21 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>
-      icon
-    </span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name: string | React.ReactNode;
+    className?: string;
+  }) => {
+    if (typeof name !== "string") return <>{name}</>;
+
+    return (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    );
+  },
 }));
 
 vi.mock("../../../lib/mediaPlaceholders", () => ({
@@ -67,5 +77,24 @@ describe("HeroOverlayCtaGrid", () => {
   it("applies custom className", () => {
     const { container } = render(<HeroOverlayCtaGrid heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
+
+  it("renders a local arrow icon for linked cards", () => {
+    const { container } = render(
+      <HeroOverlayCtaGrid
+        cards={[
+          {
+            label: "SBA Hotel Loans",
+            subtitle: "Financing for acquisitions and improvements.",
+            icon: "lucide/shield-check",
+            href: "/hotel-loans",
+          },
+        ]}
+      />,
+    );
+
+    const arrow = container.querySelector("svg[aria-hidden='true'].ml-auto");
+    expect(arrow).toBeInTheDocument();
+    expect(arrow).toHaveClass("text-card-foreground");
   });
 });

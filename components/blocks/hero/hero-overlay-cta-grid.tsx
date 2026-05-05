@@ -132,6 +132,24 @@ export interface HeroOverlayCtaGridProps {
   sectionId?: string;
 }
 
+function CardArrowIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M5 12h14" />
+      <path d="m12 5 7 7-7 7" />
+    </svg>
+  );
+}
+
 /**
  * HeroOverlayCtaGrid - A hero layout with background image overlay, headline, dual CTAs,
  * and a supporting grid of icon cards. Ideal for service-focused landing pages that
@@ -207,9 +225,9 @@ export function HeroOverlayCtaGrid({
               </div>
               {card.href ? (
                 <DynamicIcon
-                  name="lucide/arrow-right"
-                  size={18}
-                  className={cn("ml-auto flex-none text-card-foreground")}
+                  name={
+                    <CardArrowIcon className="ml-auto size-[18px] flex-none text-card-foreground" />
+                  }
                 />
               ) : null}
             </Pressable>
@@ -256,7 +274,7 @@ export function HeroOverlayCtaGrid({
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mx-auto max-w-3xl text-center text-balance text-white px-0"
+          className="mx-auto max-w-3xl text-center text-balance text-white px-0 flex flex-col items-center justify-center"
         >
           {renderBadge}
           {heading &&
@@ -270,14 +288,7 @@ export function HeroOverlayCtaGrid({
                 {heading}
               </h1>
             ) : (
-              <h1
-                className={cn(
-                  "mt-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl text-balance",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
@@ -290,14 +301,7 @@ export function HeroOverlayCtaGrid({
                 {description}
               </p>
             ) : (
-              <div
-                className={cn(
-                  "mt-5 text-lg md:text-xl text-balance",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </div>
+              description
             ))}
 
           <BlockActions
