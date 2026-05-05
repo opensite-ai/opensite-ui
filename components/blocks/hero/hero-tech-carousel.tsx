@@ -288,7 +288,7 @@ function HeroPanel({
         src={src}
         alt={logo.alt}
         className={cn(
-          "h-10 md:h-12 lg:h-14 w-auto max-w-[70%] object-contain",
+          "h-10 md:h-12 lg:h-14 w-auto object-contain",
           logo.imgClassName,
           logoClassName,
         )}
