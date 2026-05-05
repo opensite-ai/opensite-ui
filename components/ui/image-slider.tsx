@@ -133,26 +133,6 @@ const slideVariants: Variants = {
   },
 };
 
-const fadeVariants: Variants = {
-  initial: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-  fadeExit: {
-    opacity: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-};
-
 const normalizeIndex = (index: number, length: number) => {
   if (!length) return 0;
   const safeIndex = index % length;
@@ -254,39 +234,59 @@ export const ImageSlider = ({
         perspective: "1000px",
       }}
     >
-      <AnimatePresence
-        mode={transition === "fade" ? "sync" : "wait"}
-        initial={false}
-      >
-        {activeImage ? (
-          <motion.div
-            key={`${currentIndex}-${activeImage.src ?? "image"}`}
-            initial="initial"
-            animate="visible"
-            exit={
-              transition === "fade"
-                ? "fadeExit"
-                : direction === "up"
-                  ? "upExit"
-                  : "downExit"
-            }
-            variants={transition === "fade" ? fadeVariants : slideVariants}
-            className="absolute inset-0"
-          >
-            <Img
-              src={activeImage.src}
-              alt={activeImage.alt}
+      {transition === "fade" ? (
+        <div className="absolute inset-0">
+          {images.map((image, index) => (
+            <div
+              key={`${image.src ?? "image"}-${index}`}
+              aria-hidden={index !== currentIndex}
               className={cn(
-                "h-full w-full object-cover object-center",
-                imageClassName,
-                activeImage.className,
+                "absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out motion-reduce:transition-none",
+                index === currentIndex && "opacity-100",
               )}
-              optixFlowConfig={activeImage.optixFlowConfig ?? optixFlowConfig}
-              loading="eager"
-            />
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+            >
+              <Img
+                src={image.src}
+                alt={image.alt}
+                className={cn(
+                  "h-full w-full object-cover object-center",
+                  imageClassName,
+                  image.className,
+                )}
+                optixFlowConfig={image.optixFlowConfig ?? optixFlowConfig}
+                loading="eager"
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <AnimatePresence mode="wait" initial={false}>
+          {activeImage ? (
+            <motion.div
+              key={`${currentIndex}-${activeImage.src ?? "image"}`}
+              initial="initial"
+              animate="visible"
+              exit={direction === "up" ? "upExit" : "downExit"}
+              variants={slideVariants}
+              className="absolute inset-0"
+            >
+              <Img
+                src={activeImage.src}
+                alt={activeImage.alt}
+                className={cn(
+                  "h-full w-full object-cover object-center",
+                  imageClassName,
+                  activeImage.className,
+                )}
+                optixFlowConfig={
+                  activeImage.optixFlowConfig ?? optixFlowConfig
+                }
+                loading="eager"
+              />
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      )}
 
       {overlayContent}
 

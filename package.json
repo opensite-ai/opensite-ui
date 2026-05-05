@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "3.4.3",
+  "version": "3.4.4",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -3386,9 +3386,9 @@
     "prepublishOnly": "pnpm run build && pnpm run test:ci"
   },
   "peerDependencies": {
-    "@tailwindcss/typography": ">=0.5.0",
     "@page-speed/pressable": ">=0.0.9",
     "@page-speed/router": ">=1.0.0",
+    "@tailwindcss/typography": ">=0.5.0",
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
@@ -3461,7 +3461,7 @@
   "optionalDependencies": {
     "valibot": "^1.2.0"
   },
-  "packageManager": "pnpm@10.28.2",
+  "packageManager": "pnpm@10.33.3",
   "engines": {
     "node": ">=18.0.0",
     "pnpm": ">=9.0.0"
