@@ -16,10 +16,40 @@ describe("ContactMap", () => {
       <ContactMap
         heading="Test Heading"
         description="Test Description"
+        mapProps={{
+          markers: [
+            {
+              id: "office",
+              latitude: 33.4934,
+              longitude: -111.9261,
+              title: "Office",
+            },
+          ],
+        }}
       />
     );
     expect(container).toBeInTheDocument();
     expect(screen.getByTestId("mock-geo-map")).toBeInTheDocument();
+  });
+
+  it("does not render the map when locations are missing coordinates", () => {
+    render(
+      <ContactMap
+        heading="Test Heading"
+        mapProps={{
+          markers: [
+            {
+              id: "office",
+              latitude: undefined as unknown as number,
+              longitude: -111.9261,
+              title: "Office",
+            },
+          ],
+        }}
+      />
+    );
+
+    expect(screen.queryByTestId("mock-geo-map")).not.toBeInTheDocument();
   });
 
   it("applies custom className", () => {

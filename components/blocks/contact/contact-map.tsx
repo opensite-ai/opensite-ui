@@ -20,6 +20,9 @@ import type {
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 
+type ContactMapMarker = NonNullable<GeoMapProps["markers"]>[number];
+type ContactMapCluster = NonNullable<GeoMapProps["clusters"]>[number];
+
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "",
   fieldsContainer: "",
@@ -70,6 +73,61 @@ const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
     columnSpan: 12,
   },
 ];
+
+function coerceCoordinate(value: unknown): number | null {
+  if (typeof value === "number") {
+    return Number.isFinite(value) ? value : null;
+  }
+
+  if (typeof value === "string" && value.trim().length > 0) {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+
+  return null;
+}
+
+function sanitizeMarker(marker: ContactMapMarker): ContactMapMarker | null {
+  const markerWithAliases = marker as ContactMapMarker & {
+    lat?: unknown;
+    lng?: unknown;
+  };
+  const latitude = coerceCoordinate(
+    markerWithAliases.latitude ?? markerWithAliases.lat,
+  );
+  const longitude = coerceCoordinate(
+    markerWithAliases.longitude ?? markerWithAliases.lng,
+  );
+
+  if (latitude === null || longitude === null) {
+    return null;
+  }
+
+  return {
+    ...marker,
+    latitude,
+    longitude,
+  };
+}
+
+function sanitizeCluster(cluster: ContactMapCluster): ContactMapCluster | null {
+  const markers = cluster.markers
+    .map((marker) => sanitizeMarker(marker))
+    .filter((marker): marker is ContactMapMarker => marker !== null);
+
+  if (markers.length === 0) {
+    return null;
+  }
+
+  const latitude = coerceCoordinate(cluster.latitude);
+  const longitude = coerceCoordinate(cluster.longitude);
+
+  return {
+    ...cluster,
+    markers,
+    ...(latitude !== null && longitude !== null ? { latitude, longitude } : {}),
+  };
+}
 
 export interface ContactMapProps {
   /** Main heading text */
@@ -174,10 +232,31 @@ export function ContactMap({
     );
   }, [formEngineSetup]);
 
-  const resolvedMapProps = React.useMemo<GeoMapProps>(() => {
+  const sanitizedMapData = React.useMemo(() => {
+    const markers = (mapProps?.markers ?? [])
+      .map((marker) => sanitizeMarker(marker))
+      .filter((marker): marker is ContactMapMarker => marker !== null);
+    const clusters = (mapProps?.clusters ?? [])
+      .map((cluster) => sanitizeCluster(cluster))
+      .filter((cluster): cluster is ContactMapCluster => cluster !== null);
+
+    return {
+      markers,
+      clusters,
+      hasRenderableMap: markers.length > 0 || clusters.length > 0,
+    };
+  }, [mapProps?.clusters, mapProps?.markers]);
+
+  const resolvedMapProps = React.useMemo<GeoMapProps | null>(() => {
+    if (!sanitizedMapData.hasRenderableMap) {
+      return null;
+    }
+
     return {
       panelPosition: "top-left",
       ...mapProps,
+      markers: sanitizedMapData.markers,
+      clusters: sanitizedMapData.clusters,
       // Don't override mapWrapperClassName if it's provided in mapProps
       mapWrapperClassName: mapProps?.mapWrapperClassName,
       className: cn(mapClassName, mapProps?.className),
@@ -186,7 +265,9 @@ export function ContactMap({
       IconComponent: DynamicIcon,
       ImgComponent: Img,
     };
-  }, [mapClassName, mapProps, optixFlowConfig]);
+  }, [mapClassName, mapProps, optixFlowConfig, sanitizedMapData]);
+
+  const hasMap = resolvedMapProps !== null;
 
   return (
     <Section
@@ -200,8 +281,10 @@ export function ContactMap({
     >
       <div
         className={cn(
-          "mx-auto grid max-w-full md:max-w-7xl gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]",
+          "mx-auto grid max-w-full gap-8",
+          hasMap && "md:max-w-7xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]",
           contentGridClassName,
+          !hasMap && "md:max-w-3xl lg:grid-cols-1",
         )}
       >
         <Card className={cn("shadow-lg rounded-xl", cardClassName)}>
@@ -239,19 +322,21 @@ export function ContactMap({
           </CardContent>
         </Card>
 
-        <div
-          className={cn(
-            // Allow map panels to overflow outside container
-            "relative shadow-lg rounded-xl",
-            mapColumnClassName,
-          )}
-          style={{
-            // Explicitly allow overflow for marker panels
-            overflow: "visible",
-          }}
-        >
-          <GeoMap {...resolvedMapProps} />
-        </div>
+        {resolvedMapProps ? (
+          <div
+            className={cn(
+              // Allow map panels to overflow outside container
+              "relative shadow-lg rounded-xl",
+              mapColumnClassName,
+            )}
+            style={{
+              // Explicitly allow overflow for marker panels
+              overflow: "visible",
+            }}
+          >
+            <GeoMap {...resolvedMapProps} />
+          </div>
+        ) : null}
       </div>
     </Section>
   );
