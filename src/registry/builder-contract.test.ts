@@ -151,6 +151,534 @@ const ARTICLE_BLOCK_IDS = [
 
 const ARTICLE_BLOCK_IDS_WITH_MEDIA = [...ARTICLE_BLOCK_IDS] as const;
 
+// ============================================================
+// LINK-PAGE BLOCK IDs
+// ============================================================
+const LINK_PAGE_BLOCK_IDS = [
+  "link-tree-block",
+  "link-page-minimal-profile",
+  "link-page-newsletter-social",
+  "link-page-grid-cards",
+  "link-page-bento-layout",
+] as const;
+
+const LINK_PAGE_BLOCK_IDS_WITH_MEDIA = [
+  "link-page-minimal-profile",
+  "link-page-newsletter-social",
+  "link-page-grid-cards",
+  "link-page-bento-layout",
+] as const;
+
+// ============================================================
+// PROCESS BLOCK IDs
+// ============================================================
+const PROCESS_BLOCK_IDS = [
+  "process-sticky-steps",
+  "process-scroll-image",
+  "process-hover-cards",
+  "process-icon-timeline",
+  "process-expandable-timeline",
+  "process-roadmap-timeline",
+  "process-mission-principles",
+  "process-steps-grid",
+  "process-numbered-services",
+] as const;
+
+const PROCESS_BLOCK_IDS_WITH_MEDIA = [
+  "process-scroll-image",
+  "process-hover-cards",
+] as const;
+
+// ============================================================
+// STATS BLOCK IDs
+// ============================================================
+const STATS_BLOCK_IDS = [
+  "stats-simple-grid",
+  "stats-icon-cards",
+  "stats-timeline-tabs",
+  "stats-primary-secondary",
+  "stats-growth-timeline",
+  "stats-impact-grid",
+  "stats-circular-progress",
+  "stats-card-group",
+  "stats-animated-counter",
+  "stats-number-ticker",
+  "stats-milestone-sidebar",
+  "stats-bar-comparison",
+] as const;
+
+const STATS_BLOCK_IDS_WITH_MEDIA = [
+  "stats-card-group",
+] as const;
+
+// ============================================================
+// FAQ BLOCK IDs
+// ============================================================
+const FAQ_BLOCK_IDS = [
+  "faq-simple-accordion",
+  "faq-static-list",
+  "faq-centered-accordion",
+  "faq-badge-support",
+  "faq-numbered-list",
+  "faq-numbered-grid",
+  "faq-split-help",
+  "faq-categorized-sections",
+  "faq-muted-cards",
+  "faq-bordered-badge",
+  "faq-gradient-categories",
+  "faq-sidebar-navigation",
+  "faq-card-categories",
+  "faq-icon-benefits",
+  "faq-rounded-cards",
+  "faq-profile-sidebar",
+  "faq-split-hero",
+] as const;
+
+const FAQ_BLOCK_IDS_WITH_MEDIA = [
+  "faq-profile-sidebar",
+  "faq-split-hero",
+] as const;
+
+// ============================================================
+// BLOG BLOCK IDs
+// ============================================================
+const BLOG_BLOCK_IDS = [
+  "blog-grid-author-cards",
+  "blog-cards-tagline-cta",
+  "blog-cards-read-time",
+  "blog-category-overlay",
+  "blog-featured-popular",
+  "blog-related-articles",
+  "blog-tech-insights",
+  "blog-horizontal-cards",
+  "blog-filtered-results",
+  "blog-masonry-featured",
+  "blog-horizontal-timeline",
+  "blog-grid-nine-posts",
+  "blog-carousel-apple",
+] as const;
+
+// ============================================================
+// CAROUSEL BLOCK IDs
+// ============================================================
+const CAROUSEL_BLOCK_IDS = [
+  "carousel-animated-sections",
+  "carousel-auto-progress-slides",
+  "carousel-autoplay-progress",
+  "carousel-feature-badge",
+  "carousel-fullscreen-scroll-fx",
+  "carousel-gallery-thumbnails",
+  "carousel-horizontal-cards",
+  "carousel-image-hero",
+  "carousel-multi-step-showcase",
+  "carousel-portfolio-hero",
+  "carousel-product-feature-showcase",
+  "carousel-progress-slider",
+  "carousel-scrolling-feature-showcase",
+] as const;
+
+// ============================================================
+// GALLERY BLOCK IDs
+// ============================================================
+const GALLERY_BLOCK_IDS = [
+  "expandable-case-study-cards",
+  "carousel-badge-cards",
+  "carousel-gradient-overlay",
+  "carousel-demo-link",
+  "auto-scroll-carousel",
+  "carousel-sidebar-resources",
+  "carousel-icon-tabs",
+  "testimonial-carousel-cards",
+  "carousel-icon-sidebar",
+  "carousel-gradient-text",
+  "service-hover-carousel",
+  "carousel-tabs-content",
+  "carousel-scale-focus",
+  "masonry-motion-grid",
+  "blur-vignette-grid",
+  "interior-carousel",
+] as const;
+
+const GALLERY_BLOCK_IDS_WITH_MEDIA = [
+  "expandable-case-study-cards",
+  "carousel-badge-cards",
+  "carousel-gradient-overlay",
+  "carousel-demo-link",
+  "auto-scroll-carousel",
+  "carousel-sidebar-resources",
+  "testimonial-carousel-cards",
+  "carousel-icon-sidebar",
+  "carousel-gradient-text",
+  "service-hover-carousel",
+  "carousel-tabs-content",
+  "carousel-scale-focus",
+  "interior-carousel",
+] as const;
+
+// ============================================================
+// FOOTER BLOCK IDs
+// ============================================================
+const FOOTER_BLOCK_IDS = [
+  "footer-links-grid",
+  "footer-social-newsletter",
+  "footer-social-apps",
+  "footer-simple-centered",
+  "footer-brand-description",
+  "footer-brand-links-contact",
+  "footer-comprehensive-links",
+  "footer-newsletter-grid",
+  "footer-cta-banner",
+  "footer-contact-card",
+  "footer-background-card",
+  "footer-animated-social",
+  "footer-newsletter-minimal",
+  "footer-cta-social",
+  "footer-nav-social",
+  "footer-newsletter-contact",
+  "footer-split-image-accordion",
+  "footer-accordion-social",
+  "footer-info-cards-accordion",
+] as const;
+
+const FOOTER_BLOCK_IDS_WITH_MEDIA = [
+  "footer-brand-links-contact",
+  "footer-comprehensive-links",
+] as const;
+
+// ============================================================
+// NAVBAR BLOCK IDs
+// ============================================================
+const NAVBAR_BLOCK_IDS = [
+  "navbar-dropdown-menu",
+  "navbar-centered-menu",
+  "navbar-mega-menu",
+  "navbar-enterprise-mega",
+  "navbar-feature-grid",
+  "navbar-floating-pill",
+  "navbar-platform-resources",
+  "navbar-image-preview",
+  "navbar-dark-icons",
+  "navbar-animated-preview",
+  "navbar-multi-column-groups",
+  "navbar-sidebar-mobile",
+  "navbar-transparent-overlay",
+  "navbar-education-platform",
+  "navbar-sticky-compact",
+  "navbar-search-focused",
+  "navbar-simple-links",
+  "navbar-split-cta",
+  "navbar-icon-links",
+  "navbar-tabbed-sections",
+  "navbar-fullscreen-menu",
+] as const;
+
+const NAVBAR_BLOCK_IDS_WITH_MEDIA: readonly string[] = [] as const;
+
+// ============================================================
+// TESTIMONIALS BLOCK IDs
+// ============================================================
+const TESTIMONIALS_BLOCK_IDS = [
+  "testimonials-list-verified",
+  "testimonials-images-helpful",
+  "testimonials-bento-grid",
+  "testimonials-twitter-cards",
+  "testimonials-carousel-image",
+  "testimonials-centered-avatars",
+  "testimonials-company-logo",
+  "testimonials-grid-add-review",
+  "testimonials-marquee",
+  "testimonials-simple-grid",
+  "testimonials-slider-minimal",
+  "testimonials-split-image",
+  "testimonials-stats-header",
+  "testimonials-wall-compact",
+  "testimonials-mini-dividers",
+  "testimonials-logo-cards",
+  "testimonials-quote-carousel",
+  "testimonials-animated-split",
+  "testimonials-scrolling-columns",
+  "testimonials-minimal-numbered",
+  "testimonials-parallax-number",
+  "testimonials-masonry-grid",
+  "testimonials-large-quote",
+] as const;
+
+const TESTIMONIALS_BLOCK_IDS_WITH_MEDIA = [
+  "testimonials-list-verified",
+  "testimonials-images-helpful",
+  "testimonials-bento-grid",
+  "testimonials-twitter-cards",
+  "testimonials-carousel-image",
+  "testimonials-centered-avatars",
+  "testimonials-company-logo",
+  "testimonials-grid-add-review",
+  "testimonials-marquee",
+  "testimonials-simple-grid",
+  "testimonials-slider-minimal",
+  "testimonials-stats-header",
+  "testimonials-wall-compact",
+  "testimonials-mini-dividers",
+  "testimonials-logo-cards",
+  "testimonials-quote-carousel",
+  "testimonials-animated-split",
+  "testimonials-scrolling-columns",
+  "testimonials-minimal-numbered",
+  "testimonials-parallax-number",
+  "testimonials-masonry-grid",
+  "testimonials-large-quote",
+] as const;
+
+// ============================================================
+// FEATURES BLOCK IDs
+// ============================================================
+const FEATURES_BLOCK_IDS = [
+  "feature-showcase",
+  "feature-capabilities-grid",
+  "feature-split-image",
+  "feature-split-image-reverse",
+  "feature-icon-grid-bordered",
+  "feature-checklist-image",
+  "feature-carousel-progress",
+  "feature-card-grid-linked",
+  "feature-numbered-cards",
+  "feature-icon-grid-accent",
+  "feature-three-column-values",
+  "feature-badge-grid-six",
+  "feature-pattern-grid-links",
+  "feature-tabbed-content-image",
+  "feature-utility-cards-grid",
+  "feature-bento-utilities",
+  "feature-checklist-three-column",
+  "feature-integration-cards",
+  "feature-icon-tabs-content",
+  "feature-image-overlay-badge",
+  "feature-category-image-cards",
+  "feature-bento-image-grid",
+  "feature-image-cards-three-column",
+  "feature-icon-grid-muted",
+  "feature-stats-highlight",
+  "feature-accordion-image",
+  "feature-animated-carousel",
+] as const;
+
+const FEATURES_BLOCK_IDS_WITH_MEDIA = [
+  "feature-split-image",
+  "feature-split-image-reverse",
+  "feature-checklist-image",
+  "feature-card-grid-linked",
+  "feature-numbered-cards",
+  "feature-tabbed-content-image",
+  "feature-utility-cards-grid",
+  "feature-bento-utilities",
+  "feature-checklist-three-column",
+  "feature-icon-tabs-content",
+  "feature-category-image-cards",
+  "feature-bento-image-grid",
+  "feature-image-cards-three-column",
+  "feature-accordion-image",
+  "feature-animated-carousel",
+] as const;
+
+// ============================================================
+// CONTACT BLOCK IDs
+// ============================================================
+const CONTACT_BLOCK_IDS = [
+  "contact-floating-banner",
+  "contact-callback",
+  "contact-card",
+  "contact-careers",
+  "contact-catering",
+  "contact-consultation",
+  "contact-dark",
+  "contact-demo",
+  "contact-emergency",
+  "contact-event",
+  "contact-faq",
+  "contact-feedback",
+  "contact-fitness",
+  "contact-guest",
+  "contact-image",
+  "contact-insurance",
+  "contact-interview",
+  "contact-locations",
+  "contact-maintenance",
+  "contact-map",
+  "contact-minimal",
+  "contact-moving",
+  "contact-multistep",
+  "contact-partnership",
+  "contact-photography",
+  "contact-press",
+  "contact-quote",
+  "contact-referral",
+  "contact-report",
+  "contact-reservation",
+  "contact-retreat",
+  "contact-rsvp",
+  "contact-sales",
+  "contact-schedule",
+  "contact-sponsorship",
+  "contact-support",
+  "contact-help-center",
+  "contact-tenant",
+  "contact-vendor",
+  "contact-volunteer",
+  "contact-warranty",
+  "contact-wedding",
+] as const;
+
+const CONTACT_BLOCK_IDS_WITH_MEDIA = [
+  "contact-image",
+  "contact-photography",
+] as const;
+
+// ============================================================
+// HERO BLOCK IDs (all except hero-mental-health-team and hero-mentorship-video-split)
+// ============================================================
+const HERO_BLOCK_IDS = [
+  "hero-overlay-cta-grid",
+  "hero-split-icon-cards",
+  "hero-floating-images",
+  "hero-badge-image-split",
+  "hero-image-left-content",
+  "hero-image-slider",
+  "hero-centered-image-grid",
+  "hero-centered-screenshot",
+  "hero-pattern-badge-logos",
+  "hero-logo-centered-screenshot",
+  "hero-pattern-logo-tech-stack",
+  "hero-announcement-badge",
+  "hero-tech-carousel",
+  "hero-simple-centered-image",
+  "hero-platform-features-grid",
+  "hero-spiral-pattern-cards",
+  "hero-split-spiral-shapes",
+  "hero-split-geometric-shapes",
+  "hero-community-survey-cta",
+  "hero-marketplace-scattered-images",
+  "hero-badge-shadow-overlay",
+  "hero-video-background-dark",
+  "hero-grid-pattern-efficiency",
+  "hero-dashed-border-features",
+  "hero-design-carousel-portfolio",
+  "hero-gradient-client-focused",
+  "hero-ui-library-showcase",
+  "hero-fullscreen-background-image",
+  "hero-fullscreen-logo-cta",
+  "hero-gradient-avatars-rating",
+  "hero-task-timer-animated",
+  "hero-ai-powered-carousel",
+  "hero-ad-campaign-expert",
+  "hero-adaptable-product-grid",
+  "hero-presentation-platform-video",
+  "hero-grid-pattern-solutions",
+  "hero-crm-streamlined",
+  "hero-billing-platform-logos",
+  "hero-software-growth-video-dialog",
+  "hero-conversion-video-play",
+  "hero-design-showcase-logos",
+  "hero-video-overlay-stars",
+  "hero-productivity-launcher-video",
+  "hero-hiring-animated-text",
+  "hero-split-image-newsletter",
+  "hero-centered-gradient-cta",
+  "hero-stats-social-proof",
+  "hero-feature-cards-grid",
+  "hero-testimonial-image-grid",
+  "hero-design-system-3d",
+  "hero-architecture-fullscreen",
+  "hero-innovation-image-grid",
+  "hero-video-dialog-gradient",
+  "hero-minimal-centered-dark",
+  "hero-product-showcase-floating",
+  "hero-saas-dashboard-preview",
+  "hero-therapy-testimonial-grid",
+  "hero-business-operations-mosaic",
+  "hero-agency-animated-images",
+  "hero-welcome-asymmetric-images",
+  "hero-startup-launch-cta",
+  "hero-enterprise-security",
+  "hero-creative-studio-stacked",
+  "hero-digital-agency-fullscreen",
+  "hero-customer-support-layered",
+  "hero-shared-inbox-layered",
+  "hero-conversation-intelligence",
+  "hero-business-carousel-dots",
+  "hero-developer-tools-code",
+  "hero-ecommerce-product-showcase",
+  "hero-mobile-app-download",
+  "hero-pricing-comparison",
+  "hero-newsletter-minimal",
+  "hero-coming-soon-countdown",
+  "hero-event-registration",
+  "hero-portfolio-creative",
+] as const;
+
+const HERO_BLOCK_IDS_WITH_MEDIA = [
+  "hero-overlay-cta-grid",
+  "hero-floating-images",
+  "hero-badge-image-split",
+  "hero-image-left-content",
+  "hero-image-slider",
+  "hero-centered-image-grid",
+  "hero-centered-screenshot",
+  "hero-pattern-badge-logos",
+  "hero-logo-centered-screenshot",
+  "hero-pattern-logo-tech-stack",
+  "hero-tech-carousel",
+  "hero-simple-centered-image",
+  "hero-spiral-pattern-cards",
+  "hero-split-spiral-shapes",
+  "hero-split-geometric-shapes",
+  "hero-community-survey-cta",
+  "hero-marketplace-scattered-images",
+  "hero-badge-shadow-overlay",
+  "hero-video-background-dark",
+  "hero-design-carousel-portfolio",
+  "hero-gradient-client-focused",
+  "hero-ui-library-showcase",
+  "hero-fullscreen-background-image",
+  "hero-gradient-avatars-rating",
+  "hero-task-timer-animated",
+  "hero-ai-powered-carousel",
+  "hero-ad-campaign-expert",
+  "hero-adaptable-product-grid",
+  "hero-presentation-platform-video",
+  "hero-grid-pattern-solutions",
+  "hero-crm-streamlined",
+  "hero-billing-platform-logos",
+  "hero-software-growth-video-dialog",
+  "hero-conversion-video-play",
+  "hero-design-showcase-logos",
+  "hero-video-overlay-stars",
+  "hero-productivity-launcher-video",
+  "hero-hiring-animated-text",
+  "hero-split-image-newsletter",
+  "hero-stats-social-proof",
+  "hero-design-system-3d",
+  "hero-architecture-fullscreen",
+  "hero-innovation-image-grid",
+  "hero-video-dialog-gradient",
+  "hero-product-showcase-floating",
+  "hero-saas-dashboard-preview",
+  "hero-therapy-testimonial-grid",
+  "hero-business-operations-mosaic",
+  "hero-agency-animated-images",
+  "hero-welcome-asymmetric-images",
+  "hero-startup-launch-cta",
+  "hero-creative-studio-stacked",
+  "hero-digital-agency-fullscreen",
+  "hero-customer-support-layered",
+  "hero-shared-inbox-layered",
+  "hero-conversation-intelligence",
+  "hero-business-carousel-dots",
+  "hero-ecommerce-product-showcase",
+  "hero-mobile-app-download",
+  "hero-event-registration",
+  "hero-portfolio-creative",
+] as const;
+
+
 const FORBIDDEN_EXAMPLE_PATTERNS = [
   /\/images\//,
   /imagePlaceholders/,
@@ -713,6 +1241,832 @@ describe("BLOCK_REGISTRY article category contracts", () => {
     }
   });
 });
+
+describe("BLOCK_REGISTRY link-page category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every link-page block", () => {
+    for (const id of LINK_PAGE_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for link-page blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of LINK_PAGE_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps link-page exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of LINK_PAGE_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("uses absolute media URLs in link-page exampleProps", () => {
+    for (const id of LINK_PAGE_BLOCK_IDS_WITH_MEDIA) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      expect(mediaStrings.length, id).toBeGreaterThan(0);
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+describe("BLOCK_REGISTRY process category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every process block", () => {
+    for (const id of PROCESS_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for process blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of PROCESS_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps process exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of PROCESS_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("uses absolute media URLs in process exampleProps", () => {
+    for (const id of PROCESS_BLOCK_IDS_WITH_MEDIA) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      expect(mediaStrings.length, id).toBeGreaterThan(0);
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+describe("BLOCK_REGISTRY stats category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every stats block", () => {
+    for (const id of STATS_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for stats blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of STATS_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps stats exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of STATS_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("requires stats_or_metrics capability for all stats blocks", () => {
+    for (const id of STATS_BLOCK_IDS) {
+      const capabilities =
+        BLOCK_REGISTRY[id].usageRequirements?.requiresSiteCapabilities ?? [];
+
+      expect(capabilities, id).toEqual(
+        expect.arrayContaining(["stats_or_metrics"]),
+      );
+    }
+  });
+
+  it("uses absolute media URLs in stats exampleProps", () => {
+    for (const id of STATS_BLOCK_IDS_WITH_MEDIA) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      expect(mediaStrings.length, id).toBeGreaterThan(0);
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+describe("BLOCK_REGISTRY faq category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every faq block", () => {
+    for (const id of FAQ_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for faq blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of FAQ_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps faq exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of FAQ_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("uses absolute media URLs in faq exampleProps", () => {
+    for (const id of FAQ_BLOCK_IDS_WITH_MEDIA) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      expect(mediaStrings.length, id).toBeGreaterThan(0);
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+describe("BLOCK_REGISTRY blog category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every blog block", () => {
+    for (const id of BLOG_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for blog blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of BLOG_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps blog exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of BLOG_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("requires blog_posts and media_library capabilities for all blog blocks", () => {
+    for (const id of BLOG_BLOCK_IDS) {
+      const capabilities =
+        BLOCK_REGISTRY[id].usageRequirements?.requiresSiteCapabilities ?? [];
+
+      expect(capabilities, id).toEqual(
+        expect.arrayContaining(["blog_posts", "media_library"]),
+      );
+    }
+  });
+
+  it("uses absolute media URLs in blog exampleProps", () => {
+    for (const id of BLOG_BLOCK_IDS) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+describe("BLOCK_REGISTRY carousel category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every carousel block", () => {
+    for (const id of CAROUSEL_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for carousel blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of CAROUSEL_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps carousel exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of CAROUSEL_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("uses absolute media URLs in carousel exampleProps", () => {
+    for (const id of CAROUSEL_BLOCK_IDS) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+describe("BLOCK_REGISTRY gallery category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every gallery block", () => {
+    for (const id of GALLERY_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for gallery blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of GALLERY_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps gallery exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of GALLERY_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("uses absolute media URLs in gallery exampleProps", () => {
+    for (const id of GALLERY_BLOCK_IDS_WITH_MEDIA) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      expect(mediaStrings.length, id).toBeGreaterThan(0);
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+describe("BLOCK_REGISTRY footer category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every footer block", () => {
+    for (const id of FOOTER_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for footer blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of FOOTER_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps footer exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of FOOTER_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("uses absolute media URLs in footer exampleProps", () => {
+    for (const id of FOOTER_BLOCK_IDS_WITH_MEDIA) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      expect(mediaStrings.length, id).toBeGreaterThan(0);
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+describe("BLOCK_REGISTRY navbar category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every navbar block", () => {
+    for (const id of NAVBAR_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for navbar blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of NAVBAR_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps navbar exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of NAVBAR_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("uses absolute media URLs in navbar exampleProps", () => {
+    for (const id of NAVBAR_BLOCK_IDS_WITH_MEDIA) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      expect(mediaStrings.length, id).toBeGreaterThan(0);
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+describe("BLOCK_REGISTRY testimonials category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every testimonials block", () => {
+    for (const id of TESTIMONIALS_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for testimonials blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of TESTIMONIALS_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps testimonials exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of TESTIMONIALS_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("requires reviews_or_testimonials capability for all testimonials blocks", () => {
+    for (const id of TESTIMONIALS_BLOCK_IDS) {
+      const capabilities =
+        BLOCK_REGISTRY[id].usageRequirements?.requiresSiteCapabilities ?? [];
+
+      expect(capabilities, id).toEqual(
+        expect.arrayContaining(["reviews_or_testimonials"]),
+      );
+    }
+  });
+
+  it("uses absolute media URLs in testimonials exampleProps", () => {
+    for (const id of TESTIMONIALS_BLOCK_IDS_WITH_MEDIA) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      expect(mediaStrings.length, id).toBeGreaterThan(0);
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+describe("BLOCK_REGISTRY features category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every features block", () => {
+    for (const id of FEATURES_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for features blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of FEATURES_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps features exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of FEATURES_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("uses absolute media URLs in features exampleProps", () => {
+    for (const id of FEATURES_BLOCK_IDS_WITH_MEDIA) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      expect(mediaStrings.length, id).toBeGreaterThan(0);
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+describe("BLOCK_REGISTRY contact category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every contact block", () => {
+    for (const id of CONTACT_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for contact blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of CONTACT_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps contact exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of CONTACT_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("uses absolute media URLs in contact exampleProps", () => {
+    for (const id of CONTACT_BLOCK_IDS_WITH_MEDIA) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      expect(mediaStrings.length, id).toBeGreaterThan(0);
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+describe("BLOCK_REGISTRY hero category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every hero block", () => {
+    for (const id of HERO_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for hero blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of HERO_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps hero exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of HERO_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("uses absolute media URLs in hero exampleProps", () => {
+    for (const id of HERO_BLOCK_IDS_WITH_MEDIA) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      expect(mediaStrings.length, id).toBeGreaterThan(0);
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+
 
 describe("createBuilderContractBundle output naming", () => {
   it("emits examples.exampleProps and no examples.defaultData for any block", () => {
