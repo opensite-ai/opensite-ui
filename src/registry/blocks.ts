@@ -793,55 +793,18 @@ import type { LinkPageGridCardsProps } from "../../components/blocks/link-page/l
 import { LinkPageBentoLayout } from "../../components/blocks/link-page/link-page-bento-layout";
 import type { LinkPageBentoLayoutProps } from "../../components/blocks/link-page/link-page-bento-layout";
 
-export interface BlockRegistryEntry<T = any> {
-  id: string;
-  name: string;
-  description: string;
-  semanticTags: string[];
-  category: BlockCategory;
-  component: React.ComponentType<T>;
-  props: string;
-  exampleUsage: string;
-}
-
-export type BlockCategory =
-  | "about"
-  | "features"
-  | "cta"
-  | "testimonials"
-  | "services"
-  | "hero"
-  | "footer"
-  | "header"
-  | "pricing"
-  | "team"
-  | "stats"
-  | "faq"
-  | "contact"
-  | "carousel"
-  | "gallery"
-  | "timeline"
-  | "process"
-  | "benefits"
-  | "comparison"
-  | "background-pattern-hero"
-  | "blog"
-  | "article"
-  | "case-studies-list"
-  | "case-study-detail"
-  | "navbar"
-  | "logos"
-  | "project-list"
-  | "project-detail"
-  | "list"
-  | "offer-modal"
-  | "banner"
-  | "industries"
-  | "resource-detail"
-  | "service-detail"
-  | "services-list"
-  | "resource-list"
-  | "link-page";
+export type {
+  BlockCategory,
+  BlockContractFields,
+  BlockMediaSlot,
+  BlockPropConstraint,
+  BlockRegistryEntry,
+  BlockUsageRequirements,
+  MediaPixelClass,
+  MediaRole,
+  SiteCapability,
+} from "./types";
+import type { BlockCategory, BlockRegistryEntry } from "./types";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -9801,7 +9764,100 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroMentalHealthTeam,
     props: "HeroMentalHealthTeamProps",
-    exampleUsage: `<HeroMentalHealthTeam />`.trim(),
+    exampleUsage: `
+<HeroMentalHealthTeam
+  heading="Compassionate care for your mental wellbeing"
+  description="Our team of experienced mental health professionals is dedicated to providing compassionate care and support to individuals in need."
+  smallImages={[
+    { src: "/images/team-1.jpg", alt: "Dr. Smith" },
+    { src: "/images/team-2.jpg", alt: "Dr. Johnson" },
+  ]}
+  testimonial={{
+    quote:
+      "The support I received changed my life. I'm so grateful for the compassionate care.",
+    author: "Sarah M.",
+    role: "Client",
+    avatarSrc: "/images/avatar.jpg",
+  }}
+  featureImage={{ src: "/images/feature.jpg", alt: "Mental health support" }}
+  actions={[
+    { label: "Get Started", href: "#", variant: "default" },
+    { label: "Talk to Sales", href: "#", variant: "outline" },
+  ]}
+  background="gray"
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Only use if you have a valid testimonial - DO NOT MAKE UP A TESTIMONIAL/REVIEW. Supply exactly 2 images to the 'smallImages' prop and ensure you supply a 'featureImage' prop object. Do not exceed 40 characters for the 'heading' prop. Do not exceed 130 characters for the 'description' prop. If you supply multiple 'actions', ensure to use a variant of 'default' for the first action, and 'outline' for the second action to ensure proper visual distinction between the two CTAs. Follow the example props closely for this block.",
+    usageRequirements: {
+      requiredProps: ["heading", "smallImages", "featureImage", "testimonial"],
+      propConstraints: {
+        heading: { required: true, maxLength: 40 },
+        description: { maxLength: 130 },
+        smallImages: { required: true, count: 2, minItems: 2, maxItems: 2 },
+        featureImage: { required: true },
+        testimonial: {
+          required: true,
+          note: "Must be a real, sourced testimonial. Do not fabricate.",
+        },
+        actions: {
+          maxItems: 2,
+          pinnedValues: {
+            "0.variant": "default",
+            "1.variant": "outline",
+          },
+        },
+      },
+      mediaSlots: {
+        featureImage: {
+          path: "featureImage",
+          roles: ["feature", "hero"],
+          disallowedRoles: ["logo", "favicon"],
+          minPixelClass: "large",
+          required: true,
+          note: "Large feature image. Must not be a logo or favicon.",
+        },
+        "smallImages[]": {
+          path: "smallImages[]",
+          roles: ["thumbnail", "profile", "feature"],
+          disallowedRoles: ["logo", "favicon"],
+          minPixelClass: "small",
+          required: true,
+          note: "Two team / supporting images. Must not be logos.",
+        },
+        "testimonial.avatarSrc": {
+          path: "testimonial.avatarSrc",
+          roles: ["profile", "avatar"],
+          disallowedRoles: ["logo", "favicon"],
+          minPixelClass: "small",
+          preferredAspect: "1:1",
+          note: "Headshot/avatar for the testimonial author.",
+        },
+      },
+      requiresSiteCapabilities: ["reviews_or_testimonials", "media_library"],
+    },
+    defaultProps: {
+      heading: "Compassionate care for your mental wellbeing",
+      description:
+        "Our team of experienced mental health professionals is dedicated to providing compassionate care and support to individuals in need.",
+      smallImages: [
+        { src: "/images/team-1.jpg", alt: "Dr. Smith" },
+        { src: "/images/team-2.jpg", alt: "Dr. Johnson" },
+      ],
+      testimonial: {
+        quote:
+          "The support I received changed my life. I'm so grateful for the compassionate care.",
+        author: "Sarah M.",
+        role: "Client",
+        avatarSrc: "/images/avatar.jpg",
+      },
+      featureImage: { src: "/images/feature.jpg", alt: "Mental health support" },
+      actions: [
+        { label: "Get Started", href: "#", variant: "default" },
+        { label: "Talk to Sales", href: "#", variant: "outline" },
+      ],
+      background: "gray",
+    },
   },
 
   "hero-mentorship-video-split": {

@@ -44,10 +44,148 @@ export type BlockCategory =
   | "link-page";
 
 /**
+ * Semantic role hints for a media slot. Consumers (semantic site builders,
+ * media classifiers) use these to scope which assets are eligible for a slot.
+ *
+ * - `logo`: brand logos / wordmarks (small, transparent backgrounds).
+ * - `favicon`: tiny brand icon.
+ * - `hero`: large hero/banner imagery.
+ * - `feature`: large feature/marketing imagery (non-logo).
+ * - `thumbnail`: small supporting imagery (e.g. card images, team thumbs).
+ * - `profile`: portrait/headshot of a person.
+ * - `avatar`: small profile / testimonial avatar.
+ * - `gallery`: imagery suited for galleries / grids.
+ * - `background`: large background imagery, often photographic.
+ * - `screenshot`: product screenshots / UI captures.
+ * - `illustration`: vector / illustrative art.
+ * - `video-thumbnail`: poster image for a video slot.
+ */
+export type MediaRole =
+  | "logo"
+  | "favicon"
+  | "hero"
+  | "feature"
+  | "thumbnail"
+  | "profile"
+  | "avatar"
+  | "gallery"
+  | "background"
+  | "screenshot"
+  | "illustration"
+  | "video-thumbnail";
+
+/** Minimum pixel class expected for a media asset. */
+export type MediaPixelClass = "tiny" | "small" | "medium" | "large" | "xlarge";
+
+/**
+ * Structured description of a single media slot inside a block's prop tree.
+ * The `path` is dot/bracket notation, e.g. `featureImage`, `smallImages[]`,
+ * `testimonial.avatarSrc`.
+ */
+export interface BlockMediaSlot {
+  path: string;
+  /** Allowed/expected semantic roles for this slot, in priority order. */
+  roles: MediaRole[];
+  /** Roles that must NOT be assigned to this slot. */
+  disallowedRoles?: MediaRole[];
+  /** Minimum acceptable pixel class for this slot. */
+  minPixelClass?: MediaPixelClass;
+  /** Preferred aspect ratio, e.g. "16:9", "1:1", "4:5". */
+  preferredAspect?: string;
+  /** Whether the block visually requires this slot to render correctly. */
+  required?: boolean;
+  /** Short note explaining the slot's intent (consumed by AI prompts). */
+  note?: string;
+}
+
+/**
+ * Per-prop content constraints. Additive – consumers should treat missing
+ * fields as "no constraint declared" rather than rejecting payloads.
+ */
+export interface BlockPropConstraint {
+  /** Whether the block requires this prop to render correctly. */
+  required?: boolean;
+  /** Maximum string length for text-shaped props. */
+  maxLength?: number;
+  /** Exact item count for array props (shorthand for minItems = maxItems). */
+  count?: number;
+  /** Minimum array length. */
+  minItems?: number;
+  /** Maximum array length. */
+  maxItems?: number;
+  /**
+   * Pinned values, by index for array props or as a single value for scalars.
+   * Used for the `actions[0].variant = "default"` / `actions[1].variant = "outline"` pattern.
+   */
+  pinnedValues?: Record<string, string | number | boolean>;
+  /** Free-form note about this prop (for AI prompts). */
+  note?: string;
+}
+
+/**
+ * Capabilities the host site / data source must satisfy for the block to be
+ * suitable. Consumers (e.g. Octane) gate block selection on these BEFORE the
+ * block is offered to the model, so it cannot fabricate the missing input.
+ */
+export type SiteCapability =
+  | "reviews_or_testimonials"
+  | "pricing_data"
+  | "team_members"
+  | "blog_posts"
+  | "case_studies"
+  | "metrics_or_stats"
+  | "product_catalog"
+  | "media_library"
+  | "contact_info";
+
+/**
+ * Structured usage requirements for a block. This is the executable
+ * complement to `importantUsageNotes` (which remains for human-readable
+ * prompt context). When present, downstream consumers SHOULD enforce these
+ * at selection time and during post-generation validation.
+ */
+export interface BlockUsageRequirements {
+  /** Names of props that are required for the block to render correctly. */
+  requiredProps?: string[];
+  /** Per-prop content/cardinality constraints, keyed by prop name/path. */
+  propConstraints?: Record<string, BlockPropConstraint>;
+  /** Media slot metadata, keyed by slot path. */
+  mediaSlots?: Record<string, BlockMediaSlot>;
+  /** Site capabilities required to safely select this block. */
+  requiresSiteCapabilities?: SiteCapability[];
+  /**
+   * Free-form structured rules that don't fit other fields. Consumers should
+   * treat unknown keys as advisory.
+   */
+  notes?: string[];
+}
+
+/**
+ * Shared metadata fields that describe a block's contract. Used both by
+ * {@link BlockMetadata} (no component) and {@link BlockRegistryEntry}
+ * (with component).
+ */
+export interface BlockContractFields {
+  /**
+   * Human-readable usage guidance for AI prompts. This remains advisory.
+   * For executable rules use {@link BlockContractFields.usageRequirements}.
+   */
+  importantUsageNotes?: string;
+  /** Structured, machine-readable usage requirements. */
+  usageRequirements?: BlockUsageRequirements;
+  /**
+   * Canonical default / example payload for the block, matching the prop
+   * shape. Optional. When supplied, consumers should prefer this over
+   * parsing `exampleUsage` JSX.
+   */
+  defaultProps?: Record<string, unknown>;
+}
+
+/**
  * Metadata-only block registry entry (no component import)
  * Used for AI-driven component discovery without bundling all components
  */
-export interface BlockMetadata {
+export interface BlockMetadata extends BlockContractFields {
   id: string;
   name: string;
   description: string;
@@ -67,7 +205,7 @@ export interface BlockMetadata {
  * Full block registry entry with component reference
  * @deprecated Use BlockMetadata for new code - this type causes all components to be bundled
  */
-export interface BlockRegistryEntry<T = any> {
+export interface BlockRegistryEntry<T = any> extends BlockContractFields {
   id: string;
   name: string;
   description: string;
@@ -105,7 +243,13 @@ export interface BuilderContractPropsContract {
 
 export interface BuilderContractExamples {
   exampleUsage: string | null;
-  defaultData: null;
+  /**
+   * Canonical default / example props payload. Populated from
+   * BlockRegistryEntry.defaultProps when declared, otherwise null.
+   * Older consumers that expected this to always be null should treat
+   * an object value as advisory example data, not as a schema.
+   */
+  defaultData: Record<string, unknown> | null;
 }
 
 export interface BuilderContractBlock {
@@ -120,6 +264,16 @@ export interface BuilderContractBlock {
   propsContract: BuilderContractPropsContract;
   examples: BuilderContractExamples;
   source: BuilderContractBlockSource | null;
+  /**
+   * Human-readable usage guidance for AI prompts. Mirrors
+   * BlockRegistryEntry.importantUsageNotes when declared, otherwise null.
+   */
+  importantUsageNotes: string | null;
+  /**
+   * Structured, machine-readable usage requirements. Null when the
+   * registry entry does not declare any.
+   */
+  usageRequirements: BlockUsageRequirements | null;
 }
 
 export interface BuilderContractMetadata {
