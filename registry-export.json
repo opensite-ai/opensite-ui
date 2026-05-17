@@ -1355,13 +1355,7 @@
       "id": "contact-map",
       "name": "Contact Map",
       "description": "Contact form with integrated map display. Shows location information alongside contact form fields.",
-      "semanticTags": [
-        "contact",
-        "map",
-        "location",
-        "form",
-        "address"
-      ],
+      "semanticTags": ["contact", "map", "location", "form", "address"],
       "category": "contact",
       "props": "ContactMapProps",
       "exampleUsage": "<ContactMap\n  heading=\"Contact Us\"\n  description=\"Find us on the map and get in touch\"\n  buttonText=\"Send Message\"\n  formConfig={{ endpoint: \"/api/contact\", format: \"json\" }}\n/>",
@@ -1373,13 +1367,7 @@
       "id": "contact-minimal",
       "name": "Contact Minimal",
       "description": "Minimal contact form with just name, email, and message fields. Clean and simple design for basic contact needs.",
-      "semanticTags": [
-        "contact",
-        "minimal",
-        "simple",
-        "form",
-        "basic"
-      ],
+      "semanticTags": ["contact", "minimal", "simple", "form", "basic"],
       "category": "contact",
       "props": "ContactMinimalProps",
       "exampleUsage": "<ContactMinimal\n  heading=\"Let's Talk\"\n  description=\"Send us a message\"\n  buttonText=\"Send Message\"\n  formConfig={{ endpoint: \"/api/contact\", format: \"json\" }}\n/>",
@@ -1468,14 +1456,7 @@
       "id": "contact-press",
       "name": "Contact Press Inquiries",
       "description": "Press and media inquiry form with publication details and story information. Designed for PR teams and media relations.",
-      "semanticTags": [
-        "contact",
-        "press",
-        "media",
-        "form",
-        "pr",
-        "journalism"
-      ],
+      "semanticTags": ["contact", "press", "media", "form", "pr", "journalism"],
       "category": "contact",
       "props": "ContactPressProps",
       "exampleUsage": "<ContactPress\n  heading=\"Press Inquiries\"\n  description=\"Media and press contact form\"\n  buttonText=\"Submit Inquiry\"\n  formConfig={{ endpoint: \"/api/press\", format: \"json\" }}\n/>",
@@ -1602,14 +1583,7 @@
       "id": "contact-sales",
       "name": "Contact Sales",
       "description": "Sales inquiry form with company information and product interest. Designed for B2B sales teams and lead generation.",
-      "semanticTags": [
-        "contact",
-        "sales",
-        "inquiry",
-        "form",
-        "b2b",
-        "leads"
-      ],
+      "semanticTags": ["contact", "sales", "inquiry", "form", "b2b", "leads"],
       "category": "contact",
       "props": "ContactSalesProps",
       "exampleUsage": "<ContactSales\n  heading=\"Talk to Sales\"\n  description=\"Interested in our products?\"\n  buttonText=\"Contact Sales\"\n  formConfig={{ endpoint: \"/api/sales\", format: \"json\" }}\n/>",
@@ -6736,52 +6710,30 @@
         "mediaSlots": {
           "featureImage": {
             "path": "featureImage",
-            "roles": [
-              "feature",
-              "hero"
-            ],
-            "disallowedRoles": [
-              "logo",
-              "favicon"
-            ],
+            "roles": ["feature", "hero"],
+            "disallowedRoles": ["logo", "favicon"],
             "minPixelClass": "large",
             "required": true,
             "note": "Large feature image. Must not be a logo or favicon."
           },
           "smallImages[]": {
             "path": "smallImages[]",
-            "roles": [
-              "thumbnail",
-              "profile",
-              "feature"
-            ],
-            "disallowedRoles": [
-              "logo",
-              "favicon"
-            ],
+            "roles": ["thumbnail", "profile", "feature"],
+            "disallowedRoles": ["logo", "favicon"],
             "minPixelClass": "small",
             "required": true,
             "note": "Two team / supporting images. Must not be logos."
           },
           "testimonial.avatarSrc": {
             "path": "testimonial.avatarSrc",
-            "roles": [
-              "profile",
-              "avatar"
-            ],
-            "disallowedRoles": [
-              "logo",
-              "favicon"
-            ],
+            "roles": ["profile", "avatar"],
+            "disallowedRoles": ["logo", "favicon"],
             "minPixelClass": "small",
             "preferredAspect": "1:1",
             "note": "Headshot/avatar for the testimonial author."
           }
         },
-        "requiresSiteCapabilities": [
-          "reviews_or_testimonials",
-          "media_library"
-        ]
+        "requiresSiteCapabilities": ["reviews_or_testimonials", "media_library"]
       },
       "exampleProps": {
         "heading": "Compassionate care for your mental wellbeing",
@@ -6840,10 +6792,7 @@
       "exampleUsage": "<HeroMentorshipVideoSplit\n  heading=\"Reclaim Your Peace. Scale Sustainably.\"\n  description=\"Somatic mindset coaching for high-achieving entrepreneurs ready to lead from strength — not survival mode.\"\n  action={{ label: \"Book Your Discovery Call\", href: \"/contact\", variant: \"default\", size: \"lg\" }}\n  videoLabel=\"Watch the Overview\"\n  videoTitle=\"Coaching Overview\"\n  modalVideo={{\n    image: {\n      src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n      alt: \"Coaching overview poster\",\n    },\n    video: {\n      src: \"https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1\",\n    },\n  }}\n  image={{\n    src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n    alt: \"Coach portrait\",\n  }}\n  background=\"dark\"\n/>",
       "importantUsageNotes": "The 'image' prop is the main hero image and MUST be an image asset (poster/photo). The 'modalVideo' prop's nested 'video.src' MUST be a video asset (HLS playlist or MP4) and 'modalVideo.image.src' MUST be an image asset (video poster). NEVER swap these: do not put a video URL into the 'image' prop and do not put an image URL into 'modalVideo.video.src'. All media src values must be absolute URLs to real CDN assets — never relative paths or placeholder strings. Keep 'heading' concise (under 60 characters) for visual balance.",
       "usageRequirements": {
-        "requiredProps": [
-          "heading",
-          "image"
-        ],
+        "requiredProps": ["heading", "image"],
         "propConstraints": {
           "heading": {
             "required": true,
@@ -6866,16 +6815,8 @@
         "mediaSlots": {
           "image": {
             "path": "image",
-            "roles": [
-              "hero",
-              "feature",
-              "profile"
-            ],
-            "disallowedRoles": [
-              "logo",
-              "favicon",
-              "video-thumbnail"
-            ],
+            "roles": ["hero", "feature", "profile"],
+            "disallowedRoles": ["logo", "favicon", "video-thumbnail"],
             "minPixelClass": "large",
             "required": true,
             "note": "Main hero image slot. IMAGE MEDIA ONLY. Do not assign a video URL here."
@@ -6894,22 +6835,13 @@
           },
           "modalVideo.image.src": {
             "path": "modalVideo.image.src",
-            "roles": [
-              "video-thumbnail",
-              "hero",
-              "feature"
-            ],
-            "disallowedRoles": [
-              "logo",
-              "favicon"
-            ],
+            "roles": ["video-thumbnail", "hero", "feature"],
+            "disallowedRoles": ["logo", "favicon"],
             "minPixelClass": "medium",
             "note": "Poster image shown before the video plays. IMAGE MEDIA ONLY."
           }
         },
-        "requiresSiteCapabilities": [
-          "media_library"
-        ],
+        "requiresSiteCapabilities": ["media_library"],
         "notes": [
           "Image and video media must never be swapped between the 'image' prop and the 'modalVideo' prop.",
           "All media src values must be absolute URLs to real assets; relative paths are not allowed."
