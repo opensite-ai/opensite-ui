@@ -1065,7 +1065,7 @@ const ABOUT_BLOCK_CONTRACTS = {
         ),
       },
       requiresSiteCapabilities: aboutCapabilities(
-        "metrics_or_stats",
+        "stats_or_metrics",
         "reviews_or_testimonials",
         "media_library",
       ),
@@ -1147,7 +1147,7 @@ const ABOUT_BLOCK_CONTRACTS = {
         "companies[]": logoSlot("companies[]", "Customer or partner logo."),
       },
       requiresSiteCapabilities: aboutCapabilities(
-        "metrics_or_stats",
+        "stats_or_metrics",
         "media_library",
       ),
       notes: [ABOUT_MEDIA_NOTE],
@@ -1277,7 +1277,7 @@ const ABOUT_BLOCK_CONTRACTS = {
         "logos[]": logoSlot("logos[]", "Customer or partner logo."),
       },
       requiresSiteCapabilities: aboutCapabilities(
-        "metrics_or_stats",
+        "stats_or_metrics",
         "media_library",
       ),
       notes: [ABOUT_MEDIA_NOTE],
@@ -1684,7 +1684,7 @@ const ABOUT_BLOCK_CONTRACTS = {
         features: { minItems: 2, maxItems: 4 },
       },
       mediaSlots: {},
-      requiresSiteCapabilities: aboutCapabilities("metrics_or_stats"),
+      requiresSiteCapabilities: aboutCapabilities("stats_or_metrics"),
       notes: ["Do not fabricate metrics or quantified claims."],
     },
     exampleProps: {
@@ -2028,7 +2028,7 @@ const ABOUT_BLOCK_CONTRACTS = {
           ["feature", "hero"],
         ),
       },
-      requiresSiteCapabilities: aboutCapabilities("contact_info", "media_library"),
+      requiresSiteCapabilities: aboutCapabilities("locations", "media_library"),
       notes: [ABOUT_MEDIA_NOTE, "Location and hours data must be sourced."],
     },
     exampleProps: {
@@ -2302,7 +2302,7 @@ const ABOUT_BLOCK_CONTRACTS = {
         ),
       },
       requiresSiteCapabilities: aboutCapabilities(
-        "metrics_or_stats",
+        "stats_or_metrics",
         "media_library",
       ),
       notes: [ABOUT_MEDIA_NOTE, "Community impact claims must be sourced."],
