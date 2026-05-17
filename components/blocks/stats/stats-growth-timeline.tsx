@@ -316,7 +316,7 @@ export function StatsGrowthTimeline({
                   ))}
                 {milestone.description &&
                   (typeof milestone.description === "string" ? (
-                    <p className="mb-4 text-muted-foreground">
+                    <p className="mb-4 opacity-70 text-balance">
                       {milestone.description}
                     </p>
                   ) : (
@@ -324,7 +324,7 @@ export function StatsGrowthTimeline({
                   ))}
 
                 {milestone.metric && (
-                  <div className="flex items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
+                  <div className="flex items-center gap-4 rounded-lg border bg-card text-card-foreground p-4 shadow-sm">
                     {renderMilestoneIcon(milestone)}
                     <div>
                       <div className="text-2xl font-semibold">
@@ -422,13 +422,13 @@ export function StatsGrowthTimeline({
       >
         {futureHeading &&
           (typeof futureHeading === "string" ? (
-            <h3 className="mb-4 text-2xl font-bold">{futureHeading}</h3>
+            <h3 className="text-2xl font-bold">{futureHeading}</h3>
           ) : (
-            <div className="mb-4">{futureHeading}</div>
+            futureHeading
           ))}
         {futureDescription &&
           (typeof futureDescription === "string" ? (
-            <p className="mx-auto mb-8 max-w-full md:max-w-lg text-balance">
+            <p className="max-w-full md:max-w-md text-balance">
               {futureDescription}
             </p>
           ) : (
@@ -480,13 +480,13 @@ export function StatsGrowthTimeline({
                   {heading}
                 </h2>
               ) : (
-                <div className={cn("mb-4", headingClassName)}>{heading}</div>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mx-auto max-w-3xl text-lg text-muted-foreground",
+                    "max-w-full md:max-w-md text-base md:text-lg text-balance",
                     descriptionClassName,
                   )}
                 >
