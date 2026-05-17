@@ -112,9 +112,20 @@ function normalizeBlock(
     },
     examples: {
       exampleUsage: block.exampleUsage || null,
-      defaultData: null,
+      defaultData: block.defaultProps
+        ? (JSON.parse(JSON.stringify(block.defaultProps)) as Record<
+            string,
+            unknown
+          >)
+        : null,
     },
     source: source ?? null,
+    importantUsageNotes: block.importantUsageNotes ?? null,
+    usageRequirements: block.usageRequirements
+      ? (JSON.parse(JSON.stringify(block.usageRequirements)) as NonNullable<
+          BlockRegistryEntry["usageRequirements"]
+        >)
+      : null,
   };
 }
 

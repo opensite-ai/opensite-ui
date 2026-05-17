@@ -43,6 +43,9 @@ function serializeBlockEntry(block) {
     // Exclude 'component' - React component reference
     props: block.props,
     exampleUsage: block.exampleUsage,
+    importantUsageNotes: block.importantUsageNotes ?? null,
+    usageRequirements: block.usageRequirements ?? null,
+    defaultProps: block.defaultProps ?? null,
   };
 }
 

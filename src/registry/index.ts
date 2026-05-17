@@ -21,8 +21,12 @@ export {
 
 export type {
   BlockCategory,
+  BlockContractFields,
+  BlockMediaSlot,
   BlockMetadata,
+  BlockPropConstraint,
   BlockRegistryEntry,
+  BlockUsageRequirements,
   BuilderContractBlock,
   BuilderContractBlockSource,
   BuilderContractBundle,
@@ -36,4 +40,7 @@ export type {
   BuilderContractPropsContract,
   BuilderContractSharedLayout,
   BuilderContractSharedLayoutSection,
+  MediaPixelClass,
+  MediaRole,
+  SiteCapability,
 } from "./types";
