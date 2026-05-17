@@ -165,7 +165,7 @@ describe("createBuilderContractBundle", () => {
     ]);
   });
 
-  it("propagates structured usage requirements and defaultProps into the contract", () => {
+  it("propagates structured usage requirements and exampleProps into the contract", () => {
     const blocks: BlockRegistryEntry[] = [
       {
         ...SAMPLE_BLOCKS[0],
@@ -187,7 +187,7 @@ describe("createBuilderContractBundle", () => {
           },
           requiresSiteCapabilities: ["media_library"],
         },
-        defaultProps: { heading: "Hello" },
+        exampleProps: { heading: "Hello" },
       },
     ];
 
@@ -207,7 +207,8 @@ describe("createBuilderContractBundle", () => {
       "feature",
       "hero",
     ]);
-    expect(hero.examples.defaultData).toEqual({ heading: "Hello" });
+    expect(hero.examples.exampleProps).toEqual({ heading: "Hello" });
+    expect(hero.examples).not.toHaveProperty("defaultData");
   });
 
   it("falls back to null usage metadata when a block does not declare any", () => {
@@ -219,7 +220,8 @@ describe("createBuilderContractBundle", () => {
     for (const block of bundle.blocks) {
       expect(block.importantUsageNotes).toBeNull();
       expect(block.usageRequirements).toBeNull();
-      expect(block.examples.defaultData).toBeNull();
+      expect(block.examples.exampleProps).toBeNull();
+      expect(block.examples).not.toHaveProperty("defaultData");
     }
   });
 });
@@ -299,14 +301,142 @@ describe("BLOCK_REGISTRY hero-mental-health-team contract", () => {
     );
   });
 
-  it("provides a structured defaultProps payload covering required slots", () => {
-    const defaultProps = entry.defaultProps as
+  it("provides a structured exampleProps payload covering required slots", () => {
+    const exampleProps = entry.exampleProps as
       | Record<string, unknown>
       | undefined;
-    expect(defaultProps).toBeDefined();
-    expect(Array.isArray(defaultProps?.smallImages)).toBe(true);
-    expect((defaultProps?.smallImages as unknown[]).length).toBe(2);
-    expect(defaultProps?.featureImage).toBeDefined();
-    expect(defaultProps?.testimonial).toBeDefined();
+    expect(exampleProps).toBeDefined();
+    expect(Array.isArray(exampleProps?.smallImages)).toBe(true);
+    expect((exampleProps?.smallImages as unknown[]).length).toBe(2);
+    expect(exampleProps?.featureImage).toBeDefined();
+    expect(exampleProps?.testimonial).toBeDefined();
+  });
+
+  it("does not expose the legacy defaultProps field", () => {
+    expect(
+      (entry as unknown as Record<string, unknown>).defaultProps,
+    ).toBeUndefined();
+  });
+
+  it("uses absolute URLs (never relative paths) in exampleProps media", () => {
+    const exampleProps = entry.exampleProps as Record<string, unknown>;
+    const featureImage = exampleProps.featureImage as { src: string };
+    const smallImages = exampleProps.smallImages as Array<{ src: string }>;
+    const testimonial = exampleProps.testimonial as { avatarSrc: string };
+
+    expect(featureImage.src).toMatch(/^https?:\/\//);
+    for (const img of smallImages) {
+      expect(img.src).toMatch(/^https?:\/\//);
+    }
+    expect(testimonial.avatarSrc).toMatch(/^https?:\/\//);
+  });
+});
+
+describe("BLOCK_REGISTRY hero-mentorship-video-split contract", () => {
+  const entry = BLOCK_REGISTRY["hero-mentorship-video-split"];
+
+  it("is registered with structured metadata", () => {
+    expect(entry).toBeDefined();
+    expect(entry.importantUsageNotes).toBeDefined();
+    expect(entry.usageRequirements).toBeDefined();
+    expect(entry.exampleProps).toBeDefined();
+  });
+
+  it("warns against swapping image and video media in importantUsageNotes", () => {
+    const notes = entry.importantUsageNotes ?? "";
+    expect(notes).toMatch(/image/i);
+    expect(notes).toMatch(/video/i);
+    expect(notes.toLowerCase()).toMatch(/swap|never|not/);
+  });
+
+  it("declares media slot roles distinguishing image vs video", () => {
+    const slots = entry.usageRequirements?.mediaSlots ?? {};
+
+    expect(slots.image).toBeDefined();
+    expect(slots.image?.roles).toEqual(expect.arrayContaining(["hero"]));
+    expect(slots.image?.disallowedRoles ?? []).toEqual(
+      expect.arrayContaining(["video-thumbnail"]),
+    );
+    expect(slots.image?.required).toBe(true);
+
+    const videoSrcSlot = slots["modalVideo.video.src"];
+    expect(videoSrcSlot).toBeDefined();
+    expect(videoSrcSlot?.disallowedRoles ?? []).toEqual(
+      expect.arrayContaining(["hero", "feature"]),
+    );
+
+    const posterSlot = slots["modalVideo.image.src"];
+    expect(posterSlot).toBeDefined();
+    expect(posterSlot?.roles).toEqual(
+      expect.arrayContaining(["video-thumbnail"]),
+    );
+  });
+
+  it("uses absolute URLs (never relative paths) for media in exampleProps", () => {
+    const exampleProps = entry.exampleProps as Record<string, unknown>;
+    const image = exampleProps.image as { src: string };
+    const modalVideo = exampleProps.modalVideo as {
+      image: { src: string };
+      video: { src: string };
+    };
+
+    expect(image.src).toMatch(/^https?:\/\//);
+    expect(modalVideo.image.src).toMatch(/^https?:\/\//);
+    expect(modalVideo.video.src).toMatch(/^https?:\/\//);
+  });
+
+  it("does not expose the legacy defaultProps field", () => {
+    expect(
+      (entry as unknown as Record<string, unknown>).defaultProps,
+    ).toBeUndefined();
+  });
+});
+
+describe("createBuilderContractBundle output naming", () => {
+  it("emits examples.exampleProps and no examples.defaultData for any block", () => {
+    const allBlocks = Object.values(BLOCK_REGISTRY);
+    const bundle = createBuilderContractBundle({
+      blocks: allBlocks,
+      uiVersion: "test",
+    });
+
+    for (const block of bundle.blocks) {
+      expect(block.examples).toHaveProperty("exampleProps");
+      expect(block.examples).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("includes hero-mental-health-team example payload under exampleProps", () => {
+    const allBlocks = Object.values(BLOCK_REGISTRY);
+    const bundle = createBuilderContractBundle({
+      blocks: allBlocks,
+      uiVersion: "test",
+    });
+
+    const mentalHealth = bundle.blocks.find(
+      (b) => b.componentId === "hero-mental-health-team",
+    );
+    expect(mentalHealth).toBeDefined();
+    expect(mentalHealth?.examples.exampleProps).toBeDefined();
+    expect(mentalHealth?.examples.exampleProps).not.toBeNull();
+  });
+
+  it("includes hero-mentorship-video-split usage requirements in bundle", () => {
+    const allBlocks = Object.values(BLOCK_REGISTRY);
+    const bundle = createBuilderContractBundle({
+      blocks: allBlocks,
+      uiVersion: "test",
+    });
+
+    const mentorship = bundle.blocks.find(
+      (b) => b.componentId === "hero-mentorship-video-split",
+    );
+    expect(mentorship).toBeDefined();
+    expect(mentorship?.usageRequirements?.mediaSlots).toBeDefined();
+    expect(mentorship?.usageRequirements?.mediaSlots?.image).toBeDefined();
+    expect(
+      mentorship?.usageRequirements?.mediaSlots?.["modalVideo.video.src"],
+    ).toBeDefined();
+    expect(mentorship?.examples.exampleProps).toBeDefined();
   });
 });

@@ -45,7 +45,7 @@ function serializeBlockEntry(block) {
     exampleUsage: block.exampleUsage,
     importantUsageNotes: block.importantUsageNotes ?? null,
     usageRequirements: block.usageRequirements ?? null,
-    defaultProps: block.defaultProps ?? null,
+    exampleProps: block.exampleProps ?? null,
   };
 }
 
