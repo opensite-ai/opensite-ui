@@ -139,10 +139,29 @@ const ABOUT_BLOCK_IDS_WITH_MEDIA = [
   "about-culture-tabs",
 ] as const;
 
+const ARTICLE_BLOCK_IDS = [
+  "article-hero-prose",
+  "article-sidebar-sticky",
+  "article-toc-sidebar",
+  "article-breadcrumb-social",
+  "article-compact-toc",
+  "article-chapters-author",
+  "article-split-animated",
+] as const;
+
+const ARTICLE_BLOCK_IDS_WITH_MEDIA = [...ARTICLE_BLOCK_IDS] as const;
+
 const FORBIDDEN_EXAMPLE_PATTERNS = [
   /\/images\//,
   /imagePlaceholders/,
   /videoPlaceholders/,
+] as const;
+
+const FORBIDDEN_ARTICLE_PROP_PATTERNS = [
+  /\bshareUrls=/,
+  /\bctaButtonText=/,
+  /\bctaText=/,
+  /\bctaHref=/,
 ] as const;
 
 function collectStrings(value: unknown): string[] {
@@ -592,6 +611,99 @@ describe("BLOCK_REGISTRY about category contracts", () => {
 
   it("uses absolute media URLs in about exampleProps", () => {
     for (const id of ABOUT_BLOCK_IDS_WITH_MEDIA) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      expect(mediaStrings.length, id).toBeGreaterThan(0);
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+});
+
+describe("BLOCK_REGISTRY article category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every article block", () => {
+    for (const id of ARTICLE_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for article blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of ARTICLE_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps article exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of ARTICLE_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+
+      for (const pattern of FORBIDDEN_ARTICLE_PROP_PATTERNS) {
+        expect(entry.exampleUsage, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("requires source-backed blog, team, and media data for article blocks", () => {
+    for (const id of ARTICLE_BLOCK_IDS) {
+      const capabilities =
+        BLOCK_REGISTRY[id].usageRequirements?.requiresSiteCapabilities ?? [];
+
+      expect(capabilities, id).toEqual(
+        expect.arrayContaining(["blog_posts", "team_members", "media_library"]),
+      );
+      expect(capabilities, id).not.toContain("pricing_data");
+      expect(capabilities, id).not.toContain("metrics_or_stats");
+    }
+  });
+
+  it("declares image media slots where article blocks accept media", () => {
+    for (const id of ARTICLE_BLOCK_IDS_WITH_MEDIA) {
+      const slots = BLOCK_REGISTRY[id].usageRequirements?.mediaSlots ?? {};
+
+      expect(Object.keys(slots).length, id).toBeGreaterThan(0);
+
+      for (const slot of Object.values(slots)) {
+        expect(slot.note, `${id}:${slot.path}`).toMatch(/IMAGE .*ONLY/i);
+        expect(slot.disallowedRoles ?? [], `${id}:${slot.path}`).toEqual(
+          expect.arrayContaining(["logo", "favicon", "video-thumbnail"]),
+        );
+      }
+    }
+  });
+
+  it("uses absolute media URLs in article exampleProps", () => {
+    for (const id of ARTICLE_BLOCK_IDS_WITH_MEDIA) {
       const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
 
       expect(mediaStrings.length, id).toBeGreaterThan(0);
