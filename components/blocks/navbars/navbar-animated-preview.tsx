@@ -697,30 +697,36 @@ interface FeaturedLinkProps {
 }
 
 const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
+  const hasBgImg = !!link.background;
+
   return (
     <Pressable
       href={getLinkUrl(link)}
-      className="group relative flex w-full overflow-hidden rounded-xl bg-muted px-4 pt-24 pb-4"
+      className={`group relative flex w-full overflow-hidden rounded-xl px-4 pt-24 pb-4 ${hasBgImg ? "" : "bg-primary"}`}
     >
       <div className="relative z-10 flex w-full items-center gap-6">
-        <div className="flex size-12 shrink-0 rounded-lg border bg-background shadow-lg">
-          <DynamicIcon
-            name={link.icon || link.iconName}
-            size={20}
-            className="m-auto stroke-white"
-          />
+        <div className="flex size-12 shrink-0 rounded-lg border bg-card text-card-foreground shadow-lg">
+          <DynamicIcon name={link.icon || link.iconName} size={20} />
         </div>
-        <div className="flex flex-col  text-white text-shadow-lg">
+        <div
+          className={`flex flex-col ${hasBgImg ? "text-white text-shadow-lg" : "text-primary-foreground"}`}
+        >
           <div className="text-lg font-semibold">{link.label}</div>
           <div className="font-medium">{link.description}</div>
         </div>
       </div>
-      <Img
-        src={link.background}
-        alt={typeof link.label === "string" ? link.label : ""}
-        className="absolute top-0 left-0 size-full brightness-50 object-cover object-center opacity-90 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
-        optixFlowConfig={optixFlowConfig}
-      />
+      {link.background && link.background?.length > 0 ? (
+        <Img
+          src={link.background}
+          alt={
+            link.label && typeof link.label === "string"
+              ? link.label
+              : "Featured link background image"
+          }
+          className="absolute top-0 left-0 size-full brightness-50 object-cover object-center opacity-90 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
+          optixFlowConfig={optixFlowConfig}
+        />
+      ) : null}
     </Pressable>
   );
 };
@@ -741,7 +747,7 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        {(link.icon || link.iconName) && (
+        {link.icon || link.iconName ? (
           <div className="flex size-6 shrink-0 rounded-md border shadow">
             <DynamicIcon
               name={link.icon || link.iconName}
@@ -749,12 +755,12 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
               className="m-auto"
             />
           </div>
-        )}
-        <div className="flex flex-col items-start gap-2">
+        ) : null}
+        <div className="flex flex-col items-start gap-1">
           {link.label && (
             <div className="text-sm leading-normal">{link.label}</div>
           )}
-          <div className="text-xs leading-normal text-muted-foreground">
+          <div className="text-xs leading-normal opacity-70">
             {link.description}
           </div>
         </div>

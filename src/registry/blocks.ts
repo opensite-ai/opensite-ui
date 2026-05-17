@@ -804,7 +804,1683 @@ export type {
   MediaRole,
   SiteCapability,
 } from "./types";
-import type { BlockCategory, BlockRegistryEntry } from "./types";
+import type {
+  BlockCategory,
+  BlockMediaSlot,
+  BlockRegistryEntry,
+  MediaPixelClass,
+  MediaRole,
+  SiteCapability,
+} from "./types";
+
+type AboutBlockContract = Pick<
+  BlockRegistryEntry,
+  "exampleUsage" | "importantUsageNotes" | "usageRequirements" | "exampleProps"
+>;
+
+const ABOUT_EXAMPLE_IMAGE_URL =
+  "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp";
+
+const ABOUT_MEDIA_NOTE =
+  "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.";
+
+const aboutImage = (alt: string) => ({
+  src: ABOUT_EXAMPLE_IMAGE_URL,
+  alt,
+});
+
+const imageSlot = (
+  path: string,
+  note: string,
+  roles: MediaRole[] = ["feature"],
+  minPixelClass: MediaPixelClass = "large",
+  required = true,
+  preferredAspect?: string,
+): BlockMediaSlot => ({
+  path,
+  roles,
+  disallowedRoles: ["logo", "favicon", "video-thumbnail"],
+  minPixelClass,
+  required,
+  ...(preferredAspect ? { preferredAspect } : {}),
+  note: `${note} IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets.`,
+});
+
+const logoSlot = (
+  path: string,
+  note: string,
+  required = false,
+): BlockMediaSlot => ({
+  path,
+  roles: ["logo"],
+  disallowedRoles: ["favicon", "video-thumbnail"],
+  minPixelClass: "small",
+  required,
+  note: `${note} LOGO IMAGE ONLY. Do not use photos, favicons, or video assets.`,
+});
+
+const aboutCapabilities = (...capabilities: SiteCapability[]) => capabilities;
+
+const ABOUT_BLOCK_CONTRACTS = {
+  "alternating-blocks": {
+    exampleUsage: `
+<AlternatingBlocks
+  title="How We Got Here"
+  subtitle="A practical timeline of the decisions that shaped our company."
+  sections={[
+    {
+      content: "We started by replacing disconnected tools with one focused workflow.",
+      media: <img src="${ABOUT_EXAMPLE_IMAGE_URL}" alt="Team planning in a cafe workspace" />,
+      mediaLeft: false,
+    },
+    {
+      content: "Today our team helps operators launch better customer experiences faster.",
+      media: <img src="${ABOUT_EXAMPLE_IMAGE_URL}" alt="Collaborative team workspace" />,
+      mediaLeft: true,
+    },
+  ]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use for two or more narrative sections with alternating visual rhythm. The sections[].content and sections[].media props are ReactNode slots; authoring tools should render concrete text and image elements, not placeholder fragments. Keep each section focused on one milestone, value, or proof point.",
+    usageRequirements: {
+      requiredProps: ["sections"],
+      propConstraints: {
+        sections: { required: true, minItems: 2, maxItems: 5 },
+        "sections[].content": {
+          required: true,
+          note: "ReactNode content slot. Use concise, source-backed story copy.",
+        },
+        "sections[].media": {
+          required: true,
+          note: "ReactNode media slot. Provide an image element with an absolute src.",
+        },
+      },
+      mediaSlots: {
+        "sections[].media": imageSlot(
+          "sections[].media",
+          "Alternating section visual.",
+          ["feature", "hero"],
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      title: "How We Got Here",
+      subtitle: "A practical timeline of the decisions that shaped our company.",
+      sections: [
+        {
+          content:
+            "We started by replacing disconnected tools with one focused workflow.",
+          media: ABOUT_EXAMPLE_IMAGE_URL,
+          mediaLeft: false,
+        },
+        {
+          content:
+            "Today our team helps operators launch better customer experiences faster.",
+          media: ABOUT_EXAMPLE_IMAGE_URL,
+          mediaLeft: true,
+        },
+      ],
+    },
+  },
+  "about-mission-features": {
+    exampleUsage: `
+<AboutMissionFeatures
+  title="About OpenSite"
+  description="We help service teams turn daily operations into polished digital experiences."
+  missionLabel="Our Mission"
+  missionText="Make professional site building faster, clearer, and easier to maintain."
+  mainImage={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Team working together in a cafe" }}
+  missionBackgroundImage={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Workspace background for mission statement" }}
+  features={[
+    { icon: "lucide/files", title: "Reusable systems", description: "Blocks stay consistent across every page." },
+    { icon: "lucide/settings", title: "Operational clarity", description: "Teams can update content without redesigning layouts." },
+    { icon: "lucide/shield", title: "Reliable delivery", description: "Contracts protect AI-generated pages from unsafe content." },
+  ]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use when a page needs a mission statement plus feature proof points. Supply both image objects when visual impact matters, and keep feature cards limited to short, concrete benefits. Do not use logos, favicons, or video URLs in image props.",
+    usageRequirements: {
+      requiredProps: ["title", "missionText", "features"],
+      propConstraints: {
+        title: { required: true, maxLength: 70 },
+        description: { maxLength: 180 },
+        missionLabel: { maxLength: 35 },
+        missionText: { required: true, maxLength: 180 },
+        features: { required: true, minItems: 3, maxItems: 3 },
+        mainImage: { required: true },
+        missionBackgroundImage: { required: true },
+      },
+      mediaSlots: {
+        mainImage: imageSlot(
+          "mainImage",
+          "Primary about image beside the mission card.",
+          ["feature", "hero"],
+        ),
+        missionBackgroundImage: imageSlot(
+          "missionBackgroundImage",
+          "Background photo behind the mission statement.",
+          ["background", "feature"],
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      title: "About OpenSite",
+      description:
+        "We help service teams turn daily operations into polished digital experiences.",
+      missionLabel: "Our Mission",
+      missionText:
+        "Make professional site building faster, clearer, and easier to maintain.",
+      mainImage: aboutImage("Team working together in a cafe"),
+      missionBackgroundImage: aboutImage(
+        "Workspace background for mission statement",
+      ),
+      features: [
+        {
+          icon: "lucide/files",
+          title: "Reusable systems",
+          description: "Blocks stay consistent across every page.",
+        },
+        {
+          icon: "lucide/settings",
+          title: "Operational clarity",
+          description:
+            "Teams can update content without redesigning layouts.",
+        },
+        {
+          icon: "lucide/shield",
+          title: "Reliable delivery",
+          description:
+            "Contracts protect AI-generated pages from unsafe content.",
+        },
+      ],
+    },
+  },
+  "about-stats-showcase": {
+    exampleUsage: `
+<AboutStatsShowcase
+  title="Our Background"
+  description="We help teams launch reliable digital experiences at scale."
+  images={[
+    { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Team workspace" },
+    { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Planning session" },
+  ]}
+  stats={[
+    { value: "21M", label: "Audience reach" },
+    { value: "12+", label: "Years of expertise" },
+  ]}
+  benefits={[
+    {
+      image: { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Customer operations team" },
+      stat: { value: "98%", label: "Retention", description: "Measured across supported accounts" },
+    },
+  ]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Only use when metrics, social proof, and any testimonial-style content are sourced. Do not fabricate stats, company logos, testimonial quotes, authors, or roles. Image props must use absolute image URLs and must not receive video assets.",
+    usageRequirements: {
+      requiredProps: ["title", "stats"],
+      propConstraints: {
+        title: { required: true, maxLength: 70 },
+        description: { maxLength: 180 },
+        images: { minItems: 2, maxItems: 4 },
+        stats: {
+          required: true,
+          minItems: 2,
+          maxItems: 4,
+          note: "Metrics must be sourced from the site or client data.",
+        },
+        logos: {
+          maxItems: 8,
+          note: "Only include real customer or partner logos.",
+        },
+        benefits: { maxItems: 3 },
+        "benefits[].testimonial": {
+          note: "Must be a real testimonial. Do not fabricate.",
+        },
+      },
+      mediaSlots: {
+        "images[]": imageSlot(
+          "images[]",
+          "Hero showcase images.",
+          ["feature", "gallery"],
+        ),
+        "logos[]": logoSlot("logos[]", "Trusted company logo."),
+        "benefits[].image": imageSlot(
+          "benefits[].image",
+          "Benefit card image.",
+          ["feature", "thumbnail"],
+          "medium",
+          false,
+        ),
+        "benefits[].testimonial.logo": logoSlot(
+          "benefits[].testimonial.logo",
+          "Logo shown inside testimonial card.",
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities(
+        "metrics_or_stats",
+        "reviews_or_testimonials",
+        "media_library",
+      ),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      title: "Our Background",
+      description: "We help teams launch reliable digital experiences at scale.",
+      images: [
+        aboutImage("Team workspace"),
+        aboutImage("Planning session"),
+      ],
+      stats: [
+        { value: "21M", label: "Audience reach" },
+        { value: "12+", label: "Years of expertise" },
+      ],
+      benefits: [
+        {
+          image: aboutImage("Customer operations team"),
+          stat: {
+            value: "98%",
+            label: "Retention",
+            description: "Measured across supported accounts",
+          },
+        },
+      ],
+    },
+  },
+  "about-company-profile": {
+    exampleUsage: `
+<AboutCompanyProfile
+  title="A Team Built for Operational Clarity"
+  description="We combine product craft and service operations experience to help brands move faster."
+  mainImage={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Team strategy session" }}
+  secondaryImage={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Workspace detail" }}
+  breakout={{
+    title: "Built for growing operators",
+    description: "Reusable systems keep every location and campaign aligned.",
+    action: { label: "Discover more", href: "/about", variant: "default" },
+  }}
+  achievements={[
+    { label: "Customer sites launched", value: "300+" },
+    { label: "Average satisfaction", value: "99%" },
+  ]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use for credibility-oriented company profiles with sourced metrics and optional brand logos. Breakout actions must use the ActionConfig shape with label and href, not buttonText or buttonUrl. Image props must be image assets only.",
+    usageRequirements: {
+      requiredProps: ["title", "description", "mainImage"],
+      propConstraints: {
+        title: { required: true, maxLength: 80 },
+        description: { required: true, maxLength: 220 },
+        mainImage: { required: true },
+        achievements: {
+          minItems: 2,
+          maxItems: 4,
+          note: "Achievement metrics must be sourced.",
+        },
+        companies: {
+          maxItems: 8,
+          note: "Only include real customer or partner logos.",
+        },
+      },
+      mediaSlots: {
+        mainImage: imageSlot(
+          "mainImage",
+          "Primary company profile image.",
+          ["feature", "hero"],
+        ),
+        secondaryImage: imageSlot(
+          "secondaryImage",
+          "Secondary supporting image.",
+          ["feature", "thumbnail"],
+          "medium",
+          false,
+        ),
+        "breakout.logo": logoSlot("breakout.logo", "Breakout card logo."),
+        "companies[]": logoSlot("companies[]", "Customer or partner logo."),
+      },
+      requiresSiteCapabilities: aboutCapabilities(
+        "metrics_or_stats",
+        "media_library",
+      ),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      title: "A Team Built for Operational Clarity",
+      description:
+        "We combine product craft and service operations experience to help brands move faster.",
+      mainImage: aboutImage("Team strategy session"),
+      secondaryImage: aboutImage("Workspace detail"),
+      breakout: {
+        title: "Built for growing operators",
+        description:
+          "Reusable systems keep every location and campaign aligned.",
+        action: { label: "Discover more", href: "/about", variant: "default" },
+      },
+      achievements: [
+        { label: "Customer sites launched", value: "300+" },
+        { label: "Average satisfaction", value: "99%" },
+      ],
+    },
+  },
+  "about-vision-gallery": {
+    exampleUsage: `
+<AboutVisionGallery
+  title="The Vision Behind Our Work"
+  subtitle="We believe great digital systems should feel simple to run."
+  images={[
+    { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Collaborative product session" },
+    { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Team reviewing site designs" },
+    { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Customer experience planning" },
+  ]}
+  primarySectionTitle="Our Vision"
+  primarySectionContent="Give every operator the ability to publish excellent customer experiences without technical bottlenecks."
+  secondarySectionTitle="How We Build"
+  secondarySectionContent="We turn reusable components, semantic contracts, and real content into maintainable sites."
+  ctaTitle="Part of Our Global Team"
+  ctaAction={{ label: "Get to know the team", href: "/team", variant: "default" }}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use when a brand has a clear vision story and enough supporting imagery for a gallery. Keep gallery images cohesive and source-backed. Do not use logo, favicon, or video assets in the gallery image props.",
+    usageRequirements: {
+      requiredProps: ["title", "images"],
+      propConstraints: {
+        title: { required: true, maxLength: 80 },
+        subtitle: { maxLength: 160 },
+        images: { required: true, minItems: 3, maxItems: 5 },
+        primarySectionContent: { maxLength: 260 },
+        secondarySectionContent: { maxLength: 260 },
+      },
+      mediaSlots: {
+        "images[]": imageSlot(
+          "images[]",
+          "Vision gallery image.",
+          ["gallery", "feature"],
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      title: "The Vision Behind Our Work",
+      subtitle: "We believe great digital systems should feel simple to run.",
+      images: [
+        aboutImage("Collaborative product session"),
+        aboutImage("Team reviewing site designs"),
+        aboutImage("Customer experience planning"),
+      ],
+      primarySectionTitle: "Our Vision",
+      primarySectionContent:
+        "Give every operator the ability to publish excellent customer experiences without technical bottlenecks.",
+      secondarySectionTitle: "How We Build",
+      secondarySectionContent:
+        "We turn reusable components, semantic contracts, and real content into maintainable sites.",
+      ctaTitle: "Part of Our Global Team",
+      ctaAction: {
+        label: "Get to know the team",
+        href: "/team",
+        variant: "default",
+      },
+    },
+  },
+  "about-developer-story": {
+    exampleUsage: `
+<AboutDeveloperStory
+  title="Developer-Focused Solutions for Modern Teams"
+  description="We build tools that developers and operators can both trust."
+  actions={[
+    { label: "Get Started", href: "/contact", variant: "default" },
+    { label: "View Docs", href: "/docs", variant: "outline" },
+  ]}
+  stats={[
+    { value: "200+", label: "Projects completed" },
+    { value: "50+", label: "Integrated workflows" },
+  ]}
+  storyTitle="Built from the work itself"
+  storyContent="Our platform grew from years of solving the same operational problems for real teams."
+  storyImage={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Developer workspace" }}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use for technical about pages with real metrics and a credible product story. Actions must use ActionConfig objects. Any stats or logos must come from sourced site data, and storyImage must be an image asset only.",
+    usageRequirements: {
+      requiredProps: ["title", "description", "storyImage"],
+      propConstraints: {
+        title: { required: true, maxLength: 80 },
+        description: { required: true, maxLength: 190 },
+        actions: { maxItems: 2 },
+        stats: {
+          minItems: 2,
+          maxItems: 4,
+          note: "Stats must be sourced.",
+        },
+        logos: {
+          maxItems: 8,
+          note: "Only include real customer or partner logos.",
+        },
+        storyImage: { required: true },
+      },
+      mediaSlots: {
+        storyImage: imageSlot(
+          "storyImage",
+          "Story section image.",
+          ["feature", "hero"],
+        ),
+        "logos[]": logoSlot("logos[]", "Customer or partner logo."),
+      },
+      requiresSiteCapabilities: aboutCapabilities(
+        "metrics_or_stats",
+        "media_library",
+      ),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      title: "Developer-Focused Solutions for Modern Teams",
+      description:
+        "We build tools that developers and operators can both trust.",
+      actions: [
+        { label: "Get Started", href: "/contact", variant: "default" },
+        { label: "View Docs", href: "/docs", variant: "outline" },
+      ],
+      stats: [
+        { value: "200+", label: "Projects completed" },
+        { value: "50+", label: "Integrated workflows" },
+      ],
+      storyTitle: "Built from the work itself",
+      storyContent:
+        "Our platform grew from years of solving the same operational problems for real teams.",
+      storyImage: aboutImage("Developer workspace"),
+    },
+  },
+  "about-story-gallery": {
+    exampleUsage: `
+<AboutStoryGallery
+  title="Our Story"
+  description="We started with a simple idea: make high-quality site operations easier for every team."
+  images={[
+    { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Early team workspace" },
+    { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Team collaborating on product direction" },
+    { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Operations planning board" },
+  ]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use for concise origin stories with a small image gallery. Provide real, relevant gallery images with descriptive alt text. Do not use logos, favicons, or video URLs in images[].",
+    usageRequirements: {
+      requiredProps: ["title", "description", "images"],
+      propConstraints: {
+        title: { required: true, maxLength: 70 },
+        description: { required: true, maxLength: 220 },
+        images: { required: true, minItems: 3, maxItems: 5 },
+      },
+      mediaSlots: {
+        "images[]": imageSlot(
+          "images[]",
+          "Story gallery image.",
+          ["gallery", "feature"],
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      title: "Our Story",
+      description:
+        "We started with a simple idea: make high-quality site operations easier for every team.",
+      images: [
+        aboutImage("Early team workspace"),
+        aboutImage("Team collaborating on product direction"),
+        aboutImage("Operations planning board"),
+      ],
+    },
+  },
+  "about-streamline-team": {
+    exampleUsage: `
+<AboutStreamlineTeam
+  title="Streamline Your Workflow"
+  description="Our platform helps teams work smarter without losing creative control."
+  primaryImage={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Team workflow planning" }}
+  secondaryImage={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Detailed product planning session" }}
+  teamTitle="Join the team building simpler operations"
+  teamDescription="We look for pragmatic builders who care about durable systems."
+  actions={[{ label: "View Open Roles", href: "/careers", variant: "default" }]}
+  features={[
+    { icon: "lucide/zap", title: "Faster launches", description: "Ship polished pages in less time." },
+    { icon: "lucide/shield", title: "Reliable systems", description: "Keep content aligned as sites grow." },
+  ]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use for workflow-focused about or recruiting sections with two supporting images and a concise team CTA. The team CTA should not imply open roles unless the site has that content. Image props must be image assets only.",
+    usageRequirements: {
+      requiredProps: ["title", "description", "primaryImage"],
+      propConstraints: {
+        title: { required: true, maxLength: 70 },
+        description: { required: true, maxLength: 180 },
+        primaryImage: { required: true },
+        features: { minItems: 2, maxItems: 4 },
+        actions: { maxItems: 2 },
+      },
+      mediaSlots: {
+        primaryImage: imageSlot(
+          "primaryImage",
+          "Primary overlapping team/workflow image.",
+          ["feature", "hero"],
+        ),
+        secondaryImage: imageSlot(
+          "secondaryImage",
+          "Secondary overlapping team/workflow image.",
+          ["feature", "thumbnail"],
+          "medium",
+          false,
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      title: "Streamline Your Workflow",
+      description:
+        "Our platform helps teams work smarter without losing creative control.",
+      primaryImage: aboutImage("Team workflow planning"),
+      secondaryImage: aboutImage("Detailed product planning session"),
+      teamTitle: "Join the team building simpler operations",
+      teamDescription:
+        "We look for pragmatic builders who care about durable systems.",
+      actions: [
+        { label: "View Open Roles", href: "/careers", variant: "default" },
+      ],
+      features: [
+        {
+          icon: "lucide/zap",
+          title: "Faster launches",
+          description: "Ship polished pages in less time.",
+        },
+        {
+          icon: "lucide/shield",
+          title: "Reliable systems",
+          description: "Keep content aligned as sites grow.",
+        },
+      ],
+    },
+  },
+  "about-developer-profile": {
+    exampleUsage: `
+<AboutDeveloperProfile
+  name="Alex Johnson"
+  role="Full-Stack Developer"
+  bio="Alex builds maintainable product systems for growing service teams."
+  avatar={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Alex Johnson profile portrait" }}
+  skills={["React", "TypeScript", "Rails", "PostgreSQL"]}
+  skillsTitle="Core Skills"
+  socialLinks={[{ href: "https://github.com/opensite-ai", label: "GitHub" }]}
+  actions={[{ label: "Contact Alex", href: "/contact", variant: "default" }]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use only when the site has a real person, founder, or team member profile. Do not invent a person's name, role, bio, skills, or social links. Avatar must be a profile image, not a logo, favicon, or video URL.",
+    usageRequirements: {
+      requiredProps: ["name", "role", "bio", "avatar"],
+      propConstraints: {
+        name: { required: true, maxLength: 60 },
+        role: { required: true, maxLength: 80 },
+        bio: { required: true, maxLength: 260 },
+        avatar: { required: true },
+        skills: { minItems: 3, maxItems: 8 },
+        socialLinks: { maxItems: 4 },
+        actions: { maxItems: 2 },
+      },
+      mediaSlots: {
+        avatar: imageSlot(
+          "avatar",
+          "Profile portrait for the person.",
+          ["profile", "avatar"],
+          "medium",
+          true,
+          "1:1",
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("team_members", "media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      name: "Alex Johnson",
+      role: "Full-Stack Developer",
+      bio: "Alex builds maintainable product systems for growing service teams.",
+      avatar: aboutImage("Alex Johnson profile portrait"),
+      skills: ["React", "TypeScript", "Rails", "PostgreSQL"],
+      skillsTitle: "Core Skills",
+      socialLinks: [
+        { href: "https://github.com/opensite-ai", label: "GitHub" },
+      ],
+      actions: [
+        { label: "Contact Alex", href: "/contact", variant: "default" },
+      ],
+    },
+  },
+  "about-startup-team": {
+    exampleUsage: `
+<AboutStartupTeam
+  title="Building the Future of Site Operations"
+  description="We are a team of product builders, operators, and customer experience specialists."
+  sidebarLinks={[
+    { label: "Leadership", value: "leadership" },
+    { label: "Product", value: "product" },
+  ]}
+  teamTitle="Meet the Team"
+  teamMembers={[
+    {
+      name: "Sarah Chen",
+      role: "CEO and Co-Founder",
+      avatar: { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Sarah Chen portrait" },
+      tab: "leadership",
+    },
+    {
+      name: "Marcus Johnson",
+      role: "Product Lead",
+      avatar: { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Marcus Johnson portrait" },
+      tab: "product",
+    },
+  ]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use only when real team member data is available. Do not fabricate names, roles, avatars, or social links. Sidebar link values must match teamMembers[].tab values. Avatars must be profile images only.",
+    usageRequirements: {
+      requiredProps: ["title", "teamMembers"],
+      propConstraints: {
+        title: { required: true, maxLength: 80 },
+        description: { maxLength: 220 },
+        sidebarLinks: { minItems: 1, maxItems: 6 },
+        teamMembers: {
+          required: true,
+          minItems: 2,
+          maxItems: 12,
+          note: "Must come from real team member data.",
+        },
+        "teamMembers[].tab": {
+          note: "When present, must match a sidebarLinks[].value.",
+        },
+      },
+      mediaSlots: {
+        "teamMembers[].avatar": imageSlot(
+          "teamMembers[].avatar",
+          "Team member portrait.",
+          ["profile", "avatar"],
+          "medium",
+          true,
+          "1:1",
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("team_members", "media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      title: "Building the Future of Site Operations",
+      description:
+        "We are a team of product builders, operators, and customer experience specialists.",
+      sidebarLinks: [
+        { label: "Leadership", value: "leadership" },
+        { label: "Product", value: "product" },
+      ],
+      teamTitle: "Meet the Team",
+      teamMembers: [
+        {
+          name: "Sarah Chen",
+          role: "CEO and Co-Founder",
+          avatar: aboutImage("Sarah Chen portrait"),
+          tab: "leadership",
+        },
+        {
+          name: "Marcus Johnson",
+          role: "Product Lead",
+          avatar: aboutImage("Marcus Johnson portrait"),
+          tab: "product",
+        },
+      ],
+    },
+  },
+  "about-minimal-story": {
+    exampleUsage: `
+<AboutMinimalStory
+  title="Our Story"
+  content="Every durable product starts with a clear operational problem and a team willing to solve it carefully."
+  author={{
+    name: "Jordan Mitchell",
+    role: "Founder and CEO",
+    avatar: { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Jordan Mitchell portrait" },
+  }}
+  featuredImage={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Founder working with the team" }}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use for sourced founder, author, or origin stories. Do not invent author identity or biographical details. Author avatars and featured images must use absolute image URLs and must not be logos, favicons, or video assets.",
+    usageRequirements: {
+      requiredProps: ["title", "content", "author"],
+      propConstraints: {
+        title: { required: true, maxLength: 80 },
+        content: { required: true, maxLength: 360 },
+        author: {
+          required: true,
+          note: "Author identity must be source-backed.",
+        },
+      },
+      mediaSlots: {
+        "author.avatar": imageSlot(
+          "author.avatar",
+          "Author or founder profile image.",
+          ["profile", "avatar"],
+          "small",
+          false,
+          "1:1",
+        ),
+        featuredImage: imageSlot(
+          "featuredImage",
+          "Optional featured story image.",
+          ["feature", "hero"],
+          "large",
+          false,
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("team_members", "media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      title: "Our Story",
+      content:
+        "Every durable product starts with a clear operational problem and a team willing to solve it carefully.",
+      author: {
+        name: "Jordan Mitchell",
+        role: "Founder and CEO",
+        avatar: aboutImage("Jordan Mitchell portrait"),
+      },
+      featuredImage: aboutImage("Founder working with the team"),
+    },
+  },
+  "about-story-hero": {
+    exampleUsage: `
+<AboutStoryHero
+  title="Our Story"
+  subtitle="Building the future, one practical system at a time"
+  content="We started with a bold idea: customer-facing sites should be easier to operate after launch."
+  heroImage={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Team collaborating in a workspace" }}
+  teamInfo={{
+    title: "50+ Team Members",
+    description: "Working across product, support, and customer operations",
+  }}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use for about-page hero storytelling with a real image and source-backed team information. Do not fabricate team size or geographic claims. heroImage must be an image asset only.",
+    usageRequirements: {
+      requiredProps: ["title", "content", "heroImage"],
+      propConstraints: {
+        title: { required: true, maxLength: 80 },
+        subtitle: { maxLength: 120 },
+        content: { required: true, maxLength: 320 },
+        heroImage: { required: true },
+        teamInfo: {
+          note: "Team facts must be source-backed if provided.",
+        },
+      },
+      mediaSlots: {
+        heroImage: imageSlot(
+          "heroImage",
+          "Large story hero image.",
+          ["hero", "feature"],
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("team_members", "media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      title: "Our Story",
+      subtitle: "Building the future, one practical system at a time",
+      content:
+        "We started with a bold idea: customer-facing sites should be easier to operate after launch.",
+      heroImage: aboutImage("Team collaborating in a workspace"),
+      teamInfo: {
+        title: "50+ Team Members",
+        description: "Working across product, support, and customer operations",
+      },
+    },
+  },
+  "about-stats-sidebar": {
+    exampleUsage: `
+<AboutStatsSidebar
+  title="Why Choose Us"
+  description="We have built a platform that scales with your operational needs."
+  stats={[
+    { icon: "lucide/users", value: "10M+", label: "Visitors supported" },
+    { icon: "lucide/globe", value: "150+", label: "Markets served" },
+  ]}
+  features={[
+    { icon: "lucide/zap", title: "Fast launch cycles", description: "Teams publish updates without waiting on engineering." },
+    { icon: "lucide/lock", title: "Managed consistency", description: "Shared blocks keep every page aligned." },
+  ]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use only when stats are real and source-backed. Do not invent large numbers, geographic reach, or performance claims. Feature cards should explain the metrics rather than introduce unrelated benefits.",
+    usageRequirements: {
+      requiredProps: ["title", "stats"],
+      propConstraints: {
+        title: { required: true, maxLength: 70 },
+        description: { maxLength: 180 },
+        stats: {
+          required: true,
+          minItems: 2,
+          maxItems: 6,
+          note: "Stats must be sourced.",
+        },
+        features: { minItems: 2, maxItems: 4 },
+      },
+      mediaSlots: {},
+      requiresSiteCapabilities: aboutCapabilities("metrics_or_stats"),
+      notes: ["Do not fabricate metrics or quantified claims."],
+    },
+    exampleProps: {
+      title: "Why Choose Us",
+      description:
+        "We have built a platform that scales with your operational needs.",
+      stats: [
+        { icon: "lucide/users", value: "10M+", label: "Visitors supported" },
+        { icon: "lucide/globe", value: "150+", label: "Markets served" },
+      ],
+      features: [
+        {
+          icon: "lucide/zap",
+          title: "Fast launch cycles",
+          description:
+            "Teams publish updates without waiting on engineering.",
+        },
+        {
+          icon: "lucide/lock",
+          title: "Managed consistency",
+          description: "Shared blocks keep every page aligned.",
+        },
+      ],
+    },
+  },
+  "about-interactive-tabs": {
+    exampleUsage: `
+<AboutInteractiveTabs
+  title="Discover Our Story"
+  subtitle="Learn more about how we work and what we value."
+  tabs={[
+    {
+      id: "work",
+      label: "Our Work",
+      content: {
+        title: "Crafting Digital Experiences",
+        description: "We create maintainable, high-performing customer experiences.",
+        image: { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Team reviewing digital experience work" },
+      },
+    },
+    {
+      id: "process",
+      label: "Our Process",
+      content: {
+        title: "Built Around Real Operations",
+        description: "Every workflow starts from the way teams already work.",
+        image: { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Team process planning session" },
+      },
+    },
+  ]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use for two to five distinct company aspects such as work, process, values, or culture. Each tab id must be unique and stable. Tab images must be image assets only and should match the tab content.",
+    usageRequirements: {
+      requiredProps: ["title", "tabs"],
+      propConstraints: {
+        title: { required: true, maxLength: 70 },
+        subtitle: { maxLength: 150 },
+        tabs: { required: true, minItems: 2, maxItems: 5 },
+        "tabs[].id": {
+          required: true,
+          note: "Must be unique within the tabs array.",
+        },
+        "tabs[].content.title": { required: true, maxLength: 80 },
+        "tabs[].content.description": { required: true, maxLength: 220 },
+      },
+      mediaSlots: {
+        "tabs[].content.image": imageSlot(
+          "tabs[].content.image",
+          "Tab content image.",
+          ["feature", "gallery"],
+          "medium",
+          false,
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      title: "Discover Our Story",
+      subtitle: "Learn more about how we work and what we value.",
+      tabs: [
+        {
+          id: "work",
+          label: "Our Work",
+          content: {
+            title: "Crafting Digital Experiences",
+            description:
+              "We create maintainable, high-performing customer experiences.",
+            image: aboutImage("Team reviewing digital experience work"),
+          },
+        },
+        {
+          id: "process",
+          label: "Our Process",
+          content: {
+            title: "Built Around Real Operations",
+            description:
+              "Every workflow starts from the way teams already work.",
+            image: aboutImage("Team process planning session"),
+          },
+        },
+      ],
+    },
+  },
+  "about-mission-dual-image": {
+    exampleUsage: `
+<AboutMissionDualImage
+  missionTitle="Our Mission"
+  missionContent="To make professional digital operations easier for every growing team."
+  visionTitle="Our Vision"
+  visionContent="A world where every business can keep its customer experience current."
+  primaryImage={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Team mission planning" }}
+  secondaryImage={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Product workshop" }}
+  actions={[{ label: "Join Our Journey", href: "/careers", variant: "default" }]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use when both mission and vision copy are available. Avoid vague mission statements; keep each content block specific. primaryImage and secondaryImage must be image assets only.",
+    usageRequirements: {
+      requiredProps: ["missionTitle", "missionContent", "visionTitle", "visionContent"],
+      propConstraints: {
+        missionTitle: { required: true, maxLength: 70 },
+        missionContent: { required: true, maxLength: 240 },
+        visionTitle: { required: true, maxLength: 70 },
+        visionContent: { required: true, maxLength: 240 },
+        actions: { maxItems: 2 },
+      },
+      mediaSlots: {
+        primaryImage: imageSlot(
+          "primaryImage",
+          "Primary mission/vision image.",
+          ["feature", "hero"],
+          "large",
+          false,
+        ),
+        secondaryImage: imageSlot(
+          "secondaryImage",
+          "Secondary mission/vision image.",
+          ["feature", "thumbnail"],
+          "medium",
+          false,
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      missionTitle: "Our Mission",
+      missionContent:
+        "To make professional digital operations easier for every growing team.",
+      visionTitle: "Our Vision",
+      visionContent:
+        "A world where every business can keep its customer experience current.",
+      primaryImage: aboutImage("Team mission planning"),
+      secondaryImage: aboutImage("Product workshop"),
+      actions: [
+        { label: "Join Our Journey", href: "/careers", variant: "default" },
+      ],
+    },
+  },
+  "about-story-expertise": {
+    exampleUsage: `
+<AboutStoryExpertise
+  eyebrow="About Our Practice"
+  heading="We turn operating complexity into clear digital systems."
+  storyParagraphs={[
+    "Our team works where brand, operations, and customer experience meet.",
+    "Every engagement starts with the source material that makes a business distinct.",
+  ]}
+  actions={[
+    { label: "Start a Project", href: "/contact", variant: "default" },
+    { label: "See Our Work", href: "/work", variant: "outline" },
+  ]}
+  image={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Team reviewing customer experience systems" }}
+  highlight={{ label: "Trusted process", title: "Built around source-backed content", description: "Contracts keep generated pages accurate." }}
+  expertiseAreas={[
+    { title: "Content systems", description: "Reusable structures for every page." },
+    { title: "AI workflows", description: "Guided generation with clear guardrails." },
+  ]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use for trust-building story sections that combine narrative, a single supporting image, and capability tiles. Do not fabricate capabilities the business does not offer. The image prop must be an image asset only.",
+    usageRequirements: {
+      requiredProps: ["heading", "storyParagraphs", "image"],
+      propConstraints: {
+        eyebrow: { maxLength: 40 },
+        heading: { required: true, maxLength: 90 },
+        storyParagraphs: { required: true, minItems: 2, maxItems: 3 },
+        actions: { maxItems: 2 },
+        image: { required: true },
+        expertiseAreas: { minItems: 2, maxItems: 4 },
+      },
+      mediaSlots: {
+        image: imageSlot(
+          "image",
+          "Story and expertise image card.",
+          ["feature", "hero"],
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      eyebrow: "About Our Practice",
+      heading: "We turn operating complexity into clear digital systems.",
+      storyParagraphs: [
+        "Our team works where brand, operations, and customer experience meet.",
+        "Every engagement starts with the source material that makes a business distinct.",
+      ],
+      actions: [
+        { label: "Start a Project", href: "/contact", variant: "default" },
+        { label: "See Our Work", href: "/work", variant: "outline" },
+      ],
+      image: aboutImage("Team reviewing customer experience systems"),
+      highlight: {
+        label: "Trusted process",
+        title: "Built around source-backed content",
+        description: "Contracts keep generated pages accurate.",
+      },
+      expertiseAreas: [
+        {
+          title: "Content systems",
+          description: "Reusable structures for every page.",
+        },
+        {
+          title: "AI workflows",
+          description: "Guided generation with clear guardrails.",
+        },
+      ],
+    },
+  },
+  "about-network-spotlight": {
+    exampleUsage: `
+<AboutNetworkSpotlight
+  eyebrow="Partner Network"
+  heading="A practical network for teams building better customer experiences."
+  description="We work with operators, designers, and implementation partners who care about durable systems."
+  highlights={[
+    "Shared delivery standards across every project",
+    "Practical support for ongoing site operations",
+    "Source-backed content and measurable outcomes",
+  ]}
+  actions={[
+    { label: "Become a Partner", href: "/partners", variant: "default" },
+    { label: "Explore the Network", href: "/network", variant: "outline" },
+  ]}
+  image={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Partner team workshop" }}
+  spotlightCard={{ icon: "lucide/network", label: "Partner reach", title: "Built for collaboration", description: "A shared system keeps every project aligned." }}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use for partner, alliance, or community program spotlights with clear source-backed claims. Avoid implying a partner network exists unless the business has one. The image prop must be an image asset only.",
+    usageRequirements: {
+      requiredProps: ["heading", "description", "image"],
+      propConstraints: {
+        eyebrow: { maxLength: 40 },
+        heading: { required: true, maxLength: 90 },
+        description: { required: true, maxLength: 220 },
+        highlights: { minItems: 2, maxItems: 4 },
+        actions: { maxItems: 2 },
+        image: { required: true },
+      },
+      mediaSlots: {
+        image: imageSlot(
+          "image",
+          "Network spotlight image.",
+          ["feature", "hero"],
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      eyebrow: "Partner Network",
+      heading:
+        "A practical network for teams building better customer experiences.",
+      description:
+        "We work with operators, designers, and implementation partners who care about durable systems.",
+      highlights: [
+        "Shared delivery standards across every project",
+        "Practical support for ongoing site operations",
+        "Source-backed content and measurable outcomes",
+      ],
+      actions: [
+        { label: "Become a Partner", href: "/partners", variant: "default" },
+        { label: "Explore the Network", href: "/network", variant: "outline" },
+      ],
+      image: aboutImage("Partner team workshop"),
+      spotlightCard: {
+        icon: "lucide/network",
+        label: "Partner reach",
+        title: "Built for collaboration",
+        description: "A shared system keeps every project aligned.",
+      },
+    },
+  },
+  "about-location-info-hero": {
+    exampleUsage: `
+<AboutLocationInfoHero
+  headline="Visit Our Flagship Workspace"
+  address="123 Market Street, Phoenix, AZ"
+  addressHref="https://maps.google.com/?q=123+Market+Street+Phoenix+AZ"
+  phone="(555) 014-8821"
+  phoneHref="tel:+15550148821"
+  actions={[{ label: "Get Directions", href: "/locations", variant: "default" }]}
+  hoursSections={[
+    { label: "Weekdays", hours: [{ day: "Mon-Fri", time: "9:00 AM - 6:00 PM" }] },
+    { label: "Weekend", hours: [{ day: "Sat", time: "10:00 AM - 2:00 PM" }] },
+  ]}
+  images={[
+    { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Flagship workspace interior" },
+    { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Team meeting area" },
+  ]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use only when contact details, hours, and location facts are source-backed. Do not fabricate addresses, phone numbers, or business hours. images[] must contain image assets only, never logos, favicons, or videos.",
+    usageRequirements: {
+      requiredProps: ["headline", "address", "phone", "hoursSections", "images"],
+      propConstraints: {
+        headline: { required: true, maxLength: 80 },
+        address: {
+          required: true,
+          note: "Must be source-backed contact information.",
+        },
+        phone: {
+          required: true,
+          note: "Must be source-backed contact information.",
+        },
+        hoursSections: { required: true, minItems: 1, maxItems: 4 },
+        images: { required: true, minItems: 1, maxItems: 2 },
+        actions: { maxItems: 2 },
+      },
+      mediaSlots: {
+        "images[]": imageSlot(
+          "images[]",
+          "Location showcase image.",
+          ["feature", "hero"],
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("contact_info", "media_library"),
+      notes: [ABOUT_MEDIA_NOTE, "Location and hours data must be sourced."],
+    },
+    exampleProps: {
+      headline: "Visit Our Flagship Workspace",
+      address: "123 Market Street, Phoenix, AZ",
+      addressHref: "https://maps.google.com/?q=123+Market+Street+Phoenix+AZ",
+      phone: "(555) 014-8821",
+      phoneHref: "tel:+15550148821",
+      actions: [
+        { label: "Get Directions", href: "/locations", variant: "default" },
+      ],
+      hoursSections: [
+        {
+          label: "Weekdays",
+          hours: [{ day: "Mon-Fri", time: "9:00 AM - 6:00 PM" }],
+        },
+        {
+          label: "Weekend",
+          hours: [{ day: "Sat", time: "10:00 AM - 2:00 PM" }],
+        },
+      ],
+      images: [
+        aboutImage("Flagship workspace interior"),
+        aboutImage("Team meeting area"),
+      ],
+    },
+  },
+  "about-split-hero": {
+    exampleUsage: `
+<AboutSplitHero
+  brandText="Business"
+  brandHighlight="PRO"
+  heading="Achieve More with Elite Access"
+  description="Give your team a polished about experience with clear positioning and a strong visual."
+  ctaAction={{ label: "Upgrade to premium", href: "/upgrade", variant: "default" }}
+  imageSrc="${ABOUT_EXAMPLE_IMAGE_URL}"
+  imageAlt="Premium team workspace"
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use for premium, launch, or upgrade-oriented about hero sections. Use ctaAction, not ctaText or ctaUrl. imageSrc must be an absolute image URL and must not be a logo, favicon, or video asset.",
+    usageRequirements: {
+      requiredProps: ["heading", "description", "imageSrc"],
+      propConstraints: {
+        brandText: { maxLength: 30 },
+        brandHighlight: { maxLength: 20 },
+        heading: { required: true, maxLength: 70 },
+        description: { required: true, maxLength: 180 },
+        ctaAction: {
+          note: "Use ActionConfig with label and href.",
+        },
+        imageSrc: { required: true },
+        imageAlt: { required: true, maxLength: 120 },
+      },
+      mediaSlots: {
+        imageSrc: imageSlot(
+          "imageSrc",
+          "Split hero image.",
+          ["hero", "feature"],
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities("media_library"),
+      notes: [ABOUT_MEDIA_NOTE],
+    },
+    exampleProps: {
+      brandText: "Business",
+      brandHighlight: "PRO",
+      heading: "Achieve More with Elite Access",
+      description:
+        "Give your team a polished about experience with clear positioning and a strong visual.",
+      ctaAction: {
+        label: "Upgrade to premium",
+        href: "/upgrade",
+        variant: "default",
+      },
+      imageSrc: ABOUT_EXAMPLE_IMAGE_URL,
+      imageAlt: "Premium team workspace",
+    },
+  },
+  "about-mission-principles": {
+    exampleUsage: `
+<AboutMissionPrinciples
+  badgeText="Our Mission"
+  missionHeading="To empower teams through practical technology"
+  missionDescription="We believe digital systems should make daily operations clearer, not more complicated."
+  missionAction={{ label: "Learn More", href: "/about", variant: "default" }}
+  principles={[
+    { number: "01", title: "Customer-Centric", description: "Start from the real work customers need to complete." },
+    { number: "02", title: "Durable Systems", description: "Build patterns that stay maintainable as teams grow." },
+  ]}
+  visionHeading="Our Vision"
+  visionDescription="A world where every team can keep its digital presence current."
+  visionAction={{ label: "Join Us", href: "/careers", variant: "outline" }}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use for mission, values, and vision content that the business can support with real messaging. Do not invent principles that contradict the brand. Keep principle cards concise and numbered.",
+    usageRequirements: {
+      requiredProps: ["missionHeading", "missionDescription", "principles"],
+      propConstraints: {
+        badgeText: { maxLength: 35 },
+        missionHeading: { required: true, maxLength: 80 },
+        missionDescription: { required: true, maxLength: 240 },
+        principles: { required: true, minItems: 2, maxItems: 4 },
+        visionHeading: { maxLength: 80 },
+        visionDescription: { maxLength: 220 },
+      },
+      mediaSlots: {},
+      requiresSiteCapabilities: aboutCapabilities(),
+      notes: ["Mission and principle copy should come from brand source material."],
+    },
+    exampleProps: {
+      badgeText: "Our Mission",
+      missionHeading: "To empower teams through practical technology",
+      missionDescription:
+        "We believe digital systems should make daily operations clearer, not more complicated.",
+      missionAction: { label: "Learn More", href: "/about", variant: "default" },
+      principles: [
+        {
+          number: "01",
+          title: "Customer-Centric",
+          description:
+            "Start from the real work customers need to complete.",
+        },
+        {
+          number: "02",
+          title: "Durable Systems",
+          description: "Build patterns that stay maintainable as teams grow.",
+        },
+      ],
+      visionHeading: "Our Vision",
+      visionDescription:
+        "A world where every team can keep its digital presence current.",
+      visionAction: { label: "Join Us", href: "/careers", variant: "outline" },
+    },
+  },
+  "about-expandable-values": {
+    exampleUsage: `
+<AboutExpandableValues
+  badgeText="Our Core Values"
+  heading="The Principles That Guide Us"
+  description="These values shape how we build, support, and improve every customer experience."
+  values={[
+    {
+      id: "integrity",
+      icon: "lucide/shield",
+      title: "Integrity",
+      shortDescription: "Do the right work the right way.",
+      longDescription: "We make decisions that stay clear when the site grows and the team changes.",
+      examples: ["Transparent tradeoffs", "Source-backed claims"],
+    },
+    {
+      id: "momentum",
+      icon: "lucide/zap",
+      title: "Momentum",
+      shortDescription: "Move quickly without losing quality.",
+      longDescription: "We prefer reusable systems that make every future update easier.",
+      examples: ["Reusable blocks", "Fast publishing workflows"],
+    },
+  ]}
+  ctaHeading="Build With These Values"
+  ctaDescription="Turn brand principles into a maintainable digital experience."
+  actions={[{ label: "Start a Project", href: "/contact", variant: "default" }]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use for source-backed company values with enough detail for expandable cards. Do not invent values or examples. Each value id must be unique and stable.",
+    usageRequirements: {
+      requiredProps: ["heading", "values"],
+      propConstraints: {
+        badgeText: { maxLength: 35 },
+        heading: { required: true, maxLength: 80 },
+        description: { maxLength: 200 },
+        values: { required: true, minItems: 2, maxItems: 6 },
+        "values[].id": {
+          required: true,
+          note: "Must be unique within the values array.",
+        },
+        "values[].shortDescription": { maxLength: 90 },
+        "values[].longDescription": { maxLength: 260 },
+        "values[].examples": { maxItems: 4 },
+        actions: { maxItems: 2 },
+      },
+      mediaSlots: {},
+      requiresSiteCapabilities: aboutCapabilities(),
+      notes: ["Values and examples should come from brand source material."],
+    },
+    exampleProps: {
+      badgeText: "Our Core Values",
+      heading: "The Principles That Guide Us",
+      description:
+        "These values shape how we build, support, and improve every customer experience.",
+      values: [
+        {
+          id: "integrity",
+          icon: "lucide/shield",
+          title: "Integrity",
+          shortDescription: "Do the right work the right way.",
+          longDescription:
+            "We make decisions that stay clear when the site grows and the team changes.",
+          examples: ["Transparent tradeoffs", "Source-backed claims"],
+        },
+        {
+          id: "momentum",
+          icon: "lucide/zap",
+          title: "Momentum",
+          shortDescription: "Move quickly without losing quality.",
+          longDescription:
+            "We prefer reusable systems that make every future update easier.",
+          examples: ["Reusable blocks", "Fast publishing workflows"],
+        },
+      ],
+      ctaHeading: "Build With These Values",
+      ctaDescription:
+        "Turn brand principles into a maintainable digital experience.",
+      actions: [
+        { label: "Start a Project", href: "/contact", variant: "default" },
+      ],
+    },
+  },
+  "community-initiatives": {
+    exampleUsage: `
+<CommunityInitiatives
+  badgeText="Community Impact"
+  heading="Supporting the Communities We Serve"
+  description="Our programs connect practical service with measurable local outcomes."
+  categories={[
+    {
+      id: "food-drive",
+      title: "Food Drive",
+      description: "Supporting local families through coordinated food donations.",
+      initiatives: [
+        {
+          id: "monthly-pantry",
+          title: "Monthly Pantry Support",
+          description: "A recurring program with neighborhood partners.",
+          icon: "lucide/heart-handshake",
+          metrics: [{ value: "2,400", label: "Meals donated" }],
+          image: "${ABOUT_EXAMPLE_IMAGE_URL}",
+        },
+      ],
+    },
+  ]}
+  ctaHeading="Partner With Us"
+  ctaDescription="Help expand practical community programs in your area."
+  actions={[{ label: "Get Involved", href: "/community", variant: "default" }]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use only when community program details and impact metrics are sourced. Do not fabricate initiatives, donation totals, partner names, or impact claims. Initiative images must be image assets only.",
+    usageRequirements: {
+      requiredProps: ["heading", "categories"],
+      propConstraints: {
+        badgeText: { maxLength: 35 },
+        heading: { required: true, maxLength: 90 },
+        description: { maxLength: 220 },
+        categories: { required: true, minItems: 1, maxItems: 5 },
+        "categories[].initiatives": { required: true, minItems: 1, maxItems: 6 },
+        "categories[].initiatives[].metrics": {
+          note: "Metrics must be sourced.",
+        },
+        actions: { maxItems: 2 },
+      },
+      mediaSlots: {
+        "categories[].initiatives[].image": imageSlot(
+          "categories[].initiatives[].image",
+          "Community initiative image.",
+          ["feature", "thumbnail"],
+          "medium",
+          false,
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities(
+        "metrics_or_stats",
+        "media_library",
+      ),
+      notes: [ABOUT_MEDIA_NOTE, "Community impact claims must be sourced."],
+    },
+    exampleProps: {
+      badgeText: "Community Impact",
+      heading: "Supporting the Communities We Serve",
+      description:
+        "Our programs connect practical service with measurable local outcomes.",
+      categories: [
+        {
+          id: "food-drive",
+          title: "Food Drive",
+          description:
+            "Supporting local families through coordinated food donations.",
+          initiatives: [
+            {
+              id: "monthly-pantry",
+              title: "Monthly Pantry Support",
+              description: "A recurring program with neighborhood partners.",
+              icon: "lucide/heart-handshake",
+              metrics: [{ value: "2,400", label: "Meals donated" }],
+              image: ABOUT_EXAMPLE_IMAGE_URL,
+            },
+          ],
+        },
+      ],
+      ctaHeading: "Partner With Us",
+      ctaDescription:
+        "Help expand practical community programs in your area.",
+      actions: [
+        { label: "Get Involved", href: "/community", variant: "default" },
+      ],
+    },
+  },
+  "about-culture-tabs": {
+    exampleUsage: `
+<AboutCultureTabs
+  badgeText="Our Culture"
+  heading="What Makes Us Different"
+  description="We have built a workplace where practical innovation and clear communication matter."
+  aspects={[
+    {
+      id: "innovation",
+      title: "Innovation First",
+      description: "Teams have room to test better ways to serve customers.",
+      images: ["${ABOUT_EXAMPLE_IMAGE_URL}", "${ABOUT_EXAMPLE_IMAGE_URL}", "${ABOUT_EXAMPLE_IMAGE_URL}"],
+      testimonial: {
+        quote: "The freedom to improve the work is matched by real support from the team.",
+        author: "Sarah Chen",
+        role: "Senior Product Designer",
+        avatar: "${ABOUT_EXAMPLE_IMAGE_URL}",
+      },
+    },
+    {
+      id: "collaboration",
+      title: "Collaborative Spirit",
+      description: "Cross-functional teams share context early and often.",
+      images: ["${ABOUT_EXAMPLE_IMAGE_URL}", "${ABOUT_EXAMPLE_IMAGE_URL}", "${ABOUT_EXAMPLE_IMAGE_URL}"],
+      testimonial: {
+        quote: "People here are genuinely invested in helping each other succeed.",
+        author: "Marcus Johnson",
+        role: "Engineering Lead",
+        avatar: "${ABOUT_EXAMPLE_IMAGE_URL}",
+      },
+    },
+  ]}
+  ctaHeading="Ready to Join Our Team?"
+  ctaDescription="We are looking for people who share these values."
+  actions={[{ label: "View Open Positions", href: "/careers", variant: "default" }]}
+  ctaImages={["${ABOUT_EXAMPLE_IMAGE_URL}", "${ABOUT_EXAMPLE_IMAGE_URL}", "${ABOUT_EXAMPLE_IMAGE_URL}"]}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "Use only when real culture aspects, employee testimonials, and team imagery are available. Do not fabricate quotes, authors, roles, or workplace claims. aspects[].images, testimonial.avatar, and ctaImages must be image media only.",
+    usageRequirements: {
+      requiredProps: ["heading", "aspects"],
+      propConstraints: {
+        badgeText: { maxLength: 35 },
+        heading: { required: true, maxLength: 90 },
+        description: { maxLength: 220 },
+        aspects: { required: true, minItems: 2, maxItems: 5 },
+        "aspects[].id": {
+          required: true,
+          note: "Must be unique within the aspects array.",
+        },
+        "aspects[].images": { required: true, minItems: 2, maxItems: 4 },
+        "aspects[].testimonial": {
+          required: true,
+          note: "Must be a real sourced employee or team testimonial.",
+        },
+        ctaImages: { minItems: 3, maxItems: 6 },
+        actions: { maxItems: 2 },
+      },
+      mediaSlots: {
+        "aspects[].images[]": imageSlot(
+          "aspects[].images[]",
+          "Culture aspect gallery image.",
+          ["gallery", "feature"],
+        ),
+        "aspects[].testimonial.avatar": imageSlot(
+          "aspects[].testimonial.avatar",
+          "Culture testimonial author avatar.",
+          ["profile", "avatar"],
+          "small",
+          true,
+          "1:1",
+        ),
+        "ctaImages[]": imageSlot(
+          "ctaImages[]",
+          "Careers CTA supporting image.",
+          ["thumbnail", "gallery"],
+          "small",
+          false,
+        ),
+      },
+      requiresSiteCapabilities: aboutCapabilities(
+        "reviews_or_testimonials",
+        "team_members",
+        "media_library",
+      ),
+      notes: [ABOUT_MEDIA_NOTE, "Culture testimonials and team claims must be sourced."],
+    },
+    exampleProps: {
+      badgeText: "Our Culture",
+      heading: "What Makes Us Different",
+      description:
+        "We have built a workplace where practical innovation and clear communication matter.",
+      aspects: [
+        {
+          id: "innovation",
+          title: "Innovation First",
+          description:
+            "Teams have room to test better ways to serve customers.",
+          images: [
+            ABOUT_EXAMPLE_IMAGE_URL,
+            ABOUT_EXAMPLE_IMAGE_URL,
+            ABOUT_EXAMPLE_IMAGE_URL,
+          ],
+          testimonial: {
+            quote:
+              "The freedom to improve the work is matched by real support from the team.",
+            author: "Sarah Chen",
+            role: "Senior Product Designer",
+            avatar: ABOUT_EXAMPLE_IMAGE_URL,
+          },
+        },
+        {
+          id: "collaboration",
+          title: "Collaborative Spirit",
+          description: "Cross-functional teams share context early and often.",
+          images: [
+            ABOUT_EXAMPLE_IMAGE_URL,
+            ABOUT_EXAMPLE_IMAGE_URL,
+            ABOUT_EXAMPLE_IMAGE_URL,
+          ],
+          testimonial: {
+            quote:
+              "People here are genuinely invested in helping each other succeed.",
+            author: "Marcus Johnson",
+            role: "Engineering Lead",
+            avatar: ABOUT_EXAMPLE_IMAGE_URL,
+          },
+        },
+      ],
+      ctaHeading: "Ready to Join Our Team?",
+      ctaDescription: "We are looking for people who share these values.",
+      actions: [
+        { label: "View Open Positions", href: "/careers", variant: "default" },
+      ],
+      ctaImages: [
+        ABOUT_EXAMPLE_IMAGE_URL,
+        ABOUT_EXAMPLE_IMAGE_URL,
+        ABOUT_EXAMPLE_IMAGE_URL,
+      ],
+    },
+  },
+} satisfies Record<string, AboutBlockContract>;
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -829,38 +2505,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AlternatingBlocks,
     props: "AlternatingBlocksProps",
-    exampleUsage: `
-<AlternatingBlocks
-  sections={[
-    {
-      content: (
-        <div>
-          <div className="flex items-center gap-2 mb-3">
-            <Lightbulb className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium text-muted-foreground">
-              The Origin
-            </span>
-          </div>
-          <h3 className="mb-3 text-2xl font-semibold tracking-tight">
-            It started with frustration
-          </h3>
-          <p className="text-muted-foreground leading-relaxed">
-            We spent years watching teams drown in tools that promised to help
-            but only added complexity. In 2018, we decided to build something better.
-          </p>
-        </div>
-      ),
-      media: <img src="..." alt="..." />,
-      mediaLeft: false
-    },
-    {
-      content: <div>...</div>,
-      media: <img src="..." alt="..." />,
-      mediaLeft: true
-    }
-  ]}
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["alternating-blocks"],
   },
   "about-mission-features": {
     id: "about-mission-features",
@@ -881,19 +2526,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutMissionFeatures,
     props: "AboutMissionFeaturesProps",
-    exampleUsage: `
-<AboutMissionFeatures
-  title="About Us"
-  description="We make it easy to build customer portals and internal tools."
-  missionLabel="OUR MISSION"
-  missionText="We believe building software should be insanely easy."
-  mainImage={{ src: "/images/team.jpg", alt: "Our team" }}
-  features={[
-    { icon: "lucide/files", title: "Being radically open", description: "..." },
-    { icon: "lucide/settings", title: "Optimizing for empowerment", description: "..." }
-  ]}
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-mission-features"],
   },
   "about-stats-showcase": {
     id: "about-stats-showcase",
@@ -914,17 +2547,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutStatsShowcase,
     props: "AboutStatsShowcaseProps",
-    exampleUsage: `
-<AboutStatsShowcase
-  title="Our Background"
-  description="Discover how our solution simplifies complex processes."
-  stats={[
-    { value: "21M", label: "Global Reach of Users" },
-    { value: "12+", label: "Years of Expertise" }
-  ]}
-  logosTitle="Trusted by leading product teams worldwide."
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-stats-showcase"],
   },
   "about-company-profile": {
     id: "about-company-profile",
@@ -945,22 +2568,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutCompanyProfile,
     props: "AboutCompanyProfileProps",
-    exampleUsage: `
-<AboutCompanyProfile
-  title="About Us"
-  description="A passionate team dedicated to creating innovative solutions."
-  breakout={{
-    title: "Hundreds of blocks at Opensite AI",
-    description: "Providing businesses with effective tools.",
-    buttonText: "Discover more",
-    buttonUrl: "#"
-  }}
-  achievements={[
-    { label: "Companies", value: "300+" },
-    { label: "Happy Customers", value: "99%" }
-  ]}
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-company-profile"],
   },
   "about-vision-gallery": {
     id: "about-vision-gallery",
@@ -981,16 +2589,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutVisionGallery,
     props: "AboutVisionGalleryProps",
-    exampleUsage: `
-<AboutVisionGallery
-  title="About Us"
-  subtitle="Meet our team and discover our values."
-  visionTitle="Our Vision"
-  visionContent="What if you could create custom software without code?"
-  ctaTitle="Part of Our Global Team"
-  ctaButtonText="Get to know the team"
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-vision-gallery"],
   },
   "about-developer-story": {
     id: "about-developer-story",
@@ -1011,17 +2610,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutDeveloperStory,
     props: "AboutDeveloperStoryProps",
-    exampleUsage: `
-<AboutDeveloperStory
-  title="Developer-Focused Solutions for Modern Teams"
-  description="We build tools that developers love."
-  primaryCta={{ text: "Get Started", url: "#" }}
-  stats={[
-    { value: "200+", label: "Projects Completed" },
-    { value: "50+", label: "Happy Clients" }
-  ]}
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-developer-story"],
   },
   "about-story-gallery": {
     id: "about-story-gallery",
@@ -1041,16 +2630,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutStoryGallery,
     props: "AboutStoryGalleryProps",
-    exampleUsage: `
-<AboutStoryGallery
-  title="Our Story"
-  description="We started with a vision to transform how businesses build software."
-  images={[
-    { src: "/images/story1.jpg", alt: "Our beginning" },
-    { src: "/images/story2.jpg", alt: "Growth phase" }
-  ]}
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-story-gallery"],
   },
   "about-streamline-team": {
     id: "about-streamline-team",
@@ -1071,17 +2651,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutStreamlineTeam,
     props: "AboutStreamlineTeamProps",
-    exampleUsage: `
-<AboutStreamlineTeam
-  title="Streamline Your Workflow"
-  description="Our platform helps teams work smarter, not harder."
-  features={[
-    { icon: "lucide/zap", title: "Lightning Fast", description: "Build in minutes." },
-    { icon: "lucide/shield", title: "Enterprise Security", description: "Bank-grade security." }
-  ]}
-  teamCta={{ text: "Join Our Team", url: "#" }}
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-streamline-team"],
   },
   "about-developer-profile": {
     id: "about-developer-profile",
@@ -1102,17 +2672,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutDeveloperProfile,
     props: "AboutDeveloperProfileProps",
-    exampleUsage: `
-<AboutDeveloperProfile
-  name="Alex Johnson"
-  role="Full-Stack Developer"
-  bio="I'm a passionate developer with 8+ years of experience."
-  skills={["React", "TypeScript", "Node.js", "Python"]}
-  socialLinks={[
-    { icon: "lucide/github", url: "#", label: "GitHub" }
-  ]}
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-developer-profile"],
   },
   "about-startup-team": {
     id: "about-startup-team",
@@ -1133,19 +2693,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutStartupTeam,
     props: "AboutStartupTeamProps",
-    exampleUsage: `
-<AboutStartupTeam
-  title="Building the Future of Software Development"
-  description="We're a team of passionate builders."
-  sidebarLinks={[
-    { label: "About Us", href: "#about", isActive: true },
-    { label: "Our Team", href: "#team" }
-  ]}
-  teamMembers={[
-    { name: "Sarah Chen", role: "CEO & Co-Founder" }
-  ]}
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-startup-team"],
   },
   "about-minimal-story": {
     id: "about-minimal-story",
@@ -1165,16 +2713,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutMinimalStory,
     props: "AboutMinimalStoryProps",
-    exampleUsage: `
-<AboutMinimalStory
-  title="Our Story"
-  content="Every great company starts with a simple idea."
-  author={{
-    name: "Jordan Mitchell",
-    role: "Founder & CEO"
-  }}
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-minimal-story"],
   },
   "about-story-hero": {
     id: "about-story-hero",
@@ -1194,17 +2733,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutStoryHero,
     props: "AboutStoryHeroProps",
-    exampleUsage: `
-<AboutStoryHero
-  title="Our Story"
-  subtitle="Building the future, one line of code at a time"
-  content="We started with a bold idea..."
-  teamInfo={{
-    title: "50+ Team Members",
-    description: "Working across 12 countries"
-  }}
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-story-hero"],
   },
   "about-stats-sidebar": {
     id: "about-stats-sidebar",
@@ -1224,16 +2753,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutStatsSidebar,
     props: "AboutStatsSidebarProps",
-    exampleUsage: `
-<AboutStatsSidebar
-  title="Why Choose Us"
-  description="We've built a platform that scales with your needs."
-  stats={[
-    { icon: "lucide/users", value: "10M+", label: "Active Users" },
-    { icon: "lucide/globe", value: "150+", label: "Countries" }
-  ]}
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-stats-sidebar"],
   },
   "about-interactive-tabs": {
     id: "about-interactive-tabs",
@@ -1253,22 +2773,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutInteractiveTabs,
     props: "AboutInteractiveTabsProps",
-    exampleUsage: `
-<AboutInteractiveTabs
-  title="Discover Our Story"
-  subtitle="Learn more about who we are"
-  tabs={[
-    {
-      id: "work",
-      label: "Our Work",
-      content: {
-        title: "Crafting Digital Experiences",
-        description: "We create beautiful, functional products."
-      }
-    }
-  ]}
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-interactive-tabs"],
   },
   "about-mission-dual-image": {
     id: "about-mission-dual-image",
@@ -1288,15 +2793,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutMissionDualImage,
     props: "AboutMissionDualImageProps",
-    exampleUsage: `
-<AboutMissionDualImage
-  missionTitle="Our Mission"
-  missionContent="To democratize software development."
-  visionTitle="Our Vision"
-  visionContent="A world where every idea can become reality."
-  cta={{ text: "Join Our Journey", url: "#" }}
-/>
-    `.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-mission-dual-image"],
   },
   "about-story-expertise": {
     id: "about-story-expertise",
@@ -1318,7 +2815,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutStoryExpertise,
     props: "AboutStoryExpertiseProps",
-    exampleUsage: `<AboutStoryExpertise />`.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-story-expertise"],
   },
   "about-network-spotlight": {
     id: "about-network-spotlight",
@@ -1340,7 +2837,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutNetworkSpotlight,
     props: "AboutNetworkSpotlightProps",
-    exampleUsage: `<AboutNetworkSpotlight />`.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-network-spotlight"],
   },
   "about-location-info-hero": {
     id: "about-location-info-hero",
@@ -1362,7 +2859,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutLocationInfoHero,
     props: "AboutLocationInfoHeroProps",
-    exampleUsage: `<AboutLocationInfoHero />`.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-location-info-hero"],
   },
   "media-hover-ctas": {
     id: "media-hover-ctas",
@@ -18240,15 +19737,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutSplitHero,
     props: "AboutSplitHeroProps",
-    exampleUsage: `
-<AboutSplitHero
-  brandText="Business"
-  brandHighlight="PRO"
-  heading="Achieve More with Elite Access Pro"
-  description="Enhance your career hunt with increased visibility."
-  ctaText="Upgrade to premium"
-  ctaUrl="/upgrade"
-/>`.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-split-hero"],
   },
 
   "about-mission-principles": {
@@ -18270,15 +19759,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutMissionPrinciples,
     props: "AboutMissionPrinciplesProps",
-    exampleUsage: `
-<AboutMissionPrinciples
-  badgeText="Our Mission"
-  missionHeading="To empower people through technology"
-  missionDescription="We believe technology should serve humanity."
-  principles={[
-    { number: "01", title: "Customer-Centric", description: "..." },
-  ]}
-/>`.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-mission-principles"],
   },
 
   "about-expandable-values": {
@@ -18300,21 +19781,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutExpandableValues,
     props: "AboutExpandableValuesProps",
-    exampleUsage: `
-<AboutExpandableValues
-  badgeText="Our Core Values"
-  heading="The Principles That Guide Us"
-  values={[
-    {
-      id: "integrity",
-      icon: "lucide/shield",
-      title: "Integrity",
-      shortDescription: "Doing what's right.",
-      longDescription: "We believe in honesty...",
-      examples: ["Transparent pricing", "Honest communication"],
-    },
-  ]}
-/>`.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-expandable-values"],
   },
 
   "community-initiatives": {
@@ -18335,19 +19802,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: CommunityInitiatives,
     props: "CommunityInitiativesProps",
-    exampleUsage: `
-<CommunityInitiatives
-  badgeText="Food Drive"
-  heading="Supporting Our Community"
-  categories={[
-    {
-      id: "food-drive",
-      title: "Food Drive",
-      description: "Supporting our community through food donations.",
-      initiatives: [...]
-    },
-  ]}
-/>`.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["community-initiatives"],
   },
 
   "about-culture-tabs": {
@@ -18369,20 +19824,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "about",
     component: AboutCultureTabs,
     props: "AboutCultureTabsProps",
-    exampleUsage: `
-<AboutCultureTabs
-  badgeText="Our Culture"
-  heading="What Makes Us Different"
-  aspects={[
-    {
-      id: "innovation",
-      title: "Innovation First",
-      description: "We believe in challenging the status quo.",
-      images: [...],
-      testimonial: { quote: "...", author: "...", role: "...", avatar: "..." },
-    },
-  ]}
-/>`.trim(),
+    ...ABOUT_BLOCK_CONTRACTS["about-culture-tabs"],
   },
 
   // New Feature components
