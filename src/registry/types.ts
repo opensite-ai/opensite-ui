@@ -174,11 +174,18 @@ export interface BlockContractFields {
   /** Structured, machine-readable usage requirements. */
   usageRequirements?: BlockUsageRequirements;
   /**
-   * Canonical default / example payload for the block, matching the prop
-   * shape. Optional. When supplied, consumers should prefer this over
-   * parsing `exampleUsage` JSX.
+   * Canonical example payload for the block, matching the prop shape.
+   * Optional. When supplied, consumers should prefer this over parsing
+   * `exampleUsage` JSX.
+   *
+   * IMPORTANT: These are reference examples for AI prompting / preview
+   * tooling only. They are NOT runtime defaults — consumers MUST NOT
+   * substitute these values as fallback content on a real client site.
+   * The previous name (`defaultProps`) was renamed to make this explicit:
+   * AI agents had begun treating "default" values as safe runtime
+   * fallbacks for missing client data, which is incorrect.
    */
-  defaultProps?: Record<string, unknown>;
+  exampleProps?: Record<string, unknown>;
 }
 
 /**
@@ -244,12 +251,16 @@ export interface BuilderContractPropsContract {
 export interface BuilderContractExamples {
   exampleUsage: string | null;
   /**
-   * Canonical default / example props payload. Populated from
-   * BlockRegistryEntry.defaultProps when declared, otherwise null.
-   * Older consumers that expected this to always be null should treat
-   * an object value as advisory example data, not as a schema.
+   * Canonical example props payload. Populated from
+   * BlockRegistryEntry.exampleProps when declared, otherwise null.
+   *
+   * IMPORTANT: This is reference example data only, not a runtime
+   * fallback. Consumers MUST NOT substitute these values for missing
+   * client content. The previous name (`defaultData`) was renamed
+   * because downstream AI agents were treating it as safe runtime
+   * default content.
    */
-  defaultData: Record<string, unknown> | null;
+  exampleProps: Record<string, unknown> | null;
 }
 
 export interface BuilderContractBlock {

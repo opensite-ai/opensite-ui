@@ -9836,22 +9836,32 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       },
       requiresSiteCapabilities: ["reviews_or_testimonials", "media_library"],
     },
-    defaultProps: {
+    exampleProps: {
       heading: "Compassionate care for your mental wellbeing",
       description:
         "Our team of experienced mental health professionals is dedicated to providing compassionate care and support to individuals in need.",
       smallImages: [
-        { src: "/images/team-1.jpg", alt: "Dr. Smith" },
-        { src: "/images/team-2.jpg", alt: "Dr. Johnson" },
+        {
+          src: "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          alt: "Dr. Smith",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          alt: "Dr. Johnson",
+        },
       ],
       testimonial: {
         quote:
           "The support I received changed my life. I'm so grateful for the compassionate care.",
         author: "Sarah M.",
         role: "Client",
-        avatarSrc: "/images/avatar.jpg",
+        avatarSrc:
+          "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
       },
-      featureImage: { src: "/images/feature.jpg", alt: "Mental health support" },
+      featureImage: {
+        src: "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+        alt: "Mental health support",
+      },
       actions: [
         { label: "Get Started", href: "#", variant: "default" },
         { label: "Talk to Sales", href: "#", variant: "outline" },
@@ -9878,7 +9888,103 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroMentorshipVideoSplit,
     props: "HeroMentorshipVideoSplitProps",
-    exampleUsage: `<HeroMentorshipVideoSplit />`.trim(),
+    exampleUsage: `
+<HeroMentorshipVideoSplit
+  heading="Reclaim Your Peace. Scale Sustainably."
+  description="Somatic mindset coaching for high-achieving entrepreneurs ready to lead from strength — not survival mode."
+  action={{ label: "Book Your Discovery Call", href: "/contact", variant: "default", size: "lg" }}
+  videoLabel="Watch the Overview"
+  videoTitle="Coaching Overview"
+  modalVideo={{
+    image: {
+      src: "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+      alt: "Coaching overview poster",
+    },
+    video: {
+      src: "https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1",
+    },
+  }}
+  image={{
+    src: "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+    alt: "Coach portrait",
+  }}
+  background="dark"
+/>
+    `.trim(),
+    importantUsageNotes:
+      "The 'image' prop is the main hero image and MUST be an image asset (poster/photo). The 'modalVideo' prop's nested 'video.src' MUST be a video asset (HLS playlist or MP4) and 'modalVideo.image.src' MUST be an image asset (video poster). NEVER swap these: do not put a video URL into the 'image' prop and do not put an image URL into 'modalVideo.video.src'. All media src values must be absolute URLs to real CDN assets — never relative paths or placeholder strings. Keep 'heading' concise (under 60 characters) for visual balance.",
+    usageRequirements: {
+      requiredProps: ["heading", "image"],
+      propConstraints: {
+        heading: { required: true, maxLength: 60 },
+        description: { maxLength: 220 },
+        image: {
+          required: true,
+          note: "Main hero image. Must be an image asset (jpg/png/webp), NOT a video URL.",
+        },
+        "modalVideo.video.src": {
+          note: "Must be a video asset URL (HLS .m3u8 master playlist or .mp4). Must NOT be an image URL.",
+        },
+        "modalVideo.image.src": {
+          note: "Video poster image. Must be an image asset, NOT a video URL.",
+        },
+      },
+      mediaSlots: {
+        image: {
+          path: "image",
+          roles: ["hero", "feature", "profile"],
+          disallowedRoles: ["logo", "favicon", "video-thumbnail"],
+          minPixelClass: "large",
+          required: true,
+          note: "Main hero image slot. IMAGE MEDIA ONLY. Do not assign a video URL here.",
+        },
+        "modalVideo.video.src": {
+          path: "modalVideo.video.src",
+          roles: [],
+          disallowedRoles: ["logo", "favicon", "hero", "feature", "profile"],
+          note: "VIDEO MEDIA ONLY (HLS master playlist or MP4). Do not assign an image URL here.",
+        },
+        "modalVideo.image.src": {
+          path: "modalVideo.image.src",
+          roles: ["video-thumbnail", "hero", "feature"],
+          disallowedRoles: ["logo", "favicon"],
+          minPixelClass: "medium",
+          note: "Poster image shown before the video plays. IMAGE MEDIA ONLY.",
+        },
+      },
+      requiresSiteCapabilities: ["media_library"],
+      notes: [
+        "Image and video media must never be swapped between the 'image' prop and the 'modalVideo' prop.",
+        "All media src values must be absolute URLs to real assets; relative paths are not allowed.",
+      ],
+    },
+    exampleProps: {
+      heading: "Reclaim Your Peace. Scale Sustainably.",
+      description:
+        "Somatic mindset coaching for high-achieving entrepreneurs ready to lead from strength — not survival mode.",
+      action: {
+        label: "Book Your Discovery Call",
+        href: "/contact",
+        variant: "default",
+        size: "lg",
+      },
+      videoLabel: "Watch the Overview",
+      videoTitle: "Coaching Overview",
+      modalVideo: {
+        image: {
+          src: "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          alt: "Coaching overview poster",
+        },
+        video: {
+          src: "https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1",
+        },
+      },
+      image: {
+        src: "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+        alt: "Coach portrait",
+      },
+      background: "dark",
+    },
   },
 
   "hero-business-operations-mosaic": {

@@ -112,8 +112,8 @@ function normalizeBlock(
     },
     examples: {
       exampleUsage: block.exampleUsage || null,
-      defaultData: block.defaultProps
-        ? (JSON.parse(JSON.stringify(block.defaultProps)) as Record<
+      exampleProps: block.exampleProps
+        ? (JSON.parse(JSON.stringify(block.exampleProps)) as Record<
             string,
             unknown
           >)
