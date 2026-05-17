@@ -84,16 +84,16 @@ export interface IMenuLink {
  */
 export interface NavbarAnimatedPreviewProps {
   /**
-     * Logo configuration
-     */
+   * Logo configuration
+   */
   logo?: LogoConfig;
   /**
-     * Navigation menu links with optional dropdown groups
-     */
+   * Navigation menu links with optional dropdown groups
+   */
   menuLinks?: IMenuLink[];
   /**
-     * Action configurations (e.g., Sign In, Get Started buttons)
-     */
+   * Action configurations (e.g., Sign In, Get Started buttons)
+   */
   actions?: ActionConfig[];
 }
 
@@ -170,7 +170,6 @@ interface NavbarAnimatedPreviewRuntimeProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
-
 }
 
 const MOBILE_BREAKPOINT = 1280;
@@ -546,21 +545,34 @@ const FeaturedCardsGridDropdown = ({
 }: FeaturedCardsGridDropdownProps) => {
   return (
     <div>
-      <div className="flex gap-4 pb-8">
-        {featuredLinks?.map((link, index) => (
-          <FeaturedLink
-            key={`desktop-featured-link-${index}`}
-            link={link}
-            optixFlowConfig={optixFlowConfig}
-          />
-        ))}
-      </div>
-      <Separator />
-      <div className="grid grid-cols-4 pt-8">
-        {links?.map((link, index) => (
-          <NavLink key={`default-nav-link-${index}`} link={link} />
-        ))}
-      </div>
+      {featuredLinks && featuredLinks?.length > 0 ? (
+        <div className="flex gap-4 pb-8">
+          {featuredLinks?.map((link, index) => (
+            <FeaturedLink
+              key={`desktop-featured-link-${index}`}
+              link={link}
+              optixFlowConfig={optixFlowConfig}
+            />
+          ))}
+        </div>
+      ) : null}
+
+      {featuredLinks &&
+      featuredLinks?.length > 0 &&
+      links &&
+      links?.length > 0 ? (
+        <Separator />
+      ) : null}
+
+      {links && links?.length > 0 ? (
+        <div
+          className={`grid grid-cols-4 pt-${featuredLinks && featuredLinks?.length > 0 ? 8 : 0} gap-4`}
+        >
+          {links?.map((link, index) => (
+            <NavLink key={`default-nav-link-${index}`} link={link} />
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 };
