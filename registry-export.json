@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "exportedAt": "2026-05-17T05:12:22.724Z",
+    "exportedAt": "2026-05-17T06:00:33.859Z",
     "totalBlocks": 605,
     "version": "3.5.8",
     "source": "@opensite/ui"
@@ -6695,8 +6695,8 @@
       ],
       "category": "hero",
       "props": "HeroMentalHealthTeamProps",
-      "exampleUsage": "<HeroMentalHealthTeam\n  heading=\"Compassionate care for your mental wellbeing\"\n  description=\"Our team of experienced mental health professionals is dedicated to providing compassionate care and support to individuals in need.\"\n  smallImages={[\n    { src: \"/images/team-1.jpg\", alt: \"Dr. Smith\" },\n    { src: \"/images/team-2.jpg\", alt: \"Dr. Johnson\" },\n  ]}\n  testimonial={{\n    quote:\n      \"The support I received changed my life. I'm so grateful for the compassionate care.\",\n    author: \"Sarah M.\",\n    role: \"Client\",\n    avatarSrc: \"/images/avatar.jpg\",\n  }}\n  featureImage={{ src: \"/images/feature.jpg\", alt: \"Mental health support\" }}\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"default\" },\n    { label: \"Talk to Sales\", href: \"#\", variant: \"outline\" },\n  ]}\n  background=\"gray\"\n/>",
-      "importantUsageNotes": "Only use if you have a valid testimonial - DO NOT MAKE UP A TESTIMONIAL/REVIEW. Supply exactly 2 images to the 'smallImages' prop and ensure you supply a 'featureImage' prop object. Do not exceed 40 characters for the 'heading' prop. Do not exceed 130 characters for the 'description' prop. If you supply multiple 'actions', ensure to use a variant of 'default' for the first action, and 'outline' for the second action to ensure proper visual distinction between the two CTAs. Follow the example props closely for this block.",
+      "exampleUsage": "<HeroMentalHealthTeam\n  heading=\"Compassionate care for your mental wellbeing\"\n  description=\"Our team of experienced mental health professionals is dedicated to providing compassionate care and support to individuals in need.\"\n  smallImages={[\n    {\n      src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n      alt: \"Dr. Smith\",\n    },\n    {\n      src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n      alt: \"Dr. Johnson\",\n    },\n  ]}\n  testimonial={{\n    quote:\n      \"The support I received changed my life. I'm so grateful for the compassionate care.\",\n    author: \"Sarah M.\",\n    role: \"Client\",\n    avatarSrc:\n      \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n  }}\n  featureImage={{\n    src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n    alt: \"Mental health support\",\n  }}\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"default\" },\n    { label: \"Talk to Sales\", href: \"#\", variant: \"outline\" },\n  ]}\n  background=\"gray\"\n/>",
+      "importantUsageNotes": "Only use if you have a valid testimonial - DO NOT MAKE UP A TESTIMONIAL/REVIEW. Supply exactly 2 images to the 'smallImages' prop and ensure you supply a 'featureImage' prop object. Do not exceed 40 characters for the 'heading' prop. Do not exceed 130 characters for the 'description' prop. If you supply multiple 'actions', ensure to use a variant of 'default' for the first action, and 'outline' for the second action to ensure proper visual distinction between the two CTAs. All media src values must be absolute URLs to real CDN assets — never relative paths (e.g. '/images/...') or placeholder strings. Follow the example props closely for this block.",
       "usageRequirements": {
         "requiredProps": [
           "heading",

@@ -9769,17 +9769,27 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   heading="Compassionate care for your mental wellbeing"
   description="Our team of experienced mental health professionals is dedicated to providing compassionate care and support to individuals in need."
   smallImages={[
-    { src: "/images/team-1.jpg", alt: "Dr. Smith" },
-    { src: "/images/team-2.jpg", alt: "Dr. Johnson" },
+    {
+      src: "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+      alt: "Dr. Smith",
+    },
+    {
+      src: "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+      alt: "Dr. Johnson",
+    },
   ]}
   testimonial={{
     quote:
       "The support I received changed my life. I'm so grateful for the compassionate care.",
     author: "Sarah M.",
     role: "Client",
-    avatarSrc: "/images/avatar.jpg",
+    avatarSrc:
+      "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
   }}
-  featureImage={{ src: "/images/feature.jpg", alt: "Mental health support" }}
+  featureImage={{
+    src: "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+    alt: "Mental health support",
+  }}
   actions={[
     { label: "Get Started", href: "#", variant: "default" },
     { label: "Talk to Sales", href: "#", variant: "outline" },
@@ -9788,7 +9798,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
 />
     `.trim(),
     importantUsageNotes:
-      "Only use if you have a valid testimonial - DO NOT MAKE UP A TESTIMONIAL/REVIEW. Supply exactly 2 images to the 'smallImages' prop and ensure you supply a 'featureImage' prop object. Do not exceed 40 characters for the 'heading' prop. Do not exceed 130 characters for the 'description' prop. If you supply multiple 'actions', ensure to use a variant of 'default' for the first action, and 'outline' for the second action to ensure proper visual distinction between the two CTAs. Follow the example props closely for this block.",
+      "Only use if you have a valid testimonial - DO NOT MAKE UP A TESTIMONIAL/REVIEW. Supply exactly 2 images to the 'smallImages' prop and ensure you supply a 'featureImage' prop object. Do not exceed 40 characters for the 'heading' prop. Do not exceed 130 characters for the 'description' prop. If you supply multiple 'actions', ensure to use a variant of 'default' for the first action, and 'outline' for the second action to ensure proper visual distinction between the two CTAs. All media src values must be absolute URLs to real CDN assets — never relative paths (e.g. '/images/...') or placeholder strings. Follow the example props closely for this block.",
     usageRequirements: {
       requiredProps: ["heading", "smallImages", "featureImage", "testimonial"],
       propConstraints: {
