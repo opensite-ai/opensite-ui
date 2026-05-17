@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.5.6",
-    "exportedAt": "2026-05-17T03:04:35.362Z",
+    "uiVersion": "3.5.7",
+    "exportedAt": "2026-05-17T03:27:12.880Z",
     "source": "@opensite/ui",
     "totalBlocks": 605
   },
@@ -5565,7 +5565,13 @@
       "displayName": "Contact Map",
       "description": "Contact form with integrated map display. Shows location information alongside contact form fields.",
       "category": "contact",
-      "semanticTags": ["contact", "map", "location", "form", "address"],
+      "semanticTags": [
+        "contact",
+        "map",
+        "location",
+        "form",
+        "address"
+      ],
       "layoutRole": "page",
       "propsContract": {
         "type": "typescript-type-reference",
@@ -5594,7 +5600,13 @@
       "displayName": "Contact Minimal",
       "description": "Minimal contact form with just name, email, and message fields. Clean and simple design for basic contact needs.",
       "category": "contact",
-      "semanticTags": ["contact", "minimal", "simple", "form", "basic"],
+      "semanticTags": [
+        "contact",
+        "minimal",
+        "simple",
+        "form",
+        "basic"
+      ],
       "layoutRole": "page",
       "propsContract": {
         "type": "typescript-type-reference",
@@ -5768,7 +5780,14 @@
       "displayName": "Contact Press Inquiries",
       "description": "Press and media inquiry form with publication details and story information. Designed for PR teams and media relations.",
       "category": "contact",
-      "semanticTags": ["contact", "press", "media", "form", "pr", "journalism"],
+      "semanticTags": [
+        "contact",
+        "press",
+        "media",
+        "form",
+        "pr",
+        "journalism"
+      ],
       "layoutRole": "page",
       "propsContract": {
         "type": "typescript-type-reference",
@@ -6014,7 +6033,14 @@
       "displayName": "Contact Sales",
       "description": "Sales inquiry form with company information and product interest. Designed for B2B sales teams and lead generation.",
       "category": "contact",
-      "semanticTags": ["contact", "sales", "inquiry", "form", "b2b", "leads"],
+      "semanticTags": [
+        "contact",
+        "sales",
+        "inquiry",
+        "form",
+        "b2b",
+        "leads"
+      ],
       "layoutRole": "page",
       "propsContract": {
         "type": "typescript-type-reference",
@@ -12189,30 +12215,52 @@
         "mediaSlots": {
           "featureImage": {
             "path": "featureImage",
-            "roles": ["feature", "hero"],
-            "disallowedRoles": ["logo", "favicon"],
+            "roles": [
+              "feature",
+              "hero"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon"
+            ],
             "minPixelClass": "large",
             "required": true,
             "note": "Large feature image. Must not be a logo or favicon."
           },
           "smallImages[]": {
             "path": "smallImages[]",
-            "roles": ["thumbnail", "profile", "feature"],
-            "disallowedRoles": ["logo", "favicon"],
+            "roles": [
+              "thumbnail",
+              "profile",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon"
+            ],
             "minPixelClass": "small",
             "required": true,
             "note": "Two team / supporting images. Must not be logos."
           },
           "testimonial.avatarSrc": {
             "path": "testimonial.avatarSrc",
-            "roles": ["profile", "avatar"],
-            "disallowedRoles": ["logo", "favicon"],
+            "roles": [
+              "profile",
+              "avatar"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon"
+            ],
             "minPixelClass": "small",
             "preferredAspect": "1:1",
             "note": "Headshot/avatar for the testimonial author."
           }
         },
-        "requiresSiteCapabilities": ["reviews_or_testimonials", "media_library"]
+        "requiresSiteCapabilities": [
+          "reviews_or_testimonials",
+          "media_library"
+        ]
       }
     },
     {
@@ -23464,13 +23512,23 @@
       "hydrationOwner": "dashtrack-ai",
       "hydrationPhase": "routing-build",
       "canonicalPayloadExpectation": "Keep blog feed requests symbolic in canonical page JSON until routing-build hydration resolves them.",
-      "requiredFields": ["type"],
-      "optionalFields": ["limit", "offset", "category", "tag", "featuredOnly"]
+      "requiredFields": [
+        "type"
+      ],
+      "optionalFields": [
+        "limit",
+        "offset",
+        "category",
+        "tag",
+        "featuredOnly"
+      ]
     }
   },
   "designTokens": {
     "canonicalSource": "theme_config",
-    "derivedArtifacts": ["tailwind_css"],
+    "derivedArtifacts": [
+      "tailwind_css"
+    ],
     "requiredTokenFamilies": [
       "color",
       "typography",
@@ -23506,11 +23564,19 @@
     "routeKeyPattern": "^/$|^/.+",
     "sharedLayoutKey": "_layout",
     "routeEntry": {
-      "requiredKeys": ["pageId", "pageIds", "blocks"],
+      "requiredKeys": [
+        "pageId",
+        "pageIds",
+        "blocks"
+      ],
       "blocksKey": "blocks"
     },
     "blockEntry": {
-      "requiredKeys": ["block_name", "block_ref", "data"],
+      "requiredKeys": [
+        "block_name",
+        "block_ref",
+        "data"
+      ],
       "blockRefSource": "BuilderContractBundle.blocks[].blockRef",
       "blockNameSource": "BuilderContractBundle.blocks[].blockName"
     },
