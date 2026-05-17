@@ -238,6 +238,7 @@ export function CarouselImageHero({
                   src={image.src}
                   alt={image.alt}
                   className={cn("h-full w-full object-cover", image.className)}
+                  loading="eager"
                   optixFlowConfig={optixFlowConfig}
                 />
                 <div className="absolute inset-0 bg-black/40" />
