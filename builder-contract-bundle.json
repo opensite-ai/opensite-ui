@@ -2,7 +2,7 @@
   "metadata": {
     "contractVersion": "v1",
     "uiVersion": "3.6.1",
-    "exportedAt": "2026-05-17T13:19:37.488Z",
+    "exportedAt": "2026-05-17T14:13:08.667Z",
     "source": "@opensite/ui",
     "totalBlocks": 605
   },
@@ -2941,8 +2941,48 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<ArticleBreadcrumbSocial\n  title=\"Mastering Performance Optimization\"\n  authorName=\"Emily Rodriguez\"\n  authorRole=\"Senior Engineer\"\n  publishDate=\"January 10, 2025\"\n  readTime=\"15 min read\"\n  breadcrumbs={[\n    { label: \"Home\", href: \"/\" },\n    { label: \"Blog\", href: \"/blog\" }\n  ]}\n  shareUrls={{ twitter: \"#\", linkedin: \"#\" }}\n/>",
-        "exampleProps": null
+        "exampleUsage": "<ArticleBreadcrumbSocial\n  breadcrumbs={[\n    { label: \"Blog\", href: \"#\" },\n    { label: \"Technology\", href: \"#\" },\n  ]}\n  currentPage=\"Building Scalable Web Applications\"\n  title=\"Building Scalable Web Applications in 2026\"\n  description=\"A source-backed article with breadcrumb navigation, sharing controls, and a tracked table of contents.\"\n  author={{\n    name: \"Sarah Mitchell\",\n    image: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n    role: \"Senior Software Architect\",\n  }}\n  publishDate=\"January 15, 2026\"\n  readTime=\"12 min read\"\n  heroImageSrc=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  heroImageAlt=\"Modern web application architecture\"\n  sections={[\n    { id: \"overview\", title: \"Overview\" },\n    { id: \"implementation\", title: \"Implementation\" },\n    { id: \"conclusion\", title: \"Conclusion\" },\n  ]}\n  markdownString={\"## Overview\\nSource-backed introduction.\\n\\n## Implementation\\nDetailed article body.\\n\\n## Conclusion\\nPractical closing takeaway.\"}\n/>",
+        "exampleProps": {
+          "breadcrumbs": [
+            {
+              "label": "Blog",
+              "href": "#"
+            },
+            {
+              "label": "Technology",
+              "href": "#"
+            }
+          ],
+          "currentPage": "Building Scalable Web Applications",
+          "title": "Building Scalable Web Applications in 2026",
+          "description": "A source-backed article with breadcrumb navigation, sharing controls, and a tracked table of contents.",
+          "author": {
+            "name": "Sarah Mitchell",
+            "image": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "role": "Senior Software Architect"
+          },
+          "publishDate": "January 15, 2026",
+          "readTime": "12 min read",
+          "heroImageSrc": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "heroImageAlt": "Modern web application architecture",
+          "sections": [
+            {
+              "id": "overview",
+              "title": "Overview"
+            },
+            {
+              "id": "implementation",
+              "title": "Implementation"
+            },
+            {
+              "id": "conclusion",
+              "title": "Conclusion"
+            }
+          ],
+          "enableTocTracking": true,
+          "enableBackToTop": true,
+          "markdownString": "## Overview\nModern article layouts need clear hierarchy, source-backed metadata, and media that supports the story.\n\n## Implementation\nUse concise section headings that map to the navigation items and keep body copy grounded in the article source.\n\n## Conclusion\nClose with a practical takeaway and one clear next action for readers."
+        }
       },
       "source": {
         "exportPath": "./blocks/article/article-breadcrumb-social",
@@ -2951,8 +2991,140 @@
         "importPath": "./dist/article-breadcrumb-social.js",
         "requirePath": "./dist/article-breadcrumb-social.cjs"
       },
-      "importantUsageNotes": null,
-      "usageRequirements": null
+      "importantUsageNotes": "Use for article pages that need breadcrumb navigation, social sharing controls, a sticky TOC, and optional back-to-top behavior. The author prop is an object with name, image, and role; do not use unsupported authorName, authorRole, or shareUrls props. heroImageSrc and author.image must be absolute image URLs only, never placeholder variables, relative /images paths, logos, favicons, or video URLs.",
+      "usageRequirements": {
+        "requiredProps": [
+          "breadcrumbs",
+          "currentPage",
+          "title",
+          "author",
+          "heroImageSrc",
+          "heroImageAlt",
+          "sections",
+          "markdownString"
+        ],
+        "propConstraints": {
+          "breadcrumbs": {
+            "required": true,
+            "minItems": 1,
+            "maxItems": 4
+          },
+          "breadcrumbs[].label": {
+            "required": true,
+            "maxLength": 40
+          },
+          "breadcrumbs[].href": {
+            "required": true
+          },
+          "currentPage": {
+            "required": true,
+            "maxLength": 80
+          },
+          "title": {
+            "required": true,
+            "maxLength": 100
+          },
+          "description": {
+            "required": false,
+            "maxLength": 240
+          },
+          "author": {
+            "required": true,
+            "note": "Source-backed article author object."
+          },
+          "author.name": {
+            "required": true,
+            "maxLength": 80
+          },
+          "author.role": {
+            "required": false,
+            "maxLength": 80
+          },
+          "author.image": {
+            "required": false,
+            "note": "Absolute author/profile image URL. IMAGE MEDIA ONLY."
+          },
+          "publishDate": {
+            "required": true,
+            "maxLength": 40
+          },
+          "readTime": {
+            "required": false,
+            "maxLength": 30
+          },
+          "sections": {
+            "required": true,
+            "minItems": 3,
+            "maxItems": 8
+          },
+          "sections[].id": {
+            "required": true,
+            "note": "Must match a heading id in markdownString."
+          },
+          "sections[].title": {
+            "required": true,
+            "maxLength": 60
+          },
+          "heroImageSrc": {
+            "required": true,
+            "note": "Absolute article hero image URL. IMAGE MEDIA ONLY."
+          },
+          "heroImageAlt": {
+            "required": true,
+            "maxLength": 140
+          },
+          "markdownString": {
+            "required": true,
+            "maxLength": 12000,
+            "note": "Long-form markdown article body."
+          }
+        },
+        "mediaSlots": {
+          "heroImageSrc": {
+            "path": "heroImageSrc",
+            "roles": [
+              "hero",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "xlarge",
+            "required": true,
+            "preferredAspect": "16:9",
+            "note": "Primary article hero image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "author.image": {
+            "path": "author.image",
+            "roles": [
+              "profile",
+              "avatar"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "preferredAspect": "1:1",
+            "note": "Author avatar or portrait image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "blog_posts",
+          "team_members",
+          "media_library"
+        ],
+        "notes": [
+          "Article titles, authors, dates, summaries, chapter names, and body copy must come from source-backed article or blog data. Do not invent bylines or publication metadata.",
+          "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props.",
+          "When TOC or chapter tracking is enabled, every sections[].id or chapters[].id value must match a real heading id generated from markdownString content.",
+          "Do not use unsupported shareUrls, authorName, or authorRole props with this block."
+        ]
+      }
     },
     {
       "componentId": "article-chapters-author",
@@ -2981,8 +3153,66 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<ArticleChaptersAuthor\n  title=\"A Comprehensive Guide to Design Patterns\"\n  subtitle=\"Master essential patterns every engineer should know\"\n  chapters={[\n    { id: \"chapter-1\", number: 1, title: \"The Foundation\" },\n    { id: \"chapter-2\", number: 2, title: \"Building Blocks\" }\n  ]}\n  author={{\n    name: \"Jessica Williams\",\n    role: \"Principal Engineer\",\n    image: \"/images/author.jpg\",\n    bio: \"15+ years of experience in software architecture.\"\n  }}\n/>",
-        "exampleProps": null
+        "exampleUsage": "<ArticleChaptersAuthor\n  breadcrumbs={[\n    { label: \"Resources\", href: \"#\" },\n    { label: \"Guides\", href: \"#\" },\n  ]}\n  currentPage=\"Design Patterns\"\n  title=\"The Complete Guide to Design Patterns\"\n  subtitle=\"A source-backed guide to patterns that power modern software architecture\"\n  heroImageSrc=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  heroImageAlt=\"Software architecture planning workspace\"\n  chapters={[\n    { id: \"overview\", number: 1, title: \"Overview\" },\n    { id: \"implementation\", number: 2, title: \"Implementation\" },\n    { id: \"conclusion\", number: 3, title: \"Conclusion\" },\n  ]}\n  author={{\n    name: \"Dr. Marcus Chen\",\n    role: \"Principal Engineer\",\n    image: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n    bio: \"Marcus writes source-backed guides on software architecture and distributed systems.\",\n    socialLinks: { linkedin: \"https://linkedin.com\" },\n  }}\n  conclusionTitle=\"Continue Learning\"\n  conclusionDescription=\"Read the next guide in this source-backed series.\"\n  conclusionActions={[\n    { label: \"View Guides\", href: \"#\", variant: \"default\" },\n    { label: \"Download Notes\", href: \"#\", variant: \"outline\" },\n  ]}\n  markdownString={\"## Overview\\nSource-backed introduction.\\n\\n## Implementation\\nDetailed article body.\\n\\n## Conclusion\\nPractical closing takeaway.\"}\n/>",
+        "exampleProps": {
+          "breadcrumbs": [
+            {
+              "label": "Resources",
+              "href": "#"
+            },
+            {
+              "label": "Guides",
+              "href": "#"
+            }
+          ],
+          "currentPage": "Design Patterns",
+          "title": "The Complete Guide to Design Patterns",
+          "subtitle": "A source-backed guide to patterns that power modern software architecture",
+          "heroImageSrc": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "heroImageAlt": "Software architecture planning workspace",
+          "chapters": [
+            {
+              "id": "overview",
+              "number": 1,
+              "title": "Overview"
+            },
+            {
+              "id": "implementation",
+              "number": 2,
+              "title": "Implementation"
+            },
+            {
+              "id": "conclusion",
+              "number": 3,
+              "title": "Conclusion"
+            }
+          ],
+          "author": {
+            "name": "Dr. Marcus Chen",
+            "role": "Principal Engineer",
+            "image": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "bio": "Marcus writes source-backed guides on software architecture and distributed systems.",
+            "socialLinks": {
+              "linkedin": "https://linkedin.com"
+            }
+          },
+          "conclusionTitle": "Continue Learning",
+          "conclusionDescription": "Read the next guide in this source-backed series.",
+          "conclusionActions": [
+            {
+              "label": "View Guides",
+              "href": "#",
+              "variant": "default"
+            },
+            {
+              "label": "Download Notes",
+              "href": "#",
+              "variant": "outline"
+            }
+          ],
+          "enableChapterTracking": true,
+          "markdownString": "## Overview\nModern article layouts need clear hierarchy, source-backed metadata, and media that supports the story.\n\n## Implementation\nUse concise section headings that map to the navigation items and keep body copy grounded in the article source.\n\n## Conclusion\nClose with a practical takeaway and one clear next action for readers."
+        }
       },
       "source": {
         "exportPath": "./blocks/article/article-chapters-author",
@@ -2991,8 +3221,135 @@
         "importPath": "./dist/article-chapters-author.js",
         "requirePath": "./dist/article-chapters-author.cjs"
       },
-      "importantUsageNotes": null,
-      "usageRequirements": null
+      "importantUsageNotes": "Use for comprehensive guide-style articles organized into numbered chapters with an author bio and conclusion CTA. chapters[].id must map to real headings in markdownString when tracking is enabled. heroImageSrc and author.image must be absolute image URLs only, never placeholder variables, relative /images paths, logos, favicons, or video URLs. Author identity, bio, and social links must be source-backed.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "subtitle",
+          "chapters",
+          "author",
+          "heroImageSrc",
+          "heroImageAlt",
+          "markdownString"
+        ],
+        "propConstraints": {
+          "breadcrumbs": {
+            "required": false,
+            "minItems": 1,
+            "maxItems": 4
+          },
+          "currentPage": {
+            "required": false,
+            "maxLength": 80
+          },
+          "title": {
+            "required": true,
+            "maxLength": 100
+          },
+          "subtitle": {
+            "required": true,
+            "maxLength": 180
+          },
+          "chapters": {
+            "required": true,
+            "minItems": 3,
+            "maxItems": 7
+          },
+          "chapters[].id": {
+            "required": true,
+            "note": "Must match a heading id in markdownString."
+          },
+          "chapters[].number": {
+            "required": true
+          },
+          "chapters[].title": {
+            "required": true,
+            "maxLength": 60
+          },
+          "author": {
+            "required": true,
+            "note": "Source-backed author bio object."
+          },
+          "author.name": {
+            "required": true,
+            "maxLength": 80
+          },
+          "author.role": {
+            "required": false,
+            "maxLength": 80
+          },
+          "author.bio": {
+            "required": false,
+            "maxLength": 320
+          },
+          "author.image": {
+            "required": false,
+            "note": "Absolute author/profile image URL. IMAGE MEDIA ONLY."
+          },
+          "heroImageSrc": {
+            "required": true,
+            "note": "Absolute article hero image URL. IMAGE MEDIA ONLY."
+          },
+          "heroImageAlt": {
+            "required": true,
+            "maxLength": 140
+          },
+          "conclusionActions": {
+            "required": false,
+            "maxItems": 2,
+            "note": "Use ActionConfig objects with label, href, and variant."
+          },
+          "markdownString": {
+            "required": true,
+            "maxLength": 14000,
+            "note": "Long-form markdown article body."
+          }
+        },
+        "mediaSlots": {
+          "heroImageSrc": {
+            "path": "heroImageSrc",
+            "roles": [
+              "hero",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "xlarge",
+            "required": true,
+            "preferredAspect": "16:9",
+            "note": "Primary article hero image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "author.image": {
+            "path": "author.image",
+            "roles": [
+              "profile",
+              "avatar"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "preferredAspect": "1:1",
+            "note": "Author avatar or portrait image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "blog_posts",
+          "team_members",
+          "media_library"
+        ],
+        "notes": [
+          "Article titles, authors, dates, summaries, chapter names, and body copy must come from source-backed article or blog data. Do not invent bylines or publication metadata.",
+          "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props.",
+          "When TOC or chapter tracking is enabled, every sections[].id or chapters[].id value must match a real heading id generated from markdownString content."
+        ]
+      }
     },
     {
       "componentId": "article-compact-toc",
@@ -3020,8 +3377,43 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<ArticleCompactToc\n  title=\"Understanding User Behavior\"\n  authorName=\"Dr. Michael Chen\"\n  publishDate=\"January 12, 2025\"\n  readTime=\"18 min read\"\n  sections={[\n    { id: \"introduction\", title: \"Introduction\" },\n    { id: \"methodology\", title: \"Methodology\" }\n  ]}\n/>",
-        "exampleProps": null
+        "exampleUsage": "<ArticleCompactToc\n  breadcrumbs={[\n    { label: \"Research\", href: \"#\" },\n    { label: \"Studies\", href: \"#\" },\n  ]}\n  currentPage=\"User Behavior Analysis\"\n  title=\"Understanding User Behavior in Modern Web Applications\"\n  authorName=\"Dr. Jennifer Park\"\n  authorHref=\"#\"\n  publishDate=\"January 22, 2026\"\n  readTime=\"8 min read\"\n  heroImageSrc=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  heroImageAlt=\"User behavior analytics workspace\"\n  sections={[\n    { id: \"overview\", title: \"Overview\" },\n    { id: \"implementation\", title: \"Implementation\" },\n    { id: \"conclusion\", title: \"Conclusion\" },\n  ]}\n  markdownString={\"## Overview\\nSource-backed introduction.\\n\\n## Implementation\\nDetailed article body.\\n\\n## Conclusion\\nPractical closing takeaway.\"}\n/>",
+        "exampleProps": {
+          "breadcrumbs": [
+            {
+              "label": "Research",
+              "href": "#"
+            },
+            {
+              "label": "Studies",
+              "href": "#"
+            }
+          ],
+          "currentPage": "User Behavior Analysis",
+          "title": "Understanding User Behavior in Modern Web Applications",
+          "authorName": "Dr. Jennifer Park",
+          "authorHref": "#",
+          "publishDate": "January 22, 2026",
+          "readTime": "8 min read",
+          "heroImageSrc": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "heroImageAlt": "User behavior analytics workspace",
+          "sections": [
+            {
+              "id": "overview",
+              "title": "Overview"
+            },
+            {
+              "id": "implementation",
+              "title": "Implementation"
+            },
+            {
+              "id": "conclusion",
+              "title": "Conclusion"
+            }
+          ],
+          "enableTocTracking": true,
+          "markdownString": "## Overview\nModern article layouts need clear hierarchy, source-backed metadata, and media that supports the story.\n\n## Implementation\nUse concise section headings that map to the navigation items and keep body copy grounded in the article source.\n\n## Conclusion\nClose with a practical takeaway and one clear next action for readers."
+        }
       },
       "source": {
         "exportPath": "./blocks/article/article-compact-toc",
@@ -3030,8 +3422,104 @@
         "importPath": "./dist/article-compact-toc.js",
         "requirePath": "./dist/article-compact-toc.cjs"
       },
-      "importantUsageNotes": null,
-      "usageRequirements": null
+      "importantUsageNotes": "Use for articles that need a compact, mobile-friendly table of contents and a focused reading column. sections[].id must map to real headings in markdownString when tracking is enabled. heroImageSrc must be an absolute image URL only, never a placeholder variable, relative /images path, logo, favicon, or video URL.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "authorName",
+          "publishDate",
+          "heroImageSrc",
+          "heroImageAlt",
+          "sections",
+          "markdownString"
+        ],
+        "propConstraints": {
+          "breadcrumbs": {
+            "required": false,
+            "minItems": 1,
+            "maxItems": 4
+          },
+          "currentPage": {
+            "required": false,
+            "maxLength": 80
+          },
+          "title": {
+            "required": true,
+            "maxLength": 100
+          },
+          "description": {
+            "required": false,
+            "maxLength": 220
+          },
+          "authorName": {
+            "required": true,
+            "maxLength": 80,
+            "note": "Must identify a real article author or organization byline."
+          },
+          "publishDate": {
+            "required": true,
+            "maxLength": 40
+          },
+          "readTime": {
+            "required": false,
+            "maxLength": 30
+          },
+          "sections": {
+            "required": true,
+            "minItems": 3,
+            "maxItems": 8
+          },
+          "sections[].id": {
+            "required": true,
+            "note": "Must match a heading id in markdownString."
+          },
+          "sections[].title": {
+            "required": true,
+            "maxLength": 60
+          },
+          "heroImageSrc": {
+            "required": true,
+            "note": "Absolute article hero image URL. IMAGE MEDIA ONLY."
+          },
+          "heroImageAlt": {
+            "required": true,
+            "maxLength": 140
+          },
+          "markdownString": {
+            "required": true,
+            "maxLength": 12000,
+            "note": "Long-form markdown article body."
+          }
+        },
+        "mediaSlots": {
+          "heroImageSrc": {
+            "path": "heroImageSrc",
+            "roles": [
+              "hero",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "xlarge",
+            "required": true,
+            "preferredAspect": "16:9",
+            "note": "Primary article hero image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "blog_posts",
+          "team_members",
+          "media_library"
+        ],
+        "notes": [
+          "Article titles, authors, dates, summaries, chapter names, and body copy must come from source-backed article or blog data. Do not invent bylines or publication metadata.",
+          "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props.",
+          "When TOC or chapter tracking is enabled, every sections[].id or chapters[].id value must match a real heading id generated from markdownString content."
+        ]
+      }
     },
     {
       "componentId": "article-hero-prose",
@@ -3060,8 +3548,20 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<ArticleHeroProse\n  post={{\n    title: \"Designing websites faster with Opensite AI\",\n    authorName: \"John Doe\",\n    image: \"/images/hero.jpg\",\n    pubDate: new Date(),\n    description: \"A step-by-step guide to building modern websites.\",\n    authorImage: \"/images/author.jpg\"\n  }}\n/>",
-        "exampleProps": null
+        "exampleUsage": "<ArticleHeroProse\n  post={{\n    title: \"The Evolution of Modern JavaScript\",\n    description: \"A source-backed analysis of how modern JavaScript patterns changed production web development.\",\n    authorName: \"Alex Rodriguez\",\n    authorHref: \"#\",\n    authorImage: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n    image: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n    pubDate: new Date(\"2026-01-20\"),\n  }}\n  dateFormat=\"MMMM d, yyyy\"\n  markdownString={\"## Overview\\nSource-backed introduction.\\n\\n## Implementation\\nDetailed article body.\\n\\n## Conclusion\\nPractical closing takeaway.\"}\n/>",
+        "exampleProps": {
+          "post": {
+            "title": "The Evolution of Modern JavaScript",
+            "description": "A source-backed analysis of how modern JavaScript patterns changed production web development.",
+            "authorName": "Alex Rodriguez",
+            "authorHref": "#",
+            "authorImage": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "image": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "pubDate": "2026-01-20T00:00:00.000Z"
+          },
+          "dateFormat": "MMMM d, yyyy",
+          "markdownString": "## Overview\nModern article layouts need clear hierarchy, source-backed metadata, and media that supports the story.\n\n## Implementation\nUse concise section headings that map to the navigation items and keep body copy grounded in the article source.\n\n## Conclusion\nClose with a practical takeaway and one clear next action for readers."
+        }
       },
       "source": {
         "exportPath": "./blocks/article/article-hero-prose",
@@ -3070,8 +3570,92 @@
         "importPath": "./dist/article-hero-prose.js",
         "requirePath": "./dist/article-hero-prose.cjs"
       },
-      "importantUsageNotes": null,
-      "usageRequirements": null
+      "importantUsageNotes": "Use for a full long-form article with a strong hero image, author metadata, and rich prose. The post.image and post.authorImage props must be absolute image URLs only, never logos, favicons, placeholder variables, relative /images paths, or video media. Use markdownString for the article body and keep post metadata source-backed.",
+      "usageRequirements": {
+        "requiredProps": [
+          "post",
+          "markdownString"
+        ],
+        "propConstraints": {
+          "post": {
+            "required": true,
+            "note": "Source-backed article metadata object."
+          },
+          "post.title": {
+            "required": true,
+            "maxLength": 90
+          },
+          "post.description": {
+            "required": true,
+            "maxLength": 220
+          },
+          "post.authorName": {
+            "required": true,
+            "maxLength": 80,
+            "note": "Must identify a real article author or organization byline."
+          },
+          "post.pubDate": {
+            "required": true,
+            "note": "Use a real publication date as a Date-compatible value."
+          },
+          "post.image": {
+            "required": true,
+            "note": "Absolute hero image URL. IMAGE MEDIA ONLY."
+          },
+          "post.authorImage": {
+            "required": false,
+            "note": "Absolute author/profile image URL. IMAGE MEDIA ONLY."
+          },
+          "markdownString": {
+            "required": true,
+            "maxLength": 12000,
+            "note": "Long-form markdown article body."
+          }
+        },
+        "mediaSlots": {
+          "post.image": {
+            "path": "post.image",
+            "roles": [
+              "hero",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "xlarge",
+            "required": true,
+            "preferredAspect": "16:9",
+            "note": "Primary article hero image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "post.authorImage": {
+            "path": "post.authorImage",
+            "roles": [
+              "profile",
+              "avatar"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "preferredAspect": "1:1",
+            "note": "Author avatar or portrait image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "blog_posts",
+          "team_members",
+          "media_library"
+        ],
+        "notes": [
+          "Article titles, authors, dates, summaries, chapter names, and body copy must come from source-backed article or blog data. Do not invent bylines or publication metadata.",
+          "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props."
+        ]
+      }
     },
     {
       "componentId": "article-sidebar-sticky",
@@ -3099,8 +3683,19 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<ArticleSidebarSticky\n  title=\"The Art of Modern Web Development\"\n  authorName=\"Sarah Johnson\"\n  authorImage=\"/images/author.jpg\"\n  publishDate=\"December 15, 2024\"\n  backHref=\"/blog\"\n  backText=\"Back to Blog\"\n/>",
-        "exampleProps": null
+        "exampleUsage": "<ArticleSidebarSticky\n  backHref=\"#\"\n  backText=\"Back to Blog\"\n  title=\"Mastering React Server Components\"\n  authorName=\"Emma Thompson\"\n  authorImage=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  authorHref=\"#\"\n  publishDate=\"January 18, 2026\"\n  heroImageSrc=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  heroImageAlt=\"React Server Components architecture\"\n  markdownString={\"## Overview\\nSource-backed introduction.\\n\\n## Implementation\\nDetailed article body.\\n\\n## Conclusion\\nPractical closing takeaway.\"}\n/>",
+        "exampleProps": {
+          "backHref": "#",
+          "backText": "Back to Blog",
+          "title": "Mastering React Server Components",
+          "authorName": "Emma Thompson",
+          "authorImage": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "authorHref": "#",
+          "publishDate": "January 18, 2026",
+          "heroImageSrc": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "heroImageAlt": "React Server Components architecture",
+          "markdownString": "## Overview\nModern article layouts need clear hierarchy, source-backed metadata, and media that supports the story.\n\n## Implementation\nUse concise section headings that map to the navigation items and keep body copy grounded in the article source.\n\n## Conclusion\nClose with a practical takeaway and one clear next action for readers."
+        }
       },
       "source": {
         "exportPath": "./blocks/article/article-sidebar-sticky",
@@ -3109,8 +3704,98 @@
         "importPath": "./dist/article-sidebar-sticky.js",
         "requirePath": "./dist/article-sidebar-sticky.cjs"
       },
-      "importantUsageNotes": null,
-      "usageRequirements": null
+      "importantUsageNotes": "Use for long-form articles where a sticky sidebar with back navigation and author attribution should remain visible. heroImageSrc and authorImage must be absolute image URLs only. Do not use placeholder media variables, relative /images paths, logos, favicons, or video URLs. Keep title, authorName, publishDate, and markdownString grounded in the source article.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "authorName",
+          "publishDate",
+          "heroImageSrc",
+          "heroImageAlt",
+          "markdownString"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 90
+          },
+          "summary": {
+            "required": false,
+            "maxLength": 240,
+            "note": "Optional article summary displayed near the title."
+          },
+          "authorName": {
+            "required": true,
+            "maxLength": 80,
+            "note": "Must identify a real article author or organization byline."
+          },
+          "publishDate": {
+            "required": true,
+            "maxLength": 40,
+            "note": "Human-readable publication date from the source post."
+          },
+          "heroImageSrc": {
+            "required": true,
+            "note": "Absolute article hero image URL. IMAGE MEDIA ONLY."
+          },
+          "heroImageAlt": {
+            "required": true,
+            "maxLength": 140
+          },
+          "authorImage": {
+            "required": false,
+            "note": "Absolute author/profile image URL. IMAGE MEDIA ONLY."
+          },
+          "markdownString": {
+            "required": true,
+            "maxLength": 12000,
+            "note": "Long-form markdown article body."
+          }
+        },
+        "mediaSlots": {
+          "heroImageSrc": {
+            "path": "heroImageSrc",
+            "roles": [
+              "hero",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "xlarge",
+            "required": true,
+            "preferredAspect": "16:9",
+            "note": "Primary article hero image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "authorImage": {
+            "path": "authorImage",
+            "roles": [
+              "profile",
+              "avatar"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "preferredAspect": "1:1",
+            "note": "Author avatar or portrait image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "blog_posts",
+          "team_members",
+          "media_library"
+        ],
+        "notes": [
+          "Article titles, authors, dates, summaries, chapter names, and body copy must come from source-backed article or blog data. Do not invent bylines or publication metadata.",
+          "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props."
+        ]
+      }
     },
     {
       "componentId": "article-split-animated",
@@ -3138,8 +3823,30 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<ArticleSplitAnimated\n  title=\"The Evolution of Design Systems\"\n  description=\"Explore how design systems have transformed...\"\n  image=\"/images/featured.jpg\"\n  authorName=\"David Park\"\n  authorRole=\"Design Lead\"\n  category=\"Design\"\n  ctaText=\"Read Full Article\"\n  ctaHref=\"/article/design-systems\"\n/>",
-        "exampleProps": null
+        "exampleUsage": "<ArticleSplitAnimated\n  image=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  imageAlt=\"AI-assisted development workflow\"\n  category=\"Artificial Intelligence\"\n  categoryHref=\"#\"\n  title=\"The Future of AI-Assisted Development\"\n  description=\"A source-backed featured article about how AI is changing software delivery workflows.\"\n  authorName=\"Dr. Raj Patel\"\n  authorImage=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  authorRole=\"AI Research Lead\"\n  authorHref=\"#\"\n  publishDate=\"January 25, 2026\"\n  readTime=\"15 min read\"\n  ctaActions={[{ label: \"Read Full Article\", href: \"#\", variant: \"default\", size: \"lg\" }]}\n/>",
+        "exampleProps": {
+          "image": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "imageAlt": "AI-assisted development workflow",
+          "category": "Artificial Intelligence",
+          "categoryHref": "#",
+          "title": "The Future of AI-Assisted Development",
+          "description": "A source-backed featured article about how AI is changing software delivery workflows.",
+          "authorName": "Dr. Raj Patel",
+          "authorImage": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "authorRole": "AI Research Lead",
+          "authorHref": "#",
+          "publishDate": "January 25, 2026",
+          "readTime": "15 min read",
+          "ctaActions": [
+            {
+              "label": "Read Full Article",
+              "href": "#",
+              "variant": "default",
+              "size": "lg"
+            }
+          ],
+          "enableAnimations": true
+        }
       },
       "source": {
         "exportPath": "./blocks/article/article-split-animated",
@@ -3148,8 +3855,109 @@
         "importPath": "./dist/article-split-animated.js",
         "requirePath": "./dist/article-split-animated.cjs"
       },
-      "importantUsageNotes": null,
-      "usageRequirements": null
+      "importantUsageNotes": "Use for a featured article or hero post preview, not as a full article body. image and authorImage must be absolute image URLs only, never placeholder variables, relative /images paths, logos, favicons, or video URLs. Use ctaActions ActionConfig objects; this component does not accept ctaText or ctaHref props.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "description",
+          "image",
+          "imageAlt",
+          "ctaActions"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 90
+          },
+          "description": {
+            "required": true,
+            "maxLength": 220
+          },
+          "image": {
+            "required": true,
+            "note": "Absolute featured article image URL. IMAGE MEDIA ONLY."
+          },
+          "imageAlt": {
+            "required": true,
+            "maxLength": 140
+          },
+          "category": {
+            "required": false,
+            "maxLength": 50
+          },
+          "authorName": {
+            "required": false,
+            "maxLength": 80,
+            "note": "Must identify a real article author or organization byline when supplied."
+          },
+          "authorImage": {
+            "required": false,
+            "note": "Absolute author/profile image URL. IMAGE MEDIA ONLY."
+          },
+          "authorRole": {
+            "required": false,
+            "maxLength": 80
+          },
+          "publishDate": {
+            "required": false,
+            "maxLength": 40
+          },
+          "readTime": {
+            "required": false,
+            "maxLength": 30
+          },
+          "ctaActions": {
+            "required": true,
+            "minItems": 1,
+            "maxItems": 2,
+            "note": "Use ActionConfig objects; do not use ctaText or ctaHref."
+          }
+        },
+        "mediaSlots": {
+          "image": {
+            "path": "image",
+            "roles": [
+              "hero",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "xlarge",
+            "required": true,
+            "preferredAspect": "16:9",
+            "note": "Featured article image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "authorImage": {
+            "path": "authorImage",
+            "roles": [
+              "profile",
+              "avatar"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "preferredAspect": "1:1",
+            "note": "Author avatar or portrait image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "blog_posts",
+          "team_members",
+          "media_library"
+        ],
+        "notes": [
+          "Article titles, authors, dates, summaries, chapter names, and body copy must come from source-backed article or blog data. Do not invent bylines or publication metadata.",
+          "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props.",
+          "Use ctaActions instead of unsupported ctaText or ctaHref props."
+        ]
+      }
     },
     {
       "componentId": "article-toc-sidebar",
@@ -3178,8 +3986,43 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<ArticleTocSidebar\n  title=\"Building Scalable Applications\"\n  description=\"Learn modern architectural patterns.\"\n  authorName=\"Alex Chen\"\n  sections={[\n    { id: \"introduction\", title: \"Introduction\" },\n    { id: \"getting-started\", title: \"Getting Started\" }\n  ]}\n  ctaTitle=\"Ready to build?\"\n  ctaButtonText=\"Get Started\"\n/>",
-        "exampleProps": null
+        "exampleUsage": "<ArticleTocSidebar\n  category=\"Development\"\n  title=\"Building Scalable Systems\"\n  description=\"A source-backed guide to patterns that help applications grow from prototype to production.\"\n  authorName=\"Michael Zhang\"\n  authorImage=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  authorHref=\"#\"\n  publishDate=\"January 12, 2026\"\n  readTime=\"20 min read\"\n  heroImageSrc=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  heroImageAlt=\"Scalable architecture planning session\"\n  sections={[\n    { id: \"overview\", title: \"Overview\" },\n    { id: \"implementation\", title: \"Implementation\" },\n    { id: \"conclusion\", title: \"Conclusion\" },\n  ]}\n  ctaTitle=\"Explore More Guides\"\n  ctaDescription=\"Read the next source-backed article in this series.\"\n  ctaActions={[{ label: \"View Guides\", href: \"#\", variant: \"default\" }]}\n  markdownString={\"## Overview\\nSource-backed introduction.\\n\\n## Implementation\\nDetailed article body.\\n\\n## Conclusion\\nPractical closing takeaway.\"}\n/>",
+        "exampleProps": {
+          "category": "Development",
+          "title": "Building Scalable Systems",
+          "description": "A source-backed guide to patterns that help applications grow from prototype to production.",
+          "authorName": "Michael Zhang",
+          "authorImage": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "authorHref": "#",
+          "publishDate": "January 12, 2026",
+          "readTime": "20 min read",
+          "heroImageSrc": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "heroImageAlt": "Scalable architecture planning session",
+          "sections": [
+            {
+              "id": "overview",
+              "title": "Overview"
+            },
+            {
+              "id": "implementation",
+              "title": "Implementation"
+            },
+            {
+              "id": "conclusion",
+              "title": "Conclusion"
+            }
+          ],
+          "ctaTitle": "Explore More Guides",
+          "ctaDescription": "Read the next source-backed article in this series.",
+          "ctaActions": [
+            {
+              "label": "View Guides",
+              "href": "#",
+              "variant": "default"
+            }
+          ],
+          "markdownString": "## Overview\nModern article layouts need clear hierarchy, source-backed metadata, and media that supports the story.\n\n## Implementation\nUse concise section headings that map to the navigation items and keep body copy grounded in the article source.\n\n## Conclusion\nClose with a practical takeaway and one clear next action for readers."
+        }
       },
       "source": {
         "exportPath": "./blocks/article/article-toc-sidebar",
@@ -3188,8 +4031,123 @@
         "importPath": "./dist/article-toc-sidebar.js",
         "requirePath": "./dist/article-toc-sidebar.cjs"
       },
-      "importantUsageNotes": null,
-      "usageRequirements": null
+      "importantUsageNotes": "Use for technical tutorials, guides, and long-form articles that need sticky table-of-contents navigation. sections[].id must map to real headings in markdownString when tracking is enabled. heroImageSrc and authorImage must be absolute image URLs only. Do not use placeholder media variables, relative /images paths, logos, favicons, or video URLs.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "description",
+          "sections",
+          "heroImageSrc",
+          "heroImageAlt",
+          "markdownString"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 90
+          },
+          "description": {
+            "required": true,
+            "maxLength": 240
+          },
+          "category": {
+            "required": false,
+            "maxLength": 40
+          },
+          "authorName": {
+            "required": false,
+            "maxLength": 80,
+            "note": "Must identify a real article author or organization byline when supplied."
+          },
+          "publishDate": {
+            "required": false,
+            "maxLength": 40
+          },
+          "readTime": {
+            "required": false,
+            "maxLength": 30
+          },
+          "sections": {
+            "required": true,
+            "minItems": 3,
+            "maxItems": 8
+          },
+          "sections[].id": {
+            "required": true,
+            "note": "Must match a heading id in markdownString."
+          },
+          "sections[].title": {
+            "required": true,
+            "maxLength": 60
+          },
+          "heroImageSrc": {
+            "required": true,
+            "note": "Absolute article hero image URL. IMAGE MEDIA ONLY."
+          },
+          "heroImageAlt": {
+            "required": true,
+            "maxLength": 140
+          },
+          "authorImage": {
+            "required": false,
+            "note": "Absolute author/profile image URL. IMAGE MEDIA ONLY."
+          },
+          "ctaActions": {
+            "required": false,
+            "maxItems": 2,
+            "note": "Use ActionConfig objects; do not use ctaText, ctaHref, or ctaButtonText."
+          },
+          "markdownString": {
+            "required": true,
+            "maxLength": 12000,
+            "note": "Long-form markdown article body."
+          }
+        },
+        "mediaSlots": {
+          "heroImageSrc": {
+            "path": "heroImageSrc",
+            "roles": [
+              "hero",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "xlarge",
+            "required": true,
+            "preferredAspect": "16:9",
+            "note": "Primary article hero image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "authorImage": {
+            "path": "authorImage",
+            "roles": [
+              "profile",
+              "avatar"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "preferredAspect": "1:1",
+            "note": "Author avatar or portrait image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "blog_posts",
+          "team_members",
+          "media_library"
+        ],
+        "notes": [
+          "Article titles, authors, dates, summaries, chapter names, and body copy must come from source-backed article or blog data. Do not invent bylines or publication metadata.",
+          "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props.",
+          "When TOC or chapter tracking is enabled, every sections[].id or chapters[].id value must match a real heading id generated from markdownString content."
+        ]
+      }
     },
     {
       "componentId": "circuit-board-basic",
