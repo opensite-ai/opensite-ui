@@ -2,7 +2,7 @@
   "metadata": {
     "contractVersion": "v1",
     "uiVersion": "3.6.0",
-    "exportedAt": "2026-05-17T08:27:29.746Z",
+    "exportedAt": "2026-05-17T13:08:32.102Z",
     "source": "@opensite/ui",
     "totalBlocks": 605
   },
@@ -161,7 +161,7 @@
           }
         },
         "requiresSiteCapabilities": [
-          "metrics_or_stats",
+          "stats_or_metrics",
           "media_library"
         ],
         "notes": [
@@ -615,7 +615,7 @@
           }
         },
         "requiresSiteCapabilities": [
-          "metrics_or_stats",
+          "stats_or_metrics",
           "media_library"
         ],
         "notes": [
@@ -997,7 +997,7 @@
           }
         },
         "requiresSiteCapabilities": [
-          "contact_info",
+          "locations",
           "media_library"
         ],
         "notes": [
@@ -2005,7 +2005,7 @@
           }
         },
         "requiresSiteCapabilities": [
-          "metrics_or_stats",
+          "stats_or_metrics",
           "reviews_or_testimonials",
           "media_library"
         ],
@@ -2103,7 +2103,7 @@
         },
         "mediaSlots": {},
         "requiresSiteCapabilities": [
-          "metrics_or_stats"
+          "stats_or_metrics"
         ],
         "notes": [
           "Do not fabricate metrics or quantified claims."
@@ -2906,7 +2906,7 @@
           }
         },
         "requiresSiteCapabilities": [
-          "metrics_or_stats",
+          "stats_or_metrics",
           "media_library"
         ],
         "notes": [

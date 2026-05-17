@@ -129,13 +129,22 @@ export interface BlockPropConstraint {
  */
 export type SiteCapability =
   | "reviews_or_testimonials"
+  | "pricing"
   | "pricing_data"
   | "team_members"
   | "blog_posts"
+  | "portfolio_items"
   | "case_studies"
+  | "locations"
+  | "events"
+  | "products"
+  | "services"
+  | "stats_or_metrics"
   | "metrics_or_stats"
   | "product_catalog"
   | "media_library"
+  | "contact_form"
+  | "video_assets"
   | "contact_info";
 
 /**

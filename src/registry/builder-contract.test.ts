@@ -538,6 +538,40 @@ describe("BLOCK_REGISTRY about category contracts", () => {
     }
   });
 
+  it("uses current site capability keys for about source-backed data", () => {
+    const legacyCapabilityKeys = [
+      "metrics_or_stats",
+      "pricing_data",
+      "contact_info",
+    ];
+
+    for (const id of ABOUT_BLOCK_IDS) {
+      const capabilities =
+        BLOCK_REGISTRY[id].usageRequirements?.requiresSiteCapabilities ?? [];
+
+      for (const capability of legacyCapabilityKeys) {
+        expect(capabilities, id).not.toContain(capability);
+      }
+    }
+
+    expect(
+      BLOCK_REGISTRY["about-stats-showcase"].usageRequirements
+        ?.requiresSiteCapabilities,
+    ).toEqual(expect.arrayContaining(["stats_or_metrics"]));
+    expect(
+      BLOCK_REGISTRY["about-company-profile"].usageRequirements
+        ?.requiresSiteCapabilities,
+    ).toEqual(expect.arrayContaining(["stats_or_metrics"]));
+    expect(
+      BLOCK_REGISTRY["community-initiatives"].usageRequirements
+        ?.requiresSiteCapabilities,
+    ).toEqual(expect.arrayContaining(["stats_or_metrics"]));
+    expect(
+      BLOCK_REGISTRY["about-location-info-hero"].usageRequirements
+        ?.requiresSiteCapabilities,
+    ).toEqual(expect.arrayContaining(["locations"]));
+  });
+
   it("declares image media slots where about blocks accept media", () => {
     for (const id of ABOUT_BLOCK_IDS_WITH_MEDIA) {
       const slots = BLOCK_REGISTRY[id].usageRequirements?.mediaSlots ?? {};
