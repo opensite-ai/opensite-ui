@@ -90,6 +90,103 @@ const SAMPLE_SOURCES: Record<string, BuilderContractBlockSource> = {
   },
 };
 
+const ABOUT_BLOCK_IDS = [
+  "alternating-blocks",
+  "about-mission-features",
+  "about-stats-showcase",
+  "about-company-profile",
+  "about-vision-gallery",
+  "about-developer-story",
+  "about-story-gallery",
+  "about-streamline-team",
+  "about-developer-profile",
+  "about-startup-team",
+  "about-minimal-story",
+  "about-story-hero",
+  "about-stats-sidebar",
+  "about-interactive-tabs",
+  "about-mission-dual-image",
+  "about-story-expertise",
+  "about-network-spotlight",
+  "about-location-info-hero",
+  "about-split-hero",
+  "about-mission-principles",
+  "about-expandable-values",
+  "community-initiatives",
+  "about-culture-tabs",
+] as const;
+
+const ABOUT_BLOCK_IDS_WITH_MEDIA = [
+  "alternating-blocks",
+  "about-mission-features",
+  "about-stats-showcase",
+  "about-company-profile",
+  "about-vision-gallery",
+  "about-developer-story",
+  "about-story-gallery",
+  "about-streamline-team",
+  "about-developer-profile",
+  "about-startup-team",
+  "about-minimal-story",
+  "about-story-hero",
+  "about-interactive-tabs",
+  "about-mission-dual-image",
+  "about-story-expertise",
+  "about-network-spotlight",
+  "about-location-info-hero",
+  "about-split-hero",
+  "community-initiatives",
+  "about-culture-tabs",
+] as const;
+
+const FORBIDDEN_EXAMPLE_PATTERNS = [
+  /\/images\//,
+  /imagePlaceholders/,
+  /videoPlaceholders/,
+] as const;
+
+function collectStrings(value: unknown): string[] {
+  if (typeof value === "string") {
+    return [value];
+  }
+
+  if (Array.isArray(value)) {
+    return value.flatMap((item) => collectStrings(item));
+  }
+
+  if (value && typeof value === "object") {
+    return Object.values(value).flatMap((item) => collectStrings(item));
+  }
+
+  return [];
+}
+
+function collectMediaStrings(value: unknown, path: string[] = []): string[] {
+  if (typeof value === "string") {
+    const leaf = path[path.length - 1] ?? "";
+    const pathText = path.join(".");
+    const isAltText = /alt/i.test(leaf);
+    const isMediaPath =
+      /(src|image|images|avatar|logo|media)/i.test(pathText) && !isAltText;
+
+    return isMediaPath ? [value] : [];
+  }
+
+  if (Array.isArray(value)) {
+    return value.flatMap((item, index) =>
+      collectMediaStrings(item, [...path, String(index)]),
+    );
+  }
+
+  if (value && typeof value === "object") {
+    return Object.entries(value).flatMap(([key, item]) =>
+      collectMediaStrings(item, [...path, key]),
+    );
+  }
+
+  return [];
+}
+
 describe("createBuilderContractBundle", () => {
   it("builds the required Phase 1 contract sections", () => {
     const bundle = createBuilderContractBundle({
@@ -389,6 +486,85 @@ describe("BLOCK_REGISTRY hero-mentorship-video-split contract", () => {
     expect(
       (entry as unknown as Record<string, unknown>).defaultProps,
     ).toBeUndefined();
+  });
+});
+
+describe("BLOCK_REGISTRY about category contracts", () => {
+  it("declares structured usage requirements and exampleProps for every about block", () => {
+    for (const id of ABOUT_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+
+      expect(entry, id).toBeDefined();
+      expect(entry.importantUsageNotes, id).toBeTruthy();
+      expect(entry.usageRequirements, id).toBeDefined();
+      expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+      expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+      expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+      expect(entry.exampleProps, id).toBeDefined();
+      expect(
+        (entry as unknown as Record<string, unknown>).defaultProps,
+        id,
+      ).toBeUndefined();
+    }
+  });
+
+  it("does not use legacy defaultData for about blocks in the builder contract", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of ABOUT_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.examples, id).toHaveProperty("exampleProps");
+      expect(block?.examples.exampleProps, id).not.toBeNull();
+      expect(block?.examples, id).not.toHaveProperty("defaultData");
+    }
+  });
+
+  it("keeps about exampleUsage and exampleProps free of relative or placeholder media", () => {
+    for (const id of ABOUT_BLOCK_IDS) {
+      const entry = BLOCK_REGISTRY[id];
+      const exampleText = [
+        entry.exampleUsage,
+        ...collectStrings(entry.exampleProps),
+      ].join("\n");
+
+      for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+        expect(exampleText, id).not.toMatch(pattern);
+      }
+    }
+  });
+
+  it("declares image media slots where about blocks accept media", () => {
+    for (const id of ABOUT_BLOCK_IDS_WITH_MEDIA) {
+      const slots = BLOCK_REGISTRY[id].usageRequirements?.mediaSlots ?? {};
+
+      expect(Object.keys(slots).length, id).toBeGreaterThan(0);
+
+      for (const slot of Object.values(slots)) {
+        expect(slot.note, `${id}:${slot.path}`).toMatch(/IMAGE .*ONLY/i);
+
+        if (!slot.roles.includes("logo")) {
+          expect(slot.disallowedRoles ?? [], `${id}:${slot.path}`).toEqual(
+            expect.arrayContaining(["logo", "favicon", "video-thumbnail"]),
+          );
+        }
+      }
+    }
+  });
+
+  it("uses absolute media URLs in about exampleProps", () => {
+    for (const id of ABOUT_BLOCK_IDS_WITH_MEDIA) {
+      const mediaStrings = collectMediaStrings(BLOCK_REGISTRY[id].exampleProps);
+
+      expect(mediaStrings.length, id).toBeGreaterThan(0);
+      for (const value of mediaStrings) {
+        expect(value, `${id}:${value}`).toMatch(/^https?:\/\//);
+      }
+    }
   });
 });
 

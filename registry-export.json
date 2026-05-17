@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-05-17T06:13:17.308Z",
+    "exportedAt": "2026-05-17T08:06:43.076Z",
     "totalBlocks": 605,
-    "version": "3.5.9",
+    "version": "3.6.0",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -23,10 +23,67 @@
       ],
       "category": "about",
       "props": "AlternatingBlocksProps",
-      "exampleUsage": "<AlternatingBlocks\n  sections={[\n    {\n      content: (\n        <div>\n          <div className=\"flex items-center gap-2 mb-3\">\n            <Lightbulb className=\"h-4 w-4 text-primary\" />\n            <span className=\"text-sm font-medium text-muted-foreground\">\n              The Origin\n            </span>\n          </div>\n          <h3 className=\"mb-3 text-2xl font-semibold tracking-tight\">\n            It started with frustration\n          </h3>\n          <p className=\"text-muted-foreground leading-relaxed\">\n            We spent years watching teams drown in tools that promised to help\n            but only added complexity. In 2018, we decided to build something better.\n          </p>\n        </div>\n      ),\n      media: <img src=\"...\" alt=\"...\" />,\n      mediaLeft: false\n    },\n    {\n      content: <div>...</div>,\n      media: <img src=\"...\" alt=\"...\" />,\n      mediaLeft: true\n    }\n  ]}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AlternatingBlocks\n  title=\"How We Got Here\"\n  subtitle=\"A practical timeline of the decisions that shaped our company.\"\n  sections={[\n    {\n      content: \"We started by replacing disconnected tools with one focused workflow.\",\n      media: <img src=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\" alt=\"Team planning in a cafe workspace\" />,\n      mediaLeft: false,\n    },\n    {\n      content: \"Today our team helps operators launch better customer experiences faster.\",\n      media: <img src=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\" alt=\"Collaborative team workspace\" />,\n      mediaLeft: true,\n    },\n  ]}\n/>",
+      "importantUsageNotes": "Use for two or more narrative sections with alternating visual rhythm. The sections[].content and sections[].media props are ReactNode slots; authoring tools should render concrete text and image elements, not placeholder fragments. Keep each section focused on one milestone, value, or proof point.",
+      "usageRequirements": {
+        "requiredProps": [
+          "sections"
+        ],
+        "propConstraints": {
+          "sections": {
+            "required": true,
+            "minItems": 2,
+            "maxItems": 5
+          },
+          "sections[].content": {
+            "required": true,
+            "note": "ReactNode content slot. Use concise, source-backed story copy."
+          },
+          "sections[].media": {
+            "required": true,
+            "note": "ReactNode media slot. Provide an image element with an absolute src."
+          }
+        },
+        "mediaSlots": {
+          "sections[].media": {
+            "path": "sections[].media",
+            "roles": [
+              "feature",
+              "hero"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Alternating section visual. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "title": "How We Got Here",
+        "subtitle": "A practical timeline of the decisions that shaped our company.",
+        "sections": [
+          {
+            "content": "We started by replacing disconnected tools with one focused workflow.",
+            "media": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "mediaLeft": false
+          },
+          {
+            "content": "Today our team helps operators launch better customer experiences faster.",
+            "media": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "mediaLeft": true
+          }
+        ]
+      }
     },
     {
       "id": "about-mission-features",
@@ -45,10 +102,111 @@
       ],
       "category": "about",
       "props": "AboutMissionFeaturesProps",
-      "exampleUsage": "<AboutMissionFeatures\n  title=\"About Us\"\n  description=\"We make it easy to build customer portals and internal tools.\"\n  missionLabel=\"OUR MISSION\"\n  missionText=\"We believe building software should be insanely easy.\"\n  mainImage={{ src: \"/images/team.jpg\", alt: \"Our team\" }}\n  features={[\n    { icon: \"lucide/files\", title: \"Being radically open\", description: \"...\" },\n    { icon: \"lucide/settings\", title: \"Optimizing for empowerment\", description: \"...\" }\n  ]}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutMissionFeatures\n  title=\"About OpenSite\"\n  description=\"We help service teams turn daily operations into polished digital experiences.\"\n  missionLabel=\"Our Mission\"\n  missionText=\"Make professional site building faster, clearer, and easier to maintain.\"\n  mainImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team working together in a cafe\" }}\n  missionBackgroundImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Workspace background for mission statement\" }}\n  features={[\n    { icon: \"lucide/files\", title: \"Reusable systems\", description: \"Blocks stay consistent across every page.\" },\n    { icon: \"lucide/settings\", title: \"Operational clarity\", description: \"Teams can update content without redesigning layouts.\" },\n    { icon: \"lucide/shield\", title: \"Reliable delivery\", description: \"Contracts protect AI-generated pages from unsafe content.\" },\n  ]}\n/>",
+      "importantUsageNotes": "Use when a page needs a mission statement plus feature proof points. Supply both image objects when visual impact matters, and keep feature cards limited to short, concrete benefits. Do not use logos, favicons, or video URLs in image props.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "missionText",
+          "features"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 70
+          },
+          "description": {
+            "maxLength": 180
+          },
+          "missionLabel": {
+            "maxLength": 35
+          },
+          "missionText": {
+            "required": true,
+            "maxLength": 180
+          },
+          "features": {
+            "required": true,
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "mainImage": {
+            "required": true
+          },
+          "missionBackgroundImage": {
+            "required": true
+          }
+        },
+        "mediaSlots": {
+          "mainImage": {
+            "path": "mainImage",
+            "roles": [
+              "feature",
+              "hero"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Primary about image beside the mission card. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "missionBackgroundImage": {
+            "path": "missionBackgroundImage",
+            "roles": [
+              "background",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Background photo behind the mission statement. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "title": "About OpenSite",
+        "description": "We help service teams turn daily operations into polished digital experiences.",
+        "missionLabel": "Our Mission",
+        "missionText": "Make professional site building faster, clearer, and easier to maintain.",
+        "mainImage": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Team working together in a cafe"
+        },
+        "missionBackgroundImage": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Workspace background for mission statement"
+        },
+        "features": [
+          {
+            "icon": "lucide/files",
+            "title": "Reusable systems",
+            "description": "Blocks stay consistent across every page."
+          },
+          {
+            "icon": "lucide/settings",
+            "title": "Operational clarity",
+            "description": "Teams can update content without redesigning layouts."
+          },
+          {
+            "icon": "lucide/shield",
+            "title": "Reliable delivery",
+            "description": "Contracts protect AI-generated pages from unsafe content."
+          }
+        ]
+      }
     },
     {
       "id": "about-stats-showcase",
@@ -67,10 +225,146 @@
       ],
       "category": "about",
       "props": "AboutStatsShowcaseProps",
-      "exampleUsage": "<AboutStatsShowcase\n  title=\"Our Background\"\n  description=\"Discover how our solution simplifies complex processes.\"\n  stats={[\n    { value: \"21M\", label: \"Global Reach of Users\" },\n    { value: \"12+\", label: \"Years of Expertise\" }\n  ]}\n  logosTitle=\"Trusted by leading product teams worldwide.\"\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutStatsShowcase\n  title=\"Our Background\"\n  description=\"We help teams launch reliable digital experiences at scale.\"\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team workspace\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Planning session\" },\n  ]}\n  stats={[\n    { value: \"21M\", label: \"Audience reach\" },\n    { value: \"12+\", label: \"Years of expertise\" },\n  ]}\n  benefits={[\n    {\n      image: { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Customer operations team\" },\n      stat: { value: \"98%\", label: \"Retention\", description: \"Measured across supported accounts\" },\n    },\n  ]}\n/>",
+      "importantUsageNotes": "Only use when metrics, social proof, and any testimonial-style content are sourced. Do not fabricate stats, company logos, testimonial quotes, authors, or roles. Image props must use absolute image URLs and must not receive video assets.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "stats"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 70
+          },
+          "description": {
+            "maxLength": 180
+          },
+          "images": {
+            "minItems": 2,
+            "maxItems": 4
+          },
+          "stats": {
+            "required": true,
+            "minItems": 2,
+            "maxItems": 4,
+            "note": "Metrics must be sourced from the site or client data."
+          },
+          "logos": {
+            "maxItems": 8,
+            "note": "Only include real customer or partner logos."
+          },
+          "benefits": {
+            "maxItems": 3
+          },
+          "benefits[].testimonial": {
+            "note": "Must be a real testimonial. Do not fabricate."
+          }
+        },
+        "mediaSlots": {
+          "images[]": {
+            "path": "images[]",
+            "roles": [
+              "feature",
+              "gallery"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Hero showcase images. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "logos[]": {
+            "path": "logos[]",
+            "roles": [
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "note": "Trusted company logo. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
+          },
+          "benefits[].image": {
+            "path": "benefits[].image",
+            "roles": [
+              "feature",
+              "thumbnail"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "medium",
+            "required": false,
+            "note": "Benefit card image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "benefits[].testimonial.logo": {
+            "path": "benefits[].testimonial.logo",
+            "roles": [
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "note": "Logo shown inside testimonial card. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "metrics_or_stats",
+          "reviews_or_testimonials",
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "title": "Our Background",
+        "description": "We help teams launch reliable digital experiences at scale.",
+        "images": [
+          {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Team workspace"
+          },
+          {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Planning session"
+          }
+        ],
+        "stats": [
+          {
+            "value": "21M",
+            "label": "Audience reach"
+          },
+          {
+            "value": "12+",
+            "label": "Years of expertise"
+          }
+        ],
+        "benefits": [
+          {
+            "image": {
+              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+              "alt": "Customer operations team"
+            },
+            "stat": {
+              "value": "98%",
+              "label": "Retention",
+              "description": "Measured across supported accounts"
+            }
+          }
+        ]
+      }
     },
     {
       "id": "about-company-profile",
@@ -89,10 +383,133 @@
       ],
       "category": "about",
       "props": "AboutCompanyProfileProps",
-      "exampleUsage": "<AboutCompanyProfile\n  title=\"About Us\"\n  description=\"A passionate team dedicated to creating innovative solutions.\"\n  breakout={{\n    title: \"Hundreds of blocks at Opensite AI\",\n    description: \"Providing businesses with effective tools.\",\n    buttonText: \"Discover more\",\n    buttonUrl: \"#\"\n  }}\n  achievements={[\n    { label: \"Companies\", value: \"300+\" },\n    { label: \"Happy Customers\", value: \"99%\" }\n  ]}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutCompanyProfile\n  title=\"A Team Built for Operational Clarity\"\n  description=\"We combine product craft and service operations experience to help brands move faster.\"\n  mainImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team strategy session\" }}\n  secondaryImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Workspace detail\" }}\n  breakout={{\n    title: \"Built for growing operators\",\n    description: \"Reusable systems keep every location and campaign aligned.\",\n    action: { label: \"Discover more\", href: \"/about\", variant: \"default\" },\n  }}\n  achievements={[\n    { label: \"Customer sites launched\", value: \"300+\" },\n    { label: \"Average satisfaction\", value: \"99%\" },\n  ]}\n/>",
+      "importantUsageNotes": "Use for credibility-oriented company profiles with sourced metrics and optional brand logos. Breakout actions must use the ActionConfig shape with label and href, not buttonText or buttonUrl. Image props must be image assets only.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "description",
+          "mainImage"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 80
+          },
+          "description": {
+            "required": true,
+            "maxLength": 220
+          },
+          "mainImage": {
+            "required": true
+          },
+          "achievements": {
+            "minItems": 2,
+            "maxItems": 4,
+            "note": "Achievement metrics must be sourced."
+          },
+          "companies": {
+            "maxItems": 8,
+            "note": "Only include real customer or partner logos."
+          }
+        },
+        "mediaSlots": {
+          "mainImage": {
+            "path": "mainImage",
+            "roles": [
+              "feature",
+              "hero"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Primary company profile image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "secondaryImage": {
+            "path": "secondaryImage",
+            "roles": [
+              "feature",
+              "thumbnail"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "medium",
+            "required": false,
+            "note": "Secondary supporting image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "breakout.logo": {
+            "path": "breakout.logo",
+            "roles": [
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "note": "Breakout card logo. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
+          },
+          "companies[]": {
+            "path": "companies[]",
+            "roles": [
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "note": "Customer or partner logo. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "metrics_or_stats",
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "title": "A Team Built for Operational Clarity",
+        "description": "We combine product craft and service operations experience to help brands move faster.",
+        "mainImage": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Team strategy session"
+        },
+        "secondaryImage": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Workspace detail"
+        },
+        "breakout": {
+          "title": "Built for growing operators",
+          "description": "Reusable systems keep every location and campaign aligned.",
+          "action": {
+            "label": "Discover more",
+            "href": "/about",
+            "variant": "default"
+          }
+        },
+        "achievements": [
+          {
+            "label": "Customer sites launched",
+            "value": "300+"
+          },
+          {
+            "label": "Average satisfaction",
+            "value": "99%"
+          }
+        ]
+      }
     },
     {
       "id": "about-vision-gallery",
@@ -111,10 +528,85 @@
       ],
       "category": "about",
       "props": "AboutVisionGalleryProps",
-      "exampleUsage": "<AboutVisionGallery\n  title=\"About Us\"\n  subtitle=\"Meet our team and discover our values.\"\n  visionTitle=\"Our Vision\"\n  visionContent=\"What if you could create custom software without code?\"\n  ctaTitle=\"Part of Our Global Team\"\n  ctaButtonText=\"Get to know the team\"\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutVisionGallery\n  title=\"The Vision Behind Our Work\"\n  subtitle=\"We believe great digital systems should feel simple to run.\"\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Collaborative product session\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team reviewing site designs\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Customer experience planning\" },\n  ]}\n  primarySectionTitle=\"Our Vision\"\n  primarySectionContent=\"Give every operator the ability to publish excellent customer experiences without technical bottlenecks.\"\n  secondarySectionTitle=\"How We Build\"\n  secondarySectionContent=\"We turn reusable components, semantic contracts, and real content into maintainable sites.\"\n  ctaTitle=\"Part of Our Global Team\"\n  ctaAction={{ label: \"Get to know the team\", href: \"/team\", variant: \"default\" }}\n/>",
+      "importantUsageNotes": "Use when a brand has a clear vision story and enough supporting imagery for a gallery. Keep gallery images cohesive and source-backed. Do not use logo, favicon, or video assets in the gallery image props.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "images"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 80
+          },
+          "subtitle": {
+            "maxLength": 160
+          },
+          "images": {
+            "required": true,
+            "minItems": 3,
+            "maxItems": 5
+          },
+          "primarySectionContent": {
+            "maxLength": 260
+          },
+          "secondarySectionContent": {
+            "maxLength": 260
+          }
+        },
+        "mediaSlots": {
+          "images[]": {
+            "path": "images[]",
+            "roles": [
+              "gallery",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Vision gallery image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "title": "The Vision Behind Our Work",
+        "subtitle": "We believe great digital systems should feel simple to run.",
+        "images": [
+          {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Collaborative product session"
+          },
+          {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Team reviewing site designs"
+          },
+          {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Customer experience planning"
+          }
+        ],
+        "primarySectionTitle": "Our Vision",
+        "primarySectionContent": "Give every operator the ability to publish excellent customer experiences without technical bottlenecks.",
+        "secondarySectionTitle": "How We Build",
+        "secondarySectionContent": "We turn reusable components, semantic contracts, and real content into maintainable sites.",
+        "ctaTitle": "Part of Our Global Team",
+        "ctaAction": {
+          "label": "Get to know the team",
+          "href": "/team",
+          "variant": "default"
+        }
+      }
     },
     {
       "id": "about-developer-story",
@@ -133,10 +625,109 @@
       ],
       "category": "about",
       "props": "AboutDeveloperStoryProps",
-      "exampleUsage": "<AboutDeveloperStory\n  title=\"Developer-Focused Solutions for Modern Teams\"\n  description=\"We build tools that developers love.\"\n  primaryCta={{ text: \"Get Started\", url: \"#\" }}\n  stats={[\n    { value: \"200+\", label: \"Projects Completed\" },\n    { value: \"50+\", label: \"Happy Clients\" }\n  ]}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutDeveloperStory\n  title=\"Developer-Focused Solutions for Modern Teams\"\n  description=\"We build tools that developers and operators can both trust.\"\n  actions={[\n    { label: \"Get Started\", href: \"/contact\", variant: \"default\" },\n    { label: \"View Docs\", href: \"/docs\", variant: \"outline\" },\n  ]}\n  stats={[\n    { value: \"200+\", label: \"Projects completed\" },\n    { value: \"50+\", label: \"Integrated workflows\" },\n  ]}\n  storyTitle=\"Built from the work itself\"\n  storyContent=\"Our platform grew from years of solving the same operational problems for real teams.\"\n  storyImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Developer workspace\" }}\n/>",
+      "importantUsageNotes": "Use for technical about pages with real metrics and a credible product story. Actions must use ActionConfig objects. Any stats or logos must come from sourced site data, and storyImage must be an image asset only.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "description",
+          "storyImage"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 80
+          },
+          "description": {
+            "required": true,
+            "maxLength": 190
+          },
+          "actions": {
+            "maxItems": 2
+          },
+          "stats": {
+            "minItems": 2,
+            "maxItems": 4,
+            "note": "Stats must be sourced."
+          },
+          "logos": {
+            "maxItems": 8,
+            "note": "Only include real customer or partner logos."
+          },
+          "storyImage": {
+            "required": true
+          }
+        },
+        "mediaSlots": {
+          "storyImage": {
+            "path": "storyImage",
+            "roles": [
+              "feature",
+              "hero"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Story section image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "logos[]": {
+            "path": "logos[]",
+            "roles": [
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "note": "Customer or partner logo. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "metrics_or_stats",
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "title": "Developer-Focused Solutions for Modern Teams",
+        "description": "We build tools that developers and operators can both trust.",
+        "actions": [
+          {
+            "label": "Get Started",
+            "href": "/contact",
+            "variant": "default"
+          },
+          {
+            "label": "View Docs",
+            "href": "/docs",
+            "variant": "outline"
+          }
+        ],
+        "stats": [
+          {
+            "value": "200+",
+            "label": "Projects completed"
+          },
+          {
+            "value": "50+",
+            "label": "Integrated workflows"
+          }
+        ],
+        "storyTitle": "Built from the work itself",
+        "storyContent": "Our platform grew from years of solving the same operational problems for real teams.",
+        "storyImage": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Developer workspace"
+        }
+      }
     },
     {
       "id": "about-story-gallery",
@@ -154,10 +745,71 @@
       ],
       "category": "about",
       "props": "AboutStoryGalleryProps",
-      "exampleUsage": "<AboutStoryGallery\n  title=\"Our Story\"\n  description=\"We started with a vision to transform how businesses build software.\"\n  images={[\n    { src: \"/images/story1.jpg\", alt: \"Our beginning\" },\n    { src: \"/images/story2.jpg\", alt: \"Growth phase\" }\n  ]}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutStoryGallery\n  title=\"Our Story\"\n  description=\"We started with a simple idea: make high-quality site operations easier for every team.\"\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Early team workspace\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team collaborating on product direction\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Operations planning board\" },\n  ]}\n/>",
+      "importantUsageNotes": "Use for concise origin stories with a small image gallery. Provide real, relevant gallery images with descriptive alt text. Do not use logos, favicons, or video URLs in images[].",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "description",
+          "images"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 70
+          },
+          "description": {
+            "required": true,
+            "maxLength": 220
+          },
+          "images": {
+            "required": true,
+            "minItems": 3,
+            "maxItems": 5
+          }
+        },
+        "mediaSlots": {
+          "images[]": {
+            "path": "images[]",
+            "roles": [
+              "gallery",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Story gallery image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "title": "Our Story",
+        "description": "We started with a simple idea: make high-quality site operations easier for every team.",
+        "images": [
+          {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Early team workspace"
+          },
+          {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Team collaborating on product direction"
+          },
+          {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Operations planning board"
+          }
+        ]
+      }
     },
     {
       "id": "about-streamline-team",
@@ -176,10 +828,106 @@
       ],
       "category": "about",
       "props": "AboutStreamlineTeamProps",
-      "exampleUsage": "<AboutStreamlineTeam\n  title=\"Streamline Your Workflow\"\n  description=\"Our platform helps teams work smarter, not harder.\"\n  features={[\n    { icon: \"lucide/zap\", title: \"Lightning Fast\", description: \"Build in minutes.\" },\n    { icon: \"lucide/shield\", title: \"Enterprise Security\", description: \"Bank-grade security.\" }\n  ]}\n  teamCta={{ text: \"Join Our Team\", url: \"#\" }}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutStreamlineTeam\n  title=\"Streamline Your Workflow\"\n  description=\"Our platform helps teams work smarter without losing creative control.\"\n  primaryImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team workflow planning\" }}\n  secondaryImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Detailed product planning session\" }}\n  teamTitle=\"Join the team building simpler operations\"\n  teamDescription=\"We look for pragmatic builders who care about durable systems.\"\n  actions={[{ label: \"View Open Roles\", href: \"/careers\", variant: \"default\" }]}\n  features={[\n    { icon: \"lucide/zap\", title: \"Faster launches\", description: \"Ship polished pages in less time.\" },\n    { icon: \"lucide/shield\", title: \"Reliable systems\", description: \"Keep content aligned as sites grow.\" },\n  ]}\n/>",
+      "importantUsageNotes": "Use for workflow-focused about or recruiting sections with two supporting images and a concise team CTA. The team CTA should not imply open roles unless the site has that content. Image props must be image assets only.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "description",
+          "primaryImage"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 70
+          },
+          "description": {
+            "required": true,
+            "maxLength": 180
+          },
+          "primaryImage": {
+            "required": true
+          },
+          "features": {
+            "minItems": 2,
+            "maxItems": 4
+          },
+          "actions": {
+            "maxItems": 2
+          }
+        },
+        "mediaSlots": {
+          "primaryImage": {
+            "path": "primaryImage",
+            "roles": [
+              "feature",
+              "hero"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Primary overlapping team/workflow image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "secondaryImage": {
+            "path": "secondaryImage",
+            "roles": [
+              "feature",
+              "thumbnail"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "medium",
+            "required": false,
+            "note": "Secondary overlapping team/workflow image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "title": "Streamline Your Workflow",
+        "description": "Our platform helps teams work smarter without losing creative control.",
+        "primaryImage": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Team workflow planning"
+        },
+        "secondaryImage": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Detailed product planning session"
+        },
+        "teamTitle": "Join the team building simpler operations",
+        "teamDescription": "We look for pragmatic builders who care about durable systems.",
+        "actions": [
+          {
+            "label": "View Open Roles",
+            "href": "/careers",
+            "variant": "default"
+          }
+        ],
+        "features": [
+          {
+            "icon": "lucide/zap",
+            "title": "Faster launches",
+            "description": "Ship polished pages in less time."
+          },
+          {
+            "icon": "lucide/shield",
+            "title": "Reliable systems",
+            "description": "Keep content aligned as sites grow."
+          }
+        ]
+      }
     },
     {
       "id": "about-developer-profile",
@@ -198,10 +946,97 @@
       ],
       "category": "about",
       "props": "AboutDeveloperProfileProps",
-      "exampleUsage": "<AboutDeveloperProfile\n  name=\"Alex Johnson\"\n  role=\"Full-Stack Developer\"\n  bio=\"I'm a passionate developer with 8+ years of experience.\"\n  skills={[\"React\", \"TypeScript\", \"Node.js\", \"Python\"]}\n  socialLinks={[\n    { icon: \"lucide/github\", url: \"#\", label: \"GitHub\" }\n  ]}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutDeveloperProfile\n  name=\"Alex Johnson\"\n  role=\"Full-Stack Developer\"\n  bio=\"Alex builds maintainable product systems for growing service teams.\"\n  avatar={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Alex Johnson profile portrait\" }}\n  skills={[\"React\", \"TypeScript\", \"Rails\", \"PostgreSQL\"]}\n  skillsTitle=\"Core Skills\"\n  socialLinks={[{ href: \"https://github.com/opensite-ai\", label: \"GitHub\" }]}\n  actions={[{ label: \"Contact Alex\", href: \"/contact\", variant: \"default\" }]}\n/>",
+      "importantUsageNotes": "Use only when the site has a real person, founder, or team member profile. Do not invent a person's name, role, bio, skills, or social links. Avatar must be a profile image, not a logo, favicon, or video URL.",
+      "usageRequirements": {
+        "requiredProps": [
+          "name",
+          "role",
+          "bio",
+          "avatar"
+        ],
+        "propConstraints": {
+          "name": {
+            "required": true,
+            "maxLength": 60
+          },
+          "role": {
+            "required": true,
+            "maxLength": 80
+          },
+          "bio": {
+            "required": true,
+            "maxLength": 260
+          },
+          "avatar": {
+            "required": true
+          },
+          "skills": {
+            "minItems": 3,
+            "maxItems": 8
+          },
+          "socialLinks": {
+            "maxItems": 4
+          },
+          "actions": {
+            "maxItems": 2
+          }
+        },
+        "mediaSlots": {
+          "avatar": {
+            "path": "avatar",
+            "roles": [
+              "profile",
+              "avatar"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "medium",
+            "required": true,
+            "preferredAspect": "1:1",
+            "note": "Profile portrait for the person. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "team_members",
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "name": "Alex Johnson",
+        "role": "Full-Stack Developer",
+        "bio": "Alex builds maintainable product systems for growing service teams.",
+        "avatar": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Alex Johnson profile portrait"
+        },
+        "skills": [
+          "React",
+          "TypeScript",
+          "Rails",
+          "PostgreSQL"
+        ],
+        "skillsTitle": "Core Skills",
+        "socialLinks": [
+          {
+            "href": "https://github.com/opensite-ai",
+            "label": "GitHub"
+          }
+        ],
+        "actions": [
+          {
+            "label": "Contact Alex",
+            "href": "/contact",
+            "variant": "default"
+          }
+        ]
+      }
     },
     {
       "id": "about-startup-team",
@@ -220,10 +1055,96 @@
       ],
       "category": "about",
       "props": "AboutStartupTeamProps",
-      "exampleUsage": "<AboutStartupTeam\n  title=\"Building the Future of Software Development\"\n  description=\"We're a team of passionate builders.\"\n  sidebarLinks={[\n    { label: \"About Us\", href: \"#about\", isActive: true },\n    { label: \"Our Team\", href: \"#team\" }\n  ]}\n  teamMembers={[\n    { name: \"Sarah Chen\", role: \"CEO & Co-Founder\" }\n  ]}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutStartupTeam\n  title=\"Building the Future of Site Operations\"\n  description=\"We are a team of product builders, operators, and customer experience specialists.\"\n  sidebarLinks={[\n    { label: \"Leadership\", value: \"leadership\" },\n    { label: \"Product\", value: \"product\" },\n  ]}\n  teamTitle=\"Meet the Team\"\n  teamMembers={[\n    {\n      name: \"Sarah Chen\",\n      role: \"CEO and Co-Founder\",\n      avatar: { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Sarah Chen portrait\" },\n      tab: \"leadership\",\n    },\n    {\n      name: \"Marcus Johnson\",\n      role: \"Product Lead\",\n      avatar: { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Marcus Johnson portrait\" },\n      tab: \"product\",\n    },\n  ]}\n/>",
+      "importantUsageNotes": "Use only when real team member data is available. Do not fabricate names, roles, avatars, or social links. Sidebar link values must match teamMembers[].tab values. Avatars must be profile images only.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "teamMembers"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 80
+          },
+          "description": {
+            "maxLength": 220
+          },
+          "sidebarLinks": {
+            "minItems": 1,
+            "maxItems": 6
+          },
+          "teamMembers": {
+            "required": true,
+            "minItems": 2,
+            "maxItems": 12,
+            "note": "Must come from real team member data."
+          },
+          "teamMembers[].tab": {
+            "note": "When present, must match a sidebarLinks[].value."
+          }
+        },
+        "mediaSlots": {
+          "teamMembers[].avatar": {
+            "path": "teamMembers[].avatar",
+            "roles": [
+              "profile",
+              "avatar"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "medium",
+            "required": true,
+            "preferredAspect": "1:1",
+            "note": "Team member portrait. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "team_members",
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "title": "Building the Future of Site Operations",
+        "description": "We are a team of product builders, operators, and customer experience specialists.",
+        "sidebarLinks": [
+          {
+            "label": "Leadership",
+            "value": "leadership"
+          },
+          {
+            "label": "Product",
+            "value": "product"
+          }
+        ],
+        "teamTitle": "Meet the Team",
+        "teamMembers": [
+          {
+            "name": "Sarah Chen",
+            "role": "CEO and Co-Founder",
+            "avatar": {
+              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+              "alt": "Sarah Chen portrait"
+            },
+            "tab": "leadership"
+          },
+          {
+            "name": "Marcus Johnson",
+            "role": "Product Lead",
+            "avatar": {
+              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+              "alt": "Marcus Johnson portrait"
+            },
+            "tab": "product"
+          }
+        ]
+      }
     },
     {
       "id": "about-minimal-story",
@@ -241,10 +1162,85 @@
       ],
       "category": "about",
       "props": "AboutMinimalStoryProps",
-      "exampleUsage": "<AboutMinimalStory\n  title=\"Our Story\"\n  content=\"Every great company starts with a simple idea.\"\n  author={{\n    name: \"Jordan Mitchell\",\n    role: \"Founder & CEO\"\n  }}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutMinimalStory\n  title=\"Our Story\"\n  content=\"Every durable product starts with a clear operational problem and a team willing to solve it carefully.\"\n  author={{\n    name: \"Jordan Mitchell\",\n    role: \"Founder and CEO\",\n    avatar: { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Jordan Mitchell portrait\" },\n  }}\n  featuredImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Founder working with the team\" }}\n/>",
+      "importantUsageNotes": "Use for sourced founder, author, or origin stories. Do not invent author identity or biographical details. Author avatars and featured images must use absolute image URLs and must not be logos, favicons, or video assets.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "content",
+          "author"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 80
+          },
+          "content": {
+            "required": true,
+            "maxLength": 360
+          },
+          "author": {
+            "required": true,
+            "note": "Author identity must be source-backed."
+          }
+        },
+        "mediaSlots": {
+          "author.avatar": {
+            "path": "author.avatar",
+            "roles": [
+              "profile",
+              "avatar"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "preferredAspect": "1:1",
+            "note": "Author or founder profile image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "featuredImage": {
+            "path": "featuredImage",
+            "roles": [
+              "feature",
+              "hero"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": false,
+            "note": "Optional featured story image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "team_members",
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "title": "Our Story",
+        "content": "Every durable product starts with a clear operational problem and a team willing to solve it carefully.",
+        "author": {
+          "name": "Jordan Mitchell",
+          "role": "Founder and CEO",
+          "avatar": {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Jordan Mitchell portrait"
+          }
+        },
+        "featuredImage": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Founder working with the team"
+        }
+      }
     },
     {
       "id": "about-story-hero",
@@ -262,10 +1258,71 @@
       ],
       "category": "about",
       "props": "AboutStoryHeroProps",
-      "exampleUsage": "<AboutStoryHero\n  title=\"Our Story\"\n  subtitle=\"Building the future, one line of code at a time\"\n  content=\"We started with a bold idea...\"\n  teamInfo={{\n    title: \"50+ Team Members\",\n    description: \"Working across 12 countries\"\n  }}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutStoryHero\n  title=\"Our Story\"\n  subtitle=\"Building the future, one practical system at a time\"\n  content=\"We started with a bold idea: customer-facing sites should be easier to operate after launch.\"\n  heroImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team collaborating in a workspace\" }}\n  teamInfo={{\n    title: \"50+ Team Members\",\n    description: \"Working across product, support, and customer operations\",\n  }}\n/>",
+      "importantUsageNotes": "Use for about-page hero storytelling with a real image and source-backed team information. Do not fabricate team size or geographic claims. heroImage must be an image asset only.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "content",
+          "heroImage"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 80
+          },
+          "subtitle": {
+            "maxLength": 120
+          },
+          "content": {
+            "required": true,
+            "maxLength": 320
+          },
+          "heroImage": {
+            "required": true
+          },
+          "teamInfo": {
+            "note": "Team facts must be source-backed if provided."
+          }
+        },
+        "mediaSlots": {
+          "heroImage": {
+            "path": "heroImage",
+            "roles": [
+              "hero",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Large story hero image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "team_members",
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "title": "Our Story",
+        "subtitle": "Building the future, one practical system at a time",
+        "content": "We started with a bold idea: customer-facing sites should be easier to operate after launch.",
+        "heroImage": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Team collaborating in a workspace"
+        },
+        "teamInfo": {
+          "title": "50+ Team Members",
+          "description": "Working across product, support, and customer operations"
+        }
+      }
     },
     {
       "id": "about-stats-sidebar",
@@ -283,10 +1340,68 @@
       ],
       "category": "about",
       "props": "AboutStatsSidebarProps",
-      "exampleUsage": "<AboutStatsSidebar\n  title=\"Why Choose Us\"\n  description=\"We've built a platform that scales with your needs.\"\n  stats={[\n    { icon: \"lucide/users\", value: \"10M+\", label: \"Active Users\" },\n    { icon: \"lucide/globe\", value: \"150+\", label: \"Countries\" }\n  ]}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutStatsSidebar\n  title=\"Why Choose Us\"\n  description=\"We have built a platform that scales with your operational needs.\"\n  stats={[\n    { icon: \"lucide/users\", value: \"10M+\", label: \"Visitors supported\" },\n    { icon: \"lucide/globe\", value: \"150+\", label: \"Markets served\" },\n  ]}\n  features={[\n    { icon: \"lucide/zap\", title: \"Fast launch cycles\", description: \"Teams publish updates without waiting on engineering.\" },\n    { icon: \"lucide/lock\", title: \"Managed consistency\", description: \"Shared blocks keep every page aligned.\" },\n  ]}\n/>",
+      "importantUsageNotes": "Use only when stats are real and source-backed. Do not invent large numbers, geographic reach, or performance claims. Feature cards should explain the metrics rather than introduce unrelated benefits.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "stats"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 70
+          },
+          "description": {
+            "maxLength": 180
+          },
+          "stats": {
+            "required": true,
+            "minItems": 2,
+            "maxItems": 6,
+            "note": "Stats must be sourced."
+          },
+          "features": {
+            "minItems": 2,
+            "maxItems": 4
+          }
+        },
+        "mediaSlots": {},
+        "requiresSiteCapabilities": [
+          "metrics_or_stats"
+        ],
+        "notes": [
+          "Do not fabricate metrics or quantified claims."
+        ]
+      },
+      "exampleProps": {
+        "title": "Why Choose Us",
+        "description": "We have built a platform that scales with your operational needs.",
+        "stats": [
+          {
+            "icon": "lucide/users",
+            "value": "10M+",
+            "label": "Visitors supported"
+          },
+          {
+            "icon": "lucide/globe",
+            "value": "150+",
+            "label": "Markets served"
+          }
+        ],
+        "features": [
+          {
+            "icon": "lucide/zap",
+            "title": "Fast launch cycles",
+            "description": "Teams publish updates without waiting on engineering."
+          },
+          {
+            "icon": "lucide/lock",
+            "title": "Managed consistency",
+            "description": "Shared blocks keep every page aligned."
+          }
+        ]
+      }
     },
     {
       "id": "about-interactive-tabs",
@@ -304,10 +1419,93 @@
       ],
       "category": "about",
       "props": "AboutInteractiveTabsProps",
-      "exampleUsage": "<AboutInteractiveTabs\n  title=\"Discover Our Story\"\n  subtitle=\"Learn more about who we are\"\n  tabs={[\n    {\n      id: \"work\",\n      label: \"Our Work\",\n      content: {\n        title: \"Crafting Digital Experiences\",\n        description: \"We create beautiful, functional products.\"\n      }\n    }\n  ]}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutInteractiveTabs\n  title=\"Discover Our Story\"\n  subtitle=\"Learn more about how we work and what we value.\"\n  tabs={[\n    {\n      id: \"work\",\n      label: \"Our Work\",\n      content: {\n        title: \"Crafting Digital Experiences\",\n        description: \"We create maintainable, high-performing customer experiences.\",\n        image: { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team reviewing digital experience work\" },\n      },\n    },\n    {\n      id: \"process\",\n      label: \"Our Process\",\n      content: {\n        title: \"Built Around Real Operations\",\n        description: \"Every workflow starts from the way teams already work.\",\n        image: { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team process planning session\" },\n      },\n    },\n  ]}\n/>",
+      "importantUsageNotes": "Use for two to five distinct company aspects such as work, process, values, or culture. Each tab id must be unique and stable. Tab images must be image assets only and should match the tab content.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "tabs"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 70
+          },
+          "subtitle": {
+            "maxLength": 150
+          },
+          "tabs": {
+            "required": true,
+            "minItems": 2,
+            "maxItems": 5
+          },
+          "tabs[].id": {
+            "required": true,
+            "note": "Must be unique within the tabs array."
+          },
+          "tabs[].content.title": {
+            "required": true,
+            "maxLength": 80
+          },
+          "tabs[].content.description": {
+            "required": true,
+            "maxLength": 220
+          }
+        },
+        "mediaSlots": {
+          "tabs[].content.image": {
+            "path": "tabs[].content.image",
+            "roles": [
+              "feature",
+              "gallery"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "medium",
+            "required": false,
+            "note": "Tab content image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "title": "Discover Our Story",
+        "subtitle": "Learn more about how we work and what we value.",
+        "tabs": [
+          {
+            "id": "work",
+            "label": "Our Work",
+            "content": {
+              "title": "Crafting Digital Experiences",
+              "description": "We create maintainable, high-performing customer experiences.",
+              "image": {
+                "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+                "alt": "Team reviewing digital experience work"
+              }
+            }
+          },
+          {
+            "id": "process",
+            "label": "Our Process",
+            "content": {
+              "title": "Built Around Real Operations",
+              "description": "Every workflow starts from the way teams already work.",
+              "image": {
+                "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+                "alt": "Team process planning session"
+              }
+            }
+          }
+        ]
+      }
     },
     {
       "id": "about-mission-dual-image",
@@ -325,10 +1523,96 @@
       ],
       "category": "about",
       "props": "AboutMissionDualImageProps",
-      "exampleUsage": "<AboutMissionDualImage\n  missionTitle=\"Our Mission\"\n  missionContent=\"To democratize software development.\"\n  visionTitle=\"Our Vision\"\n  visionContent=\"A world where every idea can become reality.\"\n  cta={{ text: \"Join Our Journey\", url: \"#\" }}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutMissionDualImage\n  missionTitle=\"Our Mission\"\n  missionContent=\"To make professional digital operations easier for every growing team.\"\n  visionTitle=\"Our Vision\"\n  visionContent=\"A world where every business can keep its customer experience current.\"\n  primaryImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team mission planning\" }}\n  secondaryImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Product workshop\" }}\n  actions={[{ label: \"Join Our Journey\", href: \"/careers\", variant: \"default\" }]}\n/>",
+      "importantUsageNotes": "Use when both mission and vision copy are available. Avoid vague mission statements; keep each content block specific. primaryImage and secondaryImage must be image assets only.",
+      "usageRequirements": {
+        "requiredProps": [
+          "missionTitle",
+          "missionContent",
+          "visionTitle",
+          "visionContent"
+        ],
+        "propConstraints": {
+          "missionTitle": {
+            "required": true,
+            "maxLength": 70
+          },
+          "missionContent": {
+            "required": true,
+            "maxLength": 240
+          },
+          "visionTitle": {
+            "required": true,
+            "maxLength": 70
+          },
+          "visionContent": {
+            "required": true,
+            "maxLength": 240
+          },
+          "actions": {
+            "maxItems": 2
+          }
+        },
+        "mediaSlots": {
+          "primaryImage": {
+            "path": "primaryImage",
+            "roles": [
+              "feature",
+              "hero"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": false,
+            "note": "Primary mission/vision image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "secondaryImage": {
+            "path": "secondaryImage",
+            "roles": [
+              "feature",
+              "thumbnail"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "medium",
+            "required": false,
+            "note": "Secondary mission/vision image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "missionTitle": "Our Mission",
+        "missionContent": "To make professional digital operations easier for every growing team.",
+        "visionTitle": "Our Vision",
+        "visionContent": "A world where every business can keep its customer experience current.",
+        "primaryImage": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Team mission planning"
+        },
+        "secondaryImage": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Product workshop"
+        },
+        "actions": [
+          {
+            "label": "Join Our Journey",
+            "href": "/careers",
+            "variant": "default"
+          }
+        ]
+      }
     },
     {
       "id": "about-story-expertise",
@@ -348,10 +1632,101 @@
       ],
       "category": "about",
       "props": "AboutStoryExpertiseProps",
-      "exampleUsage": "<AboutStoryExpertise />",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutStoryExpertise\n  eyebrow=\"About Our Practice\"\n  heading=\"We turn operating complexity into clear digital systems.\"\n  storyParagraphs={[\n    \"Our team works where brand, operations, and customer experience meet.\",\n    \"Every engagement starts with the source material that makes a business distinct.\",\n  ]}\n  actions={[\n    { label: \"Start a Project\", href: \"/contact\", variant: \"default\" },\n    { label: \"See Our Work\", href: \"/work\", variant: \"outline\" },\n  ]}\n  image={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team reviewing customer experience systems\" }}\n  highlight={{ label: \"Trusted process\", title: \"Built around source-backed content\", description: \"Contracts keep generated pages accurate.\" }}\n  expertiseAreas={[\n    { title: \"Content systems\", description: \"Reusable structures for every page.\" },\n    { title: \"AI workflows\", description: \"Guided generation with clear guardrails.\" },\n  ]}\n/>",
+      "importantUsageNotes": "Use for trust-building story sections that combine narrative, a single supporting image, and capability tiles. Do not fabricate capabilities the business does not offer. The image prop must be an image asset only.",
+      "usageRequirements": {
+        "requiredProps": [
+          "heading",
+          "storyParagraphs",
+          "image"
+        ],
+        "propConstraints": {
+          "eyebrow": {
+            "maxLength": 40
+          },
+          "heading": {
+            "required": true,
+            "maxLength": 90
+          },
+          "storyParagraphs": {
+            "required": true,
+            "minItems": 2,
+            "maxItems": 3
+          },
+          "actions": {
+            "maxItems": 2
+          },
+          "image": {
+            "required": true
+          },
+          "expertiseAreas": {
+            "minItems": 2,
+            "maxItems": 4
+          }
+        },
+        "mediaSlots": {
+          "image": {
+            "path": "image",
+            "roles": [
+              "feature",
+              "hero"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Story and expertise image card. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "eyebrow": "About Our Practice",
+        "heading": "We turn operating complexity into clear digital systems.",
+        "storyParagraphs": [
+          "Our team works where brand, operations, and customer experience meet.",
+          "Every engagement starts with the source material that makes a business distinct."
+        ],
+        "actions": [
+          {
+            "label": "Start a Project",
+            "href": "/contact",
+            "variant": "default"
+          },
+          {
+            "label": "See Our Work",
+            "href": "/work",
+            "variant": "outline"
+          }
+        ],
+        "image": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Team reviewing customer experience systems"
+        },
+        "highlight": {
+          "label": "Trusted process",
+          "title": "Built around source-backed content",
+          "description": "Contracts keep generated pages accurate."
+        },
+        "expertiseAreas": [
+          {
+            "title": "Content systems",
+            "description": "Reusable structures for every page."
+          },
+          {
+            "title": "AI workflows",
+            "description": "Guided generation with clear guardrails."
+          }
+        ]
+      }
     },
     {
       "id": "about-network-spotlight",
@@ -371,10 +1746,93 @@
       ],
       "category": "about",
       "props": "AboutNetworkSpotlightProps",
-      "exampleUsage": "<AboutNetworkSpotlight />",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutNetworkSpotlight\n  eyebrow=\"Partner Network\"\n  heading=\"A practical network for teams building better customer experiences.\"\n  description=\"We work with operators, designers, and implementation partners who care about durable systems.\"\n  highlights={[\n    \"Shared delivery standards across every project\",\n    \"Practical support for ongoing site operations\",\n    \"Source-backed content and measurable outcomes\",\n  ]}\n  actions={[\n    { label: \"Become a Partner\", href: \"/partners\", variant: \"default\" },\n    { label: \"Explore the Network\", href: \"/network\", variant: \"outline\" },\n  ]}\n  image={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner team workshop\" }}\n  spotlightCard={{ icon: \"lucide/network\", label: \"Partner reach\", title: \"Built for collaboration\", description: \"A shared system keeps every project aligned.\" }}\n/>",
+      "importantUsageNotes": "Use for partner, alliance, or community program spotlights with clear source-backed claims. Avoid implying a partner network exists unless the business has one. The image prop must be an image asset only.",
+      "usageRequirements": {
+        "requiredProps": [
+          "heading",
+          "description",
+          "image"
+        ],
+        "propConstraints": {
+          "eyebrow": {
+            "maxLength": 40
+          },
+          "heading": {
+            "required": true,
+            "maxLength": 90
+          },
+          "description": {
+            "required": true,
+            "maxLength": 220
+          },
+          "highlights": {
+            "minItems": 2,
+            "maxItems": 4
+          },
+          "actions": {
+            "maxItems": 2
+          },
+          "image": {
+            "required": true
+          }
+        },
+        "mediaSlots": {
+          "image": {
+            "path": "image",
+            "roles": [
+              "feature",
+              "hero"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Network spotlight image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "eyebrow": "Partner Network",
+        "heading": "A practical network for teams building better customer experiences.",
+        "description": "We work with operators, designers, and implementation partners who care about durable systems.",
+        "highlights": [
+          "Shared delivery standards across every project",
+          "Practical support for ongoing site operations",
+          "Source-backed content and measurable outcomes"
+        ],
+        "actions": [
+          {
+            "label": "Become a Partner",
+            "href": "/partners",
+            "variant": "default"
+          },
+          {
+            "label": "Explore the Network",
+            "href": "/network",
+            "variant": "outline"
+          }
+        ],
+        "image": {
+          "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "alt": "Partner team workshop"
+        },
+        "spotlightCard": {
+          "icon": "lucide/network",
+          "label": "Partner reach",
+          "title": "Built for collaboration",
+          "description": "A shared system keeps every project aligned."
+        }
+      }
     },
     {
       "id": "about-location-info-hero",
@@ -394,10 +1852,113 @@
       ],
       "category": "about",
       "props": "AboutLocationInfoHeroProps",
-      "exampleUsage": "<AboutLocationInfoHero />",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutLocationInfoHero\n  headline=\"Visit Our Flagship Workspace\"\n  address=\"123 Market Street, Phoenix, AZ\"\n  addressHref=\"https://maps.google.com/?q=123+Market+Street+Phoenix+AZ\"\n  phone=\"(555) 014-8821\"\n  phoneHref=\"tel:+15550148821\"\n  actions={[{ label: \"Get Directions\", href: \"/locations\", variant: \"default\" }]}\n  hoursSections={[\n    { label: \"Weekdays\", hours: [{ day: \"Mon-Fri\", time: \"9:00 AM - 6:00 PM\" }] },\n    { label: \"Weekend\", hours: [{ day: \"Sat\", time: \"10:00 AM - 2:00 PM\" }] },\n  ]}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Flagship workspace interior\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team meeting area\" },\n  ]}\n/>",
+      "importantUsageNotes": "Use only when contact details, hours, and location facts are source-backed. Do not fabricate addresses, phone numbers, or business hours. images[] must contain image assets only, never logos, favicons, or videos.",
+      "usageRequirements": {
+        "requiredProps": [
+          "headline",
+          "address",
+          "phone",
+          "hoursSections",
+          "images"
+        ],
+        "propConstraints": {
+          "headline": {
+            "required": true,
+            "maxLength": 80
+          },
+          "address": {
+            "required": true,
+            "note": "Must be source-backed contact information."
+          },
+          "phone": {
+            "required": true,
+            "note": "Must be source-backed contact information."
+          },
+          "hoursSections": {
+            "required": true,
+            "minItems": 1,
+            "maxItems": 4
+          },
+          "images": {
+            "required": true,
+            "minItems": 1,
+            "maxItems": 2
+          },
+          "actions": {
+            "maxItems": 2
+          }
+        },
+        "mediaSlots": {
+          "images[]": {
+            "path": "images[]",
+            "roles": [
+              "feature",
+              "hero"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Location showcase image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "contact_info",
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
+          "Location and hours data must be sourced."
+        ]
+      },
+      "exampleProps": {
+        "headline": "Visit Our Flagship Workspace",
+        "address": "123 Market Street, Phoenix, AZ",
+        "addressHref": "https://maps.google.com/?q=123+Market+Street+Phoenix+AZ",
+        "phone": "(555) 014-8821",
+        "phoneHref": "tel:+15550148821",
+        "actions": [
+          {
+            "label": "Get Directions",
+            "href": "/locations",
+            "variant": "default"
+          }
+        ],
+        "hoursSections": [
+          {
+            "label": "Weekdays",
+            "hours": [
+              {
+                "day": "Mon-Fri",
+                "time": "9:00 AM - 6:00 PM"
+              }
+            ]
+          },
+          {
+            "label": "Weekend",
+            "hours": [
+              {
+                "day": "Sat",
+                "time": "10:00 AM - 2:00 PM"
+              }
+            ]
+          }
+        ],
+        "images": [
+          {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Flagship workspace interior"
+          },
+          {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Team meeting area"
+          }
+        ]
+      }
     },
     {
       "id": "media-hover-ctas",
@@ -1355,7 +2916,13 @@
       "id": "contact-map",
       "name": "Contact Map",
       "description": "Contact form with integrated map display. Shows location information alongside contact form fields.",
-      "semanticTags": ["contact", "map", "location", "form", "address"],
+      "semanticTags": [
+        "contact",
+        "map",
+        "location",
+        "form",
+        "address"
+      ],
       "category": "contact",
       "props": "ContactMapProps",
       "exampleUsage": "<ContactMap\n  heading=\"Contact Us\"\n  description=\"Find us on the map and get in touch\"\n  buttonText=\"Send Message\"\n  formConfig={{ endpoint: \"/api/contact\", format: \"json\" }}\n/>",
@@ -1367,7 +2934,13 @@
       "id": "contact-minimal",
       "name": "Contact Minimal",
       "description": "Minimal contact form with just name, email, and message fields. Clean and simple design for basic contact needs.",
-      "semanticTags": ["contact", "minimal", "simple", "form", "basic"],
+      "semanticTags": [
+        "contact",
+        "minimal",
+        "simple",
+        "form",
+        "basic"
+      ],
       "category": "contact",
       "props": "ContactMinimalProps",
       "exampleUsage": "<ContactMinimal\n  heading=\"Let's Talk\"\n  description=\"Send us a message\"\n  buttonText=\"Send Message\"\n  formConfig={{ endpoint: \"/api/contact\", format: \"json\" }}\n/>",
@@ -1456,7 +3029,14 @@
       "id": "contact-press",
       "name": "Contact Press Inquiries",
       "description": "Press and media inquiry form with publication details and story information. Designed for PR teams and media relations.",
-      "semanticTags": ["contact", "press", "media", "form", "pr", "journalism"],
+      "semanticTags": [
+        "contact",
+        "press",
+        "media",
+        "form",
+        "pr",
+        "journalism"
+      ],
       "category": "contact",
       "props": "ContactPressProps",
       "exampleUsage": "<ContactPress\n  heading=\"Press Inquiries\"\n  description=\"Media and press contact form\"\n  buttonText=\"Submit Inquiry\"\n  formConfig={{ endpoint: \"/api/press\", format: \"json\" }}\n/>",
@@ -1583,7 +3163,14 @@
       "id": "contact-sales",
       "name": "Contact Sales",
       "description": "Sales inquiry form with company information and product interest. Designed for B2B sales teams and lead generation.",
-      "semanticTags": ["contact", "sales", "inquiry", "form", "b2b", "leads"],
+      "semanticTags": [
+        "contact",
+        "sales",
+        "inquiry",
+        "form",
+        "b2b",
+        "leads"
+      ],
       "category": "contact",
       "props": "ContactSalesProps",
       "exampleUsage": "<ContactSales\n  heading=\"Talk to Sales\"\n  description=\"Interested in our products?\"\n  buttonText=\"Contact Sales\"\n  formConfig={{ endpoint: \"/api/sales\", format: \"json\" }}\n/>",
@@ -6710,30 +8297,52 @@
         "mediaSlots": {
           "featureImage": {
             "path": "featureImage",
-            "roles": ["feature", "hero"],
-            "disallowedRoles": ["logo", "favicon"],
+            "roles": [
+              "feature",
+              "hero"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon"
+            ],
             "minPixelClass": "large",
             "required": true,
             "note": "Large feature image. Must not be a logo or favicon."
           },
           "smallImages[]": {
             "path": "smallImages[]",
-            "roles": ["thumbnail", "profile", "feature"],
-            "disallowedRoles": ["logo", "favicon"],
+            "roles": [
+              "thumbnail",
+              "profile",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon"
+            ],
             "minPixelClass": "small",
             "required": true,
             "note": "Two team / supporting images. Must not be logos."
           },
           "testimonial.avatarSrc": {
             "path": "testimonial.avatarSrc",
-            "roles": ["profile", "avatar"],
-            "disallowedRoles": ["logo", "favicon"],
+            "roles": [
+              "profile",
+              "avatar"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon"
+            ],
             "minPixelClass": "small",
             "preferredAspect": "1:1",
             "note": "Headshot/avatar for the testimonial author."
           }
         },
-        "requiresSiteCapabilities": ["reviews_or_testimonials", "media_library"]
+        "requiresSiteCapabilities": [
+          "reviews_or_testimonials",
+          "media_library"
+        ]
       },
       "exampleProps": {
         "heading": "Compassionate care for your mental wellbeing",
@@ -6792,7 +8401,10 @@
       "exampleUsage": "<HeroMentorshipVideoSplit\n  heading=\"Reclaim Your Peace. Scale Sustainably.\"\n  description=\"Somatic mindset coaching for high-achieving entrepreneurs ready to lead from strength — not survival mode.\"\n  action={{ label: \"Book Your Discovery Call\", href: \"/contact\", variant: \"default\", size: \"lg\" }}\n  videoLabel=\"Watch the Overview\"\n  videoTitle=\"Coaching Overview\"\n  modalVideo={{\n    image: {\n      src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n      alt: \"Coaching overview poster\",\n    },\n    video: {\n      src: \"https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1\",\n    },\n  }}\n  image={{\n    src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n    alt: \"Coach portrait\",\n  }}\n  background=\"dark\"\n/>",
       "importantUsageNotes": "The 'image' prop is the main hero image and MUST be an image asset (poster/photo). The 'modalVideo' prop's nested 'video.src' MUST be a video asset (HLS playlist or MP4) and 'modalVideo.image.src' MUST be an image asset (video poster). NEVER swap these: do not put a video URL into the 'image' prop and do not put an image URL into 'modalVideo.video.src'. All media src values must be absolute URLs to real CDN assets — never relative paths or placeholder strings. Keep 'heading' concise (under 60 characters) for visual balance.",
       "usageRequirements": {
-        "requiredProps": ["heading", "image"],
+        "requiredProps": [
+          "heading",
+          "image"
+        ],
         "propConstraints": {
           "heading": {
             "required": true,
@@ -6815,8 +8427,16 @@
         "mediaSlots": {
           "image": {
             "path": "image",
-            "roles": ["hero", "feature", "profile"],
-            "disallowedRoles": ["logo", "favicon", "video-thumbnail"],
+            "roles": [
+              "hero",
+              "feature",
+              "profile"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
             "minPixelClass": "large",
             "required": true,
             "note": "Main hero image slot. IMAGE MEDIA ONLY. Do not assign a video URL here."
@@ -6835,13 +8455,22 @@
           },
           "modalVideo.image.src": {
             "path": "modalVideo.image.src",
-            "roles": ["video-thumbnail", "hero", "feature"],
-            "disallowedRoles": ["logo", "favicon"],
+            "roles": [
+              "video-thumbnail",
+              "hero",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon"
+            ],
             "minPixelClass": "medium",
             "note": "Poster image shown before the video plays. IMAGE MEDIA ONLY."
           }
         },
-        "requiresSiteCapabilities": ["media_library"],
+        "requiresSiteCapabilities": [
+          "media_library"
+        ],
         "notes": [
           "Image and video media must never be swapped between the 'image' prop and the 'modalVideo' prop.",
           "All media src values must be absolute URLs to real assets; relative paths are not allowed."
@@ -12961,10 +14590,77 @@
       ],
       "category": "about",
       "props": "AboutSplitHeroProps",
-      "exampleUsage": "<AboutSplitHero\n  brandText=\"Business\"\n  brandHighlight=\"PRO\"\n  heading=\"Achieve More with Elite Access Pro\"\n  description=\"Enhance your career hunt with increased visibility.\"\n  ctaText=\"Upgrade to premium\"\n  ctaUrl=\"/upgrade\"\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutSplitHero\n  brandText=\"Business\"\n  brandHighlight=\"PRO\"\n  heading=\"Achieve More with Elite Access\"\n  description=\"Give your team a polished about experience with clear positioning and a strong visual.\"\n  ctaAction={{ label: \"Upgrade to premium\", href: \"/upgrade\", variant: \"default\" }}\n  imageSrc=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  imageAlt=\"Premium team workspace\"\n/>",
+      "importantUsageNotes": "Use for premium, launch, or upgrade-oriented about hero sections. Use ctaAction, not ctaText or ctaUrl. imageSrc must be an absolute image URL and must not be a logo, favicon, or video asset.",
+      "usageRequirements": {
+        "requiredProps": [
+          "heading",
+          "description",
+          "imageSrc"
+        ],
+        "propConstraints": {
+          "brandText": {
+            "maxLength": 30
+          },
+          "brandHighlight": {
+            "maxLength": 20
+          },
+          "heading": {
+            "required": true,
+            "maxLength": 70
+          },
+          "description": {
+            "required": true,
+            "maxLength": 180
+          },
+          "ctaAction": {
+            "note": "Use ActionConfig with label and href."
+          },
+          "imageSrc": {
+            "required": true
+          },
+          "imageAlt": {
+            "required": true,
+            "maxLength": 120
+          }
+        },
+        "mediaSlots": {
+          "imageSrc": {
+            "path": "imageSrc",
+            "roles": [
+              "hero",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Split hero image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+        ]
+      },
+      "exampleProps": {
+        "brandText": "Business",
+        "brandHighlight": "PRO",
+        "heading": "Achieve More with Elite Access",
+        "description": "Give your team a polished about experience with clear positioning and a strong visual.",
+        "ctaAction": {
+          "label": "Upgrade to premium",
+          "href": "/upgrade",
+          "variant": "default"
+        },
+        "imageSrc": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+        "imageAlt": "Premium team workspace"
+      }
     },
     {
       "id": "about-mission-principles",
@@ -12983,10 +14679,73 @@
       ],
       "category": "about",
       "props": "AboutMissionPrinciplesProps",
-      "exampleUsage": "<AboutMissionPrinciples\n  badgeText=\"Our Mission\"\n  missionHeading=\"To empower people through technology\"\n  missionDescription=\"We believe technology should serve humanity.\"\n  principles={[\n    { number: \"01\", title: \"Customer-Centric\", description: \"...\" },\n  ]}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutMissionPrinciples\n  badgeText=\"Our Mission\"\n  missionHeading=\"To empower teams through practical technology\"\n  missionDescription=\"We believe digital systems should make daily operations clearer, not more complicated.\"\n  missionAction={{ label: \"Learn More\", href: \"/about\", variant: \"default\" }}\n  principles={[\n    { number: \"01\", title: \"Customer-Centric\", description: \"Start from the real work customers need to complete.\" },\n    { number: \"02\", title: \"Durable Systems\", description: \"Build patterns that stay maintainable as teams grow.\" },\n  ]}\n  visionHeading=\"Our Vision\"\n  visionDescription=\"A world where every team can keep its digital presence current.\"\n  visionAction={{ label: \"Join Us\", href: \"/careers\", variant: \"outline\" }}\n/>",
+      "importantUsageNotes": "Use for mission, values, and vision content that the business can support with real messaging. Do not invent principles that contradict the brand. Keep principle cards concise and numbered.",
+      "usageRequirements": {
+        "requiredProps": [
+          "missionHeading",
+          "missionDescription",
+          "principles"
+        ],
+        "propConstraints": {
+          "badgeText": {
+            "maxLength": 35
+          },
+          "missionHeading": {
+            "required": true,
+            "maxLength": 80
+          },
+          "missionDescription": {
+            "required": true,
+            "maxLength": 240
+          },
+          "principles": {
+            "required": true,
+            "minItems": 2,
+            "maxItems": 4
+          },
+          "visionHeading": {
+            "maxLength": 80
+          },
+          "visionDescription": {
+            "maxLength": 220
+          }
+        },
+        "mediaSlots": {},
+        "requiresSiteCapabilities": [],
+        "notes": [
+          "Mission and principle copy should come from brand source material."
+        ]
+      },
+      "exampleProps": {
+        "badgeText": "Our Mission",
+        "missionHeading": "To empower teams through practical technology",
+        "missionDescription": "We believe digital systems should make daily operations clearer, not more complicated.",
+        "missionAction": {
+          "label": "Learn More",
+          "href": "/about",
+          "variant": "default"
+        },
+        "principles": [
+          {
+            "number": "01",
+            "title": "Customer-Centric",
+            "description": "Start from the real work customers need to complete."
+          },
+          {
+            "number": "02",
+            "title": "Durable Systems",
+            "description": "Build patterns that stay maintainable as teams grow."
+          }
+        ],
+        "visionHeading": "Our Vision",
+        "visionDescription": "A world where every team can keep its digital presence current.",
+        "visionAction": {
+          "label": "Join Us",
+          "href": "/careers",
+          "variant": "outline"
+        }
+      }
     },
     {
       "id": "about-expandable-values",
@@ -13005,10 +14764,90 @@
       ],
       "category": "about",
       "props": "AboutExpandableValuesProps",
-      "exampleUsage": "<AboutExpandableValues\n  badgeText=\"Our Core Values\"\n  heading=\"The Principles That Guide Us\"\n  values={[\n    {\n      id: \"integrity\",\n      icon: \"lucide/shield\",\n      title: \"Integrity\",\n      shortDescription: \"Doing what's right.\",\n      longDescription: \"We believe in honesty...\",\n      examples: [\"Transparent pricing\", \"Honest communication\"],\n    },\n  ]}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutExpandableValues\n  badgeText=\"Our Core Values\"\n  heading=\"The Principles That Guide Us\"\n  description=\"These values shape how we build, support, and improve every customer experience.\"\n  values={[\n    {\n      id: \"integrity\",\n      icon: \"lucide/shield\",\n      title: \"Integrity\",\n      shortDescription: \"Do the right work the right way.\",\n      longDescription: \"We make decisions that stay clear when the site grows and the team changes.\",\n      examples: [\"Transparent tradeoffs\", \"Source-backed claims\"],\n    },\n    {\n      id: \"momentum\",\n      icon: \"lucide/zap\",\n      title: \"Momentum\",\n      shortDescription: \"Move quickly without losing quality.\",\n      longDescription: \"We prefer reusable systems that make every future update easier.\",\n      examples: [\"Reusable blocks\", \"Fast publishing workflows\"],\n    },\n  ]}\n  ctaHeading=\"Build With These Values\"\n  ctaDescription=\"Turn brand principles into a maintainable digital experience.\"\n  actions={[{ label: \"Start a Project\", href: \"/contact\", variant: \"default\" }]}\n/>",
+      "importantUsageNotes": "Use for source-backed company values with enough detail for expandable cards. Do not invent values or examples. Each value id must be unique and stable.",
+      "usageRequirements": {
+        "requiredProps": [
+          "heading",
+          "values"
+        ],
+        "propConstraints": {
+          "badgeText": {
+            "maxLength": 35
+          },
+          "heading": {
+            "required": true,
+            "maxLength": 80
+          },
+          "description": {
+            "maxLength": 200
+          },
+          "values": {
+            "required": true,
+            "minItems": 2,
+            "maxItems": 6
+          },
+          "values[].id": {
+            "required": true,
+            "note": "Must be unique within the values array."
+          },
+          "values[].shortDescription": {
+            "maxLength": 90
+          },
+          "values[].longDescription": {
+            "maxLength": 260
+          },
+          "values[].examples": {
+            "maxItems": 4
+          },
+          "actions": {
+            "maxItems": 2
+          }
+        },
+        "mediaSlots": {},
+        "requiresSiteCapabilities": [],
+        "notes": [
+          "Values and examples should come from brand source material."
+        ]
+      },
+      "exampleProps": {
+        "badgeText": "Our Core Values",
+        "heading": "The Principles That Guide Us",
+        "description": "These values shape how we build, support, and improve every customer experience.",
+        "values": [
+          {
+            "id": "integrity",
+            "icon": "lucide/shield",
+            "title": "Integrity",
+            "shortDescription": "Do the right work the right way.",
+            "longDescription": "We make decisions that stay clear when the site grows and the team changes.",
+            "examples": [
+              "Transparent tradeoffs",
+              "Source-backed claims"
+            ]
+          },
+          {
+            "id": "momentum",
+            "icon": "lucide/zap",
+            "title": "Momentum",
+            "shortDescription": "Move quickly without losing quality.",
+            "longDescription": "We prefer reusable systems that make every future update easier.",
+            "examples": [
+              "Reusable blocks",
+              "Fast publishing workflows"
+            ]
+          }
+        ],
+        "ctaHeading": "Build With These Values",
+        "ctaDescription": "Turn brand principles into a maintainable digital experience.",
+        "actions": [
+          {
+            "label": "Start a Project",
+            "href": "/contact",
+            "variant": "default"
+          }
+        ]
+      }
     },
     {
       "id": "community-initiatives",
@@ -13026,10 +14865,103 @@
       ],
       "category": "about",
       "props": "CommunityInitiativesProps",
-      "exampleUsage": "<CommunityInitiatives\n  badgeText=\"Food Drive\"\n  heading=\"Supporting Our Community\"\n  categories={[\n    {\n      id: \"food-drive\",\n      title: \"Food Drive\",\n      description: \"Supporting our community through food donations.\",\n      initiatives: [...]\n    },\n  ]}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<CommunityInitiatives\n  badgeText=\"Community Impact\"\n  heading=\"Supporting the Communities We Serve\"\n  description=\"Our programs connect practical service with measurable local outcomes.\"\n  categories={[\n    {\n      id: \"food-drive\",\n      title: \"Food Drive\",\n      description: \"Supporting local families through coordinated food donations.\",\n      initiatives: [\n        {\n          id: \"monthly-pantry\",\n          title: \"Monthly Pantry Support\",\n          description: \"A recurring program with neighborhood partners.\",\n          icon: \"lucide/heart-handshake\",\n          metrics: [{ value: \"2,400\", label: \"Meals donated\" }],\n          image: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n        },\n      ],\n    },\n  ]}\n  ctaHeading=\"Partner With Us\"\n  ctaDescription=\"Help expand practical community programs in your area.\"\n  actions={[{ label: \"Get Involved\", href: \"/community\", variant: \"default\" }]}\n/>",
+      "importantUsageNotes": "Use only when community program details and impact metrics are sourced. Do not fabricate initiatives, donation totals, partner names, or impact claims. Initiative images must be image assets only.",
+      "usageRequirements": {
+        "requiredProps": [
+          "heading",
+          "categories"
+        ],
+        "propConstraints": {
+          "badgeText": {
+            "maxLength": 35
+          },
+          "heading": {
+            "required": true,
+            "maxLength": 90
+          },
+          "description": {
+            "maxLength": 220
+          },
+          "categories": {
+            "required": true,
+            "minItems": 1,
+            "maxItems": 5
+          },
+          "categories[].initiatives": {
+            "required": true,
+            "minItems": 1,
+            "maxItems": 6
+          },
+          "categories[].initiatives[].metrics": {
+            "note": "Metrics must be sourced."
+          },
+          "actions": {
+            "maxItems": 2
+          }
+        },
+        "mediaSlots": {
+          "categories[].initiatives[].image": {
+            "path": "categories[].initiatives[].image",
+            "roles": [
+              "feature",
+              "thumbnail"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "medium",
+            "required": false,
+            "note": "Community initiative image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "metrics_or_stats",
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
+          "Community impact claims must be sourced."
+        ]
+      },
+      "exampleProps": {
+        "badgeText": "Community Impact",
+        "heading": "Supporting the Communities We Serve",
+        "description": "Our programs connect practical service with measurable local outcomes.",
+        "categories": [
+          {
+            "id": "food-drive",
+            "title": "Food Drive",
+            "description": "Supporting local families through coordinated food donations.",
+            "initiatives": [
+              {
+                "id": "monthly-pantry",
+                "title": "Monthly Pantry Support",
+                "description": "A recurring program with neighborhood partners.",
+                "icon": "lucide/heart-handshake",
+                "metrics": [
+                  {
+                    "value": "2,400",
+                    "label": "Meals donated"
+                  }
+                ],
+                "image": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp"
+              }
+            ]
+          }
+        ],
+        "ctaHeading": "Partner With Us",
+        "ctaDescription": "Help expand practical community programs in your area.",
+        "actions": [
+          {
+            "label": "Get Involved",
+            "href": "/community",
+            "variant": "default"
+          }
+        ]
+      }
     },
     {
       "id": "about-culture-tabs",
@@ -13048,10 +14980,161 @@
       ],
       "category": "about",
       "props": "AboutCultureTabsProps",
-      "exampleUsage": "<AboutCultureTabs\n  badgeText=\"Our Culture\"\n  heading=\"What Makes Us Different\"\n  aspects={[\n    {\n      id: \"innovation\",\n      title: \"Innovation First\",\n      description: \"We believe in challenging the status quo.\",\n      images: [...],\n      testimonial: { quote: \"...\", author: \"...\", role: \"...\", avatar: \"...\" },\n    },\n  ]}\n/>",
-      "importantUsageNotes": null,
-      "usageRequirements": null,
-      "exampleProps": null
+      "exampleUsage": "<AboutCultureTabs\n  badgeText=\"Our Culture\"\n  heading=\"What Makes Us Different\"\n  description=\"We have built a workplace where practical innovation and clear communication matter.\"\n  aspects={[\n    {\n      id: \"innovation\",\n      title: \"Innovation First\",\n      description: \"Teams have room to test better ways to serve customers.\",\n      images: [\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"],\n      testimonial: {\n        quote: \"The freedom to improve the work is matched by real support from the team.\",\n        author: \"Sarah Chen\",\n        role: \"Senior Product Designer\",\n        avatar: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n      },\n    },\n    {\n      id: \"collaboration\",\n      title: \"Collaborative Spirit\",\n      description: \"Cross-functional teams share context early and often.\",\n      images: [\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"],\n      testimonial: {\n        quote: \"People here are genuinely invested in helping each other succeed.\",\n        author: \"Marcus Johnson\",\n        role: \"Engineering Lead\",\n        avatar: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n      },\n    },\n  ]}\n  ctaHeading=\"Ready to Join Our Team?\"\n  ctaDescription=\"We are looking for people who share these values.\"\n  actions={[{ label: \"View Open Positions\", href: \"/careers\", variant: \"default\" }]}\n  ctaImages={[\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"]}\n/>",
+      "importantUsageNotes": "Use only when real culture aspects, employee testimonials, and team imagery are available. Do not fabricate quotes, authors, roles, or workplace claims. aspects[].images, testimonial.avatar, and ctaImages must be image media only.",
+      "usageRequirements": {
+        "requiredProps": [
+          "heading",
+          "aspects"
+        ],
+        "propConstraints": {
+          "badgeText": {
+            "maxLength": 35
+          },
+          "heading": {
+            "required": true,
+            "maxLength": 90
+          },
+          "description": {
+            "maxLength": 220
+          },
+          "aspects": {
+            "required": true,
+            "minItems": 2,
+            "maxItems": 5
+          },
+          "aspects[].id": {
+            "required": true,
+            "note": "Must be unique within the aspects array."
+          },
+          "aspects[].images": {
+            "required": true,
+            "minItems": 2,
+            "maxItems": 4
+          },
+          "aspects[].testimonial": {
+            "required": true,
+            "note": "Must be a real sourced employee or team testimonial."
+          },
+          "ctaImages": {
+            "minItems": 3,
+            "maxItems": 6
+          },
+          "actions": {
+            "maxItems": 2
+          }
+        },
+        "mediaSlots": {
+          "aspects[].images[]": {
+            "path": "aspects[].images[]",
+            "roles": [
+              "gallery",
+              "feature"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": true,
+            "note": "Culture aspect gallery image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "aspects[].testimonial.avatar": {
+            "path": "aspects[].testimonial.avatar",
+            "roles": [
+              "profile",
+              "avatar"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": true,
+            "preferredAspect": "1:1",
+            "note": "Culture testimonial author avatar. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "ctaImages[]": {
+            "path": "ctaImages[]",
+            "roles": [
+              "thumbnail",
+              "gallery"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "note": "Careers CTA supporting image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          }
+        },
+        "requiresSiteCapabilities": [
+          "reviews_or_testimonials",
+          "team_members",
+          "media_library"
+        ],
+        "notes": [
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
+          "Culture testimonials and team claims must be sourced."
+        ]
+      },
+      "exampleProps": {
+        "badgeText": "Our Culture",
+        "heading": "What Makes Us Different",
+        "description": "We have built a workplace where practical innovation and clear communication matter.",
+        "aspects": [
+          {
+            "id": "innovation",
+            "title": "Innovation First",
+            "description": "Teams have room to test better ways to serve customers.",
+            "images": [
+              "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+              "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+              "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp"
+            ],
+            "testimonial": {
+              "quote": "The freedom to improve the work is matched by real support from the team.",
+              "author": "Sarah Chen",
+              "role": "Senior Product Designer",
+              "avatar": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp"
+            }
+          },
+          {
+            "id": "collaboration",
+            "title": "Collaborative Spirit",
+            "description": "Cross-functional teams share context early and often.",
+            "images": [
+              "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+              "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+              "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp"
+            ],
+            "testimonial": {
+              "quote": "People here are genuinely invested in helping each other succeed.",
+              "author": "Marcus Johnson",
+              "role": "Engineering Lead",
+              "avatar": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp"
+            }
+          }
+        ],
+        "ctaHeading": "Ready to Join Our Team?",
+        "ctaDescription": "We are looking for people who share these values.",
+        "actions": [
+          {
+            "label": "View Open Positions",
+            "href": "/careers",
+            "variant": "default"
+          }
+        ],
+        "ctaImages": [
+          "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+          "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp"
+        ]
+      }
     },
     {
       "id": "feature-animated-carousel",
