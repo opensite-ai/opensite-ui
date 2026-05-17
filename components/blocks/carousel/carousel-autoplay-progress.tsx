@@ -18,11 +18,10 @@ import * as React from "react";
 import type { EmblaCarouselType, EmblaOptionsType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { cn, getNestedCardBg } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -137,7 +136,7 @@ function useDotButton(emblaApi: EmblaCarouselType | undefined) {
       if (!emblaApi) return;
       emblaApi.scrollTo(index);
     },
-    [emblaApi]
+    [emblaApi],
   );
 
   const onInit = React.useCallback((api: EmblaCarouselType) => {
@@ -176,7 +175,7 @@ function useAutoplay(emblaApi: EmblaCarouselType | undefined) {
       resetOrStop();
       callback();
     },
-    [emblaApi]
+    [emblaApi],
   );
 
   const toggleAutoplay = React.useCallback(() => {
@@ -204,7 +203,7 @@ function useAutoplay(emblaApi: EmblaCarouselType | undefined) {
 // Hook for autoplay progress
 function useAutoplayProgress(
   emblaApi: EmblaCarouselType | undefined,
-  progressNode: React.RefObject<HTMLElement | null>
+  progressNode: React.RefObject<HTMLElement | null>,
 ) {
   const [showAutoplayProgress, setShowAutoplayProgress] = React.useState(false);
   const animationName = React.useRef("");
@@ -233,7 +232,7 @@ function useAutoplayProgress(
 
       setShowAutoplayProgress(true);
     },
-    [progressNode]
+    [progressNode],
   );
 
   React.useEffect(() => {
@@ -260,7 +259,7 @@ export function CarouselAutoplayProgress({
   slides,
   slidesSlot,
   options,
-  autoplayDelay = 3000,
+  autoplayDelay = 5000,
   className,
   containerClassName,
   trackClassName,
@@ -270,7 +269,7 @@ export function CarouselAutoplayProgress({
   dotsClassName,
   progressClassName,
   optixFlowConfig,
-  background = "white",
+  background,
   spacing = "xl",
   pattern,
   patternOpacity,
@@ -297,33 +296,51 @@ export function CarouselAutoplayProgress({
       patternOpacity={patternOpacity}
     >
       <div className={cn("overflow-hidden", containerClassName)} ref={emblaRef}>
-        <div className={cn("ml-auto mr-3 flex touch-pan-y touch-pinch-zoom", trackClassName)}>
-          {slidesSlot ? (
-            slidesSlot
-          ) : (
-            slides?.map((slide, index) => (
-              <div
-                className={cn("flex-[0_0_70%] transform-gpu pl-3", slideClassName, slide.className)}
-                key={index}
-              >
-                <div className="aspect-video overflow-hidden rounded-lg">
-                  <Img
-                    src={slide.src}
-                    alt={typeof slide.alt === "string" ? slide.alt : `Slide ${index + 1}`}
-                    className={cn("h-full w-full object-cover", imageClassName, slide.imageClassName)}
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </div>
-                {slide.content && (
-                  <div className="mt-4">{slide.content}</div>
-                )}
-              </div>
-            ))
+        <div
+          className={cn(
+            "ml-auto mr-3 flex touch-pan-y touch-pinch-zoom",
+            trackClassName,
           )}
+        >
+          {slidesSlot
+            ? slidesSlot
+            : slides?.map((slide, index) => (
+                <div
+                  className={cn(
+                    "flex-[0_0_70%] transform-gpu pl-3",
+                    slideClassName,
+                    slide.className,
+                  )}
+                  key={index}
+                >
+                  <div className="aspect-video overflow-hidden rounded-lg">
+                    <Img
+                      src={slide.src}
+                      alt={
+                        typeof slide.alt === "string"
+                          ? slide.alt
+                          : `Slide ${index + 1}`
+                      }
+                      className={cn(
+                        "h-full w-full object-cover",
+                        imageClassName,
+                        slide.imageClassName,
+                      )}
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </div>
+                  {slide.content && <div className="mt-4">{slide.content}</div>}
+                </div>
+              ))}
         </div>
       </div>
 
-      <div className={cn("mx-auto mt-7 flex max-w-80 items-center justify-between gap-3", controlsClassName)}>
+      <div
+        className={cn(
+          "mx-auto mt-7 flex max-w-80 items-center justify-between gap-3",
+          controlsClassName,
+        )}
+      >
         <div className={cn("flex justify-center gap-2", dotsClassName)}>
           {scrollSnaps.map((_, index) => (
             <button
@@ -336,7 +353,7 @@ export function CarouselAutoplayProgress({
                 "h-3 w-3 rounded-full border-2 border-border transition-colors duration-200",
                 index === selectedIndex
                   ? "bg-primary"
-                  : "bg-transparent hover:bg-muted"
+                  : "bg-transparent hover:bg-muted",
               )}
             />
           ))}
@@ -345,9 +362,9 @@ export function CarouselAutoplayProgress({
         <div
           className={cn(
             "relative h-2 w-40 max-w-[90%] justify-self-center self-center overflow-hidden rounded-[1.8rem] border-2 border-border transition-opacity duration-300 ease-in-out",
-            getNestedCardBg(background),
+            "bg-card text-card-foreground",
             showAutoplayProgress ? "opacity-100" : "opacity-0",
-            progressClassName
+            progressClassName,
           )}
         >
           <div
@@ -387,4 +404,3 @@ export function CarouselAutoplayProgress({
     </Section>
   );
 }
-
