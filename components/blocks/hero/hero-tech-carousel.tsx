@@ -9,12 +9,13 @@ import { BlockActions } from "@/components/ui/block-actions";
 import { ImageSlider, type ImageSliderImage } from "../../ui/image-slider";
 import type {
   ActionConfig,
-  LogoItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import BrandLogo from "@/components/ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 /**
  * Maximum number of panels supported by the hero block.
@@ -45,15 +46,18 @@ export const HERO_TECH_CAROUSEL_MAX_ITEMS = 4;
  */
 export interface HeroPanelItem {
   /**
-   * Optional logo rendered above the title.
-   * Follows the standard {@link LogoItem} prop shape used across blocks.
-   * Default styling applies `object-contain` so SVG/PNG logos preserve aspect ratio.
+   * Brand logo configuration — renders above the announcement badge.
+   * LOGO MEDIA ONLY. Do not use photos, hero images, or video assets.
    */
-  logo?: LogoItem;
+  logo?: LogoConfig;
   /**
-   * Custom slot for the logo (overrides the {@link logo} prop).
+   * Custom slot for logo (overrides logo prop)
    */
   logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /**
    * Optional panel title.
    */
@@ -91,10 +95,6 @@ export interface HeroPanelItem {
    * Additional CSS classes for the panel's content layer (above the background).
    */
   contentClassName?: string;
-  /**
-   * Additional CSS classes for the panel's logo element.
-   */
-  logoClassName?: string;
   /**
    * Additional CSS classes for the panel's title element.
    */
@@ -173,14 +173,6 @@ export interface HeroTechCarouselProps {
   sectionId?: string;
 }
 
-/**
- * Resolve the proper image src from a {@link LogoItem} (handles light/dark variants).
- */
-function resolveLogoSrc(logo: LogoItem): string | undefined {
-  if (typeof logo.src === "string") return logo.src;
-  return logo.src?.light;
-}
-
 interface PanelProps {
   item: HeroPanelItem;
   defaultAutoplayIntervalMs: number;
@@ -197,6 +189,7 @@ function HeroPanel({
   const {
     logo,
     logoSlot,
+    logoClassName,
     title,
     content,
     actions,
@@ -205,7 +198,6 @@ function HeroPanel({
     id,
     className,
     contentClassName,
-    logoClassName,
     titleClassName,
     textClassName,
     actionsClassName,
@@ -279,23 +271,21 @@ function HeroPanel({
   const hasBackground = !!backgroundMedia && backgroundMedia.length > 0;
 
   const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-    const src = resolveLogoSrc(logo);
-    if (!src) return null;
+    if (!logoSlot && !logo?.src) return null;
+
     return (
-      <Img
-        src={src}
-        alt={logo.alt}
-        className={cn(
-          "h-10 md:h-12 lg:h-14 w-auto object-contain",
-          logo.imgClassName,
-          logoClassName,
-        )}
-        optixFlowConfig={resolvedOptixFlow}
-      />
+      <div className={cn("flex justify-center", logoClassName)}>
+        <BrandLogo
+          logo={logo}
+          logoSlot={logoSlot}
+          size="md"
+          optixFlowConfig={resolvedOptixFlow}
+        />
+      </div>
     );
   }, [logoSlot, logo, logoClassName, resolvedOptixFlow]);
+
+  const hasLogo = !!renderLogo;
 
   const renderTitle = useMemo(() => {
     if (title === undefined || title === null || title === "") return null;
@@ -303,7 +293,8 @@ function HeroPanel({
       return (
         <h2
           className={cn(
-            "text-2xl md:text-3xl lg:text-4xl font-semibold text-balance",
+            "font-semibold text-balance",
+            hasLogo ? "text-lg lg:text-xl" : "text-xl md:text-2xl lg:text-3xl",
             hasBackground && "text-white text-shadow-lg",
             titleClassName,
           )}
@@ -313,7 +304,7 @@ function HeroPanel({
       );
     }
     return <div className={titleClassName}>{title}</div>;
-  }, [title, titleClassName, hasBackground]);
+  }, [title, titleClassName, hasBackground, hasLogo]);
 
   const renderContent = useMemo(() => {
     if (content === undefined || content === null || content === "")
@@ -353,7 +344,7 @@ function HeroPanel({
 
       <div
         className={cn(
-          "relative z-10 flex h-full w-full flex-col items-center justify-center gap-4 md:gap-6",
+          "relative z-10 flex h-full w-full flex-col items-center justify-center gap-4",
           // Mobile padding keeps content readable when stacked.
           "px-6 py-12 md:px-8 md:py-12 lg:px-10",
           // Center content vertically; on desktop columns can be quite tall.

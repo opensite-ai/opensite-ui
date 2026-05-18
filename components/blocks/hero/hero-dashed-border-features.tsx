@@ -7,7 +7,6 @@ import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { BrandLogo } from "../../ui/brand-logo";
-import type { BrandLogoProps } from "../../ui/brand-logo";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {

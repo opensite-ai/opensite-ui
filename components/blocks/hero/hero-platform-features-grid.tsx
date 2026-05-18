@@ -5,27 +5,32 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img } from "@page-speed/img";
 import type {
   ActionConfig,
   FeatureItem,
-  LogoItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import BrandLogo from "@/components/ui/brand-logo";
+import { LogoConfig } from "../navbars/types";
 
 export interface HeroPlatformFeaturesGridProps {
   /**
-   * Logo configuration
+   * Brand logo configuration — renders above the announcement badge.
+   * LOGO MEDIA ONLY. Do not use photos, hero images, or video assets.
    */
-  logo?: LogoItem;
+  logo?: LogoConfig;
   /**
    * Custom slot for logo (overrides logo prop)
    */
   logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /**
    * Subtitle/label text above heading
    */
@@ -102,6 +107,7 @@ export function HeroPlatformFeaturesGrid({
   sectionId = "hero-platform-features-grid",
   logo,
   logoSlot,
+  logoClassName,
   subtitle,
   description,
   heading,
@@ -120,24 +126,6 @@ export function HeroPlatformFeaturesGrid({
   featuresClassName,
   optixFlowConfig,
 }: HeroPlatformFeaturesGridProps): React.JSX.Element {
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
-    return (
-      <Img
-        src={logoSrc}
-        alt={logo.alt}
-        className={cn(
-          "mx-auto mb-5 w-24 md:mb-6 md:w-28 lg:mb-7 lg:w-32",
-          logo.imgClassName,
-        )}
-        optixFlowConfig={optixFlowConfig}
-      />
-    );
-  }, [logoSlot, logo, optixFlowConfig]);
-
   const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
@@ -219,10 +207,19 @@ export function HeroPlatformFeaturesGrid({
             headerClassName,
           )}
         >
-          {renderLogo}
+          {logo || logoSlot ? (
+            <div className={cn("flex justify-center", logoClassName)}>
+              <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+            </div>
+          ) : null}
+
           {subtitle &&
             (typeof subtitle === "string" ? (
-              <span className={cn("mb-3 text-sm tracking-widest md:text-base")}>
+              <span
+                className={cn(
+                  "text-sm tracking-widest md:text-base opacity-50",
+                )}
+              >
                 {subtitle}
               </span>
             ) : (
@@ -232,31 +229,26 @@ export function HeroPlatformFeaturesGrid({
             (typeof heading === "string" ? (
               <h1
                 className={cn(
-                  "mt-4 text-4xl font-semibold text-balance lg:text-6xl",
+                  "text-4xl font-semibold text-balance lg:text-6xl",
                   headingClassName,
                 )}
               >
                 {heading}
               </h1>
             ) : (
-              <h1
-                className={cn(
-                  "mt-4 text-4xl font-semibold text-balance lg:text-6xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("mb-6 max-w-2xl md:text-lg text-balance")}>
+              <p
+                className={cn(
+                  "mb-6 max-w-full md:max-w-md  text-base md:text-lg text-balance",
+                )}
+              >
                 {description}
               </p>
             ) : (
-              <div className={cn("max-w-2xl md:text-lg text-balance")}>
-                {description}
-              </div>
+              description
             ))}
 
           {renderAction}

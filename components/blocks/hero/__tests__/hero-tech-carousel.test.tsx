@@ -20,22 +20,6 @@ vi.mock("@page-speed/img", () => ({
   ),
 }));
 
-vi.mock("../../../lib/Pressable", () => ({
-  Pressable: ({
-    children,
-    href,
-    className,
-  }: {
-    children: React.ReactNode;
-    href?: string;
-    className?: string;
-  }) => (
-    <a href={href} className={className} data-testid="mock-pressable">
-      {children}
-    </a>
-  ),
-}));
-
 // Lightweight mock for ImageSlider so background carousel rendering is
 // deterministic and we can assert how many images it received.
 vi.mock("../../../ui/image-slider", () => ({
@@ -154,7 +138,11 @@ describe("HeroTechCarousel", () => {
   it("renders the logo with object-contain by default", () => {
     const items: HeroPanelItem[] = [
       {
-        logo: { src: "/logo.svg", alt: "Brand" },
+        logo: {
+          src: "/logo.svg",
+          alt: "Brand",
+          className: "custom-logo-img",
+        },
         title: "With Logo",
       },
     ];
@@ -164,23 +152,66 @@ describe("HeroTechCarousel", () => {
       .find((img) => img.getAttribute("src") === "/logo.svg");
     expect(logo).toBeDefined();
     expect(logo?.className).toContain("object-contain");
+    expect(logo?.className).toContain("max-h-8");
+    expect(logo?.className).toContain("custom-logo-img");
   });
 
-  it("supports light/dark logo src variants", () => {
+  it("uses compact title sizing when a logo is present", () => {
     const items: HeroPanelItem[] = [
       {
-        logo: {
-          src: { light: "/logo-light.svg", dark: "/logo-dark.svg" },
-          alt: "Brand",
-        },
+        logo: { src: "/logo.svg", alt: "Brand" },
+        title: "With Logo",
       },
     ];
     render(<HeroTechCarousel items={items} />);
+    expect(screen.getByRole("heading", { name: "With Logo" })).toHaveClass(
+      "text-lg",
+    );
+    expect(screen.getByRole("heading", { name: "With Logo" })).not.toHaveClass(
+      "text-3xl",
+    );
+  });
+
+  it("uses LogoConfig url for linked logos", () => {
+    const items: HeroPanelItem[] = [
+      {
+        logo: { src: "/logo.svg", alt: "Brand", url: "/home" },
+        title: "Linked Logo",
+      },
+    ];
+    render(<HeroTechCarousel items={items} />);
+    expect(screen.getByRole("link", { name: "Brand" })).toHaveAttribute(
+      "href",
+      "/home",
+    );
+  });
+
+  it("renders a logoSlot without requiring a logo config", () => {
+    const items: HeroPanelItem[] = [
+      {
+        logoSlot: <div data-testid="custom-logo">Custom Logo</div>,
+        title: "Slot Logo",
+      },
+    ];
+    render(<HeroTechCarousel items={items} />);
+    expect(screen.getByTestId("custom-logo")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Slot Logo" })).toHaveClass(
+      "text-lg",
+    );
+  });
+
+  it("does not apply logo title sizing for non-image logo configs", () => {
+    const items: HeroPanelItem[] = [
+      {
+        logo: { title: "Text Logo" },
+        title: "No Image Logo",
+      },
+    ];
+    render(<HeroTechCarousel items={items} />);
+    expect(screen.queryByText("Text Logo")).not.toBeInTheDocument();
     expect(
-      screen
-        .getAllByTestId("mock-img")
-        .some((img) => img.getAttribute("src") === "/logo-light.svg"),
-    ).toBe(true);
+      screen.getByRole("heading", { name: "No Image Logo" }),
+    ).not.toHaveClass("text-lg");
   });
 
   it("renders action buttons when actions are provided", () => {
