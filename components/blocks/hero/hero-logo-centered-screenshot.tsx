@@ -117,7 +117,7 @@ export function HeroLogoCenteredScreenshot({
   imageSlot,
   background,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
+  spacing = "hero",
   pattern,
   patternOpacity,
   className,
@@ -161,7 +161,7 @@ export function HeroLogoCenteredScreenshot({
         src={image.src}
         alt={image.alt}
         className={cn(
-          "mt-20 w-full rounded-xl object-cover h-auto shadow-xl",
+          "mt-10 md:mt-20 w-full rounded-xl object-cover h-auto shadow-xl",
           imageClassName,
           image.className,
         )}
