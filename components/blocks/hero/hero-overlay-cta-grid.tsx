@@ -176,7 +176,7 @@ export function HeroOverlayCtaGrid({
   patternOpacity,
   className,
   containerClassName = "px-0 sm:px-0 lg:px-0 max-w-full relative z-10 h-screen w-screen flex justify-center items-center",
-  contentClassName = "relative flex flex-col gap-12 px-6 pt-28 pb-6 md:pt-0 md:pb-0",
+  contentClassName = "relative flex flex-col gap-6 md:gap-12 px-6 pt-0 md:pt-28 pb-6 md:pt-0 md:pb-0 min-h-screen h-fit md:h-screen justify-end md:justify-center",
   headingClassName,
   descriptionClassName,
   optixFlowConfig,

@@ -16,6 +16,8 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { LogoConfig } from "../navbars/types";
+import BrandLogo from "@/components/ui/brand-logo";
 
 /**
  * Image configuration for the gallery section.
@@ -41,6 +43,19 @@ export interface HeroFloatingImagesImage {
 }
 
 export interface HeroFloatingImagesProps {
+  /**
+   * Brand logo configuration — renders centered above the heading.
+   * LOGO MEDIA ONLY. Do not use photos, hero images, or video assets.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /**
    * Badge content displayed above the heading
    */
@@ -186,6 +201,9 @@ export interface HeroFloatingImagesProps {
  */
 export function HeroFloatingImages({
   sectionId = "hero-floating-images",
+  logo,
+  logoSlot,
+  logoClassName,
   badge,
   badgeIcon,
   heading,
@@ -368,8 +386,8 @@ export function HeroFloatingImages({
                 zoomIndicatorClassName,
               )}
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-background/90 shadow-lg">
-                <DynamicIcon name={zoomIconName} size={16} />
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
+                <DynamicIcon name={zoomIconName} size={20} />
               </div>
             </div>
           )}
@@ -443,18 +461,23 @@ export function HeroFloatingImages({
           <div className={cn("flex flex-col justify-center", contentClassName)}>
             {badge && (
               <Badge
-                variant="secondary"
+                variant="default"
                 className={cn("mb-6 w-fit", badgeClassName)}
               >
                 {badge}
                 {badgeIcon}
               </Badge>
             )}
+            {(logo || logoSlot) && (
+              <div className={cn("mb-2 flex justify-start", logoClassName)}>
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+              </div>
+            )}
             {heading &&
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl",
+                    "mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-pretty",
                     headingClassName,
                   )}
                 >
@@ -466,7 +489,10 @@ export function HeroFloatingImages({
             {description &&
               (typeof description === "string" ? (
                 <p
-                  className={cn("mb-8 max-w-lg text-lg", descriptionClassName)}
+                  className={cn(
+                    "mb-8 max-w-lg text-lg text-balance",
+                    descriptionClassName,
+                  )}
                 >
                   {description}
                 </p>
