@@ -162,16 +162,13 @@ export function HeroBadgeShadowOverlay({
             </Pressable>
           )}
           {(logo || logoSlot) && (
-
-            <div className={cn("mb-4 flex justify-center", logoClassName)}>
-
-              <BrandLogo logo={logo} logoSlot={logoSlot} size="xl" />
-
+            <div
+              className={cn("mt-6 md:mt-12 flex justify-center", logoClassName)}
+            >
+              <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
             </div>
-
           )}
 
-          
           {heading &&
             (typeof heading === "string" ? (
               <h1
@@ -183,7 +180,7 @@ export function HeroBadgeShadowOverlay({
                 {heading}
               </h1>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
 
           {description &&
@@ -197,7 +194,7 @@ export function HeroBadgeShadowOverlay({
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
 
           <BlockActions

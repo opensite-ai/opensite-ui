@@ -177,41 +177,36 @@ export function HeroAiPoweredCarousel({
               </div>
             )}
             {(logo || logoSlot) && (
-
-              <div className={cn("mb-4 flex justify-center", logoClassName)}>
-
-                <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
-
+              <div className={cn("mt-8 flex justify-start", logoClassName)}>
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="md" />
               </div>
-
             )}
 
-            
             {heading &&
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "mt-4 md:mt-10 mb-4 text-3xl font-semibold lg:text-5xl text-balance",
+                    "text-3xl font-semibold lg:text-5xl text-balance",
                     headingClassName,
                   )}
                 >
                   {heading}
                 </h1>
               ) : (
-                <div className={headingClassName}>{heading}</div>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mx-auto lg:text-lg text-balance",
+                    "mx-auto text-base lg:text-lg text-balance",
                     descriptionClassName,
                   )}
                 >
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
             <BlockActions
               actions={actions}
@@ -277,6 +272,7 @@ export function HeroAiPoweredCarousel({
                               image.className,
                             )}
                             optixFlowConfig={optixFlowConfig}
+                            loading="eager"
                           />
                         </CarouselItem>
                       ))}
@@ -308,6 +304,7 @@ export function HeroAiPoweredCarousel({
                               image.className,
                             )}
                             optixFlowConfig={optixFlowConfig}
+                            loading="eager"
                           />
                         </CarouselItem>
                       ))}
@@ -338,6 +335,7 @@ export function HeroAiPoweredCarousel({
                               image.className,
                             )}
                             optixFlowConfig={optixFlowConfig}
+                            loading="eager"
                           />
                         </CarouselItem>
                       ))}

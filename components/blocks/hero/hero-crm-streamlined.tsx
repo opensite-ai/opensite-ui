@@ -128,7 +128,7 @@ export function HeroCrmStreamlined({
   patternOpacity,
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
-  spacing = "xl",
+  spacing = "hero",
   contentClassName,
   taglineClassName,
   headingClassName,
@@ -156,7 +156,10 @@ export function HeroCrmStreamlined({
               {tagline &&
                 (typeof tagline === "string" ? (
                   <p
-                    className={cn("text-base font-semibold", taglineClassName)}
+                    className={cn(
+                      "text-base font-medium tracking-wider opacity-70 pb-6 uppercase",
+                      taglineClassName,
+                    )}
                   >
                     {tagline}
                   </p>
@@ -164,28 +167,23 @@ export function HeroCrmStreamlined({
                   <div className={taglineClassName}>{tagline}</div>
                 ))}
               {(logo || logoSlot) && (
-
-                <div className={cn("mb-4", logoClassName)}>
-
+                <div className={cn("mb-2 mt-4", logoClassName)}>
                   <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
-
                 </div>
-
               )}
 
-              
               {heading &&
                 (typeof heading === "string" ? (
                   <h1
                     className={cn(
-                      "mb-2 text-4xl leading-snug! font-semibold text-balance lg:text-5xl",
+                      "mb-2 text-4xl font-semibold text-pretty lg:text-5xl",
                       headingClassName,
                     )}
                   >
                     {heading}
                   </h1>
                 ) : (
-                  <div className={headingClassName}>{heading}</div>
+                  heading
                 ))}
               {description &&
                 (typeof description === "string" ? (
@@ -198,7 +196,7 @@ export function HeroCrmStreamlined({
                     {description}
                   </p>
                 ) : (
-                  <div className={descriptionClassName}>{description}</div>
+                  description
                 ))}
               <BlockActions
                 actions={actions}
@@ -208,7 +206,7 @@ export function HeroCrmStreamlined({
             </div>
           </div>
           <div
-            className={cn("relative basis-[42%] py-9 md:py-16", imageClassName)}
+            className={cn("relative basis-[42%] py-2 md:py-16", imageClassName)}
           >
             {imageSlot ? (
               imageSlot
@@ -222,10 +220,11 @@ export function HeroCrmStreamlined({
                     image.className,
                   )}
                   optixFlowConfig={optixFlowConfig}
+                  loading="eager"
                 />
                 <div
                   className={cn(
-                    "absolute top-0 left-25 z-10 bg-muted aspect-[1.378254211/1] h-full w-225 rounded-xl",
+                    "absolute top-0 left-25 z-10 hidden bg-muted aspect-[1.378254211/1] h-full w-225 rounded-xl md:block",
                   )}
                 />
               </div>
