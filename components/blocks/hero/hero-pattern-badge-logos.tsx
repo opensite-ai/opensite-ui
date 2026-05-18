@@ -177,7 +177,7 @@ export function HeroPatternBadgeLogos({
             alt={alt}
             className={cn(
               imgClassName,
-              "w-full h-10 object-contain dark:hidden",
+              "w-full h-8 object-contain dark:hidden",
             )}
             optixFlowConfig={optixFlowConfig}
           />
@@ -187,7 +187,7 @@ export function HeroPatternBadgeLogos({
               alt={alt}
               className={cn(
                 imgClassName,
-                "w-full h-10 object-contain hidden dark:block",
+                "w-full h-8 object-contain hidden dark:block",
               )}
               optixFlowConfig={optixFlowConfig}
             />
@@ -197,7 +197,7 @@ export function HeroPatternBadgeLogos({
         <Img
           src={src}
           alt={alt}
-          className={cn("w-full h-10 object-contain", imgClassName)}
+          className={cn("w-full h-8 object-contain", imgClassName)}
           optixFlowConfig={optixFlowConfig}
         />
       );
@@ -214,7 +214,7 @@ export function HeroPatternBadgeLogos({
         <div
           key={index}
           className={cn(
-            "w-auto max-h-10 h-10 flex items-center justify-center",
+            "w-auto max-h-8 h-8 flex items-center justify-center",
             logoClassName,
           )}
         >
@@ -263,7 +263,7 @@ export function HeroPatternBadgeLogos({
                     {heading}
                   </h1>
                 ) : (
-                  <div className={headingClassName}>{heading}</div>
+                  heading
                 ))}
               {description &&
                 (typeof description === "string" ? (
@@ -276,7 +276,7 @@ export function HeroPatternBadgeLogos({
                     {description}
                   </p>
                 ) : (
-                  <div className={descriptionClassName}>{description}</div>
+                  description
                 ))}
             </div>
 

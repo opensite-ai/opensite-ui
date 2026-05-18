@@ -154,20 +154,20 @@ export function HeroFullscreenBackgroundImage({
               {heading}
             </h1>
           ) : (
-            <div className={headingClassName}>{heading}</div>
+            heading
           ))}
         {description &&
           (typeof description === "string" ? (
             <p
               className={cn(
-                "text-center text-base text-balance text-white text-shadow-lg",
+                "text-center text-base text-balance text-white text-shadow-lg max-w-full md:max-w-sm",
                 descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
-            <div className={descriptionClassName}>{description}</div>
+            description
           ))}
         <BlockActions
           actions={actions}

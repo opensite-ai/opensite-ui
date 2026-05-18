@@ -4,7 +4,6 @@ import * as React from "react";
 import { useMemo } from "react";
 import { Video } from "@page-speed/video";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import type {
   ActionConfig,
   MediaItem,
@@ -145,7 +144,7 @@ export function HeroPresentationPlatformVideo({
           _type: "text",
           as: "h1",
           className: cn(
-            "text-5xl font-medium md:text-6xl lg:text-7xl",
+            "text-5xl font-medium md:text-6xl lg:text-7xl text-pretty",
             headingClassName,
           ),
           children: heading,
@@ -160,7 +159,10 @@ export function HeroPresentationPlatformVideo({
         items.push({
           _type: "text",
           as: "p",
-          className: cn("my-0 md:my-8 md:text-xl", descriptionClassName),
+          className: cn(
+            "my-0 md:my-8 md:text-xl text-balance",
+            descriptionClassName,
+          ),
           children: description,
         });
       } else {

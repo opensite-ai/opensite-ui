@@ -228,8 +228,6 @@ export function HeroMentorshipVideoSplit({
           ))}
         <Pressable
           onClick={() => setIsVideoOpen(true)}
-          asButton
-          variant="ghost"
           className={cn(
             "group relative flex overflow-hidden rounded-lg p-0",
             videoAspectRatio === "vertical" ? "h-36 w-20" : "h-20 w-36",

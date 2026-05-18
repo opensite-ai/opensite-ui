@@ -17,6 +17,8 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
+import { LogoConfig } from "../navbars/types";
+import BrandLogo from "@/components/ui/brand-logo";
 
 export interface DirectionConfig {
   desktop: "mediaRight" | "mediaLeft";
@@ -133,12 +135,18 @@ export interface HeroEventRegistrationProps {
    */
   optixFlowConfig?: OptixFlowConfig;
   /**
-   * Logo image configuration
+   * Brand logo configuration — renders centered above the heading.
+   * LOGO MEDIA ONLY. Do not use photos, hero images, or video assets.
    */
-  logo?: {
-    src: string;
-    alt: string;
-  };
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /**
    * Direction configuration for desktop and mobile layouts
    * @default { desktop: 'mediaRight', mobile: 'mediaTop' }
@@ -178,6 +186,8 @@ export function HeroEventRegistration({
   imageClassName,
   optixFlowConfig,
   logo,
+  logoSlot,
+  logoClassName,
   directionConfig = { desktop: "mediaRight", mobile: "mediaTop" },
 }: HeroEventRegistrationProps): React.JSX.Element {
   const renderBadge = useMemo(() => {
@@ -347,13 +357,12 @@ export function HeroEventRegistration({
             )}
           >
             {renderBadge}
-            {logo && (
-              <Img
-                src={logo.src}
-                alt={logo.alt}
-                className="w-auto max-w-full h-12 md:h-14 object-contain my-4"
-                optixFlowConfig={optixFlowConfig}
-              />
+            {(logo || logoSlot) && (
+              <div
+                className={cn("mb-1 mt-4 flex justify-start", logoClassName)}
+              >
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+              </div>
             )}
             {heading &&
               (typeof heading === "string" ? (
