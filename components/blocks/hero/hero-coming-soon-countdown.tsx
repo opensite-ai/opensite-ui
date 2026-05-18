@@ -22,6 +22,8 @@ import {
   type FormFieldConfig,
   type PageSpeedFormConfig,
 } from "@page-speed/forms/integration";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
   {
@@ -203,6 +205,18 @@ export interface HeroComingSoonCountdownProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -239,6 +253,9 @@ export function HeroComingSoonCountdown({
   countdownClassName,
   formClassName,
   socialLinksClassName,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroComingSoonCountdownProps): React.JSX.Element {
   const [timeLeft, setTimeLeft] = React.useState<TimeLeft | null>(null);
 
@@ -410,6 +427,17 @@ export function HeroComingSoonCountdown({
             <span>{badgeText}</span>
           </Badge>
         )}
+        {(logo || logoSlot) && (
+
+          <div className={cn("mb-4 flex justify-center", logoClassName)}>
+
+            <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+          </div>
+
+        )}
+
+        
         {heading &&
           (typeof heading === "string" ? (
             <h1

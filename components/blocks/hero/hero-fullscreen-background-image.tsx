@@ -12,6 +12,8 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
 import { Img } from "@page-speed/img";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroFullscreenBackgroundImageProps {
   /**
@@ -82,6 +84,18 @@ export interface HeroFullscreenBackgroundImageProps {
     apiKey: string;
     compression?: number;
   };
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -104,6 +118,9 @@ export function HeroFullscreenBackgroundImage({
   descriptionClassName,
   actionsClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroFullscreenBackgroundImageProps): React.JSX.Element {
   const renderBackground = useMemo(() => {
     if (!backgroundImage) return null;
@@ -143,6 +160,17 @@ export function HeroFullscreenBackgroundImage({
           contentClassName,
         )}
       >
+        {(logo || logoSlot) && (
+
+          <div className={cn("mb-4 flex justify-center", logoClassName)}>
+
+            <BrandLogo logo={logo} logoSlot={logoSlot} size="xl" />
+
+          </div>
+
+        )}
+
+        
         {heading &&
           (typeof heading === "string" ? (
             <h1

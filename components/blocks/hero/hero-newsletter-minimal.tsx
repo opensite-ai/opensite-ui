@@ -16,6 +16,8 @@ import {
   FormEngineStyleRules,
   type FormFieldConfig,
 } from "@page-speed/forms/integration";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer:
@@ -121,6 +123,18 @@ export interface HeroNewsletterMinimalProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -147,6 +161,9 @@ export function HeroNewsletterMinimal({
   descriptionClassName,
   disclaimerClassName,
   statsClassName,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroNewsletterMinimalProps): React.JSX.Element {
   const renderStats = React.useMemo(() => {
     if (statsSlot) return statsSlot;
@@ -236,6 +253,17 @@ export function HeroNewsletterMinimal({
       containerClassName={containerClassName}
     >
       <div className="flex flex-col items-center justify-center">
+        {(logo || logoSlot) && (
+
+          <div className={cn("mb-4 flex justify-center", logoClassName)}>
+
+            <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+          </div>
+
+        )}
+
+        
         {heading &&
           (typeof heading === "string" ? (
             <h1

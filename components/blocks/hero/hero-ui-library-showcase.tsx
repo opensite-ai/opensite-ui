@@ -15,16 +15,22 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroUiLibraryShowcaseProps {
   /**
-   * Logo image configuration
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
    */
-  logo?: ImageItem;
+  logo?: LogoConfig;
   /**
    * Custom slot for logo (overrides logo prop)
    */
   logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /**
    * Main heading content
    */
@@ -52,7 +58,8 @@ export interface HeroUiLibraryShowcaseProps {
   /**
    * Custom slot for image (overrides image prop)
    */
-  imageSlot?: React.ReactNode; /**
+  imageSlot?: React.ReactNode;
+  /**
    * Background style for the section
    */
   background?: SectionBackground;
@@ -105,6 +112,7 @@ export function HeroUiLibraryShowcase({
   sectionId = "hero-ui-library-showcase",
   logo,
   logoSlot,
+  logoClassName,
   heading,
   description,
   actions,
@@ -132,11 +140,11 @@ export function HeroUiLibraryShowcase({
       <Img
         src={logo.src}
         alt={logo.alt}
-        className={cn("h-11 w-fit", logo.className)}
+        className={cn("h-11 w-fit", logo.className, logoClassName)}
         optixFlowConfig={optixFlowConfig}
       />
     );
-  }, [logoSlot, logo, optixFlowConfig]);
+  }, [logoSlot, logo, logoClassName, optixFlowConfig]);
 
   const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;

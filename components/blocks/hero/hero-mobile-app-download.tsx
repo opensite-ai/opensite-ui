@@ -16,6 +16,8 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { Badge } from "@/src";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface AppStoreAction extends ActionConfig {
   /**
@@ -160,6 +162,18 @@ export interface HeroMobileAppDownloadProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -192,6 +206,9 @@ export function HeroMobileAppDownload({
   descriptionClassName,
   imageClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroMobileAppDownloadProps): React.JSX.Element {
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
@@ -341,6 +358,17 @@ export function HeroMobileAppDownload({
         <div className="grid items-center gap-12 grid-cols-1 md:grid-cols-2 md:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
             {renderBadge}
+            {(logo || logoSlot) && (
+
+              <div className={cn("mb-4", logoClassName)}>
+
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+              </div>
+
+            )}
+
+            
             {heading &&
               (typeof heading === "string" ? (
                 <h1

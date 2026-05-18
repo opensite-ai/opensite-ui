@@ -15,6 +15,8 @@ import type {
 } from "../../../src/types";
 import { Img } from "@page-speed/img";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroBadgeShadowOverlayProps {
   /**
@@ -93,6 +95,18 @@ export interface HeroBadgeShadowOverlayProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -118,6 +132,9 @@ export function HeroBadgeShadowOverlay({
   announcementClassName,
   headingClassName,
   actionsClassName,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroBadgeShadowOverlayProps): React.JSX.Element {
   return (
     <Section
@@ -144,6 +161,17 @@ export function HeroBadgeShadowOverlay({
               <DynamicIcon name="lucide/arrow-up-right" size={16} />
             </Pressable>
           )}
+          {(logo || logoSlot) && (
+
+            <div className={cn("mb-4 flex justify-center", logoClassName)}>
+
+              <BrandLogo logo={logo} logoSlot={logoSlot} size="xl" />
+
+            </div>
+
+          )}
+
+          
           {heading &&
             (typeof heading === "string" ? (
               <h1

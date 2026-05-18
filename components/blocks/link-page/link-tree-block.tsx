@@ -19,6 +19,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 /**
  * Link item for the link tree
@@ -86,6 +88,18 @@ export interface LinkTreeBlockProps {
    * Custom slot for rendering brand header
    */
   brandSlot?: React.ReactNode;
+  /**
+   * Optional LogoConfig for BrandLogo rendering (takes priority over avatar)
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for the logo/avatar (takes priority over logo and avatar)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo image
+   */
+  logoClassName?: string;
   /**
    * Array of links to display
    */
@@ -315,6 +329,9 @@ export function LinkTreeBlock({
   brandVerified = false,
   verifiedIcon,
   brandSlot,
+  logo,
+  logoSlot,
+  logoClassName,
   links,
   linksSlot,
   socialLinks,
@@ -420,14 +437,24 @@ export function LinkTreeBlock({
               avatarClassName,
             )}
           >
-            {resolvedAvatar && (
+            {logo ? (
+              <BrandLogo
+                logo={logo}
+                logoSlot={logoSlot}
+                size="xl"
+                logoClassName={cn("mb-2", logoClassName)}
+                optixFlowConfig={optixFlowConfig}
+              />
+            ) : logoSlot ? (
+              logoSlot
+            ) : resolvedAvatar ? (
               <Img
                 src={resolvedAvatar.src}
                 alt={resolvedAvatar.alt}
                 className="h-auto max-h-24 w-auto max-w-full object-contain"
                 optixFlowConfig={optixFlowConfig}
               />
-            )}
+            ) : null}
           </div>
           {brandVerified && (
             <div
@@ -481,6 +508,9 @@ export function LinkTreeBlock({
     brandSlot,
     headerClassName,
     avatarClassName,
+    logo,
+    logoSlot,
+    logoClassName,
     resolvedAvatar,
     optixFlowConfig,
     brandVerified,

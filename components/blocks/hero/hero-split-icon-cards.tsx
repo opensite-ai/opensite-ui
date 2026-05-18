@@ -9,6 +9,8 @@ import { Card } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroSplitIconCardsItem {
   /**
@@ -110,6 +112,18 @@ export interface HeroSplitIconCardsProps {
   containerClassName?: string;
   /** Section spacing variant */
   spacing?: SectionSpacing;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -140,6 +154,9 @@ export function HeroSplitIconCards({
   verticalSpacing,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "pt-32 pb-8 md:pt-32 md:pb-32",
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroSplitIconCardsProps): React.JSX.Element {
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -238,6 +255,17 @@ export function HeroSplitIconCards({
                 ) : (
                   eyebrow
                 ))}
+              {(logo || logoSlot) && (
+
+                <div className={cn("mb-4", logoClassName)}>
+
+                  <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+                </div>
+
+              )}
+
+              
               {heading &&
                 (typeof heading === "string" ? (
                   <h2

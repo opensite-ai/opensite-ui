@@ -14,6 +14,8 @@ import type {
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 /**
  * Configuration for the testimonial section
@@ -134,6 +136,18 @@ export interface HeroTestimonialImageGridProps {
     apiKey: string;
     compression?: number;
   };
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -162,6 +176,9 @@ export function HeroTestimonialImageGrid({
   headingClassName,
   descriptionClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroTestimonialImageGridProps): React.JSX.Element {
   const renderTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
@@ -235,6 +252,17 @@ export function HeroTestimonialImageGrid({
         <div className="flex flex-col items-center gap-8 md:flex-row">
           <div className="flex-1">
             <div className="flex flex-col gap-4 lg:gap-8">
+              {(logo || logoSlot) && (
+
+                <div className={cn("mb-4", logoClassName)}>
+
+                  <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+                </div>
+
+              )}
+
+              
               {heading &&
                 (typeof heading === "string" ? (
                   <h1

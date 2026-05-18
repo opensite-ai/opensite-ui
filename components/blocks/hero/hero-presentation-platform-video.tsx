@@ -17,6 +17,8 @@ import {
   ContentGroup,
   type ContentGroupItem,
 } from "@/components/ui/content-group";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroPresentationPlatformVideoProps {
   /**
@@ -96,6 +98,18 @@ export interface HeroPresentationPlatformVideoProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -121,6 +135,9 @@ export function HeroPresentationPlatformVideo({
   headingClassName,
   descriptionClassName,
   videoClassName,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroPresentationPlatformVideoProps): React.JSX.Element {
   const contentItems = useMemo(() => {
     const items: ContentGroupItem[] = [];
@@ -219,6 +236,11 @@ export function HeroPresentationPlatformVideo({
             contentClassName,
           )}
         >
+          {(logo || logoSlot) && (
+            <div className={cn("mb-4", logoClassName)}>
+              <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+            </div>
+          )}
           <ContentGroup items={contentItems} />
 
           <BlockActions

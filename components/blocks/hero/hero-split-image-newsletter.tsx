@@ -21,6 +21,8 @@ import {
   type FormFieldConfig,
   type PageSpeedFormConfig,
 } from "@page-speed/forms/integration";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
   {
@@ -130,6 +132,18 @@ export interface HeroSplitImageNewsletterProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -160,6 +174,9 @@ export function HeroSplitImageNewsletter({
   descriptionClassName,
   imageClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroSplitImageNewsletterProps): React.JSX.Element {
   const {
     uploadTokens,
@@ -303,6 +320,17 @@ export function HeroSplitImageNewsletter({
             contentClassName,
           )}
         >
+          {(logo || logoSlot) && (
+
+            <div className={cn("mb-4", logoClassName)}>
+
+              <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+            </div>
+
+          )}
+
+          
           {heading &&
             (typeof heading === "string" ? (
               <h1

@@ -15,6 +15,8 @@ import { GradientOverlay } from "../../ui/gradient-overlay";
 import type { PatternName } from "../../ui/pattern-background";
 import { Badge } from "@/src";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroVideoBackgroundDarkProps {
   /**
@@ -100,6 +102,18 @@ export interface HeroVideoBackgroundDarkProps {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -126,6 +140,9 @@ export function HeroVideoBackgroundDark({
   contentClassName,
   headingClassName,
   descriptionClassName,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroVideoBackgroundDarkProps): React.JSX.Element {
   const renderVideo = useMemo(() => {
     if (videoSlot) return videoSlot;
@@ -175,6 +192,17 @@ export function HeroVideoBackgroundDark({
             ) : (
               badgeText
             ))}
+          {(logo || logoSlot) && (
+
+            <div className={cn("mb-4 flex justify-center", logoClassName)}>
+
+              <BrandLogo logo={logo} logoSlot={logoSlot} size="xl" />
+
+            </div>
+
+          )}
+
+          
           {heading &&
             (typeof heading === "string" ? (
               <h1

@@ -11,6 +11,8 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroGridPatternEfficiencyProps {
   /**
@@ -74,6 +76,18 @@ export interface HeroGridPatternEfficiencyProps {
    * Additional CSS classes for the action container
    */
   actionClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -95,6 +109,9 @@ export function HeroGridPatternEfficiency({
   headingClassName,
   descriptionClassName,
   actionClassName,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroGridPatternEfficiencyProps): React.JSX.Element {
   const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
@@ -159,6 +176,11 @@ export function HeroGridPatternEfficiency({
     >
       <div className="relative">
         <div className={cn("relative max-w-5xl", contentClassName)}>
+          {(logo || logoSlot) && (
+            <div className={cn("mb-4 flex justify-center", logoClassName)}>
+              <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+            </div>
+          )}
           {renderHeading}
           {description &&
             (typeof description === "string" ? (

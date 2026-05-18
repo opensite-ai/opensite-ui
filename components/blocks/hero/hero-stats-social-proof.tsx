@@ -15,6 +15,8 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { Badge, DynamicIcon } from "@/src";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroStatsSocialProofProps {
   /**
@@ -125,6 +127,18 @@ export interface HeroStatsSocialProofProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -157,6 +171,9 @@ export function HeroStatsSocialProof({
   statsClassName,
   imageClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroStatsSocialProofProps): React.JSX.Element {
   const renderStats = useMemo(() => {
     if (statsSlot) return statsSlot;
@@ -224,6 +241,17 @@ export function HeroStatsSocialProof({
                 {typeof badge === "string" ? <span>{badge}</span> : badge}
               </Badge>
             )}
+            {(logo || logoSlot) && (
+
+              <div className={cn("mb-4", logoClassName)}>
+
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+              </div>
+
+            )}
+
+            
             {heading &&
               (typeof heading === "string" ? (
                 <h1

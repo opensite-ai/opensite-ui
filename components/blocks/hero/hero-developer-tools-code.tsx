@@ -14,6 +14,8 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface TerminalLine {
   /**
@@ -123,6 +125,18 @@ export interface HeroDeveloperToolsCodeProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -151,6 +165,9 @@ export function HeroDeveloperToolsCode({
   actionsClassName,
   patternClassName,
   terminalClassName,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroDeveloperToolsCodeProps): React.JSX.Element {
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
@@ -221,6 +238,17 @@ export function HeroDeveloperToolsCode({
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-4 md:gap-8", contentClassName)}>
             {renderBadge}
+            {(logo || logoSlot) && (
+
+              <div className={cn("mb-4", logoClassName)}>
+
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+              </div>
+
+            )}
+
+            
             {heading &&
               (typeof heading === "string" ? (
                 <h1

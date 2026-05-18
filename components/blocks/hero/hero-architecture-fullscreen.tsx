@@ -13,6 +13,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroArchitectureFullscreenProps {
   /**
@@ -82,6 +84,18 @@ export interface HeroArchitectureFullscreenProps {
     apiKey: string;
     compression?: number;
   };
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -104,6 +118,9 @@ export function HeroArchitectureFullscreen({
   headingClassName,
   descriptionClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroArchitectureFullscreenProps): React.JSX.Element {
   const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
@@ -171,6 +188,17 @@ export function HeroArchitectureFullscreen({
               ) : (
                 <div className={taglineClassName}>{tagline}</div>
               ))}
+            {(logo || logoSlot) && (
+
+              <div className={cn("mb-4 flex justify-center", logoClassName)}>
+
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="xl" />
+
+              </div>
+
+            )}
+
+            
             {heading &&
               (typeof heading === "string" ? (
                 <motion.h1

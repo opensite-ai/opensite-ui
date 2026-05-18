@@ -11,6 +11,8 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroHiringAnimatedTextProps {
   /**
@@ -80,6 +82,18 @@ export interface HeroHiringAnimatedTextProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -103,6 +117,9 @@ export function HeroHiringAnimatedText({
   headingClassName,
   descriptionClassName,
   actionsClassName,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroHiringAnimatedTextProps): React.JSX.Element {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -174,6 +191,11 @@ export function HeroHiringAnimatedText({
             contentClassName,
           )}
         >
+          {(logo || logoSlot) && (
+            <div className={cn("mb-4", logoClassName)}>
+              <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+            </div>
+          )}
           {renderHeading}
           <div className="flex items-stretch md:items-start flex-col gap-8">
             {description &&

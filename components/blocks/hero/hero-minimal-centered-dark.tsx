@@ -14,6 +14,8 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { Badge } from "@/src";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroMinimalCenteredDarkProps {
   /**
@@ -96,6 +98,18 @@ export interface HeroMinimalCenteredDarkProps {
    * Additional CSS classes for the stats container
    */
   statsClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -121,6 +135,9 @@ export function HeroMinimalCenteredDark({
   descriptionClassName,
   actionsClassName,
   statsClassName,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroMinimalCenteredDarkProps): React.JSX.Element {
   const renderStats = useMemo(() => {
     if (statsSlot) return statsSlot;
@@ -152,6 +169,11 @@ export function HeroMinimalCenteredDark({
           <Badge className={cn("px-4 py-1", badgeClassName)}>
             {typeof badge === "string" ? <span>{badge}</span> : badge}
           </Badge>
+        )}
+        {(logo || logoSlot) && (
+          <div className={cn("mb-4 flex justify-center", logoClassName)}>
+            <BrandLogo logo={logo} logoSlot={logoSlot} size="xl" />
+          </div>
         )}
         {(heading || headingHighlight) &&
           (typeof heading === "string" ? (

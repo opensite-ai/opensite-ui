@@ -13,6 +13,8 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface VersionInfo {
   /**
@@ -122,6 +124,18 @@ export interface HeroProductivityLauncherVideoProps {
    * Additional CSS classes for the description
    */
   descriptionClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -146,6 +160,9 @@ export function HeroProductivityLauncherVideo({
   contentClassName,
   headingClassName,
   descriptionClassName,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroProductivityLauncherVideoProps): React.JSX.Element {
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -242,6 +259,17 @@ export function HeroProductivityLauncherVideo({
         <div className="flex flex-col items-center pb-8">
           <div className="flex flex-col items-center gap-8 pb-16 pt-16">
             <div className="max-w-100 sm:max-w-135">
+              {(logo || logoSlot) && (
+
+                <div className={cn("mb-4", logoClassName)}>
+
+                  <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+                </div>
+
+              )}
+
+              
               {heading &&
                 (typeof heading === "string" ? (
                   <h1

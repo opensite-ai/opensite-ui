@@ -14622,6 +14622,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Choose your path",
       description: "Multiple ways to engage with our platform.",
       backgroundImage: HERO_EXAMPLE_IMAGE_URL,
@@ -14663,6 +14664,7 @@ const HERO_BLOCK_CONTRACTS = {
       mediaSlots: {},
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       eyebrow: "For Developers",
       heading: "Built for teams that ship fast",
       description: "Powerful features designed for modern development teams.",
@@ -14712,6 +14714,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       badge: "Featured Work",
       heading: "Build Stunning Websites",
       description: "We design and build beautiful digital products.",
@@ -14756,6 +14759,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       badge: "New Release",
       heading: "Build faster with our platform",
       description: "Everything you need to ship your product in record time.",
@@ -14799,6 +14803,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       imageSrc: HERO_EXAMPLE_IMAGE_URL,
       imageAlt: "Product showcase",
       heading: "Beautiful design meets powerful functionality",
@@ -14840,6 +14845,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Explore our collection",
       description: "Browse through our carefully curated selection.",
       images: [
@@ -14888,9 +14894,17 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Visual storytelling at its finest",
       description: "Showcase your work with beautiful grid layouts.",
-      gridImages: Array(6).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Gallery image" }),
+      gridImages: [
+        { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "Gallery image 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "Gallery image 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j", alt: "Gallery image 3" },
+        { src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson", alt: "Gallery image 4" },
+        { src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg", alt: "Gallery image 5" },
+        { src: "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q", alt: "Gallery image 6" },
+      ],
       actions: [
         { label: "View Gallery", href: "#", variant: "default" },
         { label: "Learn More", href: "#", variant: "outline" },
@@ -14929,6 +14943,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "The all-in-one platform for modern teams",
       description: "Everything you need to collaborate, communicate, and create amazing work.",
       imageSrc: HERO_EXAMPLE_IMAGE_URL,
@@ -14973,10 +14988,18 @@ const HERO_BLOCK_CONTRACTS = {
       },
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       badge: "Trusted by Leaders",
       heading: "Join the world's most innovative companies",
       description: "Over 10,000 organizations trust our platform.",
-      logos: Array(6).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Partner logo" }),
+      logos: [
+        { src: "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png", alt: "Partner logo 1" },
+        { src: "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png", alt: "Partner logo 2" },
+        { src: "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png", alt: "Partner logo 3" },
+        { src: "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png", alt: "Partner logo 4" },
+        { src: "https://cdn.ing/assets/i/r/288968/nn5xpkit7idgr7i6fa46ez3g9kwn/ui-placeholder-logo-black-5.png", alt: "Partner logo 5" },
+        { src: "https://cdn.ing/assets/i/r/288974/dlb4c51kvgv6ncasqpgr2kvuma7y/ui-placeholder-logo-black-6.png", alt: "Partner logo 6" },
+      ],
       actions: [{ label: "Get Started", href: "/signup", variant: "default" }],
     },
   },
@@ -15088,6 +15111,7 @@ const HERO_BLOCK_CONTRACTS = {
       mediaSlots: {},
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       badge: "New Release v2.0",
       heading: "The future of productivity is here",
       description: "Experience unprecedented performance and new features.",
@@ -15138,6 +15162,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       items: [
         {
           title: "InsuranceSite",
@@ -15182,6 +15207,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Clean, simple, effective",
       description: "Sometimes less is more. Focus on what matters.",
       imageSrc: HERO_EXAMPLE_IMAGE_URL,
@@ -15221,6 +15247,7 @@ const HERO_BLOCK_CONTRACTS = {
       },
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "A complete platform for modern teams",
       description: "All-in-one solution for communication and collaboration.",
       action: { label: "Explore Features", href: "#", variant: "default" },
@@ -15265,6 +15292,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       badgeText: "Innovative Platform",
       heading: "Innovative solutions that evolve with you",
       description: "Dynamic, flexible, and always improving.",
@@ -15312,6 +15340,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       badgeText: "Design Excellence",
       heading: "Where creativity meets precision",
       description: "Award-winning designs that blend artistic vision with technical excellence.",
@@ -15362,9 +15391,15 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Bold design for bold ideas",
       description: "Stand out with striking visuals and modern aesthetics.",
-      images: Array(4).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Design" }),
+      images: [
+        { src: "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz", alt: "Design 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs", alt: "Design 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0", alt: "Design 3" },
+        { src: "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x", alt: "Design 4" },
+      ],
       actions: [
         { label: "Explore", href: "/explore", variant: "default" },
         { label: "Contact", href: "/contact", variant: "outline" },
@@ -15410,6 +15445,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       announcementPrimary: "Your Voice Matters",
       announcementLinkText: "Learn More",
       announcementHref: "#",
@@ -15457,10 +15493,17 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Discover unique items from creators worldwide",
       description: "Shop handcrafted goods, vintage treasures, and one-of-a-kind products.",
       action: { label: "Browse Marketplace", href: "#", variant: "default" },
-      images: Array(5).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Product" }),
+      images: [
+        { src: "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc", alt: "Product 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v", alt: "Product 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac", alt: "Product 3" },
+        { src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm", alt: "Product 4" },
+        { src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v", alt: "Product 5" },
+      ],
     },
   },
 
@@ -15494,6 +15537,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       announcementBadge: "Launch",
       announcementText: "Premium design system",
       announcementHref: "#",
@@ -15544,6 +15588,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       badgeText: "Immersive Experience",
       heading: "Make an unforgettable first impression",
       description: "Captivate your audience with stunning video backgrounds.",
@@ -15579,6 +15624,7 @@ const HERO_BLOCK_CONTRACTS = {
       mediaSlots: {},
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Work smarter, not harder",
       description: "Maximize productivity with intelligent tools and workflows.",
       action: { label: "Boost Productivity", href: "#", variant: "default" },
@@ -15696,7 +15742,12 @@ const HERO_BLOCK_CONTRACTS = {
         { iconName: "lucide/zap", title: "Rapid Execution", description: "Agile methodology for fast delivery." },
         { iconName: "lucide/heart", title: "Human-Centered", description: "Design for people first." },
       ],
-      carouselImages: Array(4).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Design" }),
+      carouselImages: [
+        { src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc", alt: "Design 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt", alt: "Design 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov", alt: "Design 3" },
+        { src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6", alt: "Design 4" },
+      ],
       actions: [
         { label: "Schedule Chat", href: "#", variant: "default" },
         { label: "View Portfolio", href: "#", variant: "outline" },
@@ -15735,6 +15786,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Your success is our mission",
       description: "Dedicated to helping you achieve your goals with personalized support.",
       image: { src: HERO_EXAMPLE_IMAGE_URL, alt: "Client success" },
@@ -15782,6 +15834,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       brandName: "Premium",
       brandSuffix: "Community",
       heading: "Join an exclusive community",
@@ -15828,6 +15881,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Beautiful components for modern apps",
       description: "A comprehensive UI library with 100+ components.",
       image: { src: HERO_EXAMPLE_IMAGE_URL, alt: "UI component showcase" },
@@ -15868,6 +15922,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Experience the extraordinary",
       description: "Immersive experiences that captivate and inspire.",
       backgroundImage: HERO_EXAMPLE_IMAGE_URL,
@@ -15904,6 +15959,7 @@ const HERO_BLOCK_CONTRACTS = {
       },
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Building the future of work",
       description: "Join the companies already transforming how they operate.",
       action: { label: "Get Started", href: "#", variant: "default" },
@@ -15954,9 +16010,14 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Loved by thousands of users",
       description: "Join our community of satisfied customers.",
-      avatars: Array(3).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "User" }),
+      avatars: [
+        { src: "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82", alt: "User 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "User 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "User 3" },
+      ],
       images: [
         { src: HERO_EXAMPLE_IMAGE_URL, alt: "Hero 1" },
         { src: HERO_EXAMPLE_IMAGE_URL, alt: "Hero 2" },
@@ -16005,6 +16066,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Track time, boost productivity",
       description: "Stay focused and manage your time effectively.",
       images: [
@@ -16070,12 +16132,27 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       badge: "AI-Powered",
       badgeTagline: "Next Generation Technology",
       heading: "Intelligent automation for your workflow",
       description: "Transform your business with AI-driven solutions.",
-      carouselImages1: Array(6).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Feature" }),
-      carouselImages2: Array(6).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Feature" }),
+      carouselImages1: [
+        { src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j", alt: "Feature 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson", alt: "Feature 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg", alt: "Feature 3" },
+        { src: "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q", alt: "Feature 4" },
+        { src: "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz", alt: "Feature 5" },
+        { src: "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs", alt: "Feature 6" },
+      ],
+      carouselImages2: [
+        { src: "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0", alt: "Feature 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x", alt: "Feature 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc", alt: "Feature 3" },
+        { src: "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v", alt: "Feature 4" },
+        { src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac", alt: "Feature 5" },
+        { src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm", alt: "Feature 6" },
+      ],
       actions: [
         { label: "Start Free Trial", href: "#", variant: "default" },
         { label: "Watch Demo", href: "#", variant: "outline" },
@@ -16117,6 +16194,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Your ad campaigns excel with AI",
       description: "Optimize your advertising performance with real-time analytics.",
       mediaItem: { video: EXAMPLE_VIDEO_0 },
@@ -16154,6 +16232,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Flexible product displays that adapt to your brand",
       description: "Create stunning product showcases with our adaptable grid system.",
       imageSrc: HERO_EXAMPLE_IMAGE_URL,
@@ -16200,6 +16279,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       subtitle: "Presentation Platform",
       heading: "Create stunning presentations in minutes",
       description: "Beautiful templates, smart layouts, and powerful collaboration tools.",
@@ -16245,10 +16325,15 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       badgeText: "New Version Launched",
       heading: "Complete solutions for every challenge",
       description: "From startups to enterprises, we provide comprehensive solutions.",
-      images: Array(3).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Solution" }),
+      images: [
+        { src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v", alt: "Solution 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc", alt: "Solution 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt", alt: "Solution 3" },
+      ],
       actions: [{ label: "Explore Solutions", href: "#", variant: "outline" }],
       background: "dark",
     },
@@ -16284,6 +16369,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       tagline: "Simple CRM",
       heading: "Customer relationships made simple",
       description: "Manage your entire customer lifecycle in one intuitive platform.",
@@ -16334,10 +16420,18 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Simplified billing for modern businesses",
       description: "Accept payments, manage subscriptions, and handle invoicing.",
       mainImage: { src: HERO_EXAMPLE_IMAGE_URL, alt: "Billing dashboard" },
-      logos: Array(6).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Partner logo" }),
+      logos: [
+        { src: "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png", alt: "Partner logo 1" },
+        { src: "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png", alt: "Partner logo 2" },
+        { src: "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png", alt: "Partner logo 3" },
+        { src: "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png", alt: "Partner logo 4" },
+        { src: "https://cdn.ing/assets/i/r/288968/nn5xpkit7idgr7i6fa46ez3g9kwn/ui-placeholder-logo-black-5.png", alt: "Partner logo 5" },
+        { src: "https://cdn.ing/assets/i/r/288974/dlb4c51kvgv6ncasqpgr2kvuma7y/ui-placeholder-logo-black-6.png", alt: "Partner logo 6" },
+      ],
       actions: [
         { label: "Start Free Trial", href: "#", variant: "default" },
         { label: "View Pricing", href: "#", variant: "outline" },
@@ -16386,10 +16480,16 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Accelerate your growth with data-driven insights",
       description: "See how top companies use our platform to scale faster.",
       videoAction: { label: "Watch Demo", variant: "outline" },
-      showcaseImages: Array(4).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Growth metric" }),
+      showcaseImages: [
+        { src: "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov", alt: "Growth metric 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6", alt: "Growth metric 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82", alt: "Growth metric 3" },
+        { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "Growth metric 4" },
+      ],
       modalVideo: { video: EXAMPLE_VIDEO_1 },
       background: "dark",
       actions: [{ label: "Get Started", href: "#", variant: "ghost" }],
@@ -16438,6 +16538,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Turn visitors into customers",
       description: "Optimize your conversion funnel with data-driven insights.",
       primaryAction: { label: "Get Started", href: "#", variant: "default" },
@@ -16483,9 +16584,15 @@ const HERO_BLOCK_CONTRACTS = {
       },
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Trusted by leading brands worldwide",
       description: "Join thousands of companies who have transformed their design workflow.",
-      logos: Array(4).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Partner logo" }),
+      logos: [
+        { src: "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png", alt: "Partner logo 1" },
+        { src: "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png", alt: "Partner logo 2" },
+        { src: "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png", alt: "Partner logo 3" },
+        { src: "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png", alt: "Partner logo 4" },
+      ],
       actions: [
         { label: "Get Started", href: "#", variant: "default" },
         { label: "View Case Studies", href: "#", variant: "outline" },
@@ -16573,6 +16680,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Supercharge your productivity",
       description: "The ultimate productivity launcher for modern professionals.",
       backgroundVideo: { video: EXAMPLE_VIDEO_0 },
@@ -16613,6 +16721,7 @@ const HERO_BLOCK_CONTRACTS = {
       },
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       headingPrefix: "We're hiring",
       animatedTexts: ["Developers", "Designers", "Marketers"],
       description: "We're building the future of work and want you to be part of it.",
@@ -16651,6 +16760,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library", "contact_form"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Stay updated with our newsletter",
       description: "Get the latest insights delivered to your inbox.",
       image: { src: HERO_EXAMPLE_IMAGE_URL, alt: "Newsletter preview" },
@@ -16693,6 +16803,7 @@ const HERO_BLOCK_CONTRACTS = {
       mediaSlots: {},
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       badge: "Limited Time Offer",
       heading: "Transform your workflow today",
       description: "Join thousands of teams who have revolutionized their productivity.",
@@ -16743,6 +16854,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library", "stats_or_metrics"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       badge: "Industry Expertise",
       heading: "Trusted by thousands of businesses",
       description: "Join the companies already experiencing transformative results.",
@@ -16794,6 +16906,7 @@ const HERO_BLOCK_CONTRACTS = {
       mediaSlots: {},
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Everything you need in one place",
       description: "Powerful features that work together seamlessly.",
       features: [
@@ -16850,6 +16963,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library", "reviews_or_testimonials"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Loved by customers worldwide",
       description: "See why thousands of businesses trust us.",
       testimonial: {
@@ -16859,7 +16973,12 @@ const HERO_BLOCK_CONTRACTS = {
         company: "TechCorp",
         avatars: [{ image: HERO_EXAMPLE_IMAGE_URL, fallback: "SJ" }],
       },
-      gridImages: Array(4).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Customer" }),
+      gridImages: [
+        { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "Customer 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j", alt: "Customer 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson", alt: "Customer 3" },
+        { src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg", alt: "Customer 4" },
+      ],
       actions: [{ label: "Get Started", href: "#", variant: "default" }],
       background: "dark",
     },
@@ -16901,10 +17020,15 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       trustBadge: "Design System",
       heading: "Build with a comprehensive design system",
       description: "Create consistent, beautiful interfaces with our complete set of components.",
-      images: Array(3).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Component" }),
+      images: [
+        { src: "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q", alt: "Component 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz", alt: "Component 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs", alt: "Component 3" },
+      ],
       background: "dark",
       actions: [
         { label: "Explore Components", href: "#", variant: "default" },
@@ -16939,6 +17063,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Designing spaces that inspire",
       description: "Award-winning architecture firm specializing in sustainable, innovative designs.",
       action: { label: "View Projects", href: "#", variant: "default" },
@@ -16977,9 +17102,14 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Pioneering the future of technology",
       description: "Pushing boundaries and exploring new frontiers.",
-      images: Array(3).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Innovation" }),
+      images: [
+        { src: "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0", alt: "Innovation 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x", alt: "Innovation 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc", alt: "Innovation 3" },
+      ],
       background: "dark",
       actions: [{ label: "Learn More", href: "#", variant: "default" }],
     },
@@ -17021,6 +17151,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "See our platform in action",
       description: "Get a 3-minute walkthrough of our most powerful features.",
       videoAction: { label: "Watch Demo", variant: "outline" },
@@ -17055,6 +17186,7 @@ const HERO_BLOCK_CONTRACTS = {
       mediaSlots: {},
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Simplicity is the ultimate sophistication",
       description: "Clean, focused, and purposeful.",
       badge: "Industry Leader",
@@ -17097,6 +17229,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       badgeText: "New Arrival",
       badgeIcon: "lucide/sparkles",
       heading: "Introducing our latest innovation",
@@ -17142,6 +17275,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library", "contact_form"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       badgeText: "SaaS Platform",
       badgeIcon: "lucide/box",
       heading: "The operating system for your business",
@@ -17196,6 +17330,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library", "reviews_or_testimonials"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Real stories, real healing",
       description: "Hear from clients who've found support and healing.",
       testimonial: {
@@ -17203,7 +17338,11 @@ const HERO_BLOCK_CONTRACTS = {
         author: "Anonymous Client",
         avatar: { src: HERO_EXAMPLE_IMAGE_URL, alt: "Client testimonial" },
       },
-      images: Array(3).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Therapy session" }),
+      images: [
+        { src: "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v", alt: "Therapy session 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac", alt: "Therapy session 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm", alt: "Therapy session 3" },
+      ],
       actions: [
         { label: "Find Your Therapist", href: "#", variant: "default" },
         { label: "Read More Stories", href: "#", variant: "outline" },
@@ -17246,9 +17385,14 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Streamline your business operations",
       description: "Unified platform for managing all aspects of your business.",
-      images: Array(3).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Operations" }),
+      images: [
+        { src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v", alt: "Operations 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc", alt: "Operations 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt", alt: "Operations 3" },
+      ],
       background: "gray",
       actions: [
         { label: "Get Started", href: "#", variant: "default" },
@@ -17289,9 +17433,15 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Creative solutions for modern brands",
       description: "Discover a platform that empowers you to create and achieve amazing results.",
-      images: Array(4).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Project" }),
+      images: [
+        { src: "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov", alt: "Project 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6", alt: "Project 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82", alt: "Project 3" },
+        { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "Project 4" },
+      ],
       actions: [{ label: "View Our Work", href: "#", variant: "default" }],
     },
   },
@@ -17332,9 +17482,15 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Where innovation meets creativity",
       description: "Discover a platform that empowers you to create and collaborate.",
-      images: Array(4).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Feature" }),
+      images: [
+        { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "Feature 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j", alt: "Feature 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson", alt: "Feature 3" },
+        { src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg", alt: "Feature 4" },
+      ],
       background: "dark",
       actions: [
         { label: "Get Started", href: "#", variant: "default" },
@@ -17383,6 +17539,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       badge: "We're Launching",
       heading: "The future of startups starts here",
       description: "Join the waitlist for early access to the platform changing how startups scale.",
@@ -17428,6 +17585,7 @@ const HERO_BLOCK_CONTRACTS = {
       mediaSlots: {},
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       badge: "Enterprise Grade",
       heading: "Security you can trust",
       description: "Protect your business with enterprise-grade security features. SOC 2 compliant.",
@@ -17483,10 +17641,15 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Where creativity meets innovation",
       description: "Award-winning creative studio specializing in brand identity and digital experiences.",
       videoAction: { label: "Watch Demo", variant: "default" },
-      images: Array(3).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Project" }),
+      images: [
+        { src: "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q", alt: "Project 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz", alt: "Project 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs", alt: "Project 3" },
+      ],
       modalVideo: { video: EXAMPLE_VIDEO_0 },
       background: "dark",
       actions: [{ label: "Learn More", href: "#", variant: "outline" }],
@@ -17523,6 +17686,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Digital experiences that inspire",
       description: "Full-service digital agency creating award-winning websites and brand experiences.",
       backgroundImage: HERO_EXAMPLE_IMAGE_URL,
@@ -17565,10 +17729,15 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Support that your customers love",
       description: "Deliver exceptional customer experiences with our multi-channel support platform.",
       tagline: "Customer Support",
-      images: Array(3).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Support interface" }),
+      images: [
+        { src: "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0", alt: "Support interface 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x", alt: "Support interface 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc", alt: "Support interface 3" },
+      ],
       actions: [{ label: "Browse Marketplace", href: "#", variant: "default" }],
     },
   },
@@ -17609,6 +17778,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       eyebrow: "Team Inbox",
       heading: "Collaborate on every customer conversation",
       description: "Shared inbox that brings your team together.",
@@ -17655,6 +17825,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       headingPrimary: "Unlock insights from",
       description: "Analyze calls, meetings, and customer interactions with advanced AI.",
       image: { src: HERO_EXAMPLE_IMAGE_URL, alt: "Intelligence dashboard" },
@@ -17700,9 +17871,14 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Business solutions that scale with you",
       description: "From startups to enterprises, our platform grows alongside your business.",
-      carouselImages: Array(3).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Feature" }),
+      carouselImages: [
+        { src: "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v", alt: "Feature 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac", alt: "Feature 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm", alt: "Feature 3" },
+      ],
       actions: [
         { label: "Get Started", href: "#", variant: "default" },
         { label: "Book Demo", href: "#", variant: "outline" },
@@ -17746,6 +17922,7 @@ const HERO_BLOCK_CONTRACTS = {
       mediaSlots: {},
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       badgeText: "For Developers",
       heading: "Developer tools that just work",
       description: "Build faster with modern APIs and comprehensive docs.",
@@ -17807,10 +17984,16 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library", "products", "stats_or_metrics"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       badgeText: "New Collection",
       heading: "Premium products for modern living",
       description: "Discover our curated collection of handpicked items.",
-      images: Array(4).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Product" }),
+      images: [
+        { src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v", alt: "Product 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc", alt: "Product 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt", alt: "Product 3" },
+        { src: "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov", alt: "Product 4" },
+      ],
       stats: [
         { value: "500+", label: "Products" },
         { value: "50K+", label: "Customers" },
@@ -17857,6 +18040,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       badgeText: "Now on Mobile",
       badgeIcon: "lucide/smartphone",
       heading: "Take us with you, everywhere",
@@ -17911,6 +18095,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("pricing"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Simple, transparent pricing",
       description: "Choose the plan that's right for you. No hidden fees.",
       plans: [
@@ -17962,6 +18147,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("contact_form"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Stay in the loop",
       description: "Get weekly insights delivered straight to your inbox.",
       buttonAction: { label: "Subscribe", variant: "default" },
@@ -18000,6 +18186,7 @@ const HERO_BLOCK_CONTRACTS = {
       mediaSlots: {},
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       badgeIcon: "lucide/rocket",
       badgeText: "Launching Soon",
       heading: "Something amazing is on the way",
@@ -18052,6 +18239,7 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library", "events", "stats_or_metrics"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       badgeText: "Annual Conference",
       badgeIcon: "lucide/calendar",
       heading: "Join us for the event of the year",
@@ -18099,9 +18287,15 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
       heading: "Creative work that stands out",
       description: "Award-winning portfolio showcasing our best projects in design and branding.",
-      portfolioImages: Array(4).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Portfolio project" }),
+      portfolioImages: [
+        { src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6", alt: "Portfolio project 1" },
+        { src: "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82", alt: "Portfolio project 2" },
+        { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "Portfolio project 3" },
+        { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "Portfolio project 4" },
+      ],
       actions: [{ label: "View All Work", href: "/portfolio", variant: "default" }],
     },
   },

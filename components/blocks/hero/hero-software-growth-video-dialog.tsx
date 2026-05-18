@@ -25,6 +25,8 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { ActionComponent } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 /**
  * @deprecated Use modalVideo prop with MediaItem type instead
@@ -126,6 +128,18 @@ export interface HeroSoftwareGrowthVideoDialogProps {
    * Video aspect ratio
    */
   videoAspectRatio?: "horizontal" | "vertical";
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
 }
 
 export function HeroSoftwareGrowthVideoDialog({
@@ -150,6 +164,9 @@ export function HeroSoftwareGrowthVideoDialog({
   descriptionClassName,
   showcaseClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroSoftwareGrowthVideoDialogProps): React.JSX.Element {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [skinClasses, setSkinClasses] = useState<any>(null);
@@ -252,6 +269,17 @@ export function HeroSoftwareGrowthVideoDialog({
         <div className="relative">
           <div className="flex flex-col gap-10 md:gap-6">
             <div className="flex flex-col items-center justify-center gap-8 pt-6 md:pt-0">
+              {(logo || logoSlot) && (
+
+                <div className={cn("mb-4", logoClassName)}>
+
+                  <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+                </div>
+
+              )}
+
+              
               {heading &&
                 (typeof heading === "string" ? (
                   <h1

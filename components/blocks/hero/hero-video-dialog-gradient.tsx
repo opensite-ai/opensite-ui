@@ -25,6 +25,8 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { ActionComponent, BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 /**
  * @deprecated Use modalVideo prop with MediaItem type instead
@@ -130,6 +132,18 @@ export interface HeroVideoDialogGradientProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
 }
 
 export function HeroVideoDialogGradient({
@@ -155,6 +169,9 @@ export function HeroVideoDialogGradient({
   descriptionClassName,
   imageClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroVideoDialogGradientProps): React.JSX.Element {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [skinClasses, setSkinClasses] = useState<any>(null);
@@ -225,6 +242,17 @@ export function HeroVideoDialogGradient({
         <div className="relative z-20 pt-10 md:pt-">
           <div className="flex flex-col items-center gap-6 md:gap-8">
             <div className="flex flex-col items-center gap-6">
+              {(logo || logoSlot) && (
+
+                <div className={cn("mb-4 flex justify-center", logoClassName)}>
+
+                  <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+                </div>
+
+              )}
+
+              
               {heading &&
                 (typeof heading === "string" ? (
                   <h1

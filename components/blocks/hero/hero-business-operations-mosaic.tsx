@@ -15,6 +15,8 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroBusinessOperationsMosaicProps {
   /**
@@ -89,6 +91,18 @@ export interface HeroBusinessOperationsMosaicProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -113,6 +127,9 @@ export function HeroBusinessOperationsMosaic({
   headingClassName,
   mosaicClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroBusinessOperationsMosaicProps): React.JSX.Element {
   const renderMosaic = useMemo(() => {
     if (imagesSlot) return imagesSlot;
@@ -189,6 +206,17 @@ export function HeroBusinessOperationsMosaic({
             contentClassName,
           )}
         >
+          {(logo || logoSlot) && (
+
+            <div className={cn("mb-4", logoClassName)}>
+
+              <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+            </div>
+
+          )}
+
+          
           {heading &&
             (typeof heading === "string" ? (
               <h1

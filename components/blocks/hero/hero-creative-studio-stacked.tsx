@@ -26,6 +26,8 @@ import type {
 } from "../../../src/types";
 import { VideoDialogConfig } from "./hero-video-dialog-gradient";
 import { ActionComponent } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroCreativeStudioStackedProps {
   /**
@@ -132,6 +134,18 @@ export interface HeroCreativeStudioStackedProps {
    * Additional CSS classes for the pattern overlay
    */
   patternClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
 }
 
 export function HeroCreativeStudioStacked({
@@ -161,6 +175,9 @@ export function HeroCreativeStudioStacked({
   actionsClassName,
   imagesClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroCreativeStudioStackedProps): React.JSX.Element {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [skinClasses, setSkinClasses] = useState<any>(null);
@@ -296,6 +313,17 @@ export function HeroCreativeStudioStacked({
                   <div className={taglineClassName}>{tagline}</div>
                 ))}
               <div className="flex max-w-160 flex-col gap-6">
+                {(logo || logoSlot) && (
+
+                  <div className={cn("mb-4", logoClassName)}>
+
+                    <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+                  </div>
+
+                )}
+
+                
                 {heading &&
                   (typeof heading === "string" ? (
                     <h1

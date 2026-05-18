@@ -16,6 +16,8 @@ import type {
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
 import { Badge } from "@/src";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroCommunitySurveyCtaProps {
   /**
@@ -114,6 +116,18 @@ export interface HeroCommunitySurveyCtaProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -144,6 +158,9 @@ export function HeroCommunitySurveyCta({
   actionsClassName,
   imagesClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroCommunitySurveyCtaProps): React.JSX.Element {
   const renderAnnouncement = useMemo(() => {
     if (announcementSlot) return announcementSlot;
@@ -296,6 +313,17 @@ export function HeroCommunitySurveyCta({
       <div className="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
         <div className="flex flex-col items-start gap-6 md:gap-8 pt-8 md:pt-0">
           {renderAnnouncement}
+          {(logo || logoSlot) && (
+
+            <div className={cn("mb-4", logoClassName)}>
+
+              <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+            </div>
+
+          )}
+
+          
           {heading &&
             (typeof heading === "string" ? (
               <h1

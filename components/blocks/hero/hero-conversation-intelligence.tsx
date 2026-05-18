@@ -14,6 +14,8 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroConversationIntelligenceProps {
   /**
@@ -92,6 +94,18 @@ export interface HeroConversationIntelligenceProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -117,6 +131,9 @@ export function HeroConversationIntelligence({
   actionsClassName,
   imageClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroConversationIntelligenceProps): React.JSX.Element {
   const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
@@ -162,6 +179,11 @@ export function HeroConversationIntelligence({
                 contentClassName,
               )}
             >
+              {(logo || logoSlot) && (
+                <div className={cn("mb-4 flex justify-center", logoClassName)}>
+                  <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+                </div>
+              )}
               <h1
                 className={cn(
                   "text-center text-5xl leading-[1.294] font-semibold sm:text-[3.75rem] md:text-[4.25rem] text-balance",

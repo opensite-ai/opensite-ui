@@ -14,6 +14,8 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroGradientClientFocusedProps {
   /**
@@ -84,6 +86,18 @@ export interface HeroGradientClientFocusedProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -107,6 +121,9 @@ export function HeroGradientClientFocused({
   actionsClassName,
   imageClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroGradientClientFocusedProps): React.JSX.Element {
   const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
@@ -137,6 +154,17 @@ export function HeroGradientClientFocused({
       containerClassName={containerClassName}
     >
       <div className="relative flex flex-col items-center gap-4">
+        {(logo || logoSlot) && (
+
+          <div className={cn("mb-4", logoClassName)}>
+
+            <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+          </div>
+
+        )}
+
+        
         {heading &&
           (typeof heading === "string" ? (
             <h1

@@ -17,6 +17,8 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface AvatarItem {
   /**
@@ -122,6 +124,18 @@ export interface HeroGradientAvatarsRatingProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -151,6 +165,9 @@ export function HeroGradientAvatarsRating({
   actionsClassName,
   imagesClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroGradientAvatarsRatingProps): React.JSX.Element {
   const renderAvatars = useMemo(() => {
     if (avatarsSlot) return avatarsSlot;
@@ -263,6 +280,17 @@ export function HeroGradientAvatarsRating({
               contentClassName,
             )}
           >
+            {(logo || logoSlot) && (
+
+              <div className={cn("mb-4", logoClassName)}>
+
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+              </div>
+
+            )}
+
+            
             {heading && (
               <h1
                 className={cn(

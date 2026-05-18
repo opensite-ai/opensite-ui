@@ -2,7 +2,7 @@
   "metadata": {
     "contractVersion": "v1",
     "uiVersion": "3.7.2",
-    "exportedAt": "2026-05-18T06:05:19.976Z",
+    "exportedAt": "2026-05-18T06:28:50.577Z",
     "source": "@opensite/ui",
     "totalBlocks": 605
   },
@@ -19711,6 +19711,10 @@
       "examples": {
         "exampleUsage": "<HeroAdCampaignExpert\n  heading=\"Your ad campaigns excel with AI\"\n  description=\"Optimize your advertising performance with real-time analytics.\"\n  actions={[{ label: \"Start Free Trial\", href: \"#\", variant: \"default\" }]}\n  mediaItem={{\n    video: {\n      masterPlaylistUrl: \"https://cdn.ing/assets/video/uploads/283393/hls/38865/master.m3u8\",\n      fallbackSrc: \"https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1\",\n    }\n  }}\n  directionConfig={{ desktop: \"mediaLeft\", mobile: \"mediaTop\" }}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Your ad campaigns excel with AI",
           "description": "Optimize your advertising performance with real-time analytics.",
           "mediaItem": {
@@ -19827,6 +19831,10 @@
       "examples": {
         "exampleUsage": "<HeroAdaptableProductGrid\n  heading=\"Flexible product displays that adapt to your brand\"\n  description=\"Create stunning product showcases with our adaptable grid system.\"\n  actions={[{ label: \"Browse Products\", href: \"#\", variant: \"default\" }]}\n  imageSrc=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  imageAlt=\"Product showcase\"\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Flexible product displays that adapt to your brand",
           "description": "Create stunning product showcases with our adaptable grid system.",
           "imageSrc": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
@@ -19922,24 +19930,28 @@
       "examples": {
         "exampleUsage": "<HeroAgencyAnimatedImages\n  heading=\"Creative solutions for modern brands\"\n  description=\"Discover a platform that empowers you to create and achieve amazing results.\"\n  actions={[{ label: \"View Our Work\", href: \"#\", variant: \"default\" }]}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Project 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Project 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Project 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Project 4\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Creative solutions for modern brands",
           "description": "Discover a platform that empowers you to create and achieve amazing results.",
           "images": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Project"
+              "src": "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov",
+              "alt": "Project 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Project"
+              "src": "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6",
+              "alt": "Project 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Project"
+              "src": "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82",
+              "alt": "Project 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Project"
+              "src": "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+              "alt": "Project 4"
             }
           ],
           "actions": [
@@ -20034,60 +20046,64 @@
       "examples": {
         "exampleUsage": "<HeroAiPoweredCarousel\n  badge=\"AI-Powered\"\n  badgeTagline=\"Next Generation Technology\"\n  heading=\"Intelligent automation for your workflow\"\n  description=\"Transform your business with AI-driven solutions.\"\n  actions={[\n    { label: \"Start Free Trial\", href: \"#\", variant: \"default\" },\n    { label: \"Watch Demo\", href: \"#\", variant: \"outline\" },\n  ]}\n  carouselImages1={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 4\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 5\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 6\" },\n  ]}\n  carouselImages2={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 7\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 8\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 9\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 10\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 11\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 12\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "badge": "AI-Powered",
           "badgeTagline": "Next Generation Technology",
           "heading": "Intelligent automation for your workflow",
           "description": "Transform your business with AI-driven solutions.",
           "carouselImages1": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+              "alt": "Feature 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+              "alt": "Feature 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+              "alt": "Feature 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q",
+              "alt": "Feature 4"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz",
+              "alt": "Feature 5"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs",
+              "alt": "Feature 6"
             }
           ],
           "carouselImages2": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0",
+              "alt": "Feature 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x",
+              "alt": "Feature 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc",
+              "alt": "Feature 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v",
+              "alt": "Feature 4"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac",
+              "alt": "Feature 5"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm",
+              "alt": "Feature 6"
             }
           ],
           "actions": [
@@ -20215,6 +20231,10 @@
       "examples": {
         "exampleUsage": "<HeroAnnouncementBadge\n  badge=\"New Release v2.0\"\n  heading=\"The future of productivity is here\"\n  description=\"Experience unprecedented performance and new features.\"\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"default\" },\n    { label: \"What's New\", href: \"#\", variant: \"outline\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "badge": "New Release v2.0",
           "heading": "The future of productivity is here",
           "description": "Experience unprecedented performance and new features.",
@@ -20290,6 +20310,10 @@
       "examples": {
         "exampleUsage": "<HeroArchitectureFullscreen\n  heading=\"Designing spaces that inspire\"\n  description=\"Award-winning architecture firm specializing in sustainable, innovative designs.\"\n  action={{ label: \"View Projects\", href: \"#\", variant: \"default\" }}\n  backgroundImage=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Designing spaces that inspire",
           "description": "Award-winning architecture firm specializing in sustainable, innovative designs.",
           "action": {
@@ -20376,6 +20400,10 @@
       "examples": {
         "exampleUsage": "<HeroBadgeImageSplit\n  badge=\"New Release\"\n  heading=\"Build faster with our platform\"\n  description=\"Everything you need to ship your product in record time.\"\n  actions={[\n    { label: \"Get Started\", href: \"/signup\", variant: \"default\" },\n    { label: \"Learn More\", href: \"/about\", variant: \"outline\" },\n  ]}\n  imageSrc=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  imageAlt=\"Platform dashboard\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "badge": "New Release",
           "heading": "Build faster with our platform",
           "description": "Everything you need to ship your product in record time.",
@@ -20476,6 +20504,10 @@
       "examples": {
         "exampleUsage": "<HeroBadgeShadowOverlay\n  announcementBadge=\"Launch\"\n  announcementText=\"Premium design system\"\n  announcementHref=\"#\"\n  heading=\"Elevate your brand with stunning visuals\"\n  description=\"Crafted with precision and creativity.\"\n  actions={[{ label: \"Explore Now\", href: \"#\", variant: \"default\" }]}\n  backgroundImageUrl=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "announcementBadge": "Launch",
           "announcementText": "Premium design system",
           "announcementHref": "#",
@@ -20572,6 +20604,10 @@
       "examples": {
         "exampleUsage": "<HeroBillingPlatformLogos\n  heading=\"Simplified billing for modern businesses\"\n  description=\"Accept payments, manage subscriptions, and handle invoicing.\"\n  actions={[\n    { label: \"Start Free Trial\", href: \"#\", variant: \"default\" },\n    { label: \"View Pricing\", href: \"#\", variant: \"outline\" },\n  ]}\n  mainImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Billing dashboard\" }}\n  logos={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner 4\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner 5\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner 6\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Simplified billing for modern businesses",
           "description": "Accept payments, manage subscriptions, and handle invoicing.",
           "mainImage": {
@@ -20580,28 +20616,28 @@
           },
           "logos": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png",
+              "alt": "Partner logo 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png",
+              "alt": "Partner logo 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png",
+              "alt": "Partner logo 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png",
+              "alt": "Partner logo 4"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288968/nn5xpkit7idgr7i6fa46ez3g9kwn/ui-placeholder-logo-black-5.png",
+              "alt": "Partner logo 5"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288974/dlb4c51kvgv6ncasqpgr2kvuma7y/ui-placeholder-logo-black-6.png",
+              "alt": "Partner logo 6"
             }
           ],
           "actions": [
@@ -20733,20 +20769,24 @@
       "examples": {
         "exampleUsage": "<HeroBusinessCarouselDots\n  heading=\"Business solutions that scale with you\"\n  description=\"From startups to enterprises, our platform grows alongside your business.\"\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"default\" },\n    { label: \"Book Demo\", href: \"#\", variant: \"outline\" },\n  ]}\n  carouselImages={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 3\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Business solutions that scale with you",
           "description": "From startups to enterprises, our platform grows alongside your business.",
           "carouselImages": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v",
+              "alt": "Feature 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac",
+              "alt": "Feature 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm",
+              "alt": "Feature 3"
             }
           ],
           "actions": [
@@ -20846,20 +20886,24 @@
       "examples": {
         "exampleUsage": "<HeroBusinessOperationsMosaic\n  heading=\"Streamline your business operations\"\n  description=\"Unified platform for managing all aspects of your business.\"\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Operations 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Operations 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Operations 3\" },\n  ]}\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"default\" },\n    { label: \"Talk to Sales\", href: \"#\", variant: \"outline\" },\n  ]}\n  background=\"gray\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Streamline your business operations",
           "description": "Unified platform for managing all aspects of your business.",
           "images": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Operations"
+              "src": "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v",
+              "alt": "Operations 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Operations"
+              "src": "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc",
+              "alt": "Operations 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Operations"
+              "src": "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt",
+              "alt": "Operations 3"
             }
           ],
           "background": "gray",
@@ -20960,6 +21004,10 @@
       "examples": {
         "exampleUsage": "<HeroCenteredGradientCta\n  badge=\"Limited Time Offer\"\n  heading=\"Transform your workflow today\"\n  description=\"Join thousands of teams who have revolutionized their productivity.\"\n  actions={[\n    { label: \"Get Started Free\", href: \"#\", variant: \"secondary\" },\n    { label: \"Schedule Demo\", href: \"#\", variant: \"outline\" },\n  ]}\n  background=\"gradient\"\n  features={[\n    { title: \"Lightning Fast\", description: \"Sub-100ms response times.\", href: \"#\" },\n    { title: \"Enterprise Security\", description: \"SOC 2 compliant.\", href: \"#\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "badge": "Limited Time Offer",
           "heading": "Transform your workflow today",
           "description": "Join thousands of teams who have revolutionized their productivity.",
@@ -21038,32 +21086,36 @@
       "examples": {
         "exampleUsage": "<HeroCenteredImageGrid\n  heading=\"Visual storytelling at its finest\"\n  description=\"Showcase your work with beautiful grid layouts.\"\n  actions={[\n    { label: \"View Gallery\", href: \"#\", variant: \"default\" },\n    { label: \"Learn More\", href: \"#\", variant: \"outline\" },\n  ]}\n  gridImages={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Gallery 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Gallery 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Gallery 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Gallery 4\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Gallery 5\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Gallery 6\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Visual storytelling at its finest",
           "description": "Showcase your work with beautiful grid layouts.",
           "gridImages": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Gallery image"
+              "src": "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+              "alt": "Gallery image 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Gallery image"
+              "src": "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+              "alt": "Gallery image 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Gallery image"
+              "src": "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+              "alt": "Gallery image 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Gallery image"
+              "src": "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+              "alt": "Gallery image 4"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Gallery image"
+              "src": "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+              "alt": "Gallery image 5"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Gallery image"
+              "src": "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q",
+              "alt": "Gallery image 6"
             }
           ],
           "actions": [
@@ -21164,6 +21216,10 @@
       "examples": {
         "exampleUsage": "<HeroCenteredScreenshot\n  heading=\"The all-in-one platform for modern teams\"\n  description=\"Everything you need to collaborate, communicate, and create amazing work.\"\n  actions={[\n    { label: \"Try It Free\", href: \"#\", variant: \"default\", asButton: true, size: \"lg\" },\n    { label: \"See Plans\", href: \"#\", variant: \"ghost\", asButton: true, size: \"lg\" },\n  ]}\n  imageSrc=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  imageAlt=\"Product interface screenshot\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "The all-in-one platform for modern teams",
           "description": "Everything you need to collaborate, communicate, and create amazing work.",
           "imageSrc": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
@@ -21266,6 +21322,10 @@
       "examples": {
         "exampleUsage": "<HeroComingSoonCountdown\n  badgeIcon=\"lucide/rocket\"\n  badgeText=\"Launching Soon\"\n  heading=\"Something amazing is on the way\"\n  description=\"Be the first to know when we launch.\"\n  countdownDate={new Date(\"2026-12-01\")}\n  buttonAction={{ label: \"Notify Me\", variant: \"default\" }}\n  successMessage=\"Thank you! We'll notify you as soon as we launch.\"\n  helperText=\"We respect your privacy. Unsubscribe anytime.\"\n  background=\"gray\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "badgeIcon": "lucide/rocket",
           "badgeText": "Launching Soon",
           "heading": "Something amazing is on the way",
@@ -21340,6 +21400,10 @@
       "examples": {
         "exampleUsage": "<HeroCommunitySurveyCta\n  announcementPrimary=\"Your Voice Matters\"\n  announcementLinkText=\"Learn More\"\n  announcementHref=\"#\"\n  heading=\"Help us build the future\"\n  description=\"Take our 5-minute survey and share your thoughts.\"\n  mainImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Community\" }}\n  leftOverlayImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Left\" }}\n  rightOverlayImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Right\" }}\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"outline\" },\n    { label: \"Learn More\", href: \"#\", variant: \"ghost\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "announcementPrimary": "Your Voice Matters",
           "announcementLinkText": "Learn More",
           "announcementHref": "#",
@@ -21483,6 +21547,10 @@
       "examples": {
         "exampleUsage": "<HeroConversationIntelligence\n  headingPrimary=\"Unlock insights from\"\n  description=\"Analyze calls, meetings, and customer interactions with advanced AI.\"\n  actions={[\n    { label: \"Start Analyzing\", href: \"#\", variant: \"default\" },\n    { label: \"Watch Demo\", href: \"#\", variant: \"outline\" },\n  ]}\n  image={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Intelligence dashboard\" }}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "headingPrimary": "Unlock insights from",
           "description": "Analyze calls, meetings, and customer interactions with advanced AI.",
           "image": {
@@ -21585,6 +21653,10 @@
       "examples": {
         "exampleUsage": "<HeroConversionVideoPlay\n  heading=\"Turn visitors into customers\"\n  description=\"Optimize your conversion funnel with data-driven insights.\"\n  primaryAction={{ label: \"Get Started\", href: \"#\", variant: \"default\" }}\n  videoButtonLabel=\"Watch Demo\"\n  modalVideo={{\n    video: {\n      masterPlaylistUrl: \"https://cdn.ing/assets/video/uploads/283393/hls/38865/master.m3u8\",\n      fallbackSrc: \"https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1\",\n    }\n  }}\n  videoDialogTitle=\"Conversion Optimization Demo\"\n  logos={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner 3\" },\n  ]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Turn visitors into customers",
           "description": "Optimize your conversion funnel with data-driven insights.",
           "primaryAction": {
@@ -21708,6 +21780,10 @@
       "examples": {
         "exampleUsage": "<HeroCreativeStudioStacked\n  heading=\"Where creativity meets innovation\"\n  description=\"Award-winning creative studio specializing in brand identity and digital experiences.\"\n  videoAction={{ label: \"Watch Demo\", variant: \"default\" }}\n  actions={[{ label: \"Learn More\", href: \"#\", variant: \"outline\" }]}\n  modalVideo={{\n    video: {\n      masterPlaylistUrl: \"https://cdn.ing/assets/video/uploads/283393/hls/38865/master.m3u8\",\n      fallbackSrc: \"https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1\",\n    }\n  }}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Project 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Project 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Project 3\" },\n  ]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Where creativity meets innovation",
           "description": "Award-winning creative studio specializing in brand identity and digital experiences.",
           "videoAction": {
@@ -21716,16 +21792,16 @@
           },
           "images": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Project"
+              "src": "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q",
+              "alt": "Project 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Project"
+              "src": "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz",
+              "alt": "Project 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Project"
+              "src": "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs",
+              "alt": "Project 3"
             }
           ],
           "modalVideo": {
@@ -21837,6 +21913,10 @@
       "examples": {
         "exampleUsage": "<HeroCrmStreamlined\n  tagline=\"Simple CRM\"\n  heading=\"Customer relationships made simple\"\n  description=\"Manage your entire customer lifecycle in one intuitive platform.\"\n  actions={[{ label: \"Start Free Trial\", href: \"#\", variant: \"default\" }]}\n  image={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"CRM Dashboard\" }}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "tagline": "Simple CRM",
           "heading": "Customer relationships made simple",
           "description": "Manage your entire customer lifecycle in one intuitive platform.",
@@ -21938,21 +22018,25 @@
       "examples": {
         "exampleUsage": "<HeroCustomerSupportLayered\n  heading=\"Support that your customers love\"\n  description=\"Deliver exceptional customer experiences with our multi-channel support platform.\"\n  tagline=\"Customer Support\"\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Support interface 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Support interface 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Support interface 3\" },\n  ]}\n  actions={[{ label: \"Browse Marketplace\", href: \"#\", variant: \"default\" }]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Support that your customers love",
           "description": "Deliver exceptional customer experiences with our multi-channel support platform.",
           "tagline": "Customer Support",
           "images": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Support interface"
+              "src": "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0",
+              "alt": "Support interface 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Support interface"
+              "src": "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x",
+              "alt": "Support interface 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Support interface"
+              "src": "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc",
+              "alt": "Support interface 3"
             }
           ],
           "actions": [
@@ -22196,20 +22280,20 @@
           ],
           "carouselImages": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Design"
+              "src": "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc",
+              "alt": "Design 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Design"
+              "src": "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt",
+              "alt": "Design 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Design"
+              "src": "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov",
+              "alt": "Design 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Design"
+              "src": "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6",
+              "alt": "Design 4"
             }
           ],
           "actions": [
@@ -22333,24 +22417,28 @@
       "examples": {
         "exampleUsage": "<HeroDesignShowcaseLogos\n  heading=\"Trusted by leading brands worldwide\"\n  description=\"Join thousands of companies who have transformed their design workflow.\"\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"default\" },\n    { label: \"View Case Studies\", href: \"#\", variant: \"outline\" },\n  ]}\n  logos={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Partner 4\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Trusted by leading brands worldwide",
           "description": "Join thousands of companies who have transformed their design workflow.",
           "logos": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png",
+              "alt": "Partner logo 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png",
+              "alt": "Partner logo 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png",
+              "alt": "Partner logo 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png",
+              "alt": "Partner logo 4"
             }
           ],
           "actions": [
@@ -22460,21 +22548,25 @@
       "examples": {
         "exampleUsage": "<HeroDesignSystem3d\n  trustBadge=\"Design System\"\n  heading=\"Build with a comprehensive design system\"\n  description=\"Create consistent, beautiful interfaces with our complete set of components.\"\n  actions={[\n    { label: \"Explore Components\", href: \"#\", variant: \"default\" },\n    { label: \"Documentation\", href: \"#\", variant: \"outline\" },\n  ]}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Component 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Component 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Component 3\" },\n  ]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "trustBadge": "Design System",
           "heading": "Build with a comprehensive design system",
           "description": "Create consistent, beautiful interfaces with our complete set of components.",
           "images": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Component"
+              "src": "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q",
+              "alt": "Component 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Component"
+              "src": "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz",
+              "alt": "Component 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Component"
+              "src": "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs",
+              "alt": "Component 3"
             }
           ],
           "background": "dark",
@@ -22576,6 +22668,10 @@
       "examples": {
         "exampleUsage": "<HeroDeveloperToolsCode\n  badgeText=\"For Developers\"\n  heading=\"Developer tools that just work\"\n  description=\"Build faster with modern APIs and comprehensive docs.\"\n  actions={[\n    { label: \"Read Docs\", href: \"#\", variant: \"default\" },\n    { label: \"View GitHub\", href: \"#\", variant: \"outline\" },\n  ]}\n  terminalTitle=\"quickstart.tsx\"\n  terminalLines={[\n    { text: \"import { Hero } from '@opensite/ui';\", colorClass: \"text-blue-400\" },\n    { text: \"export default function Page() {\", colorClass: \"text-purple-400\" },\n    { text: \"  return <Hero heading='Hello World' />;\", colorClass: \"text-green-400\" },\n    { text: \"}\", colorClass: \"text-purple-400\" },\n  ]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "badgeText": "For Developers",
           "heading": "Developer tools that just work",
           "description": "Build faster with modern APIs and comprehensive docs.",
@@ -22675,6 +22771,10 @@
       "examples": {
         "exampleUsage": "<HeroDigitalAgencyFullscreen\n  heading=\"Digital experiences that inspire\"\n  description=\"Full-service digital agency creating award-winning websites and brand experiences.\"\n  actions={[\n    { label: \"View Our Work\", href: \"/work\", variant: \"default\" },\n    { label: \"Start Project\", href: \"/contact\", variant: \"outline\" },\n  ]}\n  backgroundImage=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Digital experiences that inspire",
           "description": "Full-service digital agency creating award-winning websites and brand experiences.",
           "backgroundImage": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
@@ -22773,25 +22873,29 @@
       "examples": {
         "exampleUsage": "<HeroEcommerceProductShowcase\n  badgeText=\"New Collection\"\n  badgeIcon=\"lucide/star\"\n  heading=\"Premium products for modern living\"\n  description=\"Discover our curated collection of handpicked items.\"\n  actions={[\n    { label: \"Shop Now\", href: \"#\", variant: \"default\" },\n    { label: \"View Lookbook\", href: \"#\", variant: \"outline\" },\n  ]}\n  stats={[\n    { value: \"500+\", label: \"Products\" },\n    { value: \"50K+\", label: \"Customers\" },\n    { value: \"98%\", label: \"Satisfaction\" },\n  ]}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Product 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Product 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Product 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Product 4\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "badgeText": "New Collection",
           "heading": "Premium products for modern living",
           "description": "Discover our curated collection of handpicked items.",
           "images": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Product"
+              "src": "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v",
+              "alt": "Product 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Product"
+              "src": "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc",
+              "alt": "Product 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Product"
+              "src": "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt",
+              "alt": "Product 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Product"
+              "src": "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov",
+              "alt": "Product 4"
             }
           ],
           "stats": [
@@ -22913,6 +23017,10 @@
       "examples": {
         "exampleUsage": "<HeroEnterpriseSecurity\n  badge=\"Enterprise Grade\"\n  heading=\"Security you can trust\"\n  description=\"Protect your business with enterprise-grade security features. SOC 2 compliant.\"\n  actions={[\n    { label: \"View Security\", href: \"#\", variant: \"default\" },\n    { label: \"Contact Sales\", href: \"#\", variant: \"outline\" },\n  ]}\n  features={[\n    { title: \"256-bit Encryption\", description: \"Military-grade protection\", href: \"#\" },\n    { title: \"SOC 2 Certified\", description: \"Independently audited\", href: \"#\" },\n    { title: \"24/7 Monitoring\", description: \"Always watching for threats\", href: \"#\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "badge": "Enterprise Grade",
           "heading": "Security you can trust",
           "description": "Protect your business with enterprise-grade security features. SOC 2 compliant.",
@@ -23012,6 +23120,10 @@
       "examples": {
         "exampleUsage": "<HeroEventRegistration\n  badgeText=\"Annual Conference\"\n  badgeIcon=\"lucide/calendar\"\n  heading=\"Join us for the event of the year\"\n  description=\"Three days of inspiring talks, workshops, and networking.\"\n  actions={[\n    { label: \"Register Now\", href: \"#\", variant: \"default\" },\n    { label: \"View Agenda\", href: \"#\", variant: \"outline\" },\n  ]}\n  stats={[\n    { value: \"2k+\", label: \"Attendees\" },\n    { value: \"50+\", label: \"Speakers\" },\n  ]}\n  image={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Event venue\" }}\n  locationLabel=\"San Francisco, CA\"\n  locationSublabel=\"September 15-17, 2026\"\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "badgeText": "Annual Conference",
           "badgeIcon": "lucide/calendar",
           "heading": "Join us for the event of the year",
@@ -23137,6 +23249,10 @@
       "examples": {
         "exampleUsage": "<HeroFeatureCardsGrid\n  heading=\"Everything you need in one place\"\n  description=\"Powerful features that work together seamlessly.\"\n  features={[\n    { title: \"Intuitive Dashboard\", description: \"Get insights at a glance.\", href: \"#\" },\n    { title: \"Team Collaboration\", description: \"Work together seamlessly.\", href: \"#\" },\n    { title: \"Advanced Analytics\", description: \"Make data-driven decisions.\", href: \"#\" },\n    { title: \"Automation\", description: \"Save time with smart workflows.\", href: \"#\" },\n  ]}\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"default\" },\n    { label: \"Talk to Sales\", href: \"#\", variant: \"outline\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Everything you need in one place",
           "description": "Powerful features that work together seamlessly.",
           "features": [
@@ -23241,6 +23357,10 @@
       "examples": {
         "exampleUsage": "<HeroFloatingImages\n  badge=\"Featured Work\"\n  heading=\"Build Stunning Websites\"\n  description=\"We design and build beautiful digital products.\"\n  actions={[\n    { label: \"View Portfolio\", href: \"/portfolio\", size: \"lg\", variant: \"default\" },\n    { label: \"Our Process\", href: \"/process\", size: \"lg\", variant: \"link\" },\n  ]}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Image 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Image 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Image 3\" },\n  ]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "badge": "Featured Work",
           "heading": "Build Stunning Websites",
           "description": "We design and build beautiful digital products.",
@@ -23344,6 +23464,10 @@
       "examples": {
         "exampleUsage": "<HeroFullscreenBackgroundImage\n  heading=\"Experience the extraordinary\"\n  description=\"Immersive experiences that captivate and inspire.\"\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"default\" },\n    { label: \"Talk to Sales\", href: \"#\", variant: \"outline\" },\n  ]}\n  backgroundImage=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Experience the extraordinary",
           "description": "Immersive experiences that captivate and inspire.",
           "backgroundImage": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
@@ -23442,6 +23566,10 @@
       "examples": {
         "exampleUsage": "<HeroFullscreenLogoCta\n  logo={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Company Logo\" }}\n  heading=\"Building the future of work\"\n  description=\"Join the companies already transforming how they operate.\"\n  action={{ label: \"Get Started\", href: \"#\", variant: \"default\" }}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Building the future of work",
           "description": "Join the companies already transforming how they operate.",
           "action": {
@@ -23532,20 +23660,24 @@
       "examples": {
         "exampleUsage": "<HeroGradientAvatarsRating\n  heading=\"Loved by thousands of users\"\n  description=\"Join our community of satisfied customers.\"\n  actions={[\n    { label: \"Start Free Trial\", href: \"#\", variant: \"outline\" },\n    { label: \"Read Reviews\", href: \"#\", variant: \"ghost\" },\n  ]}\n  avatars={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"User 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"User 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"User 3\" },\n  ]}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Hero 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Hero 2\" },\n  ]}\n  ratingValue=\"4.9\"\n  ratingLabel=\"10,000+ happy users\"\n  background=\"gradient\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Loved by thousands of users",
           "description": "Join our community of satisfied customers.",
           "avatars": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "User"
+              "src": "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82",
+              "alt": "User 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "User"
+              "src": "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+              "alt": "User 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "User"
+              "src": "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+              "alt": "User 3"
             }
           ],
           "images": [
@@ -23673,6 +23805,10 @@
       "examples": {
         "exampleUsage": "<HeroGradientClientFocused\n  heading=\"Your success is our mission\"\n  description=\"Dedicated to helping you achieve your goals with personalized support.\"\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"outline\" },\n    { label: \"Talk to Sales\", href: \"#\", variant: \"ghost\" },\n  ]}\n  image={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Client success\" }}\n  background=\"gradient\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Your success is our mission",
           "description": "Dedicated to helping you achieve your goals with personalized support.",
           "image": {
@@ -23771,6 +23907,10 @@
       "examples": {
         "exampleUsage": "<HeroGridPatternEfficiency\n  heading=\"Work smarter, not harder\"\n  description=\"Maximize productivity with intelligent tools and workflows.\"\n  action={{ label: \"Boost Productivity\", href: \"#\", variant: \"default\" }}\n  actionSubtext=\"No credit card required\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Work smarter, not harder",
           "description": "Maximize productivity with intelligent tools and workflows.",
           "action": {
@@ -23832,21 +23972,25 @@
       "examples": {
         "exampleUsage": "<HeroGridPatternSolutions\n  badgeText=\"New Version Launched\"\n  badgeHref=\"#\"\n  heading=\"Complete solutions for every challenge\"\n  description=\"From startups to enterprises, we provide comprehensive solutions.\"\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"For Business\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"For Developers\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"For Teams\" },\n  ]}\n  actions={[{ label: \"Explore Solutions\", href: \"#\", variant: \"outline\" }]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "badgeText": "New Version Launched",
           "heading": "Complete solutions for every challenge",
           "description": "From startups to enterprises, we provide comprehensive solutions.",
           "images": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Solution"
+              "src": "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v",
+              "alt": "Solution 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Solution"
+              "src": "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc",
+              "alt": "Solution 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Solution"
+              "src": "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt",
+              "alt": "Solution 3"
             }
           ],
           "actions": [
@@ -23935,6 +24079,10 @@
       "examples": {
         "exampleUsage": "<HeroHiringAnimatedText\n  headingPrefix=\"We're hiring\"\n  animatedTexts={[\"Developers\", \"Designers\", \"Marketers\"]}\n  description=\"We're building the future of work and want you to be part of it.\"\n  actions={[\n    { label: \"View Open Roles\", href: \"#\", variant: \"default\" },\n    { label: \"Learn About Us\", href: \"#\", variant: \"outline\" },\n  ]}\n  backgroundImage=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "headingPrefix": "We're hiring",
           "animatedTexts": [
             "Developers",
@@ -24033,6 +24181,10 @@
       "examples": {
         "exampleUsage": "<HeroImageLeftContent\n  imageSrc=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  imageAlt=\"Product showcase\"\n  heading=\"Beautiful design meets powerful functionality\"\n  description=\"Create stunning experiences with our intuitive platform.\"\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"default\" },\n    { label: \"View Demo\", href: \"#\", variant: \"outline\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "imageSrc": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
           "imageAlt": "Product showcase",
           "heading": "Beautiful design meets powerful functionality",
@@ -24134,6 +24286,10 @@
       "examples": {
         "exampleUsage": "<HeroImageSlider\n  heading=\"Explore our collection\"\n  description=\"Browse through our carefully curated selection.\"\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Slide 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Slide 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Slide 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Slide 4\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Explore our collection",
           "description": "Browse through our carefully curated selection.",
           "images": [
@@ -24232,20 +24388,24 @@
       "examples": {
         "exampleUsage": "<HeroInnovationImageGrid\n  heading=\"Pioneering the future of technology\"\n  description=\"Pushing boundaries and exploring new frontiers.\"\n  actions={[{ label: \"Learn More\", href: \"#\", variant: \"default\" }]}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Innovation 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Innovation 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Innovation 3\" },\n  ]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Pioneering the future of technology",
           "description": "Pushing boundaries and exploring new frontiers.",
           "images": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Innovation"
+              "src": "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0",
+              "alt": "Innovation 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Innovation"
+              "src": "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x",
+              "alt": "Innovation 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Innovation"
+              "src": "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc",
+              "alt": "Innovation 3"
             }
           ],
           "background": "dark",
@@ -24443,6 +24603,10 @@
       "examples": {
         "exampleUsage": "<HeroMarketplaceScatteredImages\n  heading=\"Discover unique items from creators worldwide\"\n  description=\"Shop handcrafted goods, vintage treasures, and one-of-a-kind products.\"\n  action={{ label: \"Browse Marketplace\", href: \"#\", variant: \"default\" }}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Product 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Product 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Product 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Product 4\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Product 5\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Discover unique items from creators worldwide",
           "description": "Shop handcrafted goods, vintage treasures, and one-of-a-kind products.",
           "action": {
@@ -24452,24 +24616,24 @@
           },
           "images": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Product"
+              "src": "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc",
+              "alt": "Product 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Product"
+              "src": "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v",
+              "alt": "Product 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Product"
+              "src": "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac",
+              "alt": "Product 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Product"
+              "src": "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm",
+              "alt": "Product 4"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Product"
+              "src": "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v",
+              "alt": "Product 5"
             }
           ]
         }
@@ -24847,6 +25011,10 @@
       "examples": {
         "exampleUsage": "<HeroMinimalCenteredDark\n  heading=\"Simplicity is the ultimate sophistication\"\n  description=\"Clean, focused, and purposeful.\"\n  actions={[{ label: \"Get Started\", href: \"#\", variant: \"default\" }]}\n  badge=\"Industry Leader\"\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Simplicity is the ultimate sophistication",
           "description": "Clean, focused, and purposeful.",
           "badge": "Industry Leader",
@@ -24911,6 +25079,10 @@
       "examples": {
         "exampleUsage": "<HeroMobileAppDownload\n  badgeText=\"Now on Mobile\"\n  badgeIcon=\"lucide/smartphone\"\n  heading=\"Take us with you, everywhere\"\n  description=\"Download our mobile app and access all your favorite features on the go.\"\n  storeActions={[\n    { href: \"#\", label: \"Download on the\", storePrefix: \"Download on the\", storeName: \"App Store\", storeIcon: \"cib/apple\" },\n    { href: \"#\", label: \"Get it on\", storePrefix: \"Get it on\", storeName: \"Google Play\", storeIcon: \"cib/google\" },\n  ]}\n  ratingValue=\"4.9\"\n  ratingLabel=\"from 50K+ reviews\"\n  image={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"App screenshot\" }}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "badgeText": "Now on Mobile",
           "badgeIcon": "lucide/smartphone",
           "heading": "Take us with you, everywhere",
@@ -25016,6 +25188,10 @@
       "examples": {
         "exampleUsage": "<HeroNewsletterMinimal\n  heading=\"Stay in the loop\"\n  description=\"Get weekly insights delivered straight to your inbox.\"\n  buttonAction={{ label: \"Subscribe\", variant: \"default\" }}\n  stats={[\n    { value: \"50K+\", label: \"Subscribers\" },\n    { value: \"98%\", label: \"Satisfaction\" },\n  ]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Stay in the loop",
           "description": "Get weekly insights delivered straight to your inbox.",
           "buttonAction": {
@@ -25086,6 +25262,10 @@
       "examples": {
         "exampleUsage": "<HeroOverlayCtaGrid\n  heading=\"Choose your path\"\n  description=\"Multiple ways to engage with our platform.\"\n  backgroundImage=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  cards={[\n    { label: \"New Features\", subtitle: \"New AI features to automate workflows\", icon: \"lucide/bot\", href: \"#\" },\n    { label: \"Automation\", subtitle: \"Dedicated agents to streamline tasks\", icon: \"lucide/bell\", href: \"#\" },\n    { label: \"Performance\", subtitle: \"Enterprise speed for all business sizes\", icon: \"lucide/bolt\", href: \"#\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Choose your path",
           "description": "Multiple ways to engage with our platform.",
           "backgroundImage": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
@@ -25192,33 +25372,37 @@
       "examples": {
         "exampleUsage": "<HeroPatternBadgeLogos\n  badge=\"Trusted by Leaders\"\n  heading=\"Join the world's most innovative companies\"\n  description=\"Over 10,000 organizations trust our platform.\"\n  actions={[{ label: \"Get Started\", href: \"/signup\", variant: \"default\" }]}\n  logos={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Company 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Company 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Company 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Company 4\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Company 5\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Company 6\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "badge": "Trusted by Leaders",
           "heading": "Join the world's most innovative companies",
           "description": "Over 10,000 organizations trust our platform.",
           "logos": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png",
+              "alt": "Partner logo 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png",
+              "alt": "Partner logo 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png",
+              "alt": "Partner logo 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png",
+              "alt": "Partner logo 4"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288968/nn5xpkit7idgr7i6fa46ez3g9kwn/ui-placeholder-logo-black-5.png",
+              "alt": "Partner logo 5"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Partner logo"
+              "src": "https://cdn.ing/assets/i/r/288974/dlb4c51kvgv6ncasqpgr2kvuma7y/ui-placeholder-logo-black-6.png",
+              "alt": "Partner logo 6"
             }
           ],
           "actions": [
@@ -25412,6 +25596,10 @@
       "examples": {
         "exampleUsage": "<HeroPlatformFeaturesGrid\n  heading=\"A complete platform for modern teams\"\n  description=\"All-in-one solution for communication and collaboration.\"\n  action={{ label: \"Explore Features\", href: \"#\", variant: \"default\" }}\n  features={[\n    { iconName: \"lucide/message-square\", title: \"Team Chat\", description: \"Real-time messaging\", href: \"#\" },\n    { iconName: \"lucide/video\", title: \"Video Calls\", description: \"HD video meetings\", href: \"#\" },\n    { iconName: \"lucide/file-text\", title: \"Documents\", description: \"Collaborative editing\", href: \"#\" },\n    { iconName: \"lucide/calendar\", title: \"Calendar\", description: \"Schedule meetings\", href: \"#\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "A complete platform for modern teams",
           "description": "All-in-one solution for communication and collaboration.",
           "action": {
@@ -25519,24 +25707,28 @@
       "examples": {
         "exampleUsage": "<HeroPortfolioCreative\n  heading=\"Creative work that stands out\"\n  description=\"Award-winning portfolio showcasing our best projects in design and branding.\"\n  portfolioImages={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Brand Identity Project\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Web Design Project\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Mobile App Project\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Campaign Project\" },\n  ]}\n  actions={[{ label: \"View All Work\", href: \"/portfolio\", variant: \"default\" }]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Creative work that stands out",
           "description": "Award-winning portfolio showcasing our best projects in design and branding.",
           "portfolioImages": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Portfolio project"
+              "src": "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6",
+              "alt": "Portfolio project 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Portfolio project"
+              "src": "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82",
+              "alt": "Portfolio project 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Portfolio project"
+              "src": "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+              "alt": "Portfolio project 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Portfolio project"
+              "src": "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+              "alt": "Portfolio project 4"
             }
           ],
           "actions": [
@@ -25641,6 +25833,10 @@
       "examples": {
         "exampleUsage": "<HeroPremiumSplitAvatars\n  brandName=\"Premium\"\n  brandSuffix=\"Community\"\n  heading=\"Join an exclusive community\"\n  description=\"Connect with like-minded professionals and gain access to premium resources.\"\n  image={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Community gathering\" }}\n  action={{ label: \"Join Now\", href: \"#\", variant: \"default\" }}\n  avatars={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", fallback: \"M1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", fallback: \"M2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", fallback: \"M3\" },\n  ]}\n  socialProofText=\"5,000+ active members\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "brandName": "Premium",
           "brandSuffix": "Community",
           "heading": "Join an exclusive community",
@@ -25765,6 +25961,10 @@
       "examples": {
         "exampleUsage": "<HeroPresentationPlatformVideo\n  subtitle=\"Presentation Platform\"\n  heading=\"Create stunning presentations in minutes\"\n  description=\"Beautiful templates, smart layouts, and powerful collaboration tools.\"\n  actions={[\n    { label: \"Start Creating\", href: \"#\", variant: \"default\" },\n    { label: \"View Templates\", href: \"#\", variant: \"outline\" },\n  ]}\n  backgroundVideo={{\n    video: {\n      masterPlaylistUrl: \"https://cdn.ing/assets/video/uploads/283393/hls/38865/master.m3u8\",\n      fallbackSrc: \"https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1\",\n    }\n  }}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "subtitle": "Presentation Platform",
           "heading": "Create stunning presentations in minutes",
           "description": "Beautiful templates, smart layouts, and powerful collaboration tools.",
@@ -25869,6 +26069,10 @@
       "examples": {
         "exampleUsage": "<HeroPricingComparison\n  heading=\"Simple, transparent pricing\"\n  description=\"Choose the plan that's right for you. No hidden fees.\"\n  plans={[\n    {\n      name: \"Starter\",\n      price: \"$19\",\n      pricePeriod: \"/month\",\n      features: [\"5 Projects\", \"10GB Storage\", \"Basic Support\"],\n      action: { label: \"Get Started\", href: \"/signup?plan=starter\", variant: \"outline\" },\n    },\n    {\n      name: \"Professional\",\n      price: \"$49\",\n      pricePeriod: \"/month\",\n      features: [\"Unlimited Projects\", \"100GB Storage\", \"Priority Support\"],\n      isPopular: true,\n      action: { label: \"Start Free Trial\", href: \"/signup?plan=pro\", variant: \"default\" },\n    },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Simple, transparent pricing",
           "description": "Choose the plan that's right for you. No hidden fees.",
           "plans": [
@@ -25967,6 +26171,10 @@
       "examples": {
         "exampleUsage": "<HeroProductShowcaseFloating\n  badgeText=\"New Arrival\"\n  badgeIcon=\"lucide/sparkles\"\n  heading=\"Introducing our latest innovation\"\n  description=\"Experience the perfect blend of style and technology.\"\n  productImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Product showcase\" }}\n  actions={[\n    { label: \"Shop Now\", href: \"#\", variant: \"default\", size: \"lg\" },\n    { label: \"Learn More\", href: \"#\", size: \"lg\", variant: \"outline\" },\n  ]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "badgeText": "New Arrival",
           "badgeIcon": "lucide/sparkles",
           "heading": "Introducing our latest innovation",
@@ -26089,6 +26297,10 @@
       "examples": {
         "exampleUsage": "<HeroProductivityLauncherVideo\n  heading=\"Supercharge your productivity\"\n  description=\"The ultimate productivity launcher for modern professionals.\"\n  actions={[\n    { label: \"Download Free\", href: \"#\", variant: \"default\" },\n    { label: \"Watch Tour\", href: \"#\", variant: \"outline\" },\n  ]}\n  backgroundVideo={{\n    video: {\n      masterPlaylistUrl: \"https://cdn.ing/assets/video/uploads/283393/hls/38865/master.m3u8\",\n      fallbackSrc: \"https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1\",\n    }\n  }}\n  versionInfo={{ version: \"v2.0\", osRequirement: \"All platforms\" }}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Supercharge your productivity",
           "description": "The ultimate productivity launcher for modern professionals.",
           "backgroundVideo": {
@@ -26190,6 +26402,10 @@
       "examples": {
         "exampleUsage": "<HeroSaasDashboardPreview\n  badgeText=\"SaaS Platform\"\n  badgeIcon=\"lucide/box\"\n  heading=\"The operating system for your business\"\n  description=\"All-in-one platform to run your business efficiently.\"\n  buttonAction={{ label: \"Start Free Trial\", variant: \"default\" }}\n  browserPreview={{\n    url: \"yourbrand.com\",\n    image: { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Dashboard\" },\n  }}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "badgeText": "SaaS Platform",
           "badgeIcon": "lucide/box",
           "heading": "The operating system for your business",
@@ -26283,6 +26499,10 @@
       "examples": {
         "exampleUsage": "<HeroSharedInboxLayered\n  eyebrow=\"Team Inbox\"\n  heading=\"Collaborate on every customer conversation\"\n  description=\"Shared inbox that brings your team together.\"\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"default\" },\n    { label: \"Learn More\", href: \"#\", variant: \"ghost\" },\n  ]}\n  layeredImages={{\n    backgroundImage: { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Inbox background\" },\n    foregroundImage: { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Inbox foreground\" },\n  }}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "eyebrow": "Team Inbox",
           "heading": "Collaborate on every customer conversation",
           "description": "Shared inbox that brings your team together.",
@@ -26402,6 +26622,10 @@
       "examples": {
         "exampleUsage": "<HeroSimpleCenteredImage\n  heading=\"Clean, simple, effective\"\n  description=\"Sometimes less is more. Focus on what matters.\"\n  imageSrc=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  imageAlt=\"Product showcase\"\n  actions={[{ label: \"Get Started\", href: \"#\", variant: \"default\" }]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Clean, simple, effective",
           "description": "Sometimes less is more. Focus on what matters.",
           "imageSrc": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
@@ -26489,6 +26713,10 @@
       "examples": {
         "exampleUsage": "<HeroSoftwareGrowthVideoDialog\n  heading=\"Accelerate your growth with data-driven insights\"\n  description=\"See how top companies use our platform to scale faster.\"\n  videoAction={{ label: \"Watch Demo\", variant: \"outline\" }}\n  actions={[{ label: \"Get Started\", href: \"#\", variant: \"ghost\" }]}\n  showcaseImages={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Growth metric 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Growth metric 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Growth metric 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Growth metric 4\" },\n  ]}\n  modalVideo={{\n    video: {\n      masterPlaylistUrl: \"https://cdn.ing/assets/video/uploads/283391/hls/38861/master.m3u8\",\n      fallbackSrc: \"https://toastability-production.s3.amazonaws.com/lvwp8x0nxf8xmarwganmvzvto3r5\",\n    }\n  }}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Accelerate your growth with data-driven insights",
           "description": "See how top companies use our platform to scale faster.",
           "videoAction": {
@@ -26497,20 +26725,20 @@
           },
           "showcaseImages": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Growth metric"
+              "src": "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov",
+              "alt": "Growth metric 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Growth metric"
+              "src": "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6",
+              "alt": "Growth metric 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Growth metric"
+              "src": "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82",
+              "alt": "Growth metric 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Growth metric"
+              "src": "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+              "alt": "Growth metric 4"
             }
           ],
           "modalVideo": {
@@ -26623,6 +26851,10 @@
       "examples": {
         "exampleUsage": "<HeroSpiralPatternCards\n  badgeText=\"Innovative Platform\"\n  heading=\"Innovative solutions that evolve with you\"\n  description=\"Dynamic, flexible, and always improving.\"\n  actions={[{ label: \"Learn More\", href: \"#\", variant: \"default\" }]}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Image 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Image 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Image 3\" },\n  ]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "badgeText": "Innovative Platform",
           "heading": "Innovative solutions that evolve with you",
           "description": "Dynamic, flexible, and always improving.",
@@ -26720,24 +26952,28 @@
       "examples": {
         "exampleUsage": "<HeroSplitGeometricShapes\n  heading=\"Bold design for bold ideas\"\n  description=\"Stand out with striking visuals and modern aesthetics.\"\n  actions={[\n    { label: \"Explore\", href: \"/explore\", variant: \"default\" },\n    { label: \"Contact\", href: \"/contact\", variant: \"outline\" },\n  ]}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Design 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Design 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Design 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Design 4\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Bold design for bold ideas",
           "description": "Stand out with striking visuals and modern aesthetics.",
           "images": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Design"
+              "src": "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz",
+              "alt": "Design 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Design"
+              "src": "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs",
+              "alt": "Design 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Design"
+              "src": "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0",
+              "alt": "Design 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Design"
+              "src": "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x",
+              "alt": "Design 4"
             }
           ],
           "actions": [
@@ -26839,6 +27075,10 @@
       "examples": {
         "exampleUsage": "<HeroSplitIconCards\n  eyebrow=\"For Developers\"\n  heading=\"Built for teams that ship fast\"\n  description=\"Powerful features designed for modern development teams.\"\n  primaryCta={{ label: \"Get Started\", href: \"#\" }}\n  secondaryCta={{ label: \"View Demo\", href: \"#\" }}\n  cardItems={[\n    { title: \"New Features\", subtitle: \"New AI features to automate workflows\", icon: \"lucide/bot\", href: \"#\" },\n    { title: \"Automation\", subtitle: \"Dedicated agents to streamline tasks\", icon: \"lucide/bell\", href: \"#\" },\n    { title: \"Performance\", subtitle: \"Enterprise speed for all business sizes\", icon: \"lucide/bolt\", href: \"#\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "eyebrow": "For Developers",
           "heading": "Built for teams that ship fast",
           "description": "Powerful features designed for modern development teams.",
@@ -26930,6 +27170,10 @@
       "examples": {
         "exampleUsage": "<HeroSplitImageNewsletter\n  heading=\"Stay updated with our newsletter\"\n  description=\"Get the latest insights delivered to your inbox.\"\n  buttonAction={{ label: \"Subscribe\", variant: \"default\" }}\n  helperText=\"We respect your privacy. Unsubscribe at any time.\"\n  image={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Newsletter preview\" }}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Stay updated with our newsletter",
           "description": "Get the latest insights delivered to your inbox.",
           "image": {
@@ -27018,6 +27262,10 @@
       "examples": {
         "exampleUsage": "<HeroSplitSpiralShapes\n  badgeText=\"Design Excellence\"\n  heading=\"Where creativity meets precision\"\n  description=\"Award-winning designs that blend artistic vision with technical excellence.\"\n  actions={[\n    { label: \"View Portfolio\", href: \"/portfolio\", variant: \"default\" },\n    { label: \"Contact Us\", href: \"/contact\", variant: \"outline\" },\n  ]}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Image 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Image 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Image 3\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "badgeText": "Design Excellence",
           "heading": "Where creativity meets precision",
           "description": "Award-winning designs that blend artistic vision with technical excellence.",
@@ -27133,6 +27381,10 @@
       "examples": {
         "exampleUsage": "<HeroStartupLaunchCta\n  badge=\"We're Launching\"\n  heading=\"The future of startups starts here\"\n  description=\"Join the waitlist for early access to the platform changing how startups scale.\"\n  imageSrc=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  avatars={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Avatar 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Avatar 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Avatar 3\" },\n  ]}\n  socialProofText=\"5,000+ active members\"\n  background=\"dark\"\n  actions={[\n    { label: \"Join Waitlist\", href: \"#\", variant: \"default\" },\n    { label: \"Learn More\", href: \"#\", variant: \"outline\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "badge": "We're Launching",
           "heading": "The future of startups starts here",
           "description": "Join the waitlist for early access to the platform changing how startups scale.",
@@ -27262,6 +27514,10 @@
       "examples": {
         "exampleUsage": "<HeroStatsSocialProof\n  badge=\"Industry Expertise\"\n  heading=\"Trusted by thousands of businesses\"\n  description=\"Join the companies already experiencing transformative results.\"\n  imageSrc=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  imageAlt=\"Banner image\"\n  stats={[\n    { value: \"50K+\", label: \"Active Users\" },\n    { value: \"99.9%\", label: \"Uptime\" },\n    { value: \"4.9/5\", label: \"User Rating\" },\n  ]}\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"default\", asButton: true },\n    { label: \"Case Studies\", href: \"#\", variant: \"outline\", asButton: true },\n  ]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "badge": "Industry Expertise",
           "heading": "Trusted by thousands of businesses",
           "description": "Join the companies already experiencing transformative results.",
@@ -27385,6 +27641,10 @@
       "examples": {
         "exampleUsage": "<HeroTaskTimerAnimated\n  heading=\"Track time, boost productivity\"\n  description=\"Stay focused and manage your time effectively with our intuitive task timer.\"\n  actions={[\n    { label: \"Start Tracking\", href: \"#\", variant: \"default\" },\n    { label: \"View Features\", href: \"#\", variant: \"outline\" },\n  ]}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Timer interface\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Task tracking\" },\n  ]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Track time, boost productivity",
           "description": "Stay focused and manage your time effectively.",
           "images": [
@@ -27498,6 +27758,10 @@
       "examples": {
         "exampleUsage": "<HeroTechCarousel\n  items={[\n    {\n      title: \"InsuranceSite\",\n      content: \"Modern broker tooling for independent agents.\",\n      actions: [{ label: \"Get Started\", href: \"#\", variant: \"default\" }],\n      backgroundMedia: [\n        { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"\" },\n        { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"\" },\n      ],\n    },\n    {\n      title: \"RealtorSite\",\n      content: \"Built for high-volume listing agents.\",\n      actions: [{ label: \"Get Started\", href: \"#\", variant: \"default\" }],\n      backgroundMedia: [\n        { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"\" },\n      ],\n    },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "items": [
             {
               "title": "InsuranceSite",
@@ -27621,6 +27885,10 @@
       "examples": {
         "exampleUsage": "<HeroTestimonialImageGrid\n  heading=\"Loved by customers worldwide\"\n  description=\"See why thousands of businesses trust us.\"\n  testimonial={{\n    quote: \"This platform transformed how we work.\",\n    author: \"Sarah Johnson\",\n    role: \"CEO\",\n    company: \"TechCorp\",\n    avatars: [{ image: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", fallback: \"SJ\" }],\n  }}\n  gridImages={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Customer 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Customer 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Customer 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Customer 4\" },\n  ]}\n  actions={[{ label: \"Get Started\", href: \"#\", variant: \"default\" }]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Loved by customers worldwide",
           "description": "See why thousands of businesses trust us.",
           "testimonial": {
@@ -27637,20 +27905,20 @@
           },
           "gridImages": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Customer"
+              "src": "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+              "alt": "Customer 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Customer"
+              "src": "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+              "alt": "Customer 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Customer"
+              "src": "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+              "alt": "Customer 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Customer"
+              "src": "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+              "alt": "Customer 4"
             }
           ],
           "actions": [
@@ -27762,6 +28030,10 @@
       "examples": {
         "exampleUsage": "<HeroTherapyTestimonialGrid\n  heading=\"Real stories, real healing\"\n  description=\"Hear from clients who've found support and healing.\"\n  testimonial={{\n    quote: \"Therapy changed my life. I finally feel understood.\",\n    author: \"Anonymous Client\",\n    avatar: { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Client testimonial\" },\n  }}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Session 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Session 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Session 3\" },\n  ]}\n  actions={[\n    { label: \"Find Your Therapist\", href: \"#\", variant: \"default\" },\n    { label: \"Read More Stories\", href: \"#\", variant: \"outline\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Real stories, real healing",
           "description": "Hear from clients who've found support and healing.",
           "testimonial": {
@@ -27774,16 +28046,16 @@
           },
           "images": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Therapy session"
+              "src": "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v",
+              "alt": "Therapy session 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Therapy session"
+              "src": "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac",
+              "alt": "Therapy session 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Therapy session"
+              "src": "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm",
+              "alt": "Therapy session 3"
             }
           ],
           "actions": [
@@ -27906,6 +28178,10 @@
       "examples": {
         "exampleUsage": "<HeroUiLibraryShowcase\n  heading=\"Beautiful components for modern apps\"\n  description=\"A comprehensive UI library with 100+ components.\"\n  image={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"UI component showcase\" }}\n  actions={[\n    { label: \"Browse Components\", href: \"#\", variant: \"default\" },\n    { label: \"View Docs\", href: \"#\", variant: \"outline\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Beautiful components for modern apps",
           "description": "A comprehensive UI library with 100+ components.",
           "image": {
@@ -28020,6 +28296,10 @@
       "examples": {
         "exampleUsage": "<HeroVideoBackgroundDark\n  badgeText=\"Immersive Experience\"\n  heading=\"Make an unforgettable first impression\"\n  description=\"Captivate your audience with stunning video backgrounds.\"\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"default\" },\n    { label: \"Explore\", href: \"#\", variant: \"outline\" },\n  ]}\n  backgroundVideo={{\n    video: {\n      masterPlaylistUrl: \"https://cdn.ing/assets/video/uploads/283393/hls/38865/master.m3u8\",\n      fallbackSrc: \"https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1\",\n    }\n  }}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "badgeText": "Immersive Experience",
           "heading": "Make an unforgettable first impression",
           "description": "Captivate your audience with stunning video backgrounds.",
@@ -28124,6 +28404,10 @@
       "examples": {
         "exampleUsage": "<HeroVideoDialogGradient\n  heading=\"See our platform in action\"\n  description=\"Get a 3-minute walkthrough of our most powerful features.\"\n  videoAction={{ label: \"Watch Demo\", variant: \"outline\" }}\n  actions={[{ label: \"Get Started\", href: \"#\", variant: \"ghost\" }]}\n  image={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Platform demo preview\" }}\n  modalVideo={{\n    video: {\n      masterPlaylistUrl: \"https://cdn.ing/assets/video/uploads/283393/hls/38865/master.m3u8\",\n      fallbackSrc: \"https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1\",\n    }\n  }}\n  background=\"gradient\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "See our platform in action",
           "description": "Get a 3-minute walkthrough of our most powerful features.",
           "videoAction": {
@@ -28359,24 +28643,28 @@
       "examples": {
         "exampleUsage": "<HeroWelcomeAsymmetricImages\n  heading=\"Where innovation meets creativity\"\n  description=\"Discover a platform that empowers you to create and collaborate.\"\n  actions={[\n    { label: \"Get Started\", href: \"#\", variant: \"default\" },\n    { label: \"Learn More\", href: \"#\", variant: \"link\" },\n  ]}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Feature 4\" },\n  ]}\n  background=\"dark\"\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Where innovation meets creativity",
           "description": "Discover a platform that empowers you to create and collaborate.",
           "images": [
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+              "alt": "Feature 1"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+              "alt": "Feature 2"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+              "alt": "Feature 3"
             },
             {
-              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "alt": "Feature"
+              "src": "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+              "alt": "Feature 4"
             }
           ],
           "background": "dark",

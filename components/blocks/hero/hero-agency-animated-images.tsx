@@ -16,6 +16,8 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 /**
  * Animation variants for each image position in the 2x2 grid.
@@ -132,6 +134,18 @@ export interface HeroAgencyAnimatedImagesProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -156,6 +170,9 @@ export function HeroAgencyAnimatedImages({
   headingClassName,
   imagesContainerClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroAgencyAnimatedImagesProps): React.JSX.Element {
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
@@ -247,6 +264,17 @@ export function HeroAgencyAnimatedImages({
               contentClassName,
             )}
           >
+            {(logo || logoSlot) && (
+
+              <div className={cn("mb-4", logoClassName)}>
+
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+              </div>
+
+            )}
+
+            
             {heading &&
               (typeof heading === "string" ? (
                 <h1

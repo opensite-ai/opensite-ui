@@ -9,6 +9,8 @@ import { Badge } from "../../ui/badge";
 import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface PricingPlan {
   /**
@@ -110,6 +112,18 @@ export interface HeroPricingComparisonProps {
    * Additional CSS classes for the plans grid
    */
   plansClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -132,6 +146,9 @@ export function HeroPricingComparison({
   headingClassName,
   descriptionClassName,
   plansClassName,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroPricingComparisonProps): React.JSX.Element {
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
@@ -215,6 +232,17 @@ export function HeroPricingComparison({
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-4xl text-center", headerClassName)}>
           {renderBadge}
+          {(logo || logoSlot) && (
+
+            <div className={cn("mb-4", logoClassName)}>
+
+              <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+            </div>
+
+          )}
+
+          
           {heading && (
             typeof heading === "string" ? (
               <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>

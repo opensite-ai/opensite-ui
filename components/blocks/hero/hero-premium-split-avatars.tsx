@@ -19,6 +19,8 @@ import {
   MediaAspectRatio,
   ResponsiveMediaAspectRatioProps,
 } from "../../ui/media-aspect-ratio";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export type { DirectionConfig };
 
@@ -127,6 +129,18 @@ export interface HeroPremiumSplitAvatarsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
   /**
@@ -168,6 +182,9 @@ export function HeroPremiumSplitAvatars({
   optixFlowConfig,
   mediaAspectRatios = { desktop: "vertical", mobile: "vertical" },
   directionConfig = { desktop: "mediaRight", mobile: "mediaBottom" },
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroPremiumSplitAvatarsProps): React.JSX.Element {
   const responsiveClassName = useMemo(() => {
     const desktopOrder =
@@ -301,6 +318,17 @@ export function HeroPremiumSplitAvatars({
           >
             {renderBrand}
             <div className="flex flex-col gap-4 md:gap-8">
+              {(logo || logoSlot) && (
+
+                <div className={cn("mb-4", logoClassName)}>
+
+                  <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+                </div>
+
+              )}
+
+              
               {heading &&
                 (typeof heading === "string" ? (
                   <h2 className={cn("text-4xl lg:text-6xl", headingClassName)}>

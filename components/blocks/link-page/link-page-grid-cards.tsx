@@ -17,6 +17,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 /**
  * Link card item for the grid cards link page
@@ -55,6 +57,18 @@ export interface LinkPageGridCardsProps {
    * Avatar image URL (legacy)
    */
   avatarUrl?: string;
+  /**
+   * Optional LogoConfig for BrandLogo rendering (takes priority over avatar)
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for the logo/avatar (takes priority over logo and avatar)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo image
+   */
+  logoClassName?: string;
   /**
    * Custom slot for profile header content
    */
@@ -215,6 +229,9 @@ export function LinkPageGridCards({
   bio,
   avatar,
   avatarUrl,
+  logo,
+  logoSlot,
+  logoClassName,
   profileSlot,
   links,
   linksSlot,
@@ -266,21 +283,31 @@ export function LinkPageGridCards({
           headerClassName,
         )}
       >
-        {resolvedAvatar && (
-          <div
-            className={cn(
-              "flex h-20 w-full max-w-56 items-center justify-center sm:h-24 sm:max-w-72",
-              avatarClassName,
-            )}
-          >
+        <div
+          className={cn(
+            "flex h-20 w-full max-w-56 items-center justify-center sm:h-24 sm:max-w-72",
+            avatarClassName,
+          )}
+        >
+          {logo ? (
+            <BrandLogo
+              logo={logo}
+              logoSlot={logoSlot}
+              size="xl"
+              logoClassName={cn("mb-2", logoClassName)}
+              optixFlowConfig={optixFlowConfig}
+            />
+          ) : logoSlot ? (
+            logoSlot
+          ) : resolvedAvatar ? (
             <Img
               src={resolvedAvatar.src}
               alt={resolvedAvatar.alt}
               className="h-auto max-h-20 w-auto max-w-full object-contain sm:max-h-24"
               optixFlowConfig={optixFlowConfig}
             />
-          </div>
-        )}
+          ) : null}
+        </div>
 
         <div className="space-y-1">
           {name &&
@@ -302,6 +329,9 @@ export function LinkPageGridCards({
     );
   }, [
     profileSlot,
+    logo,
+    logoSlot,
+    logoClassName,
     avatar,
     avatarUrl,
     avatarClassName,

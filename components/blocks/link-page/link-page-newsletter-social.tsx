@@ -23,6 +23,8 @@ import {
   type FormEngineStyleRules,
   type FormFieldConfig,
 } from "@page-speed/forms/integration";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "w-full flex flex-col gap-3 justify-center items-center",
@@ -78,6 +80,18 @@ export interface LinkPageNewsletterSocialProps {
    * Avatar image URL (legacy)
    */
   avatarUrl?: string;
+  /**
+   * Optional LogoConfig for BrandLogo rendering (takes priority over avatar)
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for the logo/avatar (takes priority over logo and avatar)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo image
+   */
+  logoClassName?: string;
   /**
    * Custom slot for profile header content
    */
@@ -283,6 +297,9 @@ export function LinkPageNewsletterSocial({
   bio,
   avatar,
   avatarUrl,
+  logo,
+  logoSlot,
+  logoClassName,
   profileSlot,
   newsletterHeading,
   newsletterDescription,
@@ -347,21 +364,31 @@ export function LinkPageNewsletterSocial({
           headerClassName,
         )}
       >
-        {resolvedAvatar && (
-          <div
-            className={cn(
-              "flex h-24 w-full max-w-72 items-center justify-center",
-              avatarClassName,
-            )}
-          >
+        <div
+          className={cn(
+            "flex h-24 w-full max-w-72 items-center justify-center",
+            avatarClassName,
+          )}
+        >
+          {logo ? (
+            <BrandLogo
+              logo={logo}
+              logoSlot={logoSlot}
+              size="xl"
+              logoClassName={cn("mb-2", logoClassName)}
+              optixFlowConfig={optixFlowConfig}
+            />
+          ) : logoSlot ? (
+            logoSlot
+          ) : resolvedAvatar ? (
             <Img
               src={resolvedAvatar.src}
               alt={resolvedAvatar.alt}
               className="h-auto max-h-24 w-auto max-w-full object-contain"
               optixFlowConfig={optixFlowConfig}
             />
-          </div>
-        )}
+          ) : null}
+        </div>
 
         <div className="space-y-1">
           {name &&
@@ -385,6 +412,9 @@ export function LinkPageNewsletterSocial({
     );
   }, [
     profileSlot,
+    logo,
+    logoSlot,
+    logoClassName,
     avatar,
     avatarUrl,
     avatarClassName,

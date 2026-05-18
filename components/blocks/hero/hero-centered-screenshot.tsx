@@ -13,6 +13,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroCenteredScreenshotProps {
   /**
@@ -87,6 +89,18 @@ export interface HeroCenteredScreenshotProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -111,6 +125,9 @@ export function HeroCenteredScreenshot({
   actionsClassName,
   imageClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroCenteredScreenshotProps): React.JSX.Element {
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -159,6 +176,17 @@ export function HeroCenteredScreenshot({
           <div
             className={cn("z-10 items-center text-center", contentClassName)}
           >
+            {(logo || logoSlot) && (
+
+              <div className={cn("mb-4 flex justify-center", logoClassName)}>
+
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+              </div>
+
+            )}
+
+            
             {heading &&
               (typeof heading === "string" ? (
                 <h1

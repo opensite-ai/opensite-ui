@@ -20,6 +20,8 @@ import {
   MediaAspectRatio,
   ResponsiveMediaAspectRatioProps,
 } from "@/components/ui/media-aspect-ratio";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export type { DirectionConfig };
 
@@ -99,6 +101,18 @@ export interface HeroAdCampaignExpertProps {
    * @default { desktop: 'mediaRight', mobile: 'mediaTop' }
    */
   directionConfig?: DirectionConfig;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -123,6 +137,9 @@ export function HeroAdCampaignExpert({
   headingClassName,
   descriptionClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroAdCampaignExpertProps): React.JSX.Element {
   const { responsiveClassName } = useResponsiveLayout({ directionConfig });
 
@@ -205,6 +222,11 @@ export function HeroAdCampaignExpert({
             responsiveClassName,
           )}
         >
+          {(logo || logoSlot) && (
+            <div className={cn("mb-4", logoClassName)}>
+              <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+            </div>
+          )}
           <ContentGroup
             items={headerItems}
             className={cn(

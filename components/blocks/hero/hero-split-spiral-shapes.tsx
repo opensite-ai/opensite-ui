@@ -15,6 +15,8 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { Badge } from "@/src";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroSplitSpiralShapesProps {
   /**
@@ -90,6 +92,18 @@ export interface HeroSplitSpiralShapesProps {
    * Additional CSS classes for the images container
    */
   imagesClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -114,6 +128,9 @@ export function HeroSplitSpiralShapes({
   headingClassName,
   descriptionClassName,
   imagesClassName,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroSplitSpiralShapesProps): React.JSX.Element {
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -235,6 +252,17 @@ export function HeroSplitSpiralShapes({
               ) : (
                 badgeText
               ))}
+            {(logo || logoSlot) && (
+
+              <div className={cn("mb-4", logoClassName)}>
+
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+              </div>
+
+            )}
+
+            
             {heading &&
               (typeof heading === "string" ? (
                 <h1

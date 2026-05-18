@@ -11,6 +11,8 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroWelcomeAsymmetricImagesProps {
   /**
@@ -84,6 +86,18 @@ export interface HeroWelcomeAsymmetricImagesProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /**
+   * Brand logo configuration. LOGO MEDIA ONLY — do not use photos or hero images.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -111,6 +125,9 @@ export function HeroWelcomeAsymmetricImages({
   headingClassName,
   descriptionClassName,
   optixFlowConfig,
+  logo,
+  logoSlot,
+  logoClassName,
 }: HeroWelcomeAsymmetricImagesProps): React.JSX.Element {
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
@@ -166,6 +183,17 @@ export function HeroWelcomeAsymmetricImages({
       <div className="relative">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row xl:gap-20">
           <div className="flex w-full flex-col items-start text-left">
+            {(logo || logoSlot) && (
+
+              <div className={cn("mb-4", logoClassName)}>
+
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+
+              </div>
+
+            )}
+
+            
             {heading &&
               (typeof heading === "string" ? (
                 <h1
