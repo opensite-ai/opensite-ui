@@ -6,6 +6,8 @@ import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { BrandLogo } from "../../ui/brand-logo";
+import type { BrandLogoProps } from "../../ui/brand-logo";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -14,8 +16,22 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import type { LogoConfig } from "../navbars/types";
 
 export interface HeroDashedBorderFeaturesProps {
+  /**
+   * Brand logo configuration — renders above the announcement badge.
+   * LOGO MEDIA ONLY. Do not use photos, hero images, or video assets.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /**
    * Badge text content
    */
@@ -106,6 +122,9 @@ export interface HeroDashedBorderFeaturesProps {
 
 export function HeroDashedBorderFeatures({
   sectionId = "hero-dashed-border-features",
+  logo,
+  logoSlot,
+  logoClassName,
   badgeText,
   announcementText,
   announcementHref,
@@ -117,7 +136,7 @@ export function HeroDashedBorderFeatures({
   features,
   featuresSlot,
   background,
-  spacing = "xl",
+  spacing = "hero",
   pattern,
   patternOpacity,
   className,
@@ -197,20 +216,40 @@ export function HeroDashedBorderFeatures({
       <Pressable
         key={index}
         className={cn(
-          "flex items-center gap-6 border-t border-dashed p-4 font-medium md:justify-center lg:p-10 lg:text-lg",
+          "flex items-center gap-6 border-t border-dashed p-4 md:justify-center lg:p-10 ",
+          feature.href
+            ? "cursor-pointer bg-transparent transition-colors duration-300 hover:bg-card hover:text-card-foreground"
+            : "",
           index === 1 && "md:border-x",
           index === 2 ? "border-b" : "md:border-b",
         )}
         href={feature.href}
       >
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-md text-sm lg:size-12 lg:text-base bg-card text-card-foreground">
-          {feature.icon ? (
-            feature.icon
-          ) : feature.iconName ? (
-            <DynamicIcon name={feature.iconName || "lucide/check"} size={20} />
-          ) : null}
-        </span>
-        {feature.title}
+        {feature.icon || feature.iconName ? (
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-md text-sm lg:size-12 lg:text-base bg-card text-card-foreground">
+            <DynamicIcon name={feature.icon || feature.iconName} size={20} />
+          </span>
+        ) : null}
+
+        {feature.title || feature.description ? (
+          <div className="text-left flex flex-col gap-1">
+            {feature.title ? (
+              <div className="font-medium text-base md:text-lg line-clamp-2">
+                {feature.title}
+              </div>
+            ) : null}
+            {feature.description ? (
+              typeof feature.description === "string" &&
+              feature.description?.length > 0 ? (
+                <div className="text-sm md:text-base opacity-70 text-balance line-clamp-1">
+                  {feature.description}
+                </div>
+              ) : (
+                feature.description
+              )
+            ) : null}
+          </div>
+        ) : null}
       </Pressable>
     ));
   }, [featuresSlot, features]);
@@ -226,6 +265,11 @@ export function HeroDashedBorderFeatures({
       containerClassName={containerClassName}
     >
       <div className="relative">
+        {(logo || logoSlot) && (
+          <div className={cn("mb-6", logoClassName)}>
+            <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+          </div>
+        )}
         <div
           className={cn(
             "border-x border-t border-dashed px-4 py-6 md:py-20 md:px-16",
@@ -238,14 +282,14 @@ export function HeroDashedBorderFeatures({
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl",
+                    "my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl leading-tight",
                     headingClassName,
                   )}
                 >
                   {heading}
                 </h1>
               ) : (
-                <div className={headingClassName}>{heading}</div>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
@@ -258,7 +302,7 @@ export function HeroDashedBorderFeatures({
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
             {renderActions}
           </div>

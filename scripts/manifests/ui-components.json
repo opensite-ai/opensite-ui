@@ -77,6 +77,13 @@
   }
 ,
   {
+    "path": "./components/brand-logo",
+    "types": "./dist/brand-logo.d.ts",
+    "import": "./dist/brand-logo.js",
+    "require": "./dist/brand-logo.cjs"
+  }
+,
+  {
     "path": "./components/breadcrumb",
     "types": "./dist/breadcrumb.d.ts",
     "import": "./dist/breadcrumb.js",

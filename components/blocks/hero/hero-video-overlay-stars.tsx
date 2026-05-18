@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Video } from "@page-speed/video";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { BrandLogo } from "../../ui/brand-logo";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -13,6 +14,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import type { LogoConfig } from "../navbars/types";
 import { BlockActions } from "@/components/ui/block-actions";
 
 /**
@@ -48,6 +50,19 @@ export interface TrustConfig {
 }
 
 export interface HeroVideoOverlayStarsProps {
+  /**
+   * Brand logo configuration — renders centered above the heading.
+   * LOGO MEDIA ONLY. Do not use photos, hero images, or video assets.
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /**
    * Main heading text
    */
@@ -134,6 +149,9 @@ export interface HeroVideoOverlayStarsProps {
  */
 export function HeroVideoOverlayStars({
   sectionId = "hero-video-overlay-stars",
+  logo,
+  logoSlot,
+  logoClassName,
   heading,
   actions,
   actionsSlot,
@@ -213,6 +231,11 @@ export function HeroVideoOverlayStars({
     >
       <div className="relative z-10 flex size-full">
         <div className="m-auto flex max-w-100 flex-col items-center gap-9 sm:max-w-125 md:max-w-200 text-center">
+          {(logo || logoSlot) && (
+            <div className={cn("mb-2 flex justify-center", logoClassName)}>
+              <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+            </div>
+          )}
           <div className={cn("flex w-full flex-col gap-8", contentClassName)}>
             {heading &&
               (typeof heading === "string" ? (

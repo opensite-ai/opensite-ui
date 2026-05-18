@@ -54,6 +54,11 @@
     "import": "./dist/brand-attribution.js",
     "require": "./dist/brand-attribution.cjs"
   },
+  "./components/brand-logo": {
+    "types": "./dist/brand-logo.d.ts",
+    "import": "./dist/brand-logo.js",
+    "require": "./dist/brand-logo.cjs"
+  },
   "./components/breadcrumb": {
     "types": "./dist/breadcrumb.d.ts",
     "import": "./dist/breadcrumb.js",

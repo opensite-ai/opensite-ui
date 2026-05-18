@@ -9,6 +9,7 @@ const clientEntryNames = new Set([
   "social-link-icon",
   "payment-platform-icon",
   "carousel-pagination",
+  "brand-logo",
 
   "pressable",
   "hooks",
@@ -661,6 +662,7 @@ const allEntries = {
   card: "components/ui/card.tsx",
   badge: "components/ui/badge.tsx",
   popover: "components/ui/popover.tsx",
+  "brand-logo": "components/ui/brand-logo.tsx",
   "dynamic-icon": "components/ui/dynamic-icon.tsx",
   "social-link-icon": "components/ui/social-link-icon.tsx",
   "payment-platform-icon": "components/ui/payment-platform-icon.tsx",

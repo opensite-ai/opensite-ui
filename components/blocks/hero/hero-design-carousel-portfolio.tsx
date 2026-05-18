@@ -6,6 +6,7 @@ import AutoScroll from "embla-carousel-auto-scroll";
 import Autoplay from "embla-carousel-autoplay";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { BrandLogo } from "../../ui/brand-logo";
 import { Img } from "@page-speed/img";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import { Section } from "../../ui/section";
@@ -148,12 +149,17 @@ export function HeroDesignCarouselPortfolio({
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
-    const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
+    const logoConfig = {
+      src: typeof logo.src === "string" ? logo.src : logo.src.light,
+      alt: logo.alt,
+      className: logo.className,
+      url: logo.href,
+    };
+
     return (
-      <Img
-        src={logoSrc}
-        className={cn("object-contain w-auto h-12 lg:h-16", logo.className)}
-        alt={logo.alt}
+      <BrandLogo
+        logo={logoConfig}
+        size="xl"
         optixFlowConfig={optixFlowConfig}
       />
     );

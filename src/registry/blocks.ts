@@ -15592,13 +15592,16 @@ const HERO_BLOCK_CONTRACTS = {
   "hero-dashed-border-features": {
     exampleUsage: `
 <HeroDashedBorderFeatures
+  logo={{ src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" }}
   heading="Features that make a difference"
   description="Discover the powerful capabilities that set us apart."
   badgeText="New Features"
+  announcementText="Latest innovations"
+  announcementHref="#"
   features={[
-    { icon: null, title: "Lightning Fast", description: "Optimized for speed", href: "#" },
-    { icon: null, title: "Secure by Default", description: "Enterprise-grade security", href: "#" },
-    { icon: null, title: "AI-Powered", description: "Smart automation", href: "#" },
+    { iconName: "lucide/zap", title: "Lightning Fast", description: "Optimized for speed", href: "#" },
+    { iconName: "lucide/shield", title: "Secure by Default", description: "Enterprise-grade security", href: "#" },
+    { iconName: "lucide/sparkles", title: "AI-Powered", description: "Smart automation", href: "#" },
   ]}
   actions={[
     { label: "Explore Features", href: "#", variant: "default" },
@@ -15607,7 +15610,7 @@ const HERO_BLOCK_CONTRACTS = {
 />
     `.trim(),
     importantUsageNotes:
-      "Supply exactly 3 'features' objects. Do not exceed 50 characters for 'heading'. Do not exceed 130 characters for 'description'. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second. This is a text/icon hero — no images required.",
+      "The optional 'logo' prop accepts a LogoConfig object and renders via the BrandLogo component — it must be a brand logo image, NEVER a photo or hero image. Supply exactly 3 'features' objects. Do not exceed 50 characters for 'heading'. Do not exceed 130 characters for 'description'. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second.",
     usageRequirements: {
       requiredProps: ["heading", "features"],
       propConstraints: {
@@ -15615,17 +15618,24 @@ const HERO_BLOCK_CONTRACTS = {
         description: { maxLength: 130 },
         features: { required: true, count: 3, minItems: 2, maxItems: 4 },
         actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        "logo.src": { note: "LOGO MEDIA ONLY. Must be a brand logo image (SVG, PNG, WebP). Never use a photo, hero image, or video asset." },
       },
-      mediaSlots: {},
+      mediaSlots: {
+        "logo.src": logoSlot("logo.src", "Brand logo rendered via BrandLogo component above the dashed border content.", false),
+      },
+      notes: ["The logo prop is optional. When provided, the BrandLogo component renders it above the announcement badge with responsive sizing."],
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Features that make a difference",
       description: "Discover the powerful capabilities that set us apart.",
       badgeText: "New Features",
+      announcementText: "Latest innovations",
+      announcementHref: "#",
       features: [
-        { title: "Lightning Fast", description: "Optimized for speed", href: "#" },
-        { title: "Secure by Default", description: "Enterprise-grade security", href: "#" },
-        { title: "AI-Powered", description: "Smart automation", href: "#" },
+        { iconName: "lucide/zap", title: "Lightning Fast", description: "Optimized for speed", href: "#" },
+        { iconName: "lucide/shield", title: "Secure by Default", description: "Enterprise-grade security", href: "#" },
+        { iconName: "lucide/sparkles", title: "AI-Powered", description: "Smart automation", href: "#" },
       ],
       actions: [
         { label: "Explore Features", href: "#", variant: "default" },
@@ -15640,12 +15650,13 @@ const HERO_BLOCK_CONTRACTS = {
   "hero-design-carousel-portfolio": {
     exampleUsage: `
 <HeroDesignCarouselPortfolio
+  logo={{ src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" }}
   heading="Design portfolio that speaks volumes"
   description="Showcase your best work with beautiful, interactive carousels."
   features={[
-    { title: "Strategic Focus", description: "Aligning work with your goals." },
-    { title: "Rapid Execution", description: "Agile methodology for fast delivery." },
-    { title: "Human-Centered", description: "Design for people first." },
+    { iconName: "lucide/target", title: "Strategic Focus", description: "Aligning work with your goals." },
+    { iconName: "lucide/zap", title: "Rapid Execution", description: "Agile methodology for fast delivery." },
+    { iconName: "lucide/heart", title: "Human-Centered", description: "Design for people first." },
   ]}
   carouselImages={[
     { src: "${HERO_EXAMPLE_IMAGE_URL}", alt: "Design 1" },
@@ -15659,7 +15670,7 @@ const HERO_BLOCK_CONTRACTS = {
   ]}
 />
     `.trim(),
-    importantUsageNotes: `Supply exactly 4 carousel images. Supply exactly 3 'features' objects. Do not exceed 50 characters for 'heading'. Do not exceed 130 characters for 'description'. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second.  ${HERO_MEDIA_NOTE}`,
+    importantUsageNotes: `The 'logo' prop renders via BrandLogo and must be a brand logo image (SVG, PNG, WebP) — NEVER a photo or hero image. The AI Agent must use a real brand logo asset here, not an image placeholder. Supply exactly 4 carousel images for the portfolio. Supply exactly 3 'features'. ${HERO_MEDIA_NOTE}`,
     usageRequirements: {
       requiredProps: ["heading", "carouselImages", "features"],
       propConstraints: {
@@ -15668,20 +15679,22 @@ const HERO_BLOCK_CONTRACTS = {
         carouselImages: { required: true, count: 4, minItems: 3, maxItems: 5 },
         features: { required: true, count: 3, minItems: 3, maxItems: 3 },
         actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        "logo.src": { note: "LOGO MEDIA ONLY. Must be a brand logo image. Never use a photo, hero image, or video asset." },
       },
       mediaSlots: {
         "carouselImages[]": imageSlot("carouselImages[]", "Portfolio showcase images for the carousel.", ["feature", "hero"], "medium", true),
-        "logo.src": logoSlot("logo.src", "Optional brand or client logo."),
+        "logo.src": logoSlot("logo.src", "Brand logo rendered via BrandLogo component above the features and heading.", false),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Design portfolio that speaks volumes",
       description: "Showcase your best work with beautiful, interactive carousels.",
       features: [
-        { title: "Strategic Focus", description: "Aligning work with your goals." },
-        { title: "Rapid Execution", description: "Agile methodology for fast delivery." },
-        { title: "Human-Centered", description: "Design for people first." },
+        { iconName: "lucide/target", title: "Strategic Focus", description: "Aligning work with your goals." },
+        { iconName: "lucide/zap", title: "Rapid Execution", description: "Agile methodology for fast delivery." },
+        { iconName: "lucide/heart", title: "Human-Centered", description: "Design for people first." },
       ],
       carouselImages: Array(4).fill({ src: HERO_EXAMPLE_IMAGE_URL, alt: "Design" }),
       actions: [
@@ -16486,6 +16499,7 @@ const HERO_BLOCK_CONTRACTS = {
   "hero-video-overlay-stars": {
     exampleUsage: `
 <HeroVideoOverlayStars
+  logo={{ src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" }}
   heading="Trusted by thousands"
   description="Our solution is designed to streamline your business operations."
   actions={[{ label: "Try It Free", href: "#" }]}
@@ -16498,7 +16512,7 @@ const HERO_BLOCK_CONTRACTS = {
   trust={{ starCount: 5, message: "Trusted by 2,500+ customers" }}
 />
     `.trim(),
-    importantUsageNotes: `Only use when you have a real video asset. The 'backgroundVideo.video' prop requires masterPlaylistUrl and fallbackSrc. Only supply real 'trust.message' — do not fabricate review counts. Do not exceed 40 characters for 'heading'.  ${HERO_MEDIA_NOTE}`,
+    importantUsageNotes: `The optional 'logo' prop renders via BrandLogo centered above the heading — it must be a brand logo image, NEVER a photo. Only use when you have a real video asset. The 'backgroundVideo.video' prop requires masterPlaylistUrl and fallbackSrc. Only supply real 'trust.message' — do not fabricate review counts. ${HERO_MEDIA_NOTE}`,
     usageRequirements: {
       requiredProps: ["heading", "backgroundVideo"],
       propConstraints: {
@@ -16506,13 +16520,16 @@ const HERO_BLOCK_CONTRACTS = {
         description: { maxLength: 130 },
         backgroundVideo: { required: true, note: "Must contain a valid video with masterPlaylistUrl and fallbackSrc." },
         "trust.message": { note: "Must be real trust/review data. Do not fabricate." },
+        "logo.src": { note: "LOGO MEDIA ONLY. Must be a brand logo image. Never use a photo, hero image, or video asset." },
       },
       mediaSlots: {
         "backgroundVideo.video": videoMediaSlot("backgroundVideo.video"),
+        "logo.src": logoSlot("logo.src", "Brand logo rendered via BrandLogo centered above the heading on the video overlay.", false),
       },
       requiresSiteCapabilities: heroCapabilities("media_library", "reviews_or_testimonials"),
     },
     exampleProps: {
+      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Trusted by thousands",
       description: "Our solution is designed to streamline your business operations.",
       backgroundVideo: { video: EXAMPLE_VIDEO_1 },

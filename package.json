@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "3.6.5",
+  "version": "3.6.6",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -3005,6 +3005,11 @@
       "types": "./dist/brand-attribution.d.ts",
       "import": "./dist/brand-attribution.js",
       "require": "./dist/brand-attribution.cjs"
+    },
+    "./components/brand-logo": {
+      "types": "./dist/brand-logo.d.ts",
+      "import": "./dist/brand-logo.js",
+      "require": "./dist/brand-logo.cjs"
     },
     "./components/breadcrumb": {
       "types": "./dist/breadcrumb.d.ts",

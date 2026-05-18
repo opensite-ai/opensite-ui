@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.6.5",
-    "exportedAt": "2026-05-17T19:43:46.875Z",
+    "uiVersion": "3.6.6",
+    "exportedAt": "2026-05-18T01:25:33.856Z",
     "source": "@opensite/ui",
     "totalBlocks": 605
   },
@@ -22041,23 +22041,32 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<HeroDashedBorderFeatures\n  heading=\"Features that make a difference\"\n  description=\"Discover the powerful capabilities that set us apart.\"\n  badgeText=\"New Features\"\n  features={[\n    { icon: null, title: \"Lightning Fast\", description: \"Optimized for speed\", href: \"#\" },\n    { icon: null, title: \"Secure by Default\", description: \"Enterprise-grade security\", href: \"#\" },\n    { icon: null, title: \"AI-Powered\", description: \"Smart automation\", href: \"#\" },\n  ]}\n  actions={[\n    { label: \"Explore Features\", href: \"#\", variant: \"default\" },\n    { label: \"Contact Sales\", href: \"#\", variant: \"outline\" },\n  ]}\n/>",
+        "exampleUsage": "<HeroDashedBorderFeatures\n  logo={{ src: \"https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png\", alt: \"Brand Logo\" }}\n  heading=\"Features that make a difference\"\n  description=\"Discover the powerful capabilities that set us apart.\"\n  badgeText=\"New Features\"\n  announcementText=\"Latest innovations\"\n  announcementHref=\"#\"\n  features={[\n    { iconName: \"lucide/zap\", title: \"Lightning Fast\", description: \"Optimized for speed\", href: \"#\" },\n    { iconName: \"lucide/shield\", title: \"Secure by Default\", description: \"Enterprise-grade security\", href: \"#\" },\n    { iconName: \"lucide/sparkles\", title: \"AI-Powered\", description: \"Smart automation\", href: \"#\" },\n  ]}\n  actions={[\n    { label: \"Explore Features\", href: \"#\", variant: \"default\" },\n    { label: \"Contact Sales\", href: \"#\", variant: \"outline\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Features that make a difference",
           "description": "Discover the powerful capabilities that set us apart.",
           "badgeText": "New Features",
+          "announcementText": "Latest innovations",
+          "announcementHref": "#",
           "features": [
             {
+              "iconName": "lucide/zap",
               "title": "Lightning Fast",
               "description": "Optimized for speed",
               "href": "#"
             },
             {
+              "iconName": "lucide/shield",
               "title": "Secure by Default",
               "description": "Enterprise-grade security",
               "href": "#"
             },
             {
+              "iconName": "lucide/sparkles",
               "title": "AI-Powered",
               "description": "Smart automation",
               "href": "#"
@@ -22084,7 +22093,7 @@
         "importPath": "./dist/hero-dashed-border-features.js",
         "requirePath": "./dist/hero-dashed-border-features.cjs"
       },
-      "importantUsageNotes": "Supply exactly 3 'features' objects. Do not exceed 50 characters for 'heading'. Do not exceed 130 characters for 'description'. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second. This is a text/icon hero — no images required.",
+      "importantUsageNotes": "The optional 'logo' prop accepts a LogoConfig object and renders via the BrandLogo component — it must be a brand logo image, NEVER a photo or hero image. Supply exactly 3 'features' objects. Do not exceed 50 characters for 'heading'. Do not exceed 130 characters for 'description'. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second.",
       "usageRequirements": {
         "requiredProps": [
           "heading",
@@ -22110,9 +22119,29 @@
               "0.variant": "default",
               "1.variant": "outline"
             }
+          },
+          "logo.src": {
+            "note": "LOGO MEDIA ONLY. Must be a brand logo image (SVG, PNG, WebP). Never use a photo, hero image, or video asset."
           }
         },
-        "mediaSlots": {}
+        "mediaSlots": {
+          "logo.src": {
+            "path": "logo.src",
+            "roles": [
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "note": "Brand logo rendered via BrandLogo component above the dashed border content. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
+          }
+        },
+        "notes": [
+          "The logo prop is optional. When provided, the BrandLogo component renders it above the announcement badge with responsive sizing."
+        ]
       }
     },
     {
@@ -22140,20 +22169,27 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<HeroDesignCarouselPortfolio\n  heading=\"Design portfolio that speaks volumes\"\n  description=\"Showcase your best work with beautiful, interactive carousels.\"\n  features={[\n    { title: \"Strategic Focus\", description: \"Aligning work with your goals.\" },\n    { title: \"Rapid Execution\", description: \"Agile methodology for fast delivery.\" },\n    { title: \"Human-Centered\", description: \"Design for people first.\" },\n  ]}\n  carouselImages={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Design 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Design 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Design 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Design 4\" },\n  ]}\n  actions={[\n    { label: \"Schedule Chat\", href: \"#\", variant: \"default\" },\n    { label: \"View Portfolio\", href: \"#\", variant: \"outline\" },\n  ]}\n/>",
+        "exampleUsage": "<HeroDesignCarouselPortfolio\n  logo={{ src: \"https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png\", alt: \"Brand Logo\" }}\n  heading=\"Design portfolio that speaks volumes\"\n  description=\"Showcase your best work with beautiful, interactive carousels.\"\n  features={[\n    { iconName: \"lucide/target\", title: \"Strategic Focus\", description: \"Aligning work with your goals.\" },\n    { iconName: \"lucide/zap\", title: \"Rapid Execution\", description: \"Agile methodology for fast delivery.\" },\n    { iconName: \"lucide/heart\", title: \"Human-Centered\", description: \"Design for people first.\" },\n  ]}\n  carouselImages={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Design 1\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Design 2\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Design 3\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Design 4\" },\n  ]}\n  actions={[\n    { label: \"Schedule Chat\", href: \"#\", variant: \"default\" },\n    { label: \"View Portfolio\", href: \"#\", variant: \"outline\" },\n  ]}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Design portfolio that speaks volumes",
           "description": "Showcase your best work with beautiful, interactive carousels.",
           "features": [
             {
+              "iconName": "lucide/target",
               "title": "Strategic Focus",
               "description": "Aligning work with your goals."
             },
             {
+              "iconName": "lucide/zap",
               "title": "Rapid Execution",
               "description": "Agile methodology for fast delivery."
             },
             {
+              "iconName": "lucide/heart",
               "title": "Human-Centered",
               "description": "Design for people first."
             }
@@ -22197,7 +22233,7 @@
         "importPath": "./dist/hero-design-carousel-portfolio.js",
         "requirePath": "./dist/hero-design-carousel-portfolio.cjs"
       },
-      "importantUsageNotes": "Supply exactly 4 carousel images. Supply exactly 3 'features' objects. Do not exceed 50 characters for 'heading'. Do not exceed 130 characters for 'description'. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second.  All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
+      "importantUsageNotes": "The 'logo' prop renders via BrandLogo and must be a brand logo image (SVG, PNG, WebP) — NEVER a photo or hero image. The AI Agent must use a real brand logo asset here, not an image placeholder. Supply exactly 4 carousel images for the portfolio. Supply exactly 3 'features'. All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
       "usageRequirements": {
         "requiredProps": [
           "heading",
@@ -22230,6 +22266,9 @@
               "0.variant": "default",
               "1.variant": "outline"
             }
+          },
+          "logo.src": {
+            "note": "LOGO MEDIA ONLY. Must be a brand logo image. Never use a photo, hero image, or video asset."
           }
         },
         "mediaSlots": {
@@ -22259,7 +22298,7 @@
             ],
             "minPixelClass": "small",
             "required": false,
-            "note": "Optional brand or client logo. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
+            "note": "Brand logo rendered via BrandLogo component above the features and heading. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         },
         "requiresSiteCapabilities": [
@@ -28201,8 +28240,12 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<HeroVideoOverlayStars\n  heading=\"Trusted by thousands\"\n  description=\"Our solution is designed to streamline your business operations.\"\n  actions={[{ label: \"Try It Free\", href: \"#\" }]}\n  backgroundVideo={{\n    video: {\n      masterPlaylistUrl: \"https://cdn.ing/assets/video/uploads/283391/hls/38861/master.m3u8\",\n      fallbackSrc: \"https://toastability-production.s3.amazonaws.com/lvwp8x0nxf8xmarwganmvzvto3r5\",\n    }\n  }}\n  trust={{ starCount: 5, message: \"Trusted by 2,500+ customers\" }}\n/>",
+        "exampleUsage": "<HeroVideoOverlayStars\n  logo={{ src: \"https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png\", alt: \"Brand Logo\" }}\n  heading=\"Trusted by thousands\"\n  description=\"Our solution is designed to streamline your business operations.\"\n  actions={[{ label: \"Try It Free\", href: \"#\" }]}\n  backgroundVideo={{\n    video: {\n      masterPlaylistUrl: \"https://cdn.ing/assets/video/uploads/283391/hls/38861/master.m3u8\",\n      fallbackSrc: \"https://toastability-production.s3.amazonaws.com/lvwp8x0nxf8xmarwganmvzvto3r5\",\n    }\n  }}\n  trust={{ starCount: 5, message: \"Trusted by 2,500+ customers\" }}\n/>",
         "exampleProps": {
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Brand Logo"
+          },
           "heading": "Trusted by thousands",
           "description": "Our solution is designed to streamline your business operations.",
           "backgroundVideo": {
@@ -28230,7 +28273,7 @@
         "importPath": "./dist/hero-video-overlay-stars.js",
         "requirePath": "./dist/hero-video-overlay-stars.cjs"
       },
-      "importantUsageNotes": "Only use when you have a real video asset. The 'backgroundVideo.video' prop requires masterPlaylistUrl and fallbackSrc. Only supply real 'trust.message' — do not fabricate review counts. Do not exceed 40 characters for 'heading'.  All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
+      "importantUsageNotes": "The optional 'logo' prop renders via BrandLogo centered above the heading — it must be a brand logo image, NEVER a photo. Only use when you have a real video asset. The 'backgroundVideo.video' prop requires masterPlaylistUrl and fallbackSrc. Only supply real 'trust.message' — do not fabricate review counts. All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
       "usageRequirements": {
         "requiredProps": [
           "heading",
@@ -28250,6 +28293,9 @@
           },
           "trust.message": {
             "note": "Must be real trust/review data. Do not fabricate."
+          },
+          "logo.src": {
+            "note": "LOGO MEDIA ONLY. Must be a brand logo image. Never use a photo, hero image, or video asset."
           }
         },
         "mediaSlots": {
@@ -28265,6 +28311,19 @@
               "thumbnail"
             ],
             "note": "VIDEO MEDIA ONLY. Must be an HLS playlist or MP4 URL, not an image URL."
+          },
+          "logo.src": {
+            "path": "logo.src",
+            "roles": [
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "note": "Brand logo rendered via BrandLogo centered above the heading on the video overlay. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         },
         "requiresSiteCapabilities": [
