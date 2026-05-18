@@ -216,7 +216,7 @@ export function HeroDashedBorderFeatures({
       <Pressable
         key={index}
         className={cn(
-          "flex items-center gap-6 border-t border-dashed p-4 md:justify-center lg:p-10 ",
+          "flex items-center gap-4 border-t border-dashed p-4 md:justify-center lg:p-10 ",
           feature.href
             ? "cursor-pointer bg-transparent transition-colors duration-300 hover:bg-card hover:text-card-foreground"
             : "",
@@ -226,7 +226,7 @@ export function HeroDashedBorderFeatures({
         href={feature.href}
       >
         {feature.icon || feature.iconName ? (
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-md text-sm lg:size-12 lg:text-base bg-card text-card-foreground">
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-md text-sm lg:size-12 lg:text-base bg-card text-card-foreground ring-1 ring-border">
             <DynamicIcon name={feature.icon || feature.iconName} size={20} />
           </span>
         ) : null}
@@ -241,7 +241,7 @@ export function HeroDashedBorderFeatures({
             {feature.description ? (
               typeof feature.description === "string" &&
               feature.description?.length > 0 ? (
-                <div className="text-sm md:text-base opacity-70 text-balance line-clamp-1">
+                <div className="text-sm opacity-70 text-balance line-clamp-2 leading-tight">
                   {feature.description}
                 </div>
               ) : (
@@ -282,7 +282,7 @@ export function HeroDashedBorderFeatures({
               (typeof heading === "string" ? (
                 <h1
                   className={cn(
-                    "my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl leading-tight",
+                    "my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl text-balance",
                     headingClassName,
                   )}
                 >
