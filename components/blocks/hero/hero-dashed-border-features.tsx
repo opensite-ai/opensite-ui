@@ -265,11 +265,6 @@ export function HeroDashedBorderFeatures({
       containerClassName={containerClassName}
     >
       <div className="relative">
-        {(logo || logoSlot) && (
-          <div className={cn("mb-6", logoClassName)}>
-            <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
-          </div>
-        )}
         <div
           className={cn(
             "border-x border-t border-dashed px-4 py-6 md:py-20 md:px-16",
@@ -278,6 +273,11 @@ export function HeroDashedBorderFeatures({
         >
           <div className="mx-auto max-w-3xl">
             {renderAnnouncement}
+            {(logo || logoSlot) && (
+              <div className={cn("my-6 flex justify-center", logoClassName)}>
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
+              </div>
+            )}
             {heading &&
               (typeof heading === "string" ? (
                 <h1
