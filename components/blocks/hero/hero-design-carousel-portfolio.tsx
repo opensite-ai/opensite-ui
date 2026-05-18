@@ -245,7 +245,7 @@ export function HeroDesignCarouselPortfolio({
 
         <div
           className={cn(
-            "flex flex-col gap-10 pt-12 pb-8 lg:pt-24 lg:pb-12",
+            "flex flex-col gap-10 pt-12 pb-8 lg:pt-12 lg:pb-12",
             contentClassName,
           )}
         >

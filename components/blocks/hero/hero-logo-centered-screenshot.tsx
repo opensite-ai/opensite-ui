@@ -15,16 +15,23 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { LogoConfig } from "../navbars/types";
+import BrandLogo from "@/components/ui/brand-logo";
 
 export interface HeroLogoCenteredScreenshotProps {
   /**
-   * Logo configuration
+   * Brand logo configuration — renders above the announcement badge.
+   * LOGO MEDIA ONLY. Do not use photos, hero images, or video assets.
    */
-  logo?: LogoItem;
+  logo?: LogoConfig;
   /**
    * Custom slot for logo (overrides logo prop)
    */
   logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo container
+   */
+  logoClassName?: string;
   /**
    * Main heading content
    */
@@ -101,6 +108,7 @@ export function HeroLogoCenteredScreenshot({
   sectionId = "hero-logo-centered-screenshot",
   logo,
   logoSlot,
+  logoClassName,
   heading,
   description,
   action,
@@ -119,21 +127,6 @@ export function HeroLogoCenteredScreenshot({
   imageClassName,
   optixFlowConfig,
 }: HeroLogoCenteredScreenshotProps): React.JSX.Element {
-  const renderLogo = useMemo(() => {
-    if (logoSlot) return logoSlot;
-    if (!logo) return null;
-
-    const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
-    return (
-      <Img
-        src={logoSrc}
-        alt={logo.alt}
-        className={cn("h-10 md:h-16 object-contain", logo.className)}
-        optixFlowConfig={optixFlowConfig}
-      />
-    );
-  }, [logoSlot, logo, optixFlowConfig]);
-
   const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
@@ -184,58 +177,54 @@ export function HeroLogoCenteredScreenshot({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={cn(className)}
+      className={className}
+      containerClassName={containerClassName}
     >
       <div className="relative">
-        <div className={cn("container max-w-7xl", containerClassName)}>
-          <div className="mx-auto flex max-w-5xl flex-col items-center">
-            <div
-              className={cn(
-                "z-10 flex flex-col items-center gap-6 text-center",
-                contentClassName,
-              )}
-            >
-              {renderLogo}
-              <div className="flex flex-col justify-center items-center w-full text-balance">
-                {heading &&
-                  (typeof heading === "string" ? (
-                    <h1
-                      className={cn(
-                        "mb-4 text-3xl font-medium lg:text-5xl",
-                        headingClassName,
-                      )}
-                    >
-                      {heading}
-                    </h1>
-                  ) : (
-                    <h1
-                      className={cn(
-                        "mb-4 text-3xl font-medium lg:text-5xl",
-                        headingClassName,
-                      )}
-                    >
-                      {heading}
-                    </h1>
-                  ))}
-                {description &&
-                  (typeof description === "string" ? (
-                    <p
-                      className={cn(
-                        "max-w-3xl lg:text-xl",
-                        descriptionClassName,
-                      )}
-                    >
-                      {description}
-                    </p>
-                  ) : (
-                    <div className={descriptionClassName}>{description}</div>
-                  ))}
+        <div className="mx-auto flex max-w-full md:max-w-5xl flex-col items-center">
+          <div
+            className={cn(
+              "z-10 flex flex-col items-center gap-6 text-center",
+              contentClassName,
+            )}
+          >
+            {(logo || logoSlot) && (
+              <div className={cn("flex justify-center", logoClassName)}>
+                <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
               </div>
-              {renderAction}
+            )}
+            <div className="flex flex-col justify-center items-center w-full text-balance">
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h1
+                    className={cn(
+                      "mb-4 text-3xl font-medium lg:text-5xl",
+                      headingClassName,
+                    )}
+                  >
+                    {heading}
+                  </h1>
+                ) : (
+                  heading
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "max-w-full md:max-w-3xl lg:text-xl",
+                      descriptionClassName,
+                    )}
+                  >
+                    {description}
+                  </p>
+                ) : (
+                  description
+                ))}
             </div>
+            {renderAction}
           </div>
-          {renderImage}
         </div>
+        {renderImage}
       </div>
     </Section>
   );

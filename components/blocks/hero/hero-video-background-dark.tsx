@@ -163,8 +163,8 @@ export function HeroVideoBackgroundDark({
       <div className="min-h-screen h-full flex flex-col justify-center items-center">
         <div
           className={cn(
-            "relative z-10 mx-auto flex size-full",
-            "md:max-w-3xl lg:max-w-4xl flex-col justify-center",
+            "relative z-10 mx-auto flex flex-col justify-center",
+            "size-full max-w-full md:max-w-md lg:max-w-4xl",
             "gap-4 md:gap-6 items-center text-center px-4 md:px-6",
             contentClassName,
           )}
@@ -180,7 +180,7 @@ export function HeroVideoBackgroundDark({
               <h1
                 className={cn(
                   "font-bold text-5xl md:text-6xl lg:text-8xl",
-                  "text-balance text-white text-shadow-lg",
+                  "text-pretty text-white text-shadow-lg",
                   headingClassName,
                 )}
               >

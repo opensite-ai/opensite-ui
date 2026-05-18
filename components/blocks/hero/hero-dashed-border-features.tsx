@@ -274,7 +274,12 @@ export function HeroDashedBorderFeatures({
           <div className="mx-auto max-w-3xl">
             {renderAnnouncement}
             {(logo || logoSlot) && (
-              <div className={cn("my-6 flex justify-center", logoClassName)}>
+              <div
+                className={cn(
+                  "mt-8 md:mt-16 mb-0 flex justify-center",
+                  logoClassName,
+                )}
+              >
                 <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
               </div>
             )}
