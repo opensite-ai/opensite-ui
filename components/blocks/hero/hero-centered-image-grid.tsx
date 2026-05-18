@@ -269,15 +269,17 @@ export function HeroCenteredImageGrid({
             )}
           >
             {gridImages?.[0] && (
-              <Img
-                src={gridImages[0].src}
-                alt={gridImages[0].alt}
-                className={cn(
-                  "h-full max-h-[500px] w-full object-cover md:col-span-3 dark:invert",
-                  gridImages[0].className,
-                )}
-                optixFlowConfig={optixFlowConfig}
-              />
+              <div className="relative md:col-span-3">
+                <Img
+                  src={gridImages[0].src}
+                  alt={gridImages[0].alt}
+                  className={cn(
+                    "block h-full max-h-[500px] w-full object-cover dark:invert",
+                    gridImages[0].className,
+                  )}
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </div>
             )}
             {gridImages?.[1] && (
               <div className="relative md:col-span-2">
@@ -285,7 +287,7 @@ export function HeroCenteredImageGrid({
                   src={gridImages[1].src}
                   alt={gridImages[1].alt}
                   className={cn(
-                    "h-full max-h-[500px] w-full object-cover dark:invert",
+                    "block h-full max-h-[500px] w-full object-cover dark:invert",
                     gridImages[1].className,
                   )}
                   optixFlowConfig={optixFlowConfig}

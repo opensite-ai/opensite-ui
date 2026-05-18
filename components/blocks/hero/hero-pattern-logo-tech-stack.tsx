@@ -134,6 +134,14 @@ export function HeroPatternLogoTechStack({
   techLogosClassName,
   optixFlowConfig,
 }: HeroPatternLogoTechStackProps): React.JSX.Element {
+  const logoOptixFlowConfig = useMemo(
+    () =>
+      optixFlowConfig
+        ? ({ ...optixFlowConfig, objectFit: "contain" } as const)
+        : optixFlowConfig,
+    [optixFlowConfig],
+  );
+
   const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
@@ -145,11 +153,11 @@ export function HeroPatternLogoTechStack({
           src={logoSrc}
           alt={logo.alt}
           className={cn("h-16 w-auto object-contain", logo.imgClassName)}
-          optixFlowConfig={optixFlowConfig}
+          optixFlowConfig={logoOptixFlowConfig}
         />
       </div>
     );
-  }, [logoSlot, logo, optixFlowConfig]);
+  }, [logoSlot, logo, logoOptixFlowConfig]);
 
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -220,7 +228,7 @@ export function HeroPatternLogoTechStack({
                 key={index}
                 href={techLogo.href}
                 className={cn(
-                  "group flex w-auto h-12 md:h-10 items-center justify-center max-w-full md:max-w-30 max-h-12 md:max-h-10 min-h-12 md:min-h-10 p-2 md:p-1",
+                  "group flex shrink-0 items-center justify-center overflow-visible",
                   techLogo.className,
                 )}
               >
@@ -228,10 +236,10 @@ export function HeroPatternLogoTechStack({
                   src={techLogoSrc}
                   alt={techLogo.alt}
                   className={cn(
-                    "h-full w-auto object-contain",
+                    "block h-6 max-h-6 w-auto max-w-none object-contain",
                     techLogo.imgClassName,
                   )}
-                  optixFlowConfig={optixFlowConfig}
+                  optixFlowConfig={logoOptixFlowConfig}
                 />
               </Pressable>
             );
@@ -244,7 +252,7 @@ export function HeroPatternLogoTechStack({
     techLogos,
     techStackLabel,
     techLogosClassName,
-    optixFlowConfig,
+    logoOptixFlowConfig,
   ]);
 
   return (
