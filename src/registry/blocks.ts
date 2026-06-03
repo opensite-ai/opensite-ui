@@ -16052,7 +16052,7 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
         taskItems: { required: true, minItems: 2, maxItems: 6 },
-        timerMinutes: { default: 25 },
+        timerMinutes: { note: "Defaults to 25 (Pomodoro style)." },
         actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
       },
       mediaSlots: {},

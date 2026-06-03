@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "exportedAt": "2026-06-03T16:17:49.679Z",
+    "exportedAt": "2026-06-03T18:10:05.672Z",
     "totalBlocks": 605,
     "version": "3.7.6",
     "source": "@opensite/ui"
@@ -16733,7 +16733,7 @@
             "maxItems": 6
           },
           "timerMinutes": {
-            "default": 25
+            "note": "Defaults to 25 (Pomodoro style)."
           },
           "actions": {
             "maxItems": 2,
@@ -22183,7 +22183,7 @@
       "category": "navbar",
       "props": "NavbarEnterpriseMegaProps",
       "exampleUsage": "An enterprise-grade mega menu navbar with specialized layout types for each dropdown panel. Supports solutions-with-platform, products-categorized, features-with-locations, partners-promotional, and resources-with-topics layouts. Each panel can feature a hero card with an image.",
-      "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. Each menuLink requires a 'layout' field to determine the dropdown panel type. For 'solutions-with-platform': provide 'solutionCards' (with subpages) and 'platformItems'. For 'products-categorized': provide 'productCategories' with 'products' arrays; each product may have an 'image' URL. For 'resources-with-topics': provide 'resourceItems' and 'topicGroups'. All 'featuredHeroCard.image' values must be absolute URLs.",
+      "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. Each menuLink requires a 'layout' field to determine the dropdown panel type. For 'solutions-with-platform': provide 'solutionCards' (with subpages), 'platformItems', and optionally 'platformTitle' (defaults to \"Platform\"). For 'products-categorized': provide 'productCategories' with 'products' arrays; each product may have an 'image' URL. For 'features-with-locations': provide 'featureCategories', 'regions', and optionally 'locationsTitle' (defaults to \"Locations\"). For 'resources-with-topics': provide 'resourceItems', 'topicGroups', and optionally 'resourcesTitle' (defaults to \"Resources\"). All 'featuredHeroCard.image' values must be absolute URLs.",
       "usageRequirements": {
         "requiredProps": [
           "logo",
@@ -22273,6 +22273,7 @@
                 "icon": "lucide/code"
               }
             ],
+            "platformTitle": "Developer Platform",
             "featuredHeroCard": {
               "title": "New Platform Release",
               "description": "Experience the next generation platform",
@@ -25405,8 +25406,8 @@
       ],
       "category": "process",
       "props": "ProcessIconTimelineProps",
-      "exampleUsage": "<ProcessIconTimeline\n  heading=\"Product Development Timeline\"\n  description=\"From concept to launch, our proven process ensures success at every milestone.\"\n  steps={[\n    {\n      icon: \"lucide/lightbulb\",\n      title: \"Concept & Validation\",\n      description: \"Validate your idea through market research and user interviews.\",\n      highlights: [\"Market Research\", \"User Surveys\", \"Competitive Analysis\"],\n      badgeColor: \"bg-blue-500\",\n    },\n    {\n      icon: \"lucide/layout\",\n      title: \"Design & Wireframing\",\n      description: \"Create wireframes and a cohesive design system that scales.\",\n      highlights: [\"Wireframes\", \"Design System\", \"User Flows\"],\n      badgeColor: \"bg-purple-500\",\n    },\n    {\n      icon: \"lucide/code\",\n      title: \"Development Sprint\",\n      description: \"Build the MVP with agile methodology and automated testing.\",\n      highlights: [\"Agile Sprints\", \"Code Reviews\", \"Automated Tests\"],\n      badgeColor: \"bg-green-500\",\n    },\n    {\n      icon: \"lucide/rocket\",\n      title: \"Production Launch\",\n      description: \"Deploy to production and execute the go-to-market strategy.\",\n      highlights: [\"Production Deploy\", \"Marketing Launch\", \"Customer Support\"],\n      badgeColor: \"bg-red-500\",\n    },\n  ]}\n  spacing=\"xl\"\n  background=\"gray\"\n/>",
-      "importantUsageNotes": "Renders a zigzag icon-badge timeline. icon must be a Lucide icon identifier string (e.g. 'lucide/rocket'). badgeColor is a Tailwind background class (e.g. 'bg-blue-500'). highlights are small pill badges shown under the description. No image props — this block is icon/text only.",
+      "exampleUsage": "<ProcessIconTimeline\n  heading=\"Product Development Timeline\"\n  description=\"From concept to launch, our proven process ensures success at every milestone.\"\n  steps={[\n    {\n      icon: \"lucide/lightbulb\",\n      title: \"Concept & Validation\",\n      description: \"Validate your idea through market research and user interviews.\",\n      highlights: [\"Market Research\", \"User Surveys\", \"Competitive Analysis\"],\n    },\n    {\n      icon: \"lucide/layout\",\n      title: \"Design & Wireframing\",\n      description: \"Create wireframes and a cohesive design system that scales.\",\n      highlights: [\"Wireframes\", \"Design System\", \"User Flows\"],\n    },\n    {\n      icon: \"lucide/code\",\n      title: \"Development Sprint\",\n      description: \"Build the MVP with agile methodology and automated testing.\",\n      highlights: [\"Agile Sprints\", \"Code Reviews\", \"Automated Tests\"],\n    },\n    {\n      icon: \"lucide/rocket\",\n      title: \"Production Launch\",\n      description: \"Deploy to production and execute the go-to-market strategy.\",\n      highlights: [\"Production Deploy\", \"Marketing Launch\", \"Customer Support\"],\n    },\n  ]}\n  spacing=\"xl\"\n  background=\"gray\"\n/>",
+      "importantUsageNotes": "Renders a zigzag icon-badge timeline. icon must be a Lucide icon identifier string (e.g. 'lucide/rocket'). Icon badges use bg-primary/text-primary-foreground automatically. highlights are small pill badges shown under the description. No image props — this block is icon/text only.",
       "usageRequirements": {
         "requiredProps": [
           "steps"
@@ -25437,9 +25438,6 @@
           "steps[].highlights": {
             "maxItems": 5,
             "note": "Short tag strings shown as pills."
-          },
-          "steps[].badgeColor": {
-            "note": "Tailwind bg class, e.g. 'bg-blue-500'. Defaults to bg-primary."
           }
         },
         "mediaSlots": {}
@@ -25456,8 +25454,7 @@
               "Market Research",
               "User Surveys",
               "Competitive Analysis"
-            ],
-            "badgeColor": "bg-blue-500"
+            ]
           },
           {
             "icon": "lucide/layout",
@@ -25467,8 +25464,7 @@
               "Wireframes",
               "Design System",
               "User Flows"
-            ],
-            "badgeColor": "bg-purple-500"
+            ]
           },
           {
             "icon": "lucide/code",
@@ -25478,8 +25474,7 @@
               "Agile Sprints",
               "Code Reviews",
               "Automated Tests"
-            ],
-            "badgeColor": "bg-green-500"
+            ]
           },
           {
             "icon": "lucide/rocket",
@@ -25489,8 +25484,7 @@
               "Production Deploy",
               "Marketing Launch",
               "Customer Support"
-            ],
-            "badgeColor": "bg-red-500"
+            ]
           }
         ],
         "spacing": "xl",
