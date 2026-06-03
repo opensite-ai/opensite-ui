@@ -49,6 +49,29 @@ describe("FeatureBentoImageGrid", () => {
     expect(screen.getByText("Item Two")).toBeInTheDocument();
   });
 
+  it("uses fixed bento heights for image cards", () => {
+    const items = [
+      { title: "Large Item", imageSrc: "/large.jpg", size: "large" as const },
+      { title: "Small Item One", imageSrc: "/small-one.jpg" },
+      { title: "Small Item Two", imageSrc: "/small-two.jpg" },
+    ];
+
+    render(<FeatureBentoImageGrid items={items} />);
+
+    const [largeImage, firstSmallImage, secondSmallImage] =
+      screen.getAllByTestId("mock-img");
+
+    expect(largeImage).toHaveClass("h-full", "w-full");
+    expect(largeImage).not.toHaveClass("max-h-[580px]");
+    expect(largeImage.parentElement!).toHaveClass(
+      "h-[22rem]",
+      "xl:h-[580px]",
+      "xl:col-span-2",
+    );
+    expect(firstSmallImage.parentElement!).toHaveClass("h-56", "xl:h-44");
+    expect(secondSmallImage.parentElement!).toHaveClass("h-72", "xl:h-96");
+  });
+
   it("applies custom className", () => {
     const { container } = render(<FeatureBentoImageGrid className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

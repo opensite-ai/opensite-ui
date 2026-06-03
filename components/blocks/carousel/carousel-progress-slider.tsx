@@ -358,7 +358,7 @@ export function CarouselProgressSlider({
                         value={slide.id}
                         className={cn("absolute inset-0", slide.className)}
                       >
-                        <div className="aspect-video overflow-hidden rounded-lg">
+                        <div className="aspect-square md:aspect-video overflow-hidden rounded-lg">
                           <Img
                             src={slide.image}
                             alt={
@@ -371,6 +371,7 @@ export function CarouselProgressSlider({
                               slide.imageClassName,
                             )}
                             optixFlowConfig={optixFlowConfig}
+                            loading="eager"
                           />
                         </div>
                       </SliderWrapper>

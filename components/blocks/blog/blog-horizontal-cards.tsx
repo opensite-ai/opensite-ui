@@ -5,7 +5,6 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
-import { Card } from "../../ui/card";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -121,7 +120,8 @@ export function BlogHorizontalCards({
   postsSlot,
   readMoreText,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   headerClassName,
   badgeClassName,
   headingClassName,
@@ -131,7 +131,6 @@ export function BlogHorizontalCards({
   ctaClassName,
   optixFlowConfig,
   background,
-  spacing,
   pattern,
   patternOpacity,
 }: BlogHorizontalCardsProps): React.JSX.Element {
@@ -178,7 +177,7 @@ export function BlogHorizontalCards({
       const postDate = post.published || post.date;
 
       return (
-        <Card
+        <div
           key={postId}
           className={cn(
             "overflow-hidden border-0 bg-transparent shadow-none",
@@ -202,7 +201,7 @@ export function BlogHorizontalCards({
               </div>
             )}
             <div className="flex-1 space-y-3">
-              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+              <div className="flex items-center gap-4 text-sm opacity-70">
                 {postLabel && <Badge variant="secondary">{postLabel}</Badge>}
                 {post.author && <span>{post.author}</span>}
                 {postDate && <span>{postDate}</span>}
@@ -215,13 +214,10 @@ export function BlogHorizontalCards({
                 </h3>
               )}
               {postSummary && (
-                <p className="text-base text-muted-foreground">{postSummary}</p>
+                <p className="text-base opacity-70">{postSummary}</p>
               )}
               {readMoreText && (
-                <Pressable
-                  href={postHref}
-                  className="inline-flex items-center text-primary hover:underline"
-                >
+                <Pressable href={postHref} variant="link">
                   {readMoreText}
                   <DynamicIcon
                     name="lucide/arrow-right"
@@ -232,7 +228,7 @@ export function BlogHorizontalCards({
               )}
             </div>
           </div>
-        </Card>
+        </div>
       );
     });
   }, [postsSlot, posts, postCardClassName, optixFlowConfig, readMoreText]);
@@ -245,16 +241,15 @@ export function BlogHorizontalCards({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("flex flex-col items-center", containerClassName)}>
+      <div className="flex flex-col items-center">
         <div className={cn("mx-auto max-w-3xl text-center", headerClassName)}>
           {badge &&
             (typeof badge === "string" ? (
-              <Badge variant="secondary" className={cn("mb-6", badgeClassName)}>
-                {badge}
-              </Badge>
+              <Badge className={cn("mb-6", badgeClassName)}>{badge}</Badge>
             ) : (
-              <div className={cn("mb-6", badgeClassName)}>{badge}</div>
+              badge
             ))}
           {heading &&
             (typeof heading === "string" ? (
@@ -267,20 +262,20 @@ export function BlogHorizontalCards({
                 {heading}
               </h2>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mb-12 text-muted-foreground md:text-base lg:text-lg",
+                  "mb-12 opacity-70 md:text-base lg:text-lg",
                   descriptionClassName,
                 )}
               >
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
         </div>
 

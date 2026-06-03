@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -187,7 +186,7 @@ export function FeatureIntegrationCards({
       if (!integration.icon) return null;
 
       return (
-        <div className="flex h-12 w-40 max-w-full shrink-0 items-center justify-start">
+        <div className="flex shrink-0 items-center justify-start">
           <Img
             src={integration.icon}
             alt={
@@ -197,10 +196,10 @@ export function FeatureIntegrationCards({
                 : "Integration icon")
             }
             className={cn(
-              "h-full w-full object-contain",
+              "h-12 w-auto object-contain",
               integration.iconClassName,
             )}
-            loading="lazy"
+            loading="eager"
             optixFlowConfig={optixFlowConfig}
           />
         </div>
@@ -233,14 +232,7 @@ export function FeatureIntegrationCards({
                   {integration.title}
                 </h3>
               ) : (
-                <div
-                  className={cn(
-                    "font-semibold md:text-lg",
-                    integration.titleClassName,
-                  )}
-                >
-                  {integration.title}
-                </div>
+                integration.title
               ))}
             {integration.description &&
               (typeof integration.description === "string" ? (

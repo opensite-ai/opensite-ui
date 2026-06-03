@@ -277,6 +277,7 @@ export function CarouselScrollingFeatureShowcase({
                           activeFeatureData.imageClassName,
                         )}
                         optixFlowConfig={optixFlowConfig}
+                        loading="eager"
                       />
                     </motion.div>
                   )}
@@ -322,6 +323,7 @@ export function CarouselScrollingFeatureShowcase({
                             feature.imageClassName,
                           )}
                           optixFlowConfig={optixFlowConfig}
+                          loading="eager"
                         />
                       </div>
                     </div>

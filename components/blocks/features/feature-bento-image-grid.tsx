@@ -239,7 +239,7 @@ export function FeatureBentoImageGrid({
         <>
           {renderItemImage(
             item,
-            "h-full max-h-[580px] w-full rounded-xl object-cover object-center shadow-lg",
+            "h-full w-full rounded-xl object-cover object-center shadow-lg",
           )}
           <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 rounded-xl bg-linear-to-t from-black to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
           <div className="absolute top-0 flex h-full w-full flex-col justify-between px-5 md:px-8 py-6 md:py-6">
@@ -289,7 +289,7 @@ export function FeatureBentoImageGrid({
           <Pressable
             href={item.link}
             className={cn(
-              "group relative col-span-2 row-span-3 overflow-hidden rounded-xl",
+              "group relative h-[22rem] overflow-hidden rounded-xl xl:col-span-2 xl:h-[580px]",
               largeCardClassName,
               item.className,
             )}
@@ -302,7 +302,7 @@ export function FeatureBentoImageGrid({
       return (
         <div
           className={cn(
-            "group relative col-span-2 row-span-3 overflow-hidden rounded-xl",
+            "group relative h-[22rem] overflow-hidden rounded-xl xl:col-span-2 xl:h-[580px]",
             largeCardClassName,
             item.className,
           )}
@@ -325,7 +325,6 @@ export function FeatureBentoImageGrid({
             item,
             cn(
               "h-full w-full rounded-xl object-cover object-center shadow-lg",
-              index === 0 ? "max-h-44" : "max-h-96",
             ),
           )}
           <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 rounded-xl bg-linear-to-t from-black to-transparent opacity-80 transition-transform duration-300 group-hover:translate-y-0"></div>
@@ -373,7 +372,7 @@ export function FeatureBentoImageGrid({
             href={item.link}
             className={cn(
               "group relative overflow-hidden rounded-xl",
-              index === 1 && "row-span-2",
+              index === 0 ? "h-56 xl:h-44" : "h-72 xl:h-96",
               smallCardClassName,
               item.className,
             )}
@@ -388,7 +387,7 @@ export function FeatureBentoImageGrid({
           key={index}
           className={cn(
             "group relative overflow-hidden rounded-xl",
-            index === 1 && "row-span-2",
+            index === 0 ? "h-56 xl:h-44" : "h-72 xl:h-96",
             smallCardClassName,
             item.className,
           )}
@@ -412,7 +411,7 @@ export function FeatureBentoImageGrid({
     return (
       <>
         {renderLargeCard(largeItem)}
-        <div className="grid gap-y-5 xl:row-span-2">
+        <div className="grid gap-y-5">
           {smallItems.map((item, index) => renderSmallCard(item, index))}
         </div>
       </>
@@ -453,7 +452,7 @@ export function FeatureBentoImageGrid({
         ))}
       <div
         className={cn(
-          "grid grid-cols-1 gap-y-5 pt-14 xl:grid-cols-3 xl:grid-rows-2 xl:gap-x-5 xl:gap-y-0",
+          "grid grid-cols-1 gap-y-5 pt-14 xl:grid-cols-3 xl:gap-x-5 xl:gap-y-0",
           gridClassName,
         )}
       >

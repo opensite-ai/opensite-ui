@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
@@ -321,7 +321,6 @@ export function FeatureImageOverlayBadge({
               <p
                 className={cn(
                   "text-base leading-relaxed lg:text-lg",
-                  getTextColor(background, "muted"),
                   descriptionClassName,
                 )}
               >
@@ -331,7 +330,6 @@ export function FeatureImageOverlayBadge({
               <div
                 className={cn(
                   "text-base leading-relaxed lg:text-lg",
-                  getTextColor(background, "muted"),
                   descriptionClassName,
                 )}
               >
@@ -357,7 +355,7 @@ export function FeatureImageOverlayBadge({
               <>
                 <div
                   className={cn(
-                    "absolute inset-0 rounded-2xl bg-gradient-to-t from-black/80 via-black/30 to-transparent",
+                    "absolute inset-0 rounded-2xl bg-linear-to-t from-black/80 via-black/30 to-transparent",
                     overlayClassName,
                   )}
                 />
@@ -365,7 +363,7 @@ export function FeatureImageOverlayBadge({
                   {(avatarSrc || avatarBadgeText) && (
                     <span
                       className={cn(
-                        "ml-auto flex w-fit items-center gap-2 rounded-full bg-white/20 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-md shadow-lg",
+                        "ml-auto flex w-fit items-center gap-2 rounded-full bg-card px-4 py-2.5 text-sm font-semibold text-card-foreground backdrop-blur-md shadow-lg",
                         avatarBadgeClassName,
                       )}
                     >
@@ -390,14 +388,7 @@ export function FeatureImageOverlayBadge({
                             {overlayTitle}
                           </h4>
                         ) : (
-                          <div
-                            className={cn(
-                              "text-lg font-semibold text-white lg:text-2xl xl:text-3xl",
-                              overlayTitleClassName,
-                            )}
-                          >
-                            {overlayTitle}
-                          </div>
+                          overlayTitle
                         ))}
                       {overlayLinkText && (
                         <Pressable

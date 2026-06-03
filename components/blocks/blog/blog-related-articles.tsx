@@ -94,7 +94,7 @@ export function BlogRelatedArticles({
   articles,
   articlesSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
   seeAllClassName,
@@ -153,7 +153,7 @@ export function BlogRelatedArticles({
           className={cn("flex flex-col gap-2", articleCardClassName)}
         >
           {(item.category || item.label) && (
-            <span className="text-sm font-medium text-muted-foreground">
+            <span className="text-sm font-medium opacity-70">
               {item.category || item.label}
             </span>
           )}
@@ -161,15 +161,15 @@ export function BlogRelatedArticles({
             (typeof item.title === "string" ? (
               <h3 className="mb-1 text-lg font-semibold">{item.title}</h3>
             ) : (
-              <div className="mb-1 text-lg font-semibold">{item.title}</div>
+              item.title
             ))}
           {(item.description || item.summary) && (
-            <p className="mb-4 text-sm text-muted-foreground">
+            <p className="mb-4 text-sm opacity-70">
               {item.description || item.summary}
             </p>
           )}
           {(item.date || item.published) && (
-            <span className="text-sm font-medium text-muted-foreground">
+            <span className="text-sm font-medium">
               {item.date || item.published}
             </span>
           )}
@@ -186,8 +186,9 @@ export function BlogRelatedArticles({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         <div
           className={cn(
             "mb-8 flex flex-wrap items-center justify-between gap-1",
@@ -205,7 +206,7 @@ export function BlogRelatedArticles({
                 {heading}
               </h1>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {renderedSeeAllAction}
         </div>

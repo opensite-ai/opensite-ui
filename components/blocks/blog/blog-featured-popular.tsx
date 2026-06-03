@@ -116,7 +116,8 @@ export function BlogFeaturedPopular({
   featuredSlot,
   postsSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   headerClassName,
   headingClassName,
   descriptionClassName,
@@ -128,7 +129,6 @@ export function BlogFeaturedPopular({
   postCardClassName,
   optixFlowConfig,
   background,
-  spacing,
   pattern,
   patternOpacity,
 }: BlogFeaturedPopularProps): React.JSX.Element {
@@ -173,9 +173,7 @@ export function BlogFeaturedPopular({
           )}
         >
           {(featuredPost.category || featuredPost.label) && (
-            <Badge variant="secondary" className="shrink">
-              {featuredPost.category || featuredPost.label}
-            </Badge>
+            <Badge>{featuredPost.category || featuredPost.label}</Badge>
           )}
           {featuredPost.title &&
             (typeof featuredPost.title === "string" ? (
@@ -183,12 +181,10 @@ export function BlogFeaturedPopular({
                 {featuredPost.title}
               </h2>
             ) : (
-              <div className="text-2xl font-semibold text-balance md:max-w-lg lg:text-3xl">
-                {featuredPost.title}
-              </div>
+              featuredPost.title
             ))}
           {(featuredPost.description || featuredPost.summary) && (
-            <p className="text-muted-foreground md:max-w-lg">
+            <p className="opacity-70">
               {featuredPost.description || featuredPost.summary}
             </p>
           )}
@@ -229,9 +225,7 @@ export function BlogFeaturedPopular({
             />
           )}
           {(post.category || post.label) && (
-            <Badge variant="secondary" className="shrink">
-              {post.category || post.label}
-            </Badge>
+            <Badge>{post.category || post.label}</Badge>
           )}
           {post.title &&
             (typeof post.title === "string" ? (
@@ -239,14 +233,10 @@ export function BlogFeaturedPopular({
                 {post.title}
               </h3>
             ) : (
-              <div className="text-xl font-semibold text-balance md:max-w-md">
-                {post.title}
-              </div>
+              post.title
             ))}
           {(post.description || post.summary) && (
-            <p className="text-muted-foreground md:max-w-md">
-              {post.description || post.summary}
-            </p>
+            <p className="opacity-70">{post.description || post.summary}</p>
           )}
         </PostWrapper>
       );
@@ -261,8 +251,9 @@ export function BlogFeaturedPopular({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div className={cn("container", containerClassName)}>
+      <div className="relative">
         {(heading || description) && (
           <div
             className={cn(
@@ -281,20 +272,20 @@ export function BlogFeaturedPopular({
                   {heading}
                 </h1>
               ) : (
-                <div className={headingClassName}>{heading}</div>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mx-auto mt-4 max-w-xl text-lg text-muted-foreground text-balance",
+                    "mx-auto mt-4 max-w-full md:max-w-md text-lg opacity-70 text-balance",
                     descriptionClassName,
                   )}
                 >
                   {description}
                 </p>
               ) : (
-                <div className={descriptionClassName}>{description}</div>
+                description
               ))}
           </div>
         )}

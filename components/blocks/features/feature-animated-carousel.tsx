@@ -647,6 +647,7 @@ export function FeatureAnimatedCarousel({
                     }
                     className="h-full w-full object-cover"
                     optixFlowConfig={optixFlowConfig}
+                    loading="eager"
                   />
                 </motion.div>
               </AnimatePresence>
