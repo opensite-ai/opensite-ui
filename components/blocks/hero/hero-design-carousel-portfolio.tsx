@@ -221,6 +221,7 @@ export function HeroDesignCarouselPortfolio({
                   alt={image.alt}
                   className={cn("size-full object-cover", image.className)}
                   optixFlowConfig={optixFlowConfig}
+                  loading="eager"
                 />
               </div>
             </CarouselItem>

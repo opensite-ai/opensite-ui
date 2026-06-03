@@ -16040,39 +16040,35 @@ const HERO_BLOCK_CONTRACTS = {
 <HeroTaskTimerAnimated
   heading="Track time, boost productivity"
   description="Stay focused and manage your time effectively with our intuitive task timer."
+  taskItems={["Design mockups", "Code review", "Write documentation", "Ship feature"]}
+  timerMinutes={25}
   actions={[
     { label: "Start Tracking", href: "#", variant: "default" },
     { label: "View Features", href: "#", variant: "outline" },
   ]}
-  images={[
-    { src: "${HERO_EXAMPLE_IMAGE_URL}", alt: "Timer interface" },
-    { src: "${HERO_EXAMPLE_IMAGE_URL}", alt: "Task tracking" },
-  ]}
   background="dark"
 />
     `.trim(),
-    importantUsageNotes: `Supply exactly 2 images. Do not exceed 40 characters for 'heading'. Do not exceed 130 characters for 'description'. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second.  ${HERO_MEDIA_NOTE}`,
+    importantUsageNotes: `Supply 2-6 taskItems for cycling animation. Do not exceed 40 characters for 'heading'. Do not exceed 130 characters for 'description'. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second. timerMinutes defaults to 25 (Pomodoro style). No images required — the animated countdown timer and task list provide the visual element.`,
     usageRequirements: {
-      requiredProps: ["heading", "images"],
+      requiredProps: ["heading", "taskItems"],
       propConstraints: {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
-        images: { required: true, count: 2, minItems: 2, maxItems: 2 },
+        taskItems: { required: true, minItems: 2, maxItems: 6 },
+        timerMinutes: { default: 25 },
         actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
       },
-      mediaSlots: {
-        "images[]": imageSlot("images[]", "Animated product screenshot images.", ["feature", "hero"], "medium", true),
-      },
-      requiresSiteCapabilities: heroCapabilities("media_library"),
+      mediaSlots: {},
+      requiresSiteCapabilities: [],
     },
     exampleProps: {
       logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
       heading: "Track time, boost productivity",
       description: "Stay focused and manage your time effectively.",
-      images: [
-        { src: HERO_EXAMPLE_IMAGE_URL, alt: "Timer interface" },
-        { src: HERO_EXAMPLE_IMAGE_URL, alt: "Task tracking" },
-      ],
+      taskItems: ["Design mockups", "Code review", "Write documentation", "Ship feature"],
+      timerMinutes: 25,
+      timerSeconds: 0,
       background: "dark",
       actions: [
         { label: "Start Tracking", href: "#", variant: "default" },

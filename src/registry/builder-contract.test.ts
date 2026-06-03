@@ -639,7 +639,6 @@ const HERO_BLOCK_IDS_WITH_MEDIA = [
   "hero-ui-library-showcase",
   "hero-fullscreen-background-image",
   "hero-gradient-avatars-rating",
-  "hero-task-timer-animated",
   "hero-ai-powered-carousel",
   "hero-ad-campaign-expert",
   "hero-adaptable-product-grid",

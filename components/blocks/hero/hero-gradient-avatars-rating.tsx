@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
@@ -238,6 +237,7 @@ export function HeroGradientAvatarsRating({
                 images[0].className,
               )}
               optixFlowConfig={optixFlowConfig}
+              loading="eager"
             />
           </div>
         )}
@@ -255,6 +255,7 @@ export function HeroGradientAvatarsRating({
                 images[1].className,
               )}
               optixFlowConfig={optixFlowConfig}
+              loading="eager"
             />
           </div>
         )}
@@ -281,16 +282,11 @@ export function HeroGradientAvatarsRating({
             )}
           >
             {(logo || logoSlot) && (
-
               <div className={cn("mb-4", logoClassName)}>
-
                 <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
-
               </div>
-
             )}
 
-            
             {heading && (
               <h1
                 className={cn(

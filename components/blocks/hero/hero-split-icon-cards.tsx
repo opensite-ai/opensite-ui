@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { cn, getTextColor, getAccentColor } from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Card } from "../../ui/card";
@@ -186,28 +186,19 @@ export function HeroSplitIconCards({
       <div className="grid grid-cols-1 gap-4">
         {cardItems.map((item, idx) => {
           const card = (
-            <Card className="h-full border-border/60 px-0 py-0">
+            <Card className="h-full border-border/60 px-0 py-0 hover:shadow-xl duration-500 transition-all">
               <div className="flex items-start gap-4 p-6">
                 <div
                   className={cn(
-                    "flex h-14 w-14 items-center justify-center rounded-xl",
-                    `${getAccentColor(background)}/10`,
-                    getAccentColor(background),
+                    "flex h-14 w-14 items-center justify-center rounded-xl bg-primary text-primary-foreground",
                   )}
                 >
                   <DynamicIcon name={item.icon} size={24} />
                 </div>
-                <div>
-                  <h3 className="text-lg font-bold ">{item.title}</h3>
+                <div className="text-card-foreground">
+                  <h3 className="text-lg font-bold">{item.title}</h3>
                   {item.subtitle ? (
-                    <p
-                      className={cn(
-                        "mt-2 text-sm",
-                        getTextColor(background, "muted"),
-                      )}
-                    >
-                      {item.subtitle}
-                    </p>
+                    <p className={cn("text-sm opacity-70")}>{item.subtitle}</p>
                   ) : null}
                 </div>
               </div>
@@ -256,16 +247,11 @@ export function HeroSplitIconCards({
                   eyebrow
                 ))}
               {(logo || logoSlot) && (
-
                 <div className={cn("mb-4", logoClassName)}>
-
                   <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
-
                 </div>
-
               )}
 
-              
               {heading &&
                 (typeof heading === "string" ? (
                   <h2

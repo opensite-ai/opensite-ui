@@ -16712,12 +16712,12 @@
       ],
       "category": "hero",
       "props": "HeroTaskTimerAnimatedProps",
-      "exampleUsage": "<HeroTaskTimerAnimated\n  heading=\"Track time, boost productivity\"\n  description=\"Stay focused and manage your time effectively with our intuitive task timer.\"\n  actions={[\n    { label: \"Start Tracking\", href: \"#\", variant: \"default\" },\n    { label: \"View Features\", href: \"#\", variant: \"outline\" },\n  ]}\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Timer interface\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Task tracking\" },\n  ]}\n  background=\"dark\"\n/>",
-      "importantUsageNotes": "Supply exactly 2 images. Do not exceed 40 characters for 'heading'. Do not exceed 130 characters for 'description'. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second.  All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
+      "exampleUsage": "<HeroTaskTimerAnimated\n  heading=\"Track time, boost productivity\"\n  description=\"Stay focused and manage your time effectively with our intuitive task timer.\"\n  taskItems={[\"Design mockups\", \"Code review\", \"Write documentation\", \"Ship feature\"]}\n  timerMinutes={25}\n  actions={[\n    { label: \"Start Tracking\", href: \"#\", variant: \"default\" },\n    { label: \"View Features\", href: \"#\", variant: \"outline\" },\n  ]}\n  background=\"dark\"\n/>",
+      "importantUsageNotes": "Supply 2-6 taskItems for cycling animation. Do not exceed 40 characters for 'heading'. Do not exceed 130 characters for 'description'. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second. timerMinutes defaults to 25 (Pomodoro style). No images required — the animated countdown timer and task list provide the visual element.",
       "usageRequirements": {
         "requiredProps": [
           "heading",
-          "images"
+          "taskItems"
         ],
         "propConstraints": {
           "heading": {
@@ -16727,11 +16727,13 @@
           "description": {
             "maxLength": 130
           },
-          "images": {
+          "taskItems": {
             "required": true,
-            "count": 2,
             "minItems": 2,
-            "maxItems": 2
+            "maxItems": 6
+          },
+          "timerMinutes": {
+            "default": 25
           },
           "actions": {
             "maxItems": 2,
@@ -16741,26 +16743,8 @@
             }
           }
         },
-        "mediaSlots": {
-          "images[]": {
-            "path": "images[]",
-            "roles": [
-              "feature",
-              "hero"
-            ],
-            "disallowedRoles": [
-              "logo",
-              "favicon",
-              "video-thumbnail"
-            ],
-            "minPixelClass": "medium",
-            "required": true,
-            "note": "Animated product screenshot images. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
-          }
-        },
-        "requiresSiteCapabilities": [
-          "media_library"
-        ]
+        "mediaSlots": {},
+        "requiresSiteCapabilities": []
       },
       "exampleProps": {
         "logo": {
@@ -16769,16 +16753,14 @@
         },
         "heading": "Track time, boost productivity",
         "description": "Stay focused and manage your time effectively.",
-        "images": [
-          {
-            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-            "alt": "Timer interface"
-          },
-          {
-            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-            "alt": "Task tracking"
-          }
+        "taskItems": [
+          "Design mockups",
+          "Code review",
+          "Write documentation",
+          "Ship feature"
         ],
+        "timerMinutes": 25,
+        "timerSeconds": 0,
         "background": "dark",
         "actions": [
           {

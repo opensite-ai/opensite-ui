@@ -210,6 +210,7 @@ export function HeroBadgeShadowOverlay({
           alt="Background Image"
           className="absolute inset-0 -z-10 h-full w-full object-cover brightness-50"
           optixFlowConfig={optixFlowConfig}
+          loading="eager"
         />
       )}
     </Section>

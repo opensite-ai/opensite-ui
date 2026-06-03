@@ -17,6 +17,7 @@ vi.mock("../../../ui/dynamic-icon", () => ({
 describe("HeroTaskTimerAnimated", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.useFakeTimers();
   });
 
   it("renders with provided props", () => {
@@ -29,12 +30,18 @@ describe("HeroTaskTimerAnimated", () => {
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
-  it("renders images when provided", () => {
-    const images = [
-      { src: "https://example.com/image1.jpg", alt: "Image 1" },
-    ];
-    const { container } = render(<HeroTaskTimerAnimated images={images} />);
-    expect(container.querySelector("section")).toBeInTheDocument();
+  it("renders the countdown timer display", () => {
+    render(<HeroTaskTimerAnimated heading="Timer" timerMinutes={10} timerSeconds={30} />);
+    expect(screen.getByText("10")).toBeInTheDocument();
+    expect(screen.getByText("30")).toBeInTheDocument();
+  });
+
+  it("renders task items when provided", () => {
+    const taskItems = ["Design mockups", "Code review", "Ship feature"];
+    render(<HeroTaskTimerAnimated heading="Timer" taskItems={taskItems} />);
+    expect(screen.getAllByText("Design mockups").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText("Code review").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText("Ship feature").length).toBeGreaterThanOrEqual(1);
   });
 
   it("renders actions when provided", () => {
@@ -46,5 +53,17 @@ describe("HeroTaskTimerAnimated", () => {
   it("applies custom className", () => {
     const { container } = render(<HeroTaskTimerAnimated heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
+
+  it("renders SVG progress ring", () => {
+    const { container } = render(<HeroTaskTimerAnimated heading="Timer" />);
+    expect(container.querySelector("svg")).toBeInTheDocument();
+    expect(container.querySelectorAll("circle").length).toBe(2);
+  });
+
+  it("defaults to 25-minute Pomodoro timer", () => {
+    render(<HeroTaskTimerAnimated heading="Timer" />);
+    expect(screen.getByText("25")).toBeInTheDocument();
+    expect(screen.getByText("00")).toBeInTheDocument();
   });
 });

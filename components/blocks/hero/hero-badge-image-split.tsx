@@ -169,16 +169,11 @@ export function HeroBadgeImageSplit({
               </Badge>
             )}
             {(logo || logoSlot) && (
-
               <div className={cn("mb-4", logoClassName)}>
-
                 <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
-
               </div>
-
             )}
 
-            
             {heading &&
               (typeof heading === "string" ? (
                 <h1
@@ -217,10 +212,11 @@ export function HeroBadgeImageSplit({
               src={imageSrc}
               alt={imageAlt}
               className={cn(
-                "max-h-96 w-full rounded-md object-cover",
+                "max-h-96 w-full rounded-lg object-cover shadow-xl",
                 imageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
+              loading="eager"
             />
           )}
         </div>
