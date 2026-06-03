@@ -196,6 +196,7 @@ export function BlogHorizontalCards({
                     alt={postTitle}
                     className="aspect-video w-full rounded-lg object-cover object-center sm:w-[260px]"
                     optixFlowConfig={optixFlowConfig}
+                    loading="eager"
                   />
                 </Pressable>
               </div>
@@ -217,12 +218,12 @@ export function BlogHorizontalCards({
                 <p className="text-base opacity-70">{postSummary}</p>
               )}
               {readMoreText && (
-                <Pressable href={postHref} variant="link">
+                <Pressable href={postHref} variant="outline">
                   {readMoreText}
                   <DynamicIcon
                     name="lucide/arrow-right"
                     size={16}
-                    className="ml-2 size-4"
+                    className="size-4"
                   />
                 </Pressable>
               )}
@@ -268,7 +269,7 @@ export function BlogHorizontalCards({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mb-12 opacity-70 md:text-base lg:text-lg",
+                  "mb-12 opacity-70 md:text-base lg:text-lg text-balance",
                   descriptionClassName,
                 )}
               >
