@@ -186,7 +186,7 @@ export function FeatureIntegrationCards({
       if (!integration.icon) return null;
 
       return (
-        <div className="flex shrink-0 items-center justify-start">
+        <div className="flex min-w-0 max-w-full items-center justify-start">
           <Img
             src={integration.icon}
             alt={
@@ -196,7 +196,7 @@ export function FeatureIntegrationCards({
                 : "Integration icon")
             }
             className={cn(
-              "h-12 w-auto object-contain",
+              "h-12 w-auto max-w-[min(100%,9rem)] object-contain sm:max-w-[min(100%,10rem)] md:max-w-[min(100%,11rem)] lg:max-w-[min(100%,12rem)] xl:max-w-[min(100%,13rem)]",
               integration.iconClassName,
             )}
             loading="eager"

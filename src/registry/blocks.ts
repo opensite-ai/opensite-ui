@@ -7738,50 +7738,53 @@ const carouselSidebarResources: GalleryBlockContract = {
 const carouselIconTabs: GalleryBlockContract = {
   exampleUsage:
     "Showcase product features or workflow steps with a centered heading and badge, a full-width image carousel, and clickable icon-tab sections below that sync to carousel slides. Each tab shows an icon, title, and description.",
-  importantUsageNotes: `${GALLERY_MEDIA_NOTE} title text The 'badge' prop appears below the heading as a secondary badge – keep it short (2–4 words). Tabs are only visible on 'md' and above; on mobile the description appears inline below each slide image. Clicking a slide image opens a built-in lightbox – no extra configuration needed. Provide 3–6 sections; more than 6 makes the tab row too crowded on desktop.`,
+  importantUsageNotes: `${GALLERY_MEDIA_NOTE} title text The 'badge' prop appears below the heading as a secondary badge – keep it short (2–4 words). Tabs are only visible on 'md' and above; on mobile the description appears inline below each slide image. Clicking a slide image opens a built-in lightbox – no extra configuration needed. Provide exactly 3 sections for ideal layout balance; fewer looks sparse, more crowds the tab row on desktop.`,
   usageRequirements: {
-      requiredProps: [],
+      requiredProps: ["sections"],
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     propConstraints: {
       sections: {
+        required: true,
+        count: 3,
         minItems: 3,
-        maxItems: 6,
+        maxItems: 3,
       },
     },
     mediaSlots: {
       "sections[].img": {
         path: "sections[].img",
         roles: ["gallery", "feature"],
-        required: false,
+        required: true,
       },
     },
   },
   exampleProps: {
-    heading: "Cut the time it takes to close your books",
-    badge: "Streamline your workflow",
+    heading: "Platform Features",
+    badge: "Enterprise Ready",
     background: "white",
-    spacing: "lg",
+    pattern: "gridFadeTop",
+    patternOpacity: 0.9,
     sections: [
       {
         img: GALLERY_EXAMPLE_IMAGE_URL,
-        alt: "Advanced Analytics",
+        alt: "Analytics Dashboard",
         title: "Advanced Analytics",
-        text: "Comprehensive analytics dashboard with real-time data visualization and predictive insights.",
+        text: "Comprehensive analytics dashboard with real-time data visualization, custom reports, and predictive insights. Track KPIs, user behavior, and business metrics in one unified platform.",
         icon: "lucide/bar-chart-3",
       },
       {
         img: GALLERY_EXAMPLE_IMAGE_URL,
         alt: "Team Collaboration",
         title: "Team Collaboration",
-        text: "Built-in tools including real-time messaging, file sharing, and project management.",
+        text: "Built-in collaboration tools including real-time messaging, file sharing, and project management. Keep your team aligned and productive with seamless communication.",
         icon: "lucide/users",
       },
       {
         img: GALLERY_EXAMPLE_IMAGE_URL,
-        alt: "Automation Engine",
-        title: "Automation Engine",
-        text: "Powerful workflow automation with a visual builder and pre-built templates.",
-        icon: "lucide/workflow",
+        alt: "API Integration",
+        title: "API Integration",
+        text: "Extensive REST API with comprehensive documentation and SDKs for all major languages. Connect with your existing tools and build custom integrations effortlessly.",
+        icon: "lucide/plug",
       },
     ],
   },

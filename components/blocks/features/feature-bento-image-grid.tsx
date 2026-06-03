@@ -220,7 +220,7 @@ export function FeatureBentoImageGrid({
               (typeof item.title === "string" ? item.title : "Feature image")
             }
             className={cn(imageClassName, item.imageClassName)}
-            loading="lazy"
+            loading="eager"
             optixFlowConfig={optixFlowConfig}
           />
         );
@@ -323,9 +323,7 @@ export function FeatureBentoImageGrid({
         <>
           {renderItemImage(
             item,
-            cn(
-              "h-full w-full rounded-xl object-cover object-center shadow-lg",
-            ),
+            cn("h-full w-full rounded-xl object-cover object-center shadow-lg"),
           )}
           <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 rounded-xl bg-linear-to-t from-black to-transparent opacity-80 transition-transform duration-300 group-hover:translate-y-0"></div>
           <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">

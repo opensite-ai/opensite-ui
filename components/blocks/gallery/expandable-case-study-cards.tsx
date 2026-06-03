@@ -262,12 +262,12 @@ export function ExpandableCaseStudyCards({
             <div className="flex items-end justify-between gap-3">
               <div className="flex min-w-0 flex-1 flex-col gap-1.5">
                 {item.logo && (
-                  <div className="mb-1 flex max-w-full items-center">
+                  <div className="mb-1 flex items-center">
                     <Img
                       src={item.logo}
                       alt={item.logoAlt || item.company || "Logo"}
                       className={cn(
-                        "h-6 w-auto max-w-full object-contain object-left invert lg:h-8",
+                        "block h-6 max-h-6 w-auto max-w-none object-contain invert lg:h-8 lg:max-h-8",
                         logoClassName,
                       )}
                       loading="lazy"

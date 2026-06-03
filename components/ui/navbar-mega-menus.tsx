@@ -167,6 +167,7 @@ export const SolutionsMenu = ({
           alt={featuredHeroCard.title}
           className="h-full w-full object-cover"
           optixFlowConfig={optixFlowConfig}
+          loading="eager"
         />
       </div>
     </Pressable>
@@ -351,6 +352,7 @@ export const ProductsMenu = ({
               alt={featuredHeroCard.title}
               className="h-full w-full object-cover"
               optixFlowConfig={optixFlowConfig}
+              loading="eager"
             />
           </div>
           <div className="flex flex-col p-5">
@@ -392,12 +394,11 @@ export const ProductsMenu = ({
                       alt={product.title}
                       className="h-full w-full object-cover"
                       optixFlowConfig={optixFlowConfig}
+                      loading="eager"
                     />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="text-sm font-medium">
-                      {product.title}
-                    </div>
+                    <div className="text-sm font-medium">{product.title}</div>
                     <p className="mt-0.5 text-xs text-muted-foreground">
                       {product.description}
                     </p>
@@ -444,6 +445,7 @@ export const ResourcesMenu = ({
               src={featuredHeroCard.image}
               alt={featuredHeroCard.title}
               className="h-full w-full object-cover invert"
+              loading="eager"
             />
           </div>
           <div className="flex flex-col p-5">
@@ -455,7 +457,9 @@ export const ResourcesMenu = ({
                 className="transition-transform group-hover:translate-x-1"
               />
             </div>
-            <p className="mt-2 text-sm leading-relaxed">{featuredHeroCard.description}</p>
+            <p className="mt-2 text-sm leading-relaxed">
+              {featuredHeroCard.description}
+            </p>
           </div>
         </Pressable>
       </div>
@@ -508,8 +512,14 @@ export const ResourcesMenu = ({
                   href={topic.href}
                   className="group !flex !w-full items-center gap-2 rounded-lg p-2 hover:bg-muted"
                 >
-                  <DynamicIcon name={topic.icon} size={14} className="shrink-0" />
-                  <span className="min-w-0 flex-1 text-sm font-medium">{topic.title}</span>
+                  <DynamicIcon
+                    name={topic.icon}
+                    size={14}
+                    className="shrink-0"
+                  />
+                  <span className="min-w-0 flex-1 text-sm font-medium">
+                    {topic.title}
+                  </span>
                 </NavigationMenuLink>
               ))}
             </div>
@@ -556,6 +566,7 @@ export const GlobalMenu = ({
                 alt={featuredHeroCard.title}
                 className="h-full w-full object-cover"
                 optixFlowConfig={optixFlowConfig}
+                loading="eager"
               />
             </div>
             <div className="flex flex-col p-5">
@@ -595,9 +606,7 @@ export const GlobalMenu = ({
                       <DynamicIcon name={feature.icon} size={18} />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="text-sm font-medium">
-                        {feature.title}
-                      </div>
+                      <div className="text-sm font-medium">{feature.title}</div>
                       <p className="mt-0.5 text-xs text-muted-foreground">
                         {feature.description}
                       </p>
@@ -686,9 +695,10 @@ export const PartnersMenu = ({
               alt={featuredHeroCard.title}
               className={cn(
                 "h-full w-full object-cover",
-                featuredHeroCard.imagePosition === "background" && "invert"
+                featuredHeroCard.imagePosition === "background" && "invert",
               )}
               optixFlowConfig={optixFlowConfig}
+              loading="eager"
             />
           </div>
           <div className="flex flex-col p-5">
@@ -700,7 +710,9 @@ export const PartnersMenu = ({
                 className="transition-transform group-hover:translate-x-1"
               />
             </div>
-            <p className="mt-2 text-sm leading-relaxed">{featuredHeroCard.description}</p>
+            <p className="mt-2 text-sm leading-relaxed">
+              {featuredHeroCard.description}
+            </p>
           </div>
         </Pressable>
       </div>
@@ -716,9 +728,7 @@ export const PartnersMenu = ({
           >
             <DynamicIcon name={card.icon} size={28} className="shrink-0" />
             <div className="min-w-0 flex-1">
-              <div className="text-sm font-bold">
-                {card.title}
-              </div>
+              <div className="text-sm font-bold">{card.title}</div>
               <p className="mt-0.5 text-xs text-muted-foreground">
                 {card.description}
               </p>

@@ -209,7 +209,7 @@ export function HeroTaskTimerAnimated({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "max-w-xl text-lg text-muted-foreground text-balance",
+                  "max-w-full md:max-w-xl text-lg text-balance",
                   descriptionClassName,
                 )}
               >
@@ -235,7 +235,7 @@ export function HeroTaskTimerAnimated({
                 >
                   <div
                     className={cn(
-                      "size-2.5 shrink-0 rounded-full transition-colors duration-700",
+                      "size-2.5 shrink-0 rounded-xl transition-colors duration-700",
                       index === activeTaskIndex
                         ? "bg-primary"
                         : "bg-muted-foreground/30",
@@ -243,10 +243,8 @@ export function HeroTaskTimerAnimated({
                   />
                   <span
                     className={cn(
-                      "text-sm font-medium transition-colors duration-700",
-                      index === activeTaskIndex
-                        ? "text-foreground"
-                        : "text-muted-foreground/50",
+                      "text-sm font-medium transition-all duration-700",
+                      index === activeTaskIndex ? "opacity-100" : "opacity-50",
                     )}
                   >
                     {task}
@@ -329,22 +327,6 @@ export function HeroTaskTimerAnimated({
                       {task}
                     </span>
                   </div>
-                ))}
-              </div>
-            )}
-
-            {taskItems && taskItems.length > 1 && (
-              <div className="flex gap-2">
-                {taskItems.map((_, index) => (
-                  <div
-                    key={index}
-                    className={cn(
-                      "size-2 rounded-full transition-all duration-500",
-                      index === activeTaskIndex
-                        ? "scale-125 bg-primary"
-                        : "bg-muted-foreground/25",
-                    )}
-                  />
                 ))}
               </div>
             )}
