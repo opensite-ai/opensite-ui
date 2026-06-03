@@ -201,11 +201,13 @@ export function BlogHorizontalCards({
                 </Pressable>
               </div>
             )}
-            <div className="flex-1 space-y-3">
-              <div className="flex items-center gap-4 text-sm opacity-70">
+            <div className="flex-1 space-y-4">
+              <div className="flex justify-start items-center gap-3 md:gap-4 text-sm flex-wrap">
                 {postLabel && <Badge variant="secondary">{postLabel}</Badge>}
-                {post.author && <span>{post.author}</span>}
-                {postDate && <span>{postDate}</span>}
+                {post.author && (
+                  <span className="font-semibold">{post.author}</span>
+                )}
+                {postDate && <span className="opacity-70">{postDate}</span>}
               </div>
               {post.title && (
                 <h3 className="text-xl leading-tight font-bold lg:text-2xl">
@@ -246,8 +248,10 @@ export function BlogHorizontalCards({
       patternOpacity={patternOpacity}
       containerClassName={containerClassName}
     >
-      <div className="flex flex-col items-center">
-        <div className={cn("mx-auto max-w-3xl text-center", headerClassName)}>
+      <div className="flex flex-col items-center gap-6 md:gap-12">
+        <div
+          className={cn("max-w-full md:max-w-3xl text-left", headerClassName)}
+        >
           {badge &&
             (typeof badge === "string" ? (
               <Badge className={cn("mb-6", badgeClassName)}>{badge}</Badge>
@@ -282,7 +286,12 @@ export function BlogHorizontalCards({
             ))}
         </div>
 
-        <div className={cn("mx-auto max-w-5xl space-y-12", postsClassName)}>
+        <div
+          className={cn(
+            "max-w-full md:max-w-3xl space-y-16 md:space-y-24",
+            postsClassName,
+          )}
+        >
           {postsContent}
         </div>
 
