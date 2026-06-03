@@ -212,6 +212,7 @@ export function TestimonialsScrollingColumns({
                     alt={authorName}
                     className="aspect-4/5 w-full object-cover"
                     optixFlowConfig={optixFlowConfig}
+                    loading="eager"
                   />
                 )}
                 <GradientOverlay />
@@ -232,6 +233,7 @@ export function TestimonialsScrollingColumns({
                       "flex justify-start items-start mb-6 max-h-10 max-w-32 object-contain md:max-h-10 md:max-w-48",
                     )}
                     optixFlowConfig={optixFlowConfig}
+                    loading="eager"
                   />
                 ) : (
                   <DynamicIcon

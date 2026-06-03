@@ -239,6 +239,7 @@ export function TestimonialsAnimatedSplit({
                   alt="Testimonial"
                   className="size-full object-cover "
                   optixFlowConfig={optixFlowConfig}
+                  loading="eager"
                 />
               )}
             </motion.div>

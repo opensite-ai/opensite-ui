@@ -172,6 +172,7 @@ export function TestimonialsCompanyLogo({
               alt={companyLogoAlt}
               className={cn("h-12 w-auto object-contain", logoClassName)}
               optixFlowConfig={optixFlowConfig}
+              loading="eager"
             />
           )}
           <div className={cn("space-y-1 text-right", authorClassName)}>
@@ -243,6 +244,7 @@ export function TestimonialsCompanyLogo({
               alt={imageAlt}
               className="size-full object-cover"
               optixFlowConfig={optixFlowConfig}
+              loading="eager"
             />
           </div>
         )}
