@@ -68,16 +68,16 @@ export interface SocialLink {
  */
 export interface NavbarImagePreviewProps {
   /**
-     * Logo configuration
-     */
+   * Logo configuration
+   */
   logo?: LogoConfig;
   /**
-     * Navigation menu items
-     */
+   * Navigation menu items
+   */
   navigation?: MenuItem[];
   /**
-     * Authentication action configurations
-     */
+   * Authentication action configurations
+   */
   authActions?: ActionConfig[];
 }
 
@@ -172,7 +172,6 @@ interface NavbarImagePreviewRuntimeProps {
   optixFlowConfig?: OptixFlowConfig;
   /** Optional Section ID */
   sectionId?: string;
-
 }
 
 const MOBILE_BREAKPOINT = 1024;
@@ -439,6 +438,7 @@ const DesktopMenuItem = ({
                     linkIndex === 0 ? "opacity-100" : "opacity-0"
                   }`}
                   optixFlowConfig={optixFlowConfig}
+                  loading="eager"
                 />
               ))}
             </div>
@@ -559,7 +559,11 @@ const MobileNavigationMenu = ({
                 <>
                   <DynamicIcon name={icon} size={16} className="shrink-0" />
                   {label}
-                  <DynamicIcon name={iconAfter} size={16} className="shrink-0" />
+                  <DynamicIcon
+                    name={iconAfter}
+                    size={16}
+                    className="shrink-0"
+                  />
                 </>
               )}
             </Pressable>

@@ -274,13 +274,7 @@ export function HeroSplitIconCards({
                 ))}
               {description &&
                 (typeof description === "string" ? (
-                  <p
-                    className={cn(
-                      "text-lg",
-                      getTextColor(background, "muted"),
-                      descriptionClassName,
-                    )}
-                  >
+                  <p className={cn("text-lg", descriptionClassName)}>
                     {description}
                   </p>
                 ) : (

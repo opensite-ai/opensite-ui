@@ -705,7 +705,7 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
       className={`group relative flex w-full overflow-hidden rounded-xl px-4 pt-24 pb-4 ${hasBgImg ? "" : "bg-primary"}`}
     >
       <div className="relative z-10 flex w-full items-center gap-6">
-        <div className="flex size-12 shrink-0 rounded-lg border bg-card text-card-foreground shadow-lg">
+        <div className="flex items-center justify-center size-12 shrink-0 rounded-lg border bg-card text-card-foreground shadow-lg">
           <DynamicIcon name={link.icon || link.iconName} size={20} />
         </div>
         <div
