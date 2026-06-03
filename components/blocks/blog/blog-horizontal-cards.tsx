@@ -194,7 +194,7 @@ export function BlogHorizontalCards({
                   <Img
                     src={post.image}
                     alt={postTitle}
-                    className="aspect-video w-full rounded-lg object-cover object-center sm:w-[260px]"
+                    className="aspect-video md:aspect-square w-full rounded-lg object-cover object-center sm:w-[260px]"
                     optixFlowConfig={optixFlowConfig}
                     loading="eager"
                   />
@@ -215,7 +215,9 @@ export function BlogHorizontalCards({
                 </h3>
               )}
               {postSummary && (
-                <p className="text-base opacity-70">{postSummary}</p>
+                <p className="text-base opacity-70 line-clamp-3">
+                  {postSummary}
+                </p>
               )}
               {readMoreText && (
                 <Pressable href={postHref} variant="outline">
