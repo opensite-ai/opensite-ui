@@ -200,7 +200,17 @@ export function FeatureIntegrationCards({
               integration.iconClassName,
             )}
             loading="eager"
-            optixFlowConfig={optixFlowConfig}
+            // @ts-ignore
+            optixFlowConfig={
+              optixFlowConfig
+                ? {
+                    ...optixFlowConfig,
+                    objectFit: "contain",
+                  }
+                : {
+                    objectFit: "contain",
+                  }
+            }
           />
         </div>
       );
