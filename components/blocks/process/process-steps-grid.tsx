@@ -156,7 +156,8 @@ export function ProcessStepsGrid({
           <div
             key={index}
             className={cn(
-              "group relative overflow-hidden rounded-lg p-8 transition-all hover:shadow-lg",
+              "group relative overflow-hidden rounded-lg p-8",
+              "transition-all hover:shadow-lg duration-500",
               "border border-border hover:border-primary",
               "bg-card text-card-foreground",
               stepCardClassName,
@@ -165,9 +166,9 @@ export function ProcessStepsGrid({
           >
             <span
               className={cn(
-                "absolute -right-4 -top-4 text-[120px] font-bold leading-none transition-colors",
-                "opacity-20 group-hover:opacity-100",
-                "group-hover:text-primary",
+                "absolute -right-4 -top-4 text-[120px] font-bold leading-none",
+                "transition-colors duration-500 opacity-20",
+                "group-hover:text-primary group-hover:opacity-100",
               )}
             >
               {String(index + 1).padStart(2, "0")}
@@ -177,7 +178,8 @@ export function ProcessStepsGrid({
               {(step.iconSlot || step.icon) && (
                 <div
                   className={cn(
-                    "mb-6 flex size-14 items-center justify-center rounded-lg transition-colors",
+                    "mb-6 flex size-14 items-center justify-center rounded-lg",
+                    "transition-colors duration-500",
                     "bg-primary/10 group-hover:bg-primary group-hover:text-primary-foreground",
                     stepIconClassName,
                   )}

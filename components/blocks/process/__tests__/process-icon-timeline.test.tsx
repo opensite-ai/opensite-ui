@@ -9,21 +9,18 @@ describe("ProcessIconTimeline", () => {
       title: "Discovery",
       description: "Understanding your needs",
       highlights: ["Research", "Analysis"],
-      badgeColor: "bg-blue-500",
     },
     {
       icon: "lucide/pencil-ruler",
       title: "Design",
       description: "Creating solutions",
       highlights: ["UI/UX", "Prototyping"],
-      badgeColor: "bg-purple-500",
     },
     {
       icon: "lucide/code",
       title: "Development",
       description: "Building the product",
       highlights: ["Frontend", "Backend"],
-      badgeColor: "bg-green-500",
     },
   ];
 
@@ -62,15 +59,10 @@ describe("ProcessIconTimeline", () => {
     expect(screen.getByText("Backend")).toBeInTheDocument();
   });
 
-  it("renders icon badges with custom colors", () => {
+  it("renders icon badges with bg-primary", () => {
     const { container } = render(<ProcessIconTimeline steps={mockSteps} />);
-    // Icon badges still support custom badgeColor prop
-    const blueBadge = container.querySelector(".bg-blue-500");
-    const purpleBadge = container.querySelector(".bg-purple-500");
-    const greenBadge = container.querySelector(".bg-green-500");
-    expect(blueBadge).toBeInTheDocument();
-    expect(purpleBadge).toBeInTheDocument();
-    expect(greenBadge).toBeInTheDocument();
+    const badges = container.querySelectorAll(".rounded-full.bg-primary");
+    expect(badges.length).toBeGreaterThanOrEqual(3);
   });
 
   it("renders with empty steps array", () => {
@@ -100,21 +92,6 @@ describe("ProcessIconTimeline", () => {
     ];
     render(<ProcessIconTimeline steps={stepsWithoutHighlights} />);
     expect(screen.getByText("Step 1")).toBeInTheDocument();
-  });
-
-  it("renders steps with default badge color when not specified", () => {
-    const stepsWithoutBadgeColor = [
-      {
-        icon: "lucide/star",
-        title: "Step 1",
-        description: "Description 1",
-      },
-    ];
-    const { container } = render(
-      <ProcessIconTimeline steps={stepsWithoutBadgeColor} />
-    );
-    const badge = container.querySelector(".bg-primary");
-    expect(badge).toBeInTheDocument();
   });
 
   it("renders highlight tags with proper styling", () => {

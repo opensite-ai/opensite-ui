@@ -275,6 +275,7 @@ export interface IMenuLink {
   // Solutions layout
   solutionCards?: ISolutionCard[];
   platformItems?: ITechnologyItem[];
+  platformTitle?: string;
 
   // Products layout
   productCategories?: IProductCategory[];
@@ -282,12 +283,14 @@ export interface IMenuLink {
   // Features/Global layout
   featureCategories?: IFeatureCategory[];
   regions?: IRegionItem[];
+  locationsTitle?: string;
 
   // Partners layout
   partnerCards?: IPartnerCard[];
 
   // Resources layout
   resourceItems?: IResourceItem[];
+  resourcesTitle?: string;
   topicGroups?: ITopicGroup[];
 }
 
@@ -620,6 +623,7 @@ const renderDropdownContent = (
         <SolutionsMenu
           solutionCards={item.solutionCards ?? []}
           platformItems={item.platformItems ?? []}
+          platformTitle={item.platformTitle}
           featuredHeroCard={item.featuredHeroCard}
           optixFlowConfig={optixFlowConfig}
         />
@@ -637,6 +641,7 @@ const renderDropdownContent = (
         <GlobalMenu
           featureCategories={item.featureCategories ?? []}
           regions={item.regions ?? []}
+          locationsTitle={item.locationsTitle}
           featuredHeroCard={item.featuredHeroCard}
           optixFlowConfig={optixFlowConfig}
         />
@@ -653,6 +658,7 @@ const renderDropdownContent = (
       return (
         <ResourcesMenu
           resourceItems={item.resourceItems ?? []}
+          resourcesTitle={item.resourcesTitle}
           topicGroups={item.topicGroups ?? []}
           featuredHeroCard={item.featuredHeroCard}
         />

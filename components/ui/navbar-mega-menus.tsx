@@ -119,6 +119,7 @@ export interface IPartnerCard {
 export interface SolutionsMenuProps {
   solutionCards: ISolutionCard[];
   platformItems: ITechnologyItem[];
+  platformTitle?: string;
   featuredHeroCard?: IFeaturedHeroCard;
   optixFlowConfig?: OptixFlowConfig;
 }
@@ -126,6 +127,7 @@ export interface SolutionsMenuProps {
 export const SolutionsMenu = ({
   solutionCards,
   platformItems,
+  platformTitle = "Platform",
   featuredHeroCard,
   optixFlowConfig,
 }: SolutionsMenuProps) => {
@@ -175,7 +177,7 @@ export const SolutionsMenu = ({
       <div className="min-w-0">
         <div className="mb-3 text-left">
           <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
-            Developer Platform
+            {platformTitle}
           </strong>
         </div>
         <div className="grid grid-cols-2 gap-2">
@@ -414,12 +416,14 @@ export const ProductsMenu = ({
 
 export interface ResourcesMenuProps {
   resourceItems: IResourceItem[];
+  resourcesTitle?: string;
   topicGroups: ITopicGroup[];
   featuredHeroCard?: IFeaturedHeroCard;
 }
 
 export const ResourcesMenu = ({
   resourceItems,
+  resourcesTitle = "Resources",
   topicGroups,
   featuredHeroCard,
 }: ResourcesMenuProps) => (
@@ -461,7 +465,7 @@ export const ResourcesMenu = ({
       <div className="col-span-1">
         <div className="mb-3 text-left">
           <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
-            Resources
+            {resourcesTitle}
           </strong>
         </div>
         <div className="grid grid-cols-2 gap-3">
@@ -521,6 +525,7 @@ export const ResourcesMenu = ({
 export interface GlobalMenuProps {
   featureCategories: IFeatureCategory[];
   regions: IRegionItem[];
+  locationsTitle?: string;
   featuredHeroCard?: IFeaturedHeroCard;
   optixFlowConfig?: OptixFlowConfig;
 }
@@ -528,6 +533,7 @@ export interface GlobalMenuProps {
 export const GlobalMenu = ({
   featureCategories,
   regions,
+  locationsTitle = "Locations",
   featuredHeroCard,
   optixFlowConfig,
 }: GlobalMenuProps) => (
@@ -609,7 +615,7 @@ export const GlobalMenu = ({
       <div className="mt-6">
         <div className="mb-3 border-b border-border pb-2 text-left">
           <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
-            Popular Locations
+            {locationsTitle}
           </strong>
         </div>
         <div className="grid grid-cols-4 gap-4">

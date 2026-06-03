@@ -243,6 +243,7 @@ export function TestimonialsCarouselImage({
               logoClassName,
             )}
             optixFlowConfig={optixFlowConfig}
+            loading="eager"
           />
         ) : (
           <DynamicIcon
@@ -341,6 +342,7 @@ export function TestimonialsCarouselImage({
                 alt="Testimonial background image"
                 className="size-full object-cover"
                 optixFlowConfig={optixFlowConfig}
+                loading="eager"
               />
             </motion.div>
           )}

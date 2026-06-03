@@ -168,6 +168,7 @@ const ProcessCard = ({
               alt={titleText}
               className="h-full w-full object-cover"
               optixFlowConfig={optixFlowConfig}
+              loading="eager"
             />
           </motion.div>
         )}
@@ -178,6 +179,7 @@ const ProcessCard = ({
           alt={titleText}
           className="mb-4 md:mb-0 md:hidden h-full w-full object-cover aspect-square rounded-xl shadow-lg ring-2 ring-primary"
           optixFlowConfig={optixFlowConfig}
+          loading="eager"
         />
       )}
       <div className="flex items-start justify-between gap-8">

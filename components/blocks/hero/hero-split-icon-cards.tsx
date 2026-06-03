@@ -238,7 +238,6 @@ export function HeroSplitIconCards({
                   <p
                     className={cn(
                       "text-xs font-semibold uppercase tracking-[0.25em]",
-                      getAccentColor(background),
                     )}
                   >
                     {eyebrow}

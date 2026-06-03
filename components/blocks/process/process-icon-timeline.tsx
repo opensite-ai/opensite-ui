@@ -37,10 +37,6 @@ export interface ProcessIconTimelineItem {
    */
   highlights?: React.ReactNode[];
   /**
-   * Badge background color class (e.g., "bg-blue-500")
-   */
-  badgeColor?: string;
-  /**
    * Additional CSS classes for the step item
    */
   className?: string;
@@ -171,8 +167,7 @@ export function ProcessIconTimeline({
           >
             <div
               className={cn(
-                "absolute left-0 flex size-12 items-center justify-center rounded-full text-primary-foreground lg:left-1/2 lg:-translate-x-1/2",
-                step.badgeColor || "bg-primary",
+                "absolute left-0 flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground lg:left-1/2 lg:-translate-x-1/2",
                 stepBadgeClassName,
               )}
             >

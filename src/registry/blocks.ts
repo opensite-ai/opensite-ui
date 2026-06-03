@@ -4063,28 +4063,24 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
       title: "Concept & Validation",
       description: "Validate your idea through market research and user interviews.",
       highlights: ["Market Research", "User Surveys", "Competitive Analysis"],
-      badgeColor: "bg-blue-500",
     },
     {
       icon: "lucide/layout",
       title: "Design & Wireframing",
       description: "Create wireframes and a cohesive design system that scales.",
       highlights: ["Wireframes", "Design System", "User Flows"],
-      badgeColor: "bg-purple-500",
     },
     {
       icon: "lucide/code",
       title: "Development Sprint",
       description: "Build the MVP with agile methodology and automated testing.",
       highlights: ["Agile Sprints", "Code Reviews", "Automated Tests"],
-      badgeColor: "bg-green-500",
     },
     {
       icon: "lucide/rocket",
       title: "Production Launch",
       description: "Deploy to production and execute the go-to-market strategy.",
       highlights: ["Production Deploy", "Marketing Launch", "Customer Support"],
-      badgeColor: "bg-red-500",
     },
   ]}
   spacing="xl"
@@ -4092,7 +4088,7 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
 />
     `.trim(),
     importantUsageNotes:
-      "Renders a zigzag icon-badge timeline. icon must be a Lucide icon identifier string (e.g. 'lucide/rocket'). badgeColor is a Tailwind background class (e.g. 'bg-blue-500'). highlights are small pill badges shown under the description. No image props — this block is icon/text only.",
+      "Renders a zigzag icon-badge timeline. icon must be a Lucide icon identifier string (e.g. 'lucide/rocket'). Icon badges use bg-primary/text-primary-foreground automatically. highlights are small pill badges shown under the description. No image props — this block is icon/text only.",
     usageRequirements: {
       requiredProps: ["steps"],
       propConstraints: {
@@ -4103,7 +4099,6 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
         "steps[].title": { required: true, maxLength: 60 },
         "steps[].description": { maxLength: 220 },
         "steps[].highlights": { maxItems: 5, note: "Short tag strings shown as pills." },
-        "steps[].badgeColor": { note: "Tailwind bg class, e.g. 'bg-blue-500'. Defaults to bg-primary." },
       },
       mediaSlots: {},
     },
@@ -4111,10 +4106,10 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
       heading: "Product Development Timeline",
       description: "From concept to launch, our proven process ensures success at every milestone.",
       steps: [
-        { icon: "lucide/lightbulb", title: "Concept & Validation", description: "Validate your idea through research and user interviews.", highlights: ["Market Research", "User Surveys", "Competitive Analysis"], badgeColor: "bg-blue-500" },
-        { icon: "lucide/layout", title: "Design & Wireframing", description: "Create wireframes and a cohesive design system.", highlights: ["Wireframes", "Design System", "User Flows"], badgeColor: "bg-purple-500" },
-        { icon: "lucide/code", title: "Development Sprint", description: "Build the MVP with agile methodology.", highlights: ["Agile Sprints", "Code Reviews", "Automated Tests"], badgeColor: "bg-green-500" },
-        { icon: "lucide/rocket", title: "Production Launch", description: "Deploy to production and execute go-to-market.", highlights: ["Production Deploy", "Marketing Launch", "Customer Support"], badgeColor: "bg-red-500" },
+        { icon: "lucide/lightbulb", title: "Concept & Validation", description: "Validate your idea through research and user interviews.", highlights: ["Market Research", "User Surveys", "Competitive Analysis"] },
+        { icon: "lucide/layout", title: "Design & Wireframing", description: "Create wireframes and a cohesive design system.", highlights: ["Wireframes", "Design System", "User Flows"] },
+        { icon: "lucide/code", title: "Development Sprint", description: "Build the MVP with agile methodology.", highlights: ["Agile Sprints", "Code Reviews", "Automated Tests"] },
+        { icon: "lucide/rocket", title: "Production Launch", description: "Deploy to production and execute go-to-market.", highlights: ["Production Deploy", "Marketing Launch", "Customer Support"] },
       ],
       spacing: "xl",
       background: "gray",
@@ -9564,7 +9559,7 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
   "navbar-enterprise-mega": {
     exampleUsage:
       "An enterprise-grade mega menu navbar with specialized layout types for each dropdown panel. Supports solutions-with-platform, products-categorized, features-with-locations, partners-promotional, and resources-with-topics layouts. Each panel can feature a hero card with an image.",
-    importantUsageNotes: `${NAVBAR_MEDIA_NOTE} Each menuLink requires a 'layout' field to determine the dropdown panel type. For 'solutions-with-platform': provide 'solutionCards' (with subpages) and 'platformItems'. For 'products-categorized': provide 'productCategories' with 'products' arrays; each product may have an 'image' URL. For 'resources-with-topics': provide 'resourceItems' and 'topicGroups'. All 'featuredHeroCard.image' values must be absolute URLs.`,
+    importantUsageNotes: `${NAVBAR_MEDIA_NOTE} Each menuLink requires a 'layout' field to determine the dropdown panel type. For 'solutions-with-platform': provide 'solutionCards' (with subpages), 'platformItems', and optionally 'platformTitle' (defaults to "Platform"). For 'products-categorized': provide 'productCategories' with 'products' arrays; each product may have an 'image' URL. For 'features-with-locations': provide 'featureCategories', 'regions', and optionally 'locationsTitle' (defaults to "Locations"). For 'resources-with-topics': provide 'resourceItems', 'topicGroups', and optionally 'resourcesTitle' (defaults to "Resources"). All 'featuredHeroCard.image' values must be absolute URLs.`,
     usageRequirements: {
       requiredProps: ["logo", "menuLinks"],
       mediaSlots: {
@@ -9617,6 +9612,7 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
           platformItems: [
             { id: "react", title: "React", href: "#", icon: "lucide/code" },
           ],
+          platformTitle: "Developer Platform",
           featuredHeroCard: {
             title: "New Platform Release",
             description: "Experience the next generation platform",

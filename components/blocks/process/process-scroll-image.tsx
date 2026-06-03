@@ -175,12 +175,12 @@ const ProcessCard = ({
     <li
       ref={ref}
       className={cn(
-        "relative flex flex-col justify-between gap-12 border-b py-8 lg:py-16",
+        "relative flex flex-col justify-between gap-6 md:gap-8 border-b py-8 lg:py-16",
         itemClassName,
         step.className,
       )}
     >
-      <div className="flex w-fit items-center justify-center px-4 py-1 text-5xl md:text-7xl tracking-tighter">
+      <div className="flex w-fit items-center justify-center text-5xl md:text-7xl tracking-tighter">
         {step.step ?? `0${index + 1}`}
       </div>
       <div>
