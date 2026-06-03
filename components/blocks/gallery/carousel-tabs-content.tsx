@@ -373,7 +373,7 @@ export function CarouselTabsContent({
                 "h-full w-full rounded-xl object-cover",
                 imageClassName,
               )}
-              loading="lazy"
+              loading="eager"
               optixFlowConfig={optixFlowConfig}
             />
           </div>

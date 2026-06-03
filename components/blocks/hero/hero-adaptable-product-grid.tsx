@@ -145,16 +145,11 @@ export function HeroAdaptableProductGrid({
     >
       <div className="pt-8 md:pt-0">
         {(logo || logoSlot) && (
-
           <div className={cn("mb-4", logoClassName)}>
-
             <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
-
           </div>
-
         )}
 
-        
         {heading &&
           (typeof heading === "string" ? (
             <h1
@@ -207,6 +202,7 @@ export function HeroAdaptableProductGrid({
                   imageClassName,
                 )}
                 optixFlowConfig={optixFlowConfig}
+                loading="eager"
               />
             )}
           </div>

@@ -129,6 +129,10 @@ export interface CarouselIconTabsProps {
    */
   background?: SectionBackground;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Vertical spacing for the section
    */
   spacing?: SectionSpacing;
@@ -196,7 +200,8 @@ export function CarouselIconTabs({
   tabClassName,
   controlsClassName,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "hero",
   pattern,
   patternOpacity,
   patternClassName,
@@ -324,7 +329,7 @@ export function CarouselIconTabs({
             <DynamicIcon name={item.icon} size={20} />
           </div>
           <div className="text-lg font-medium">{item.title}</div>
-          <div className="text-lg text-muted-foreground">{item.text}</div>
+          <div className="text-base">{item.text}</div>
         </div>
       </CarouselItem>
     ));
@@ -359,10 +364,8 @@ export function CarouselIconTabs({
             <div className="text-lg font-medium">{section.title}</div>
             <div
               className={cn(
-                "text-lg hover:text-muted-foreground",
-                index + 1 === current
-                  ? "text-muted-foreground"
-                  : "text-muted-foreground/50",
+                "text-lg hover:opacity-100",
+                index + 1 === current ? "opacity-100" : "opacity-70",
               )}
             >
               {section.text}
@@ -382,6 +385,7 @@ export function CarouselIconTabs({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={className}
+      containerClassName={containerClassName}
     >
       {headerContent}
       <Carousel

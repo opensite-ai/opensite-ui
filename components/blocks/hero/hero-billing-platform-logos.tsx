@@ -252,10 +252,11 @@ export function HeroBillingPlatformLogos({
                       mainImage.className,
                     )}
                     optixFlowConfig={optixFlowConfig}
+                    loading="eager"
                   />
                 </div>
                 {overlayImages?.[0] && (
-                  <div className="absolute top-[19.84%] -left-[-2%] z-30 aspect-[1.765043789/1] w-[30.49%] max-w-47.5 overflow-hidden rounded-lg shadow-lg">
+                  <div className="absolute top-[19.84%] -left-[-2%] z-30 aspect-[1.765043789/1] w-[30.49%] max-w-47.5 overflow-hidden rounded-lg shadow-xl">
                     <Img
                       src={overlayImages[0].src}
                       alt={overlayImages[0].alt}
@@ -264,11 +265,12 @@ export function HeroBillingPlatformLogos({
                         overlayImages[0].className,
                       )}
                       optixFlowConfig={optixFlowConfig}
+                      loading="eager"
                     />
                   </div>
                 )}
                 {overlayImages?.[1] && (
-                  <div className="absolute top-[55%] left-[0%] z-30 aspect-[1.776555024/1] w-[43.6%] max-w-65.5 overflow-hidden rounded-lg shadow-lg">
+                  <div className="absolute top-[55%] left-[0%] z-30 aspect-[1.776555024/1] w-[43.6%] max-w-65.5 overflow-hidden rounded-lg shadow-xl">
                     <Img
                       src={overlayImages[1].src}
                       alt={overlayImages[1].alt}
@@ -277,11 +279,12 @@ export function HeroBillingPlatformLogos({
                         overlayImages[1].className,
                       )}
                       optixFlowConfig={optixFlowConfig}
+                      loading="eager"
                     />
                   </div>
                 )}
                 {overlayImages?.[2] && (
-                  <div className="absolute top-[40%] right-[0%] z-30 aspect-[1.170212766/1] w-[26.48%] max-w-41.25 overflow-hidden rounded-lg shadow-lg">
+                  <div className="absolute top-[40%] right-[0%] z-30 aspect-[1.170212766/1] w-[26.48%] max-w-41.25 overflow-hidden rounded-lg shadow-xl">
                     <Img
                       src={overlayImages[2].src}
                       alt={overlayImages[2].alt}
@@ -290,6 +293,7 @@ export function HeroBillingPlatformLogos({
                         overlayImages[2].className,
                       )}
                       optixFlowConfig={optixFlowConfig}
+                      loading="eager"
                     />
                   </div>
                 )}
@@ -310,7 +314,7 @@ export function HeroBillingPlatformLogos({
               {logosTagline}
             </p>
           ) : (
-            <div>{logosTagline}</div>
+            logosTagline
           ))}
         {logosSlot ? (
           logosSlot

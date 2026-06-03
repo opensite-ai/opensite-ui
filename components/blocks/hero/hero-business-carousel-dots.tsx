@@ -211,16 +211,11 @@ export function HeroBusinessCarouselDots({
             </Badge>
           )}
           {(logo || logoSlot) && (
-
             <div className={cn("mb-4 flex justify-center", logoClassName)}>
-
               <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
-
             </div>
-
           )}
 
-          
           {heading &&
             (typeof heading === "string" ? (
               <h1
@@ -285,6 +280,7 @@ export function HeroBusinessCarouselDots({
                       activeImage.className,
                     )}
                     optixFlowConfig={optixFlowConfig}
+                    loading="eager"
                   />
                 </motion.div>
               </AnimatePresence>

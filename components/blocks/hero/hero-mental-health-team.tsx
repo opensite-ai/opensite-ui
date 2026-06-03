@@ -130,7 +130,7 @@ export function HeroMentalHealthTeam({
   pattern,
   patternOpacity,
   className,
-  spacing = "xl",
+  spacing = "hero",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
@@ -154,6 +154,7 @@ export function HeroMentalHealthTeam({
                   smallImages[0].className,
                 )}
                 optixFlowConfig={optixFlowConfig}
+                loading="eager"
               />
             </div>
           </div>
@@ -169,6 +170,7 @@ export function HeroMentalHealthTeam({
                   smallImages[1].className,
                 )}
                 optixFlowConfig={optixFlowConfig}
+                loading="eager"
               />
             </div>
           </div>
@@ -196,14 +198,15 @@ export function HeroMentalHealthTeam({
                 alt={testimonial.avatar?.alt ?? ""}
                 className="h-full w-full object-cover object-center"
                 optixFlowConfig={optixFlowConfig}
+                loading="eager"
               />
             </div>
           )}
-          <div className="flex h-full w-full flex-col justify-between gap-2 text-muted-foreground">
+          <div className="flex h-full w-full flex-col justify-between gap-2 opacity-70">
             <p className="text-lg font-medium">
               &quot;{testimonial.quote}&quot;
             </p>
-            <p className="">{testimonial.author}</p>
+            <p className="text-sm">{testimonial.author}</p>
           </div>
         </div>
       </div>
@@ -225,6 +228,7 @@ export function HeroMentalHealthTeam({
               featureImage.className,
             )}
             optixFlowConfig={optixFlowConfig}
+            loading="eager"
           />
         </div>
       </div>
@@ -259,14 +263,7 @@ export function HeroMentalHealthTeam({
                 {heading}
               </h1>
             ) : (
-              <h1
-                className={cn(
-                  "text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl text-balance",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
@@ -279,7 +276,7 @@ export function HeroMentalHealthTeam({
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
           <BlockActions
             actions={actions}

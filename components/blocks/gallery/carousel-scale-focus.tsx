@@ -272,7 +272,7 @@ export function CarouselScaleFocus({
             )}
             src={img.src}
             alt={img.alt}
-            loading="lazy"
+            loading="eager"
             optixFlowConfig={optixFlowConfig}
           />
         </div>

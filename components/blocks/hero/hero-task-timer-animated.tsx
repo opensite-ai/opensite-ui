@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import type {
@@ -122,7 +121,7 @@ export function HeroTaskTimerAnimated({
   pattern,
   patternOpacity,
   className,
-  spacing = "xl",
+  spacing = "hero",
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   headerClassName,
   headingClassName,
@@ -154,6 +153,7 @@ export function HeroTaskTimerAnimated({
                   images[0].className,
                 )}
                 optixFlowConfig={optixFlowConfig}
+                loading="eager"
               />
             </AspectRatio>
           </div>
@@ -169,6 +169,7 @@ export function HeroTaskTimerAnimated({
                   images[1].className,
                 )}
                 optixFlowConfig={optixFlowConfig}
+                loading="eager"
               />
             </AspectRatio>
           </div>
@@ -195,16 +196,11 @@ export function HeroTaskTimerAnimated({
           )}
         >
           {(logo || logoSlot) && (
-
             <div className={cn("mb-4", logoClassName)}>
-
               <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
-
             </div>
-
           )}
 
-          
           {heading &&
             (typeof heading === "string" ? (
               <h1
@@ -216,14 +212,7 @@ export function HeroTaskTimerAnimated({
                 {heading}
               </h1>
             ) : (
-              <h1
-                className={cn(
-                  "max-w-2xl text-6xl font-bold tracking-tight md:text-7xl lg:text-8xl text-balance",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h1>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
@@ -231,7 +220,7 @@ export function HeroTaskTimerAnimated({
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
           <BlockActions
             actions={actions}

@@ -170,6 +170,7 @@ export function HeroArchitectureFullscreen({
           alt=""
           className="absolute inset-0 min-h-screen min-w-screen object-cover object-center brightness-50"
           optixFlowConfig={optixFlowConfig}
+          loading="eager"
         />
       )}
       <div className="relative z-20 h-full w-full max-w-full md:max-w-lg p-8 md:p-24">
@@ -189,16 +190,11 @@ export function HeroArchitectureFullscreen({
                 <div className={taglineClassName}>{tagline}</div>
               ))}
             {(logo || logoSlot) && (
-
-              <div className={cn("mb-4 flex justify-center", logoClassName)}>
-
+              <div className={cn("mb-4 flex justify-start", logoClassName)}>
                 <BrandLogo logo={logo} logoSlot={logoSlot} size="xl" />
-
               </div>
-
             )}
 
-            
             {heading &&
               (typeof heading === "string" ? (
                 <motion.h1

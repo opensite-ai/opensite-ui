@@ -6,7 +6,11 @@ import { Fragment, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Video } from "@page-speed/video";
-import { loadSkinFromJsDelivr, resolveVideoClasses, getSkinStyleObject } from '@page-speed/skins';
+import {
+  loadSkinFromJsDelivr,
+  resolveVideoClasses,
+  getSkinStyleObject,
+} from "@page-speed/skins";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import {
   Dialog,
@@ -247,6 +251,7 @@ export function HeroSoftwareGrowthVideoDialog({
                     showcaseImages[index].className,
                   )}
                   optixFlowConfig={optixFlowConfig}
+                  loading="eager"
                 />
               </AspectRatio>
             </div>
@@ -270,16 +275,11 @@ export function HeroSoftwareGrowthVideoDialog({
           <div className="flex flex-col gap-10 md:gap-6">
             <div className="flex flex-col items-center justify-center gap-8 pt-6 md:pt-0">
               {(logo || logoSlot) && (
-
                 <div className={cn("mb-4", logoClassName)}>
-
                   <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
-
                 </div>
-
               )}
 
-              
               {heading &&
                 (typeof heading === "string" ? (
                   <h1

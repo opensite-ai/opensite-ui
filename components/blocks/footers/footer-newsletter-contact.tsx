@@ -357,12 +357,12 @@ export function FooterNewsletterContact({
 
         {logo && (
           <div>
-            <div className="flex items-center justify-between gap-4 md:gap-12">
-              <Separator className="flex-1" />
-              <div className="basis-30 md:basis-40">
+            <div className="flex items-center justify-center gap-4 md:gap-12">
+              <Separator className="min-w-0 flex-1" />
+              <div className="flex shrink-0 items-center justify-center">
                 <FooterLogo logo={logo} optixFlowConfig={optixFlowConfig} />
               </div>
-              <Separator className="flex-1" />
+              <Separator className="min-w-0 flex-1" />
             </div>
           </div>
         )}

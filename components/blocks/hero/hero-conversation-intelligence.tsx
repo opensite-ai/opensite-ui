@@ -154,6 +154,7 @@ export function HeroConversationIntelligence({
             image.className,
           )}
           optixFlowConfig={optixFlowConfig}
+          loading="eager"
         />
       </div>
     );

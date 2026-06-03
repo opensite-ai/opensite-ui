@@ -258,6 +258,7 @@ export function HeroProductShowcaseFloating({
                     avatar.className,
                   )}
                   optixFlowConfig={optixFlowConfig}
+                  loading="eager"
                 />
               ))}
             </div>
@@ -287,6 +288,7 @@ export function HeroProductShowcaseFloating({
                 productImage.className,
               )}
               optixFlowConfig={optixFlowConfig}
+              loading="eager"
             />
           </div>
           {renderFloatingStat}

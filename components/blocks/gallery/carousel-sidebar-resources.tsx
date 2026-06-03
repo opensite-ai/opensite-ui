@@ -118,6 +118,10 @@ export interface CarouselSidebarResourcesProps {
    */
   spacing?: SectionSpacing;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Optional background pattern name or URL
    */
   pattern?: PatternName | undefined;
@@ -170,7 +174,7 @@ export function CarouselSidebarResources({
   resourcesSlot,
   sidebarSlot,
   viewAllText,
-  viewAllHref = "#",
+  viewAllHref,
   className,
   headingClassName,
   sidebarClassName,
@@ -180,11 +184,12 @@ export function CarouselSidebarResources({
   imageClassName,
   controlsClassName,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
 }: CarouselSidebarResourcesProps): React.JSX.Element {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -226,7 +231,7 @@ export function CarouselSidebarResources({
         {resources?.slice(0, 3).map((resource, idx) => (
           <Fragment key={idx}>
             <div className="flex flex-col gap-1">
-              <div className="font-mono text-sm text-muted-foreground uppercase">
+              <div className="font-mono text-sm opacity-70 uppercase">
                 {resource.category}
               </div>
               <Pressable
@@ -296,13 +301,13 @@ export function CarouselSidebarResources({
                   : item.imageAlt || "Resource image"
               }
               className={cn("aspect-video object-cover", imageClassName)}
-              loading="lazy"
+              loading="eager"
               optixFlowConfig={optixFlowConfig}
             />
           </div>
           <Pressable href={item.link} className="block">
-            <div className="px-6 py-8">
-              <div className="text-sm text-muted-foreground uppercase">
+            <div className="px-6 py-6 md:py-8">
+              <div className="text-sm opacity-70 uppercase">
                 {item.category}
               </div>
               {typeof item.title === "string" ? (
@@ -310,9 +315,7 @@ export function CarouselSidebarResources({
                   {item.title}
                 </h3>
               ) : (
-                <div className="mt-2 text-xl font-semibold lg:text-2xl">
-                  {item.title}
-                </div>
+                item.title
               )}
             </div>
           </Pressable>
@@ -337,6 +340,7 @@ export function CarouselSidebarResources({
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       className={cn("overflow-hidden", className)}
+      containerClassName={containerClassName}
     >
       {heading &&
         (typeof heading === "string" ? (
@@ -346,11 +350,7 @@ export function CarouselSidebarResources({
             {heading}
           </h2>
         ) : (
-          <div
-            className={cn("text-2xl font-bold text-pretty", headingClassName)}
-          >
-            {heading}
-          </div>
+          heading
         ))}
       <Carousel className={carouselClassName}>
         <div className="mt-6 grid gap-x-14 gap-y-10 lg:mt-16 lg:grid-cols-3">

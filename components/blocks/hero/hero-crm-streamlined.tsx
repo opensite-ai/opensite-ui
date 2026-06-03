@@ -211,7 +211,7 @@ export function HeroCrmStreamlined({
             {imageSlot ? (
               imageSlot
             ) : image ? (
-              <div className="aspect-square w-full overflow-hidden rounded-xl shadow-xl">
+              <div className="aspect-square w-full overflow-hidden rounded-2xl shadow-xl">
                 <Img
                   src={image.src}
                   alt={image.alt}
@@ -224,7 +224,7 @@ export function HeroCrmStreamlined({
                 />
                 <div
                   className={cn(
-                    "absolute top-0 left-25 z-10 hidden bg-muted aspect-[1.378254211/1] h-full w-225 rounded-xl md:block",
+                    "absolute top-0 left-25 z-10 hidden bg-muted aspect-[1.378254211/1] h-full w-225 rounded-2xl md:block opacity-30",
                   )}
                 />
               </div>

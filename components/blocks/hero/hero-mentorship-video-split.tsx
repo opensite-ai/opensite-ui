@@ -229,7 +229,7 @@ export function HeroMentorshipVideoSplit({
         <Pressable
           onClick={() => setIsVideoOpen(true)}
           className={cn(
-            "group relative flex overflow-hidden rounded-lg p-0",
+            "group relative flex overflow-hidden rounded-lg p-0 cursor-pointer",
             videoAspectRatio === "vertical" ? "h-36 w-20" : "h-20 w-36",
           )}
         >
@@ -243,12 +243,8 @@ export function HeroMentorshipVideoSplit({
               )}
               optixFlowConfig={optixFlowConfig}
             />
-            <div className="m-auto aspect-square z-10 bg-card text-card-foreground p-2 rounded-xl shadow-xl">
-              <DynamicIcon
-                name="lucide/play"
-                size={24}
-                className="transition-transform group-hover:scale-125"
-              />
+            <div className="m-auto aspect-square z-10 bg-card text-card-foreground p-2 rounded-xl ring-4 ring-card flex items-center justify-center opacity-80 hover:opacity-100 transition-all duration-500">
+              <DynamicIcon name="lucide/play" size={24} />
             </div>
           </AspectRatio>
         </Pressable>
@@ -321,7 +317,7 @@ export function HeroMentorshipVideoSplit({
                     (typeof description === "string" ? (
                       <p
                         className={cn(
-                          "text-lg font-medium md:text-xl",
+                          "text-lg font-normal md:text-xl text-pretty",
                           descriptionClassName,
                         )}
                       >

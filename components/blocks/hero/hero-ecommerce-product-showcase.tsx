@@ -239,6 +239,7 @@ export function HeroEcommerceProductShowcase({
                   images[0].className,
                 )}
                 optixFlowConfig={optixFlowConfig}
+                loading="eager"
               />
             </div>
           )}
@@ -252,6 +253,7 @@ export function HeroEcommerceProductShowcase({
                   images[1].className,
                 )}
                 optixFlowConfig={optixFlowConfig}
+                loading="eager"
               />
             </div>
           )}
@@ -267,6 +269,7 @@ export function HeroEcommerceProductShowcase({
                   images[2].className,
                 )}
                 optixFlowConfig={optixFlowConfig}
+                loading="eager"
               />
             </div>
           )}
@@ -280,6 +283,7 @@ export function HeroEcommerceProductShowcase({
                   images[3].className,
                 )}
                 optixFlowConfig={optixFlowConfig}
+                loading="eager"
               />
             </div>
           )}
@@ -310,16 +314,11 @@ export function HeroEcommerceProductShowcase({
           >
             {renderBadge}
             {(logo || logoSlot) && (
-
               <div className={cn("mb-4", logoClassName)}>
-
                 <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
-
               </div>
-
             )}
 
-            
             {heading &&
               (typeof heading === "string" ? (
                 <h1

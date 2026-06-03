@@ -242,6 +242,7 @@ export function HeroAiPoweredCarousel({
                               image.className,
                             )}
                             optixFlowConfig={optixFlowConfig}
+                            loading="eager"
                           />
                         </CarouselItem>
                       ))}

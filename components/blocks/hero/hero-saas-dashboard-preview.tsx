@@ -361,6 +361,7 @@ export function HeroSaasDashboardPreview({
               alt={browserPreview.image.alt}
               className={cn("w-full", browserPreview.image.className)}
               optixFlowConfig={optixFlowConfig}
+              loading="eager"
             />
           )}
         </div>
@@ -387,16 +388,11 @@ export function HeroSaasDashboardPreview({
         >
           {renderBadge}
           {(logo || logoSlot) && (
-
             <div className={cn("mb-4", logoClassName)}>
-
               <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
-
             </div>
-
           )}
 
-          
           {heading &&
             (typeof heading === "string" ? (
               <h1

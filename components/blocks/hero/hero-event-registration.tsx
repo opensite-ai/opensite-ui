@@ -315,6 +315,7 @@ export function HeroEventRegistration({
             alt={image.alt}
             className={cn("aspect-square w-full object-cover", image.className)}
             optixFlowConfig={optixFlowConfig}
+            loading="eager"
           />
         </div>
         {renderLocation}
