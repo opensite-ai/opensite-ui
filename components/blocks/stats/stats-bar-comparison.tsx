@@ -2,11 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -242,11 +238,7 @@ export function StatsBarComparison({
   const badgeContent = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badge) return null;
-    return (
-      <Badge variant="outline" className={cn("mb-4", badgeClassName)}>
-        {badge}
-      </Badge>
-    );
+    return <Badge className={cn("mb-4", badgeClassName)}>{badge}</Badge>;
   }, [badgeSlot, badge, badgeClassName]);
 
   // Memoized comparisons rendering
@@ -258,9 +250,7 @@ export function StatsBarComparison({
       <div
         key={groupIndex}
         className={cn(
-          "rounded-xl border p-6",
-          getNestedCardBg(background, "card"),
-          getNestedCardTextColor(background),
+          "rounded-xl border p-6 bg-card text-card-foreground",
           group.className,
           groupCardClassName,
         )}
@@ -273,7 +263,7 @@ export function StatsBarComparison({
               {group.title}
             </h3>
           ) : (
-            <div className={cn("mb-6", groupTitleClassName)}>{group.title}</div>
+            group.title
           ))}
         <div className="space-y-4">
           {group.bars.map((bar, barIndex) => (
@@ -289,7 +279,6 @@ export function StatsBarComparison({
               <div
                 className={cn(
                   "h-3 w-full overflow-hidden rounded-full",
-                  getNestedCardBg(background, "muted"),
                   barTrackClassName,
                 )}
               >
@@ -350,22 +339,20 @@ export function StatsBarComparison({
                   {heading}
                 </h2>
               ) : (
-                <div className={cn("mb-4", headingClassName)}>{heading}</div>
+                heading
               ))}
             {description &&
               (typeof description === "string" ? (
                 <p
                   className={cn(
-                    "mx-auto max-w-2xl text-muted-foreground",
+                    "mx-auto max-w-full md:max-w-md text-balance opacity-70",
                     descriptionClassName,
                   )}
                 >
                   {description}
                 </p>
               ) : (
-                <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>
-                  {description}
-                </div>
+                description
               ))}
           </div>
         )}

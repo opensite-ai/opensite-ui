@@ -121,7 +121,6 @@ export function BlogCardsTaglineCta({
   postsSlot,
   readMoreText,
   className,
-  containerClassName,
   headerClassName,
   badgeClassName,
   headingClassName,
@@ -131,7 +130,8 @@ export function BlogCardsTaglineCta({
   postCardClassName,
   optixFlowConfig,
   background,
-  spacing,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "lg",
   pattern,
   patternOpacity,
 }: BlogCardsTaglineCtaProps): React.JSX.Element {
@@ -182,7 +182,7 @@ export function BlogCardsTaglineCta({
         <Card
           key={postId}
           className={cn(
-            "grid grid-rows-[auto_auto_1fr_auto] overflow-hidden pt-0",
+            "grid grid-rows-[auto_auto_1fr_auto] gap-4 overflow-hidden pt-0",
             postCardClassName,
           )}
         >
@@ -197,11 +197,12 @@ export function BlogCardsTaglineCta({
                   alt={postTitle}
                   className="h-full w-full object-cover object-center"
                   optixFlowConfig={optixFlowConfig}
+                  loading="eager"
                 />
               </Pressable>
             </div>
           )}
-          <CardHeader>
+          <CardHeader className={post.image ? "pt-0" : "pt-6"}>
             {post.title && (
               <h3 className="text-lg font-semibold hover:underline md:text-xl">
                 <Pressable href={postHref}>{post.title}</Pressable>
@@ -210,7 +211,7 @@ export function BlogCardsTaglineCta({
           </CardHeader>
           <CardContent>
             {postSummary && (
-              <p className="text-muted-foreground">{postSummary}</p>
+              <p className="opacity-70 line-clamp-4">{postSummary}</p>
             )}
           </CardContent>
           <CardFooter>
@@ -241,13 +242,9 @@ export function BlogCardsTaglineCta({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={containerClassName}
     >
-      <div
-        className={cn(
-          "container mx-auto flex flex-col items-center gap-16 lg:px-16",
-          containerClassName,
-        )}
-      >
+      <div className="mx-auto flex flex-col items-center gap-16 lg:px-16">
         <div
           className={cn(
             "text-center flex flex-col items-center px-4 md:px-0",
@@ -256,11 +253,9 @@ export function BlogCardsTaglineCta({
         >
           {badge &&
             (typeof badge === "string" ? (
-              <Badge variant="secondary" className={cn("mb-6", badgeClassName)}>
-                {badge}
-              </Badge>
+              <Badge className={cn("mb-6", badgeClassName)}>{badge}</Badge>
             ) : (
-              <div className={cn("mb-6", badgeClassName)}>{badge}</div>
+              badge
             ))}
           {heading &&
             (typeof heading === "string" ? (
@@ -273,20 +268,20 @@ export function BlogCardsTaglineCta({
                 {heading}
               </h2>
             ) : (
-              <div className={headingClassName}>{heading}</div>
+              heading
             ))}
           {description &&
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "mb-8 text-muted-foreground md:text-base lg:max-w-2xl lg:text-lg text-balance",
+                  "mb-8 md:text-base max-w-full md:max-w-md lg:text-lg text-balance",
                   descriptionClassName,
                 )}
               >
                 {description}
               </p>
             ) : (
-              <div className={descriptionClassName}>{description}</div>
+              description
             ))}
           {ctaActionContent}
         </div>

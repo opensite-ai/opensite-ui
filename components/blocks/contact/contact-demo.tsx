@@ -150,7 +150,7 @@ export function ContactDemo({
                 as="h2"
                 text={heading}
                 className={cn(
-                  "text-5xl lg:text-6xl xl:text-7xl text-pretty font-bold text-left md:text-center",
+                  "justify-start text-left text-5xl font-bold text-pretty md:justify-center md:text-center lg:text-6xl xl:text-7xl",
                   headingClassName,
                 )}
                 animateBy="words"
