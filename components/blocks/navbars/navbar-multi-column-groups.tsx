@@ -158,6 +158,19 @@ interface NavbarMultiColumnGroupsRuntimeProps {
 }
 
 const MOBILE_BREAKPOINT = 1024;
+const DESKTOP_GROUP_COLUMN_WIDTH = 248;
+const DESKTOP_GROUP_GAP = 8;
+const DESKTOP_GROUP_PADDING_X = 16;
+
+const getDesktopGroupsGridStyle = (
+  groupCount: number,
+): React.CSSProperties => ({
+  width:
+    groupCount * DESKTOP_GROUP_COLUMN_WIDTH +
+    Math.max(groupCount - 1, 0) * DESKTOP_GROUP_GAP +
+    DESKTOP_GROUP_PADDING_X,
+  gridTemplateColumns: `repeat(${groupCount}, minmax(0, 1fr))`,
+});
 
 /**
  * NavbarMultiColumnGroups - A navigation bar with multi-column grouped dropdown menus.
@@ -358,25 +371,31 @@ interface DesktopMenuItemProps {
 }
 
 const DesktopMenuItem = ({ item, index }: DesktopMenuItemProps) => {
-  if (item.groups) {
+  if (item.groups && item.groups.length > 0) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
         <NavigationMenuTrigger className="h-fit bg-transparent px-2.5 font-normal text-muted-foreground">
           {item.title}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="rounded-xl! border! p-0!">
-          <ul className="flex p-2" style={{ width: item.groups.length * 248 }}>
+          <ul
+            className="grid box-border max-w-[calc(100vw-2rem)] gap-2 overflow-x-auto p-2"
+            style={getDesktopGroupsGridStyle(item.groups.length)}
+          >
             {item.groups.map((group, groupIndex) => (
-              <li className="flex-1" key={`desktop-group-${groupIndex}`}>
-                <ul>
-                  <li className="px-3 py-2 text-sm leading-normal text-muted-foreground">
+              <li className="min-w-0" key={`desktop-group-${groupIndex}`}>
+                <ul className="min-w-0">
+                  <li className="line-clamp-2 break-words px-3 py-2 text-sm leading-normal text-muted-foreground">
                     {group.title}
                   </li>
                   {group.links.map((link, linkIndex) => (
-                    <li key={`desktop-links-${groupIndex}-${linkIndex}`}>
+                    <li
+                      className="min-w-0"
+                      key={`desktop-links-${groupIndex}-${linkIndex}`}
+                    >
                       <NavigationMenuLink
                         asChild
-                        className="group/link flex-row gap-2 px-3 py-2 transition-colors duration-200"
+                        className="group/link !flex !w-full max-w-full min-w-0 flex-row items-start gap-2 overflow-hidden px-3 py-2 text-left whitespace-normal transition-colors duration-200"
                       >
                         <Pressable href={link.url}>
                           <div className="flex size-8 shrink-0 rounded-lg border duration-400 fade-in group-hover/link:bg-background">
@@ -386,11 +405,11 @@ const DesktopMenuItem = ({ item, index }: DesktopMenuItemProps) => {
                               className="m-auto group-hover/link:stroke-black"
                             />
                           </div>
-                          <div className="flex flex-col gap-0.5">
-                            <div className="text-sm font-medium">
+                          <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                            <div className="line-clamp-2 break-words text-sm leading-snug font-medium">
                               {link.label}
                             </div>
-                            <div className="text-xs text-muted-foreground group-hover/link:text-foreground">
+                            <div className="line-clamp-2 break-words text-xs leading-snug text-muted-foreground group-hover/link:text-foreground">
                               {link.description}
                             </div>
                           </div>
@@ -492,7 +511,9 @@ const MobileNavigationMenu = ({
                     className="border-b-0"
                   >
                     <AccordionTrigger className="h-15 items-center p-0 px-4! text-base leading-[3.75] font-normal text-muted-foreground hover:bg-muted hover:no-underline">
-                      {item.title}
+                      <span className="line-clamp-2 min-w-0 flex-1 break-words text-left">
+                        {item.title}
+                      </span>
                     </AccordionTrigger>
                     <AccordionContent className="overflow-x-none">
                       {item.groups.map((group, groupIndex) => (
@@ -501,7 +522,7 @@ const MobileNavigationMenu = ({
                           className="mb-4"
                         >
                           {group.title && (
-                            <p className="mt-4 px-4 text-xs font-semibold text-muted-foreground uppercase">
+                            <p className="mt-4 line-clamp-2 break-words px-4 text-xs font-semibold text-muted-foreground uppercase">
                               {group.title}
                             </p>
                           )}
@@ -515,9 +536,11 @@ const MobileNavigationMenu = ({
                               <DynamicIcon
                                 name={link.icon || link.iconName}
                                 size={16}
-                                className="stroke-muted-foreground"
+                                className="shrink-0 stroke-muted-foreground"
                               />
-                              {link.label}
+                              <span className="line-clamp-2 min-w-0 flex-1 break-words">
+                                {link.label}
+                              </span>
                             </Pressable>
                           ))}
                         </div>
@@ -535,7 +558,9 @@ const MobileNavigationMenu = ({
                   className="flex h-15 items-center rounded-md p-0 px-4 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all hover:bg-muted focus-visible:ring-4 focus-visible:outline-1"
                   onClick={handleClose}
                 >
-                  {item.title}
+                  <span className="line-clamp-2 min-w-0 flex-1 break-words">
+                    {item.title}
+                  </span>
                 </Pressable>
               );
             })}
