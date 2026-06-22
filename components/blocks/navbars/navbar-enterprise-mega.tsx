@@ -5,6 +5,7 @@ import { Fragment, useState, useEffect, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon, type DynamicIconName } from "../../ui/dynamic-icon";
+import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import {
   Accordion,
@@ -102,7 +103,7 @@ export interface IProductItem {
   title: string;
   description: string;
   href: string;
-  image: string;
+  image?: string;
 }
 
 /**
@@ -186,7 +187,7 @@ export interface IFeaturedHeroCard {
   subtitle?: string;
   description: string;
   href: string;
-  image: string;
+  image?: string;
   imagePosition?: "top" | "bottom" | "background";
   variant?: "primary" | "accent";
 }
@@ -577,13 +578,70 @@ interface DesktopMenuItemProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
+const hasItems = <T,>(items?: T[]) => Array.isArray(items) && items.length > 0;
+
+const hasFeaturedHeroCardContent = (card?: IFeaturedHeroCard) =>
+  Boolean(
+    card && (card.title || card.subtitle || card.description || card.image),
+  );
+
+const hasGenericDropdownContent = (item: IMenuLink) =>
+  hasItems(item.links) ||
+  Boolean(item.dropdownGroups?.some((group) => hasItems(group.links)));
+
+const hasLayoutSpecificDropdownContent = (item: IMenuLink) => {
+  switch (item.layout) {
+    case "solutions-with-platform":
+      return (
+        hasItems(item.solutionCards) ||
+        hasItems(item.platformItems) ||
+        hasFeaturedHeroCardContent(item.featuredHeroCard)
+      );
+    case "products-categorized":
+      return (
+        Boolean(
+          item.productCategories?.some((category) =>
+            hasItems(category.products),
+          ),
+        ) || hasFeaturedHeroCardContent(item.featuredHeroCard)
+      );
+    case "features-with-locations":
+      return (
+        Boolean(
+          item.featureCategories?.some((category) =>
+            hasItems(category.features),
+          ),
+        ) ||
+        Boolean(item.regions?.some((region) => hasItems(region.locations))) ||
+        hasFeaturedHeroCardContent(item.featuredHeroCard)
+      );
+    case "partners-promotional":
+      return (
+        hasItems(item.partnerCards) ||
+        hasFeaturedHeroCardContent(item.featuredHeroCard)
+      );
+    case "resources-with-topics":
+      return (
+        hasItems(item.resourceItems) ||
+        Boolean(
+          item.topicGroups?.some((group) => hasItems(group.topics)),
+        ) ||
+        hasFeaturedHeroCardContent(item.featuredHeroCard)
+      );
+    default:
+      return false;
+  }
+};
+
+const hasDropdownContent = (item: IMenuLink) =>
+  hasLayoutSpecificDropdownContent(item) || hasGenericDropdownContent(item);
+
 const DesktopMenuItem = ({
   item,
   index,
   optixFlowConfig,
 }: DesktopMenuItemProps) => {
-  const hasDropdown = Boolean(item.layout);
-  const effectiveLayout = item.layout || "solutions-with-platform";
+  const hasDropdown = hasDropdownContent(item);
 
   if (hasDropdown) {
     return (
@@ -592,10 +650,7 @@ const DesktopMenuItem = ({
           {item.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="max-h-[calc(100vh-6rem)] overflow-y-auto rounded-xl! border-0! p-4!">
-          {renderDropdownContent(
-            { ...item, layout: effectiveLayout },
-            optixFlowConfig,
-          )}
+          {renderDropdownContent(item, optixFlowConfig)}
         </NavigationMenuContent>
       </NavigationMenuItem>
     );
@@ -617,6 +672,10 @@ const renderDropdownContent = (
   item: IMenuLink,
   optixFlowConfig?: OptixFlowConfig,
 ) => {
+  if (!hasLayoutSpecificDropdownContent(item)) {
+    return renderGenericDropdownContent(item, optixFlowConfig);
+  }
+
   switch (item.layout) {
     case "solutions-with-platform":
       return (
@@ -661,18 +720,160 @@ const renderDropdownContent = (
           resourcesTitle={item.resourcesTitle}
           topicGroups={item.topicGroups ?? []}
           featuredHeroCard={item.featuredHeroCard}
+          optixFlowConfig={optixFlowConfig}
         />
       );
     default:
-      return null;
+      return renderGenericDropdownContent(item, optixFlowConfig);
   }
 };
 
+const renderGenericDropdownContent = (
+  item: IMenuLink,
+  optixFlowConfig?: OptixFlowConfig,
+) => {
+  const links = item.links ?? [];
+  const groups = (item.dropdownGroups ?? []).filter((group) =>
+    hasItems(group.links),
+  );
+  const hasLinks = hasItems(links);
+  const hasGroups = hasItems(groups);
+
+  if (!hasLinks && !hasGroups) return null;
+
+  const renderGenericLink = (link: ILinkItem, key: React.Key) => {
+    const iconName = link.icon ?? link.iconName;
+    const label = typeof link.label === "string" ? link.label : "";
+
+    return (
+      <NavigationMenuLink
+        key={key}
+        href={getLinkUrl(link)}
+        className="group !flex !w-full min-w-0 items-start gap-3 rounded-lg p-3 text-left hover:bg-muted"
+      >
+        {link.image ? (
+          <div className="relative flex size-10 shrink-0 items-center justify-center overflow-hidden rounded bg-muted">
+            <Img
+              src={link.image}
+              alt={label}
+              className="h-full w-full object-cover"
+              optixFlowConfig={optixFlowConfig}
+              loading="eager"
+            />
+          </div>
+        ) : iconName ? (
+          <DynamicIcon
+            name={iconName}
+            size={18}
+            className="mt-0.5 shrink-0"
+          />
+        ) : null}
+        <div className="min-w-0 flex-1">
+          <div className="break-words text-sm font-medium">{link.label}</div>
+          {link.description && (
+            <p className="mt-0.5 break-words text-xs text-muted-foreground">
+              {link.description}
+            </p>
+          )}
+        </div>
+      </NavigationMenuLink>
+    );
+  };
+
+  return (
+    <div
+      className={cn(
+        "grid max-w-[calc(100vw-4rem)] gap-6",
+        hasLinks && hasGroups
+          ? "w-[900px] grid-cols-[minmax(0,1fr)_minmax(220px,0.45fr)]"
+          : hasGroups
+            ? "w-[780px] grid-cols-1"
+            : "w-[420px] grid-cols-1",
+      )}
+    >
+      {hasGroups && (
+        <div
+          className={cn(
+            "grid min-w-0 gap-5",
+            !hasLinks && groups.length > 1
+              ? "grid-cols-[repeat(auto-fit,minmax(220px,1fr))]"
+              : "grid-cols-1",
+          )}
+        >
+          {groups.map((group, groupIndex) => (
+            <div key={groupIndex} className="min-w-0">
+              <div className="mb-3 border-b border-border pb-2 text-left">
+                <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
+                  {group.label}
+                </strong>
+                {group.description && (
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {group.description}
+                  </p>
+                )}
+              </div>
+              <menu className="grid gap-1.5">
+                {group.links.map((link, linkIndex) =>
+                  renderGenericLink(link, `${groupIndex}-${linkIndex}`),
+                )}
+              </menu>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {hasLinks && (
+        <menu className="grid min-w-0 gap-1.5">
+          {links.map((link, linkIndex) => renderGenericLink(link, linkIndex))}
+        </menu>
+      )}
+    </div>
+  );
+};
+
+const renderMobileFeaturedHeroCard = (card?: IFeaturedHeroCard) => {
+  if (!hasFeaturedHeroCardContent(card) || !card) return null;
+
+  return (
+    <Pressable
+      href={card.href}
+      className={cn(
+        "block rounded-lg p-4 text-sm font-medium text-primary-foreground",
+        card.variant === "accent"
+          ? "bg-accent text-accent-foreground"
+          : "bg-primary",
+      )}
+    >
+      <span>{card.title}</span>
+      {card.description && (
+        <p className="mt-1 text-xs leading-relaxed opacity-90">
+          {card.description}
+        </p>
+      )}
+    </Pressable>
+  );
+};
+
 const renderMobileDropdownContent = (item: IMenuLink) => {
+  if (!hasLayoutSpecificDropdownContent(item)) {
+    return renderMobileGenericDropdownContent(item);
+  }
+
   switch (item.layout) {
     case "solutions-with-platform":
       return (
         <div className="flex flex-col space-y-2">
+          {renderMobileFeaturedHeroCard(item.featuredHeroCard)}
+          {item.platformItems?.map((technology) => (
+            <Pressable
+              key={technology.id}
+              href={technology.href}
+              className="flex items-center gap-2 pl-4 text-sm text-muted-foreground"
+            >
+              <DynamicIcon name={technology.icon} size={14} />
+              {technology.title}
+            </Pressable>
+          ))}
           {item.solutionCards?.map((solution) => (
             <div key={solution.id} className="space-y-2">
               <Pressable
@@ -681,7 +882,7 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
               >
                 {solution.title}
               </Pressable>
-              {solution.subpages.map((subpage) => (
+              {(solution.subpages ?? []).map((subpage) => (
                 <Pressable
                   key={subpage.id}
                   href={subpage.href}
@@ -698,8 +899,9 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
     case "products-categorized":
       return (
         <div className="space-y-4">
+          {renderMobileFeaturedHeroCard(item.featuredHeroCard)}
           {item.productCategories?.flatMap((category) =>
-            category.products.map((product) => (
+            (category.products ?? []).map((product) => (
               <Pressable
                 key={product.id}
                 href={product.href}
@@ -714,6 +916,7 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
     case "resources-with-topics":
       return (
         <div className="space-y-4">
+          {renderMobileFeaturedHeroCard(item.featuredHeroCard)}
           {item.resourceItems?.map((resource) => (
             <Pressable
               key={resource.id}
@@ -724,23 +927,126 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
               {resource.title}
             </Pressable>
           ))}
+          {item.topicGroups?.map((group) => (
+            <div key={group.title} className="space-y-2">
+              <div className="pt-2 text-xs font-medium tracking-wider text-muted-foreground uppercase">
+                {group.title}
+              </div>
+              {group.topics.map((topic) => (
+                <Pressable
+                  key={topic.id}
+                  href={topic.href}
+                  className="flex items-center gap-2 pl-4 text-sm text-muted-foreground"
+                >
+                  <DynamicIcon name={topic.icon} size={14} />
+                  {topic.title}
+                </Pressable>
+              ))}
+            </div>
+          ))}
         </div>
       );
     case "features-with-locations":
+      return (
+        <div className="space-y-4">
+          {renderMobileFeaturedHeroCard(item.featuredHeroCard)}
+          {item.featureCategories?.flatMap((category) =>
+            (category.features ?? []).map((feature) => (
+              <Pressable
+                key={feature.id}
+                href={feature.href}
+                className="flex items-center gap-2 pl-4 text-sm text-muted-foreground"
+              >
+                <DynamicIcon name={feature.icon} size={14} />
+                {feature.title}
+              </Pressable>
+            )),
+          )}
+          {item.regions?.map((region) => (
+            <div key={region.title} className="space-y-2">
+              <div className="pt-2 text-xs font-medium tracking-wider text-muted-foreground uppercase">
+                {region.title}
+              </div>
+              {region.locations.map((location) => (
+                <Pressable
+                  key={location.title}
+                  href={location.href}
+                  className="flex items-center gap-2 pl-4 text-sm text-muted-foreground"
+                >
+                  <DynamicIcon name={location.icon} size={14} />
+                  {location.title}
+                </Pressable>
+              ))}
+            </div>
+          ))}
+        </div>
+      );
     case "partners-promotional":
       return (
-        <div className="text-sm text-muted-foreground">
-          <Pressable href="#">
-            View all{" "}
-            {typeof item.label === "string"
-              ? item.label.toLowerCase()
-              : "items"}
-          </Pressable>
+        <div className="space-y-4">
+          {renderMobileFeaturedHeroCard(item.featuredHeroCard)}
+          {item.partnerCards?.map((card) => (
+            <Pressable
+              key={card.title}
+              href={card.href}
+              className="flex items-start gap-2 pl-4 text-sm text-muted-foreground"
+            >
+              <DynamicIcon name={card.icon} size={14} className="mt-0.5" />
+              <span>{card.title}</span>
+            </Pressable>
+          ))}
         </div>
       );
     default:
-      return null;
+      return renderMobileGenericDropdownContent(item);
   }
+};
+
+const renderMobileGenericDropdownContent = (item: IMenuLink) => {
+  const links = item.links ?? [];
+  const groups = (item.dropdownGroups ?? []).filter((group) =>
+    hasItems(group.links),
+  );
+
+  return (
+    <div className="space-y-4">
+      {groups.map((group, groupIndex) => (
+        <div key={groupIndex} className="space-y-2">
+          <div className="pt-2 text-xs font-medium tracking-wider text-muted-foreground uppercase">
+            {group.label}
+          </div>
+          {group.links.map((link, linkIndex) => {
+            const iconName = link.icon ?? link.iconName;
+
+            return (
+              <Pressable
+                key={`${groupIndex}-${linkIndex}`}
+                href={getLinkUrl(link)}
+                className="flex items-center gap-2 pl-4 text-sm text-muted-foreground"
+              >
+                {iconName && <DynamicIcon name={iconName} size={14} />}
+                {link.label}
+              </Pressable>
+            );
+          })}
+        </div>
+      ))}
+      {links.map((link, linkIndex) => {
+        const iconName = link.icon ?? link.iconName;
+
+        return (
+          <Pressable
+            key={linkIndex}
+            href={getLinkUrl(link)}
+            className="flex items-center gap-2 pl-4 text-sm text-muted-foreground"
+          >
+            {iconName && <DynamicIcon name={iconName} size={14} />}
+            {link.label}
+          </Pressable>
+        );
+      })}
+    </div>
+  );
 };
 
 interface MobileNavigationMenuProps {
@@ -803,7 +1109,7 @@ const MobileNavigationMenu = ({
       <div className="max-w-screen-sm mx-auto">
         <Accordion type="multiple" className="w-full">
           {menuLinks.map((item, index) => {
-            const hasDropdown = Boolean(item.layout);
+            const hasDropdown = hasDropdownContent(item);
 
             if (hasDropdown) {
               return (

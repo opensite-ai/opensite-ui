@@ -1,6 +1,18 @@
 import { render, screen } from "@testing-library/react";
+import type * as React from "react";
 import { describe, it, expect } from "vitest";
 import { NavbarEnterpriseMega } from "../navbar-enterprise-mega";
+import {
+  ProductsMenu,
+  ResourcesMenu,
+  SolutionsMenu,
+} from "../../../ui/navbar-mega-menus";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+} from "../../../ui/navigation-menu";
 import type {
   IMenuLink,
   ISolutionCard,
@@ -19,6 +31,17 @@ import type {
 } from "../navbar-enterprise-mega";
 
 describe("NavbarEnterpriseMega", () => {
+  const renderMegaPanel = (children: React.ReactNode) =>
+    render(
+      <NavigationMenu viewport={false}>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuContent forceMount>{children}</NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>,
+    );
+
   const mockLogo = {
     src: "/logo.png",
     alt: "Test Logo",
@@ -357,5 +380,89 @@ describe("NavbarEnterpriseMega", () => {
     expect(screen.getByText("Partners")).toBeInTheDocument();
     expect(screen.getByText("Resources")).toBeInTheDocument();
   });
-});
 
+  it("expands product links when the featured product card is missing", () => {
+    const { container } = renderMegaPanel(
+      <ProductsMenu
+        productCategories={[
+          {
+            title: "Services",
+            products: [
+              {
+                id: "repairs",
+                title: "Emergency Repairs",
+                href: "/repairs",
+                description: "Fast service response",
+              },
+              {
+                id: "maintenance",
+                title: "Maintenance",
+                href: "/maintenance",
+                description: "Recurring service plans",
+              },
+            ],
+          },
+        ]}
+      />,
+    );
+
+    const panel = container.querySelector('div[class*="w-[860px]"]');
+
+    expect(panel).toHaveClass("grid-cols-1");
+    expect(panel).not.toHaveClass("grid-cols-[320px_1fr]");
+    expect(screen.getByText("Emergency Repairs")).toBeInTheDocument();
+  });
+
+  it("collapses resources to content columns when the featured resource card is missing", () => {
+    const { container } = renderMegaPanel(
+      <ResourcesMenu
+        resourceItems={[
+          {
+            id: "docs",
+            title: "Documentation",
+            description: "Complete guides",
+            href: "/docs",
+            icon: "lucide/book",
+          },
+        ]}
+        topicGroups={[
+          {
+            title: "Learning Paths",
+            topics: [
+              {
+                id: "start",
+                title: "Beginner Guide",
+                href: "/start",
+                icon: "lucide/book-open",
+              },
+            ],
+          },
+        ]}
+      />,
+    );
+
+    const panel = container.querySelector('div[class*="w-[900px]"]');
+
+    expect(panel).toHaveClass("grid-cols-[1fr_220px]");
+    expect(panel).not.toHaveClass("grid-cols-[280px_1fr_220px]");
+  });
+
+  it("renders a compact text promo when a solutions featured card has no image", () => {
+    const { container } = render(
+      <SolutionsMenu
+        solutionCards={[]}
+        platformItems={[]}
+        featuredHeroCard={{
+          title: "Service Areas",
+          description: "Find support near you",
+          href: "/service-areas",
+        }}
+      />,
+    );
+
+    expect(container.firstElementChild).toHaveClass("w-[560px]", "grid-cols-1");
+    expect(screen.getByText("Service Areas").closest("a")).not.toHaveClass(
+      "min-h-[420px]",
+    );
+  });
+});
