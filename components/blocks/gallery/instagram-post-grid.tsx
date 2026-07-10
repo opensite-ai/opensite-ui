@@ -608,7 +608,21 @@ export function InstagramPostGrid({
   // Posts without a servable image are skipped (never render an empty tile).
   const mediaItems = useMemo<MediaItem[]>(() => {
     if (itemsSlot || !items) return [];
-    return items.filter((item) => Boolean(item.image)).map(toMediaItem);
+    const withImage = items.filter((item) => Boolean(item.image));
+    // Dev-only: silent drops hide item-count/geometry mistakes, so surface them
+    // in development. Memoized on the `items` identity → warns once per feed,
+    // never per render; the production render path stays completely silent.
+    if (
+      process.env.NODE_ENV !== "production" &&
+      withImage.length < items.length
+    ) {
+      const skipped = items.filter((item) => !item.image);
+      const skippedIds = skipped.map((item) => item.id).join(", ");
+      console.warn(
+        `[instagram-post-grid] skipped ${skipped.length} item(s) without a resolvable image: ${skippedIds}`,
+      );
+    }
+    return withImage.map(toMediaItem);
   }, [items, itemsSlot]);
 
   // Empty / missing feed → render nothing (blocks own their empty state).

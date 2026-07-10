@@ -245,6 +245,44 @@ describe("InstagramPostGrid", () => {
     expect(screen.queryByText("no image")).not.toBeInTheDocument();
   });
 
+  // ── Dev-visible skip warning ────────────────────────────────────────────────
+  it("warns in development when imageless items are skipped (8 → 6 tiles, dropped ids named)", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    // 8 posts; ids p3 and p6 have no resolvable image and must be dropped.
+    const items: InstagramPostItem[] = Array.from({ length: 8 }, (_, i) => ({
+      id: `p${i + 1}`,
+      href: `https://www.instagram.com/p/p${i + 1}/`,
+      image: i === 2 || i === 5 ? "" : IMAGE_URL,
+    }));
+    render(<InstagramPostGrid items={items} />);
+    // Only the 6 imaged posts become tiles / feed items.
+    expect(screen.getAllByTestId("thumb-card")).toHaveLength(6);
+    expect(captured.provider[0].items).toHaveLength(6);
+    // A single dev warning names exactly the two dropped ids.
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(warn).toHaveBeenCalledWith(
+      "[instagram-post-grid] skipped 2 item(s) without a resolvable image: p3, p6",
+    );
+    warn.mockRestore();
+  });
+
+  it("stays silent in production even when imageless items are skipped", () => {
+    vi.stubEnv("NODE_ENV", "production");
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    render(
+      <InstagramPostGrid
+        items={[
+          { id: "keep", href: "https://x/keep", image: IMAGE_URL },
+          { id: "drop", href: "https://x/drop", image: "" },
+        ]}
+      />,
+    );
+    expect(screen.getAllByTestId("thumb-card")).toHaveLength(1);
+    expect(warn).not.toHaveBeenCalled();
+    warn.mockRestore();
+    vi.unstubAllEnvs();
+  });
+
   it("renders custom itemsSlot content instead of the immersive feed", () => {
     render(
       <InstagramPostGrid
