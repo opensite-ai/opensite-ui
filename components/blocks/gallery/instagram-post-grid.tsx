@@ -177,6 +177,62 @@ const IG_TILE_WIDTH = 320;
 const IG_TILE_STYLE: React.CSSProperties = { width: "100%" };
 
 /**
+ * Radius the immersive `ThumbnailCard` resolves for widths > 160px — the
+ * wrapper's shadow and the caption scrim's bottom corners must match it so
+ * the tile reads as one rounded surface.
+ */
+const IG_TILE_RADIUS = 18;
+
+/**
+ * Tile wrapper: hosts the block-owned caption overlay and a subtle boundary
+ * shadow so post edges stay visible on dark page backgrounds (refinement #4 —
+ * deliberately faint; the grid gap is sized so neighboring shadows never
+ * overlap).
+ */
+const TILE_WRAPPER_STYLE: React.CSSProperties = {
+  position: "relative",
+  borderRadius: IG_TILE_RADIUS,
+  boxShadow:
+    "0 1px 2px rgba(15, 23, 42, 0.08), 0 6px 16px rgba(15, 23, 42, 0.10)",
+};
+
+/**
+ * Bottom gradient scrim behind the caption. Rounded to the tile's own radius
+ * and non-interactive so clicks fall through to the card.
+ */
+const CAPTION_SCRIM_STYLE: React.CSSProperties = {
+  position: "absolute",
+  left: 0,
+  right: 0,
+  bottom: 0,
+  padding: "28px 14px 13px",
+  background:
+    "linear-gradient(180deg, rgba(8,12,24,0) 0%, rgba(8,12,24,0.55) 45%, rgba(8,12,24,0.78) 100%)",
+  borderBottomLeftRadius: IG_TILE_RADIUS,
+  borderBottomRightRadius: IG_TILE_RADIUS,
+  pointerEvents: "none",
+};
+
+/**
+ * Caption text: readable at grid size, clamped to two lines inside a FIXED
+ * two-line box so single-line captions start at the same vertical position as
+ * two-line ones (refinement #2).
+ */
+const CAPTION_TEXT_STYLE: React.CSSProperties = {
+  color: "#fff",
+  fontSize: 13,
+  lineHeight: 1.4,
+  fontWeight: 600,
+  letterSpacing: "0.005em",
+  textShadow: "0 1px 2px rgba(0, 0, 0, 0.35)",
+  display: "-webkit-box",
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: "vertical",
+  overflow: "hidden",
+  height: "2.8em",
+};
+
+/**
  * Consumer metadata attached to every mapped {@link MediaItem}. The immersive
  * library never reads `meta` itself — the block's own viewer actions do.
  */
@@ -272,19 +328,23 @@ function likeBadge(likeCount: number): React.ReactNode {
       style={{
         display: "inline-flex",
         alignItems: "center",
-        gap: 4,
-        padding: "3px 8px",
+        gap: 6,
+        // Breathing room from the tile's top-left corner (refinement #1).
+        margin: 6,
+        padding: "6px 11px",
         borderRadius: 999,
-        background: "rgba(8,12,24,0.65)",
-        backdropFilter: "blur(6px)",
-        WebkitBackdropFilter: "blur(6px)",
+        background: "rgba(8, 12, 24, 0.55)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+        border: "1px solid rgba(255, 255, 255, 0.14)",
         color: "#fff",
-        fontSize: 11,
-        fontWeight: 700,
+        fontSize: 13,
+        fontWeight: 600,
         lineHeight: 1,
+        letterSpacing: "0.01em",
       }}
     >
-      <DynamicIcon name="lucide/heart" size={13} aria-hidden="true" />
+      <DynamicIcon name="lucide/heart" size={15} aria-hidden="true" />
       <span aria-hidden="true">{likeCount.toLocaleString()}</span>
     </span>
   );
@@ -511,7 +571,7 @@ function InstagramFeedGrid({
   return (
     <div
       className={cn(
-        "grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4",
+        "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4",
         gridClassName,
       )}
     >
@@ -519,21 +579,34 @@ function InstagramFeedGrid({
         const likeCount = (mediaItem.meta as InstagramMeta | undefined)
           ?.likeCount;
         return (
-          <ThumbnailCard
-            key={mediaItem.id}
-            item={mediaItem}
-            onOpen={open}
-            size={IG_TILE_WIDTH}
-            style={IG_TILE_STYLE}
-            className={itemClassName}
-            elevated={false}
-            showDuration={false}
-            glyphMode="hover"
-            posterImgProps={posterImgProps}
-            badgeSlot={
-              typeof likeCount === "number" ? likeBadge(likeCount) : undefined
-            }
-          />
+          // The wrapper owns the tile's outer chrome (subtle boundary shadow,
+          // matching radius) and the block's own caption overlay — the card's
+          // built-in caption is hidden so 1- and 2-line captions can share a
+          // fixed-height, top-aligned text box (annotated refinements #2–#4).
+          <div key={mediaItem.id} className={itemClassName} style={TILE_WRAPPER_STYLE}>
+            <ThumbnailCard
+              item={mediaItem}
+              onOpen={open}
+              size={IG_TILE_WIDTH}
+              style={IG_TILE_STYLE}
+              elevated={false}
+              hideCaption
+              hideProgressHint
+              showDuration={false}
+              glyphMode="hover"
+              posterImgProps={posterImgProps}
+              badgeSlot={
+                typeof likeCount === "number" ? likeBadge(likeCount) : undefined
+              }
+            />
+            {mediaItem.title ? (
+              // aria-hidden: the card already announces the post title; this
+              // overlay is purely visual. pointer-events pass through to the card.
+              <div aria-hidden="true" style={CAPTION_SCRIM_STYLE}>
+                <div style={CAPTION_TEXT_STYLE}>{mediaItem.title}</div>
+              </div>
+            ) : null}
+          </div>
         );
       })}
     </div>
@@ -676,7 +749,7 @@ export function InstagramPostGrid({
       {itemsSlot ? (
         <div
           className={cn(
-            "grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4",
+            "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4",
             gridClassName,
           )}
         >

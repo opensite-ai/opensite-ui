@@ -44,6 +44,8 @@ vi.mock("@page-speed/media-immersive", () => ({
     glyphMode,
     badgeSlot,
     posterImgProps,
+    hideCaption,
+    hideProgressHint,
   }: {
     item: MediaItem;
     onOpen: (id: string) => void;
@@ -52,8 +54,18 @@ vi.mock("@page-speed/media-immersive", () => ({
     glyphMode?: string;
     badgeSlot?: React.ReactNode;
     posterImgProps?: Record<string, unknown>;
+    hideCaption?: boolean;
+    hideProgressHint?: boolean;
   }) => {
-    captured.cards.push({ item, size, showDuration, glyphMode, posterImgProps });
+    captured.cards.push({
+      item,
+      size,
+      showDuration,
+      glyphMode,
+      posterImgProps,
+      hideCaption,
+      hideProgressHint,
+    });
     return (
       <div
         data-testid="thumb-card"
@@ -64,6 +76,8 @@ vi.mock("@page-speed/media-immersive", () => ({
         data-size={String(size)}
         data-show-duration={String(showDuration)}
         data-glyph-mode={glyphMode}
+        data-hide-caption={String(hideCaption)}
+        data-hide-progress-hint={String(hideProgressHint)}
         onClick={() => onOpen(item.id)}
       >
         <span data-testid="thumb-title">{item.title}</span>
@@ -129,7 +143,8 @@ describe("InstagramPostGrid", () => {
     render(<InstagramPostGrid heading="Our Feed" items={baseItems} />);
     expect(screen.getByText("Our Feed")).toBeInTheDocument();
     expect(screen.getAllByTestId("thumb-card")).toHaveLength(2);
-    expect(screen.getByText("Morning pours")).toBeInTheDocument();
+    // Title appears in the mocked card AND the block's own caption overlay.
+    expect(screen.getAllByText("Morning pours").length).toBeGreaterThan(0);
   });
 
   it("wraps the feed in ImmersiveFeedProvider and renders the ImmersiveViewer", () => {
@@ -184,6 +199,52 @@ describe("InstagramPostGrid", () => {
       expect(card).toHaveAttribute("data-show-duration", "false");
       expect(card).toHaveAttribute("data-glyph-mode", "hover");
     }
+  });
+
+  it("hides the card's own caption and progress hint (block owns the caption overlay)", () => {
+    render(<InstagramPostGrid items={baseItems} />);
+    for (const card of screen.getAllByTestId("thumb-card")) {
+      expect(card).toHaveAttribute("data-hide-caption", "true");
+      expect(card).toHaveAttribute("data-hide-progress-hint", "true");
+    }
+  });
+
+  it("renders the block caption overlay inside a fixed two-line, top-aligned box", () => {
+    const { container } = render(
+      <InstagramPostGrid
+        items={[
+          {
+            id: "one-line",
+            href: "https://a",
+            image: IMAGE_URL,
+            caption: "Short caption",
+          },
+        ]}
+      />,
+    );
+    // The overlay is the block's own (aria-hidden) scrim, distinct from the
+    // mocked card's thumb-title span; the clamped text node is its child.
+    const scrim = Array.from(
+      container.querySelectorAll('[aria-hidden="true"]'),
+    ).find(
+      (el) =>
+        el.textContent === "Short caption" &&
+        el.firstElementChild instanceof HTMLElement,
+    );
+    expect(scrim).toBeDefined();
+    const text = scrim!.firstElementChild as HTMLElement;
+    // Fixed 2-line height keeps 1-line and 2-line captions starting at the
+    // same vertical position (annotated refinement #2).
+    expect(text.style.height).toBe("2.8em");
+    expect(text.style.webkitLineClamp).toBe("2");
+  });
+
+  it("uses the slightly-widened grid gap so tile shadows never overlap", () => {
+    const { container } = render(<InstagramPostGrid items={baseItems} />);
+    const grid = container.querySelector(".grid.grid-cols-2");
+    expect(grid).not.toBeNull();
+    expect(grid!.className).toContain("gap-3");
+    expect(grid!.className).not.toContain("gap-2");
   });
 
   it("renders a like-count pill as the badgeSlot only when likeCount is numeric", () => {
