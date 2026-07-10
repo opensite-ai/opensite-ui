@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.8.2",
-    "exportedAt": "2026-06-22T19:47:45.826Z",
+    "uiVersion": "3.9.0",
+    "exportedAt": "2026-07-10T04:40:35.876Z",
     "source": "@opensite/ui",
     "totalBlocks": 605
   },
@@ -44870,8 +44870,74 @@
         "offset",
         "category",
         "tag",
-        "featuredOnly"
+        "featuredOnly",
+        "bindTo"
       ]
+    },
+    "blog_post": {
+      "sourceType": "blog_post",
+      "symbolic": true,
+      "hydrationOwner": "dashtrack-ai",
+      "hydrationPhase": "routing-build",
+      "canonicalPayloadExpectation": "Keep blog post requests symbolic in canonical page JSON until routing-build hydration resolves them.",
+      "requiredFields": [
+        "type"
+      ],
+      "optionalFields": [
+        "slug",
+        "current",
+        "bindTo"
+      ]
+    },
+    "testimonials_feed": {
+      "sourceType": "testimonials_feed",
+      "symbolic": true,
+      "hydrationOwner": "dashtrack-ai",
+      "hydrationPhase": "routing-build",
+      "canonicalPayloadExpectation": "Keep testimonials feed requests symbolic in canonical page JSON until routing-build hydration resolves them.",
+      "requiredFields": [
+        "type"
+      ],
+      "optionalFields": [
+        "limit",
+        "minRating",
+        "platforms",
+        "locationId",
+        "bindTo"
+      ]
+    },
+    "instagram_feed": {
+      "sourceType": "instagram_feed",
+      "symbolic": true,
+      "hydrationOwner": "dashtrack-ai",
+      "hydrationPhase": "routing-build",
+      "canonicalPayloadExpectation": "Keep Instagram feed requests symbolic in canonical page JSON until routing-build hydration resolves them.",
+      "requiredFields": [
+        "type"
+      ],
+      "optionalFields": [
+        "limit",
+        "profile",
+        "hashtag",
+        "bindTo"
+      ]
+    },
+    "events_feed": {
+      "sourceType": "events_feed",
+      "symbolic": true,
+      "hydrationOwner": "dashtrack-ai",
+      "hydrationPhase": "routing-build",
+      "canonicalPayloadExpectation": "Keep events feed requests symbolic in canonical page JSON until routing-build hydration resolves them.",
+      "requiredFields": [
+        "type"
+      ],
+      "optionalFields": [
+        "limit",
+        "upcomingOnly",
+        "locationIds",
+        "bindTo"
+      ],
+      "expands": true
     }
   },
   "designTokens": {
