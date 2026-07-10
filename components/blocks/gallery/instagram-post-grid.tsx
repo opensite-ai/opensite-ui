@@ -231,8 +231,7 @@ function toMediaItem(item: InstagramPostItem): MediaItem {
   // string-typed `caption` is omitted — a rich caption can't be threaded
   // through the immersive card/viewer. See the `caption` field contract.
   const fullCaption = captionToString(item.caption);
-  const title =
-    truncate(fullCaption) || item.imageAlt || "Instagram post";
+  const title = truncate(fullCaption) || item.imageAlt || "Instagram post";
   const meta: InstagramMeta = {
     href: item.href,
     likeCount: item.likeCount,
@@ -301,7 +300,9 @@ function likeBadge(likeCount: number): React.ReactNode {
 const VIEWER_ACTIONS: ImmersiveAction[] = [
   {
     id: "open-in-instagram",
-    icon: <DynamicIcon name="lucide/external-link" size={22} aria-hidden="true" />,
+    icon: (
+      <DynamicIcon name="lucide/external-link" size={22} aria-hidden="true" />
+    ),
     label: "Instagram",
     ariaLabel: "Open in Instagram",
     onPress: (item) => openPermalink(item),
@@ -591,7 +592,8 @@ export function InstagramPostGrid({
   items,
   itemsSlot,
   className,
-  containerClassName,
+  containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  spacing = "py-12 md:py-32",
   headerClassName,
   headingClassName,
   subheadingClassName,
@@ -600,7 +602,6 @@ export function InstagramPostGrid({
   imageClassName,
   optixFlowConfig,
   background,
-  spacing,
   pattern,
   patternOpacity,
   patternClassName,
