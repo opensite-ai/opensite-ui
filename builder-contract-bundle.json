@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.11.0",
-    "exportedAt": "2026-07-10T20:32:58.308Z",
+    "uiVersion": "3.11.1",
+    "exportedAt": "2026-07-10T21:29:04.909Z",
     "source": "@opensite/ui",
     "totalBlocks": 606
   },
@@ -19353,33 +19353,90 @@
               "id": "1",
               "href": "https://www.instagram.com/p/CxAmpLe001/",
               "image": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "imageAlt": "Espresso being poured at the counter",
+              "imageAlt": "Espresso being pulled at the counter",
               "caption": "Morning pours before the rush ☕️",
-              "date": "Jul 1, 2026",
-              "likeCount": 128,
-              "commentCount": 12
+              "date": "Jul 6, 2026",
+              "likeCount": 428,
+              "commentCount": 34
             },
             {
               "id": "2",
               "href": "https://www.instagram.com/p/CxAmpLe002/",
-              "image": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "imageAlt": "Behind the scenes reel",
-              "caption": "Behind the scenes of today's bake #freshbread",
-              "date": "Jun 28, 2026",
+              "image": "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+              "imageAlt": "Line cook plating on a busy Friday service",
+              "caption": "Behind the pass on a Friday night service 🔥",
+              "date": "Jul 4, 2026",
               "isVideo": true,
-              "videoUrl": "https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1",
-              "likeCount": 342,
-              "commentCount": 21,
-              "viewCount": 4820
+              "videoUrl": "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6",
+              "likeCount": 1203,
+              "commentCount": 88,
+              "viewCount": 12840
             },
             {
               "id": "3",
               "href": "https://www.instagram.com/p/CxAmpLe003/",
+              "image": "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+              "imageAlt": "House pancakes with maple butter",
+              "caption": "Weekend brunch is back — house pancakes + maple butter",
+              "date": "Jul 2, 2026",
+              "likeCount": 356,
+              "commentCount": 27
+            },
+            {
+              "id": "4",
+              "href": "https://www.instagram.com/p/CxAmpLe004/",
+              "image": "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q",
+              "imageAlt": "Barista finishing latte art",
+              "caption": "60 seconds of latte art, no cuts ✨",
+              "date": "Jun 29, 2026",
+              "isVideo": true,
+              "videoUrl": "https://toastability-production.s3.amazonaws.com/dvz0441h9fxjhh88lzqbwdoyxv52",
+              "likeCount": 942,
+              "commentCount": 61,
+              "viewCount": 8675
+            },
+            {
+              "id": "5",
+              "href": "https://www.instagram.com/p/CxAmpLe005/",
               "image": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-              "imageAlt": "Weekend brunch spread",
-              "caption": "Weekend brunch is back on the menu",
+              "imageAlt": "Fresh sourdough loaves out of the oven",
+              "caption": "Fresh sourdough out of the oven at 6am 🥖",
+              "date": "Jun 27, 2026",
+              "likeCount": 512,
+              "commentCount": 41
+            },
+            {
+              "id": "6",
+              "href": "https://www.instagram.com/p/CxAmpLe006/",
+              "image": "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82",
+              "imageAlt": "Chef plating a summer heirloom tomato salad",
+              "caption": "Plating the summer heirloom tomato salad 🍅",
               "date": "Jun 24, 2026",
-              "likeCount": 96
+              "isVideo": true,
+              "videoUrl": "https://toastability-production.s3.amazonaws.com/jhjfvkmdzktacyijd9fh6acc7o2c",
+              "likeCount": 731,
+              "commentCount": 45,
+              "viewCount": 6390
+            },
+            {
+              "id": "7",
+              "href": "https://www.instagram.com/p/CxAmpLe007/",
+              "image": "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm",
+              "imageAlt": "Sunny patio seating with fresh flowers",
+              "caption": "Patio season is officially open ☀️",
+              "date": "Jun 21, 2026",
+              "likeCount": 289,
+              "commentCount": 19
+            },
+            {
+              "id": "8",
+              "href": "https://www.instagram.com/p/CxAmpLe008/",
+              "image": "https://toastability-production.s3.amazonaws.com/2d4k8d5shwg82276hzj2ztbj7mxq",
+              "imageAlt": "Charred corn elote on a plate",
+              "caption": "New on the menu: charred corn elote, our way 🌽",
+              "date": "Jun 18, 2026",
+              "likeCount": 634,
+              "commentCount": 52
             }
           ]
         }
@@ -19401,9 +19458,14 @@
           "media_library"
         ],
         "propConstraints": {
+          "heading": {
+            "maxLength": 60
+          },
           "items": {
-            "minItems": 3,
-            "maxItems": 24
+            "required": true,
+            "minItems": 4,
+            "maxItems": 16,
+            "note": "Use multiples of the 4-column desktop grid (8 or 12) so rows fill cleanly. Every item must carry a re-hosted CDN image URL — imageless items are skipped at render (dev builds warn)."
           }
         },
         "mediaSlots": {
