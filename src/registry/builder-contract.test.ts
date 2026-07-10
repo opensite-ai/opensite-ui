@@ -751,7 +751,66 @@ describe("createBuilderContractBundle", () => {
     });
 
     expect(bundle.sharedLayout.canonicalLayoutKey).toBe("_layout");
-    expect(bundle.dynamicSources.blog_feed.hydrationOwner).toBe("dashtrack-ai");
+
+    // All five Phase 1 symbolic dynamic sources share the same definition
+    // shape (symbolic + dashtrack-ai routing-build hydration, requiredFields).
+    const dynamicSourceKeys = [
+      "blog_feed",
+      "blog_post",
+      "testimonials_feed",
+      "instagram_feed",
+      "events_feed",
+    ] as const;
+    for (const key of dynamicSourceKeys) {
+      const source = bundle.dynamicSources[key];
+      expect(source.sourceType).toBe(key);
+      expect(source.symbolic).toBe(true);
+      expect(source.hydrationOwner).toBe("dashtrack-ai");
+      expect(source.hydrationPhase).toBe("routing-build");
+      expect(source.requiredFields).toEqual(["type"]);
+      expect(typeof source.canonicalPayloadExpectation).toBe("string");
+    }
+
+    expect(bundle.dynamicSources.blog_feed.optionalFields).toEqual([
+      "limit",
+      "offset",
+      "category",
+      "tag",
+      "featuredOnly",
+      "bindTo",
+    ]);
+    expect(bundle.dynamicSources.blog_post.optionalFields).toEqual([
+      "slug",
+      "current",
+      "bindTo",
+    ]);
+    expect(bundle.dynamicSources.testimonials_feed.optionalFields).toEqual([
+      "limit",
+      "minRating",
+      "platforms",
+      "locationId",
+      "bindTo",
+    ]);
+    expect(bundle.dynamicSources.instagram_feed.optionalFields).toEqual([
+      "limit",
+      "profile",
+      "hashtag",
+      "bindTo",
+    ]);
+    expect(bundle.dynamicSources.events_feed.optionalFields).toEqual([
+      "limit",
+      "upcomingOnly",
+      "locationIds",
+      "bindTo",
+    ]);
+
+    // Only events_feed fans a single symbolic block out into many (D6).
+    expect(bundle.dynamicSources.events_feed.expands).toBe(true);
+    expect(bundle.dynamicSources.blog_feed.expands).toBeUndefined();
+    expect(bundle.dynamicSources.blog_post.expands).toBeUndefined();
+    expect(bundle.dynamicSources.testimonials_feed.expands).toBeUndefined();
+    expect(bundle.dynamicSources.instagram_feed.expands).toBeUndefined();
+
     expect(bundle.designTokens.canonicalSource).toBe("theme_config");
     expect(bundle.pageRules.blockEntry.requiredKeys).toEqual([
       "block_name",
