@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-07-10T08:22:50.933Z",
-    "totalBlocks": 605,
-    "version": "3.9.0",
+    "exportedAt": "2026-07-10T12:28:53.815Z",
+    "totalBlocks": 606,
+    "version": "3.10.0",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -9842,6 +9842,97 @@
           "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
           "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
           "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp"
+        ]
+      }
+    },
+    {
+      "id": "instagram-post-grid",
+      "name": "Instagram Post Grid",
+      "description": "A responsive grid of square tiles rendering a website's Instagram feed. Each tile links out to the post's instagram.com permalink in a new tab, reveals the caption, date, and like/comment/view counts on hover, and plays video posts muted on hover. Content is hydrated dynamically from the connected Instagram profile. Ideal for social proof sections, footers, and community pages that showcase a live Instagram presence.",
+      "semanticTags": [
+        "gallery",
+        "instagram",
+        "social",
+        "feed",
+        "grid",
+        "photos",
+        "video",
+        "dynamic",
+        "community"
+      ],
+      "category": "gallery",
+      "props": "InstagramPostGridProps",
+      "exampleUsage": "Display a website's Instagram feed as a responsive grid of square tiles. Each tile links out to the post's instagram.com permalink in a new tab, shows the caption and post date on hover, and renders like/comment/view counts when available. Video posts play muted on hover. Data is hydrated from the toastability Instagram feed (dataSource type 'instagram_feed', bindTo 'items').",
+      "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. This is a DYNAMIC feed block: its 'items' are hydrated at routing-build time from the connected Instagram profile — do NOT hand-author post content. 'items[].image' and 'items[].videoUrl' MUST be the re-hosted MediaRecord CDN URLs served by the feed; expiring Instagram CDN URLs must never be used. Engagement counts ('likeCount', 'commentCount', 'viewCount') render only when the value is present — never fabricate a zero for a missing metric. Each 'items[].href' is an external instagram.com permalink and opens in a new tab. Items without an 'image' are skipped; an empty or missing 'items' array renders nothing. Requires the site to have a connected, fully-imported Instagram profile ('instagram_media' capability).",
+      "usageRequirements": {
+        "requiredProps": [
+          "items"
+        ],
+        "requiresSiteCapabilities": [
+          "instagram_media",
+          "media_library"
+        ],
+        "propConstraints": {
+          "items": {
+            "minItems": 3,
+            "maxItems": 24
+          }
+        },
+        "mediaSlots": {
+          "items[].image": {
+            "path": "items[].image",
+            "roles": [
+              "gallery"
+            ],
+            "required": true
+          },
+          "items[].videoUrl": {
+            "path": "items[].videoUrl",
+            "roles": [
+              "gallery"
+            ],
+            "required": false
+          }
+        }
+      },
+      "exampleProps": {
+        "heading": "Follow us on Instagram",
+        "subheading": "The latest from our feed.",
+        "background": "white",
+        "spacing": "lg",
+        "items": [
+          {
+            "id": "1",
+            "href": "https://www.instagram.com/p/CxAmpLe001/",
+            "image": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "imageAlt": "Espresso being poured at the counter",
+            "caption": "Morning pours before the rush ☕️",
+            "date": "Jul 1, 2026",
+            "likeCount": 128,
+            "commentCount": 12
+          },
+          {
+            "id": "2",
+            "href": "https://www.instagram.com/p/CxAmpLe002/",
+            "image": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "imageAlt": "Behind the scenes reel",
+            "caption": "Behind the scenes of today's bake #freshbread",
+            "date": "Jun 28, 2026",
+            "isVideo": true,
+            "videoUrl": "https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1",
+            "likeCount": 342,
+            "commentCount": 21,
+            "viewCount": 4820
+          },
+          {
+            "id": "3",
+            "href": "https://www.instagram.com/p/CxAmpLe003/",
+            "image": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "imageAlt": "Weekend brunch spread",
+            "caption": "Weekend brunch is back on the menu",
+            "date": "Jun 24, 2026",
+            "likeCount": 96
+          }
         ]
       }
     },

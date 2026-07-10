@@ -87,3 +87,9 @@ export type {
 
 export { InteriorCarousel } from "./interior-carousel";
 export type { InteriorCarouselProps } from "./interior-carousel";
+
+export { InstagramPostGrid } from "./instagram-post-grid";
+export type {
+  InstagramPostGridProps,
+  InstagramPostItem,
+} from "./instagram-post-grid";
