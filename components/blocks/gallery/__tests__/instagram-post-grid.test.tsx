@@ -12,13 +12,19 @@ vi.mock("@page-speed/img", () => ({
 }));
 
 vi.mock("@page-speed/video", () => ({
+  // Captures `controls` so tests can assert the block explicitly disables it.
+  // @page-speed/video defaults `preferNativeControls` to true, which would
+  // otherwise render a native control bar INSIDE the Pressable <a> (invalid
+  // interactive nesting where control clicks navigate away).
   Video: ({
     src,
     poster,
+    controls,
     className,
   }: {
     src?: string;
     poster?: string;
+    controls?: boolean;
     className?: string;
   }) => (
     <video
@@ -26,6 +32,7 @@ vi.mock("@page-speed/video", () => ({
       poster={poster}
       className={className}
       data-testid="mock-video"
+      data-controls={String(controls)}
     />
   ),
 }));
@@ -93,6 +100,16 @@ describe("InstagramPostGrid", () => {
     expect(videos).toHaveLength(1);
     expect(videos[0]).toHaveAttribute("src", VIDEO_URL);
     expect(videos[0]).toHaveAttribute("poster", IMAGE_URL);
+  });
+
+  it("disables native video controls (no interactive control bar inside the tile anchor)", () => {
+    render(<InstagramPostGrid items={baseItems} />);
+    const videos = screen.getAllByTestId("mock-video");
+    expect(videos).toHaveLength(1);
+    // Must be an explicit `false`, not undefined — @page-speed/video defaults
+    // preferNativeControls to true, which would nest a native control bar
+    // inside the Pressable <a> where control clicks would navigate away.
+    expect(videos[0]).toHaveAttribute("data-controls", "false");
   });
 
   it("does not render a video when isVideo is set but videoUrl is missing", () => {

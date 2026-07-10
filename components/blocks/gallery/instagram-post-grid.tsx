@@ -272,6 +272,7 @@ export function InstagramPostGrid({
             <Video
               src={item.videoUrl}
               poster={item.image}
+              controls={false}
               muted
               loop
               playsInline
