@@ -645,6 +645,7 @@ const sharedConfig: Partial<Options> = {
     "valibot",
     "@page-speed/router",
     "@page-speed/pressable",
+    "@page-speed/media-immersive",
   ],
 };
 
