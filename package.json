@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "3.9.0",
+  "version": "3.10.0",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -1375,6 +1375,11 @@
       "types": "./dist/expandable-case-study-cards.d.ts",
       "import": "./dist/expandable-case-study-cards.js",
       "require": "./dist/expandable-case-study-cards.cjs"
+    },
+    "./blocks/gallery/instagram-post-grid": {
+      "types": "./dist/instagram-post-grid.d.ts",
+      "import": "./dist/instagram-post-grid.js",
+      "require": "./dist/instagram-post-grid.cjs"
     },
     "./blocks/gallery/interior-carousel": {
       "types": "./dist/interior-carousel.d.ts",

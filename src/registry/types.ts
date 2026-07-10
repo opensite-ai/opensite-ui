@@ -145,7 +145,8 @@ export type SiteCapability =
   | "media_library"
   | "contact_form"
   | "video_assets"
-  | "contact_info";
+  | "contact_info"
+  | "instagram_media";
 
 /**
  * Structured usage requirements for a block. This is the executable

@@ -228,6 +228,7 @@ import { CarouselScaleFocus } from "../../components/blocks/gallery/carousel-sca
 import { MasonryMotionGrid } from "../../components/blocks/gallery/masonry-motion-grid";
 import { BlurVignetteGrid } from "../../components/blocks/gallery/blur-vignette-grid";
 import { InteriorCarousel } from "../../components/blocks/gallery/interior-carousel";
+import { InstagramPostGrid } from "../../components/blocks/gallery/instagram-post-grid";
 
 // Background Pattern Hero components
 import { RadialGradientTop } from "../../components/blocks/background-pattern-hero/radial-gradient-top";
@@ -8300,6 +8301,81 @@ const interiorCarousel: GalleryBlockContract = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
+// instagram-post-grid
+// ─────────────────────────────────────────────────────────────────────────────
+const instagramPostGrid: GalleryBlockContract = {
+  exampleUsage:
+    "Display a website's Instagram feed as a responsive grid of square tiles. Each tile links out to the post's instagram.com permalink in a new tab, shows the caption and post date on hover, and renders like/comment/view counts when available. Video posts play muted on hover. Data is hydrated from the toastability Instagram feed (dataSource type 'instagram_feed', bindTo 'items').",
+  importantUsageNotes: `${GALLERY_MEDIA_NOTE} This is a DYNAMIC feed block: its 'items' are hydrated at routing-build time from the connected Instagram profile — do NOT hand-author post content. 'items[].image' and 'items[].videoUrl' MUST be the re-hosted MediaRecord CDN URLs served by the feed; expiring Instagram CDN URLs must never be used. Engagement counts ('likeCount', 'commentCount', 'viewCount') render only when the value is present — never fabricate a zero for a missing metric. Each 'items[].href' is an external instagram.com permalink and opens in a new tab. Items without an 'image' are skipped; an empty or missing 'items' array renders nothing. Requires the site to have a connected, fully-imported Instagram profile ('instagram_media' capability).`,
+  usageRequirements: {
+    requiredProps: ["items"],
+    requiresSiteCapabilities: galleryCapabilities(
+      "instagram_media",
+      "media_library",
+    ),
+    propConstraints: {
+      items: {
+        minItems: 3,
+        maxItems: 24,
+      },
+    },
+    mediaSlots: {
+      "items[].image": {
+        path: "items[].image",
+        roles: ["gallery"],
+        required: true,
+      },
+      "items[].videoUrl": {
+        path: "items[].videoUrl",
+        roles: ["gallery"],
+        required: false,
+      },
+    },
+  },
+  exampleProps: {
+    heading: "Follow us on Instagram",
+    subheading: "The latest from our feed.",
+    background: "white",
+    spacing: "lg",
+    items: [
+      {
+        id: "1",
+        href: "https://www.instagram.com/p/CxAmpLe001/",
+        image: GALLERY_EXAMPLE_IMAGE_URL,
+        imageAlt: "Espresso being poured at the counter",
+        caption: "Morning pours before the rush ☕️",
+        date: "Jul 1, 2026",
+        likeCount: 128,
+        commentCount: 12,
+      },
+      {
+        id: "2",
+        href: "https://www.instagram.com/p/CxAmpLe002/",
+        image: GALLERY_EXAMPLE_IMAGE_URL,
+        imageAlt: "Behind the scenes reel",
+        caption: "Behind the scenes of today's bake #freshbread",
+        date: "Jun 28, 2026",
+        isVideo: true,
+        videoUrl:
+          "https://toastability-production.s3.amazonaws.com/4kox2ux0ye1wlqkdwg03s08a67i1",
+        likeCount: 342,
+        commentCount: 21,
+        viewCount: 4820,
+      },
+      {
+        id: "3",
+        href: "https://www.instagram.com/p/CxAmpLe003/",
+        image: GALLERY_EXAMPLE_IMAGE_URL,
+        imageAlt: "Weekend brunch spread",
+        caption: "Weekend brunch is back on the menu",
+        date: "Jun 24, 2026",
+        likeCount: 96,
+      },
+    ],
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Export
 // ─────────────────────────────────────────────────────────────────────────────
 const GALLERY_BLOCK_CONTRACTS: Record<string, GalleryBlockContract> = {
@@ -8319,6 +8395,7 @@ const GALLERY_BLOCK_CONTRACTS: Record<string, GalleryBlockContract> = {
   "masonry-motion-grid": masonryMotionGrid,
   "blur-vignette-grid": blurVignetteGrid,
   "interior-carousel": interiorCarousel,
+  "instagram-post-grid": instagramPostGrid,
 };
 
 // ============================================================================
@@ -22443,6 +22520,27 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     component: InteriorCarousel,
     props: "InteriorCarouselProps",
           ...GALLERY_BLOCK_CONTRACTS["interior-carousel"],
+  },
+  "instagram-post-grid": {
+    id: "instagram-post-grid",
+    name: "Instagram Post Grid",
+    description:
+      "A responsive grid of square tiles rendering a website's Instagram feed. Each tile links out to the post's instagram.com permalink in a new tab, reveals the caption, date, and like/comment/view counts on hover, and plays video posts muted on hover. Content is hydrated dynamically from the connected Instagram profile. Ideal for social proof sections, footers, and community pages that showcase a live Instagram presence.",
+    semanticTags: [
+      "gallery",
+      "instagram",
+      "social",
+      "feed",
+      "grid",
+      "photos",
+      "video",
+      "dynamic",
+      "community",
+    ],
+    category: "gallery",
+    component: InstagramPostGrid,
+    props: "InstagramPostGridProps",
+          ...GALLERY_BLOCK_CONTRACTS["instagram-post-grid"],
   },
   "radial-gradient-top": {
     id: "radial-gradient-top",
