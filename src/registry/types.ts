@@ -328,10 +328,20 @@ export interface BuilderContractDynamicSourceDefinition {
   canonicalPayloadExpectation: string;
   requiredFields: string[];
   optionalFields: string[];
+  /**
+   * When true, hydration may fan a single symbolic block out into N concrete
+   * block instances (one-to-many expansion, contract D6). Absent for the
+   * one-to-one sources.
+   */
+  expands?: boolean;
 }
 
 export interface BuilderContractDynamicSources {
   blog_feed: BuilderContractDynamicSourceDefinition;
+  blog_post: BuilderContractDynamicSourceDefinition;
+  testimonials_feed: BuilderContractDynamicSourceDefinition;
+  instagram_feed: BuilderContractDynamicSourceDefinition;
+  events_feed: BuilderContractDynamicSourceDefinition;
 }
 
 export interface BuilderContractDesignTokens {

@@ -184,7 +184,55 @@ export function createBuilderContractBundle({
         canonicalPayloadExpectation:
           "Keep blog feed requests symbolic in canonical page JSON until routing-build hydration resolves them.",
         requiredFields: ["type"],
-        optionalFields: ["limit", "offset", "category", "tag", "featuredOnly"],
+        optionalFields: [
+          "limit",
+          "offset",
+          "category",
+          "tag",
+          "featuredOnly",
+          "bindTo",
+        ],
+      },
+      blog_post: {
+        sourceType: "blog_post",
+        symbolic: true,
+        hydrationOwner: "dashtrack-ai",
+        hydrationPhase: "routing-build",
+        canonicalPayloadExpectation:
+          "Keep blog post requests symbolic in canonical page JSON until routing-build hydration resolves them.",
+        requiredFields: ["type"],
+        optionalFields: ["slug", "current", "bindTo"],
+      },
+      testimonials_feed: {
+        sourceType: "testimonials_feed",
+        symbolic: true,
+        hydrationOwner: "dashtrack-ai",
+        hydrationPhase: "routing-build",
+        canonicalPayloadExpectation:
+          "Keep testimonials feed requests symbolic in canonical page JSON until routing-build hydration resolves them.",
+        requiredFields: ["type"],
+        optionalFields: ["limit", "minRating", "platforms", "locationId", "bindTo"],
+      },
+      instagram_feed: {
+        sourceType: "instagram_feed",
+        symbolic: true,
+        hydrationOwner: "dashtrack-ai",
+        hydrationPhase: "routing-build",
+        canonicalPayloadExpectation:
+          "Keep Instagram feed requests symbolic in canonical page JSON until routing-build hydration resolves them.",
+        requiredFields: ["type"],
+        optionalFields: ["limit", "profile", "hashtag", "bindTo"],
+      },
+      events_feed: {
+        sourceType: "events_feed",
+        symbolic: true,
+        hydrationOwner: "dashtrack-ai",
+        hydrationPhase: "routing-build",
+        canonicalPayloadExpectation:
+          "Keep events feed requests symbolic in canonical page JSON until routing-build hydration resolves them.",
+        requiredFields: ["type"],
+        optionalFields: ["limit", "upcomingOnly", "locationIds", "bindTo"],
+        expands: true,
       },
     },
     designTokens: {

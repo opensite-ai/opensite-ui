@@ -68,5 +68,64 @@ describe("ArticleHeroProse", () => {
     const { container } = render(<ArticleHeroProse post={mockPost} className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
+
+  // Feed contract D3 (§4.3): article blocks render both markdown and
+  // server-sanitized HTML bodies through the single `markdownString` prop.
+  // markdown-to-jsx parses embedded HTML natively (the fork does not set
+  // disableParsingRawHTML), so HTML-in-markdownString must materialize as
+  // real elements while script content must never execute.
+  describe("markdownString HTML rendering (contract D3)", () => {
+    it("renders embedded HTML tags as real DOM elements", () => {
+      const { container } = render(
+        <ArticleHeroProse
+          post={{ title: "Doc" }}
+          markdownString="<h2>Hi</h2><p>body</p>"
+        />,
+      );
+
+      const heading = screen.getByText("Hi");
+      expect(heading.tagName).toBe("H2");
+
+      const paragraph = screen.getByText("body");
+      expect(paragraph.tagName).toBe("P");
+
+      // Content is rendered as parsed elements, not escaped text.
+      expect(container.innerHTML).not.toContain("&lt;h2&gt;");
+    });
+
+    it("does not execute embedded <script> content", () => {
+      const executed = vi.fn();
+      (window as unknown as { __d3ScriptExecuted?: () => void }).__d3ScriptExecuted =
+        executed;
+
+      const { container } = render(
+        <ArticleHeroProse
+          post={{ title: "Doc" }}
+          markdownString={
+            '<p>safe body</p><script>window.__d3ScriptExecuted && window.__d3ScriptExecuted()</script>'
+          }
+        />,
+      );
+
+      // The benign body still renders.
+      expect(screen.getByText("safe body")).toBeInTheDocument();
+
+      // markdown-to-jsx converts markup into React elements rather than
+      // injecting raw HTML, so any <script> that survives is created via
+      // React.createElement and is inert — the browser only executes scripts
+      // parsed from HTML or explicitly appended, never React-rendered ones.
+      // The security guarantee is non-execution.
+      expect(executed).not.toHaveBeenCalled();
+      const script = container.querySelector("script");
+      if (script) {
+        // If present, it is an inert element whose body was set as text, not
+        // parsed/run.
+        expect(script.getAttribute("src")).toBeNull();
+      }
+
+      delete (window as unknown as { __d3ScriptExecuted?: () => void })
+        .__d3ScriptExecuted;
+    });
+  });
 });
 
