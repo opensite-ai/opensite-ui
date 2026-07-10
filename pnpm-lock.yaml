@@ -29,6 +29,9 @@ importers:
       '@page-speed/markdown-to-jsx':
         specifier: ^0.0.7
         version: 0.0.7(@page-speed/img@0.4.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/media-immersive':
+        specifier: file:../page-speed-media-immersive
+        version: file:../page-speed-media-immersive(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer':
         specifier: '>=0.1.9'
         version: 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -876,6 +879,13 @@ packages:
         optional: true
       '@page-speed/pressable':
         optional: true
+
+  '@page-speed/media-immersive@file:../page-speed-media-immersive':
+    resolution: {directory: ../page-speed-media-immersive, type: directory}
+    engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
+    peerDependencies:
+      react: '>=17.0.0'
+      react-dom: '>=17.0.0'
 
   '@page-speed/pdf-viewer@0.1.9':
     resolution: {integrity: sha512-oLst8BHaj2iNQ6dllo0rrNzHd6TfV988aBmT5YTmT0bW/PRzPqGPPSoaPfCDoAmbsmVLde54D5ETx8MWJHJK0Q==}
@@ -3638,6 +3648,13 @@ snapshots:
     optionalDependencies:
       '@page-speed/img': 0.4.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pressable': 0.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  '@page-speed/media-immersive@file:../page-speed-media-immersive(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@page-speed/img': 0.4.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/video': 0.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   '@page-speed/pdf-viewer@0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
