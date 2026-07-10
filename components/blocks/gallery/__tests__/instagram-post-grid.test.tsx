@@ -43,6 +43,7 @@ vi.mock("@page-speed/media-immersive", () => ({
     showDuration,
     glyphMode,
     badgeSlot,
+    posterImgProps,
   }: {
     item: MediaItem;
     onOpen: (id: string) => void;
@@ -50,8 +51,9 @@ vi.mock("@page-speed/media-immersive", () => ({
     showDuration?: boolean;
     glyphMode?: string;
     badgeSlot?: React.ReactNode;
+    posterImgProps?: Record<string, unknown>;
   }) => {
-    captured.cards.push({ item, size, showDuration, glyphMode });
+    captured.cards.push({ item, size, showDuration, glyphMode, posterImgProps });
     return (
       <div
         data-testid="thumb-card"
@@ -267,9 +269,107 @@ describe("InstagramPostGrid", () => {
     // its own <video> (which is why native controls had to be explicitly
     // disabled). The immersive library now owns media + navigation, so the
     // block itself emits neither — the old controls={false} regression is moot.
+    // (The viewer rail's "Open in Instagram" anchor lives inside the viewer's
+    // renderActions output, which the mocked ImmersiveViewer never invokes.)
     const { container } = render(<InstagramPostGrid items={baseItems} />);
     expect(container.querySelector("video")).toBeNull();
     expect(container.querySelector("script")).toBeNull();
     expect(container.querySelector("a")).toBeNull();
+  });
+
+  // ── B1: permalink egress is a real anchor ──────────────────────────────────
+  it("renders the viewer's 'Open in Instagram' egress as a real anchor (href/target/rel)", () => {
+    render(<InstagramPostGrid items={baseItems} />);
+    const renderActions = captured.viewer[0]?.renderActions as (props: {
+      item: MediaItem;
+      actions: ImmersiveAction[];
+    }) => React.ReactNode;
+    expect(typeof renderActions).toBe("function");
+    const item = captured.provider[0].items[0]; // photo post, has meta.href
+    const { container } = render(<>{renderActions({ item, actions: [] })}</>);
+    const anchor = container.querySelector(
+      'a[aria-label="Open in Instagram"]',
+    ) as HTMLAnchorElement | null;
+    expect(anchor).not.toBeNull();
+    expect(anchor?.getAttribute("href")).toBe(
+      "https://www.instagram.com/p/abc123/",
+    );
+    expect(anchor?.getAttribute("target")).toBe("_blank");
+    expect(anchor?.getAttribute("rel")).toContain("noopener");
+    expect(anchor?.getAttribute("rel")).toContain("noreferrer");
+  });
+
+  // ── B2: optixFlowConfig reaches the card via posterImgProps ─────────────────
+  it("threads optixFlowConfig onto every card via posterImgProps", () => {
+    const optixFlowConfig = { quality: 82 } as never;
+    render(<InstagramPostGrid items={baseItems} optixFlowConfig={optixFlowConfig} />);
+    expect(captured.cards).toHaveLength(baseItems.length);
+    for (const card of captured.cards) {
+      const posterImgProps = card.posterImgProps as Record<string, unknown>;
+      expect(posterImgProps).toBeDefined();
+      expect(posterImgProps.optixFlowConfig).toBe(optixFlowConfig);
+    }
+  });
+
+  // ── B3: imageClassName reaches the card via posterImgProps.className ─────────
+  it("threads imageClassName onto every card via posterImgProps.className", () => {
+    render(<InstagramPostGrid items={baseItems} imageClassName="ig-poster" />);
+    for (const card of captured.cards) {
+      const posterImgProps = card.posterImgProps as Record<string, unknown>;
+      expect(posterImgProps?.className).toBe("ig-poster");
+    }
+  });
+
+  it("omits posterImgProps entirely when neither imageClassName nor optixFlowConfig is set", () => {
+    render(<InstagramPostGrid items={baseItems} />);
+    for (const card of captured.cards) {
+      expect(card.posterImgProps).toBeUndefined();
+    }
+  });
+
+  // ── B4: non-string ReactNode caption falls back cleanly (no crash / no [object Object]) ──
+  it("falls back to imageAlt for the title when the caption is a non-string ReactNode", () => {
+    render(
+      <InstagramPostGrid
+        items={[
+          {
+            id: "rich",
+            href: "https://www.instagram.com/p/rich/",
+            image: IMAGE_URL,
+            imageAlt: "A latte with fern art",
+            caption: <strong>Bold caption</strong>,
+          },
+        ]}
+      />,
+    );
+    const [mapped] = captured.provider[0].items;
+    // Title falls back to imageAlt; the rich caption is dropped (not stringified).
+    expect(mapped.title).toBe("A latte with fern art");
+    expect(mapped.caption).toBeUndefined();
+    // Rendered tile title never shows "[object Object]".
+    const title = screen.getByTestId("thumb-title");
+    expect(title.textContent).toBe("A latte with fern art");
+    expect(title.textContent).not.toContain("[object Object]");
+  });
+
+  it("uses the generic label when a non-string caption has no imageAlt", () => {
+    render(
+      <InstagramPostGrid
+        items={[
+          {
+            id: "rich2",
+            href: "https://www.instagram.com/p/rich2/",
+            image: IMAGE_URL,
+            caption: <em>markup only</em>,
+          },
+        ]}
+      />,
+    );
+    const [mapped] = captured.provider[0].items;
+    expect(mapped.title).toBe("Instagram post");
+    expect(mapped.caption).toBeUndefined();
+    expect(screen.getByTestId("thumb-title").textContent).not.toContain(
+      "[object Object]",
+    );
   });
 });

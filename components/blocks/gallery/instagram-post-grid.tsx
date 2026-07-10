@@ -45,7 +45,15 @@ export interface InstagramPostItem {
    */
   imageAlt?: string;
   /**
-   * Post caption (truncated for display)
+   * Post caption (truncated for display).
+   *
+   * NOTE: For immersive rendering the caption must be a **string** — the
+   * library's `MediaItem.title`/`caption` are string-typed, so a caption is
+   * flowed through as text. A rich `ReactNode` caption (hand-authored markup,
+   * only ever used by the legacy pre-immersive block) cannot be threaded into
+   * the immersive card/viewer; when supplied it is dropped and the tile/viewer
+   * title falls back to `imageAlt` (then `"Instagram post"`). Hydrated feeds
+   * always send plain strings, so this only affects hand-authored usage.
    */
   caption?: React.ReactNode;
   /**
@@ -197,7 +205,12 @@ function truncate(text: string, max = TITLE_MAX): string {
   return `${head.trimEnd()}…`;
 }
 
-/** Coerce a possibly-rich caption into a plain string (non-strings drop out). */
+/**
+ * Coerce a possibly-rich caption into a plain string. Non-string `ReactNode`s
+ * (hand-authored markup) collapse to `""` rather than stringifying — this is
+ * deliberate: it avoids a `[object Object]` title and lets {@link toMediaItem}
+ * fall back to `imageAlt`. See the `caption` field doc for the full contract.
+ */
 function captionToString(caption: React.ReactNode): string {
   return typeof caption === "string" ? caption : "";
 }
@@ -213,6 +226,10 @@ function captionToString(caption: React.ReactNode): string {
  */
 function toMediaItem(item: InstagramPostItem): MediaItem {
   const isVideo = Boolean(item.isVideo && item.videoUrl);
+  // A non-string (ReactNode) caption collapses to "" here, so the title
+  // deliberately falls back to `imageAlt` (then a generic label) and the
+  // string-typed `caption` is omitted — a rich caption can't be threaded
+  // through the immersive card/viewer. See the `caption` field contract.
   const fullCaption = captionToString(item.caption);
   const title =
     truncate(fullCaption) || item.imageAlt || "Instagram post";
@@ -395,49 +412,63 @@ function InstagramViewerRail({ item }: { item: MediaItem }): React.JSX.Element {
           onPress={open}
         />
       ) : null}
-      <button
-        type="button"
-        aria-label="Open in Instagram"
-        onClick={(e) => {
-          e.stopPropagation();
-          open();
-        }}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 5,
-          padding: 0,
-          border: "none",
-          background: "transparent",
-          color: "inherit",
-          cursor: "pointer",
-          font: "inherit",
-        }}
-      >
-        <span
+      {/*
+        The permalink egress is a REAL anchor, not a button. `ImmersiveAction`
+        (the library's feed-level action shape) only exposes `onPress` — it
+        cannot host an `href` — but this rail is supplied through the viewer's
+        `renderActions` render prop, which lets the block emit arbitrary JSX.
+        So the smallest correct fix is to render the "Open in Instagram" egress
+        here as an `<a target="_blank" rel="noopener noreferrer">`: a crawlable,
+        keyboard/right-click-correct link instead of a scripted `window.open`.
+        Rendered only when a permalink exists — never a dead link.
+      */}
+      {meta.href ? (
+        <a
+          href={meta.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open in Instagram"
+          // Isolate the click from the viewer's pager/close gestures; the
+          // anchor still navigates via its href (no preventDefault).
+          onClick={(e) => e.stopPropagation()}
           style={{
-            width: 46,
-            height: 46,
-            borderRadius: "50%",
-            background: "var(--psmi-chrome-bg, rgba(255,255,255,0.14))",
-            backdropFilter: "blur(6px)",
-            WebkitBackdropFilter: "blur(6px)",
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
+            gap: 5,
+            padding: 0,
+            border: "none",
+            background: "transparent",
+            color: "inherit",
+            cursor: "pointer",
+            font: "inherit",
+            textDecoration: "none",
           }}
         >
-          <DynamicIcon
-            name="lucide/external-link"
-            size={22}
-            aria-hidden="true"
-          />
-        </span>
-        <span aria-hidden="true" style={{ fontSize: 11, fontWeight: 600 }}>
-          Instagram
-        </span>
-      </button>
+          <span
+            style={{
+              width: 46,
+              height: 46,
+              borderRadius: "50%",
+              background: "var(--psmi-chrome-bg, rgba(255,255,255,0.14))",
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <DynamicIcon
+              name="lucide/external-link"
+              size={22}
+              aria-hidden="true"
+            />
+          </span>
+          <span aria-hidden="true" style={{ fontSize: 11, fontWeight: 600 }}>
+            Instagram
+          </span>
+        </a>
+      ) : null}
     </div>
   );
 }
@@ -446,6 +477,10 @@ interface InstagramFeedGridProps {
   mediaItems: MediaItem[];
   gridClassName?: string;
   itemClassName?: string;
+  /** Extra classes for each card's poster image (see {@link InstagramPostGridProps.imageClassName}). */
+  imageClassName?: string;
+  /** OptixFlow image optimization config forwarded to each card's poster. */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 /**
@@ -458,8 +493,20 @@ function InstagramFeedGrid({
   mediaItems,
   gridClassName,
   itemClassName,
+  imageClassName,
+  optixFlowConfig,
 }: InstagramFeedGridProps): React.JSX.Element {
   const { open } = useImmersiveFeed();
+  // Consumer image concerns are forwarded onto each card's internal poster
+  // <Img> via the library's `posterImgProps` passthrough — the block no
+  // longer renders its own <Img>, so `imageClassName`/`optixFlowConfig` would
+  // otherwise be dropped on the floor. Omitted entirely when neither is set.
+  const posterImgProps = useMemo<Record<string, unknown> | undefined>(() => {
+    const next: Record<string, unknown> = {};
+    if (imageClassName) next.className = imageClassName;
+    if (optixFlowConfig) next.optixFlowConfig = optixFlowConfig;
+    return Object.keys(next).length > 0 ? next : undefined;
+  }, [imageClassName, optixFlowConfig]);
   return (
     <div
       className={cn(
@@ -481,6 +528,7 @@ function InstagramFeedGrid({
             elevated={false}
             showDuration={false}
             glyphMode="hover"
+            posterImgProps={posterImgProps}
             badgeSlot={
               typeof likeCount === "number" ? likeBadge(likeCount) : undefined
             }
@@ -503,8 +551,17 @@ function InstagramFeedGrid({
  * duration timestamp, and a center glyph on hover only (a play triangle for
  * reels, an expand icon for photos). The fullscreen viewer carries the caption
  * plus a read-only engagement rail (likes/comments/views) and an explicit
- * "Open in Instagram" action; the old whole-tile link-out is REPLACED by
- * opening the viewer, with permalink egress living in the viewer.
+ * "Open in Instagram" egress rendered as a real `<a target="_blank"
+ * rel="noopener noreferrer">` (a crawlable, affordance-correct link — not a
+ * scripted `window.open` button); the old whole-tile link-out is REPLACED by
+ * opening the viewer, with the permalink egress living in the viewer.
+ *
+ * Consumer image concerns are honored: `imageClassName` and `optixFlowConfig`
+ * are forwarded onto each tile's poster image via the library's
+ * `posterImgProps` passthrough.
+ *
+ * Captions should be plain strings when used with immersive rendering; a rich
+ * `ReactNode` caption falls back to `imageAlt` (see the `caption` field doc).
  *
  * Posts without an image are skipped; an empty or missing `items` array renders
  * nothing. Data is hydrated from the toastability Instagram feed — media URLs
@@ -540,6 +597,8 @@ export function InstagramPostGrid({
   subheadingClassName,
   gridClassName,
   itemClassName,
+  imageClassName,
+  optixFlowConfig,
   background,
   spacing,
   pattern,
@@ -614,6 +673,8 @@ export function InstagramPostGrid({
             mediaItems={mediaItems}
             gridClassName={gridClassName}
             itemClassName={itemClassName}
+            imageClassName={imageClassName}
+            optixFlowConfig={optixFlowConfig}
           />
           <ImmersiveViewer
             ariaLabel="Instagram post viewer"

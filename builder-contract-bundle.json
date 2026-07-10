@@ -2,7 +2,7 @@
   "metadata": {
     "contractVersion": "v1",
     "uiVersion": "3.11.0",
-    "exportedAt": "2026-07-10T19:33:38.111Z",
+    "exportedAt": "2026-07-10T20:04:37.233Z",
     "source": "@opensite/ui",
     "totalBlocks": 606
   },
@@ -19342,7 +19342,7 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "Display a website's Instagram feed as a responsive grid of vertical (9:16) tiles that open a fullscreen, swipeable immersive viewer (TikTok/Reels-style). Photos and reels are both first-class media — reels play a muted preview and open with playback; photos open as a full-bleed still. Each tile shows a like-count pill top-left (when available), no duration timestamp, and a center glyph on hover only (a play triangle for reels, an expand icon for photos). The fullscreen viewer carries the caption plus a read-only engagement rail (likes/comments/views) and an explicit 'Open in Instagram' action. Data is hydrated from the toastability Instagram feed (dataSource type 'instagram_feed', bindTo 'items').",
+        "exampleUsage": "Display a website's Instagram feed as a responsive grid of vertical (9:16) tiles that open a fullscreen, swipeable immersive viewer (TikTok/Reels-style). Photos and reels are both first-class media — reels play a muted preview and open with playback; photos open as a full-bleed still. Each tile shows a like-count pill top-left (when available), no duration timestamp, and a center glyph on hover only (a play triangle for reels, an expand icon for photos). The fullscreen viewer carries the caption plus a read-only engagement rail (likes/comments/views) and an explicit 'Open in Instagram' link (a real anchor opening in a new tab). Data is hydrated from the toastability Instagram feed (dataSource type 'instagram_feed', bindTo 'items').",
         "exampleProps": {
           "heading": "Follow us on Instagram",
           "subheading": "The latest from our feed.",
@@ -19391,7 +19391,7 @@
         "importPath": "./dist/instagram-post-grid.js",
         "requirePath": "./dist/instagram-post-grid.cjs"
       },
-      "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. This is a DYNAMIC feed block: its 'items' are hydrated at routing-build time from the connected Instagram profile — do NOT hand-author post content. 'items[].image' and 'items[].videoUrl' MUST be the re-hosted MediaRecord CDN URLs served by the feed; expiring Instagram CDN URLs must never be used. Tiles are VERTICAL (9:16) and render both photos and reels; a post is treated as a reel only when 'isVideo' is true AND 'videoUrl' is present. Engagement counts ('likeCount', 'commentCount', 'viewCount') render only when the value is present — never fabricate a zero for a missing metric; 'likeCount' surfaces as the tile's top-left pill and, with comments/views, in the viewer rail. Tapping a tile OPENS THE FULLSCREEN VIEWER (the whole-tile link-out was replaced); the instagram.com permalink ('items[].href') now opens from the viewer's 'Open in Instagram' action in a new tab. Items without an 'image' are skipped; an empty or missing 'items' array renders nothing. Requires the site to have a connected, fully-imported Instagram profile ('instagram_media' capability).",
+      "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. This is a DYNAMIC feed block: its 'items' are hydrated at routing-build time from the connected Instagram profile — do NOT hand-author post content. 'items[].image' and 'items[].videoUrl' MUST be the re-hosted MediaRecord CDN URLs served by the feed; expiring Instagram CDN URLs must never be used. Tiles are VERTICAL (9:16) and render both photos and reels; a post is treated as a reel only when 'isVideo' is true AND 'videoUrl' is present. Engagement counts ('likeCount', 'commentCount', 'viewCount') render only when the value is present — never fabricate a zero for a missing metric; 'likeCount' surfaces as the tile's top-left pill and, with comments/views, in the viewer rail. Tapping a tile OPENS THE FULLSCREEN VIEWER (the whole-tile link-out was replaced); the instagram.com permalink ('items[].href') opens from the viewer's 'Open in Instagram' egress, which is rendered as a REAL anchor (target=_blank, rel=noopener noreferrer) — a crawlable, affordance-correct link, not a scripted window.open button. 'items[].caption' should be a plain STRING when rendered immersively — it flows through as the tile/viewer title text; a rich ReactNode caption cannot be threaded through the immersive card/viewer and falls back to 'items[].imageAlt' (then a generic label). Consumer image styling is honored: 'imageClassName' and 'optixFlowConfig' are forwarded onto each tile's poster image. Items without an 'image' are skipped; an empty or missing 'items' array renders nothing. Requires the site to have a connected, fully-imported Instagram profile ('instagram_media' capability).",
       "usageRequirements": {
         "requiredProps": [
           "items"
