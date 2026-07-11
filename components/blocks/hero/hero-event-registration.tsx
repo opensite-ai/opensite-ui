@@ -192,6 +192,7 @@ export function HeroEventRegistration({
 }: HeroEventRegistrationProps): React.JSX.Element {
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
+    if (!badgeText && !badgeIcon) return null;
 
     return (
       <Badge className="px-4 py-1 gap-2">

@@ -14711,6 +14711,19 @@ const HERO_EXAMPLE_IMAGE_URL =
 const HERO_MEDIA_NOTE =
   "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.";
 
+/**
+ * Phase 4 dynamic-feeds guidance appended to the hero-event-registration block's
+ * importantUsageNotes (see docs/dynamic-feeds/FEED_CONTRACT.md §3.9 + §4.1d).
+ * events_feed is the first EXPANDING source: one symbolic block hydrates into N
+ * hero-event-registration instances (one per occurrence) at routing-build time.
+ * Documents the Event -> HeroEventRegistrationProps wire mapping, the omit-when-
+ * absent (never fabricate) rule, and the SOFT capability semantics so a
+ * builder/agent knows how this block behaves under feed hydration without
+ * re-deriving it. Single source of truth (mirrors TESTIMONIALS_FEED_NOTE).
+ */
+const EVENTS_FEED_NOTE =
+  "Dynamic feeds (Phase 4): this block can carry a block-level dataSource of type 'events_feed' (expands: true) — ONE symbolic block hydrates at routing-build time into N hero-event-registration instances, one per event occurrence (dataSource.limit default 6, hard cap 12). Wire mapping (§4.1d; never fabricate — omit any field with no real data): title -> heading, description -> description (omitted when blank), starts_at -> badgeText (short date badge, e.g. 'JUL 18'), starts_at in the event timezone -> locationLabel, location_name or custom_address -> locationSublabel (whichever is real; omitted when neither), image_url -> image ({src, alt: title}, only when an image exists), price_from -> stats[{value: '$X', label: 'From'}], recurring_summary -> stats[{value, label: 'Schedule'}], registration_url -> actions[{label: 'Register', href}]. stats, actions, and image are OMITTED entirely when no real data exists (the block null-guards every region; the propConstraints minItems/maxItems are AI-authoring constraints, not runtime requirements). The 'events' capability is SOFT: hero-event-registration is dual-use and remains legitimate for authored single-event / catering usage, so octane must NOT hard-drop the block on the capability alone — only feed-driven usage is gated.";
+
 // ---------------------------------------------------------------------------
 // VIDEO PROP HELPERS
 // ---------------------------------------------------------------------------
@@ -18382,7 +18395,7 @@ const HERO_BLOCK_CONTRACTS = {
   background="dark"
 />
     `.trim(),
-    importantUsageNotes: `Only use if you have real event details. Only supply real stats and location data — do not fabricate. Requires a real 'image'. Do not exceed 50 characters for 'heading'. Do not exceed 130 characters for 'description'.  ${HERO_MEDIA_NOTE}`,
+    importantUsageNotes: `Only use if you have real event details. Only supply real stats and location data — do not fabricate. Image strongly preferred; omit when none exists — never use a stock/unrelated image. Do not exceed 50 characters for 'heading'. Do not exceed 130 characters for 'description'.  ${HERO_MEDIA_NOTE} ${EVENTS_FEED_NOTE}`,
     usageRequirements: {
       requiredProps: ["heading"],
       propConstraints: {

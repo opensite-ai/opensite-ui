@@ -229,7 +229,7 @@ export function createBuilderContractBundle({
         hydrationOwner: "dashtrack-ai",
         hydrationPhase: "routing-build",
         canonicalPayloadExpectation:
-          "Keep events feed requests symbolic in canonical page JSON until routing-build hydration resolves them.",
+          "Keep events feed requests symbolic in canonical page JSON until routing-build hydration resolves them. events_feed is the first EXPANDING source (expands: true): ONE symbolic block hydrates into N hero-event-registration block instances, one per event occurrence (limit default 6, hard cap 12). Wire mapping (§4.1d; never fabricate — omit any field with no real data): title -> heading, description -> description (omitted when blank), starts_at -> badgeText (short date badge, e.g. 'JUL 18'), starts_at in the event timezone -> locationLabel, location_name or custom_address -> locationSublabel, image_url -> image ({src, alt: title}, only when present), price_from -> stats[{value: '$X', label: 'From'}], recurring_summary -> stats[{value, label: 'Schedule'}], registration_url -> actions[{label: 'Register', href}]. stats, actions, and image are omitted entirely when no real data exists. The 'events' capability is soft: hero-event-registration is dual-use (authored single-event/catering usage stays legitimate), so octane must not hard-drop on the capability alone.",
         requiredFields: ["type"],
         optionalFields: ["limit", "upcomingOnly", "locationIds", "bindTo"],
         expands: true,
