@@ -30,8 +30,8 @@ importers:
         specifier: ^0.0.7
         version: 0.0.7(@page-speed/img@0.4.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/media-immersive':
-        specifier: 0.5.0
-        version: 0.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.5.1
+        version: 0.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer':
         specifier: '>=0.1.9'
         version: 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -880,8 +880,8 @@ packages:
       '@page-speed/pressable':
         optional: true
 
-  '@page-speed/media-immersive@0.5.0':
-    resolution: {integrity: sha512-h02EPXRp+khugE1s3MbrOiQsQkC2tejRdsQ+rC2hWcGW6olykLF5rdRyFLFnnCG11O7sOb7JcIUPGV1oI3Gsqg==}
+  '@page-speed/media-immersive@0.5.1':
+    resolution: {integrity: sha512-FXQW/yIK5gLycK2Fgdxovh7wKdRGz5k7s/MGruRjcV24fP9jqfFGlDiDyjmmiCM406csOsLeaCilDFTq8spBNA==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       react: '>=17.0.0'
@@ -3649,7 +3649,7 @@ snapshots:
       '@page-speed/img': 0.4.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pressable': 0.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  '@page-speed/media-immersive@0.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/media-immersive@0.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@page-speed/img': 0.4.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/video': 0.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
