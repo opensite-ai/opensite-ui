@@ -45,4 +45,29 @@ describe("TestimonialsListVerified", () => {
     const { container } = render(<TestimonialsListVerified heading="Custom Reviews" />);
     expect(container.textContent).toContain("Custom Reviews");
   });
+
+  describe("verified indicator (no hardcoded fallback)", () => {
+    const review = {
+      rating: 5,
+      title: "Great experience",
+      content: "Wonderful from start to finish.",
+      author: "Ann Example",
+      date: "Jul 1, 2026",
+      verified: true,
+    };
+
+    it("renders the supplied verifiedPurchaseLabel with the badge icon", () => {
+      const { container } = render(
+        <TestimonialsListVerified reviews={[review]} verifiedPurchaseLabel="Verified Diner" />,
+      );
+      expect(container.textContent).toContain("Verified Diner");
+      expect(container.querySelector('[data-name="lucide/badge-check"]')).not.toBeNull();
+    });
+
+    it("renders NO indicator when verifiedPurchaseLabel is omitted (never falls back to hardcoded wording)", () => {
+      const { container } = render(<TestimonialsListVerified reviews={[review]} />);
+      expect(container.textContent).not.toContain("Verified Purchase");
+      expect(container.querySelector('[data-name="lucide/badge-check"]')).toBeNull();
+    });
+  });
 });

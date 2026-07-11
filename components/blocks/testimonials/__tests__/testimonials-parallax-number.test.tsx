@@ -232,4 +232,25 @@ describe("TestimonialsParallaxNumber", () => {
     render(<TestimonialsParallaxNumber testimonials={testimonials} />);
     expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
   });
+
+  it("renders verticalLabel when supplied", () => {
+    const testimonials = [
+      { quote: "Plain test", author: "Tester", role: "QA", company: "TestCo" },
+    ];
+    render(
+      <TestimonialsParallaxNumber
+        testimonials={testimonials}
+        verticalLabel="Guest Stories"
+      />,
+    );
+    expect(screen.getByText("Guest Stories")).toBeInTheDocument();
+  });
+
+  it("renders no vertical side label when verticalLabel is omitted (no 'Testimonials' fallback)", () => {
+    const testimonials = [
+      { quote: "Plain test", author: "Tester", role: "QA", company: "TestCo" },
+    ];
+    render(<TestimonialsParallaxNumber testimonials={testimonials} />);
+    expect(screen.queryByText("Testimonials")).not.toBeInTheDocument();
+  });
 });
