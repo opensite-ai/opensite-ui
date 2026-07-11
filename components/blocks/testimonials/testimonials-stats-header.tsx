@@ -336,7 +336,21 @@ export function TestimonialsStatsHeader({
               <CardContent className="p-6">
                 <div className="flex flex-col items-start gap-12 justify-between">
                   <div className="flex flex-col items-start gap-4">
-                    <StarRating rating={5} size={20} />
+                    {/*
+                     * Per-card star rating: the StarRating sits inside the
+                     * per-testimonial map, so the honest binding is the item's
+                     * own rating. Render it when numeric (feed-supplied), and
+                     * fall back to the historical 5-star default ONLY when no
+                     * rating data exists — never fabricate a rating.
+                     */}
+                    <StarRating
+                      rating={
+                        typeof testimonial.rating === "number"
+                          ? testimonial.rating
+                          : 5
+                      }
+                      size={20}
+                    />
 
                     {testimonial.quote &&
                       (typeof testimonial.quote === "string" ? (

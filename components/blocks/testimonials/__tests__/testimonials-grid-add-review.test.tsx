@@ -335,6 +335,29 @@ describe("TestimonialsGridAddReview", () => {
     expect(starRatings.length).toBe(sampleReviews.length);
   });
 
+  it("renders each review's real rating when numeric (feed-driven)", () => {
+    const reviews: TestimonialItem[] = [
+      { quote: "Three stars.", author: "Rev One", rating: 3 },
+      { quote: "Two stars.", author: "Rev Two", rating: 2 },
+    ];
+    render(<TestimonialsGridAddReview reviews={reviews} />);
+    const ratings = screen
+      .getAllByTestId("mock-star-rating")
+      .map((el) => el.getAttribute("data-rating"));
+    expect(ratings).toEqual(["3", "2"]);
+  });
+
+  it("falls back to 5 stars only when a review has no rating (no fabricated change)", () => {
+    const reviews: TestimonialItem[] = [
+      { quote: "No rating supplied.", author: "Rev None" },
+    ];
+    render(<TestimonialsGridAddReview reviews={reviews} />);
+    const rating = screen
+      .getByTestId("mock-star-rating")
+      .getAttribute("data-rating");
+    expect(rating).toBe("5");
+  });
+
   // --- Link Config ---
 
   it("renders linkConfig when provided on a testimonial", () => {
