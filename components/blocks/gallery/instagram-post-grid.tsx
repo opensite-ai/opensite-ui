@@ -211,6 +211,9 @@ const CAPTION_SCRIM_STYLE: React.CSSProperties = {
   borderBottomLeftRadius: IG_TILE_RADIUS,
   borderBottomRightRadius: IG_TILE_RADIUS,
   pointerEvents: "none",
+  // Hiding captions for now until we build in
+  // the dynamic behavior that clients can dictate
+  display: "none"
 };
 
 /**
@@ -344,7 +347,7 @@ function likeBadge(likeCount: number): React.ReactNode {
         letterSpacing: "0.01em",
       }}
     >
-      <DynamicIcon name="lucide/heart" size={15} aria-hidden="true" />
+      <DynamicIcon name="mdi/cards-heart" size={15} aria-hidden="true" />
       <span aria-hidden="true">{likeCount.toLocaleString()}</span>
     </span>
   );
@@ -721,7 +724,7 @@ export function InstagramPostGrid({
             (typeof heading === "string" ? (
               <h2
                 className={cn(
-                  "text-xl font-medium tracking-tight md:text-2xl lg:text-3xl text-balance",
+                  "text-xl font-medium tracking-tight md:text-3xl lg:text-5xl text-balance",
                   headingClassName,
                 )}
               >
@@ -734,7 +737,7 @@ export function InstagramPostGrid({
             (typeof subheading === "string" ? (
               <p
                 className={cn(
-                  "max-w-2xl text-balance text-muted-foreground",
+                  "max-w-full md:max-w-2xl text-balance opacity-75",
                   subheadingClassName,
                 )}
               >
