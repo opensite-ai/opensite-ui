@@ -77,4 +77,29 @@ describe("TestimonialsImagesHelpful", () => {
     const { container } = render(<TestimonialsImagesHelpful heading="Test Reviews" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
+
+  describe("verified indicator (no hardcoded fallback)", () => {
+    const review = {
+      rating: 5,
+      title: "Great experience",
+      content: "Wonderful from start to finish.",
+      author: "Ann Example",
+      date: "Jul 1, 2026",
+      verified: true,
+    };
+
+    it("renders the supplied verifiedPurchaseLabel with the badge icon", () => {
+      const { container } = render(
+        <TestimonialsImagesHelpful reviews={[review]} verifiedPurchaseLabel="Verified Diner" />,
+      );
+      expect(container.textContent).toContain("Verified Diner");
+      expect(container.querySelector('[data-name="lucide/badge-check"]')).not.toBeNull();
+    });
+
+    it("renders NO indicator when verifiedPurchaseLabel is omitted (never falls back to hardcoded wording)", () => {
+      const { container } = render(<TestimonialsImagesHelpful reviews={[review]} />);
+      expect(container.textContent).not.toContain("Verified Purchase");
+      expect(container.querySelector('[data-name="lucide/badge-check"]')).toBeNull();
+    });
+  });
 });

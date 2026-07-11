@@ -272,19 +272,20 @@ export function TestimonialsParallaxNumber({
 
         <div className="relative flex">
           <div className="flex flex-col items-center justify-center border-r-0 md:border-r border-border/30 pr-4 md:pr-16">
-            <motion.span
-              className="text-sm tracking-widest uppercase"
-              style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              {verticalLabel &&
-                (typeof verticalLabel === "string"
-                  ? verticalLabel
-                  : verticalLabel)}
-              {!verticalLabel && "Testimonials"}
-            </motion.span>
+            {/* No fallback label: renders ONLY when the consumer supplies
+                verticalLabel — wording is industry-specific and must never
+                be hardcoded. */}
+            {verticalLabel && (
+              <motion.span
+                className="text-sm tracking-widest uppercase"
+                style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                {verticalLabel}
+              </motion.span>
+            )}
 
             <div className="relative mt-8 h-32 w-4 bg-muted ring-2 ring-primary rounded">
               <motion.div

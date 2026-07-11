@@ -223,19 +223,18 @@ export function TestimonialsListVerified({
                         ) : (
                           review.author
                         ))}
-                      {review.verified && (
+                      {/* No fallback label: the indicator renders ONLY when the
+                          consumer supplies verifiedPurchaseLabel — wording is
+                          industry-specific and must never be hardcoded. */}
+                      {review.verified && verifiedPurchaseLabel && (
                         <span className="flex items-center gap-1">
                           <DynamicIcon name="lucide/badge-check" size={18} />
-                          {verifiedPurchaseLabel &&
-                            (typeof verifiedPurchaseLabel === "string" ? (
-                              <span className="text-sm">
-                                {verifiedPurchaseLabel}
-                              </span>
-                            ) : (
-                              verifiedPurchaseLabel
-                            ))}
-                          {!verifiedPurchaseLabel && (
-                            <span className="text-sm">Verified Purchase</span>
+                          {typeof verifiedPurchaseLabel === "string" ? (
+                            <span className="text-sm">
+                              {verifiedPurchaseLabel}
+                            </span>
+                          ) : (
+                            verifiedPurchaseLabel
                           )}
                         </span>
                       )}
