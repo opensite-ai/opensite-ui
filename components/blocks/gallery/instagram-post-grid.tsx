@@ -20,6 +20,15 @@ import type {
   OptixFlowConfig,
 } from "../../../src/types";
 
+// The dev-only skip warning reads the literal `process.env.NODE_ENV` so
+// consumer bundlers (Next/webpack/esbuild define-replacement) inline it and
+// dead-code-eliminate the branch in production builds. This library targets
+// browsers (tsconfig lib: DOM, no @types/node), so declare the minimal
+// ambient shape module-locally; the runtime `typeof` guard below keeps
+// bundler-less environments (no `process` global) safe — they simply never
+// warn.
+declare const process: { env: { NODE_ENV?: string } } | undefined;
+
 /**
  * A single Instagram post rendered as a grid tile.
  *
@@ -159,6 +168,22 @@ export interface InstagramPostGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Instagram account username (leading `@` tolerated). Renders as a
+   * prominent, semi-transparent, clickable `@username` badge in the fullscreen
+   * viewer's caption card that opens the account's profile
+   * (`https://www.instagram.com/<username>/`) in a new tab. When omitted the
+   * badge degrades to a non-clickable "Instagram" chip — a handle is never
+   * fabricated.
+   */
+  username?: string;
+  /**
+   * Show the like-count pill on grid tiles. Defaults to `false`: clients with
+   * low like counts don't want them visible, so the pills stay hidden until
+   * per-client dynamic visibility ships. The pill implementation is retained
+   * intentionally — flip this prop to bring it back.
+   */
+  showLikeBadges?: boolean;
   /** Optional Section ID */
   sectionId?: string;
 }
@@ -363,81 +388,21 @@ function likeBadge(likeCount: number): React.ReactNode {
 const VIEWER_ACTIONS: ImmersiveAction[] = [
   {
     id: "open-in-instagram",
-    icon: (
-      <DynamicIcon name="lucide/external-link" size={22} aria-hidden="true" />
-    ),
+    icon: <DynamicIcon name="lucide/instagram" size={22} aria-hidden="true" />,
     label: "Instagram",
     ariaLabel: "Open in Instagram",
     onPress: (item) => openPermalink(item),
   },
 ];
 
-interface RailStatProps {
-  iconName: string;
-  count: number;
-  label: string;
-  onPress: () => void;
-}
-
-/** One read-only engagement stat in the viewer rail (opens the permalink). */
-function RailStat({
-  iconName,
-  count,
-  label,
-  onPress,
-}: RailStatProps): React.JSX.Element {
-  return (
-    <button
-      type="button"
-      aria-label={`${count.toLocaleString()} ${label}`}
-      onClick={(e) => {
-        e.stopPropagation();
-        onPress();
-      }}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 5,
-        padding: 0,
-        border: "none",
-        background: "transparent",
-        color: "inherit",
-        cursor: "pointer",
-        font: "inherit",
-      }}
-    >
-      <span
-        style={{
-          width: 46,
-          height: 46,
-          borderRadius: "50%",
-          background: "var(--psmi-chrome-bg, rgba(255,255,255,0.14))",
-          backdropFilter: "blur(6px)",
-          WebkitBackdropFilter: "blur(6px)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <DynamicIcon name={iconName} size={22} aria-hidden="true" />
-      </span>
-      <span aria-hidden="true" style={{ fontSize: 11, fontWeight: 600 }}>
-        {count.toLocaleString()}
-      </span>
-    </button>
-  );
-}
-
 /**
- * Right-side rail for the fullscreen viewer. Renders present-only engagement
- * counts (likes/comments/views) followed by the explicit "Open in Instagram"
- * egress. All buttons are read-only and open the post's permalink in a new tab
- * — the counts are informational, never toggles.
+ * Right-side rail for the fullscreen viewer. Per the annotated expanded-UI
+ * cleanup, the engagement stats (likes/comments/views) were removed entirely —
+ * the rail is now a single "Open in Instagram" egress rendered as a white
+ * Instagram glyph with no text label.
  */
 function InstagramViewerRail({ item }: { item: MediaItem }): React.JSX.Element {
   const meta = (item.meta ?? {}) as InstagramMeta;
-  const open = () => openPermalink(item);
   return (
     <div
       style={{
@@ -452,39 +417,15 @@ function InstagramViewerRail({ item }: { item: MediaItem }): React.JSX.Element {
         zIndex: 3,
       }}
     >
-      {typeof meta.likeCount === "number" ? (
-        <RailStat
-          iconName="lucide/heart"
-          count={meta.likeCount}
-          label="likes"
-          onPress={open}
-        />
-      ) : null}
-      {typeof meta.commentCount === "number" ? (
-        <RailStat
-          iconName="lucide/message-circle"
-          count={meta.commentCount}
-          label="comments"
-          onPress={open}
-        />
-      ) : null}
-      {typeof meta.viewCount === "number" ? (
-        <RailStat
-          iconName="lucide/eye"
-          count={meta.viewCount}
-          label="views"
-          onPress={open}
-        />
-      ) : null}
       {/*
         The permalink egress is a REAL anchor, not a button. `ImmersiveAction`
         (the library's feed-level action shape) only exposes `onPress` — it
         cannot host an `href` — but this rail is supplied through the viewer's
         `renderActions` render prop, which lets the block emit arbitrary JSX.
-        So the smallest correct fix is to render the "Open in Instagram" egress
-        here as an `<a target="_blank" rel="noopener noreferrer">`: a crawlable,
-        keyboard/right-click-correct link instead of a scripted `window.open`.
-        Rendered only when a permalink exists — never a dead link.
+        So the egress renders as an `<a target="_blank" rel="noopener
+        noreferrer">`: a crawlable, keyboard/right-click-correct link instead
+        of a scripted `window.open`. Rendered only when a permalink exists —
+        never a dead link.
       */}
       {meta.href ? (
         <a
@@ -499,7 +440,6 @@ function InstagramViewerRail({ item }: { item: MediaItem }): React.JSX.Element {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 5,
             padding: 0,
             border: "none",
             background: "transparent",
@@ -523,16 +463,107 @@ function InstagramViewerRail({ item }: { item: MediaItem }): React.JSX.Element {
             }}
           >
             <DynamicIcon
-              name="lucide/external-link"
+              name="lucide/instagram"
               size={22}
               aria-hidden="true"
             />
           </span>
-          <span aria-hidden="true" style={{ fontSize: 11, fontWeight: 600 }}>
-            Instagram
-          </span>
         </a>
       ) : null}
+    </div>
+  );
+}
+
+/** Instagram profile URL for a username (leading `@` tolerated). */
+function profileUrl(username: string): string {
+  return `https://www.instagram.com/${username.replace(/^@+/, "")}/`;
+}
+
+/** Shared look of the viewer caption's account badge (anchor or static chip). */
+const USERNAME_BADGE_STYLE: React.CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 7,
+  marginBottom: 10,
+  padding: "7px 12px",
+  borderRadius: 999,
+  background: "var(--psmi-chrome-bg, rgba(255,255,255,0.16))",
+  backdropFilter: "blur(8px)",
+  WebkitBackdropFilter: "blur(8px)",
+  border: "1px solid rgba(255, 255, 255, 0.18)",
+  color: "inherit",
+  fontSize: 13,
+  fontWeight: 700,
+  lineHeight: 1,
+  letterSpacing: "0.01em",
+  textDecoration: "none",
+  pointerEvents: "auto",
+};
+
+/** Viewer caption title — the truncated caption IS the title (no duplicate). */
+const VIEWER_TITLE_STYLE: React.CSSProperties = {
+  fontSize: 16,
+  fontWeight: 700,
+  lineHeight: 1.35,
+  textShadow: "0 1px 2px rgba(0, 0, 0, 0.4)",
+  display: "-webkit-box",
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: "vertical",
+  overflow: "hidden",
+};
+
+/**
+ * Block-owned caption card for the fullscreen viewer (via `renderCaption`).
+ * Per the annotated expanded-UI cleanup it replaces the library card with:
+ * a prominent semi-transparent `@username` badge that links to the account's
+ * Instagram profile (new tab), and the post title. The old small "Instagram"
+ * kind label and the duplicate caption line below the title are gone — the
+ * title already IS the truncated caption. The viewer's own position counter
+ * renders outside the caption card and is unaffected.
+ */
+function InstagramViewerCaption({
+  item,
+  username,
+}: {
+  item: MediaItem;
+  username?: string;
+}): React.JSX.Element {
+  const handle = username?.replace(/^@+/, "");
+  const badgeContent = (
+    <>
+      <DynamicIcon name="lucide/instagram" size={14} aria-hidden="true" />
+      <span>{handle ? `@${handle}` : "Instagram"}</span>
+    </>
+  );
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: 16,
+        // Mirrors the library caption card's clearance for the actions rail.
+        right: 78,
+        bottom: 34,
+        color: "var(--psmi-chrome-fg, #fff)",
+        zIndex: 2,
+      }}
+    >
+      {handle ? (
+        <a
+          href={profileUrl(handle)}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open @${handle} on Instagram`}
+          onClick={(e) => e.stopPropagation()}
+          style={{ ...USERNAME_BADGE_STYLE, cursor: "pointer" }}
+        >
+          {badgeContent}
+        </a>
+      ) : (
+        // No username supplied: never fabricate a handle — degrade to a
+        // non-interactive "Instagram" chip in the same position.
+        <span style={USERNAME_BADGE_STYLE}>{badgeContent}</span>
+      )}
+      <div style={VIEWER_TITLE_STYLE}>{item.title}</div>
     </div>
   );
 }
@@ -545,6 +576,8 @@ interface InstagramFeedGridProps {
   imageClassName?: string;
   /** OptixFlow image optimization config forwarded to each card's poster. */
   optixFlowConfig?: OptixFlowConfig;
+  /** Render the like-count pill on tiles (hidden by default — see {@link InstagramPostGridProps.showLikeBadges}). */
+  showLikeBadges?: boolean;
 }
 
 /**
@@ -559,6 +592,7 @@ function InstagramFeedGrid({
   itemClassName,
   imageClassName,
   optixFlowConfig,
+  showLikeBadges = false,
 }: InstagramFeedGridProps): React.JSX.Element {
   const { open } = useImmersiveFeed();
   // Consumer image concerns are forwarded onto each card's internal poster
@@ -598,8 +632,13 @@ function InstagramFeedGrid({
               showDuration={false}
               glyphMode="hover"
               posterImgProps={posterImgProps}
+              // Hidden by default per the annotated review — the pill
+              // implementation is kept for the upcoming per-client dynamic
+              // visibility (see InstagramPostGridProps.showLikeBadges).
               badgeSlot={
-                typeof likeCount === "number" ? likeBadge(likeCount) : undefined
+                showLikeBadges && typeof likeCount === "number"
+                  ? likeBadge(likeCount)
+                  : undefined
               }
             />
             {mediaItem.title ? (
@@ -677,6 +716,8 @@ export function InstagramPostGrid({
   itemClassName,
   imageClassName,
   optixFlowConfig,
+  username,
+  showLikeBadges = false,
   background,
   pattern,
   patternOpacity,
@@ -690,6 +731,7 @@ export function InstagramPostGrid({
     // in development. Memoized on the `items` identity → warns once per feed,
     // never per render; the production render path stays completely silent.
     if (
+      typeof process !== "undefined" &&
       process.env.NODE_ENV !== "production" &&
       withImage.length < items.length
     ) {
@@ -766,10 +808,14 @@ export function InstagramPostGrid({
             itemClassName={itemClassName}
             imageClassName={imageClassName}
             optixFlowConfig={optixFlowConfig}
+            showLikeBadges={showLikeBadges}
           />
           <ImmersiveViewer
             ariaLabel="Instagram post viewer"
             renderActions={({ item }) => <InstagramViewerRail item={item} />}
+            renderCaption={(item) => (
+              <InstagramViewerCaption item={item} username={username} />
+            )}
           />
         </ImmersiveFeedProvider>
       )}

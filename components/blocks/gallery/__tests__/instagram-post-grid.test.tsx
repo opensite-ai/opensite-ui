@@ -247,9 +247,22 @@ describe("InstagramPostGrid", () => {
     expect(grid!.className).not.toContain("gap-2");
   });
 
-  it("renders a like-count pill as the badgeSlot only when likeCount is numeric", () => {
+  it("hides the like-count pill by default (implementation kept for future dynamic visibility)", () => {
     render(
       <InstagramPostGrid
+        items={[
+          { id: "a", href: "https://a", image: IMAGE_URL, likeCount: 1284 },
+        ]}
+      />,
+    );
+    // Hidden completely per the annotated review — not rendered, not styled out.
+    expect(screen.queryByTestId("badge-slot")).not.toBeInTheDocument();
+  });
+
+  it("renders the like-count pill via showLikeBadges only when likeCount is numeric", () => {
+    render(
+      <InstagramPostGrid
+        showLikeBadges
         items={[
           { id: "a", href: "https://a", image: IMAGE_URL, likeCount: 1284 },
           { id: "b", href: "https://b", image: IMAGE_URL }, // no likeCount
@@ -396,6 +409,94 @@ describe("InstagramPostGrid", () => {
     expect(anchor?.getAttribute("target")).toBe("_blank");
     expect(anchor?.getAttribute("rel")).toContain("noopener");
     expect(anchor?.getAttribute("rel")).toContain("noreferrer");
+  });
+
+  // ── Expanded-UI cleanup: rail is a single Instagram-glyph egress ────────────
+  it("renders no engagement stats and no text label in the viewer rail — just the Instagram glyph", () => {
+    render(
+      <InstagramPostGrid
+        items={[
+          {
+            id: "counts",
+            href: "https://www.instagram.com/reel/xyz/",
+            image: IMAGE_URL,
+            isVideo: true,
+            videoUrl: VIDEO_URL,
+            likeCount: 2841,
+            commentCount: 96,
+            viewCount: 38420,
+          },
+        ]}
+      />,
+    );
+    const renderActions = captured.viewer[0]?.renderActions as (props: {
+      item: MediaItem;
+      actions: ImmersiveAction[];
+    }) => React.ReactNode;
+    const item = captured.provider[0].items[0];
+    const { container } = render(<>{renderActions({ item, actions: [] })}</>);
+    // ①–③ removed completely: no stat buttons, no counts anywhere.
+    expect(container.querySelectorAll("button")).toHaveLength(0);
+    expect(container.textContent).not.toContain("2,841");
+    expect(container.textContent).not.toContain("96");
+    expect(container.textContent).not.toContain("38,420");
+    // ④ the egress is the Instagram glyph with no text label under it.
+    const anchor = container.querySelector('a[aria-label="Open in Instagram"]');
+    expect(anchor).not.toBeNull();
+    expect(
+      anchor!.querySelector('[data-name="lucide/instagram"]'),
+    ).not.toBeNull();
+    expect(anchor!.textContent).toBe("");
+  });
+
+  // ── Expanded-UI cleanup: caption card = @username badge + title only ────────
+  it("renders a clickable @username badge in the viewer caption linking to the profile", () => {
+    render(<InstagramPostGrid items={baseItems} username="@encapsa" />);
+    const renderCaption = captured.viewer[0]?.renderCaption as (
+      item: MediaItem,
+    ) => React.ReactNode;
+    expect(typeof renderCaption).toBe("function");
+    const item = captured.provider[0].items[0];
+    const { container } = render(<>{renderCaption(item)}</>);
+    const badge = container.querySelector(
+      'a[aria-label="Open @encapsa on Instagram"]',
+    ) as HTMLAnchorElement | null;
+    expect(badge).not.toBeNull();
+    // Leading '@' in the prop is tolerated; the profile URL never doubles it.
+    expect(badge!.getAttribute("href")).toBe(
+      "https://www.instagram.com/encapsa/",
+    );
+    expect(badge!.getAttribute("target")).toBe("_blank");
+    expect(badge!.getAttribute("rel")).toContain("noopener");
+    expect(badge!.textContent).toContain("@encapsa");
+    expect(
+      badge!.querySelector('[data-name="lucide/instagram"]'),
+    ).not.toBeNull();
+  });
+
+  it("degrades the caption badge to a non-clickable Instagram chip when no username is given", () => {
+    render(<InstagramPostGrid items={baseItems} />);
+    const renderCaption = captured.viewer[0]?.renderCaption as (
+      item: MediaItem,
+    ) => React.ReactNode;
+    const item = captured.provider[0].items[0];
+    const { container } = render(<>{renderCaption(item)}</>);
+    // Never fabricate a handle: plain chip, no anchor.
+    expect(container.querySelector("a")).toBeNull();
+    expect(container.textContent).toContain("Instagram");
+    expect(container.textContent).not.toContain("@");
+  });
+
+  it("shows the title exactly once in the caption card (no duplicate caption line)", () => {
+    render(<InstagramPostGrid items={baseItems} username="encapsa" />);
+    const renderCaption = captured.viewer[0]?.renderCaption as (
+      item: MediaItem,
+    ) => React.ReactNode;
+    const item = captured.provider[0].items[0];
+    const { container } = render(<>{renderCaption(item)}</>);
+    const text = container.textContent ?? "";
+    const occurrences = text.split(item.title).length - 1;
+    expect(occurrences).toBe(1);
   });
 
   // ── B2: optixFlowConfig reaches the card via posterImgProps ─────────────────
