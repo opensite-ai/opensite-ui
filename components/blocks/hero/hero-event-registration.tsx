@@ -192,6 +192,7 @@ export function HeroEventRegistration({
 }: HeroEventRegistrationProps): React.JSX.Element {
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
+    if (!badgeText && !badgeIcon) return null;
 
     return (
       <Badge className="px-4 py-1 gap-2">
@@ -242,61 +243,77 @@ export function HeroEventRegistration({
     );
   }, [statsSlot, stats, statsClassName]);
 
-  const renderLocation = useMemo(() => {
-    if (locationSlot) return locationSlot;
-    if (!locationLabel && !locationSublabel) return null;
+  // Builds the location card. When `positioned` it overlays the image region
+  // (absolute, bottom-anchored) exactly as before; when not positioned it flows
+  // inline in the text column for image-less events (§4.1d text-column collapse).
+  const buildLocation = React.useCallback(
+    (positioned: boolean): React.ReactNode => {
+      if (locationSlot) return locationSlot;
+      if (!locationLabel && !locationSublabel) return null;
 
-    return (
-      <div
-        className={cn(
-          "bg-card text-card-foreground",
-          "rounded-2xl p-2 md:p-4 shadow-lg",
-          "absolute bottom-0 translate-y-1/2",
-          "left-1/2 -translate-x-1/2 w-[90%]",
-          "md:-left-4 md:translate-x-0 md:w-auto",
-          "ring-4 ring-primary",
-        )}
-      >
-        <div className="flex items-center gap-3">
-          <div
-            className={cn(
-              "flex items-center justify-center shrink-0",
-              "size-12 rounded-xl bg-primary text-primary-foreground",
-            )}
-          >
-            <DynamicIcon name="lucide/map-pin" size={24} />
-          </div>
-          <div
-            className={cn(
-              "flex flex-col items-start justify-center",
-              "text-card-foreground gap-0 pr-0 md:pr-2",
-            )}
-          >
-            {locationLabel &&
-              (typeof locationLabel === "string" ? (
-                <div className="text-sm md:text-base text-balance leading-tight md:leading-normal tracking-tighter md:tracking-normal font-semibold">
-                  {locationLabel}
-                </div>
-              ) : (
-                locationLabel
-              ))}
-            {locationSublabel &&
-              (typeof locationSublabel === "string" ? (
-                <div
-                  className={cn(
-                    "text-xs md:text-sm text-balance leading-tight md:leading-normal tracking-tighter md:tracking-normal",
-                  )}
-                >
-                  {locationSublabel}
-                </div>
-              ) : (
-                locationSublabel
-              ))}
+      return (
+        <div
+          className={cn(
+            "bg-card text-card-foreground",
+            "rounded-2xl p-2 md:p-4 shadow-lg",
+            "ring-4 ring-primary",
+            positioned
+              ? cn(
+                  "absolute bottom-0 translate-y-1/2",
+                  "left-1/2 -translate-x-1/2 w-[90%]",
+                  "md:-left-4 md:translate-x-0 md:w-auto",
+                )
+              : "w-full md:w-fit",
+          )}
+        >
+          <div className="flex items-center gap-3">
+            <div
+              className={cn(
+                "flex items-center justify-center shrink-0",
+                "size-12 rounded-xl bg-primary text-primary-foreground",
+              )}
+            >
+              <DynamicIcon name="lucide/map-pin" size={24} />
+            </div>
+            <div
+              className={cn(
+                "flex flex-col items-start justify-center",
+                "text-card-foreground gap-0 pr-0 md:pr-2",
+              )}
+            >
+              {locationLabel &&
+                (typeof locationLabel === "string" ? (
+                  <div className="text-sm md:text-base text-balance leading-tight md:leading-normal tracking-tighter md:tracking-normal font-semibold">
+                    {locationLabel}
+                  </div>
+                ) : (
+                  locationLabel
+                ))}
+              {locationSublabel &&
+                (typeof locationSublabel === "string" ? (
+                  <div
+                    className={cn(
+                      "text-xs md:text-sm text-balance leading-tight md:leading-normal tracking-tighter md:tracking-normal",
+                    )}
+                  >
+                    {locationSublabel}
+                  </div>
+                ) : (
+                  locationSublabel
+                ))}
+            </div>
           </div>
         </div>
-      </div>
-    );
-  }, [locationSlot, locationLabel, locationSublabel]);
+      );
+    },
+    [locationSlot, locationLabel, locationSublabel],
+  );
+
+  const renderLocation = useMemo(() => buildLocation(true), [buildLocation]);
+  const renderInlineLocation = useMemo(
+    () => buildLocation(false),
+    [buildLocation],
+  );
 
   const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
@@ -330,6 +347,12 @@ export function HeroEventRegistration({
       : "md:flex-row-reverse";
   const mobileOrder =
     directionConfig.mobile === "mediaTop" ? "flex-col-reverse" : "flex-col";
+
+  // The positioned location card only mounts inside the image region when a real
+  // image (not a custom imageSlot) is rendered. In every other case the location
+  // would otherwise be dropped, so it flows inline in the text column instead —
+  // guaranteeing the location renders exactly once with no duplicate mount.
+  const locationInImage = !imageSlot && Boolean(image);
 
   return (
     <Section
@@ -386,6 +409,7 @@ export function HeroEventRegistration({
               ) : (
                 description
               ))}
+            {!locationInImage && renderInlineLocation}
             <BlockActions
               actions={actions}
               actionsSlot={actionsSlot}
