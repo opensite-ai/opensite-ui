@@ -447,6 +447,11 @@ describe("InstagramPostGrid", () => {
       anchor!.querySelector('[data-name="lucide/instagram"]'),
     ).not.toBeNull();
     expect(anchor!.textContent).toBe("");
+    // Icon-position fix: the rail sits on the caption row (bottom-aligned
+    // with the caption card at 34px), not floating mid-media.
+    const rail = container.firstElementChild as HTMLElement;
+    expect(rail.style.bottom).toBe("34px");
+    expect(rail.style.right).toBe("11px");
   });
 
   // ── Expanded-UI cleanup: caption card = @username badge + title only ────────

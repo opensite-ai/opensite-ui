@@ -399,7 +399,10 @@ const VIEWER_ACTIONS: ImmersiveAction[] = [
  * Right-side rail for the fullscreen viewer. Per the annotated expanded-UI
  * cleanup, the engagement stats (likes/comments/views) were removed entirely —
  * the rail is now a single "Open in Instagram" egress rendered as a white
- * Instagram glyph with no text label.
+ * Instagram glyph with no text label. Per the icon-position fix, it sits on
+ * the caption row (bottom-aligned with the caption card, `bottom: 34`) at the
+ * media's right edge, just above the viewer's position counter — the caption
+ * card's 78px right clearance keeps the text from running beneath it.
  */
 function InstagramViewerRail({ item }: { item: MediaItem }): React.JSX.Element {
   const meta = (item.meta ?? {}) as InstagramMeta;
@@ -408,11 +411,11 @@ function InstagramViewerRail({ item }: { item: MediaItem }): React.JSX.Element {
       style={{
         position: "absolute",
         right: 11,
-        bottom: 135,
+        // Bottom-aligned with the caption card (see InstagramViewerCaption).
+        bottom: 34,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 18,
         color: "var(--psmi-chrome-fg, #fff)",
         zIndex: 3,
       }}
