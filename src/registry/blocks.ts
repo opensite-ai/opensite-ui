@@ -10868,7 +10868,7 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
 />
     `.trim(),
     importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each review needs a rating (1–5), a title, content, and an author. The verified flag should only be set when the review platform actually verifies purchases. avatarSrc must be an absolute image URL.",
+      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each review needs a rating (1–5), a title, content, and an author. The verified flag should only be set when the review platform actually verifies purchases. avatarSrc must be an absolute image URL. The verified indicator renders ONLY when verifiedPurchaseLabel is supplied — there is NO fallback wording; choose a label that fits the client's industry (e.g. 'Verified' / 'Verified Diner' / 'Verified Guest') or omit the prop to hide the indicator entirely.",
     usageRequirements: {
       requiredProps: ["reviews"],
       propConstraints: {
@@ -10944,7 +10944,7 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
     exampleUsage: `
 <TestimonialsImagesHelpful
   heading="Customer Reviews"
-  verifiedPurchaseLabel="Verified Purchase"
+  verifiedPurchaseLabel="Verified"
   reviews={[
     {
       rating: 5,
@@ -10971,7 +10971,7 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
 />
     `.trim(),
     importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. The images[] array holds supplementary review photos from the reviewer — these must be real product/experience photos, not stock imagery. helpful counts must reflect actual platform data.",
+      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. The images[] array holds supplementary review photos from the reviewer — these must be real product/experience photos, not stock imagery. helpful counts must reflect actual platform data. The verified indicator renders ONLY when verifiedPurchaseLabel is supplied — there is NO fallback wording; choose a label that fits the client's industry (e.g. 'Verified' / 'Verified Diner' / 'Verified Guest') or omit the prop to hide the indicator entirely.",
     usageRequirements: {
       requiredProps: ["reviews"],
       propConstraints: {
@@ -11011,7 +11011,7 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
     },
     exampleProps: {
       heading: "Customer Reviews",
-      verifiedPurchaseLabel: "Verified Purchase",
+      verifiedPurchaseLabel: "Verified",
       reviews: [
         {
           rating: 5,
@@ -12353,7 +12353,7 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
 />
     `.trim(),
     importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. backgroundIcon is a decorative Iconify icon ID (e.g., 'lucide/rocket') rendered as a large watermark behind the testimonial number — use icons that complement the testimonial theme. backgroundLabel is optional decorative text.",
+      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. backgroundIcon is a decorative Iconify icon ID (e.g., 'lucide/rocket') rendered as a large watermark behind the testimonial number — use icons that complement the testimonial theme. backgroundLabel is optional decorative text. The vertical side label renders ONLY when verticalLabel is supplied — there is NO fallback wording; choose industry-appropriate text or omit the prop to hide it.",
     usageRequirements: {
       requiredProps: ["testimonials"],
       propConstraints: {
