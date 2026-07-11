@@ -10796,6 +10796,16 @@ const TESTIMONIALS_EXAMPLE_IMAGE_URL =
 const TESTIMONIALS_MEDIA_NOTE =
   "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.";
 
+/**
+ * Phase 2 dynamic-feeds guidance appended to every testimonials block's
+ * importantUsageNotes (see docs/dynamic-feeds/FEED_CONTRACT.md §3.8 + §4.1c).
+ * Documents how a testimonials_feed dataSource hydrates into these blocks so a
+ * builder/agent knows the bind targets, the wire→prop mapping, and the
+ * capability semantics without re-deriving them per block.
+ */
+const TESTIMONIALS_FEED_NOTE =
+  "Dynamic feeds (Phase 2): this block can carry a block-level dataSource of type 'testimonials_feed', hydrated at routing-build time into TestimonialItem[]. Bind target (dataSource.bindTo) defaults to 'testimonials'; use 'reviews' for testimonials-list-verified, testimonials-images-helpful, and testimonials-grid-add-review; single-item 'testimonial' (an object — the hydrator binds items[0]) for testimonials-company-logo, testimonials-large-quote, and testimonials-split-image. Wire mapping: content -> quote, reviewer_name -> author, rating -> rating (only when numeric; never fabricate), profile_url + platform -> linkConfig. Avatars are intentionally NOT mapped in Phase 2 because review avatar URLs are hotlinked and rot-prone. The reviews_or_testimonials capability is satisfied by live reviews OR authored static quotes, so octane does not hard-drop testimonials blocks on the capability alone.";
+
 const testimonialsCapabilities = (...capabilities: SiteCapability[]) =>
   capabilities;
 
@@ -12490,6 +12500,15 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
     },
   },
 };
+
+// Append the shared Phase 2 dynamic-feeds guidance to every testimonials block
+// contract so testimonials_feed hydration semantics ship uniformly across the
+// category (single source of truth; see TESTIMONIALS_FEED_NOTE above).
+for (const contract of Object.values(TESTIMONIALS_BLOCK_CONTRACTS)) {
+  contract.importantUsageNotes = contract.importantUsageNotes
+    ? `${contract.importantUsageNotes} ${TESTIMONIALS_FEED_NOTE}`
+    : TESTIMONIALS_FEED_NOTE;
+}
 
 // ============================================================================
 // FEATURES BLOCK CONTRACTS

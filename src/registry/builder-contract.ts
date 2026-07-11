@@ -209,7 +209,7 @@ export function createBuilderContractBundle({
         hydrationOwner: "dashtrack-ai",
         hydrationPhase: "routing-build",
         canonicalPayloadExpectation:
-          "Keep testimonials feed requests symbolic in canonical page JSON until routing-build hydration resolves them.",
+          "Keep testimonials feed requests symbolic in canonical page JSON until routing-build hydration resolves them into TestimonialItem[] (or a single TestimonialItem for single-bind blocks). Wire mapping: content -> quote, reviewer_name -> author, rating -> rating (only when numeric; never fabricated), profile_url + platform -> linkConfig; avatars are intentionally left unmapped in Phase 2 because review avatar URLs are hotlinked and rot-prone.",
         requiredFields: ["type"],
         optionalFields: ["limit", "minRating", "platforms", "locationId", "bindTo"],
       },
