@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.14.0",
-    "exportedAt": "2026-07-11T23:15:41.527Z",
+    "uiVersion": "3.14.1",
+    "exportedAt": "2026-07-17T07:11:22.128Z",
     "source": "@opensite/ui",
     "totalBlocks": 606
   },
@@ -45032,7 +45032,7 @@
       "symbolic": true,
       "hydrationOwner": "dashtrack-ai",
       "hydrationPhase": "routing-build",
-      "canonicalPayloadExpectation": "Keep blog feed requests symbolic in canonical page JSON until routing-build hydration resolves them.",
+      "canonicalPayloadExpectation": "Keep blog feed requests symbolic in canonical page JSON until routing-build hydration resolves them. Human category and tag filters remain authoritative and each accepts either one name (string) or multiple names (string[]).",
       "requiredFields": [
         "type"
       ],
