@@ -779,6 +779,9 @@ describe("createBuilderContractBundle", () => {
       "featuredOnly",
       "bindTo",
     ]);
+    expect(
+      bundle.dynamicSources.blog_feed.canonicalPayloadExpectation,
+    ).toContain("one name (string) or multiple names (string[])");
     expect(bundle.dynamicSources.blog_post.optionalFields).toEqual([
       "slug",
       "current",

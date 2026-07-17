@@ -451,7 +451,7 @@ const results = searchBlocks("alternating");
 
 - `blocks` expose stable `blockRef` values derived from public `@opensite/ui/blocks/*` exports.
 - `sharedLayout` declares the canonical `_layout.header` and `_layout.footer` sources.
-- `dynamicSources` keeps symbolic sources such as `blog_feed` in canonical page JSON until `dashtrack-ai` hydrates them at routing-build time.
+- `dynamicSources` keeps symbolic sources such as `blog_feed` in canonical page JSON until `dashtrack-ai` hydrates them at routing-build time. A `blog_feed` source may express `category` and `tag` as either one human name (`string`) or multiple names (`string[]`); those human values remain authoritative.
 - `designTokens` treats `theme_config` as canonical and `tailwind_css` as derived.
 - `pageRules` documents the route-centric payload shape (`block_name`, `block_ref`, `data`) that rendering must follow exactly.
 

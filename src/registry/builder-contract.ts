@@ -182,7 +182,7 @@ export function createBuilderContractBundle({
         hydrationOwner: "dashtrack-ai",
         hydrationPhase: "routing-build",
         canonicalPayloadExpectation:
-          "Keep blog feed requests symbolic in canonical page JSON until routing-build hydration resolves them.",
+          "Keep blog feed requests symbolic in canonical page JSON until routing-build hydration resolves them. Human category and tag filters remain authoritative and each accepts either one name (string) or multiple names (string[]).",
         requiredFields: ["type"],
         optionalFields: [
           "limit",
