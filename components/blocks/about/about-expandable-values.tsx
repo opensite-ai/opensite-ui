@@ -3,8 +3,7 @@
 import * as React from "react";
 import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
-import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
+import { DynamicIcon, type DynamicIconName } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -21,9 +20,9 @@ export interface AboutExpandableValueItem {
    */
   id: string;
   /**
-   * Icon element or icon name
+   * Dynamic icon name (e.g., "lucide/shield") or custom icon element
    */
-  icon?: React.ReactNode;
+  icon?: DynamicIconName;
   /**
    * Value title
    */
@@ -223,7 +222,7 @@ export function AboutExpandableValues({
             >
               <div className="flex items-start gap-4">
                 <div className="shrink-0 size-12 flex items-center justify-center rounded-md bg-primary text-primary-foreground shadow-lg">
-                  {value.icon}
+                  <DynamicIcon name={value.icon} size={24} />
                 </div>
                 <div>
                   {value.title &&
@@ -366,7 +365,9 @@ export function AboutExpandableValues({
             ))}
           {ctaDescription &&
             (typeof ctaDescription === "string" ? (
-              <p className={cn(ctaDescriptionClassName)}>{ctaDescription}</p>
+              <p className={cn(ctaDescriptionClassName, "text-balance")}>
+                {ctaDescription}
+              </p>
             ) : (
               ctaDescription
             ))}

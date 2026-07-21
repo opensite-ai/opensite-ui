@@ -193,22 +193,17 @@ export function HeroVideoBackgroundDark({
               badgeText
             ))}
           {(logo || logoSlot) && (
-
             <div className={cn("mb-4 flex justify-center", logoClassName)}>
-
               <BrandLogo logo={logo} logoSlot={logoSlot} size="xl" />
-
             </div>
-
           )}
 
-          
           {heading &&
             (typeof heading === "string" ? (
               <h1
                 className={cn(
                   "font-bold text-5xl md:text-6xl lg:text-8xl",
-                  "text-pretty text-white text-shadow-lg",
+                  "text-balance text-white text-shadow-lg",
                   headingClassName,
                 )}
               >
@@ -221,7 +216,8 @@ export function HeroVideoBackgroundDark({
             (typeof description === "string" ? (
               <p
                 className={cn(
-                  "text-lg md:text-xl text-balance text-white text-shadow-lg",
+                  "max-w-full md:max-w-md text-balance",
+                  "text-lg md:text-xl text-white text-shadow-lg",
                   descriptionClassName,
                 )}
               >
