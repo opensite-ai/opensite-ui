@@ -1195,13 +1195,13 @@ const ABOUT_BLOCK_CONTRACTS = {
 />
     `.trim(),
     importantUsageNotes:
-      "Use when a brand has a clear vision story and enough supporting imagery for a gallery. Keep gallery images cohesive and source-backed. Do not use logo, favicon, or video assets in the gallery image props.",
+      "Use when a brand has a clear vision story and enough supporting imagery for a gallery. Keep gallery images cohesive and source-backed. Supply 3 or 6 'images' — the gallery is a 3-column grid, so any other count leaves orphan cells. Do not use logo, favicon, or video assets in the gallery image props.",
     usageRequirements: {
       requiredProps: ["title", "images"],
       propConstraints: {
         title: { required: true, maxLength: 80 },
         subtitle: { maxLength: 160 },
-        images: { required: true, minItems: 3, maxItems: 5 },
+        images: { required: true, minItems: 3, maxItems: 6, itemsMultipleOf: 3 },
         primarySectionContent: { maxLength: 260 },
         secondarySectionContent: { maxLength: 260 },
       },
@@ -15699,12 +15699,14 @@ const HERO_BLOCK_CONTRACTS = {
   backgroundImageUrl="${HERO_EXAMPLE_IMAGE_URL}"
 />
     `.trim(),
-    importantUsageNotes: `Requires a real 'backgroundImageUrl' — use a large, high-quality photo. Do not exceed 40 characters for 'heading'. Do not exceed 130 characters for 'description'. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second.  ${HERO_MEDIA_NOTE}`,
+    importantUsageNotes: `Requires a real 'backgroundImageUrl' — use a large, high-quality photo. Do not exceed 40 characters for 'heading'. Do not exceed 130 characters for 'description'. 'announcementBadge' is a tiny 2-4 word chip label and 'announcementText' is one short phrase (under 60 characters) — both render inside a single-line pill, never write sentences into them. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second.  ${HERO_MEDIA_NOTE}`,
     usageRequirements: {
       requiredProps: ["heading", "backgroundImageUrl"],
       propConstraints: {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
+        announcementBadge: { maxWords: 4 },
+        announcementText: { maxLength: 60 },
         backgroundImageUrl: { required: true },
         actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
       },

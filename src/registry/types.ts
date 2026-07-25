@@ -107,12 +107,24 @@ export interface BlockPropConstraint {
   required?: boolean;
   /** Maximum string length for text-shaped props. */
   maxLength?: number;
+  /**
+   * Maximum word count for LABEL-shaped props (badges, chips) where a
+   * sentence overflows the slot. Enforced post-generation by Octane with a
+   * clean word cut (no ellipsis).
+   */
+  maxWords?: number;
   /** Exact item count for array props (shorthand for minItems = maxItems). */
   count?: number;
   /** Minimum array length. */
   minItems?: number;
   /** Maximum array length. */
   maxItems?: number;
+  /**
+   * Array length must be a multiple of this (grid-friendly counts — a
+   * 3-column gallery reads 3 or 6, never 4). Octane clamps DOWN to the
+   * nearest multiple post-generation.
+   */
+  itemsMultipleOf?: number;
   /**
    * Pinned values, by index for array props or as a single value for scalars.
    * Used for the `actions[0].variant = "default"` / `actions[1].variant = "outline"` pattern.

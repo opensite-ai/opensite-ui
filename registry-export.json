@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-07-25T00:08:45.891Z",
+    "exportedAt": "2026-07-25T04:22:16.047Z",
     "totalBlocks": 606,
-    "version": "3.14.3",
+    "version": "3.14.4",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -529,7 +529,7 @@
       "category": "about",
       "props": "AboutVisionGalleryProps",
       "exampleUsage": "<AboutVisionGallery\n  title=\"The Vision Behind Our Work\"\n  subtitle=\"We believe great digital systems should feel simple to run.\"\n  images={[\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Collaborative product session\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team reviewing site designs\" },\n    { src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Customer experience planning\" },\n  ]}\n  primarySectionTitle=\"Our Vision\"\n  primarySectionContent=\"Give every operator the ability to publish excellent customer experiences without technical bottlenecks.\"\n  secondarySectionTitle=\"How We Build\"\n  secondarySectionContent=\"We turn reusable components, semantic contracts, and real content into maintainable sites.\"\n  ctaTitle=\"Part of Our Global Team\"\n  ctaAction={{ label: \"Get to know the team\", href: \"/team\", variant: \"default\" }}\n/>",
-      "importantUsageNotes": "Use when a brand has a clear vision story and enough supporting imagery for a gallery. Keep gallery images cohesive and source-backed. Do not use logo, favicon, or video assets in the gallery image props.",
+      "importantUsageNotes": "Use when a brand has a clear vision story and enough supporting imagery for a gallery. Keep gallery images cohesive and source-backed. Supply 3 or 6 'images' — the gallery is a 3-column grid, so any other count leaves orphan cells. Do not use logo, favicon, or video assets in the gallery image props.",
       "usageRequirements": {
         "requiredProps": [
           "title",
@@ -546,7 +546,8 @@
           "images": {
             "required": true,
             "minItems": 3,
-            "maxItems": 5
+            "maxItems": 6,
+            "itemsMultipleOf": 3
           },
           "primarySectionContent": {
             "maxLength": 260
@@ -15808,7 +15809,7 @@
       "category": "hero",
       "props": "HeroBadgeShadowOverlayProps",
       "exampleUsage": "<HeroBadgeShadowOverlay\n  announcementBadge=\"Launch\"\n  announcementText=\"Premium design system\"\n  announcementHref=\"#\"\n  heading=\"Elevate your brand with stunning visuals\"\n  description=\"Crafted with precision and creativity.\"\n  actions={[{ label: \"Explore Now\", href: \"#\", variant: \"default\" }]}\n  backgroundImageUrl=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n/>",
-      "importantUsageNotes": "Requires a real 'backgroundImageUrl' — use a large, high-quality photo. Do not exceed 40 characters for 'heading'. Do not exceed 130 characters for 'description'. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second.  All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
+      "importantUsageNotes": "Requires a real 'backgroundImageUrl' — use a large, high-quality photo. Do not exceed 40 characters for 'heading'. Do not exceed 130 characters for 'description'. 'announcementBadge' is a tiny 2-4 word chip label and 'announcementText' is one short phrase (under 60 characters) — both render inside a single-line pill, never write sentences into them. If you supply multiple 'actions', use 'default' for the first and 'outline' for the second.  All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
       "usageRequirements": {
         "requiredProps": [
           "heading",
@@ -15821,6 +15822,12 @@
           },
           "description": {
             "maxLength": 130
+          },
+          "announcementBadge": {
+            "maxWords": 4
+          },
+          "announcementText": {
+            "maxLength": 60
           },
           "backgroundImageUrl": {
             "required": true
