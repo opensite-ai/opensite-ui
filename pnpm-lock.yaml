@@ -48,8 +48,8 @@ importers:
         specifier: 0.1.7
         version: 0.1.7(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/video':
-        specifier: 0.0.8
-        version: 0.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.0.9
+        version: 0.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -930,8 +930,8 @@ packages:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
 
-  '@page-speed/video@0.0.8':
-    resolution: {integrity: sha512-Eh6UqXa2Ewmt6bTq2AYzoWNtThltgC3BwaOFR8aH/Bm2Iqz0+TCdsh659N+bUbxdKmuMLgk6JejReyOmuruqWQ==}
+  '@page-speed/video@0.0.9':
+    resolution: {integrity: sha512-kY5a4TPCxtAl7BScZaO7OJmOQn9Vyr45wfU0XS+UKqUniBzXMTGBnJi+CKUXfPqzLdsdsjW6rCuj65wv+Rznaw==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       react: '>=17.0.0'
@@ -3700,7 +3700,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@page-speed/video@0.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/video@0.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       hls.js: 1.6.15
       react: 18.3.1
