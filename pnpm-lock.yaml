@@ -28,7 +28,7 @@ importers:
         version: 0.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/markdown-to-jsx':
         specifier: ^0.0.7
-        version: 0.0.7(@page-speed/img@0.4.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 0.0.7(@page-speed/img@0.4.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/media-immersive':
         specifier: 0.5.1
         version: 0.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -36,11 +36,11 @@ importers:
         specifier: '>=0.1.9'
         version: 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pressable':
-        specifier: '>=0.0.9'
-        version: 0.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.1.1
+        version: 0.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/router':
-        specifier: '>=1.0.0'
-        version: 1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.2.1
+        version: 1.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/skins':
         specifier: 0.1.2
         version: 0.1.2(react@18.3.1)
@@ -893,14 +893,14 @@ packages:
       react: ^18.0.0
       react-dom: ^18.0.0
 
-  '@page-speed/pressable@0.0.9':
-    resolution: {integrity: sha512-szA+XsYy9jG4GeMtzkjcRhNkeHMnH1n/X99CcUxLPVpsE6mJ/OOhgQosZcRu9PPZ791v4TinnpbjsbDWGk7iXg==}
+  '@page-speed/pressable@0.1.1':
+    resolution: {integrity: sha512-v9Oup/v9jMYcAq7Z+CGWEjoGQxs6lnU0RosWApalSb7IYHWpy/ZMpX1QB0CIXNOOhnBgiE6WZfiGwkG31WUoPg==}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
 
-  '@page-speed/router@1.0.2':
-    resolution: {integrity: sha512-4yPyIJVZ0fgZYYLTbVq1+s88qddD9pnWHPPm0sRdPufMSBiUdypFLR/2aEg+vT/YOdJ0YUqm5Rb1AYOmTe14Ug==}
+  '@page-speed/router@1.2.1':
+    resolution: {integrity: sha512-/dZ9EGjG86GZHyVrJPI71PK56A7nFZ9C8Fqefoz8aDh6QhjInIba1oxERd9wGUQ3SexOx9C8qU/4QzcsjFbkHQ==}
     engines: {node: '>=18.0.0', pnpm: '>=9.0.0'}
     peerDependencies:
       react: '>=17.0.0'
@@ -3640,14 +3640,14 @@ snapshots:
     transitivePeerDependencies:
       - mapbox-gl
 
-  '@page-speed/markdown-to-jsx@0.0.7(@page-speed/img@0.4.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/markdown-to-jsx@0.0.7(@page-speed/img@0.4.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@page-speed/pressable@0.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       markdown-to-jsx: 7.7.17(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     optionalDependencies:
       '@page-speed/img': 0.4.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@page-speed/pressable': 0.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/pressable': 0.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   '@page-speed/media-immersive@0.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -3662,16 +3662,16 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@page-speed/pressable@0.0.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/pressable@0.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@page-speed/router': 1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/router': 1.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       tailwind-merge: 2.6.1
 
-  '@page-speed/router@1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/router@1.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -3683,7 +3683,7 @@ snapshots:
   '@page-speed/social-share@0.1.7(@opensite/hooks@2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@opensite/hooks': 2.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@page-speed/router': 1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/router': 1.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 

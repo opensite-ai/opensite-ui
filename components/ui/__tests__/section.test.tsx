@@ -31,6 +31,23 @@ describe("Section", () => {
     expect(element?.className).toContain("bg-foreground");
   });
 
+  it("adapts the link button variant on dark backgrounds only", () => {
+    // Link is the ONLY button variant that follows the section text color on
+    // dark backgrounds; pill/filled variants keep their own colors.
+    for (const background of ["dark", "gradient", "primary", "secondary"] as const) {
+      const { container } = render(<Section background={background}>Test</Section>);
+      expect(container.querySelector("section")?.className).toContain(
+        "[--button-link-fg:currentColor]",
+      );
+    }
+    for (const background of ["default", "white", "gray", "muted"] as const) {
+      const { container } = render(<Section background={background}>Test</Section>);
+      expect(container.querySelector("section")?.className).not.toContain(
+        "[--button-link-fg:currentColor]",
+      );
+    }
+  });
+
   it("applies default spacing of lg", () => {
     const { container } = render(<Section>Test</Section>);
     const element = container.querySelector("section");

@@ -8,16 +8,26 @@ import type { SectionProps } from "../../src/types";
  * Background style variants
  * Uses standard Tailwind/shadcn CSS variables for theming
  */
+
+/**
+ * On dark backgrounds the `link` button variant must follow the section's
+ * text color (its default `--primary` fill can be invisible on dark/primary
+ * fills). `currentColor` resolves to the section's inherited text color at the
+ * button. Link is the ONLY variant that adapts this way — pill/filled variants
+ * keep their own colors (see @page-speed/pressable button-variants).
+ */
+const darkLinkAdaptation =
+  "[--button-link-fg:currentColor] [--button-link-hover-fg:currentColor]";
+
 const backgroundStyles = {
   default: "bg-background text-foreground",
   white: "bg-white text-dark",
   gray: "bg-muted/30 text-foreground",
-  dark: "bg-foreground text-background",
+  dark: `bg-foreground text-background ${darkLinkAdaptation}`,
   transparent: "bg-transparent text-foreground",
-  gradient:
-    "bg-linear-to-br from-primary via-primary/90 to-foreground text-primary-foreground",
-  primary: "bg-primary text-primary-foreground",
-  secondary: "bg-secondary text-secondary-foreground",
+  gradient: `bg-linear-to-br from-primary via-primary/90 to-foreground text-primary-foreground ${darkLinkAdaptation}`,
+  primary: `bg-primary text-primary-foreground ${darkLinkAdaptation}`,
+  secondary: `bg-secondary text-secondary-foreground ${darkLinkAdaptation}`,
   muted: "bg-muted text-muted-foreground",
 };
 
