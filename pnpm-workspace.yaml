@@ -1,0 +1,17 @@
+# pnpm settings (single-package repo; the empty `packages` list just keeps pnpm
+# in non-workspace mode).
+packages: []
+
+# pnpm (v10+) blocks dependency build/postinstall scripts by default and fails
+# the install with ERR_PNPM_IGNORED_BUILDS, auto-writing each unbuilt package
+# into this map with a "set this to true or false" placeholder for review. In
+# pnpm v11 `allowBuilds` REPLACES the deprecated onlyBuiltDependencies /
+# ignoredBuiltDependencies lists, and the "pnpm" field in package.json is no
+# longer read at all — so this file is the only place the approval can live.
+#
+# esbuild's postinstall downloads its platform binary. This one is not optional:
+# `build:lib` is tsup, and tsup IS esbuild, so without the approval a fresh
+# `pnpm install` leaves esbuild unresolvable and every build/test script fails.
+# Same approval class as sharp in the showcase app.
+allowBuilds:
+  esbuild: true

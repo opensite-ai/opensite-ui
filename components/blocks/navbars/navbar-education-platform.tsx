@@ -106,7 +106,7 @@ export interface NavbarEducationPlatformProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarEducationPlatformRuntimeProps {
+export interface NavbarEducationPlatformRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

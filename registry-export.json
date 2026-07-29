@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-07-26T06:14:47.731Z",
+    "exportedAt": "2026-07-29T03:01:41.029Z",
     "totalBlocks": 606,
-    "version": "3.14.7",
+    "version": "3.14.8",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -22036,7 +22036,7 @@
         "cta-buttons"
       ],
       "category": "navbar",
-      "props": "NavbarDropdownMenuProps",
+      "props": "NavbarDropdownMenuRuntimeProps",
       "exampleUsage": "A standard navigation bar with dropdown menus. Each top-level menu item can have nested sub-items with icons and descriptions. Ideal for SaaS products and multi-section websites.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. The 'menu' prop accepts nested items via the 'items' array on each MenuItem. description title The 'authActions' array renders CTA buttons on the right side; use variant 'ghost' for secondary and 'default' for primary.",
       "usageRequirements": {
@@ -22135,7 +22135,7 @@
         "mobile-menu"
       ],
       "category": "navbar",
-      "props": "NavbarCenteredMenuProps",
+      "props": "NavbarCenteredMenuRuntimeProps",
       "exampleUsage": "A navigation bar where the logo is on the left, nav links are centered, and auth actions sit on the right. Dropdowns appear centered under their triggers. Clean, symmetric layout suitable for marketing and product sites.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. Menu items use 'title'/'url' and support nested 'items' with icon and description. The 'authActions' array renders on the right side of the navbar. Use 'variant: 'outline'' for secondary CTA and 'variant: 'default'' for primary.",
       "usageRequirements": {
@@ -22232,7 +22232,7 @@
         "complex-navigation"
       ],
       "category": "navbar",
-      "props": "NavbarMegaMenuProps",
+      "props": "NavbarMegaMenuRuntimeProps",
       "exampleUsage": "A mega-menu navbar using grouped dropdown columns. Each top-level link can open a wide dropdown organized into labeled groups of links with icons and descriptions. Use for large product suites with many categories.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. Use 'dropdownGroups' on menu links to render grouped columns (IMenuLinkGroup[]). url iconName Alternatively use 'layout: 'animated-image-preview'' with 'links' containing 'image' URLs for visual dropdowns.",
       "usageRequirements": {
@@ -22347,7 +22347,7 @@
         "corporate"
       ],
       "category": "navbar",
-      "props": "NavbarEnterpriseMegaProps",
+      "props": "NavbarEnterpriseMegaRuntimeProps",
       "exampleUsage": "An enterprise-grade mega menu navbar with specialized layout types for each dropdown panel. Supports solutions-with-platform, products-categorized, features-with-locations, partners-promotional, and resources-with-topics layouts. Each panel can feature a hero card with an image.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. Each menuLink requires a 'layout' field to determine the dropdown panel type. For 'solutions-with-platform': provide 'solutionCards' (with subpages), 'platformItems', and optionally 'platformTitle' (defaults to \"Platform\"). For 'products-categorized': provide 'productCategories' with 'products' arrays; each product may have an 'image' URL. For 'features-with-locations': provide 'featureCategories', 'regions', and optionally 'locationsTitle' (defaults to \"Locations\"). For 'resources-with-topics': provide 'resourceItems', 'topicGroups', and optionally 'resourcesTitle' (defaults to \"Resources\"). All 'featuredHeroCard.image' values must be absolute URLs.",
       "usageRequirements": {
@@ -22505,7 +22505,7 @@
         "tools"
       ],
       "category": "navbar",
-      "props": "NavbarFeatureGridProps",
+      "props": "NavbarFeatureGridRuntimeProps",
       "exampleUsage": "A navbar featuring a prominent features dropdown that renders as a 2-column grid. Each feature card shows a title and description. Secondary nav links appear beside the features trigger. Best for product-led sites showcasing key capabilities.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. The 'features' array renders as a 2-column grid inside the dropdown. description The 'menu' array renders as flat nav links (no dropdown). The 'authActions' array renders CTA buttons on the right.",
       "usageRequirements": {
@@ -22612,7 +22612,7 @@
         "animated-hamburger"
       ],
       "category": "navbar",
-      "props": "NavbarFloatingPillProps",
+      "props": "NavbarFloatingPillRuntimeProps",
       "exampleUsage": "A floating glassmorphism pill-style navbar that hovers above page content. Navigation items can have dropdown sub-items. The pill design creates a modern, elevated aesthetic suited for portfolios, landing pages, and SaaS products.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. The navbar floats above the page with a pill-shaped container and backdrop blur. Each 'items' entry uses 'label'/'href' (not 'title'/'url'). href The 'authActions' array renders outside the pill on the right.",
       "usageRequirements": {
@@ -22700,7 +22700,7 @@
         "developer-tools"
       ],
       "category": "navbar",
-      "props": "NavbarPlatformResourcesProps",
+      "props": "NavbarPlatformResourcesRuntimeProps",
       "exampleUsage": "A versatile navbar with multiple dropdown layout options including simple-list, list-with-icons, featured-grid, two-column-cta, list-showcase, and multi-section. Each menu link chooses a layout independently. Best for developer platforms and resource-heavy sites.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. Each menuLink must specify a 'layout' field to determine the dropdown panel style. label description For 'featured-grid': provide 'links' and optionally a featured item. For 'two-column-cta': provide two column link groups and a CTA card. For 'multi-section': provide 'dropdownGroups' (IMenuLinkGroup[]). Link items may use 'background' for background image URLs in applicable layouts.",
       "usageRequirements": {
@@ -22816,7 +22816,7 @@
         "scroll-aware"
       ],
       "category": "navbar",
-      "props": "NavbarImagePreviewProps",
+      "props": "NavbarImagePreviewRuntimeProps",
       "exampleUsage": "A fixed navbar that transitions background on scroll, featuring an image-preview dropdown. When hovering dropdown links, a large preview image animates in on the right side. Perfect for design studios, agencies, and visual-heavy product sites.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. Dropdown links that should show image previews must include an 'image' absolute URL. The 'navigation' prop uses 'title' and optional 'links' (MenuLink[]) or 'url' for flat links. url The component listens to scroll events — do not wrap in a scroll-locked container.",
       "usageRequirements": {
@@ -22939,7 +22939,7 @@
         "icon-indicators"
       ],
       "category": "navbar",
-      "props": "NavbarDarkIconsProps",
+      "props": "NavbarDarkIconsRuntimeProps",
       "exampleUsage": "A dark-themed navbar with colorful iconography in dropdown menus. Each dropdown link features a prominently colored icon alongside label and description. Designed for developer tools, APIs, and technical platforms. Optionally displays a live GitHub stars counter.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. description url iconName The optional 'githubUrl' prop enables a GitHub stars badge fetched client-side. The 'authActions' array renders on the right side of the navbar.",
       "usageRequirements": {
@@ -23043,7 +23043,7 @@
         "engaging"
       ],
       "category": "navbar",
-      "props": "NavbarAnimatedPreviewProps",
+      "props": "NavbarAnimatedPreviewRuntimeProps",
       "exampleUsage": "An advanced animated navbar supporting three dropdown layout modes: animated-image-preview (links with hover images), featured-cards-grid (background-image featured cards + icon links), and grouped-links-image (grouped link columns with a side image). Ideal for complex SaaS platforms.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. For 'animated-image-preview': each link in 'links' should include an 'image' absolute URL. For 'featured-cards-grid': 'featuredLinks' items use 'background' for background image URLs; 'links' are standard icon links. For 'grouped-links-image': use 'groupLinks' (IMenuLinkGroup[]) and optionally 'imageLink' with an 'image' URL. All image and background URLs must be absolute.",
       "usageRequirements": {
@@ -23238,7 +23238,7 @@
         "dark-mobile"
       ],
       "category": "navbar",
-      "props": "NavbarMultiColumnGroupsProps",
+      "props": "NavbarMultiColumnGroupsRuntimeProps",
       "exampleUsage": "A navbar with multi-column group dropdowns. Each dropdown renders a set of titled groups, each containing icon links with descriptions. Best for apps with many categorized features or product areas.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. description url The 'authActions' and 'mobileAuthActions' props accept separate desktop and mobile CTAs.",
       "usageRequirements": {
@@ -23359,7 +23359,7 @@
         "immersive"
       ],
       "category": "navbar",
-      "props": "NavbarSidebarMobileProps",
+      "props": "NavbarSidebarMobileRuntimeProps",
       "exampleUsage": "A navbar with a slide-out sidebar on mobile. Desktop shows standard nav links; mobile opens a full sidebar with collapsible menu sections. Great for app-like interfaces and dashboards.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. The 'menu' prop accepts 'title'/'url' for flat items or 'title'/'items' for collapsible groups. url The 'mobileExtraLinks' array adds additional links at the bottom of the mobile sidebar. The 'authActions' array renders CTA buttons on the desktop navbar right side.",
       "usageRequirements": {
@@ -23470,7 +23470,7 @@
         "staggered-animation"
       ],
       "category": "navbar",
-      "props": "NavbarTransparentOverlayProps",
+      "props": "NavbarTransparentOverlayRuntimeProps",
       "exampleUsage": "A transparent navbar that transitions to a solid background as the user scrolls. The mobile menu opens as a fullscreen dark overlay with large centered links. Logo inverts when transparent. Ideal for hero-led landing pages and portfolios.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. The navbar starts transparent and adds a solid background after 50px of scroll. Logo images are inverted (white) when the navbar is transparent and not open. Mobile navigation opens as a fullscreen black overlay with large animated text links. The 'socialLinks' array uses 'platformName' (SocialPlatformName) and 'href'. The 'mobileAuthActions' array renders separately from desktop 'authActions'.",
       "usageRequirements": {
@@ -23559,7 +23559,7 @@
         "e-learning"
       ],
       "category": "navbar",
-      "props": "NavbarEducationPlatformProps",
+      "props": "NavbarEducationPlatformRuntimeProps",
       "exampleUsage": "A navbar tailored for education and learning platforms. Dropdowns are organized as groups with icon links. Each group can include a featured image alongside the links. Supports separate mobile auth actions.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. Menu items use 'label'/'href' for flat links and 'label'/'groups' for dropdown panels. alt The 'featuredImage.src' must be an absolute URL. The 'authActions' and 'mobileAuthActions' accept separate configurations.",
       "usageRequirements": {
@@ -23713,7 +23713,7 @@
         "smooth-transition"
       ],
       "category": "navbar",
-      "props": "NavbarStickyCompactProps",
+      "props": "NavbarStickyCompactRuntimeProps",
       "exampleUsage": "A sticky navbar that compacts (reduces height) on scroll. Supports simple top-level links and collapsible dropdown sub-items. Clean, minimal design suitable for blogs, documentation sites, and content-focused applications.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. The navbar shrinks vertically after the user scrolls past a threshold. Menu items use 'title'/'url' for flat links or 'title'/'items' for dropdowns. url The 'authActions' array renders on the right side.",
       "usageRequirements": {
@@ -23803,7 +23803,7 @@
         "expandable"
       ],
       "category": "navbar",
-      "props": "NavbarSearchFocusedProps",
+      "props": "NavbarSearchFocusedRuntimeProps",
       "exampleUsage": "A navbar with a prominently displayed search bar as its central element. Navigation links and auth actions flank the search input. Best for search-driven applications, documentation portals, and marketplaces.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. The search input is always visible on desktop — it is the primary interaction element. The 'navItems' array uses 'title'/'url' for flat links. The 'searchPlaceholder' string customizes the input placeholder text. The 'onSearch' callback is fired when the user submits the search form. The 'mobileMenuActions' array renders inside the mobile menu.",
       "usageRequirements": {
@@ -23890,7 +23890,7 @@
         "straightforward"
       ],
       "category": "navbar",
-      "props": "NavbarSimpleLinksProps",
+      "props": "NavbarSimpleLinksRuntimeProps",
       "exampleUsage": "A minimalist navbar with a simple flat list of navigation links. An animated underline indicator tracks the active link. No dropdowns. Best for small sites, portfolios, single-page apps, and landing pages with few sections.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. Navigation items use 'name'/'link' fields (not 'title'/'url' — this is different from other navbars). The 'defaultActiveItem' string sets which nav item is highlighted by default (must match a 'name' value). The 'mobileActions' array configures mobile-specific CTAs.",
       "usageRequirements": {
@@ -23980,7 +23980,7 @@
         "prominent-cta"
       ],
       "category": "navbar",
-      "props": "NavbarSplitCtaProps",
+      "props": "NavbarSplitCtaRuntimeProps",
       "exampleUsage": "A navbar featuring a split CTA button pair — typically a ghost/link secondary action alongside a solid primary action. Menu items can have dropdown sub-sections. Designed to drive conversions with a clear dual-action pattern.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. The 'authActions' should contain exactly 2 items for the split CTA effect: one with variant 'link' or 'ghost' and one with variant 'default'. Menu items use 'title'/'url' for flat links or 'title'/'items' for dropdown sub-items. url description",
       "usageRequirements": {
@@ -24072,7 +24072,7 @@
         "space-efficient"
       ],
       "category": "navbar",
-      "props": "NavbarIconLinksProps",
+      "props": "NavbarIconLinksRuntimeProps",
       "exampleUsage": "A navbar where every navigation item renders as an icon with a tooltip label. No text labels visible — the icon conveys the destination. Useful for app-style navigation bars, dashboards, and utility toolbars.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. Every item in 'navItems' MUST include an 'icon' (DynamicIconName) — this field is required. Items use 'title'/'url'/'icon' — there are no dropdown sub-items. Tooltips automatically display the 'title' on hover. The 'authActions' array renders on the right — typically icon buttons for notifications and profile.",
       "usageRequirements": {
@@ -24173,7 +24173,7 @@
         "switchable"
       ],
       "category": "navbar",
-      "props": "NavbarTabbedSectionsProps",
+      "props": "NavbarTabbedSectionsRuntimeProps",
       "exampleUsage": "A navbar with tabbed dropdown panels. Each top-level menu item opens a wide panel with multiple tabs across the top. Clicking a tab reveals a grid of icon links and an optional featured card with image. For platforms with deeply structured content.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. title Each tab's 'featured' object with 'image' must use an absolute URL. Tabs without a 'featured' field show a simple link grid. The 'authActions' array renders on the right side of the navbar.",
       "usageRequirements": {
@@ -24311,7 +24311,7 @@
         "animated"
       ],
       "category": "navbar",
-      "props": "NavbarFullscreenMenuProps",
+      "props": "NavbarFullscreenMenuRuntimeProps",
       "exampleUsage": "A minimal navbar that opens a dramatic fullscreen overlay menu with large, staggered animated text links. Best for creative agencies, studios, and portfolios where bold visual impact takes priority. Social links appear at the bottom of the overlay.",
       "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. The 'menuItems' array uses 'label'/'href' fields (not 'title'/'url'). There are no 'authActions' — the fullscreen menu is the sole navigation mechanism. href The overlay animation staggers each link entry — more items create a longer stagger sequence.",
       "usageRequirements": {

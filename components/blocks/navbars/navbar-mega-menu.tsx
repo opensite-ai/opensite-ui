@@ -70,7 +70,7 @@ export interface NavbarMegaMenuProps {
   actions?: ActionConfig[];
 }
 
-interface NavbarMegaMenuRuntimeProps {
+export interface NavbarMegaMenuRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

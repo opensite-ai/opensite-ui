@@ -67,7 +67,7 @@ export interface NavbarSidebarMobileProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarSidebarMobileRuntimeProps {
+export interface NavbarSidebarMobileRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

@@ -60,7 +60,7 @@ export interface NavbarIconLinksProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarIconLinksRuntimeProps {
+export interface NavbarIconLinksRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

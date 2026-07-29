@@ -97,7 +97,7 @@ export interface NavbarAnimatedPreviewProps {
   actions?: ActionConfig[];
 }
 
-interface NavbarAnimatedPreviewRuntimeProps {
+export interface NavbarAnimatedPreviewRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

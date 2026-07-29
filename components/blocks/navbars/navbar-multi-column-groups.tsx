@@ -73,7 +73,7 @@ export interface NavbarMultiColumnGroupsProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarMultiColumnGroupsRuntimeProps {
+export interface NavbarMultiColumnGroupsRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

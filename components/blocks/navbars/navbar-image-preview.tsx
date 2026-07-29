@@ -81,7 +81,7 @@ export interface NavbarImagePreviewProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarImagePreviewRuntimeProps {
+export interface NavbarImagePreviewRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

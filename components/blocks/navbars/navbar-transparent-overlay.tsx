@@ -69,7 +69,7 @@ export interface NavbarTransparentOverlayProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarTransparentOverlayRuntimeProps {
+export interface NavbarTransparentOverlayRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

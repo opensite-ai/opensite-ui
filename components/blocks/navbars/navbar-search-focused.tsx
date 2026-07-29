@@ -58,7 +58,7 @@ export interface NavbarSearchFocusedProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarSearchFocusedRuntimeProps {
+export interface NavbarSearchFocusedRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

@@ -57,7 +57,7 @@ export interface NavbarSimpleLinksProps {
   actions?: ActionConfig[];
 }
 
-interface NavbarSimpleLinksRuntimeProps {
+export interface NavbarSimpleLinksRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

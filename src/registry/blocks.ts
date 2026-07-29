@@ -26856,7 +26856,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarDropdownMenu,
-    props: "NavbarDropdownMenuProps",
+    props: "NavbarDropdownMenuRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-dropdown-menu"],
   },
 
@@ -26878,7 +26878,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarCenteredMenu,
-    props: "NavbarCenteredMenuProps",
+    props: "NavbarCenteredMenuRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-centered-menu"],
   },
 
@@ -26901,7 +26901,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarMegaMenu,
-    props: "NavbarMegaMenuProps",
+    props: "NavbarMegaMenuRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-mega-menu"],
   },
 
@@ -26925,7 +26925,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarEnterpriseMega,
-    props: "NavbarEnterpriseMegaProps",
+    props: "NavbarEnterpriseMegaRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-enterprise-mega"],
   },
 
@@ -26947,7 +26947,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarFeatureGrid,
-    props: "NavbarFeatureGridProps",
+    props: "NavbarFeatureGridRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-feature-grid"],
   },
 
@@ -26970,7 +26970,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarFloatingPill,
-    props: "NavbarFloatingPillProps",
+    props: "NavbarFloatingPillRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-floating-pill"],
   },
 
@@ -26993,7 +26993,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarPlatformResources,
-    props: "NavbarPlatformResourcesProps",
+    props: "NavbarPlatformResourcesRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-platform-resources"],
   },
 
@@ -27016,7 +27016,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarImagePreview,
-    props: "NavbarImagePreviewProps",
+    props: "NavbarImagePreviewRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-image-preview"],
   },
 
@@ -27039,7 +27039,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarDarkIcons,
-    props: "NavbarDarkIconsProps",
+    props: "NavbarDarkIconsRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-dark-icons"],
   },
 
@@ -27062,7 +27062,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarAnimatedPreview,
-    props: "NavbarAnimatedPreviewProps",
+    props: "NavbarAnimatedPreviewRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-animated-preview"],
   },
 
@@ -27085,7 +27085,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarMultiColumnGroups,
-    props: "NavbarMultiColumnGroupsProps",
+    props: "NavbarMultiColumnGroupsRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-multi-column-groups"],
   },
 
@@ -27108,7 +27108,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarSidebarMobile,
-    props: "NavbarSidebarMobileProps",
+    props: "NavbarSidebarMobileRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-sidebar-mobile"],
   },
 
@@ -27131,7 +27131,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarTransparentOverlay,
-    props: "NavbarTransparentOverlayProps",
+    props: "NavbarTransparentOverlayRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-transparent-overlay"],
   },
 
@@ -27154,7 +27154,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarEducationPlatform,
-    props: "NavbarEducationPlatformProps",
+    props: "NavbarEducationPlatformRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-education-platform"],
   },
 
@@ -27177,7 +27177,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarStickyCompact,
-    props: "NavbarStickyCompactProps",
+    props: "NavbarStickyCompactRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-sticky-compact"],
   },
 
@@ -27200,7 +27200,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarSearchFocused,
-    props: "NavbarSearchFocusedProps",
+    props: "NavbarSearchFocusedRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-search-focused"],
   },
 
@@ -27223,7 +27223,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarSimpleLinks,
-    props: "NavbarSimpleLinksProps",
+    props: "NavbarSimpleLinksRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-simple-links"],
   },
 
@@ -27246,7 +27246,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarSplitCta,
-    props: "NavbarSplitCtaProps",
+    props: "NavbarSplitCtaRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-split-cta"],
   },
 
@@ -27269,7 +27269,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarIconLinks,
-    props: "NavbarIconLinksProps",
+    props: "NavbarIconLinksRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-icon-links"],
   },
 
@@ -27292,7 +27292,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarTabbedSections,
-    props: "NavbarTabbedSectionsProps",
+    props: "NavbarTabbedSectionsRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-tabbed-sections"],
   },
 
@@ -27316,7 +27316,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     ],
     category: "navbar",
     component: NavbarFullscreenMenu,
-    props: "NavbarFullscreenMenuProps",
+    props: "NavbarFullscreenMenuRuntimeProps",
           ...NAVBAR_BLOCK_CONTRACTS["navbar-fullscreen-menu"],
   },
 

@@ -125,7 +125,7 @@ export interface NavbarPlatformResourcesProps {
   actions?: ActionConfig[];
 }
 
-interface NavbarPlatformResourcesRuntimeProps {
+export interface NavbarPlatformResourcesRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

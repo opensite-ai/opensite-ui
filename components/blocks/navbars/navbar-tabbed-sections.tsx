@@ -79,7 +79,7 @@ export interface NavbarTabbedSectionsProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarTabbedSectionsRuntimeProps {
+export interface NavbarTabbedSectionsRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

@@ -57,7 +57,7 @@ export interface NavbarFullscreenMenuProps {
   socialLinks?: NavbarFullscreenMenuSocialLink[];
 }
 
-interface NavbarFullscreenMenuRuntimeProps {
+export interface NavbarFullscreenMenuRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

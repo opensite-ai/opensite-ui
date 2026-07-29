@@ -68,7 +68,7 @@ export interface NavbarFeatureGridProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarFeatureGridRuntimeProps {
+export interface NavbarFeatureGridRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

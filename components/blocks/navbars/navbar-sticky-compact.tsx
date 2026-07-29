@@ -66,7 +66,7 @@ export interface NavbarStickyCompactProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarStickyCompactRuntimeProps {
+export interface NavbarStickyCompactRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

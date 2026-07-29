@@ -313,7 +313,7 @@ export interface NavbarEnterpriseMegaProps {
   actions?: ActionConfig[];
 }
 
-interface NavbarEnterpriseMegaRuntimeProps {
+export interface NavbarEnterpriseMegaRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

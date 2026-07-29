@@ -65,7 +65,7 @@ export interface NavbarCenteredMenuProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarCenteredMenuRuntimeProps {
+export interface NavbarCenteredMenuRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

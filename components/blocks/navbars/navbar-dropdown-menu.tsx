@@ -65,7 +65,7 @@ export interface NavbarDropdownMenuProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarDropdownMenuRuntimeProps {
+export interface NavbarDropdownMenuRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

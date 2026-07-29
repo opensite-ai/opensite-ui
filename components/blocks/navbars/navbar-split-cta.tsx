@@ -61,7 +61,7 @@ export interface NavbarSplitCtaProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarSplitCtaRuntimeProps {
+export interface NavbarSplitCtaRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

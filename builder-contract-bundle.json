@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.14.7",
-    "exportedAt": "2026-07-26T06:14:47.731Z",
+    "uiVersion": "3.14.8",
+    "exportedAt": "2026-07-29T03:01:41.029Z",
     "source": "@opensite/ui",
     "totalBlocks": 606
   },
@@ -30704,7 +30704,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarAnimatedPreviewProps",
+        "reference": "NavbarAnimatedPreviewRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -30915,7 +30915,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarCenteredMenuProps",
+        "reference": "NavbarCenteredMenuRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -31029,7 +31029,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarDarkIconsProps",
+        "reference": "NavbarDarkIconsRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -31150,7 +31150,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarDropdownMenuProps",
+        "reference": "NavbarDropdownMenuRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -31267,7 +31267,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarEducationPlatformProps",
+        "reference": "NavbarEducationPlatformRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -31439,7 +31439,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarEnterpriseMegaProps",
+        "reference": "NavbarEnterpriseMegaRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -31614,7 +31614,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarFeatureGridProps",
+        "reference": "NavbarFeatureGridRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -31738,7 +31738,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarFloatingPillProps",
+        "reference": "NavbarFloatingPillRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -31844,7 +31844,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarFullscreenMenuProps",
+        "reference": "NavbarFullscreenMenuRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -31968,7 +31968,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarIconLinksProps",
+        "reference": "NavbarIconLinksRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -32086,7 +32086,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarImagePreviewProps",
+        "reference": "NavbarImagePreviewRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -32226,7 +32226,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarMegaMenuProps",
+        "reference": "NavbarMegaMenuRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -32357,7 +32357,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarMultiColumnGroupsProps",
+        "reference": "NavbarMultiColumnGroupsRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -32495,7 +32495,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarPlatformResourcesProps",
+        "reference": "NavbarPlatformResourcesRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -32628,7 +32628,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarSearchFocusedProps",
+        "reference": "NavbarSearchFocusedRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -32732,7 +32732,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarSidebarMobileProps",
+        "reference": "NavbarSidebarMobileRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -32860,7 +32860,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarSimpleLinksProps",
+        "reference": "NavbarSimpleLinksRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -32967,7 +32967,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarSplitCtaProps",
+        "reference": "NavbarSplitCtaRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -33076,7 +33076,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarStickyCompactProps",
+        "reference": "NavbarStickyCompactRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -33183,7 +33183,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarTabbedSectionsProps",
+        "reference": "NavbarTabbedSectionsRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },
@@ -33337,7 +33337,7 @@
       "layoutRole": "header",
       "propsContract": {
         "type": "typescript-type-reference",
-        "reference": "NavbarTransparentOverlayProps",
+        "reference": "NavbarTransparentOverlayRuntimeProps",
         "runtimeSchema": null,
         "runtimeSchemaStatus": "missing"
       },

@@ -58,7 +58,7 @@ export interface NavbarFloatingPillProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarFloatingPillRuntimeProps {
+export interface NavbarFloatingPillRuntimeProps {
   /**
    * Additional CSS classes for the section
    */

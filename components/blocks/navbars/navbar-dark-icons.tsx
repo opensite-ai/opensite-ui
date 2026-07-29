@@ -69,7 +69,7 @@ export interface NavbarDarkIconsProps {
   authActions?: ActionConfig[];
 }
 
-interface NavbarDarkIconsRuntimeProps {
+export interface NavbarDarkIconsRuntimeProps {
   /**
    * Additional CSS classes for the section
    */
