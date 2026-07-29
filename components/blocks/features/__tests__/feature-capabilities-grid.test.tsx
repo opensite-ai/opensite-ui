@@ -13,11 +13,14 @@ vi.mock("framer-motion", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>
-      icon
-    </span>
-  ),
+  DynamicIcon: ({ name, className }: { name?: React.ReactNode; className?: string }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("FeatureCapabilitiesGrid", () => {
@@ -49,6 +52,40 @@ describe("FeatureCapabilitiesGrid", () => {
     render(<FeatureCapabilitiesGrid items={items} />);
     expect(screen.getByText("Item One")).toBeInTheDocument();
     expect(screen.getByText("Item Two")).toBeInTheDocument();
+  });
+
+  it("renders icon names supplied through the icon prop with DynamicIcon", () => {
+    render(
+      <FeatureCapabilitiesGrid
+        items={[
+          {
+            icon: "lucide/layout-template",
+            title: "Landing Page Builder",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/layout-template",
+    );
+    expect(screen.queryByText("lucide/layout-template")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom icon elements supplied through the icon prop", () => {
+    render(
+      <FeatureCapabilitiesGrid
+        items={[
+          {
+            icon: <span data-testid="custom-icon" />,
+            title: "Custom Icon",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-icon")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

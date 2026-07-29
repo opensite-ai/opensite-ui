@@ -21,9 +21,9 @@ export interface FeatureCapabilitiesGridItem {
    */
   description?: React.ReactNode;
   /**
-   * Icon element (overrides iconName)
+   * Icon element or icon name (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/brain")
    */
@@ -143,7 +143,7 @@ export function FeatureCapabilitiesGrid({
 }: FeatureCapabilitiesGridProps): React.JSX.Element {
   const renderItemIcon = React.useCallback(
     (item: FeatureCapabilitiesGridItem) => {
-      if (item.icon) return item.icon;
+      if (item.icon) return <DynamicIcon name={item.icon} size={20} />;
       if (item.iconName) return <DynamicIcon name={item.iconName} size={20} />;
       return null;
     },
