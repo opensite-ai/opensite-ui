@@ -93,8 +93,14 @@ vi.mock("@/components/ui/block-actions", () => ({
   },
 }));
 
-// Note: DynamicIcon is not mocked as it renders loading state in tests
-// and the actual component functionality is tested through structure verification.
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({ name }: { name?: React.ReactNode }) =>
+    typeof name === "string" ? (
+      <span data-testid={`mock-icon-${name}`} />
+    ) : (
+      <>{name}</>
+    ),
+}));
 
 describe("HeroFloatingImages", () => {
   beforeEach(() => {
@@ -134,6 +140,26 @@ describe("HeroFloatingImages", () => {
     expect(screen.getByText("Main Heading")).toBeInTheDocument();
     expect(screen.getByText("Description text")).toBeInTheDocument();
     expect(screen.getByText("Call to Action")).toHaveAttribute("href", "/cta");
+  });
+
+  it("renders badge icon names through DynamicIcon", () => {
+    render(
+      <HeroFloatingImages badge="Featured" badgeIcon="lucide/shield" />,
+    );
+
+    expect(screen.getByTestId("mock-icon-lucide/shield")).toBeInTheDocument();
+    expect(screen.queryByText("lucide/shield")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom badge icon elements", () => {
+    render(
+      <HeroFloatingImages
+        badge="Featured"
+        badgeIcon={<span data-testid="custom-badge-icon" />}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-badge-icon")).toBeInTheDocument();
   });
 
   it("renders actionsSlot instead of configured actions", () => {

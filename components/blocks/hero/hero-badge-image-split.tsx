@@ -14,6 +14,7 @@ import type {
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
 
 export interface HeroBadgeImageSplitProps {
@@ -24,7 +25,7 @@ export interface HeroBadgeImageSplitProps {
   /**
    * Badge icon
    */
-  badgeIcon?: React.ReactNode;
+  badgeIcon?: React.ReactNode | string;
   /**
    * Main heading content
    */
@@ -165,7 +166,7 @@ export function HeroBadgeImageSplit({
             {badge && (
               <Badge variant="outline" className={badgeClassName}>
                 {badge}
-                {badgeIcon}
+                <DynamicIcon name={badgeIcon} />
               </Badge>
             )}
             {(logo || logoSlot) && (

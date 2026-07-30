@@ -18,6 +18,15 @@ vi.mock("../../../lib/mediaPlaceholders", () => ({
   imagePlaceholders: Array(50).fill("https://placeholder.com/image.jpg"),
 }));
 
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({ name }: { name?: React.ReactNode }) =>
+    typeof name === "string" ? (
+      <span data-testid={`mock-icon-${name}`} />
+    ) : (
+      <>{name}</>
+    ),
+}));
+
 describe("HeroImageLeftContent", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -36,6 +45,26 @@ describe("HeroImageLeftContent", () => {
   it("renders custom description", () => {
     render(<HeroImageLeftContent description="Custom description text" />);
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders badge icon names through DynamicIcon", () => {
+    render(
+      <HeroImageLeftContent badge="Featured" badgeIcon="lucide/shield" />,
+    );
+
+    expect(screen.getByTestId("mock-icon-lucide/shield")).toBeInTheDocument();
+    expect(screen.queryByText("lucide/shield")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom badge icon elements", () => {
+    render(
+      <HeroImageLeftContent
+        badge="Featured"
+        badgeIcon={<span data-testid="custom-badge-icon" />}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-badge-icon")).toBeInTheDocument();
   });
 
   it("renders actions when provided", () => {

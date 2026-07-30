@@ -15,9 +15,20 @@ vi.mock("../../../ui/badge", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("HeroAnnouncementBadge", () => {
@@ -33,6 +44,34 @@ describe("HeroAnnouncementBadge", () => {
   it("renders custom badge", () => {
     render(<HeroAnnouncementBadge badge="Custom Badge Text" />);
     expect(screen.getByText("Custom Badge Text")).toBeInTheDocument();
+  });
+
+  it("renders a badge icon name through DynamicIcon without exposing raw text", () => {
+    render(
+      <HeroAnnouncementBadge
+        badge="Secure"
+        badgeIcon="lucide/shield-check"
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/shield-check",
+    );
+    expect(screen.queryByText("lucide/shield-check")).not.toBeInTheDocument();
+  });
+
+  it("preserves a custom badge icon element", () => {
+    render(
+      <HeroAnnouncementBadge
+        badge="Secure"
+        badgeIcon={<span data-testid="custom-badge-icon">custom icon</span>}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-badge-icon")).toHaveTextContent(
+      "custom icon",
+    );
   });
 
   it("renders custom heading", () => {

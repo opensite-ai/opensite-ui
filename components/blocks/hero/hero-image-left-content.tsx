@@ -12,6 +12,7 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
@@ -24,7 +25,7 @@ export interface HeroImageLeftContentProps {
   /**
    * Badge icon
    */
-  badgeIcon?: React.ReactNode;
+  badgeIcon?: React.ReactNode | string;
   /**
    * Badge variant
    */
@@ -189,7 +190,7 @@ export function HeroImageLeftContent({
             {badge && (
               <Badge variant={badgeVariant} className={badgeClassName}>
                 {badge}
-                {badgeIcon}
+                <DynamicIcon name={badgeIcon} />
               </Badge>
             )}
             {(logo || logoSlot) && (

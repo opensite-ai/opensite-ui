@@ -15,9 +15,20 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 vi.mock("../../../lib/mediaPlaceholders", () => ({
@@ -48,6 +59,59 @@ describe("HeroEnterpriseSecurity", () => {
     const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
     render(<HeroEnterpriseSecurity actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("renders badge and feature icon names through DynamicIcon without exposing raw text", () => {
+    render(
+      <HeroEnterpriseSecurity
+        badge="Enterprise ready"
+        badgeIcon="lucide/shield-check"
+        features={[
+          {
+            title: "Encrypted",
+            icon: "lucide/lock-keyhole",
+            iconName: "lucide/check",
+          },
+          { title: "Audited", iconName: "lucide/badge-check" },
+        ]}
+      />,
+    );
+
+    expect(
+      screen.getAllByTestId("mock-icon").map((icon) =>
+        icon.getAttribute("data-name"),
+      ),
+    ).toEqual([
+      "lucide/shield-check",
+      "lucide/lock-keyhole",
+      "lucide/badge-check",
+    ]);
+    expect(screen.queryByText("lucide/lock-keyhole")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/badge-check")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/shield-check")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom badge and feature icon elements", () => {
+    render(
+      <HeroEnterpriseSecurity
+        badge="Enterprise ready"
+        badgeIcon={<span data-testid="custom-badge-icon">badge icon</span>}
+        features={[
+          {
+            title: "Encrypted",
+            icon: <span data-testid="custom-feature-icon">feature icon</span>,
+            iconName: "lucide/check",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-badge-icon")).toHaveTextContent(
+      "badge icon",
+    );
+    expect(screen.getByTestId("custom-feature-icon")).toHaveTextContent(
+      "feature icon",
+    );
   });
 
   it("applies custom className", () => {

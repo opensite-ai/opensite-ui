@@ -63,7 +63,7 @@ export interface HeroFloatingImagesProps {
   /**
    * Badge icon
    */
-  badgeIcon?: React.ReactNode;
+  badgeIcon?: React.ReactNode | string;
   /**
    * Main heading content
    */
@@ -465,7 +465,7 @@ export function HeroFloatingImages({
                 className={cn("mb-6 w-fit", badgeClassName)}
               >
                 {badge}
-                {badgeIcon}
+                <DynamicIcon name={badgeIcon} />
               </Badge>
             )}
             {(logo || logoSlot) && (

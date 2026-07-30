@@ -13,6 +13,7 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "@/src";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
@@ -26,7 +27,7 @@ export interface HeroStartupLaunchCtaProps {
   /**
    * Badge icon
    */
-  badgeIcon?: React.ReactNode;
+  badgeIcon?: React.ReactNode | string;
   /**
    * Main heading content
    */
@@ -249,7 +250,7 @@ export function HeroStartupLaunchCta({
           <div className={cn("flex flex-col gap-8", contentClassName)}>
             {badge && (
               <Badge className={cn("px-4", badgeClassName)}>
-                {badgeIcon}
+                <DynamicIcon name={badgeIcon} />
                 {typeof badge === "string" ? <span>{badge}</span> : badge}
               </Badge>
             )}

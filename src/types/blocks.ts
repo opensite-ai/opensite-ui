@@ -32,11 +32,11 @@ export interface ActionConfig extends VariantProps<typeof buttonVariants> {
   /**
    * Icon to display (typically before label)
    */
-  icon?: ReactNode;
+  icon?: ReactNode | string;
   /**
    * Icon to display after the label
    */
-  iconAfter?: ReactNode;
+  iconAfter?: ReactNode | string;
   /**
    * URL for link behavior
    */

@@ -15,6 +15,7 @@ import type {
 import { Badge } from "@/src";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
 
 export interface HeroCenteredGradientCtaProps {
@@ -25,7 +26,7 @@ export interface HeroCenteredGradientCtaProps {
   /**
    * Badge icon
    */
-  badgeIcon?: React.ReactNode;
+  badgeIcon?: React.ReactNode | string;
   /**
    * Main heading content
    */
@@ -154,7 +155,7 @@ export function HeroCenteredGradientCta({
         key={index}
         className={cn("flex items-center gap-2", feature.className)}
       >
-        {feature.icon}
+        <DynamicIcon name={feature.icon} />
         <span>{feature.title}</span>
       </Pressable>
     ));
@@ -173,7 +174,7 @@ export function HeroCenteredGradientCta({
       <div className="relative gap-6 z-10 flex flex-col items-center text-center">
         {badge && (
           <Badge className={cn("px-3", badgeClassName)}>
-            {badgeIcon}
+            <DynamicIcon name={badgeIcon} />
             {typeof badge === "string" ? (
               <span className="font-bold">{badge}</span>
             ) : (

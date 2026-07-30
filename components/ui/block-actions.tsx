@@ -2,6 +2,7 @@ import * as React from "react";
 import { cn } from "../../lib/utils";
 import { ActionConfig, Pressable } from "@/src";
 import { buttonVariants } from "../../lib/button-variants";
+import { DynamicIcon } from "./dynamic-icon";
 
 /**
  * Mobile layout configuration for BlockActions.
@@ -124,9 +125,9 @@ function ActionComponent({ action }: ActionComponentProps) {
     >
       {children ?? (
         <>
-          {icon}
+          <DynamicIcon name={icon} />
           {label}
-          {iconAfter}
+          <DynamicIcon name={iconAfter} />
         </>
       )}
     </Pressable>

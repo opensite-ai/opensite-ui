@@ -12,6 +12,7 @@ import type {
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
 
 export interface HeroAnnouncementBadgeProps {
@@ -22,7 +23,7 @@ export interface HeroAnnouncementBadgeProps {
   /**
    * Badge icon
    */
-  badgeIcon?: React.ReactNode;
+  badgeIcon?: React.ReactNode | string;
   /**
    * Main heading content
    */
@@ -136,7 +137,7 @@ export function HeroAnnouncementBadge({
                   "flex size-8 shrink-0 items-center justify-center rounded-full",
                 )}
               >
-                {badgeIcon}
+                <DynamicIcon name={badgeIcon} />
               </span>
             )}
             {typeof badge === "string" ? (

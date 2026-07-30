@@ -9,9 +9,20 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("HeroCenteredGradientCta", () => {
@@ -38,6 +49,46 @@ describe("HeroCenteredGradientCta", () => {
     const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
     render(<HeroCenteredGradientCta actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("renders badge and feature icon names through DynamicIcon without exposing raw text", () => {
+    render(
+      <HeroCenteredGradientCta
+        badge="Launch ready"
+        badgeIcon="lucide/rocket"
+        features={[{ title: "Fast", icon: "lucide/zap" }]}
+      />,
+    );
+
+    expect(
+      screen.getAllByTestId("mock-icon").map((icon) =>
+        icon.getAttribute("data-name"),
+      ),
+    ).toEqual(["lucide/rocket", "lucide/zap"]);
+    expect(screen.queryByText("lucide/rocket")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/zap")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom badge and feature icon elements", () => {
+    render(
+      <HeroCenteredGradientCta
+        badge="Launch ready"
+        badgeIcon={<span data-testid="custom-badge-icon">badge icon</span>}
+        features={[
+          {
+            title: "Fast",
+            icon: <span data-testid="custom-feature-icon">feature icon</span>,
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-badge-icon")).toHaveTextContent(
+      "badge icon",
+    );
+    expect(screen.getByTestId("custom-feature-icon")).toHaveTextContent(
+      "feature icon",
+    );
   });
 
   it("applies custom className", () => {

@@ -27,7 +27,7 @@ export interface HeroEnterpriseSecurityProps {
   /**
    * Badge icon
    */
-  badgeIcon?: React.ReactNode;
+  badgeIcon?: React.ReactNode | string;
   /**
    * Additional CSS classes for the badge
    */
@@ -177,13 +177,11 @@ export function HeroEnterpriseSecurity({
                 feature.iconBgClass,
               )}
             >
-              {feature.icon ?? (
-                <DynamicIcon
-                  name={feature.iconName || "lucide/check"}
-                  size={24}
-                  className={feature.iconColorClass}
-                />
-              )}
+              <DynamicIcon
+                name={feature.icon ?? (feature.iconName || "lucide/check")}
+                size={24}
+                className={feature.iconColorClass}
+              />
             </div>
             <h3 className="mb-2 text-lg font-semibold ">{feature.title}</h3>
             {feature.description && (
@@ -215,7 +213,7 @@ export function HeroEnterpriseSecurity({
         >
           {badge && (
             <Badge className={cn("px-4", badgeClassName)}>
-              {badgeIcon}
+              <DynamicIcon name={badgeIcon} />
               {typeof badge === "string" ? <span>{badge}</span> : badge}
             </Badge>
           )}

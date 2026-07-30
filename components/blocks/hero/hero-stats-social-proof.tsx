@@ -26,7 +26,7 @@ export interface HeroStatsSocialProofProps {
   /**
    * Badge icon
    */
-  badgeIcon?: React.ReactNode;
+  badgeIcon?: React.ReactNode | string;
   /**
    * Main heading content
    */
@@ -237,7 +237,7 @@ export function HeroStatsSocialProof({
           <div className={cn("flex flex-col gap-4 md:gap-8", contentClassName)}>
             {badge && (
               <Badge className={cn("px-4 py-2 gap-2", badgeClassName)}>
-                {badgeIcon}
+                <DynamicIcon name={badgeIcon} />
                 {typeof badge === "string" ? <span>{badge}</span> : badge}
               </Badge>
             )}

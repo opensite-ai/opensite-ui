@@ -19,6 +19,15 @@ vi.mock("../../../lib/mediaPlaceholders", () => ({
   avatarPlaceholders: Array(20).fill("https://placeholder.com/avatar.jpg"),
 }));
 
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({ name }: { name?: React.ReactNode }) =>
+    typeof name === "string" ? (
+      <span data-testid={`mock-icon-${name}`} />
+    ) : (
+      <>{name}</>
+    ),
+}));
+
 describe("HeroStatsSocialProof", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -37,6 +46,26 @@ describe("HeroStatsSocialProof", () => {
   it("renders custom description", () => {
     render(<HeroStatsSocialProof description="Custom description text" />);
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders badge icon names through DynamicIcon", () => {
+    render(
+      <HeroStatsSocialProof badge="Featured" badgeIcon="lucide/shield" />,
+    );
+
+    expect(screen.getByTestId("mock-icon-lucide/shield")).toBeInTheDocument();
+    expect(screen.queryByText("lucide/shield")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom badge icon elements", () => {
+    render(
+      <HeroStatsSocialProof
+        badge="Featured"
+        badgeIcon={<span data-testid="custom-badge-icon" />}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-badge-icon")).toBeInTheDocument();
   });
 
   it("renders actions when provided", () => {
