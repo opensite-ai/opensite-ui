@@ -15,9 +15,15 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name }: { name?: React.ReactNode | string }) =>
+  DynamicIcon: ({
+    name,
+    size,
+  }: {
+    name?: React.ReactNode | string;
+    size?: number;
+  }) =>
     typeof name === "string" ? (
-      <span data-testid={`mock-icon-${name}`} />
+      <span data-testid={`mock-icon-${name}`} data-size={size} />
     ) : (
       <>{name}</>
     ),
@@ -93,6 +99,68 @@ describe("HeroPortfolioCreative", () => {
     expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
   });
 
+  it("preserves empty, false, zero, and children action semantics", () => {
+    const { container, rerender } = render(
+      <HeroPortfolioCreative
+        actions={[
+          {
+            label: "Parity action",
+            href: "/parity",
+            icon: 0,
+            iconAfter: false,
+          },
+        ]}
+      />,
+    );
+    const getAction = () =>
+      container.querySelector<HTMLAnchorElement>('a[href="/parity"]')!;
+
+    expect(getAction()).toHaveTextContent("0Parity action");
+    expect(
+      getAction().querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroPortfolioCreative
+        actions={[
+          {
+            label: "Empty action",
+            href: "/parity",
+            icon: "",
+            iconAfter: "",
+          },
+        ]}
+      />,
+    );
+    expect(getAction()).toHaveTextContent("Empty action");
+    expect(
+      getAction().querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroPortfolioCreative
+        actions={[
+          {
+            label: "Generated label",
+            href: "/parity",
+            icon: "lucide/briefcase",
+            iconAfter: "lucide/arrow-right",
+            children: (
+              <span data-testid="custom-action-content">Custom action</span>
+            ),
+          },
+        ]}
+      />,
+    );
+    expect(screen.getByTestId("custom-action-content")).toHaveTextContent(
+      "Custom action",
+    );
+    expect(screen.queryByText("Generated label")).not.toBeInTheDocument();
+    expect(
+      getAction().querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+  });
+
   it("preserves social icon override and legacy fallback precedence", () => {
     render(
       <HeroPortfolioCreative
@@ -112,10 +180,10 @@ describe("HeroPortfolioCreative", () => {
 
     expect(
       screen.getByTestId("mock-icon-lucide/social-override"),
-    ).toBeInTheDocument();
+    ).toHaveAttribute("data-size", "20");
     expect(
       screen.getByTestId("mock-icon-lucide/social-fallback"),
-    ).toBeInTheDocument();
+    ).toHaveAttribute("data-size", "20");
     expect(
       screen.queryByTestId("mock-icon-lucide/legacy-social"),
     ).not.toBeInTheDocument();
@@ -159,6 +227,35 @@ describe("HeroPortfolioCreative", () => {
     );
 
     expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+  });
+
+  it("preserves falsy social overrides ahead of legacy fallbacks", () => {
+    const { container } = render(
+      <HeroPortfolioCreative
+        socialLinks={[
+          {
+            href: "/empty",
+            icon: "",
+            iconName: "lucide/legacy-empty",
+          },
+          {
+            href: "/false",
+            icon: false,
+            iconName: "lucide/legacy-false",
+          },
+          {
+            href: "/zero",
+            icon: 0,
+            iconName: "lucide/legacy-zero",
+          },
+        ]}
+      />,
+    );
+
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+    expect(container.querySelector('a[href="/zero"]')).toHaveTextContent("0");
   });
 
   it("applies custom className", () => {

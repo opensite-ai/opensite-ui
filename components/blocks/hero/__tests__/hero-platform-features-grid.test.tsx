@@ -9,9 +9,15 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name }: { name?: React.ReactNode | string }) =>
+  DynamicIcon: ({
+    name,
+    size,
+  }: {
+    name?: React.ReactNode | string;
+    size?: number;
+  }) =>
     typeof name === "string" ? (
-      <span data-testid={`mock-icon-${name}`} />
+      <span data-testid={`mock-icon-${name}`} data-size={size} />
     ) : (
       <>{name}</>
     ),
@@ -79,6 +85,60 @@ describe("HeroPlatformFeaturesGrid", () => {
     expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
   });
 
+  it("preserves empty, false, zero, and children action semantics", () => {
+    const { container, rerender } = render(
+      <HeroPlatformFeaturesGrid
+        action={{
+          label: "Parity action",
+          href: "/parity",
+          icon: 0,
+          iconAfter: false,
+        }}
+      />,
+    );
+    const getAction = () =>
+      container.querySelector<HTMLAnchorElement>('a[href="/parity"]')!;
+
+    expect(getAction()).toHaveTextContent("0Parity action");
+    expect(
+      getAction().querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroPlatformFeaturesGrid
+        action={{
+          label: "Empty action",
+          href: "/parity",
+          icon: "",
+          iconAfter: "",
+        }}
+      />,
+    );
+    expect(getAction()).toHaveTextContent("Empty action");
+    expect(
+      getAction().querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroPlatformFeaturesGrid
+        action={{
+          label: "Generated label",
+          href: "/parity",
+          icon: "lucide/layout-grid",
+          iconAfter: "lucide/arrow-right",
+          children: <span data-testid="custom-action-content">Custom action</span>,
+        }}
+      />,
+    );
+    expect(screen.getByTestId("custom-action-content")).toHaveTextContent(
+      "Custom action",
+    );
+    expect(screen.queryByText("Generated label")).not.toBeInTheDocument();
+    expect(
+      getAction().querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+  });
+
   it("preserves feature icon override and legacy fallback precedence", () => {
     render(
       <HeroPlatformFeaturesGrid
@@ -98,10 +158,10 @@ describe("HeroPlatformFeaturesGrid", () => {
 
     expect(
       screen.getByTestId("mock-icon-lucide/feature-override"),
-    ).toBeInTheDocument();
+    ).toHaveAttribute("data-size", "24");
     expect(
       screen.getByTestId("mock-icon-lucide/feature-fallback"),
-    ).toBeInTheDocument();
+    ).toHaveAttribute("data-size", "24");
     expect(
       screen.queryByTestId("mock-icon-lucide/legacy-feature"),
     ).not.toBeInTheDocument();
@@ -145,6 +205,35 @@ describe("HeroPlatformFeaturesGrid", () => {
     );
 
     expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+  });
+
+  it("preserves falsy feature overrides ahead of legacy fallbacks", () => {
+    const { container } = render(
+      <HeroPlatformFeaturesGrid
+        features={[
+          {
+            title: "Empty override",
+            icon: "",
+            iconName: "lucide/legacy-empty",
+          },
+          {
+            title: "False override",
+            icon: false,
+            iconName: "lucide/legacy-false",
+          },
+          {
+            title: "Zero override",
+            icon: 0,
+            iconName: "lucide/legacy-zero",
+          },
+        ]}
+      />,
+    );
+
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+    expect(container).toHaveTextContent("0Zero override");
   });
 
   it("applies custom className", () => {

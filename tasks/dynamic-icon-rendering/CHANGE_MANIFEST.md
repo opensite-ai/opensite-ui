@@ -102,6 +102,65 @@ Files deleted: 0
 - New failures: none.
 - Pre-existing failures: none observed.
 
+# Change Manifest — Retroactive Parity Correction Part B
+
+## Modified Files
+
+| Source and adjacent test | Classification / change | Combined lines +/- | Notes |
+|---|---|---:|---|
+| `hero-mentorship-video-split` | Empty-string/action parity correction | +56/-2 | Manual leading/trailing icons and complete child replacement are covered. |
+| `hero-minimal-centered-dark` | Empty-string parity correction | +20/-1 | Badge icon now preserves raw empty-string behavior. |
+| `hero-newsletter-minimal` | Empty-string/action contract correction | +73/-7 | Badge/submit icons are guarded and children replace label plus trailing icon. |
+| `hero-pattern-badge-logos` | Empty-string/action parity correction | +64/-2 | Manual action icons preserve raw React-node behavior. |
+| `hero-pattern-logo-tech-stack` | Empty-string/action parity correction | +66/-2 | Manual action icons preserve raw React-node behavior. |
+| `hero-platform-features-grid` | Fallback/style parity correction | +98/-7 | Action and feature overrides preserve nullish precedence and size 24. |
+| `hero-portfolio-creative` | Fallback/style parity correction | +108/-7 | Action and social overrides preserve nullish precedence and size 20. |
+| `hero-premium-split-avatars` | Empty-string/action parity correction | +56/-2 | Manual action icons preserve raw React-node behavior. |
+| `hero-productivity-launcher-video` | Empty-string/action parity correction | +66/-2 | Manual action icons preserve raw React-node behavior. |
+| `hero-simple-centered-image` | Dead-helper source invariant | +9/-4 | The retained unreferenced helper uses the same exact empty-string guard contract. |
+| `hero-split-image-newsletter` | Empty-string/action contract correction | +59/-2 | Submit icon is guarded and children replace label plus trailing icon. |
+| `hero-split-spiral-shapes` | Empty-string/action parity correction | +66/-2 | Manual action icons preserve raw React-node behavior. |
+| `tasks/dynamic-icon-rendering/.refactor-session.md` | Control state | current batch | Records correction completion and CTA part B handoff. |
+| `tasks/dynamic-icon-rendering/CHANGE_MANIFEST.md` | Batch manifest | current batch | Records corrected boundaries and verification. |
+
+## Scope Compliance
+
+- [x] The implementation diff is exactly 12 approved production files and their 12 adjacent tests.
+- [x] All 24 source/test files are in the exact scope allowlist.
+- [x] No new files exist outside spec-defined outputs.
+- [x] No dependency or lockfile changed.
+- [x] The pre-existing `package.json` version-only diff is unchanged and unstaged.
+- [x] No shared abstraction, dependency, or alternate rendering system was introduced.
+- [x] All 24 audited boundaries use exact empty-string guards.
+- [x] Platform and portfolio preserve nullish fallback precedence and inherited sizes.
+- [x] Newsletter action children replace the complete generated composition.
+- [x] `git diff --check` passed for the bounded path set.
+
+## Review Resolution
+
+- The same exact empty-string rule is applied to all reachable hero-B
+  boundaries and the retained dead helper so the source contract is
+  consistent.
+- Platform feature and portfolio social overrides remain authoritative for any
+  non-null value, including `""`, `false`, and `0`; legacy names are used only
+  by their original fallback branches.
+- Newsletter action renderers continue intentionally omitting leading icons,
+  while `children` now replaces their full generated label/trailing fragment.
+- Independent review identified and closed a newsletter test gap: the test now
+  rejects both accidental `DynamicIcon` rendering and raw-text rendering of the
+  intentionally omitted leading icon.
+
+## Test Results
+
+- Focused: 12 files passed, 111 tests passed, exit 0.
+- `pnpm type-check`: exit 0.
+- Exact source/test scope and allowlist audit: exit 0.
+- Restricted `git diff --check`: exit 0.
+- Independent Hero-B focused review: 12 files / 111 tests, exit 0.
+- Review-driven newsletter assertion: 1 file / 9 tests, exit 0.
+- New failures: none.
+- Pre-existing failures: existing video-without-source warnings only.
+
 # Change Manifest — Retroactive Parity Correction Part A
 
 ## Modified Files

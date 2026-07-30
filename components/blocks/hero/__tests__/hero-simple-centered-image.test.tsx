@@ -77,8 +77,13 @@ describe("HeroSimpleCenteredImage", () => {
       "utf8",
     );
 
-    expect(source).toContain("<DynamicIcon name={icon} />");
-    expect(source).toContain("<DynamicIcon name={iconAfter} />");
+    expect(source).toContain(
+      '{icon === "" ? null : <DynamicIcon name={icon} />}',
+    );
+    expect(source).toContain(
+      '{iconAfter === "" ? null : <DynamicIcon name={iconAfter} />}',
+    );
+    expect(source).toContain("{children ?? (");
     expect(source).not.toMatch(/^\s*\{icon(?:After)?\}\s*$/m);
   });
 

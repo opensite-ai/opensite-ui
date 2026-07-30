@@ -179,7 +179,7 @@ export function HeroNewsletterMinimal({
               stat.icon ? "justify-between" : "justify-center",
             )}
           >
-            <DynamicIcon name={stat.icon} />
+            {stat.icon === "" ? null : <DynamicIcon name={stat.icon} />}
             <div
               className={cn("font-bold ", stat.icon ? "text-xl" : "text-2xl")}
             >
@@ -214,12 +214,16 @@ export function HeroNewsletterMinimal({
               buttonGroupSetup: {
                 ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
                 size: "lg",
-                submitLabel: (
-                  <>
-                    {action.label}
-                    <DynamicIcon name={action.iconAfter} />
-                  </>
-                ),
+                submitLabel:
+                  action.children ??
+                  (
+                    <>
+                      {action.label}
+                      {action.iconAfter === "" ? null : (
+                        <DynamicIcon name={action.iconAfter} />
+                      )}
+                    </>
+                  ),
                 submitVariant: action.variant || "default",
               },
             },

@@ -109,6 +109,25 @@ describe("HeroMinimalCenteredDark", () => {
     expect(screen.getByTestId("custom-stat-icon")).toHaveTextContent("custom");
   });
 
+  it("preserves empty, false, and zero stat icon semantics", () => {
+    const { container } = render(
+      <HeroMinimalCenteredDark
+        stats={[
+          { value: "Empty stat", icon: "" },
+          { value: "False stat", icon: false },
+          { value: "Zero stat", icon: 0 },
+        ]}
+      />,
+    );
+
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+    expect(container).toHaveTextContent("Empty stat");
+    expect(container).toHaveTextContent("False stat");
+    expect(container).toHaveTextContent("0Zero stat");
+  });
+
   it("applies custom className", () => {
     const { container } = render(<HeroMinimalCenteredDark heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

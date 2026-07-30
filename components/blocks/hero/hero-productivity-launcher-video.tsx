@@ -189,9 +189,11 @@ export function HeroProductivityLauncherVideo({
             >
               {children ?? (
                 <>
-                  <DynamicIcon name={icon} />
+                  {icon === "" ? null : <DynamicIcon name={icon} />}
                   <p>{label}</p>
-                  <DynamicIcon name={iconAfter} />
+                  {iconAfter === "" ? null : (
+                    <DynamicIcon name={iconAfter} />
+                  )}
                 </>
               )}
             </Pressable>

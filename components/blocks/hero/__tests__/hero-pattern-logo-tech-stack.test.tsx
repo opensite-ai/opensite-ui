@@ -92,6 +92,68 @@ describe("HeroPatternLogoTechStack", () => {
     expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
   });
 
+  it("preserves empty, false, zero, and children action semantics", () => {
+    const { container, rerender } = render(
+      <HeroPatternLogoTechStack
+        actions={[
+          {
+            label: "Parity action",
+            href: "/parity",
+            icon: 0,
+            iconAfter: false,
+          },
+        ]}
+      />,
+    );
+    const getAction = () =>
+      container.querySelector<HTMLAnchorElement>('a[href="/parity"]')!;
+
+    expect(getAction()).toHaveTextContent("0Parity action");
+    expect(
+      getAction().querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroPatternLogoTechStack
+        actions={[
+          {
+            label: "Empty action",
+            href: "/parity",
+            icon: "",
+            iconAfter: "",
+          },
+        ]}
+      />,
+    );
+    expect(getAction()).toHaveTextContent("Empty action");
+    expect(
+      getAction().querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroPatternLogoTechStack
+        actions={[
+          {
+            label: "Generated label",
+            href: "/parity",
+            icon: "lucide/code",
+            iconAfter: "lucide/arrow-right",
+            children: (
+              <span data-testid="custom-action-content">Custom action</span>
+            ),
+          },
+        ]}
+      />,
+    );
+    expect(screen.getByTestId("custom-action-content")).toHaveTextContent(
+      "Custom action",
+    );
+    expect(screen.queryByText("Generated label")).not.toBeInTheDocument();
+    expect(
+      getAction().querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+  });
+
   it("applies custom className", () => {
     const { container } = render(<HeroPatternLogoTechStack heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

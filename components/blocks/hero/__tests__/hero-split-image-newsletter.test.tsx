@@ -135,6 +135,57 @@ describe("HeroSplitImageNewsletter", () => {
     expect(screen.getByTestId("custom-trailing-icon")).toHaveTextContent("trailing");
   });
 
+  it("preserves falsy trailing icons and lets children replace submit composition", () => {
+    const { container, rerender } = render(
+      <HeroSplitImageNewsletter
+        buttonAction={{
+          label: "Parity submit",
+          iconAfter: 0,
+        }}
+      />,
+    );
+
+    expect(screen.getByRole("button")).toHaveTextContent("Parity submit0");
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroSplitImageNewsletter
+        buttonAction={{
+          label: "Empty submit",
+          iconAfter: "",
+        }}
+      />,
+    );
+    expect(screen.getByRole("button")).toHaveTextContent("Empty submit");
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroSplitImageNewsletter
+        buttonAction={{
+          label: "Generated label",
+          icon: "lucide/mail",
+          iconAfter: "lucide/send",
+          children: (
+            <span data-testid="custom-submit-content">Custom submit</span>
+          ),
+        }}
+      />,
+    );
+    expect(screen.getByTestId("custom-submit-content")).toHaveTextContent(
+      "Custom submit",
+    );
+    expect(screen.queryByText("Generated label")).not.toBeInTheDocument();
+    expect(
+      screen
+        .getByRole("button")
+        .querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+  });
+
   it("applies custom className", () => {
     const { container } = render(<HeroSplitImageNewsletter heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

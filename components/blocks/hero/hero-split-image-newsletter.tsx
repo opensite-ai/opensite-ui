@@ -254,8 +254,14 @@ export function HeroSplitImageNewsletter({
             className={cn("h-12", action.className)}
             disabled={form.isSubmitting}
           >
-            {action.label}
-            <DynamicIcon name={action.iconAfter} />
+            {action.children ?? (
+              <>
+                {action.label}
+                {action.iconAfter === "" ? null : (
+                  <DynamicIcon name={action.iconAfter} />
+                )}
+              </>
+            )}
           </Pressable>
         </div>
         {helperText &&

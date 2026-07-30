@@ -164,6 +164,75 @@ describe("HeroNewsletterMinimal", () => {
     expect(screen.getByTestId("custom-stat-icon")).toHaveTextContent("stat");
   });
 
+  it("preserves falsy icons and lets children replace submit composition", () => {
+    const { container, rerender } = render(
+      <HeroNewsletterMinimal
+        buttonAction={{
+          label: "Parity submit",
+          icon: "lucide/mail",
+          iconAfter: 0,
+        }}
+        formEngineSetup={{ fields: [] }}
+        stats={[
+          { value: "Empty stat", icon: "" },
+          { value: "False stat", icon: false },
+          { value: "Zero stat", icon: 0 },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("submit-label")).toHaveTextContent(
+      "Parity submit0",
+    );
+    expect(screen.getByTestId("submit-label")).not.toHaveTextContent(
+      "lucide/mail",
+    );
+    expect(
+      container.querySelector('[data-name="lucide/mail"]'),
+    ).not.toBeInTheDocument();
+    expect(container).toHaveTextContent("0Zero stat");
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroNewsletterMinimal
+        buttonAction={{
+          label: "Empty submit",
+          iconAfter: "",
+        }}
+        formEngineSetup={{ fields: [] }}
+        stats={[{ value: "Empty stat", icon: "" }]}
+      />,
+    );
+    expect(screen.getByTestId("submit-label")).toHaveTextContent("Empty submit");
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroNewsletterMinimal
+        buttonAction={{
+          label: "Generated label",
+          iconAfter: "lucide/send",
+          children: (
+            <span data-testid="custom-submit-content">Custom submit</span>
+          ),
+        }}
+        formEngineSetup={{ fields: [] }}
+      />,
+    );
+    expect(screen.getByTestId("custom-submit-content")).toHaveTextContent(
+      "Custom submit",
+    );
+    expect(screen.queryByText("Generated label")).not.toBeInTheDocument();
+    expect(
+      screen
+        .getByTestId("submit-label")
+        .querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+  });
+
   it("applies custom className", () => {
     const { container } = render(<HeroNewsletterMinimal heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

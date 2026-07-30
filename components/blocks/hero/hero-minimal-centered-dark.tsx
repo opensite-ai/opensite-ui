@@ -149,7 +149,7 @@ export function HeroMinimalCenteredDark({
         key={index}
         className={cn("flex items-center gap-2", stat.className)}
       >
-        <DynamicIcon name={stat.icon} />
+        {stat.icon === "" ? null : <DynamicIcon name={stat.icon} />}
         <span>{stat.value}</span>
       </div>
     ));
