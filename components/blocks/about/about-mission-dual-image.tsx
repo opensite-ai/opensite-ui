@@ -2,16 +2,18 @@
 
 import * as React from "react";
 import { cn } from "../../../lib/utils";
-import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
+  MediaItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { MediaAspectRatio } from "../../ui/media-aspect-ratio";
+import type { ResponsiveMediaAspectRatioProps } from "../../ui/media-aspect-ratio";
 
 export interface AboutMissionDualImageProps {
   /**
@@ -31,14 +33,27 @@ export interface AboutMissionDualImageProps {
    */
   visionContent?: React.ReactNode;
   /**
-   * Primary image configuration
+   * Dynamic media configuration for an image or video.
+   * Video takes priority when both are provided.
+   */
+  mediaItem?: MediaItem;
+  /**
+   * Media aspect ratios for desktop and mobile breakpoints.
+   * @default { desktop: "square", mobile: "horizontal" }
+   */
+  mediaAspectRatios?: ResponsiveMediaAspectRatioProps;
+  /**
+   * Primary image configuration.
+   * @deprecated Use `mediaItem` instead.
    */
   primaryImage?: {
     src: string;
     alt: string;
   };
   /**
-   * Secondary image configuration
+   * Secondary image configuration.
+   * @deprecated Use `mediaItem` instead. This is only used when `mediaItem`
+   * and `primaryImage` are not supplied.
    */
   secondaryImage?: {
     src: string;
@@ -81,11 +96,13 @@ export interface AboutMissionDualImageProps {
    */
   visionContentClassName?: string;
   /**
-   * Additional CSS classes for the primary image
+   * Additional CSS classes for the primary image.
+   * @deprecated Set `mediaItem.image.className` instead.
    */
   primaryImageClassName?: string;
   /**
-   * Additional CSS classes for the secondary image
+   * Additional CSS classes for the secondary image.
+   * @deprecated Set `mediaItem.image.className` instead.
    */
   secondaryImageClassName?: string;
   /**
@@ -122,6 +139,8 @@ export function AboutMissionDualImage({
   missionContent,
   visionTitle,
   visionContent,
+  mediaItem,
+  mediaAspectRatios = { desktop: "square", mobile: "horizontal" },
   primaryImage,
   secondaryImage,
   actions,
@@ -182,6 +201,21 @@ export function AboutMissionDualImage({
     [],
   );
 
+  const hasMediaItem = Boolean(mediaItem?.image?.src || mediaItem?.video?.src);
+  const legacyPrimaryImage = primaryImage?.src ? primaryImage : undefined;
+  const legacySecondaryImage = secondaryImage?.src ? secondaryImage : undefined;
+  const legacyImage = legacyPrimaryImage ?? legacySecondaryImage;
+  const resolvedMediaItem: MediaItem | undefined = hasMediaItem
+    ? mediaItem
+    : legacyImage
+      ? { image: legacyImage }
+      : undefined;
+  const legacyImageClassName = hasMediaItem
+    ? undefined
+    : legacyPrimaryImage
+      ? primaryImageClassName
+      : secondaryImageClassName;
+
   return (
     <Section
       id={sectionId}
@@ -193,7 +227,10 @@ export function AboutMissionDualImage({
       containerClassName={containerClassName}
     >
       <div
-        className={cn("grid gap-8 md:gap-16 lg:grid-cols-2", contentClassName)}
+        className={cn(
+          "grid items-center gap-8 md:gap-16 lg:grid-cols-2",
+          contentClassName,
+        )}
       >
         <div className="flex flex-col items-start gap-6 md:gap-8">
           {renderTextContent(
@@ -216,30 +253,15 @@ export function AboutMissionDualImage({
           />
         </div>
 
-        <div className="relative flex flex-col gap-4 sm:grid sm:grid-cols-2">
-          {primaryImage && (
-            <Img
-              src={primaryImage.src}
-              alt={primaryImage.alt}
-              className={cn(
-                "w-full h-auto rounded-2xl object-cover sm:h-full shadow-xl",
-                primaryImageClassName,
-              )}
-              optixFlowConfig={optixFlowConfig}
-            />
-          )}
-          {secondaryImage && (
-            <Img
-              src={secondaryImage.src}
-              alt={secondaryImage.alt}
-              className={cn(
-                "w-full h-auto rounded-2xl object-cover sm:h-full sm:mt-12 shadow-xl",
-                secondaryImageClassName,
-              )}
-              optixFlowConfig={optixFlowConfig}
-            />
-          )}
-        </div>
+        <MediaAspectRatio
+          breakpoint="lg"
+          containerClassName="relative w-full"
+          frameClassName="rounded-2xl shadow-xl"
+          imageClassName={legacyImageClassName}
+          mediaItem={resolvedMediaItem}
+          optixFlowConfig={optixFlowConfig}
+          deviceAspectRatios={mediaAspectRatios}
+        />
       </div>
     </Section>
   );

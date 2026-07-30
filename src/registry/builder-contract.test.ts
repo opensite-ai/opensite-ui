@@ -1097,6 +1097,75 @@ describe("BLOCK_REGISTRY hero-mentorship-video-split contract", () => {
   });
 });
 
+describe("BLOCK_REGISTRY about-mission-dual-image media contract", () => {
+  const entry = BLOCK_REGISTRY["about-mission-dual-image"];
+
+  it("requires the dynamic mediaItem prop for newly authored pages", () => {
+    expect(entry.usageRequirements?.requiredProps).toEqual(
+      expect.arrayContaining(["mediaItem"]),
+    );
+    expect(
+      entry.usageRequirements?.propConstraints?.mediaItem,
+    ).toMatchObject({
+      required: true,
+    });
+    expect(entry.importantUsageNotes).toMatch(/image.*video|video.*image/i);
+  });
+
+  it("declares image and video media paths with the responsive image crop", () => {
+    const slots = entry.usageRequirements?.mediaSlots ?? {};
+    const imageSlot = slots["mediaItem.image.src"];
+    const videoSlot = slots["mediaItem.video.src"];
+
+    expect(imageSlot).toMatchObject({
+      path: "mediaItem.image.src",
+      preferredAspect: "1:1",
+      required: false,
+    });
+    expect(imageSlot?.note).toMatch(/IMAGE MEDIA ONLY/i);
+    expect(videoSlot).toMatchObject({
+      path: "mediaItem.video.src",
+      required: false,
+    });
+    expect(videoSlot?.note).toMatch(/VIDEO MEDIA ONLY/i);
+  });
+
+  it("keeps deprecated image props out of AI-authored examples and media slots", () => {
+    const exampleProps = entry.exampleProps as Record<string, unknown>;
+    const slots = entry.usageRequirements?.mediaSlots ?? {};
+
+    expect(entry.exampleUsage).toContain("mediaItem");
+    expect(entry.exampleUsage).not.toMatch(/primaryImage|secondaryImage/);
+    expect(exampleProps.mediaItem).toBeDefined();
+    expect(exampleProps).not.toHaveProperty("primaryImage");
+    expect(exampleProps).not.toHaveProperty("secondaryImage");
+    expect(slots).not.toHaveProperty("primaryImage");
+    expect(slots).not.toHaveProperty("secondaryImage");
+    expect(entry.importantUsageNotes).toMatch(/deprecated/i);
+    expect(entry.importantUsageNotes).toMatch(/never author/i);
+  });
+
+  it("propagates the dynamic media contract into the builder bundle", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+    const block = bundle.blocks.find(
+      (item) => item.componentId === "about-mission-dual-image",
+    );
+
+    expect(block?.description).toMatch(/image or video/i);
+    expect(block?.usageRequirements?.requiredProps).toContain("mediaItem");
+    expect(
+      block?.usageRequirements?.mediaSlots?.["mediaItem.image.src"],
+    ).toBeDefined();
+    expect(
+      block?.usageRequirements?.mediaSlots?.["mediaItem.video.src"],
+    ).toBeDefined();
+    expect(block?.examples.exampleProps).toHaveProperty("mediaItem");
+  });
+});
+
 describe("BLOCK_REGISTRY about category contracts", () => {
   it("declares structured usage requirements and exampleProps for every about block", () => {
     for (const id of ABOUT_BLOCK_IDS) {
@@ -1180,13 +1249,21 @@ describe("BLOCK_REGISTRY about category contracts", () => {
     ).toEqual(expect.arrayContaining(["locations"]));
   });
 
-  it("declares image media slots where about blocks accept media", () => {
+  it("declares typed media slots where about blocks accept media", () => {
     for (const id of ABOUT_BLOCK_IDS_WITH_MEDIA) {
       const slots = BLOCK_REGISTRY[id].usageRequirements?.mediaSlots ?? {};
 
       expect(Object.keys(slots).length, id).toBeGreaterThan(0);
 
       for (const slot of Object.values(slots)) {
+        if (slot.path.includes(".video")) {
+          expect(slot.note, `${id}:${slot.path}`).toMatch(/VIDEO .*ONLY/i);
+          expect(slot.disallowedRoles ?? [], `${id}:${slot.path}`).toEqual(
+            expect.arrayContaining(["logo", "favicon", "hero", "feature"]),
+          );
+          continue;
+        }
+
         expect(slot.note, `${id}:${slot.path}`).toMatch(/IMAGE .*ONLY/i);
 
         if (!slot.roles.includes("logo")) {

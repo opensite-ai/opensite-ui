@@ -1804,40 +1804,65 @@ const ABOUT_BLOCK_CONTRACTS = {
   missionContent="To make professional digital operations easier for every growing team."
   visionTitle="Our Vision"
   visionContent="A world where every business can keep its customer experience current."
-  primaryImage={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Team mission planning" }}
-  secondaryImage={{ src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Product workshop" }}
+  mediaItem={{
+    image: {
+      src: "${ABOUT_EXAMPLE_IMAGE_URL}",
+      alt: "Team mission planning",
+    },
+  }}
   actions={[{ label: "Join Our Journey", href: "/careers", variant: "default" }]}
 />
     `.trim(),
     importantUsageNotes:
-      "Use when both mission and vision copy are available. Avoid vague mission statements; keep each content block specific. primaryImage and secondaryImage must be image assets only.",
+      "`mediaItem` accepts either `image` or `video`; video takes priority when both are provided. Supply `mediaItem.image.src` or `mediaItem.video.src` as an absolute URL to a real hosted asset. The default media crop is square on desktop and horizontal (16:9) on mobile, and `mediaAspectRatios` can override either viewport. Use when both mission and vision copy are available, and keep each content block specific. `primaryImage` and `secondaryImage` are deprecated runtime compatibility props — never author them for new pages.",
     usageRequirements: {
-      requiredProps: ["missionTitle", "missionContent", "visionTitle", "visionContent"],
+      requiredProps: [
+        "missionTitle",
+        "missionContent",
+        "visionTitle",
+        "visionContent",
+        "mediaItem",
+      ],
       propConstraints: {
         missionTitle: { required: true, maxLength: 70 },
         missionContent: { required: true, maxLength: 240 },
         visionTitle: { required: true, maxLength: 70 },
         visionContent: { required: true, maxLength: 240 },
+        mediaItem: {
+          required: true,
+          note: "Provide an image or video object. Do not use deprecated primaryImage or secondaryImage.",
+        },
         actions: { maxItems: 2 },
       },
       mediaSlots: {
-        primaryImage: imageSlot(
-          "primaryImage",
-          "Primary mission/vision image.",
+        "mediaItem.image.src": imageSlot(
+          "mediaItem.image.src",
+          "Mission/vision media image.",
           ["feature", "hero"],
           "large",
           false,
+          "1:1",
         ),
-        secondaryImage: imageSlot(
-          "secondaryImage",
-          "Secondary mission/vision image.",
-          ["feature", "thumbnail"],
-          "medium",
-          false,
-        ),
+        "mediaItem.video.src": {
+          path: "mediaItem.video.src",
+          roles: [],
+          disallowedRoles: [
+            "logo",
+            "favicon",
+            "hero",
+            "feature",
+            "profile",
+            "thumbnail",
+          ],
+          required: false,
+          note: "Mission/vision media video. VIDEO MEDIA ONLY. Supply a directly playable video URL.",
+        },
       },
       requiresSiteCapabilities: aboutCapabilities("media_library"),
-      notes: [ABOUT_MEDIA_NOTE],
+      notes: [
+        ABOUT_MEDIA_NOTE,
+        "Use mediaItem for all new pages. primaryImage and secondaryImage remain runtime-only fallbacks for existing sites and must not be generated.",
+      ],
     },
     exampleProps: {
       missionTitle: "Our Mission",
@@ -1846,8 +1871,9 @@ const ABOUT_BLOCK_CONTRACTS = {
       visionTitle: "Our Vision",
       visionContent:
         "A world where every business can keep its customer experience current.",
-      primaryImage: aboutImage("Team mission planning"),
-      secondaryImage: aboutImage("Product workshop"),
+      mediaItem: {
+        image: aboutImage("Team mission planning"),
+      },
       actions: [
         { label: "Join Our Journey", href: "/careers", variant: "default" },
       ],
@@ -18775,17 +18801,19 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   },
   "about-mission-dual-image": {
     id: "about-mission-dual-image",
-    name: "About Mission Dual Image",
+    name: "About Mission Media Split",
     description:
-      "A mission/vision section with dual content blocks, CTA button, and a two-column image layout with offset positioning. Perfect for companies wanting to clearly communicate their mission and vision with strong visual support.",
+      "A mission/vision section with content and CTA buttons beside a responsive image or video panel. Ideal for companies that want focused messaging with flexible visual media.",
     semanticTags: [
       "about",
       "mission",
       "vision",
-      "dual-image",
+      "media",
+      "image",
+      "video",
       "cta",
-      "offset",
       "two-column",
+      "responsive",
       "visual",
     ],
     category: "about",

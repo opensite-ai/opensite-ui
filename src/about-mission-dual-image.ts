@@ -1,8 +1,8 @@
 /**
  * AboutMissionDualImage - Individual export for tree-shaking
  *
- * A mission/vision section with dual content blocks, CTA button, and a two-column
- * image layout with offset positioning. Perfect for companies wanting to clearly
+ * A mission/vision section with dual content blocks, CTA buttons, and a
+ * responsive image or video panel. Perfect for companies wanting to clearly
  * communicate their mission and vision with strong visual support.
  *
  * @example

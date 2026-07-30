@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.14.9",
-    "exportedAt": "2026-07-29T11:36:11.367Z",
+    "uiVersion": "3.14.10",
+    "exportedAt": "2026-07-30T21:25:09.056Z",
     "source": "@opensite/ui",
     "totalBlocks": 606
   },
@@ -1123,17 +1123,19 @@
       "componentId": "about-mission-dual-image",
       "blockName": "AboutMissionDualImage",
       "blockRef": "about/about-mission-dual-image",
-      "displayName": "About Mission Dual Image",
-      "description": "A mission/vision section with dual content blocks, CTA button, and a two-column image layout with offset positioning. Perfect for companies wanting to clearly communicate their mission and vision with strong visual support.",
+      "displayName": "About Mission Media Split",
+      "description": "A mission/vision section with content and CTA buttons beside a responsive image or video panel. Ideal for companies that want focused messaging with flexible visual media.",
       "category": "about",
       "semanticTags": [
         "about",
         "mission",
         "vision",
-        "dual-image",
+        "media",
+        "image",
+        "video",
         "cta",
-        "offset",
         "two-column",
+        "responsive",
         "visual"
       ],
       "layoutRole": "page",
@@ -1144,19 +1146,17 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<AboutMissionDualImage\n  missionTitle=\"Our Mission\"\n  missionContent=\"To make professional digital operations easier for every growing team.\"\n  visionTitle=\"Our Vision\"\n  visionContent=\"A world where every business can keep its customer experience current.\"\n  primaryImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Team mission planning\" }}\n  secondaryImage={{ src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Product workshop\" }}\n  actions={[{ label: \"Join Our Journey\", href: \"/careers\", variant: \"default\" }]}\n/>",
+        "exampleUsage": "<AboutMissionDualImage\n  missionTitle=\"Our Mission\"\n  missionContent=\"To make professional digital operations easier for every growing team.\"\n  visionTitle=\"Our Vision\"\n  visionContent=\"A world where every business can keep its customer experience current.\"\n  mediaItem={{\n    image: {\n      src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\",\n      alt: \"Team mission planning\",\n    },\n  }}\n  actions={[{ label: \"Join Our Journey\", href: \"/careers\", variant: \"default\" }]}\n/>",
         "exampleProps": {
           "missionTitle": "Our Mission",
           "missionContent": "To make professional digital operations easier for every growing team.",
           "visionTitle": "Our Vision",
           "visionContent": "A world where every business can keep its customer experience current.",
-          "primaryImage": {
-            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-            "alt": "Team mission planning"
-          },
-          "secondaryImage": {
-            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
-            "alt": "Product workshop"
+          "mediaItem": {
+            "image": {
+              "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+              "alt": "Team mission planning"
+            }
           },
           "actions": [
             {
@@ -1174,13 +1174,14 @@
         "importPath": "./dist/about-mission-dual-image.js",
         "requirePath": "./dist/about-mission-dual-image.cjs"
       },
-      "importantUsageNotes": "Use when both mission and vision copy are available. Avoid vague mission statements; keep each content block specific. primaryImage and secondaryImage must be image assets only.",
+      "importantUsageNotes": "`mediaItem` accepts either `image` or `video`; video takes priority when both are provided. Supply `mediaItem.image.src` or `mediaItem.video.src` as an absolute URL to a real hosted asset. The default media crop is square on desktop and horizontal (16:9) on mobile, and `mediaAspectRatios` can override either viewport. Use when both mission and vision copy are available, and keep each content block specific. `primaryImage` and `secondaryImage` are deprecated runtime compatibility props — never author them for new pages.",
       "usageRequirements": {
         "requiredProps": [
           "missionTitle",
           "missionContent",
           "visionTitle",
-          "visionContent"
+          "visionContent",
+          "mediaItem"
         ],
         "propConstraints": {
           "missionTitle": {
@@ -1199,13 +1200,17 @@
             "required": true,
             "maxLength": 240
           },
+          "mediaItem": {
+            "required": true,
+            "note": "Provide an image or video object. Do not use deprecated primaryImage or secondaryImage."
+          },
           "actions": {
             "maxItems": 2
           }
         },
         "mediaSlots": {
-          "primaryImage": {
-            "path": "primaryImage",
+          "mediaItem.image.src": {
+            "path": "mediaItem.image.src",
             "roles": [
               "feature",
               "hero"
@@ -1217,29 +1222,30 @@
             ],
             "minPixelClass": "large",
             "required": false,
-            "note": "Primary mission/vision image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+            "preferredAspect": "1:1",
+            "note": "Mission/vision media image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
           },
-          "secondaryImage": {
-            "path": "secondaryImage",
-            "roles": [
-              "feature",
-              "thumbnail"
-            ],
+          "mediaItem.video.src": {
+            "path": "mediaItem.video.src",
+            "roles": [],
             "disallowedRoles": [
               "logo",
               "favicon",
-              "video-thumbnail"
+              "hero",
+              "feature",
+              "profile",
+              "thumbnail"
             ],
-            "minPixelClass": "medium",
             "required": false,
-            "note": "Secondary mission/vision image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+            "note": "Mission/vision media video. VIDEO MEDIA ONLY. Supply a directly playable video URL."
           }
         },
         "requiresSiteCapabilities": [
           "media_library"
         ],
         "notes": [
-          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
+          "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
+          "Use mediaItem for all new pages. primaryImage and secondaryImage remain runtime-only fallbacks for existing sites and must not be generated."
         ]
       }
     },
