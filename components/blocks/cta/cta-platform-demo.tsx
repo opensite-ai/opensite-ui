@@ -165,12 +165,25 @@ export function CtaPlatformDemo({
               aria-label={action["aria-label"]}
               asButton
             >
-              {action.icon}
-              {action.children ?? action.label}
-              {action.iconAfter ??
-                (isVideoAction && (
-                  <DynamicIcon name="lucide/play" size={16} className="ml-2" />
-                ))}
+              {action.children ?? (
+                <>
+                  {action.icon === "" ? null : (
+                    <DynamicIcon name={action.icon} />
+                  )}
+                  {action.label}
+                  {action.iconAfter === "" ? null : action.iconAfter != null ? (
+                    <DynamicIcon name={action.iconAfter} />
+                  ) : (
+                    isVideoAction && (
+                      <DynamicIcon
+                        name="lucide/play"
+                        size={16}
+                        className="ml-2"
+                      />
+                    )
+                  )}
+                </>
+              )}
             </Pressable>
           );
         })}

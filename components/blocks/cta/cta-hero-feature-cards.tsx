@@ -23,7 +23,7 @@ export interface CtaHeroFeatureCard {
   /**
    * Custom icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Title of the card
    */
@@ -199,6 +199,15 @@ export function CtaHeroFeatureCards({
           const isFirstAction = index === 0;
           const isOutlineOnDark =
             action.variant === "outline" && isFirstAction === false;
+          const trailingIcon =
+            action.iconAfter ??
+            (isFirstAction && (
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={16}
+                className="ml-2"
+              />
+            ));
           return (
             <Pressable
               key={index}
@@ -214,16 +223,17 @@ export function CtaHeroFeatureCards({
               aria-label={action["aria-label"]}
               asButton
             >
-              {action.icon}
-              {action.children ?? action.label}
-              {action.iconAfter ??
-                (isFirstAction && (
-                  <DynamicIcon
-                    name="lucide/arrow-right"
-                    size={16}
-                    className="ml-2"
-                  />
-                ))}
+              {action.children ?? (
+                <>
+                  {action.icon === "" ? null : (
+                    <DynamicIcon name={action.icon} />
+                  )}
+                  {action.label}
+                  {trailingIcon === "" ? null : (
+                    <DynamicIcon name={trailingIcon} />
+                  )}
+                </>
+              )}
             </Pressable>
           );
         })}
@@ -237,41 +247,48 @@ export function CtaHeroFeatureCards({
 
     return (
       <div className={cn("grid gap-6 md:grid-cols-2", cardsGridClassName)}>
-        {featureCards.map((card, index) => (
-          <Pressable key={index} href={card.href}>
-            <Card
-              className={cn(
-                "flex items-start gap-4 p-6 transition-colors hover:bg-accent",
-                cardClassName,
-                card.className,
-              )}
-            >
-              {(card.icon || card.iconName) && (
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                  {card.icon ??
-                    (card.iconName && (
-                      <DynamicIcon
-                        name={card.iconName}
-                        size={24}
-                        className="text-primary"
-                      />
-                    ))}
-                </div>
-              )}
-              <div className="flex-1">
-                <h3 className="mb-2 font-semibold">{card.title}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {card.description}
-                </p>
-              </div>
+        {featureCards.map((card, index) => {
+          const cardIcon =
+            card.icon ??
+            (card.iconName && (
               <DynamicIcon
-                name="lucide/arrow-right"
-                size={20}
-                className="shrink-0 text-muted-foreground"
+                name={card.iconName}
+                size={24}
+                className="text-primary"
               />
-            </Card>
-          </Pressable>
-        ))}
+            ));
+
+          return (
+            <Pressable key={index} href={card.href}>
+              <Card
+                className={cn(
+                  "flex items-start gap-4 p-6 transition-colors hover:bg-accent",
+                  cardClassName,
+                  card.className,
+                )}
+              >
+                {(card.icon || card.iconName) && (
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                    {cardIcon === "" ? null : (
+                      <DynamicIcon name={cardIcon} />
+                    )}
+                  </div>
+                )}
+                <div className="flex-1">
+                  <h3 className="mb-2 font-semibold">{card.title}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {card.description}
+                  </p>
+                </div>
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={20}
+                  className="shrink-0 text-muted-foreground"
+                />
+              </Card>
+            </Pressable>
+          );
+        })}
       </div>
     );
   }, [featureCardsSlot, featureCards, cardsGridClassName, cardClassName]);

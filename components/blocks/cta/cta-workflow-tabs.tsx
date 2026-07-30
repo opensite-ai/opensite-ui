@@ -31,7 +31,7 @@ export interface CtaWorkflowTabItem {
   /**
    * Custom tab icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Tab content heading
    */
@@ -222,16 +222,25 @@ export function CtaWorkflowTabs({
               aria-label={action["aria-label"]}
               asButton
             >
-              {action.icon}
-              {action.children ?? action.label}
-              {action.iconAfter ??
-                (isFirstAction && (
-                  <DynamicIcon
-                    name="lucide/arrow-right"
-                    size={16}
-                    className="ml-2"
-                  />
-                ))}
+              {action.children ?? (
+                <>
+                  {action.icon === "" ? null : (
+                    <DynamicIcon name={action.icon} />
+                  )}
+                  {action.label}
+                  {action.iconAfter != null
+                    ? action.iconAfter === ""
+                      ? null
+                      : <DynamicIcon name={action.iconAfter} />
+                    : isFirstAction && (
+                        <DynamicIcon
+                          name="lucide/arrow-right"
+                          size={16}
+                          className="ml-2"
+                        />
+                      )}
+                </>
+              )}
             </Pressable>
           );
         })}
@@ -267,10 +276,13 @@ export function CtaWorkflowTabs({
                   tab.className,
                 )}
               >
-                {tab.icon ??
-                  (tab.iconName && (
-                    <DynamicIcon name={tab.iconName} size={16} />
-                  ))}
+                {tab.icon != null ? (
+                  tab.icon === "" ? null : (
+                    <DynamicIcon name={tab.icon} size={16} />
+                  )
+                ) : tab.iconName ? (
+                  <DynamicIcon name={tab.iconName} size={16} />
+                ) : null}
                 {tab.label}
               </button>
             ))}
@@ -307,7 +319,13 @@ export function CtaWorkflowTabs({
                 <div className="flex gap-8">
                   {activeTabData.stats.map((stat, index) => (
                     <div key={index}>
-                      {stat.icon && <div className="mb-1">{stat.icon}</div>}
+                      {stat.icon && (
+                        <div className="mb-1">
+                          {stat.icon === "" ? null : (
+                            <DynamicIcon name={stat.icon} />
+                          )}
+                        </div>
+                      )}
                       {stat.value && (
                         <div className="text-3xl font-bold text-primary">
                           {stat.value}

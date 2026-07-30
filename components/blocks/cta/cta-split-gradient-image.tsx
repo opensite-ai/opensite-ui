@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { cn, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -170,9 +171,17 @@ export function CtaSplitGradientImage({
             aria-label={action["aria-label"]}
             asButton
           >
-            {action.icon}
-            {action.children ?? action.label}
-            {action.iconAfter}
+            {action.children ?? (
+              <>
+                {action.icon === "" ? null : (
+                  <DynamicIcon name={action.icon} />
+                )}
+                {action.label}
+                {action.iconAfter === "" ? null : (
+                  <DynamicIcon name={action.iconAfter} />
+                )}
+              </>
+            )}
           </Pressable>
         ))}
       </div>

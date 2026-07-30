@@ -357,6 +357,62 @@ Files deleted: 0
 - New failures: none.
 - Pre-existing failures: none observed.
 
+# Change Manifest — CTA Part B
+
+## Modified Files
+
+| Source and adjacent test | Classification / change | Combined lines +/- | Notes |
+|---|---|---:|---|
+| `cta-hero-feature-cards` | Vulnerable mixed render | +279/-47 | Action and card icons now resolve dynamically with distinct wrapper/selector and first-arrow semantics intact. |
+| `cta-image-overlay-arrow` | Vulnerable action fallback | +181/-25 | Leading icon and nullish trailing-arrow override preserve size and hover classes. |
+| `cta-image-overlay-centered` | Vulnerable direct render | +139/-3 | Both manual action icon positions now resolve dynamically. |
+| `cta-minimal-separator` | Vulnerable direct render | +129/-3 | Both manual action icon positions now resolve dynamically. |
+| `cta-newsletter-features` | Vulnerable form/fallback render | +247/-21 | Form submit and feature icons preserve `||`/`??`, default arrow, styles, and intentional omissions. |
+| `cta-pattern-background` | Vulnerable direct render | +160/-6 | Manual action icons now resolve dynamically. |
+| `cta-platform-demo` | Vulnerable action fallback | +203/-6 | String-label video detection and nullish play fallback remain exact. |
+| `cta-simple-centered` | Vulnerable action fallback | +185/-9 | First-action `!iconAfter` default-arrow predicate remains exact. |
+| `cta-split-gradient-image` | Vulnerable direct render | +168/-3 | Manual action icons now resolve dynamically; media remains unchanged. |
+| `cta-split-image-logos` | Vulnerable action fallback | +170/-10 | First-action arrow fallback and logo media remain exact. |
+| `cta-split-image` | Vulnerable direct render | +133/-4 | Manual action icons now resolve dynamically; image media remains unchanged. |
+| `cta-stacked-cards` | Vulnerable direct render | +131/-6 | Manual action icons now resolve dynamically. |
+| `cta-workflow-tabs` | Vulnerable mixed render | +304/-19 | Action, tab, and stat icons preserve nullish precedence, wrappers, fallbacks, and styling. |
+| `tasks/dynamic-icon-rendering/.refactor-session.md` | Control state | current batch | Records CTA completion and pricing handoff. |
+| `tasks/dynamic-icon-rendering/CHANGE_MANIFEST.md` | Batch manifest | current batch | Records classifications, reviews, and verification. |
+
+## Scope Compliance
+
+- [x] The implementation diff is exactly 13 approved production files and their 13 adjacent tests.
+- [x] All 26 source/test files are in the exact scope allowlist.
+- [x] No new files exist outside spec-defined outputs.
+- [x] No dependency or lockfile changed.
+- [x] The pre-existing `package.json` version-only diff is unchanged and unstaged.
+- [x] No shared abstraction, dependency, or alternate rendering system was introduced.
+- [x] Exact empty-string guards preserve `false`, `0`, custom nodes, and original fallback predicates.
+- [x] Action children and slots retain full replacement semantics.
+- [x] Logos, images, CSS media, form boundaries, sizes, and classes are preserved.
+- [x] Refined AST audit reports zero simple raw icon-like JSX children/helper returns.
+- [x] `git diff --check` passed.
+
+## Review Resolution
+
+- Independent source reviews approved all three implementation groups.
+- Reviewers found that exact `queryByText` assertions could miss raw icon text
+  adjacent to labels. Tests now make scoped negative text assertions on the
+  actual action, feature, tab, and stat containers.
+- Split-image-logos and workflow-tabs explicitly prove custom children suppress
+  the first-action default arrow when `iconAfter` is omitted.
+
+## Test Results
+
+- Focused: 13 files passed, 117 tests passed, exit 0.
+- `pnpm type-check`: exit 0.
+- Exact source/test scope and allowlist audit: exit 0.
+- Dependency/package-baseline audit: exit 0.
+- Restricted `git diff --check`: exit 0.
+- Refined raw-render AST audit: 13 files, zero sites.
+- New failures: none.
+- Pre-existing failures: existing mocked animation-prop warning only.
+
 ---
 
 # Change Manifest — Remaining Hero Part A

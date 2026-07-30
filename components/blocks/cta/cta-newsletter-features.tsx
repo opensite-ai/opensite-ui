@@ -44,7 +44,7 @@ export interface CtaNewsletterFeature {
   /**
    * Custom icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Feature text
    */
@@ -198,6 +198,7 @@ export function CtaNewsletterFeatures({
     };
 
     const action = buttonAction || defaultButtonAction;
+    const submitLabel = action.icon || action.label;
 
     return (
       <FormEngine
@@ -209,7 +210,13 @@ export function CtaNewsletterFeatures({
             buttonGroupSetup: {
               ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
               size: "default",
-              submitLabel: action.icon || action.label,
+              submitLabel:
+                action.children ??
+                (action.icon ? (
+                  <DynamicIcon name={submitLabel} />
+                ) : (
+                  submitLabel
+                )),
               submitVariant: action.variant || "default",
             },
           },
@@ -234,22 +241,29 @@ export function CtaNewsletterFeatures({
           featuresClassName,
         )}
       >
-        {features.map((feature, index) => (
-          <li
-            key={index}
-            className={cn("flex items-center gap-2", feature.className)}
-          >
-            {feature.icon ??
-              (feature.iconName && (
-                <DynamicIcon
-                  name={feature.iconName}
-                  size={16}
-                  className="text-primary"
-                />
-              ))}
-            {feature.text}
-          </li>
-        ))}
+        {features.map((feature, index) => {
+          const featureIcon =
+            feature.icon ??
+            (feature.iconName && (
+              <DynamicIcon
+                name={feature.iconName}
+                size={16}
+                className="text-primary"
+              />
+            ));
+
+          return (
+            <li
+              key={index}
+              className={cn("flex items-center gap-2", feature.className)}
+            >
+              {featureIcon === "" ? null : (
+                <DynamicIcon name={featureIcon} />
+              )}
+              {feature.text}
+            </li>
+          );
+        })}
       </ul>
     );
   }, [featuresSlot, features, featuresClassName]);

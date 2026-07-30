@@ -4,6 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn, getNestedCardBg, getNestedCardTextColor, getTextColor } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -155,9 +156,17 @@ export function CtaSplitImage({
             aria-label={action["aria-label"]}
             asButton
           >
-            {action.icon}
-            {action.children ?? action.label}
-            {action.iconAfter}
+            {action.children ?? (
+              <>
+                {action.icon === "" ? null : (
+                  <DynamicIcon name={action.icon} />
+                )}
+                {action.label}
+                {action.iconAfter === "" ? null : (
+                  <DynamicIcon name={action.iconAfter} />
+                )}
+              </>
+            )}
           </Pressable>
         ))}
       </div>

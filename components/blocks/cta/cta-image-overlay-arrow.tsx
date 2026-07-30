@@ -111,28 +111,40 @@ export function CtaImageOverlayArrow({
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
-    return actions.map((action, index) => (
-      <Pressable
-        key={index}
-        href={action.href}
-        onClick={action.onClick}
-        variant={action.variant}
-        size={action.size}
-        className={cn("group", action.className)}
-        aria-label={action["aria-label"]}
-        asButton
-      >
-        {action.icon}
-        {action.children ?? action.label}
-        {action.iconAfter ?? (
-          <DynamicIcon
-            name="lucide/arrow-right"
-            size={20}
-            className="ml-2 transition-transform group-hover:translate-x-1"
-          />
-        )}
-      </Pressable>
-    ));
+    return actions.map((action, index) => {
+      const trailingIcon = action.iconAfter ?? (
+        <DynamicIcon
+          name="lucide/arrow-right"
+          size={20}
+          className="ml-2 transition-transform group-hover:translate-x-1"
+        />
+      );
+
+      return (
+        <Pressable
+          key={index}
+          href={action.href}
+          onClick={action.onClick}
+          variant={action.variant}
+          size={action.size}
+          className={cn("group", action.className)}
+          aria-label={action["aria-label"]}
+          asButton
+        >
+          {action.children ?? (
+            <>
+              {action.icon === "" ? null : (
+                <DynamicIcon name={action.icon} />
+              )}
+              {action.label}
+              {trailingIcon === "" ? null : (
+                <DynamicIcon name={trailingIcon} />
+              )}
+            </>
+          )}
+        </Pressable>
+      );
+    });
   }, [actionsSlot, actions]);
 
   return (
