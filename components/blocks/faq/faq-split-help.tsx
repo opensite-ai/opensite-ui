@@ -10,6 +10,7 @@ import {
   AccordionTrigger,
 } from "../../ui/accordion";
 import { Pressable } from "../../../lib/Pressable";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type {
   SectionBackground,
@@ -231,8 +232,10 @@ export function FaqSplitHelp({
             asButton={helpAction.asButton}
           >
             {helpAction.children ?? helpAction.label}
-            {helpAction.icon && helpAction.icon}
-            {helpAction.iconAfter && helpAction.iconAfter}
+            {helpAction.icon && <DynamicIcon name={helpAction.icon} />}
+            {helpAction.iconAfter && (
+              <DynamicIcon name={helpAction.iconAfter} />
+            )}
           </Pressable>
         )}
       </div>

@@ -149,11 +149,13 @@ export function HeroFeatureCardsGrid({
                 "mb-4 flex h-12 w-12 items-center justify-center rounded-lg",
               )}
             >
-              {feature.icon ?? (
+              {feature.icon == null ? (
                 <DynamicIcon
                   name={feature.iconName || "lucide/check"}
                   size={24}
                 />
+              ) : feature.icon === "" ? null : (
+                <DynamicIcon name={feature.icon} size={24} />
               )}
             </div>
             <h3 className="mb-2 text-lg font-semibold">{feature.title}</h3>

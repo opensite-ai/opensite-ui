@@ -267,9 +267,9 @@ export function CaseStudiesStatsCard({
             >
               {children ?? (
                 <>
-                  {icon}
+                  {icon !== "" && <DynamicIcon name={icon} />}
                   {label}
-                  {iconAfter}
+                  {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
                 </>
               )}
             </Pressable>

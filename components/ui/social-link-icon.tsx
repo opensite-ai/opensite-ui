@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "../../lib/utils";
 import { Pressable, type PressableProps } from "../../lib/Pressable";
-import { DynamicIcon } from "./dynamic-icon";
+import { DynamicIcon, type DynamicIconName } from "./dynamic-icon";
 import {
   usePlatformFromUrl,
   type SocialPlatformName,
@@ -83,9 +83,9 @@ export interface SocialLinkIconProps
    */
   label?: string;
   /**
-   * Optional icon name override
+   * Optional icon name or custom React node override
    */
-  iconNameOverride?: string;
+  iconNameOverride?: DynamicIconName;
   /**
    * Required href for the link
    */

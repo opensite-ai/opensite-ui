@@ -32,6 +32,21 @@ vi.mock("framer-motion", () => ({
   },
 }));
 
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({
+    name,
+    size,
+  }: {
+    name?: React.ReactNode | string;
+    size?: number;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid={`icon-${name}`} data-size={size} />
+    ) : (
+      <>{name}</>
+    ),
+}));
+
 describe("ArticleSplitAnimated", () => {
   it("renders custom title and description", () => {
     render(
@@ -50,5 +65,39 @@ describe("ArticleSplitAnimated", () => {
     render(<ArticleSplitAnimated title="Test Title" image="/test-image.jpg" />);
     const img = screen.getByTestId("mock-img");
     expect(img).toHaveAttribute("alt", "Test Title");
+  });
+
+  it("renders CTA icon names dynamically and preserves custom icons", () => {
+    const leadingIcon = "lucide/sparkles";
+    const trailingIcon = "lucide/arrow-up-right";
+
+    render(
+      <ArticleSplitAnimated
+        title="Test Title"
+        ctaActions={[
+          {
+            label: "Explore article",
+            href: "/article",
+            icon: leadingIcon,
+            iconAfter: trailingIcon,
+          },
+          {
+            label: "Custom action",
+            href: "/custom",
+            icon: <span data-testid="custom-leading-icon" />,
+            iconAfter: <span data-testid="custom-trailing-icon" />,
+          },
+        ]}
+      />,
+    );
+
+    const stringAction = screen.getByText("Explore article").closest("button, a");
+    expect(stringAction).not.toBeNull();
+    expect(stringAction).not.toHaveTextContent(leadingIcon);
+    expect(stringAction).not.toHaveTextContent(trailingIcon);
+    expect(screen.getByTestId(`icon-${leadingIcon}`)).toBeInTheDocument();
+    expect(screen.getByTestId(`icon-${trailingIcon}`)).toBeInTheDocument();
+    expect(screen.getByTestId("custom-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
   });
 });

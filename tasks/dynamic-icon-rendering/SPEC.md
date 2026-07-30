@@ -93,6 +93,16 @@ Review-universe distribution:
 | comparison | 1 |
 | case-study-detail | 1 |
 
+Permanent invariant-audit correction:
+
+- The approved in-scope rules later identified six direct renderers omitted by
+  the initial collector: CTA video background, two FAQ actions, two hero
+  feature lists, and the case-study outcome list.
+- The corrected review universe is 234 production component files plus
+  `src/types/blocks.ts`; all six adjacent tests already existed.
+- The correction remains inside the approved final-batch file limits and does
+  not expand the behavioral scope.
+
 ## Defect Classification
 
 Every review site must receive exactly one classification in the change

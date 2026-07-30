@@ -6,6 +6,7 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   OptixFlowConfig,
@@ -25,7 +26,7 @@ export interface FeatureIntegrationCardsItem {
   /**
    * Custom icon slot (overrides icon)
    */
-  iconSlot?: React.ReactNode;
+  iconSlot?: React.ReactNode | string;
   /**
    * Integration title content
    */
@@ -182,7 +183,9 @@ export function FeatureIntegrationCards({
 }: FeatureIntegrationCardsProps): React.JSX.Element {
   const renderIntegrationIcon = useCallback(
     (integration: FeatureIntegrationCardsItem) => {
-      if (integration.iconSlot) return integration.iconSlot;
+      if (integration.iconSlot) {
+        return <DynamicIcon name={integration.iconSlot} />;
+      }
       if (!integration.icon) return null;
 
       return (

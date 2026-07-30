@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { CarouselDemoLink } from "../carousel-demo-link";
 
 vi.mock("@page-speed/img", () => ({
@@ -12,6 +12,28 @@ vi.mock("../../../lib/Pressable", () => ({
   Pressable: ({ children, href, className }: { children: React.ReactNode; href?: string; className?: string }) => (
     <a href={href} className={className} data-testid="mock-pressable">{children}</a>
   ),
+}));
+
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({
+    name,
+    size,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    size?: number;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span
+        data-testid="mock-icon"
+        data-name={name}
+        data-size={size}
+        className={className}
+      />
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 vi.mock("../../../ui/carousel", () => ({
@@ -75,6 +97,106 @@ describe("CarouselDemoLink", () => {
     ];
     render(<CarouselDemoLink items={items} readMoreText="Learn more" />);
     expect(screen.getByText("Learn more")).toBeInTheDocument();
+  });
+
+  it("routes demo action icons through DynamicIcon while preserving ReactNode semantics", () => {
+    const { container, rerender } = render(
+      <CarouselDemoLink
+        demoAction={{
+          label: "String action",
+          href: "/string",
+          icon: "lucide/leading",
+          iconAfter: "lucide/trailing",
+        }}
+      />,
+    );
+
+    let action = container.querySelector('[href="/string"]') as HTMLElement;
+    expect(
+      within(action).getAllByTestId("mock-icon").map((icon) =>
+        icon.getAttribute("data-name"),
+      ),
+    ).toEqual(["lucide/leading", "lucide/trailing"]);
+    expect(action).not.toHaveTextContent("lucide/leading");
+    expect(action).not.toHaveTextContent("lucide/trailing");
+
+    rerender(
+      <CarouselDemoLink
+        demoAction={{
+          label: "Custom action",
+          href: "/custom",
+          icon: <span data-testid="custom-leading-icon" />,
+          iconAfter: <span data-testid="custom-trailing-icon" />,
+        }}
+      />,
+    );
+    action = container.querySelector('[href="/custom"]') as HTMLElement;
+    expect(
+      within(action).getByTestId("custom-leading-icon"),
+    ).toBeInTheDocument();
+    expect(
+      within(action).getByTestId("custom-trailing-icon"),
+    ).toBeInTheDocument();
+
+    rerender(
+      <CarouselDemoLink
+        demoAction={{
+          label: "Sentinel action",
+          href: "/sentinel",
+          icon: 0,
+          iconAfter: 0,
+        }}
+      />,
+    );
+    action = container.querySelector('[href="/sentinel"]') as HTMLElement;
+    expect(action).toHaveTextContent("0Sentinel action0");
+    expect(
+      within(action).queryByTestId("mock-icon"),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <CarouselDemoLink
+        demoAction={{
+          label: "Empty action",
+          href: "/empty",
+          icon: "",
+          iconAfter: false,
+        }}
+      />,
+    );
+    action = container.querySelector('[href="/empty"]') as HTMLElement;
+    expect(action).toHaveTextContent("Empty action");
+    expect(
+      within(action).queryByTestId("mock-icon"),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <CarouselDemoLink
+        demoAction={{
+          label: "Hidden label",
+          href: "/children",
+          icon: "lucide/hidden",
+          children: 0,
+        }}
+      />,
+    );
+    action = container.querySelector('[href="/children"]') as HTMLElement;
+    expect(action).toHaveTextContent("0");
+    expect(action).not.toHaveTextContent("Hidden label");
+    expect(
+      within(action).queryByTestId("mock-icon"),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <CarouselDemoLink
+        demoAction={{ label: "Default trailing", href: "/default" }}
+      />,
+    );
+    action = container.querySelector('[href="/default"]') as HTMLElement;
+    expect(within(action).getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/arrow-up-right",
+    );
   });
 
   it("applies custom className", () => {

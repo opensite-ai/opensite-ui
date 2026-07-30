@@ -11,6 +11,7 @@ import {
   AccordionTrigger,
 } from "../../ui/accordion";
 import { Pressable } from "../../../lib/Pressable";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type {
   SectionBackground,
@@ -230,8 +231,10 @@ export function FaqBadgeSupport({
             asButton={supportAction.asButton}
           >
             {supportAction.children ?? supportAction.label}
-            {supportAction.icon && supportAction.icon}
-            {supportAction.iconAfter && supportAction.iconAfter}
+            {supportAction.icon && <DynamicIcon name={supportAction.icon} />}
+            {supportAction.iconAfter && (
+              <DynamicIcon name={supportAction.iconAfter} />
+            )}
           </Pressable>
         )}
       </div>

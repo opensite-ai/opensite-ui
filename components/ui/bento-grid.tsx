@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { DynamicIcon, type DynamicIconName } from "./dynamic-icon";
 
 export const BentoGrid = ({
   className,
@@ -30,7 +31,7 @@ export const BentoGridItem = ({
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
   header?: React.ReactNode;
-  icon?: React.ReactNode;
+  icon?: DynamicIconName;
 }) => {
   return (
     <div
@@ -41,7 +42,7 @@ export const BentoGridItem = ({
     >
       {header}
       <div className="transition duration-200 group-hover/bento:translate-x-2">
-        {icon}
+        {icon === "" ? null : <DynamicIcon name={icon} />}
         <div className="mt-2 mb-2 font-sans font-bold text-neutral-600 dark:text-neutral-200">
           {title}
         </div>

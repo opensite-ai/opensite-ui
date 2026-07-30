@@ -25,7 +25,7 @@ export interface ContactFloatingBannerProps {
   /**
    * Button icon name or ReactNode
    */
-  buttonIcon?: React.ReactNode;
+  buttonIcon?: React.ReactNode | string;
   /**
    * Button href
    */
@@ -139,9 +139,9 @@ export function ContactFloatingBanner({
           >
             {children ?? (
               <>
-                {icon}
+                {icon !== "" && <DynamicIcon name={icon} />}
                 {label}
-                {iconAfter}
+                {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
               </>
             )}
           </Pressable>
@@ -203,11 +203,7 @@ export function ContactFloatingBanner({
               asButton
             >
               {buttonText}
-              {typeof buttonIcon === "string" ? (
-                <DynamicIcon name={buttonIcon} size={16} />
-              ) : (
-                buttonIcon
-              )}
+              <DynamicIcon name={buttonIcon} size={16} />
             </Pressable>
           )}
         </div>

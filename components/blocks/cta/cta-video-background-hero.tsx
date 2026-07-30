@@ -230,19 +230,25 @@ export function CtaVideoBackgroundHero({
               aria-label={action["aria-label"]}
               asButton
             >
-              {action.icon ??
-                (isVideoAction && (
+              {action.icon == null ? (
+                isVideoAction && (
                   <DynamicIcon name="lucide/play" size={16} className="mr-2" />
-                ))}
+                )
+              ) : action.icon === "" ? null : (
+                <DynamicIcon name={action.icon} />
+              )}
               {action.children ?? action.label}
-              {action.iconAfter ??
-                (isFirstAction && (
+              {action.iconAfter == null ? (
+                isFirstAction && (
                   <DynamicIcon
                     name="lucide/arrow-right"
                     size={16}
                     className="ml-2"
                   />
-                ))}
+                )
+              ) : action.iconAfter === "" ? null : (
+                <DynamicIcon name={action.iconAfter} />
+              )}
             </Pressable>
           );
         })}

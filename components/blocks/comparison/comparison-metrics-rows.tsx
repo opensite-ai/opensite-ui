@@ -226,9 +226,11 @@ export function ComparisonMetricsRows({
             asButton
             className={cn("rounded-full px-8 transition-transform hover:scale-105", action.className)}
           >
-            {action.icon}
+            {action.icon !== "" && <DynamicIcon name={action.icon} />}
             {action.label}
-            {action.iconAfter}
+            {action.iconAfter !== "" && (
+              <DynamicIcon name={action.iconAfter} />
+            )}
           </Pressable>
         ))}
       </div>

@@ -287,7 +287,7 @@ export interface NavLinkItem {
   /**
    * Optional icon
    */
-  icon?: ReactNode;
+  icon?: ReactNode | string;
   /**
    * Additional CSS classes
    */
@@ -326,9 +326,9 @@ export interface SocialLinkItem {
    */
   label?: string;
   /**
-   * Platform icon (ReactNode) - overrides automatic icon selection
+   * Platform icon or icon API name - overrides automatic icon selection
    */
-  icon?: ReactNode;
+  icon?: ReactNode | string;
   /**
    * Icon name override for DynamicIcon (e.g., "lucide/twitter")
    */
@@ -629,9 +629,9 @@ export interface DetailItem {
    */
   href?: string;
   /**
-   * Icon to display (ReactNode)
+   * Icon to display or icon API name
    */
-  icon?: ReactNode;
+  icon?: ReactNode | string;
   /**
    * Icon name for dynamic icon loading
    */
@@ -724,9 +724,9 @@ export interface OutcomeItem {
    */
   text: ReactNode;
   /**
-   * Icon to display (ReactNode)
+   * Icon to display or icon API name
    */
-  icon?: ReactNode;
+  icon?: ReactNode | string;
   /**
    * Icon name for dynamic icon loading
    */

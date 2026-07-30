@@ -9,9 +9,18 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className} />
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("CtaVideoBackgroundHero", () => {
@@ -43,6 +52,86 @@ describe("CtaVideoBackgroundHero", () => {
     render(<CtaVideoBackgroundHero actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
     expect(screen.getByText("Watch Demo")).toBeInTheDocument();
+  });
+
+  it("renders action icon names and custom nodes without raw text", () => {
+    render(
+      <CtaVideoBackgroundHero
+        actions={[
+          {
+            label: "Custom icons",
+            href: "/custom",
+            icon: "lucide/sparkles",
+            iconAfter: <span data-testid="custom-trailing-icon" />,
+          },
+        ]}
+      />,
+    );
+
+    const action = screen.getByRole("link", { name: "Custom icons" });
+
+    expect(screen.getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/sparkles",
+    );
+    expect(action).not.toHaveTextContent("lucide/sparkles");
+    expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
+  });
+
+  it("preserves nullish defaults and empty, false, and zero sentinels", () => {
+    render(
+      <CtaVideoBackgroundHero
+        actions={[
+          { label: "Default trailing", href: "/first" },
+          { label: "Watch Demo", href: "/demo" },
+          { label: "Empty", href: "/empty", icon: "", iconAfter: "" },
+          { label: "False", href: "/false", icon: false, iconAfter: false },
+          { label: "Zero", href: "/zero", icon: 0, iconAfter: 0 },
+        ]}
+      />,
+    );
+
+    expect(
+      screen
+        .getAllByTestId("mock-icon")
+        .map((icon) => icon.getAttribute("data-name")),
+    ).toEqual(["lucide/arrow-right", "lucide/play"]);
+    expect(screen.getByRole("link", { name: "Empty" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "False" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Zero/ })).toHaveTextContent(
+      "0Zero0",
+    );
+  });
+
+  it("lets children replace only the label between action icons", () => {
+    render(
+      <CtaVideoBackgroundHero
+        actions={[
+          {
+            label: "Generated label",
+            href: "/children",
+            icon: "lucide/arrow-left",
+            iconAfter: "lucide/arrow-right",
+            children: <span>Custom label</span>,
+          },
+        ]}
+      />,
+    );
+
+    const action = screen.getByRole("link", { name: "Custom label" });
+
+    expect(screen.queryByText("Generated label")).not.toBeInTheDocument();
+    expect(
+      screen
+        .getAllByTestId("mock-icon")
+        .map((icon) => icon.getAttribute("data-name")),
+    ).toEqual(["lucide/arrow-left", "lucide/arrow-right"]);
+    expect(action.children[0]).toHaveAttribute("data-name", "lucide/arrow-left");
+    expect(action.children[1]).toHaveTextContent("Custom label");
+    expect(action.children[2]).toHaveAttribute(
+      "data-name",
+      "lucide/arrow-right",
+    );
   });
 
   it("applies custom className", () => {

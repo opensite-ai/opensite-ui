@@ -200,14 +200,16 @@ export function AutoScrollCarousel({
         >
           {children ?? (
             <>
-              {icon}
+              {icon !== "" && <DynamicIcon name={icon} />}
               {label}
-              {iconAfter ?? (
+              {iconAfter == null ? (
                 <DynamicIcon
                   name="lucide/arrow-up-right"
                   size={24}
                   className="ml-2 inline"
                 />
+              ) : (
+                iconAfter !== "" && <DynamicIcon name={iconAfter} />
               )}
             </>
           )}

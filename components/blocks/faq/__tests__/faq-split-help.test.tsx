@@ -18,6 +18,15 @@ vi.mock("../../../../lib/Pressable", () => ({
   ),
 }));
 
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({ name }: { name?: React.ReactNode | string }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} />
+    ) : (
+      <>{name}</>
+    ),
+}));
+
 describe("FaqSplitHelp", () => {
 
   it("renders with custom heading and description", () => {
@@ -67,5 +76,58 @@ describe("FaqSplitHelp", () => {
     expect(screen.getByText("Question B")).toBeInTheDocument();
     expect(screen.getByText("Question C")).toBeInTheDocument();
   });
-});
 
+  it("renders post-label icon names and custom nodes without raw text", () => {
+    render(
+      <FaqSplitHelp
+        helpAction={{
+          label: "Generated label",
+          href: "/help",
+          children: <span>Custom help</span>,
+          icon: "lucide/life-buoy",
+          iconAfter: <span data-testid="custom-trailing-icon" />,
+        }}
+      />,
+    );
+
+    const action = screen.getByRole("link", { name: "Custom help" });
+
+    expect(screen.queryByText("Generated label")).not.toBeInTheDocument();
+    expect(screen.getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/life-buoy",
+    );
+    expect(action).not.toHaveTextContent("lucide/life-buoy");
+    expect(action.children[0]).toHaveTextContent("Custom help");
+    expect(action.children[1]).toHaveAttribute(
+      "data-name",
+      "lucide/life-buoy",
+    );
+    expect(action.children[2]).toHaveAttribute(
+      "data-testid",
+      "custom-trailing-icon",
+    );
+  });
+
+  it.each([
+    ["empty string", ""],
+    ["false", false],
+    ["zero", 0],
+  ] as const)("preserves %s action icon sentinels", (_, icon) => {
+    render(
+      <FaqSplitHelp
+        helpAction={{
+          label: "Sentinel",
+          href: "/sentinel",
+          icon,
+          iconAfter: icon,
+        }}
+      />,
+    );
+
+    const action = screen.getByTestId("mock-pressable");
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+    expect(action).toHaveTextContent(icon === 0 ? "Sentinel00" : "Sentinel");
+  });
+});

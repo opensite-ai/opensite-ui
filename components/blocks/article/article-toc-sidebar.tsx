@@ -6,6 +6,7 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { MarkdownStylesMap } from "@page-speed/markdown-to-jsx";
 import { Section } from "../../ui/section";
 import type {
@@ -408,9 +409,9 @@ export function ArticleTocSidebarComponent({
                 >
                   {actionChildren ?? (
                     <>
-                      {icon}
+                      {icon !== "" && <DynamicIcon name={icon} />}
                       {label}
-                      {iconAfter}
+                      {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
                     </>
                   )}
                 </Pressable>

@@ -6,6 +6,7 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
 import type {
@@ -281,9 +282,9 @@ export function ArticleSplitAnimatedComponent({
             >
               {actionChildren ?? (
                 <>
-                  {icon}
+                  {icon !== "" && <DynamicIcon name={icon} />}
                   {label}
-                  {iconAfter}
+                  {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
                 </>
               )}
             </Pressable>

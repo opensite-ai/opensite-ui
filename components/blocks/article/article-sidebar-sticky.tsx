@@ -69,7 +69,7 @@ export interface ArticleSidebarStickyProps {
   /**
    * Back link icon (defaults to chevron-left)
    */
-  backIcon?: React.ReactNode;
+  backIcon?: React.ReactNode | string;
   /**
    * Custom slot for back link (overrides backHref, backText, backIcon)
    */
@@ -193,7 +193,11 @@ export function ArticleSidebarStickyComponent({
           backLinkClassName,
         )}
       >
-        {backIcon ?? <DynamicIcon name="lucide/chevron-left" size={16} />}
+        {backIcon == null ? (
+          <DynamicIcon name="lucide/chevron-left" size={16} />
+        ) : (
+          backIcon !== "" && <DynamicIcon name={backIcon} size={16} />
+        )}
         {backText}
       </Pressable>
     );

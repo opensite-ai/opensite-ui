@@ -1,6 +1,6 @@
 # Dynamic Icon Rendering Refactor Observations
 
-No out-of-scope issues or approval-requiring ambiguities have been observed.
+No unresolved out-of-scope issues or approval-requiring ambiguities remain.
 
 Record unrelated defects, possible abstractions, and other non-spec work here
 without modifying them.
@@ -53,3 +53,20 @@ works and remains covered.
 
 This behavior exists at the batch baseline and was not changed because fixing
 component state would expand the approved icon contract.
+
+## 2026-07-30 Permanent Guard Inventory Correction
+
+The permanent AST guard exposed six direct renderers omitted by the original
+research inventory: one CTA, two FAQ, two hero, and one case-study-detail
+component. It also corrected `feature-integration-cards`: its `icon` remains an
+image URL rendered by `Img`, while its custom `iconSlot` now follows the
+approved dynamic icon contract. All seven corrections satisfy the original
+in-scope rules and keep the final batch below the 25-production / 50-total-file
+limits.
+
+The reliable guard is 146 lines rather than the spec's preferred sub-50-line
+target. A smaller text-pattern check missed nullish/truthy branches, compound
+`...IconName` and `...IconSlot` identifiers, and helper returns. The final test
+is still bounded to the approved source directories, uses nine explicit
+file-and-value exemptions for pre-resolved JSX, ignores JSX attributes and
+image/media fields, and intentionally avoids general data-flow analysis.

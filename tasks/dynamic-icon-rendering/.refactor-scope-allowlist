@@ -1,6 +1,7 @@
 # Approved dynamic-icon-rendering scope allowlist
-# Generated from the 228-file AST review universe at approved baseline 3367d1b.
-# Includes canonical adjacent test paths (188 existing; 40 spec-authorized if needed),
+# Expanded from the 228-file baseline to 234 after the permanent audit found six
+# previously omitted direct renderers. Includes canonical adjacent test paths
+# (194 existing at baseline; 40 spec-authorized if needed),
 # the bounded contract guard, generated contract artifacts, and refactor controls.
 
 builder-contract-bundle.json
@@ -69,7 +70,9 @@ components/blocks/carousel/carousel-product-feature-showcase.tsx
 components/blocks/case-studies-list/__tests__/case-studies-stats-card.test.tsx
 components/blocks/case-studies-list/case-studies-stats-card.tsx
 components/blocks/case-study-detail/__tests__/case-study-stats-metrics.test.tsx
+components/blocks/case-study-detail/__tests__/case-study-toc-social-sidebar.test.tsx
 components/blocks/case-study-detail/case-study-stats-metrics.tsx
+components/blocks/case-study-detail/case-study-toc-social-sidebar.tsx
 components/blocks/comparison/__tests__/comparison-metrics-rows.test.tsx
 components/blocks/comparison/comparison-metrics-rows.tsx
 components/blocks/contact/__tests__/contact-floating-banner.test.tsx
@@ -99,6 +102,7 @@ components/blocks/cta/__tests__/cta-split-gradient-image.test.tsx
 components/blocks/cta/__tests__/cta-split-image-logos.test.tsx
 components/blocks/cta/__tests__/cta-split-image.test.tsx
 components/blocks/cta/__tests__/cta-stacked-cards.test.tsx
+components/blocks/cta/__tests__/cta-video-background-hero.test.tsx
 components/blocks/cta/__tests__/cta-workflow-tabs.test.tsx
 components/blocks/cta/cta-accent-background.tsx
 components/blocks/cta/cta-app-download-newsletter.tsx
@@ -125,7 +129,12 @@ components/blocks/cta/cta-split-gradient-image.tsx
 components/blocks/cta/cta-split-image-logos.tsx
 components/blocks/cta/cta-split-image.tsx
 components/blocks/cta/cta-stacked-cards.tsx
+components/blocks/cta/cta-video-background-hero.tsx
 components/blocks/cta/cta-workflow-tabs.tsx
+components/blocks/faq/__tests__/faq-badge-support.test.tsx
+components/blocks/faq/__tests__/faq-split-help.test.tsx
+components/blocks/faq/faq-badge-support.tsx
+components/blocks/faq/faq-split-help.tsx
 components/blocks/features/__tests__/feature-badge-grid-six.test.tsx
 components/blocks/features/__tests__/feature-bento-image-grid.test.tsx
 components/blocks/features/__tests__/feature-bento-utilities.test.tsx
@@ -182,8 +191,10 @@ components/blocks/hero/__tests__/hero-centered-screenshot.test.tsx
 components/blocks/hero/__tests__/hero-coming-soon-countdown.test.tsx
 components/blocks/hero/__tests__/hero-conversion-video-play.test.tsx
 components/blocks/hero/__tests__/hero-dashed-border-features.test.tsx
+components/blocks/hero/__tests__/hero-design-carousel-portfolio.test.tsx
 components/blocks/hero/__tests__/hero-ecommerce-product-showcase.test.tsx
 components/blocks/hero/__tests__/hero-enterprise-security.test.tsx
+components/blocks/hero/__tests__/hero-feature-cards-grid.test.tsx
 components/blocks/hero/__tests__/hero-floating-images.test.tsx
 components/blocks/hero/__tests__/hero-fullscreen-logo-cta.test.tsx
 components/blocks/hero/__tests__/hero-grid-pattern-efficiency.test.tsx
@@ -215,8 +226,10 @@ components/blocks/hero/hero-centered-screenshot.tsx
 components/blocks/hero/hero-coming-soon-countdown.tsx
 components/blocks/hero/hero-conversion-video-play.tsx
 components/blocks/hero/hero-dashed-border-features.tsx
+components/blocks/hero/hero-design-carousel-portfolio.tsx
 components/blocks/hero/hero-ecommerce-product-showcase.tsx
 components/blocks/hero/hero-enterprise-security.tsx
+components/blocks/hero/hero-feature-cards-grid.tsx
 components/blocks/hero/hero-floating-images.tsx
 components/blocks/hero/hero-fullscreen-logo-cta.tsx
 components/blocks/hero/hero-grid-pattern-efficiency.tsx

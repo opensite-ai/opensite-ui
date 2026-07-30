@@ -20,9 +20,18 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, size }: { name: string; size: number }) => (
-    <span data-testid="mock-icon" data-name={name} data-size={size}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    size,
+  }: {
+    name?: React.ReactNode | string;
+    size?: number;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid={`icon-${name}`} data-size={size} />
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("CaseStudiesStatsCard", () => {
@@ -71,5 +80,37 @@ describe("CaseStudiesStatsCard", () => {
     const statsContainer = document.querySelector(".grid");
     expect(statsContainer?.children.length ?? 0).toBe(0);
   });
-});
 
+  it("renders action icon names dynamically and preserves custom icons", () => {
+    const leadingIcon = "lucide/chart-no-axes-combined";
+    const trailingIcon = "lucide/arrow-right";
+
+    render(
+      <CaseStudiesStatsCard
+        actions={[
+          {
+            label: "Read story",
+            href: "/story",
+            icon: leadingIcon,
+            iconAfter: trailingIcon,
+          },
+          {
+            label: "Custom action",
+            href: "/custom",
+            icon: <span data-testid="custom-leading-icon" />,
+            iconAfter: <span data-testid="custom-trailing-icon" />,
+          },
+        ]}
+      />,
+    );
+
+    const stringAction = screen.getByText("Read story").closest("button, a");
+    expect(stringAction).not.toBeNull();
+    expect(stringAction).not.toHaveTextContent(leadingIcon);
+    expect(stringAction).not.toHaveTextContent(trailingIcon);
+    expect(screen.getByTestId(`icon-${leadingIcon}`)).toBeInTheDocument();
+    expect(screen.getByTestId(`icon-${trailingIcon}`)).toBeInTheDocument();
+    expect(screen.getByTestId("custom-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
+  });
+});

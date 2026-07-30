@@ -96,9 +96,9 @@ export interface CaseStudyStatsMetricsProps {
    */
   solutionLabel?: React.ReactNode;
   /**
-   * Badge icon name
+   * Badge icon name or custom element
    */
-  solutionIcon?: string;
+  solutionIcon?: React.ReactNode | string;
   /**
    * Badge href
    */
@@ -439,9 +439,9 @@ export function CaseStudyStatsMetrics({
       <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
           <>
-            {icon}
+            {icon !== "" && <DynamicIcon name={icon} />}
             {label}
-            {iconAfter}
+            {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>

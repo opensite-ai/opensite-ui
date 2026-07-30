@@ -175,11 +175,13 @@ export function HeroDesignCarouselPortfolio({
       >
         {features.map((feature, index) => (
           <div key={index} className="flex items-center gap-1.5 ">
-            {feature.icon ?? (
+            {feature.icon == null ? (
               <DynamicIcon
                 name={feature.iconName || "lucide/check-circle"}
                 size={24}
               />
+            ) : feature.icon === "" ? null : (
+              <DynamicIcon name={feature.icon} size={24} />
             )}
             <span>{feature.title}</span>
           </div>

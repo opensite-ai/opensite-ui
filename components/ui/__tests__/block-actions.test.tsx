@@ -64,8 +64,9 @@ describe("BlockActions", () => {
         icon.getAttribute("data-name"),
       ),
     ).toEqual(["lucide/arrow-left", "lucide/arrow-right"]);
-    expect(screen.queryByText("lucide/arrow-left")).not.toBeInTheDocument();
-    expect(screen.queryByText("lucide/arrow-right")).not.toBeInTheDocument();
+    const action = screen.getByRole("link", { name: "Explore" });
+    expect(action).not.toHaveTextContent("lucide/arrow-left");
+    expect(action).not.toHaveTextContent("lucide/arrow-right");
   });
 
   it("preserves custom leading and trailing icon elements", () => {

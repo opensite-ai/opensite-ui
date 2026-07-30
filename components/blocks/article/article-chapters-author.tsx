@@ -505,9 +505,9 @@ export function ArticleChaptersAuthorComponent({
                 >
                   {actionChildren ?? (
                     <>
-                      {icon}
+                      {icon !== "" && <DynamicIcon name={icon} />}
                       {label}
-                      {iconAfter}
+                      {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
                     </>
                   )}
                 </Pressable>

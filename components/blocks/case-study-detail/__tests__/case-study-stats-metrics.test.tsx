@@ -16,9 +16,18 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, size }: { name: string; size: number }) => (
-    <span data-testid="mock-icon" data-name={name} data-size={size}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    size,
+  }: {
+    name?: React.ReactNode | string;
+    size?: number;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid={`icon-${name}`} data-size={size} />
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("CaseStudyStatsMetrics", () => {
@@ -62,5 +71,57 @@ describe("CaseStudyStatsMetrics", () => {
     render(<CaseStudyStatsMetrics content={customContent} />);
     expect(screen.getByText("Custom content paragraph")).toBeInTheDocument();
   });
-});
 
+  it("renders solution and CTA icon names dynamically without raw text", () => {
+    const solutionIcon = "lucide/badge-check";
+    const leadingIcon = "lucide/rocket";
+    const trailingIcon = "lucide/arrow-right";
+
+    render(
+      <CaseStudyStatsMetrics
+        solutionLabel="Platform solution"
+        solutionIcon={solutionIcon}
+        solutionHref="/solution"
+        ctaAction={{
+          label: "Start now",
+          href: "/start",
+          icon: leadingIcon,
+          iconAfter: trailingIcon,
+        }}
+      />,
+    );
+
+    const solutionAction = screen
+      .getByText("Platform solution")
+      .closest("button, a");
+    const ctaAction = screen.getByText("Start now").closest("button, a");
+    expect(solutionAction).not.toBeNull();
+    expect(solutionAction).not.toHaveTextContent(solutionIcon);
+    expect(ctaAction).not.toBeNull();
+    expect(ctaAction).not.toHaveTextContent(leadingIcon);
+    expect(ctaAction).not.toHaveTextContent(trailingIcon);
+    expect(screen.getByTestId(`icon-${solutionIcon}`)).toBeInTheDocument();
+    expect(screen.getByTestId(`icon-${leadingIcon}`)).toBeInTheDocument();
+    expect(screen.getByTestId(`icon-${trailingIcon}`)).toBeInTheDocument();
+  });
+
+  it("preserves custom solution and CTA icon elements", () => {
+    render(
+      <CaseStudyStatsMetrics
+        solutionLabel="Platform solution"
+        solutionIcon={<span data-testid="custom-solution-icon" />}
+        solutionHref="/solution"
+        ctaAction={{
+          label: "Start now",
+          href: "/start",
+          icon: <span data-testid="custom-leading-icon" />,
+          iconAfter: <span data-testid="custom-trailing-icon" />,
+        }}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-solution-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("custom-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
+  });
+});

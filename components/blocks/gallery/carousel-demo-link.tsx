@@ -236,14 +236,16 @@ export function CarouselDemoLink({
       >
         {children ?? (
           <>
-            {icon}
+            {icon !== "" && <DynamicIcon name={icon} />}
             {label}
-            {iconAfter ?? (
+            {iconAfter == null ? (
               <DynamicIcon
                 name="lucide/arrow-up-right"
                 size={16}
                 className="transition-transform group-hover:translate-x-1"
               />
+            ) : (
+              iconAfter !== "" && <DynamicIcon name={iconAfter} />
             )}
           </>
         )}

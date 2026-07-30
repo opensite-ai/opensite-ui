@@ -603,9 +603,15 @@ export function CaseStudyTocSocialSidebar({
             <ul className="mt-3 grid gap-x-10 gap-y-3 lg:grid-cols-2">
               {outcomes.map((outcome, index) => (
                 <li key={index} className={cn("flex gap-3", outcome.className)}>
-                  {outcome.icon ?? (
+                  {outcome.icon == null ? (
                     <DynamicIcon
                       name={outcome.iconName ?? "lucide/check-circle-2"}
+                      size={20}
+                      className="mt-0.5 size-5 shrink-0"
+                    />
+                  ) : outcome.icon === "" ? null : (
+                    <DynamicIcon
+                      name={outcome.icon}
                       size={20}
                       className="mt-0.5 size-5 shrink-0"
                     />

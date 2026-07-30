@@ -911,3 +911,54 @@ tests are spec-authorized new adjacent suites.
 - `pnpm type-check`: exit 0.
 - `git diff --check`: exit 0.
 - New failures: none.
+
+# Change Manifest — Final Invariant Batch
+
+## Modified Files
+
+| Review group | Changed / reviewed files | Classification / change |
+|---|---|---|
+| Article and case studies | Changed four article blocks, one case-studies-list block, and two case-study-detail blocks | Manual actions, back/solution icons, metrics, and outcome overrides now resolve dynamically with existing fallback and composition semantics. |
+| Gallery, contact, and comparison | Changed two gallery blocks, `contact-floating-banner`, and `comparison-metrics-rows` | Manual leading/trailing actions and the dedicated banner icon now resolve through `DynamicIcon`. |
+| UI helpers | Changed `bento-grid` and `social-link-icon`; reviewed `block-actions` and `navbar-mega-menus` unchanged | Public contracts are explicitly flexible; every configurable UI-helper render path crosses `DynamicIcon`. |
+| Audit correction | Changed one CTA, two FAQ, two hero, and `feature-integration-cards` | Six inventory omissions and one incorrectly classified custom icon slot now follow the approved contract; image URL icons remain on `Img`. |
+| Shared contract | Changed `src/types/blocks.ts` | Navigation, social, detail, and outcome icon fields explicitly accept strings and custom React nodes. |
+
+Twenty component production files changed; two UI helpers were reviewed without
+production changes. Twenty-one adjacent tests plus the permanent invariant
+guard were added or extended.
+
+## Scope Compliance
+
+- The corrected batch contains 22 production/source files and 22 test files,
+  below the 25-production / 50-total-file limits.
+- The allowlist now contains 234 production components, 234 canonical adjacent
+  tests, the permanent guard, the shared type file, generated artifacts, and
+  controls.
+- Fixed/decorative icons, image URLs, media, actions, navigation, forms,
+  wrappers, ordering, classes, sizes, fallbacks, slots, and state remain
+  unchanged outside the minimum icon boundary substitution.
+- The only unrelated working-tree path remains the user-owned `package.json`
+  version bump.
+
+## Review Resolution
+
+- Independent reviews found no production semantic defects.
+- Review corrected one weak `BlockActions` no-raw assertion and expanded the
+  guard to compound `...IconName`, `...IconSlot`, and `iconNameOverride`
+  identifiers.
+- The bounded 146-line AST guard is intentionally larger than the preferred
+  50-line target because a smaller text check missed conditional branches and
+  helper returns. It uses nine explicit pre-resolved-value exemptions and
+  avoids general data-flow analysis.
+- The final contract scan reports zero ReactNode-only dedicated icon
+  declarations.
+
+## Test Results
+
+- Combined changed-test run: 22 files passed, 108 tests passed, exit 0.
+- Review-focused runs: 8/47 and 10/40 tests passed.
+- Permanent invariant guard: 1 file / 1 test passed, exit 0.
+- `pnpm type-check`: exit 0.
+- `git diff --check`: exit 0.
+- New failures: none.
