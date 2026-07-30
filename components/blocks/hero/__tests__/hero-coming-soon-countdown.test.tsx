@@ -2,6 +2,12 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { HeroComingSoonCountdown } from "../hero-coming-soon-countdown";
 
+vi.mock("@page-speed/forms", () => ({
+  Form: ({ children }: { children: React.ReactNode }) => (
+    <form data-testid="mock-form">{children}</form>
+  ),
+}));
+
 // Mock FormEngine component and form hooks
 vi.mock("@page-speed/forms/integration", () => ({
   FormEngine: vi.fn(({ fields, formLayoutSettings, successMessage }) => (
@@ -46,9 +52,20 @@ vi.mock("framer-motion", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 vi.mock("@/src", () => ({
@@ -84,6 +101,36 @@ describe("HeroComingSoonCountdown", () => {
     const buttonAction = { label: "Notify Me", variant: "default" as const };
     render(<HeroComingSoonCountdown buttonAction={buttonAction} />);
     expect(screen.getByText("Notify Me")).toBeInTheDocument();
+  });
+
+  it("renders a trailing button icon name through DynamicIcon without exposing raw text", () => {
+    render(
+      <HeroComingSoonCountdown
+        buttonAction={{
+          label: "Notify Me",
+          iconAfter: "lucide/bell",
+        }}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/bell",
+    );
+    expect(screen.queryByText("lucide/bell")).not.toBeInTheDocument();
+  });
+
+  it("preserves a custom trailing button icon element", () => {
+    render(
+      <HeroComingSoonCountdown
+        buttonAction={{
+          label: "Notify Me",
+          iconAfter: <span data-testid="custom-trailing-icon">trailing</span>,
+        }}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-trailing-icon")).toHaveTextContent("trailing");
   });
 
   it("applies custom className", () => {

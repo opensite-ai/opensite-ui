@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -151,9 +152,9 @@ export function HeroCenteredScreenshot({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} />
             </>
           )}
         </Pressable>

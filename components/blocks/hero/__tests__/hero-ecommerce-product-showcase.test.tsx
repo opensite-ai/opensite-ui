@@ -14,6 +14,15 @@ vi.mock("../../../lib/Pressable", () => ({
   ),
 }));
 
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({ name }: { name?: React.ReactNode | string }) =>
+    typeof name === "string" ? (
+      <span data-testid={`mock-icon-${name}`} />
+    ) : (
+      <>{name}</>
+    ),
+}));
+
 vi.mock("../../../lib/mediaPlaceholders", () => ({
   imagePlaceholders: Array(50).fill("https://placeholder.com/image.jpg"),
 }));
@@ -42,6 +51,39 @@ describe("HeroEcommerceProductShowcase", () => {
     const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
     render(<HeroEcommerceProductShowcase actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("renders stat icon names through DynamicIcon without exposing raw text", () => {
+    render(
+      <HeroEcommerceProductShowcase
+        stats={[
+          {
+            value: "99%",
+            label: "Uptime",
+            icon: "lucide/activity",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon-lucide/activity")).toBeInTheDocument();
+    expect(screen.queryByText("lucide/activity")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom stat icon elements", () => {
+    render(
+      <HeroEcommerceProductShowcase
+        stats={[
+          {
+            value: "99%",
+            label: "Uptime",
+            icon: <span data-testid="custom-stat-icon" />,
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-stat-icon")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

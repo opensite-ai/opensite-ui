@@ -9,9 +9,12 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({ name }: { name?: React.ReactNode | string }) =>
+    typeof name === "string" ? (
+      <span data-testid={`mock-icon-${name}`} />
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("HeroDashedBorderFeatures", () => {
@@ -38,6 +41,44 @@ describe("HeroDashedBorderFeatures", () => {
     const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
     render(<HeroDashedBorderFeatures actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("renders action icon names through DynamicIcon without exposing raw text", () => {
+    render(
+      <HeroDashedBorderFeatures
+        actions={[
+          {
+            label: "Get Started",
+            icon: "lucide/rocket",
+            iconAfter: "lucide/arrow-right",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon-lucide/rocket")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("mock-icon-lucide/arrow-right"),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("lucide/rocket")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/arrow-right")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom action icon elements", () => {
+    render(
+      <HeroDashedBorderFeatures
+        actions={[
+          {
+            label: "Get Started",
+            icon: <span data-testid="custom-leading-icon" />,
+            iconAfter: <span data-testid="custom-trailing-icon" />,
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

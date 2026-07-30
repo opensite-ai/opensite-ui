@@ -7,6 +7,7 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -162,11 +163,11 @@ export function HeroBillingPlatformLogos({
           >
             {children ?? (
               <>
-                {icon}
+                <DynamicIcon name={icon} />
                 <p className="font-mono text-sm font-medium uppercase">
                   {label}
                 </p>
-                {iconAfter}
+                <DynamicIcon name={iconAfter} />
               </>
             )}
           </Pressable>
@@ -178,9 +179,9 @@ export function HeroBillingPlatformLogos({
           <Pressable asButton className={actionClassName} {...pressableProps}>
             {children ?? (
               <>
-                {icon}
+                <DynamicIcon name={icon} />
                 {label}
-                {iconAfter}
+                <DynamicIcon name={iconAfter} />
               </>
             )}
           </Pressable>

@@ -14,6 +14,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BrandLogo } from "../../ui/brand-logo";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
 
 export interface HeroArchitectureFullscreenProps {
@@ -138,13 +139,13 @@ export function HeroArchitectureFullscreen({
       <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
           <>
-            {icon}
+            <DynamicIcon name={icon} />
             {typeof label === "string" ? (
               <p className="group-hover:underline">{label}</p>
             ) : (
               label
             )}
-            {iconAfter}
+            <DynamicIcon name={iconAfter} />
           </>
         )}
       </Pressable>

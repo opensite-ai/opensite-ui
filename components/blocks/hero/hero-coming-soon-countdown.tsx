@@ -365,7 +365,7 @@ export function HeroComingSoonCountdown({
           disabled={form.isSubmitting}
         >
           {action.label}
-          {action.iconAfter}
+          <DynamicIcon name={action.iconAfter} />
         </Pressable>
         {helperText &&
           (typeof helperText === "string" ? (

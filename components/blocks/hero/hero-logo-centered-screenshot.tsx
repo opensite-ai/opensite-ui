@@ -17,6 +17,7 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { LogoConfig } from "../navbars/types";
 import BrandLogo from "@/components/ui/brand-logo";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 
 export interface HeroLogoCenteredScreenshotProps {
   /**
@@ -143,9 +144,9 @@ export function HeroLogoCenteredScreenshot({
       <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
           <>
-            {icon}
+            <DynamicIcon name={icon} />
             {label}
-            {iconAfter}
+            <DynamicIcon name={iconAfter} />
           </>
         )}
       </Pressable>

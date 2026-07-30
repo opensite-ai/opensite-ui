@@ -14,6 +14,7 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 
 export interface HeroFullscreenLogoCtaProps {
   /**
@@ -156,9 +157,9 @@ export function HeroFullscreenLogoCta({
       <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
           <>
-            {icon}
+            <DynamicIcon name={icon} />
             {label}
-            {iconAfter}
+            <DynamicIcon name={iconAfter} />
           </>
         )}
       </Pressable>

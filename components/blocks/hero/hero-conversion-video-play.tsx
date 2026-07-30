@@ -214,9 +214,9 @@ export function HeroConversionVideoPlay({
               >
                 {children ?? (
                   <>
-                    {icon}
+                    <DynamicIcon name={icon} />
                     <span>{label}</span>
-                    {iconAfter}
+                    <DynamicIcon name={iconAfter} />
                   </>
                 )}
               </Pressable>

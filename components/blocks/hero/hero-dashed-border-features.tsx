@@ -195,9 +195,9 @@ export function HeroDashedBorderFeatures({
             >
               {children ?? (
                 <>
-                  {icon}
+                  <DynamicIcon name={icon} />
                   {label}
-                  {iconAfter}
+                  <DynamicIcon name={iconAfter} />
                 </>
               )}
             </Pressable>

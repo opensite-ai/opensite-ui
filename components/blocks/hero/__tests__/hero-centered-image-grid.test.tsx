@@ -14,6 +14,23 @@ vi.mock("../../../lib/Pressable", () => ({
   ),
 }));
 
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
+}));
+
 vi.mock("../../../lib/mediaPlaceholders", () => ({
   imagePlaceholders: Array(50).fill("https://placeholder.com/image.jpg"),
 }));
@@ -42,6 +59,76 @@ describe("HeroCenteredImageGrid", () => {
     const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
     render(<HeroCenteredImageGrid actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("renders action and overlay icon names through DynamicIcon without exposing raw text", () => {
+    render(
+      <HeroCenteredImageGrid
+        actions={[
+          {
+            label: "Get Started",
+            icon: "lucide/rocket",
+            iconAfter: "lucide/arrow-right",
+          },
+        ]}
+        gridImages={[
+          { src: "/first.jpg", alt: "First" },
+          { src: "/second.jpg", alt: "Second" },
+        ]}
+        imageOverlayAction={{
+          label: "View image",
+          icon: "lucide/image",
+          iconAfter: "lucide/maximize",
+        }}
+      />,
+    );
+
+    expect(
+      screen.getAllByTestId("mock-icon").map((icon) =>
+        icon.getAttribute("data-name"),
+      ),
+    ).toEqual([
+      "lucide/rocket",
+      "lucide/arrow-right",
+      "lucide/image",
+      "lucide/maximize",
+    ]);
+    for (const iconName of [
+      "lucide/rocket",
+      "lucide/arrow-right",
+      "lucide/image",
+      "lucide/maximize",
+    ]) {
+      expect(screen.queryByText(iconName)).not.toBeInTheDocument();
+    }
+  });
+
+  it("preserves custom action and overlay icon elements", () => {
+    render(
+      <HeroCenteredImageGrid
+        actions={[
+          {
+            label: "Get Started",
+            icon: <span data-testid="action-leading-icon">action leading</span>,
+            iconAfter: <span data-testid="action-trailing-icon">action trailing</span>,
+          },
+        ]}
+        gridImages={[
+          { src: "/first.jpg", alt: "First" },
+          { src: "/second.jpg", alt: "Second" },
+        ]}
+        imageOverlayAction={{
+          label: "View image",
+          icon: <span data-testid="overlay-leading-icon">overlay leading</span>,
+          iconAfter: <span data-testid="overlay-trailing-icon">overlay trailing</span>,
+        }}
+      />,
+    );
+
+    expect(screen.getByTestId("action-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("action-trailing-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("overlay-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("overlay-trailing-icon")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

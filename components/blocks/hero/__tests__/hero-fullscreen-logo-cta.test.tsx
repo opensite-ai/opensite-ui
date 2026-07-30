@@ -14,6 +14,15 @@ vi.mock("../../../lib/Pressable", () => ({
   ),
 }));
 
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({ name }: { name?: React.ReactNode | string }) =>
+    typeof name === "string" ? (
+      <span data-testid={`mock-icon-${name}`} />
+    ) : (
+      <>{name}</>
+    ),
+}));
+
 vi.mock("../../../lib/mediaPlaceholders", () => ({
   imagePlaceholders: Array(50).fill("https://placeholder.com/image.jpg"),
   logoPlaceholders: Array(20).fill("https://placeholder.com/logo.png"),
@@ -50,6 +59,40 @@ describe("HeroFullscreenLogoCta", () => {
     const action = { label: "Read More", href: "/more", variant: "default" as const };
     render(<HeroFullscreenLogoCta action={action} />);
     expect(screen.getByText("Read More")).toBeInTheDocument();
+  });
+
+  it("renders action icon names through DynamicIcon without exposing raw text", () => {
+    render(
+      <HeroFullscreenLogoCta
+        action={{
+          label: "Read More",
+          icon: "lucide/book-open",
+          iconAfter: "lucide/arrow-right",
+        }}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon-lucide/book-open")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("mock-icon-lucide/arrow-right"),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("lucide/book-open")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/arrow-right")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom action icon elements", () => {
+    render(
+      <HeroFullscreenLogoCta
+        action={{
+          label: "Read More",
+          icon: <span data-testid="custom-leading-icon" />,
+          iconAfter: <span data-testid="custom-trailing-icon" />,
+        }}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

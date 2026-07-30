@@ -21,6 +21,7 @@ import type {
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
@@ -177,7 +178,7 @@ export interface HeroImageSliderProps {
   /**
    * Icon to display in submit button
    */
-  buttonIcon?: React.ReactNode;
+  buttonIcon?: React.ReactNode | string;
   /**
    * Full form engine setup and props
    */
@@ -429,7 +430,7 @@ export function HeroImageSlider({
                           ?.submitButtonSetup,
                         submitLabel: (
                           <>
-                            {buttonIcon}
+                            <DynamicIcon name={buttonIcon} />
                             {buttonText}
                           </>
                         ),

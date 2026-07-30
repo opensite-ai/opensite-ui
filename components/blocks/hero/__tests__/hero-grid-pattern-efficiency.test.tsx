@@ -9,9 +9,12 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({ name }: { name?: React.ReactNode | string }) =>
+    typeof name === "string" ? (
+      <span data-testid={`mock-icon-${name}`} />
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("HeroGridPatternEfficiency", () => {
@@ -38,6 +41,40 @@ describe("HeroGridPatternEfficiency", () => {
     const action = { label: "Get Started", href: "/start", variant: "default" as const };
     render(<HeroGridPatternEfficiency action={action} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("renders action icon names through DynamicIcon without exposing raw text", () => {
+    render(
+      <HeroGridPatternEfficiency
+        action={{
+          label: "Get Started",
+          icon: "lucide/zap",
+          iconAfter: "lucide/arrow-right",
+        }}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon-lucide/zap")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("mock-icon-lucide/arrow-right"),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("lucide/zap")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/arrow-right")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom action icon elements", () => {
+    render(
+      <HeroGridPatternEfficiency
+        action={{
+          label: "Get Started",
+          icon: <span data-testid="custom-leading-icon" />,
+          iconAfter: <span data-testid="custom-trailing-icon" />,
+        }}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

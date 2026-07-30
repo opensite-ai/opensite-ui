@@ -2,6 +2,24 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { HeroImageSlider } from "../hero-image-slider";
 
+vi.mock("@page-speed/forms/integration", () => ({
+  FormEngine: vi.fn(
+    ({
+      formEngineSetup,
+    }: {
+      formEngineSetup?: {
+        formLayoutSettings?: {
+          submitButtonSetup?: { submitLabel?: React.ReactNode };
+        };
+      };
+    }) => (
+      <div data-testid="mock-form-engine">
+        {formEngineSetup?.formLayoutSettings?.submitButtonSetup?.submitLabel}
+      </div>
+    ),
+  ),
+}));
+
 vi.mock("@page-speed/img", () => ({
   Img: ({ src, alt, className }: { src?: string; alt: string; className?: string }) => (
     <img src={src} alt={alt} className={className} data-testid="mock-img" />
@@ -28,11 +46,20 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>
-      icon
-    </span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name: React.ReactNode;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 vi.mock("../../../lib/mediaPlaceholders", () => ({
@@ -63,6 +90,40 @@ describe("HeroImageSlider", () => {
     const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
     render(<HeroImageSlider actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("renders a form button icon name through DynamicIcon without exposing raw text", () => {
+    render(
+      <HeroImageSlider
+        buttonIcon="lucide/send"
+        buttonText="Send"
+        formEngineSetup={{ fields: [] }}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/send",
+    );
+    expect(screen.queryByText("lucide/send")).not.toBeInTheDocument();
+    expect(screen.getByTestId("mock-form-engine")).toHaveTextContent("Send");
+  });
+
+  it("preserves a custom form button icon element", () => {
+    render(
+      <HeroImageSlider
+        buttonIcon={
+          <span data-testid="custom-button-icon">custom button icon</span>
+        }
+        buttonText="Send"
+        formEngineSetup={{ fields: [] }}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-button-icon")).toHaveTextContent(
+      "custom button icon",
+    );
+    expect(screen.getByTestId("mock-form-engine")).toHaveTextContent("Send");
   });
 
   it("applies custom className", () => {

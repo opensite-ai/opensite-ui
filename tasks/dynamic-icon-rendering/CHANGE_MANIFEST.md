@@ -101,3 +101,66 @@ Files deleted: 0
 - Generated-artifact review: timestamp/version-only metadata from the pre-existing package bump; restored and excluded from the batch.
 - New failures: none.
 - Pre-existing failures: none observed.
+
+---
+
+# Change Manifest — Remaining Hero Part A
+
+Task: `dynamic-icon-rendering`
+Completed: 2026-07-30T15:37:57Z
+Files modified: 26 implementation/test files, plus 2 control artifacts
+Files created: 0
+Files deleted: 0
+
+## Modified Files
+
+| Source and adjacent test | Classification / change | Combined lines +/- | Notes |
+|---|---|---:|---|
+| `hero-architecture-fullscreen` | Vulnerable direct render | +55/-2 | Leading/trailing manual action icons now use `DynamicIcon`. |
+| `hero-billing-platform-logos` | Vulnerable direct render | +84/-4 | Both action layouts now use `DynamicIcon`. |
+| `hero-centered-image-grid` | Vulnerable direct render | +92/-4 | Standard and image-overlay action layouts now use `DynamicIcon`. |
+| `hero-centered-screenshot` | Vulnerable direct render | +59/-2 | Leading/trailing manual action icons now use `DynamicIcon`. |
+| `hero-coming-soon-countdown` | Vulnerable direct render | +51/-4 | Trailing form-action icon now uses `DynamicIcon`; badge icon was already safe. |
+| `hero-conversion-video-play` | Vulnerable direct render | +51/-5 | Primary action icons now use `DynamicIcon`; hardcoded play icon remains safe. |
+| `hero-dashed-border-features` | Vulnerable direct render | +46/-5 | Manual action icons now use `DynamicIcon`; feature/decorative icons remain safe. |
+| `hero-ecommerce-product-showcase` | Vulnerable direct render | +43/-1 | `StatItem.icon` now uses its existing `DynamicIcon` boundary. |
+| `hero-fullscreen-logo-cta` | Vulnerable direct render | +46/-2 | Manual action icons now use `DynamicIcon`; logo media is unchanged. |
+| `hero-grid-pattern-efficiency` | Vulnerable direct render | +43/-5 | Manual action icons now use `DynamicIcon`. |
+| `hero-image-slider` | Vulnerable direct render | +69/-7 | Form-engine `buttonIcon` is explicitly string-capable and its submit label uses `DynamicIcon`. |
+| `hero-logo-centered-screenshot` | Vulnerable direct render | +46/-2 | Manual action icons now use `DynamicIcon`; logo/screenshot media is unchanged. |
+| `hero-marketplace-scattered-images` | Vulnerable direct render | +45/-2 | Manual action icons now use `DynamicIcon`; tagline icon and image media remain safe. |
+| `tasks/dynamic-icon-rendering/.refactor-session.md` | Control state | current batch | Records batch completion and next scope. |
+| `tasks/dynamic-icon-rendering/CHANGE_MANIFEST.md` | Batch manifest | current batch | Records classifications, drift checks, and verification. |
+
+## Scope Compliance
+
+- [x] The implementation diff is exactly 13 approved production files and their 13 existing adjacent tests.
+- [x] All 26 implementation/test files are in the exact scope allowlist.
+- [x] No new files exist outside spec-defined outputs.
+- [x] No dependency or lockfile changed.
+- [x] The pre-existing `package.json` version-only diff is unchanged and unstaged.
+- [x] No new shared abstraction or rendering system was created.
+- [x] No styling, layout, image/media, action order, children precedence, or fallback behavior changed.
+- [x] Post-change AST audit reports no raw icon-like JSX children or helper returns in the 13 production files.
+- [x] `git diff --check` passed.
+- [x] Two independent read-only reviews covered all 13 pairs.
+
+## Review Resolution
+
+- A truthiness guard initially added around `hero-image-slider`'s `DynamicIcon`
+  was removed so all valid non-string React nodes preserve prior behavior.
+- One reviewer questioned the new countdown `Form` mock. It is retained as a
+  bounded unit-test boundary because the real package component does not render
+  the component-owned child action in this test environment, making the icon
+  path otherwise unobservable. The file already mocks the adjacent forms
+  integration APIs; no production or package integration behavior changed.
+
+## Test Results
+
+- Focused: 13 files passed, 98 tests passed, exit 0.
+- `pnpm type-check`: exit 0.
+- Exact scope/allowlist audit: exit 0.
+- Dependency/package-baseline audit: exit 0.
+- Post-change raw-render AST audit: exit 0.
+- New failures: none.
+- Pre-existing failures: none observed.

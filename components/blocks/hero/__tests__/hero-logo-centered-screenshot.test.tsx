@@ -14,6 +14,15 @@ vi.mock("../../../lib/Pressable", () => ({
   ),
 }));
 
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({ name }: { name?: React.ReactNode | string }) =>
+    typeof name === "string" ? (
+      <span data-testid={`mock-icon-${name}`} />
+    ) : (
+      <>{name}</>
+    ),
+}));
+
 vi.mock("../../../lib/mediaPlaceholders", () => ({
   imagePlaceholders: Array(50).fill("https://placeholder.com/image.jpg"),
   logoPlaceholders: Array(20).fill("https://placeholder.com/logo.png"),
@@ -43,6 +52,40 @@ describe("HeroLogoCenteredScreenshot", () => {
     const action = { label: "Get Started", href: "/start", variant: "default" as const };
     render(<HeroLogoCenteredScreenshot action={action} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("renders action icon names through DynamicIcon without exposing raw text", () => {
+    render(
+      <HeroLogoCenteredScreenshot
+        action={{
+          label: "Get Started",
+          icon: "lucide/play",
+          iconAfter: "lucide/arrow-right",
+        }}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon-lucide/play")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("mock-icon-lucide/arrow-right"),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("lucide/play")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/arrow-right")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom action icon elements", () => {
+    render(
+      <HeroLogoCenteredScreenshot
+        action={{
+          label: "Get Started",
+          icon: <span data-testid="custom-leading-icon" />,
+          iconAfter: <span data-testid="custom-trailing-icon" />,
+        }}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

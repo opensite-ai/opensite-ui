@@ -14,6 +14,23 @@ vi.mock("../../../lib/Pressable", () => ({
   ),
 }));
 
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
+}));
+
 vi.mock("../../../lib/mediaPlaceholders", () => ({
   imagePlaceholders: Array(50).fill("https://placeholder.com/image.jpg"),
   logoPlaceholders: Array(20).fill("https://placeholder.com/logo.png"),
@@ -43,6 +60,68 @@ describe("HeroBillingPlatformLogos", () => {
     const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
     render(<HeroBillingPlatformLogos actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("renders action icon names in both action layouts without exposing raw text", () => {
+    render(
+      <HeroBillingPlatformLogos
+        actions={[
+          {
+            label: "Get Started",
+            icon: "lucide/rocket",
+            iconAfter: "lucide/arrow-right",
+          },
+          {
+            label: "Read Guide",
+            icon: "lucide/book-open",
+            iconAfter: "lucide/external-link",
+          },
+        ]}
+      />,
+    );
+
+    expect(
+      screen.getAllByTestId("mock-icon").map((icon) =>
+        icon.getAttribute("data-name"),
+      ),
+    ).toEqual([
+      "lucide/rocket",
+      "lucide/arrow-right",
+      "lucide/book-open",
+      "lucide/external-link",
+    ]);
+    for (const iconName of [
+      "lucide/rocket",
+      "lucide/arrow-right",
+      "lucide/book-open",
+      "lucide/external-link",
+    ]) {
+      expect(screen.queryByText(iconName)).not.toBeInTheDocument();
+    }
+  });
+
+  it("preserves custom action icon elements in both action layouts", () => {
+    render(
+      <HeroBillingPlatformLogos
+        actions={[
+          {
+            label: "Get Started",
+            icon: <span data-testid="primary-leading-icon">primary leading</span>,
+            iconAfter: <span data-testid="primary-trailing-icon">primary trailing</span>,
+          },
+          {
+            label: "Read Guide",
+            icon: <span data-testid="guide-leading-icon">guide leading</span>,
+            iconAfter: <span data-testid="guide-trailing-icon">guide trailing</span>,
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("primary-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("primary-trailing-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("guide-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("guide-trailing-icon")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

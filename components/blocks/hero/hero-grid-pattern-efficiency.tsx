@@ -12,6 +12,7 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BrandLogo } from "../../ui/brand-logo";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
 
 export interface HeroGridPatternEfficiencyProps {
@@ -129,9 +130,9 @@ export function HeroGridPatternEfficiency({
       <Pressable asButton className={btnClassName} {...pressableProps}>
         {children ?? (
           <>
-            {icon}
+            <DynamicIcon name={icon} />
             {label}
-            {iconAfter}
+            <DynamicIcon name={iconAfter} />
           </>
         )}
       </Pressable>

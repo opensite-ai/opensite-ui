@@ -202,7 +202,7 @@ export function HeroEcommerceProductShowcase({
                   stat.icon ? "justify-between" : "justify-center",
                 )}
               >
-                {stat.icon}
+                <DynamicIcon name={stat.icon} />
                 <div
                   className={cn(
                     "font-bold ",
