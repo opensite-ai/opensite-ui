@@ -962,3 +962,28 @@ guard were added or extended.
 - `pnpm type-check`: exit 0.
 - `git diff --check`: exit 0.
 - New failures: none.
+
+# Final Package Verification
+
+## Clean-Tree Gates
+
+- `pnpm test:ci`: 515 files passed, 3,149 tests passed, exit 0.
+- `pnpm type-check`: exit 0.
+- `pnpm build`: exit 0.
+- `pnpm prepublishOnly`: 515 files / 3,149 tests passed after a successful
+  lifecycle build, exit 0.
+
+## Generated Artifact Review
+
+- `builder-contract-bundle.json` and `registry-export.json` each changed only
+  their generated `exportedAt` timestamp.
+- UI/package version remained `3.14.9`, total blocks remained 606, and no
+  semantic contract/export content changed.
+- Timestamp-only generated diffs were restored after review.
+
+## Release Boundary
+
+- The refactor branch is verified for local merge.
+- Publishing and pushing remain user-owned actions.
+- The unrelated `package.json` version `3.14.10` change is preserved separately
+  for restoration after the local master merge.
