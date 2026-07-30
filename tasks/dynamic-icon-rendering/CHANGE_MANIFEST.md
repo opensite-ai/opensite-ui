@@ -779,3 +779,46 @@ wrapper topology, slots, fixed icons, and media/action boundaries.
 - Existing navbar category run: 7 files passed, 90 tests passed, exit 0.
 - `pnpm type-check`: exit 0 with the same production source state.
 - New failures: none.
+
+# Change Manifest — Banner and Blog
+
+## Modified Files
+
+| Source and adjacent test group | Classification / change | Notes |
+|---|---|---|
+| `announcement-dismissible`, `delivery-countdown`, `event-promo`, `floating-offer`, `gdpr-rights`, `privacy-notice` | Vulnerable helper/action renders | Main and dismiss helpers preserve truthy fallback precedence; manual actions use exact empty-string guards. |
+| `promo-cta`, `social-follow`, `survey-incentive`, `cards-read-time`, `cards-tagline-cta`, `category-overlay` | Vulnerable helper/action renders | Public icon props are explicit where local; action composition, slots, social/form/content boundaries, and fixed icons remain exact. |
+| `filtered-results`, `grid-author-cards`, `grid-nine-posts`, `horizontal-cards`, `related-articles`, `tech-insights` | Vulnerable manual `ActionConfig` renders | Both icon positions resolve dynamically inside unchanged `children ??` composition; filtering, pagination, and post media remain untouched. |
+
+All 18 adjacent tests were expanded with flexible mocks and scoped assertions
+for string names, custom nodes, empty strings, `false`, `0`, `children`, slots,
+dismissal, filtering, pagination, content, and media boundaries.
+
+## Scope Compliance
+
+- 18 production files and 18 adjacent tests changed within the approved
+  allowlist.
+- Production diffs are limited to `DynamicIcon` imports, explicit local icon
+  types, helper routing, and guarded manual-action icon rendering.
+- Forms, countdowns, filters, pagination, images, authors, tags, legal links,
+  fixed icons, and callbacks are unchanged.
+- The pre-existing uncontrolled `BannerFloatingOffer` dismissal issue is
+  documented in `OBSERVATIONS.md` and intentionally not changed.
+- The only out-of-allowlist working-tree path remains the user-owned
+  `package.json` version bump.
+
+## Review Resolution
+
+- Three independent cross-reviews approved all production semantics.
+- Review corrected 20 test-only HTMLElement narrowing errors, six incorrectly
+  rooted `Pressable` mocks, and unreliable exact-text raw-icon assertions.
+- Final AST inspection reports zero direct raw configurable-icon JSX children
+  or helper returns.
+
+## Test Results
+
+- Focused category run: 22 files passed, 94 tests passed, exit 0.
+- Review-focused group runs: 6/35, 6/21, and 6/27 tests passed.
+- `pnpm type-check`: exit 0.
+- `git diff --check`: exit 0.
+- New failures: none.

@@ -42,3 +42,14 @@ asymmetries that were intentionally left unchanged:
 
 None of these paths renders an icon name as raw text, so changing them would
 expand this refactor beyond its approved contract.
+
+## 2026-07-30 Pre-existing Floating Offer Dismissal
+
+`BannerFloatingOffer` has a pre-existing uncontrolled-state issue unrelated to
+icon rendering. After the default banner dismisses itself, its synchronization
+effect compares an undefined `defaultOpen` with the new `internalOpen` value
+and resets the state to the original open value. The controlled `open` path
+works and remains covered.
+
+This behavior exists at the batch baseline and was not changed because fixing
+component state would expand the approved icon contract.

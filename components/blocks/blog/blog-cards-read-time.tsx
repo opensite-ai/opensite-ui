@@ -147,9 +147,9 @@ export function BlogCardsReadTime({
       <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
           <>
-            {icon}
+            {icon !== "" && <DynamicIcon name={icon} />}
             {label}
-            {iconAfter}
+            {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>

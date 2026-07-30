@@ -52,7 +52,7 @@ export interface BannerFloatingOfferProps {
   /**
    * Dismiss button icon (ReactNode for full flexibility)
    */
-  dismissIcon?: React.ReactNode;
+  dismissIcon?: React.ReactNode | string;
   /**
    * ARIA label for dismiss button
    */
@@ -179,9 +179,9 @@ export function BannerFloatingOffer({
         >
           {children ?? (
             <>
-              {actionIcon}
+              {actionIcon !== "" && <DynamicIcon name={actionIcon} />}
               {label}
-              {iconAfter}
+              {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
             </>
           )}
         </Pressable>
@@ -203,8 +203,7 @@ export function BannerFloatingOffer({
   }, [separator, separatorClassName]);
 
   const dismissIconContent = useMemo(() => {
-    if (dismissIcon) return dismissIcon;
-    return <DynamicIcon name="mynaui/x" size={16} />;
+    return <DynamicIcon name={dismissIcon || "mynaui/x"} size={16} />;
   }, [dismissIcon]);
 
   const offerTitleContent = useMemo(() => {

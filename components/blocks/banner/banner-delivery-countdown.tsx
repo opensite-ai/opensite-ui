@@ -24,7 +24,7 @@ export interface BannerDeliveryCountdownProps {
   /**
    * Icon to display (ReactNode for full flexibility)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name for DynamicIcon (used if icon prop is not provided)
    */
@@ -164,9 +164,9 @@ export function BannerDeliveryCountdown({
   const pad = useCallback((n: number) => n.toString().padStart(2, "0"), []);
 
   const iconContent = useMemo(() => {
-    if (icon) return icon;
-    if (!iconName) return null;
-    return <DynamicIcon name={iconName} size={16} className={iconClassName} />;
+    const resolvedIcon = icon || iconName;
+    if (!resolvedIcon) return null;
+    return <DynamicIcon name={resolvedIcon} size={16} className={iconClassName} />;
   }, [icon, iconName, iconClassName]);
 
   const timerContent = useMemo(() => {

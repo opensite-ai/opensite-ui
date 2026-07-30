@@ -158,9 +158,9 @@ export function BlogCardsTaglineCta({
       >
         {children ?? (
           <>
-            {icon}
+            {icon !== "" && <DynamicIcon name={icon} />}
             {label}
-            {iconAfter}
+            {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>

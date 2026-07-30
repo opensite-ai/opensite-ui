@@ -16,7 +16,7 @@ export interface BannerSocialFollowProps {
   /**
    * Icon to display (ReactNode for full flexibility)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name for DynamicIcon (used if icon prop is not provided)
    */
@@ -40,7 +40,7 @@ export interface BannerSocialFollowProps {
   /**
    * Dismiss button icon (ReactNode for full flexibility)
    */
-  dismissIcon?: React.ReactNode;
+  dismissIcon?: React.ReactNode | string;
   /**
    * ARIA label for dismiss button
    */
@@ -121,7 +121,14 @@ export function BannerSocialFollow({
   }, [onDismiss]);
 
   const iconContent = useMemo(() => {
-    if (icon) return icon;
+    if (icon)
+      return (
+        <DynamicIcon
+          name={icon}
+          size={20}
+          className={cn("shrink-0", iconClassName)}
+        />
+      );
     if (!iconName) return null;
     return (
       <DynamicIcon
@@ -154,9 +161,9 @@ export function BannerSocialFollow({
         >
           {children ?? (
             <>
-              {actionIcon}
+              {actionIcon !== "" && <DynamicIcon name={actionIcon} />}
               {label}
-              {iconAfter}
+              {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
             </>
           )}
         </Pressable>
@@ -165,7 +172,7 @@ export function BannerSocialFollow({
   }, [actions, actionsSlot]);
 
   const dismissIconContent = useMemo(() => {
-    if (dismissIcon) return dismissIcon;
+    if (dismissIcon) return <DynamicIcon name={dismissIcon} size={16} />;
     return <DynamicIcon name="mynaui/x" size={16} />;
   }, [dismissIcon]);
 

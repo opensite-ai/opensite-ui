@@ -16,7 +16,7 @@ export interface BannerGdprRightsProps {
   /**
    * Icon to display (ReactNode for full flexibility)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name for DynamicIcon (used if icon prop is not provided)
    */
@@ -44,7 +44,7 @@ export interface BannerGdprRightsProps {
   /**
    * Dismiss button icon (ReactNode for full flexibility)
    */
-  dismissIcon?: React.ReactNode;
+  dismissIcon?: React.ReactNode | string;
   /**
    * ARIA label for dismiss button
    */
@@ -138,11 +138,11 @@ export function BannerGdprRights({
   }, [onDismiss]);
 
   const iconContent = useMemo(() => {
-    if (icon) return icon;
-    if (!iconName) return null;
+    const resolvedIcon = icon || iconName;
+    if (!resolvedIcon) return null;
     return (
       <DynamicIcon
-        name={iconName}
+        name={resolvedIcon}
         size={20}
         className={cn("text-muted-foreground mt-0.5 shrink-0", iconClassName)}
       />
@@ -170,9 +170,9 @@ export function BannerGdprRights({
         >
           {children ?? (
             <>
-              {actionIcon}
+              {actionIcon !== "" && <DynamicIcon name={actionIcon} />}
               {label}
-              {iconAfter}
+              {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
             </>
           )}
         </Pressable>
@@ -181,8 +181,7 @@ export function BannerGdprRights({
   }, [actions, actionsSlot]);
 
   const dismissIconContent = useMemo(() => {
-    if (dismissIcon) return dismissIcon;
-    return <DynamicIcon name="mynaui/x" size={16} />;
+    return <DynamicIcon name={dismissIcon || "mynaui/x"} size={16} />;
   }, [dismissIcon]);
 
   const titleContent = useMemo(() => {

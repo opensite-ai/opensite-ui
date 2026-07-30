@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { BlogHorizontalCards } from "../blog-horizontal-cards";
 
 // Mock dependencies
@@ -9,16 +9,32 @@ vi.mock("@page-speed/img", () => ({
   ),
 }));
 
-vi.mock("../../../lib/Pressable", () => ({
+vi.mock("../../../../lib/Pressable", () => ({
   Pressable: ({ children, href, className }: { children: React.ReactNode; href?: string; className?: string }) => (
     <a href={href} className={className} data-testid="mock-pressable">{children}</a>
   ),
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, size }: { name: string; size: number }) => (
-    <span data-testid="mock-icon" data-name={name} data-size={size}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    size,
+    className,
+  }: {
+    name?: React.ReactNode;
+    size?: number;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span
+        data-testid="mock-icon"
+        data-name={name}
+        data-size={size}
+        className={className}
+      />
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("BlogHorizontalCards", () => {
@@ -93,6 +109,110 @@ describe("BlogHorizontalCards", () => {
     expect(screen.getByText("View All")).toBeInTheDocument();
   });
 
+  it("renders flexible CTA icons without converting post media", () => {
+    const posts = [
+      {
+        id: "boundary-post",
+        title: "Boundary post",
+        author: "Boundary Author",
+        label: "Boundary Tag",
+        href: "/boundary",
+        image: "lucide/media-looking-image",
+      },
+    ];
+    const { container, rerender } = render(
+      <BlogHorizontalCards
+        posts={posts}
+        ctaAction={{
+          label: "View all",
+          href: "/all",
+          icon: "lucide/arrow-left",
+          iconAfter: "lucide/arrow-right",
+          className: "cta-action",
+        }}
+      />,
+    );
+
+    let action = container.querySelector(".cta-action") as HTMLElement;
+    expect(action).toHaveAttribute("href", "/all");
+    expect(
+      within(action)
+        .getAllByTestId("mock-icon")
+        .map((icon) => icon.getAttribute("data-name")),
+    ).toEqual(["lucide/arrow-left", "lucide/arrow-right"]);
+    expect(action).not.toHaveTextContent("lucide/arrow-left");
+    expect(action).not.toHaveTextContent("lucide/arrow-right");
+    expect(screen.getByText("Boundary Author")).toBeInTheDocument();
+    expect(screen.getByText("Boundary Tag")).toBeInTheDocument();
+    expect(screen.getByTestId("mock-img")).toHaveAttribute(
+      "src",
+      "lucide/media-looking-image",
+    );
+    expect(
+      container.querySelector('[data-name="lucide/media-looking-image"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <BlogHorizontalCards
+        posts={posts}
+        ctaAction={{
+          label: "Custom",
+          icon: <span data-testid="custom-before">before</span>,
+          iconAfter: <span data-testid="custom-after">after</span>,
+          className: "cta-action",
+        }}
+      />,
+    );
+    action = container.querySelector(".cta-action") as HTMLElement;
+    expect(within(action).getByTestId("custom-before")).toBeInTheDocument();
+    expect(within(action).getByTestId("custom-after")).toBeInTheDocument();
+    expect(within(action).queryByTestId("mock-icon")).not.toBeInTheDocument();
+
+    for (const [ctaAction, expectedText] of [
+      [
+        {
+          label: "Empty",
+          icon: "",
+          iconAfter: "",
+          className: "cta-action",
+        },
+        "Empty",
+      ],
+      [
+        {
+          label: "Boundary",
+          icon: false,
+          iconAfter: 0,
+          className: "cta-action",
+        },
+        "Boundary0",
+      ],
+      [
+        {
+          label: "Hidden false",
+          icon: "lucide/hidden",
+          children: false,
+          className: "cta-action",
+        },
+        "",
+      ],
+      [
+        {
+          label: "Hidden zero",
+          icon: "lucide/hidden",
+          children: 0,
+          className: "cta-action",
+        },
+        "0",
+      ],
+    ] as const) {
+      rerender(<BlogHorizontalCards posts={posts} ctaAction={ctaAction} />);
+      action = container.querySelector(".cta-action") as HTMLElement;
+      expect(action).toHaveTextContent(expectedText);
+      expect(within(action).queryByTestId("mock-icon")).not.toBeInTheDocument();
+    }
+  });
+
   it("renders custom CTA slot instead of ctaAction", () => {
     const ctaAction = {
       label: "View All",
@@ -162,4 +282,3 @@ describe("BlogHorizontalCards", () => {
     expect(screen.queryByTestId("mock-img")).not.toBeInTheDocument();
   });
 });
-

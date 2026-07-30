@@ -5,6 +5,7 @@ import { useMemo } from "react";
 
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { ActionConfig, SectionBackground } from "../../../src/types";
 
@@ -122,9 +123,9 @@ export function BannerPromoCta({
         >
           {children ?? (
             <>
-              {actionIcon}
+              {actionIcon !== "" && <DynamicIcon name={actionIcon} />}
               {label}
-              {iconAfter}
+              {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
             </>
           )}
         </Pressable>
