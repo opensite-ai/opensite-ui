@@ -26,3 +26,19 @@ new boundary, preserving `false`, `0`, custom React nodes, and the original
 nullish/truthy fallback precedence. The audit also checks inherited icon
 size/class intent and the approved full-composition `ActionConfig.children`
 replacement contract.
+
+## 2026-07-30 Navbar Non-Icon Contract Observations
+
+The navbar icon audit classified all 14 review files as already safe for
+string-based icon rendering. It also found unrelated desktop/mobile behavior
+asymmetries that were intentionally left unchanged:
+
+- `navbar-centered-menu` and `navbar-dropdown-menu` declare icons on top-level
+  menu items but only render them for submenu items.
+- `navbar-icon-links` mobile auth actions omit the desktop
+  `authActionsSlot`, `children`, and trailing-icon composition.
+- `navbar-search-focused` uses a truthy navigation-slot fallback on desktop and
+  a nullish fallback on mobile, so `false`, `0`, and `""` behave differently.
+
+None of these paths renders an icon name as raw text, so changing them would
+expand this refactor beyond its approved contract.

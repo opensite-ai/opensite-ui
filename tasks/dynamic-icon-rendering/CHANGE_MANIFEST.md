@@ -745,3 +745,37 @@ wrapper topology, slots, fixed icons, and media/action boundaries.
 - One unchanged Feature Spotlight motion mock continues to emit its pre-existing
   forwarded-prop warning; no new warnings remain.
 - New failures: none.
+
+# Change Manifest — Navbars
+
+## Reviewed Without Change
+
+| Review group | Files | Classification |
+|---|---|---|
+| Centered through enterprise | `centered-menu`, `dark-icons`, `dropdown-menu`, `education-platform`, `enterprise-mega` | All configurable nested, link, action, and specialized mega-menu icons already use `DynamicIconName` and `DynamicIcon`. |
+| Icon links through sidebar | `icon-links`, `image-preview`, `multi-column-groups`, `search-focused`, `sidebar-mobile` | All rendered desktop/mobile icon paths are dynamic; image previews, logos, and slots remain intentional media/ReactNode boundaries. |
+| Split through overlay | `split-cta`, `sticky-compact`, `tabbed-sections`, `transparent-overlay` | Submenu, tab, link, social, and action icons already route through dynamic/shared icon renderers. |
+
+## Scope Compliance
+
+- 14 production files were reviewed; zero production or adjacent test files
+  required modification.
+- Local navbar icon declarations use `DynamicIconName`; shared
+  `ActionConfig.icon` and `iconAfter` use `ReactNode | string`.
+- Desktop/mobile rendering, fixed controls, `NavbarLogo`, `Img`, slots, and
+  action `children` precedence were inspected separately.
+- Unrelated navbar parity gaps were recorded in `OBSERVATIONS.md` and left
+  outside this refactor.
+
+## Review Resolution
+
+- Three independent reviewers classified all 14 files as safe.
+- The refined AST audit found zero direct raw configurable-icon JSX children or
+  helper returns.
+- No missing adjacent tests were created because no source contract changed.
+
+## Test Results
+
+- Existing navbar category run: 7 files passed, 90 tests passed, exit 0.
+- `pnpm type-check`: exit 0 with the same production source state.
+- New failures: none.
