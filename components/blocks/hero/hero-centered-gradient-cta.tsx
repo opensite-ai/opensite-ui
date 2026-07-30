@@ -155,7 +155,9 @@ export function HeroCenteredGradientCta({
         key={index}
         className={cn("flex items-center gap-2", feature.className)}
       >
-        <DynamicIcon name={feature.icon} />
+        {feature.icon === "" ? null : (
+          <DynamicIcon name={feature.icon} />
+        )}
         <span>{feature.title}</span>
       </Pressable>
     ));
@@ -174,7 +176,9 @@ export function HeroCenteredGradientCta({
       <div className="relative gap-6 z-10 flex flex-col items-center text-center">
         {badge && (
           <Badge className={cn("px-3", badgeClassName)}>
-            <DynamicIcon name={badgeIcon} />
+            {badgeIcon === "" ? null : (
+              <DynamicIcon name={badgeIcon} />
+            )}
             {typeof badge === "string" ? (
               <span className="font-bold">{badge}</span>
             ) : (

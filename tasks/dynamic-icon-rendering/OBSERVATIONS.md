@@ -12,3 +12,17 @@ A focused-test subprocess briefly wrote its captured output to a repo-root
 confirmed provenance, and it was removed before the pilot gate. No source,
 dependency, generated, or committed scope drift resulted, and later commands
 were run without repo-local temporary files.
+
+## 2026-07-30 Empty-String Parity Audit
+
+CTA part A review established that `DynamicIcon` intentionally forwards every
+string, including `""`, to the icon package. A raw React child previously
+rendered `""` as no DOM, so an unconditional migration can create an empty
+loading/error icon span even when non-empty names work correctly.
+
+The already committed shared and hero batches were therefore re-audited before
+continuing to CTA part B. Corrections use an exact `value === ""` guard at each
+new boundary, preserving `false`, `0`, custom React nodes, and the original
+nullish/truthy fallback precedence. The audit also checks inherited icon
+size/class intent and the approved full-composition `ActionConfig.children`
+replacement contract.

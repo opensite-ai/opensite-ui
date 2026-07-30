@@ -139,13 +139,13 @@ export function HeroArchitectureFullscreen({
       <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
           <>
-            <DynamicIcon name={icon} />
+            {icon === "" ? null : <DynamicIcon name={icon} />}
             {typeof label === "string" ? (
               <p className="group-hover:underline">{label}</p>
             ) : (
               label
             )}
-            <DynamicIcon name={iconAfter} />
+            {iconAfter === "" ? null : <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>

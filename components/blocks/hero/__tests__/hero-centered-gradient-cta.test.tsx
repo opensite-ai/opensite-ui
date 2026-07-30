@@ -91,6 +91,40 @@ describe("HeroCenteredGradientCta", () => {
     );
   });
 
+  it("preserves empty, false, and zero badge and feature icon behavior", () => {
+    const { container, rerender } = render(
+      <HeroCenteredGradientCta
+        badge="Launch ready"
+        badgeIcon=""
+        features={[{ title: "Zero feature", icon: "" }]}
+      />,
+    );
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+
+    rerender(
+      <HeroCenteredGradientCta
+        badge="Launch ready"
+        badgeIcon={false}
+        features={[{ title: "Zero feature", icon: false }]}
+      />,
+    );
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+
+    rerender(
+      <HeroCenteredGradientCta
+        badge="Launch ready"
+        badgeIcon={0}
+        features={[{ title: "Zero feature", icon: 0 }]}
+      />,
+    );
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+    expect(container.textContent).toMatch(/0\s*Launch ready/);
+    expect(container.textContent).toMatch(/0\s*Zero feature/);
+  });
+
   it("applies custom className", () => {
     const { container } = render(<HeroCenteredGradientCta heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

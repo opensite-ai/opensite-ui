@@ -124,6 +124,61 @@ describe("HeroBillingPlatformLogos", () => {
     expect(screen.getByTestId("guide-trailing-icon")).toBeInTheDocument();
   });
 
+  it("preserves edge values and children in both action layouts", () => {
+    const { container, rerender } = render(
+      <HeroBillingPlatformLogos
+        actions={[
+          { label: "Empty Icons", icon: "", iconAfter: "" },
+          { label: "Falsy Icons", icon: false, iconAfter: 0 },
+        ]}
+      />,
+    );
+
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+    const falsyAction = Array.from(
+      container.querySelectorAll(
+        '[data-slot="button"], [data-testid="mock-pressable"]',
+      ),
+    ).find((action) => action.textContent?.includes("Falsy Icons"));
+    expect(falsyAction).toHaveTextContent("Falsy Icons0");
+
+    rerender(
+      <HeroBillingPlatformLogos
+        actions={[
+          {
+            label: "Generated Primary Label",
+            icon: "lucide/rocket",
+            iconAfter: "lucide/arrow-right",
+            children: (
+              <span data-testid="primary-replacement">Primary Replacement</span>
+            ),
+          },
+          {
+            label: "Generated Guide Label",
+            icon: "lucide/book-open",
+            iconAfter: "lucide/external-link",
+            children: (
+              <span data-testid="guide-replacement">Guide Replacement</span>
+            ),
+          },
+        ]}
+      />,
+    );
+    expect(screen.getByTestId("primary-replacement")).toBeInTheDocument();
+    expect(screen.getByTestId("guide-replacement")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Generated Primary Label"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Generated Guide Label"),
+    ).not.toBeInTheDocument();
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+  });
+
   it("applies custom className", () => {
     const { container } = render(<HeroBillingPlatformLogos heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

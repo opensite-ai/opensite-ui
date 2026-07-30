@@ -126,6 +126,41 @@ describe("HeroImageSlider", () => {
     expect(screen.getByTestId("mock-form-engine")).toHaveTextContent("Send");
   });
 
+  it("preserves empty, false, and zero form button icon semantics", () => {
+    const formEngineSetup = { fields: [] };
+    const { container, rerender } = render(
+      <HeroImageSlider
+        buttonIcon=""
+        buttonText="Send"
+        formEngineSetup={formEngineSetup}
+      />,
+    );
+
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroImageSlider
+        buttonIcon={false}
+        buttonText="Send"
+        formEngineSetup={formEngineSetup}
+      />,
+    );
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroImageSlider
+        buttonIcon={0}
+        buttonText="Send"
+        formEngineSetup={formEngineSetup}
+      />,
+    );
+    expect(screen.getByTestId("mock-form-engine")).toHaveTextContent("0Send");
+  });
+
   it("applies custom className", () => {
     const { container } = render(<HeroImageSlider heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

@@ -81,6 +81,48 @@ describe("HeroDashedBorderFeatures", () => {
     expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
   });
 
+  it("preserves empty, false, zero, and children action semantics", () => {
+    const { container, rerender } = render(
+      <HeroDashedBorderFeatures
+        actions={[
+          { label: "Empty Icons", icon: "", iconAfter: "" },
+          { label: "Falsy Icons", icon: false, iconAfter: 0 },
+        ]}
+      />,
+    );
+
+    expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+    const falsyAction = Array.from(
+      container.querySelectorAll(
+        '[data-slot="button"], [data-testid="mock-pressable"]',
+      ),
+    ).find((action) => action.textContent?.includes("Falsy Icons"));
+    expect(falsyAction).toHaveTextContent("Falsy Icons0");
+
+    rerender(
+      <HeroDashedBorderFeatures
+        actions={[
+          {
+            label: "Generated Action Label",
+            icon: "lucide/rocket",
+            iconAfter: "lucide/arrow-right",
+            children: <span data-testid="replacement-action">Replacement</span>,
+          },
+        ]}
+      />,
+    );
+    expect(screen.getByTestId("replacement-action")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Generated Action Label"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mock-icon-lucide/rocket"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mock-icon-lucide/arrow-right"),
+    ).not.toBeInTheDocument();
+  });
+
   it("applies custom className", () => {
     const { container } = render(<HeroDashedBorderFeatures heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

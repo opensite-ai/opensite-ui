@@ -68,6 +68,23 @@ describe("HeroStatsSocialProof", () => {
     expect(screen.getByTestId("custom-badge-icon")).toBeInTheDocument();
   });
 
+  it("preserves empty, false, and zero badge icon behavior", () => {
+    const { container, rerender } = render(
+      <HeroStatsSocialProof badge="Featured" badgeIcon="" />,
+    );
+
+    expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+
+    rerender(<HeroStatsSocialProof badge="Featured" badgeIcon={false} />);
+
+    expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+
+    rerender(<HeroStatsSocialProof badge="Featured" badgeIcon={0} />);
+
+    expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+    expect(container.textContent).toMatch(/0\s*Featured/);
+  });
+
   it("renders actions when provided", () => {
     const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
     render(<HeroStatsSocialProof actions={actions} />);

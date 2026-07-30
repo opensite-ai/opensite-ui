@@ -94,6 +94,23 @@ describe("HeroBadgeImageSplit", () => {
     );
   });
 
+  it("preserves empty, false, and zero badge icon behavior", () => {
+    const { container, rerender } = render(
+      <HeroBadgeImageSplit badge="New Feature" badgeIcon="" />,
+    );
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+
+    rerender(<HeroBadgeImageSplit badge="New Feature" badgeIcon={false} />);
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+
+    rerender(<HeroBadgeImageSplit badge="New Feature" badgeIcon={0} />);
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+    expect(container.textContent).toMatch(/New Feature\s*0/);
+  });
+
   it("renders actions when provided", () => {
     const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
     render(<HeroBadgeImageSplit actions={actions} />);

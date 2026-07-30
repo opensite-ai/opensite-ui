@@ -102,6 +102,77 @@ Files deleted: 0
 - New failures: none.
 - Pre-existing failures: none observed.
 
+# Change Manifest — Retroactive Parity Correction Part A
+
+## Modified Files
+
+| Source and adjacent test | Classification / change | Combined lines +/- | Notes |
+|---|---|---:|---|
+| `components/ui/block-actions` | Empty-string parity correction | +49/-2 | Both shared action icon positions now suppress only `""`; `children` still replaces the complete composition. |
+| `hero-announcement-badge` | Test hardening only | +17/-0 | Confirms the existing truthy badge gate preserves empty/false/zero behavior. |
+| `hero-badge-image-split` | Empty-string parity correction | +20/-1 | Badge icon uses an exact empty-string guard. |
+| `hero-centered-gradient-cta` | Empty-string parity correction | +40/-2 | Feature and badge icon boundaries use exact empty-string guards. |
+| `hero-enterprise-security` | Fallback/style parity correction | +80/-7 | Feature and badge overrides preserve fallback suppression, size 24, and the configured color class. |
+| `hero-floating-images` | Empty-string parity correction | +20/-1 | Badge icon uses an exact empty-string guard. |
+| `hero-image-left-content` | Empty-string parity correction | +20/-1 | Badge icon uses an exact empty-string guard. |
+| `hero-startup-launch-cta` | Empty-string parity correction | +20/-1 | Badge icon uses an exact empty-string guard. |
+| `hero-stats-social-proof` | Empty-string parity correction | +20/-1 | Badge icon uses an exact empty-string guard. |
+| `hero-architecture-fullscreen` | Empty-string/action parity correction | +44/-2 | Manual leading/trailing icons are guarded; complete child replacement is asserted. |
+| `hero-billing-platform-logos` | Empty-string/action parity correction | +63/-4 | Both action layouts preserve empty/false/zero and complete child replacement. |
+| `hero-centered-image-grid` | Empty-string/action parity correction | +67/-4 | Standard and overlay action layouts preserve React-node and child semantics. |
+| `hero-centered-screenshot` | Empty-string/action parity correction | +43/-2 | Manual action icons use exact empty-string guards. |
+| `hero-coming-soon-countdown` | Empty-string/action contract correction | +58/-2 | Trailing form icon is guarded and `children` replaces label plus icon. |
+| `hero-conversion-video-play` | Empty-string/action parity correction | +46/-2 | Primary action icons preserve raw React-node behavior. |
+| `hero-dashed-border-features` | Empty-string/action parity correction | +46/-2 | Manual action icons preserve raw React-node behavior. |
+| `hero-ecommerce-product-showcase` | Empty-string parity correction | +22/-1 | Stat icon preserves empty/false/zero behavior. |
+| `hero-fullscreen-logo-cta` | Empty-string/action parity correction | +44/-2 | Manual action icons preserve raw React-node behavior. |
+| `hero-grid-pattern-efficiency` | Empty-string/action parity correction | +44/-2 | Manual action icons preserve raw React-node behavior. |
+| `hero-image-slider` | Empty-string form parity correction | +38/-1 | Form submit icon preserves raw React-node behavior. |
+| `hero-logo-centered-screenshot` | Empty-string/action parity correction | +44/-2 | Manual action icons preserve raw React-node behavior. |
+| `hero-marketplace-scattered-images` | Empty-string/action parity correction | +44/-2 | Manual action icons preserve raw React-node behavior. |
+| `tasks/dynamic-icon-rendering/.refactor-session.md` | Control state | current batch | Records correction completion and next scope. |
+| `tasks/dynamic-icon-rendering/CHANGE_MANIFEST.md` | Batch manifest | current batch | Records corrected boundaries and verification. |
+| `tasks/dynamic-icon-rendering/OBSERVATIONS.md` | Process observation | current batch | Records the empty-string audit rule for remaining batches. |
+
+## Scope Compliance
+
+- [x] The implementation diff is exactly 21 approved production files and 22 adjacent tests.
+- [x] All 43 source/test files are in the exact scope allowlist.
+- [x] No new files exist outside spec-defined outputs.
+- [x] No dependency or lockfile changed.
+- [x] The pre-existing `package.json` version-only diff is unchanged and unstaged.
+- [x] No shared abstraction, dependency, or alternate rendering system was introduced.
+- [x] Exact `=== ""` guards preserve `false`, `0`, custom nodes, and original fallback operators.
+- [x] Inherited feature-icon size/class intent is preserved.
+- [x] Action `children` replaces the complete generated composition.
+- [x] `git diff --check` passed for the bounded path set.
+
+## Review Resolution
+
+- The CTA review exposed that `DynamicIcon` forwards `""` to the icon package,
+  producing icon DOM where a raw React child produced none. Every newly added
+  boundary in this correction scope was audited; exact empty-string guards were
+  added without truthiness coercion.
+- `hero-announcement-badge` already had a correct truthy gate, so only its test
+  changed.
+- `hero-coming-soon-countdown` now applies the approved `ActionConfig.children`
+  replacement contract to the complete generated label and trailing-icon
+  fragment.
+- Independent pilot/shared review approved all 17 paths with no defects.
+- Independent Hero-A review approved all 13 source/test pairs and all 27
+  corrected boundaries with no defects.
+
+## Test Results
+
+- Focused: 22 files passed, 213 tests passed, exit 0.
+- `pnpm type-check`: exit 0.
+- Exact source/test scope and allowlist audit: exit 0.
+- Restricted `git diff --check`: exit 0.
+- Independent pilot/shared focused review: 9 files / 102 tests, exit 0.
+- Independent Hero-A focused review: 13 files / 111 tests, exit 0.
+- New failures: none.
+- Pre-existing failures: none observed.
+
 # Change Manifest — CTA Part A
 
 ## Modified Files

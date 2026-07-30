@@ -96,6 +96,48 @@ describe("HeroConversionVideoPlay", () => {
     expect(screen.getByTestId("custom-trailing-icon")).toHaveTextContent("trailing");
   });
 
+  it("preserves empty, false, zero, and children action semantics", () => {
+    const { container, rerender } = render(
+      <HeroConversionVideoPlay
+        primaryAction={{ label: "Empty Icons", icon: "", iconAfter: "" }}
+      />,
+    );
+
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroConversionVideoPlay
+        primaryAction={{ label: "Falsy Icons", icon: false, iconAfter: 0 }}
+      />,
+    );
+    const falsyAction = Array.from(
+      container.querySelectorAll(
+        '[data-slot="button"], [data-testid="mock-pressable"]',
+      ),
+    ).find((action) => action.textContent?.includes("Falsy Icons"));
+    expect(falsyAction).toHaveTextContent("Falsy Icons0");
+
+    rerender(
+      <HeroConversionVideoPlay
+        primaryAction={{
+          label: "Generated Action Label",
+          icon: "lucide/rocket",
+          iconAfter: "lucide/arrow-right",
+          children: <span data-testid="replacement-action">Replacement</span>,
+        }}
+      />,
+    );
+    expect(screen.getByTestId("replacement-action")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Generated Action Label"),
+    ).not.toBeInTheDocument();
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+  });
+
   it("applies custom className", () => {
     const { container } = render(<HeroConversionVideoPlay heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

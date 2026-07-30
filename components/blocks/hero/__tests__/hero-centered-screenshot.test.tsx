@@ -117,6 +117,47 @@ describe("HeroCenteredScreenshot", () => {
     expect(screen.getByTestId("custom-trailing-icon")).toHaveTextContent("trailing");
   });
 
+  it("preserves empty, false, zero, and children action semantics", () => {
+    const { container, rerender } = render(
+      <HeroCenteredScreenshot
+        actions={[
+          { label: "Empty Icons", icon: "", iconAfter: "" },
+          { label: "Falsy Icons", icon: false, iconAfter: 0 },
+        ]}
+      />,
+    );
+
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+    const falsyAction = Array.from(
+      container.querySelectorAll(
+        '[data-slot="button"], [data-testid="mock-pressable"]',
+      ),
+    ).find((action) => action.textContent?.includes("Falsy Icons"));
+    expect(falsyAction).toHaveTextContent("Falsy Icons0");
+
+    rerender(
+      <HeroCenteredScreenshot
+        actions={[
+          {
+            label: "Generated Action Label",
+            icon: "lucide/rocket",
+            iconAfter: "lucide/arrow-right",
+            children: <span data-testid="replacement-action">Replacement</span>,
+          },
+        ]}
+      />,
+    );
+    expect(screen.getByTestId("replacement-action")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Generated Action Label"),
+    ).not.toBeInTheDocument();
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+  });
+
   it("renders actionsSlot when provided", () => {
     render(<HeroCenteredScreenshot actionsSlot={<button>Custom Action</button>} />);
     expect(screen.getByText("Custom Action")).toBeInTheDocument();

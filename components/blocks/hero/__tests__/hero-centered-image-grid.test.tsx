@@ -131,6 +131,69 @@ describe("HeroCenteredImageGrid", () => {
     expect(screen.getByTestId("overlay-trailing-icon")).toBeInTheDocument();
   });
 
+  it("preserves edge values and children in action and overlay paths", () => {
+    const gridImages = [
+      { src: "/first.jpg", alt: "First" },
+      { src: "/second.jpg", alt: "Second" },
+    ];
+    const { container, rerender } = render(
+      <HeroCenteredImageGrid
+        actions={[{ label: "Empty Icons", icon: "", iconAfter: "" }]}
+        gridImages={gridImages}
+        imageOverlayAction={{
+          label: "Overlay Falsy Icons",
+          icon: false,
+          iconAfter: 0,
+        }}
+      />,
+    );
+
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+    const overlayAction = Array.from(
+      container.querySelectorAll(
+        '[data-slot="button"], [data-testid="mock-pressable"]',
+      ),
+    ).find((action) => action.textContent?.includes("Overlay Falsy Icons"));
+    expect(overlayAction).toHaveTextContent("Overlay Falsy Icons0");
+
+    rerender(
+      <HeroCenteredImageGrid
+        actions={[
+          {
+            label: "Generated Action Label",
+            icon: "lucide/rocket",
+            iconAfter: "lucide/arrow-right",
+            children: (
+              <span data-testid="action-replacement">Action Replacement</span>
+            ),
+          },
+        ]}
+        gridImages={gridImages}
+        imageOverlayAction={{
+          label: "Generated Overlay Label",
+          icon: "lucide/image",
+          iconAfter: "lucide/maximize",
+          children: (
+            <span data-testid="overlay-replacement">Overlay Replacement</span>
+          ),
+        }}
+      />,
+    );
+    expect(screen.getByTestId("action-replacement")).toBeInTheDocument();
+    expect(screen.getByTestId("overlay-replacement")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Generated Action Label"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Generated Overlay Label"),
+    ).not.toBeInTheDocument();
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+  });
+
   it("applies custom className", () => {
     const { container } = render(<HeroCenteredImageGrid heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

@@ -430,7 +430,9 @@ export function HeroImageSlider({
                           ?.submitButtonSetup,
                         submitLabel: (
                           <>
-                            <DynamicIcon name={buttonIcon} />
+                            {buttonIcon === "" ? null : (
+                              <DynamicIcon name={buttonIcon} />
+                            )}
                             {buttonText}
                           </>
                         ),

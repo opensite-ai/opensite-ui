@@ -86,6 +86,25 @@ describe("HeroEcommerceProductShowcase", () => {
     expect(screen.getByTestId("custom-stat-icon")).toBeInTheDocument();
   });
 
+  it("preserves empty, false, and zero stat icon semantics", () => {
+    const { container } = render(
+      <HeroEcommerceProductShowcase
+        stats={[
+          { value: "Empty Value", label: "Empty", icon: "" },
+          { value: "False Value", label: "False", icon: false },
+          { value: "Zero Value", label: "Zero", icon: 0 },
+        ]}
+      />,
+    );
+
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText("Zero Value").parentElement).toHaveTextContent(
+      "0Zero Value",
+    );
+  });
+
   it("applies custom className", () => {
     const { container } = render(<HeroEcommerceProductShowcase heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

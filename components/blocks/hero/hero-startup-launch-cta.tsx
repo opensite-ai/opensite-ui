@@ -250,7 +250,9 @@ export function HeroStartupLaunchCta({
           <div className={cn("flex flex-col gap-8", contentClassName)}>
             {badge && (
               <Badge className={cn("px-4", badgeClassName)}>
-                <DynamicIcon name={badgeIcon} />
+                {badgeIcon === "" ? null : (
+                  <DynamicIcon name={badgeIcon} />
+                )}
                 {typeof badge === "string" ? <span>{badge}</span> : badge}
               </Badge>
             )}

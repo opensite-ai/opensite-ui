@@ -74,6 +74,23 @@ describe("HeroAnnouncementBadge", () => {
     );
   });
 
+  it("preserves empty, false, and zero badge icon behavior", () => {
+    const { container, rerender } = render(
+      <HeroAnnouncementBadge badge="Secure" badgeIcon="" />,
+    );
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+
+    rerender(<HeroAnnouncementBadge badge="Secure" badgeIcon={false} />);
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+
+    rerender(<HeroAnnouncementBadge badge="Secure" badgeIcon={0} />);
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+    expect(container.textContent).toMatch(/0\s*Secure/);
+  });
+
   it("renders custom heading", () => {
     render(<HeroAnnouncementBadge heading="Custom Heading" />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();

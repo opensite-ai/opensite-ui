@@ -18,12 +18,19 @@ vi.mock("../../../ui/dynamic-icon", () => ({
   DynamicIcon: ({
     name,
     className,
+    size,
   }: {
     name?: React.ReactNode | string;
     className?: string;
+    size?: number;
   }) =>
     typeof name === "string" ? (
-      <span data-testid="mock-icon" data-name={name} className={className}>
+      <span
+        data-testid="mock-icon"
+        data-name={name}
+        data-size={size}
+        className={className}
+      >
         icon
       </span>
     ) : (
@@ -71,8 +78,10 @@ describe("HeroEnterpriseSecurity", () => {
             title: "Encrypted",
             icon: "lucide/lock-keyhole",
             iconName: "lucide/check",
+            iconColorClass: "text-enterprise",
           },
           { title: "Audited", iconName: "lucide/badge-check" },
+          { title: "Default", iconName: "" },
         ]}
       />,
     );
@@ -85,10 +94,18 @@ describe("HeroEnterpriseSecurity", () => {
       "lucide/shield-check",
       "lucide/lock-keyhole",
       "lucide/badge-check",
+      "lucide/check",
     ]);
     expect(screen.queryByText("lucide/lock-keyhole")).not.toBeInTheDocument();
     expect(screen.queryByText("lucide/badge-check")).not.toBeInTheDocument();
     expect(screen.queryByText("lucide/shield-check")).not.toBeInTheDocument();
+    const stringOverride = screen
+      .getAllByTestId("mock-icon")
+      .find(
+        (icon) => icon.getAttribute("data-name") === "lucide/lock-keyhole",
+      );
+    expect(stringOverride).toHaveAttribute("data-size", "24");
+    expect(stringOverride).toHaveClass("text-enterprise");
   });
 
   it("preserves custom badge and feature icon elements", () => {
@@ -112,6 +129,58 @@ describe("HeroEnterpriseSecurity", () => {
     expect(screen.getByTestId("custom-feature-icon")).toHaveTextContent(
       "feature icon",
     );
+  });
+
+  it("preserves empty, false, and zero badge and feature override behavior", () => {
+    const { container, rerender } = render(
+      <HeroEnterpriseSecurity
+        badge="Enterprise ready"
+        badgeIcon=""
+        features={[
+          {
+            title: "Zero feature",
+            icon: "",
+            iconName: "lucide/suppressed-fallback",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+
+    rerender(
+      <HeroEnterpriseSecurity
+        badge="Enterprise ready"
+        badgeIcon={false}
+        features={[
+          {
+            title: "Zero feature",
+            icon: false,
+            iconName: "lucide/suppressed-fallback",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+
+    rerender(
+      <HeroEnterpriseSecurity
+        badge="Enterprise ready"
+        badgeIcon={0}
+        features={[
+          {
+            title: "Zero feature",
+            icon: 0,
+            iconName: "lucide/suppressed-fallback",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+    expect(container.textContent).toMatch(/0\s*Enterprise ready/);
+    expect(container.textContent).toMatch(/0\s*Zero feature/);
   });
 
   it("applies custom className", () => {

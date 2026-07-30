@@ -465,7 +465,9 @@ export function HeroFloatingImages({
                 className={cn("mb-6 w-fit", badgeClassName)}
               >
                 {badge}
-                <DynamicIcon name={badgeIcon} />
+                {badgeIcon === "" ? null : (
+                  <DynamicIcon name={badgeIcon} />
+                )}
               </Badge>
             )}
             {(logo || logoSlot) && (

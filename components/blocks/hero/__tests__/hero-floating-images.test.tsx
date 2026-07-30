@@ -162,6 +162,23 @@ describe("HeroFloatingImages", () => {
     expect(screen.getByTestId("custom-badge-icon")).toBeInTheDocument();
   });
 
+  it("preserves empty, false, and zero badge icon behavior", () => {
+    const { container, rerender } = render(
+      <HeroFloatingImages badge="Featured" badgeIcon="" />,
+    );
+
+    expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+
+    rerender(<HeroFloatingImages badge="Featured" badgeIcon={false} />);
+
+    expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+
+    rerender(<HeroFloatingImages badge="Featured" badgeIcon={0} />);
+
+    expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+    expect(container.textContent).toMatch(/Featured\s*0/);
+  });
+
   it("renders actionsSlot instead of configured actions", () => {
     render(
       <HeroFloatingImages

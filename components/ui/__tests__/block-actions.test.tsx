@@ -85,4 +85,51 @@ describe("BlockActions", () => {
     expect(screen.getByTestId("custom-leading-icon")).toBeInTheDocument();
     expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
   });
+
+  it("preserves empty-string, false, and zero React node behavior", () => {
+    render(
+      <BlockActions
+        actions={[
+          {
+            label: "Empty icons",
+            href: "/empty",
+            icon: "",
+            iconAfter: "",
+          },
+          {
+            label: "React nodes",
+            href: "/nodes",
+            icon: false,
+            iconAfter: 0,
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.queryByTestId("mock-dynamic-icon")).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Empty icons" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "React nodes0" })).toBeInTheDocument();
+  });
+
+  it("lets custom children replace the complete generated action composition", () => {
+    render(
+      <BlockActions
+        actions={[
+          {
+            label: "Generated label",
+            href: "/",
+            icon: "lucide/arrow-left",
+            iconAfter: "lucide/arrow-right",
+            children: <span>Custom action</span>,
+          },
+        ]}
+      />,
+    );
+
+    expect(
+      screen.getByRole("link", { name: "Custom action" }),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Generated label")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("mock-dynamic-icon")).not.toBeInTheDocument();
+  });
 });

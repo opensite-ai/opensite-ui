@@ -67,6 +67,23 @@ describe("HeroImageLeftContent", () => {
     expect(screen.getByTestId("custom-badge-icon")).toBeInTheDocument();
   });
 
+  it("preserves empty, false, and zero badge icon behavior", () => {
+    const { container, rerender } = render(
+      <HeroImageLeftContent badge="Featured" badgeIcon="" />,
+    );
+
+    expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+
+    rerender(<HeroImageLeftContent badge="Featured" badgeIcon={false} />);
+
+    expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+
+    rerender(<HeroImageLeftContent badge="Featured" badgeIcon={0} />);
+
+    expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+    expect(container.textContent).toMatch(/Featured\s*0/);
+  });
+
   it("renders actions when provided", () => {
     const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
     render(<HeroImageLeftContent actions={actions} />);

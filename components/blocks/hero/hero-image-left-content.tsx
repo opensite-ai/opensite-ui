@@ -190,7 +190,9 @@ export function HeroImageLeftContent({
             {badge && (
               <Badge variant={badgeVariant} className={badgeClassName}>
                 {badge}
-                <DynamicIcon name={badgeIcon} />
+                {badgeIcon === "" ? null : (
+                  <DynamicIcon name={badgeIcon} />
+                )}
               </Badge>
             )}
             {(logo || logoSlot) && (

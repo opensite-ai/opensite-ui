@@ -133,6 +133,56 @@ describe("HeroComingSoonCountdown", () => {
     expect(screen.getByTestId("custom-trailing-icon")).toHaveTextContent("trailing");
   });
 
+  it("preserves empty, false, zero, and children button semantics", () => {
+    const { container, rerender } = render(
+      <HeroComingSoonCountdown
+        buttonAction={{ label: "Empty Icon", iconAfter: "" }}
+      />,
+    );
+
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroComingSoonCountdown
+        buttonAction={{ label: "False Icon", iconAfter: false }}
+      />,
+    );
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <HeroComingSoonCountdown
+        buttonAction={{ label: "Zero Icon", iconAfter: 0 }}
+      />,
+    );
+    const zeroAction = Array.from(
+      container.querySelectorAll(
+        '[data-slot="button"], [data-testid="mock-pressable"]',
+      ),
+    ).find((action) => action.textContent?.includes("Zero Icon"));
+    expect(zeroAction).toHaveTextContent("Zero Icon0");
+
+    rerender(
+      <HeroComingSoonCountdown
+        buttonAction={{
+          label: "Generated Button Label",
+          iconAfter: "lucide/bell",
+          children: <span data-testid="button-replacement">Replacement</span>,
+        }}
+      />,
+    );
+    expect(screen.getByTestId("button-replacement")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Generated Button Label"),
+    ).not.toBeInTheDocument();
+    expect(
+      container.querySelector('[data-testid^="mock-icon"]'),
+    ).not.toBeInTheDocument();
+  });
+
   it("applies custom className", () => {
     const { container } = render(<HeroComingSoonCountdown heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");

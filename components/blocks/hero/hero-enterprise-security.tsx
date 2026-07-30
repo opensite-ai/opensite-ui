@@ -177,11 +177,13 @@ export function HeroEnterpriseSecurity({
                 feature.iconBgClass,
               )}
             >
-              <DynamicIcon
-                name={feature.icon ?? (feature.iconName || "lucide/check")}
-                size={24}
-                className={feature.iconColorClass}
-              />
+              {feature.icon === "" ? null : (
+                <DynamicIcon
+                  name={feature.icon ?? (feature.iconName || "lucide/check")}
+                  size={24}
+                  className={feature.iconColorClass}
+                />
+              )}
             </div>
             <h3 className="mb-2 text-lg font-semibold ">{feature.title}</h3>
             {feature.description && (
@@ -213,7 +215,9 @@ export function HeroEnterpriseSecurity({
         >
           {badge && (
             <Badge className={cn("px-4", badgeClassName)}>
-              <DynamicIcon name={badgeIcon} />
+              {badgeIcon === "" ? null : (
+                <DynamicIcon name={badgeIcon} />
+              )}
               {typeof badge === "string" ? <span>{badge}</span> : badge}
             </Badge>
           )}

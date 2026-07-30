@@ -163,11 +163,13 @@ export function HeroBillingPlatformLogos({
           >
             {children ?? (
               <>
-                <DynamicIcon name={icon} />
+                {icon === "" ? null : <DynamicIcon name={icon} />}
                 <p className="font-mono text-sm font-medium uppercase">
                   {label}
                 </p>
-                <DynamicIcon name={iconAfter} />
+                {iconAfter === "" ? null : (
+                  <DynamicIcon name={iconAfter} />
+                )}
               </>
             )}
           </Pressable>
@@ -179,9 +181,11 @@ export function HeroBillingPlatformLogos({
           <Pressable asButton className={actionClassName} {...pressableProps}>
             {children ?? (
               <>
-                <DynamicIcon name={icon} />
+                {icon === "" ? null : <DynamicIcon name={icon} />}
                 {label}
-                <DynamicIcon name={iconAfter} />
+                {iconAfter === "" ? null : (
+                  <DynamicIcon name={iconAfter} />
+                )}
               </>
             )}
           </Pressable>
