@@ -6,6 +6,7 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -159,9 +160,9 @@ export function LogosPartnerNetwork({
         asButton
         className={action.className}
       >
-        {action.icon}
+        {action.icon !== "" && <DynamicIcon name={action.icon} />}
         {action.label}
-        {action.iconAfter}
+        {action.iconAfter !== "" && <DynamicIcon name={action.iconAfter} />}
       </Pressable>
     ));
   }, [actions, actionsSlot]);

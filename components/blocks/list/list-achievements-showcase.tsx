@@ -16,9 +16,9 @@ import type {
 
 export interface ListAchievementItem {
   /**
-   * Icon name for the achievement (e.g., "lucide/trophy")
+   * Icon name or custom element for the achievement (e.g., "lucide/trophy")
    */
-  icon?: string;
+  icon?: React.ReactNode | string;
   /**
    * Title of the achievement
    */
@@ -185,14 +185,16 @@ export function ListAchievementsShowcase({
         >
           {children ?? (
             <>
-              {icon}
+              {icon !== "" && <DynamicIcon name={icon} />}
               {label && <span>{label}</span>}
-              {iconAfter ?? (
+              {iconAfter == null ? (
                 <DynamicIcon
                   name="lucide/arrow-right"
                   size={16}
                   className="text-current"
                 />
+              ) : (
+                iconAfter !== "" && <DynamicIcon name={iconAfter} />
               )}
             </>
           )}

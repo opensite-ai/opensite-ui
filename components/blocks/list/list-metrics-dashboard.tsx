@@ -28,9 +28,9 @@ export interface ListMetricItem {
    */
   id: string;
   /**
-   * Icon name for the metric (e.g., "lucide/zap")
+   * Icon name or custom element for the metric (e.g., "lucide/zap")
    */
-  icon?: string;
+  icon?: React.ReactNode | string;
   /**
    * Display name of the metric
    */
@@ -281,9 +281,9 @@ export function ListMetricsDashboard({
       >
         {children ?? (
           <>
-            {icon}
+            {icon !== "" && <DynamicIcon name={icon} />}
             {label}
-            {iconAfter}
+            {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>

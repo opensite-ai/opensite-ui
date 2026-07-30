@@ -49,7 +49,7 @@ export interface ResourceDetailDocumentSidebarFeature {
   /**
    * Custom icon for the feature (defaults to check-circle-2)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
 }
 
 export interface ResourceDetailDocumentSidebarSidebar {
@@ -320,9 +320,13 @@ export function ResourceDetailDocumentSidebar({
           >
             {sidebar.downloadAction.children ?? (
               <>
-                {sidebar.downloadAction.icon}
+                {sidebar.downloadAction.icon !== "" && (
+                  <DynamicIcon name={sidebar.downloadAction.icon} />
+                )}
                 {sidebar.downloadAction.label}
-                {sidebar.downloadAction.iconAfter}
+                {sidebar.downloadAction.iconAfter !== "" && (
+                  <DynamicIcon name={sidebar.downloadAction.iconAfter} />
+                )}
               </>
             )}
           </Pressable>
@@ -378,12 +382,14 @@ export function ResourceDetailDocumentSidebar({
             <ul className="flex flex-col gap-2">
               {sidebar.features.map((feature, index) => (
                 <li key={index} className="flex items-center gap-2">
-                  {feature.icon ?? (
+                  {feature.icon == null ? (
                     <DynamicIcon
                       name="lucide/check-circle-2"
                       size={16}
                       className="text-primary"
                     />
+                  ) : (
+                    feature.icon !== "" && <DynamicIcon name={feature.icon} />
                   )}
                   {feature.text &&
                     (typeof feature.text === "string" ? (
@@ -426,8 +432,10 @@ export function ResourceDetailDocumentSidebar({
                     >
                       {children ?? (
                         <>
-                          {icon}
-                          {iconAfter}
+                          {icon !== "" && <DynamicIcon name={icon} />}
+                          {iconAfter !== "" && (
+                            <DynamicIcon name={iconAfter} />
+                          )}
                         </>
                       )}
                     </Pressable>

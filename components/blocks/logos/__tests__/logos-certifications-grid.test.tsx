@@ -8,16 +8,34 @@ vi.mock("@page-speed/img", () => ({
   ),
 }));
 
-vi.mock("../../../lib/Pressable", () => ({
+vi.mock("../../../../lib/Pressable", () => ({
   Pressable: ({ children, href, className }: { children: React.ReactNode; href?: string; className?: string }) => (
     <a href={href} className={className} data-testid="mock-pressable">{children}</a>
   ),
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+    size,
+  }: {
+    name?: React.ReactNode;
+    className?: string;
+    size?: number;
+  }) =>
+    typeof name === "string" ? (
+      <span
+        data-testid="mock-icon"
+        data-name={name}
+        data-size={size}
+        className={className}
+      >
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("LogosCertificationsGrid", () => {
@@ -64,5 +82,84 @@ describe("LogosCertificationsGrid", () => {
       />
     );
     expect(screen.getByText("Our certifications say it all.")).toBeInTheDocument();
+  });
+
+  it("resolves action icon strings without rendering their raw names", () => {
+    render(
+      <LogosCertificationsGrid
+        actions={[
+          {
+            label: "String action",
+            href: "/string",
+            icon: "lucide/action-before",
+            iconAfter: "lucide/action-after",
+          },
+        ]}
+      />,
+    );
+
+    const action = screen
+      .getByText("String action")
+      .closest('[data-testid="mock-pressable"]') as HTMLElement;
+    expect(
+      action.querySelector('[data-name="lucide/action-before"]'),
+    ).toBeInTheDocument();
+    expect(
+      action.querySelector('[data-name="lucide/action-after"]'),
+    ).toBeInTheDocument();
+    expect(action).not.toHaveTextContent("lucide/action-before");
+    expect(action).not.toHaveTextContent("lucide/action-after");
+  });
+
+  it("preserves custom, empty, false, and zero action icon semantics", () => {
+    const { container } = render(
+      <LogosCertificationsGrid
+        actions={[
+          {
+            label: "Custom action",
+            href: "/custom",
+            icon: <span data-testid="custom-action-before">before</span>,
+            iconAfter: <span data-testid="custom-action-after">after</span>,
+          },
+          {
+            label: "Empty action",
+            href: "/empty",
+            icon: "",
+            iconAfter: "",
+          },
+          {
+            label: "Scalar action",
+            href: "/scalar",
+            icon: 0,
+            iconAfter: false,
+          },
+        ]}
+      />,
+    );
+
+    const customAction = container.querySelector(
+      'a[href="/custom"]',
+    ) as HTMLElement;
+    expect(customAction).toContainElement(
+      screen.getByTestId("custom-action-before"),
+    );
+    expect(customAction).toContainElement(
+      screen.getByTestId("custom-action-after"),
+    );
+
+    const emptyAction = container.querySelector(
+      'a[href="/empty"]',
+    ) as HTMLElement;
+    expect(
+      emptyAction.querySelector('[data-testid="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    const scalarAction = container.querySelector(
+      'a[href="/scalar"]',
+    ) as HTMLElement;
+    expect(scalarAction.textContent).toContain("0");
+    expect(
+      scalarAction.querySelector('[data-testid="mock-icon"]'),
+    ).not.toBeInTheDocument();
   });
 });

@@ -378,15 +378,19 @@ export function LinkPageBentoLayout({
       const imageSource = link.image?.src ?? link.imageUrl;
       const imageAlt =
         link.image?.alt || (typeof label === "string" ? label : "");
-      const iconElement =
-        icon ||
-        (iconName ? (
+      const iconElement = icon ? (
+        <DynamicIcon
+          name={icon}
+          size={18}
+          className={featuredLinkIconClassName}
+        />
+      ) : iconName ? (
           <DynamicIcon
             name={iconName}
             size={18}
             className={featuredLinkIconClassName}
           />
-        ) : null);
+        ) : null;
 
       if (children) {
         return (
@@ -493,15 +497,19 @@ export function LinkPageBentoLayout({
         iconName,
         ...pressableProps
       } = link;
-      const iconElement =
-        icon ||
-        (iconName ? (
+      const iconElement = icon ? (
+        <DynamicIcon
+          name={icon}
+          size={20}
+          className={regularLinkIconClassName}
+        />
+      ) : iconName ? (
           <DynamicIcon
             name={iconName}
             size={20}
             className={regularLinkIconClassName}
           />
-        ) : null);
+        ) : null;
 
       if (children) {
         return (
@@ -712,9 +720,10 @@ export function LinkPageBentoLayout({
       >
         {children ?? (
           <>
-            {icon ?? defaultIcon}
+            {icon !== "" &&
+              (icon == null ? defaultIcon : <DynamicIcon name={icon} />)}
             {label}
-            {iconAfter}
+            {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>

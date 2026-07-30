@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { ResourceDetailArticleHero } from "../resource-detail-article-hero";
 
 vi.mock("@page-speed/img", () => ({
@@ -27,17 +27,20 @@ vi.mock("../../../ui/dynamic-icon", () => ({
     size,
     className,
   }: {
-    name: string;
+    name?: React.ReactNode | string;
     size?: number;
     className?: string;
-  }) => (
-    <span
-      data-testid="mock-dynamic-icon"
-      data-name={name}
-      data-size={size}
-      className={className}
-    />
-  ),
+  }) =>
+    typeof name === "string" ? (
+      <span
+        data-testid="mock-dynamic-icon"
+        data-name={name}
+        data-size={size}
+        className={className}
+      />
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 vi.mock("../../../ui/avatar", () => ({
@@ -122,5 +125,149 @@ describe("ResourceDetailArticleHero", () => {
       />
     );
     expect(container.firstChild).toHaveClass("custom-class");
+  });
+
+  it("routes back icon names while preserving custom and sentinel nodes", () => {
+    const view = render(
+      <ResourceDetailArticleHero
+        navigation={{
+          backText: "All Articles",
+          backHref: "/blog",
+          backIcon: "lucide/arrow-left",
+        }}
+      />,
+    );
+    let backLink = view.container.querySelector(
+      '[href="/blog"]',
+    ) as HTMLElement;
+    expect(
+      within(backLink).getByTestId("mock-dynamic-icon"),
+    ).toHaveAttribute("data-name", "lucide/arrow-left");
+    expect(backLink).not.toHaveTextContent("lucide/arrow-left");
+
+    view.rerender(
+      <ResourceDetailArticleHero
+        navigation={{
+          backText: "All Articles",
+          backHref: "/blog",
+          backIcon: <span data-testid="custom-back-icon" />,
+        }}
+      />,
+    );
+    backLink = view.container.querySelector('[href="/blog"]') as HTMLElement;
+    expect(
+      within(backLink).getByTestId("custom-back-icon"),
+    ).toBeInTheDocument();
+    expect(
+      within(backLink).queryByTestId("mock-dynamic-icon"),
+    ).not.toBeInTheDocument();
+
+    view.rerender(
+      <ResourceDetailArticleHero
+        navigation={{
+          backText: "All Articles",
+          backHref: "/blog",
+          backIcon: 0,
+        }}
+      />,
+    );
+    backLink = view.container.querySelector('[href="/blog"]') as HTMLElement;
+    expect(backLink).toHaveTextContent("0All Articles");
+
+    view.rerender(
+      <ResourceDetailArticleHero
+        navigation={{
+          backText: "All Articles",
+          backHref: "/blog",
+          backIcon: "",
+        }}
+      />,
+    );
+    backLink = view.container.querySelector('[href="/blog"]') as HTMLElement;
+    expect(
+      within(backLink).queryByTestId("mock-dynamic-icon"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("routes share action icons while preserving children and node behavior", () => {
+    const { container } = render(
+      <ResourceDetailArticleHero
+        shareActions={[
+          {
+            href: "/string",
+            icon: "lucide/linkedin",
+            iconAfter: "lucide/arrow-up-right",
+            className: "custom-share-action",
+          },
+          {
+            href: "/custom",
+            icon: <span data-testid="custom-leading-icon" />,
+            iconAfter: <span data-testid="custom-trailing-icon" />,
+          },
+          {
+            href: "/sentinel",
+            icon: 0,
+            iconAfter: false,
+          },
+          {
+            href: "/empty",
+            icon: "",
+            iconAfter: "",
+          },
+          {
+            href: "/children",
+            icon: "lucide/hidden",
+            children: <span data-testid="share-action-children" />,
+          },
+        ]}
+      />,
+    );
+
+    const stringAction = container.querySelector(
+      '[href="/string"]',
+    ) as HTMLElement;
+    expect(
+      within(stringAction).getAllByTestId("mock-dynamic-icon").map((icon) =>
+        icon.getAttribute("data-name"),
+      ),
+    ).toEqual(["lucide/linkedin", "lucide/arrow-up-right"]);
+    expect(stringAction).not.toHaveTextContent("lucide/linkedin");
+    expect(stringAction).not.toHaveTextContent("lucide/arrow-up-right");
+    expect(stringAction).toHaveClass("custom-share-action");
+
+    const customAction = container.querySelector(
+      '[href="/custom"]',
+    ) as HTMLElement;
+    expect(
+      within(customAction).getByTestId("custom-leading-icon"),
+    ).toBeInTheDocument();
+    expect(
+      within(customAction).getByTestId("custom-trailing-icon"),
+    ).toBeInTheDocument();
+
+    const sentinelAction = container.querySelector(
+      '[href="/sentinel"]',
+    ) as HTMLElement;
+    expect(sentinelAction).toHaveTextContent("0");
+    expect(
+      within(sentinelAction).queryByTestId("mock-dynamic-icon"),
+    ).not.toBeInTheDocument();
+
+    const emptyAction = container.querySelector(
+      '[href="/empty"]',
+    ) as HTMLElement;
+    expect(
+      within(emptyAction).queryByTestId("mock-dynamic-icon"),
+    ).not.toBeInTheDocument();
+
+    const childrenAction = container.querySelector(
+      '[href="/children"]',
+    ) as HTMLElement;
+    expect(
+      within(childrenAction).getByTestId("share-action-children"),
+    ).toBeInTheDocument();
+    expect(
+      within(childrenAction).queryByTestId("mock-dynamic-icon"),
+    ).not.toBeInTheDocument();
   });
 });

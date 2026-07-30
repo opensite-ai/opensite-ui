@@ -25,7 +25,7 @@ export interface ResourceDetailWhitepaperSidebarSidebar {
   /**
    * Custom icon for resource type (defaults to book icon)
    */
-  resourceTypeIcon?: React.ReactNode;
+  resourceTypeIcon?: React.ReactNode | string;
   /**
    * Resource title
    */
@@ -55,7 +55,7 @@ export interface ResourceDetailWhitepaperSidebarSidebar {
   /**
    * Custom icon for download options (defaults to download icon)
    */
-  downloadOptionsIcon?: React.ReactNode;
+  downloadOptionsIcon?: React.ReactNode | string;
   /**
    * Read time estimate
    */
@@ -75,7 +75,7 @@ export interface ResourceDetailWhitepaperSidebarSidebar {
   /**
    * Custom icon for share section (defaults to share-2 icon)
    */
-  shareIcon?: React.ReactNode;
+  shareIcon?: React.ReactNode | string;
   /**
    * Social share actions
    */
@@ -255,11 +255,11 @@ export function ResourceDetailWhitepaperSidebar({
       >
         {children ?? (
           <>
-            {icon}
+            {icon !== "" && <DynamicIcon name={icon} />}
             {label}
           </>
         )}
-        {iconAfter}
+        {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
       </Pressable>
     );
   }, []);
@@ -279,7 +279,9 @@ export function ResourceDetailWhitepaperSidebar({
             getNestedCardBg(background)
           )}>
             <h3 className="flex items-center text-sm font-semibold">
-              {sidebar?.resourceTypeIcon}
+              {sidebar?.resourceTypeIcon !== "" && (
+                <DynamicIcon name={sidebar?.resourceTypeIcon} />
+              )}
               {sidebar?.resourceType &&
                 (typeof sidebar.resourceType === "string"
                   ? sidebar.resourceType
@@ -341,7 +343,9 @@ export function ResourceDetailWhitepaperSidebar({
             getNestedCardBg(background)
           )}>
             <h3 className="flex items-center text-sm font-semibold">
-              {sidebar?.downloadOptionsIcon}
+              {sidebar?.downloadOptionsIcon !== "" && (
+                <DynamicIcon name={sidebar?.downloadOptionsIcon} />
+              )}
               {sidebar?.downloadOptionsTitle &&
                 (typeof sidebar.downloadOptionsTitle === "string"
                   ? sidebar.downloadOptionsTitle
@@ -390,7 +394,9 @@ export function ResourceDetailWhitepaperSidebar({
             getNestedCardBg(background)
           )}>
             <h3 className="flex items-center text-sm font-semibold">
-              {sidebar?.shareIcon}
+              {sidebar?.shareIcon !== "" && (
+                <DynamicIcon name={sidebar?.shareIcon} />
+              )}
               {sidebar?.shareTitle &&
                 (typeof sidebar.shareTitle === "string"
                   ? sidebar.shareTitle
@@ -421,8 +427,10 @@ export function ResourceDetailWhitepaperSidebar({
                       >
                         {children ?? (
                           <>
-                            {icon}
-                            {iconAfter}
+                            {icon !== "" && <DynamicIcon name={icon} />}
+                            {iconAfter !== "" && (
+                              <DynamicIcon name={iconAfter} />
+                            )}
                           </>
                         )}
                       </Pressable>

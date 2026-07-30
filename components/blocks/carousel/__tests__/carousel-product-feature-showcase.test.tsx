@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import { CarouselProductFeatureShowcase } from "../carousel-product-feature-showcase";
 
 // Mock the Img component
@@ -31,6 +31,28 @@ vi.mock("framer-motion", () => ({
   ),
 }));
 
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({
+    name,
+    size,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    size?: number;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span
+        data-testid="mock-icon"
+        data-name={name}
+        data-size={size}
+        className={className}
+      />
+    ) : (
+      <>{name}</>
+    ),
+}));
+
 describe("CarouselProductFeatureShowcase", () => {
 
   it("renders custom heading", () => {
@@ -46,6 +68,94 @@ describe("CarouselProductFeatureShowcase", () => {
   it("renders custom actions", () => {
     render(<CarouselProductFeatureShowcase actions={[{ label: "Shop Now", href: "#" }]} />);
     expect(screen.getByText("Shop Now")).toBeInTheDocument();
+  });
+
+  it("routes action icons through DynamicIcon while preserving action composition", () => {
+    const { container } = render(
+      <CarouselProductFeatureShowcase
+        actions={[
+          {
+            label: "String action",
+            href: "/string",
+            icon: "lucide/shopping-bag",
+            iconAfter: "lucide/arrow-right",
+            className: "custom-action",
+          },
+          {
+            label: "Custom action",
+            href: "/custom",
+            icon: <span data-testid="custom-leading-icon" />,
+            iconAfter: <span data-testid="custom-trailing-icon" />,
+          },
+          {
+            label: "Sentinel action",
+            href: "/sentinel",
+            icon: 0,
+            iconAfter: false,
+          },
+          {
+            label: "Empty action",
+            href: "/empty",
+            icon: "",
+            iconAfter: "",
+          },
+          {
+            label: "Hidden label",
+            href: "/children",
+            icon: "lucide/hidden",
+            children: <span data-testid="action-children">Custom children</span>,
+          },
+        ]}
+      />,
+    );
+
+    const stringAction = container.querySelector(
+      '[href="/string"]',
+    ) as HTMLElement;
+    expect(
+      within(stringAction).getAllByTestId("mock-icon").map((icon) =>
+        icon.getAttribute("data-name"),
+      ),
+    ).toEqual(["lucide/shopping-bag", "lucide/arrow-right"]);
+    expect(stringAction).not.toHaveTextContent("lucide/shopping-bag");
+    expect(stringAction).not.toHaveTextContent("lucide/arrow-right");
+    expect(stringAction).toHaveClass("custom-action");
+
+    const customAction = container.querySelector(
+      '[href="/custom"]',
+    ) as HTMLElement;
+    expect(
+      within(customAction).getByTestId("custom-leading-icon"),
+    ).toBeInTheDocument();
+    expect(
+      within(customAction).getByTestId("custom-trailing-icon"),
+    ).toBeInTheDocument();
+
+    const sentinelAction = container.querySelector(
+      '[href="/sentinel"]',
+    ) as HTMLElement;
+    expect(sentinelAction).toHaveTextContent("0Sentinel action");
+    expect(
+      within(sentinelAction).queryByTestId("mock-icon"),
+    ).not.toBeInTheDocument();
+
+    const emptyAction = container.querySelector(
+      '[href="/empty"]',
+    ) as HTMLElement;
+    expect(
+      within(emptyAction).queryByTestId("mock-icon"),
+    ).not.toBeInTheDocument();
+
+    const childrenAction = container.querySelector(
+      '[href="/children"]',
+    ) as HTMLElement;
+    expect(
+      within(childrenAction).getByTestId("action-children"),
+    ).toBeInTheDocument();
+    expect(
+      within(childrenAction).queryByTestId("mock-icon"),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText("Hidden label")).not.toBeInTheDocument();
   });
 
   it("renders custom features", () => {
@@ -126,4 +236,3 @@ describe("CarouselProductFeatureShowcase", () => {
     expect(cta.closest("a")).toHaveAttribute("href", "/products");
   });
 });
-

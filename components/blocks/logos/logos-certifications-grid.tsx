@@ -154,9 +154,9 @@ export function LogosCertificationsGrid({
         asButton
         className={cn("w-full md:w-fit", action.className)}
       >
-        {action.icon}
+        {action.icon !== "" && <DynamicIcon name={action.icon} />}
         {action.label}
-        {action.iconAfter}
+        {action.iconAfter !== "" && <DynamicIcon name={action.iconAfter} />}
       </Pressable>
     ));
   }, [actions, actionsSlot]);

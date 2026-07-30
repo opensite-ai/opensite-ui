@@ -289,6 +289,7 @@ Files deleted: 0
 - Post-change raw-render and empty-expectation audits: exit 0.
 - `git diff --check`: exit 0.
 - New failures: none.
+
 - Pre-existing failures: none observed.
 
 ---
@@ -865,6 +866,48 @@ string/custom/empty/`false`/`0`/fallback/children/slot/media coverage.
 
 - Focused category run: 70 files passed, 420 tests passed, exit 0.
 - Review-focused group runs: 7/66, 6/24, and 7/59 tests passed.
+- `pnpm type-check`: exit 0.
+- `git diff --check`: exit 0.
+- New failures: none.
+
+# Change Manifest — Carousel, Link Page, Resource Detail, Logos, List, and Project List
+
+## Modified Files
+
+| Review group | Changed files | Classification / change |
+|---|---|---|
+| Carousel and link page | Five carousel blocks and five link-page blocks | Configurable direct, fallback, trailing, social-link, and manual-action icon boundaries now resolve through `DynamicIcon` while retaining their original predicates and composition. |
+| List and logos | Three list blocks and three logo blocks | Dedicated icon contracts and manual action renderers now accept and resolve icon API strings without changing fixed status icons, logos, or media. |
+| Project list and resource detail | Two project-list blocks and three resource-detail blocks | Project, back, feature, resource-type, download-options, share, and action icons now use flexible contracts and dynamic rendering with existing fallback precedence. |
+
+Twenty-one matching adjacent tests were extended or added. The two project-list
+tests are spec-authorized new adjacent suites.
+
+## Scope Compliance
+
+- 21 production files and 21 adjacent tests changed within the approved
+  21-file / 42-total-file batch.
+- Public dedicated icon contracts explicitly accept strings and custom React
+  nodes where they previously accepted only React nodes.
+- Empty strings, `false`, `0`, nullish/default fallbacks, action `children`,
+  wrappers, sizes, classes, ordering, images, logos, social rendering, fixed
+  controls, and media paths preserve their prior behavior.
+- The only out-of-allowlist working-tree path remains the user-owned
+  `package.json` version bump.
+
+## Review Resolution
+
+- Three independent group reviews approved all production semantics.
+- Review found and corrected test-only coverage gaps for resource-detail
+  dedicated icons and custom leading/trailing download-action icons.
+- Final AST and contract inspection reports zero ReactNode-only dedicated icon
+  contracts and zero direct raw configurable-icon render boundaries in the
+  batch.
+
+## Test Results
+
+- Focused category run: 42 files passed, 240 tests passed, exit 0.
+- Review-focused group runs: 7/40, 7/52, and 7/32 tests passed.
 - `pnpm type-check`: exit 0.
 - `git diff --check`: exit 0.
 - New failures: none.

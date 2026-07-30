@@ -35,9 +35,9 @@ export interface ListFeatureComparisonFeature {
 
 export interface ListFeatureComparisonTrustIndicator {
   /**
-   * Icon name for the indicator (e.g., "lucide/users")
+   * Icon name or custom element for the indicator (e.g., "lucide/users")
    */
-  icon?: string;
+  icon?: React.ReactNode | string;
   /**
    * Title text
    */
@@ -271,9 +271,9 @@ export function ListFeatureComparison({
             >
               {children ?? (
                 <>
-                  {icon}
+                  {icon !== "" && <DynamicIcon name={icon} />}
                   {label}
-                  {iconAfter}
+                  {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
                 </>
               )}
             </Pressable>

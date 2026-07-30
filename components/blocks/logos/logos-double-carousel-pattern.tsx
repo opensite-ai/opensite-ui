@@ -7,6 +7,7 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { patternSvgs } from "../../../lib/patternSvgs";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import type { PatternName } from "../../ui/pattern-background";
@@ -172,9 +173,9 @@ export function LogosDoubleCarouselPattern({
         asButton
         className={action.className}
       >
-        {action.icon}
+        {action.icon !== "" && <DynamicIcon name={action.icon} />}
         {action.label}
-        {action.iconAfter}
+        {action.iconAfter !== "" && <DynamicIcon name={action.iconAfter} />}
       </Pressable>
     ));
   }, [actions, actionsSlot]);

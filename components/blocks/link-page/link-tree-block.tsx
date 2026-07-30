@@ -83,7 +83,7 @@ export interface LinkTreeBlockProps {
   /**
    * Custom verified icon
    */
-  verifiedIcon?: React.ReactNode;
+  verifiedIcon?: React.ReactNode | string;
   /**
    * Custom slot for rendering brand header
    */
@@ -463,12 +463,20 @@ export function LinkTreeBlock({
                 verifiedBadgeClassName,
               )}
             >
-              {verifiedIcon ?? (
+              {verifiedIcon == null ? (
                 <DynamicIcon
                   name="lucide/check"
                   size={14}
                   className={cn("", verifiedIconClassName)}
                 />
+              ) : (
+                verifiedIcon !== "" && (
+                  <DynamicIcon
+                    name={verifiedIcon}
+                    size={14}
+                    className={cn("", verifiedIconClassName)}
+                  />
+                )
               )}
             </div>
           )}
@@ -542,14 +550,19 @@ export function LinkTreeBlock({
             ...pressableProps
           } = link;
           const iconElement =
-            icon ||
-            (iconName ? (
+            icon ? (
+              <DynamicIcon
+                name={icon}
+                size={20}
+                className={linkIconClassName}
+              />
+            ) : iconName ? (
               <DynamicIcon
                 name={iconName}
                 size={20}
                 className={linkIconClassName}
               />
-            ) : null);
+            ) : null;
 
           const badgeVariant =
             link.badgeVariant ?? (isFeatured ? "secondary" : "default");
@@ -839,9 +852,11 @@ export function LinkTreeBlock({
       >
         {children ?? (
           <>
-            {icon ?? defaultIcon}
+            {icon == null
+              ? defaultIcon
+              : icon !== "" && <DynamicIcon name={icon} />}
             {label}
-            {iconAfter}
+            {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>

@@ -264,8 +264,16 @@ export function CarouselAnimatedSections({
           className={cn(action.className)}
         >
           {action.label}
-          {action.icon && <span className="ml-2">{action.icon}</span>}
-          {action.iconAfter && <span className="ml-2">{action.iconAfter}</span>}
+          {action.icon && (
+            <span className="ml-2">
+              <DynamicIcon name={action.icon} />
+            </span>
+          )}
+          {action.iconAfter && (
+            <span className="ml-2">
+              <DynamicIcon name={action.iconAfter} />
+            </span>
+          )}
         </Pressable>
       ));
     }

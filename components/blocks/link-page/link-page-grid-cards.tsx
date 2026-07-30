@@ -404,15 +404,19 @@ export function LinkPageGridCards({
             iconName,
             ...pressableProps
           } = link;
-          const iconElement =
-            icon ||
-            (iconName ? (
+          const iconElement = icon ? (
+            <DynamicIcon
+              name={icon}
+              size={24}
+              className={cardIconClassName}
+            />
+          ) : iconName ? (
               <DynamicIcon
                 name={iconName}
                 size={24}
                 className={cardIconClassName}
               />
-            ) : null);
+            ) : null;
 
           if (children) {
             return (
@@ -532,9 +536,10 @@ export function LinkPageGridCards({
       >
         {children ?? (
           <>
-            {icon ?? defaultIcon}
+            {icon !== "" &&
+              (icon == null ? defaultIcon : <DynamicIcon name={icon} />)}
             {label}
-            {iconAfter}
+            {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>

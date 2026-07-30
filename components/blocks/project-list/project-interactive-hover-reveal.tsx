@@ -43,7 +43,7 @@ export interface ProjectInteractiveHoverRevealProps {
   /**
    * Custom icon element for project link
    */
-  projectLinkIcon?: React.ReactNode;
+  projectLinkIcon?: React.ReactNode | string;
   /**
    * Icon name for project link (e.g., "lucide/arrow-right")
    */
@@ -188,11 +188,15 @@ export function ProjectInteractiveHoverReveal({
           </p>
           <span className="inline-flex items-center text-sm font-medium text-background drop-shadow">
             {projectLinkLabel ?? "View Project"}{" "}
-            {projectLinkIcon ?? (projectLinkIconName ? (
+            {projectLinkIcon == null ? (projectLinkIconName ? (
               <DynamicIcon name={projectLinkIconName} size={14} className="ml-1" />
             ) : (
               <DynamicIcon name="lucide/arrow-right" size={14} className="ml-1" />
-            ))}
+            )) : (
+              projectLinkIcon !== "" && (
+                <DynamicIcon name={projectLinkIcon} size={14} className="ml-1" />
+              )
+            )}
           </span>
         </div>
       </Pressable>

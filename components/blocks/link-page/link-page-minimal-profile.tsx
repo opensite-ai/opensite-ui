@@ -332,14 +332,19 @@ export function LinkPageMinimalProfile({
             ...pressableProps
           } = link;
           const iconElement =
-            icon ||
-            (iconName ? (
+            icon ? (
+              <DynamicIcon
+                name={icon}
+                size={18}
+                className={linkIconClassName}
+              />
+            ) : iconName ? (
               <DynamicIcon
                 name={iconName}
                 size={18}
                 className={linkIconClassName}
               />
-            ) : null);
+            ) : null;
 
           if (children) {
             return (
@@ -460,9 +465,11 @@ export function LinkPageMinimalProfile({
       >
         {children ?? (
           <>
-            {icon ?? defaultIcon}
+            {icon == null
+              ? defaultIcon
+              : icon !== "" && <DynamicIcon name={icon} />}
             {label}
-            {iconAfter}
+            {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>

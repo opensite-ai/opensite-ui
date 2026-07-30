@@ -30,7 +30,7 @@ export interface ResourceDetailArticleHeroNavigation {
   /**
    * Custom back icon (defaults to arrow-left)
    */
-  backIcon?: React.ReactNode;
+  backIcon?: React.ReactNode | string;
 }
 
 export interface ResourceDetailArticleHeroBlog {
@@ -271,7 +271,9 @@ export function ResourceDetailArticleHero({
           className="group/nav flex items-center gap-2 transition-all duration-200 hover:gap-4"
         >
           <span className="group-hover/nav:text-primary-foreground">
-            {navigation?.backIcon}
+            {navigation?.backIcon !== "" && (
+              <DynamicIcon name={navigation?.backIcon} />
+            )}
           </span>
           {navigation?.backText &&
             (typeof navigation.backText === "string" ? (
@@ -350,8 +352,8 @@ export function ResourceDetailArticleHero({
               >
                 {children ?? (
                   <>
-                    {icon}
-                    {iconAfter}
+                    {icon !== "" && <DynamicIcon name={icon} />}
+                    {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
                   </>
                 )}
               </Pressable>

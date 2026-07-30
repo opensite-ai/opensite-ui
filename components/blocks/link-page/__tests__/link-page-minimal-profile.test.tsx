@@ -33,11 +33,27 @@ vi.mock("../../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>
-      icon
-    </span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+    size,
+  }: {
+    name?: React.ReactNode;
+    className?: string;
+    size?: number;
+  }) =>
+    typeof name === "string" ? (
+      <span
+        data-testid="mock-icon"
+        data-name={name}
+        data-size={size}
+        className={className}
+      >
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 vi.mock("../../../ui/social-link-icon", () => ({
@@ -87,5 +103,158 @@ describe("LinkPageMinimalProfile", () => {
       "object-contain",
       "sm:max-h-24",
     );
+  });
+
+  it("resolves string and custom link icons while preserving truthy fallback precedence", () => {
+    render(
+      <LinkPageMinimalProfile
+        name="Test"
+        linkIconClassName="link-icon-class"
+        links={[
+          {
+            id: "string",
+            label: "String icon",
+            icon: "lucide/rocket",
+            iconName: "lucide/string-fallback",
+          },
+          {
+            id: "custom",
+            label: "Custom icon",
+            icon: <span data-testid="custom-link-icon">custom</span>,
+            iconName: "lucide/custom-fallback",
+          },
+          {
+            id: "empty",
+            label: "Empty icon",
+            icon: "",
+            iconName: "lucide/empty-fallback",
+          },
+          {
+            id: "false",
+            label: "False icon",
+            icon: false,
+            iconName: "lucide/false-fallback",
+          },
+          {
+            id: "zero",
+            label: "Zero icon",
+            icon: 0,
+            iconName: "lucide/zero-fallback",
+          },
+        ]}
+      />,
+    );
+
+    const stringLink = screen
+      .getByText("String icon")
+      .closest('[data-testid="mock-pressable"]') as HTMLElement;
+    const stringIcon = stringLink.querySelector(
+      '[data-name="lucide/rocket"]',
+    );
+    expect(stringIcon).toHaveAttribute("data-size", "18");
+    expect(stringIcon).toHaveClass("link-icon-class");
+    expect(stringLink).not.toHaveTextContent("lucide/rocket");
+    expect(
+      stringLink.querySelector('[data-name="lucide/string-fallback"]'),
+    ).not.toBeInTheDocument();
+
+    const customLink = screen
+      .getByText("Custom icon")
+      .closest('[data-testid="mock-pressable"]') as HTMLElement;
+    expect(customLink).toContainElement(screen.getByTestId("custom-link-icon"));
+    expect(
+      customLink.querySelector('[data-name="lucide/custom-fallback"]'),
+    ).not.toBeInTheDocument();
+
+    for (const [label, fallback] of [
+      ["Empty icon", "lucide/empty-fallback"],
+      ["False icon", "lucide/false-fallback"],
+      ["Zero icon", "lucide/zero-fallback"],
+    ]) {
+      const link = screen
+        .getByText(label)
+        .closest('[data-testid="mock-pressable"]') as HTMLElement;
+      expect(link.querySelector(`[data-name="${fallback}"]`)).toBeInTheDocument();
+    }
+  });
+
+  it("resolves footer action icons without changing scalar or children semantics", () => {
+    const { container, rerender } = render(
+      <LinkPageMinimalProfile
+        name="Test"
+        footerAction={{
+          label: "Footer action",
+          href: "/footer",
+          icon: "lucide/footer-before",
+          iconAfter: <span data-testid="custom-footer-after">after</span>,
+        }}
+      />,
+    );
+
+    const footer = container.querySelector('a[href="/footer"]') as HTMLElement;
+    expect(
+      footer.querySelector('[data-name="lucide/footer-before"]'),
+    ).toBeInTheDocument();
+    expect(footer).toContainElement(screen.getByTestId("custom-footer-after"));
+    expect(footer).not.toHaveTextContent("lucide/footer-before");
+
+    rerender(
+      <LinkPageMinimalProfile
+        name="Test"
+        footerAction={{
+          label: "Scalar footer",
+          href: "/scalar",
+          icon: 0,
+          iconAfter: false,
+        }}
+      />,
+    );
+    const scalarFooter = container.querySelector(
+      'a[href="/scalar"]',
+    ) as HTMLElement;
+    expect(scalarFooter.textContent).toContain("0");
+    expect(
+      scalarFooter.querySelector('[data-testid="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <LinkPageMinimalProfile
+        name="Test"
+        footerAction={{
+          label: "Empty footer",
+          href: "/empty",
+          icon: "",
+          iconAfter: "",
+        }}
+      />,
+    );
+    const emptyFooter = container.querySelector(
+      'a[href="/empty"]',
+    ) as HTMLElement;
+    expect(
+      emptyFooter.querySelector('[data-testid="mock-icon"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <LinkPageMinimalProfile
+        name="Test"
+        footerAction={{
+          label: "Hidden label",
+          href: "/children",
+          icon: "lucide/hidden-before",
+          iconAfter: "lucide/hidden-after",
+          children: <span>Footer children</span>,
+        }}
+      />,
+    );
+    const childrenFooter = container.querySelector(
+      'a[href="/children"]',
+    ) as HTMLElement;
+    expect(
+      childrenFooter.querySelector('[data-name="lucide/hidden-before"]'),
+    ).not.toBeInTheDocument();
+    expect(
+      childrenFooter.querySelector('[data-name="lucide/hidden-after"]'),
+    ).not.toBeInTheDocument();
   });
 });

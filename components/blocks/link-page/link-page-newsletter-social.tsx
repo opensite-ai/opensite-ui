@@ -135,7 +135,7 @@ export interface LinkPageNewsletterSocialProps {
   /**
    * Chevron icon displayed on link items
    */
-  linkChevronIcon?: React.ReactNode;
+  linkChevronIcon?: React.ReactNode | string;
   /**
    * Array of social media links
    */
@@ -341,9 +341,14 @@ export function LinkPageNewsletterSocial({
   patternClassName,
   optixFlowConfig,
 }: LinkPageNewsletterSocialProps): React.JSX.Element {
-  const resolvedChevronIcon = linkChevronIcon ?? (
-    <DynamicIcon name="lucide/chevron-right" size={16} />
-  );
+  const resolvedChevronIcon =
+    linkChevronIcon == null ? (
+      <DynamicIcon name="lucide/chevron-right" size={16} />
+    ) : (
+      linkChevronIcon !== "" && (
+        <DynamicIcon name={linkChevronIcon} size={16} />
+      )
+    );
 
   const renderProfile = useMemo(() => {
     if (profileSlot) return profileSlot;
@@ -490,7 +495,9 @@ export function LinkPageNewsletterSocial({
                 submitLabel: (
                   <>
                     {action.label}
-                    {action.iconAfter}
+                    {action.iconAfter !== "" && (
+                      <DynamicIcon name={action.iconAfter} />
+                    )}
                   </>
                 ),
                 submitVariant: action.variant || "default",
@@ -578,14 +585,19 @@ export function LinkPageNewsletterSocial({
             ...pressableProps
           } = link;
           const iconElement =
-            icon ||
-            (iconName ? (
+            icon ? (
+              <DynamicIcon
+                name={icon}
+                size={18}
+                className={linkIconClassName}
+              />
+            ) : iconName ? (
               <DynamicIcon
                 name={iconName}
                 size={18}
                 className={linkIconClassName}
               />
-            ) : null);
+            ) : null;
 
           if (children) {
             return (
@@ -684,9 +696,11 @@ export function LinkPageNewsletterSocial({
       >
         {children ?? (
           <>
-            {icon ?? defaultIcon}
+            {icon == null
+              ? defaultIcon
+              : icon !== "" && <DynamicIcon name={icon} />}
             {label}
-            {iconAfter}
+            {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>

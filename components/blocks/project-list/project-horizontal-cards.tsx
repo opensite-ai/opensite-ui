@@ -47,7 +47,7 @@ export interface ProjectHorizontalCardsProps {
   /**
    * Custom icon element for project link button
    */
-  projectLinkIcon?: React.ReactNode;
+  projectLinkIcon?: React.ReactNode | string;
   /**
    * Icon name for project link button (e.g., "lucide/arrow-right")
    */
@@ -184,7 +184,7 @@ export function ProjectHorizontalCards({
 
             <Pressable href={project.link} variant="outline" size="sm">
               {projectLinkLabel ?? "View Project"}{" "}
-              {projectLinkIcon ?? (projectLinkIconName ? (
+              {projectLinkIcon == null ? (projectLinkIconName ? (
                 <DynamicIcon
                   name={projectLinkIconName}
                   size={14}
@@ -196,7 +196,15 @@ export function ProjectHorizontalCards({
                   size={14}
                   className="ml-1"
                 />
-              ))}
+              )) : (
+                projectLinkIcon !== "" && (
+                  <DynamicIcon
+                    name={projectLinkIcon}
+                    size={14}
+                    className="ml-1"
+                  />
+                )
+              )}
             </Pressable>
           </div>
         </div>

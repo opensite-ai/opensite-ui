@@ -33,11 +33,27 @@ vi.mock("../../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>
-      icon
-    </span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+    size,
+  }: {
+    name?: React.ReactNode;
+    className?: string;
+    size?: number;
+  }) =>
+    typeof name === "string" ? (
+      <span
+        data-testid="mock-icon"
+        data-name={name}
+        data-size={size}
+        className={className}
+      >
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 vi.mock("../../../ui/social-link-icon", () => ({
@@ -91,5 +107,134 @@ describe("LinkTreeBlock", () => {
       "max-w-full",
       "object-contain",
     );
+  });
+
+  it("routes verified, link, and footer icon strings through DynamicIcon", () => {
+    render(
+      <LinkTreeBlock
+        brandName="Test"
+        brandVerified
+        verifiedIcon="lucide/badge-check"
+        verifiedIconClassName="verified-icon-class"
+        linkIconClassName="link-icon-class"
+        links={[
+          {
+            id: "string",
+            label: "String link",
+            icon: "lucide/link-icon",
+            href: "https://example.com",
+          },
+        ]}
+        footerAction={{
+          label: "Footer action",
+          icon: "lucide/footer-before",
+          iconAfter: "lucide/footer-after",
+        }}
+      />,
+    );
+
+    const verifiedIcon = document.querySelector(
+      '[data-name="lucide/badge-check"]',
+    );
+    expect(verifiedIcon).toHaveAttribute("data-size", "14");
+    expect(verifiedIcon).toHaveClass("verified-icon-class");
+    expect(verifiedIcon?.parentElement).not.toHaveTextContent(
+      "lucide/badge-check",
+    );
+
+    const link = screen
+      .getByText("String link")
+      .closest('[data-testid="mock-pressable"]') as HTMLElement;
+    const linkIcon = link.querySelector('[data-name="lucide/link-icon"]');
+    expect(linkIcon).toHaveAttribute("data-size", "20");
+    expect(linkIcon).toHaveClass("link-icon-class");
+    expect(link).not.toHaveTextContent("lucide/link-icon");
+
+    const footer = screen
+      .getByText("Footer action")
+      .closest('[data-testid="mock-pressable"]') as HTMLElement;
+    expect(
+      footer.querySelector('[data-name="lucide/footer-before"]'),
+    ).toBeInTheDocument();
+    expect(
+      footer.querySelector('[data-name="lucide/footer-after"]'),
+    ).toBeInTheDocument();
+    expect(footer).not.toHaveTextContent("lucide/footer-before");
+    expect(footer).not.toHaveTextContent("lucide/footer-after");
+  });
+
+  it("preserves custom icons and verified nullish and falsy fallback semantics", () => {
+    const { rerender } = render(
+      <LinkTreeBlock
+        brandName="Test"
+        brandVerified
+        verifiedIcon={<span data-testid="custom-verified-icon">verified</span>}
+        links={[
+          {
+            id: "custom",
+            label: "Custom link",
+            icon: <span data-testid="custom-link-icon">link</span>,
+            iconName: "lucide/custom-fallback",
+          },
+          {
+            id: "empty",
+            label: "Empty link",
+            icon: "",
+            iconName: "lucide/empty-fallback",
+          },
+        ]}
+        footerAction={{
+          label: "Custom footer",
+          icon: <span data-testid="custom-footer-before">before</span>,
+          iconAfter: <span data-testid="custom-footer-after">after</span>,
+        }}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-verified-icon")).toBeInTheDocument();
+    const customLink = screen
+      .getByText("Custom link")
+      .closest('[data-testid="mock-pressable"]') as HTMLElement;
+    expect(customLink).toContainElement(screen.getByTestId("custom-link-icon"));
+    expect(
+      customLink.querySelector('[data-name="lucide/custom-fallback"]'),
+    ).not.toBeInTheDocument();
+
+    const emptyLink = screen
+      .getByText("Empty link")
+      .closest('[data-testid="mock-pressable"]') as HTMLElement;
+    expect(
+      emptyLink.querySelector('[data-name="lucide/empty-fallback"]'),
+    ).toBeInTheDocument();
+
+    const footer = screen
+      .getByText("Custom footer")
+      .closest('[data-testid="mock-pressable"]') as HTMLElement;
+    expect(footer).toContainElement(screen.getByTestId("custom-footer-before"));
+    expect(footer).toContainElement(screen.getByTestId("custom-footer-after"));
+
+    rerender(
+      <LinkTreeBlock brandName="Test" brandVerified verifiedIcon="" />,
+    );
+    expect(
+      document.querySelector('[data-name="lucide/check"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <LinkTreeBlock brandName="Test" brandVerified verifiedIcon={false} />,
+    );
+    expect(
+      document.querySelector('[data-name="lucide/check"]'),
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <LinkTreeBlock brandName="Test" brandVerified verifiedIcon={0} />,
+    );
+    expect(screen.getByText("0")).toBeInTheDocument();
+
+    rerender(<LinkTreeBlock brandName="Test" brandVerified />);
+    expect(
+      document.querySelector('[data-name="lucide/check"]'),
+    ).toHaveAttribute("data-size", "14");
   });
 });

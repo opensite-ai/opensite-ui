@@ -262,9 +262,9 @@ export function CarouselProductFeatureShowcase({
             >
               {children ?? (
                 <>
-                  {icon}
+                  {icon !== "" && <DynamicIcon name={icon} />}
                   {label}
-                  {iconAfter}
+                  {iconAfter !== "" && <DynamicIcon name={iconAfter} />}
                 </>
               )}
             </Pressable>

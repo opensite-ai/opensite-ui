@@ -218,15 +218,18 @@ export function CarouselMultiStepShowcase({
         >
           {children ?? (
             <>
-              {icon}
+              {icon !== "" && <DynamicIcon name={icon} />}
               {label}
-              {iconAfter ?? (
-                <DynamicIcon
-                  name="lucide/arrow-right"
-                  size={16}
-                  className="ml-2"
-                />
-              )}
+              {iconAfter !== "" &&
+                (iconAfter == null ? (
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    size={16}
+                    className="ml-2"
+                  />
+                ) : (
+                  <DynamicIcon name={iconAfter} />
+                ))}
             </>
           )}
         </Pressable>
