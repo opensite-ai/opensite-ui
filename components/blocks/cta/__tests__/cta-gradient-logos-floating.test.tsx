@@ -19,6 +19,15 @@ vi.mock("../../../lib/mediaPlaceholders", () => ({
   logoPlaceholders: Array(20).fill("https://placeholder.com/logo.jpg"),
 }));
 
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({ name }: { name?: React.ReactNode | string }) =>
+    name == null ? null : typeof name === "string" ? (
+      <span data-testid={`mock-icon-${name || "empty"}`}>icon</span>
+    ) : (
+      <>{name}</>
+    ),
+}));
+
 describe("CtaGradientLogosFloating", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -54,6 +63,79 @@ describe("CtaGradientLogosFloating", () => {
     render(<CtaGradientLogosFloating actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
     expect(screen.getByText("Learn More")).toBeInTheDocument();
+  });
+
+  it("routes action icon names through DynamicIcon and preserves custom elements", () => {
+    render(
+      <CtaGradientLogosFloating
+        actions={[
+          {
+            label: "Named Icons",
+            icon: "lucide/sparkles",
+            iconAfter: "lucide/arrow-up-right",
+          },
+          {
+            label: "Custom Icons",
+            icon: <span data-testid="custom-leading-icon" />,
+            iconAfter: <span data-testid="custom-trailing-icon" />,
+          },
+        ]}
+      />,
+    );
+
+    expect(
+      screen.getByTestId("mock-icon-lucide/sparkles"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("mock-icon-lucide/arrow-up-right"),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("lucide/sparkles")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("lucide/arrow-up-right"),
+    ).not.toBeInTheDocument();
+    expect(screen.getByTestId("custom-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
+  });
+
+  it("preserves the first action trailing-icon default", () => {
+    render(
+      <CtaGradientLogosFloating actions={[{ label: "Default Trailing" }]} />,
+    );
+
+    expect(
+      screen.getByTestId("mock-icon-lucide/arrow-right"),
+    ).toBeInTheDocument();
+  });
+
+  it("keeps an empty trailing icon override ahead of the default", () => {
+    render(
+      <CtaGradientLogosFloating
+        actions={[{ label: "Empty Icons", icon: "", iconAfter: "" }]}
+      />,
+    );
+
+    expect(screen.queryByTestId("mock-icon-empty")).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mock-icon-lucide/arrow-right"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("preserves false and zero overrides ahead of the trailing-icon default", () => {
+    render(
+      <CtaGradientLogosFloating
+        actions={[{ label: "Falsy Icons", icon: false, iconAfter: 0 }]}
+      />,
+    );
+
+    expect(
+      screen.getByText("Falsy Icons", {
+        selector: '[data-slot="button"]',
+        exact: false,
+      }),
+    ).toHaveTextContent("Falsy Icons0");
+    expect(
+      screen.queryByTestId("mock-icon-lucide/arrow-right"),
+    ).not.toBeInTheDocument();
   });
 
   it("applies custom className", () => {

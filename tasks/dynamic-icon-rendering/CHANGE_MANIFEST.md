@@ -102,6 +102,65 @@ Files deleted: 0
 - New failures: none.
 - Pre-existing failures: none observed.
 
+# Change Manifest — CTA Part A
+
+## Modified Files
+
+| Source and adjacent test | Classification / change | Combined lines +/- | Notes |
+|---|---|---:|---|
+| `cta-accent-background` | Vulnerable direct render | +100/-6 | Manual action icons now use `DynamicIcon`; complete action-child replacement is preserved. |
+| `cta-app-download-newsletter` | Vulnerable direct render | +231/-12 | App-store, action, and form-submit icons now accept names while retaining platform defaults and sizing. |
+| `cta-background-icon-badge` | Vulnerable fallback render | +174/-11 | Badge override and action icons now use `DynamicIcon` with the existing badge dimensions. |
+| `cta-case-study-testimonial` | Vulnerable mixed render | +252/-20 | Section, leading, and trailing action icons now resolve dynamically with original fallback and styling intent. |
+| `cta-documentation-links` | Vulnerable mixed render | +233/-18 | Link and manual action icons now resolve dynamically; hardcoded chevrons remain unchanged. |
+| `cta-enterprise-dark-features` | Vulnerable mixed render | +235/-18 | Feature and manual action icons now resolve dynamically; media remains unchanged. |
+| `cta-enterprise-split` | Vulnerable mixed render | +234/-15 | Link and manual action icons now resolve dynamically with complete child replacement. |
+| `cta-feature-cards-grid` | Vulnerable direct render | +115/-6 | Feature-card and action icons now use `DynamicIcon`. |
+| `cta-feature-checklist` | Vulnerable fallback render | +104/-5 | Checklist icon overrides and legacy names now use `DynamicIcon` without changing fallback precedence. |
+| `cta-feature-list` | Vulnerable fallback render | +137/-14 | Feature icon overrides and action icons now use `DynamicIcon`; media remains unchanged. |
+| `cta-fullwidth-background` | Vulnerable direct render | +63/-2 | Manual action icons now use `DynamicIcon`. |
+| `cta-gradient-logos-floating` | Vulnerable mixed render | +96/-9 | Manual action icons now resolve dynamically; floating logos remain media. |
+| `cta-gradient-stats-hero` | Vulnerable mixed render | +131/-13 | Manual action and stat icons now use `DynamicIcon` with original truthiness behavior. |
+| `tasks/dynamic-icon-rendering/.refactor-session.md` | Control state | current batch | Records batch completion and the retroactive parity audit. |
+| `tasks/dynamic-icon-rendering/CHANGE_MANIFEST.md` | Batch manifest | current batch | Records classifications, semantic corrections, and verification. |
+
+## Scope Compliance
+
+- [x] The implementation diff is exactly 13 approved production files and their 13 existing adjacent tests.
+- [x] All 26 implementation/test files are in the exact scope allowlist.
+- [x] No new files exist outside spec-defined outputs.
+- [x] No dependency or lockfile changed.
+- [x] The pre-existing `package.json` version-only diff is unchanged and unstaged.
+- [x] No new shared abstraction or rendering system was created.
+- [x] No styling, layout, image/media, action order, children precedence, or fallback behavior changed.
+- [x] Post-change audit reports no raw icon-like JSX children in the 13 production files.
+- [x] Positive empty-icon placeholder expectations are absent.
+- [x] `git diff --check` passed.
+- [x] Independent semantic reviews covered all 13 source/test pairs.
+
+## Review Resolution
+
+- Empty-string icon overrides retain raw React behavior: they produce no icon
+  DOM and continue to suppress or select fallbacks according to each original
+  `??`, `||`, or truthy branch. Tests also cover `false`, `0`, custom nodes,
+  nullish values, and defaults where those values are accepted.
+- In documentation, enterprise-dark, and enterprise-split actions,
+  `action.children` replaces the complete generated leading-icon, label, and
+  trailing-icon composition. Existing `actionsSlot` replacement remains intact.
+- App-store, badge, section, and trailing-arrow string overrides inherit the
+  same size and class intent as their prior default/icon-name render paths.
+
+## Test Results
+
+- Focused: 13 files passed, 144 tests passed, exit 0.
+- `pnpm type-check`: exit 0.
+- Exact 26-file scope/allowlist audit: exit 0.
+- Dependency/package-baseline audit: exit 0.
+- Post-change raw-render and empty-expectation audits: exit 0.
+- `git diff --check`: exit 0.
+- New failures: none.
+- Pre-existing failures: none observed.
+
 ---
 
 # Change Manifest — Remaining Hero Part B

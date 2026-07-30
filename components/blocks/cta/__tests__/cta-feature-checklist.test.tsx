@@ -9,9 +9,24 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    name == null ? null : typeof name === "string" ? (
+      <span
+        data-testid={`mock-icon-${name || "empty"}`}
+        data-name={name}
+        className={className}
+      >
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("CtaFeatureChecklist", () => {
@@ -49,6 +64,84 @@ describe("CtaFeatureChecklist", () => {
     expect(screen.getByText("Easy Integration")).toBeInTheDocument();
     expect(screen.getByText("24/7 Support")).toBeInTheDocument();
     expect(screen.getByText("Scalable Performance")).toBeInTheDocument();
+  });
+
+  it("routes a checklist icon name through DynamicIcon without exposing raw text", () => {
+    render(
+      <CtaFeatureChecklist
+        items={[
+          {
+            text: "Protected",
+            icon: "lucide/shield-check",
+            iconName: "lucide/check",
+          },
+        ]}
+      />,
+    );
+
+    expect(
+      screen.getByTestId("mock-icon-lucide/shield-check"),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mock-icon-lucide/check"),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/shield-check")).not.toBeInTheDocument();
+  });
+
+  it("preserves a custom checklist icon element", () => {
+    render(
+      <CtaFeatureChecklist
+        items={[
+          {
+            text: "Custom",
+            icon: <span data-testid="custom-checklist-icon" />,
+            iconName: "lucide/check",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-checklist-icon")).toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mock-icon-lucide/check"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("preserves checklist default, empty-string, and falsy override precedence", () => {
+    render(
+      <CtaFeatureChecklist
+        items={[
+          "Default",
+          { text: "Empty legacy name", iconName: "" },
+          {
+            text: "Empty override",
+            icon: "",
+            iconName: "lucide/shield",
+          },
+          {
+            text: "Zero override",
+            icon: 0,
+            iconName: "lucide/shield",
+          },
+          {
+            text: "False override",
+            icon: false,
+            iconName: "lucide/shield",
+          },
+        ]}
+      />,
+    );
+
+    expect(
+      screen.getAllByTestId("mock-icon-lucide/check"),
+    ).toHaveLength(2);
+    expect(screen.queryByTestId("mock-icon-empty")).not.toBeInTheDocument();
+    expect(
+      screen.getByText("Zero override", { exact: false }),
+    ).toHaveTextContent("0Zero override");
+    expect(
+      screen.queryByTestId("mock-icon-lucide/shield"),
+    ).not.toBeInTheDocument();
   });
 
   it("applies custom className", () => {

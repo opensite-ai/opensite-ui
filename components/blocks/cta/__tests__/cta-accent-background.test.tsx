@@ -9,9 +9,20 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("CtaAccentBackground", () => {
@@ -43,6 +54,80 @@ describe("CtaAccentBackground", () => {
     render(<CtaAccentBackground actions={actions} />);
     expect(screen.getByText("Buy Now")).toBeInTheDocument();
     expect(screen.getByText("Contact Us")).toBeInTheDocument();
+  });
+
+  it("renders action icon names through DynamicIcon without exposing raw text", () => {
+    render(
+      <CtaAccentBackground
+        actions={[
+          {
+            label: "Explore",
+            icon: "lucide/arrow-left",
+            iconAfter: "lucide/arrow-right",
+          },
+        ]}
+      />,
+    );
+
+    expect(
+      screen
+        .getAllByTestId("mock-icon")
+        .map((icon) => icon.getAttribute("data-name")),
+    ).toEqual(["lucide/arrow-left", "lucide/arrow-right"]);
+    expect(screen.queryByText("lucide/arrow-left")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/arrow-right")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom action icon elements", () => {
+    render(
+      <CtaAccentBackground
+        actions={[
+          {
+            label: "Explore",
+            icon: <span data-testid="custom-leading-icon">leading</span>,
+            iconAfter: <span data-testid="custom-trailing-icon">trailing</span>,
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-leading-icon")).toHaveTextContent(
+      "leading",
+    );
+    expect(screen.getByTestId("custom-trailing-icon")).toHaveTextContent(
+      "trailing",
+    );
+  });
+
+  it("lets action children replace generated icon and label content", () => {
+    render(
+      <CtaAccentBackground
+        actions={[
+          {
+            label: "Generated label",
+            icon: "lucide/arrow-left",
+            iconAfter: "lucide/arrow-right",
+            children: <span>Custom action content</span>,
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByText("Custom action content")).toBeInTheDocument();
+    expect(screen.queryByText("Generated label")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+  });
+
+  it("renders actionsSlot instead of generated actions", () => {
+    render(
+      <CtaAccentBackground
+        actions={[{ label: "Generated action" }]}
+        actionsSlot={<span>Custom actions slot</span>}
+      />,
+    );
+
+    expect(screen.getByText("Custom actions slot")).toBeInTheDocument();
+    expect(screen.queryByText("Generated action")).not.toBeInTheDocument();
   });
 
   it("applies custom className", () => {

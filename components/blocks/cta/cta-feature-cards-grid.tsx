@@ -155,9 +155,13 @@ export function CtaFeatureCardsGrid({
             aria-label={action["aria-label"]}
             asButton
           >
-            {action.icon}
+            {action.icon === "" ? null : (
+              <DynamicIcon name={action.icon} />
+            )}
             {action.children ?? action.label}
-            {action.iconAfter}
+            {action.iconAfter === "" ? null : (
+              <DynamicIcon name={action.iconAfter} />
+            )}
           </Pressable>
         ))}
       </div>
@@ -182,7 +186,11 @@ export function CtaFeatureCardsGrid({
           >
             {(feature.icon || feature.iconName) && (
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                {feature.icon ?? (
+                {feature.icon != null ? (
+                  feature.icon === "" ? null : (
+                    <DynamicIcon name={feature.icon} size={24} />
+                  )
+                ) : (
                   <DynamicIcon name={feature.iconName || ""} size={24} />
                 )}
               </div>

@@ -21,7 +21,7 @@ export interface CtaBackgroundIconBadgeProps {
   /**
    * Custom badge icon element
    */
-  badgeIcon?: React.ReactNode;
+  badgeIcon?: React.ReactNode | string;
   /**
    * Badge text next to the icon
    */
@@ -159,9 +159,17 @@ export function CtaBackgroundIconBadge({
               aria-label={action["aria-label"]}
               asButton
             >
-              {action.icon}
-              {action.children ?? action.label}
-              {action.iconAfter}
+              {action.children ?? (
+                <>
+                  {action.icon === "" ? null : (
+                    <DynamicIcon name={action.icon} />
+                  )}
+                  {action.label}
+                  {action.iconAfter === "" ? null : (
+                    <DynamicIcon name={action.iconAfter} />
+                  )}
+                </>
+              )}
             </Pressable>
           );
         })}
@@ -201,14 +209,23 @@ export function CtaBackgroundIconBadge({
                   badgeClassName,
                 )}
               >
-                {badgeIcon ??
-                  (badgeIconName && (
+                {badgeIcon != null ? (
+                  badgeIcon === "" ? null : (
+                    <DynamicIcon
+                      name={badgeIcon}
+                      size={28}
+                      className="h-full"
+                    />
+                  )
+                ) : (
+                  badgeIconName && (
                     <DynamicIcon
                       name={badgeIconName}
                       size={28}
                       className="h-full"
                     />
-                  ))}
+                  )
+                )}
                 {badgeText}
               </div>
             )}

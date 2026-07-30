@@ -25,7 +25,7 @@ export interface CtaCaseStudySection {
   /**
    * Custom icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Section title
    */
@@ -254,14 +254,23 @@ export function CtaCaseStudyTestimonial({
             className={cn("flex items-start gap-4", section.className)}
           >
             <div className="rounded-full bg-primary/10 p-2">
-              {section.icon ??
-                (section.iconName && (
+              {section.icon != null ? (
+                section.icon === "" ? null : (
+                  <DynamicIcon
+                    name={section.icon}
+                    size={20}
+                    className="text-primary"
+                  />
+                )
+              ) : (
+                section.iconName && (
                   <DynamicIcon
                     name={section.iconName}
                     size={20}
                     className="text-primary"
                   />
-                ))}
+                )
+              )}
             </div>
             <div>
               {section.title && (
@@ -298,22 +307,35 @@ export function CtaCaseStudyTestimonial({
               aria-label={action["aria-label"]}
               asButton
             >
-              {action.icon}
-              {action.children ?? action.label}
-              {action.iconAfter ??
-                (isFirstAction ? (
-                  <DynamicIcon
-                    name="lucide/arrow-right"
-                    size={16}
-                    className="ml-2"
-                  />
-                ) : (
-                  <DynamicIcon
-                    name="lucide/arrow-up-right"
-                    size={16}
-                    className="ml-2"
-                  />
-                ))}
+              {action.children ?? (
+                <>
+                  {action.icon === "" ? null : (
+                    <DynamicIcon name={action.icon} />
+                  )}
+                  {action.label}
+                  {action.iconAfter != null ? (
+                    action.iconAfter === "" ? null : (
+                      <DynamicIcon
+                        name={action.iconAfter}
+                        size={16}
+                        className="ml-2"
+                      />
+                    )
+                  ) : isFirstAction ? (
+                    <DynamicIcon
+                      name="lucide/arrow-right"
+                      size={16}
+                      className="ml-2"
+                    />
+                  ) : (
+                    <DynamicIcon
+                      name="lucide/arrow-up-right"
+                      size={16}
+                      className="ml-2"
+                    />
+                  )}
+                </>
+              )}
             </Pressable>
           );
         })}

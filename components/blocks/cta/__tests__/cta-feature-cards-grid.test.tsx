@@ -9,9 +9,18 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid={`mock-icon-${name}`} className={className} />
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("CtaFeatureCardsGrid", () => {
@@ -45,6 +54,50 @@ describe("CtaFeatureCardsGrid", () => {
     expect(screen.getByText("Learn More")).toBeInTheDocument();
   });
 
+  it("renders action icon names dynamically without exposing raw text", () => {
+    render(
+      <CtaFeatureCardsGrid
+        actions={[
+          {
+            label: "Get Started",
+            icon: "lucide/rocket",
+            iconAfter: "lucide/arrow-up-right",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon-lucide/rocket")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("mock-icon-lucide/arrow-up-right"),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("lucide/rocket")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/arrow-up-right")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom and empty action icon behavior", () => {
+    render(
+      <CtaFeatureCardsGrid
+        actions={[
+          {
+            label: "Custom",
+            icon: <span data-testid="custom-leading-icon" />,
+            iconAfter: <span data-testid="custom-trailing-icon" />,
+          },
+          {
+            label: "Empty",
+            icon: "",
+            iconAfter: "",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
+    expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+  });
+
   it("renders features when provided", () => {
     const features = [
       { iconName: "lucide/zap", title: "Fast", description: "Lightning fast performance" },
@@ -54,6 +107,54 @@ describe("CtaFeatureCardsGrid", () => {
     expect(screen.getByText("Fast")).toBeInTheDocument();
     expect(screen.getByText("Lightning fast performance")).toBeInTheDocument();
     expect(screen.getByText("Secure")).toBeInTheDocument();
+  });
+
+  it("preserves feature icon override, fallback, custom, and empty-name behavior", () => {
+    render(
+      <CtaFeatureCardsGrid
+        features={[
+          {
+            title: "Override",
+            icon: "lucide/zap",
+            iconName: "lucide/legacy-zap",
+          },
+          {
+            title: "Fallback",
+            iconName: "lucide/shield",
+          },
+          {
+            title: "Custom",
+            icon: <span data-testid="custom-feature-icon" />,
+            iconName: "lucide/legacy-custom",
+          },
+          {
+            title: "Empty override",
+            icon: "",
+            iconName: "lucide/suppressed-fallback",
+          },
+          {
+            title: "Empty fallback",
+            iconName: "",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon-lucide/zap")).toBeInTheDocument();
+    expect(screen.getByTestId("mock-icon-lucide/shield")).toBeInTheDocument();
+    expect(screen.getByTestId("custom-feature-icon")).toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mock-icon-lucide/legacy-zap"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mock-icon-lucide/legacy-custom"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mock-icon-lucide/suppressed-fallback"),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("mock-icon-")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/zap")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/shield")).not.toBeInTheDocument();
   });
 
   it("applies custom className", () => {

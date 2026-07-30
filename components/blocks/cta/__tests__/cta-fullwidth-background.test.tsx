@@ -18,6 +18,15 @@ vi.mock("../../../lib/mediaPlaceholders", () => ({
   imagePlaceholders: Array(50).fill("https://placeholder.com/image.jpg"),
 }));
 
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({ name }: { name?: React.ReactNode | string }) =>
+    name == null ? null : typeof name === "string" ? (
+      <span data-testid={`mock-icon-${name || "empty"}`}>icon</span>
+    ) : (
+      <>{name}</>
+    ),
+}));
+
 describe("CtaFullwidthBackground", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -47,6 +56,53 @@ describe("CtaFullwidthBackground", () => {
     render(<CtaFullwidthBackground actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
     expect(screen.getByText("Learn More")).toBeInTheDocument();
+  });
+
+  it("routes action icon names through DynamicIcon and preserves custom elements", () => {
+    render(
+      <CtaFullwidthBackground
+        actions={[
+          {
+            label: "Named Icons",
+            icon: "lucide/play",
+            iconAfter: "lucide/arrow-right",
+          },
+          {
+            label: "Custom Icons",
+            icon: <span data-testid="custom-leading-icon" />,
+            iconAfter: <span data-testid="custom-trailing-icon" />,
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon-lucide/play")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("mock-icon-lucide/arrow-right"),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("lucide/play")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/arrow-right")).not.toBeInTheDocument();
+    expect(screen.getByTestId("custom-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
+  });
+
+  it("renders no icon DOM for empty action strings and preserves false and zero", () => {
+    render(
+      <CtaFullwidthBackground
+        actions={[
+          { label: "Empty Icons", icon: "", iconAfter: "" },
+          { label: "Falsy Icons", icon: false, iconAfter: 0 },
+        ]}
+      />,
+    );
+
+    expect(screen.queryByTestId("mock-icon-empty")).not.toBeInTheDocument();
+    expect(
+      screen.getByText("Falsy Icons", {
+        selector: '[data-slot="button"]',
+        exact: false,
+      }),
+    ).toHaveTextContent("Falsy Icons0");
   });
 
   it("applies custom className", () => {

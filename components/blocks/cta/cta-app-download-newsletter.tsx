@@ -225,7 +225,11 @@ export function CtaAppDownloadNewsletter({
             buttonGroupSetup: {
               ...formEngineSetup.formLayoutSettings?.buttonGroupSetup,
               size: "default",
-              submitLabel: action.icon || action.label,
+              submitLabel: action.icon ? (
+                <DynamicIcon name={action.icon} />
+              ) : (
+                action.label
+              ),
               submitVariant: action.variant || "default",
             },
           },
@@ -266,14 +270,23 @@ export function CtaAppDownloadNewsletter({
               aria-label={action["aria-label"]}
               asButton
             >
-              {action.icon ??
-                (isAppStore ? (
-                  <DynamicIcon name="simple-icons/apple" size={20} />
-                ) : isGooglePlay ? (
-                  <DynamicIcon name="simple-icons/googleplay" size={20} />
-                ) : null)}
-              {action.children ?? action.label}
-              {action.iconAfter}
+              {action.children ?? (
+                <>
+                  {action.icon != null ? (
+                    action.icon === "" ? null : (
+                      <DynamicIcon name={action.icon} size={20} />
+                    )
+                  ) : isAppStore ? (
+                    <DynamicIcon name="simple-icons/apple" size={20} />
+                  ) : isGooglePlay ? (
+                    <DynamicIcon name="simple-icons/googleplay" size={20} />
+                  ) : null}
+                  {action.label}
+                  {action.iconAfter === "" ? null : (
+                    <DynamicIcon name={action.iconAfter} />
+                  )}
+                </>
+              )}
             </Pressable>
           );
         })}

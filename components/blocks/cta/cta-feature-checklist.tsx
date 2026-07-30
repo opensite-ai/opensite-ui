@@ -25,7 +25,7 @@ export interface ChecklistItem {
   /**
    * Optional custom icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
 }
 
 export interface CtaFeatureChecklistProps {
@@ -170,7 +170,13 @@ export function CtaFeatureChecklist({
               className={cn("flex items-center", checklistItemClassName)}
               key={idx}
             >
-              {icon ?? (
+              {icon === "" ? null : icon != null ? (
+                <DynamicIcon
+                  name={icon}
+                  size={16}
+                  className="mr-4 shrink-0"
+                />
+              ) : (
                 <DynamicIcon
                   name={iconName}
                   size={16}

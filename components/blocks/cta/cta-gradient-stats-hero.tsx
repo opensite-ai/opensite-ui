@@ -167,16 +167,21 @@ export function CtaGradientStatsHero({
               aria-label={action["aria-label"]}
               asButton
             >
-              {action.icon}
+              {action.icon === "" ? null : (
+                <DynamicIcon name={action.icon} />
+              )}
               {action.children ?? action.label}
-              {action.iconAfter ??
-                (isFirstAction && (
-                  <DynamicIcon
-                    name="lucide/arrow-right"
-                    size={16}
-                    className="ml-2"
-                  />
-                ))}
+              {action.iconAfter != null ? (
+                action.iconAfter === "" ? null : (
+                  <DynamicIcon name={action.iconAfter} />
+                )
+              ) : isFirstAction ? (
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="ml-2"
+                />
+              ) : null}
             </Pressable>
           );
         })}
@@ -200,7 +205,11 @@ export function CtaGradientStatsHero({
               statCardClassName,
             )}
           >
-            {stat.icon && <div className="mb-2">{stat.icon}</div>}
+            {stat.icon && (
+              <div className="mb-2">
+                <DynamicIcon name={stat.icon} />
+              </div>
+            )}
             {stat.value && (
               <div className="text-2xl font-bold text-primary-foreground md:text-3xl">
                 {stat.value}

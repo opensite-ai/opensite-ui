@@ -22,7 +22,7 @@ export interface CtaEnterpriseDarkFeature {
   /**
    * Custom icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Feature text
    */
@@ -194,16 +194,29 @@ export function CtaEnterpriseDarkFeatures({
               aria-label={action["aria-label"]}
               asButton
             >
-              {action.icon}
-              {action.children ?? action.label}
-              {action.iconAfter ??
-                (isFirstAction && (
-                  <DynamicIcon
-                    name="lucide/arrow-right"
-                    size={16}
-                    className="ml-2"
-                  />
-                ))}
+              {action.children ?? (
+                <>
+                  {action.icon === "" ? null : (
+                    <DynamicIcon name={action.icon} />
+                  )}
+                  {action.label}
+                  {action.iconAfter != null ? (
+                    action.iconAfter === "" ? null : (
+                      <DynamicIcon
+                        name={action.iconAfter}
+                        size={16}
+                        className="ml-2"
+                      />
+                    )
+                  ) : isFirstAction ? (
+                    <DynamicIcon
+                      name="lucide/arrow-right"
+                      size={16}
+                      className="ml-2"
+                    />
+                  ) : null}
+                </>
+              )}
             </Pressable>
           );
         })}
@@ -224,14 +237,21 @@ export function CtaEnterpriseDarkFeatures({
           >
             {(feature.icon || feature.iconName) && (
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-background/10">
-                {feature.icon ??
-                  (feature.iconName && (
+                {feature.icon != null ? (
+                  feature.icon === "" ? null : (
                     <DynamicIcon
-                      name={feature.iconName}
+                      name={feature.icon}
                       size={16}
                       className="text-background"
                     />
-                  ))}
+                  )
+                ) : feature.iconName ? (
+                  <DynamicIcon
+                    name={feature.iconName}
+                    size={16}
+                    className="text-background"
+                  />
+                ) : null}
               </div>
             )}
             <span>{feature.text}</span>
