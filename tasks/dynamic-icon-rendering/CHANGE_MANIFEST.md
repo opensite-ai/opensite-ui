@@ -533,3 +533,59 @@ Files deleted: 0
 - Post-change raw-render AST audit: exit 0.
 - New failures: none.
 - Pre-existing failures: none observed.
+
+# Change Manifest — Pricing Part B
+
+## Modified Files
+
+| Source and adjacent test | Classification / change | Combined lines +/- | Notes |
+|---|---|---:|---|
+| `pricing-packages-radio` | Vulnerable feature/action fallback | +297/-17 | Feature overrides resolve at size 16; package radio and top-level action slot remain intact. |
+| `pricing-popular-highlight` | Vulnerable feature/action fallback | +312/-18 | Feature overrides resolve at size 18; per-plan action slots remain intact. |
+| `pricing-radio-toggle` | Vulnerable feature/action fallback | +293/-18 | Feature overrides resolve at size 18; radio/toggle behavior remains intact. |
+| `pricing-services-cards` | Vulnerable feature/header/action fallback | +341/-26 | Feature and plan-header icons preserve sizes 18/24 and the original truthy wrapper. |
+| `pricing-simple-card` | Vulnerable feature/action fallback | +252/-18 | Feature overrides resolve at size 18; top-level slot remains intact. |
+| `pricing-single-card` | Vulnerable feature/action fallback | +250/-18 | Feature overrides resolve at size 16 with original classes. |
+| `pricing-spotlight-card` | Vulnerable wrapped feature/action fallback | +212/-17 | Feature overrides preserve the size-14 truthy wrapper and actions outer branch. |
+| `pricing-switch-cards` | Vulnerable feature/action fallback | +272/-18 | Feature overrides resolve at size 18; switch and per-plan slots remain intact. |
+| `pricing-tabs-toggle` | Vulnerable feature/header/action fallback | +351/-19 | Feature and plan-header icons preserve sizes 18/20, wrappers, tabs, and billing toggle. |
+| `pricing-tier-grid` | Vulnerable conditional feature/action fallback | +316/-5 | Feature icons preserve size 16 and featured/nonfeatured classes. |
+| `pricing-toggle-cards` | Vulnerable feature/action fallback | +292/-6 | Feature icons resolve at size 18; feature/action slots and toggle remain intact. |
+| `pricing-toggle-period` | Vulnerable feature/action fallback | +318/-5 | Feature icons resolve at size 18; per-plan slots and period toggle remain intact. |
+| `pricing-two-column-basic` | Vulnerable feature/action fallback | +319/-5 | Feature icons resolve at size 18; per-plan slots and layout remain intact. |
+| `tasks/dynamic-icon-rendering/.refactor-session.md` | Control state | current batch | Records pricing completion and features handoff. |
+| `tasks/dynamic-icon-rendering/CHANGE_MANIFEST.md` | Batch manifest | current batch | Records classifications, reviews, and verification. |
+
+## Scope Compliance
+
+- [x] The implementation diff is exactly 13 approved production files and 13 adjacent tests.
+- [x] Eleven new and two existing test paths are in the exact scope allowlist.
+- [x] No files exist outside spec-defined outputs.
+- [x] No dependency or lockfile changed.
+- [x] The pre-existing `package.json` version-only diff is unchanged and unstaged.
+- [x] No new abstraction, dependency, public convenience prop, or rendering system was introduced.
+- [x] Exact raw/global/name precedence and truthy wrapper topology are preserved.
+- [x] Empty strings, `false`, `0`, custom nodes, named branches, and inherited styles are covered.
+- [x] Actions, children, slots, radios, tabs, switches, and period toggles retain prior behavior.
+- [x] Refined AST audit reports zero simple raw icon-like JSX children/helper returns.
+
+## Review Resolution
+
+- Services Cards retained its outer truthy plan-header wrapper and gained the
+  canonical exact empty guard inside it; numeric-zero behavior is unchanged.
+- Group-two review approved Spotlight/Tabs wrapper topology and Radix billing
+  interaction; omitted global edge combinations were source-reviewed.
+- Group-three review added global-raw-versus-local-name precedence, trailing
+  child suppression, and Toggle Cards feature-slot coverage, plus corrected
+  only new indentation.
+
+## Test Results
+
+- Focused: 13 files passed, 75 tests passed, exit 0.
+- `pnpm type-check`: exit 0.
+- Exact 26-path scope and allowlist audit: exit 0.
+- Dependency/package-baseline audit: exit 0.
+- Refined raw-render AST audit: 13 files, zero sites.
+- Review-focused group runs: 5/26, 4/17, and 4/32 tests passed.
+- New failures: none.
+- Pre-existing failures: none observed.

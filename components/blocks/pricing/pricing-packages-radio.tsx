@@ -21,7 +21,7 @@ export interface PricingPackagesRadioFeature {
   /**
    * Optional icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Optional icon name for DynamicIcon
    */
@@ -115,7 +115,7 @@ export interface PricingPackagesRadioProps {
   /**
    * Default icon used for features
    */
-  featureIcon?: React.ReactNode;
+  featureIcon?: React.ReactNode | string;
   /**
    * Default icon name for features
    */
@@ -311,21 +311,10 @@ export function PricingPackagesRadio({
     return (
       <ul className={cn("mt-4 grid gap-2 sm:grid-cols-2", featuresClassName)}>
         {pkg.features.map((feature, index) => {
-          const iconName = feature.iconName || featureIconName;
           const resolvedIcon =
             feature.icon ??
             featureIcon ??
-            (iconName ? (
-              <DynamicIcon
-                name={iconName}
-                size={16}
-                className={cn(
-                  "shrink-0 text-primary",
-                  featureIconClassName,
-                  feature.iconClassName,
-                )}
-              />
-            ) : null);
+            (feature.iconName || featureIconName);
 
           return (
             <li
@@ -336,7 +325,17 @@ export function PricingPackagesRadio({
                 feature.className,
               )}
             >
-              {resolvedIcon}
+              {resolvedIcon === "" ? null : (
+                <DynamicIcon
+                  name={resolvedIcon}
+                  size={16}
+                  className={cn(
+                    "shrink-0 text-primary",
+                    featureIconClassName,
+                    feature.iconClassName,
+                  )}
+                />
+              )}
               {feature.text &&
                 (typeof feature.text === "string" ? (
                   <span
@@ -505,9 +504,9 @@ export function PricingPackagesRadio({
       >
         {children ?? (
           <>
-            {icon}
+            {icon === "" ? null : <DynamicIcon name={icon} />}
             {label}
-            {iconAfter}
+            {iconAfter === "" ? null : <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>

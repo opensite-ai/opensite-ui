@@ -22,7 +22,7 @@ export interface PricingPopularHighlightFeature {
   /**
    * Optional icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Optional icon name for DynamicIcon
    */
@@ -128,7 +128,7 @@ export interface PricingPopularHighlightProps {
   /**
    * Default icon used for features
    */
-  featureIcon?: React.ReactNode;
+  featureIcon?: React.ReactNode | string;
   /**
    * Default icon name for features
    */
@@ -314,21 +314,10 @@ export function PricingPopularHighlight({
       return (
         <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
           {plan.features.map((feature, featureIndex) => {
-            const iconName = feature.iconName || featureIconName;
-          const resolvedIcon =
+            const resolvedIcon =
               feature.icon ??
               featureIcon ??
-              (iconName ? (
-                <DynamicIcon
-                  name={iconName}
-                  size={18}
-                  className={cn(
-                    "mt-0.5 shrink-0 text-primary",
-                    featureIconClassName,
-                    feature.iconClassName,
-                  )}
-                />
-              ) : null);
+              (feature.iconName || featureIconName);
 
             return (
               <li
@@ -339,7 +328,17 @@ export function PricingPopularHighlight({
                   feature.className,
                 )}
               >
-                {resolvedIcon}
+                {resolvedIcon === "" ? null : (
+                  <DynamicIcon
+                    name={resolvedIcon}
+                    size={18}
+                    className={cn(
+                      "mt-0.5 shrink-0 text-primary",
+                      featureIconClassName,
+                      feature.iconClassName,
+                    )}
+                  />
+                )}
                 {feature.text &&
                   (typeof feature.text === "string" ? (
                     <span
@@ -396,9 +395,9 @@ export function PricingPopularHighlight({
         >
           {children ?? (
             <>
-              {icon}
+              {icon === "" ? null : <DynamicIcon name={icon} />}
               {label}
-              {iconAfter}
+              {iconAfter === "" ? null : <DynamicIcon name={iconAfter} />}
             </>
           )}
         </Pressable>

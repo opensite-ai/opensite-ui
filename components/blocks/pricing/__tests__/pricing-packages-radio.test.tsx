@@ -1,6 +1,6 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { PricingSimpleCard } from "../pricing-simple-card";
+import { describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { PricingPackagesRadio } from "../pricing-packages-radio";
 
 vi.mock("../../../lib/Pressable", () => ({
   Pressable: ({
@@ -40,113 +40,34 @@ vi.mock("../../../ui/dynamic-icon", () => ({
     ),
 }));
 
-describe("PricingSimpleCard", () => {
-  const mockFeatures = [
-    { text: "Feature 1" },
-    { text: "Feature 2" },
-    { text: "Feature 3" },
-    { text: "Feature 4" },
-  ];
-
-  it("renders custom title and description", () => {
-    render(
-      <PricingSimpleCard
-        title="Enterprise Plan"
-        description="For large organizations"
-      />
-    );
-    expect(screen.getByText("Enterprise Plan")).toBeInTheDocument();
-    expect(screen.getByText("For large organizations")).toBeInTheDocument();
-  });
-
-  it("renders custom price and interval", () => {
-    render(
-      <PricingSimpleCard price="$99" priceInterval="/year" />
-    );
-    expect(screen.getByText("$99")).toBeInTheDocument();
-    expect(screen.getByText("/year")).toBeInTheDocument();
-  });
-
-  it("renders custom features", () => {
-    render(
-      <PricingSimpleCard
-        title="Test Plan"
-        features={mockFeatures}
-      />
-    );
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
-    expect(screen.getByText("Feature 2")).toBeInTheDocument();
-    expect(screen.getByText("Feature 3")).toBeInTheDocument();
-    expect(screen.getByText("Feature 4")).toBeInTheDocument();
-  });
-
-  it("renders feature list with check icons", () => {
-    const { container } = render(
-      <PricingSimpleCard
-        title="Test Plan"
-        features={mockFeatures}
-      />
-    );
-    const featureItems = container.querySelectorAll("li");
-    expect(featureItems.length).toBe(mockFeatures.length);
-  });
-
-  it("applies correct spacing between features", () => {
-    const { container } = render(
-      <PricingSimpleCard
-        title="Test Plan"
-        features={mockFeatures}
-      />
-    );
-    const featureList = container.querySelector("ul");
-    expect(featureList?.className).toContain("space-y-3");
-  });
-
-  it("renders with empty features array", () => {
-    const { container } = render(
-      <PricingSimpleCard
-        title="Test Plan"
-        features={[]}
-      />
-    );
-    // When features is empty, the ul element is not rendered
-    const featureList = container.querySelector("ul");
-    expect(featureList).toBeNull();
-  });
-
-  it("renders features with muted text color", () => {
-    const { container } = render(
-      <PricingSimpleCard
-        title="Test Plan"
-        features={mockFeatures}
-      />
-    );
-    const feature = screen.getByText("Feature 1");
-    expect(feature.className).toContain("text-muted-foreground");
-  });
-
+describe("PricingPackagesRadio", () => {
   it("preserves feature precedence, names, size, and classes", () => {
     const { rerender } = render(
-      <PricingSimpleCard
+      <PricingPackagesRadio
         featureIcon="lucide/global-raw"
         featureIconName="lucide/global-name"
         featureIconClassName="global-icon-class"
-        features={[
+        packages={[
           {
-            text: "Local raw",
-            icon: "lucide/local-raw",
-            iconName: "lucide/local-name",
-            iconClassName: "local-icon-class",
+            id: "pro",
+            name: "Pro",
+            features: [
+              {
+                text: "Local raw",
+                icon: "lucide/local-raw",
+                iconName: "lucide/local-name",
+                iconClassName: "local-icon-class",
+              },
+              { text: "Global raw", iconName: "lucide/local-name" },
+            ],
           },
-          { text: "Global raw", iconName: "lucide/local-name" },
         ]}
       />,
     );
 
     const localRaw = screen.getByTestId("mock-icon-lucide/local-raw");
-    expect(localRaw).toHaveAttribute("data-size", "18");
+    expect(localRaw).toHaveAttribute("data-size", "16");
     expect(localRaw).toHaveClass(
-      "mt-0.5",
       "shrink-0",
       "text-primary",
       "global-icon-class",
@@ -166,35 +87,47 @@ describe("PricingSimpleCard", () => {
     ).not.toBeInTheDocument();
 
     rerender(
-      <PricingSimpleCard
+      <PricingPackagesRadio
         featureIconName="lucide/global-name"
-        features={[
-          { text: "Local name", iconName: "lucide/local-name" },
-          { text: "Global name" },
+        packages={[
+          {
+            id: "pro",
+            name: "Pro",
+            features: [
+              { text: "Local name", iconName: "lucide/local-name" },
+              { text: "Global name" },
+            ],
+          },
         ]}
       />,
     );
 
     expect(screen.getByTestId("mock-icon-lucide/local-name")).toHaveAttribute(
       "data-size",
-      "18",
+      "16",
     );
     expect(screen.getByTestId("mock-icon-lucide/global-name")).toBeInTheDocument();
   });
 
   it("preserves custom, empty, false, and zero feature overrides", () => {
     const { container } = render(
-      <PricingSimpleCard
+      <PricingPackagesRadio
         featureIconName="lucide/global-name"
-        features={[
+        packages={[
           {
-            text: "Custom",
-            icon: <span data-testid="custom-feature-icon" />,
-            iconName: "lucide/custom-fallback",
+            id: "pro",
+            name: "Pro",
+            features: [
+              {
+                text: "Custom",
+                icon: <span data-testid="custom-feature-icon" />,
+                iconName: "lucide/custom-fallback",
+              },
+              { text: "Empty", icon: "", iconName: "lucide/empty-fallback" },
+              { text: "False", icon: false, iconName: "lucide/false-fallback" },
+              { text: "Zero", icon: 0, iconName: "lucide/zero-fallback" },
+            ],
           },
-          { text: "Empty", icon: "", iconName: "lucide/empty-fallback" },
-          { text: "False", icon: false, iconName: "lucide/false-fallback" },
-          { text: "Zero", icon: 0, iconName: "lucide/zero-fallback" },
         ]}
       />,
     );
@@ -220,7 +153,7 @@ describe("PricingSimpleCard", () => {
 
   it("routes action icons and preserves edge values, children, and actionSlot", () => {
     const { container, rerender } = render(
-      <PricingSimpleCard
+      <PricingPackagesRadio
         action={{
           href: "/icons",
           label: "Action",
@@ -241,7 +174,7 @@ describe("PricingSimpleCard", () => {
     expect(action).not.toHaveTextContent("lucide/arrow-right");
 
     rerender(
-      <PricingSimpleCard
+      <PricingPackagesRadio
         action={{
           href: "/custom",
           label: "Custom",
@@ -262,7 +195,7 @@ describe("PricingSimpleCard", () => {
     ).toBeInTheDocument();
 
     rerender(
-      <PricingSimpleCard
+      <PricingPackagesRadio
         action={{
           href: "/falsy",
           label: "Falsy",
@@ -278,7 +211,7 @@ describe("PricingSimpleCard", () => {
     ).not.toBeInTheDocument();
 
     rerender(
-      <PricingSimpleCard
+      <PricingPackagesRadio
         action={{
           href: "/empty",
           label: "Empty",
@@ -294,7 +227,7 @@ describe("PricingSimpleCard", () => {
     ).not.toBeInTheDocument();
 
     rerender(
-      <PricingSimpleCard
+      <PricingPackagesRadio
         action={{
           href: "/children",
           label: "Hidden label",
@@ -313,12 +246,36 @@ describe("PricingSimpleCard", () => {
     ).not.toBeInTheDocument();
 
     rerender(
-      <PricingSimpleCard
+      <PricingPackagesRadio
         action={{ label: "Hidden action" }}
         actionSlot={<span data-testid="action-slot">Slot</span>}
       />,
     );
     expect(screen.getByTestId("action-slot")).toBeInTheDocument();
     expect(screen.queryByText("Hidden action")).not.toBeInTheDocument();
+  });
+
+  it("preserves package selection buttons and badge content", () => {
+    const onSelectionChange = vi.fn();
+    render(
+      <PricingPackagesRadio
+        defaultSelectedPackageId="basic"
+        onSelectionChange={onSelectionChange}
+        packages={[
+          { id: "basic", name: "Basic" },
+          { id: "pro", name: "Pro", badge: "Recommended" },
+        ]}
+      />,
+    );
+
+    const packageButtons = screen.getAllByRole("button");
+    expect(packageButtons).toHaveLength(2);
+    expect(screen.getByText("Recommended")).toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mock-icon-Recommended"),
+    ).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: /Pro/ }));
+    expect(onSelectionChange).toHaveBeenCalledWith("pro");
   });
 });
