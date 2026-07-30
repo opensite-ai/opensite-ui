@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import type {
   ActionConfig,
@@ -254,7 +255,7 @@ export function HeroSplitImageNewsletter({
             disabled={form.isSubmitting}
           >
             {action.label}
-            {action.iconAfter}
+            <DynamicIcon name={action.iconAfter} />
           </Pressable>
         </div>
         {helperText &&

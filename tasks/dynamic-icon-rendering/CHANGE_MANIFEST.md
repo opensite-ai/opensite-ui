@@ -104,6 +104,72 @@ Files deleted: 0
 
 ---
 
+# Change Manifest — Remaining Hero Part B
+
+Task: `dynamic-icon-rendering`
+Completed: 2026-07-30T15:49:00Z
+Files modified: 24 implementation/test files, plus 2 control artifacts
+Files created: 0
+Files deleted: 0
+
+## Modified Files
+
+| Source and adjacent test | Classification / change | Combined lines +/- | Notes |
+|---|---|---:|---|
+| `hero-mentorship-video-split` | Vulnerable direct render | +51/-5 | Manual action icons now use `DynamicIcon`; hardcoded play icon remains safe. |
+| `hero-minimal-centered-dark` | Vulnerable direct render | +52/-4 | Shared `StatItem.icon` now uses `DynamicIcon`; actions already use `BlockActions`. |
+| `hero-newsletter-minimal` | Vulnerable direct render | +66/-5 | Stat icon and trailing submit icon now use `DynamicIcon`; no leading/children behavior was added. |
+| `hero-pattern-badge-logos` | Vulnerable direct render | +59/-2 | Manual action icons now use `DynamicIcon`. |
+| `hero-pattern-logo-tech-stack` | Vulnerable direct render | +50/-2 | Manual action icons now use `DynamicIcon`. |
+| `hero-platform-features-grid` | Vulnerable direct/fallback render | +117/-9 | Action icons and feature override/name fallback now use `DynamicIcon` with exact legacy truthiness. |
+| `hero-portfolio-creative` | Vulnerable direct/fallback render | +124/-4 | Action icons and social icon/name fallback now use `DynamicIcon` without adding shared override semantics. |
+| `hero-premium-split-avatars` | Vulnerable direct render | +46/-2 | Manual action icons now use `DynamicIcon`. |
+| `hero-productivity-launcher-video` | Vulnerable direct render | +56/-5 | Manual action icons now use `DynamicIcon`. |
+| `hero-simple-centered-image` | Vulnerable direct render in dead helper | +19/-2 | Unreferenced helper remains structurally intact but both raw sites are safe; bounded source assertion added. |
+| `hero-split-image-newsletter` | Vulnerable direct render | +58/-5 | Existing trailing submit icon now uses `DynamicIcon`; leading/children behavior remains intentionally absent. |
+| `hero-split-spiral-shapes` | Vulnerable direct render | +56/-5 | Manual action icons now use `DynamicIcon`. |
+| `tasks/dynamic-icon-rendering/.refactor-session.md` | Control state | current batch | Records hero completion and CTA scope. |
+| `tasks/dynamic-icon-rendering/CHANGE_MANIFEST.md` | Batch manifest | current batch | Records classifications, reviews, and verification. |
+
+## Scope Compliance
+
+- [x] The implementation diff is exactly 12 approved production files and their 12 existing adjacent tests.
+- [x] All 24 implementation/test files are in the exact scope allowlist.
+- [x] No new files exist outside spec-defined outputs.
+- [x] No dependency or lockfile changed.
+- [x] The pre-existing `package.json` version-only diff is unchanged and unstaged.
+- [x] No new shared abstraction, test harness, or rendering system was created.
+- [x] No styling, layout, image/media, slot, action order, children precedence, or form behavior changed.
+- [x] Post-change AST audit reports zero raw icon-like JSX children or helper returns in the 12 production files.
+- [x] `git diff --check` passed.
+- [x] Two independent read-only reviews covered all 12 pairs.
+
+## Review Resolution
+
+- Independent reviews found that collapsed fallback expressions changed empty
+  legacy `iconName` values from no output to an empty icon span in two blocks.
+  Both now use explicit branches: a non-null custom override passes through
+  `DynamicIcon`, otherwise a truthy legacy name passes through `DynamicIcon`,
+  otherwise the block renders `null`.
+- The dead `hero-simple-centered-image` helper was not deleted or refactored.
+  Its adjacent test has one exact-file source assertion for both approved
+  `DynamicIcon` boundaries and rejects the two former raw JSX lines.
+- The newsletter test's local `Form` boundary is retained for the same focused
+  reason as the prior countdown block: the package component does not expose
+  component-owned children in this unit environment.
+
+## Test Results
+
+- Focused: 12 files passed, 98 tests passed, exit 0.
+- `pnpm type-check`: exit 0.
+- Exact scope/allowlist audit: exit 0.
+- Dependency/package-baseline audit: exit 0.
+- Post-change raw-render AST audit: exit 0.
+- New failures: none.
+- Pre-existing failures: none observed.
+
+---
+
 # Change Manifest — Remaining Hero Part A
 
 Task: `dynamic-icon-rendering`

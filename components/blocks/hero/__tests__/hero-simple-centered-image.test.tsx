@@ -1,5 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { HeroSimpleCenteredImage } from "../hero-simple-centered-image";
 
 vi.mock("@page-speed/img", () => ({
@@ -64,6 +66,20 @@ describe("HeroSimpleCenteredImage", () => {
   it("renders actionsSlot when provided", () => {
     render(<HeroSimpleCenteredImage actionsSlot={<button>Custom Action</button>} />);
     expect(screen.getByText("Custom Action")).toBeInTheDocument();
+  });
+
+  it("routes the legacy action helper icons through DynamicIcon", () => {
+    const source = readFileSync(
+      resolve(
+        process.cwd(),
+        "components/blocks/hero/hero-simple-centered-image.tsx",
+      ),
+      "utf8",
+    );
+
+    expect(source).toContain("<DynamicIcon name={icon} />");
+    expect(source).toContain("<DynamicIcon name={iconAfter} />");
+    expect(source).not.toMatch(/^\s*\{icon(?:After)?\}\s*$/m);
   });
 
   it("applies custom className", () => {

@@ -142,9 +142,9 @@ export function HeroPlatformFeaturesGrid({
       <Pressable asButton className={actionClassName} {...pressableProps}>
         {children ?? (
           <>
-            {icon}
+            <DynamicIcon name={icon} />
             {label}
-            {iconAfter}
+            <DynamicIcon name={iconAfter} />
           </>
         )}
       </Pressable>
@@ -168,10 +168,11 @@ export function HeroPlatformFeaturesGrid({
             key={index}
             className="flex flex-col gap-3 bg-card text-card-foreground p-5 md:gap-6"
           >
-            {feature.icon ??
-              (feature.iconName && (
-                <DynamicIcon name={feature.iconName} size={24} />
-              ))}
+            {feature.icon != null ? (
+              <DynamicIcon name={feature.icon} size={24} />
+            ) : feature.iconName ? (
+              <DynamicIcon name={feature.iconName} size={24} />
+            ) : null}
             <div>
               {feature.title && (
                 <h2 className="text-sm font-semibold md:text-base">

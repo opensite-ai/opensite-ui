@@ -199,9 +199,9 @@ export function HeroMentorshipVideoSplit({
         <Pressable asButton className={actionClassName} {...pressableProps}>
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} />
             </>
           )}
         </Pressable>

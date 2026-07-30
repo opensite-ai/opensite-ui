@@ -14,6 +14,7 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 
 export interface HeroPatternLogoTechStackProps {
   /**
@@ -188,9 +189,9 @@ export function HeroPatternLogoTechStack({
             >
               {children ?? (
                 <>
-                  {icon}
+                  <DynamicIcon name={icon} />
                   {label}
-                  {iconAfter}
+                  <DynamicIcon name={iconAfter} />
                 </>
               )}
             </Pressable>

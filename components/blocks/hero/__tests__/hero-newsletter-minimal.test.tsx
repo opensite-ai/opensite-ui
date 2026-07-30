@@ -67,9 +67,20 @@ vi.mock("@page-speed/forms/integration", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("HeroNewsletterMinimal", () => {
@@ -102,6 +113,55 @@ describe("HeroNewsletterMinimal", () => {
     const buttonAction = { label: "Subscribe Now", variant: "default" as const };
     render(<HeroNewsletterMinimal buttonAction={buttonAction} formEngineSetup={{ fields: [] }} />);
     expect(screen.getByTestId("submit-label")).toHaveTextContent("Subscribe Now");
+  });
+
+  it("renders stat and trailing submit icon names without exposing raw text", () => {
+    render(
+      <HeroNewsletterMinimal
+        buttonAction={{
+          label: "Subscribe Now",
+          iconAfter: "lucide/send",
+        }}
+        formEngineSetup={{ fields: [] }}
+        stats={[
+          {
+            value: "10k",
+            label: "Readers",
+            icon: "lucide/users",
+          },
+        ]}
+      />,
+    );
+
+    expect(
+      screen.getAllByTestId("mock-icon").map((icon) =>
+        icon.getAttribute("data-name"),
+      ),
+    ).toEqual(["lucide/send", "lucide/users"]);
+    expect(screen.queryByText("lucide/send")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/users")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom stat and trailing submit icon elements", () => {
+    render(
+      <HeroNewsletterMinimal
+        buttonAction={{
+          label: "Subscribe Now",
+          iconAfter: <span data-testid="custom-submit-icon">submit</span>,
+        }}
+        formEngineSetup={{ fields: [] }}
+        stats={[
+          {
+            value: "10k",
+            label: "Readers",
+            icon: <span data-testid="custom-stat-icon">stat</span>,
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-submit-icon")).toHaveTextContent("submit");
+    expect(screen.getByTestId("custom-stat-icon")).toHaveTextContent("stat");
   });
 
   it("applies custom className", () => {

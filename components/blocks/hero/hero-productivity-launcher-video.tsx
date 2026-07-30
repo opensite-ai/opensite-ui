@@ -4,6 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Video } from "@page-speed/video";
 import type {
   ActionConfig,
@@ -188,9 +189,9 @@ export function HeroProductivityLauncherVideo({
             >
               {children ?? (
                 <>
-                  {icon}
+                  <DynamicIcon name={icon} />
                   <p>{label}</p>
-                  {iconAfter}
+                  <DynamicIcon name={iconAfter} />
                 </>
               )}
             </Pressable>

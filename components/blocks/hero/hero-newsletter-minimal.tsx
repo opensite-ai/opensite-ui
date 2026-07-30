@@ -17,6 +17,7 @@ import {
   type FormFieldConfig,
 } from "@page-speed/forms/integration";
 import { BrandLogo } from "../../ui/brand-logo";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
@@ -178,7 +179,7 @@ export function HeroNewsletterMinimal({
               stat.icon ? "justify-between" : "justify-center",
             )}
           >
-            {stat.icon}
+            <DynamicIcon name={stat.icon} />
             <div
               className={cn("font-bold ", stat.icon ? "text-xl" : "text-2xl")}
             >
@@ -216,7 +217,7 @@ export function HeroNewsletterMinimal({
                 submitLabel: (
                   <>
                     {action.label}
-                    {action.iconAfter}
+                    <DynamicIcon name={action.iconAfter} />
                   </>
                 ),
                 submitVariant: action.variant || "default",

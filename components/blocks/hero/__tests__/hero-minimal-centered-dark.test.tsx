@@ -9,9 +9,20 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("HeroMinimalCenteredDark", () => {
@@ -60,6 +71,42 @@ describe("HeroMinimalCenteredDark", () => {
     render(<HeroMinimalCenteredDark stats={stats} />);
     expect(screen.getByText("100+")).toBeInTheDocument();
     expect(screen.getByText("50+")).toBeInTheDocument();
+  });
+
+  it("renders stat icon names through DynamicIcon without exposing raw text", () => {
+    render(
+      <HeroMinimalCenteredDark
+        stats={[
+          {
+            value: "100+",
+            label: "Users",
+            icon: "lucide/users",
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/users",
+    );
+    expect(screen.queryByText("lucide/users")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom stat icon elements", () => {
+    render(
+      <HeroMinimalCenteredDark
+        stats={[
+          {
+            value: "100+",
+            label: "Users",
+            icon: <span data-testid="custom-stat-icon">custom</span>,
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("custom-stat-icon")).toHaveTextContent("custom");
   });
 
   it("applies custom className", () => {

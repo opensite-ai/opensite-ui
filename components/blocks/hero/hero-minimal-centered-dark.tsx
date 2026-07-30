@@ -15,6 +15,7 @@ import type { PatternName } from "../../ui/pattern-background";
 import { Badge } from "@/src";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
 
 export interface HeroMinimalCenteredDarkProps {
@@ -148,7 +149,7 @@ export function HeroMinimalCenteredDark({
         key={index}
         className={cn("flex items-center gap-2", stat.className)}
       >
-        {stat.icon}
+        <DynamicIcon name={stat.icon} />
         <span>{stat.value}</span>
       </div>
     ));

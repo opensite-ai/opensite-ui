@@ -2,6 +2,10 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { HeroSplitImageNewsletter } from "../hero-split-image-newsletter";
 
+vi.mock("@page-speed/forms", () => ({
+  Form: ({ children }: { children: React.ReactNode }) => <form>{children}</form>,
+}));
+
 // Mock FormEngine component and form hooks
 vi.mock("@page-speed/forms/integration", () => ({
   FormEngine: vi.fn(({ fields, formLayoutSettings, successMessage }) => (
@@ -37,7 +41,9 @@ vi.mock("@page-speed/forms/integration", () => ({
     removeFile: vi.fn(),
     resetUpload: vi.fn(),
   })),
-  DynamicFormField: vi.fn(() => <div data-testid="mock-dynamic-field" />),
+  DynamicFormField: vi.fn(({ field }: { field: { label?: string } }) => (
+    <div data-testid="mock-dynamic-field">{field.label}</div>
+  )),
   getColumnSpanClass: vi.fn((span) => `col-span-${span}`),
 }));
 
@@ -48,9 +54,20 @@ vi.mock("@page-speed/img", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 vi.mock("../../../lib/mediaPlaceholders", () => ({
@@ -81,6 +98,41 @@ describe("HeroSplitImageNewsletter", () => {
     const formFields = [{ name: "email", type: "email" as const, label: "Email", placeholder: "Enter your email", required: true, columnSpan: 12 }];
     render(<HeroSplitImageNewsletter formFields={formFields} />);
     expect(screen.getByText("Email")).toBeInTheDocument();
+  });
+
+  it("renders only the trailing submit icon name through DynamicIcon", () => {
+    render(
+      <HeroSplitImageNewsletter
+        buttonAction={{
+          label: "Subscribe",
+          icon: "lucide/mail",
+          iconAfter: "lucide/send",
+        }}
+      />,
+    );
+
+    expect(
+      screen.getAllByTestId("mock-icon").map((icon) =>
+        icon.getAttribute("data-name"),
+      ),
+    ).toEqual(["lucide/send"]);
+    expect(screen.queryByText("lucide/mail")).not.toBeInTheDocument();
+    expect(screen.queryByText("lucide/send")).not.toBeInTheDocument();
+  });
+
+  it("preserves only the custom trailing submit icon element", () => {
+    render(
+      <HeroSplitImageNewsletter
+        buttonAction={{
+          label: "Subscribe",
+          icon: <span data-testid="custom-leading-icon">leading</span>,
+          iconAfter: <span data-testid="custom-trailing-icon">trailing</span>,
+        }}
+      />,
+    );
+
+    expect(screen.queryByTestId("custom-leading-icon")).not.toBeInTheDocument();
+    expect(screen.getByTestId("custom-trailing-icon")).toHaveTextContent("trailing");
   });
 
   it("applies custom className", () => {

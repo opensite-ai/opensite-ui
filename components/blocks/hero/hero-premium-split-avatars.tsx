@@ -20,6 +20,7 @@ import {
   ResponsiveMediaAspectRatioProps,
 } from "../../ui/media-aspect-ratio";
 import { BrandLogo } from "../../ui/brand-logo";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
 
 export type { DirectionConfig };
@@ -226,9 +227,9 @@ export function HeroPremiumSplitAvatars({
         <Pressable asButton className={actionClassName} {...pressableProps}>
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} />
               <span>{label}</span>
-              {iconAfter}
+              <DynamicIcon name={iconAfter} />
             </>
           )}
         </Pressable>

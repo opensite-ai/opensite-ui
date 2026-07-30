@@ -219,9 +219,9 @@ export function HeroPortfolioCreative({
             >
               {children ?? (
                 <>
-                  {icon}
+                  <DynamicIcon name={icon} />
                   {label}
-                  {iconAfter}
+                  <DynamicIcon name={iconAfter} />
                 </>
               )}
             </Pressable>
@@ -247,8 +247,11 @@ export function HeroPortfolioCreative({
               link.className,
             )}
           >
-            {link.icon ??
-              (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
+            {link.icon != null ? (
+              <DynamicIcon name={link.icon} size={20} />
+            ) : link.iconName ? (
+              <DynamicIcon name={link.iconName} size={20} />
+            ) : null}
           </Pressable>
         ))}
       </div>

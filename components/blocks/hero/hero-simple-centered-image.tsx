@@ -14,6 +14,7 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
 
@@ -158,9 +159,9 @@ export function HeroSimpleCenteredImage({
         >
           {children ?? (
             <>
-              {icon}
+              <DynamicIcon name={icon} />
               {label}
-              {iconAfter}
+              <DynamicIcon name={iconAfter} />
             </>
           )}
         </Pressable>
