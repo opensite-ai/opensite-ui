@@ -14,7 +14,7 @@ export interface ServicesListMutedCardsService {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/cog")
    */
@@ -148,10 +148,8 @@ export function ServicesListMutedCards({
   patternOpacity,
 }: ServicesListMutedCardsProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListMutedCardsService) => {
-    if (service.icon) return service.icon;
-    if (service.iconName)
-      return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
-    return null;
+    const icon = service.icon || service.iconName;
+    return icon ? <DynamicIcon name={icon} className="h-6 w-6" /> : null;
   };
 
   const renderServices = () => {

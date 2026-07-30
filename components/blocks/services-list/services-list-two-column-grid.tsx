@@ -20,7 +20,7 @@ export interface ServicesListTwoColumnGridService {
   /**
    * Custom icon element (takes precedence over iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name for DynamicIcon
    */
@@ -175,7 +175,8 @@ export function ServicesListTwoColumnGrid({
   patternOpacity,
 }: ServicesListTwoColumnGridProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListTwoColumnGridService) => {
-    if (service.icon) return service.icon;
+    if (service.icon)
+      return <DynamicIcon name={service.icon} className="h-6 w-6" />;
     if (service.iconName)
       return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
     return null;

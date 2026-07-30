@@ -19,7 +19,7 @@ export interface ServicesListProgressSidebarService {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/lightbulb")
    */
@@ -162,7 +162,8 @@ export function ServicesListProgressSidebar({
   patternOpacity,
 }: ServicesListProgressSidebarProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListProgressSidebarService) => {
-    if (service.icon) return service.icon;
+    if (service.icon)
+      return <DynamicIcon name={service.icon} className="h-6 w-6" />;
     if (service.iconName)
       return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
     return null;

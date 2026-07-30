@@ -14,7 +14,7 @@ export interface ServicesListVerticalTagsService {
   /**
    * Custom icon element (takes precedence over iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name for DynamicIcon
    */
@@ -142,7 +142,8 @@ export function ServicesListVerticalTags({
   patternOpacity,
 }: ServicesListVerticalTagsProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListVerticalTagsService) => {
-    if (service.icon) return service.icon;
+    if (service.icon)
+      return <DynamicIcon name={service.icon} className="h-6 w-6" />;
     if (service.iconName)
       return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
     return null;

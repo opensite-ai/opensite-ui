@@ -38,7 +38,7 @@ export interface ServicesListFeatureSpotlightItem {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/shield-check")
    */
@@ -166,10 +166,10 @@ export function ServicesListFeatureSpotlight({
   optixFlowConfig,
 }: ServicesListFeatureSpotlightProps): React.JSX.Element {
   const renderFeatureIcon = (feature: ServicesListFeatureSpotlightItem) => {
-    if (feature.icon) return feature.icon;
-    if (feature.iconName)
-      return <DynamicIcon name={feature.iconName} size={24} />;
-    return null;
+    const resolvedIcon = feature.icon || feature.iconName;
+    if (!resolvedIcon) return null;
+
+    return <DynamicIcon name={resolvedIcon} size={24} />;
   };
 
   const renderFeatures = () => {

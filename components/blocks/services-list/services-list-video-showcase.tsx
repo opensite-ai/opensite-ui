@@ -25,7 +25,7 @@ export interface ServicesListVideoShowcaseService {
   /**
    * Custom icon element (takes precedence over iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name for DynamicIcon
    */
@@ -189,7 +189,10 @@ export function ServicesListVideoShowcase({
   };
 
   const renderServiceIcon = (service: ServicesListVideoShowcaseService) => {
-    if (service.icon) return service.icon;
+    if (service.icon)
+      return (
+        <DynamicIcon name={service.icon} className="h-5 w-5 text-primary" />
+      );
     if (service.iconName)
       return (
         <DynamicIcon name={service.iconName} className="h-5 w-5 text-primary" />

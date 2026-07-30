@@ -14,7 +14,7 @@ export interface ServicesListCenteredIconsService {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/cog")
    */
@@ -144,10 +144,10 @@ export function ServicesListCenteredIcons({
   patternOpacity,
 }: ServicesListCenteredIconsProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListCenteredIconsService) => {
-    if (service.icon) return service.icon;
-    if (service.iconName)
-      return <DynamicIcon name={service.iconName} className="h-8 w-8" />;
-    return null;
+    const resolvedIcon = service.icon || service.iconName;
+    if (!resolvedIcon) return null;
+
+    return <DynamicIcon name={resolvedIcon} className="h-8 w-8" />;
   };
 
   const renderServices = () => {

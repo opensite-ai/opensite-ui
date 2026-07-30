@@ -700,3 +700,48 @@ coverage.
 - Exact allowlist audit: only the known user-owned `package.json` diff reported.
 - New failures: none.
 - Pre-existing failures: none observed.
+
+# Change Manifest — Services List
+
+## Modified Files
+
+| Source and adjacent test group | Classification / change | Notes |
+|---|---|---|
+| `accordion`, `cards-hover`, `centered-icons`, `feature-spotlight`, `featured-highlight` | Vulnerable truthy custom-icon/name helpers | Explicit `ReactNode | string` contracts now route the resolved icon through `DynamicIcon` with the original sizes and wrappers. |
+| `icon-grid`, `masonry`, `minimal-grid`, `muted-cards`, `pricing-grid` | Vulnerable truthy custom-icon/name helpers | `icon || iconName` precedence and conditional versus persistent wrapper topology remain exact. |
+| `progress-sidebar`, `timeline`, `two-column-grid`, `vertical-tags`, `video-showcase` | Vulnerable truthy custom-icon/name helpers | Existing fallback classes, slots, actions, media/video fields, and fixed decorative icons remain unchanged. |
+
+All 15 matching adjacent tests now use flexible `DynamicIcon` mocks and cover
+string names, custom nodes, `iconName` fallback, empty strings, `false`, `0`,
+wrapper topology, slots, fixed icons, and media/action boundaries.
+
+## Scope Compliance
+
+- 15 production files and 15 adjacent tests changed within the approved
+  allowlist.
+- Production diffs contain only explicit icon type widening and resolved-icon
+  routing through `DynamicIcon`.
+- Fixed checklist, arrow, clock, chevron, image, and video boundaries are
+  unchanged.
+- The only reported out-of-allowlist working-tree path remains the pre-existing
+  user-owned `package.json` version bump, which was not touched or staged.
+
+## Review Resolution
+
+- Three independent cross-reviews approved all production semantics.
+- A mid-edit Timeline test topology assertion was corrected before the final
+  category run.
+- Review found a newly introduced video mock that did not forward the
+  component ref; the test-only mock now uses `React.forwardRef` and attaches
+  the ref.
+- The final AST audit found zero direct raw icon helper returns or JSX children.
+
+## Test Results
+
+- Focused category run: 27 files passed, 75 tests passed, exit 0.
+- Review-focused group runs: 5/25, 5/18, and 5/20 tests passed.
+- `pnpm type-check`: exit 0.
+- `git diff --check`: exit 0.
+- One unchanged Feature Spotlight motion mock continues to emit its pre-existing
+  forwarded-prop warning; no new warnings remain.
+- New failures: none.

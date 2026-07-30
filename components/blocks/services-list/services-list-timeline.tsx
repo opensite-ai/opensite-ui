@@ -19,7 +19,7 @@ export interface ServicesListTimelineService {
   /**
    * Custom icon element (takes precedence over iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name for DynamicIcon
    */
@@ -158,7 +158,10 @@ export function ServicesListTimeline({
   patternOpacity,
 }: ServicesListTimelineProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListTimelineService) => {
-    if (service.icon) return service.icon;
+    if (service.icon)
+      return (
+        <DynamicIcon name={service.icon} className="h-4 w-4 text-primary" />
+      );
     if (service.iconName)
       return (
         <DynamicIcon name={service.iconName} className="h-4 w-4 text-primary" />

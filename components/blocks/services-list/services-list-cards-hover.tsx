@@ -15,7 +15,7 @@ export interface ServicesListCardsHoverService {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/code")
    */
@@ -158,10 +158,10 @@ export function ServicesListCardsHover({
   patternOpacity,
 }: ServicesListCardsHoverProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListCardsHoverService) => {
-    if (service.icon) return service.icon;
-    if (service.iconName)
-      return <DynamicIcon name={service.iconName} className="h-7 w-7" />;
-    return null;
+    const resolvedIcon = service.icon || service.iconName;
+    if (!resolvedIcon) return null;
+
+    return <DynamicIcon name={resolvedIcon} className="h-7 w-7" />;
   };
 
   const renderServices = () => {

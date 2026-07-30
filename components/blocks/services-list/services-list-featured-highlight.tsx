@@ -16,7 +16,7 @@ export interface ServicesListFeaturedHighlightService {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/cog")
    */
@@ -162,10 +162,10 @@ export function ServicesListFeaturedHighlight({
   patternOpacity,
 }: ServicesListFeaturedHighlightProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListFeaturedHighlightService) => {
-    if (service.icon) return service.icon;
-    if (service.iconName)
-      return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
-    return null;
+    const resolvedIcon = service.icon || service.iconName;
+    if (!resolvedIcon) return null;
+
+    return <DynamicIcon name={resolvedIcon} className="h-6 w-6" />;
   };
 
   const renderServices = () => {

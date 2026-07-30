@@ -15,7 +15,7 @@ export interface ServicesListPricingGridService {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/cog")
    */
@@ -165,12 +165,10 @@ export function ServicesListPricingGrid({
   patternOpacity,
 }: ServicesListPricingGridProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListPricingGridService) => {
-    if (service.icon) return service.icon;
-    if (service.iconName)
-      return (
-        <DynamicIcon name={service.iconName} className="h-6 w-6 text-primary" />
-      );
-    return null;
+    const icon = service.icon || service.iconName;
+    return icon ? (
+      <DynamicIcon name={icon} className="h-6 w-6 text-primary" />
+    ) : null;
   };
 
   const renderServices = () => {

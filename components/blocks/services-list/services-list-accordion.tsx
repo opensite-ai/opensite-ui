@@ -20,7 +20,7 @@ export interface ServicesListAccordionService {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/cog")
    */
@@ -174,10 +174,10 @@ export function ServicesListAccordion({
   patternOpacity,
 }: ServicesListAccordionProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListAccordionService) => {
-    if (service.icon) return service.icon;
-    if (service.iconName)
-      return <DynamicIcon name={service.iconName} className="h-5 w-5" />;
-    return null;
+    const resolvedIcon = service.icon || service.iconName;
+    if (!resolvedIcon) return null;
+
+    return <DynamicIcon name={resolvedIcon} className="h-5 w-5" />;
   };
 
   const renderServices = () => {
