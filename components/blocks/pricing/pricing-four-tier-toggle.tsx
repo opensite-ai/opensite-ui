@@ -28,7 +28,7 @@ export interface PricingFourTierFeature {
   /**
    * Optional icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Optional icon name for DynamicIcon
    */
@@ -134,11 +134,11 @@ export interface PricingFourTierToggleProps {
   /**
    * Icon used when feature is included
    */
-  includedIcon?: React.ReactNode;
+  includedIcon?: React.ReactNode | string;
   /**
    * Icon used when feature is excluded
    */
-  excludedIcon?: React.ReactNode;
+  excludedIcon?: React.ReactNode | string;
   /**
    * Icon name used when feature is included
    */
@@ -359,7 +359,18 @@ export function PricingFourTierToggle({
                   feature.className,
                 )}
               >
-                {resolvedIcon}
+                {resolvedIcon === "" ? null : (
+                  <DynamicIcon
+                    name={resolvedIcon}
+                    size={16}
+                    className={cn(
+                      "mt-0.5 shrink-0",
+                      isIncluded ? "text-primary" : "text-muted-foreground",
+                      featureIconClassName,
+                      feature.iconClassName,
+                    )}
+                  />
+                )}
                 {feature.name &&
                   (typeof feature.name === "string" ? (
                     <span
@@ -418,9 +429,9 @@ export function PricingFourTierToggle({
         >
           {children ?? (
             <>
-              {icon}
+              {icon === "" ? null : <DynamicIcon name={icon} />}
               {label}
-              {iconAfter}
+              {iconAfter === "" ? null : <DynamicIcon name={iconAfter} />}
             </>
           )}
         </Pressable>

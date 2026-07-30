@@ -25,7 +25,7 @@ export interface PricingEnterpriseContactFeature {
   /**
    * Optional icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Optional icon name for DynamicIcon
    */
@@ -76,7 +76,7 @@ export interface PricingEnterpriseContactProps {
   /**
    * Default icon used for features
    */
-  featureIcon?: React.ReactNode;
+  featureIcon?: React.ReactNode | string;
   /**
    * Default icon name for features
    */
@@ -227,9 +227,9 @@ export function PricingEnterpriseContact({
         >
           {children ?? (
             <>
-              {icon}
+              {icon === "" ? null : <DynamicIcon name={icon} />}
               {label}
-              {iconAfter}
+              {iconAfter === "" ? null : <DynamicIcon name={iconAfter} />}
             </>
           )}
         </Pressable>
@@ -242,17 +242,10 @@ export function PricingEnterpriseContact({
     if (!features || features.length === 0) return null;
 
     return features.map((feature, index) => {
-      const iconName = feature.iconName || featureIconName;
-          const resolvedIcon =
+      const resolvedIcon =
         feature.icon ??
         featureIcon ??
-        (iconName ? (
-          <DynamicIcon
-            name={iconName}
-            size={16}
-            className={cn("text-primary", feature.iconClassName)}
-          />
-        ) : null);
+        (feature.iconName || featureIconName);
 
       return (
         <div key={index} className={cn("flex gap-4", feature.className)}>
@@ -263,7 +256,13 @@ export function PricingEnterpriseContact({
                 feature.iconWrapperClassName,
               )}
             >
-              {resolvedIcon}
+              {resolvedIcon === "" ? null : (
+                <DynamicIcon
+                  name={resolvedIcon}
+                  size={16}
+                  className={cn("text-primary", feature.iconClassName)}
+                />
+              )}
             </div>
           )}
           <div>

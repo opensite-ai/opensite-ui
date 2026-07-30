@@ -23,7 +23,7 @@ export interface PricingDiscountCardFeature {
   /**
    * Optional icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Optional icon name for DynamicIcon
    */
@@ -78,7 +78,7 @@ export interface PricingDiscountCardProps {
   /**
    * Default icon for features
    */
-  featureIcon?: React.ReactNode;
+  featureIcon?: React.ReactNode | string;
   /**
    * Default icon name for features
    */
@@ -247,21 +247,10 @@ export function PricingDiscountCard({
     return (
       <ul className={cn("space-y-3", featuresClassName)}>
         {features.map((feature, index) => {
-          const iconName = feature.iconName || featureIconName;
           const resolvedIcon =
             feature.icon ??
             featureIcon ??
-            (iconName ? (
-              <DynamicIcon
-                name={iconName}
-                size={18}
-                className={cn(
-                  "mt-0.5 shrink-0 text-primary",
-                  featureIconClassName,
-                  feature.iconClassName,
-                )}
-              />
-            ) : null);
+            (feature.iconName || featureIconName);
 
           return (
             <li
@@ -272,7 +261,17 @@ export function PricingDiscountCard({
                 feature.className,
               )}
             >
-              {resolvedIcon}
+              {resolvedIcon === "" ? null : (
+                <DynamicIcon
+                  name={resolvedIcon}
+                  size={18}
+                  className={cn(
+                    "mt-0.5 shrink-0 text-primary",
+                    featureIconClassName,
+                    feature.iconClassName,
+                  )}
+                />
+              )}
               {feature.text &&
                 (typeof feature.text === "string" ? (
                   <span
@@ -327,9 +326,9 @@ export function PricingDiscountCard({
       >
         {children ?? (
           <>
-            {icon}
+            {icon === "" ? null : <DynamicIcon name={icon} />}
             {label}
-            {iconAfter}
+            {iconAfter === "" ? null : <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>

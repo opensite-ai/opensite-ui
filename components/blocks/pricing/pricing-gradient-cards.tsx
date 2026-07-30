@@ -22,7 +22,7 @@ export interface PricingGradientCardsFeature {
   /**
    * Optional icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Optional icon name for DynamicIcon
    */
@@ -132,7 +132,7 @@ export interface PricingGradientCardsProps {
   /**
    * Default icon used for feature items
    */
-  featureIcon?: React.ReactNode;
+  featureIcon?: React.ReactNode | string;
   /**
    * Default icon name used for feature items
    */
@@ -318,7 +318,7 @@ export function PricingGradientCards({
         <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
           {plan.features.map((feature, featureIndex) => {
             const iconName = feature.iconName || featureIconName;
-          const resolvedIcon =
+            const resolvedIcon =
               feature.icon ??
               featureIcon ??
               (iconName ? (
@@ -342,7 +342,17 @@ export function PricingGradientCards({
                   feature.className,
                 )}
               >
-                {resolvedIcon}
+                {resolvedIcon === "" ? null : (
+                  <DynamicIcon
+                    name={resolvedIcon}
+                    size={18}
+                    className={cn(
+                      "mt-0.5 shrink-0 text-primary",
+                      featureIconClassName,
+                      feature.iconClassName,
+                    )}
+                  />
+                )}
                 {feature.text &&
                   (typeof feature.text === "string" ? (
                     <span
@@ -399,9 +409,9 @@ export function PricingGradientCards({
         >
           {children ?? (
             <>
-              {icon}
+              {icon === "" ? null : <DynamicIcon name={icon} />}
               {label}
-              {iconAfter}
+              {iconAfter === "" ? null : <DynamicIcon name={iconAfter} />}
             </>
           )}
         </Pressable>

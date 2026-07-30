@@ -21,7 +21,7 @@ export interface PricingIconHeadersFeature {
   /**
    * Optional icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Optional icon name for DynamicIcon
    */
@@ -76,7 +76,7 @@ export interface PricingIconHeadersPlan {
   /**
    * Icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name for DynamicIcon
    */
@@ -111,7 +111,7 @@ export interface PricingIconHeadersProps {
   /**
    * Default icon used for features
    */
-  featureIcon?: React.ReactNode;
+  featureIcon?: React.ReactNode | string;
   /**
    * Default icon name for features
    */
@@ -289,7 +289,17 @@ export function PricingIconHeaders({
                 feature.className,
               )}
             >
-              {resolvedIcon}
+              {resolvedIcon === "" ? null : (
+                <DynamicIcon
+                  name={resolvedIcon}
+                  size={18}
+                  className={cn(
+                    "mt-0.5 shrink-0 text-primary",
+                    featureIconClassName,
+                    feature.iconClassName,
+                  )}
+                />
+              )}
               {feature.text &&
                 (typeof feature.text === "string" ? (
                   <span
@@ -346,9 +356,9 @@ export function PricingIconHeaders({
       >
         {children ?? (
           <>
-            {icon}
+            {icon === "" ? null : <DynamicIcon name={icon} />}
             {label}
-            {iconAfter}
+            {iconAfter === "" ? null : <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>
@@ -387,7 +397,9 @@ export function PricingIconHeaders({
                       iconWrapperClassName,
                     )}
                   >
-                    {resolvedIcon}
+                    {resolvedIcon === "" ? null : (
+                      <DynamicIcon name={resolvedIcon} size={24} />
+                    )}
                   </div>
                 )}
                 <div>

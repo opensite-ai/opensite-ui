@@ -124,11 +124,11 @@ export interface PricingComparisonHeadersProps {
   /**
    * Icon for available features
    */
-  availableIcon?: React.ReactNode;
+  availableIcon?: React.ReactNode | string;
   /**
    * Icon for unavailable features
    */
-  unavailableIcon?: React.ReactNode;
+  unavailableIcon?: React.ReactNode | string;
   /**
    * Icon name for available features
    */
@@ -305,20 +305,40 @@ export function PricingComparisonHeaders({
     return (value: boolean | React.ReactNode | undefined) => {
     if (typeof value === "boolean") {
       return value
-        ? (availableIcon ?? (
+        ? availableIcon != null
+          ? availableIcon === ""
+            ? null
+            : (
+              <DynamicIcon
+                name={availableIcon}
+                size={18}
+                className="text-primary"
+              />
+            )
+          : (
             <DynamicIcon
               name={availableIconName}
               size={18}
               className="text-primary"
             />
-          ))
-        : (unavailableIcon ?? (
+          )
+        : unavailableIcon != null
+          ? unavailableIcon === ""
+            ? null
+            : (
+              <DynamicIcon
+                name={unavailableIcon}
+                size={18}
+                className="text-muted-foreground"
+              />
+            )
+          : (
             <DynamicIcon
               name={unavailableIconName}
               size={18}
               className="text-muted-foreground"
             />
-          ));
+          );
     }
     return value ? <span className="text-sm font-medium">{value}</span> : null;
     };
@@ -350,9 +370,9 @@ export function PricingComparisonHeaders({
       >
         {children ?? (
           <>
-            {icon}
+            {icon === "" ? null : <DynamicIcon name={icon} />}
             {label}
-            {iconAfter}
+            {iconAfter === "" ? null : <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>

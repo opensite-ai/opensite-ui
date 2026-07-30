@@ -21,7 +21,7 @@ export interface PricingAddonsCardsFeature {
   /**
    * Optional icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Optional icon name for DynamicIcon
    */
@@ -99,7 +99,7 @@ export interface PricingAddonsCardsProps {
   /**
    * Default icon used for features
    */
-  featureIcon?: React.ReactNode;
+  featureIcon?: React.ReactNode | string;
   /**
    * Default icon name for features
    */
@@ -248,21 +248,10 @@ export function PricingAddonsCards({
       return (
         <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
           {addon.features.map((feature, featureIndex) => {
-            const iconName = feature.iconName || featureIconName;
             const resolvedIcon =
               feature.icon ??
               featureIcon ??
-              (iconName ? (
-                <DynamicIcon
-                  name={iconName}
-                  size={16}
-                  className={cn(
-                    "mt-0.5 shrink-0 text-primary",
-                    featureIconClassName,
-                    feature.iconClassName,
-                  )}
-                />
-              ) : null);
+              (feature.iconName || featureIconName);
 
             return (
               <li
@@ -273,7 +262,17 @@ export function PricingAddonsCards({
                   feature.className,
                 )}
               >
-                {resolvedIcon}
+                {resolvedIcon === "" ? null : (
+                  <DynamicIcon
+                    name={resolvedIcon}
+                    size={16}
+                    className={cn(
+                      "mt-0.5 shrink-0 text-primary",
+                      featureIconClassName,
+                      feature.iconClassName,
+                    )}
+                  />
+                )}
                 {feature.text &&
                   (typeof feature.text === "string" ? (
                     <span
@@ -330,9 +329,11 @@ export function PricingAddonsCards({
         >
           {children ?? (
             <>
-              {icon}
+              {icon === "" ? null : <DynamicIcon name={icon} />}
               {label}
-              {iconAfter}
+              {iconAfter === "" ? null : (
+                <DynamicIcon name={iconAfter} />
+              )}
             </>
           )}
         </Pressable>

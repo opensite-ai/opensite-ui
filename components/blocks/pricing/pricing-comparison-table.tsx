@@ -52,7 +52,7 @@ export interface PricingComparisonTablePlanFeature {
   /**
    * Optional icon element
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Optional icon name for DynamicIcon
    */
@@ -150,7 +150,7 @@ export interface PricingComparisonTableProps {
   /**
    * Default icon for feature items
    */
-  featureIcon?: React.ReactNode;
+  featureIcon?: React.ReactNode | string;
   /**
    * Default icon name for feature items
    */
@@ -158,11 +158,11 @@ export interface PricingComparisonTableProps {
   /**
    * Icon for available features in comparison table
    */
-  availableIcon?: React.ReactNode;
+  availableIcon?: React.ReactNode | string;
   /**
    * Icon for unavailable features in comparison table
    */
-  unavailableIcon?: React.ReactNode;
+  unavailableIcon?: React.ReactNode | string;
   /**
    * Icon name for available features
    */
@@ -360,21 +360,10 @@ export function PricingComparisonTable({
     return (
       <ul className={cn("space-y-3", featuresClassName)}>
         {plan.features.map((feature, featureIndex) => {
-          const iconName = feature.iconName || featureIconName;
           const resolvedIcon =
             feature.icon ??
             featureIcon ??
-            (iconName ? (
-              <DynamicIcon
-                name={iconName}
-                size={18}
-                className={cn(
-                  "mt-0.5 shrink-0 text-primary",
-                  featureIconClassName,
-                  feature.iconClassName,
-                )}
-              />
-            ) : null);
+            (feature.iconName || featureIconName);
 
           return (
             <li
@@ -385,7 +374,17 @@ export function PricingComparisonTable({
                 feature.className,
               )}
             >
-              {resolvedIcon}
+              {resolvedIcon === "" ? null : (
+                <DynamicIcon
+                  name={resolvedIcon}
+                  size={18}
+                  className={cn(
+                    "mt-0.5 shrink-0 text-primary",
+                    featureIconClassName,
+                    feature.iconClassName,
+                  )}
+                />
+              )}
               {feature.text &&
                 (typeof feature.text === "string" ? (
                   <span
@@ -442,9 +441,9 @@ export function PricingComparisonTable({
       >
         {children ?? (
           <>
-            {icon}
+            {icon === "" ? null : <DynamicIcon name={icon} />}
             {label}
-            {iconAfter}
+            {iconAfter === "" ? null : <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>
@@ -519,25 +518,41 @@ export function PricingComparisonTable({
   ) => {
     if (typeof value === "boolean") {
       if (value) {
-        return (
-          availableIcon ?? (
+        return availableIcon != null
+          ? availableIcon === ""
+            ? null
+            : (
+              <DynamicIcon
+                name={availableIcon}
+                size={18}
+                className="mx-auto text-primary"
+              />
+            )
+          : (
             <DynamicIcon
               name={availableIconName}
               size={18}
               className="mx-auto text-primary"
             />
-          )
-        );
+          );
       }
-      return (
-        unavailableIcon ?? (
+      return unavailableIcon != null
+        ? unavailableIcon === ""
+          ? null
+          : (
+            <DynamicIcon
+              name={unavailableIcon}
+              size={18}
+              className="mx-auto text-muted-foreground"
+            />
+          )
+        : (
           <DynamicIcon
             name={unavailableIconName}
             size={18}
             className="mx-auto text-muted-foreground"
           />
-        )
-      );
+        );
     }
 
     return value ? <span className="text-sm">{value}</span> : null;

@@ -413,6 +413,64 @@ Files deleted: 0
 - New failures: none.
 - Pre-existing failures: existing mocked animation-prop warning only.
 
+# Change Manifest — Pricing Part A
+
+## Modified Files
+
+| Source and adjacent test | Classification / change | Combined lines +/- | Notes |
+|---|---|---:|---|
+| `pricing-addons-cards` | Vulnerable feature/action fallback | +300/-17 | Feature overrides and action icons now resolve dynamically at size 16. |
+| `pricing-addons-featured` | Vulnerable feature/action fallback | +300/-17 | Feature overrides and action icons now resolve dynamically at size 16. |
+| `pricing-collapsible-plans` | Vulnerable feature/action fallback | +337/-17 | Feature overrides resolve at size 18; static chevron state remains unchanged and covered. |
+| `pricing-columns-toggle` | Vulnerable feature/action fallback | +320/-18 | Feature overrides resolve at size 18; toggle/action behavior remains intact. |
+| `pricing-comparison-headers` | Vulnerable availability/action fallback | +272/-8 | Availability overrides preserve true/false styling, defaults, and size 18. |
+| `pricing-comparison-table` | Vulnerable mixed fallback | +384/-27 | Feature and availability overrides preserve precedence, size 18, and table classes. |
+| `pricing-discount-card` | Vulnerable feature/action fallback | +257/-17 | Feature overrides resolve at size 18 with original class merging. |
+| `pricing-enterprise-contact` | Vulnerable feature/action fallback | +247/-14 | Feature overrides preserve the existing truthy wrapper and local-only class contract. |
+| `pricing-four-tier-toggle` | Vulnerable included/excluded fallback | +258/-6 | Included/excluded overrides preserve conditional styling and size 16. |
+| `pricing-full-comparison` | Vulnerable availability/action fallback | +264/-8 | Availability overrides preserve true/false styling and size 18. |
+| `pricing-gradient-cards` | Vulnerable feature/action fallback | +262/-6 | Feature overrides resolve at size 18 with original classes. |
+| `pricing-icon-headers` | Vulnerable feature/header/action fallback | +282/-7 | Feature and plan-header overrides preserve sizes 18/24 and header wrapper topology. |
+| `pricing-minimal-cards` | Vulnerable feature/action fallback | +251/-6 | Feature overrides resolve at size 16 with original shrink/color classes. |
+| `tasks/dynamic-icon-rendering/.refactor-session.md` | Control state | current batch | Records pricing-A completion and pricing-B handoff. |
+| `tasks/dynamic-icon-rendering/CHANGE_MANIFEST.md` | Batch manifest | current batch | Records classifications, new tests, reviews, and verification. |
+
+## Scope Compliance
+
+- [x] The implementation diff is exactly 13 approved production files and 13 approved new adjacent tests.
+- [x] All 26 source/test paths are in the exact scope allowlist.
+- [x] No files exist outside spec-defined outputs.
+- [x] No dependency or lockfile changed.
+- [x] The pre-existing `package.json` version-only diff is unchanged and unstaged.
+- [x] No new public consistency props, abstraction, dependency, or rendering system was introduced.
+- [x] Exact raw/name/default fallback operators and truthy wrapper topology are preserved.
+- [x] Empty strings, `false`, `0`, custom nodes, named/default branches, and inherited styles are covered.
+- [x] Action children and slots retain full replacement semantics.
+- [x] Refined AST audit reports zero simple raw icon-like JSX children/helper returns.
+
+## Review Resolution
+
+- A proposed enterprise global icon-class prop was rejected; the component
+  retains its existing local-only class API.
+- Group-one review hardened scoped feature assertions, both action positions,
+  duplicated responsive rows, and static chevron state.
+- Group-two review added missing trailing-action, custom-node, falsy
+  availability, and action edge coverage.
+- Independent group-three review approved the implementation and tests without
+  behavioral defects; redundant nested named-fallback DynamicIcon elements are
+  behaviorally inert and retained to minimize semantic churn.
+
+## Test Results
+
+- Focused: 13 files passed, 55 tests passed, exit 0.
+- `pnpm type-check`: exit 0.
+- Exact 26-path scope and allowlist audit: exit 0.
+- Dependency/package-baseline audit: exit 0.
+- Refined raw-render AST audit: 13 files, zero sites.
+- Review-focused group runs: 4/17, 4/17, and 5/21 tests passed.
+- New failures: none.
+- Pre-existing failures: none observed.
+
 ---
 
 # Change Manifest — Remaining Hero Part A
