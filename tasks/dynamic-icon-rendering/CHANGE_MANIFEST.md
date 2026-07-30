@@ -822,3 +822,49 @@ dismissal, filtering, pagination, content, and media boundaries.
 - `pnpm type-check`: exit 0.
 - `git diff --check`: exit 0.
 - New failures: none.
+
+# Change Manifest — Stats, Service Detail, Process, About, and Testimonials
+
+## Modified Files
+
+| Review group | Changed / reviewed files | Classification / change |
+|---|---|---|
+| About and process | Changed `company-profile`, `startup-team`, `story-expertise`, `icon-timeline`, `numbered-services`, `scroll-image`; reviewed `expandable-values` unchanged | Action/social/iconSlot boundaries now resolve dynamically; Story Expertise required an explicit string-capable contract only. |
+| Process and service detail | Changed `process-steps-grid` plus all five service-detail review files | Semantic iconSlot/custom overrides route through `DynamicIcon`; documented image-URL icon fields remain on `Img`. |
+| Stats and testimonials | Changed all six stats review files plus `testimonials-stats-header` | iconSlot and manual action boundaries resolve dynamically while named icons, avatars, growth arrows, stars, and slots retain existing behavior. |
+
+Nineteen matching adjacent tests were extended with flexible mocks and
+string/custom/empty/`false`/`0`/fallback/children/slot/media coverage.
+
+## Reviewed Without Change
+
+- `about-expandable-values` already uses flexible dynamic icon types/rendering
+  and delegates actions to the shared safe action renderer.
+
+## Scope Compliance
+
+- 19 production files and 19 adjacent tests changed within the 20-file approved
+  review batch.
+- Public semantic icon and iconSlot contracts explicitly accept
+  `ReactNode | string`.
+- Image URLs, avatars, logos, service imagery, fixed stars/arrows/checks,
+  counters, timelines, wrappers, and action/section slots are unchanged.
+- The only out-of-allowlist working-tree path remains the user-owned
+  `package.json` version bump.
+
+## Review Resolution
+
+- Three independent reviews approved production semantics.
+- Review corrected required `description`/`growth` test fixtures, hardened
+  eight raw-icon assertions, and found 17 public iconSlot contracts plus one
+  Story Expertise icon contract requiring explicit string support.
+- Comprehensive AST inspection found one expected resolved `iconContent`
+  expression and zero direct raw configurable-icon values.
+
+## Test Results
+
+- Focused category run: 70 files passed, 420 tests passed, exit 0.
+- Review-focused group runs: 7/66, 6/24, and 7/59 tests passed.
+- `pnpm type-check`: exit 0.
+- `git diff --check`: exit 0.
+- New failures: none.

@@ -37,7 +37,7 @@ export interface TeamMemberItem {
     alt: string;
   };
   socialLinks?: Array<{
-    icon?: React.ReactNode;
+    icon?: React.ReactNode | string;
     url: string;
     label: string;
   }>;
@@ -302,7 +302,7 @@ export function AboutStartupTeam({
                     href={link.url}
                     aria-label={link.label}
                   >
-                    {link.icon}
+                    {link.icon !== "" && <DynamicIcon name={link.icon} />}
                   </Pressable>
                 ))}
               </div>

@@ -1,6 +1,28 @@
-import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import { render, screen, within } from "@testing-library/react";
 import { ProcessNumberedServices } from "../process-numbered-services";
+
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({
+    name,
+    size,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    size?: number;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span
+        data-testid="mock-icon"
+        data-name={name}
+        data-size={size}
+        className={className}
+      />
+    ) : (
+      <>{name}</>
+    ),
+}));
 
 describe("ProcessNumberedServices", () => {
   const mockServices = [
@@ -83,6 +105,141 @@ describe("ProcessNumberedServices", () => {
     render(<ProcessNumberedServices services={mockServices} />);
     const consultingLink = screen.getAllByText("Learn more")[0].closest("a");
     expect(consultingLink).toHaveAttribute("href", "/consulting");
+  });
+
+  it("routes action icon names and preserves asymmetric sentinel behavior", () => {
+    const { container } = render(
+      <ProcessNumberedServices
+        services={[
+          {
+            number: "01",
+            title: "String icons",
+            action: {
+              label: "String action",
+              href: "/string",
+              icon: "lucide/settings",
+              iconAfter: "lucide/arrow-right",
+            },
+          },
+          {
+            number: "02",
+            title: "Custom icons",
+            action: {
+              label: "Custom action",
+              icon: <span data-testid="custom-leading-icon" />,
+              iconAfter: <span data-testid="custom-trailing-icon" />,
+            },
+          },
+          {
+            number: "03",
+            title: "Leading zero",
+            action: {
+              label: "Leading zero action",
+              href: "/leading-zero",
+              icon: 0,
+              iconAfter: false,
+            },
+          },
+          {
+            number: "04",
+            title: "Trailing zero",
+            action: {
+              label: "Trailing zero action",
+              href: "/trailing-zero",
+              iconAfter: 0,
+            },
+          },
+          {
+            number: "05",
+            title: "Empty icons",
+            action: {
+              label: "Empty action",
+              href: "/empty",
+              icon: "",
+              iconAfter: "",
+            },
+          },
+        ]}
+      />,
+    );
+
+    const stringAction = screen
+      .getByText("String action")
+      .closest("a") as HTMLElement;
+    expect(
+      within(stringAction).getAllByTestId("mock-icon").map((icon) =>
+        icon.getAttribute("data-name"),
+      ),
+    ).toEqual(["lucide/settings", "lucide/arrow-right"]);
+    expect(stringAction).not.toHaveTextContent("lucide/settings");
+    expect(stringAction).not.toHaveTextContent("lucide/arrow-right");
+    expect(screen.getByTestId("custom-leading-icon")).toBeInTheDocument();
+    expect(screen.getByTestId("custom-trailing-icon")).toBeInTheDocument();
+
+    const leadingZero = container.querySelector(
+      '[href="/leading-zero"]',
+    ) as HTMLElement;
+    expect(leadingZero).toHaveTextContent("0Leading zero action");
+    expect(within(leadingZero).queryByTestId("mock-icon")).not.toBeInTheDocument();
+
+    const trailingZero = container.querySelector(
+      '[href="/trailing-zero"]',
+    ) as HTMLElement;
+    expect(trailingZero).toHaveTextContent("Trailing zero action0");
+    expect(
+      within(trailingZero).queryByTestId("mock-icon"),
+    ).not.toBeInTheDocument();
+
+    const emptyAction = container.querySelector(
+      '[href="/empty"]',
+    ) as HTMLElement;
+    expect(within(emptyAction).queryByTestId("mock-icon")).not.toBeInTheDocument();
+  });
+
+  it("preserves action children and per-service slot precedence", () => {
+    const { container } = render(
+      <ProcessNumberedServices
+        services={[
+          {
+            number: "01",
+            title: "Zero children",
+            action: {
+              label: "Hidden by zero",
+              href: "/zero-children",
+              icon: "lucide/hidden-zero",
+              children: 0,
+            },
+          },
+          {
+            number: "02",
+            title: "Truthy slot",
+            action: {
+              label: "Hidden by slot",
+              icon: "lucide/hidden-slot",
+            },
+            actionSlot: <span data-testid="action-slot">Custom action</span>,
+          },
+          {
+            number: "03",
+            title: "Falsy slot",
+            action: { label: "Falsy slot fallback" },
+            actionSlot: false,
+          },
+        ]}
+      />,
+    );
+
+    const zeroChildren = container.querySelector(
+      '[href="/zero-children"]',
+    ) as HTMLElement;
+    expect(zeroChildren).toHaveTextContent("0");
+    expect(zeroChildren).not.toHaveTextContent("Hidden by zero");
+    expect(
+      within(zeroChildren).queryByTestId("mock-icon"),
+    ).not.toBeInTheDocument();
+    expect(screen.getByTestId("action-slot")).toBeInTheDocument();
+    expect(screen.queryByText("Hidden by slot")).not.toBeInTheDocument();
+    expect(screen.getByText("Falsy slot fallback")).toBeInTheDocument();
   });
 
   it("renders grid layout for services", () => {

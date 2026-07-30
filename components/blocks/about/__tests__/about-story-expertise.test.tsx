@@ -27,11 +27,18 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>
-      icon
-    </span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className} />
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 vi.mock("../../../lib/mediaPlaceholders", () => ({
@@ -70,6 +77,29 @@ describe("AboutStoryExpertise", () => {
     render(<AboutStoryExpertise expertiseHeading="Custom Expertise" expertiseDescription="Custom expertise description" />);
     expect(screen.getByText("Custom Expertise")).toBeInTheDocument();
     expect(screen.getByText("Custom expertise description")).toBeInTheDocument();
+  });
+
+  it("routes expertise icon names through DynamicIcon and preserves custom nodes", () => {
+    const { container } = render(
+      <AboutStoryExpertise
+        expertiseAreas={[
+          {
+            title: "String expertise",
+            icon: "lucide/briefcase-business",
+          },
+          {
+            title: "Custom expertise",
+            icon: <span data-testid="custom-expertise-icon" />,
+          },
+        ]}
+      />,
+    );
+
+    expect(
+      container.querySelector('[data-name="lucide/briefcase-business"]'),
+    ).toBeInTheDocument();
+    expect(container).not.toHaveTextContent("lucide/briefcase-business");
+    expect(screen.getByTestId("custom-expertise-icon")).toBeInTheDocument();
   });
 
   it("renders actions when provided", () => {

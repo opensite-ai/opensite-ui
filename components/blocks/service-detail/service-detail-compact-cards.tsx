@@ -17,7 +17,7 @@ import type {
 
 export interface CompactExpertiseItem {
   icon?: string;
-  iconSlot?: React.ReactNode;
+  iconSlot?: React.ReactNode | string;
   title?: React.ReactNode;
   description?: React.ReactNode;
   className?: string;
@@ -25,7 +25,7 @@ export interface CompactExpertiseItem {
 
 export interface CompactServiceItem {
   iconName?: string;
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   title?: React.ReactNode;
   className?: string;
 }
@@ -53,7 +53,7 @@ export interface ServiceDetailCompactCardsProps {
     src: string;
     alt: string;
   };
-  serviceIconSlot?: React.ReactNode;
+  serviceIconSlot?: React.ReactNode | string;
   serviceIconClassName?: string;
   introDescription?: React.ReactNode;
   introDescriptionClassName?: string;
@@ -124,7 +124,7 @@ export function ServiceDetailCompactCards({
   optixFlowConfig,
 }: ServiceDetailCompactCardsProps) {
   const renderServiceIcon = () => {
-    if (serviceIconSlot) return serviceIconSlot;
+    if (serviceIconSlot) return <DynamicIcon name={serviceIconSlot} />;
     if (!serviceIcon) return null;
 
     return (
@@ -172,7 +172,7 @@ export function ServiceDetailCompactCards({
               )}
             >
               {item.iconSlot ? (
-                item.iconSlot
+                <DynamicIcon name={item.iconSlot} />
               ) : item.icon ? (
                 <Img
                   src={item.icon}
@@ -264,7 +264,11 @@ export function ServiceDetailCompactCards({
               )}
             >
               {service.icon ? (
-                service.icon
+                <DynamicIcon
+                  name={service.icon}
+                  size={20}
+                  className="shrink-0 text-primary"
+                />
               ) : service.iconName ? (
                 <DynamicIcon
                   name={service.iconName}

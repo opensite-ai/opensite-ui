@@ -48,7 +48,7 @@ export interface CardGroupStat {
   /**
    * Custom icon element (overrides icon name)
    */
-  iconSlot?: React.ReactNode;
+  iconSlot?: React.ReactNode | string;
   /**
    * The stat value (e.g., "2,000+", "4.9/5", "99.9%")
    */
@@ -189,7 +189,7 @@ export function StatsCardGroup({
   // Memoized icon rendering
   const renderIcon = useCallback(
     (stat: CardGroupStat) => {
-      if (stat.iconSlot) return stat.iconSlot;
+      if (stat.iconSlot) return <DynamicIcon name={stat.iconSlot} />;
       if (!stat.icon) return null;
       return (
         <div

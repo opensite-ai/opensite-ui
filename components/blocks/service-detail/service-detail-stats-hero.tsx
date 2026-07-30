@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { Section } from "../../ui/section";
@@ -15,7 +16,7 @@ import type {
 
 export interface StatsHeroStatItem {
   icon?: string;
-  iconSlot?: React.ReactNode;
+  iconSlot?: React.ReactNode | string;
   title?: React.ReactNode;
   value?: React.ReactNode;
   description?: React.ReactNode;
@@ -51,7 +52,7 @@ export interface ServiceDetailStatsHeroProps {
     src: string;
     alt: string;
   };
-  serviceIconSlot?: React.ReactNode;
+  serviceIconSlot?: React.ReactNode | string;
   serviceIconClassName?: string;
   stats?: StatsHeroStatItem[];
   statsSlot?: React.ReactNode;
@@ -112,7 +113,7 @@ export function ServiceDetailStatsHero({
   };
 
   const renderServiceIcon = () => {
-    if (serviceIconSlot) return serviceIconSlot;
+    if (serviceIconSlot) return <DynamicIcon name={serviceIconSlot} />;
     if (!serviceIcon) return null;
 
     return (
@@ -142,7 +143,7 @@ export function ServiceDetailStatsHero({
             >
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center">
                 {stat.iconSlot ? (
-                  stat.iconSlot
+                  <DynamicIcon name={stat.iconSlot} />
                 ) : stat.icon ? (
                   <Img
                     src={stat.icon}

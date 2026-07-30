@@ -1,6 +1,28 @@
-import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import { render, screen, within } from "@testing-library/react";
 import { ProcessStepsGrid } from "../process-steps-grid";
+
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({
+    name,
+    size,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    size?: number;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span
+        data-testid="mock-icon"
+        data-name={name}
+        data-size={size}
+        className={className}
+      />
+    ) : (
+      <>{name}</>
+    ),
+}));
 
 describe("ProcessStepsGrid", () => {
   const mockSteps = [
@@ -86,5 +108,91 @@ describe("ProcessStepsGrid", () => {
     render(<ProcessStepsGrid steps={stepsWithoutIcons} />);
     expect(screen.getByText("Step 1")).toBeInTheDocument();
     expect(screen.getByText("Step 2")).toBeInTheDocument();
+  });
+
+  it("routes icon slots through DynamicIcon without changing nullish precedence", () => {
+    const steps = [
+      {
+        title: "String slot",
+        icon: "lucide/string-fallback",
+        iconSlot: "lucide/string-slot",
+      },
+      {
+        title: "Custom slot",
+        icon: "lucide/custom-fallback",
+        iconSlot: <span data-testid="custom-icon">Custom icon</span>,
+      },
+      {
+        title: "False slot",
+        icon: "lucide/false-fallback",
+        iconSlot: false,
+      },
+      {
+        title: "Zero slot",
+        icon: "lucide/zero-fallback",
+        iconSlot: 0,
+      },
+      {
+        title: "Empty slot",
+        icon: "lucide/empty-fallback",
+        iconSlot: "",
+      },
+      {
+        title: "Null fallback",
+        icon: "lucide/null-fallback",
+        iconSlot: null,
+      },
+    ];
+    const { rerender } = render(<ProcessStepsGrid steps={steps} />);
+    const cardFor = (title: string) =>
+      screen.getByText(title).closest(".group") as HTMLElement;
+    const iconBoxFor = (title: string) =>
+      cardFor(title).querySelector(".size-14") as HTMLElement;
+
+    const stringCard = cardFor("String slot");
+    const stringIcon = within(stringCard).getByTestId("mock-icon");
+    expect(stringIcon).toHaveAttribute("data-name", "lucide/string-slot");
+    expect(stringIcon).toHaveAttribute("data-size", "28");
+    expect(stringCard).not.toHaveTextContent("lucide/string-slot");
+    expect(
+      stringCard.querySelector('[data-name="lucide/string-fallback"]'),
+    ).not.toBeInTheDocument();
+
+    expect(within(cardFor("Custom slot")).getByTestId("custom-icon")).toBeInTheDocument();
+    expect(
+      cardFor("Custom slot").querySelector(
+        '[data-name="lucide/custom-fallback"]',
+      ),
+    ).not.toBeInTheDocument();
+
+    expect(iconBoxFor("False slot")).toBeEmptyDOMElement();
+    expect(iconBoxFor("False slot")).not.toHaveTextContent(
+      "lucide/false-fallback",
+    );
+    expect(iconBoxFor("Zero slot")).toHaveTextContent("0");
+    expect(
+      iconBoxFor("Zero slot").querySelector(
+        '[data-name="lucide/zero-fallback"]',
+      ),
+    ).not.toBeInTheDocument();
+    expect(iconBoxFor("Empty slot")).toBeEmptyDOMElement();
+    expect(iconBoxFor("Empty slot")).not.toHaveTextContent(
+      "lucide/empty-fallback",
+    );
+    expect(
+      within(cardFor("Null fallback")).getByTestId("mock-icon"),
+    ).toHaveAttribute("data-name", "lucide/null-fallback");
+
+    rerender(
+      <ProcessStepsGrid
+        steps={steps}
+        stepsSlot={<div data-testid="steps-slot">Custom steps</div>}
+      />,
+    );
+    expect(screen.getByTestId("steps-slot")).toBeInTheDocument();
+    expect(screen.queryByText("String slot")).not.toBeInTheDocument();
+
+    rerender(<ProcessStepsGrid steps={steps} stepsSlot={false} />);
+    expect(screen.getByText("String slot")).toBeInTheDocument();
   });
 });

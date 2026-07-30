@@ -25,9 +25,20 @@ vi.mock("../../../ui/avatar", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 vi.mock("../../../../lib/blockBrandedIconsAndPlaceholders", () => ({
@@ -46,6 +57,103 @@ describe("TestimonialsStatsHeader", () => {
   it("renders custom heading", () => {
     const { container } = render(<TestimonialsStatsHeader heading="Custom Heading" />);
     expect(container.textContent).toContain("Custom Heading");
+  });
+
+  it("routes iconSlot strings while preserving fallbacks, stars, and avatar media", () => {
+    const { container } = render(
+      <TestimonialsStatsHeader
+        stats={[
+          {
+            id: "string-slot",
+            value: "1",
+            label: "String slot",
+            iconSlot: "lucide/sparkles",
+            icon: "lucide/ignored-string-fallback",
+            className: "string-slot-stat",
+          },
+          {
+            id: "custom-slot",
+            value: "2",
+            label: "Custom slot",
+            iconSlot: <span data-testid="custom-stat-icon">Custom icon</span>,
+            icon: "lucide/ignored-custom-fallback",
+            className: "custom-slot-stat",
+          },
+          {
+            id: "empty-slot",
+            value: "3",
+            label: "Empty slot",
+            iconSlot: "",
+            icon: "lucide/empty-fallback",
+            className: "empty-slot-stat",
+          },
+          {
+            id: "false-slot",
+            value: "4",
+            label: "False slot",
+            iconSlot: false,
+            icon: "lucide/false-fallback",
+            className: "false-slot-stat",
+          },
+          {
+            id: "zero-slot",
+            value: "5",
+            label: "Zero slot",
+            iconSlot: 0,
+            icon: "lucide/zero-fallback",
+            className: "zero-slot-stat",
+          },
+        ]}
+        testimonials={[
+          {
+            quote: "Media boundary testimonial",
+            author: "Boundary Author",
+            avatarSrc: "lucide/avatar-looking-image",
+            rating: 4,
+          },
+        ]}
+      />
+    );
+
+    const stringIcon = container.querySelector(
+      '.string-slot-stat [data-name="lucide/sparkles"]'
+    );
+    const customIcon = screen.getByTestId("custom-stat-icon");
+    expect(stringIcon).toBeInTheDocument();
+    expect(
+      container.querySelector(".string-slot-stat") as HTMLElement
+    ).not.toHaveTextContent("lucide/sparkles");
+    expect(
+      container.querySelector('[data-name="lucide/ignored-string-fallback"]')
+    ).not.toBeInTheDocument();
+    expect(
+      container.querySelector('[data-name="lucide/ignored-custom-fallback"]')
+    ).not.toBeInTheDocument();
+    expect(stringIcon?.closest(".mb-6")).toBeNull();
+    expect(customIcon.closest(".mb-6")).toBeNull();
+
+    for (const [className, iconName] of [
+      ["empty-slot-stat", "lucide/empty-fallback"],
+      ["false-slot-stat", "lucide/false-fallback"],
+      ["zero-slot-stat", "lucide/zero-fallback"],
+    ]) {
+      const fallbackIcon = container.querySelector(
+        `.${className} [data-name="${iconName}"]`
+      );
+      expect(fallbackIcon).toBeInTheDocument();
+      expect(fallbackIcon?.closest(".mb-6")).toBeInTheDocument();
+    }
+
+    expect(
+      container.querySelector('[data-name="icon-park-solid/star"]')
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("mock-avatar-image")).toHaveAttribute(
+      "src",
+      "lucide/avatar-looking-image"
+    );
+    expect(
+      container.querySelector('[data-name="lucide/avatar-looking-image"]')
+    ).not.toBeInTheDocument();
   });
 
   // Count the "filled" star icons rendered by the real StarRating (via the

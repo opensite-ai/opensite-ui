@@ -49,7 +49,7 @@ export interface Milestone {
   /**
    * Custom icon element (overrides icon name)
    */
-  iconSlot?: React.ReactNode;
+  iconSlot?: React.ReactNode | string;
   /**
    * Additional CSS classes for the milestone
    */
@@ -263,7 +263,7 @@ export function StatsGrowthTimeline({
 
   // Memoized milestone icon rendering
   const renderMilestoneIcon = useCallback((milestone: Milestone) => {
-    if (milestone.iconSlot) return milestone.iconSlot;
+    if (milestone.iconSlot) return <DynamicIcon name={milestone.iconSlot} />;
     if (!milestone.icon) return null;
     return (
       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">

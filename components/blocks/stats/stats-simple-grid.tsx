@@ -4,6 +4,7 @@ import * as React from "react";
 import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type {
   ActionConfig,
@@ -163,9 +164,9 @@ export function StatsSimpleGrid({
         >
           {children ?? (
             <>
-              {icon}
+              {icon === "" ? null : <DynamicIcon name={icon} />}
               {label}
-              {iconAfter}
+              {iconAfter === "" ? null : <DynamicIcon name={iconAfter} />}
             </>
           )}
         </Pressable>

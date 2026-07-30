@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -237,9 +238,13 @@ export function AboutCompanyProfile({
           >
             {breakout.action.children ?? (
               <>
-                {breakout.action.icon}
+                {breakout.action.icon !== "" && (
+                  <DynamicIcon name={breakout.action.icon} />
+                )}
                 {breakout.action.label}
-                {breakout.action.iconAfter}
+                {breakout.action.iconAfter !== "" && (
+                  <DynamicIcon name={breakout.action.iconAfter} />
+                )}
               </>
             )}
           </Pressable>

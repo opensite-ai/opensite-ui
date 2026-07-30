@@ -197,9 +197,9 @@ export function ProcessNumberedServices({
         >
           {children ?? (
             <>
-              {icon}
+              {icon !== "" && <DynamicIcon name={icon} />}
               {label}
-              {iconAfter && iconAfter}
+              {iconAfter && <DynamicIcon name={iconAfter} />}
             </>
           )}
         </Pressable>

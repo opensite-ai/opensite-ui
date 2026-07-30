@@ -36,7 +36,7 @@ export interface AnimatedStat {
   /**
    * Custom icon element (overrides icon name)
    */
-  iconSlot?: React.ReactNode;
+  iconSlot?: React.ReactNode | string;
   /**
    * Additional CSS classes for the stat item
    */
@@ -192,7 +192,7 @@ function AnimatedStatItem({
 
   // Memoized icon rendering
   const iconContent = useMemo(() => {
-    if (stat.iconSlot) return stat.iconSlot;
+    if (stat.iconSlot) return <DynamicIcon name={stat.iconSlot} />;
     if (!stat.icon) return null;
     return (
       <div

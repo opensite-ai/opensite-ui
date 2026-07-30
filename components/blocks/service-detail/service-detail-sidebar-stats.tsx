@@ -15,14 +15,14 @@ import type {
 
 export interface SidebarStatsServiceItem {
   iconName?: string;
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   title?: React.ReactNode;
   className?: string;
 }
 
 export interface SidebarStatsStatItem {
   icon?: string;
-  iconSlot?: React.ReactNode;
+  iconSlot?: React.ReactNode | string;
   title?: React.ReactNode;
   description?: React.ReactNode;
   className?: string;
@@ -42,7 +42,7 @@ export interface ServiceDetailSidebarStatsProps {
     src: string;
     alt: string;
   };
-  serviceIconSlot?: React.ReactNode;
+  serviceIconSlot?: React.ReactNode | string;
   serviceIconClassName?: string;
   introTitle?: React.ReactNode;
   introTitleClassName?: string;
@@ -110,7 +110,7 @@ export function ServiceDetailSidebarStats({
   optixFlowConfig,
 }: ServiceDetailSidebarStatsProps) {
   const renderServiceIcon = () => {
-    if (serviceIconSlot) return serviceIconSlot;
+    if (serviceIconSlot) return <DynamicIcon name={serviceIconSlot} />;
     if (!serviceIcon) return null;
 
     return (
@@ -175,7 +175,11 @@ export function ServiceDetailSidebarStats({
               className={cn("flex items-center gap-3", service.className)}
             >
               {service.icon ? (
-                service.icon
+                <DynamicIcon
+                  name={service.icon}
+                  size={20}
+                  className="text-primary"
+                />
               ) : service.iconName ? (
                 <DynamicIcon
                   name={service.iconName}
@@ -223,7 +227,7 @@ export function ServiceDetailSidebarStats({
             >
               <div className="flex h-8 w-8 shrink-0 items-center justify-center">
                 {stat.iconSlot ? (
-                  stat.iconSlot
+                  <DynamicIcon name={stat.iconSlot} />
                 ) : stat.icon ? (
                   <Img
                     src={stat.icon}

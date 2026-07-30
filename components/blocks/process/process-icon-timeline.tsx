@@ -23,7 +23,7 @@ export interface ProcessIconTimelineItem {
   /**
    * Custom icon element (overrides icon name)
    */
-  iconSlot?: React.ReactNode;
+  iconSlot?: React.ReactNode | string;
   /**
    * Step title
    */
@@ -171,8 +171,9 @@ export function ProcessIconTimeline({
                 stepBadgeClassName,
               )}
             >
-              {step.iconSlot ??
-                (step.icon && <DynamicIcon name={step.icon} size={24} />)}
+              {(step.iconSlot ?? step.icon) !== "" && (
+                <DynamicIcon name={step.iconSlot ?? step.icon} size={24} />
+              )}
             </div>
 
             <div

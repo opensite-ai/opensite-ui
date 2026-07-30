@@ -1,6 +1,28 @@
-import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import { render, screen, within } from "@testing-library/react";
 import { ProcessIconTimeline } from "../process-icon-timeline";
+
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({
+    name,
+    size,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    size?: number;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span
+        data-testid="mock-icon"
+        data-name={name}
+        data-size={size}
+        className={className}
+      />
+    ) : (
+      <>{name}</>
+    ),
+}));
 
 describe("ProcessIconTimeline", () => {
   const mockSteps = [
@@ -57,6 +79,129 @@ describe("ProcessIconTimeline", () => {
     expect(screen.getByText("Prototyping")).toBeInTheDocument();
     expect(screen.getByText("Frontend")).toBeInTheDocument();
     expect(screen.getByText("Backend")).toBeInTheDocument();
+  });
+
+  it("routes selected icon values with nullish slot precedence", () => {
+    const { container } = render(
+      <ProcessIconTimeline
+        steps={[
+          {
+            title: "Named icon",
+            icon: "lucide/lightbulb",
+          },
+          {
+            title: "String slot",
+            icon: "lucide/ignored-string",
+            iconSlot: "lucide/sparkles",
+          },
+          {
+            title: "Custom slot",
+            icon: "lucide/ignored-custom",
+            iconSlot: <span data-testid="custom-icon-slot" />,
+          },
+          {
+            title: "Empty slot",
+            icon: "lucide/ignored-empty",
+            iconSlot: "",
+          },
+          {
+            title: "False slot",
+            icon: "lucide/ignored-false",
+            iconSlot: false,
+          },
+          {
+            title: "Zero slot",
+            icon: "lucide/ignored-zero",
+            iconSlot: 0,
+          },
+          {
+            title: "Null slot",
+            icon: "lucide/null-fallback",
+            iconSlot: null,
+          },
+        ]}
+      />,
+    );
+
+    const namedRow = screen
+      .getByText("Named icon")
+      .closest(".relative.flex") as HTMLElement;
+    const namedIcon = within(namedRow).getByTestId("mock-icon");
+    expect(namedIcon).toHaveAttribute("data-name", "lucide/lightbulb");
+    expect(namedIcon).toHaveAttribute("data-size", "24");
+    expect(namedRow).not.toHaveTextContent("lucide/lightbulb");
+
+    const stringSlotRow = screen
+      .getByText("String slot")
+      .closest(".relative.flex") as HTMLElement;
+    expect(within(stringSlotRow).getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/sparkles",
+    );
+    expect(stringSlotRow).not.toHaveTextContent("lucide/sparkles");
+    expect(stringSlotRow).not.toHaveTextContent("lucide/ignored-string");
+
+    expect(screen.getByTestId("custom-icon-slot")).toBeInTheDocument();
+    for (const title of ["Empty slot", "False slot"]) {
+      const row = screen
+        .getByText(title)
+        .closest(".relative.flex") as HTMLElement;
+      expect(within(row).queryByTestId("mock-icon")).not.toBeInTheDocument();
+    }
+
+    const zeroRow = screen
+      .getByText("Zero slot")
+      .closest(".relative.flex") as HTMLElement;
+    const zeroBadge = zeroRow.querySelector(
+      ".rounded-full.bg-primary",
+    ) as HTMLElement;
+    expect(zeroBadge).toHaveTextContent("0");
+    expect(within(zeroRow).queryByTestId("mock-icon")).not.toBeInTheDocument();
+
+    const nullRow = screen
+      .getByText("Null slot")
+      .closest(".relative.flex") as HTMLElement;
+    expect(within(nullRow).getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/null-fallback",
+    );
+    expect(
+      container.querySelector('[data-name^="lucide/ignored-"]'),
+    ).not.toBeInTheDocument();
+    for (const ignoredName of [
+      "lucide/ignored-string",
+      "lucide/ignored-custom",
+      "lucide/ignored-empty",
+      "lucide/ignored-false",
+      "lucide/ignored-zero",
+    ]) {
+      expect(container).not.toHaveTextContent(ignoredName);
+    }
+    expect(container.querySelector('[data-name=""]')).not.toBeInTheDocument();
+  });
+
+  it("preserves truthy and falsy stepsSlot behavior", () => {
+    const { rerender } = render(
+      <ProcessIconTimeline
+        steps={[{ title: "Generated step", icon: "lucide/generated" }]}
+        stepsSlot={<div data-testid="steps-slot">Custom steps</div>}
+      />,
+    );
+
+    expect(screen.getByTestId("steps-slot")).toBeInTheDocument();
+    expect(screen.queryByText("Generated step")).not.toBeInTheDocument();
+
+    rerender(
+      <ProcessIconTimeline
+        steps={[{ title: "Generated step", icon: "lucide/generated" }]}
+        stepsSlot={false}
+      />,
+    );
+    expect(screen.getByText("Generated step")).toBeInTheDocument();
+    expect(screen.getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/generated",
+    );
   });
 
   it("renders icon badges with bg-primary", () => {

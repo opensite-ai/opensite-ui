@@ -23,7 +23,7 @@ export interface ProcessStepsGridItem {
   /**
    * Custom icon element (overrides icon name)
    */
-  iconSlot?: React.ReactNode;
+  iconSlot?: React.ReactNode | string;
   /**
    * Step title
    */
@@ -184,8 +184,12 @@ export function ProcessStepsGrid({
                     stepIconClassName,
                   )}
                 >
-                  {step.iconSlot ??
-                    (step.icon && <DynamicIcon name={step.icon} size={28} />)}
+                  {(step.iconSlot ?? step.icon) !== "" && (
+                    <DynamicIcon
+                      name={step.iconSlot ?? step.icon}
+                      size={28}
+                    />
+                  )}
                 </div>
               )}
               {step.title &&

@@ -20,7 +20,7 @@ export interface AboutStoryExpertiseArea {
   /**
    * Icon element or icon name
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Expertise title
    */

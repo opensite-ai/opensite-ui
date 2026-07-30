@@ -52,7 +52,7 @@ export interface StatItem {
   /**
    * Custom slot for icon (overrides icon prop)
    */
-  iconSlot?: React.ReactNode;
+  iconSlot?: React.ReactNode | string;
   /**
    * Icon color class (e.g., "text-primary", "text-emerald-500")
    */
@@ -239,7 +239,7 @@ export function TestimonialsStatsHeader({
 
   // Callback for rendering stat icons - takes argument (stat)
   const renderStatIcon = useCallback((stat: StatItem) => {
-    if (stat.iconSlot) return stat.iconSlot;
+    if (stat.iconSlot) return <DynamicIcon name={stat.iconSlot} />;
     if (!stat.icon) return null;
     return (
       <div className="mb-6">

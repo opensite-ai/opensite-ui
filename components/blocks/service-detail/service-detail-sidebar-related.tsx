@@ -16,7 +16,7 @@ import type {
 
 export interface SidebarRelatedStatItem {
   icon?: string;
-  iconSlot?: React.ReactNode;
+  iconSlot?: React.ReactNode | string;
   title?: React.ReactNode;
   description?: React.ReactNode;
   className?: string;
@@ -24,7 +24,7 @@ export interface SidebarRelatedStatItem {
 
 export interface SidebarRelatedServiceItem {
   iconName?: string;
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   title?: React.ReactNode;
   description?: React.ReactNode;
   href?: string;
@@ -52,7 +52,7 @@ export interface ServiceDetailSidebarRelatedProps {
     src: string;
     alt: string;
   };
-  serviceIconSlot?: React.ReactNode;
+  serviceIconSlot?: React.ReactNode | string;
   serviceIconClassName?: string;
   introDescription?: React.ReactNode;
   introDescriptionClassName?: string;
@@ -119,7 +119,7 @@ export function ServiceDetailSidebarRelated({
   optixFlowConfig,
 }: ServiceDetailSidebarRelatedProps) {
   const renderServiceIcon = () => {
-    if (serviceIconSlot) return serviceIconSlot;
+    if (serviceIconSlot) return <DynamicIcon name={serviceIconSlot} />;
     if (!serviceIcon) return null;
 
     return (
@@ -227,7 +227,7 @@ export function ServiceDetailSidebarRelated({
             >
               <div className="flex h-8 w-8 shrink-0 items-center justify-center">
                 {stat.iconSlot ? (
-                  stat.iconSlot
+                  <DynamicIcon name={stat.iconSlot} />
                 ) : stat.icon ? (
                   <Img
                     src={stat.icon}
@@ -292,7 +292,11 @@ export function ServiceDetailSidebarRelated({
               >
                 <div className="flex items-center gap-2">
                   {service.icon ? (
-                    service.icon
+                    <DynamicIcon
+                      name={service.icon}
+                      size={16}
+                      className="text-muted-foreground group-hover:text-primary"
+                    />
                   ) : service.iconName ? (
                     <DynamicIcon
                       name={service.iconName}

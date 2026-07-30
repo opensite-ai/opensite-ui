@@ -26,7 +26,7 @@ export interface ServiceExpertiseItem {
   /**
    * Icon element (overrides icon URL)
    */
-  iconSlot?: React.ReactNode;
+  iconSlot?: React.ReactNode | string;
   /**
    * Expertise title
    */
@@ -52,7 +52,7 @@ export interface ServiceOfferingItem {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Service title
    */
@@ -134,7 +134,7 @@ export interface ServiceDetailCenteredExpertiseProps {
   /**
    * Custom slot for service icon (overrides serviceIcon)
    */
-  serviceIconSlot?: React.ReactNode;
+  serviceIconSlot?: React.ReactNode | string;
   /**
    * Additional CSS classes for the service icon container
    */
@@ -292,7 +292,7 @@ export function ServiceDetailCenteredExpertise({
   optixFlowConfig,
 }: ServiceDetailCenteredExpertiseProps) {
   const renderServiceIcon = () => {
-    if (serviceIconSlot) return serviceIconSlot;
+    if (serviceIconSlot) return <DynamicIcon name={serviceIconSlot} />;
     if (!serviceIcon) return null;
 
     return (
@@ -341,7 +341,7 @@ export function ServiceDetailCenteredExpertise({
             >
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center">
                 {item.iconSlot ? (
-                  item.iconSlot
+                  <DynamicIcon name={item.iconSlot} />
                 ) : item.icon ? (
                   <Img
                     src={item.icon}
@@ -435,7 +435,11 @@ export function ServiceDetailCenteredExpertise({
               )}
             >
               {service.icon ? (
-                service.icon
+                <DynamicIcon
+                  name={service.icon}
+                  size={20}
+                  className="text-primary"
+                />
               ) : service.iconName ? (
                 <DynamicIcon
                   name={service.iconName}

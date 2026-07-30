@@ -1,13 +1,22 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { StatsImpactGrid, type ImpactStat } from "../stats-impact-grid";
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-icon-name={name} className={className}>
-      icon
-    </span>
-  ),
+  DynamicIcon: ({
+    name,
+    className,
+  }: {
+    name?: React.ReactNode;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span data-testid="mock-icon" data-icon-name={name} className={className}>
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 vi.mock("../../../ui/badge", () => ({
@@ -191,6 +200,84 @@ describe("StatsImpactGrid", () => {
       expect(screen.getByTestId("custom-icon-slot")).toBeInTheDocument();
     });
 
+    it("routes iconSlot strings dynamically while preserving truthy fallback semantics", () => {
+      const { container } = render(
+        <StatsImpactGrid
+          stats={[
+            {
+              id: "string-slot",
+              value: "1",
+              label: "String slot",
+              iconSlot: "lucide/sparkles",
+              icon: "lucide/ignored-string-fallback",
+              className: "string-slot-stat",
+            },
+            {
+              id: "custom-slot",
+              value: "2",
+              label: "Custom slot",
+              iconSlot: <span data-testid="custom-stat-icon">Custom icon</span>,
+              icon: "lucide/ignored-custom-fallback",
+              className: "custom-slot-stat",
+            },
+            {
+              id: "empty-slot",
+              value: "3",
+              label: "Empty slot",
+              iconSlot: "",
+              icon: "lucide/empty-fallback",
+              className: "empty-slot-stat",
+            },
+            {
+              id: "false-slot",
+              value: "4",
+              label: "False slot",
+              iconSlot: false,
+              icon: "lucide/false-fallback",
+              className: "false-slot-stat",
+            },
+            {
+              id: "zero-slot",
+              value: "5",
+              label: "Zero slot",
+              iconSlot: 0,
+              icon: "lucide/zero-fallback",
+              className: "zero-slot-stat",
+            },
+          ]}
+        />
+      );
+
+      const stringIcon = container.querySelector(
+        '.string-slot-stat [data-icon-name="lucide/sparkles"]'
+      );
+      const customIcon = screen.getByTestId("custom-stat-icon");
+      expect(stringIcon).toBeInTheDocument();
+      expect(
+        container.querySelector(".string-slot-stat") as HTMLElement
+      ).not.toHaveTextContent("lucide/sparkles");
+      expect(
+        container.querySelector('[data-icon-name="lucide/ignored-string-fallback"]')
+      ).not.toBeInTheDocument();
+      expect(
+        container.querySelector('[data-icon-name="lucide/ignored-custom-fallback"]')
+      ).not.toBeInTheDocument();
+      expect(stringIcon?.closest(".mb-6")).toBeNull();
+      expect(customIcon.closest(".mb-6")).toBeNull();
+
+      for (const [className, iconName] of [
+        ["empty-slot-stat", "lucide/empty-fallback"],
+        ["false-slot-stat", "lucide/false-fallback"],
+        ["zero-slot-stat", "lucide/zero-fallback"],
+      ]) {
+        const fallbackIcon = container.querySelector(
+          `.${className} [data-icon-name="${iconName}"]`
+        );
+        expect(fallbackIcon).toBeInTheDocument();
+        expect(fallbackIcon?.closest(".mb-6")).toBeInTheDocument();
+      }
+    });
+
     it("does not render stats section when stats array is empty", () => {
       const { container } = render(<StatsImpactGrid stats={[]} />);
       expect(container.querySelectorAll('[data-testid="mock-card"]').length).toBe(0);
@@ -346,6 +433,104 @@ describe("StatsImpactGrid", () => {
         />
       );
       expect(screen.getByTestId("custom-action-children")).toBeInTheDocument();
+    });
+
+    it("normalizes action icons without changing children or CTA slot precedence", () => {
+      const actions = [
+        {
+          label: "String Action",
+          href: "/strings",
+          icon: "lucide/rocket",
+          iconAfter: "lucide/arrow-right",
+          className: "string-action",
+        },
+        {
+          label: "Custom Action",
+          href: "/custom-icons",
+          icon: <span data-testid="custom-action-icon">Before</span>,
+          iconAfter: <span data-testid="custom-action-icon-after">After</span>,
+        },
+        {
+          label: "Empty Action",
+          href: "/empty-icons",
+          icon: "",
+          iconAfter: "",
+        },
+        {
+          label: "Boundary",
+          href: "/boundary-icons",
+          icon: false,
+          iconAfter: 0,
+        },
+        {
+          label: "Ignored False Child",
+          href: "/false-child",
+          icon: "lucide/ignored-false-child",
+          children: false,
+        },
+        {
+          label: "Ignored Zero Child",
+          href: "/zero-child",
+          icon: "lucide/ignored-zero-child",
+          children: 0,
+        },
+      ];
+      const { container, rerender } = render(
+        <StatsImpactGrid actions={actions} />
+      );
+
+      const stringAction = screen.getByText("String Action").closest("a");
+      expect(stringAction).toHaveClass(
+        "inline-flex",
+        "items-center",
+        "justify-center",
+        "gap-2",
+        "string-action"
+      );
+      expect(
+        within(stringAction!).getAllByTestId("mock-icon")[0]
+      ).toHaveAttribute("data-icon-name", "lucide/rocket");
+      expect(
+        within(stringAction!).getAllByTestId("mock-icon")[1]
+      ).toHaveAttribute("data-icon-name", "lucide/arrow-right");
+      expect(stringAction).not.toHaveTextContent("lucide/rocket");
+      expect(screen.getByTestId("custom-action-icon")).toBeInTheDocument();
+      expect(screen.getByTestId("custom-action-icon-after")).toBeInTheDocument();
+
+      const emptyAction = screen.getByText("Empty Action").closest("a");
+      expect(within(emptyAction!).queryByTestId("mock-icon")).not.toBeInTheDocument();
+
+      const boundaryAction = container.querySelector<HTMLAnchorElement>(
+        'a[href="/boundary-icons"]'
+      );
+      expect(boundaryAction).toHaveTextContent("Boundary0");
+      expect(
+        within(boundaryAction!).queryByTestId("mock-icon")
+      ).not.toBeInTheDocument();
+
+      const falseChildAction = container.querySelector<HTMLAnchorElement>(
+        'a[href="/false-child"]'
+      );
+      const zeroChildAction = container.querySelector<HTMLAnchorElement>(
+        'a[href="/zero-child"]'
+      );
+      expect(falseChildAction).toBeEmptyDOMElement();
+      expect(zeroChildAction).toHaveTextContent("0");
+      expect(
+        container.querySelector('[data-icon-name="lucide/ignored-false-child"]')
+      ).not.toBeInTheDocument();
+      expect(
+        container.querySelector('[data-icon-name="lucide/ignored-zero-child"]')
+      ).not.toBeInTheDocument();
+
+      rerender(
+        <StatsImpactGrid
+          actions={actions}
+          ctaSlot={<div data-testid="custom-cta-override">Custom CTA</div>}
+        />
+      );
+      expect(screen.getByTestId("custom-cta-override")).toBeInTheDocument();
+      expect(screen.queryByText("String Action")).not.toBeInTheDocument();
     });
   });
 
