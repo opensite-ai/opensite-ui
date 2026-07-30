@@ -657,3 +657,46 @@ Files deleted: 0
 - Review-focused group runs: 6/77, 6/44, and 7/65 tests passed.
 - New failures: none.
 - Pre-existing failures: none observed.
+
+# Change Manifest — Project Detail
+
+## Modified Files
+
+| Source and adjacent test group | Classification / change | Notes |
+|---|---|---|
+| `architecture-carousel`, `card-header`, `case-study-prose`, `compact-metadata`, `exhibition-sidebar`, `fashion-editorial`, `fullscreen-hero` | Vulnerable manual `ActionConfig` renderers | Both leading and trailing action icons now resolve through `DynamicIcon` inside the existing `children ??` composition. |
+| `grid-gallery`, `hero-metadata`, `hover-gallery`, `large-hero-featured`, `list-related`, `mask-reveal`, `minimal-centered` | Vulnerable manual `ActionConfig` renderers | Exact empty-string guards preserve the prior ReactNode sentinel behavior while string icon names resolve dynamically. |
+| `numbered-sections`, `parallax-scroll`, `sculpture-showcase`, `sidebar-navigation`, `split-materials`, `tabbed-case-study` | Vulnerable manual `ActionConfig` renderers | Action ordering, Pressable behavior, slots, media, and the already-safe tabbed tool icon remain unchanged. |
+
+All 20 matching adjacent test files were extended with flexible
+`DynamicIcon` mocks and focused string/custom/empty/`false`/`0`/`children`
+coverage.
+
+## Scope Compliance
+
+- 20 production files and 20 adjacent tests changed within the approved
+  allowlist.
+- Production changes are limited to `DynamicIcon` imports and guarded
+  `icon`/`iconAfter` rendering.
+- Media, gallery, lightbox, animation, Pressable props/classes, and fixed
+  decorative icons are unchanged.
+- The only reported out-of-allowlist working-tree path remains the pre-existing
+  user-owned `package.json` version bump, which was not touched or staged.
+
+## Review Resolution
+
+- Three independent cross-reviews approved production semantics across all
+  groups.
+- One review found seven incorrectly rooted `Pressable` mocks in group 1; the
+  test-only paths were corrected and the affected suites rerun.
+- The final AST audit found zero direct raw icon JSX children.
+
+## Test Results
+
+- Focused category run: 22 files passed, 191 tests passed, exit 0.
+- Review-focused group runs: 7/55, 7/75, and 6/49 tests passed.
+- `pnpm type-check`: exit 0.
+- `git diff --check`: exit 0.
+- Exact allowlist audit: only the known user-owned `package.json` diff reported.
+- New failures: none.
+- Pre-existing failures: none observed.

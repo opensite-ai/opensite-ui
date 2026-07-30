@@ -7,6 +7,7 @@ import { Img } from "@page-speed/img";
 import { cn, getProseClassName } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
+import { DynamicIcon } from "../../ui/dynamic-icon";
 import type {
   ActionConfig,
   SectionItem,
@@ -130,9 +131,9 @@ export function ProjectDetailCaseStudyProse(
       >
         {children ?? (
           <>
-            {icon}
+            {icon === "" ? null : <DynamicIcon name={icon} />}
             {label}
-            {iconAfter}
+            {iconAfter === "" ? null : <DynamicIcon name={iconAfter} />}
           </>
         )}
       </Pressable>
