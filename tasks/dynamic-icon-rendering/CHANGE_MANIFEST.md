@@ -589,3 +589,71 @@ Files deleted: 0
 - Review-focused group runs: 5/26, 4/17, and 4/32 tests passed.
 - New failures: none.
 - Pre-existing failures: none observed.
+
+# Change Manifest — Features
+
+## Modified Files
+
+| Source and adjacent test | Classification / change | Combined lines +/- | Notes |
+|---|---|---:|---|
+| `feature-badge-grid-six` | Vulnerable truthy icon/action render | +171/-8 | Feature and action strings resolve dynamically at the original size/class boundaries. |
+| `feature-bento-image-grid` | Vulnerable truthy icon render | +147/-6 | Feature icons resolve dynamically; iconBadge, avatars, images, and static arrows remain content/media. |
+| `feature-bento-utilities` | Vulnerable truthy label-icon render | +109/-5 | Label icons resolve dynamically at size 20; images, badges, and sparkle remain unchanged. |
+| `feature-carousel-progress` | Vulnerable truthy icon render | +99/-3 | Slide icons resolve dynamically at size 16 with original wrapper classes. |
+| `feature-checklist-image` | Vulnerable nullish icon/action fallback | +229/-21 | Checklist/default and action icons preserve nullish precedence, size 20, and media boundaries. |
+| `feature-icon-grid-accent` | Vulnerable nullish icon render | +120/-12 | Selected icons resolve at size 24 while the original truthy wrapper predicate retains numeric-zero topology. |
+| `feature-icon-grid-bordered` | Vulnerable truthy icon render | +98/-5 | Feature icons resolve at size 20 with responsive sizing and wrapper classes. |
+| `feature-icon-grid-muted` | Vulnerable truthy icon render | +93/-5 | Feature icons resolve at size 24 with local classes. |
+| `feature-icon-tabs-content` | Vulnerable tab/action render | +229/-7 | Tab and action icons resolve dynamically; tabs, children, slots, and image media remain exact. |
+| `feature-image-cards-three-column` | Vulnerable badge icon render | +151/-2 | Avatar-first badge precedence remains intact; raw/name icons resolve at size 18. |
+| `feature-image-overlay-badge` | Vulnerable action render | +139/-2 | Action icons resolve dynamically; images, avatars, badges, and static arrows remain unchanged. |
+| `feature-numbered-cards` | Vulnerable checklist/action fallback | +239/-23 | Checklist raw/name/default and action icons preserve nullish semantics and size 16. |
+| `feature-pattern-grid-links` | Vulnerable truthy icon render | +127/-17 | Feature icons resolve dynamically at size 24; links and decorative chevrons remain exact. |
+| `feature-split-image-reverse` | Vulnerable action render | +142/-7 | Action icons resolve dynamically; image media and slots remain unchanged. |
+| `feature-split-image` | Vulnerable action render | +142/-7 | Action icons resolve dynamically; image media and slots remain unchanged. |
+| `feature-stats-highlight` | Vulnerable action render | +158/-6 | Action icons resolve dynamically; badge/stat content remains content. |
+| `feature-tabbed-content-image` | Vulnerable checklist/action fallback | +323/-18 | Feature raw/name/default and action icons preserve wrappers, Tabs, slots, and image media. |
+| `feature-three-column-values` | Vulnerable truthy icon render | +92/-10 | Value icons resolve dynamically at size 24 with the original conditional wrapper. |
+| `feature-utility-cards-grid` | Vulnerable label/action render | +251/-18 | Label and learn-more icons resolve dynamically; accent class and Img media remain exact. |
+| `tasks/dynamic-icon-rendering/.refactor-session.md` | Control state | current batch | Records features completion and project-detail handoff. |
+| `tasks/dynamic-icon-rendering/CHANGE_MANIFEST.md` | Batch manifest | current batch | Records changed and intentionally safe classifications. |
+
+## Reviewed Without Change
+
+- `feature-capabilities-grid` already accepts `ReactNode | string` and routes
+  both supported icon paths through `DynamicIcon`.
+- `feature-integration-cards.icon` is an intentional logo/image URL consumed by
+  `Img`, and `iconSlot` is arbitrary media content; neither is an icon-name
+  input.
+
+## Scope Compliance
+
+- [x] Nineteen approved production files and their nineteen existing adjacent tests changed.
+- [x] Two additional reviewed source/test pairs were classified safe and remain unchanged.
+- [x] All 38 changed paths are in the exact scope allowlist.
+- [x] No new files, dependencies, lockfile changes, props, or abstractions were introduced.
+- [x] The pre-existing `package.json` version-only diff is unchanged and unstaged.
+- [x] Truthy versus nullish selection, wrapper topology, sizes, classes, actions, children, and slots are preserved.
+- [x] Icon-like content/media props, Img/Avatar paths, badges, stats, and decorative icons remain excluded.
+- [x] Refined AST audit reports zero direct raw icon-like JSX children/helper returns.
+
+## Review Resolution
+
+- Three independent reviews approved all changed groups without production
+  defects.
+- Tests use scoped raw-text assertions and cover valid names, custom elements,
+  empty strings, `false`, `0`, fallbacks, wrappers, actions, slots, and media
+  boundaries.
+- `feature-capabilities-grid` and `feature-integration-cards` were explicitly
+  verified as unchanged safe classifications.
+
+## Test Results
+
+- Focused: 19 files passed, 186 tests passed, exit 0.
+- `pnpm type-check`: exit 0.
+- Exact 38-path scope and allowlist audit: exit 0.
+- Dependency/package-baseline audit: exit 0.
+- Refined direct raw-render AST audit: 19 files, zero sites.
+- Review-focused group runs: 6/77, 6/44, and 7/65 tests passed.
+- New failures: none.
+- Pre-existing failures: none observed.

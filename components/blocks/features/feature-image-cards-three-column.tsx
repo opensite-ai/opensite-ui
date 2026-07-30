@@ -21,7 +21,7 @@ export interface FeatureImageCardsThreeColumnItem {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/zap")
    */
@@ -250,7 +250,7 @@ export function FeatureImageCardsThreeColumn({
           </Avatar>
         );
       }
-      if (card.icon) return card.icon;
+      if (card.icon) return <DynamicIcon name={card.icon} size={18} />;
       if (!card.iconName) return null;
 
       return <DynamicIcon name={card.iconName} size={18} />;

@@ -66,9 +66,9 @@ export interface FeatureUtilityCardsGridProps {
    */
   label?: React.ReactNode;
   /**
-   * Icon element for label (overrides iconName)
+   * Icon name or element for label (overrides iconName)
    */
-  labelIcon?: React.ReactNode;
+  labelIcon?: React.ReactNode | string;
   /**
    * Icon name for label in format: prefix/name
    */
@@ -203,16 +203,16 @@ export function FeatureUtilityCardsGrid({
   patternClassName,
 }: FeatureUtilityCardsGridProps): React.JSX.Element {
   const renderLabelIcon = useMemo(() => {
-    if (labelIcon) return labelIcon;
-    if (labelIconName)
-      return (
-        <DynamicIcon
-          name={labelIconName}
-          size={20}
-          className={getAccentColor(background)}
-        />
-      );
-    return null;
+    const resolvedIcon = labelIcon || labelIconName;
+    if (!resolvedIcon) return null;
+
+    return (
+      <DynamicIcon
+        name={resolvedIcon}
+        size={20}
+        className={getAccentColor(background)}
+      />
+    );
   }, [labelIcon, labelIconName, background]);
 
   const learnMoreContent = useMemo(() => {
@@ -245,9 +245,13 @@ export function FeatureUtilityCardsGrid({
         )}
         aria-label={learnMoreAction["aria-label"]}
       >
-        {learnMoreAction.icon}
+        {learnMoreAction.icon === "" ? null : (
+          <DynamicIcon name={learnMoreAction.icon} />
+        )}
         {learnMoreAction.label}
-        {learnMoreAction.iconAfter}
+        {learnMoreAction.iconAfter === "" ? null : (
+          <DynamicIcon name={learnMoreAction.iconAfter} />
+        )}
       </Pressable>
     );
   }, [learnMoreSlot, learnMoreAction, background]);

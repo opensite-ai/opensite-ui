@@ -23,7 +23,7 @@ export interface FeatureNumberedCardsChecklistItem {
   /**
    * Icon element (overrides default check icon)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name for dynamic icon loading
    */
@@ -214,28 +214,17 @@ export function FeatureNumberedCards({
       return feature.checklistItems.map((item, itemIndex) => {
         const isString = typeof item === "string";
         const content = isString ? item : item.content;
-        const iconElement = isString ? (
-          <DynamicIcon
-            name="lucide/check-circle"
-            size={16}
-            className="mt-0.5 shrink-0 sm:mt-1"
-          />
-        ) : (
-          (item.icon ??
-          (item.iconName ? (
+        const resolvedIcon = isString
+          ? "lucide/check-circle"
+          : (item.icon ?? item.iconName ?? "lucide/check-circle");
+        const iconElement =
+          resolvedIcon === "" ? null : (
             <DynamicIcon
-              name={item.iconName}
+              name={resolvedIcon}
               size={16}
               className="mt-0.5 shrink-0 sm:mt-1"
             />
-          ) : (
-            <DynamicIcon
-              name="lucide/check-circle"
-              size={16}
-              className="mt-0.5 shrink-0 sm:mt-1"
-            />
-          )))
-        );
+          );
         const itemClassName = isString ? undefined : item.className;
 
         return (
@@ -272,9 +261,11 @@ export function FeatureNumberedCards({
           >
             {children ?? (
               <>
-                {icon}
+                {icon === "" ? null : <DynamicIcon name={icon} />}
                 {label}
-                {iconAfter}
+                {iconAfter === "" ? null : (
+                  <DynamicIcon name={iconAfter} />
+                )}
               </>
             )}
           </Pressable>

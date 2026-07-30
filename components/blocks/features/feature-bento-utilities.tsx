@@ -72,7 +72,7 @@ export interface FeatureBentoUtilitiesProps {
   /**
    * Icon element for the label (overrides labelIconName)
    */
-  labelIcon?: React.ReactNode;
+  labelIcon?: React.ReactNode | string;
   /**
    * Main heading content
    */
@@ -287,7 +287,7 @@ export function FeatureBentoUtilities({
   );
 
   const labelIconElement = useMemo(() => {
-    if (labelIcon) return labelIcon;
+    if (labelIcon) return <DynamicIcon name={labelIcon} size={20} />;
     if (labelIconName) return <DynamicIcon name={labelIconName} size={20} />;
     return null;
   }, [labelIcon, labelIconName]);

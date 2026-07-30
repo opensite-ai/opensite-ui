@@ -80,7 +80,7 @@ export interface FeatureIconTabsContentTab {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/zap")
    */
@@ -253,7 +253,7 @@ export function FeatureIconTabsContent({
   patternClassName,
 }: FeatureIconTabsContentProps): React.JSX.Element {
   const renderTabIcon = useCallback((tab: FeatureIconTabsContentTab) => {
-    if (tab.icon) return tab.icon;
+    if (tab.icon) return <DynamicIcon name={tab.icon} size={16} />;
     if (tab.iconName) return <DynamicIcon name={tab.iconName} size={16} />;
     return null;
   }, []);
@@ -292,9 +292,11 @@ export function FeatureIconTabsContent({
             aria-label={action["aria-label"]}
             asButton
           >
-            {action.icon}
+            {action.icon === "" ? null : <DynamicIcon name={action.icon} />}
             {action.label}
-            {action.iconAfter}
+            {action.iconAfter === "" ? null : (
+              <DynamicIcon name={action.iconAfter} />
+            )}
           </Pressable>
         );
       });

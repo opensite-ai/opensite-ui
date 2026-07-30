@@ -11,9 +11,9 @@ import { Pressable } from "@/src";
 
 export interface FeatureThreeColumnValuesItem {
   /**
-   * Icon element (overrides iconName)
+   * Icon name or element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/timer")
    */
@@ -154,10 +154,10 @@ export function FeatureThreeColumnValues({
 }: FeatureThreeColumnValuesProps): React.JSX.Element {
   const renderValueIcon = React.useCallback(
     (value: FeatureThreeColumnValuesItem) => {
-      if (value.icon) return value.icon;
-      if (value.iconName)
-        return <DynamicIcon name={value.iconName} size={24} />;
-      return null;
+      const resolvedIcon = value.icon || value.iconName;
+      if (!resolvedIcon) return null;
+
+      return <DynamicIcon name={resolvedIcon} size={24} />;
     },
     [],
   );

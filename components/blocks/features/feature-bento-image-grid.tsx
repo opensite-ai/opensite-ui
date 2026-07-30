@@ -19,7 +19,7 @@ export interface FeatureBentoImageGridItem {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/atom")
    */
@@ -201,7 +201,7 @@ export function FeatureBentoImageGrid({
 }: FeatureBentoImageGridProps): React.JSX.Element {
   const renderItemIcon = React.useCallback(
     (item: FeatureBentoImageGridItem) => {
-      if (item.icon) return item.icon;
+      if (item.icon) return <DynamicIcon name={item.icon} size={24} />;
       if (item.iconName) return <DynamicIcon name={item.iconName} size={24} />;
       return null;
     },

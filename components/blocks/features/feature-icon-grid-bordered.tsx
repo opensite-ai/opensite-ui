@@ -13,7 +13,7 @@ export interface FeatureIconGridBorderedItem {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/timer")
    */
@@ -152,7 +152,15 @@ export function FeatureIconGridBordered({
   patternClassName,
 }: FeatureIconGridBorderedProps): React.JSX.Element {
   const renderIcon = useCallback((feature: FeatureIconGridBorderedItem) => {
-    if (feature.icon) return feature.icon;
+    if (feature.icon) {
+      return (
+        <DynamicIcon
+          name={feature.icon}
+          size={20}
+          className="md:size-6"
+        />
+      );
+    }
     if (feature.iconName) {
       return (
         <DynamicIcon name={feature.iconName} size={20} className="md:size-6" />

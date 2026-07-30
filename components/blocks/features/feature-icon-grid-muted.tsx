@@ -13,7 +13,7 @@ export interface FeatureIconGridMutedItem {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/check-circle-2")
    */
@@ -156,7 +156,14 @@ export function FeatureIconGridMuted({
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: FeatureIconGridMutedProps): React.JSX.Element {
   const renderFeatureIcon = useCallback((feature: FeatureIconGridMutedItem) => {
-    if (feature.icon) return feature.icon;
+    if (feature.icon)
+      return (
+        <DynamicIcon
+          name={feature.icon}
+          size={24}
+          className={feature.iconClassName}
+        />
+      );
     if (feature.iconName)
       return (
         <DynamicIcon

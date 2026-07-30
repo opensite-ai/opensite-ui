@@ -11,9 +11,9 @@ import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeaturePatternGridLinksItem {
   /**
-   * Icon element (overrides iconName)
+   * Icon name or element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/zoom-in")
    */
@@ -167,16 +167,16 @@ export function FeaturePatternGridLinks({
 }: FeaturePatternGridLinksProps): React.JSX.Element {
   const renderFeatureIcon = useCallback(
     (feature: FeaturePatternGridLinksItem) => {
-      if (feature.icon) return feature.icon;
-      if (feature.iconName)
-        return (
-          <DynamicIcon
-            name={feature.iconName}
-            size={24}
-            className={feature.iconClassName}
-          />
-        );
-      return null;
+      const resolvedIcon = feature.icon || feature.iconName;
+      if (!resolvedIcon) return null;
+
+      return (
+        <DynamicIcon
+          name={resolvedIcon}
+          size={24}
+          className={feature.iconClassName}
+        />
+      );
     },
     [],
   );

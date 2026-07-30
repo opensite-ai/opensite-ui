@@ -24,7 +24,7 @@ export interface FeatureCarouselProgressItem {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/code")
    */
@@ -208,7 +208,7 @@ export function FeatureCarouselProgress({
   }, [api, slidesLength]);
 
   const renderSlideIcon = useCallback((slide: FeatureCarouselProgressItem) => {
-    if (slide.icon) return slide.icon;
+    if (slide.icon) return <DynamicIcon name={slide.icon} size={16} />;
     if (slide.iconName) return <DynamicIcon name={slide.iconName} size={16} />;
     return null;
   }, []);

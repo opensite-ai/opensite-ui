@@ -3,9 +3,25 @@ import { render, screen } from "@testing-library/react";
 import { FeatureIconGridBordered } from "../feature-icon-grid-bordered";
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    size,
+    className,
+  }: {
+    name?: React.ReactNode | string;
+    size?: number;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span
+        data-testid={`mock-icon-${name}`}
+        data-name={name}
+        data-size={size}
+        className={className}
+      />
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("FeatureIconGridBordered", () => {
@@ -42,5 +58,74 @@ describe("FeatureIconGridBordered", () => {
   it("applies custom className", () => {
     const { container } = render(<FeatureIconGridBordered className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
+
+  it("routes truthy raw icons and preserves fallback and wrapper gates", () => {
+    render(
+      <FeatureIconGridBordered
+        features={[
+          {
+            title: "Raw icon",
+            icon: "lucide/raw",
+            iconName: "lucide/ignored-raw",
+          },
+          {
+            title: "Custom icon",
+            icon: <span data-testid="custom-icon" />,
+            iconName: "lucide/ignored-custom",
+          },
+          {
+            title: "Empty fallback",
+            icon: "",
+            iconName: "lucide/empty-fallback",
+          },
+          {
+            title: "False fallback",
+            icon: false,
+            iconName: "lucide/false-fallback",
+          },
+          {
+            title: "Zero fallback",
+            icon: 0,
+            iconName: "lucide/zero-fallback",
+          },
+          { title: "Named icon", iconName: "lucide/named" },
+          { title: "No icon" },
+        ]}
+      />,
+    );
+
+    const rawIcon = screen.getByTestId("mock-icon-lucide/raw");
+    expect(rawIcon).toHaveAttribute("data-size", "20");
+    expect(rawIcon).toHaveClass("md:size-6");
+    expect(screen.getByTestId("custom-icon")).toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mock-icon-lucide/ignored-raw"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mock-icon-lucide/ignored-custom"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByTestId("mock-icon-lucide/empty-fallback"),
+    ).toHaveClass("md:size-6");
+    expect(
+      screen.getByTestId("mock-icon-lucide/false-fallback"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("mock-icon-lucide/zero-fallback"),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("mock-icon-lucide/named")).toHaveAttribute(
+      "data-size",
+      "20",
+    );
+
+    const rawCard = screen.getByText("Raw icon").closest("div.relative");
+    const noIconCard = screen.getByText("No icon").closest("div.relative");
+    expect(rawCard).not.toHaveTextContent("lucide/raw");
+    expect(rawCard?.querySelector(".size-10")).toBeInTheDocument();
+    expect(noIconCard?.querySelector(".size-10")).not.toBeInTheDocument();
+    expect(
+      noIconCard?.querySelector('[data-testid^="mock-icon-"]'),
+    ).not.toBeInTheDocument();
   });
 });

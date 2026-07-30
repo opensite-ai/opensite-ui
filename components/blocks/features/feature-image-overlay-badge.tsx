@@ -246,9 +246,11 @@ export function FeatureImageOverlayBadge({
           aria-label={action["aria-label"]}
           asButton
         >
-          {action.icon}
+          {action.icon === "" ? null : <DynamicIcon name={action.icon} />}
           {action.label}
-          {action.iconAfter}
+          {action.iconAfter === "" ? null : (
+            <DynamicIcon name={action.iconAfter} />
+          )}
         </Pressable>
       );
     });

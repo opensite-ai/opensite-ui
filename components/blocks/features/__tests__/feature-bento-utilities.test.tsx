@@ -9,9 +9,27 @@ vi.mock("@page-speed/img", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    size,
+    className,
+  }: {
+    name?: React.ReactNode;
+    size?: number;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span
+        data-testid="mock-icon"
+        data-name={name}
+        data-size={size}
+        className={className}
+      >
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 vi.mock("../../../lib/mediaPlaceholders", () => ({
@@ -53,6 +71,92 @@ describe("FeatureBentoUtilities", () => {
     render(<FeatureBentoUtilities leftColumnCards={leftColumnCards} />);
     expect(screen.getByText("Card One")).toBeInTheDocument();
     expect(screen.getByText("Card Two")).toBeInTheDocument();
+  });
+
+  it("renders labelIcon names dynamically with the original size", () => {
+    render(
+      <FeatureBentoUtilities
+        labelIcon="lucide/wrench"
+        labelIconName="lucide/fallback"
+        label="Utilities"
+      />,
+    );
+
+    const icon = screen.getByTestId("mock-icon");
+    expect(icon).toHaveAttribute("data-name", "lucide/wrench");
+    expect(icon).toHaveAttribute("data-size", "20");
+    expect(icon.parentElement).toHaveClass("flex", "items-center", "gap-2");
+    expect(icon.parentElement).not.toHaveTextContent("lucide/wrench");
+  });
+
+  it.each([
+    ["empty", ""],
+    ["false", false],
+    ["zero", 0],
+  ])("falls through %s labelIcon values to labelIconName", (_label, labelIcon) => {
+    render(
+      <FeatureBentoUtilities
+        labelIcon={labelIcon}
+        labelIconName="lucide/fallback"
+        label="Utilities"
+      />,
+    );
+
+    expect(screen.getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/fallback",
+    );
+  });
+
+  it("omits a falsy labelIcon without a fallback", () => {
+    const { container } = render(<FeatureBentoUtilities labelIcon={0} />);
+
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+    expect(container.querySelector("section")).not.toHaveTextContent("0");
+  });
+
+  it("preserves custom label icon elements", () => {
+    render(
+      <FeatureBentoUtilities
+        labelIcon={<span data-testid="custom-icon" />}
+        labelIconName="lucide/fallback"
+        label="Utilities"
+      />,
+    );
+
+    expect(screen.getByTestId("custom-icon")).toBeInTheDocument();
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+  });
+
+  it("keeps both card columns, images, badges, and sparkle icons on their original paths", () => {
+    render(
+      <FeatureBentoUtilities
+        leftColumnCards={[
+          {
+            title: "Left Media",
+            imageSrc: "/left.jpg",
+            showSparkle: true,
+            badge: "lucide/content-badge",
+          },
+        ]}
+        rightColumnCards={[
+          {
+            title: "Right Media",
+            imageSrc: "/ignored.jpg",
+            imageSlot: <div data-testid="image-slot">Custom image</div>,
+          },
+        ]}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-img")).toHaveAttribute("src", "/left.jpg");
+    expect(screen.getByTestId("image-slot")).toBeInTheDocument();
+    expect(screen.getByText("lucide/content-badge")).toBeInTheDocument();
+    expect(screen.getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/sparkles",
+    );
+    expect(screen.getByTestId("mock-icon")).toHaveAttribute("data-size", "16");
   });
 
   it("applies custom className", () => {

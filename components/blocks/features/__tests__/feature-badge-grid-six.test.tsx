@@ -1,6 +1,22 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { FeatureBadgeGridSix } from "../feature-badge-grid-six";
+
+vi.mock("../../../../lib/Pressable", () => ({
+  Pressable: ({
+    children,
+    href,
+    className,
+  }: {
+    children: React.ReactNode;
+    href?: string;
+    className?: string;
+  }) => (
+    <a href={href} className={className} data-testid="mock-pressable">
+      {children}
+    </a>
+  ),
+}));
 
 vi.mock("../../../ui/badge", () => ({
   Badge: ({ children, className }: { children: React.ReactNode; className?: string }) => (
@@ -9,9 +25,27 @@ vi.mock("../../../ui/badge", () => ({
 }));
 
 vi.mock("../../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
-  ),
+  DynamicIcon: ({
+    name,
+    size,
+    className,
+  }: {
+    name?: React.ReactNode;
+    size?: number;
+    className?: string;
+  }) =>
+    typeof name === "string" ? (
+      <span
+        data-testid="mock-icon"
+        data-name={name}
+        data-size={size}
+        className={className}
+      >
+        icon
+      </span>
+    ) : (
+      <>{name}</>
+    ),
 }));
 
 describe("FeatureBadgeGridSix", () => {
@@ -43,6 +77,125 @@ describe("FeatureBadgeGridSix", () => {
     render(<FeatureBadgeGridSix features={features} />);
     expect(screen.getByText("Feature One")).toBeInTheDocument();
     expect(screen.getByText("Feature Two")).toBeInTheDocument();
+  });
+
+  it("renders icon prop names dynamically with the original size and classes", () => {
+    render(
+      <FeatureBadgeGridSix
+        features={[
+          {
+            icon: "lucide/git-pull-request",
+            iconClassName: "feature-icon",
+            heading: "String Icon",
+          },
+        ]}
+      />,
+    );
+
+    const card = screen
+      .getByText("String Icon")
+      .closest(".rounded-lg") as HTMLElement;
+    const icon = within(card).getByTestId("mock-icon");
+
+    expect(icon).toHaveAttribute("data-name", "lucide/git-pull-request");
+    expect(icon).toHaveAttribute("data-size", "16");
+    expect(icon).toHaveClass("md:size-6", "feature-icon");
+    expect(icon.parentElement).toHaveClass("size-10", "md:size-12");
+    expect(card).not.toHaveTextContent("lucide/git-pull-request");
+  });
+
+  it.each([
+    ["empty", ""],
+    ["false", false],
+    ["zero", 0],
+  ])("falls through %s icon values to iconName", (_label, icon) => {
+    render(
+      <FeatureBadgeGridSix
+        features={[{ icon, iconName: "lucide/fallback", heading: "Fallback Icon" }]}
+      />,
+    );
+
+    const card = screen
+      .getByText("Fallback Icon")
+      .closest(".rounded-lg") as HTMLElement;
+    expect(within(card).getByTestId("mock-icon")).toHaveAttribute(
+      "data-name",
+      "lucide/fallback",
+    );
+  });
+
+  it("omits the icon wrapper for a falsy icon without iconName", () => {
+    render(<FeatureBadgeGridSix features={[{ icon: 0, heading: "No Icon" }]} />);
+
+    const card = screen.getByText("No Icon").closest(".rounded-lg") as HTMLElement;
+    expect(within(card).queryByTestId("mock-icon")).not.toBeInTheDocument();
+    expect(card.querySelector(".size-10")).not.toBeInTheDocument();
+    expect(card).not.toHaveTextContent("0");
+  });
+
+  it("preserves custom icon elements", () => {
+    render(
+      <FeatureBadgeGridSix
+        features={[
+          {
+            icon: <span data-testid="custom-icon" />,
+            iconName: "lucide/fallback",
+            heading: "Custom Icon",
+          },
+        ]}
+      />,
+    );
+
+    const customIcon = screen.getByTestId("custom-icon");
+    expect(customIcon).toBeInTheDocument();
+    expect(customIcon.parentElement).toHaveClass("size-10", "md:size-12");
+    expect(screen.queryByText("lucide/fallback")).not.toBeInTheDocument();
+  });
+
+  it("renders both action icon positions dynamically", () => {
+    render(
+      <FeatureBadgeGridSix
+        action={{
+          label: "Start",
+          icon: "lucide/play",
+          iconAfter: "lucide/arrow-right",
+        }}
+      />,
+    );
+
+    const action = screen.getByTestId("mock-pressable");
+    expect(
+      within(action)
+        .getAllByTestId("mock-icon")
+        .map((icon) => icon.getAttribute("data-name")),
+    ).toEqual(["lucide/play", "lucide/arrow-right"]);
+    expect(action).not.toHaveTextContent("lucide/play");
+    expect(action).not.toHaveTextContent("lucide/arrow-right");
+  });
+
+  it("preserves truthy action children and actionSlot overrides", () => {
+    const { rerender } = render(
+      <FeatureBadgeGridSix
+        action={{
+          label: "Ignored",
+          icon: "lucide/ignored",
+          children: <span data-testid="action-children">Custom action</span>,
+        }}
+      />,
+    );
+
+    expect(screen.getByTestId("action-children")).toBeInTheDocument();
+    expect(screen.queryByTestId("mock-icon")).not.toBeInTheDocument();
+
+    rerender(
+      <FeatureBadgeGridSix
+        action={{ label: "Ignored", icon: "lucide/ignored" }}
+        actionSlot={<span data-testid="action-slot">Slot action</span>}
+      />,
+    );
+
+    expect(screen.getByTestId("action-slot")).toBeInTheDocument();
+    expect(screen.queryByTestId("mock-pressable")).not.toBeInTheDocument();
   });
 
   it("applies custom className", () => {

@@ -18,7 +18,7 @@ export interface FeatureBadgeGridSixItem {
   /**
    * Icon element (overrides iconName)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/git-pull-request")
    */
@@ -187,7 +187,15 @@ export function FeatureBadgeGridSix({
   }, [badgeSlot, label, badgeClassName]);
 
   const renderFeatureIcon = useCallback((feature: FeatureBadgeGridSixItem) => {
-    if (feature.icon) return feature.icon;
+    if (feature.icon) {
+      return (
+        <DynamicIcon
+          name={feature.icon}
+          size={16}
+          className={cn("md:size-6", feature.iconClassName)}
+        />
+      );
+    }
     if (feature.iconName) {
       return (
         <DynamicIcon
@@ -298,9 +306,11 @@ export function FeatureBadgeGridSix({
         className={action.className}
         aria-label={action["aria-label"]}
       >
-        {action.icon}
+        {action.icon === "" ? null : <DynamicIcon name={action.icon} />}
         {action.label}
-        {action.iconAfter}
+        {action.iconAfter === "" ? null : (
+          <DynamicIcon name={action.iconAfter} />
+        )}
       </Pressable>
     );
   }, [actionSlot, action]);

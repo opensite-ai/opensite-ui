@@ -39,7 +39,7 @@ export interface FeatureChecklistItem {
   /**
    * Icon element (overrides default check icon)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name for dynamic icon loading
    */
@@ -250,9 +250,11 @@ export function FeatureChecklistImage({
           aria-label={action["aria-label"]}
           asButton
         >
-          {action.icon}
+          {action.icon === "" ? null : <DynamicIcon name={action.icon} />}
           {action.label}
-          {action.iconAfter}
+          {action.iconAfter === "" ? null : (
+            <DynamicIcon name={action.iconAfter} />
+          )}
         </Pressable>
       );
     });
@@ -306,24 +308,17 @@ export function FeatureChecklistImage({
         return;
       }
 
-      const iconElement = isString ? (
-        <DynamicIcon
-          name="lucide/circle-check-big"
-          size={20}
-          className="h-5 w-5"
-        />
-      ) : (
-        (item.icon ??
-        (item.iconName ? (
-          <DynamicIcon name={item.iconName} size={20} className="h-5 w-5" />
-        ) : (
+      const iconValue = isString
+        ? "lucide/circle-check-big"
+        : (item.icon ?? item.iconName ?? "lucide/circle-check-big");
+      const iconElement =
+        iconValue === "" ? null : (
           <DynamicIcon
-            name="lucide/circle-check-big"
+            name={iconValue}
             size={20}
             className="h-5 w-5"
           />
-        )))
-      );
+        );
       const itemClassName = isString ? undefined : item.className;
 
       renderedItems.push(

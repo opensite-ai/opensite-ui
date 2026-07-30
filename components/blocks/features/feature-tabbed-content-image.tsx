@@ -22,9 +22,9 @@ export interface FeatureTabbedContentImageFeatureItem {
    */
   content?: React.ReactNode;
   /**
-   * Icon element (overrides default check icon)
+   * Icon name or element (overrides default check icon)
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name for dynamic icon loading
    */
@@ -254,16 +254,10 @@ export function FeatureTabbedContentImage({
       return slide.features.map((feature, index) => {
         const isString = typeof feature === "string";
         const content = isString ? feature : feature.content;
-        const iconElement = isString ? (
-          <DynamicIcon name="lucide/check-circle-2" size={16} />
-        ) : (
-          (feature.icon ??
-          (feature.iconName ? (
-            <DynamicIcon name={feature.iconName} size={16} />
-          ) : (
-            <DynamicIcon name="lucide/check-circle-2" size={16} />
-          )))
-        );
+        const resolvedIcon = isString
+          ? "lucide/check-circle-2"
+          : feature.icon ??
+            (feature.iconName ? feature.iconName : "lucide/check-circle-2");
         const itemClassName = isString ? undefined : feature.className;
 
         return (
@@ -272,7 +266,9 @@ export function FeatureTabbedContentImage({
             className={cn("flex items-start gap-2", itemClassName)}
           >
             <div className="flex items-center justify-center mt-1.5">
-              {iconElement}
+              {resolvedIcon === "" ? null : (
+                <DynamicIcon name={resolvedIcon} size={16} />
+              )}
             </div>
             <span className="font-base">{content}</span>
           </li>
@@ -316,9 +312,11 @@ export function FeatureTabbedContentImage({
             aria-label={action["aria-label"]}
             asButton
           >
-            {action.icon}
+            {action.icon === "" ? null : <DynamicIcon name={action.icon} />}
             {action.label}
-            {action.iconAfter}
+            {action.iconAfter === "" ? null : (
+              <DynamicIcon name={action.iconAfter} />
+            )}
           </Pressable>
         );
       });

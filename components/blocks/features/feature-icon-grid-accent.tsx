@@ -16,7 +16,7 @@ export interface FeatureIconGridAccentItem {
   /**
    * Icon element or ReactNode
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/zoom-in") - used if icon prop not provided
    */
@@ -166,11 +166,7 @@ export function FeatureIconGridAccent({
     if (!features || features.length === 0) return null;
 
     return features.map((feature, index) => {
-      const iconElement =
-        feature.icon ??
-        (feature.iconName ? (
-          <DynamicIcon name={feature.iconName} size={24} />
-        ) : null);
+      const iconValue = feature.icon ?? feature.iconName;
 
       return (
         <div
@@ -181,14 +177,14 @@ export function FeatureIconGridAccent({
             feature.className,
           )}
         >
-          {iconElement && (
+          {iconValue && (
             <span
               className={cn(
                 "mb-6 flex size-11 items-center justify-center rounded-full",
                 feature.iconClassName,
               )}
             >
-              {iconElement}
+              <DynamicIcon name={iconValue} size={24} />
             </span>
           )}
           <div>
