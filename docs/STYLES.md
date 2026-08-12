@@ -9,11 +9,12 @@ This document provides a complete reference for customizing all @opensite/ui com
 1. [Quick Start (Tailwind 4)](#quick-start-tailwind-4)
 2. [Typography (Prose) Styling](#typography-prose-styling)
 3. [Complete CSS Template](#complete-css-template)
-4. [Tailwind Config Template](#tailwind-config-template)
-5. [CSS Variables Reference](#css-variables-reference)
-6. [Component-Specific Styling](#component-specific-styling)
-7. [Custom Theme Examples](#custom-theme-examples)
-8. [Server-Side Style Synchronization](#server-side-style-synchronization)
+4. [Font Loading & @font-face](#font-loading--font-face)
+5. [Tailwind Config Template](#tailwind-config-template)
+6. [CSS Variables Reference](#css-variables-reference)
+7. [Component-Specific Styling](#component-specific-styling)
+8. [Custom Theme Examples](#custom-theme-examples)
+9. [Server-Side Style Synchronization](#server-side-style-synchronization)
 
 ---
 
@@ -165,16 +166,11 @@ This template uses Tailwind CSS 4's `@theme inline` directive to map CSS variabl
      TYPOGRAPHY
      ============================================ */
 
-  /* Font Families */
+  /* Font Families (family stacks only — see "Font Loading & @font-face").
+     Quote any family name containing spaces or digits: "Source Sans 3". */
   --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --font-sans-weight: 400;
-  --font-sans-style: normal;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-serif-weight: 400;
-  --font-serif-style: normal;
   --font-mono: ui-monospace, monospace;
-  --font-mono-weight: 400;
-  --font-mono-style: normal;
 
   /* Font Sizes (rem units) */
   --text-xs: 0.75rem;    /* 12px */
@@ -484,6 +480,11 @@ This template uses Tailwind CSS 4's `@theme inline` directive to map CSS variabl
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
 
+  /* Font Family Utilities (font-sans / font-serif / font-mono) */
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+
   /* Border Radius Utilities */
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
@@ -551,6 +552,233 @@ This template uses Tailwind CSS 4's `@theme inline` directive to map CSS variabl
 }
 }
 ```
+
+---
+
+## Font Loading & @font-face
+
+The template above only *names* the families (`--font-sans` / `--font-serif` / `--font-mono`).
+Nothing in `@opensite/ui` downloads a font — the host page (or the DashTrack Tailwind
+generator) is responsible for making the faces available. This section is the contract for
+how those faces get loaded.
+
+### How `font-sans` / `font-serif` / `font-mono` utilities actually resolve
+
+Read this before copying the `@theme inline` font mappings anywhere new — the pattern is
+subtle and it is **not** the mechanism that makes the utilities work.
+
+Tailwind v4's DEFAULT theme tokens are *already* named `--font-sans`, `--font-serif`, and
+`--font-mono`. Tailwind emits its defaults inside `@layer theme`, and an **unlayered**
+`:root` declaration beats anything in a layer. So a site that simply declares
+
+```css
+:root {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+```
+
+already drives the `font-sans` utility — automatically, with no mapping of any kind. The
+same is true for `font-serif` and `font-mono`.
+
+The `@theme inline { --font-sans: var(--font-sans); … }` block in the Complete CSS Template
+is therefore a no-op for utility resolution. It is kept as the conventional shadcn-style
+idiom, and it is **safe there only because the adjacent `:root` block in the same template
+always defines all three variables.**
+
+⚠️ **Do not add that mapping to a stylesheet where one of the three variables may be
+undefined.** In the theme layer, `--font-serif: var(--font-serif)` with no unlayered
+`--font-serif` to resolve against becomes the winning declaration and refers to itself: a
+CSS custom-property **cycle**. A cycle is *invalid at computed-value time*, so the token
+resolves to nothing and the `font-serif` utility applies **no `font-family` at all** — a
+visible regression, not a silent fallback.
+
+This is why the DashTrack compiled-site generator (`lib/tailwind/generate.mjs`) deliberately
+does **NOT** emit the font mappings: many production style guides ship a partial or blank
+variable prelude, and the mapping would break font utilities on exactly those sites. The
+mapping lives only in the hand-authored templates whose `:root` is guaranteed complete
+(this document's fence, `opensite-ui/src/styles/globals.css`, the Rails `default_configs`
+template, and the dt-cms preview runtime). See the "Post-review amendment" under §D2 of
+`docs/shared-components/font-family-restructure-DESIGN.md`.
+
+Rule of thumb: **declare the variables; the mapping is optional garnish, and only when the
+variables are guaranteed present.**
+
+### Rule 1 — Families load as FULL families, not single faces
+
+`@opensite/ui` blocks style with the whole Tailwind weight/style axis (`font-medium`,
+`font-semibold`, `font-bold`, `italic`, …). If only one physical face is loaded, the browser
+*synthesizes* the rest — faux bold and faux oblique — which is why a design can look
+subtly wrong even though every utility class compiled correctly.
+
+So: **load every weight and style of the family you selected.** Browsers download only the
+faces that rendered text actually matches, so declaring the full family costs CSS bytes
+(a few KB pre-gzip), not font bytes.
+
+### Rule 2 — Quote family names with spaces or digits
+
+```css
+/* ✅ correct */
+--font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+--font-serif: "Source Sans 3", Georgia, serif;
+
+/* ❌ invalid CSS — a bare token starting with a digit is not a valid identifier.
+   The whole declaration is dropped and the browser silently falls back. */
+--font-serif: Source Sans 3, Georgia, serif;
+```
+
+Generic keywords (`ui-sans-serif`, `system-ui`, `sans-serif`, `serif`, `monospace`) must
+NOT be quoted — quoting turns them into family-name lookups that will never match.
+The stock defaults in the template need no quoting.
+
+Always keep a generic fallback as the last entry in every stack.
+
+### Rule 3 — Google-hosted families: one dual-axis `css2` import
+
+One import per family, requesting the full weight axis in both styles, with
+`display=swap`:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+>
+```
+
+Equivalent `@import` form (must be the first rule in the stylesheet):
+
+```css
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+```
+
+Notes:
+- Use the `ital,wght@` **dual-axis** syntax (`0,` = normal, `1,` = italic). A single-axis
+  `wght@` import loads no italics at all.
+- For variable fonts a range (`wght@300..800`) is valid and preferred.
+- Do **not** emit one import per weight — that is N round trips for one family.
+- Google's `css2` response already contains the `@font-face` blocks with correct
+  `font-weight` / `font-style` / `unicode-range` descriptors, so nothing else is needed.
+
+### Rule 4 — Self-hosted / uploaded families: one `@font-face` per face
+
+Emit one `@font-face` rule **per physical face**, each with real `font-weight` and
+`font-style` descriptors and `font-display: swap`. Serve the file through the DashTrack
+font transform so it is normalized/compressed to `woff2`:
+
+```css
+@font-face {
+  font-family: "Acme Grotesk";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://octane.cdn.ing/api/v1/fonts/transform?url=https://cdn.ing/assets/fonts/8412/file/a3f9c1d27b5e4a80.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Acme Grotesk";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://octane.cdn.ing/api/v1/fonts/transform?url=https://cdn.ing/assets/fonts/8419/file/6b21e5f0c9a7d413.woff2") format("woff2");
+}
+```
+
+Descriptor rules:
+- `font-weight` is the face's REAL weight (100–900). Never collapse everything to `400` —
+  that re-creates the faux-bold problem inside a self-hosted family.
+- `font-style` is `normal` or `italic` per face.
+- `font-display: swap` on every face. Text must never be invisible waiting on a font.
+- One `font-family` string shared by all faces of the family, matching the quoted name used
+  in `--font-sans` / `--font-serif` / `--font-mono` exactly.
+- **`format("woff2")` — ALWAYS, for ANY src that goes through the transform**, no matter what
+  the uploaded source file was. The transform converts every input format (`ttf`, `otf`,
+  `woff`, `woff2`) to woff2, so the response is always woff2 even when the `url` parameter
+  ends in `.ttf`. `format()` is a *promise about the response*, and browsers use it to
+  pre-filter `src` candidates without fetching them: advertising the source format
+  (e.g. `format("truetype")` for a `.ttf` source) makes the browser skip the src entirely on
+  the assumption it can't use it — the face never loads. Only put the real source format in
+  `format()` when the file is served directly, bypassing the transform.
+
+### Rule 5 — The transform `src` URL must be STABLE
+
+The transform endpoint caches by `sha256` of the **`url` query parameter**, so the source
+URL is the cache key. It must be byte-stable forever:
+
+```
+https://octane.cdn.ing/api/v1/fonts/transform?url=https://cdn.ing/assets/fonts/<font_record_id>/file/<blob_key>.<ext>
+```
+
+- `<font_record_id>` — the font record's id (one record == one weight + style).
+- `<blob_key>` — the stable public file token for that record.
+- `<ext>` — the source extension (`woff2`, `woff`, `ttf`, `otf`).
+
+**Never** pass a signed/expiring ActiveStorage URL as the `url` parameter. Those URLs expire
+(≈1 week) and are regenerated on every read, so every render produces a new cache key: a
+guaranteed cache miss on every request, and dead `src` URLs baked into cached CSS once the
+signature expires.
+
+Each face needs its own DISTINCT stable URL — the cache key has no weight/style/subset
+dimension, so two faces sharing a source URL would collapse into one cached artifact.
+
+### Rule 6 — Preload sparingly (≤ 2 above-the-fold faces)
+
+Preload only the one or two faces that actually paint above the fold — in practice the sans
+family's regular and bold normal faces:
+
+```html
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://octane.cdn.ing/api/v1/fonts/transform?url=https://cdn.ing/assets/fonts/8412/file/a3f9c1d27b5e4a80.woff2">
+```
+
+- `crossorigin` is REQUIRED on font preloads. Without it the browser fetches the file twice.
+- Preloading a face the page never uses is a pure waste of bandwidth *and* delays the faces
+  it does use.
+- Do not preload Google `css2` faces: the import indirects through per-`unicode-range`
+  files whose URLs are not stable, so a preload will miss and double-fetch.
+- Do not fan out preloads across a whole family. The transform endpoint is a public
+  URL-fetching proxy with no per-face concurrency budget; dozens of parallel cold preloads
+  per page view is an availability hazard.
+
+### Deprecated: `--font-*-weight` / `--font-*-style`
+
+Earlier revisions of this template paired each family with a pinned face:
+
+```css
+/* DEPRECATED — do not add these to new templates */
+--font-sans-weight: 400;
+--font-sans-style: normal;
+--font-serif-weight: 400;
+--font-serif-style: normal;
+--font-mono-weight: 400;
+--font-mono-style: normal;
+```
+
+These six variables are **removed from the active template** and are **no longer read by
+anything**: `body` and `code, kbd, pre, samp` now set `font-family` only, and weights come
+from block-level Tailwind utilities.
+
+They remain **tolerated, not rejected**: downstream generators and theme schemas still
+ACCEPT them as optional keys so previously saved themes keep validating and rendering.
+If they appear in a `theme_config` they are simply **ignored**. Do not emit them in new
+themes, and do not depend on them in component CSS.
+
+### DashTrack rollout: `FONT_FULL_FAMILY_EMISSION`
+
+On the DashTrack platform, full-family emission is behind the env flag
+**`FONT_FULL_FAMILY_EMISSION`** (default OFF → byte-identical legacy output).
+
+It must be enabled on **BOTH Heroku apps**, because they gate independent halves of the
+delivery path:
+
+| App | What the flag gates |
+|---|---|
+| `toastability-service` | Generator-side emission — resolving the selected families and emitting the full css2 import / the full set of `@font-face` blocks |
+| `customer-sites` | Delivery-side rendering — the real `font-weight`/`font-style` descriptors, the stable transform URLs, and the above-the-fold `<link rel="preload">` tags |
+
+Enabling only one leaves the other half on the legacy single-face path, so the site still
+renders faux bold/italic (or loses the preloads) even though the other app is emitting the
+full family. Flip both, and expect one deliberate CSS cache-tag rotation at flip time.
 
 ---
 
@@ -1171,10 +1399,22 @@ async function generateClientCSS(siteId: number): Promise<string> {
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
   /* ... mappings are consistent across all sites ... */
+  /* NOTE: no --font-* mappings here — see the warning below. */
 }
 `;
 }
 ```
+
+> ⚠️ **Do not add `--font-sans/-serif/-mono` mappings to a server-generated `@theme inline`.**
+> Tailwind v4 already names its default font tokens `--font-sans/-serif/-mono`, and the
+> unlayered `:root` prelude above beats `@layer theme`, so font utilities track the site's
+> variables *without* any mapping. If a generated prelude is ever missing one of the three
+> variables, the layered `--font-serif: var(--font-serif)` self-reference becomes the winning
+> declaration — a custom-property cycle, invalid at computed-value time — and the
+> `font-serif` utility then applies no `font-family` at all. Colors are different: they are
+> mapped from differently-named source variables (`--primary` → `--color-primary`), so there
+> is no self-reference and no cycle. See
+> [Font Loading & @font-face](#font-loading--font-face).
 
 #### Step 3: Serve or Write CSS File
 

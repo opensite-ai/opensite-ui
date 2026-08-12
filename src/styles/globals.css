@@ -44,15 +44,14 @@
   /* ============================================
      TYPOGRAPHY ROLES
      ============================================ */
+  /* Family stacks only. Quote any family name containing spaces or digits
+     ("Source Sans 3"); weights/styles come from Tailwind utilities, and the
+     faces are loaded per docs/STYLES.md → "Font Loading & @font-face".
+     The deprecated --font-*-weight / --font-*-style companions are gone:
+     still tolerated in saved theme_configs, but read by nothing. */
   --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --font-sans-weight: 400;
-  --font-sans-style: normal;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-serif-weight: 400;
-  --font-serif-style: normal;
   --font-mono: ui-monospace, monospace;
-  --font-mono-weight: 400;
-  --font-mono-style: normal;
 
   /* ============================================
      BUTTONS - Required for @page-speed/pressable
@@ -391,6 +390,9 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
 }
 
 @layer base {
@@ -400,16 +402,12 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
-    font-weight: var(--font-sans-weight, 400);
-    font-style: var(--font-sans-style, normal);
   }
   code,
   kbd,
   pre,
   samp {
     font-family: var(--font-mono);
-    font-weight: var(--font-mono-weight, 400);
-    font-style: var(--font-mono-style, normal);
   }
   .maplibregl-popup-content {
     @apply bg-transparent! shadow-none! p-0! rounded-none!;
