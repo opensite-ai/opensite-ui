@@ -24176,7 +24176,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       "visual-impact",
       "cta",
     ],
-    category: "article",
+    category: "blog",
     component: ArticleSplitAnimated,
     props: "ArticleSplitAnimatedProps",
     ...ARTICLE_BLOCK_CONTRACTS["article-split-animated"],

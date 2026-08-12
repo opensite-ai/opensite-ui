@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-08-06T08:46:01.080Z",
+    "exportedAt": "2026-08-12T23:32:00.173Z",
     "totalBlocks": 606,
-    "version": "3.14.11",
+    "version": "3.14.12",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -12859,7 +12859,7 @@
         "visual-impact",
         "cta"
       ],
-      "category": "article",
+      "category": "blog",
       "props": "ArticleSplitAnimatedProps",
       "exampleUsage": "<ArticleSplitAnimated\n  image=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  imageAlt=\"AI-assisted development workflow\"\n  category=\"Artificial Intelligence\"\n  categoryHref=\"#\"\n  title=\"The Future of AI-Assisted Development\"\n  description=\"A source-backed featured article about how AI is changing software delivery workflows.\"\n  authorName=\"Dr. Raj Patel\"\n  authorImage=\"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\"\n  authorRole=\"AI Research Lead\"\n  authorHref=\"#\"\n  publishDate=\"January 25, 2026\"\n  readTime=\"15 min read\"\n  ctaActions={[{ label: \"Read Full Article\", href: \"#\", variant: \"default\", size: \"lg\" }]}\n/>",
       "importantUsageNotes": "Use for a featured article or hero post preview, not as a full article body. image and authorImage must be absolute image URLs only, never placeholder variables, relative /images paths, logos, favicons, or video URLs. Use ctaActions ActionConfig objects; this component does not accept ctaText or ctaHref props.",
