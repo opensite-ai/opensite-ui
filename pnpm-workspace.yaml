@@ -15,3 +15,9 @@ packages: []
 # Same approval class as sharp in the showcase app.
 allowBuilds:
   esbuild: true
+
+minimumReleaseAgeExclude:
+  - '@page-speed/markdown-to-jsx@0.0.9'
+  - '@page-speed/pressable@0.1.2'
+  - '@page-speed/router@1.2.2'
+  - '@page-speed/social-share@0.1.8'
