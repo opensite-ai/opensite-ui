@@ -7,6 +7,35 @@ import * as React from "react";
 import { Pressable } from "@page-speed/pressable";
 
 /**
+ * Width guard for markdown images.
+ *
+ * `@page-speed/img` replaces the markdown renderer's own `img` override, so the
+ * guard that package applies is bypassed on this path. An image's intrinsic
+ * width is unbounded, so without this cap a wide asset can inflate the article
+ * column at phone widths and drag the whole page layout past the viewport.
+ *
+ * Inline, not a Tailwind class: production customer sites are served a
+ * safelist-compiled stylesheet where an unextracted utility has no rule at all.
+ */
+const IMG_WIDTH_GUARD: React.CSSProperties = {
+  maxWidth: "100%",
+  height: "auto",
+};
+
+/**
+ * `Img` with the width guard pre-applied. Caller styles (from raw HTML in the
+ * markdown, or from a future prop) still win.
+ */
+const GuardedImg = React.forwardRef<
+  HTMLImageElement,
+  React.ComponentPropsWithoutRef<typeof Img>
+>(function GuardedImg({ style, ...props }, ref) {
+  return (
+    <Img ref={ref} style={{ ...IMG_WIDTH_GUARD, ...style }} {...props} />
+  );
+});
+
+/**
  * Props for the LongformContent component.
  *
  * @property children - JSX content to render when `renderMode` is "jsx"
@@ -99,7 +128,7 @@ export function LongformContent({
         markdownStyles={markdownStyles}
         optixFlowConfig={optixFlowConfig}
         overrides={{
-          img: Img,
+          img: GuardedImg,
           a: Pressable,
         }}
       >

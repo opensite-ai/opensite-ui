@@ -278,7 +278,13 @@ export function BlogTechInsights({
               />
             )}
           </div>
-          <div className="flex-1">
+          {/*
+            `min-w-0`: `flex-1` zeroes the flex *basis*, not the item's automatic
+            minimum size, which is still its min-content width. An unbroken token
+            in a feed-driven title would otherwise push this text column past the
+            row and scroll the page sideways on a phone.
+          */}
+          <div className="min-w-0 flex-1">
             {post.title && (
               <h3 className="font-semibold text-md line-clamp-2">
                 {post.title}

@@ -120,7 +120,7 @@ export function BlogHorizontalTimelineComponent({
         <div
           key={postId}
           className={cn(
-            "flex flex-col items-center gap-2 md:flex-row md:gap-16",
+            "flex min-w-0 flex-col items-center gap-2 wrap-break-word md:flex-row md:gap-16",
             postItemClassName,
           )}
         >

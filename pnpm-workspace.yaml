@@ -17,7 +17,12 @@ allowBuilds:
   esbuild: true
 
 minimumReleaseAgeExclude:
-  - '@page-speed/markdown-to-jsx@0.0.9'
+  # 0.0.9 is what the committed lockfile resolves today. When 0.0.10 (the mobile
+  # width-containment release) is published, bump the dependency in package.json
+  # to "0.0.10" and add '@page-speed/markdown-to-jsx@0.0.10' here in the same
+  # commit - `^0.0.9` does NOT resolve 0.0.10 (a caret on a 0.0.x version pins
+  # the patch), so without both edits opensite-ui keeps shipping 0.0.9.
+  - '@page-speed/markdown-to-jsx@0.0.9 || 0.0.10'
   - '@page-speed/pressable@0.1.2'
   - '@page-speed/router@1.2.2'
   - '@page-speed/social-share@0.1.8'

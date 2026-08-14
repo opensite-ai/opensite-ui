@@ -194,7 +194,19 @@ const BlogCard = React.memo(function BlogCard({
   const postCta = post.cta || "Read more";
 
   return (
-    <Card className={cn("size-full rounded-lg border py-0", className)}>
+    <Card
+      /*
+        Grid card guard: a card's default `min-width: auto` is its min-content
+        width, so one unbroken token in a feed-driven title or summary makes the
+        card wider than its track and scrolls the whole page sideways on a phone.
+        `min-w-0` and `wrap-break-word` are both already in the production
+        Tailwind safelist.
+      */
+      className={cn(
+        "size-full min-w-0 rounded-lg border py-0 wrap-break-word",
+        className,
+      )}
+    >
       <CardContent className="p-0">
         {postCategory && (
           <div className="border-b p-2.5 text-xs leading-[1.2] font-bold text-muted-foreground/70 uppercase">

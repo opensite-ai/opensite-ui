@@ -162,7 +162,18 @@ export function BlogGridNinePosts({
         <Pressable
           key={postId}
           href={postHref}
-          className={cn("group flex flex-col", postCardClassName)}
+          /*
+            Grid/flex card guard: a card's default `min-width: auto` is its
+            min-content width, so one unbroken token in a feed-driven title or
+            summary makes the card wider than its track and scrolls the whole page
+            sideways on a phone (proven: 390px viewport -> 856px page). `min-w-0`
+            and `wrap-break-word` are both already in the production Tailwind
+            safelist.
+          */
+          className={cn(
+            "group flex min-w-0 flex-col wrap-break-word",
+            postCardClassName,
+          )}
         >
           <div className="mb-4 flex overflow-clip rounded-xl md:mb-5">
             <div className="transition-opacity duration-300 group-hover:opacity-80">

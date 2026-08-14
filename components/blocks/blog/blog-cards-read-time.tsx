@@ -167,7 +167,18 @@ export function BlogCardsReadTime({
       return (
         <Pressable
           key={postId}
-          className={cn("rounded-xl border", postCardClassName)}
+          /*
+            Grid/flex card guard: a card's default `min-width: auto` is its
+            min-content width, so one unbroken token in a feed-driven title or
+            summary makes the card wider than its track and scrolls the whole page
+            sideways on a phone (proven: 390px viewport -> 856px page). `min-w-0`
+            and `wrap-break-word` are both already in the production Tailwind
+            safelist.
+          */
+          className={cn(
+            "min-w-0 rounded-xl border wrap-break-word",
+            postCardClassName,
+          )}
           href={postHref}
         >
           <div className="p-2">

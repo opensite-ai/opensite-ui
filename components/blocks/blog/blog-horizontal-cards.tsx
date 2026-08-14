@@ -201,7 +201,14 @@ export function BlogHorizontalCards({
                 </Pressable>
               </div>
             )}
-            <div className="flex-1 space-y-4">
+            {/*
+              `min-w-0`: `flex-1` zeroes the flex *basis*, not the item's
+              automatic minimum size, which is still its min-content width. An
+              unbroken token in a feed-driven title or summary would otherwise
+              push this text column past the row and scroll the page sideways on
+              a phone.
+            */}
+            <div className="min-w-0 flex-1 space-y-4">
               <div className="flex justify-start items-center gap-3 md:gap-4 text-sm flex-wrap">
                 {postLabel && <Badge variant="secondary">{postLabel}</Badge>}
                 {post.author && (

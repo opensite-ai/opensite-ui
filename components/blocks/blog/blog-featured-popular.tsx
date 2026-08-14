@@ -213,7 +213,17 @@ export function BlogFeaturedPopular({
       return (
         <PostWrapper
           key={postId}
-          className={cn("flex flex-col items-start gap-4", postCardClassName)}
+          /*
+            Grid/flex card guard: a card's default `min-width: auto` is its
+            min-content width, so one unbroken token in a feed-driven title or
+            summary makes the card wider than its track and scrolls the whole page
+            sideways on a phone. `min-w-0` and `wrap-break-word` are both already
+            in the production Tailwind safelist.
+          */
+          className={cn(
+            "flex min-w-0 flex-col items-start gap-4 wrap-break-word",
+            postCardClassName,
+          )}
           {...wrapperProps}
         >
           {post.image && (

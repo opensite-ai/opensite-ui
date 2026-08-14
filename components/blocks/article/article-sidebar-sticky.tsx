@@ -277,7 +277,13 @@ export function ArticleSidebarStickyComponent({
     >
       <div className="relative">
         <div className="grid gap-10 lg:grid-cols-[1fr_minmax(0,2fr)]">
-          <aside className={cn("hidden lg:block", sidebarClassName)}>
+          {/*
+            `min-w-0`: the sidebar sits in a bare `1fr` track, which is
+            `minmax(auto, 1fr)` - its base size is the item's min-content width.
+            An unbreakable author name or link in the sidebar would otherwise
+            widen the track past its share and push the layout sideways.
+          */}
+          <aside className={cn("hidden min-w-0 lg:block", sidebarClassName)}>
             <div className="sticky top-8 space-y-6">
               {backLinkContent}
               <div className="space-y-4">{renderAuthor(false)}</div>

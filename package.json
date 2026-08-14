@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "3.14.13",
+  "version": "3.14.14",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -3436,7 +3436,7 @@
     "@page-speed/img": "0.4.10",
     "@page-speed/lightbox": "^0.2.1",
     "@page-speed/maps": "0.2.4",
-    "@page-speed/markdown-to-jsx": "^0.0.9",
+    "@page-speed/markdown-to-jsx": "^0.0.10",
     "@page-speed/media-immersive": "0.5.2",
     "@page-speed/pdf-viewer": ">=0.1.9",
     "@page-speed/skins": "0.1.3",

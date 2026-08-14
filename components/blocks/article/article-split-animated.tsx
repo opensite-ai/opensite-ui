@@ -338,9 +338,18 @@ export function ArticleSplitAnimatedComponent({
             </div>
           </MotionWrapper>
 
+          {/*
+            `min-w-0`: on mobile this grid collapses to a single auto-sized
+            column, so the item's min-content width becomes the track base size.
+            An unbreakable title token or long URL would otherwise widen the
+            track past the viewport and scroll the whole page sideways.
+          */}
           <MotionWrapper
             {...contentAnimationProps}
-            className={cn("flex flex-col justify-center", contentClassName)}
+            className={cn(
+              "flex min-w-0 flex-col justify-center",
+              contentClassName,
+            )}
           >
             {(publishDate || readTime) && (
               <div

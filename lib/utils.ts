@@ -333,6 +333,21 @@ export function isDarkBackground(bg?: SectionBackground): boolean {
  *
  * **Required:** The `@tailwindcss/typography` plugin must be installed.
  *
+ * **Mobile width containment:** every returned class string includes `min-w-0`.
+ * Prose columns are almost always CSS grid or flex items, and a grid/flex item's
+ * default `min-width: auto` resolves to its **min-content** width. Article bodies
+ * routinely contain descendants whose min-content width is far wider than a phone
+ * viewport - a GFM table, a `<pre>` with a long line, an embed with a hard-coded
+ * `width` - and without `min-w-0` that min-content width becomes the track's base
+ * size. The column then grows past the viewport and drags the *entire* layout with
+ * it (clipped headline, floating navbar wider than the screen, horizontal page
+ * scroll). `min-w-0` lets the column stay at the track width so the wide child is
+ * handled locally (the markdown renderer scrolls tables and code blocks inside
+ * their own boxes) instead of deforming the page.
+ *
+ * `min-w-0` is present in the production Tailwind safelist, so this adds no new
+ * class to the safelist-compiled customer-site stylesheet.
+ *
  * @param parentBg - The parent Section's background variant
  * @param additionalClasses - Additional prose modifier classes (e.g., "prose-sm", "max-w-none")
  * @returns Tailwind prose class string
@@ -360,8 +375,8 @@ export function getProseClassName(
   additionalClasses?: string,
 ): string {
   const baseClasses = isDarkBackground(parentBg)
-    ? "prose prose-invert"
-    : "prose dark:prose-invert";
+    ? "prose prose-invert min-w-0"
+    : "prose dark:prose-invert min-w-0";
 
   return additionalClasses
     ? `${baseClasses} ${additionalClasses}`

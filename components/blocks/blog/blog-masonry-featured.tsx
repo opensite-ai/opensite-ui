@@ -188,7 +188,17 @@ export function BlogMasonryFeaturedComponent({
         <Pressable
           key={postId}
           href={postHref}
-          className={cn("rounded-lg p-3", postCardClassName)}
+          /*
+            Grid/flex card guard: a card's default `min-width: auto` is its
+            min-content width, so one unbroken token in a feed-driven title or
+            summary makes the card wider than its track and scrolls the whole page
+            sideways on a phone. `min-w-0` and `wrap-break-word` are both already
+            in the production Tailwind safelist.
+          */
+          className={cn(
+            "min-w-0 rounded-lg p-3 wrap-break-word",
+            postCardClassName,
+          )}
         >
           {post.image && (
             <Img

@@ -151,7 +151,18 @@ export function BlogRelatedArticles({
         <Pressable
           key={itemId}
           href={itemHref}
-          className={cn("flex flex-col gap-2", articleCardClassName)}
+          /*
+            `min-w-0` + `wrap-break-word`: this card is a grid item, and a grid
+            item's default `min-width: auto` is its min-content width. Feed-driven
+            titles and summaries can contain an unbroken token (a bare URL, a
+            product code), which would make the card wider than its track and
+            scroll the whole page sideways on a phone. Both classes are already in
+            the production Tailwind safelist.
+          */
+          className={cn(
+            "flex min-w-0 flex-col gap-2 wrap-break-word",
+            articleCardClassName,
+          )}
         >
           {(item.category || item.label) && (
             <span className="text-sm font-medium opacity-70">

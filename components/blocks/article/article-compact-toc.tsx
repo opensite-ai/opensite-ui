@@ -391,7 +391,13 @@ export function ArticleCompactTocComponent({
         {breadcrumbsContent}
 
         <div className={cn("relative", hasDesktopToc && "lg:flex lg:gap-8")}>
-          <div className={cn(hasDesktopToc && "min-w-0 lg:flex-1")}>
+          {/*
+            `min-w-0` is unconditional: it is the guard that stops a wide article
+            descendant (table, long code line, oversized embed) from inflating
+            this column's min-content width and scrolling the whole page
+            sideways on a phone. It must not depend on `hasDesktopToc`.
+          */}
+          <div className={cn("min-w-0", hasDesktopToc && "lg:flex-1")}>
             {title &&
               (typeof title === "string" ? (
                 <h1

@@ -237,9 +237,20 @@ export function ArticleHeroProseComponent({
       </div>
       {markdownString && (
         <div className="flex flex-col items-center">
+          {/*
+            `w-full` is load-bearing at phone widths. The parent is a column flex
+            container with `items-center`, so this item is cross-axis
+            shrink-to-fit: its width becomes max(min-content, min(max-content,
+            available)) clamped by `max-w-3xl`. A single wide descendant (table,
+            long code line, embed with a hard-coded width) pushes min-content
+            above the viewport, so the column resolved to 768px on a 390px
+            screen and scrolled the page sideways. `width: 100%` pins it to the
+            container instead; `max-w-3xl` still caps the reading measure on
+            desktop, so the design is unchanged there.
+          */}
           <div
             className={cn(
-              getProseClassName(background, "max-w-3xl"),
+              getProseClassName(background, "w-full max-w-3xl"),
               "mx-auto",
               proseClassName,
             )}
