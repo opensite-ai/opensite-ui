@@ -6411,13 +6411,21 @@ const BLOG_BLOCK_CONTRACTS: Record<string, BlogBlockContract> = {
     exampleUsage:
       "Use for a full blog archive or resource hub page that needs category filtering and pagination. Features a hero banner with a primary featured post card, a category checkbox filter bar, and a paginated 3-column card grid with 'Load More' support.",
     importantUsageNotes:
-      "Blog posts must come from real, source-backed content. Do not fabricate article titles, authors, or excerpts. The post category field must be a lowercase string matching one of the CategoryFilter values for filtering to work (e.g. 'security', 'development'). primaryPost uses the thumbnail field (not image). The block manages filter and pagination state internally.",
+      "Blog posts must come from real, source-backed content. Do not fabricate article titles, authors, or excerpts. The `categories` filter chips depend on WHERE the posts come from. FEED-BOUND (the block carries a dataSource of type blog_feed): do NOT author `categories` — hydration owns that prop and overwrites any authored array with the site's real blog taxonomy (feed bind target `categories`, FEED_CONTRACT 2.4), so an invented list is both wrong and inert. HARDCODED (the block has no dataSource): you MUST author `categories` or the page ships with no filter bar at all — emit `{label: 'All', value: 'all'}` first, then one chip per distinct authored post category as {label: <category as written>, value: <post.category.toLowerCase()>}. Filtering compares post.category.toLowerCase() against the chip `value` (and hydrated posts carry the category NAME), so every chip value must be the lowercased category of a post that is actually in `posts`. primaryPost uses the thumbnail field (not image). The block manages filter and pagination state internally.",
     usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
       requiresSiteCapabilities: blogCapabilities("blog_posts", "media_library"),
     },
+    // NOTE (R9): `categories` seeds the HARDCODED-content case only, and every chip below is
+    // derived from a category that actually appears in `posts` (security / development / data),
+    // with `All` first. R9 briefly deleted the seed outright, which was wrong: hydration only
+    // owns this prop on blocks that carry a `dataSource` (§2.4 bind), so a generated
+    // hardcoded-content page with no seed and no usage note shipped with NO filter bar. The
+    // guard against the old fabrication (site-themed Healthcare / Hospitality / Dental chips
+    // frozen into pages.design_payload on a FEED-BOUND block) is `importantUsageNotes` plus
+    // octane's deterministic `strip_hydration_owned_props`, both of which are dataSource-scoped.
     exampleProps: {
       heading: "Tech Insights & Tutorials",
       description:
@@ -6438,6 +6446,12 @@ const BLOG_BLOCK_CONTRACTS: Record<string, BlogBlockContract> = {
         cta: "Read Full Article",
         href: "/blog/cicd-at-scale",
       },
+      categories: [
+        { label: "All", value: "all" },
+        { label: "Development", value: "development" },
+        { label: "Security", value: "security" },
+        { label: "Data", value: "data" },
+      ],
       posts: [
         {
           id: "1",
@@ -6469,13 +6483,6 @@ const BLOG_BLOCK_CONTRACTS: Record<string, BlogBlockContract> = {
           cta: "Read More",
           href: "/blog/realtime-analytics",
         },
-      ],
-      categories: [
-        { label: "All", value: "all" },
-        { label: "Development", value: "development" },
-        { label: "Security", value: "security" },
-        { label: "Data", value: "data" },
-        { label: "Infrastructure", value: "infrastructure" },
       ],
       postsPerPage: 6,
       loadMoreAction: {

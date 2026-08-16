@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.14.14",
-    "exportedAt": "2026-08-14T03:50:58.338Z",
+    "uiVersion": "3.14.15",
+    "exportedAt": "2026-08-16T10:30:50.842Z",
     "source": "@opensite/ui",
     "totalBlocks": 606
   },
@@ -6591,6 +6591,24 @@
             "cta": "Read Full Article",
             "href": "/blog/cicd-at-scale"
           },
+          "categories": [
+            {
+              "label": "All",
+              "value": "all"
+            },
+            {
+              "label": "Development",
+              "value": "development"
+            },
+            {
+              "label": "Security",
+              "value": "security"
+            },
+            {
+              "label": "Data",
+              "value": "data"
+            }
+          ],
           "posts": [
             {
               "id": "1",
@@ -6620,28 +6638,6 @@
               "href": "/blog/realtime-analytics"
             }
           ],
-          "categories": [
-            {
-              "label": "All",
-              "value": "all"
-            },
-            {
-              "label": "Development",
-              "value": "development"
-            },
-            {
-              "label": "Security",
-              "value": "security"
-            },
-            {
-              "label": "Data",
-              "value": "data"
-            },
-            {
-              "label": "Infrastructure",
-              "value": "infrastructure"
-            }
-          ],
           "postsPerPage": 6,
           "loadMoreAction": {
             "label": "Load More Articles",
@@ -6656,7 +6652,7 @@
         "importPath": "./dist/blog-filtered-results.js",
         "requirePath": "./dist/blog-filtered-results.cjs"
       },
-      "importantUsageNotes": "Blog posts must come from real, source-backed content. Do not fabricate article titles, authors, or excerpts. The post category field must be a lowercase string matching one of the CategoryFilter values for filtering to work (e.g. 'security', 'development'). primaryPost uses the thumbnail field (not image). The block manages filter and pagination state internally.",
+      "importantUsageNotes": "Blog posts must come from real, source-backed content. Do not fabricate article titles, authors, or excerpts. The `categories` filter chips depend on WHERE the posts come from. FEED-BOUND (the block carries a dataSource of type blog_feed): do NOT author `categories` — hydration owns that prop and overwrites any authored array with the site's real blog taxonomy (feed bind target `categories`, FEED_CONTRACT 2.4), so an invented list is both wrong and inert. HARDCODED (the block has no dataSource): you MUST author `categories` or the page ships with no filter bar at all — emit `{label: 'All', value: 'all'}` first, then one chip per distinct authored post category as {label: <category as written>, value: <post.category.toLowerCase()>}. Filtering compares post.category.toLowerCase() against the chip `value` (and hydrated posts carry the category NAME), so every chip value must be the lowercased category of a post that is actually in `posts`. primaryPost uses the thumbnail field (not image). The block manages filter and pagination state internally.",
       "usageRequirements": {
         "requiredProps": [],
         "propConstraints": {},
