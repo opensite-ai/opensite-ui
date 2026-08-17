@@ -3762,6 +3762,112 @@ const LINK_PAGE_MEDIA_NOTE =
 const linkPageCapabilities = (...capabilities: SiteCapability[]) =>
   capabilities;
 
+// ─── shared brand-mark (logo) contract ───────────────────────────────────────
+//
+// Every link-page block exposes the same brand-mark surface: `logo` (LogoConfig,
+// takes priority over avatar), `logoAspect` (enum-driven sizing/placement) and
+// the full-bleed banner pair `logoBannerImage` / `logoBannerAspect`. Logo sizing
+// is ENUM-driven only: className props are never harvested into the compiled
+// per-site CSS, so class-based logo sizing is inert on live client sites.
+
+/**
+ * Sentences appended to every link-page block's importantUsageNotes so the
+ * generating agent picks logoAspect from the asset instead of reaching for a
+ * className, and keeps the banner props opt-in.
+ */
+const LINK_PAGE_LOGO_USAGE_NOTES = [
+  "Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites.",
+  `Pick logoAspect from the user's asset or words: square icon/mark → "square"; stacked or portrait logo → "vertical"; "banner across the top" / wide cover image → "banner" with logoBannerImage. Default wide wordmark → "horizontal" (or omit).`,
+  `Only set logoAspect:"banner" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise.`,
+  "logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
+].join(" ");
+
+/** propConstraints shared by all five link-page blocks. */
+const LINK_PAGE_LOGO_PROP_CONSTRAINTS = {
+  logo: {
+    required: false,
+    note: "LogoConfig { src, alt, url? }. This prop carries the site brand mark on real sites — prefer it over avatar.",
+  },
+  logoAspect: {
+    required: false,
+    note: 'Shape/placement of the brand mark: "horizontal" (wide wordmark, default), "square" (large centered ~1:1 mark), "vertical" (tall stacked lockup), "banner" (full-bleed top band; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name.',
+  },
+  "logoBannerImage.src": {
+    required: false,
+    note: 'Absolute https URL. Only rendered when logoAspect is "banner".',
+  },
+  logoBannerAspect: {
+    required: false,
+    note: '"standard" (~16:7, default), "wide" (3:1), "ultrawide" (4:1).',
+  },
+};
+
+/** `logo` media slot — the prop production actually populates. */
+const linkPageLogoSlot = (): BlockMediaSlot =>
+  logoSlot(
+    "logo.src",
+    "Brand logo shown at the top of the page. Takes priority over avatar.",
+    false,
+  );
+
+/**
+ * `avatar` media slot for the four blocks whose header medallion lives on
+ * `avatar`. DUAL-ROLE on purpose: a link-in-bio page legitimately carries
+ * EITHER the site brand mark OR a person's headshot here (each contract's own
+ * prose says "typically a profile photo or logo"), so neither shared factory
+ * fits — `imageSlot` bans the `logo` role (blocking logo assignment) and
+ * `logoSlot` bans photos (blocking the headshot). Written as an inline literal
+ * so `imageSlot`/`logoSlot` keep their single-role semantics for every other
+ * category. Placement guidance (brand mark belongs in `logo.src`, never here)
+ * lives in LINK_PAGE_LOGO_USAGE_NOTES and the per-block notes. Roles are
+ * priority-ordered: `profile` leads because a brand mark filled into this
+ * avatar-named key is nulled by octane's brand-mark stripper (only keys
+ * containing "logo", "favicon", or "brandmark" are exempt) — the brand mark
+ * belongs in `logo.src`.
+ */
+const linkPageAvatarSlot = (
+  path = "avatar.src",
+  note = "Brand logo or profile photo shown at the top of the page. LOGO OR PROFILE IMAGE ONLY. Do not use favicons or video assets.",
+): BlockMediaSlot => ({
+  path,
+  roles: ["profile", "avatar", "logo"],
+  disallowedRoles: ["favicon", "video-thumbnail"],
+  minPixelClass: "small",
+  required: false,
+  note,
+});
+
+/**
+ * `logoBannerImage` media slot — a photographic cover band, not a brand mark.
+ * NB: MediaRole has no "banner" member; ["hero", "background"] is the closest
+ * accurate pair.
+ */
+const linkPageLogoBannerSlot = (): BlockMediaSlot =>
+  imageSlot(
+    "logoBannerImage.src",
+    'Full-bleed banner image rendered edge-to-edge at the very top of the page. Only used when logoAspect is "banner".',
+    ["hero", "background"],
+    "large",
+    false,
+    "3:1",
+  );
+
+/**
+ * exampleProps for the brand-mark props. Key PRESENCE here is load-bearing:
+ * link-page blocks ship `propsSchema: null`, and octane's
+ * `sanitize_value_against_schema` retains a generated key only when it appears
+ * in props_schema OR exampleProps — so every new prop key must be listed.
+ */
+const linkPageLogoExampleProps = (brandName: string) => ({
+  logo: { src: LINK_PAGE_LOGO_URL, alt: brandName },
+  logoAspect: "horizontal",
+  logoBannerImage: {
+    src: LINK_PAGE_EXAMPLE_IMAGE_URL,
+    alt: `${brandName} cover banner`,
+  },
+  logoBannerAspect: "standard",
+});
+
 // ─── contracts ───────────────────────────────────────────────────────────────
 
 const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
@@ -3796,8 +3902,7 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
   patternOpacity={0.33}
 />
     `.trim(),
-      importantUsageNotes:
-        "Full-featured link-in-bio page. The brandAvatar/brandLogo prop accepts an ImageItem object with an absolute src URL — it is typically a logo or profile image. links[] items support featured highlighting, badges, icons, and descriptions. mediaGallery[] renders a 3-column grid of images or videos. socialLinks[] are resolved automatically from the href domain. Provide at least 3 links for a useful layout; gallery is optional.",
+      importantUsageNotes: `Full-featured link-in-bio page. The brandAvatar/brandLogo prop accepts an ImageItem object with an absolute src URL — it is typically a logo or profile image. links[] items support featured highlighting, badges, icons, and descriptions. mediaGallery[] renders a 3-column grid of images or videos. socialLinks[] are resolved automatically from the href domain. Provide at least 3 links for a useful layout; gallery is optional. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
       usageRequirements: {
         requiredProps: ["brandName"],
         propConstraints: {
@@ -3815,12 +3920,14 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
           "mediaGallery[].type": { required: true, note: "Must be 'image' or 'video'" },
           "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
           "socialLinks[].href": { required: true, note: "Platform inferred from URL" },
+          ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
         },
         mediaSlots: {
-          brandAvatar: logoSlot(
+          logo: linkPageLogoSlot(),
+          logoBannerImage: linkPageLogoBannerSlot(),
+          brandAvatar: linkPageAvatarSlot(
             "brandAvatar.src",
-            "Brand avatar or profile logo displayed in the header.",
-            false,
+            "Brand logo or profile photo displayed in the header. LOGO OR PROFILE IMAGE ONLY. Do not use favicons or video assets.",
           ),
           "mediaGallery[].src": imageSlot(
             "mediaGallery[].src",
@@ -3834,7 +3941,7 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
         requiresSiteCapabilities: linkPageCapabilities("media_library"),
         notes: [
           LINK_PAGE_MEDIA_NOTE,
-          "brandAvatar and brandLogo accept ImageItem ({ src, alt }) or a plain string URL.",
+          "brandAvatar and brandLogo accept ImageItem ({ src, alt }) or a plain string URL; the logo prop (LogoConfig { src, alt, url? }) takes priority over both and is the preferred slot for the site brand mark — shape it with logoAspect, never with a className.",
           "mediaGallery items with type 'video' should provide a poster URL for the thumbnail.",
         ],
       },
@@ -3842,6 +3949,7 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
         brandName: "Creative Studio",
         brandTagline: "Award-winning design & branding agency",
         brandAvatar: { src: LINK_PAGE_LOGO_URL, alt: "Creative Studio" },
+        ...linkPageLogoExampleProps("Creative Studio"),
         brandVerified: false,
         socialLinks: [
           { href: "https://instagram.com/@handle" },
@@ -3890,8 +3998,7 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
   patternOpacity={0.08}
 />
     `.trim(),
-      importantUsageNotes:
-        "Clean, minimalist link-in-bio page with no media gallery. The avatar accepts an ImageItem with an absolute src; it is typically a profile photo or logo. Each link renders with an optional Iconify icon on the left. Social links auto-detect platform from href. Best for professionals or developers who want a simple, text-focused link page.",
+      importantUsageNotes: `Clean, minimalist link-in-bio page with no media gallery. The avatar accepts an ImageItem with an absolute src; it is typically a profile photo or logo. Each link renders with an optional Iconify icon on the left. Social links auto-detect platform from href. Best for professionals or developers who want a simple, text-focused link page. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
       usageRequirements: {
         requiredProps: ["name"],
         propConstraints: {
@@ -3903,20 +4010,17 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
           "links[].iconName": { required: false, note: "Iconify icon name, e.g. lucide/globe" },
           "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
           "socialLinks[].href": { required: true, note: "Platform inferred from URL" },
+          ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
         },
         mediaSlots: {
-          avatar: imageSlot(
-            "avatar.src",
-            "Profile avatar or logo shown at the top of the page.",
-            ["profile", "avatar"],
-            "small",
-            false,
-          ),
+          logo: linkPageLogoSlot(),
+          logoBannerImage: linkPageLogoBannerSlot(),
+          avatar: linkPageAvatarSlot(),
         },
         requiresSiteCapabilities: linkPageCapabilities("media_library"),
         notes: [
           LINK_PAGE_MEDIA_NOTE,
-          "avatar prop accepts ImageItem ({ src, alt }); avatarUrl (string) is the legacy fallback.",
+          "avatar prop accepts ImageItem ({ src, alt }); avatarUrl (string) is the legacy fallback. The logo prop (LogoConfig { src, alt, url? }) takes priority over both and is the preferred slot for the site brand mark — shape it with logoAspect, never with a className.",
           "No media gallery in this variant — use link-tree-block if a gallery is needed.",
         ],
       },
@@ -3924,6 +4028,7 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
         name: "Alex Rivera",
         bio: "Software Engineer & Open Source Contributor",
         avatar: { src: LINK_PAGE_LOGO_URL, alt: "Alex Rivera" },
+        ...linkPageLogoExampleProps("Alex Rivera"),
         links: [
           { id: "1", label: "Personal Website", href: "https://example.com", iconName: "lucide/globe" },
           { id: "2", label: "GitHub Projects", href: "https://github.com/alexrivera", iconName: "simple-icons/github" },
@@ -3972,8 +4077,7 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
   patternOpacity={0.08}
 />
     `.trim(),
-      importantUsageNotes:
-        "Link page with an integrated email newsletter signup form powered by FormEngine. The form is rendered inside a card above the links list. formEngineSetup.api.endpoint must point to a real API; use the site's form submission endpoint. Links below the newsletter card support icons and chevron indicators. Social icons appear above the newsletter card. Avatar is displayed in the profile header.",
+      importantUsageNotes: `Link page with an integrated email newsletter signup form powered by FormEngine. The form is rendered inside a card above the links list. formEngineSetup.api.endpoint must point to a real API; use the site's form submission endpoint. Links below the newsletter card support icons and chevron indicators. Social icons appear above the newsletter card. Avatar is displayed in the profile header. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
       usageRequirements: {
         requiredProps: ["name"],
         propConstraints: {
@@ -3986,15 +4090,12 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
           "links[].label": { required: true, maxLength: 50 },
           "links[].href": { required: true },
           "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
+          ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
         },
         mediaSlots: {
-          avatar: imageSlot(
-            "avatar.src",
-            "Profile avatar or logo shown at the top of the page.",
-            ["profile", "avatar"],
-            "small",
-            false,
-          ),
+          logo: linkPageLogoSlot(),
+          logoBannerImage: linkPageLogoBannerSlot(),
+          avatar: linkPageAvatarSlot(),
         },
         requiresSiteCapabilities: linkPageCapabilities("media_library", "contact_form"),
         notes: [
@@ -4007,6 +4108,7 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
         name: "Jamie Taylor",
         bio: "Marketing Expert & Growth Strategist",
         avatar: { src: LINK_PAGE_LOGO_URL, alt: "Jamie Taylor" },
+        ...linkPageLogoExampleProps("Jamie Taylor"),
         socialLinks: [
           { id: "1", href: "https://instagram.com/jamietaylor" },
           { id: "2", href: "https://twitter.com/jamietaylor" },
@@ -4058,7 +4160,7 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
   patternOpacity={0.08}
 />
     `.trim(),
-      importantUsageNotes: `${"Displays links as a 2- or 3-column grid of cards, each with an icon, label, and optional description. Best for creators or businesses with 4–9 distinct destinations. columns=2 works well on mobile; columns=3 adds a third column on sm} ${screens. Each card has hover scale and shadow transitions. Social links appear above the grid. Profile avatar is typically a logo or portrait."}`,
+      importantUsageNotes: `Displays links as a 2- or 3-column grid of cards, each with an icon, label, and optional description. Best for creators or businesses with 4–9 distinct destinations. columns=2 works well on mobile; columns=3 adds a third column on sm and larger screens. Each card has hover scale and shadow transitions. Social links appear above the grid. Profile avatar is typically a logo or portrait. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
       usageRequirements: {
         requiredProps: ["name"],
         propConstraints: {
@@ -4071,15 +4173,12 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
           "links[].href": { required: true },
           "links[].iconName": { required: false, note: "Iconify icon name displayed in a 48px square icon wrapper" },
           "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
+          ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
         },
         mediaSlots: {
-          avatar: imageSlot(
-            "avatar.src",
-            "Profile avatar or logo shown at the top of the page.",
-            ["profile", "avatar"],
-            "small",
-            false,
-          ),
+          logo: linkPageLogoSlot(),
+          logoBannerImage: linkPageLogoBannerSlot(),
+          avatar: linkPageAvatarSlot(),
         },
         requiresSiteCapabilities: linkPageCapabilities("media_library"),
         notes: [
@@ -4092,6 +4191,7 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
         name: "Marcus Chen",
         bio: "Product Designer & Digital Artist",
         avatar: { src: LINK_PAGE_LOGO_URL, alt: "Marcus Chen" },
+        ...linkPageLogoExampleProps("Marcus Chen"),
         socialLinks: [
           { id: "1", href: "https://instagram.com/marcuschen" },
           { id: "2", href: "https://twitter.com/marcuschen" },
@@ -4154,8 +4254,7 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
   patternOpacity={0.05}
 />
     `.trim(),
-      importantUsageNotes:
-        "Bento-grid style link page that separates links into two tiers: featured (links with featured:true) and regular (all others). Featured links render as large aspect-4/3 cards with optional background images and an overlay gradient. Regular links render as compact icon-and-label rows in a 2-4 column grid. Provide 1–3 featured links and 2–6 regular links for best visual balance. Featured link images MUST use absolute CDN URLs.",
+      importantUsageNotes: `Bento-grid style link page that separates links into two tiers: featured (links with featured:true) and regular (all others). Featured links render as large aspect-4/3 cards with optional background images and an overlay gradient. Regular links render as compact icon-and-label rows in a 2-4 column grid. Provide 1–3 featured links and 2–6 regular links for best visual balance. Featured link images MUST use absolute CDN URLs. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
       usageRequirements: {
         requiredProps: ["name"],
         propConstraints: {
@@ -4169,15 +4268,12 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
           "links[].image.src": { required: false, note: "Absolute URL; used as background image for featured cards only" },
           "links[].iconName": { required: false, note: "Iconify icon name; shown on featured cards and regular rows" },
           "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
+          ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
         },
         mediaSlots: {
-          avatar: imageSlot(
-            "avatar.src",
-            "Profile avatar or logo shown in the header.",
-            ["profile", "avatar"],
-            "small",
-            false,
-          ),
+          logo: linkPageLogoSlot(),
+          logoBannerImage: linkPageLogoBannerSlot(),
+          avatar: linkPageAvatarSlot(),
           "links[featured].image.src": imageSlot(
             "links[].image.src",
             "Background image for featured bento card.",
@@ -4199,6 +4295,7 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
         name: "Sarah Mitchell",
         bio: "Helping brands tell their story",
         avatar: { src: LINK_PAGE_LOGO_URL, alt: "Sarah Mitchell" },
+        ...linkPageLogoExampleProps("Sarah Mitchell"),
         socialLinks: [
           { id: "1", href: "https://instagram.com/sarahmitchell" },
           { id: "2", href: "https://twitter.com/sarahmitchell" },
@@ -4288,7 +4385,8 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
   background="dark"
 />
     `.trim(),
-    importantUsageNotes: `${"Use for a 4-to-8 step linear process where the left column (heading} ${CTA) should stay visible while the user scrolls through steps. No image props exist — this is a text/number-only layout. Keep each step description under 2 sentences. step values are display labels (e.g. '01'); omit to auto-number."}`,
+    importantUsageNotes:
+      "Use for a 4-to-8 step linear process where the left column (heading, description, and CTA) should stay visible while the user scrolls through steps. No image props exist — this is a text/number-only layout. Keep each step description under 2 sentences. step values are display labels (e.g. '01'); omit to auto-number.",
     usageRequirements: {
       requiredProps: ["steps"],
       propConstraints: {
@@ -4961,7 +5059,8 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
   ]}
 />
     `.trim(),
-    importantUsageNotes: `${"Stat values and labels must come from real, source-backed data. Do not fabricate metrics. Each card requires a value, label, and growth field. The 'growth' text describes the trend (e.g. '18% growth', '} ${2 min'). Set isPositive correctly — false renders in destructive color. Icon names use 'prefix/name' format (e.g. 'lucide/users'). The grid renders 4 columns on large screens — provide 4 stats for best visual balance."}`,
+    importantUsageNotes:
+      "Stat values and labels must come from real, source-backed data. Do not fabricate metrics. Each card requires a value, label, and growth field. The 'growth' text describes the trend (e.g. '18% growth', '+2 min'). Set isPositive correctly — false renders in destructive color. Icon names use 'prefix/name' format (e.g. 'lucide/users'). The grid renders 4 columns on large screens — provide 4 stats for best visual balance.",
     usageRequirements: {
       requiredProps: ["stats"],
       propConstraints: {
@@ -5404,7 +5503,8 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
   animationDuration={2000}
 />
     `.trim(),
-    importantUsageNotes: `${"Stat values and labels must come from real, source-backed data. Do not fabricate metrics. The 'value' prop is a NUMBER — the counter animates from 0 to this value on scroll. Use 'prefix' and 'suffix' strings to build the full display (e.g. prefix='$', value=50, suffix='M} ${'). The grid renders 4 columns on large screens — provide 4 stats for best visual balance. Icon names use 'prefix/name' format (e.g. 'lucide/users')."}`,
+    importantUsageNotes:
+      "Stat values and labels must come from real, source-backed data. Do not fabricate metrics. The 'value' prop is a NUMBER — the counter animates from 0 to this value on scroll. Use 'prefix' and 'suffix' strings to build the full display (e.g. prefix='$', value=50, suffix='M+'). The grid renders 4 columns on large screens — provide 4 stats for best visual balance. Icon names use 'prefix/name' format (e.g. 'lucide/users').",
     usageRequirements: {
       requiredProps: ["stats"],
       propConstraints: {
@@ -6588,7 +6688,8 @@ const BLOG_BLOCK_CONTRACTS: Record<string, BlogBlockContract> = {
   "blog-featured-popular": {
     exampleUsage:
       "Use for a blog home or landing page that needs to highlight one hero post alongside a 'Popular Articles' sub-grid. The first post in the posts array is rendered as the large featured post; all remaining posts render as the popular grid (up to 3 columns).",
-    importantUsageNotes: `${"Blog posts must come from real, source-backed content. Do not fabricate article titles, authors, or excerpts. The first post in the array is the featured post and should be the most compelling or recent article. Minimum 2 posts (1 featured} ${at least 1 popular). Images must be absolute URLs."}`,
+    importantUsageNotes:
+      "Blog posts must come from real, source-backed content. Do not fabricate article titles, authors, or excerpts. The first post in the array is the featured post and should be the most compelling or recent article. Minimum 2 posts (1 featured plus at least 1 popular). Images must be absolute URLs.",
     usageRequirements: {
       requiredProps: [],
       propConstraints: {},
@@ -33997,7 +34098,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "link-page",
     component: LinkTreeBlock,
     props: "LinkTreeBlockProps",
-          ...LINK_PAGE_BLOCK_CONTRACTS["link-tree-block"],
+    ...LINK_PAGE_BLOCK_CONTRACTS["link-tree-block"],
   },
   "link-page-minimal-profile": {
     id: "link-page-minimal-profile",
@@ -34018,7 +34119,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "link-page",
     component: LinkPageMinimalProfile,
     props: "LinkPageMinimalProfileProps",
-          ...LINK_PAGE_BLOCK_CONTRACTS["link-page-minimal-profile"],
+    ...LINK_PAGE_BLOCK_CONTRACTS["link-page-minimal-profile"],
   },
   "link-page-newsletter-social": {
     id: "link-page-newsletter-social",
@@ -34040,7 +34141,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "link-page",
     component: LinkPageNewsletterSocial,
     props: "LinkPageNewsletterSocialProps",
-          ...LINK_PAGE_BLOCK_CONTRACTS["link-page-newsletter-social"],
+    ...LINK_PAGE_BLOCK_CONTRACTS["link-page-newsletter-social"],
   },
   "link-page-grid-cards": {
     id: "link-page-grid-cards",
@@ -34061,7 +34162,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "link-page",
     component: LinkPageGridCards,
     props: "LinkPageGridCardsProps",
-          ...LINK_PAGE_BLOCK_CONTRACTS["link-page-grid-cards"],
+    ...LINK_PAGE_BLOCK_CONTRACTS["link-page-grid-cards"],
   },
   "link-page-bento-layout": {
     id: "link-page-bento-layout",
@@ -34083,7 +34184,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "link-page",
     component: LinkPageBentoLayout,
     props: "LinkPageBentoLayoutProps",
-          ...LINK_PAGE_BLOCK_CONTRACTS["link-page-bento-layout"],
+    ...LINK_PAGE_BLOCK_CONTRACTS["link-page-bento-layout"],
   },
 
   // New About components

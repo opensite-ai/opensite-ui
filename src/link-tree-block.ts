@@ -14,3 +14,7 @@ export type {
   SocialLink,
   MediaGalleryItem,
 } from "../components/blocks/link-page/link-tree-block";
+export type {
+  LinkPageLogoAspect,
+  LinkPageLogoBannerAspect,
+} from "../components/blocks/link-page/logo-aspect";

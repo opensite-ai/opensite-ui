@@ -13,3 +13,7 @@ export type {
   BentoLink,
   BentoSocialLink,
 } from "../components/blocks/link-page/link-page-bento-layout";
+export type {
+  LinkPageLogoAspect,
+  LinkPageLogoBannerAspect,
+} from "../components/blocks/link-page/logo-aspect";

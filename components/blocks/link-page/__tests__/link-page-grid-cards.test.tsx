@@ -258,3 +258,479 @@ describe("LinkPageGridCards", () => {
     );
   });
 });
+
+// ---------------------------------------------------------------------------
+// logoAspect / logoBannerImage (design 00-DESIGN-link-page-logos.md §2, family A)
+// ---------------------------------------------------------------------------
+
+const LOGO = {
+  src: "https://cdn.example.com/acme-mark.png",
+  alt: "Acme mark",
+};
+const BANNER = {
+  src: "https://cdn.example.com/acme-banner.jpg",
+  alt: "Acme storefront banner",
+};
+
+/** Section element rendered by the block (Section puts `spacing` on it verbatim). */
+const sectionOf = (container: HTMLElement): HTMLElement =>
+  container.querySelector("#link-page-grid-cards") as HTMLElement;
+
+const bannerOf = (container: HTMLElement): HTMLElement | null =>
+  container.querySelector('[data-slot="link-page-banner"]');
+
+describe("LinkPageGridCards logoAspect", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("keeps the legacy horizontal box and img class strings byte-identical by default", () => {
+    const { container } = render(
+      <LinkPageGridCards name="Test" avatarUrl="/logo-wide.png" />,
+    );
+
+    const img = screen.getByAltText("Test");
+    expect(img.className).toBe(
+      "h-auto max-h-20 w-auto max-w-full object-contain sm:max-h-24",
+    );
+    expect((img.parentElement as HTMLElement).className).toBe(
+      "flex h-20 w-full max-w-56 items-center justify-center sm:h-24 sm:max-w-72",
+    );
+    expect(bannerOf(container)).not.toBeInTheDocument();
+    // Non-banner output stays byte-identical: the flush-top/clip literals are
+    // injected ONLY in banner mode, so the Section className is unchanged.
+    expect(sectionOf(container).className).toBe(
+      "relative bg-background text-foreground py-12 md:py-32",
+    );
+    expect(sectionOf(container)).not.toHaveClass(
+      "overflow-x-clip",
+      "pt-0",
+      "md:pt-0",
+    );
+  });
+
+  it("falls through to the avatar when the logo object has a null src", () => {
+    // Stored payloads routinely carry {"alt": "...", "src": null} (the octane
+    // brand-mark stripper produces exactly that). BrandLogo returns null for a
+    // src-less logo, so truthiness on the object alone left an EMPTY medallion
+    // box and swallowed the avatar that could still render.
+    render(
+      <LinkPageGridCards
+        name="Acme"
+        logo={{ alt: "Stored logo alt", src: null as unknown as string }}
+        avatar={{
+          src: "https://cdn.example.com/acme-avatar.png",
+          alt: "Acme avatar",
+        }}
+      />,
+    );
+
+    const img = screen.getByAltText("Acme avatar");
+    expect(img).toHaveAttribute("src", "https://cdn.example.com/acme-avatar.png");
+    expect(img.className).toBe(
+      "h-auto max-h-20 w-auto max-w-full object-contain sm:max-h-24",
+    );
+    // The medallion box is not an empty box: its only child is the avatar img.
+    const box = img.parentElement as HTMLElement;
+    expect(box.className).toBe(
+      "flex h-20 w-full max-w-56 items-center justify-center sm:h-24 sm:max-w-72",
+    );
+    expect(box.children).toHaveLength(1);
+    expect(screen.queryByAltText("Stored logo alt")).not.toBeInTheDocument();
+  });
+
+  it('renders a square BrandLogo large and centered when logoAspect="square"', () => {
+    const { container } = render(
+      <LinkPageGridCards name="Test" logo={LOGO} logoAspect="square" />,
+    );
+
+    const img = screen.getByAltText("Acme mark");
+    expect(img).toHaveClass(
+      "w-auto",
+      "object-contain",
+      "max-h-40",
+      "max-w-full",
+      "sm:max-h-44",
+      "lg:max-h-48",
+    );
+    // BrandLogo wraps the img in its own flex wrapper; the box is the grandparent.
+    const box = (img.parentElement as HTMLElement).parentElement as HTMLElement;
+    expect(box).toHaveClass(
+      "flex",
+      "h-40",
+      "w-full",
+      "items-center",
+      "justify-center",
+      "sm:h-44",
+      "lg:h-48",
+    );
+    expect(box).not.toHaveClass("h-20", "sm:h-24", "max-w-56", "sm:max-w-72");
+    expect(bannerOf(container)).not.toBeInTheDocument();
+  });
+
+  it('renders a tall BrandLogo when logoAspect="vertical"', () => {
+    render(<LinkPageGridCards name="Test" logo={LOGO} logoAspect="vertical" />);
+
+    const img = screen.getByAltText("Acme mark");
+    expect(img).toHaveClass(
+      "w-auto",
+      "object-contain",
+      "max-h-48",
+      "max-w-full",
+      "sm:max-h-56",
+      "lg:max-h-64",
+    );
+    const box = (img.parentElement as HTMLElement).parentElement as HTMLElement;
+    expect(box).toHaveClass(
+      "flex",
+      "h-48",
+      "w-full",
+      "items-center",
+      "justify-center",
+      "sm:h-56",
+      "lg:h-64",
+    );
+  });
+
+  it('applies the square IMG table to the avatar fallback branch when logoAspect="square"', () => {
+    render(
+      <LinkPageGridCards name="Test" avatarUrl="/mark.png" logoAspect="square" />,
+    );
+
+    const img = screen.getByAltText("Test");
+    expect(img.className).toBe(
+      "h-auto max-h-40 w-auto max-w-full object-contain sm:max-h-44 lg:max-h-48",
+    );
+    expect(img.parentElement as HTMLElement).toHaveClass(
+      "flex",
+      "h-40",
+      "w-full",
+      "items-center",
+      "justify-center",
+      "sm:h-44",
+      "lg:h-48",
+    );
+  });
+
+  it('applies the vertical IMG table to the avatar fallback branch when logoAspect="vertical"', () => {
+    render(
+      <LinkPageGridCards name="Test" avatarUrl="/mark.png" logoAspect="vertical" />,
+    );
+
+    expect(screen.getByAltText("Test").className).toBe(
+      "h-auto max-h-48 w-auto max-w-full object-contain sm:max-h-56 lg:max-h-64",
+    );
+  });
+});
+
+describe("LinkPageGridCards logo banner", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("renders a full-bleed banner as the first Section child and suppresses the medallion", () => {
+    const { container } = render(
+      <LinkPageGridCards
+        name="Test"
+        logo={LOGO}
+        avatarUrl="/mark.png"
+        logoAspect="banner"
+        logoBannerImage={BANNER}
+      />,
+    );
+
+    const banner = bannerOf(container) as HTMLElement;
+    expect(banner).toBeInTheDocument();
+    expect(banner).toHaveClass(
+      "relative",
+      "left-1/2",
+      "w-screen",
+      "max-w-none",
+      "-translate-x-1/2",
+      "overflow-hidden",
+      "aspect-[16/7]",
+      "max-h-[60vh]",
+    );
+    // First child inside the Section's Container, before the inner layout div.
+    const section = sectionOf(container);
+    const containerEl = banner.parentElement as HTMLElement;
+    expect(section).toContainElement(banner);
+    expect(containerEl.firstElementChild).toBe(banner);
+    // Pin the SIBLING relation: the banner must precede the block's inner
+    // layout div, never live inside it (moving it in would break this).
+    expect(banner.nextElementSibling).toHaveClass(
+      "flex",
+      "min-h-screen",
+      "w-full",
+      "items-start",
+      "justify-center",
+      "py-12",
+    );
+
+    const bannerImg = within(banner).getByTestId("mock-img");
+    expect(bannerImg).toHaveClass("size-full", "object-cover");
+    expect(bannerImg).toHaveAttribute("src", BANNER.src);
+    expect(bannerImg).toHaveAttribute("alt", BANNER.alt);
+
+    // Medallion ladder is not rendered at all in banner mode.
+    expect(screen.queryByAltText("Acme mark")).not.toBeInTheDocument();
+    expect(screen.queryByAltText("Test")).not.toBeInTheDocument();
+    expect(screen.getAllByTestId("mock-img")).toHaveLength(1);
+    expect(
+      container.querySelector(".justify-center.sm\\:max-w-72"),
+    ).not.toBeInTheDocument();
+
+    // Section top padding is zeroed so the banner sits flush at the top, and
+    // the w-screen breakout's half-scrollbar overhang is clipped. The spacing
+    // preset itself passes through UNCHANGED — pt-0/md:pt-0 win by CSS order.
+    expect(section).toHaveClass(
+      "overflow-x-clip",
+      "pt-0",
+      "md:pt-0",
+      "py-12",
+      "md:py-32",
+    );
+  });
+
+  it("leaves banner/content spacing to the block layout (no banner margin utility)", () => {
+    const { container } = render(
+      <LinkPageGridCards
+        name="Test"
+        logoAspect="banner"
+        logoBannerImage={BANNER}
+      />,
+    );
+
+    // grid-cards' inner layout div carries py-12, so the banner needs no mb-*.
+    const banner = bannerOf(container) as HTMLElement;
+    expect(banner).not.toHaveClass("mb-8", "sm:mb-10");
+    expect(banner.nextElementSibling).toHaveClass("py-12");
+  });
+
+  it('behaves exactly like horizontal when logoAspect="banner" has no banner src', () => {
+    const { container } = render(
+      <LinkPageGridCards name="Test" avatarUrl="/logo-wide.png" logoAspect="banner" />,
+    );
+
+    expect(bannerOf(container)).not.toBeInTheDocument();
+    const img = screen.getByAltText("Test");
+    expect(img.className).toBe(
+      "h-auto max-h-20 w-auto max-w-full object-contain sm:max-h-24",
+    );
+    expect((img.parentElement as HTMLElement).className).toBe(
+      "flex h-20 w-full max-w-56 items-center justify-center sm:h-24 sm:max-w-72",
+    );
+    expect(sectionOf(container)).toHaveClass("py-12", "md:py-32");
+    expect(sectionOf(container)).not.toHaveClass(
+      "pt-0",
+      "md:pt-0",
+      "overflow-x-clip",
+    );
+  });
+
+  it("keeps explicit consumer spacing while flushing the banner to the top", () => {
+    const { container } = render(
+      <LinkPageGridCards
+        name="Test"
+        logoAspect="banner"
+        logoBannerImage={BANNER}
+        spacing="py-4"
+      />,
+    );
+
+    expect(bannerOf(container)).toBeInTheDocument();
+    const section = sectionOf(container);
+    // Consumer spacing is passed through untouched (no sentinel swap); the
+    // flush-top override rides on className instead.
+    expect(section).toHaveClass("py-4", "overflow-x-clip", "pt-0", "md:pt-0");
+    expect(section).not.toHaveClass("pb-12", "md:pb-32");
+  });
+
+  it('keeps the spacing preset intact in banner mode with spacing="lg"', () => {
+    const { container } = render(
+      <LinkPageGridCards
+        name="Test"
+        logoAspect="banner"
+        logoBannerImage={BANNER}
+        spacing="lg"
+      />,
+    );
+
+    expect(bannerOf(container)).toBeInTheDocument();
+    // The lg preset ("py-20 md:py-32") still resolves through Section; only the
+    // top padding is overridden by the appended pt-0/md:pt-0 literals.
+    expect(sectionOf(container)).toHaveClass(
+      "py-20",
+      "md:py-32",
+      "overflow-x-clip",
+      "pt-0",
+      "md:pt-0",
+    );
+  });
+
+  it("maps logoBannerAspect onto the banner band ratio", () => {
+    const { container, rerender } = render(
+      <LinkPageGridCards
+        name="Test"
+        logoAspect="banner"
+        logoBannerImage={BANNER}
+        logoBannerAspect="wide"
+      />,
+    );
+    expect(bannerOf(container)).toHaveClass("aspect-[3/1]", "max-h-[50vh]");
+    expect(bannerOf(container)).not.toHaveClass("aspect-[16/7]");
+
+    rerender(
+      <LinkPageGridCards
+        name="Test"
+        logoAspect="banner"
+        logoBannerImage={BANNER}
+        logoBannerAspect="ultrawide"
+      />,
+    );
+    expect(bannerOf(container)).toHaveClass("aspect-[4/1]", "max-h-[40vh]");
+
+    rerender(
+      <LinkPageGridCards
+        name="Test"
+        logoAspect="banner"
+        logoBannerImage={BANNER}
+        logoBannerAspect="standard"
+      />,
+    );
+    expect(bannerOf(container)).toHaveClass("aspect-[16/7]", "max-h-[60vh]");
+  });
+});
+
+describe("LinkPageGridCards stored-payload byte compatibility", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("renders the 1124-shape payload through BrandLogo with the legacy xl classes", () => {
+    const { container } = render(
+      <LinkPageGridCards
+        name="Acme"
+        bio="Everything Acme"
+        logo={{
+          alt: "Acme",
+          src: "https://cdn.example.com/1124-logo.png",
+          url: "/",
+        }}
+        avatar={{ alt: "Acme", src: null as unknown as string }}
+        links={[{ id: "1", label: "Menu", href: "/menu" }]}
+      />,
+    );
+
+    const img = screen.getByAltText("Acme");
+    expect(img.className).toBe(
+      "w-auto object-contain max-h-12 sm:max-h-14 lg:max-h-16",
+    );
+    // logo.url routes through Pressable; the box is the anchor's parent.
+    const box = (img.parentElement as HTMLElement).parentElement as HTMLElement;
+    expect(box.className).toBe(
+      "flex h-20 w-full max-w-56 items-center justify-center sm:h-24 sm:max-w-72",
+    );
+
+    // No <img> anywhere with a null/empty src (stored {alt, src: null} shapes).
+    const imgs = Array.from(container.querySelectorAll("img"));
+    expect(imgs).toHaveLength(1);
+    imgs.forEach((el) => {
+      expect(el.getAttribute("src")).toBeTruthy();
+    });
+  });
+
+  it("renders no image when the only avatar shape has a null src", () => {
+    const { container } = render(
+      <LinkPageGridCards
+        name="Acme"
+        avatar={{ alt: "Acme", src: null as unknown as string }}
+      />,
+    );
+
+    expect(container.querySelectorAll("img")).toHaveLength(0);
+  });
+
+  it("falls back to avatarUrl when the avatar object has a null src", () => {
+    render(
+      <LinkPageGridCards
+        name="Acme"
+        avatar={{ alt: "Stored alt", src: null as unknown as string }}
+        avatarUrl="/legacy-avatar.png"
+      />,
+    );
+
+    const img = screen.getByAltText("Acme");
+    expect(img).toHaveAttribute("src", "/legacy-avatar.png");
+  });
+});
+
+/**
+ * Untyped-payload enum hardening. Stored design payloads are raw JSON, so an
+ * out-of-contract logoAspect / logoBannerAspect string can reach the class
+ * tables. Garbage must degrade to the documented defaults ("horizontal" /
+ * "standard"), never to a size-less medallion box or a zero-height banner.
+ */
+describe("LinkPageGridCards untyped-payload enum hardening", () => {
+  const HARD_LOGO = {
+    src: "https://cdn.example.com/hardening-mark.png",
+    alt: "Hardened mark",
+  };
+  const HARD_BANNER = {
+    src: "https://cdn.example.com/hardening-band.jpg",
+    alt: "Hardened band",
+  };
+
+  it('collapses an out-of-contract logoAspect ("portrait") to horizontal', () => {
+    const { container } = render(
+      <LinkPageGridCards
+        name="Test"
+        logo={HARD_LOGO}
+        logoAspect={"portrait" as unknown as "square"}
+        avatarClassName="hardening-box"
+      />,
+    );
+
+    expect(container.querySelector(".hardening-box")).toHaveClass(
+      "flex",
+      "h-20",
+      "w-full",
+      "max-w-56",
+      "items-center",
+      "justify-center",
+      "sm:h-24",
+      "sm:max-w-72",
+    );
+    expect(screen.getByAltText("Hardened mark")).toHaveClass(
+      "w-auto",
+      "object-contain",
+      "max-h-12",
+      "sm:max-h-14",
+      "lg:max-h-16",
+    );
+  });
+
+  it("falls back to the standard band ratio for an out-of-contract logoBannerAspect", () => {
+    const { container } = render(
+      <LinkPageGridCards
+        name="Test"
+        logoAspect="banner"
+        logoBannerImage={HARD_BANNER}
+        logoBannerAspect={"16:9" as unknown as "wide"}
+      />,
+    );
+
+    expect(
+      container.querySelector('[data-slot="link-page-banner"]'),
+    ).toHaveClass(
+      "relative",
+      "left-1/2",
+      "w-screen",
+      "max-w-none",
+      "-translate-x-1/2",
+      "overflow-hidden",
+      "aspect-[16/7]",
+      "max-h-[60vh]",
+    );
+  });
+});

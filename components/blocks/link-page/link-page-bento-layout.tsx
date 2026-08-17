@@ -18,7 +18,18 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BrandLogo } from "../../ui/brand-logo";
+import type { BrandLogoAspect } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import {
+  LINK_PAGE_BANNER_BREAKOUT_CLASSES,
+  LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES,
+  LINK_PAGE_LOGO_BOX_CLASSES_A,
+  LINK_PAGE_LOGO_IMG_CLASSES_A,
+} from "./logo-aspect";
+import type {
+  LinkPageLogoAspect,
+  LinkPageLogoBannerAspect,
+} from "./logo-aspect";
 
 /**
  * Bento link item for the bento layout link page
@@ -69,9 +80,34 @@ export interface LinkPageBentoLayoutProps {
    */
   logoSlot?: React.ReactNode;
   /**
-   * Additional CSS classes for the logo image
+   * Additional CSS classes for the logo WRAPPER (not the image). Has no effect
+   * on live client sites (not harvested for compiled CSS) — never use it for
+   * logo sizing; use logoAspect.
    */
   logoClassName?: string;
+  /**
+   * Placement and shape mode for the brand mark at the top of the page.
+   * "horizontal" (default) keeps the legacy modest wordmark bar. "square" renders a
+   * roughly 1:1 mark LARGE and centered (about half the column width). "vertical"
+   * renders a stacked/portrait lockup tall and centered. "banner" renders
+   * logoBannerImage as a full-bleed edge-to-edge band at the very top of the page
+   * and hides the centered logo. Logo sizing is controlled ONLY by this prop —
+   * never by logoClassName or any className prop.
+   * @default "horizontal"
+   */
+  logoAspect?: LinkPageLogoAspect;
+  /**
+   * Full-bleed banner image rendered edge-to-edge (100vw) at the very top of the
+   * page. Only rendered when logoAspect is "banner". Requires an absolute https
+   * src and descriptive alt text.
+   */
+  logoBannerImage?: ImageItem;
+  /**
+   * Aspect ratio of the full-bleed banner band: "standard" (~16:7, default),
+   * "wide" (3:1), or "ultrawide" (4:1).
+   * @default "standard"
+   */
+  logoBannerAspect?: LinkPageLogoBannerAspect;
   /**
    * Custom slot for profile header content
    */
@@ -274,6 +310,9 @@ export function LinkPageBentoLayout({
   logo,
   logoSlot,
   logoClassName,
+  logoAspect,
+  logoBannerImage,
+  logoBannerAspect,
   profileSlot,
   links,
   linksSlot,
@@ -314,14 +353,43 @@ export function LinkPageBentoLayout({
   patternClassName,
   optixFlowConfig,
 }: LinkPageBentoLayoutProps): React.JSX.Element {
-  const resolvedAvatar: ImageItem | undefined =
-    avatar ||
-    (avatarUrl
+  // Stored payloads very commonly carry `{"alt":"…","src":null}` (octane's
+  // brand-mark stripper nulls avatar-shaped keys), so the guard checks `.src`
+  // truthiness rather than object presence — otherwise the ladder falls into the
+  // Img branch and emits `<img src={null}>`.
+  const resolvedAvatar: ImageItem | undefined = avatar?.src
+    ? avatar
+    : avatarUrl
       ? {
           src: avatarUrl,
           alt: typeof name === "string" ? name : "Profile avatar",
         }
-      : undefined);
+      : undefined;
+
+  // "banner" only takes effect with a usable banner src; otherwise the block
+  // behaves exactly as "horizontal" (legacy output).
+  const isBannerMode = logoAspect === "banner" && Boolean(logoBannerImage?.src);
+  // Stored payloads are untyped JSON, so anything can arrive here. Only the two
+  // enlarged ladders are honored explicitly; every other value ("banner",
+  // undefined, or an out-of-contract string like "portrait") collapses to the
+  // legacy horizontal ladder, so the class-table lookups below can never miss
+  // and emit a box/img with no size classes.
+  const resolvedLogoAspect: BrandLogoAspect =
+    logoAspect === "square" || logoAspect === "vertical"
+      ? logoAspect
+      : "horizontal";
+  // Banner mode keeps the caller's spacing (preset key or class string) and
+  // layers the flush-top override on the Section className instead: `className`
+  // is emitted after the spacing classes, so `pt-0 md:pt-0` wins by CSS order
+  // for ANY spacing value (the hero-fullscreen idiom) — a sentinel comparison
+  // against the block default would silently keep top padding for every preset
+  // key ("lg", "hero", …) and every custom class string. `overflow-x-clip`
+  // clips the banner's 100vw breakout: on classic-scrollbar browsers 100vw
+  // includes the scrollbar gutter, which otherwise adds horizontal page scroll
+  // (Section only sets overflow-hidden when a pattern is present).
+  const sectionClassName = isBannerMode
+    ? cn("overflow-x-clip pt-0 md:pt-0", className)
+    : className;
 
   const featuredLinks = (links ?? []).filter((link) => link.featured);
   const regularLinks = (links ?? []).filter((link) => !link.featured);
@@ -626,31 +694,38 @@ export function LinkPageBentoLayout({
           headerClassName,
         )}
       >
-        <div
-          className={cn(
-            "flex h-20 w-full max-w-56 items-center justify-center sm:h-24 sm:max-w-72",
-            avatarClassName,
-          )}
-        >
-          {logo ? (
-            <BrandLogo
-              logo={logo}
-              logoSlot={logoSlot}
-              size="xl"
-              logoClassName={cn("mb-2", logoClassName)}
-              optixFlowConfig={optixFlowConfig}
-            />
-          ) : logoSlot ? (
-            logoSlot
-          ) : resolvedAvatar ? (
-            <Img
-              src={resolvedAvatar.src}
-              alt={resolvedAvatar.alt}
-              className="h-auto max-h-20 w-auto max-w-full object-contain sm:max-h-24"
-              optixFlowConfig={optixFlowConfig}
-            />
-          ) : null}
-        </div>
+        {isBannerMode ? null : (
+          <div
+            className={cn(
+              LINK_PAGE_LOGO_BOX_CLASSES_A[resolvedLogoAspect],
+              avatarClassName,
+            )}
+          >
+            {/* `.src` truthiness, not object presence: BrandLogo returns null
+                for a src-less logo, so a stored `{"alt":"…","src":null}` logo
+                would render an EMPTY medallion box and swallow the usable
+                logoSlot/avatar below. */}
+            {logo?.src ? (
+              <BrandLogo
+                logo={logo}
+                logoSlot={logoSlot}
+                size="xl"
+                aspect={resolvedLogoAspect}
+                logoClassName={cn("mb-2", logoClassName)}
+                optixFlowConfig={optixFlowConfig}
+              />
+            ) : logoSlot ? (
+              logoSlot
+            ) : resolvedAvatar ? (
+              <Img
+                src={resolvedAvatar.src}
+                alt={resolvedAvatar.alt}
+                className={LINK_PAGE_LOGO_IMG_CLASSES_A[resolvedLogoAspect]}
+                optixFlowConfig={optixFlowConfig}
+              />
+            ) : null}
+          </div>
+        )}
 
         <div className="space-y-1">
           {name &&
@@ -677,6 +752,8 @@ export function LinkPageBentoLayout({
     logo,
     logoSlot,
     logoClassName,
+    isBannerMode,
+    resolvedLogoAspect,
     resolvedAvatar,
     avatarClassName,
     optixFlowConfig,
@@ -735,12 +812,36 @@ export function LinkPageBentoLayout({
       id={sectionId}
       background={background}
       spacing={spacing}
-      className={className}
+      className={sectionClassName}
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       containerClassName={containerClassName}
     >
+      {isBannerMode && logoBannerImage ? (
+        <div
+          data-slot="link-page-banner"
+          className={cn(
+            LINK_PAGE_BANNER_BREAKOUT_CLASSES,
+            // An out-of-contract stored value (e.g. "16:9") must not collapse
+            // the band to zero height — fall back to the standard ratio.
+            LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES[
+              logoBannerAspect ?? "standard"
+            ] ?? LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES.standard,
+            // This block has no vertical rhythm between the Section's first
+            // child and the profile header, so the gap is carried here.
+            "mb-8 sm:mb-10",
+          )}
+        >
+          <Img
+            src={logoBannerImage.src}
+            alt={logoBannerImage.alt}
+            className="size-full object-cover"
+            optixFlowConfig={optixFlowConfig}
+            loading="eager"
+          />
+        </div>
+      ) : null}
       <div className="flex flex-col items-center">
         <div className={cn("w-full space-y-6", contentClassName)}>
           {renderProfile}

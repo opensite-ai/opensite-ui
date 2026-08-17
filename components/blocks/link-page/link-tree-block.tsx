@@ -20,7 +20,16 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BrandLogo } from "../../ui/brand-logo";
+import type { BrandLogoAspect } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import {
+  LINK_PAGE_BANNER_BREAKOUT_CLASSES,
+  LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES,
+  LINK_PAGE_LOGO_BOX_CLASSES_B,
+  LINK_PAGE_LOGO_IMG_CLASSES_B,
+  type LinkPageLogoAspect,
+  type LinkPageLogoBannerAspect,
+} from "./logo-aspect";
 
 /**
  * Link item for the link tree
@@ -97,9 +106,34 @@ export interface LinkTreeBlockProps {
    */
   logoSlot?: React.ReactNode;
   /**
-   * Additional CSS classes for the logo image
+   * Additional CSS classes for the logo WRAPPER (not the image). Has no effect on
+   * live client sites (not harvested for compiled CSS) — never use it for logo
+   * sizing; use logoAspect.
    */
   logoClassName?: string;
+  /**
+   * Placement and shape mode for the brand mark at the top of the page.
+   * "horizontal" (default) keeps the legacy modest wordmark bar. "square" renders a
+   * roughly 1:1 mark LARGE and centered (about half the column width). "vertical"
+   * renders a stacked/portrait lockup tall and centered. "banner" renders
+   * logoBannerImage as a full-bleed edge-to-edge band at the very top of the page
+   * and hides the centered logo. Logo sizing is controlled ONLY by this prop —
+   * never by logoClassName or any className prop.
+   * @default "horizontal"
+   */
+  logoAspect?: LinkPageLogoAspect;
+  /**
+   * Full-bleed banner image rendered edge-to-edge (100vw) at the very top of the
+   * page. Only rendered when logoAspect is "banner". Requires an absolute https
+   * src and descriptive alt text.
+   */
+  logoBannerImage?: ImageItem;
+  /**
+   * Aspect ratio of the full-bleed banner band: "standard" (~16:7, default),
+   * "wide" (3:1), or "ultrawide" (4:1).
+   * @default "standard"
+   */
+  logoBannerAspect?: LinkPageLogoBannerAspect;
   /**
    * Array of links to display
    */
@@ -332,6 +366,9 @@ export function LinkTreeBlock({
   logo,
   logoSlot,
   logoClassName,
+  logoAspect,
+  logoBannerImage,
+  logoBannerAspect,
   links,
   linksSlot,
   socialLinks,
@@ -381,6 +418,33 @@ export function LinkTreeBlock({
   const resolvedBackground = background;
   const resolvedPattern = pattern ?? backgroundPattern;
 
+  // "banner" only takes effect with a usable banner image; without one the block
+  // renders exactly as it does with logoAspect unset.
+  const isBannerMode = logoAspect === "banner" && Boolean(logoBannerImage?.src);
+  // Shape used for the centered medallion. "banner" replaces the medallion, so it
+  // maps back to the legacy horizontal ladder for the no-banner-image fallback.
+  // Stored payloads are untyped JSON, so anything can arrive here. Only the two
+  // enlarged ladders are honored explicitly; every other value ("banner",
+  // undefined, or an out-of-contract string like "portrait") collapses to the
+  // legacy horizontal ladder — this narrowing (not just the ?? fallbacks below)
+  // is what keeps BrandLogo's aspect prop inside its own enum.
+  const resolvedLogoAspect: BrandLogoAspect =
+    logoAspect === "square" || logoAspect === "vertical"
+      ? logoAspect
+      : "horizontal";
+  // Stored payloads are untyped JSON, so an out-of-contract aspect string can
+  // reach these lookups; fall back to the legacy horizontal row rather than
+  // emitting a box/img with no size classes at all.
+  const logoBoxClasses =
+    LINK_PAGE_LOGO_BOX_CLASSES_B[resolvedLogoAspect] ??
+    LINK_PAGE_LOGO_BOX_CLASSES_B.horizontal;
+  const logoImgClasses =
+    LINK_PAGE_LOGO_IMG_CLASSES_B[resolvedLogoAspect] ??
+    LINK_PAGE_LOGO_IMG_CLASSES_B.horizontal;
+  const bannerAspectClasses =
+    LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES[logoBannerAspect ?? "standard"] ??
+    LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES.standard;
+
   const [lightboxOpen, setLightboxOpen] = React.useState(false);
   const [lightboxIndex, setLightboxIndex] = React.useState(0);
 
@@ -414,11 +478,18 @@ export function LinkTreeBlock({
     if (typeof value === "string") {
       return { src: value, alt: fallbackAlt ?? "" };
     }
+    // Stored payloads very commonly carry `{"alt":"X","src":null}` — octane's
+    // brand-mark stripper nulls every `*avatar*` key. Without this guard the
+    // <Img> fallback branch below renders a broken `<img src={null}>`.
+    if (!value.src) return undefined;
     return value;
   };
 
   const nameForAlt = typeof brandName === "string" ? brandName : "Brand avatar";
-  const resolvedAvatar = resolveImage(brandAvatar || brandLogo, nameForAlt);
+  // brandAvatar still wins when it carries a real src; when it has been nulled the
+  // surviving brandLogo (a logo-slot key the stripper exempts) is used instead.
+  const resolvedAvatar =
+    resolveImage(brandAvatar, nameForAlt) ?? resolveImage(brandLogo, nameForAlt);
 
   const renderBrandHeader = React.useMemo(() => {
     if (brandSlot) return brandSlot;
@@ -430,57 +501,60 @@ export function LinkTreeBlock({
           headerClassName,
         )}
       >
-        <div className="relative">
-          <div
-            className={cn(
-              "flex h-24 w-full max-w-72 items-center justify-center",
-              avatarClassName,
-            )}
-          >
-            {logo ? (
-              <BrandLogo
-                logo={logo}
-                logoSlot={logoSlot}
-                size="xl"
-                logoClassName={cn("mb-2", logoClassName)}
-                optixFlowConfig={optixFlowConfig}
-              />
-            ) : logoSlot ? (
-              logoSlot
-            ) : resolvedAvatar ? (
-              <Img
-                src={resolvedAvatar.src}
-                alt={resolvedAvatar.alt}
-                className="h-auto max-h-24 w-auto max-w-full object-contain"
-                optixFlowConfig={optixFlowConfig}
-              />
-            ) : null}
-          </div>
-          {brandVerified && (
-            <div
-              className={cn(
-                "absolute -bottom-1 -right-1 rounded-full bg-primary text-primary-foreground p-1",
-                verifiedBadgeClassName,
-              )}
-            >
-              {verifiedIcon == null ? (
-                <DynamicIcon
-                  name="lucide/check"
-                  size={14}
-                  className={cn("", verifiedIconClassName)}
+        {isBannerMode ? null : (
+          <div className="relative">
+            <div className={cn(logoBoxClasses, avatarClassName)}>
+              {/* `logo?.src` (not `logo`): BrandLogo returns null for a
+                  src-less logo, so testing the object alone would short-circuit
+                  the ladder and leave an EMPTY medallion box for the very common
+                  stored shape `{"alt":"X","src":null}`. Testing `.src` lets the
+                  ladder fall through to logoSlot → resolvedAvatar. */}
+              {logo?.src ? (
+                <BrandLogo
+                  logo={logo}
+                  logoSlot={logoSlot}
+                  size="xl"
+                  aspect={resolvedLogoAspect}
+                  logoClassName={cn("mb-2", logoClassName)}
+                  optixFlowConfig={optixFlowConfig}
                 />
-              ) : (
-                verifiedIcon !== "" && (
+              ) : logoSlot ? (
+                logoSlot
+              ) : resolvedAvatar ? (
+                <Img
+                  src={resolvedAvatar.src}
+                  alt={resolvedAvatar.alt}
+                  className={logoImgClasses}
+                  optixFlowConfig={optixFlowConfig}
+                />
+              ) : null}
+            </div>
+            {brandVerified && (
+              <div
+                className={cn(
+                  "absolute -bottom-1 -right-1 rounded-full bg-primary text-primary-foreground p-1",
+                  verifiedBadgeClassName,
+                )}
+              >
+                {verifiedIcon == null ? (
                   <DynamicIcon
-                    name={verifiedIcon}
+                    name="lucide/check"
                     size={14}
                     className={cn("", verifiedIconClassName)}
                   />
-                )
-              )}
-            </div>
-          )}
-        </div>
+                ) : (
+                  verifiedIcon !== "" && (
+                    <DynamicIcon
+                      name={verifiedIcon}
+                      size={14}
+                      className={cn("", verifiedIconClassName)}
+                    />
+                  )
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="space-y-1">
           {brandName &&
@@ -515,6 +589,10 @@ export function LinkTreeBlock({
   }, [
     brandSlot,
     headerClassName,
+    isBannerMode,
+    logoBoxClasses,
+    logoImgClasses,
+    resolvedLogoAspect,
     avatarClassName,
     logo,
     logoSlot,
@@ -868,12 +946,37 @@ export function LinkTreeBlock({
       id={sectionId}
       background={resolvedBackground}
       spacing={spacing}
-      className={className}
+      // Banner mode layers a flush-top override on WHATEVER spacing the caller
+      // passed instead of substituting a preset: `pt-0`/`md:pt-0` zero the
+      // preset's top padding by CSS order (the hero-fullscreen idiom) so the
+      // band sits flush at the very top, and `overflow-x-clip` clips the
+      // w-screen breakout's half-scrollbar overhang, which otherwise causes
+      // horizontal page scroll on classic-scrollbar browsers (Section only gets
+      // `overflow-hidden` when a pattern is set). The ternary keeps the
+      // non-banner className byte-identical.
+      className={
+        isBannerMode ? cn("overflow-x-clip pt-0 md:pt-0", className) : className
+      }
       pattern={resolvedPattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
       containerClassName={containerClassName}
     >
+      {isBannerMode && logoBannerImage ? (
+        <div
+          data-slot="link-page-banner"
+          className={cn(LINK_PAGE_BANNER_BREAKOUT_CLASSES, bannerAspectClasses)}
+        >
+          <Img
+            src={logoBannerImage.src}
+            alt={logoBannerImage.alt}
+            className="size-full object-cover"
+            optixFlowConfig={optixFlowConfig}
+            loading="eager"
+          />
+        </div>
+      ) : null}
+
       <div className="flex min-h-screen w-full items-start justify-center py-12">
         <div className={cn("w-full max-w-md space-y-6", contentClassName)}>
           {renderBrandHeader}

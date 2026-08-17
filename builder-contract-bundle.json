@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.15.0",
-    "exportedAt": "2026-08-17T04:29:25.798Z",
+    "uiVersion": "3.15.1",
+    "exportedAt": "2026-08-17T20:29:58.453Z",
     "source": "@opensite/ui",
     "totalBlocks": 610
   },
@@ -6859,7 +6859,7 @@
         "importPath": "./dist/blog-featured-popular.js",
         "requirePath": "./dist/blog-featured-popular.cjs"
       },
-      "importantUsageNotes": "Blog posts must come from real, source-backed content. Do not fabricate article titles, authors, or excerpts. The first post in the array is the featured post and should be the most compelling or recent article. Minimum 2 posts (1 featured} ${at least 1 popular). Images must be absolute URLs.",
+      "importantUsageNotes": "Blog posts must come from real, source-backed content. Do not fabricate article titles, authors, or excerpts. The first post in the array is the featured post and should be the most compelling or recent article. Minimum 2 posts (1 featured plus at least 1 popular). Images must be absolute URLs.",
       "usageRequirements": {
         "requiredProps": [],
         "propConstraints": {},
@@ -29541,6 +29541,16 @@
             "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
             "alt": "Sarah Mitchell"
           },
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Sarah Mitchell"
+          },
+          "logoAspect": "horizontal",
+          "logoBannerImage": {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Sarah Mitchell cover banner"
+          },
+          "logoBannerAspect": "standard",
           "socialLinks": [
             {
               "id": "1",
@@ -29621,7 +29631,7 @@
         "importPath": "./dist/link-page-bento-layout.js",
         "requirePath": "./dist/link-page-bento-layout.cjs"
       },
-      "importantUsageNotes": "Bento-grid style link page that separates links into two tiers: featured (links with featured:true) and regular (all others). Featured links render as large aspect-4/3 cards with optional background images and an overlay gradient. Regular links render as compact icon-and-label rows in a 2-4 column grid. Provide 1–3 featured links and 2–6 regular links for best visual balance. Featured link images MUST use absolute CDN URLs.",
+      "importantUsageNotes": "Bento-grid style link page that separates links into two tiers: featured (links with featured:true) and regular (all others). Featured links render as large aspect-4/3 cards with optional background images and an overlay gradient. Regular links render as compact icon-and-label rows in a 2-4 column grid. Provide 1–3 featured links and 2–6 regular links for best visual balance. Featured link images MUST use absolute CDN URLs. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
       "usageRequirements": {
         "requiredProps": [
           "name"
@@ -29668,23 +29678,68 @@
             "required": false,
             "minItems": 1,
             "maxItems": 8
+          },
+          "logo": {
+            "required": false,
+            "note": "LogoConfig { src, alt, url? }. This prop carries the site brand mark on real sites — prefer it over avatar."
+          },
+          "logoAspect": {
+            "required": false,
+            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (full-bleed top band; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
+          },
+          "logoBannerImage.src": {
+            "required": false,
+            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\"."
+          },
+          "logoBannerAspect": {
+            "required": false,
+            "note": "\"standard\" (~16:7, default), \"wide\" (3:1), \"ultrawide\" (4:1)."
           }
         },
         "mediaSlots": {
-          "avatar": {
-            "path": "avatar.src",
+          "logo": {
+            "path": "logo.src",
             "roles": [
-              "profile",
-              "avatar"
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "note": "Brand logo shown at the top of the page. Takes priority over avatar. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
+          },
+          "logoBannerImage": {
+            "path": "logoBannerImage.src",
+            "roles": [
+              "hero",
+              "background"
             ],
             "disallowedRoles": [
               "logo",
               "favicon",
               "video-thumbnail"
             ],
+            "minPixelClass": "large",
+            "required": false,
+            "preferredAspect": "3:1",
+            "note": "Full-bleed banner image rendered edge-to-edge at the very top of the page. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "avatar": {
+            "path": "avatar.src",
+            "roles": [
+              "profile",
+              "avatar",
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
             "minPixelClass": "small",
             "required": false,
-            "note": "Profile avatar or logo shown in the header. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+            "note": "Brand logo or profile photo shown at the top of the page. LOGO OR PROFILE IMAGE ONLY. Do not use favicons or video assets."
           },
           "links[featured].image.src": {
             "path": "links[].image.src",
@@ -29748,6 +29803,16 @@
             "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
             "alt": "Marcus Chen"
           },
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Marcus Chen"
+          },
+          "logoAspect": "horizontal",
+          "logoBannerImage": {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Marcus Chen cover banner"
+          },
+          "logoBannerAspect": "standard",
           "socialLinks": [
             {
               "id": "1",
@@ -29823,7 +29888,7 @@
         "importPath": "./dist/link-page-grid-cards.js",
         "requirePath": "./dist/link-page-grid-cards.cjs"
       },
-      "importantUsageNotes": "Displays links as a 2- or 3-column grid of cards, each with an icon, label, and optional description. Best for creators or businesses with 4–9 distinct destinations. columns=2 works well on mobile; columns=3 adds a third column on sm} ${screens. Each card has hover scale and shadow transitions. Social links appear above the grid. Profile avatar is typically a logo or portrait.",
+      "importantUsageNotes": "Displays links as a 2- or 3-column grid of cards, each with an icon, label, and optional description. Best for creators or businesses with 4–9 distinct destinations. columns=2 works well on mobile; columns=3 adds a third column on sm and larger screens. Each card has hover scale and shadow transitions. Social links appear above the grid. Profile avatar is typically a logo or portrait. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
       "usageRequirements": {
         "requiredProps": [
           "name"
@@ -29865,23 +29930,68 @@
             "required": false,
             "minItems": 1,
             "maxItems": 8
+          },
+          "logo": {
+            "required": false,
+            "note": "LogoConfig { src, alt, url? }. This prop carries the site brand mark on real sites — prefer it over avatar."
+          },
+          "logoAspect": {
+            "required": false,
+            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (full-bleed top band; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
+          },
+          "logoBannerImage.src": {
+            "required": false,
+            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\"."
+          },
+          "logoBannerAspect": {
+            "required": false,
+            "note": "\"standard\" (~16:7, default), \"wide\" (3:1), \"ultrawide\" (4:1)."
           }
         },
         "mediaSlots": {
-          "avatar": {
-            "path": "avatar.src",
+          "logo": {
+            "path": "logo.src",
             "roles": [
-              "profile",
-              "avatar"
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "note": "Brand logo shown at the top of the page. Takes priority over avatar. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
+          },
+          "logoBannerImage": {
+            "path": "logoBannerImage.src",
+            "roles": [
+              "hero",
+              "background"
             ],
             "disallowedRoles": [
               "logo",
               "favicon",
               "video-thumbnail"
             ],
+            "minPixelClass": "large",
+            "required": false,
+            "preferredAspect": "3:1",
+            "note": "Full-bleed banner image rendered edge-to-edge at the very top of the page. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "avatar": {
+            "path": "avatar.src",
+            "roles": [
+              "profile",
+              "avatar",
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
             "minPixelClass": "small",
             "required": false,
-            "note": "Profile avatar or logo shown at the top of the page. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+            "note": "Brand logo or profile photo shown at the top of the page. LOGO OR PROFILE IMAGE ONLY. Do not use favicons or video assets."
           }
         },
         "requiresSiteCapabilities": [
@@ -29928,6 +30038,16 @@
             "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
             "alt": "Alex Rivera"
           },
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Alex Rivera"
+          },
+          "logoAspect": "horizontal",
+          "logoBannerImage": {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Alex Rivera cover banner"
+          },
+          "logoBannerAspect": "standard",
           "links": [
             {
               "id": "1",
@@ -29981,7 +30101,7 @@
         "importPath": "./dist/link-page-minimal-profile.js",
         "requirePath": "./dist/link-page-minimal-profile.cjs"
       },
-      "importantUsageNotes": "Clean, minimalist link-in-bio page with no media gallery. The avatar accepts an ImageItem with an absolute src; it is typically a profile photo or logo. Each link renders with an optional Iconify icon on the left. Social links auto-detect platform from href. Best for professionals or developers who want a simple, text-focused link page.",
+      "importantUsageNotes": "Clean, minimalist link-in-bio page with no media gallery. The avatar accepts an ImageItem with an absolute src; it is typically a profile photo or logo. Each link renders with an optional Iconify icon on the left. Social links auto-detect platform from href. Best for professionals or developers who want a simple, text-focused link page. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
       "usageRequirements": {
         "requiredProps": [
           "name"
@@ -30019,23 +30139,68 @@
           "socialLinks[].href": {
             "required": true,
             "note": "Platform inferred from URL"
+          },
+          "logo": {
+            "required": false,
+            "note": "LogoConfig { src, alt, url? }. This prop carries the site brand mark on real sites — prefer it over avatar."
+          },
+          "logoAspect": {
+            "required": false,
+            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (full-bleed top band; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
+          },
+          "logoBannerImage.src": {
+            "required": false,
+            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\"."
+          },
+          "logoBannerAspect": {
+            "required": false,
+            "note": "\"standard\" (~16:7, default), \"wide\" (3:1), \"ultrawide\" (4:1)."
           }
         },
         "mediaSlots": {
-          "avatar": {
-            "path": "avatar.src",
+          "logo": {
+            "path": "logo.src",
             "roles": [
-              "profile",
-              "avatar"
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "note": "Brand logo shown at the top of the page. Takes priority over avatar. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
+          },
+          "logoBannerImage": {
+            "path": "logoBannerImage.src",
+            "roles": [
+              "hero",
+              "background"
             ],
             "disallowedRoles": [
               "logo",
               "favicon",
               "video-thumbnail"
             ],
+            "minPixelClass": "large",
+            "required": false,
+            "preferredAspect": "3:1",
+            "note": "Full-bleed banner image rendered edge-to-edge at the very top of the page. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "avatar": {
+            "path": "avatar.src",
+            "roles": [
+              "profile",
+              "avatar",
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
             "minPixelClass": "small",
             "required": false,
-            "note": "Profile avatar or logo shown at the top of the page. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+            "note": "Brand logo or profile photo shown at the top of the page. LOGO OR PROFILE IMAGE ONLY. Do not use favicons or video assets."
           }
         },
         "requiresSiteCapabilities": [
@@ -30043,7 +30208,7 @@
         ],
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
-          "avatar prop accepts ImageItem ({ src, alt }); avatarUrl (string) is the legacy fallback.",
+          "avatar prop accepts ImageItem ({ src, alt }); avatarUrl (string) is the legacy fallback. The logo prop (LogoConfig { src, alt, url? }) takes priority over both and is the preferred slot for the site brand mark — shape it with logoAspect, never with a className.",
           "No media gallery in this variant — use link-tree-block if a gallery is needed."
         ]
       }
@@ -30083,6 +30248,16 @@
             "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
             "alt": "Jamie Taylor"
           },
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Jamie Taylor"
+          },
+          "logoAspect": "horizontal",
+          "logoBannerImage": {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Jamie Taylor cover banner"
+          },
+          "logoBannerAspect": "standard",
           "socialLinks": [
             {
               "id": "1",
@@ -30155,7 +30330,7 @@
         "importPath": "./dist/link-page-newsletter-social.js",
         "requirePath": "./dist/link-page-newsletter-social.cjs"
       },
-      "importantUsageNotes": "Link page with an integrated email newsletter signup form powered by FormEngine. The form is rendered inside a card above the links list. formEngineSetup.api.endpoint must point to a real API; use the site's form submission endpoint. Links below the newsletter card support icons and chevron indicators. Social icons appear above the newsletter card. Avatar is displayed in the profile header.",
+      "importantUsageNotes": "Link page with an integrated email newsletter signup form powered by FormEngine. The form is rendered inside a card above the links list. formEngineSetup.api.endpoint must point to a real API; use the site's form submission endpoint. Links below the newsletter card support icons and chevron indicators. Social icons appear above the newsletter card. Avatar is displayed in the profile header. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
       "usageRequirements": {
         "requiredProps": [
           "name"
@@ -30197,23 +30372,68 @@
             "required": false,
             "minItems": 1,
             "maxItems": 8
+          },
+          "logo": {
+            "required": false,
+            "note": "LogoConfig { src, alt, url? }. This prop carries the site brand mark on real sites — prefer it over avatar."
+          },
+          "logoAspect": {
+            "required": false,
+            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (full-bleed top band; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
+          },
+          "logoBannerImage.src": {
+            "required": false,
+            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\"."
+          },
+          "logoBannerAspect": {
+            "required": false,
+            "note": "\"standard\" (~16:7, default), \"wide\" (3:1), \"ultrawide\" (4:1)."
           }
         },
         "mediaSlots": {
-          "avatar": {
-            "path": "avatar.src",
+          "logo": {
+            "path": "logo.src",
             "roles": [
-              "profile",
-              "avatar"
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "note": "Brand logo shown at the top of the page. Takes priority over avatar. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
+          },
+          "logoBannerImage": {
+            "path": "logoBannerImage.src",
+            "roles": [
+              "hero",
+              "background"
             ],
             "disallowedRoles": [
               "logo",
               "favicon",
               "video-thumbnail"
             ],
+            "minPixelClass": "large",
+            "required": false,
+            "preferredAspect": "3:1",
+            "note": "Full-bleed banner image rendered edge-to-edge at the very top of the page. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "avatar": {
+            "path": "avatar.src",
+            "roles": [
+              "profile",
+              "avatar",
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
             "minPixelClass": "small",
             "required": false,
-            "note": "Profile avatar or logo shown at the top of the page. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+            "note": "Brand logo or profile photo shown at the top of the page. LOGO OR PROFILE IMAGE ONLY. Do not use favicons or video assets."
           }
         },
         "requiresSiteCapabilities": [
@@ -30262,6 +30482,16 @@
             "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
             "alt": "Creative Studio"
           },
+          "logo": {
+            "src": "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+            "alt": "Creative Studio"
+          },
+          "logoAspect": "horizontal",
+          "logoBannerImage": {
+            "src": "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp",
+            "alt": "Creative Studio cover banner"
+          },
+          "logoBannerAspect": "standard",
           "brandVerified": false,
           "socialLinks": [
             {
@@ -30344,7 +30574,7 @@
         "importPath": "./dist/link-tree-block.js",
         "requirePath": "./dist/link-tree-block.cjs"
       },
-      "importantUsageNotes": "Full-featured link-in-bio page. The brandAvatar/brandLogo prop accepts an ImageItem object with an absolute src URL — it is typically a logo or profile image. links[] items support featured highlighting, badges, icons, and descriptions. mediaGallery[] renders a 3-column grid of images or videos. socialLinks[] are resolved automatically from the href domain. Provide at least 3 links for a useful layout; gallery is optional.",
+      "importantUsageNotes": "Full-featured link-in-bio page. The brandAvatar/brandLogo prop accepts an ImageItem object with an absolute src URL — it is typically a logo or profile image. links[] items support featured highlighting, badges, icons, and descriptions. mediaGallery[] renders a 3-column grid of images or videos. socialLinks[] are resolved automatically from the href domain. Provide at least 3 links for a useful layout; gallery is optional. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
       "usageRequirements": {
         "requiredProps": [
           "brandName"
@@ -30406,11 +30636,27 @@
           "socialLinks[].href": {
             "required": true,
             "note": "Platform inferred from URL"
+          },
+          "logo": {
+            "required": false,
+            "note": "LogoConfig { src, alt, url? }. This prop carries the site brand mark on real sites — prefer it over avatar."
+          },
+          "logoAspect": {
+            "required": false,
+            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (full-bleed top band; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
+          },
+          "logoBannerImage.src": {
+            "required": false,
+            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\"."
+          },
+          "logoBannerAspect": {
+            "required": false,
+            "note": "\"standard\" (~16:7, default), \"wide\" (3:1), \"ultrawide\" (4:1)."
           }
         },
         "mediaSlots": {
-          "brandAvatar": {
-            "path": "brandAvatar.src",
+          "logo": {
+            "path": "logo.src",
             "roles": [
               "logo"
             ],
@@ -30420,7 +30666,38 @@
             ],
             "minPixelClass": "small",
             "required": false,
-            "note": "Brand avatar or profile logo displayed in the header. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
+            "note": "Brand logo shown at the top of the page. Takes priority over avatar. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
+          },
+          "logoBannerImage": {
+            "path": "logoBannerImage.src",
+            "roles": [
+              "hero",
+              "background"
+            ],
+            "disallowedRoles": [
+              "logo",
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "large",
+            "required": false,
+            "preferredAspect": "3:1",
+            "note": "Full-bleed banner image rendered edge-to-edge at the very top of the page. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+          },
+          "brandAvatar": {
+            "path": "brandAvatar.src",
+            "roles": [
+              "profile",
+              "avatar",
+              "logo"
+            ],
+            "disallowedRoles": [
+              "favicon",
+              "video-thumbnail"
+            ],
+            "minPixelClass": "small",
+            "required": false,
+            "note": "Brand logo or profile photo displayed in the header. LOGO OR PROFILE IMAGE ONLY. Do not use favicons or video assets."
           },
           "mediaGallery[].src": {
             "path": "mediaGallery[].src",
@@ -30444,7 +30721,7 @@
         ],
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
-          "brandAvatar and brandLogo accept ImageItem ({ src, alt }) or a plain string URL.",
+          "brandAvatar and brandLogo accept ImageItem ({ src, alt }) or a plain string URL; the logo prop (LogoConfig { src, alt, url? }) takes priority over both and is the preferred slot for the site brand mark — shape it with logoAspect, never with a className.",
           "mediaGallery items with type 'video' should provide a poster URL for the thumbnail."
         ]
       }
@@ -36102,7 +36379,7 @@
         "importPath": "./dist/process-sticky-steps.js",
         "requirePath": "./dist/process-sticky-steps.cjs"
       },
-      "importantUsageNotes": "Use for a 4-to-8 step linear process where the left column (heading} ${CTA) should stay visible while the user scrolls through steps. No image props exist — this is a text/number-only layout. Keep each step description under 2 sentences. step values are display labels (e.g. '01'); omit to auto-number.",
+      "importantUsageNotes": "Use for a 4-to-8 step linear process where the left column (heading, description, and CTA) should stay visible while the user scrolls through steps. No image props exist — this is a text/number-only layout. Keep each step description under 2 sentences. step values are display labels (e.g. '01'); omit to auto-number.",
       "usageRequirements": {
         "requiredProps": [
           "steps"
@@ -39871,7 +40148,7 @@
         "importPath": "./dist/stats-animated-counter.js",
         "requirePath": "./dist/stats-animated-counter.cjs"
       },
-      "importantUsageNotes": "Stat values and labels must come from real, source-backed data. Do not fabricate metrics. The 'value' prop is a NUMBER — the counter animates from 0 to this value on scroll. Use 'prefix' and 'suffix' strings to build the full display (e.g. prefix='$', value=50, suffix='M} ${'). The grid renders 4 columns on large screens — provide 4 stats for best visual balance. Icon names use 'prefix/name' format (e.g. 'lucide/users').",
+      "importantUsageNotes": "Stat values and labels must come from real, source-backed data. Do not fabricate metrics. The 'value' prop is a NUMBER — the counter animates from 0 to this value on scroll. Use 'prefix' and 'suffix' strings to build the full display (e.g. prefix='$', value=50, suffix='M+'). The grid renders 4 columns on large screens — provide 4 stats for best visual balance. Icon names use 'prefix/name' format (e.g. 'lucide/users').",
       "usageRequirements": {
         "requiredProps": [
           "stats"
@@ -40518,7 +40795,7 @@
         "importPath": "./dist/stats-icon-cards.js",
         "requirePath": "./dist/stats-icon-cards.cjs"
       },
-      "importantUsageNotes": "Stat values and labels must come from real, source-backed data. Do not fabricate metrics. Each card requires a value, label, and growth field. The 'growth' text describes the trend (e.g. '18% growth', '} ${2 min'). Set isPositive correctly — false renders in destructive color. Icon names use 'prefix/name' format (e.g. 'lucide/users'). The grid renders 4 columns on large screens — provide 4 stats for best visual balance.",
+      "importantUsageNotes": "Stat values and labels must come from real, source-backed data. Do not fabricate metrics. Each card requires a value, label, and growth field. The 'growth' text describes the trend (e.g. '18% growth', '+2 min'). Set isPositive correctly — false renders in destructive color. Icon names use 'prefix/name' format (e.g. 'lucide/users'). The grid renders 4 columns on large screens — provide 4 stats for best visual balance.",
       "usageRequirements": {
         "requiredProps": [
           "stats"

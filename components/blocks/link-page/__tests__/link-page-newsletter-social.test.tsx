@@ -330,4 +330,496 @@ describe("LinkPageNewsletterSocial", () => {
       .closest('[data-testid="mock-pressable"]') as HTMLElement;
     expect(zeroChevronLink.textContent).toContain("0");
   });
+
+  // ——————————————————————————————————————————————————————————————
+  // logoAspect / logoBannerImage (design 00-DESIGN-link-page-logos.md §2.4)
+  // Family B tables: LINK_PAGE_LOGO_{IMG,BOX}_CLASSES_B.
+  // Assertions use LITERAL tokens on purpose (importing the tables would make
+  // the test tautological and would not pin the emitted class strings).
+  // ——————————————————————————————————————————————————————————————
+  describe("logoAspect and full-bleed banner placement", () => {
+    const LOGO = {
+      alt: "Brand logo",
+      src: "https://cdn.example.com/assets/logo-square.png",
+    };
+    const BANNER = {
+      alt: "Storefront banner",
+      src: "https://cdn.example.com/assets/banner.jpg",
+    };
+
+    /** The logo/avatar medallion box is the nearest `justify-center` ancestor. */
+    const logoBoxOf = (el: HTMLElement): HTMLElement => {
+      const box = el.closest("div.justify-center");
+      if (!box) throw new Error("logo medallion box not found");
+      return box as HTMLElement;
+    };
+
+    it("keeps the legacy medallion box classes when logoAspect is unset", () => {
+      render(
+        <LinkPageNewsletterSocial name="Test" avatarUrl="/logo-wide.png" />,
+      );
+
+      const box = logoBoxOf(screen.getByAltText("Test"));
+      expect(box).toHaveClass(
+        "flex",
+        "h-24",
+        "w-full",
+        "max-w-72",
+        "items-center",
+        "justify-center",
+      );
+      expect(box.className).not.toMatch(/h-40|h-48/);
+    });
+
+    it('renders logoAspect="square" through BrandLogo with the square height ladder', () => {
+      render(
+        <LinkPageNewsletterSocial name="Test" logo={LOGO} logoAspect="square" />,
+      );
+
+      const img = screen.getByAltText("Brand logo");
+      expect(img).toHaveClass(
+        "w-auto",
+        "object-contain",
+        "max-h-40",
+        "max-w-full",
+        "sm:max-h-44",
+        "lg:max-h-48",
+      );
+      expect(img.className).not.toContain("max-h-12");
+
+      const box = logoBoxOf(img);
+      expect(box).toHaveClass(
+        "flex",
+        "h-40",
+        "w-full",
+        "items-center",
+        "justify-center",
+        "sm:h-44",
+        "lg:h-48",
+      );
+      expect(box.className).not.toContain("max-w-72");
+    });
+
+    it('renders logoAspect="vertical" through BrandLogo with the vertical height ladder', () => {
+      render(
+        <LinkPageNewsletterSocial
+          name="Test"
+          logo={LOGO}
+          logoAspect="vertical"
+        />,
+      );
+
+      const img = screen.getByAltText("Brand logo");
+      expect(img).toHaveClass(
+        "w-auto",
+        "object-contain",
+        "max-h-48",
+        "max-w-full",
+        "sm:max-h-56",
+        "lg:max-h-64",
+      );
+
+      const box = logoBoxOf(img);
+      expect(box).toHaveClass(
+        "flex",
+        "h-48",
+        "w-full",
+        "items-center",
+        "justify-center",
+        "sm:h-56",
+        "lg:h-64",
+      );
+    });
+
+    it("falls through to the avatar when the stored logo object has no src", () => {
+      const { container } = render(
+        <LinkPageNewsletterSocial
+          name="Test"
+          logo={{ alt: "x", src: null as unknown as string }}
+          avatar={{ alt: "Avatar", src: "https://cdn.example.com/a.png" }}
+        />,
+      );
+
+      // BrandLogo returns null for a src-less logo, so testing object
+      // truthiness at the ladder head would render an EMPTY medallion box and
+      // swallow the perfectly good avatar.
+      const img = screen.getByAltText("Avatar");
+      expect(img).toHaveAttribute("src", "https://cdn.example.com/a.png");
+      expect(img).toHaveClass(
+        "h-auto",
+        "max-h-24",
+        "w-auto",
+        "max-w-full",
+        "object-contain",
+      );
+      expect(logoBoxOf(img)).toContainElement(img);
+      container.querySelectorAll("img").forEach((el) => {
+        expect(el.getAttribute("src")).toBeTruthy();
+      });
+    });
+
+    it("still prefers logoSlot over the avatar when logo has no src", () => {
+      render(
+        <LinkPageNewsletterSocial
+          name="Test"
+          logo={{ alt: "x", src: "" }}
+          logoSlot={<span data-testid="custom-logo-slot">slot</span>}
+          avatar={{ alt: "Avatar", src: "https://cdn.example.com/a.png" }}
+        />,
+      );
+
+      expect(screen.getByTestId("custom-logo-slot")).toBeInTheDocument();
+      expect(screen.queryByAltText("Avatar")).not.toBeInTheDocument();
+    });
+
+    it("applies the family B square IMG table to the avatar fallback branch", () => {
+      render(
+        <LinkPageNewsletterSocial
+          name="Test"
+          avatar={{ alt: "Avatar", src: "https://cdn.example.com/a.png" }}
+          logoAspect="square"
+        />,
+      );
+
+      const img = screen.getByAltText("Avatar");
+      expect(img).toHaveClass(
+        "h-auto",
+        "max-h-40",
+        "w-auto",
+        "max-w-full",
+        "object-contain",
+        "sm:max-h-44",
+        "lg:max-h-48",
+      );
+      expect(logoBoxOf(img)).toHaveClass("h-40", "sm:h-44", "lg:h-48");
+    });
+
+    it("applies the family B vertical IMG table to the avatar fallback branch", () => {
+      render(
+        <LinkPageNewsletterSocial
+          name="Test"
+          avatar={{ alt: "Avatar", src: "https://cdn.example.com/a.png" }}
+          logoAspect="vertical"
+        />,
+      );
+
+      const img = screen.getByAltText("Avatar");
+      expect(img).toHaveClass(
+        "h-auto",
+        "max-h-48",
+        "w-auto",
+        "max-w-full",
+        "object-contain",
+        "sm:max-h-56",
+        "lg:max-h-64",
+      );
+      expect(logoBoxOf(img)).toHaveClass("h-48", "sm:h-56", "lg:h-64");
+    });
+
+    it("renders a full-bleed banner as the first child and suppresses the medallion", () => {
+      const { container } = render(
+        <LinkPageNewsletterSocial
+          name="Test"
+          logo={LOGO}
+          logoAspect="banner"
+          logoBannerImage={BANNER}
+        />,
+      );
+
+      const banner = container.querySelector(
+        '[data-slot="link-page-banner"]',
+      ) as HTMLElement;
+      expect(banner).toBeInTheDocument();
+      expect(banner).toHaveClass(
+        "relative",
+        "left-1/2",
+        "w-screen",
+        "max-w-none",
+        "-translate-x-1/2",
+        "overflow-hidden",
+        "aspect-[16/7]",
+        "max-h-[60vh]",
+      );
+
+      // Flush at the very top: first element inside the Section's Container.
+      expect(banner.parentElement?.firstElementChild).toBe(banner);
+      // Sibling relation is pinned, not just "first child of some parent":
+      // moving the banner INSIDE the inner layout div must fail this test.
+      expect(banner.nextElementSibling).toHaveClass(
+        "flex",
+        "min-h-screen",
+        "w-full",
+        "items-start",
+        "justify-center",
+        "py-12",
+      );
+      // No banner margin: the inner layout div's own py-12 supplies the gap.
+      expect(banner.className).not.toContain("mb-8");
+
+      const bannerImg = banner.querySelector("img") as HTMLImageElement;
+      expect(bannerImg).toHaveAttribute("alt", "Storefront banner");
+      expect(bannerImg).toHaveAttribute("src", BANNER.src);
+      expect(bannerImg).toHaveClass("size-full", "object-cover");
+
+      // Medallion ladder is not rendered at all in banner mode.
+      expect(screen.queryByAltText("Brand logo")).not.toBeInTheDocument();
+      expect(screen.getAllByTestId("mock-img")).toHaveLength(1);
+      expect(container.querySelector(".max-w-72")).toBeNull();
+
+      // Spacing is passed through UNCHANGED; flush-top comes from literal
+      // pt-0/md:pt-0 winning on CSS order (Tailwind emits pt-* after py-*),
+      // and overflow-x-clip clips the w-screen breakout's scrollbar overhang.
+      const section = container.querySelector("section") as HTMLElement;
+      expect(section).toHaveClass(
+        "py-12",
+        "md:py-32",
+        "pt-0",
+        "md:pt-0",
+        "overflow-x-clip",
+      );
+    });
+
+    it("suppresses the avatar medallion in banner mode too", () => {
+      const { container } = render(
+        <LinkPageNewsletterSocial
+          name="Test"
+          avatar={{ alt: "Avatar", src: "https://cdn.example.com/a.png" }}
+          logoAspect="banner"
+          logoBannerImage={BANNER}
+        />,
+      );
+
+      expect(screen.queryByAltText("Avatar")).not.toBeInTheDocument();
+      expect(
+        container.querySelector('[data-slot="link-page-banner"]'),
+      ).toBeInTheDocument();
+    });
+
+    it('falls back to legacy horizontal rendering when logoAspect="banner" has no logoBannerImage', () => {
+      const { container } = render(
+        <LinkPageNewsletterSocial name="Test" logo={LOGO} logoAspect="banner" />,
+      );
+
+      expect(
+        container.querySelector('[data-slot="link-page-banner"]'),
+      ).toBeNull();
+
+      const img = screen.getByAltText("Brand logo");
+      expect(img).toHaveClass(
+        "w-auto",
+        "object-contain",
+        "max-h-12",
+        "sm:max-h-14",
+        "lg:max-h-16",
+      );
+      expect(logoBoxOf(img)).toHaveClass(
+        "flex",
+        "h-24",
+        "w-full",
+        "max-w-72",
+        "items-center",
+        "justify-center",
+      );
+
+      // Byte-compat: the non-banner Section className is untouched — no
+      // flush-top or clip literals are injected.
+      const section = container.querySelector("section") as HTMLElement;
+      expect(section).toHaveClass("py-12", "md:py-32");
+      expect(section.className).not.toContain("pt-0");
+      expect(section.className).not.toContain("md:pt-0");
+      expect(section.className).not.toContain("overflow-x-clip");
+    });
+
+    it("keeps explicit consumer spacing and still zeroes the top padding in banner mode", () => {
+      const { container } = render(
+        <LinkPageNewsletterSocial
+          name="Test"
+          logoAspect="banner"
+          logoBannerImage={BANNER}
+          spacing="py-4"
+        />,
+      );
+
+      const section = container.querySelector("section") as HTMLElement;
+      expect(section).toHaveClass("py-4", "pt-0", "md:pt-0", "overflow-x-clip");
+      expect(section.className).not.toContain("md:py-32");
+    });
+
+    it("keeps a preset spacing token intact alongside the banner flush-top literals", () => {
+      const { container } = render(
+        <LinkPageNewsletterSocial
+          name="Test"
+          logoAspect="banner"
+          logoBannerImage={BANNER}
+          spacing="lg"
+        />,
+      );
+
+      const section = container.querySelector("section") as HTMLElement;
+      // Section's own "lg" preset resolves to py-20 md:py-32 and survives.
+      expect(section).toHaveClass(
+        "py-20",
+        "md:py-32",
+        "pt-0",
+        "md:pt-0",
+        "overflow-x-clip",
+      );
+    });
+
+    it("keeps the consumer className after the banner flush-top literals", () => {
+      const { container } = render(
+        <LinkPageNewsletterSocial
+          name="Test"
+          logoAspect="banner"
+          logoBannerImage={BANNER}
+          className="consumer-section-class"
+        />,
+      );
+
+      const section = container.querySelector("section") as HTMLElement;
+      expect(section).toHaveClass(
+        "consumer-section-class",
+        "pt-0",
+        "md:pt-0",
+        "overflow-x-clip",
+      );
+    });
+
+    it("maps logoBannerAspect to literal aspect-ratio classes", () => {
+      const wide = render(
+        <LinkPageNewsletterSocial
+          name="Test"
+          logoAspect="banner"
+          logoBannerImage={BANNER}
+          logoBannerAspect="wide"
+        />,
+      );
+      expect(
+        wide.container.querySelector('[data-slot="link-page-banner"]'),
+      ).toHaveClass("aspect-[3/1]", "max-h-[50vh]");
+      wide.unmount();
+
+      const ultrawide = render(
+        <LinkPageNewsletterSocial
+          name="Test"
+          logoAspect="banner"
+          logoBannerImage={BANNER}
+          logoBannerAspect="ultrawide"
+        />,
+      );
+      expect(
+        ultrawide.container.querySelector('[data-slot="link-page-banner"]'),
+      ).toHaveClass("aspect-[4/1]", "max-h-[40vh]");
+    });
+
+    it("renders the stored 1124-shape payload with the legacy xl logo classes and no null-src image", () => {
+      const { container } = render(
+        <LinkPageNewsletterSocial
+          name="Workflow Rush"
+          bio="AI automation for growing teams"
+          logo={{
+            alt: "Workflow Rush",
+            src: "https://cdn.ing/assets/i/r/314346/nk1ogzmzll8omwq392zjbv5mznvn/logo-light.png",
+            url: "/",
+          }}
+          avatar={{ alt: "Workflow Rush", src: null as unknown as string }}
+        />,
+      );
+
+      const img = screen.getByAltText("Workflow Rush");
+      expect(img).toHaveClass(
+        "w-auto",
+        "object-contain",
+        "max-h-12",
+        "sm:max-h-14",
+        "lg:max-h-16",
+      );
+      expect(img.className).not.toContain("max-w-full");
+
+      container.querySelectorAll("img").forEach((el) => {
+        expect(el.getAttribute("src")).toBeTruthy();
+      });
+    });
+
+    it("renders no image for a stored avatar whose src is null", () => {
+      const { container } = render(
+        <LinkPageNewsletterSocial
+          name="Test"
+          avatar={{ alt: "Test", src: null as unknown as string }}
+        />,
+      );
+
+      expect(container.querySelectorAll("img")).toHaveLength(0);
+      expect(screen.queryByTestId("mock-img")).not.toBeInTheDocument();
+    });
+  });
+});
+
+/**
+ * Untyped-payload enum hardening. Stored design payloads are raw JSON, so an
+ * out-of-contract logoAspect / logoBannerAspect string can reach the class
+ * tables. Garbage must degrade to the documented defaults ("horizontal" /
+ * "standard"), never to a size-less medallion box or a zero-height banner.
+ * Family B tables.
+ */
+describe("LinkPageNewsletterSocial untyped-payload enum hardening", () => {
+  const HARD_LOGO = {
+    src: "https://cdn.example.com/hardening-mark.png",
+    alt: "Hardened mark",
+  };
+  const HARD_BANNER = {
+    src: "https://cdn.example.com/hardening-band.jpg",
+    alt: "Hardened band",
+  };
+
+  it('collapses an out-of-contract logoAspect ("portrait") to horizontal', () => {
+    const { container } = render(
+      <LinkPageNewsletterSocial
+        name="Test"
+        logo={HARD_LOGO}
+        logoAspect={"portrait" as unknown as "square"}
+        avatarClassName="hardening-box"
+      />,
+    );
+
+    expect(container.querySelector(".hardening-box")).toHaveClass(
+      "flex",
+      "h-24",
+      "w-full",
+      "max-w-72",
+      "items-center",
+      "justify-center",
+    );
+    expect(screen.getByAltText("Hardened mark")).toHaveClass(
+      "w-auto",
+      "object-contain",
+      "max-h-12",
+      "sm:max-h-14",
+      "lg:max-h-16",
+    );
+  });
+
+  it("falls back to the standard band ratio for an out-of-contract logoBannerAspect", () => {
+    const { container } = render(
+      <LinkPageNewsletterSocial
+        name="Test"
+        logoAspect="banner"
+        logoBannerImage={HARD_BANNER}
+        logoBannerAspect={"16:9" as unknown as "wide"}
+      />,
+    );
+
+    expect(
+      container.querySelector('[data-slot="link-page-banner"]'),
+    ).toHaveClass(
+      "relative",
+      "left-1/2",
+      "w-screen",
+      "max-w-none",
+      "-translate-x-1/2",
+      "overflow-hidden",
+      "aspect-[16/7]",
+      "max-h-[60vh]",
+    );
+  });
 });

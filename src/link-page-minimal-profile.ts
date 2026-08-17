@@ -12,3 +12,7 @@ export type {
   LinkPageMinimalProfileProps,
   MinimalProfileLink,
 } from "../components/blocks/link-page/link-page-minimal-profile";
+export type {
+  LinkPageLogoAspect,
+  LinkPageLogoBannerAspect,
+} from "../components/blocks/link-page/logo-aspect";

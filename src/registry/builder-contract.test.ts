@@ -712,8 +712,15 @@ function collectMediaStrings(value: unknown, path: string[] = []): string[] {
     const leaf = path[path.length - 1] ?? "";
     const pathText = path.join(".");
     const isAltText = /alt/i.test(leaf);
+    // Enum tokens whose leaf ends in "Aspect" (logoAspect: "horizontal",
+    // logoBannerAspect: "standard") sit under a logo-ish path but select a
+    // SHAPE, not a media asset — excluded like alt text so the absolute-URL
+    // assertions below keep checking only real media values.
+    const isAspectToken = /aspect$/i.test(leaf);
     const isMediaPath =
-      /(src|image|images|avatar|logo|media)/i.test(pathText) && !isAltText;
+      /(src|image|images|avatar|logo|media)/i.test(pathText) &&
+      !isAltText &&
+      !isAspectToken;
 
     return isMediaPath ? [value] : [];
   }
@@ -2607,5 +2614,288 @@ describe("createBuilderContractBundle output naming", () => {
       mentorship?.usageRequirements?.mediaSlots?.["modalVideo.video.src"],
     ).toBeDefined();
     expect(mentorship?.examples.exampleProps).toBeDefined();
+  });
+});
+
+// ============================================================
+// LINK-PAGE LOGO PLACEMENT CONTRACTS (logoAspect / logoBannerImage)
+// Added by workstream A7 — see docs/ui-refinements/impl/00-DESIGN-link-page-logos.md §3
+// ============================================================
+
+/** The four link-page blocks whose brand-mark slot is named `avatar`. */
+const LINK_PAGE_AVATAR_SLOT_BLOCK_IDS = [
+  "link-page-minimal-profile",
+  "link-page-newsletter-social",
+  "link-page-grid-cards",
+  "link-page-bento-layout",
+] as const;
+
+/** Closed MediaRole union from src/registry/types.ts — there is no "banner" role. */
+const MEDIA_ROLE_VALUES = [
+  "logo",
+  "favicon",
+  "hero",
+  "feature",
+  "thumbnail",
+  "profile",
+  "avatar",
+  "gallery",
+  "background",
+  "screenshot",
+  "illustration",
+  "video-thumbnail",
+] as const;
+
+describe("BLOCK_REGISTRY link-page logo placement contracts", () => {
+  it("declares the logo prop as a logo-role media slot on every link-page block", () => {
+    for (const id of LINK_PAGE_BLOCK_IDS) {
+      const slot = BLOCK_REGISTRY[id].usageRequirements?.mediaSlots?.logo;
+
+      expect(slot, id).toBeDefined();
+      expect(slot?.path, id).toBe("logo.src");
+      expect(slot?.roles, id).toEqual(["logo"]);
+      expect(slot?.disallowedRoles ?? [], id).not.toContain("logo");
+      expect(slot?.required, id).toBe(false);
+      expect(slot?.note ?? "", id).toMatch(/LOGO IMAGE ONLY/);
+      expect(slot?.note ?? "", id).toMatch(/priority over avatar/i);
+    }
+  });
+
+  /**
+   * The avatar medallion on these four blocks accepts EITHER the site brand
+   * mark or a person's headshot (each contract's prose: "typically a profile
+   * photo or logo"), so the slot must ban neither role. `imageSlot` bans
+   * `logo`; `logoSlot`'s note bans photos ("Do not use photos") — both are
+   * wrong here, hence the dedicated dual-role slot.
+   */
+  it("declares the avatar slot as dual-role: logo OR profile headshot", () => {
+    for (const id of LINK_PAGE_AVATAR_SLOT_BLOCK_IDS) {
+      const slot = BLOCK_REGISTRY[id].usageRequirements?.mediaSlots?.avatar;
+
+      expect(slot, id).toBeDefined();
+      expect(slot?.path, id).toBe("avatar.src");
+      expect(slot?.roles, id).toEqual(["profile", "avatar", "logo"]);
+      expect(slot?.disallowedRoles ?? [], id).toEqual([
+        "favicon",
+        "video-thumbnail",
+      ]);
+      expect(slot?.minPixelClass, id).toBe("small");
+      expect(slot?.required, id).toBe(false);
+      expect(slot?.note ?? "", id).toMatch(/LOGO OR PROFILE IMAGE ONLY/);
+      // Neither one-sided ban may come back.
+      expect(slot?.note ?? "", id).not.toMatch(/Do not use logos/);
+      expect(slot?.note ?? "", id).not.toMatch(/Do not use photos/);
+    }
+  });
+
+  /**
+   * Placement guidance, not a role ban: octane's brand-mark stripper nulls
+   * logo URLs on avatar-named keys (only `logo*`/`favicon`/`brandmark` keys are
+   * exempt — see 00-DESIGN-link-page-logos.md §0.5), so a brand mark generated
+   * into avatar/brandAvatar silently renders nothing.
+   */
+  it("tells the agent the brand mark goes in logo.src, never in avatar/brandAvatar", () => {
+    for (const id of LINK_PAGE_BLOCK_IDS) {
+      const notes = BLOCK_REGISTRY[id].importantUsageNotes ?? "";
+
+      expect(notes, id).toMatch(/put the brand mark in logo\.src/);
+      expect(notes, id).toMatch(/NEVER in avatar or brandAvatar/);
+      expect(notes, id).toMatch(/nulls logo URLs on avatar-named props/);
+      expect(notes, id).toMatch(/renders nothing/);
+      expect(notes, id).toMatch(/profile photo \(headshot\)/);
+    }
+  });
+
+  it("declares the full-bleed banner slot with real MediaRole values", () => {
+    for (const id of LINK_PAGE_BLOCK_IDS) {
+      const slot =
+        BLOCK_REGISTRY[id].usageRequirements?.mediaSlots?.logoBannerImage;
+
+      expect(slot, id).toBeDefined();
+      expect(slot?.path, id).toBe("logoBannerImage.src");
+      expect(slot?.roles, id).toEqual(["hero", "background"]);
+      expect(slot?.minPixelClass, id).toBe("large");
+      expect(slot?.preferredAspect, id).toBe("3:1");
+      expect(slot?.required, id).toBe(false);
+      expect(slot?.note ?? "", id).toMatch(/logoAspect is "banner"/);
+    }
+  });
+
+  it("keeps every link-page media slot role inside the MediaRole union", () => {
+    for (const id of LINK_PAGE_BLOCK_IDS) {
+      const slots = BLOCK_REGISTRY[id].usageRequirements?.mediaSlots ?? {};
+
+      for (const [name, slot] of Object.entries(slots)) {
+        for (const role of [...slot.roles, ...(slot.disallowedRoles ?? [])]) {
+          expect(MEDIA_ROLE_VALUES, `${id}.${name}:${role}`).toContain(role);
+        }
+      }
+    }
+  });
+
+  it("declares propConstraints for logo, logoAspect and both banner props", () => {
+    for (const id of LINK_PAGE_BLOCK_IDS) {
+      const constraints =
+        BLOCK_REGISTRY[id].usageRequirements?.propConstraints ?? {};
+
+      expect(constraints.logo, id).toMatchObject({ required: false });
+      expect(constraints.logo?.note ?? "", id).toMatch(
+        /LogoConfig \{ src, alt, url\? \}/,
+      );
+      expect(constraints.logo?.note ?? "", id).toMatch(/prefer it over avatar/);
+
+      expect(constraints.logoAspect, id).toMatchObject({ required: false });
+      const aspectNote = constraints.logoAspect?.note ?? "";
+      for (const value of ["horizontal", "square", "vertical", "banner"]) {
+        expect(aspectNote, `${id}:${value}`).toContain(`"${value}"`);
+      }
+      expect(aspectNote, id).toMatch(/never by logoClassName/);
+
+      expect(constraints["logoBannerImage.src"], id).toMatchObject({
+        required: false,
+      });
+      expect(constraints["logoBannerImage.src"]?.note ?? "", id).toMatch(
+        /Absolute https URL/,
+      );
+
+      expect(constraints.logoBannerAspect, id).toMatchObject({
+        required: false,
+      });
+      const bannerAspectNote = constraints.logoBannerAspect?.note ?? "";
+      for (const value of ["standard", "wide", "ultrawide"]) {
+        expect(bannerAspectNote, `${id}:${value}`).toContain(`"${value}"`);
+      }
+    }
+  });
+
+  it("carries the new logo keys in exampleProps so octane's sanitizer retains them", () => {
+    for (const id of LINK_PAGE_BLOCK_IDS) {
+      const exampleProps = BLOCK_REGISTRY[id].exampleProps as
+        | Record<string, unknown>
+        | undefined;
+
+      expect(exampleProps, id).toBeDefined();
+
+      const logo = exampleProps?.logo as
+        | { src?: string; alt?: string }
+        | undefined;
+      expect(logo?.src ?? "", id).toMatch(/^https:\/\//);
+      expect(logo?.alt ?? "", id).not.toBe("");
+
+      expect(exampleProps?.logoAspect, id).toBe("horizontal");
+
+      const banner = exampleProps?.logoBannerImage as
+        | { src?: string; alt?: string }
+        | undefined;
+      expect(banner?.src ?? "", id).toMatch(/^https:\/\//);
+      expect(banner?.alt ?? "", id).not.toBe("");
+      // The banner is a photographic cover image, never the brand mark itself.
+      expect(banner?.src, id).not.toBe(logo?.src);
+
+      expect(exampleProps?.logoBannerAspect, id).toBe("standard");
+    }
+  });
+
+  it("tells the agent that logoAspect — never a className — controls logo sizing", () => {
+    for (const id of LINK_PAGE_BLOCK_IDS) {
+      const notes = BLOCK_REGISTRY[id].importantUsageNotes ?? "";
+
+      expect(notes, id).toMatch(/controlled ONLY by logoAspect/);
+      expect(notes, id).toMatch(/logoClassName/);
+      expect(notes, id).toMatch(/no effect on live sites/);
+      expect(notes, id).toMatch(/square icon\/mark/);
+      expect(notes, id).toMatch(/stacked or portrait logo/);
+      expect(notes, id).toMatch(/omit both otherwise/);
+      expect(notes, id).toMatch(/logo takes priority over avatar/);
+    }
+  });
+
+  it("stops presenting the avatar slot as the only brand-mark slot", () => {
+    for (const id of ["link-tree-block", "link-page-minimal-profile"]) {
+      const notes = (
+        BLOCK_REGISTRY[id].usageRequirements?.notes ?? []
+      ).join(" ");
+
+      expect(notes, id).toMatch(/logo prop/);
+      expect(notes, id).toMatch(/logoAspect/);
+    }
+  });
+
+  it("propagates the logo contract into the builder contract bundle", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+
+    for (const id of LINK_PAGE_BLOCK_IDS) {
+      const block = bundle.blocks.find((item) => item.componentId === id);
+
+      expect(block, id).toBeDefined();
+      expect(block?.usageRequirements?.mediaSlots?.logo, id).toBeDefined();
+      expect(
+        block?.usageRequirements?.mediaSlots?.logoBannerImage,
+        id,
+      ).toBeDefined();
+      expect(block?.usageRequirements?.propConstraints?.logoAspect, id)
+        .toBeDefined();
+      expect(block?.examples.exampleProps, id).toHaveProperty("logo");
+      expect(block?.examples.exampleProps, id).toHaveProperty("logoAspect");
+      expect(block?.examples.exampleProps, id).toHaveProperty(
+        "logoBannerImage",
+      );
+      expect(block?.examples.exampleProps, id).toHaveProperty(
+        "logoBannerAspect",
+      );
+    }
+  });
+
+  /**
+   * importantUsageNotes is prose handed verbatim to the AI agent. A mangled
+   * template literal (e.g. a transposed `${...}` fragment) ships raw
+   * interpolation syntax into the prompt, so the emitted string must never
+   * contain unresolved template markers.
+   *
+   * Scoped to the WHOLE registry, not just link-page blocks: the same
+   * corruption shape (a `${"…"}` wrapper whose inner quotes collapsed, so a
+   * literal `+` became `} ${`) shipped in several unrelated block contracts.
+   * Legitimately resolved interpolations emit no `${` at all, so any hit here
+   * is a real corruption rather than documented template syntax.
+   */
+  it("emits importantUsageNotes free of unresolved template fragments for every registry block", () => {
+    const offenders = Object.entries(BLOCK_REGISTRY)
+      .filter(([, block]) => {
+        const notes = block.importantUsageNotes;
+
+        if (notes === undefined) {
+          return false;
+        }
+
+        return (
+          notes.includes("${") ||
+          notes.includes("} ${") ||
+          /\}\s*\$/.test(notes)
+        );
+      })
+      .map(([id]) => id);
+
+    expect(offenders).toEqual([]);
+  });
+
+  it("emits non-empty link-page importantUsageNotes with an intact breakpoint phrase", () => {
+    for (const id of LINK_PAGE_BLOCK_IDS) {
+      const notes = BLOCK_REGISTRY[id].importantUsageNotes ?? "";
+
+      expect(notes, id).toBeTruthy();
+      expect(notes, id).not.toContain("sm}");
+    }
+  });
+
+  it("describes the grid-cards columns breakpoint in intact prose", () => {
+    const notes =
+      BLOCK_REGISTRY["link-page-grid-cards"].importantUsageNotes ?? "";
+
+    expect(notes).toContain(
+      "columns=3 adds a third column on sm and larger screens.",
+    );
   });
 });

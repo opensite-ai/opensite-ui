@@ -18,7 +18,18 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BrandLogo } from "../../ui/brand-logo";
+import type { BrandLogoAspect } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import {
+  LINK_PAGE_BANNER_BREAKOUT_CLASSES,
+  LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES,
+  LINK_PAGE_LOGO_BOX_CLASSES_A,
+  LINK_PAGE_LOGO_IMG_CLASSES_A,
+} from "./logo-aspect";
+import type {
+  LinkPageLogoAspect,
+  LinkPageLogoBannerAspect,
+} from "./logo-aspect";
 
 /**
  * Link card item for the grid cards link page
@@ -66,9 +77,34 @@ export interface LinkPageGridCardsProps {
    */
   logoSlot?: React.ReactNode;
   /**
-   * Additional CSS classes for the logo image
+   * Additional CSS classes for the logo WRAPPER (not the image). Has no effect on
+   * live client sites (not harvested for compiled CSS) — never use it for logo
+   * sizing; use logoAspect.
    */
   logoClassName?: string;
+  /**
+   * Placement and shape mode for the brand mark at the top of the page.
+   * "horizontal" (default) keeps the legacy modest wordmark bar. "square" renders a
+   * roughly 1:1 mark LARGE and centered (about half the column width). "vertical"
+   * renders a stacked/portrait lockup tall and centered. "banner" renders
+   * logoBannerImage as a full-bleed edge-to-edge band at the very top of the page
+   * and hides the centered logo. Logo sizing is controlled ONLY by this prop —
+   * never by logoClassName or any className prop.
+   * @default "horizontal"
+   */
+  logoAspect?: LinkPageLogoAspect;
+  /**
+   * Full-bleed banner image rendered edge-to-edge (100vw) at the very top of the
+   * page. Only rendered when logoAspect is "banner". Requires an absolute https
+   * src and descriptive alt text.
+   */
+  logoBannerImage?: ImageItem;
+  /**
+   * Aspect ratio of the full-bleed banner band: "standard" (~16:7, default),
+   * "wide" (3:1), or "ultrawide" (4:1).
+   * @default "standard"
+   */
+  logoBannerAspect?: LinkPageLogoBannerAspect;
   /**
    * Custom slot for profile header content
    */
@@ -232,6 +268,9 @@ export function LinkPageGridCards({
   logo,
   logoSlot,
   logoClassName,
+  logoAspect,
+  logoBannerImage,
+  logoBannerAspect,
   profileSlot,
   links,
   linksSlot,
@@ -264,17 +303,30 @@ export function LinkPageGridCards({
   patternClassName,
   optixFlowConfig,
 }: LinkPageGridCardsProps): React.JSX.Element {
+  // Banner mode requires an actual src: stored payloads routinely carry
+  // {"alt": "...", "src": null}, and those must fall back to legacy behavior.
+  const isBannerMode = logoAspect === "banner" && Boolean(logoBannerImage?.src);
+  // Stored payloads are untyped JSON, so anything can arrive here. Only the two
+  // enlarged ladders are honored explicitly; every other value ("banner",
+  // undefined, or an out-of-contract string like "portrait") collapses to the
+  // legacy horizontal ladder, so the class-table lookups below can never miss
+  // and emit a box/img with no size classes.
+  const resolvedLogoAspect: BrandLogoAspect =
+    logoAspect === "square" || logoAspect === "vertical"
+      ? logoAspect
+      : "horizontal";
+
   const renderProfile = useMemo(() => {
     if (profileSlot) return profileSlot;
 
-    const resolvedAvatar: ImageItem | undefined =
-      avatar ||
-      (avatarUrl
+    const resolvedAvatar: ImageItem | undefined = avatar?.src
+      ? avatar
+      : avatarUrl
         ? {
             src: avatarUrl,
             alt: typeof name === "string" ? name : "Profile avatar",
           }
-        : undefined);
+        : undefined;
 
     return (
       <div
@@ -283,31 +335,38 @@ export function LinkPageGridCards({
           headerClassName,
         )}
       >
-        <div
-          className={cn(
-            "flex h-20 w-full max-w-56 items-center justify-center sm:h-24 sm:max-w-72",
-            avatarClassName,
-          )}
-        >
-          {logo ? (
-            <BrandLogo
-              logo={logo}
-              logoSlot={logoSlot}
-              size="xl"
-              logoClassName={cn("mb-2", logoClassName)}
-              optixFlowConfig={optixFlowConfig}
-            />
-          ) : logoSlot ? (
-            logoSlot
-          ) : resolvedAvatar ? (
-            <Img
-              src={resolvedAvatar.src}
-              alt={resolvedAvatar.alt}
-              className="h-auto max-h-20 w-auto max-w-full object-contain sm:max-h-24"
-              optixFlowConfig={optixFlowConfig}
-            />
-          ) : null}
-        </div>
+        {isBannerMode ? null : (
+          <div
+            className={cn(
+              LINK_PAGE_LOGO_BOX_CLASSES_A[resolvedLogoAspect],
+              avatarClassName,
+            )}
+          >
+            {/* `logo?.src`, not `logo`: BrandLogo returns null for a src-less
+                logo, so a stored {"alt": "...", "src": null} object would
+                otherwise win the ladder and leave an EMPTY medallion box
+                instead of falling through to logoSlot / the avatar. */}
+            {logo?.src ? (
+              <BrandLogo
+                logo={logo}
+                logoSlot={logoSlot}
+                size="xl"
+                aspect={resolvedLogoAspect}
+                logoClassName={cn("mb-2", logoClassName)}
+                optixFlowConfig={optixFlowConfig}
+              />
+            ) : logoSlot ? (
+              logoSlot
+            ) : resolvedAvatar ? (
+              <Img
+                src={resolvedAvatar.src}
+                alt={resolvedAvatar.alt}
+                className={LINK_PAGE_LOGO_IMG_CLASSES_A[resolvedLogoAspect]}
+                optixFlowConfig={optixFlowConfig}
+              />
+            ) : null}
+          </div>
+        )}
 
         <div className="space-y-1">
           {name &&
@@ -332,6 +391,8 @@ export function LinkPageGridCards({
     logo,
     logoSlot,
     logoClassName,
+    isBannerMode,
+    resolvedLogoAspect,
     avatar,
     avatarUrl,
     avatarClassName,
@@ -551,11 +612,42 @@ export function LinkPageGridCards({
       id={sectionId}
       background={background}
       spacing={spacing}
-      className={className}
+      // Banner mode only: `pt-0 md:pt-0` override whatever top padding the
+      // spacing preset resolved to (later padding utilities win by CSS order —
+      // the hero-fullscreen idiom), so the band sits flush at the very top
+      // without rewriting the consumer's spacing. `overflow-x-clip` clips the
+      // w-screen breakout's half-scrollbar overhang, which otherwise causes
+      // horizontal page scroll on classic-scrollbar browsers (Section only adds
+      // overflow-hidden when a pattern is set). Non-banner renders pass
+      // `className` through untouched → byte-identical legacy output.
+      className={
+        isBannerMode ? cn("overflow-x-clip pt-0 md:pt-0", className) : className
+      }
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
     >
+      {isBannerMode && logoBannerImage ? (
+        <div
+          data-slot="link-page-banner"
+          className={cn(
+            LINK_PAGE_BANNER_BREAKOUT_CLASSES,
+            // An out-of-contract stored value (e.g. "16:9") must not collapse
+            // the band to zero height — fall back to the standard ratio.
+            LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES[
+              logoBannerAspect ?? "standard"
+            ] ?? LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES.standard,
+          )}
+        >
+          <Img
+            src={logoBannerImage.src}
+            alt={logoBannerImage.alt}
+            className="size-full object-cover"
+            optixFlowConfig={optixFlowConfig}
+            loading="eager"
+          />
+        </div>
+      ) : null}
       <div
         className={cn(
           "flex min-h-screen w-full items-start justify-center py-12",

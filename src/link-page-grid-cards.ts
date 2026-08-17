@@ -13,3 +13,7 @@ export type {
   GridCardLink,
   GridCardSocialLink,
 } from "../components/blocks/link-page/link-page-grid-cards";
+export type {
+  LinkPageLogoAspect,
+  LinkPageLogoBannerAspect,
+} from "../components/blocks/link-page/logo-aspect";
