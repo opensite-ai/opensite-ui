@@ -472,20 +472,33 @@ describe("LinkPageBentoLayout", () => {
       expect(banner).toHaveClass(
         "relative",
         "left-1/2",
+        "flex",
         "w-screen",
         "max-w-none",
         "-translate-x-1/2",
-        "overflow-hidden",
+        "items-center",
+        "justify-center",
         "aspect-[16/7]",
-        "max-h-[60vh]",
         "mb-8",
         "sm:mb-10",
       );
+      // Neither the tier height cap nor overflow-hidden may sit on the band:
+      // both clip artwork taller than the reserved ratio (browser-verified).
+      expect(banner).not.toHaveClass("max-h-[60vh]");
+      expect(banner).not.toHaveClass("overflow-hidden");
 
       const bannerImg = within(banner as HTMLElement).getByAltText(
         "Storefront at golden hour",
       );
-      expect(bannerImg).toHaveClass("size-full", "object-cover");
+      expect(bannerImg).toHaveClass(
+        "h-auto",
+        "max-h-[60vh]",
+        "w-full",
+        "object-contain",
+      );
+      // The banner artwork is never cropped and never stretched to the band.
+      expect(bannerImg).not.toHaveClass("object-cover");
+      expect(bannerImg).not.toHaveClass("size-full");
       expect(bannerImg).toHaveAttribute("src", BANNER.src);
 
       // medallion ladder is replaced by the banner
@@ -602,9 +615,17 @@ describe("LinkPageBentoLayout", () => {
         />,
       );
 
+      // Box reserves the tier SHAPE only; the tier height cap lives on the
+      // image, where it letterboxes instead of clipping the artwork.
       expect(
         container.querySelector('[data-slot="link-page-banner"]'),
-      ).toHaveClass("aspect-[3/1]", "max-h-[50vh]");
+      ).toHaveClass("aspect-[3/1]");
+      expect(
+        container.querySelector('[data-slot="link-page-banner"]'),
+      ).not.toHaveClass("max-h-[50vh]");
+      expect(
+        container.querySelector('[data-slot="link-page-banner"] img'),
+      ).toHaveClass("max-h-[50vh]", "object-contain");
 
       rerender(
         <LinkPageBentoLayout
@@ -617,7 +638,13 @@ describe("LinkPageBentoLayout", () => {
 
       expect(
         container.querySelector('[data-slot="link-page-banner"]'),
-      ).toHaveClass("aspect-[4/1]", "max-h-[40vh]");
+      ).toHaveClass("aspect-[4/1]");
+      expect(
+        container.querySelector('[data-slot="link-page-banner"]'),
+      ).not.toHaveClass("max-h-[40vh]");
+      expect(
+        container.querySelector('[data-slot="link-page-banner"] img'),
+      ).toHaveClass("max-h-[40vh]", "object-contain");
     });
   });
 
@@ -761,12 +788,24 @@ describe("LinkPageBentoLayout untyped-payload enum hardening", () => {
     ).toHaveClass(
       "relative",
       "left-1/2",
+      "flex",
       "w-screen",
       "max-w-none",
       "-translate-x-1/2",
-      "overflow-hidden",
+      "items-center",
+      "justify-center",
       "aspect-[16/7]",
-      "max-h-[60vh]",
     );
+    // Neither the tier height cap nor overflow-hidden may sit on the band:
+    // both clip artwork taller than the reserved ratio (browser-verified).
+    expect(
+      container.querySelector('[data-slot="link-page-banner"]'),
+    ).not.toHaveClass("max-h-[60vh]");
+    expect(
+      container.querySelector('[data-slot="link-page-banner"]'),
+    ).not.toHaveClass("overflow-hidden");
+    expect(
+      container.querySelector('[data-slot="link-page-banner"] img'),
+    ).toHaveClass("h-auto", "max-h-[60vh]", "w-full", "object-contain");
   });
 });

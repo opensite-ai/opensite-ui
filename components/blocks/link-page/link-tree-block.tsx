@@ -25,8 +25,10 @@ import type { LogoConfig } from "../navbars/types";
 import {
   LINK_PAGE_BANNER_BREAKOUT_CLASSES,
   LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES,
+  LINK_PAGE_LOGO_BANNER_IMG_CLASSES,
   LINK_PAGE_LOGO_BOX_CLASSES_B,
   LINK_PAGE_LOGO_IMG_CLASSES_B,
+  resolveLinkPageBannerOptixFlowConfig,
   type LinkPageLogoAspect,
   type LinkPageLogoBannerAspect,
 } from "./logo-aspect";
@@ -125,12 +127,18 @@ export interface LinkTreeBlockProps {
   /**
    * Full-bleed banner image rendered edge-to-edge (100vw) at the very top of the
    * page. Only rendered when logoAspect is "banner". Requires an absolute https
-   * src and descriptive alt text.
+   * src and descriptive alt text. The image is never cropped — it renders
+   * full-width at its natural aspect ratio, so artwork carrying text or labels
+   * stays fully visible.
    */
   logoBannerImage?: ImageItem;
   /**
-   * Aspect ratio of the full-bleed banner band: "standard" (~16:7, default),
-   * "wide" (3:1), or "ultrawide" (4:1).
+   * Aspect ratio of the full-bleed banner band: "standard" (~16:7 reserved band,
+   * max 60vh), "wide" (3:1, max 50vh), "ultrawide" (4:1, max 40vh). The reserved
+   * shape only holds until the image loads — the banner image always renders
+   * full-width at its natural aspect ratio and is NEVER cropped, so artwork with
+   * text or labels stays fully visible; the max height caps the band
+   * (letterboxing, not cropping, when it binds).
    * @default "standard"
    */
   logoBannerAspect?: LinkPageLogoBannerAspect;
@@ -444,6 +452,9 @@ export function LinkTreeBlock({
   const bannerAspectClasses =
     LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES[logoBannerAspect ?? "standard"] ??
     LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES.standard;
+  const bannerImgClasses =
+    LINK_PAGE_LOGO_BANNER_IMG_CLASSES[logoBannerAspect ?? "standard"] ??
+    LINK_PAGE_LOGO_BANNER_IMG_CLASSES.standard;
 
   const [lightboxOpen, setLightboxOpen] = React.useState(false);
   const [lightboxIndex, setLightboxIndex] = React.useState(0);
@@ -970,8 +981,15 @@ export function LinkTreeBlock({
           <Img
             src={logoBannerImage.src}
             alt={logoBannerImage.alt}
-            className="size-full object-cover"
-            optixFlowConfig={optixFlowConfig}
+            // Natural-ratio, full-width, capped by the tier's max-h — never
+            // cropped (bannerImgClasses carries the same fallback hardening).
+            className={bannerImgClasses}
+            // Forces fit=contain on the CDN transform too: without it the
+            // site-wide OptixFlow global (apiKey, no objectFit) wins outright
+            // and the fetched asset arrives ALREADY cover-cropped.
+            optixFlowConfig={resolveLinkPageBannerOptixFlowConfig(
+              optixFlowConfig,
+            )}
             loading="eager"
           />
         </div>

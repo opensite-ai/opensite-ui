@@ -2718,6 +2718,9 @@ describe("BLOCK_REGISTRY link-page logo placement contracts", () => {
       expect(slot?.preferredAspect, id).toBe("3:1");
       expect(slot?.required, id).toBe(false);
       expect(slot?.note ?? "", id).toMatch(/logoAspect is "banner"/);
+      // Post-deploy banner-contain patch: the band never crops the artwork, so
+      // the slot note must not go back to advertising a cropped cover band.
+      expect(slot?.note ?? "", id).toMatch(/never cropped/);
     }
   });
 
@@ -2757,6 +2760,9 @@ describe("BLOCK_REGISTRY link-page logo placement contracts", () => {
       expect(constraints["logoBannerImage.src"]?.note ?? "", id).toMatch(
         /Absolute https URL/,
       );
+      expect(constraints["logoBannerImage.src"]?.note ?? "", id).toMatch(
+        /never cropped/,
+      );
 
       expect(constraints.logoBannerAspect, id).toMatchObject({
         required: false,
@@ -2765,6 +2771,9 @@ describe("BLOCK_REGISTRY link-page logo placement contracts", () => {
       for (const value of ["standard", "wide", "ultrawide"]) {
         expect(bannerAspectNote, `${id}:${value}`).toContain(`"${value}"`);
       }
+      // The enum is a reserved shape + height cap, never a crop instruction.
+      expect(bannerAspectNote, id).toMatch(/never crops/);
+      expect(bannerAspectNote, id).toMatch(/letterboxed/);
     }
   });
 
@@ -2806,6 +2815,7 @@ describe("BLOCK_REGISTRY link-page logo placement contracts", () => {
       expect(notes, id).toMatch(/square icon\/mark/);
       expect(notes, id).toMatch(/stacked or portrait logo/);
       expect(notes, id).toMatch(/omit both otherwise/);
+      expect(notes, id).toMatch(/NEVER cropped/);
       expect(notes, id).toMatch(/logo takes priority over avatar/);
     }
   });

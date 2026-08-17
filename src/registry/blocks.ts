@@ -3778,7 +3778,7 @@ const linkPageCapabilities = (...capabilities: SiteCapability[]) =>
 const LINK_PAGE_LOGO_USAGE_NOTES = [
   "Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites.",
   `Pick logoAspect from the user's asset or words: square icon/mark → "square"; stacked or portrait logo → "vertical"; "banner across the top" / wide cover image → "banner" with logoBannerImage. Default wide wordmark → "horizontal" (or omit).`,
-  `Only set logoAspect:"banner" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise.`,
+  `Only set logoAspect:"banner" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. The banner always renders edge-to-edge at the image's NATURAL aspect ratio and is NEVER cropped, so banner artwork containing text or labels is safe; logoBannerAspect only sets the reserved pre-load band shape and the maximum band height ("standard" ~16:7 capped at 60vh (default), "wide" 3:1 capped at 50vh, "ultrawide" 4:1 capped at 40vh), and a very tall image is letterboxed at that cap rather than cropped. Wide artwork (~3:1) still looks best.`,
   "logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
 ].join(" ");
 
@@ -3794,11 +3794,11 @@ const LINK_PAGE_LOGO_PROP_CONSTRAINTS = {
   },
   "logoBannerImage.src": {
     required: false,
-    note: 'Absolute https URL. Only rendered when logoAspect is "banner".',
+    note: 'Absolute https URL. Only rendered when logoAspect is "banner". The image is shown full width at its natural aspect ratio and is never cropped, so artwork with text or labels baked in stays fully readable.',
   },
   logoBannerAspect: {
     required: false,
-    note: '"standard" (~16:7, default), "wide" (3:1), "ultrawide" (4:1).',
+    note: 'Reserved pre-load band shape plus the maximum band height — it never crops the image: "standard" (~16:7, capped at 60vh, default), "wide" (3:1, capped at 50vh), "ultrawide" (4:1, capped at 40vh). A very tall image is letterboxed at the cap instead of being cropped.',
   },
 };
 
@@ -3845,7 +3845,7 @@ const linkPageAvatarSlot = (
 const linkPageLogoBannerSlot = (): BlockMediaSlot =>
   imageSlot(
     "logoBannerImage.src",
-    'Full-bleed banner image rendered edge-to-edge at the very top of the page. Only used when logoAspect is "banner".',
+    'Full-bleed banner image rendered edge-to-edge at the very top of the page at its natural aspect ratio — never cropped, so text or labels inside the artwork stay intact. Wide artwork (~3:1) fills the band best; a very tall image is letterboxed at the logoBannerAspect height cap. Only used when logoAspect is "banner".',
     ["hero", "background"],
     "large",
     false,

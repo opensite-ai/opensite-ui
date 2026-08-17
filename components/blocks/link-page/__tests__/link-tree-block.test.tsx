@@ -415,13 +415,18 @@ describe("LinkTreeBlock logo aspect + full-bleed banner", () => {
     expect(banner).toHaveClass(
       "relative",
       "left-1/2",
+      "flex",
       "w-screen",
       "max-w-none",
       "-translate-x-1/2",
-      "overflow-hidden",
+      "items-center",
+      "justify-center",
       "aspect-[16/7]",
-      "max-h-[60vh]",
     );
+    // Neither the tier height cap nor overflow-hidden may sit on the band:
+    // both clip artwork taller than the reserved ratio (browser-verified).
+    expect(banner).not.toHaveClass("max-h-[60vh]");
+    expect(banner).not.toHaveClass("overflow-hidden");
     // The block's inner layout div already supplies py-12, so the banner must
     // NOT add its own bottom margin (design §2.2 "decide per block").
     expect(banner).not.toHaveClass("mb-8", "sm:mb-10");
@@ -429,7 +434,15 @@ describe("LinkTreeBlock logo aspect + full-bleed banner", () => {
     const bannerImg = banner.querySelector("img") as HTMLImageElement;
     expect(bannerImg).toHaveAttribute("src", BANNER.src);
     expect(bannerImg).toHaveAttribute("alt", BANNER.alt);
-    expect(bannerImg).toHaveClass("size-full", "object-cover");
+    expect(bannerImg).toHaveClass(
+      "h-auto",
+      "max-h-[60vh]",
+      "w-full",
+      "object-contain",
+    );
+    // The banner artwork is never cropped and never stretched to the band.
+    expect(bannerImg).not.toHaveClass("object-cover");
+    expect(bannerImg).not.toHaveClass("size-full");
 
     // Medallion ladder (box + logo + avatar) is replaced by the banner.
     expect(getBox()).toBeNull();
@@ -559,8 +572,15 @@ describe("LinkTreeBlock logo aspect + full-bleed banner", () => {
         logoBannerAspect="wide"
       />,
     );
-    expect(getBanner()).toHaveClass("aspect-[3/1]", "max-h-[50vh]");
+    // Box reserves the tier SHAPE only; the tier height cap lives on the
+    // image, where it letterboxes instead of clipping the artwork.
+    expect(getBanner()).toHaveClass("aspect-[3/1]");
     expect(getBanner()).not.toHaveClass("aspect-[16/7]");
+    expect(getBanner()).not.toHaveClass("max-h-[50vh]");
+    expect(getBanner()?.querySelector("img")).toHaveClass(
+      "max-h-[50vh]",
+      "object-contain",
+    );
 
     rerender(
       <LinkTreeBlock
@@ -570,7 +590,12 @@ describe("LinkTreeBlock logo aspect + full-bleed banner", () => {
         logoBannerAspect="ultrawide"
       />,
     );
-    expect(getBanner()).toHaveClass("aspect-[4/1]", "max-h-[40vh]");
+    expect(getBanner()).toHaveClass("aspect-[4/1]");
+    expect(getBanner()).not.toHaveClass("max-h-[40vh]");
+    expect(getBanner()?.querySelector("img")).toHaveClass(
+      "max-h-[40vh]",
+      "object-contain",
+    );
 
     rerender(
       <LinkTreeBlock
@@ -580,7 +605,12 @@ describe("LinkTreeBlock logo aspect + full-bleed banner", () => {
         logoBannerAspect="standard"
       />,
     );
-    expect(getBanner()).toHaveClass("aspect-[16/7]", "max-h-[60vh]");
+    expect(getBanner()).toHaveClass("aspect-[16/7]");
+    expect(getBanner()).not.toHaveClass("max-h-[60vh]");
+    expect(getBanner()?.querySelector("img")).toHaveClass(
+      "max-h-[60vh]",
+      "object-contain",
+    );
   });
 
   it("renders the website-1124 payload shape with legacy xl classes and no null-src img", () => {
@@ -798,12 +828,24 @@ describe("LinkTreeBlock untyped-payload enum hardening", () => {
     ).toHaveClass(
       "relative",
       "left-1/2",
+      "flex",
       "w-screen",
       "max-w-none",
       "-translate-x-1/2",
-      "overflow-hidden",
+      "items-center",
+      "justify-center",
       "aspect-[16/7]",
-      "max-h-[60vh]",
     );
+    // Neither the tier height cap nor overflow-hidden may sit on the band:
+    // both clip artwork taller than the reserved ratio (browser-verified).
+    expect(
+      container.querySelector('[data-slot="link-page-banner"]'),
+    ).not.toHaveClass("max-h-[60vh]");
+    expect(
+      container.querySelector('[data-slot="link-page-banner"]'),
+    ).not.toHaveClass("overflow-hidden");
+    expect(
+      container.querySelector('[data-slot="link-page-banner"] img'),
+    ).toHaveClass("h-auto", "max-h-[60vh]", "w-full", "object-contain");
   });
 });
