@@ -31,7 +31,8 @@ const exportCategories = {
   uiComponents: {},
   hooks: {},
   blocks: {},
-  utils: {}
+  utils: {},
+  rootModules: {}
 };
 
 // Core exports
@@ -52,37 +53,49 @@ for (const [key, value] of Object.entries(packageJson.exports)) {
   }
 }
 
-// Blocks by category
-const blockCategories = [
-  'about', 'article', 'background-pattern-hero', 'banner', 'blog', 'carousel',
-  'case-studies-list', 'case-study-detail', 'comparison', 'contact', 'cta',
-  'faq', 'features', 'footers', 'gallery', 'hero', 'industries', 'link-page',
-  'list', 'logos', 'navbars', 'offer-modal', 'pricing', 'process',
-  'project-detail', 'project-list', 'resource-detail', 'resource-list',
-  'reviews', 'service-detail', 'services-list', 'stats', 'team', 'timeline'
-];
-
+// Blocks by category.
+//
+// Derived from the exports themselves rather than a hand-maintained list: the
+// previous hard-coded array had drifted out of sync with
+// generate-all-exports.sh (it listed a dead `reviews` category and omitted
+// `testimonials`, silently dropping 23 real exports from the organized tree).
 const blockExports = {};
-for (const category of blockCategories) {
-  blockExports[category] = {};
-}
 
 for (const [key, value] of Object.entries(packageJson.exports)) {
   if (key.startsWith("./blocks/")) {
     const parts = key.split("/");
     const category = parts[2]; // blocks/category/component
-    if (blockCategories.includes(category)) {
-      if (!blockExports[category]) blockExports[category] = {};
-      blockExports[category][key] = value;
-    }
+    if (!category) continue;
+    if (!blockExports[category]) blockExports[category] = {};
+    blockExports[category][key] = value;
   }
 }
 
+const blockCategories = Object.keys(blockExports).sort();
+
 // Utils, registry, types
+const UTIL_EXPORT_KEYS = ["./utils", "./registry", "./types"];
 for (const [key, value] of Object.entries(packageJson.exports)) {
-  if (key === "./utils" || key === "./registry" || key === "./types") {
+  if (UTIL_EXPORT_KEYS.includes(key)) {
     exportCategories.utils[key] = value;
   }
+}
+
+// Standalone root-level modules (shared primitives that are neither a block nor
+// a components/ui component — e.g. ./script-loader, emitted by
+// generate-all-exports.sh into scripts/manifests/root-modules.json and merged
+// by merge-exports.js).
+//
+// Rule rather than allowlist: ANY single-segment subpath that is not already
+// bucketed above lands here, so the next root-level export cannot be silently
+// dropped from the organized tree (which is exactly what happened to
+// ./script-loader).
+const ALREADY_BUCKETED_ROOT_KEYS = new Set([".", "./components", ...UTIL_EXPORT_KEYS]);
+for (const [key, value] of Object.entries(packageJson.exports)) {
+  if (ALREADY_BUCKETED_ROOT_KEYS.has(key)) continue;
+  if (key.startsWith("./hooks")) continue; // hooks bucket owns ./hooks
+  if (!/^\.\/[^/]+$/.test(key)) continue; // must be a single-segment subpath
+  exportCategories.rootModules[key] = value;
 }
 
 // Write core exports
@@ -109,6 +122,12 @@ fs.writeFileSync(
   JSON.stringify(exportCategories.utils, null, 2)
 );
 
+// Write root module exports
+fs.writeFileSync(
+  path.join(exportsDir, 'root-modules.json'),
+  JSON.stringify(exportCategories.rootModules, null, 2)
+);
+
 // Write block category exports
 const blocksDir = path.join(exportsDir, 'blocks');
 if (!fs.existsSync(blocksDir)) {
@@ -124,6 +143,18 @@ for (const [category, exports] of Object.entries(blockExports)) {
   }
 }
 
+// Prune organized-tree files for categories that no longer have any exports, so
+// a removed category cannot linger as an orphan documenting dead subpaths (this
+// is how exports/blocks/reviews.json outlived the `reviews` category itself).
+for (const file of fs.readdirSync(blocksDir)) {
+  if (!file.endsWith('.json')) continue;
+  const category = file.slice(0, -'.json'.length);
+  if (!blockExports[category] || Object.keys(blockExports[category]).length === 0) {
+    console.log(`  Removing orphaned export doc for dead category: ${category}`);
+    fs.unlinkSync(path.join(blocksDir, file));
+  }
+}
+
 // Generate a master export file that references all category files
 const masterExport = {
   "description": "Master export map for @opensite/ui",
@@ -134,7 +165,8 @@ const masterExport = {
     "blocks": Object.fromEntries(
       blockCategories.map(cat => [cat, `./exports/blocks/${cat}.json`])
     ),
-    "utils": "./exports/utils.json"
+    "utils": "./exports/utils.json",
+    "rootModules": "./exports/root-modules.json"
   },
   "stats": {
     "totalExports": Object.keys(packageJson.exports).length,
@@ -142,7 +174,8 @@ const masterExport = {
     "uiComponentExports": Object.keys(exportCategories.uiComponents).length,
     "hooksExports": Object.keys(exportCategories.hooks).length,
     "blockExports": Object.values(blockExports).reduce((sum, cat) => sum + Object.keys(cat).length, 0),
-    "utilExports": Object.keys(exportCategories.utils).length
+    "utilExports": Object.keys(exportCategories.utils).length,
+    "rootModuleExports": Object.keys(exportCategories.rootModules).length
   }
 };
 
@@ -157,6 +190,7 @@ console.log(`   UI component exports: ${masterExport.stats.uiComponentExports}`)
 console.log(`   Hooks exports: ${masterExport.stats.hooksExports}`);
 console.log(`   Block exports: ${masterExport.stats.blockExports}`);
 console.log(`   Util exports: ${masterExport.stats.utilExports}`);
+console.log(`   Root module exports: ${masterExport.stats.rootModuleExports}`);
 console.log(`   Total: ${masterExport.stats.totalExports}`);
 console.log(`\n📁 Export files created in ./exports/`);
 console.log(`   - exports/index.json (master index)`);
@@ -164,6 +198,7 @@ console.log(`   - exports/core.json`);
 console.log(`   - exports/ui-components.json`);
 console.log(`   - exports/hooks.json`);
 console.log(`   - exports/utils.json`);
+console.log(`   - exports/root-modules.json`);
 console.log(`   - exports/blocks/*.json (${blockCategories.length} category files)`);
 
 // Create a README for the exports directory
@@ -178,6 +213,7 @@ This directory contains organized export maps for the @opensite/ui package.
 - \`ui-components.json\` - All UI component exports
 - \`hooks.json\` - React hooks exports
 - \`utils.json\` - Utility exports (registry, types, utils)
+- \`root-modules.json\` - Standalone root-level primitives (e.g. \`./script-loader\`)
 - \`blocks/\` - Block exports organized by category
 
 ## Usage

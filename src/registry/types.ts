@@ -41,7 +41,12 @@ export type BlockCategory =
   | "service-detail"
   | "services-list"
   | "resource-list"
-  | "link-page";
+  | "link-page"
+  // Embed / third-party integration categories. `advanced` holds owner-supplied
+  // embed blocks (iframes, script tags); `integrations` holds blocks that wrap a
+  // specific named third-party product.
+  | "advanced"
+  | "integrations";
 
 /**
  * Semantic role hints for a media slot. Consumers (semantic site builders,

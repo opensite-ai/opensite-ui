@@ -1,0 +1,17 @@
+{
+  "./blocks/advanced/free-form-design": {
+    "types": "./dist/free-form-design.d.ts",
+    "import": "./dist/free-form-design.js",
+    "require": "./dist/free-form-design.cjs"
+  },
+  "./blocks/advanced/iframe-embed": {
+    "types": "./dist/iframe-embed.d.ts",
+    "import": "./dist/iframe-embed.js",
+    "require": "./dist/iframe-embed.cjs"
+  },
+  "./blocks/advanced/script-embed": {
+    "types": "./dist/script-embed.d.ts",
+    "import": "./dist/script-embed.js",
+    "require": "./dist/script-embed.cjs"
+  }
+}

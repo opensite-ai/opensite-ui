@@ -46,15 +46,24 @@ const newExports = {
   "./components": packageJson.exports["./components"],
 };
 
-// Add organized block categories
-const blockCategories = [
-  'about', 'article', 'background-pattern-hero', 'banner', 'blog', 'carousel',
-  'case-studies-list', 'case-study-detail', 'comparison', 'contact', 'cta',
-  'faq', 'features', 'footers', 'gallery', 'hero', 'industries', 'link-page',
-  'list', 'logos', 'navbars', 'offer-modal', 'pricing', 'process',
-  'project-detail', 'project-list', 'resource-detail', 'resource-list',
-  'reviews', 'service-detail', 'services-list', 'stats', 'team', 'timeline'
-];
+// Add organized block categories.
+//
+// DERIVED from the manifests generate-all-exports.sh actually produced — never
+// hand-maintained. A literal list here is a silent-drop trap: any category
+// missing from it contributes zero exports, and the "uncategorized" catch-all
+// at the bottom of this file can only rescue subpaths that are ALREADY in
+// package.json, so a brand-new block in a missed category is dropped outright
+// (consumers then hit ERR_PACKAGE_PATH_NOT_EXPORTED while this script exits 0).
+// That is exactly what happened to `testimonials` while the list still carried
+// a dead `reviews` entry. create-organized-exports.js derives the same way, and
+// generate-all-exports.sh derives from components/blocks/*/ — one source of
+// truth: the filesystem.
+const blockCategories = Object.keys(exportsByCategory)
+  .filter((key) => key.startsWith('blocks-'))
+  .map((key) => key.slice('blocks-'.length))
+  .sort();
+
+console.log(`Derived ${blockCategories.length} block categories from manifests`);
 
 // Add all block exports organized by category
 for (const category of blockCategories) {
@@ -82,6 +91,23 @@ for (const category of blockCategories) {
 // Add UI component exports
 const uiExports = exportsByCategory['ui-components'] || [];
 for (const exp of uiExports) {
+  const existingExport = packageJson.exports[exp.path];
+  if (existingExport) {
+    totalExistingExports++;
+    newExports[exp.path] = existingExport;
+  } else {
+    totalNewExports++;
+    newExports[exp.path] = {
+      "types": exp.types,
+      "import": exp.import,
+      "require": exp.require
+    };
+  }
+}
+
+// Add standalone root module exports (shared primitives such as ./script-loader)
+const rootModuleExports = exportsByCategory['root-modules'] || [];
+for (const exp of rootModuleExports) {
   const existingExport = packageJson.exports[exp.path];
   if (existingExport) {
     totalExistingExports++;

@@ -2206,6 +2206,361 @@ describe("BLOCK_REGISTRY hero category contracts", () => {
 
 
 
+/* ========================================================================== */
+/* advanced + integrations categories                                          */
+/*                                                                             */
+/* These suites derive their members from the registry instead of a hard-coded */
+/* id list, so a category with zero blocks still passes while every block that */
+/* DOES land is held to the category rules. Blocks in these two categories     */
+/* carry owner-supplied third-party code, so the verbatim-code rule is         */
+/* asserted here as a contract, not left to prose review.                      */
+/* ========================================================================== */
+
+const EMBED_CATEGORIES = ["advanced", "integrations"] as const;
+
+/** Blocks that must exist once this round lands. */
+const PINNED_EMBED_BLOCK_IDS: Record<string, string[]> = {
+  advanced: ["iframe-embed", "script-embed", "free-form-design"],
+  integrations: ["tripleseat-form"],
+};
+
+/**
+ * Blocks whose payload is literal owner-supplied third-party code, i.e. exactly
+ * the block_refs Octane's verbatim guard covers (DESIGN-CONTRACT §6.1). Only
+ * these need the "copy it exactly, never invent it" instruction in their notes;
+ * `advanced/free-form-design` is deliberately NOT in scope — its payload is an
+ * AI-authored design tree, not pasted third-party code.
+ */
+const VERBATIM_SCOPE_BLOCK_IDS = [
+  "iframe-embed",
+  "script-embed",
+  "tripleseat-form",
+] as const;
+
+/** Runtime mirror of the `SiteCapability` union in `./types`. */
+const KNOWN_SITE_CAPABILITIES = [
+  "reviews_or_testimonials",
+  "pricing",
+  "pricing_data",
+  "team_members",
+  "blog_posts",
+  "portfolio_items",
+  "case_studies",
+  "locations",
+  "events",
+  "products",
+  "services",
+  "stats_or_metrics",
+  "metrics_or_stats",
+  "product_catalog",
+  "media_library",
+  "contact_form",
+  "video_assets",
+  "contact_info",
+  "instagram_media",
+];
+
+function blockIdsInCategory(category: string): string[] {
+  return Object.values(BLOCK_REGISTRY)
+    .filter((entry) => entry.category === category)
+    .map((entry) => entry.id)
+    .sort();
+}
+
+/** Collect every string value whose key looks like a URL or URL list. */
+function collectUrlStrings(value: unknown, path: string[] = []): string[] {
+  if (typeof value === "string") {
+    const pathText = path.join(".");
+    return /url/i.test(pathText) ? [value] : [];
+  }
+
+  if (Array.isArray(value)) {
+    return value.flatMap((item, index) =>
+      collectUrlStrings(item, [...path, String(index)]),
+    );
+  }
+
+  if (value && typeof value === "object") {
+    return Object.entries(value).flatMap(([key, item]) =>
+      collectUrlStrings(item, [...path, key]),
+    );
+  }
+
+  return [];
+}
+
+for (const category of EMBED_CATEGORIES) {
+  describe(`BLOCK_REGISTRY ${category} category contracts`, () => {
+    it(`registers every block Workstream A pins for the ${category} category`, () => {
+      const ids = blockIdsInCategory(category);
+
+      for (const pinned of PINNED_EMBED_BLOCK_IDS[category]) {
+        expect(ids, category).toContain(pinned);
+      }
+    });
+
+    it(`declares structured usage requirements and exampleProps for every ${category} block`, () => {
+      for (const id of blockIdsInCategory(category)) {
+        const entry = BLOCK_REGISTRY[id];
+
+        expect(entry, id).toBeDefined();
+        expect(entry.importantUsageNotes, id).toBeTruthy();
+        expect(entry.usageRequirements, id).toBeDefined();
+        expect(entry.usageRequirements?.requiredProps, id).toBeDefined();
+        expect(entry.usageRequirements?.propConstraints, id).toBeDefined();
+        expect(entry.usageRequirements?.mediaSlots, id).toBeDefined();
+        expect(entry.exampleProps, id).toBeDefined();
+        expect(
+          (entry as unknown as Record<string, unknown>).defaultProps,
+          id,
+        ).toBeUndefined();
+      }
+    });
+
+    it(`carries the verbatim-code rule in every verbatim-scope ${category} block`, () => {
+      const ids = blockIdsInCategory(category).filter((id) =>
+        (VERBATIM_SCOPE_BLOCK_IDS as readonly string[]).includes(id),
+      );
+
+      for (const id of ids) {
+        // These blocks paste real third-party code. The model must be told, in
+        // the notes that become HARD CONSTRAINTS, never to invent it.
+        expect(BLOCK_REGISTRY[id].importantUsageNotes, id).toMatch(
+          /exactly|verbatim/i,
+        );
+      }
+    });
+
+    it(`declares a semantic tag set and description for every ${category} block`, () => {
+      for (const id of blockIdsInCategory(category)) {
+        const entry = BLOCK_REGISTRY[id];
+
+        expect(entry.description.length, id).toBeGreaterThan(40);
+        expect(entry.semanticTags.length, id).toBeGreaterThanOrEqual(6);
+        expect(entry.props, id).toMatch(/Props$/);
+      }
+    });
+
+    it(`does not use legacy defaultData for ${category} blocks in the builder contract`, () => {
+      const bundle = createBuilderContractBundle({
+        blocks: Object.values(BLOCK_REGISTRY),
+        uiVersion: "test",
+      });
+
+      for (const id of blockIdsInCategory(category)) {
+        const block = bundle.blocks.find((item) => item.componentId === id);
+
+        expect(block, id).toBeDefined();
+        expect(block?.examples, id).toHaveProperty("exampleProps");
+        expect(block?.examples.exampleProps, id).not.toBeNull();
+        expect(block?.examples, id).not.toHaveProperty("defaultData");
+      }
+    });
+
+    it(`derives a ${category}/<id> blockRef and a page layout role`, () => {
+      const bundle = createBuilderContractBundle({
+        blocks: Object.values(BLOCK_REGISTRY),
+        uiVersion: "test",
+      });
+
+      for (const id of blockIdsInCategory(category)) {
+        const block = bundle.blocks.find((item) => item.componentId === id);
+
+        expect(block?.blockRef, id).toBe(`${category}/${id}`);
+        expect(block?.layoutRole, id).toBe("page");
+      }
+    });
+
+    it(`keeps ${category} exampleUsage and exampleProps free of relative or placeholder media`, () => {
+      for (const id of blockIdsInCategory(category)) {
+        const entry = BLOCK_REGISTRY[id];
+        const exampleText = [
+          entry.exampleUsage,
+          ...collectStrings(entry.exampleProps),
+        ].join("\n");
+
+        for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+          expect(exampleText, id).not.toMatch(pattern);
+        }
+      }
+    });
+
+    it(`uses absolute https URLs in ${category} exampleProps`, () => {
+      let assertedValues = 0;
+      let expectsValues = false;
+
+      for (const id of blockIdsInCategory(category)) {
+        const entry = BLOCK_REGISTRY[id];
+        const constraints = entry.usageRequirements?.propConstraints ?? {};
+        const slots = entry.usageRequirements?.mediaSlots ?? {};
+
+        // A block is expected to contribute at least one asserted value when it
+        // declares a media slot or a URL-shaped prop. tripleseat-form declares
+        // neither (mediaSlots: {} on purpose, no url props) and is exempt.
+        if (
+          Object.keys(slots).length > 0 ||
+          Object.keys(constraints).some((key) => /url/i.test(key))
+        ) {
+          expectsValues = true;
+        }
+
+        // `collectUrlStrings` only fires when the accumulated PATH contains
+        // "url", which covers embedUrl/scriptUrl but NOT free-form-design's
+        // example image at designTree.children.1.attrs.src. On its own this
+        // suite was vacuous for exactly the block whose media the model
+        // pattern-copies, so it is paired with the media collector the rest of
+        // this file uses.
+        const mediaStrings = collectMediaStrings(entry.exampleProps);
+        const values = [...collectUrlStrings(entry.exampleProps), ...mediaStrings];
+
+        // Non-vacuity per block: anything declaring a media slot must ship a
+        // media value in its example (same guard the other category suites
+        // use).
+        if (Object.keys(slots).length > 0) {
+          expect(mediaStrings.length, id).toBeGreaterThan(0);
+        }
+
+        for (const value of values) {
+          expect(value, `${id}:${value}`).toMatch(/^https:\/\//);
+        }
+
+        assertedValues += values.length;
+      }
+
+      // Non-vacuity for the category as a whole: a refactor that stops
+      // collecting anything must fail here rather than pass silently.
+      if (expectsValues) {
+        expect(assertedValues, category).toBeGreaterThan(0);
+      }
+    });
+
+    it(`uses real, current site capability keys for ${category} blocks`, () => {
+      // Only the two keys with an unambiguous current replacement are banned
+      // (stats_or_metrics / pricing). `contact_info` is a live key used by 47
+      // blocks and is NOT legacy outside the about category's own migration.
+      const supersededCapabilityKeys = ["metrics_or_stats", "pricing_data"];
+
+      for (const id of blockIdsInCategory(category)) {
+        const capabilities =
+          BLOCK_REGISTRY[id].usageRequirements?.requiresSiteCapabilities ?? [];
+
+        for (const capability of supersededCapabilityKeys) {
+          expect(capabilities, id).not.toContain(capability);
+        }
+
+        for (const capability of capabilities) {
+          expect(KNOWN_SITE_CAPABILITIES, `${id}:${capability}`).toContain(
+            capability,
+          );
+        }
+      }
+    });
+
+    it(`keeps any declared ${category} media slot typed and role-restricted`, () => {
+      for (const id of blockIdsInCategory(category)) {
+        const slots = BLOCK_REGISTRY[id].usageRequirements?.mediaSlots ?? {};
+
+        for (const slot of Object.values(slots)) {
+          if (slot.path.includes(".video")) {
+            expect(slot.note, `${id}:${slot.path}`).toMatch(/VIDEO .*ONLY/i);
+            continue;
+          }
+
+          expect(slot.note, `${id}:${slot.path}`).toMatch(/IMAGE .*ONLY/i);
+          expect(slot.disallowedRoles ?? [], `${id}:${slot.path}`).toEqual(
+            expect.arrayContaining(["logo", "favicon", "video-thumbnail"]),
+          );
+        }
+      }
+    });
+  });
+}
+
+describe("advanced + integrations example-url collectors", () => {
+  it("catches a relative or http media url in the real free-form-design example shape", () => {
+    // Non-vacuity sentinel for `uses absolute https URLs in <category>
+    // exampleProps`. `collectUrlStrings` alone only fires on paths containing
+    // "url", so it collected NOTHING for free-form-design, whose example image
+    // lives at designTree.children.<n>.attrs.src — a regressed relative src
+    // would have shipped silently into the AI-visible example (and
+    // lib/free-form-tree.ts drops non-https Img nodes outright, so the symptom
+    // is an image-less section, not an error).
+    const regressed = {
+      sectionClassName: "bg-secondary",
+      embedUrl: "http://example.com/embed",
+      designTree: {
+        tag: "div",
+        children: [
+          {
+            tag: "Img",
+            attrs: { src: "/assets/hero.jpg", alt: "should not be collected" },
+          },
+        ],
+      },
+    };
+
+    const collected = [
+      ...collectUrlStrings(regressed),
+      ...collectMediaStrings(regressed),
+    ];
+
+    expect(collected).toContain("/assets/hero.jpg");
+    expect(collected).toContain("http://example.com/embed");
+    expect(collected).not.toContain("should not be collected");
+
+    for (const value of collected) {
+      expect(value).not.toMatch(/^https:\/\//);
+    }
+  });
+
+  it("collects the shipped free-form-design example image and it is absolute https", () => {
+    const mediaStrings = collectMediaStrings(
+      BLOCK_REGISTRY["free-form-design"].exampleProps,
+    );
+
+    expect(mediaStrings.length).toBeGreaterThan(0);
+    for (const value of mediaStrings) {
+      expect(value).toMatch(/^https:\/\//);
+    }
+  });
+});
+
+describe("advanced + integrations required-prop contracts", () => {
+  it("pins tripleseat-form requiredProps to the DESIGN-CONTRACT §7 set", () => {
+    expect(
+      BLOCK_REGISTRY["tripleseat-form"].usageRequirements?.requiredProps,
+    ).toEqual(["leadFormId", "publicKey", "degradedMessage", "retryLabel"]);
+  });
+
+  it("pins free-form-design requiredProps to designTree", () => {
+    expect(
+      BLOCK_REGISTRY["free-form-design"].usageRequirements?.requiredProps,
+    ).toEqual(["designTree"]);
+  });
+
+  it("keeps real TripleSeat credentials out of the registry entry", () => {
+    // The live client's lead_form_id/public_key (and the prototype's) must exist
+    // only as test fixtures — never as an example the model could copy onto
+    // someone else's site.
+    const entry = BLOCK_REGISTRY["tripleseat-form"];
+    const serialized = [
+      entry.exampleUsage,
+      entry.importantUsageNotes ?? "",
+      JSON.stringify(entry.exampleProps ?? null),
+      JSON.stringify(entry.usageRequirements ?? null),
+    ].join("\n");
+
+    for (const secret of ["40635", "3eef23", "25907", "e05666"]) {
+      expect(serialized, secret).not.toContain(secret);
+    }
+
+    // …and the placeholders that ARE there must be obviously fake.
+    const exampleProps = entry.exampleProps as Record<string, unknown>;
+    expect(exampleProps.leadFormId).toBe("12345");
+    expect(exampleProps.publicKey).toBe("your-tripleseat-public-key");
+  });
+});
+
 describe("createBuilderContractBundle output naming", () => {
   it("emits examples.exampleProps and no examples.defaultData for any block", () => {
     const allBlocks = Object.values(BLOCK_REGISTRY);

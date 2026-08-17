@@ -1,0 +1,7 @@
+{
+  "./script-loader": {
+    "types": "./dist/script-loader.d.ts",
+    "import": "./dist/script-loader.js",
+    "require": "./dist/script-loader.cjs"
+  }
+}

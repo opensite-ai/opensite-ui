@@ -9,6 +9,7 @@ This directory contains organized export maps for the @opensite/ui package.
 - `ui-components.json` - All UI component exports
 - `hooks.json` - React hooks exports
 - `utils.json` - Utility exports (registry, types, utils)
+- `root-modules.json` - Standalone root-level primitives (e.g. `./script-loader`)
 - `blocks/` - Block exports organized by category
 
 ## Usage

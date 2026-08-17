@@ -4,6 +4,16 @@ import { join } from "path";
 
 // Entry points that contain client-side React hooks and need "use client" directive
 const clientEntryNames = new Set([
+  // ---------------------------------------------------------------------------
+  // BEGIN advanced + integrations embed blocks (keep contiguous)
+  // Every block in these two categories is client-only.
+  // ---------------------------------------------------------------------------
+  "iframe-embed",
+  "script-embed",
+  "free-form-design",
+  "tripleseat-form",
+  // END advanced + integrations embed blocks
+  // ---------------------------------------------------------------------------
   "animated-dialog",
   "dynamic-icon",
   "social-link-icon",
@@ -1293,6 +1303,18 @@ const allEntries = {
   "services-list-two-column-grid": "src/services-list-two-column-grid.ts",
   "services-list-vertical-tags": "src/services-list-vertical-tags.ts",
   "services-list-video-showcase": "src/services-list-video-showcase.ts",
+  // ---------------------------------------------------------------------------
+  // BEGIN advanced + integrations embed blocks (keep contiguous)
+  // Every name here must also appear in `clientEntryNames` above (except
+  // script-loader, which is a plain module with no React).
+  // ---------------------------------------------------------------------------
+  "script-loader": "src/script-loader.ts",
+  "iframe-embed": "src/iframe-embed.ts",
+  "script-embed": "src/script-embed.ts",
+  "free-form-design": "src/free-form-design.ts",
+  "tripleseat-form": "src/tripleseat-form.ts",
+  // END advanced + integrations embed blocks
+  // ---------------------------------------------------------------------------
   registry: "src/registry.ts",
   utils: "lib/utils.ts",
   types: "src/types/index.ts",

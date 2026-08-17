@@ -6,6 +6,7 @@
     "hooks": "./exports/hooks.json",
     "blocks": {
       "about": "./exports/blocks/about.json",
+      "advanced": "./exports/blocks/advanced.json",
       "article": "./exports/blocks/article.json",
       "background-pattern-hero": "./exports/blocks/background-pattern-hero.json",
       "banner": "./exports/blocks/banner.json",
@@ -22,6 +23,7 @@
       "gallery": "./exports/blocks/gallery.json",
       "hero": "./exports/blocks/hero.json",
       "industries": "./exports/blocks/industries.json",
+      "integrations": "./exports/blocks/integrations.json",
       "link-page": "./exports/blocks/link-page.json",
       "list": "./exports/blocks/list.json",
       "logos": "./exports/blocks/logos.json",
@@ -33,21 +35,23 @@
       "project-list": "./exports/blocks/project-list.json",
       "resource-detail": "./exports/blocks/resource-detail.json",
       "resource-list": "./exports/blocks/resource-list.json",
-      "reviews": "./exports/blocks/reviews.json",
       "service-detail": "./exports/blocks/service-detail.json",
       "services-list": "./exports/blocks/services-list.json",
       "stats": "./exports/blocks/stats.json",
       "team": "./exports/blocks/team.json",
+      "testimonials": "./exports/blocks/testimonials.json",
       "timeline": "./exports/blocks/timeline.json"
     },
-    "utils": "./exports/utils.json"
+    "utils": "./exports/utils.json",
+    "rootModules": "./exports/root-modules.json"
   },
   "stats": {
-    "totalExports": 669,
+    "totalExports": 674,
     "coreExports": 2,
     "uiComponentExports": 55,
     "hooksExports": 2,
-    "blockExports": 584,
-    "utilExports": 3
+    "blockExports": 611,
+    "utilExports": 3,
+    "rootModuleExports": 1
   }
 }

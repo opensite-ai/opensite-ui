@@ -1,0 +1,7 @@
+{
+  "./blocks/integrations/tripleseat-form": {
+    "types": "./dist/tripleseat-form.d.ts",
+    "import": "./dist/tripleseat-form.js",
+    "require": "./dist/tripleseat-form.cjs"
+  }
+}

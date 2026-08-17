@@ -13,6 +13,17 @@
  * - exampleUsage: Code example showing how to use the block
  */
 
+// -----------------------------------------------------------------------------
+// BEGIN advanced + integrations embed block imports (keep contiguous)
+// INTEGRATOR: append the `free-form-design` and `tripleseat-form` imports here.
+// -----------------------------------------------------------------------------
+import { IframeEmbed } from "../../components/blocks/advanced/iframe-embed";
+import { ScriptEmbed } from "../../components/blocks/advanced/script-embed";
+import { FreeFormDesign } from "../../components/blocks/advanced/free-form-design";
+import { TripleseatForm } from "../../components/blocks/integrations/tripleseat-form";
+// END advanced + integrations embed block imports
+// -----------------------------------------------------------------------------
+
 import { AlternatingBlocks } from "../../components/blocks/about/alternating-blocks";
 import type { AlternatingBlocksProps } from "../../components/blocks/about/alternating-blocks";
 import { AboutMissionFeatures } from "../../components/blocks/about/about-mission-features";
@@ -866,6 +877,408 @@ const logoSlot = (
 });
 
 const aboutCapabilities = (...capabilities: SiteCapability[]) => capabilities;
+
+/* ========================================================================== */
+/* BEGIN advanced + integrations block contracts (keep contiguous)            */
+/*                                                                            */
+/* These two categories carry owner-supplied third-party code. Both maps are  */
+/* typed as `Record<string, …>` rather than inferred from their literal keys  */
+/* so a later integrator can land `free-form-design` / `tripleseat-form` with */
+/* ONE self-contained insertion per block (contract entry here + registry     */
+/* entry below) without also editing a key union.                             */
+/* ========================================================================== */
+
+type AdvancedBlockContract = Pick<
+  BlockRegistryEntry,
+  "exampleUsage" | "importantUsageNotes" | "usageRequirements" | "exampleProps"
+>;
+
+type IntegrationsBlockContract = Pick<
+  BlockRegistryEntry,
+  "exampleUsage" | "importantUsageNotes" | "usageRequirements" | "exampleProps"
+>;
+
+/**
+ * The single most important rule for every block in these two categories:
+ * the payload is real third-party code belonging to the site owner. It is
+ * copied, never composed. Repeated verbatim in each block's
+ * `importantUsageNotes` because those notes are what reach the model as HARD
+ * CONSTRAINTS.
+ */
+const VERBATIM_EMBED_RULE =
+  "VERBATIM CODE ONLY: copy the embed code, URL, and ids EXACTLY as the site owner supplied them — never invent, guess, shorten, complete, or 'correct' them. Never use this block unless the user actually supplied the embed. If no embed code was provided, choose a different block or leave the section out.";
+
+const EMBED_MEDIA_NOTE =
+  "This block renders third-party content, not media-library assets. It declares no media slots; do not route images, logos, or videos into its props.";
+
+// A REAL, renderable embed URL. The previous value was a hand-shortened Google
+// Maps `pb` payload that declared 1m14/1m8 member counts it never supplied, so
+// Google's embed endpoint rendered an error frame — and this string is the
+// canonical example the model copies (it reaches registry-export.json and
+// ai_semantic_components verbatim). Matches the showcase demo.
+const ADVANCED_EXAMPLE_IFRAME_URL =
+  "https://www.openstreetmap.org/export/embed.html?bbox=-87.6360%2C41.8760%2C-87.6120%2C41.8900&layer=mapnik";
+
+const ADVANCED_EXAMPLE_SCRIPT_URL =
+  "https://embed-menu-preloader.untappdapi.com/embed-menu-preloader.min.js";
+
+const ADVANCED_BLOCK_CONTRACTS: Record<string, AdvancedBlockContract> = {
+  "iframe-embed": {
+    exampleUsage: `
+<IframeEmbed
+  title="Find us"
+  embedUrl="${ADVANCED_EXAMPLE_IFRAME_URL}"
+  embedTitle="Map showing the restaurant location"
+  aspectRatio="16:9"
+  loadingStrategy="lazy"
+  referrerPolicy="strict-origin-when-cross-origin"
+/>
+    `.trim(),
+    importantUsageNotes: `Use ONLY when the site owner supplied an iframe embed (map, reservation widget, calendar, storefront, ticketing, or a third-party video host). ${VERBATIM_EMBED_RULE} Prefer the parsed form: put the embed's src into embedUrl and leave embedHtml empty — embedUrl is lazy-loadable, containment-controllable and auditable. embedUrl must be an absolute http(s) URL; any other scheme is ignored and the block renders its empty state. Use embedHtml only when the owner's snippet cannot be reduced to one iframe URL, and treat it as owner-trusted CODE, not inert markup: bare <script> tags do not run, but inline event handlers and <iframe srcdoc> do execute same-origin — script-based widgets still belong in advanced/script-embed. embedTitle is required whenever embedUrl is set (screen readers announce it as the frame's name). Leave sandboxAttributes unset unless the owner's code included one — an empty sandbox attribute blocks almost everything. Choose containMode="fixed-height" for forms and calendars that scroll internally, "full-screen" only for a page whose entire purpose is the embed. ${EMBED_MEDIA_NOTE}`,
+    usageRequirements: {
+      // Neither prop is hard-required on its own: the block needs embedUrl OR
+      // embedHtml, which requiredProps cannot express. Enforced in notes and by
+      // Octane's verbatim guard (a block with neither payload is dropped).
+      requiredProps: [],
+      propConstraints: {
+        embedUrl: {
+          note: "Absolute http(s) URL taken verbatim from the owner's embed code. Wins over embedHtml when both are present. Any other scheme (javascript:, data:, protocol-relative, relative) is ignored and the block falls back to embedHtml or its empty state.",
+        },
+        embedHtml: {
+          note: "Raw markup escape hatch, pasted verbatim from the owner. It is owner-trusted CODE, not inert markup: bare <script> tags do not run, but inline event handlers and <iframe srcdoc> execute same-origin — never build this value from scraped or generated content. Only use when the embed cannot be expressed as a single embedUrl.",
+        },
+        embedTitle: {
+          maxLength: 120,
+          note: "REQUIRED whenever embedUrl is set. Accessible name for the frame, e.g. 'Map showing the restaurant location'.",
+        },
+        aspectRatio: {
+          note: 'One of "16:9", "4:3", "1:1", "9:16", "21:9", or "custom" (with customAspectRatio). Any other value is ignored and the block renders 16:9.',
+        },
+        iframeClassName: {
+          note: "Optional utility classes for the embed element (or, on the embedHtml path, its wrapper). Live-site CSS is safelist-compiled, and this key is NOT scanned for class tokens — stick to utilities the library already ships, or put the classes in className instead, which IS collected.",
+        },
+        allowAttributes: {
+          note: "Copy the `allow` attribute from the owner's embed code, or omit.",
+        },
+        sandboxAttributes: {
+          note: "Copy the `sandbox` attribute from the owner's embed code, or omit entirely. Never emit an empty string.",
+        },
+        customAspectRatio: {
+          note: 'Only meaningful when aspectRatio="custom". A CSS aspect-ratio value such as "5 / 4".',
+        },
+        fixedHeight: {
+          note: 'Only meaningful when containMode="fixed-height". A CSS length such as "640px"; a unitless value like "640" is read as pixels. Defaults to "600px".',
+        },
+        emptyStateLabel: {
+          maxWords: 12,
+          note: "Short honest line shown when no embed is configured. Omit it and the block renders nothing rather than a fake frame.",
+        },
+      },
+      mediaSlots: {},
+      requiresSiteCapabilities: [],
+      notes: [
+        VERBATIM_EMBED_RULE,
+        EMBED_MEDIA_NOTE,
+        "Supply either embedUrl or embedHtml. With neither, the block renders no embed.",
+        'Set embedTitle whenever embedUrl is set; an untitled iframe is an accessibility failure.',
+        "embedUrl must be an absolute http(s) URL; other schemes are ignored and no frame is rendered.",
+      ],
+    },
+    exampleProps: {
+      title: "Find us",
+      embedUrl: ADVANCED_EXAMPLE_IFRAME_URL,
+      embedTitle: "Map showing the restaurant location",
+      aspectRatio: "16:9",
+      loadingStrategy: "lazy",
+      referrerPolicy: "strict-origin-when-cross-origin",
+    },
+  },
+  "script-embed": {
+    exampleUsage: `
+<ScriptEmbed
+  title="Our menu"
+  scriptUrl="${ADVANCED_EXAMPLE_SCRIPT_URL}"
+  companionHtml={'<div id="untappd-menu-container"></div>'}
+  inlineScriptHtml={"PreloadEmbedMenu('untappd-menu-container', 12345, 678);"}
+  loadStrategy="lazyOnload"
+/>
+    `.trim(),
+    importantUsageNotes: `Use ONLY when the site owner supplied a <script>-based widget snippet (chat widget, menu embed, booking engine, review widget). ${VERBATIM_EMBED_RULE} Split the owner's snippet across the props instead of pasting it as one blob: <script src> becomes scriptUrl (further ones go in additionalScriptUrls, in the original order), the contents of an inline <script> becomes inlineScriptHtml WITHOUT the surrounding tags, any <div>/<span> mount point becomes companionHtml, and <link rel="stylesheet"> hrefs go in stylesheetUrls. Load order is guaranteed: companionHtml is in the DOM first, then stylesheets, then scriptUrl, then additionalScriptUrls one at a time, then inlineScriptHtml. Use loadStrategy="lazyOnload" for anything below the fold. Set allowDocumentWrite only for legacy widgets that actually call document.write. Two script-embed blocks may share one scriptUrl (e.g. a food menu and a drinks menu from the same loader): give each its own companionHtml mount point and its own inlineScriptHtml — the loader runs the shared script once and each block's init separately. After client-side navigation back to the page the widget's DOM is re-attached automatically; set runOnEveryMount only when the widget must genuinely re-initialise from scratch on every mount. If the embed is a plain iframe, use advanced/iframe-embed instead. ${EMBED_MEDIA_NOTE}`,
+    usageRequirements: {
+      // Needs scriptUrl OR inlineScriptHtml (or companion markup alone), which
+      // requiredProps cannot express — see notes.
+      requiredProps: [],
+      propConstraints: {
+        scriptUrl: {
+          note: "Absolute https URL taken verbatim from the owner's <script src>. Loaded first.",
+        },
+        additionalScriptUrls: {
+          maxItems: 6,
+          note: "Further <script src> URLs in their original order. Loaded strictly one at a time AFTER scriptUrl.",
+        },
+        inlineScriptHtml: {
+          note: "Body of the owner's inline <script>, without the surrounding tags. Runs after every URL script has loaded.",
+        },
+        companionHtml: {
+          note: "The mount-point markup from the owner's snippet. Guaranteed to be in the DOM before any script runs.",
+        },
+        stylesheetUrls: {
+          maxItems: 4,
+          note: "Stylesheet hrefs from the owner's snippet. Loaded before any script runs.",
+        },
+        allowDocumentWrite: {
+          note: "Set true ONLY for legacy widgets that call document.write; it redirects those writes into this block instead of wiping the page.",
+        },
+        scriptKey: {
+          note: "Explicit dedupe key. Defaults to scriptUrl, or a stable hash of inlineScriptHtml. inlineScriptHtml is ALWAYS additionally keyed by a hash of its own source, so two blocks sharing one scriptUrl each still run their own init. Set it when the same widget appears with slightly different URLs and must initialise once.",
+        },
+        runOnEveryMount: {
+          note: "Leave false unless the widget must genuinely re-initialise from scratch. On client-side navigation back to this block the previous mount's widget DOM is re-attached automatically, so a blank widget is not a reason to set this.",
+        },
+        fixedHeight: {
+          note: 'Only meaningful when containMode="fixed-height". A CSS length such as "480px"; a unitless value like "480" is read as pixels. Reserves space and prevents layout shift. Defaults to "600px".',
+        },
+        emptyStateLabel: {
+          maxWords: 12,
+          note: "Short honest line shown when no snippet is configured. Omit it and the block renders nothing rather than a fake widget.",
+        },
+      },
+      mediaSlots: {},
+      requiresSiteCapabilities: [],
+      notes: [
+        VERBATIM_EMBED_RULE,
+        EMBED_MEDIA_NOTE,
+        "Supply scriptUrl and/or inlineScriptHtml. companionHtml alone renders markup but runs nothing.",
+        "Never wrap inlineScriptHtml in <script> tags — pass only the JavaScript body.",
+      ],
+    },
+    exampleProps: {
+      title: "Our menu",
+      scriptUrl: ADVANCED_EXAMPLE_SCRIPT_URL,
+      companionHtml: '<div id="untappd-menu-container"></div>',
+      inlineScriptHtml:
+        "PreloadEmbedMenu('untappd-menu-container', 12345, 678);",
+      loadStrategy: "lazyOnload",
+    },
+  },
+  // --- free-form-design (Workstream B) -------------------------------------
+  "free-form-design": {
+    exampleUsage: `
+<FreeFormDesign
+  sectionId="private-events-clone"
+  spacing="none"
+  sectionClassName="bg-secondary text-secondary-foreground"
+  className="bg-secondary text-secondary-foreground grid gap-8 md:grid-cols-2 items-center text-4xl font-bold tracking-tight text-lg opacity-90 w-full rounded-2xl object-cover"
+  designTree={{
+    tag: "div",
+    className: "grid gap-8 md:grid-cols-2 items-center",
+    children: [
+      {
+        tag: "div",
+        children: [
+          { tag: "h2", className: "text-4xl font-bold tracking-tight", children: ["Private Events"] },
+          { tag: "p", className: "text-lg opacity-90", children: ["Book the whole room for up to 60 guests."] },
+          { tag: "Pressable", attrs: { href: "/contact", variant: "default", size: "lg" }, children: ["Request a date"] },
+        ],
+      },
+      {
+        tag: "Img",
+        className: "w-full rounded-2xl object-cover",
+        attrs: { src: "${ABOUT_EXAMPLE_IMAGE_URL}", alt: "Private dining room set for an event" },
+      },
+    ],
+  }}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "LAST RESORT ONLY. Use this block only when the user explicitly asks for a fully custom or cloned design that no existing block can express — never as a substitute for a real block, and never to 'improve' a layout on your own initiative. " +
+      "designTree grammar: every node is {tag, className?, attrs?, children?}; children may be further nodes or PLAIN STRINGS, and strings render as literal escaped TEXT — never put HTML markup inside a string, it will display as visible angle brackets. " +
+      "Allowed tags: div, section, article, aside, header, footer, nav, figure, figcaption, blockquote, address, hr, br, h1-h6, p, span, strong, em, b, i, u, s, small, mark, sub, sup, code, pre, abbr, cite, q, time, del, ins, ul, ol, li, dl, dt, dd, table, caption, colgroup, col, thead, tbody, tfoot, tr, th, td, and the decorative SVG subset svg, g, defs, path, circle, ellipse, rect, line, polyline, polygon, linearGradient, radialGradient, stop, clipPath, mask, text, tspan. Any other tag is rendered as a plain div. " +
+      "LINKS AND MEDIA ARE COMPONENTS, NOT TAGS: use {tag:'Pressable', attrs:{href, variant, size}} for every link or button, {tag:'Img', attrs:{src, alt}} for every image, and {tag:'Video', attrs:{src}} for every video. Raw a, img and video tags are NOT rendered as links or media. Img and Video src values MUST be absolute https:// media-library URLs or the node is dropped entirely — never invent a URL and never use a relative path. " +
+      "script, style, iframe, link, meta and other executable or document-level tags are discarded. Event handlers (onClick, onerror, any on* attribute), the style attribute, and javascript:/data: URLs are stripped — style EVERYTHING with Tailwind classes via each node's className. " +
+      "The className prop on this block is a CLASS MANIFEST, not styling: it is never applied to any element, and it must list every Tailwind class the block uses anywhere — every className inside designTree PLUS every token you put in sectionClassName and containerClassName. Classes under any other prop name are never compiled on a live site. The server derives this manifest for you, so you may omit it. To style the surrounding section use sectionClassName. " +
+      'The design is centered inside the standard 1280px container by default. For an edge-to-edge clone set spacing="none", containerMaxWidth="full" and containerClassName="px-0 sm:px-0 lg:px-0". ' +
+      "Trees are capped at 40 levels deep and 1500 nodes; anything beyond is truncated. " +
+      "Set emptyStateLabel only if the design genuinely cannot be produced — do not invent placeholder copy.",
+    usageRequirements: {
+      requiredProps: ["designTree"],
+      propConstraints: {
+        designTree: {
+          required: true,
+          note: "Root node object {tag, className?, attrs?, children?}. Recursive. Max depth 40, max 1500 nodes. Strings in children are literal text, never markup.",
+        },
+        className: {
+          note: "CLASS MANIFEST ONLY — space-separated list of every Tailwind class used anywhere in designTree PLUS every token in sectionClassName and containerClassName. It is NOT applied to any element and is derived server-side; omit it if unsure. Use sectionClassName for section styling.",
+        },
+        sectionClassName: {
+          note: "Tailwind classes applied to the wrapping Section element. This is what other blocks call className. Every token you use here MUST also appear in the className manifest or it gets no compiled CSS on the live site.",
+        },
+        containerClassName: {
+          note: 'Tailwind classes on the Section\'s inner container. Use "px-0 sm:px-0 lg:px-0" together with containerMaxWidth="full" for an edge-to-edge design. Tokens used here MUST also appear in the className manifest.',
+        },
+        containerMaxWidth: {
+          note: 'Width of the Section\'s inner container. Defaults to "xl" (max-w-7xl), which boxes the design at 1280px. Set "full" for a full-bleed clone.',
+        },
+        emptyStateLabel: {
+          maxWords: 12,
+          note: "Shown only when designTree is absent or renders nothing. Omit rather than invent copy.",
+        },
+      },
+      mediaSlots: {
+        "designTree.Img.attrs.src": imageSlot(
+          "designTree.Img.attrs.src",
+          "Any {tag:'Img'} node inside the design tree.",
+          ["feature", "hero", "gallery", "background"],
+          "large",
+          false,
+        ),
+      },
+      requiresSiteCapabilities: [],
+      notes: [
+        "Only use this block when the user explicitly requests a custom or cloned design that no catalog block can express.",
+        "All media src values must be absolute https URLs to real assets; relative paths and placeholder media variables are not allowed.",
+        "Never emit raw a/img/video tags — use the Pressable/Img/Video component nodes.",
+        "Never place HTML markup inside a string child or an attribute value; strings are rendered as literal text and markup-shaped attribute values are discarded.",
+      ],
+    },
+    exampleProps: {
+      sectionId: "private-events-clone",
+      spacing: "none",
+      sectionClassName: "bg-secondary text-secondary-foreground",
+      className:
+        "bg-secondary text-secondary-foreground grid gap-8 md:grid-cols-2 items-center text-4xl font-bold tracking-tight text-lg opacity-90 w-full rounded-2xl object-cover",
+      designTree: {
+        tag: "div",
+        className: "grid gap-8 md:grid-cols-2 items-center",
+        children: [
+          {
+            tag: "div",
+            children: [
+              {
+                tag: "h2",
+                className: "text-4xl font-bold tracking-tight",
+                children: ["Private Events"],
+              },
+              {
+                tag: "p",
+                className: "text-lg opacity-90",
+                children: ["Book the whole room for up to 60 guests."],
+              },
+              {
+                tag: "Pressable",
+                attrs: { href: "/contact", variant: "default", size: "lg" },
+                children: ["Request a date"],
+              },
+            ],
+          },
+          {
+            tag: "Img",
+            className: "w-full rounded-2xl object-cover",
+            attrs: {
+              src: ABOUT_EXAMPLE_IMAGE_URL,
+              alt: "Private dining room set for an event",
+            },
+          },
+        ],
+      },
+    },
+  },
+};
+
+const INTEGRATIONS_BLOCK_CONTRACTS: Record<string, IntegrationsBlockContract> =
+  {
+    // --- tripleseat-form (Workstream C) -------------------------------------
+    "tripleseat-form": {
+      exampleUsage: `
+<TripleseatForm
+  title="Plan Your Private Event"
+  subtitle="Inquiries"
+  leadFormId="12345"
+  publicKey="your-tripleseat-public-key"
+  degradedTitle="The booking form isn't loading"
+  degradedMessage="Reach our events team directly and we'll get straight back to you."
+  contactPhone="(555) 010-4477"
+  contactEmail="events@example.com"
+  retryLabel="Try loading the form again"
+  successTitle="Request received"
+  successMessage="Our events team will follow up within one business day."
+/>
+    `.trim(),
+      importantUsageNotes:
+        "NEVER use this block unless the client supplied their own TripleSeat embed script. Extract leadFormId and publicKey VERBATIM from the script URL they provided (https://api.tripleseat.com/v1/leads/ts_script.js?lead_form_id=<leadFormId>&public_key=<publicKey>) — copy the two query-parameter values exactly, character for character, and never invent, guess, complete, reformat, or reuse credentials from another site. If the user did not supply the script URL, do not emit this block. degradedMessage and retryLabel are required: when the third-party form cannot load, the visitor must still be told how to reach the business, so supply the client's real contactPhone/contactEmail whenever they are known. successRedirectPath must be an internal path on this site (for example \"/thank-you\") and that page must exist; leave it empty to show the confirmation in place. All copy must be the client's own — do not fabricate confirmation or fallback wording.",
+      usageRequirements: {
+        requiredProps: [
+          "leadFormId",
+          "publicKey",
+          "degradedMessage",
+          "retryLabel",
+        ],
+        propConstraints: {
+          leadFormId: {
+            required: true,
+            note: "VERBATIM lead_form_id query-parameter value from the client's own ts_script.js URL. Never invented.",
+          },
+          publicKey: {
+            required: true,
+            note: "VERBATIM public_key query-parameter value from the client's own ts_script.js URL. Never invented.",
+          },
+          degradedMessage: {
+            required: true,
+            maxLength: 200,
+            note: "Shown when the form cannot become usable. Must point the visitor at another way to reach the business.",
+          },
+          retryLabel: {
+            required: true,
+            maxLength: 40,
+            note: "Label for the button that re-attempts loading the form.",
+          },
+          degradedTitle: { maxLength: 60 },
+          contactPhone: {
+            note: "Real business phone number only, from site contact data. Rendered as a tel: link.",
+          },
+          contactEmail: {
+            note: "Real business email address only, from site contact data. Rendered as a mailto: link.",
+          },
+          successTitle: { maxLength: 60 },
+          successMessage: { maxLength: 200 },
+          successRedirectPath: {
+            note: 'Internal site path only — must start with a single "/" (for example "/thank-you") and that page must exist. Absolute URLs, protocol-relative "//host" values and any other scheme are REFUSED at runtime: the block logs a breadcrumb and shows the confirmation in place instead. Omit to show the confirmation in place.',
+          },
+          recaptchaTimeoutSeconds: {
+            note: "Seconds to wait before showing the fallback. Defaults to 30; only change with a reason.",
+          },
+        },
+        // Declared-but-empty: this block renders a third-party form, never a
+        // media-library asset. Kept explicit so the category suite's
+        // "mediaSlots is declared" assertion stays meaningful.
+        mediaSlots: {},
+        requiresSiteCapabilities: ["contact_info"],
+        notes: [
+          "Third-party embed: renders nothing at all unless both leadFormId and publicKey are present.",
+          "One instance per page — TripleSeat's markup uses global element ids.",
+        ],
+      },
+      exampleProps: {
+        title: "Plan Your Private Event",
+        subtitle: "Inquiries",
+        leadFormId: "12345",
+        publicKey: "your-tripleseat-public-key",
+        degradedTitle: "The booking form isn't loading",
+        degradedMessage:
+          "Reach our events team directly and we'll get straight back to you.",
+        contactPhone: "(555) 010-4477",
+        contactEmail: "events@example.com",
+        retryLabel: "Try loading the form again",
+        successTitle: "Request received",
+        successMessage:
+          "Our events team will follow up within one business day.",
+      },
+    },
+  };
+
+/* ========================================================================== */
+/* END advanced + integrations block contracts                                */
+/* ========================================================================== */
 
 const ABOUT_BLOCK_CONTRACTS = {
   "alternating-blocks": {
@@ -18517,6 +18930,115 @@ const HERO_BLOCK_CONTRACTS = {
  * Block Registry - Central registry of all available UI blocks
  */
 export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
+  /* ======================================================================== */
+  /* BEGIN advanced + integrations embed blocks (keep contiguous)             */
+  /* INTEGRATOR: insert the `free-form-design` (category "advanced") and      */
+  /* `tripleseat-form` (category "integrations") registry entries inside this */
+  /* region, spreading ADVANCED_BLOCK_CONTRACTS / INTEGRATIONS_BLOCK_CONTRACTS */
+  /* respectively.                                                            */
+  /* ======================================================================== */
+  "iframe-embed": {
+    id: "iframe-embed",
+    name: "Iframe Embed",
+    description:
+      "Embeds a third-party page the site owner supplied — a map, reservation or booking widget, event calendar, ticketing page, online ordering storefront, or an externally hosted video — inside the standard section chrome. Lazy-loads by default and offers aspect-ratio, fixed-height, or full-screen containment. Only use it when the user actually pasted embed code or an embed URL.",
+    semanticTags: [
+      "iframe",
+      "embed",
+      "widget",
+      "third-party",
+      "calendar",
+      "map",
+      "video-embed",
+      "shop",
+      "booking",
+      "reservation",
+      "ticketing",
+      "external-content",
+      "integration",
+      "advanced",
+    ],
+    category: "advanced",
+    component: IframeEmbed,
+    props: "IframeEmbedProps",
+    ...ADVANCED_BLOCK_CONTRACTS["iframe-embed"],
+  },
+  "script-embed": {
+    id: "script-embed",
+    name: "Script Embed",
+    description:
+      "Runs a third-party JavaScript widget snippet the site owner supplied — chat widget, menu embed, booking engine, review or loyalty widget — inside the standard section chrome. Guarantees load order (companion markup, then stylesheets, then scripts, then inline code), deduplicates across re-mounts, and can contain legacy document.write output. Only use it when the user actually pasted a script snippet.",
+    semanticTags: [
+      "script",
+      "embed",
+      "widget",
+      "third-party",
+      "javascript",
+      "chat",
+      "menu",
+      "booking",
+      "integration",
+      "external-content",
+      "snippet",
+      "advanced",
+    ],
+    category: "advanced",
+    component: ScriptEmbed,
+    props: "ScriptEmbedProps",
+    ...ADVANCED_BLOCK_CONTRACTS["script-embed"],
+  },
+  "free-form-design": {
+    id: "free-form-design",
+    name: "Free-Form Design",
+    description:
+      "Renders a fully custom, AI-authored design from a constrained JSON node tree inside a standard Section wrapper. LAST RESORT — use only when the user explicitly asks for a bespoke or cloned layout that no existing block can express. Supports allowlisted HTML/SVG structure plus Pressable/Img/Video component nodes, styled entirely with Tailwind classes.",
+    semanticTags: [
+      "custom",
+      "custom-design",
+      "free-form",
+      "freeform",
+      "bespoke",
+      "clone",
+      "site-clone",
+      "replicate",
+      "arbitrary-layout",
+      "advanced",
+      "html",
+      "markup",
+      "one-off",
+      "escape-hatch",
+    ],
+    category: "advanced",
+    component: FreeFormDesign,
+    props: "FreeFormDesignProps",
+    ...ADVANCED_BLOCK_CONTRACTS["free-form-design"],
+  },
+  "tripleseat-form": {
+    id: "tripleseat-form",
+    name: "TripleSeat Lead Form",
+    description:
+      "Embeds the client's own TripleSeat lead/inquiry form, branded to match the site. Use only when the client has supplied their TripleSeat embed script; the block extracts lead_form_id and public_key from that script URL. Includes a bounded wait with a visible fallback (business phone/email plus a retry) so a form that fails to load never silently costs the client a booking.",
+    semanticTags: [
+      "tripleseat",
+      "lead-form",
+      "private-events",
+      "booking",
+      "restaurant",
+      "catering",
+      "event-inquiry",
+      "form",
+      "integration",
+      "third-party",
+      "embed",
+    ],
+    category: "integrations",
+    component: TripleseatForm,
+    props: "TripleseatFormProps",
+    ...INTEGRATIONS_BLOCK_CONTRACTS["tripleseat-form"],
+  },
+  /* ======================================================================== */
+  /* END advanced + integrations embed blocks                                 */
+  /* ======================================================================== */
   "alternating-blocks": {
     id: "alternating-blocks",
     name: "Alternating Content Blocks",
