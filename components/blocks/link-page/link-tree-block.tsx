@@ -504,7 +504,8 @@ export function LinkTreeBlock({
   // brandAvatar still wins when it carries a real src; when it has been nulled the
   // surviving brandLogo (a logo-slot key the stripper exempts) is used instead.
   const resolvedAvatar =
-    resolveImage(brandAvatar, nameForAlt) ?? resolveImage(brandLogo, nameForAlt);
+    resolveImage(brandAvatar, nameForAlt) ??
+    resolveImage(brandLogo, nameForAlt);
 
   const renderBrandHeader = React.useMemo(() => {
     if (brandSlot) return brandSlot;
@@ -587,12 +588,7 @@ export function LinkTreeBlock({
             ))}
           {brandTagline &&
             (typeof brandTagline === "string" ? (
-              <p
-                className={cn(
-                  "max-w-xs text-balance text-sm",
-                  taglineClassName,
-                )}
-              >
+              <p className={cn("text-balance text-sm", taglineClassName)}>
                 {brandTagline}
               </p>
             ) : (
@@ -642,20 +638,15 @@ export function LinkTreeBlock({
             featured: _featured, // Destructure to prevent passing to DOM
             ...pressableProps
           } = link;
-          const iconElement =
-            icon ? (
-              <DynamicIcon
-                name={icon}
-                size={20}
-                className={linkIconClassName}
-              />
-            ) : iconName ? (
-              <DynamicIcon
-                name={iconName}
-                size={20}
-                className={linkIconClassName}
-              />
-            ) : null;
+          const iconElement = icon ? (
+            <DynamicIcon name={icon} size={20} className={linkIconClassName} />
+          ) : iconName ? (
+            <DynamicIcon
+              name={iconName}
+              size={20}
+              className={linkIconClassName}
+            />
+          ) : null;
 
           const badgeVariant =
             link.badgeVariant ?? (isFeatured ? "secondary" : "default");
