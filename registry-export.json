@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-08-18T08:35:48.457Z",
+    "exportedAt": "2026-08-18T18:54:12.053Z",
     "totalBlocks": 610,
-    "version": "3.15.6",
+    "version": "3.15.7",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -23103,7 +23103,7 @@
         "propConstraints": {
           "menuLinks": {
             "minItems": 2,
-            "maxItems": 7
+            "maxItems": 5
           },
           "menuLinks[].links": {
             "minItems": 1,

@@ -736,6 +736,36 @@ export const NavbarPlatformResources = ({
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
+  // --- Top-bar overflow guard -----------------------------------------------
+  //
+  // What matters here is the CONTAINER width, not the viewport width. This block
+  // renders inside `container px-4 sm:px-6 lg:px-8`, and Tailwind's `container`
+  // pins its max-width at 80rem from the `xl` breakpoint all the way to 1535px —
+  // so a 1280px viewport and a 1440px viewport both give the row the *same*
+  // ~1216px of content box. The next step up is `2xl` (96rem, ~1472px usable).
+  //
+  // A measured 7-item payload needs logo 198.1px + actions ~121px + list
+  // min-content ~910px + the row gaps ≈ 1325px. That does NOT fit the 80rem pin,
+  // so at both 1280 and 1440 the list wrapped to a second line and pushed the
+  // row to ~124px, escaping the fixed `h-16` bar by ~30px onto page content.
+  // Only 2xl fits. Past 5 items we therefore hold the mobile menu until 2xl.
+  //
+  // The `min-w-0` wrapper and the list's `flex-wrap` below stay as inert
+  // residual safety — with the breakpoint correct they never engage.
+  //
+  // Both branches are complete literal class strings so the Tailwind JIT scanner
+  // sees every utility.
+  const isHighItemCount = (menuLinks?.length ?? 0) > 5;
+  const desktopListVisibility = isHighItemCount
+    ? "hidden 2xl:flex"
+    : "hidden lg:flex";
+  const desktopActionsVisibility = isHighItemCount
+    ? "hidden items-center gap-4 2xl:flex"
+    : "hidden items-center gap-4 lg:flex";
+  const mobileClusterVisibility = isHighItemCount
+    ? "flex items-center gap-4 2xl:hidden"
+    : "flex items-center gap-4 lg:hidden";
+
   return (
     <Section
       id="navbar-platform-resources"
@@ -752,59 +782,96 @@ export const NavbarPlatformResources = ({
           <div className={innerContainerClasses}>
             <NavigationMenu
               viewport={false}
-              className={cn("min-w-full", navigationMenuClassName)}
+              className={cn(
+                // `max-w-full` merges away the shared primitive's `max-w-max`,
+                // which otherwise lets this row grow past the viewport. Scoped
+                // here — navigation-menu.tsx is shared by 19 other navbars.
+                "min-w-full max-w-full",
+                navigationMenuClassName,
+              )}
             >
-              <div className="flex w-full items-center justify-between gap-12 py-4">
+              <div className="flex w-full min-w-0 items-center justify-between gap-6 py-4 2xl:gap-12">
                 <NavbarLogo
                   logo={logo}
                   logoSlot={logoSlot}
-                  logoClassName={logoClassName}
+                  logoClassName={cn("shrink-0", logoClassName)}
                   optixFlowConfig={optixFlowConfig}
                 />
-                <NavigationMenuList
-                  className={cn("hidden lg:flex", navigationMenuListClassName)}
-                >
-                  {menuLinks?.map((link, index) => {
-                    if (hasDropdownItems(link)) {
+                {/*
+                  Containment point for the desktop menu region.
+
+                  Radix's `NavigationMenu.List` puts the caller's className on
+                  the inner `<ul>` and wraps that ul in an UNCLASSED
+                  indicator-track `<div>` (a `Primitive.div` carrying only
+                  `style={{ position: "relative" }}` — see `NavigationMenuList`
+                  in @radix-ui/react-navigation-menu). That track div, not the
+                  ul, is the flex child of the `justify-between` row above, so a
+                  `min-w-0` handed to `NavigationMenuList` lands one level too
+                  deep and can never bind. This component-owned wrapper becomes
+                  the flex child instead and carries both the responsive
+                  visibility and the width guard.
+
+                  `flex-wrap` on the ul is what lets the guard resolve without
+                  clipping: it drops the list's min-content from "sum of every
+                  w-max item" to "widest single item", so a squeezed region
+                  reflows onto a second line instead of shoving the CTA past the
+                  container edge. With the breakpoint ladder above corrected this
+                  is residual safety only — both utilities are inert while the
+                  items fit on one line, so a fitting bar is pixel-identical.
+
+                  Deliberately NOT `overflow-hidden`/`overflow-x-clip`: this
+                  block renders with `viewport={false}`, so every dropdown panel
+                  is an in-place absolutely positioned sibling of its trigger
+                  INSIDE this ul, and any overflow clamp at or above the ul
+                  would clip the panels.
+                */}
+                <div className={cn(desktopListVisibility, "min-w-0")}>
+                  <NavigationMenuList
+                    className={cn("flex-wrap", navigationMenuListClassName)}
+                  >
+                    {menuLinks?.map((link, index) => {
+                      if (hasDropdownItems(link)) {
+                        return (
+                          <NavigationMenuItem
+                            key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
+                          >
+                            <NavigationMenuTrigger className="h-auto bg-transparent px-4 py-2 font-normal hover:bg-muted focus:bg-transparent data-[state=open]:bg-transparent">
+                              {link.label}
+                            </NavigationMenuTrigger>
+                            {renderDropdownContent(link)}
+                          </NavigationMenuItem>
+                        );
+                      }
+
+                      if (!link.href) {
+                        return null;
+                      }
+
                       return (
                         <NavigationMenuItem
                           key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
                         >
-                          <NavigationMenuTrigger className="h-auto bg-transparent px-4 py-2 font-normal hover:bg-muted focus:bg-transparent data-[state=open]:bg-transparent">
+                          <NavigationMenuLink
+                            href={link.href}
+                            className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
+                          >
                             {link.label}
-                          </NavigationMenuTrigger>
-                          {renderDropdownContent(link)}
+                          </NavigationMenuLink>
                         </NavigationMenuItem>
                       );
-                    }
-
-                    if (!link.href) {
-                      return null;
-                    }
-
-                    return (
-                      <NavigationMenuItem
-                        key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
-                      >
-                        <NavigationMenuLink
-                          href={link.href}
-                          className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
-                        >
-                          {link.label}
-                        </NavigationMenuLink>
-                      </NavigationMenuItem>
-                    );
-                  })}
-                </NavigationMenuList>
+                    })}
+                  </NavigationMenuList>
+                </div>
                 <div
                   className={cn(
-                    "hidden items-center gap-4 lg:flex",
+                    desktopActionsVisibility,
+                    "shrink-0",
                     actionsClassName,
                   )}
                 >
                   {renderActions}
                 </div>
-                <div className="flex items-center gap-4 lg:hidden">
+                <div className={cn(mobileClusterVisibility, "shrink-0")}>
                   <Pressable
                     variant="outline"
                     size="icon"

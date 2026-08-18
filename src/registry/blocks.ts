@@ -10441,7 +10441,7 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
         logo: logoSlot("logo", "Brand logo.", true),
       },
       propConstraints: {
-        menuLinks: { minItems: 2, maxItems: 7 },
+        menuLinks: { minItems: 2, maxItems: 5 },
         "menuLinks[].links": { minItems: 1, maxItems: 8 },
       },
     },

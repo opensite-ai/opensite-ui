@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.15.6",
-    "exportedAt": "2026-08-18T08:35:48.457Z",
+    "uiVersion": "3.15.7",
+    "exportedAt": "2026-08-18T18:54:12.053Z",
     "source": "@opensite/ui",
     "totalBlocks": 610
   },
@@ -33319,7 +33319,7 @@
         "propConstraints": {
           "menuLinks": {
             "minItems": 2,
-            "maxItems": 7
+            "maxItems": 5
           },
           "menuLinks[].links": {
             "minItems": 1,

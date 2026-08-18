@@ -438,11 +438,22 @@ export const NavbarTabbedSections = ({
                 navClassName,
               )}
             >
+              {/* Deliberately bare: no `min-w-0`, no breakpoint-scaled gap.
+                  `min-w-0` here has no compressible descendant to hand the
+                  reclaimed space to — the NavigationMenu root is
+                  `max-w-max flex-1` with `min-width: auto`, its list has no
+                  `flex-wrap`, and every item is `w-max` — so it only lets the
+                  group's box shrink under the nav links, which then paint over
+                  the auth CTA instead of pushing it. And this group is
+                  content-sized and pinned to the row start, so scaling `gap-8`
+                  by breakpoint would move the menu on every site, fitting or
+                  not. The `shrink-0` guards on the logo and the actions cluster
+                  below are the guards that are actually inert while fitting. */}
               <div className="flex items-center gap-8">
                 <NavbarLogo
                   logo={logo}
                   logoSlot={logoSlot}
-                  logoClassName={logoClassName}
+                  logoClassName={cn("shrink-0", logoClassName)}
                   optixFlowConfig={optixFlowConfig}
                 />
 
@@ -454,13 +465,14 @@ export const NavbarTabbedSections = ({
               <div
                 className={cn(
                   "hidden items-center gap-2 lg:flex",
+                  "shrink-0",
                   actionsClassName,
                 )}
               >
                 {renderAuthActions}
               </div>
 
-              <div className="flex lg:hidden">
+              <div className="flex shrink-0 lg:hidden">
                 <Pressable
                   variant="ghost"
                   size="icon"

@@ -122,4 +122,72 @@ describe("NavbarTabbedSections desktop dropdown", () => {
 
     expect(trigger()).toHaveAttribute("data-state", "closed");
   });
+
+  // --- TASK-3: top-bar shrink guards ----------------------------------------
+  //
+  // Same vulnerable shape as navbar-platform-resources: the logo and the auth
+  // action cluster are plain flex children of a `justify-between` row, so under
+  // pressure the logo collapsed toward zero width and the CTA was clipped. This
+  // block's menu cap is already 5, so no breakpoint change is needed here.
+  describe("top-bar shrink guards", () => {
+    const logo = { url: "/", src: "/logo.png", alt: "Tabbed Logo" };
+    const authActions = [
+      { label: "Get Started", href: "/start", variant: "default" as const },
+    ];
+
+    const renderNavbar = () =>
+      render(
+        <NavbarTabbedSections
+          logo={logo}
+          menu={menu}
+          authActions={authActions}
+        />,
+      );
+
+    const getNavRow = (container: HTMLElement) =>
+      container.querySelector("nav") as HTMLElement;
+
+    it("protects the logo from shrinking to zero width", () => {
+      const { container } = renderNavbar();
+      const logoEl = screen.getByAltText("Tabbed Logo").closest("a, div")!;
+
+      expect(container.querySelector(".shrink-0")).toBeInTheDocument();
+      expect(logoEl.className).toContain("shrink-0");
+    });
+
+    it("protects the desktop auth actions cluster from being clipped", () => {
+      const { container } = renderNavbar();
+      const actions = Array.from(getNavRow(container).children).find((child) =>
+        child.classList.contains("hidden"),
+      ) as HTMLElement;
+
+      expect(actions.classList.contains("shrink-0")).toBe(true);
+    });
+
+    /**
+     * The logo/menu group stays bare.
+     *
+     * The gap is positionally load-bearing at every viewport — the group is
+     * content-sized and pinned to the row start — so scaling it by breakpoint
+     * would move the desktop menu on every site, including the ones that
+     * already fit. And `min-w-0` must NOT be here: the group has no compressible
+     * descendant to hand the reclaimed space to (the NavigationMenu root is
+     * `max-w-max flex-1` with `min-width: auto`, its list has no `flex-wrap`,
+     * every item is `w-max`), so it only shrinks the group's box under the nav
+     * links, which then paint over the auth CTA. The `shrink-0` guards are the
+     * ones that are genuinely inert while fitting.
+     */
+    it("keeps the logo/menu group free of gap variants and min-w-0", () => {
+      const { container } = renderNavbar();
+      const group = getNavRow(container).children[0] as HTMLElement;
+
+      expect(group.classList.contains("gap-8")).toBe(true);
+      expect(group.classList.contains("min-w-0")).toBe(false);
+
+      const responsiveGaps = Array.from(group.classList).filter((token) =>
+        /^[a-z0-9]+:gap-/.test(token),
+      );
+      expect(responsiveGaps).toEqual([]);
+    });
+  });
 });
