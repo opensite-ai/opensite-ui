@@ -77,6 +77,31 @@ vi.mock("../../../ui/social-link-icon", () => ({
   ),
 }));
 
+/**
+ * MOBILE-FROZEN GUARD for the desktop banner cleanup.
+ *
+ * The desktop pass only ever ADDS md:-prefixed utilities to the banner box, so
+ * every class that applies below 768px must stay byte-identical to what shipped
+ * before it. `mobileTokens` strips the md: layer; the remainder is compared to
+ * the frozen literal list below (the standard-tier banner box).
+ */
+const mobileTokens = (el: Element): string[] =>
+  (el.getAttribute("class") ?? "")
+    .split(/\s+/)
+    .filter((token) => token.length > 0 && !token.startsWith("md:"));
+
+const FROZEN_MOBILE_BANNER_TOKENS = [
+  "relative",
+  "left-1/2",
+  "flex",
+  "w-screen",
+  "max-w-none",
+  "-translate-x-1/2",
+  "items-center",
+  "justify-center",
+  "aspect-[16/7]",
+];
+
 describe("LinkPageMinimalProfile", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -428,6 +453,20 @@ describe("LinkPageMinimalProfile logo placement (logoAspect)", () => {
       "items-center",
       "justify-center",
       "aspect-[16/7]",
+      // Desktop: the viewport breakout is neutralized and the band becomes an
+      // in-column header capped to THIS block's content column (max-w-sm),
+      // with no aspect reservation so it sits flush against the artwork.
+      "md:left-0",
+      "md:translate-x-0",
+      "md:w-full",
+      "md:mx-auto",
+      "md:max-w-sm",
+      "md:aspect-auto",
+    );
+    // MOBILE IS FROZEN: strip every md: utility and the remainder must be the
+    // byte-identical pre-desktop-cleanup class set.
+    expect(mobileTokens(banner as HTMLElement)).toEqual(
+      FROZEN_MOBILE_BANNER_TOKENS,
     );
     // Neither the tier height cap nor overflow-hidden may sit on the band:
     // both clip artwork taller than the reserved ratio (browser-verified).
@@ -603,10 +642,23 @@ describe("LinkPageMinimalProfile logo placement (logoAspect)", () => {
 
     let banner = bannerEl(container);
     // Box reserves the tier SHAPE only; the tier height cap lives on the
-    // image, where it letterboxes instead of clipping the artwork.
-    expect(banner).toHaveClass("aspect-[3/1]");
+    // image, where it letterboxes instead of clipping the artwork. The
+    // reservation is MOBILE-ONLY — md:aspect-auto releases it on desktop.
+    expect(banner).toHaveClass("aspect-[3/1]", "md:aspect-auto");
     expect(banner).not.toHaveClass("aspect-[16/7]");
     expect(banner).not.toHaveClass("max-h-[50vh]");
+    expect(banner).toHaveClass("md:max-w-sm");
+    expect(mobileTokens(banner as HTMLElement)).toEqual([
+      "relative",
+      "left-1/2",
+      "flex",
+      "w-screen",
+      "max-w-none",
+      "-translate-x-1/2",
+      "items-center",
+      "justify-center",
+      "aspect-[3/1]",
+    ]);
     expect(banner?.querySelector("img")).toHaveClass(
       "max-h-[50vh]",
       "object-contain",
@@ -622,9 +674,10 @@ describe("LinkPageMinimalProfile logo placement (logoAspect)", () => {
     );
 
     banner = bannerEl(container);
-    expect(banner).toHaveClass("aspect-[4/1]");
+    expect(banner).toHaveClass("aspect-[4/1]", "md:aspect-auto");
     expect(banner).not.toHaveClass("aspect-[3/1]");
     expect(banner).not.toHaveClass("max-h-[40vh]");
+    expect(banner).toHaveClass("md:max-w-sm");
     expect(banner?.querySelector("img")).toHaveClass(
       "max-h-[40vh]",
       "object-contain",
@@ -805,7 +858,21 @@ describe("LinkPageMinimalProfile untyped-payload enum hardening", () => {
       "items-center",
       "justify-center",
       "aspect-[16/7]",
+      "md:left-0",
+      "md:translate-x-0",
+      "md:w-full",
+      "md:mx-auto",
+      "md:max-w-sm",
+      "md:aspect-auto",
     );
+    // MOBILE IS FROZEN even on the out-of-contract fallback path.
+    expect(
+      mobileTokens(
+        container.querySelector(
+          '[data-slot="link-page-banner"]',
+        ) as HTMLElement,
+      ),
+    ).toEqual(FROZEN_MOBILE_BANNER_TOKENS);
     // Neither the tier height cap nor overflow-hidden may sit on the band:
     // both clip artwork taller than the reserved ratio (browser-verified).
     expect(

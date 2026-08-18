@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.15.2",
-    "exportedAt": "2026-08-17T23:26:47.191Z",
+    "uiVersion": "3.15.3",
+    "exportedAt": "2026-08-18T01:09:08.815Z",
     "source": "@opensite/ui",
     "totalBlocks": 610
   },
@@ -29631,7 +29631,7 @@
         "importPath": "./dist/link-page-bento-layout.js",
         "requirePath": "./dist/link-page-bento-layout.cjs"
       },
-      "importantUsageNotes": "Bento-grid style link page that separates links into two tiers: featured (links with featured:true) and regular (all others). Featured links render as large aspect-4/3 cards with optional background images and an overlay gradient. Regular links render as compact icon-and-label rows in a 2-4 column grid. Provide 1–3 featured links and 2–6 regular links for best visual balance. Featured link images MUST use absolute CDN URLs. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. The banner always renders edge-to-edge at the image's NATURAL aspect ratio and is NEVER cropped, so banner artwork containing text or labels is safe; logoBannerAspect only sets the reserved pre-load band shape and the maximum band height (\"standard\" ~16:7 capped at 60vh (default), \"wide\" 3:1 capped at 50vh, \"ultrawide\" 4:1 capped at 40vh), and a very tall image is letterboxed at that cap rather than cropped. Wide artwork (~3:1) still looks best. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
+      "importantUsageNotes": "Bento-grid style link page that separates links into two tiers: featured (links with featured:true) and regular (all others). Featured links render as large aspect-4/3 cards with optional background images and an overlay gradient. Regular links render as compact icon-and-label rows in a 2-4 column grid. Provide 1–3 featured links and 2–6 regular links for best visual balance. Featured link images MUST use absolute CDN URLs. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. The banner always renders at the image's NATURAL aspect ratio and is NEVER cropped, so banner artwork containing text or labels is safe; it is full-bleed edge-to-edge on mobile, and on desktop the banner matches the content column width and hugs the image height. logoBannerAspect only sets the reserved pre-load band shape and the maximum band height (\"standard\" ~16:7 capped at 60vh (default), \"wide\" 3:1 capped at 50vh, \"ultrawide\" 4:1 capped at 40vh), and a very tall image is letterboxed at that cap rather than cropped. Wide artwork (~3:1) still looks best. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
       "usageRequirements": {
         "requiredProps": [
           "name"
@@ -29685,15 +29685,15 @@
           },
           "logoAspect": {
             "required": false,
-            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (full-bleed top band; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
+            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (top image band — full-bleed on mobile, content-column width on desktop; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
           },
           "logoBannerImage.src": {
             "required": false,
-            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\". The image is shown full width at its natural aspect ratio and is never cropped, so artwork with text or labels baked in stays fully readable."
+            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\". The image renders at its natural aspect ratio and is never cropped, so artwork with text or labels baked in stays fully readable — full-bleed edge-to-edge on mobile, content-column width on desktop."
           },
           "logoBannerAspect": {
             "required": false,
-            "note": "Reserved pre-load band shape plus the maximum band height — it never crops the image: \"standard\" (~16:7, capped at 60vh, default), \"wide\" (3:1, capped at 50vh), \"ultrawide\" (4:1, capped at 40vh). A very tall image is letterboxed at the cap instead of being cropped."
+            "note": "Reserved pre-load band shape plus the maximum band height — it never crops the image: \"standard\" (~16:7, capped at 60vh, default), \"wide\" (3:1, capped at 50vh), \"ultrawide\" (4:1, capped at 40vh). A very tall image is letterboxed at the cap instead of being cropped. The band is full-bleed edge-to-edge on mobile; on desktop the banner matches the content column width and hugs the image height, so the reserved shape only damps mobile load shift."
           }
         },
         "mediaSlots": {
@@ -29724,7 +29724,7 @@
             "minPixelClass": "large",
             "required": false,
             "preferredAspect": "3:1",
-            "note": "Full-bleed banner image rendered edge-to-edge at the very top of the page at its natural aspect ratio — never cropped, so text or labels inside the artwork stay intact. Wide artwork (~3:1) fills the band best; a very tall image is letterboxed at the logoBannerAspect height cap. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+            "note": "Banner image rendered at the very top of the page at its natural aspect ratio — never cropped, so text or labels inside the artwork stay intact: full-bleed edge-to-edge on mobile, while on desktop the banner matches the content column width and hugs the image height. Wide artwork (~3:1) fills the band best; a very tall image is letterboxed at the logoBannerAspect height cap. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
           },
           "avatar": {
             "path": "avatar.src",
@@ -29888,7 +29888,7 @@
         "importPath": "./dist/link-page-grid-cards.js",
         "requirePath": "./dist/link-page-grid-cards.cjs"
       },
-      "importantUsageNotes": "Displays links as a 2- or 3-column grid of cards, each with an icon, label, and optional description. Best for creators or businesses with 4–9 distinct destinations. columns=2 works well on mobile; columns=3 adds a third column on sm and larger screens. Each card has hover scale and shadow transitions. Social links appear above the grid. Profile avatar is typically a logo or portrait. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. The banner always renders edge-to-edge at the image's NATURAL aspect ratio and is NEVER cropped, so banner artwork containing text or labels is safe; logoBannerAspect only sets the reserved pre-load band shape and the maximum band height (\"standard\" ~16:7 capped at 60vh (default), \"wide\" 3:1 capped at 50vh, \"ultrawide\" 4:1 capped at 40vh), and a very tall image is letterboxed at that cap rather than cropped. Wide artwork (~3:1) still looks best. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
+      "importantUsageNotes": "Displays links as a 2- or 3-column grid of cards, each with an icon, label, and optional description. Best for creators or businesses with 4–9 distinct destinations. columns=2 works well on mobile; columns=3 adds a third column on sm and larger screens. Each card has hover scale and shadow transitions. Social links appear above the grid. Profile avatar is typically a logo or portrait. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. The banner always renders at the image's NATURAL aspect ratio and is NEVER cropped, so banner artwork containing text or labels is safe; it is full-bleed edge-to-edge on mobile, and on desktop the banner matches the content column width and hugs the image height. logoBannerAspect only sets the reserved pre-load band shape and the maximum band height (\"standard\" ~16:7 capped at 60vh (default), \"wide\" 3:1 capped at 50vh, \"ultrawide\" 4:1 capped at 40vh), and a very tall image is letterboxed at that cap rather than cropped. Wide artwork (~3:1) still looks best. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
       "usageRequirements": {
         "requiredProps": [
           "name"
@@ -29937,15 +29937,15 @@
           },
           "logoAspect": {
             "required": false,
-            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (full-bleed top band; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
+            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (top image band — full-bleed on mobile, content-column width on desktop; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
           },
           "logoBannerImage.src": {
             "required": false,
-            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\". The image is shown full width at its natural aspect ratio and is never cropped, so artwork with text or labels baked in stays fully readable."
+            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\". The image renders at its natural aspect ratio and is never cropped, so artwork with text or labels baked in stays fully readable — full-bleed edge-to-edge on mobile, content-column width on desktop."
           },
           "logoBannerAspect": {
             "required": false,
-            "note": "Reserved pre-load band shape plus the maximum band height — it never crops the image: \"standard\" (~16:7, capped at 60vh, default), \"wide\" (3:1, capped at 50vh), \"ultrawide\" (4:1, capped at 40vh). A very tall image is letterboxed at the cap instead of being cropped."
+            "note": "Reserved pre-load band shape plus the maximum band height — it never crops the image: \"standard\" (~16:7, capped at 60vh, default), \"wide\" (3:1, capped at 50vh), \"ultrawide\" (4:1, capped at 40vh). A very tall image is letterboxed at the cap instead of being cropped. The band is full-bleed edge-to-edge on mobile; on desktop the banner matches the content column width and hugs the image height, so the reserved shape only damps mobile load shift."
           }
         },
         "mediaSlots": {
@@ -29976,7 +29976,7 @@
             "minPixelClass": "large",
             "required": false,
             "preferredAspect": "3:1",
-            "note": "Full-bleed banner image rendered edge-to-edge at the very top of the page at its natural aspect ratio — never cropped, so text or labels inside the artwork stay intact. Wide artwork (~3:1) fills the band best; a very tall image is letterboxed at the logoBannerAspect height cap. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+            "note": "Banner image rendered at the very top of the page at its natural aspect ratio — never cropped, so text or labels inside the artwork stay intact: full-bleed edge-to-edge on mobile, while on desktop the banner matches the content column width and hugs the image height. Wide artwork (~3:1) fills the band best; a very tall image is letterboxed at the logoBannerAspect height cap. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
           },
           "avatar": {
             "path": "avatar.src",
@@ -30101,7 +30101,7 @@
         "importPath": "./dist/link-page-minimal-profile.js",
         "requirePath": "./dist/link-page-minimal-profile.cjs"
       },
-      "importantUsageNotes": "Clean, minimalist link-in-bio page with no media gallery. The avatar accepts an ImageItem with an absolute src; it is typically a profile photo or logo. Each link renders with an optional Iconify icon on the left. Social links auto-detect platform from href. Best for professionals or developers who want a simple, text-focused link page. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. The banner always renders edge-to-edge at the image's NATURAL aspect ratio and is NEVER cropped, so banner artwork containing text or labels is safe; logoBannerAspect only sets the reserved pre-load band shape and the maximum band height (\"standard\" ~16:7 capped at 60vh (default), \"wide\" 3:1 capped at 50vh, \"ultrawide\" 4:1 capped at 40vh), and a very tall image is letterboxed at that cap rather than cropped. Wide artwork (~3:1) still looks best. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
+      "importantUsageNotes": "Clean, minimalist link-in-bio page with no media gallery. The avatar accepts an ImageItem with an absolute src; it is typically a profile photo or logo. Each link renders with an optional Iconify icon on the left. Social links auto-detect platform from href. Best for professionals or developers who want a simple, text-focused link page. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. The banner always renders at the image's NATURAL aspect ratio and is NEVER cropped, so banner artwork containing text or labels is safe; it is full-bleed edge-to-edge on mobile, and on desktop the banner matches the content column width and hugs the image height. logoBannerAspect only sets the reserved pre-load band shape and the maximum band height (\"standard\" ~16:7 capped at 60vh (default), \"wide\" 3:1 capped at 50vh, \"ultrawide\" 4:1 capped at 40vh), and a very tall image is letterboxed at that cap rather than cropped. Wide artwork (~3:1) still looks best. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
       "usageRequirements": {
         "requiredProps": [
           "name"
@@ -30146,15 +30146,15 @@
           },
           "logoAspect": {
             "required": false,
-            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (full-bleed top band; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
+            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (top image band — full-bleed on mobile, content-column width on desktop; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
           },
           "logoBannerImage.src": {
             "required": false,
-            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\". The image is shown full width at its natural aspect ratio and is never cropped, so artwork with text or labels baked in stays fully readable."
+            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\". The image renders at its natural aspect ratio and is never cropped, so artwork with text or labels baked in stays fully readable — full-bleed edge-to-edge on mobile, content-column width on desktop."
           },
           "logoBannerAspect": {
             "required": false,
-            "note": "Reserved pre-load band shape plus the maximum band height — it never crops the image: \"standard\" (~16:7, capped at 60vh, default), \"wide\" (3:1, capped at 50vh), \"ultrawide\" (4:1, capped at 40vh). A very tall image is letterboxed at the cap instead of being cropped."
+            "note": "Reserved pre-load band shape plus the maximum band height — it never crops the image: \"standard\" (~16:7, capped at 60vh, default), \"wide\" (3:1, capped at 50vh), \"ultrawide\" (4:1, capped at 40vh). A very tall image is letterboxed at the cap instead of being cropped. The band is full-bleed edge-to-edge on mobile; on desktop the banner matches the content column width and hugs the image height, so the reserved shape only damps mobile load shift."
           }
         },
         "mediaSlots": {
@@ -30185,7 +30185,7 @@
             "minPixelClass": "large",
             "required": false,
             "preferredAspect": "3:1",
-            "note": "Full-bleed banner image rendered edge-to-edge at the very top of the page at its natural aspect ratio — never cropped, so text or labels inside the artwork stay intact. Wide artwork (~3:1) fills the band best; a very tall image is letterboxed at the logoBannerAspect height cap. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+            "note": "Banner image rendered at the very top of the page at its natural aspect ratio — never cropped, so text or labels inside the artwork stay intact: full-bleed edge-to-edge on mobile, while on desktop the banner matches the content column width and hugs the image height. Wide artwork (~3:1) fills the band best; a very tall image is letterboxed at the logoBannerAspect height cap. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
           },
           "avatar": {
             "path": "avatar.src",
@@ -30330,7 +30330,7 @@
         "importPath": "./dist/link-page-newsletter-social.js",
         "requirePath": "./dist/link-page-newsletter-social.cjs"
       },
-      "importantUsageNotes": "Link page with an integrated email newsletter signup form powered by FormEngine. The form is rendered inside a card above the links list. formEngineSetup.api.endpoint must point to a real API; use the site's form submission endpoint. Links below the newsletter card support icons and chevron indicators. Social icons appear above the newsletter card. Avatar is displayed in the profile header. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. The banner always renders edge-to-edge at the image's NATURAL aspect ratio and is NEVER cropped, so banner artwork containing text or labels is safe; logoBannerAspect only sets the reserved pre-load band shape and the maximum band height (\"standard\" ~16:7 capped at 60vh (default), \"wide\" 3:1 capped at 50vh, \"ultrawide\" 4:1 capped at 40vh), and a very tall image is letterboxed at that cap rather than cropped. Wide artwork (~3:1) still looks best. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
+      "importantUsageNotes": "Link page with an integrated email newsletter signup form powered by FormEngine. The form is rendered inside a card above the links list. formEngineSetup.api.endpoint must point to a real API; use the site's form submission endpoint. Links below the newsletter card support icons and chevron indicators. Social icons appear above the newsletter card. Avatar is displayed in the profile header. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. The banner always renders at the image's NATURAL aspect ratio and is NEVER cropped, so banner artwork containing text or labels is safe; it is full-bleed edge-to-edge on mobile, and on desktop the banner matches the content column width and hugs the image height. logoBannerAspect only sets the reserved pre-load band shape and the maximum band height (\"standard\" ~16:7 capped at 60vh (default), \"wide\" 3:1 capped at 50vh, \"ultrawide\" 4:1 capped at 40vh), and a very tall image is letterboxed at that cap rather than cropped. Wide artwork (~3:1) still looks best. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
       "usageRequirements": {
         "requiredProps": [
           "name"
@@ -30379,15 +30379,15 @@
           },
           "logoAspect": {
             "required": false,
-            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (full-bleed top band; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
+            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (top image band — full-bleed on mobile, content-column width on desktop; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
           },
           "logoBannerImage.src": {
             "required": false,
-            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\". The image is shown full width at its natural aspect ratio and is never cropped, so artwork with text or labels baked in stays fully readable."
+            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\". The image renders at its natural aspect ratio and is never cropped, so artwork with text or labels baked in stays fully readable — full-bleed edge-to-edge on mobile, content-column width on desktop."
           },
           "logoBannerAspect": {
             "required": false,
-            "note": "Reserved pre-load band shape plus the maximum band height — it never crops the image: \"standard\" (~16:7, capped at 60vh, default), \"wide\" (3:1, capped at 50vh), \"ultrawide\" (4:1, capped at 40vh). A very tall image is letterboxed at the cap instead of being cropped."
+            "note": "Reserved pre-load band shape plus the maximum band height — it never crops the image: \"standard\" (~16:7, capped at 60vh, default), \"wide\" (3:1, capped at 50vh), \"ultrawide\" (4:1, capped at 40vh). A very tall image is letterboxed at the cap instead of being cropped. The band is full-bleed edge-to-edge on mobile; on desktop the banner matches the content column width and hugs the image height, so the reserved shape only damps mobile load shift."
           }
         },
         "mediaSlots": {
@@ -30418,7 +30418,7 @@
             "minPixelClass": "large",
             "required": false,
             "preferredAspect": "3:1",
-            "note": "Full-bleed banner image rendered edge-to-edge at the very top of the page at its natural aspect ratio — never cropped, so text or labels inside the artwork stay intact. Wide artwork (~3:1) fills the band best; a very tall image is letterboxed at the logoBannerAspect height cap. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+            "note": "Banner image rendered at the very top of the page at its natural aspect ratio — never cropped, so text or labels inside the artwork stay intact: full-bleed edge-to-edge on mobile, while on desktop the banner matches the content column width and hugs the image height. Wide artwork (~3:1) fills the band best; a very tall image is letterboxed at the logoBannerAspect height cap. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
           },
           "avatar": {
             "path": "avatar.src",
@@ -30574,7 +30574,7 @@
         "importPath": "./dist/link-tree-block.js",
         "requirePath": "./dist/link-tree-block.cjs"
       },
-      "importantUsageNotes": "Full-featured link-in-bio page. The brandAvatar/brandLogo prop accepts an ImageItem object with an absolute src URL — it is typically a logo or profile image. links[] items support featured highlighting, badges, icons, and descriptions. mediaGallery[] renders a 3-column grid of images or videos. socialLinks[] are resolved automatically from the href domain. Provide at least 3 links for a useful layout; gallery is optional. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. The banner always renders edge-to-edge at the image's NATURAL aspect ratio and is NEVER cropped, so banner artwork containing text or labels is safe; logoBannerAspect only sets the reserved pre-load band shape and the maximum band height (\"standard\" ~16:7 capped at 60vh (default), \"wide\" 3:1 capped at 50vh, \"ultrawide\" 4:1 capped at 40vh), and a very tall image is letterboxed at that cap rather than cropped. Wide artwork (~3:1) still looks best. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
+      "importantUsageNotes": "Full-featured link-in-bio page. The brandAvatar/brandLogo prop accepts an ImageItem object with an absolute src URL — it is typically a logo or profile image. links[] items support featured highlighting, badges, icons, and descriptions. mediaGallery[] renders a 3-column grid of images or videos. socialLinks[] are resolved automatically from the href domain. Provide at least 3 links for a useful layout; gallery is optional. Logo sizing/placement is controlled ONLY by logoAspect. Never attempt to size the logo with logoClassName or any className prop — class props have no effect on live sites. Pick logoAspect from the user's asset or words: square icon/mark → \"square\"; stacked or portrait logo → \"vertical\"; \"banner across the top\" / wide cover image → \"banner\" with logoBannerImage. Default wide wordmark → \"horizontal\" (or omit). Only set logoAspect:\"banner\" and logoBannerImage when the user asks for a banner/cover image; omit both otherwise. The banner always renders at the image's NATURAL aspect ratio and is NEVER cropped, so banner artwork containing text or labels is safe; it is full-bleed edge-to-edge on mobile, and on desktop the banner matches the content column width and hugs the image height. logoBannerAspect only sets the reserved pre-load band shape and the maximum band height (\"standard\" ~16:7 capped at 60vh (default), \"wide\" 3:1 capped at 50vh, \"ultrawide\" 4:1 capped at 40vh), and a very tall image is letterboxed at that cap rather than cropped. Wide artwork (~3:1) still looks best. logo takes priority over avatar; put the brand mark in logo.src and NEVER in avatar or brandAvatar — the brand-mark stripper nulls logo URLs on avatar-named props (only logo*/favicon/brandmark keys are exempt), so a logo placed there renders nothing. avatar/brandAvatar is for a person's profile photo (headshot).",
       "usageRequirements": {
         "requiredProps": [
           "brandName"
@@ -30643,15 +30643,15 @@
           },
           "logoAspect": {
             "required": false,
-            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (full-bleed top band; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
+            "note": "Shape/placement of the brand mark: \"horizontal\" (wide wordmark, default), \"square\" (large centered ~1:1 mark), \"vertical\" (tall stacked lockup), \"banner\" (top image band — full-bleed on mobile, content-column width on desktop; requires logoBannerImage). Pick the value matching the asset. Logo sizing is controlled ONLY by this prop — never by logoClassName or any class name."
           },
           "logoBannerImage.src": {
             "required": false,
-            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\". The image is shown full width at its natural aspect ratio and is never cropped, so artwork with text or labels baked in stays fully readable."
+            "note": "Absolute https URL. Only rendered when logoAspect is \"banner\". The image renders at its natural aspect ratio and is never cropped, so artwork with text or labels baked in stays fully readable — full-bleed edge-to-edge on mobile, content-column width on desktop."
           },
           "logoBannerAspect": {
             "required": false,
-            "note": "Reserved pre-load band shape plus the maximum band height — it never crops the image: \"standard\" (~16:7, capped at 60vh, default), \"wide\" (3:1, capped at 50vh), \"ultrawide\" (4:1, capped at 40vh). A very tall image is letterboxed at the cap instead of being cropped."
+            "note": "Reserved pre-load band shape plus the maximum band height — it never crops the image: \"standard\" (~16:7, capped at 60vh, default), \"wide\" (3:1, capped at 50vh), \"ultrawide\" (4:1, capped at 40vh). A very tall image is letterboxed at the cap instead of being cropped. The band is full-bleed edge-to-edge on mobile; on desktop the banner matches the content column width and hugs the image height, so the reserved shape only damps mobile load shift."
           }
         },
         "mediaSlots": {
@@ -30682,7 +30682,7 @@
             "minPixelClass": "large",
             "required": false,
             "preferredAspect": "3:1",
-            "note": "Full-bleed banner image rendered edge-to-edge at the very top of the page at its natural aspect ratio — never cropped, so text or labels inside the artwork stay intact. Wide artwork (~3:1) fills the band best; a very tall image is letterboxed at the logoBannerAspect height cap. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
+            "note": "Banner image rendered at the very top of the page at its natural aspect ratio — never cropped, so text or labels inside the artwork stay intact: full-bleed edge-to-edge on mobile, while on desktop the banner matches the content column width and hugs the image height. Wide artwork (~3:1) fills the band best; a very tall image is letterboxed at the logoBannerAspect height cap. Only used when logoAspect is \"banner\". IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
           },
           "brandAvatar": {
             "path": "brandAvatar.src",

@@ -129,7 +129,8 @@ export interface LinkTreeBlockProps {
    * page. Only rendered when logoAspect is "banner". Requires an absolute https
    * src and descriptive alt text. The image is never cropped — it renders
    * full-width at its natural aspect ratio, so artwork carrying text or labels
-   * stays fully visible.
+   * stays fully visible. On mobile the banner is full-bleed edge-to-edge; on
+   * desktop it renders at the content column's width, flush with the top.
    */
   logoBannerImage?: ImageItem;
   /**
@@ -138,7 +139,10 @@ export interface LinkTreeBlockProps {
    * shape only holds until the image loads — the banner image always renders
    * full-width at its natural aspect ratio and is NEVER cropped, so artwork with
    * text or labels stays fully visible; the max height caps the band
-   * (letterboxing, not cropping, when it binds).
+   * (letterboxing, not cropping, when it binds). The reserved shape applies on
+   * mobile only — at md+ the band's height comes from the artwork itself.
+   * On mobile the banner is full-bleed edge-to-edge; on desktop it renders at
+   * the content column's width, flush with the top.
    * @default "standard"
    */
   logoBannerAspect?: LinkPageLogoBannerAspect;
@@ -976,7 +980,14 @@ export function LinkTreeBlock({
       {isBannerMode && logoBannerImage ? (
         <div
           data-slot="link-page-banner"
-          className={cn(LINK_PAGE_BANNER_BREAKOUT_CLASSES, bannerAspectClasses)}
+          className={cn(
+            LINK_PAGE_BANNER_BREAKOUT_CLASSES,
+            bannerAspectClasses,
+            // Desktop width cap = THIS block's content/button column, which is
+            // the "w-full max-w-md space-y-6" div below. Literal, never
+            // computed, so the safelist extractor can harvest it.
+            "md:max-w-md",
+          )}
         >
           <Img
             src={logoBannerImage.src}

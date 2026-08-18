@@ -121,7 +121,8 @@ export interface LinkPageNewsletterSocialProps {
    * page. Only rendered when logoAspect is "banner". Requires an absolute https
    * src and descriptive alt text. The image is never cropped — it renders
    * full-width at its natural aspect ratio, so artwork carrying text or labels
-   * stays fully visible.
+   * stays fully visible. On mobile the banner is full-bleed edge-to-edge; on
+   * desktop it renders at the content column's width, flush with the top.
    */
   logoBannerImage?: ImageItem;
   /**
@@ -130,7 +131,10 @@ export interface LinkPageNewsletterSocialProps {
    * shape only holds until the image loads — the banner image always renders
    * full-width at its natural aspect ratio and is NEVER cropped, so artwork with
    * text or labels stays fully visible; the max height caps the band
-   * (letterboxing, not cropping, when it binds).
+   * (letterboxing, not cropping, when it binds). The reserved shape applies on
+   * mobile only — at md+ the band's height comes from the artwork itself.
+   * On mobile the banner is full-bleed edge-to-edge; on desktop it renders at
+   * the content column's width, flush with the top.
    * @default "standard"
    */
   logoBannerAspect?: LinkPageLogoBannerAspect;
@@ -810,6 +814,15 @@ export function LinkPageNewsletterSocial({
             LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES[
               logoBannerAspect ?? "standard"
             ] ?? LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES.standard,
+            // Desktop width cap = THIS block's content column. Like bento (and
+            // unlike the other three) this block does NOT cap its column with a
+            // max-w: the stack is "w-full space-y-8" inside a justify-center
+            // flex row, so its width IS the Section Container's inner box — the
+            // very box this banner div also lives in. md:max-w-full is
+            // therefore the token that renders the identical width (it releases
+            // the base max-w-none without narrowing anything). Literal, never
+            // computed, so the safelist extractor can harvest it.
+            "md:max-w-full",
           )}
         >
           <Img

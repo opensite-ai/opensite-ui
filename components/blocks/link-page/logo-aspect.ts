@@ -6,12 +6,17 @@ import type { OptixFlowConfig } from "../../../src/types";
  * - "horizontal": wide lockup/wordmark, modest bar height (default; legacy behavior)
  * - "square":     ~1:1 mark rendered LARGE and centered (~40-50% of column width)
  * - "vertical":   stacked/portrait lockup rendered tall and centered
- * - "banner":     full-bleed 100vw image band at the very top of the page
+ * - "banner":     image band at the very top of the page — full-bleed 100vw on
+ *                 mobile, and at md+ an in-column header matching the block's
+ *                 own content/button column width
  *                 (requires logoBannerImage; the centered logo medallion is not rendered)
  */
 export type LinkPageLogoAspect = BrandLogoAspect | "banner";
 
-/** Aspect ratio of the full-bleed banner band. */
+/**
+ * Aspect ratio reserved for the banner band. MOBILE ONLY — at md+ the band's
+ * height comes from the artwork itself (see LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES).
+ */
 export type LinkPageLogoBannerAspect = "standard" | "wide" | "ultrawide";
 
 // ——— Literal class tables (safelist-extractable; NEVER interpolate) ———
@@ -41,7 +46,8 @@ export const LINK_PAGE_LOGO_BOX_CLASSES_B: Record<BrandLogoAspect, string> = {
 };
 
 /**
- * Banner BOX reservation only — it does NOT constrain the rendered image.
+ * Banner BOX reservation, MOBILE ONLY — it does NOT constrain the rendered
+ * image, and at md+ it does not apply at all (`md:aspect-auto`).
  *
  * CSS `aspect-ratio` is a *preferred* size: it sets the box's height from its
  * width only while the content does not demand more room. The banner <img> is
@@ -50,18 +56,34 @@ export const LINK_PAGE_LOGO_BOX_CLASSES_B: Record<BrandLogoAspect, string> = {
  * the reserved shape, in which case the flex centering in
  * LINK_PAGE_BANNER_BREAKOUT_CLASSES keeps it vertically centered).
  *
- * In other words: these classes only reserve plausible space BEFORE the image
- * loads (layout-shift damping); they never crop or letterbox it. The per-tier
- * height ceiling lives on the image (max-h-[…vh]), not here — putting a max-h
- * on the box would clip the naturally-sized image instead of capping it.
+ * In other words: below md these classes only reserve plausible space BEFORE
+ * the image loads (layout-shift damping); they never crop or letterbox it. The
+ * per-tier height ceiling lives on the image (max-h-[…vh]), not here — putting
+ * a max-h on the box would clip the naturally-sized image instead of capping it.
+ *
+ * WHY the reservation stops at md (`md:aspect-auto`): when the band is WIDER
+ * than the artwork is tall — which is the normal desktop case, and always the
+ * case once the image's own `max-h-[…vh]` cap binds — the reserved ratio height
+ * exceeds the image height and the flex centering leaves an empty strip of
+ * section background above (and below) the artwork. Measured at 1440×900:
+ * standard reserved 630px vs a 540px image = 45px of dead space above the
+ * artwork, wide 480 vs 450 = 15px. That strip is exactly the "empty band above
+ * the banner" Jordan flagged, and it also breaks the flush-top intent of the
+ * `pt-0 md:pt-0` override — `pt-0` is honoured at the BOX level while the
+ * visible artwork starts 45px lower. With `md:aspect-auto` the band's height is
+ * derived from the image on desktop, so there is never a gap above or below the
+ * artwork; only the horizontal `object-contain` gutters remain, and those sit
+ * beside the artwork, not above it. Layout-shift damping is unaffected below md
+ * (mobile is byte-identical) and is not needed at md+, where the banner is now
+ * a column-width header rather than a 100vw hero.
  */
 export const LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES: Record<
   LinkPageLogoBannerAspect,
   string
 > = {
-  standard: "aspect-[16/7]",
-  wide: "aspect-[3/1]",
-  ultrawide: "aspect-[4/1]",
+  standard: "aspect-[16/7] md:aspect-auto",
+  wide: "aspect-[3/1] md:aspect-auto",
+  ultrawide: "aspect-[4/1] md:aspect-auto",
 };
 
 /**
@@ -73,6 +95,15 @@ export const LINK_PAGE_LOGO_BANNER_ASPECT_CLASSES: Record<
  * renders the whole asset; the per-tier `max-h-[…vh]` only caps how much of the
  * viewport the band may claim, and `object-contain` makes that cap letterbox
  * (fit inside, gutters) rather than crop when it actually binds.
+ *
+ * Deliberately NO md: variants here. These classes are already viewport-scaled
+ * (vh) rather than breakpoint-scaled, and the desktop change narrows the band to
+ * the block's content column, which makes the caps bind LESS often, never more:
+ * a max-w-sm (384px) column renders ~1.98:1 artwork at ~194px tall, far under
+ * 60vh. Where the column is the full Section Container (bento / newsletter, up
+ * to ~1216px) the cap can still bind, and that is exactly the behaviour we want
+ * — with `md:aspect-auto` the box now takes the image's capped height, so the
+ * cap letterboxes horizontally without reintroducing any empty band above it.
  */
 export const LINK_PAGE_LOGO_BANNER_IMG_CLASSES: Record<
   LinkPageLogoBannerAspect,
@@ -83,12 +114,24 @@ export const LINK_PAGE_LOGO_BANNER_IMG_CLASSES: Record<
   ultrawide: "h-auto max-h-[40vh] w-full object-contain",
 };
 
-// Self-contained 100vw breakout — works inside Container on all 5 blocks regardless
-// of whether the block forwards containerClassName to Section (only 3 of 5 do).
+// MOBILE (<md): self-contained 100vw viewport breakout — works inside Container
+// on all 5 blocks regardless of whether the block forwards containerClassName to
+// Section (only 3 of 5 do). The band is full-bleed, edge to edge.
+//
+// DESKTOP (md+): the breakout is NEUTRALIZED — `md:left-0 md:translate-x-0`
+// undo the -50%/+50% shift and `md:w-full md:mx-auto` turn the element back into
+// an ordinary centered block inside the Section's Container. It then renders as
+// an in-column HEADER rather than a hero: the width cap that makes it line up
+// with the block's own button/content column is NOT here, because it differs per
+// block — each of the 5 blocks appends its own literal `md:max-w-*` token to this
+// string (minimal-profile md:max-w-sm, grid-cards md:max-w-lg, link-tree
+// md:max-w-md, bento/newsletter md:max-w-full). The base `max-w-none` still
+// applies below md, so mobile stays full-bleed.
 //
 // The flex centering matters when the reserved aspect band is TALLER than the
 // max-h-capped image (short/ultrawide artwork): the image sits centered in the
-// band instead of hugging the top-left.
+// band instead of hugging the top-left. It also centers the letterboxed artwork
+// horizontally once `md:aspect-auto` removes the desktop reservation.
 //
 // NO `overflow-hidden` here, deliberately. `overflow-hidden` makes the box a
 // scroll container, which zeroes the automatic (content-based) minimum size that
@@ -101,7 +144,7 @@ export const LINK_PAGE_LOGO_BANNER_IMG_CLASSES: Record<
 // depend on this: the child img is `w-full`, and each block already layers
 // "overflow-x-clip" onto the Section in banner mode.
 export const LINK_PAGE_BANNER_BREAKOUT_CLASSES =
-  "relative left-1/2 flex w-screen max-w-none -translate-x-1/2 items-center justify-center";
+  "relative left-1/2 flex w-screen max-w-none -translate-x-1/2 items-center justify-center md:left-0 md:mx-auto md:w-full md:translate-x-0";
 
 /**
  * Reads the same window globals @page-speed/img reads for its OptixFlow
