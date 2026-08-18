@@ -249,10 +249,18 @@ export const NavbarTabbedSections = ({
                   <div className="flex gap-6">
                     <div className="flex-1 grid grid-cols-2 space-y-2 space-x-4">
                       {tab.links.map((link, linkIndex) => (
+                        // NavigationMenuLink gives the sub-link Radix's link
+                        // semantics (rootContentDismiss on click, keyboard/focus
+                        // grouping). Its className pre-resolves the wrapper's
+                        // opinionated defaults (inline-flex/items-center/w-max/
+                        // px-3 py-2/text-current/80/…) toward the Pressable's own
+                        // styling, because Radix's Slot hands the wrapper's
+                        // classes to the child by plain concatenation — anything
+                        // the child doesn't itself re-declare survives.
                         <NavigationMenuLink
                           key={linkIndex}
                           asChild
-                          className="w-full justify-start"
+                          className="flex w-full items-start justify-start p-3 text-current transition-colors hover:bg-muted hover:text-current"
                         >
                           <Pressable
                             href={link.url}

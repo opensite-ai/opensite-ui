@@ -447,6 +447,21 @@ const renderDropdownContent = (
   }
 };
 
+/**
+ * `NavigationMenuLink` twMerges this over its own opinionated defaults
+ * (inline-flex / w-max / items-center / justify-center / px-3 py-2 /
+ * rounded-md / text-current/80 / hover tint / transition-[color,box-shadow]),
+ * but Radix's Slot then joins the result with the child's own class string by
+ * PLAIN CONCATENATION — every group the child relies on has to be pre-resolved
+ * here or a leftover default would restyle the sub-link.
+ *
+ * `items-start` reproduces the flex default the bare `NavLink` had: its icon
+ * chip is fixed-size, so `items-center` would drop it out of line with the
+ * label.
+ */
+const NAV_SUBLINK_LINK_RESET =
+  "flex w-full items-start justify-start gap-2 rounded-none p-0 text-current transition-opacity hover:bg-transparent hover:text-current";
+
 interface AnimatedImagePreviewDropdownProps {
   links?: ILinkItem[];
   optixFlowConfig?: OptixFlowConfig;
@@ -495,15 +510,20 @@ const AnimatedImagePreviewDropdown = ({
     <div className="grid grid-cols-2 gap-4">
       <ul className="grid grid-cols-2 gap-4">
         {links.map((link, index) => (
-          <NavLink
+          <NavigationMenuLink
+            asChild
             key={`default-nav-link-${index}`}
-            link={link}
-            onMouseEnter={handleMouseEnter(index)}
-            onMouseLeave={handleMouseLeave}
-            ref={(el: HTMLAnchorElement | null) => {
-              if (el) linksRef.current[index] = el;
-            }}
-          />
+            className={NAV_SUBLINK_LINK_RESET}
+          >
+            <NavLink
+              link={link}
+              onMouseEnter={handleMouseEnter(index)}
+              onMouseLeave={handleMouseLeave}
+              ref={(el: HTMLAnchorElement | null) => {
+                if (el) linksRef.current[index] = el;
+              }}
+            />
+          </NavigationMenuLink>
         ))}
       </ul>
       <div className="relative h-64! w-full overflow-hidden rounded-lg bg-muted">
@@ -569,7 +589,13 @@ const FeaturedCardsGridDropdown = ({
           className={`grid grid-cols-4 pt-${featuredLinks && featuredLinks?.length > 0 ? 8 : 0} gap-4`}
         >
           {links?.map((link, index) => (
-            <NavLink key={`default-nav-link-${index}`} link={link} />
+            <NavigationMenuLink
+              asChild
+              key={`default-nav-link-${index}`}
+              className={NAV_SUBLINK_LINK_RESET}
+            >
+              <NavLink link={link} />
+            </NavigationMenuLink>
           ))}
         </div>
       ) : null}
@@ -630,14 +656,16 @@ const GroupLinks = ({ groupLinks }: GroupLinksProps) => {
               const idx = linkIndex++;
               return (
                 <li key={`group-link-${index1}-${index2}`}>
-                  <NavLink
-                    link={link}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    ref={(el: HTMLAnchorElement | null) => {
-                      if (el) linksRef.current[idx] = el;
-                    }}
-                  />
+                  <NavigationMenuLink asChild className={NAV_SUBLINK_LINK_RESET}>
+                    <NavLink
+                      link={link}
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                      ref={(el: HTMLAnchorElement | null) => {
+                        if (el) linksRef.current[idx] = el;
+                      }}
+                    />
+                  </NavigationMenuLink>
                 </li>
               );
             })}
@@ -661,32 +689,42 @@ const FeaturedImageLink = ({
 
   return (
     <div className="hidden xl:block">
-      <Pressable href={link.url || "#"} className="w-full max-w-147.5">
-        <AspectRatio
-          ratio={1.77245509}
-          className="overflow-hidden rounded-lg bg-muted"
-        >
-          <div className="size-full">
-            <Badge className="absolute top-2 left-2">New</Badge>
-            <div className="flex w-full flex-col items-center justify-center gap-4 pt-10">
-              <div className="text-2xl font-semibold">{link.label}</div>
-              <div className="w-[80%]">
-                <AspectRatio
-                  ratio={1.5}
-                  className="overflow-hidden rounded-lg bg-muted"
-                >
-                  <Img
-                    src={link.image}
-                    alt={typeof link.label === "string" ? link.label : ""}
-                    className="size-full object-cover object-center"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </AspectRatio>
+      {/* Desktop-only promo tile: it lives inside NavigationMenuContent, so it
+          needs Radix's link semantics (rootContentDismiss on click, keyboard
+          activation, data-slot/aria/ref) that a bare Pressable never had.
+          `inline` keeps the anchor a non-flex box — the AspectRatio child sizes
+          itself off the grid column, which `inline-flex` would collapse. */}
+      <NavigationMenuLink
+        asChild
+        className="inline w-full max-w-147.5 items-start justify-start rounded-none p-0 text-current transition-colors hover:bg-transparent hover:text-current"
+      >
+        <Pressable href={link.url || "#"} className="w-full max-w-147.5">
+          <AspectRatio
+            ratio={1.77245509}
+            className="overflow-hidden rounded-lg bg-muted"
+          >
+            <div className="size-full">
+              <Badge className="absolute top-2 left-2">New</Badge>
+              <div className="flex w-full flex-col items-center justify-center gap-4 pt-10">
+                <div className="text-2xl font-semibold">{link.label}</div>
+                <div className="w-[80%]">
+                  <AspectRatio
+                    ratio={1.5}
+                    className="overflow-hidden rounded-lg bg-muted"
+                  >
+                    <Img
+                      src={link.image}
+                      alt={typeof link.label === "string" ? link.label : ""}
+                      className="size-full object-cover object-center"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </AspectRatio>
+                </div>
               </div>
             </div>
-          </div>
-        </AspectRatio>
-      </Pressable>
+          </AspectRatio>
+        </Pressable>
+      </NavigationMenuLink>
     </div>
   );
 };
@@ -700,52 +738,81 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
   const hasBgImg = !!link.background;
 
   return (
-    <Pressable
-      href={getLinkUrl(link)}
-      className={`group relative flex w-full overflow-hidden rounded-xl px-4 pt-24 pb-4 ${hasBgImg ? "" : "bg-primary"}`}
+    // Desktop-only card: NavigationMenuLink supplies Radix's link semantics
+    // (rootContentDismiss on click, keyboard activation, data-slot/aria/ref).
+    // The card's own background is re-declared here because the wrapper's
+    // `bg-transparent`/`hover:bg-current/10` defaults would otherwise survive
+    // Slot's plain class concatenation and wash the card out. `p-0` leads the
+    // padding set because tailwind-merge lets a `py-*` default outlive
+    // `pt-*`/`pb-*`, and only the shorthand clears it. `text-base` clears the
+    // wrapper's `text-sm`, which would otherwise shrink the card's unsized
+    // description copy; `items-stretch` restores the bare anchor's flex
+    // default against the wrapper's `items-center`.
+    <NavigationMenuLink
+      asChild
+      className={cn(
+        "relative flex w-full items-stretch justify-start rounded-xl p-0 px-4 pt-24 pb-4 text-base text-current transition-colors hover:text-current",
+        hasBgImg
+          ? "bg-transparent hover:bg-transparent"
+          : "bg-primary hover:bg-primary",
+      )}
     >
-      <div className="relative z-10 flex w-full items-center gap-6">
-        <div className="flex items-center justify-center size-12 shrink-0 rounded-lg border bg-card text-card-foreground shadow-lg">
-          <DynamicIcon name={link.icon || link.iconName} size={20} />
+      <Pressable
+        href={getLinkUrl(link)}
+        className={`group relative flex w-full overflow-hidden rounded-xl px-4 pt-24 pb-4 ${hasBgImg ? "" : "bg-primary"}`}
+      >
+        <div className="relative z-10 flex w-full items-center gap-6">
+          <div className="flex items-center justify-center size-12 shrink-0 rounded-lg border bg-card text-card-foreground shadow-lg">
+            <DynamicIcon name={link.icon || link.iconName} size={20} />
+          </div>
+          <div
+            className={`flex flex-col ${hasBgImg ? "text-white text-shadow-lg" : "text-primary-foreground"}`}
+          >
+            <div className="text-lg font-semibold">{link.label}</div>
+            <div className="font-medium">{link.description}</div>
+          </div>
         </div>
-        <div
-          className={`flex flex-col ${hasBgImg ? "text-white text-shadow-lg" : "text-primary-foreground"}`}
-        >
-          <div className="text-lg font-semibold">{link.label}</div>
-          <div className="font-medium">{link.description}</div>
-        </div>
-      </div>
-      {link.background && link.background?.length > 0 ? (
-        <Img
-          src={link.background}
-          alt={
-            link.label && typeof link.label === "string"
-              ? link.label
-              : "Featured link background image"
-          }
-          className="absolute top-0 left-0 size-full brightness-50 object-cover object-center opacity-90 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
-          optixFlowConfig={optixFlowConfig}
-        />
-      ) : null}
-    </Pressable>
+        {link.background && link.background?.length > 0 ? (
+          <Img
+            src={link.background}
+            alt={
+              link.label && typeof link.label === "string"
+                ? link.label
+                : "Featured link background image"
+            }
+            className="absolute top-0 left-0 size-full brightness-50 object-cover object-center opacity-90 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
+            optixFlowConfig={optixFlowConfig}
+          />
+        ) : null}
+      </Pressable>
+    </NavigationMenuLink>
   );
 };
 
-interface NavLinkProps {
+/**
+ * Rendered under `NavigationMenuLink asChild` in every desktop dropdown (and
+ * bare inside the mobile accordion, which has no Radix root). Radix's Slot
+ * injects the merged props — the composed `onClick` that dispatches
+ * `rootContentDismiss`, `data-slot`/aria attributes and the ref — so they MUST
+ * be forwarded to the inner `Pressable`; swallowing them is what left the
+ * dropdown open after a sub-link click.
+ */
+interface NavLinkProps
+  extends Omit<React.ComponentProps<typeof Pressable>, "href" | "children"> {
   link: ILinkItem;
-  onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
-  onMouseLeave?: () => void;
 }
 
 const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
-  ({ link, onMouseEnter, onMouseLeave }, ref) => {
+  ({ link, className, ...props }, ref) => {
     return (
       <Pressable
         ref={ref}
         href={getLinkUrl(link)}
-        className="flex w-full gap-2 transition-opacity duration-300"
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
+        className={cn(
+          "flex w-full gap-2 transition-opacity duration-300",
+          className,
+        )}
+        {...props}
       >
         {link.icon || link.iconName ? (
           <div className="flex size-6 shrink-0 rounded-md border shadow">

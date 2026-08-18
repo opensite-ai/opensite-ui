@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "3.15.5",
+  "version": "3.15.6",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",

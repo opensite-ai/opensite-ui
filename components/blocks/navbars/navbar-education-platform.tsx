@@ -421,10 +421,17 @@ const DesktopMenuItem = ({
                   </p>
                   <div className="space-y-1">
                     {group.links.map((link) => (
+                      // The className pre-resolves NavigationMenuLink's
+                      // opinionated defaults (inline-flex/w-max/
+                      // justify-center/text-current/80/…) toward the
+                      // Pressable's own styling: Slot hands the wrapper's
+                      // classes to the child as one concatenated string, so a
+                      // default left in place is settled by stylesheet order
+                      // instead of by intent.
                       <NavigationMenuLink
                         key={link.title}
                         asChild
-                        className="w-full"
+                        className="flex w-full flex-row justify-start gap-3 text-current transition-colors hover:text-current"
                       >
                         <Pressable
                           href={link.href}

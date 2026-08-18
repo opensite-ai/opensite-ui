@@ -17,34 +17,11 @@ vi.mock("@page-speed/img", () => ({
   ),
 }));
 
-vi.mock("../../../lib/Pressable", () => ({
-  Pressable: ({ children, href, className, onClick, asButton }: any) => {
-    if (asButton || onClick) {
-      return (
-        <button
-          onClick={onClick}
-          className={className}
-          data-testid="mock-pressable"
-        >
-          {children}
-        </button>
-      );
-    }
-    return (
-      <a href={href} className={className} data-testid="mock-pressable">
-        {children}
-      </a>
-    );
-  },
-}));
-
-vi.mock("../../ui/dynamic-icon", () => ({
-  DynamicIcon: ({ name, size }: { name: string; size?: number }) => (
-    <span data-testid="mock-icon" data-icon={name} data-size={size}>
-      Icon
-    </span>
-  ),
-}));
+// This suite runs the REAL Pressable and DynamicIcon. It used to carry mocks
+// for both, but their specifiers ("../../../lib/Pressable", "../../ui/…")
+// resolved to paths that don't exist from this __tests__ directory, so vitest
+// never intercepted anything — the mocks were inert landmines. Real components
+// are what production renders; keep it that way.
 
 describe("NavbarMegaMenu", () => {
   beforeEach(() => {

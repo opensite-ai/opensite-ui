@@ -4,6 +4,7 @@ import * as React from "react";
 import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
+import { useRouteChangeClose } from "../../../lib/useRouteChangeClose";
 import { Section } from "../../ui/section";
 import { NavbarLogo } from "../../ui/navbar-logo";
 import {
@@ -167,8 +168,15 @@ export const NavbarFullscreenMenu = ({
   optixFlowConfig,
 }: NavbarFullscreenMenuRuntimeProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const overlayRef = React.useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  // This overlay is hand-rolled — no Radix primitive dismisses it — and it is
+  // `fixed inset-0`, so an SPA navigation would render the new page invisibly
+  // behind it. The ref resolves the owning window, which differs from the
+  // parent app's window inside the dt-cms iframe preview.
+  useRouteChangeClose(isOpen, () => setIsOpen(false), overlayRef);
 
   const renderMenuItems = useMemo(() => {
     if (menuSlot) return menuSlot;
@@ -273,6 +281,7 @@ export const NavbarFullscreenMenu = ({
       {/* Fullscreen overlay - renders outside Section to cover entire viewport */}
       {isOpen && (
         <div
+          ref={overlayRef}
           className={cn(
             "fixed inset-0 z-50 flex flex-col bg-background animate-in fade-in duration-300",
             overlayClassName,

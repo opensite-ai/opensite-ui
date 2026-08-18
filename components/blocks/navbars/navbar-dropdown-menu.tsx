@@ -147,17 +147,33 @@ export interface NavbarDropdownMenuRuntimeProps {
 
 }
 
-const SubMenuLink = ({
-  item,
-  optixFlowConfig,
-}: {
-  item: MenuItem;
-  optixFlowConfig?: OptixFlowConfig;
-}) => {
+/**
+ * Rendered under `NavigationMenuLink asChild` on desktop and bare inside the
+ * mobile accordion. In the desktop case Radix's Slot injects the merged props
+ * (the composed `onClick` that dispatches `rootContentDismiss`, plus
+ * `data-*`/aria props and the ref); they MUST reach the inner `Pressable` —
+ * destructuring only `item` silently discarded the dismiss handler and the ref,
+ * so clicking or keyboard-selecting a sub-link left the dropdown open.
+ * `optixFlowConfig` is accepted for call-site parity only and is deliberately
+ * not forwarded to the DOM.
+ */
+const SubMenuLink = React.forwardRef<
+  React.ComponentRef<typeof Pressable>,
+  { item: MenuItem; optixFlowConfig?: OptixFlowConfig } & Omit<
+    React.ComponentProps<typeof Pressable>,
+    // `href` and `children` come from `item`; Slot never injects either.
+    "href" | "children"
+  >
+>(({ item, optixFlowConfig, className, ...props }, ref) => {
   return (
     <Pressable
-      className="flex min-w-80 flex-row items-center gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted"
+      ref={ref}
+      className={cn(
+        "flex min-w-80 flex-row items-center gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted",
+        className,
+      )}
       href={item.url}
+      {...props}
     >
       {item.icon && (
         <div className="flex size-5 shrink-0 items-center justify-center text-muted-foreground">
@@ -174,7 +190,8 @@ const SubMenuLink = ({
       </div>
     </Pressable>
   );
-};
+});
+SubMenuLink.displayName = "SubMenuLink";
 
 const renderMenuItem = (item: MenuItem, optixFlowConfig?: OptixFlowConfig) => {
   if (item.items) {
@@ -183,7 +200,16 @@ const renderMenuItem = (item: MenuItem, optixFlowConfig?: OptixFlowConfig) => {
         <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
         <NavigationMenuContent className="bg-popover text-popover-foreground">
           {item.items.map((subItem) => (
-            <NavigationMenuLink asChild key={subItem.title} className="w-80">
+            // Radix's Slot joins this className with the child's by plain
+            // concatenation, so the wrapper's opinionated defaults
+            // (inline-flex/justify-center/px-3 py-2/w-max/text-current/80/…)
+            // have to be pre-resolved toward SubMenuLink's own styling here —
+            // otherwise stylesheet order, not intent, picks the winner.
+            <NavigationMenuLink
+              asChild
+              key={subItem.title}
+              className="flex w-80 justify-start p-3 text-current transition-colors hover:bg-muted"
+            >
               <SubMenuLink item={subItem} optixFlowConfig={optixFlowConfig} />
             </NavigationMenuLink>
           ))}

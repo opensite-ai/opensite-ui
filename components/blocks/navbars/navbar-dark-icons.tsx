@@ -371,7 +371,19 @@ const DesktopMenuItem = ({ item, index }: DesktopMenuItemProps) => {
           <ul className="w-[20rem] p-2.5">
             {item.links.map((link, linkIndex) => (
               <li key={`desktop-nav-sublink-${linkIndex}`}>
-                <MenuSubLink link={link} />
+                {/* NavigationMenuLink gives the sub-link Radix's link
+                    semantics (rootContentDismiss on click, keyboard/focus
+                    grouping) — a bare Pressable never dismissed the panel.
+                    Its className pre-resolves the wrapper's defaults
+                    (inline-flex/justify-center/w-max/px-3 py-2/rounded-md/…)
+                    toward MenuSubLink's own styling, because Slot joins the
+                    two class strings by plain concatenation. */}
+                <NavigationMenuLink
+                  asChild
+                  className="flex w-full justify-start rounded-lg p-2 text-current transition-colors hover:bg-muted hover:text-current"
+                >
+                  <MenuSubLink link={link} />
+                </NavigationMenuLink>
               </li>
             ))}
           </ul>
@@ -392,15 +404,29 @@ const DesktopMenuItem = ({ item, index }: DesktopMenuItemProps) => {
   );
 };
 
-interface MenuSubLinkProps {
-  link: MenuLink;
-}
-
-const MenuSubLink = ({ link }: MenuSubLinkProps) => {
+/**
+ * Rendered under `NavigationMenuLink asChild` on desktop (and bare inside the
+ * mobile accordion): Radix's Slot injects the merged props — the composed
+ * `onClick` that dispatches `rootContentDismiss`, plus `data-*`/aria props and
+ * the ref. They MUST all reach the inner `Pressable`; destructuring only `link`
+ * silently discarded the dismiss handler and left the dropdown open.
+ */
+const MenuSubLink = React.forwardRef<
+  React.ComponentRef<typeof Pressable>,
+  { link: MenuLink } & Omit<
+    React.ComponentProps<typeof Pressable>,
+    "href" | "children"
+  >
+>(({ link, className, ...props }, ref) => {
   return (
     <Pressable
+      ref={ref}
       href={link.url}
-      className="flex items-center gap-4 rounded-lg p-2 hover:bg-muted"
+      className={cn(
+        "flex items-center gap-4 rounded-lg p-2 hover:bg-muted",
+        className,
+      )}
+      {...props}
     >
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center gap-2.5">
@@ -425,7 +451,8 @@ const MenuSubLink = ({ link }: MenuSubLinkProps) => {
       </div>
     </Pressable>
   );
-};
+});
+MenuSubLink.displayName = "MenuSubLink";
 
 interface MobileNavigationMenuProps {
   open: boolean;

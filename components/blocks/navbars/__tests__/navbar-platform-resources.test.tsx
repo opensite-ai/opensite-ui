@@ -9,14 +9,11 @@ vi.mock("@page-speed/img", () => ({
   ),
 }));
 
-vi.mock("../../../lib/Pressable", () => ({
-  Pressable: ({ children, href, className, onClick, asButton }: any) => {
-    if (asButton || onClick) {
-      return <button onClick={onClick} className={className} data-testid="mock-pressable">{children}</button>;
-    }
-    return <a href={href} className={className} data-testid="mock-pressable">{children}</a>;
-  },
-}));
+// This suite runs the REAL Pressable. It used to carry a Pressable mock, but
+// its specifier ("../../../lib/Pressable") resolved to a path that doesn't
+// exist from this __tests__ directory, so vitest never intercepted anything —
+// the mock was an inert landmine. Real Pressable is what production renders;
+// keep it that way.
 
 vi.mock("../../../ui/dynamic-icon", () => ({
   DynamicIcon: ({ name, size }: { name: any; size?: number }) =>

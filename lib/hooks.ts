@@ -10,5 +10,7 @@ export type { UseNavigationArgs, UseNavigationReturn } from "./useNavigation";
 export { useResponsiveLayout } from "./useResponsiveLayout";
 export type { UseResponsiveLayoutArgs } from "./useResponsiveLayout";
 
+export { useRouteChangeClose } from "./useRouteChangeClose";
+
 // Re-export types for convenience
 export type { LinkType } from "./useNavigation";

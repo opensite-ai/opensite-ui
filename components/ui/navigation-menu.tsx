@@ -1,22 +1,59 @@
+"use client";
+
 import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
+import { useRouteChangeClose } from "../../lib/useRouteChangeClose";
 import { DynamicIcon } from "./dynamic-icon";
 
+/**
+ * Route-aware wrapper around Radix's NavigationMenu root.
+ *
+ * Radix's open/close state (`value`) is internal and hover/click driven; an
+ * SPA navigation (`pushState` + `popstate`/`routechange`, no document unload)
+ * leaves whatever panel is open sitting over the newly rendered page. The
+ * wrapper therefore holds `value` itself and resets it to `""` on navigation —
+ * robust regardless of whether the clicked element was a `NavigationMenuLink`.
+ *
+ * Callers that pass their own `value`/`onValueChange` stay in control: the
+ * wrapper forwards them and only reports the close intent via
+ * `onValueChange("")`.
+ */
 function NavigationMenu({
   className,
   children,
   viewport = true,
+  value: valueProp,
+  defaultValue,
+  onValueChange,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Root> & {
   viewport?: boolean;
 }) {
+  const rootRef =
+    React.useRef<React.ComponentRef<typeof NavigationMenuPrimitive.Root>>(
+      null,
+    );
+  const [internalValue, setInternalValue] = React.useState(defaultValue ?? "");
+  const isControlled = valueProp !== undefined;
+  const value = isControlled ? valueProp : internalValue;
+
+  const handleValueChange = (next: string) => {
+    if (!isControlled) setInternalValue(next);
+    onValueChange?.(next);
+  };
+
+  useRouteChangeClose(value !== "", () => handleValueChange(""), rootRef);
+
   return (
     <NavigationMenuPrimitive.Root
+      ref={rootRef}
       data-slot="navigation-menu"
       data-viewport={viewport}
+      value={value}
+      onValueChange={handleValueChange}
       className={cn(
         "group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
         className,

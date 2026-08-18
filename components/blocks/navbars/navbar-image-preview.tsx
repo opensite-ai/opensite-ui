@@ -447,22 +447,33 @@ const DesktopMenuItem = ({
               <ul>
                 {item.links.map((link, linkIndex) => (
                   <li key={`desktop-nav-sublink-${linkIndex}`}>
-                    <Pressable
-                      href={getLinkUrl(link)}
-                      className="flex items-center gap-4 rounded-lg px-4 py-3 hover:bg-muted"
-                      data-index={linkIndex}
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
+                    {/* NavigationMenuLink gives the sub-link Radix's link
+                        semantics (rootContentDismiss on click, keyboard/focus
+                        grouping) — a bare Pressable never dismissed the panel.
+                        Its className pre-resolves the wrapper's defaults
+                        toward the Pressable's own styling so the Slot-merged
+                        class string keeps today's visuals. */}
+                    <NavigationMenuLink
+                      asChild
+                      className="flex w-full justify-start gap-4 rounded-lg px-4 py-3 text-current transition-colors hover:bg-muted hover:text-current"
                     >
-                      <div>
-                        <h3 className="text-sm leading-normal font-medium">
-                          {link.label}
-                        </h3>
-                        <p className="text-xs leading-normal">
-                          {link.description}
-                        </p>
-                      </div>
-                    </Pressable>
+                      <Pressable
+                        href={getLinkUrl(link)}
+                        className="flex items-center gap-4 rounded-lg px-4 py-3 hover:bg-muted"
+                        data-index={linkIndex}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <div>
+                          <h3 className="text-sm leading-normal font-medium">
+                            {link.label}
+                          </h3>
+                          <p className="text-xs leading-normal">
+                            {link.description}
+                          </p>
+                        </div>
+                      </Pressable>
+                    </NavigationMenuLink>
                   </li>
                 ))}
               </ul>

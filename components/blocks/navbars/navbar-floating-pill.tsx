@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
+import { useRouteChangeClose } from "../../../lib/useRouteChangeClose";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { NavbarLogo } from "../../ui/navbar-logo";
@@ -167,6 +168,23 @@ export const NavbarFloatingPill = ({
 }: NavbarFloatingPillRuntimeProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const mobilePanelRef = React.useRef<HTMLDivElement>(null);
+
+  const closeMobileMenu = React.useCallback(() => {
+    setIsMenuOpen(false);
+    setOpenDropdown(null);
+  }, []);
+
+  // This panel is hand-rolled rather than a shared primitive, so nothing else
+  // reacts to navigation: only taps on its own links close it. A back/forward
+  // move or a link elsewhere on the page leaves it stacked over the new route.
+  // The ref binds the listeners to the panel's own realm (dt-cms renders these
+  // blocks into an iframe document from the parent window's React tree).
+  useRouteChangeClose(
+    isMenuOpen || openDropdown !== null,
+    closeMobileMenu,
+    mobilePanelRef,
+  );
 
   const renderAuthActions = useMemo(() => {
     if (authActionsSlot) return authActionsSlot;
@@ -336,6 +354,7 @@ export const NavbarFloatingPill = ({
 
           {/* Mobile Menu Navigation */}
           <div
+            ref={mobilePanelRef}
             className={cn(
               "fixed inset-x-0 top-[calc(100%+1rem)] flex flex-col rounded-2xl border bg-background p-6 transition-all duration-300 ease-in-out lg:hidden",
               isMenuOpen
@@ -384,10 +403,7 @@ export const NavbarFloatingPill = ({
                                 key={item.title}
                                 href={item.href}
                                 className="group block rounded-md p-2 transition-colors hover:bg-accent"
-                                onClick={() => {
-                                  setIsMenuOpen(false);
-                                  setOpenDropdown(null);
-                                }}
+                                onClick={closeMobileMenu}
                               >
                                 <div className="transition-transform duration-200 group-hover:translate-x-1">
                                   <div className="font-medium text-primary">

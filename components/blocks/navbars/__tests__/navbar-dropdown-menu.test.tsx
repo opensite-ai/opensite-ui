@@ -1,6 +1,13 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { simulateRouteChange } from "../../../../src/test-utils/simulate-route-change";
 import { NavbarDropdownMenu } from "../navbar-dropdown-menu";
+
+// Real Pressable calls the router's navigateTo on click, which scrolls; jsdom
+// has no layout so stub it to keep test output pristine.
+beforeEach(() => {
+  vi.stubGlobal("scrollTo", vi.fn());
+});
 
 describe("NavbarDropdownMenu", () => {
   const mockMenu = [
@@ -148,6 +155,46 @@ describe("NavbarDropdownMenu", () => {
     const { container } = render(<NavbarDropdownMenu menu={mockMenu} />);
     const navList = container.querySelector("[data-slot='navigation-menu-list']");
     expect(navList).toBeInTheDocument();
+  });
+
+  describe("desktop dropdown", () => {
+    const trigger = () => screen.getByRole("button", { name: /Products/ });
+
+    it("forwards Radix's injected props through SubMenuLink to the anchor", () => {
+      render(<NavbarDropdownMenu menu={mockMenu} />);
+
+      fireEvent.click(trigger());
+
+      const subLink = screen.getByText("Product 1").closest("a");
+      expect(subLink).toBeTruthy();
+      // NavigationMenuLink injects data-slot (among onClick/ref/aria props)
+      // via Slot; SubMenuLink must not drop them on the floor.
+      expect(subLink).toHaveAttribute("data-slot", "navigation-menu-link");
+      expect(subLink).toHaveAttribute("href", "/products/1");
+    });
+
+    it("closes the dropdown when a sub-link is clicked, without any pointer-leave", () => {
+      render(<NavbarDropdownMenu menu={mockMenu} />);
+
+      fireEvent.click(trigger());
+      expect(trigger()).toHaveAttribute("data-state", "open");
+
+      const subLink = screen.getByText("Product 1").closest("a")!;
+      fireEvent.click(subLink);
+
+      expect(trigger()).toHaveAttribute("data-state", "closed");
+    });
+
+    it("closes the dropdown on a browser back/forward navigation", () => {
+      render(<NavbarDropdownMenu menu={mockMenu} />);
+
+      fireEvent.click(trigger());
+      expect(trigger()).toHaveAttribute("data-state", "open");
+
+      simulateRouteChange("/products/1");
+
+      expect(trigger()).toHaveAttribute("data-state", "closed");
+    });
   });
 });
 

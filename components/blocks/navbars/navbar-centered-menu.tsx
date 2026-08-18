@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon, type DynamicIconName } from "../../ui/dynamic-icon";
@@ -14,6 +13,7 @@ import {
   AccordionTrigger,
 } from "../../ui/accordion";
 import {
+  NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
@@ -147,30 +147,29 @@ export interface NavbarCenteredMenuRuntimeProps {
 
 }
 
-const NavigationMenuWithoutViewport = ({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof NavigationMenuPrimitive.Root>) => {
-  return (
-    <NavigationMenuPrimitive.Root
-      data-slot="navigation-menu"
-      className={cn(
-        "group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </NavigationMenuPrimitive.Root>
-  );
-};
-
-const SubMenuLink = ({ item }: { item: MenuItem }) => {
+/**
+ * Rendered under `NavigationMenuLink asChild`: Radix's Slot injects the merged
+ * props (the composed `onClick` that dispatches `rootContentDismiss`, plus
+ * `data-*`/aria props and the ref). They MUST be forwarded to the inner
+ * `Pressable` — destructuring only `item` silently discarded the dismiss
+ * handler, which is why clicking a sub-link left the dropdown open.
+ */
+const SubMenuLink = React.forwardRef<
+  React.ComponentRef<typeof Pressable>,
+  { item: MenuItem } & Omit<
+    React.ComponentProps<typeof Pressable>,
+    "href" | "children"
+  >
+>(({ item, className, ...props }, ref) => {
   return (
     <Pressable
-      className="flex flex-row items-center gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-foreground"
+      ref={ref}
+      className={cn(
+        "flex flex-row items-center gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-foreground",
+        className,
+      )}
       href={item.url}
+      {...props}
     >
       {item.icon && (
         <div className="flex size-5 shrink-0 items-center justify-center text-muted-foreground">
@@ -187,16 +186,30 @@ const SubMenuLink = ({ item }: { item: MenuItem }) => {
       </div>
     </Pressable>
   );
-};
+});
+SubMenuLink.displayName = "SubMenuLink";
 
 const renderMenuItem = (item: MenuItem) => {
   if (item.items) {
     return (
       <NavigationMenuItem key={item.title}>
         <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
-        <NavigationMenuContent className="origin-top-center relative top-11 w-full overflow-hidden rounded-md border bg-popover shadow data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 data-[motion^=from-]:animate-in data-[motion^=from-]:fade-in data-[motion^=to-]:animate-out data-[motion^=to-]:fade-out data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:zoom-in-90 md:absolute md:left-1/2 md:w-80 md:-translate-x-1/2">
+        {/* Positioning/animation now come from the shared wrapper's
+            viewport={false} path (top-full + mt-1.5, zoom-in-95/fade-in),
+            whose group-data-[viewport=false] selectors out-specify plain
+            utilities — the old top-11/zoom-in-90 compensation for the deleted
+            local Root fork was dead weight and has been dropped. */}
+        <NavigationMenuContent className="origin-top-center relative w-full overflow-hidden rounded-md border bg-popover shadow data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 data-[motion^=from-]:animate-in data-[motion^=from-]:fade-in data-[motion^=to-]:animate-out data-[motion^=to-]:fade-out data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:animate-in md:absolute md:left-1/2 md:w-80 md:-translate-x-1/2">
           {item.items.map((subItem) => (
-            <NavigationMenuLink asChild key={subItem.title} className="w-full">
+            // The className pre-resolves NavigationMenuLink's opinionated
+            // defaults (inline-flex/justify-center/px-3 py-2/w-max/…) toward
+            // SubMenuLink's own styling so the Slot-merged class string keeps
+            // today's visuals.
+            <NavigationMenuLink
+              asChild
+              key={subItem.title}
+              className="flex w-full justify-start p-3 text-current transition-colors hover:bg-muted hover:text-foreground"
+            >
               <SubMenuLink item={subItem} />
             </NavigationMenuLink>
           ))}
@@ -364,13 +377,18 @@ export const NavbarCenteredMenu = ({
               />
               <div className="flex items-center gap-6">
                 <div className="flex items-center">
-                  <NavigationMenuWithoutViewport
+                  {/* The shared wrapper's viewport={false} path replaces the
+                      old local NavigationMenuPrimitive.Root fork, which
+                      bypassed the wrapper and therefore missed its
+                      route-change reset. */}
+                  <NavigationMenu
+                    viewport={false}
                     className={navigationMenuClassName}
                   >
                     <NavigationMenuList className="relative">
                       {renderMenu}
                     </NavigationMenuList>
-                  </NavigationMenuWithoutViewport>
+                  </NavigationMenu>
                 </div>
               </div>
               <div className={cn("flex gap-2", actionsClassName)}>

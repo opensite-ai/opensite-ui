@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "../../lib/utils";
+import { useRouteChangeClose } from "../../lib/useRouteChangeClose";
 import { DynamicIcon } from "./dynamic-icon";
 
 /**
@@ -50,21 +51,32 @@ export const NavbarMobileMenu = ({
   closeIconClassName,
   title = "Mobile Navigation",
 }: NavbarMobileMenuProps) => {
-  // Prevent body scroll when menu is open
+  const rootRef = React.useRef<HTMLDivElement>(null);
+
+  // Prevent body scroll when menu is open. The lock targets the document that
+  // OWNS the menu node: in the dt-cms builder preview this component is
+  // portaled into an iframe document while running in the parent React realm,
+  // and locking the global `document` would freeze the parent app instead.
   React.useEffect(() => {
-    if (open) {
-      const originalOverflow = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = originalOverflow;
-      };
-    }
+    if (!open) return;
+    const body = rootRef.current?.ownerDocument.body ?? document.body;
+    const originalOverflow = body.style.overflow;
+    body.style.overflow = "hidden";
+    return () => {
+      body.style.overflow = originalOverflow;
+    };
   }, [open]);
+
+  // Close on SPA navigation (popstate / hashchange / routechange) — the menu
+  // is a fully controlled, opaque `fixed inset-0` overlay, so without this a
+  // link tap navigates but leaves the overlay covering the new page.
+  useRouteChangeClose(open, onClose, rootRef);
 
   if (!open) return null;
 
   return (
     <div
+      ref={rootRef}
       className={cn(
         "fixed inset-0 z-998 flex flex-col bg-background",
         "animate-in slide-in-from-top duration-300",

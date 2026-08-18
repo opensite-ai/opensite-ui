@@ -393,6 +393,16 @@ const DesktopMenuItem = ({ item, index }: DesktopMenuItemProps) => {
                       className="min-w-0"
                       key={`desktop-links-${groupIndex}-${linkIndex}`}
                     >
+                      {/* NavigationMenuLink is load-bearing, not decoration:
+                          it gives the sub-link Radix's link semantics
+                          (rootContentDismiss on click/Enter, focus grouping,
+                          data-slot/aria) that a bare Pressable never gets.
+                          Its className pre-resolves the wrapper's opinionated
+                          defaults (inline-flex/w-max/px-3 py-2/…) toward this
+                          Pressable's own layout, because Radix's Slot then
+                          joins the two class strings by plain concatenation —
+                          leftover conflicts would be settled by stylesheet
+                          order rather than intent. */}
                       <NavigationMenuLink
                         asChild
                         className="group/link !flex !w-full max-w-full min-w-0 flex-row items-start gap-2 overflow-hidden px-3 py-2 text-left whitespace-normal transition-colors duration-200"

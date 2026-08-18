@@ -1,6 +1,35 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { simulateRouteChange } from "../../../../src/test-utils/simulate-route-change";
 import { NavbarMultiColumnGroups } from "../navbar-multi-column-groups";
+
+// Real Pressable calls the router's navigateTo on click, which scrolls; jsdom
+// has no layout so stub it to keep test output pristine.
+beforeEach(() => {
+  vi.stubGlobal("scrollTo", vi.fn());
+});
+
+const groupedNavigation = [
+  {
+    title: "Explore",
+    groups: [
+      {
+        title: "About Us",
+        links: [
+          {
+            label: "Sub Item",
+            description: "Heritage tours and tastings",
+            url: "/heritage",
+            iconName: "lucide/puzzle",
+          },
+        ],
+      },
+    ],
+  },
+  { title: "Contact", url: "/contact" },
+];
+
+const groupTrigger = () => screen.getByRole("button", { name: /Explore/ });
 
 describe("NavbarMultiColumnGroups", () => {
   it("bounds multi-column dropdown links so long generated copy cannot erase panel padding", async () => {
@@ -72,5 +101,42 @@ describe("NavbarMultiColumnGroups", () => {
     );
     expect(title).toHaveClass("line-clamp-2", "break-words");
     expect(description).toHaveClass("line-clamp-2", "break-words");
+  });
+
+  describe("desktop dropdown sub-links", () => {
+    it("renders group links as Radix navigation-menu links", () => {
+      render(<NavbarMultiColumnGroups navigation={groupedNavigation} />);
+
+      fireEvent.click(groupTrigger());
+
+      const subLink = screen.getByText("Sub Item").closest("a");
+      expect(subLink).toBeTruthy();
+      expect(subLink).toHaveAttribute("href", "/heritage");
+      // Bare Pressables never dispatch Radix's rootContentDismiss; the link
+      // must participate in NavigationMenuLink semantics.
+      expect(subLink).toHaveAttribute("data-slot", "navigation-menu-link");
+    });
+
+    it("closes the dropdown when a group link is clicked, without any pointer-leave", () => {
+      render(<NavbarMultiColumnGroups navigation={groupedNavigation} />);
+
+      fireEvent.click(groupTrigger());
+      expect(groupTrigger()).toHaveAttribute("data-state", "open");
+
+      fireEvent.click(screen.getByText("Sub Item").closest("a")!);
+
+      expect(groupTrigger()).toHaveAttribute("data-state", "closed");
+    });
+
+    it("closes the dropdown on a browser back/forward navigation", () => {
+      render(<NavbarMultiColumnGroups navigation={groupedNavigation} />);
+
+      fireEvent.click(groupTrigger());
+      expect(groupTrigger()).toHaveAttribute("data-state", "open");
+
+      simulateRouteChange("/heritage");
+
+      expect(groupTrigger()).toHaveAttribute("data-state", "closed");
+    });
   });
 });
