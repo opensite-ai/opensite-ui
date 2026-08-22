@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "3.15.7",
+  "version": "3.16.0",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -185,6 +185,11 @@
       "types": "./dist/article-hero-prose.d.ts",
       "import": "./dist/article-hero-prose.js",
       "require": "./dist/article-hero-prose.cjs"
+    },
+    "./blocks/article/article-legal-prose": {
+      "types": "./dist/article-legal-prose.d.ts",
+      "import": "./dist/article-legal-prose.js",
+      "require": "./dist/article-legal-prose.cjs"
     },
     "./blocks/article/article-sidebar-sticky": {
       "types": "./dist/article-sidebar-sticky.d.ts",

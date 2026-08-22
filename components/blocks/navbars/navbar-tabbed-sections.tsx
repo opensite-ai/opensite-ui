@@ -62,6 +62,108 @@ interface MenuItem {
 }
 
 /**
+ * A one-tab dropdown is the shape DashTrack's generator (and the prod data
+ * repair) emits for a single-category group: exactly one tab whose title
+ * mirrors the trigger. A strip built from it is pure duplication, so the
+ * single-tab paths below drop the switcher UI entirely. The tab title only
+ * survives as a heading when it actually says something the trigger didn't.
+ */
+const tabTitleMirrorsGroup = (tabTitle?: string, groupTitle?: string) =>
+  (tabTitle ?? "").trim().toLowerCase() ===
+    (groupTitle ?? "").trim().toLowerCase();
+
+/**
+ * The links grid + optional featured card that fills one dropdown panel.
+ *
+ * Extracted verbatim from the TabsContent body so the tabbed path (2+ tabs)
+ * and the flattened single-tab path emit identical markup — the only
+ * difference between them is the presence of the tab strip above it.
+ */
+const TabPanelBody = ({
+  tab,
+  optixFlowConfig,
+}: {
+  tab: TabItem;
+  optixFlowConfig?: OptixFlowConfig;
+}) => (
+  <div className="flex gap-6">
+    <div className="flex-1 grid grid-cols-2 space-y-2 space-x-4">
+      {tab.links.map((link, linkIndex) => (
+        // NavigationMenuLink gives the sub-link Radix's link
+        // semantics (rootContentDismiss on click, keyboard/focus
+        // grouping). Its className pre-resolves the wrapper's
+        // opinionated defaults (inline-flex/items-center/w-max/
+        // px-3 py-2/text-current/80/…) toward the Pressable's own
+        // styling, because Radix's Slot hands the wrapper's
+        // classes to the child by plain concatenation — anything
+        // the child doesn't itself re-declare survives.
+        <NavigationMenuLink
+          key={linkIndex}
+          asChild
+          className="flex w-full items-start justify-start p-3 text-current transition-colors hover:bg-muted hover:text-current"
+        >
+          <Pressable
+            href={link.url}
+            className="w-full flex items-start justify-start gap-3 rounded-md p-3 hover:bg-muted"
+          >
+            {link.icon && (
+              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border bg-background">
+                <DynamicIcon name={link.icon} size={16} />
+              </div>
+            )}
+            <div>
+              <div className="text-sm font-medium">{link.title}</div>
+              {link.description && (
+                <p className="text-xs">{link.description}</p>
+              )}
+            </div>
+          </Pressable>
+        </NavigationMenuLink>
+      ))}
+    </div>
+    {tab.featured && (
+      <div className="w-[200px] shrink-0">
+        <NavigationMenuLink asChild>
+          <Pressable
+            href={tab.featured.url}
+            className="group block overflow-hidden rounded-lg border"
+          >
+            <div className="aspect-video overflow-hidden">
+              <Img
+                src={tab.featured.image}
+                alt={tab.featured.title}
+                className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                optixFlowConfig={optixFlowConfig}
+              />
+            </div>
+            <div className="p-3">
+              <div className="text-sm font-medium">{tab.featured.title}</div>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {tab.featured.description}
+              </p>
+            </div>
+          </Pressable>
+        </NavigationMenuLink>
+      </div>
+    )}
+  </div>
+);
+
+/**
+ * The tab title rendered as a plain, non-interactive group label.
+ *
+ * Deliberately a `div`, not an `h*`: this sits in the navbar on every page of
+ * a site, ahead of the page's own `h1`, so a real heading element would
+ * corrupt the document outline site-wide for a purely decorative label.
+ */
+const TabGroupHeading = ({ tab }: { tab: TabItem }) => (
+  <div className="mb-3 flex items-center gap-2 px-1 text-sm font-medium text-muted-foreground">
+    {tab.icon && <DynamicIcon name={tab.icon} size={16} />}
+    {tab.title}
+  </div>
+);
+
+/**
  * Props for the NavbarTabbedSections component
  */
 export interface NavbarTabbedSectionsProps {
@@ -220,8 +322,52 @@ export const NavbarTabbedSections = ({
     if (menuSlot) return menuSlot;
     if (!menu || menu.length === 0) return null;
 
-    return menu.map((item, index) =>
-      item.tabs ? (
+    return menu.map((item, index) => {
+      if (!item.tabs) {
+        // Simple link item
+        return (
+          <NavigationMenuItem key={index}>
+            <NavigationMenuLink asChild>
+              <Pressable
+                href={item.url}
+                className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+              >
+                {item.title}
+              </Pressable>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        );
+      }
+
+      const [onlyTab] = item.tabs;
+
+      // One tab means there is nothing to switch between: render the panel
+      // directly. Classes mirror the Tabs root + TabsContent so the panel is
+      // pixel-identical to today's active tab, minus the strip.
+      if (item.tabs.length === 1 && onlyTab) {
+        return (
+          <NavigationMenuItem key={index}>
+            <NavigationMenuTrigger className="bg-transparent hover:bg-muted">
+              {item.title}
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <div className="flex flex-col gap-2 w-[600px]">
+                <div className="flex-1 outline-none mt-0 p-4">
+                  {!tabTitleMirrorsGroup(onlyTab.title, item.title) && (
+                    <TabGroupHeading tab={onlyTab} />
+                  )}
+                  <TabPanelBody
+                    tab={onlyTab}
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                </div>
+              </div>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        );
+      }
+
+      return (
         <NavigationMenuItem key={index}>
           <NavigationMenuTrigger className="bg-transparent hover:bg-muted">
             {item.title}
@@ -246,89 +392,14 @@ export const NavbarTabbedSections = ({
               </div>
               {item.tabs.map((tab) => (
                 <TabsContent key={tab.id} value={tab.id} className="mt-0 p-4">
-                  <div className="flex gap-6">
-                    <div className="flex-1 grid grid-cols-2 space-y-2 space-x-4">
-                      {tab.links.map((link, linkIndex) => (
-                        // NavigationMenuLink gives the sub-link Radix's link
-                        // semantics (rootContentDismiss on click, keyboard/focus
-                        // grouping). Its className pre-resolves the wrapper's
-                        // opinionated defaults (inline-flex/items-center/w-max/
-                        // px-3 py-2/text-current/80/…) toward the Pressable's own
-                        // styling, because Radix's Slot hands the wrapper's
-                        // classes to the child by plain concatenation — anything
-                        // the child doesn't itself re-declare survives.
-                        <NavigationMenuLink
-                          key={linkIndex}
-                          asChild
-                          className="flex w-full items-start justify-start p-3 text-current transition-colors hover:bg-muted hover:text-current"
-                        >
-                          <Pressable
-                            href={link.url}
-                            className="w-full flex items-start justify-start gap-3 rounded-md p-3 hover:bg-muted"
-                          >
-                            {link.icon && (
-                              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border bg-background">
-                                <DynamicIcon name={link.icon} size={16} />
-                              </div>
-                            )}
-                            <div>
-                              <div className="text-sm font-medium">
-                                {link.title}
-                              </div>
-                              {link.description && (
-                                <p className="text-xs">{link.description}</p>
-                              )}
-                            </div>
-                          </Pressable>
-                        </NavigationMenuLink>
-                      ))}
-                    </div>
-                    {tab.featured && (
-                      <div className="w-[200px] shrink-0">
-                        <NavigationMenuLink asChild>
-                          <Pressable
-                            href={tab.featured.url}
-                            className="group block overflow-hidden rounded-lg border"
-                          >
-                            <div className="aspect-video overflow-hidden">
-                              <Img
-                                src={tab.featured.image}
-                                alt={tab.featured.title}
-                                className="h-full w-full object-cover transition-transform group-hover:scale-105"
-                                optixFlowConfig={optixFlowConfig}
-                              />
-                            </div>
-                            <div className="p-3">
-                              <div className="text-sm font-medium">
-                                {tab.featured.title}
-                              </div>
-                              <p className="mt-1 text-xs text-muted-foreground">
-                                {tab.featured.description}
-                              </p>
-                            </div>
-                          </Pressable>
-                        </NavigationMenuLink>
-                      </div>
-                    )}
-                  </div>
+                  <TabPanelBody tab={tab} optixFlowConfig={optixFlowConfig} />
                 </TabsContent>
               ))}
             </Tabs>
           </NavigationMenuContent>
         </NavigationMenuItem>
-      ) : (
-        <NavigationMenuItem key={index}>
-          <NavigationMenuLink asChild>
-            <Pressable
-              href={item.url}
-              className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
-            >
-              {item.title}
-            </Pressable>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-      ),
-    );
+      );
+    });
   }, [menuSlot, menu, optixFlowConfig]);
 
   const renderMobileMenu = useMemo(() => {
@@ -338,6 +409,52 @@ export const NavbarTabbedSections = ({
     return (
       <Accordion type="multiple" className="w-full">
         {menu.map((item, index) => {
+          const [onlyTab] = item.tabs ?? [];
+
+          // One tab: the nested accordion level would be a single row that
+          // usually repeats the parent's label. Flatten it — links sit
+          // directly under the parent, at the same indent they had before.
+          if (item.tabs && item.tabs.length === 1 && onlyTab) {
+            return (
+              <AccordionItem
+                key={`nav-item-${index}`}
+                value={`nav-${index}`}
+                className="border-b-0"
+              >
+                <AccordionTrigger className="h-15 items-center p-0 px-4! text-base leading-[3.75] font-normal text-muted-foreground hover:bg-muted hover:no-underline">
+                  {item.title}
+                </AccordionTrigger>
+                <AccordionContent className="overflow-x-none pb-4">
+                  <div className="w-full pl-4">
+                    {!tabTitleMirrorsGroup(onlyTab.title, item.title) && (
+                      <div className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-muted-foreground">
+                        {onlyTab.icon && (
+                          <DynamicIcon name={onlyTab.icon} size={14} />
+                        )}
+                        {onlyTab.title}
+                      </div>
+                    )}
+                    <div className="flex flex-col gap-1 pl-4">
+                      {onlyTab.links.map((link, linkIndex) => (
+                        <Pressable
+                          key={linkIndex}
+                          href={link.url}
+                          className="flex items-center gap-2 rounded-md px-4 py-2 text-sm hover:bg-muted"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {link.icon && (
+                            <DynamicIcon name={link.icon} size={14} />
+                          )}
+                          {link.title}
+                        </Pressable>
+                      ))}
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            );
+          }
+
           // If item has tabs, render as accordion
           if (item.tabs && item.tabs.length > 0) {
             return (

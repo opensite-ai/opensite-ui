@@ -1,10 +1,10 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.15.7",
-    "exportedAt": "2026-08-18T18:54:12.053Z",
+    "uiVersion": "3.16.0",
+    "exportedAt": "2026-08-22T14:52:43.935Z",
     "source": "@opensite/ui",
-    "totalBlocks": 610
+    "totalBlocks": 611
   },
   "blocks": [
     {
@@ -3995,6 +3995,86 @@
         "notes": [
           "Article titles, authors, dates, summaries, chapter names, and body copy must come from source-backed article or blog data. Do not invent bylines or publication metadata.",
           "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props."
+        ]
+      }
+    },
+    {
+      "componentId": "article-legal-prose",
+      "blockName": "ArticleLegalProse",
+      "blockRef": "article/article-legal-prose",
+      "displayName": "Article Legal Prose",
+      "description": "A clean single-column long-form prose layout for legal and policy documents: privacy policies, terms of use, terms of service, EULAs, cookie policies, disclaimers, and accessibility statements. Renders a document title, an optional last-updated line, and the entire document body as sectioned markdown prose. The standard block for legal pages — one block carries the whole document with no byline, publication date, or hero image.",
+      "category": "article",
+      "semanticTags": [
+        "article",
+        "legal",
+        "privacy-policy",
+        "terms-of-use",
+        "terms-of-service",
+        "eula",
+        "cookie-policy",
+        "disclaimer",
+        "policy",
+        "compliance",
+        "long-form",
+        "prose",
+        "document"
+      ],
+      "layoutRole": "page",
+      "propsContract": {
+        "type": "typescript-type-reference",
+        "reference": "ArticleLegalProseProps",
+        "runtimeSchema": null,
+        "runtimeSchemaStatus": "missing"
+      },
+      "examples": {
+        "exampleUsage": "<ArticleLegalProse\n  title=\"Privacy Policy\"\n  lastUpdatedLabel=\"Last updated\"\n  lastUpdatedDate=\"March 12, 2026\"\n  markdownString={\"## Overview\\nWhat this policy covers and who it applies to.\\n\\n## Information We Collect\\nContact details submitted through forms, plus standard usage analytics.\\n\\n## Your Rights\\nYou may request a copy of your personal data at any time.\"}\n/>",
+        "exampleProps": {
+          "title": "Privacy Policy",
+          "lastUpdatedLabel": "Last updated",
+          "lastUpdatedDate": "March 12, 2026",
+          "markdownString": "## Overview\nThis policy explains what information this website collects and how that information is used.\n\n## Information We Collect\nContact details submitted through forms on this site, plus standard usage analytics.\n\n## How We Use Information\nTo respond to inquiries, operate the website, and improve our services.\n\n## Your Rights\nYou may request a copy of your personal data or ask for it to be deleted at any time."
+        }
+      },
+      "source": {
+        "exportPath": "./blocks/article/article-legal-prose",
+        "modulePath": "@opensite/ui/blocks/article/article-legal-prose",
+        "typesPath": "./dist/article-legal-prose.d.ts",
+        "importPath": "./dist/article-legal-prose.js",
+        "requirePath": "./dist/article-legal-prose.cjs"
+      },
+      "importantUsageNotes": "THE block for legal and policy pages: privacy policies, terms of use, terms of service, EULAs, cookie policies, disclaimers, and accessibility statements. Compose the ENTIRE legal document as ONE block — put the complete sectioned document in markdownString using ## headings. Never split a legal document across FAQ accordions, feature grids, contact blocks, stats, or multiple blocks. This block has no byline, author, publication date, or hero image by design; supply lastUpdatedLabel and lastUpdatedDate only when a real revision date is known, otherwise omit both — never invent a date.",
+      "usageRequirements": {
+        "requiredProps": [
+          "title",
+          "markdownString"
+        ],
+        "propConstraints": {
+          "title": {
+            "required": true,
+            "maxLength": 90,
+            "note": "The document name, e.g. \"Privacy Policy\" or \"Terms of Use\"."
+          },
+          "lastUpdatedLabel": {
+            "required": false,
+            "maxLength": 40,
+            "note": "Short label such as \"Last updated\". Rendered only when lastUpdatedDate is also supplied."
+          },
+          "lastUpdatedDate": {
+            "required": false,
+            "maxLength": 40,
+            "note": "Real revision date only; omit when unknown. Never fabricate a date."
+          },
+          "markdownString": {
+            "required": true,
+            "maxLength": 16000,
+            "note": "The complete legal document body as markdown with ## section headings."
+          }
+        },
+        "mediaSlots": {},
+        "requiresSiteCapabilities": [],
+        "notes": [
+          "Use existing legal copy from source evidence when available; otherwise generate practical template legal copy grounded in the known business context. Never fabricate revision dates, bylines, company registration numbers, or regulator names."
         ]
       }
     },
@@ -33982,7 +34062,7 @@
         "importPath": "./dist/navbar-tabbed-sections.js",
         "requirePath": "./dist/navbar-tabbed-sections.cjs"
       },
-      "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. title Each tab's 'featured' object with 'image' must use an absolute URL. Tabs without a 'featured' field show a simple link grid. The 'authActions' array renders on the right side of the navbar.",
+      "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. title Each tab's 'featured' object with 'image' must use an absolute URL. Tabs without a 'featured' field show a simple link grid. The 'authActions' array renders on the right side of the navbar. SELECTION: choose this block ONLY when the menu groups genuinely have 2+ distinct sub-categories, i.e. multiple tabs inside a single dropdown. For single-category dropdowns prefer 'navbar-dropdown-menu' or 'navbar-centered-menu' — those are purpose-built for a flat link panel and this block gives you nothing extra. A group carrying a single tab stays VALID and renders as a plain panel with no tab strip (desktop) and no nested accordion level (mobile); the tab's title only appears, as a small non-interactive heading, when it differs from the group title. Never synthesize a one-tab group just to use this block: the tab strip is the entire reason it exists.",
       "usageRequirements": {
         "requiredProps": [
           "logo",

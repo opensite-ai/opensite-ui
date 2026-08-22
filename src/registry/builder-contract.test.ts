@@ -1387,6 +1387,87 @@ describe("BLOCK_REGISTRY article category contracts", () => {
   });
 });
 
+// article-legal-prose is deliberately NOT in ARTICLE_BLOCK_IDS: it is a
+// different contract class. Legal documents have no byline, publication date,
+// or hero image (fabricating them is forbidden), and requiring the
+// blog/team/media capabilities of the byline-bearing article family would be
+// wrong for a block every site's legal pages must be able to use.
+describe("BLOCK_REGISTRY article-legal-prose contract", () => {
+  const id = "article-legal-prose";
+
+  it("declares the legal-prose registry entry with structured usage requirements", () => {
+    const entry = BLOCK_REGISTRY[id];
+
+    expect(entry).toBeDefined();
+    expect(entry.category).toBe("article");
+    expect(entry.importantUsageNotes).toBeTruthy();
+    expect(entry.usageRequirements).toBeDefined();
+    expect(entry.usageRequirements?.requiredProps).toEqual([
+      "title",
+      "markdownString",
+    ]);
+    expect(entry.usageRequirements?.propConstraints).toBeDefined();
+    expect(entry.usageRequirements?.mediaSlots).toEqual({});
+    expect(entry.exampleProps).toBeDefined();
+    expect(
+      (entry as unknown as Record<string, unknown>).defaultProps,
+    ).toBeUndefined();
+  });
+
+  it("teaches the agent this is THE single block for whole legal documents", () => {
+    const notes = BLOCK_REGISTRY[id].importantUsageNotes ?? "";
+    expect(notes).toMatch(/legal/i);
+    expect(notes).toMatch(/privacy polic/i);
+    expect(notes).toMatch(/terms of/i);
+    expect(notes).toMatch(/ONE block/);
+    expect(notes).toMatch(/accordion/i);
+  });
+
+  it("requires no site capabilities and no byline, date, or hero image", () => {
+    const requirements = BLOCK_REGISTRY[id].usageRequirements;
+
+    expect(requirements?.requiresSiteCapabilities ?? []).toEqual([]);
+
+    const constraints = requirements?.propConstraints ?? {};
+    for (const [prop, constraint] of Object.entries(constraints)) {
+      expect(prop).not.toMatch(/author|byline|image|pubDate|publishDate/i);
+      if (prop === "lastUpdatedLabel" || prop === "lastUpdatedDate") {
+        expect(constraint.required, prop).not.toBe(true);
+      }
+    }
+  });
+
+  it("keeps exampleUsage and exampleProps free of forbidden media and fabricated bylines", () => {
+    const entry = BLOCK_REGISTRY[id];
+    const exampleText = [
+      entry.exampleUsage,
+      ...collectStrings(entry.exampleProps),
+    ].join("\n");
+
+    for (const pattern of FORBIDDEN_EXAMPLE_PATTERNS) {
+      expect(exampleText).not.toMatch(pattern);
+    }
+
+    const exampleProps = (entry.exampleProps ?? {}) as Record<string, unknown>;
+    expect(exampleProps.title).toBeTruthy();
+    expect(typeof exampleProps.markdownString).toBe("string");
+    // Per-key assertions with the same forbidden-shape regex the
+    // propConstraints check uses (a negated arrayContaining would only fail
+    // when ALL forbidden keys appear at once, which guards nothing).
+    for (const key of Object.keys(exampleProps)) {
+      expect(key).not.toMatch(/author|byline|image|pubDate|publishDate/i);
+    }
+    expect(Object.keys(exampleProps)).not.toContain("post");
+  });
+
+  it("caps the document body generously enough for a full legal document", () => {
+    const constraint =
+      BLOCK_REGISTRY[id].usageRequirements?.propConstraints?.markdownString;
+    expect(constraint?.required).toBe(true);
+    expect(constraint?.maxLength ?? 0).toBeGreaterThanOrEqual(14000);
+  });
+});
+
 describe("BLOCK_REGISTRY link-page category contracts", () => {
   it("declares structured usage requirements and exampleProps for every link-page block", () => {
     for (const id of LINK_PAGE_BLOCK_IDS) {

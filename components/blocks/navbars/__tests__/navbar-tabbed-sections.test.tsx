@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import { simulateRouteChange } from "../../../../src/test-utils/simulate-route-change";
 import { NavbarTabbedSections } from "../navbar-tabbed-sections";
 
@@ -188,6 +188,181 @@ describe("NavbarTabbedSections desktop dropdown", () => {
         /^[a-z0-9]+:gap-/.test(token),
       );
       expect(responsiveGaps).toEqual([]);
+    });
+  });
+});
+
+// --- Single-tab dropdowns ----------------------------------------------------
+//
+// DashTrack's generator (and the prod data repair behind it) synthesizes
+// exactly ONE tab per dropdown group, titled after the group. Live that
+// painted a one-item tab strip labelled "Products" underneath a trigger also
+// labelled "Products". The switcher only earns its place with 2+ tabs.
+describe("NavbarTabbedSections single-tab dropdowns", () => {
+  const mirroredMenu = [
+    {
+      title: "Products",
+      tabs: [
+        {
+          id: "products",
+          title: "Products",
+          links: [
+            { title: "Dashboard", url: "/products/dashboard" },
+            { title: "Analytics", url: "/products/analytics" },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const distinctMenu = [
+    {
+      title: "Products",
+      tabs: [
+        {
+          id: "core-features",
+          title: "Core Features",
+          links: [{ title: "Dashboard", url: "/products/dashboard" }],
+        },
+      ],
+    },
+  ];
+
+  const twoTabMenu = [
+    {
+      title: "Products",
+      tabs: [
+        {
+          id: "core-features",
+          title: "Core Features",
+          links: [{ title: "Dashboard", url: "/products/dashboard" }],
+        },
+        {
+          id: "advanced",
+          title: "Advanced Tools",
+          links: [{ title: "Automation", url: "/products/automation" }],
+        },
+      ],
+    },
+  ];
+
+  const openGroup = () =>
+    fireEvent.click(screen.getByRole("button", { name: /Products/ }));
+
+  it("drops the tab strip when the single tab mirrors the group title", () => {
+    render(<NavbarTabbedSections menu={mirroredMenu} />);
+    openGroup();
+
+    expect(screen.queryByRole("tablist")).toBeNull();
+    expect(screen.queryAllByRole("tab")).toHaveLength(0);
+    // "Products" survives exactly once — on the trigger. A second occurrence
+    // is the duplicated tab label this fix removes.
+    expect(screen.getAllByText("Products")).toHaveLength(1);
+  });
+
+  it("keeps the panel links intact without the tab strip", () => {
+    render(<NavbarTabbedSections menu={mirroredMenu} />);
+    openGroup();
+
+    const dashboard = screen.getByText("Dashboard").closest("a")!;
+    const analytics = screen.getByText("Analytics").closest("a")!;
+
+    expect(dashboard).toHaveAttribute("href", "/products/dashboard");
+    expect(analytics).toHaveAttribute("href", "/products/analytics");
+    // Radix link semantics (rootContentDismiss, focus grouping) must survive
+    // the bypass of the Tabs wrapper.
+    expect(dashboard).toHaveAttribute("data-slot", "navigation-menu-link");
+  });
+
+  it("renders a non-interactive heading when the single tab title differs", () => {
+    render(<NavbarTabbedSections menu={distinctMenu} />);
+    openGroup();
+
+    expect(screen.queryByRole("tablist")).toBeNull();
+
+    const heading = screen.getAllByText("Core Features");
+    expect(heading).toHaveLength(1);
+    expect(heading[0]!.closest("button")).toBeNull();
+    expect(heading[0]!.closest("a")).toBeNull();
+  });
+
+  it("still renders the full tab strip for two or more tabs", () => {
+    render(<NavbarTabbedSections menu={twoTabMenu} />);
+    openGroup();
+
+    expect(screen.getByRole("tablist")).toBeInTheDocument();
+    const tabs = screen.getAllByRole("tab");
+    expect(tabs).toHaveLength(2);
+    expect(tabs.map((tab) => tab.textContent)).toEqual([
+      "Core Features",
+      "Advanced Tools",
+    ]);
+    expect(screen.getByText("Dashboard").closest("a")).toHaveAttribute(
+      "href",
+      "/products/dashboard",
+    );
+  });
+
+  describe("mobile accordion", () => {
+    const openMobileMenu = () => {
+      fireEvent.click(screen.getByRole("button", { name: /Toggle menu/i }));
+      return screen
+        .getByRole("heading", { name: "Navigation Menu" })
+        .closest("div[data-state]") as HTMLElement;
+    };
+
+    it("flattens the nested tab level so links sit under the group", () => {
+      render(<NavbarTabbedSections menu={mirroredMenu} />);
+      const mobile = within(openMobileMenu());
+
+      const triggers = mobile.getAllByRole("button");
+      const accordionTriggers = triggers.filter(
+        (button) => button.dataset.slot === "accordion-trigger",
+      );
+      // One level only: the group. The nested per-tab trigger is the
+      // redundant level this fix removes.
+      expect(accordionTriggers).toHaveLength(1);
+      expect(accordionTriggers[0]!).toHaveTextContent("Products");
+
+      fireEvent.click(accordionTriggers[0]!);
+
+      expect(mobile.getByText("Dashboard").closest("a")).toHaveAttribute(
+        "href",
+        "/products/dashboard",
+      );
+      expect(mobile.getByText("Analytics").closest("a")).toHaveAttribute(
+        "href",
+        "/products/analytics",
+      );
+      expect(
+        mobile
+          .getAllByRole("button")
+          .filter((button) => button.dataset.slot === "accordion-trigger"),
+      ).toHaveLength(1);
+    });
+
+    it("keeps the informative tab title as a heading when flattening", () => {
+      render(<NavbarTabbedSections menu={distinctMenu} />);
+      const mobile = within(openMobileMenu());
+
+      fireEvent.click(mobile.getByRole("button", { name: /Products/ }));
+
+      const heading = mobile.getAllByText("Core Features");
+      expect(heading).toHaveLength(1);
+      expect(heading[0]!.closest("button")).toBeNull();
+    });
+
+    it("keeps the nested tab level for two or more tabs", () => {
+      render(<NavbarTabbedSections menu={twoTabMenu} />);
+      const mobile = within(openMobileMenu());
+
+      fireEvent.click(mobile.getByRole("button", { name: /Products/ }));
+
+      expect(
+        mobile
+          .getAllByRole("button")
+          .filter((button) => button.dataset.slot === "accordion-trigger"),
+      ).toHaveLength(3);
     });
   });
 });

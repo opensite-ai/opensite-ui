@@ -46,11 +46,11 @@
     "rootModules": "./exports/root-modules.json"
   },
   "stats": {
-    "totalExports": 674,
+    "totalExports": 675,
     "coreExports": 2,
     "uiComponentExports": 55,
     "hooksExports": 2,
-    "blockExports": 611,
+    "blockExports": 612,
     "utilExports": 3,
     "rootModuleExports": 1
   }

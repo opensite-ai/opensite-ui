@@ -19,6 +19,11 @@
     "import": "./dist/article-hero-prose.js",
     "require": "./dist/article-hero-prose.cjs"
   },
+  "./blocks/article/article-legal-prose": {
+    "types": "./dist/article-legal-prose.d.ts",
+    "import": "./dist/article-legal-prose.js",
+    "require": "./dist/article-legal-prose.cjs"
+  },
   "./blocks/article/article-sidebar-sticky": {
     "types": "./dist/article-sidebar-sticky.d.ts",
     "import": "./dist/article-sidebar-sticky.js",

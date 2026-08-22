@@ -306,6 +306,7 @@ import { ArticleBreadcrumbSocial } from "../../components/blocks/article/article
 import { ArticleCompactToc } from "../../components/blocks/article/article-compact-toc";
 import { ArticleChaptersAuthor } from "../../components/blocks/article/article-chapters-author";
 import { ArticleSplitAnimated } from "../../components/blocks/article/article-split-animated";
+import { ArticleLegalProse } from "../../components/blocks/article/article-legal-prose";
 
 // FAQ components
 import { FaqSimpleAccordion } from "../../components/blocks/faq/faq-simple-accordion";
@@ -2950,7 +2951,67 @@ Use concise section headings that map to the navigation items and keep body copy
 ## Conclusion
 Close with a practical takeaway and one clear next action for readers.`;
 
+const LEGAL_EXAMPLE_MARKDOWN = `## Overview
+This policy explains what information this website collects and how that information is used.
+
+## Information We Collect
+Contact details submitted through forms on this site, plus standard usage analytics.
+
+## How We Use Information
+To respond to inquiries, operate the website, and improve our services.
+
+## Your Rights
+You may request a copy of your personal data or ask for it to be deleted at any time.`;
+
 const ARTICLE_BLOCK_CONTRACTS = {
+  "article-legal-prose": {
+    exampleUsage: `
+<ArticleLegalProse
+  title="Privacy Policy"
+  lastUpdatedLabel="Last updated"
+  lastUpdatedDate="March 12, 2026"
+  markdownString={"## Overview\\nWhat this policy covers and who it applies to.\\n\\n## Information We Collect\\nContact details submitted through forms, plus standard usage analytics.\\n\\n## Your Rights\\nYou may request a copy of your personal data at any time."}
+/>
+    `.trim(),
+    importantUsageNotes:
+      "THE block for legal and policy pages: privacy policies, terms of use, terms of service, EULAs, cookie policies, disclaimers, and accessibility statements. Compose the ENTIRE legal document as ONE block — put the complete sectioned document in markdownString using ## headings. Never split a legal document across FAQ accordions, feature grids, contact blocks, stats, or multiple blocks. This block has no byline, author, publication date, or hero image by design; supply lastUpdatedLabel and lastUpdatedDate only when a real revision date is known, otherwise omit both — never invent a date.",
+    usageRequirements: {
+      requiredProps: ["title", "markdownString"],
+      propConstraints: {
+        title: {
+          required: true,
+          maxLength: 90,
+          note: 'The document name, e.g. "Privacy Policy" or "Terms of Use".',
+        },
+        lastUpdatedLabel: {
+          required: false,
+          maxLength: 40,
+          note: 'Short label such as "Last updated". Rendered only when lastUpdatedDate is also supplied.',
+        },
+        lastUpdatedDate: {
+          required: false,
+          maxLength: 40,
+          note: "Real revision date only; omit when unknown. Never fabricate a date.",
+        },
+        markdownString: {
+          required: true,
+          maxLength: 16000,
+          note: "The complete legal document body as markdown with ## section headings.",
+        },
+      },
+      mediaSlots: {},
+      requiresSiteCapabilities: articleCapabilities(),
+      notes: [
+        "Use existing legal copy from source evidence when available; otherwise generate practical template legal copy grounded in the known business context. Never fabricate revision dates, bylines, company registration numbers, or regulator names.",
+      ],
+    },
+    exampleProps: {
+      title: "Privacy Policy",
+      lastUpdatedLabel: "Last updated",
+      lastUpdatedDate: "March 12, 2026",
+      markdownString: LEGAL_EXAMPLE_MARKDOWN,
+    },
+  },
   "article-hero-prose": {
     exampleUsage: `
 <ArticleHeroProse
@@ -11196,7 +11257,7 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
   "navbar-tabbed-sections": {
     exampleUsage:
       "A navbar with tabbed dropdown panels. Each top-level menu item opens a wide panel with multiple tabs across the top. Clicking a tab reveals a grid of icon links and an optional featured card with image. For platforms with deeply structured content.",
-    importantUsageNotes: `${NAVBAR_MEDIA_NOTE} title Each tab's 'featured' object with 'image' must use an absolute URL. Tabs without a 'featured' field show a simple link grid. The 'authActions' array renders on the right side of the navbar.`,
+    importantUsageNotes: `${NAVBAR_MEDIA_NOTE} title Each tab's 'featured' object with 'image' must use an absolute URL. Tabs without a 'featured' field show a simple link grid. The 'authActions' array renders on the right side of the navbar. SELECTION: choose this block ONLY when the menu groups genuinely have 2+ distinct sub-categories, i.e. multiple tabs inside a single dropdown. For single-category dropdowns prefer 'navbar-dropdown-menu' or 'navbar-centered-menu' — those are purpose-built for a flat link panel and this block gives you nothing extra. A group carrying a single tab stays VALID and renders as a plain panel with no tab strip (desktop) and no nested accordion level (mobile); the tab's title only appears, as a small non-interactive heading, when it differs from the group title. Never synthesize a one-tab group just to use this block: the tab strip is the entire reason it exists.`,
     usageRequirements: {
       requiredProps: ["logo", "menu"],
       mediaSlots: {
@@ -24810,6 +24871,31 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     component: ArticleSplitAnimated,
     props: "ArticleSplitAnimatedProps",
     ...ARTICLE_BLOCK_CONTRACTS["article-split-animated"],
+  },
+  "article-legal-prose": {
+    id: "article-legal-prose",
+    name: "Article Legal Prose",
+    description:
+      "A clean single-column long-form prose layout for legal and policy documents: privacy policies, terms of use, terms of service, EULAs, cookie policies, disclaimers, and accessibility statements. Renders a document title, an optional last-updated line, and the entire document body as sectioned markdown prose. The standard block for legal pages — one block carries the whole document with no byline, publication date, or hero image.",
+    semanticTags: [
+      "article",
+      "legal",
+      "privacy-policy",
+      "terms-of-use",
+      "terms-of-service",
+      "eula",
+      "cookie-policy",
+      "disclaimer",
+      "policy",
+      "compliance",
+      "long-form",
+      "prose",
+      "document",
+    ],
+    category: "article",
+    component: ArticleLegalProse,
+    props: "ArticleLegalProseProps",
+    ...ARTICLE_BLOCK_CONTRACTS["article-legal-prose"],
   },
 
   // FAQ Components
