@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.16.0",
-    "exportedAt": "2026-08-22T14:52:43.935Z",
+    "uiVersion": "3.17.0",
+    "exportedAt": "2026-08-22T23:51:52.721Z",
     "source": "@opensite/ui",
     "totalBlocks": 611
   },
@@ -6977,7 +6977,7 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "Use for a full blog archive or resource hub page that needs category filtering and pagination. Features a hero banner with a primary featured post card, a category checkbox filter bar, and a paginated 3-column card grid with 'Load More' support.",
+        "exampleUsage": "Use for a full blog archive or resource hub page that needs category filtering and pagination. Features a hero banner with a primary featured post card, a category pill filter bar (synced to ?category_slug=), and a paginated 3-column card grid with 'Load More' support.",
         "exampleProps": {
           "heading": "Tech Insights & Tutorials",
           "description": "Filter and discover content tailored to your interests. Stay ahead with the latest in technology, design, and business innovation.",

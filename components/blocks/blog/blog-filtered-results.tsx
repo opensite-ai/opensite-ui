@@ -14,8 +14,6 @@ import {
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
 import { Card, CardContent } from "../../ui/card";
-import { Checkbox } from "../../ui/checkbox";
-import { Label } from "../../ui/label";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -41,6 +39,13 @@ export interface BreadcrumbItemType {
 export interface CategoryFilter {
   label: React.ReactNode;
   value: string;
+  /**
+   * Category slug for the platform's `?category_slug=` URL filter
+   * (FEED_CONTRACT §2.4). Hydration-provided and optional — chips without one
+   * filter client-side only and skip the URL write. The `All` chip never
+   * carries one (selecting it removes the param).
+   */
+  slug?: string;
 }
 
 export interface BlogFilteredResultsProps {
@@ -268,28 +273,86 @@ const FilterForm = React.memo(function FilterForm({
 }: FilterFormProps) {
   return (
     <div
-      className={cn("flex w-full flex-wrap items-center gap-2.5", className)}
+      role="group"
+      aria-label="Filter by category"
+      className={cn("flex w-full flex-wrap items-center gap-2", className)}
     >
       {categories.map((category) => {
-        const isChecked = selectedCategories.includes(category.value);
+        const isActive = selectedCategories.includes(category.value);
         return (
-          <Label
+          <button
             key={category.value}
-            className="flex cursor-pointer items-center gap-2.5 bg-none px-2.5 py-1.5"
+            type="button"
+            aria-pressed={isActive}
+            onClick={() => onCategoryChange(category.value, !isActive)}
+            className={cn(
+              "cursor-pointer rounded-full border px-4 py-1.5 text-sm font-medium transition-colors",
+              isActive
+                ? "border-transparent bg-primary text-primary-foreground"
+                : "border-border bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground",
+            )}
           >
-            <div>{category.label}</div>
-            <Checkbox
-              checked={isChecked}
-              onCheckedChange={(checked) =>
-                onCategoryChange(category.value, !!checked)
-              }
-            />
-          </Label>
+            {category.label}
+          </button>
         );
       })}
     </div>
   );
 });
+
+/**
+ * Initial pill selection: chips matching the platform's `?category_slug=` URL
+ * filter (FEED_CONTRACT §5.4 — repeated bare keys allowed), else `["all"]`.
+ * Hydrated chips are inlined server-side, so they are present at first render;
+ * SSR renders the `["all"]` default (no window) and the client initializer is
+ * only consulted on the client-rendered tree.
+ */
+function initialSelectedCategories(categories?: CategoryFilter[]): string[] {
+  if (typeof window === "undefined" || !categories?.length) return ["all"];
+  const params = new URLSearchParams(window.location.search);
+  const slugs = [
+    ...params.getAll("category_slug"),
+    ...params.getAll("category_slug[]"),
+  ];
+  if (slugs.length === 0) return ["all"];
+  const matched = categories
+    .filter((category) => category.slug && slugs.includes(category.slug))
+    .map((category) => category.value);
+  return matched.length > 0 ? matched : ["all"];
+}
+
+/**
+ * Mirror the pill selection into the URL (`history.replaceState`, no
+ * navigation): selected chips write their `slug` as repeated `?category_slug=`
+ * keys; `All` clears the param. A stale `?page=` is dropped — a filter change
+ * always restarts at page 1. Chips without a slug are skipped, so legacy
+ * hydrated payloads keep working with client-side filtering only. Direct-link
+ * loads are server-filtered by the host page (`applyListFilters`), so the URL
+ * this writes is a first-class shareable filter.
+ */
+function syncCategoryUrl(
+  categories: CategoryFilter[] | undefined,
+  selected: string[],
+): void {
+  if (typeof window === "undefined" || !window.history?.replaceState) return;
+  const slugs = selected.includes("all")
+    ? []
+    : (categories ?? [])
+        .filter(
+          (category) => category.slug && selected.includes(category.value),
+        )
+        .map((category) => category.slug as string);
+  if (slugs.length === 0 && selected.some((value) => value !== "all")) {
+    // Slug-less legacy chips: nothing valid to write — leave the URL alone.
+    return;
+  }
+  const url = new URL(window.location.href);
+  url.searchParams.delete("category_slug");
+  url.searchParams.delete("category_slug[]");
+  url.searchParams.delete("page");
+  for (const slug of slugs) url.searchParams.append("category_slug", slug);
+  window.history.replaceState(window.history.state, "", url);
+}
 
 interface BreadcrumbBlogProps {
   breadcrumb: BreadcrumbItemType[];
@@ -359,38 +422,42 @@ export function BlogFilteredResultsComponent({
   const effectivePostsPerPage = postsPerPage || POSTS_PER_PAGE;
 
   const [visibleCount, setVisibleCount] = useState(effectivePostsPerPage);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([
-    "all",
-  ]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(() =>
+    initialSelectedCategories(categories),
+  );
 
   const handleCategoryChange = useCallback(
     (categoryValue: string, checked: boolean) => {
-      setSelectedCategories((prev) => {
-        let updated: string[];
+      let updated: string[];
 
-        if (checked) {
-          if (categoryValue === "all") {
-            updated = ["all"];
-          } else {
-            updated = [...prev.filter((v) => v !== "all"), categoryValue];
-          }
+      if (checked) {
+        if (categoryValue === "all") {
+          updated = ["all"];
         } else {
-          updated = prev.filter((v) => v !== categoryValue);
-          if (updated.length === 0) {
-            updated = ["all"];
-          }
+          updated = [
+            ...selectedCategories.filter((v) => v !== "all"),
+            categoryValue,
+          ];
         }
+      } else {
+        updated = selectedCategories.filter((v) => v !== categoryValue);
+        if (updated.length === 0) {
+          updated = ["all"];
+        }
+      }
 
-        return updated;
-      });
+      setSelectedCategories(updated);
       setVisibleCount(effectivePostsPerPage);
+      syncCategoryUrl(categories, updated);
     },
-    [effectivePostsPerPage],
+    [selectedCategories, categories, effectivePostsPerPage],
   );
 
   const handleLoadMore = useCallback(() => {
     setVisibleCount((prev) => prev + effectivePostsPerPage);
   }, [effectivePostsPerPage]);
+
+  const filterActive = !selectedCategories.includes("all");
 
   const filteredPosts = useMemo(() => {
     if (!posts) return [];
@@ -404,8 +471,21 @@ export function BlogFilteredResultsComponent({
     });
   }, [posts, selectedCategories]);
 
-  const postsToDisplay = filteredPosts.length > 0 ? filteredPosts : posts || [];
+  // With a specific filter active, a zero-match result renders EMPTY — falling
+  // back to every post would contradict the filter (and the URL it writes).
+  const postsToDisplay = filterActive ? filteredPosts : posts || [];
   const hasMore = visibleCount < postsToDisplay.length;
+
+  // The featured hero follows the filter too: hydration binds the site-wide
+  // newest post, which may not belong to the selected category.
+  const primaryPostMatchesFilter = useMemo(() => {
+    if (!primaryPost || !filterActive) return true;
+    const category =
+      typeof primaryPost.category === "string"
+        ? primaryPost.category.toLowerCase()
+        : "";
+    return selectedCategories.includes(category);
+  }, [primaryPost, filterActive, selectedCategories]);
 
   const breadcrumbContent = React.useMemo(() => {
     if (breadcrumbSlot) return breadcrumbSlot;
@@ -547,7 +627,7 @@ export function BlogFilteredResultsComponent({
             </div>
           </div>
 
-          {(primaryPostSlot || primaryPost) && (
+          {(primaryPostSlot || (primaryPost && primaryPostMatchesFilter)) && (
             <div className={cn("w-full max-w-110", primaryPostClassName)}>
               {primaryPostContent}
             </div>

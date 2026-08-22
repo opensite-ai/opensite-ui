@@ -40,6 +40,7 @@ vi.mock("../../../ui/dynamic-icon", () => ({
 describe("BlogFilteredResults", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    window.history.replaceState(null, "", "/blog/");
   });
 
   it("renders custom heading and description", () => {
@@ -189,5 +190,128 @@ describe("BlogFilteredResults", () => {
     );
     expect(screen.getByText("Custom load-more slot")).toBeInTheDocument();
     expect(container.querySelector(".load-more-action")).not.toBeInTheDocument();
+  });
+
+  // TASK-6 §2: modern pill filter + `?category_slug=` URL sync. The
+  // `categories: CategoryFilter[]` prop shape stays byte-compatible — `slug`
+  // is additive and optional (hydration-provided; see FEED_CONTRACT §2.4).
+  describe("category filter pills + URL sync (TASK-6 §2)", () => {
+    const categories = [
+      { label: "All", value: "all" },
+      { label: "General", value: "general", slug: "general" },
+      { label: "Cocktails", value: "cocktails", slug: "craft-cocktails" },
+    ];
+    const posts = [
+      { id: "p1", title: "General post", href: "/p1", category: "General" },
+      { id: "p2", title: "Cocktail post", href: "/p2", category: "Cocktails" },
+    ];
+
+    it("renders pill buttons with aria-pressed, not checkboxes", () => {
+      render(<BlogFilteredResults categories={categories} posts={posts} />);
+
+      expect(screen.queryAllByRole("checkbox")).toHaveLength(0);
+      const general = screen.getByRole("button", { name: "General" });
+      expect(general).toHaveAttribute("aria-pressed", "false");
+      expect(screen.getByRole("button", { name: "All" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      );
+    });
+
+    it("filters posts when a pill is toggled (behavior preserved through the new UI)", () => {
+      render(<BlogFilteredResults categories={categories} posts={posts} />);
+
+      fireEvent.click(screen.getByRole("button", { name: "General" }));
+
+      expect(screen.getByText("General post")).toBeInTheDocument();
+      expect(screen.queryByText("Cocktail post")).not.toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "General" }),
+      ).toHaveAttribute("aria-pressed", "true");
+    });
+
+    it("initializes the selection from ?category_slug= (platform URL contract)", () => {
+      window.history.replaceState(null, "", "/blog/?category_slug=craft-cocktails");
+      render(<BlogFilteredResults categories={categories} posts={posts} />);
+
+      expect(
+        screen.getByRole("button", { name: "Cocktails" }),
+      ).toHaveAttribute("aria-pressed", "true");
+      expect(screen.getByText("Cocktail post")).toBeInTheDocument();
+      expect(screen.queryByText("General post")).not.toBeInTheDocument();
+    });
+
+    it("writes ?category_slug= (the SLUG, not the value) on selection and clears it for All", () => {
+      render(<BlogFilteredResults categories={categories} posts={posts} />);
+
+      fireEvent.click(screen.getByRole("button", { name: "Cocktails" }));
+      expect(window.location.search).toBe("?category_slug=craft-cocktails");
+
+      fireEvent.click(screen.getByRole("button", { name: "All" }));
+      expect(window.location.search).toBe("");
+    });
+
+    it("drops a stale ?page= when the filter changes", () => {
+      window.history.replaceState(null, "", "/blog/?page=3");
+      render(<BlogFilteredResults categories={categories} posts={posts} />);
+
+      fireEvent.click(screen.getByRole("button", { name: "General" }));
+
+      expect(window.location.search).toBe("?category_slug=general");
+    });
+
+    // Review round: the featured hero and the zero-match fallback must FOLLOW
+    // the active filter — a filtered URL over an unfiltered grid (or a hero
+    // from another category) advertises a state the DOM is not honouring.
+    it("hides the featured hero when the active filter does not match its category", () => {
+      render(
+        <BlogFilteredResults
+          categories={categories}
+          posts={posts}
+          primaryPost={{
+            id: "hero",
+            title: "Hero cocktail post",
+            href: "/hero",
+            category: "Cocktails",
+          }}
+        />,
+      );
+      expect(screen.getByText("Hero cocktail post")).toBeInTheDocument();
+
+      fireEvent.click(screen.getByRole("button", { name: "General" }));
+
+      expect(screen.queryByText("Hero cocktail post")).not.toBeInTheDocument();
+
+      fireEvent.click(screen.getByRole("button", { name: "Cocktails" }));
+
+      expect(screen.getByText("Hero cocktail post")).toBeInTheDocument();
+    });
+
+    it("renders an EMPTY grid, never all posts, when the filter matches nothing", () => {
+      // "Empty" is a real taxonomy category with no post in the loaded page —
+      // routine when the newest post moved into the hero or on later pages.
+      const chips = [...categories, { label: "Empty", value: "empty", slug: "empty" }];
+      render(<BlogFilteredResults categories={chips} posts={posts} />);
+
+      fireEvent.click(screen.getByRole("button", { name: "Empty" }));
+
+      expect(screen.queryByText("General post")).not.toBeInTheDocument();
+      expect(screen.queryByText("Cocktail post")).not.toBeInTheDocument();
+    });
+
+    it("never writes the URL for slug-less chips (pre-slug hydrated payloads)", () => {
+      const legacyCategories = [
+        { label: "All", value: "all" },
+        { label: "General", value: "general" },
+      ];
+      render(
+        <BlogFilteredResults categories={legacyCategories} posts={posts} />,
+      );
+
+      fireEvent.click(screen.getByRole("button", { name: "General" }));
+
+      expect(window.location.search).toBe("");
+      expect(screen.getByText("General post")).toBeInTheDocument();
+    });
   });
 });

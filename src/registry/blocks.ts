@@ -6984,7 +6984,7 @@ const BLOG_BLOCK_CONTRACTS: Record<string, BlogBlockContract> = {
 
   "blog-filtered-results": {
     exampleUsage:
-      "Use for a full blog archive or resource hub page that needs category filtering and pagination. Features a hero banner with a primary featured post card, a category checkbox filter bar, and a paginated 3-column card grid with 'Load More' support.",
+      "Use for a full blog archive or resource hub page that needs category filtering and pagination. Features a hero banner with a primary featured post card, a category pill filter bar (synced to ?category_slug=), and a paginated 3-column card grid with 'Load More' support.",
     importantUsageNotes:
       "Blog posts must come from real, source-backed content. Do not fabricate article titles, authors, or excerpts. The `categories` filter chips depend on WHERE the posts come from. FEED-BOUND (the block carries a dataSource of type blog_feed): do NOT author `categories` — hydration owns that prop and overwrites any authored array with the site's real blog taxonomy (feed bind target `categories`, FEED_CONTRACT 2.4), so an invented list is both wrong and inert. HARDCODED (the block has no dataSource): you MUST author `categories` or the page ships with no filter bar at all — emit `{label: 'All', value: 'all'}` first, then one chip per distinct authored post category as {label: <category as written>, value: <post.category.toLowerCase()>}. Filtering compares post.category.toLowerCase() against the chip `value` (and hydrated posts carry the category NAME), so every chip value must be the lowercased category of a post that is actually in `posts`. primaryPost uses the thumbnail field (not image). The block manages filter and pagination state internally.",
     usageRequirements: {
