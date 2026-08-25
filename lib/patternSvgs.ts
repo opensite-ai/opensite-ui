@@ -5,7 +5,9 @@ export const patternSvgs = {
     "https://cdn.ing/assets/files/record/286186/nbdflpgp4ostrno079hygibsflp3",
   noise:
     "https://cdn.ing/assets/i/r/286188/zrqcp9hynh3j7p2laihwzfbujgrl/noise.png",
-  dots: "https://cdn.ing/assets/files/record/286198/yfsjx9thvtxzhl2qtshxyhkrm524",
+  // `dots` intentionally removed: the fixed-geometry CDN asset (100px circles)
+  // is replaced by the parameterized `dots` generator in
+  // components/ui/pattern-background.tsx (patternOverlays wins the lookup).
   dotPattern:
     "https://cdn.ing/assets/files/record/286192/7ig0cku8aqbboiza8nuk6hw0nnsr",
   dotPattern2:

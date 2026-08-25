@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "3.17.0",
+  "version": "3.17.1",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -3503,7 +3503,7 @@
   "optionalDependencies": {
     "valibot": "^1.2.0"
   },
-  "packageManager": "pnpm@11.21.0",
+  "packageManager": "pnpm@11.23.0",
   "engines": {
     "node": ">=18.0.0",
     "pnpm": ">=9.0.0"

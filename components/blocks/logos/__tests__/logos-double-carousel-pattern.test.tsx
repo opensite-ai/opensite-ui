@@ -47,7 +47,7 @@ vi.mock("../../../ui/carousel", () => ({
 }));
 
 vi.mock("../../../lib/patternSvgs", () => ({
-  patternSvgs: { dots: "data:image/svg+xml,..." },
+  patternSvgs: { grid1: "data:image/svg+xml,..." },
 }));
 
 describe("LogosDoubleCarouselPattern", () => {

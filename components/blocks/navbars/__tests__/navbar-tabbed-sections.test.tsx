@@ -366,3 +366,15 @@ describe("NavbarTabbedSections single-tab dropdowns", () => {
     });
   });
 });
+
+describe("flat menu item styling (2026-08-24 pill regression)", () => {
+  it("renders flat items transparent, never bg-background", () => {
+    render(<NavbarTabbedSections menu={menu} />);
+    const flat = screen
+      .getAllByRole("link", { name: "Pricing" })
+      .find((el) => el.getAttribute("href") === "/pricing");
+    expect(flat).toBeDefined();
+    expect(flat!.className).toContain("bg-transparent");
+    expect(flat!.className).not.toContain("bg-background");
+  });
+});

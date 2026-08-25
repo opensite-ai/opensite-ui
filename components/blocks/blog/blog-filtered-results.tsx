@@ -1,7 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { Fragment, useCallback, useMemo, useState } from "react";
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -307,9 +314,13 @@ const FilterForm = React.memo(function FilterForm({
  * SSR renders the `["all"]` default (no window) and the client initializer is
  * only consulted on the client-rendered tree.
  */
-function initialSelectedCategories(categories?: CategoryFilter[]): string[] {
-  if (typeof window === "undefined" || !categories?.length) return ["all"];
-  const params = new URLSearchParams(window.location.search);
+function initialSelectedCategories(
+  categories?: CategoryFilter[],
+  win?: Window | null,
+): string[] {
+  const target = win ?? (typeof window === "undefined" ? null : window);
+  if (!target || !categories?.length) return ["all"];
+  const params = new URLSearchParams(target.location.search);
   const slugs = [
     ...params.getAll("category_slug"),
     ...params.getAll("category_slug[]"),
@@ -333,8 +344,15 @@ function initialSelectedCategories(categories?: CategoryFilter[]): string[] {
 function syncCategoryUrl(
   categories: CategoryFilter[] | undefined,
   selected: string[],
+  win?: Window | null,
 ): void {
-  if (typeof window === "undefined" || !window.history?.replaceState) return;
+  const target = win ?? (typeof window === "undefined" ? null : window);
+  if (!target || !target.history?.replaceState) return;
+  // The dt-cms builder previews portal block DOM into `srcdoc` iframes whose
+  // location is `about:srcdoc` (opaque origin) — a replaceState there throws
+  // SecurityError. Only real http(s) documents get URL sync; the client-side
+  // filter still works everywhere else.
+  if (!/^https?:$/.test(target.location.protocol)) return;
   const slugs = selected.includes("all")
     ? []
     : (categories ?? [])
@@ -346,12 +364,41 @@ function syncCategoryUrl(
     // Slug-less legacy chips: nothing valid to write — leave the URL alone.
     return;
   }
-  const url = new URL(window.location.href);
+  const url = new URL(target.location.href);
   url.searchParams.delete("category_slug");
   url.searchParams.delete("category_slug[]");
   url.searchParams.delete("page");
   for (const slug of slugs) url.searchParams.append("category_slug", slug);
-  window.history.replaceState(window.history.state, "", url);
+  // Compare CANONICALIZED forms: `url.search` re-serializes every param
+  // (e.g. `%20` → `+`), so comparing against the raw location.search would
+  // read an untouched `?utm_content=Summer%20Sale` as a change and rewrite
+  // campaign params on a no-op click.
+  const nextSearch = url.searchParams.toString();
+  const currentSearch = new URLSearchParams(target.location.search).toString();
+  if (nextSearch === currentSearch) {
+    // No-op selection: leave history and listeners alone.
+    return;
+  }
+  try {
+    target.history.replaceState(target.history.state, "", url);
+    // Announce the change exactly the way @page-speed/router's `navigateTo`
+    // does: `useUrl`/`useSearchParams` only re-read the location on
+    // `popstate`/`routechange`, so a silent `replaceState` leaves the host
+    // page (which owns the server-filtered feed query on `?category_slug=`
+    // arrivals) pinned to the old filter — the URL changes but the list
+    // never does.
+    target.dispatchEvent(
+      new PopStateEvent("popstate", { state: target.history.state }),
+    );
+    target.dispatchEvent(
+      new CustomEvent("routechange", {
+        detail: { path: url.pathname + url.search },
+      }),
+    );
+  } catch {
+    // A history write rejected by the environment must never break the
+    // client-side filter the user just applied.
+  }
 }
 
 interface BreadcrumbBlogProps {
@@ -425,6 +472,53 @@ export function BlogFilteredResultsComponent({
   const [selectedCategories, setSelectedCategories] = useState<string[]>(() =>
     initialSelectedCategories(categories),
   );
+  // Resolved from the rendered DOM (`ownerDocument.defaultView`) so the URL
+  // read/write targets the document this block is actually mounted in — in
+  // the dt-cms builder the block executes in the parent realm while its DOM
+  // is portal'd into the preview iframe (the `useRouteChangeClose` pattern).
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const resolveWindow = useCallback(
+    () =>
+      rootRef.current?.ownerDocument?.defaultView ??
+      (typeof window === "undefined" ? null : window),
+    [],
+  );
+
+  // Mirror of `selectedCategories` for the resync listener: popstate can fire
+  // synchronously (our own dispatch) before React commits state.
+  const selectedCategoriesRef = useRef(selectedCategories);
+  useEffect(() => {
+    selectedCategoriesRef.current = selectedCategories;
+  }, [selectedCategories]);
+
+  // URL-driven, not mount-snapshot-driven: Back/Forward and host-driven URL
+  // changes re-derive the chip selection. Never writes the URL back (no loop).
+  useEffect(() => {
+    const win = resolveWindow();
+    if (!win) return;
+    const resync = () => {
+      // Slug-less legacy chips never write the URL, so the URL is not their
+      // source of truth — resyncing would wipe a selection the block
+      // deliberately kept client-side only.
+      if (!(categories ?? []).some((category) => category.slug)) return;
+      const next = initialSelectedCategories(categories, win);
+      const current = selectedCategoriesRef.current;
+      const unchanged =
+        current.length === next.length &&
+        next.every((value) => current.includes(value));
+      // Same-URL SPA navigations (navigateTo dispatches these events even for
+      // a byte-identical URL) must not collapse Load More progress.
+      if (unchanged) return;
+      setSelectedCategories(next);
+      setVisibleCount(effectivePostsPerPage);
+    };
+    win.addEventListener("popstate", resync);
+    win.addEventListener("routechange", resync);
+    return () => {
+      win.removeEventListener("popstate", resync);
+      win.removeEventListener("routechange", resync);
+    };
+  }, [categories, effectivePostsPerPage, resolveWindow]);
 
   const handleCategoryChange = useCallback(
     (categoryValue: string, checked: boolean) => {
@@ -448,9 +542,9 @@ export function BlogFilteredResultsComponent({
 
       setSelectedCategories(updated);
       setVisibleCount(effectivePostsPerPage);
-      syncCategoryUrl(categories, updated);
+      syncCategoryUrl(categories, updated, resolveWindow());
     },
-    [selectedCategories, categories, effectivePostsPerPage],
+    [selectedCategories, categories, effectivePostsPerPage, resolveWindow],
   );
 
   const handleLoadMore = useCallback(() => {
@@ -586,6 +680,7 @@ export function BlogFilteredResultsComponent({
       containerClassName={containerClassName}
     >
       <div
+        ref={rootRef}
         className={cn(
           "bg-size-[3.125rem_3.125rem] bg-repeat rounded-2xl shadow-xl",
           "bg-muted text-muted-foreground",

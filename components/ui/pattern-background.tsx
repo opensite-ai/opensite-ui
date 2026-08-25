@@ -93,6 +93,36 @@ const gridDotsPattern = (id: string, mask?: string) => (
   </svg>
 );
 
+// Replacement for the legacy remote `dots` SVG asset (100px white circles on
+// a ~220px grid, painted at intrinsic size — universally disliked): a subtle
+// dot grid sized like the sibling generated patterns. Driven by CSS custom
+// properties so every knob stays overridable from `patternClassName` without
+// new block props:
+//   --dot-grid-gap (default 14px), --dot-grid-radius (default 1px),
+//   --dot-grid-color.
+// The default color is `color-mix(currentColor)` rather than the family's
+// `hsl(var(--muted))`: published sites define `--muted` as bare HSL channels,
+// but the showcase and the dt-cms style-editor preview define it as a
+// complete oklch() color — `hsl(oklch(…))` is invalid and would drop the
+// whole background-image, rendering nothing on those surfaces. currentColor
+// at low alpha is valid everywhere and adapts to light/dark sections.
+const dotGridPattern = (mask?: string) => (
+  <div
+    className="h-full w-full"
+    style={{
+      backgroundImage:
+        "radial-gradient(var(--dot-grid-color, color-mix(in srgb, currentColor 15%, transparent)) var(--dot-grid-radius, 1px), transparent var(--dot-grid-radius, 1px))",
+      backgroundSize: "var(--dot-grid-gap, 14px) var(--dot-grid-gap, 14px)",
+      ...(mask
+        ? {
+            maskImage: mask,
+            WebkitMaskImage: mask,
+          }
+        : {}),
+    }}
+  />
+);
+
 const gridPattern = (size: number, mask?: string) => (
   <div
     className="h-full w-full bg-[linear-gradient(to_right,_hsl(var(--muted))_1px,_transparent_1px),linear-gradient(to_bottom,_hsl(var(--muted))_1px,_transparent_1px)]"
@@ -176,6 +206,10 @@ const spotlight = (position: "left" | "right") => (
 );
 
 const patternOverlays = {
+  // Shadows the removed `patternSvgs.dots` CDN asset: this map is consulted
+  // first, so every existing `pattern: "dots"` payload resolves here with no
+  // payload migration.
+  dots: () => dotGridPattern(),
   circuitBoardBasic: () => circuitBoardPattern("circuit-board-basic"),
   circuitBoardFadeTop: () =>
     circuitBoardPattern("circuit-board-fade-top", maskTop),

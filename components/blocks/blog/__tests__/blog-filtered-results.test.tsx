@@ -260,6 +260,143 @@ describe("BlogFilteredResults", () => {
       expect(window.location.search).toBe("?category_slug=general");
     });
 
+    // Host re-query contract: the platform page owns the server-filtered feed
+    // and @page-speed/router only re-reads the URL on popstate/routechange. A
+    // silent replaceState left the URL changed but the list pinned to the
+    // arrival filter forever (wellspun.com /blog?category_slug=…).
+    it("announces a filter change with popstate + routechange", () => {
+      render(<BlogFilteredResults categories={categories} posts={posts} />);
+      const popstate = vi.fn();
+      const routechange = vi.fn();
+      window.addEventListener("popstate", popstate);
+      window.addEventListener("routechange", routechange as EventListener);
+
+      fireEvent.click(screen.getByRole("button", { name: "General" }));
+
+      expect(popstate).toHaveBeenCalledTimes(1);
+      expect(routechange).toHaveBeenCalledTimes(1);
+      const detail = (routechange.mock.calls[0][0] as CustomEvent).detail;
+      expect(detail.path).toContain("category_slug=general");
+      window.removeEventListener("popstate", popstate);
+      window.removeEventListener("routechange", routechange as EventListener);
+    });
+
+    it("dispatches nothing when the URL would not change (no-op selection)", () => {
+      render(<BlogFilteredResults categories={categories} posts={posts} />);
+      const popstate = vi.fn();
+      const routechange = vi.fn();
+      window.addEventListener("popstate", popstate);
+      window.addEventListener("routechange", routechange as EventListener);
+
+      // "All" is already active and the URL carries no filter: a toggle that
+      // resolves back to All must not touch history or wake listeners.
+      fireEvent.click(screen.getByRole("button", { name: "All" }));
+
+      expect(popstate).not.toHaveBeenCalled();
+      expect(routechange).not.toHaveBeenCalled();
+      window.removeEventListener("popstate", popstate);
+      window.removeEventListener("routechange", routechange as EventListener);
+    });
+
+    it("keeps Load More progress across same-URL SPA navigations", () => {
+      const fourPosts = [
+        { id: "a", title: "Post A", href: "/a", category: "General" },
+        { id: "b", title: "Post B", href: "/b", category: "General" },
+        { id: "c", title: "Post C", href: "/c", category: "General" },
+        { id: "d", title: "Post D", href: "/d", category: "General" },
+      ];
+      render(
+        <BlogFilteredResults
+          categories={categories}
+          posts={fourPosts}
+          postsPerPage={2}
+          loadMoreAction={{ label: "Load More" }}
+        />,
+      );
+      // The Pressable test mock renders as an anchor; query by text.
+      fireEvent.click(screen.getByText("Load More"));
+      expect(screen.getByText("Post D")).toBeInTheDocument();
+
+      // navigateTo dispatches these even for a byte-identical URL (e.g.
+      // clicking the already-active Blog link); the grid must not collapse.
+      fireEvent(
+        window,
+        new CustomEvent("routechange", { detail: { path: "/blog/" } }),
+      );
+      fireEvent(window, new PopStateEvent("popstate", { state: null }));
+
+      expect(screen.getByText("Post D")).toBeInTheDocument();
+    });
+
+    it("treats an encoded unrelated param as a no-op (no dispatch, no rewrite)", () => {
+      window.history.replaceState(
+        null,
+        "",
+        "/blog/?utm_content=Summer%20Sale",
+      );
+      render(<BlogFilteredResults categories={categories} posts={posts} />);
+      const popstate = vi.fn();
+      window.addEventListener("popstate", popstate);
+
+      // "All" is already active: url.search re-serializes %20 as +, so a raw
+      // string comparison would misread this as a change and rewrite the
+      // campaign param.
+      fireEvent.click(screen.getByRole("button", { name: "All" }));
+
+      expect(popstate).not.toHaveBeenCalled();
+      expect(window.location.search).toBe("?utm_content=Summer%20Sale");
+      window.removeEventListener("popstate", popstate);
+    });
+
+    it("preserves slug-less legacy selections across route events (URL is not their source of truth)", () => {
+      const legacyCategories = [
+        { label: "All", value: "all" },
+        { label: "General", value: "general" },
+      ];
+      render(
+        <BlogFilteredResults categories={legacyCategories} posts={posts} />,
+      );
+      fireEvent.click(screen.getByRole("button", { name: "General" }));
+      expect(
+        screen.getByRole("button", { name: "General" }),
+      ).toHaveAttribute("aria-pressed", "true");
+
+      fireEvent(
+        window,
+        new CustomEvent("routechange", { detail: { path: "/blog/" } }),
+      );
+
+      expect(
+        screen.getByRole("button", { name: "General" }),
+      ).toHaveAttribute("aria-pressed", "true");
+      expect(screen.queryByText("Cocktail post")).not.toBeInTheDocument();
+    });
+
+    it("re-derives the selection when the host changes the URL (routechange)", () => {
+      render(<BlogFilteredResults categories={categories} posts={posts} />);
+      expect(screen.getByRole("button", { name: "All" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      );
+
+      window.history.replaceState(
+        null,
+        "",
+        "/blog/?category_slug=craft-cocktails",
+      );
+      fireEvent(
+        window,
+        new CustomEvent("routechange", {
+          detail: { path: "/blog/?category_slug=craft-cocktails" },
+        }),
+      );
+
+      expect(
+        screen.getByRole("button", { name: "Cocktails" }),
+      ).toHaveAttribute("aria-pressed", "true");
+      expect(screen.queryByText("General post")).not.toBeInTheDocument();
+    });
+
     // Review round: the featured hero and the zero-match fallback must FOLLOW
     // the active filter — a filtered URL over an unfiltered grid (or a hero
     // from another category) advertises a state the DOM is not honouring.

@@ -50,6 +50,12 @@ export interface FooterAccordionSocialNavLink {
    * Link URL
    */
   href: string;
+  /**
+   * Legacy alias for `href`. Generated shared-layout payloads (octane
+   * `footer_section_items`) shipped section items keyed `{text, link}`;
+   * without this fallback those footers render dead `<span>`s.
+   */
+  link?: string;
 }
 
 export interface FooterAccordionSocialSection {
@@ -268,7 +274,7 @@ export function FooterAccordionSocial({
                     {section.items.map((item, idx) => (
                       <li key={idx}>
                         <Pressable
-                          href={item.href}
+                          href={item.href ?? item.link}
                           className="hover:opacity-100"
                         >
                           {item.text}

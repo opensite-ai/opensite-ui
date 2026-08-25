@@ -527,3 +527,24 @@ describe("NavbarPlatformResources", () => {
     });
   });
 });
+
+describe("flat menu link styling (2026-08-24 pill regression)", () => {
+  it("renders flat links transparent like dropdown triggers, never bg-background", () => {
+    render(
+      <NavbarPlatformResources
+        menuLinks={[
+          { label: "Products", links: [{ label: "P1", url: "/p/1" }] },
+          { label: "Contact", href: "/contact" },
+        ]}
+      />,
+    );
+    const flat = screen
+      .getAllByRole("link", { name: "Contact" })
+      .find((el) => el.getAttribute("href") === "/contact");
+    expect(flat).toBeDefined();
+    // bg-background paints a filled pill on generated brand themes (tinted
+    // --background); flat top-bar links must stay transparent like triggers.
+    expect(flat!.className).toContain("bg-transparent");
+    expect(flat!.className).not.toContain("bg-background");
+  });
+});

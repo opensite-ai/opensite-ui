@@ -264,10 +264,20 @@ export function LogosDoubleCarouselPattern({
 
   const getBackgroundStyle = useMemo(() => {
     if (backgroundPattern === "none") return {};
-    const patternUrl =
-      backgroundPattern === "dots" ? patternSvgs.dots : patternSvgs.grid1;
+    if (backgroundPattern === "dots") {
+      // Mirrors the `dots` generator in pattern-background.tsx — the CDN dots
+      // asset was removed (fixed 100px circles); same subtle dot grid inline.
+      // currentColor default: valid whether the theme's tokens are HSL
+      // channels (published sites) or complete oklch colors (showcase,
+      // dt-cms preview).
+      return {
+        backgroundImage:
+          "radial-gradient(var(--dot-grid-color, color-mix(in srgb, currentColor 15%, transparent)) var(--dot-grid-radius, 1px), transparent var(--dot-grid-radius, 1px))",
+        backgroundSize: "var(--dot-grid-gap, 14px) var(--dot-grid-gap, 14px)",
+      };
+    }
     return {
-      backgroundImage: `url("${patternUrl}")`,
+      backgroundImage: `url("${patternSvgs.grid1}")`,
       backgroundSize: "30px 30px",
     };
   }, [backgroundPattern]);

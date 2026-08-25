@@ -328,9 +328,12 @@ export const NavbarTabbedSections = ({
         return (
           <NavigationMenuItem key={index}>
             <NavigationMenuLink asChild>
+              {/* bg-transparent, NOT bg-background: on generated sites the
+                  brand theme tints --background, which painted flat links as
+                  filled pills while the tab triggers stayed plain. */}
               <Pressable
                 href={item.url}
-                className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                className="group inline-flex h-auto w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-normal transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
               >
                 {item.title}
               </Pressable>

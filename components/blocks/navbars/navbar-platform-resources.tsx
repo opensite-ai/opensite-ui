@@ -851,9 +851,13 @@ export const NavbarPlatformResources = ({
                         <NavigationMenuItem
                           key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
                         >
+                          {/* bg-transparent, NOT bg-background: on generated
+                              sites the brand theme tints --background, which
+                              painted flat links as filled pills on the white
+                              bar while the sibling trigger stayed plain. */}
                           <NavigationMenuLink
                             href={link.href}
-                            className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
+                            className="group inline-flex h-auto w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-normal transition-colors hover:bg-muted"
                           >
                             {link.label}
                           </NavigationMenuLink>
