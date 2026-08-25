@@ -2,11 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -235,8 +231,7 @@ function TickerStatItem({
     <div
       className={cn(
         "rounded-xl border p-6 transition-shadow hover:shadow-md",
-        getNestedCardBg(background, "card"),
-        getNestedCardTextColor(background),
+        "bg-card text-card-foreground",
         stat.className,
         cardClassName,
       )}
@@ -256,12 +251,7 @@ function TickerStatItem({
       </div>
       {stat.description &&
         (typeof stat.description === "string" ? (
-          <p
-            className={cn(
-              "text-sm text-muted-foreground",
-              descriptionClassName,
-            )}
-          >
+          <p className={cn("text-sm", descriptionClassName)}>
             {stat.description}
           </p>
         ) : (
@@ -419,12 +409,7 @@ export function StatsNumberTicker({
               ))}
             {description &&
               (typeof description === "string" ? (
-                <p
-                  className={cn(
-                    "mx-auto max-w-2xl text-muted-foreground",
-                    descriptionClassName,
-                  )}
-                >
+                <p className={cn("mx-auto max-w-2xl", descriptionClassName)}>
                   {description}
                 </p>
               ) : (

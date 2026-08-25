@@ -185,6 +185,7 @@ export function FaqCenteredAccordion({
               <h2
                 className={cn(
                   "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
+                  "text-balance",
                   headingClassName,
                 )}
               >
@@ -195,7 +196,7 @@ export function FaqCenteredAccordion({
             ))}
           {description &&
             (typeof description === "string" ? (
-              <p className={cn("text-lg", descriptionClassName)}>
+              <p className={cn("text-lg text-balance", descriptionClassName)}>
                 {description}
               </p>
             ) : (

@@ -124,7 +124,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
           {(title || subtitle) && (
             <div className="mb-6 text-center md:mb-16">
               {subtitle && (
-                <p className="mb-2 text-sm font-semibold uppercase tracking-wider">
+                <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-balance">
                   {subtitle}
                 </p>
               )}

@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-08-25T02:49:44.866Z",
+    "exportedAt": "2026-08-25T15:34:41.211Z",
     "totalBlocks": 611,
-    "version": "3.17.1",
+    "version": "3.17.2",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -4991,13 +4991,13 @@
     {
       "id": "carousel-fullscreen-scroll-fx",
       "name": "Carousel Fullscreen Scroll Effects",
-      "description": "A GSAP-powered fullscreen carousel with scroll-triggered animations, pinned sections, and smooth parallax effects. Features immersive full-viewport slides with overlay content and navigation indicators.",
+      "description": "A document-scroll-driven fullscreen carousel with a sticky viewport and animated vertical slide transitions. Features immersive full-viewport slides with overlay content and navigation indicators scoped to the active block.",
       "semanticTags": [
         "carousel",
         "fullscreen",
         "scroll",
-        "gsap",
-        "parallax",
+        "sticky",
+        "scroll-story",
         "immersive",
         "storytelling",
         "portfolio",
@@ -5005,8 +5005,8 @@
       ],
       "category": "carousel",
       "props": "CarouselFullscreenScrollFxProps",
-      "exampleUsage": "Vertical scroll-snap fullscreen carousel where each slide is a full-viewport section with background image, overlay, and text content. A fixed scroll indicator, dot navigation, and slide counter are shown. Per-slide CTA actions supported.",
-      "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. Each FullscreenSlide requires a unique 'id' string and an 'image' absolute URL. Supports 2–8 slides for effective scroll storytelling. 'overlayColor' accepts rgba strings to tint each slide background independently. Per-slide 'actions' array renders CTA buttons centered over the slide content. The component is intended as a full-page or hero-level section; do not nest inside constrained heights. Default background is 'dark' with a diagonal cross pattern.",
+      "exampleUsage": "Document-scroll-driven fullscreen carousel where a sticky viewport advances through full-viewport slides with background images, overlays, and text content. Scoped dot navigation, a scroll indicator, and a slide counter remain inside the active block. Per-slide CTA actions are supported.",
+      "importantUsageNotes": "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed. Each FullscreenSlide requires a unique 'id' string and an 'image' absolute URL. Supports 2–8 slides for effective scroll storytelling. 'overlayColor' accepts rgba strings to tint each slide background independently. Per-slide 'actions' array renders CTA buttons centered over the slide content. The component works as a hero or mid-page section by using the document scroll surface; do not place it inside a height-constrained or vertically scrolling wrapper. Default background is 'dark' with a diagonal cross pattern.",
       "usageRequirements": {
         "requiredProps": [],
         "propConstraints": {},

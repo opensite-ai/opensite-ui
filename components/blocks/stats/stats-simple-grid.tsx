@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useMemo, useCallback } from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -194,7 +194,7 @@ export function StatsSimpleGrid({
         {stat.label && (
           <div
             className={cn(
-              "text-base leading-6 text-muted-foreground lg:text-lg",
+              "font-semibold leading-6 text-md opacity-70",
               statLabelClassName,
             )}
           >

@@ -7525,8 +7525,8 @@ const CAROUSEL_BLOCK_CONTRACTS: Record<string, CarouselBlockContract> =
 
     "carousel-fullscreen-scroll-fx": {
       exampleUsage:
-        "Vertical scroll-snap fullscreen carousel where each slide is a full-viewport section with background image, overlay, and text content. A fixed scroll indicator, dot navigation, and slide counter are shown. Per-slide CTA actions supported.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each FullscreenSlide requires a unique 'id' string and an 'image' absolute URL. Supports 2–8 slides for effective scroll storytelling. 'overlayColor' accepts rgba strings to tint each slide background independently. Per-slide 'actions' array renders CTA buttons centered over the slide content. The component is intended as a full-page or hero-level section; do not nest inside constrained heights. Default background is 'dark' with a diagonal cross pattern.`,
+        "Document-scroll-driven fullscreen carousel where a sticky viewport advances through full-viewport slides with background images, overlays, and text content. Scoped dot navigation, a scroll indicator, and a slide counter remain inside the active block. Per-slide CTA actions are supported.",
+      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each FullscreenSlide requires a unique 'id' string and an 'image' absolute URL. Supports 2–8 slides for effective scroll storytelling. 'overlayColor' accepts rgba strings to tint each slide background independently. Per-slide 'actions' array renders CTA buttons centered over the slide content. The component works as a hero or mid-page section by using the document scroll surface; do not place it inside a height-constrained or vertically scrolling wrapper. Default background is 'dark' with a diagonal cross pattern.`,
       usageRequirements: {
       requiredProps: [],
       propConstraints: {},
@@ -21204,13 +21204,13 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "carousel-fullscreen-scroll-fx",
     name: "Carousel Fullscreen Scroll Effects",
     description:
-      "A GSAP-powered fullscreen carousel with scroll-triggered animations, pinned sections, and smooth parallax effects. Features immersive full-viewport slides with overlay content and navigation indicators.",
+      "A document-scroll-driven fullscreen carousel with a sticky viewport and animated vertical slide transitions. Features immersive full-viewport slides with overlay content and navigation indicators scoped to the active block.",
     semanticTags: [
       "carousel",
       "fullscreen",
       "scroll",
-      "gsap",
-      "parallax",
+      "sticky",
+      "scroll-story",
       "immersive",
       "storytelling",
       "portfolio",

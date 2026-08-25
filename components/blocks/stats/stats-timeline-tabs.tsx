@@ -2,11 +2,7 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import {
-  cn,
-  getNestedCardBg,
-  getNestedCardTextColor,
-} from "../../../lib/utils";
+import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -264,8 +260,7 @@ export function StatsTimelineTabs({
                     key={index}
                     className={cn(
                       "rounded-lg border p-6 transition-shadow hover:shadow-md",
-                      getNestedCardBg(background, "card"),
-                      getNestedCardTextColor(background),
+                      "bg-card text-card-foreground",
                       stat.className,
                       statCardClassName,
                     )}
@@ -278,9 +273,9 @@ export function StatsTimelineTabs({
                         <DynamicIcon
                           name="lucide/clock"
                           size={16}
-                          className="mr-1 text-muted-foreground"
+                          className="mr-1 opacity-80"
                         />
-                        <span className="text-xs text-muted-foreground">
+                        <span className="text-xs opacity-70">
                           {period.label}
                         </span>
                       </div>
@@ -311,7 +306,7 @@ export function StatsTimelineTabs({
                         {Math.abs(stat.change)}%
                       </div>
                       {stat.previousLabel && (
-                        <p className="ml-2 text-sm text-muted-foreground">
+                        <p className="ml-2 text-sm opacity-70">
                           vs {stat.previousLabel}
                         </p>
                       )}
@@ -372,7 +367,7 @@ export function StatsTimelineTabs({
                 (typeof description === "string" ? (
                   <p
                     className={cn(
-                      "mx-auto max-w-2xl text-muted-foreground",
+                      "mx-auto max-w-2xl opacity-70",
                       descriptionClassName,
                     )}
                   >
