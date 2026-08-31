@@ -1,8 +1,8 @@
 {
   "metadata": {
     "contractVersion": "v1",
-    "uiVersion": "3.17.2",
-    "exportedAt": "2026-08-25T15:34:41.211Z",
+    "uiVersion": "3.17.3",
+    "exportedAt": "2026-08-31T21:45:08.448Z",
     "source": "@opensite/ui",
     "totalBlocks": 611
   },
@@ -30110,7 +30110,7 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<LinkPageMinimalProfile\n  name=\"Alex Rivera\"\n  bio=\"Software Engineer & Open Source Contributor\"\n  avatar={{ src: \"https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png\", alt: \"Alex Rivera\" }}\n  links={[\n    { id: \"1\", label: \"Personal Website\", href: \"https://example.com\", iconName: \"lucide/globe\" },\n    { id: \"2\", label: \"GitHub Projects\", href: \"https://github.com/alexrivera\", iconName: \"simple-icons/github\" },\n    { id: \"3\", label: \"Technical Blog\", href: \"https://example.com/blog\", iconName: \"lucide/pen-line\" },\n    { id: \"4\", label: \"Resume / CV\", href: \"https://example.com/resume\", iconName: \"lucide/file-user\" },\n  ]}\n  socialLinks={[\n    { href: \"https://github.com/alexrivera\" },\n    { href: \"https://linkedin.com/in/alexrivera\" },\n    { href: \"https://twitter.com/alexrivera\" },\n  ]}\n  footerAction={{ label: \"Powered by OpenSite\", href: \"https://opensite.ai\" }}\n  background=\"gray\"\n  pattern=\"architect\"\n  patternOpacity={0.08}\n/>",
+        "exampleUsage": "<LinkPageMinimalProfile\n  name=\"Alex Rivera\"\n  bio=\"Software Engineer & Open Source Contributor\"\n  avatar={{ src: \"https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png\", alt: \"Alex Rivera\" }}\n  links={[\n    { id: \"1\", label: \"Personal Website\", href: \"https://example.com\", iconName: \"lucide/globe\" },\n    { id: \"2\", label: \"GitHub Projects\", href: \"https://github.com/alexrivera\", iconName: \"simple-icons/github\" },\n    { id: \"3\", label: \"Technical Blog\", href: \"https://example.com/blog\", iconName: \"lucide/pen-line\" },\n    { id: \"4\", label: \"Resume / CV\", href: \"https://example.com/resume\", iconName: \"lucide/file-user\" },\n  ]}\n  socialLinks={[\n    { href: \"https://github.com/alexrivera\" },\n    { href: \"https://linkedin.com/in/alexrivera\" },\n    { href: \"https://twitter.com/alexrivera\" },\n  ]}\n  footerAction={{ label: \"Powered by Encapsa AI\", href: \"https://encapsa.ai\" }}\n  background=\"gray\"\n  pattern=\"architect\"\n  patternOpacity={0.08}\n/>",
         "exampleProps": {
           "name": "Alex Rivera",
           "bio": "Software Engineer & Open Source Contributor",
@@ -30166,8 +30166,8 @@
             }
           ],
           "footerAction": {
-            "label": "Powered by OpenSite",
-            "href": "https://opensite.ai"
+            "label": "Powered by Encapsa AI",
+            "href": "https://encapsa.ai"
           },
           "background": "gray",
           "pattern": "architect",
@@ -30554,7 +30554,7 @@
         "runtimeSchemaStatus": "missing"
       },
       "examples": {
-        "exampleUsage": "<LinkTreeBlock\n  brandName=\"Creative Studio\"\n  brandTagline=\"Award-winning design & branding agency\"\n  brandAvatar={{ src: \"https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png\", alt: \"Creative Studio\" }}\n  brandVerified={false}\n  socialLinks={[\n    { href: \"https://instagram.com/@handle\" },\n    { href: \"https://x.com/handle\" },\n    { href: \"https://linkedin.com/company/handle\" },\n  ]}\n  links={[\n    { id: \"1\", label: \"Featured Project\", description: \"New Brand Identity Launch\", href: \"https://example.com/project\", iconName: \"lucide/star\", featured: true, badge: \"New\" },\n    { id: \"2\", label: \"Our Portfolio\", description: \"View our latest work\", href: \"https://example.com/portfolio\", iconName: \"lucide/briefcase\" },\n    { id: \"3\", label: \"Services & Pricing\", description: \"Discover what we offer\", href: \"https://example.com/services\", iconName: \"lucide/package\" },\n    { id: \"4\", label: \"Free Consultation\", description: \"Book a 30-minute call\", href: \"https://example.com/consult\", iconName: \"lucide/calendar\", badge: \"Limited\" },\n  ]}\n  mediaGalleryTitle=\"Recent Work\"\n  mediaGallery={[\n    { id: \"1\", type: \"image\", src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Project showcase 1\" },\n    { id: \"2\", type: \"image\", src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Project showcase 2\" },\n    { id: \"3\", type: \"image\", src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Project showcase 3\" },\n  ]}\n  footerAction={{ label: \"Powered by OpenSite\", href: \"https://opensite.ai\" }}\n  background=\"dark\"\n  pattern=\"diagonalCrossFadeCenter\"\n  patternOpacity={0.33}\n/>",
+        "exampleUsage": "<LinkTreeBlock\n  brandName=\"Creative Studio\"\n  brandTagline=\"Award-winning design & branding agency\"\n  brandAvatar={{ src: \"https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png\", alt: \"Creative Studio\" }}\n  brandVerified={false}\n  socialLinks={[\n    { href: \"https://instagram.com/@handle\" },\n    { href: \"https://x.com/handle\" },\n    { href: \"https://linkedin.com/company/handle\" },\n  ]}\n  links={[\n    { id: \"1\", label: \"Featured Project\", description: \"New Brand Identity Launch\", href: \"https://example.com/project\", iconName: \"lucide/star\", featured: true, badge: \"New\" },\n    { id: \"2\", label: \"Our Portfolio\", description: \"View our latest work\", href: \"https://example.com/portfolio\", iconName: \"lucide/briefcase\" },\n    { id: \"3\", label: \"Services & Pricing\", description: \"Discover what we offer\", href: \"https://example.com/services\", iconName: \"lucide/package\" },\n    { id: \"4\", label: \"Free Consultation\", description: \"Book a 30-minute call\", href: \"https://example.com/consult\", iconName: \"lucide/calendar\", badge: \"Limited\" },\n  ]}\n  mediaGalleryTitle=\"Recent Work\"\n  mediaGallery={[\n    { id: \"1\", type: \"image\", src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Project showcase 1\" },\n    { id: \"2\", type: \"image\", src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Project showcase 2\" },\n    { id: \"3\", type: \"image\", src: \"https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp\", alt: \"Project showcase 3\" },\n  ]}\n  footerAction={{ label: \"Powered by Encapsa AI\", href: \"https://encapsa.ai\" }}\n  background=\"dark\"\n  pattern=\"diagonalCrossFadeCenter\"\n  patternOpacity={0.33}\n/>",
         "exampleProps": {
           "brandName": "Creative Studio",
           "brandTagline": "Award-winning design & branding agency",
@@ -30639,8 +30639,8 @@
             }
           ],
           "footerAction": {
-            "label": "Powered by OpenSite",
-            "href": "https://opensite.ai"
+            "label": "Powered by Encapsa AI",
+            "href": "https://encapsa.ai"
           },
           "background": "dark",
           "pattern": "diagonalCrossFadeCenter",

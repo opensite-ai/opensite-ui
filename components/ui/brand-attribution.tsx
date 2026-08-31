@@ -1,6 +1,7 @@
 import * as React from "react";
 
 export type InternalBrandSlug =
+  | "encapsa"
   | "dashtrack"
   | "realtor_site_ai"
   | "ortho_site_ai"
@@ -8,6 +9,7 @@ export type InternalBrandSlug =
   | "insurance_site_ai"
   | "open_site_ai"
   | "fit_site_ai"
+  | "workflow_rush"
   | "cast_kit";
 
 type BrandKey = InternalBrandSlug;
@@ -31,57 +33,57 @@ const brandAttributionOptions: OpensiteAttributionType[] = [
       {
         prefix: "Powered by ",
         anchorText: "AI Website Builder",
-        href: "https://opensite.ai",
+        href: "https://encapsa.ai",
         suffix: "",
       },
       {
         prefix: "",
         anchorText: "AI-Powered Web Design",
-        href: "https://opensite.ai",
-        suffix: " by OpenSite",
+        href: "https://encapsa.ai",
+        suffix: " by Encapsa AI",
       },
       {
         prefix: "Built with ",
-        anchorText: "OpenSite AI",
-        href: "https://opensite.ai",
+        anchorText: "Encapsa AI",
+        href: "https://encapsa.ai",
       },
       {
         prefix: "Website by ",
         anchorText: "Intelligent Site Builder",
-        href: "https://opensite.ai",
+        href: "https://encapsa.ai",
       },
       {
         prefix: "Designed using ",
         anchorText: "AI Website Platform",
-        href: "https://opensite.ai",
+        href: "https://encapsa.ai",
       },
       {
         prefix: "",
         anchorText: "Automated Website Design",
-        href: "https://opensite.ai",
-        suffix: " – OpenSite",
+        href: "https://encapsa.ai",
+        suffix: " – Encapsa AI",
       },
       {
         prefix: "Created with ",
         anchorText: "AI Digital Presence Solutions",
-        href: "https://opensite.ai",
+        href: "https://encapsa.ai",
       },
       {
         prefix: "",
         anchorText: "Smart Website Builder",
-        href: "https://opensite.ai",
-        suffix: " by OpenSite AI",
+        href: "https://encapsa.ai",
+        suffix: " by Encapsa AI",
       },
       {
         prefix: "Powered by ",
         anchorText: "Industry-Specific AI Web Platform",
-        href: "https://opensite.ai",
+        href: "https://encapsa.ai",
       },
       {
         prefix: "",
         anchorText: "AI Site Generator",
-        href: "https://opensite.ai",
-        suffix: " – OpenSite",
+        href: "https://encapsa.ai",
+        suffix: " – Encapsa AI",
       },
     ],
   },

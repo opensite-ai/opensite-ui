@@ -981,7 +981,7 @@ const ADVANCED_BLOCK_CONTRACTS: Record<string, AdvancedBlockContract> = {
         VERBATIM_EMBED_RULE,
         EMBED_MEDIA_NOTE,
         "Supply either embedUrl or embedHtml. With neither, the block renders no embed.",
-        'Set embedTitle whenever embedUrl is set; an untitled iframe is an accessibility failure.',
+        "Set embedTitle whenever embedUrl is set; an untitled iframe is an accessibility failure.",
         "embedUrl must be an absolute http(s) URL; other schemes are ignored and no frame is rendered.",
       ],
     },
@@ -1328,7 +1328,8 @@ const ABOUT_BLOCK_CONTRACTS = {
     },
     exampleProps: {
       title: "How We Got Here",
-      subtitle: "A practical timeline of the decisions that shaped our company.",
+      subtitle:
+        "A practical timeline of the decisions that shaped our company.",
       sections: [
         {
           content:
@@ -1409,8 +1410,7 @@ const ABOUT_BLOCK_CONTRACTS = {
         {
           icon: "lucide/settings",
           title: "Operational clarity",
-          description:
-            "Teams can update content without redesigning layouts.",
+          description: "Teams can update content without redesigning layouts.",
         },
         {
           icon: "lucide/shield",
@@ -1466,11 +1466,10 @@ const ABOUT_BLOCK_CONTRACTS = {
         },
       },
       mediaSlots: {
-        "images[]": imageSlot(
-          "images[]",
-          "Hero showcase images.",
-          ["feature", "gallery"],
-        ),
+        "images[]": imageSlot("images[]", "Hero showcase images.", [
+          "feature",
+          "gallery",
+        ]),
         "logos[]": logoSlot("logos[]", "Trusted company logo."),
         "benefits[].image": imageSlot(
           "benefits[].image",
@@ -1493,11 +1492,9 @@ const ABOUT_BLOCK_CONTRACTS = {
     },
     exampleProps: {
       title: "Our Background",
-      description: "We help teams launch reliable digital experiences at scale.",
-      images: [
-        aboutImage("Team workspace"),
-        aboutImage("Planning session"),
-      ],
+      description:
+        "We help teams launch reliable digital experiences at scale.",
+      images: [aboutImage("Team workspace"), aboutImage("Planning session")],
       stats: [
         { value: "21M", label: "Audience reach" },
         { value: "12+", label: "Years of expertise" },
@@ -1551,11 +1548,10 @@ const ABOUT_BLOCK_CONTRACTS = {
         },
       },
       mediaSlots: {
-        mainImage: imageSlot(
-          "mainImage",
-          "Primary company profile image.",
-          ["feature", "hero"],
-        ),
+        mainImage: imageSlot("mainImage", "Primary company profile image.", [
+          "feature",
+          "hero",
+        ]),
         secondaryImage: imageSlot(
           "secondaryImage",
           "Secondary supporting image.",
@@ -1615,16 +1611,20 @@ const ABOUT_BLOCK_CONTRACTS = {
       propConstraints: {
         title: { required: true, maxLength: 80 },
         subtitle: { maxLength: 160 },
-        images: { required: true, minItems: 3, maxItems: 6, itemsMultipleOf: 3 },
+        images: {
+          required: true,
+          minItems: 3,
+          maxItems: 6,
+          itemsMultipleOf: 3,
+        },
         primarySectionContent: { maxLength: 260 },
         secondarySectionContent: { maxLength: 260 },
       },
       mediaSlots: {
-        "images[]": imageSlot(
-          "images[]",
-          "Vision gallery image.",
-          ["gallery", "feature"],
-        ),
+        "images[]": imageSlot("images[]", "Vision gallery image.", [
+          "gallery",
+          "feature",
+        ]),
       },
       requiresSiteCapabilities: aboutCapabilities("media_library"),
       notes: [ABOUT_MEDIA_NOTE],
@@ -1689,11 +1689,10 @@ const ABOUT_BLOCK_CONTRACTS = {
         storyImage: { required: true },
       },
       mediaSlots: {
-        storyImage: imageSlot(
-          "storyImage",
-          "Story section image.",
-          ["feature", "hero"],
-        ),
+        storyImage: imageSlot("storyImage", "Story section image.", [
+          "feature",
+          "hero",
+        ]),
         "logos[]": logoSlot("logos[]", "Customer or partner logo."),
       },
       requiresSiteCapabilities: aboutCapabilities(
@@ -1742,11 +1741,10 @@ const ABOUT_BLOCK_CONTRACTS = {
         images: { required: true, minItems: 3, maxItems: 5 },
       },
       mediaSlots: {
-        "images[]": imageSlot(
-          "images[]",
-          "Story gallery image.",
-          ["gallery", "feature"],
-        ),
+        "images[]": imageSlot("images[]", "Story gallery image.", [
+          "gallery",
+          "feature",
+        ]),
       },
       requiresSiteCapabilities: aboutCapabilities("media_library"),
       notes: [ABOUT_MEDIA_NOTE],
@@ -1868,7 +1866,10 @@ const ABOUT_BLOCK_CONTRACTS = {
           "1:1",
         ),
       },
-      requiresSiteCapabilities: aboutCapabilities("team_members", "media_library"),
+      requiresSiteCapabilities: aboutCapabilities(
+        "team_members",
+        "media_library",
+      ),
       notes: [ABOUT_MEDIA_NOTE],
     },
     exampleProps: {
@@ -1940,7 +1941,10 @@ const ABOUT_BLOCK_CONTRACTS = {
           "1:1",
         ),
       },
-      requiresSiteCapabilities: aboutCapabilities("team_members", "media_library"),
+      requiresSiteCapabilities: aboutCapabilities(
+        "team_members",
+        "media_library",
+      ),
       notes: [ABOUT_MEDIA_NOTE],
     },
     exampleProps: {
@@ -2010,7 +2014,10 @@ const ABOUT_BLOCK_CONTRACTS = {
           false,
         ),
       },
-      requiresSiteCapabilities: aboutCapabilities("team_members", "media_library"),
+      requiresSiteCapabilities: aboutCapabilities(
+        "team_members",
+        "media_library",
+      ),
       notes: [ABOUT_MEDIA_NOTE],
     },
     exampleProps: {
@@ -2052,13 +2059,15 @@ const ABOUT_BLOCK_CONTRACTS = {
         },
       },
       mediaSlots: {
-        heroImage: imageSlot(
-          "heroImage",
-          "Large story hero image.",
-          ["hero", "feature"],
-        ),
+        heroImage: imageSlot("heroImage", "Large story hero image.", [
+          "hero",
+          "feature",
+        ]),
       },
-      requiresSiteCapabilities: aboutCapabilities("team_members", "media_library"),
+      requiresSiteCapabilities: aboutCapabilities(
+        "team_members",
+        "media_library",
+      ),
       notes: [ABOUT_MEDIA_NOTE],
     },
     exampleProps: {
@@ -2119,8 +2128,7 @@ const ABOUT_BLOCK_CONTRACTS = {
         {
           icon: "lucide/zap",
           title: "Fast launch cycles",
-          description:
-            "Teams publish updates without waiting on engineering.",
+          description: "Teams publish updates without waiting on engineering.",
         },
         {
           icon: "lucide/lock",
@@ -2327,11 +2335,10 @@ const ABOUT_BLOCK_CONTRACTS = {
         expertiseAreas: { minItems: 2, maxItems: 4 },
       },
       mediaSlots: {
-        image: imageSlot(
-          "image",
-          "Story and expertise image card.",
-          ["feature", "hero"],
-        ),
+        image: imageSlot("image", "Story and expertise image card.", [
+          "feature",
+          "hero",
+        ]),
       },
       requiresSiteCapabilities: aboutCapabilities("media_library"),
       notes: [ABOUT_MEDIA_NOTE],
@@ -2397,11 +2404,10 @@ const ABOUT_BLOCK_CONTRACTS = {
         image: { required: true },
       },
       mediaSlots: {
-        image: imageSlot(
-          "image",
-          "Network spotlight image.",
-          ["feature", "hero"],
-        ),
+        image: imageSlot("image", "Network spotlight image.", [
+          "feature",
+          "hero",
+        ]),
       },
       requiresSiteCapabilities: aboutCapabilities("media_library"),
       notes: [ABOUT_MEDIA_NOTE],
@@ -2452,7 +2458,13 @@ const ABOUT_BLOCK_CONTRACTS = {
     importantUsageNotes:
       "Use only when contact details, hours, and location facts are source-backed. Do not fabricate addresses, phone numbers, or business hours. images[] must contain image assets only, never logos, favicons, or videos.",
     usageRequirements: {
-      requiredProps: ["headline", "address", "phone", "hoursSections", "images"],
+      requiredProps: [
+        "headline",
+        "address",
+        "phone",
+        "hoursSections",
+        "images",
+      ],
       propConstraints: {
         headline: { required: true, maxLength: 80 },
         address: {
@@ -2468,11 +2480,10 @@ const ABOUT_BLOCK_CONTRACTS = {
         actions: { maxItems: 2 },
       },
       mediaSlots: {
-        "images[]": imageSlot(
-          "images[]",
-          "Location showcase image.",
-          ["feature", "hero"],
-        ),
+        "images[]": imageSlot("images[]", "Location showcase image.", [
+          "feature",
+          "hero",
+        ]),
       },
       requiresSiteCapabilities: aboutCapabilities("locations", "media_library"),
       notes: [ABOUT_MEDIA_NOTE, "Location and hours data must be sourced."],
@@ -2530,11 +2541,10 @@ const ABOUT_BLOCK_CONTRACTS = {
         imageAlt: { required: true, maxLength: 120 },
       },
       mediaSlots: {
-        imageSrc: imageSlot(
-          "imageSrc",
-          "Split hero image.",
-          ["hero", "feature"],
-        ),
+        imageSrc: imageSlot("imageSrc", "Split hero image.", [
+          "hero",
+          "feature",
+        ]),
       },
       requiresSiteCapabilities: aboutCapabilities("media_library"),
       notes: [ABOUT_MEDIA_NOTE],
@@ -2584,20 +2594,25 @@ const ABOUT_BLOCK_CONTRACTS = {
       },
       mediaSlots: {},
       requiresSiteCapabilities: aboutCapabilities(),
-      notes: ["Mission and principle copy should come from brand source material."],
+      notes: [
+        "Mission and principle copy should come from brand source material.",
+      ],
     },
     exampleProps: {
       badgeText: "Our Mission",
       missionHeading: "To empower teams through practical technology",
       missionDescription:
         "We believe digital systems should make daily operations clearer, not more complicated.",
-      missionAction: { label: "Learn More", href: "/about", variant: "default" },
+      missionAction: {
+        label: "Learn More",
+        href: "/about",
+        variant: "default",
+      },
       principles: [
         {
           number: "01",
           title: "Customer-Centric",
-          description:
-            "Start from the real work customers need to complete.",
+          description: "Start from the real work customers need to complete.",
         },
         {
           number: "02",
@@ -2732,7 +2747,11 @@ const ABOUT_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 90 },
         description: { maxLength: 220 },
         categories: { required: true, minItems: 1, maxItems: 5 },
-        "categories[].initiatives": { required: true, minItems: 1, maxItems: 6 },
+        "categories[].initiatives": {
+          required: true,
+          minItems: 1,
+          maxItems: 6,
+        },
         "categories[].initiatives[].metrics": {
           note: "Metrics must be sourced.",
         },
@@ -2777,8 +2796,7 @@ const ABOUT_BLOCK_CONTRACTS = {
         },
       ],
       ctaHeading: "Partner With Us",
-      ctaDescription:
-        "Help expand practical community programs in your area.",
+      ctaDescription: "Help expand practical community programs in your area.",
       actions: [
         { label: "Get Involved", href: "/community", variant: "default" },
       ],
@@ -2870,7 +2888,10 @@ const ABOUT_BLOCK_CONTRACTS = {
         "team_members",
         "media_library",
       ),
-      notes: [ABOUT_MEDIA_NOTE, "Culture testimonials and team claims must be sourced."],
+      notes: [
+        ABOUT_MEDIA_NOTE,
+        "Culture testimonials and team claims must be sourced.",
+      ],
     },
     exampleProps: {
       badgeText: "Our Culture",
@@ -2939,8 +2960,7 @@ const ARTICLE_TRACKING_NOTE =
 const ARTICLE_SOURCE_NOTE =
   "Article titles, authors, dates, summaries, chapter names, and body copy must come from source-backed article or blog data. Do not invent bylines or publication metadata.";
 
-const articleCapabilities = (...capabilities: SiteCapability[]) =>
-  capabilities;
+const articleCapabilities = (...capabilities: SiteCapability[]) => capabilities;
 
 const ARTICLE_EXAMPLE_MARKDOWN = `## Overview
 Modern article layouts need clear hierarchy, source-backed metadata, and media that supports the story.
@@ -3033,7 +3053,10 @@ const ARTICLE_BLOCK_CONTRACTS = {
     usageRequirements: {
       requiredProps: ["post", "markdownString"],
       propConstraints: {
-        post: { required: true, note: "Source-backed article metadata object." },
+        post: {
+          required: true,
+          note: "Source-backed article metadata object.",
+        },
         "post.title": { required: true, maxLength: 90 },
         "post.description": { required: true, maxLength: 220 },
         "post.authorName": {
@@ -3362,7 +3385,10 @@ const ARTICLE_BLOCK_CONTRACTS = {
         currentPage: { required: true, maxLength: 80 },
         title: { required: true, maxLength: 100 },
         description: { required: false, maxLength: 240 },
-        author: { required: true, note: "Source-backed article author object." },
+        author: {
+          required: true,
+          note: "Source-backed article author object.",
+        },
         "author.name": { required: true, maxLength: 80 },
         "author.role": { required: false, maxLength: 80 },
         "author.image": {
@@ -3682,7 +3708,8 @@ const ARTICLE_BLOCK_CONTRACTS = {
         socialLinks: { linkedin: "https://linkedin.com" },
       },
       conclusionTitle: "Continue Learning",
-      conclusionDescription: "Read the next guide in this source-backed series.",
+      conclusionDescription:
+        "Read the next guide in this source-backed series.",
       conclusionActions: [
         { label: "View Guides", href: "#", variant: "default" },
         { label: "Download Notes", href: "#", variant: "outline" },
@@ -3712,7 +3739,13 @@ const ARTICLE_BLOCK_CONTRACTS = {
     importantUsageNotes:
       "Use for a featured article or hero post preview, not as a full article body. image and authorImage must be absolute image URLs only, never placeholder variables, relative /images paths, logos, favicons, or video URLs. Use ctaActions ActionConfig objects; this component does not accept ctaText or ctaHref props.",
     usageRequirements: {
-      requiredProps: ["title", "description", "image", "imageAlt", "ctaActions"],
+      requiredProps: [
+        "title",
+        "description",
+        "image",
+        "imageAlt",
+        "ctaActions",
+      ],
       propConstraints: {
         title: { required: true, maxLength: 90 },
         description: { required: true, maxLength: 220 },
@@ -3785,7 +3818,12 @@ const ARTICLE_BLOCK_CONTRACTS = {
       publishDate: "January 25, 2026",
       readTime: "15 min read",
       ctaActions: [
-        { label: "Read Full Article", href: "#", variant: "default", size: "lg" },
+        {
+          label: "Read Full Article",
+          href: "#",
+          variant: "default",
+          size: "lg",
+        },
       ],
       enableAnimations: true,
     },
@@ -3931,10 +3969,9 @@ const linkPageLogoExampleProps = (brandName: string) => ({
 
 // ─── contracts ───────────────────────────────────────────────────────────────
 
-const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
-  {
-    "link-tree-block": {
-      exampleUsage: `
+const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> = {
+  "link-tree-block": {
+    exampleUsage: `
 <LinkTreeBlock
   brandName="Creative Studio"
   brandTagline="Award-winning design & branding agency"
@@ -3957,87 +3994,144 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
     { id: "2", type: "image", src: "${LINK_PAGE_EXAMPLE_IMAGE_URL}", alt: "Project showcase 2" },
     { id: "3", type: "image", src: "${LINK_PAGE_EXAMPLE_IMAGE_URL}", alt: "Project showcase 3" },
   ]}
-  footerAction={{ label: "Powered by OpenSite", href: "https://opensite.ai" }}
+  footerAction={{ label: "Powered by Encapsa AI", href: "https://encapsa.ai" }}
   background="dark"
   pattern="diagonalCrossFadeCenter"
   patternOpacity={0.33}
 />
     `.trim(),
-      importantUsageNotes: `Full-featured link-in-bio page. The brandAvatar/brandLogo prop accepts an ImageItem object with an absolute src URL — it is typically a logo or profile image. links[] items support featured highlighting, badges, icons, and descriptions. mediaGallery[] renders a 3-column grid of images or videos. socialLinks[] are resolved automatically from the href domain. Provide at least 3 links for a useful layout; gallery is optional. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
-      usageRequirements: {
-        requiredProps: ["brandName"],
-        propConstraints: {
-          brandName: { required: true, maxLength: 60 },
-          brandTagline: { required: false, maxLength: 120 },
-          "links[]": { required: false, minItems: 1, maxItems: 12 },
-          "links[].label": { required: true, maxLength: 50 },
-          "links[].description": { required: false, maxLength: 80 },
-          "links[].href": { required: true },
-          "links[].iconName": { required: false, note: "Iconify icon name, e.g. lucide/globe" },
-          "links[].featured": { required: false, note: "Highlights the link with primary styling" },
-          "links[].badge": { required: false, maxLength: 20 },
-          "mediaGallery[]": { required: false, minItems: 3, maxItems: 6 },
-          "mediaGallery[].src": { required: true },
-          "mediaGallery[].type": { required: true, note: "Must be 'image' or 'video'" },
-          "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
-          "socialLinks[].href": { required: true, note: "Platform inferred from URL" },
-          ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
+    importantUsageNotes: `Full-featured link-in-bio page. The brandAvatar/brandLogo prop accepts an ImageItem object with an absolute src URL — it is typically a logo or profile image. links[] items support featured highlighting, badges, icons, and descriptions. mediaGallery[] renders a 3-column grid of images or videos. socialLinks[] are resolved automatically from the href domain. Provide at least 3 links for a useful layout; gallery is optional. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
+    usageRequirements: {
+      requiredProps: ["brandName"],
+      propConstraints: {
+        brandName: { required: true, maxLength: 60 },
+        brandTagline: { required: false, maxLength: 120 },
+        "links[]": { required: false, minItems: 1, maxItems: 12 },
+        "links[].label": { required: true, maxLength: 50 },
+        "links[].description": { required: false, maxLength: 80 },
+        "links[].href": { required: true },
+        "links[].iconName": {
+          required: false,
+          note: "Iconify icon name, e.g. lucide/globe",
         },
-        mediaSlots: {
-          logo: linkPageLogoSlot(),
-          logoBannerImage: linkPageLogoBannerSlot(),
-          brandAvatar: linkPageAvatarSlot(
-            "brandAvatar.src",
-            "Brand logo or profile photo displayed in the header. LOGO OR PROFILE IMAGE ONLY. Do not use favicons or video assets.",
-          ),
-          "mediaGallery[].src": imageSlot(
-            "mediaGallery[].src",
-            "Gallery thumbnail image.",
-            ["feature", "gallery"],
-            "medium",
-            false,
-            "1:1",
-          ),
+        "links[].featured": {
+          required: false,
+          note: "Highlights the link with primary styling",
         },
-        requiresSiteCapabilities: linkPageCapabilities("media_library"),
-        notes: [
-          LINK_PAGE_MEDIA_NOTE,
-          "brandAvatar and brandLogo accept ImageItem ({ src, alt }) or a plain string URL; the logo prop (LogoConfig { src, alt, url? }) takes priority over both and is the preferred slot for the site brand mark — shape it with logoAspect, never with a className.",
-          "mediaGallery items with type 'video' should provide a poster URL for the thumbnail.",
-        ],
+        "links[].badge": { required: false, maxLength: 20 },
+        "mediaGallery[]": { required: false, minItems: 3, maxItems: 6 },
+        "mediaGallery[].src": { required: true },
+        "mediaGallery[].type": {
+          required: true,
+          note: "Must be 'image' or 'video'",
+        },
+        "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
+        "socialLinks[].href": {
+          required: true,
+          note: "Platform inferred from URL",
+        },
+        ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
       },
-      exampleProps: {
-        brandName: "Creative Studio",
-        brandTagline: "Award-winning design & branding agency",
-        brandAvatar: { src: LINK_PAGE_LOGO_URL, alt: "Creative Studio" },
-        ...linkPageLogoExampleProps("Creative Studio"),
-        brandVerified: false,
-        socialLinks: [
-          { href: "https://instagram.com/@handle" },
-          { href: "https://x.com/handle" },
-          { href: "https://linkedin.com/company/handle" },
-        ],
-        links: [
-          { id: "1", label: "Featured Project", description: "New Brand Identity Launch", href: "https://example.com/project", iconName: "lucide/star", featured: true, badge: "New" },
-          { id: "2", label: "Our Portfolio", description: "View our latest work", href: "https://example.com/portfolio", iconName: "lucide/briefcase" },
-          { id: "3", label: "Services & Pricing", description: "Discover what we offer", href: "https://example.com/services", iconName: "lucide/package" },
-          { id: "4", label: "Free Consultation", description: "Book a 30-minute call", href: "https://example.com/consult", iconName: "lucide/calendar", badge: "Limited" },
-        ],
-        mediaGalleryTitle: "Recent Work",
-        mediaGallery: [
-          { id: "1", type: "image", src: LINK_PAGE_EXAMPLE_IMAGE_URL, alt: "Project showcase 1" },
-          { id: "2", type: "image", src: LINK_PAGE_EXAMPLE_IMAGE_URL, alt: "Project showcase 2" },
-          { id: "3", type: "image", src: LINK_PAGE_EXAMPLE_IMAGE_URL, alt: "Project showcase 3" },
-        ],
-        footerAction: { label: "Powered by OpenSite", href: "https://opensite.ai" },
-        background: "dark",
-        pattern: "diagonalCrossFadeCenter",
-        patternOpacity: 0.33,
+      mediaSlots: {
+        logo: linkPageLogoSlot(),
+        logoBannerImage: linkPageLogoBannerSlot(),
+        brandAvatar: linkPageAvatarSlot(
+          "brandAvatar.src",
+          "Brand logo or profile photo displayed in the header. LOGO OR PROFILE IMAGE ONLY. Do not use favicons or video assets.",
+        ),
+        "mediaGallery[].src": imageSlot(
+          "mediaGallery[].src",
+          "Gallery thumbnail image.",
+          ["feature", "gallery"],
+          "medium",
+          false,
+          "1:1",
+        ),
       },
+      requiresSiteCapabilities: linkPageCapabilities("media_library"),
+      notes: [
+        LINK_PAGE_MEDIA_NOTE,
+        "brandAvatar and brandLogo accept ImageItem ({ src, alt }) or a plain string URL; the logo prop (LogoConfig { src, alt, url? }) takes priority over both and is the preferred slot for the site brand mark — shape it with logoAspect, never with a className.",
+        "mediaGallery items with type 'video' should provide a poster URL for the thumbnail.",
+      ],
     },
+    exampleProps: {
+      brandName: "Creative Studio",
+      brandTagline: "Award-winning design & branding agency",
+      brandAvatar: { src: LINK_PAGE_LOGO_URL, alt: "Creative Studio" },
+      ...linkPageLogoExampleProps("Creative Studio"),
+      brandVerified: false,
+      socialLinks: [
+        { href: "https://instagram.com/@handle" },
+        { href: "https://x.com/handle" },
+        { href: "https://linkedin.com/company/handle" },
+      ],
+      links: [
+        {
+          id: "1",
+          label: "Featured Project",
+          description: "New Brand Identity Launch",
+          href: "https://example.com/project",
+          iconName: "lucide/star",
+          featured: true,
+          badge: "New",
+        },
+        {
+          id: "2",
+          label: "Our Portfolio",
+          description: "View our latest work",
+          href: "https://example.com/portfolio",
+          iconName: "lucide/briefcase",
+        },
+        {
+          id: "3",
+          label: "Services & Pricing",
+          description: "Discover what we offer",
+          href: "https://example.com/services",
+          iconName: "lucide/package",
+        },
+        {
+          id: "4",
+          label: "Free Consultation",
+          description: "Book a 30-minute call",
+          href: "https://example.com/consult",
+          iconName: "lucide/calendar",
+          badge: "Limited",
+        },
+      ],
+      mediaGalleryTitle: "Recent Work",
+      mediaGallery: [
+        {
+          id: "1",
+          type: "image",
+          src: LINK_PAGE_EXAMPLE_IMAGE_URL,
+          alt: "Project showcase 1",
+        },
+        {
+          id: "2",
+          type: "image",
+          src: LINK_PAGE_EXAMPLE_IMAGE_URL,
+          alt: "Project showcase 2",
+        },
+        {
+          id: "3",
+          type: "image",
+          src: LINK_PAGE_EXAMPLE_IMAGE_URL,
+          alt: "Project showcase 3",
+        },
+      ],
+      footerAction: {
+        label: "Powered by Encapsa AI",
+        href: "https://encapsa.ai",
+      },
+      background: "dark",
+      pattern: "diagonalCrossFadeCenter",
+      patternOpacity: 0.33,
+    },
+  },
 
-    "link-page-minimal-profile": {
-      exampleUsage: `
+  "link-page-minimal-profile": {
+    exampleUsage: `
 <LinkPageMinimalProfile
   name="Alex Rivera"
   bio="Software Engineer & Open Source Contributor"
@@ -4053,63 +4147,92 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
     { href: "https://linkedin.com/in/alexrivera" },
     { href: "https://twitter.com/alexrivera" },
   ]}
-  footerAction={{ label: "Powered by OpenSite", href: "https://opensite.ai" }}
+  footerAction={{ label: "Powered by Encapsa AI", href: "https://encapsa.ai" }}
   background="gray"
   pattern="architect"
   patternOpacity={0.08}
 />
     `.trim(),
-      importantUsageNotes: `Clean, minimalist link-in-bio page with no media gallery. The avatar accepts an ImageItem with an absolute src; it is typically a profile photo or logo. Each link renders with an optional Iconify icon on the left. Social links auto-detect platform from href. Best for professionals or developers who want a simple, text-focused link page. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
-      usageRequirements: {
-        requiredProps: ["name"],
-        propConstraints: {
-          name: { required: true, maxLength: 60 },
-          bio: { required: false, maxLength: 140 },
-          "links[]": { required: false, minItems: 1, maxItems: 10 },
-          "links[].label": { required: true, maxLength: 50 },
-          "links[].href": { required: true },
-          "links[].iconName": { required: false, note: "Iconify icon name, e.g. lucide/globe" },
-          "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
-          "socialLinks[].href": { required: true, note: "Platform inferred from URL" },
-          ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
+    importantUsageNotes: `Clean, minimalist link-in-bio page with no media gallery. The avatar accepts an ImageItem with an absolute src; it is typically a profile photo or logo. Each link renders with an optional Iconify icon on the left. Social links auto-detect platform from href. Best for professionals or developers who want a simple, text-focused link page. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
+    usageRequirements: {
+      requiredProps: ["name"],
+      propConstraints: {
+        name: { required: true, maxLength: 60 },
+        bio: { required: false, maxLength: 140 },
+        "links[]": { required: false, minItems: 1, maxItems: 10 },
+        "links[].label": { required: true, maxLength: 50 },
+        "links[].href": { required: true },
+        "links[].iconName": {
+          required: false,
+          note: "Iconify icon name, e.g. lucide/globe",
         },
-        mediaSlots: {
-          logo: linkPageLogoSlot(),
-          logoBannerImage: linkPageLogoBannerSlot(),
-          avatar: linkPageAvatarSlot(),
+        "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
+        "socialLinks[].href": {
+          required: true,
+          note: "Platform inferred from URL",
         },
-        requiresSiteCapabilities: linkPageCapabilities("media_library"),
-        notes: [
-          LINK_PAGE_MEDIA_NOTE,
-          "avatar prop accepts ImageItem ({ src, alt }); avatarUrl (string) is the legacy fallback. The logo prop (LogoConfig { src, alt, url? }) takes priority over both and is the preferred slot for the site brand mark — shape it with logoAspect, never with a className.",
-          "No media gallery in this variant — use link-tree-block if a gallery is needed.",
-        ],
+        ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
       },
-      exampleProps: {
-        name: "Alex Rivera",
-        bio: "Software Engineer & Open Source Contributor",
-        avatar: { src: LINK_PAGE_LOGO_URL, alt: "Alex Rivera" },
-        ...linkPageLogoExampleProps("Alex Rivera"),
-        links: [
-          { id: "1", label: "Personal Website", href: "https://example.com", iconName: "lucide/globe" },
-          { id: "2", label: "GitHub Projects", href: "https://github.com/alexrivera", iconName: "simple-icons/github" },
-          { id: "3", label: "Technical Blog", href: "https://example.com/blog", iconName: "lucide/pen-line" },
-          { id: "4", label: "Resume / CV", href: "https://example.com/resume", iconName: "lucide/file-user" },
-        ],
-        socialLinks: [
-          { href: "https://github.com/alexrivera" },
-          { href: "https://linkedin.com/in/alexrivera" },
-          { href: "https://twitter.com/alexrivera" },
-        ],
-        footerAction: { label: "Powered by OpenSite", href: "https://opensite.ai" },
-        background: "gray",
-        pattern: "architect",
-        patternOpacity: 0.08,
+      mediaSlots: {
+        logo: linkPageLogoSlot(),
+        logoBannerImage: linkPageLogoBannerSlot(),
+        avatar: linkPageAvatarSlot(),
       },
+      requiresSiteCapabilities: linkPageCapabilities("media_library"),
+      notes: [
+        LINK_PAGE_MEDIA_NOTE,
+        "avatar prop accepts ImageItem ({ src, alt }); avatarUrl (string) is the legacy fallback. The logo prop (LogoConfig { src, alt, url? }) takes priority over both and is the preferred slot for the site brand mark — shape it with logoAspect, never with a className.",
+        "No media gallery in this variant — use link-tree-block if a gallery is needed.",
+      ],
     },
+    exampleProps: {
+      name: "Alex Rivera",
+      bio: "Software Engineer & Open Source Contributor",
+      avatar: { src: LINK_PAGE_LOGO_URL, alt: "Alex Rivera" },
+      ...linkPageLogoExampleProps("Alex Rivera"),
+      links: [
+        {
+          id: "1",
+          label: "Personal Website",
+          href: "https://example.com",
+          iconName: "lucide/globe",
+        },
+        {
+          id: "2",
+          label: "GitHub Projects",
+          href: "https://github.com/alexrivera",
+          iconName: "simple-icons/github",
+        },
+        {
+          id: "3",
+          label: "Technical Blog",
+          href: "https://example.com/blog",
+          iconName: "lucide/pen-line",
+        },
+        {
+          id: "4",
+          label: "Resume / CV",
+          href: "https://example.com/resume",
+          iconName: "lucide/file-user",
+        },
+      ],
+      socialLinks: [
+        { href: "https://github.com/alexrivera" },
+        { href: "https://linkedin.com/in/alexrivera" },
+        { href: "https://twitter.com/alexrivera" },
+      ],
+      footerAction: {
+        label: "Powered by Encapsa AI",
+        href: "https://encapsa.ai",
+      },
+      background: "gray",
+      pattern: "architect",
+      patternOpacity: 0.08,
+    },
+  },
 
-    "link-page-newsletter-social": {
-      exampleUsage: `
+  "link-page-newsletter-social": {
+    exampleUsage: `
 <LinkPageNewsletterSocial
   name="Jamie Taylor"
   bio="Marketing Expert & Growth Strategist"
@@ -4138,65 +4261,98 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
   patternOpacity={0.08}
 />
     `.trim(),
-      importantUsageNotes: `Link page with an integrated email newsletter signup form powered by FormEngine. The form is rendered inside a card above the links list. formEngineSetup.api.endpoint must point to a real API; use the site's form submission endpoint. Links below the newsletter card support icons and chevron indicators. Social icons appear above the newsletter card. Avatar is displayed in the profile header. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
-      usageRequirements: {
-        requiredProps: ["name"],
-        propConstraints: {
-          name: { required: true, maxLength: 60 },
-          bio: { required: false, maxLength: 140 },
-          newsletterHeading: { required: false, maxLength: 80 },
-          newsletterDescription: { required: false, maxLength: 180 },
-          "formEngineSetup.api.endpoint": { required: false, note: "Must be a real API endpoint when form is used" },
-          "links[]": { required: false, minItems: 1, maxItems: 8 },
-          "links[].label": { required: true, maxLength: 50 },
-          "links[].href": { required: true },
-          "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
-          ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
+    importantUsageNotes: `Link page with an integrated email newsletter signup form powered by FormEngine. The form is rendered inside a card above the links list. formEngineSetup.api.endpoint must point to a real API; use the site's form submission endpoint. Links below the newsletter card support icons and chevron indicators. Social icons appear above the newsletter card. Avatar is displayed in the profile header. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
+    usageRequirements: {
+      requiredProps: ["name"],
+      propConstraints: {
+        name: { required: true, maxLength: 60 },
+        bio: { required: false, maxLength: 140 },
+        newsletterHeading: { required: false, maxLength: 80 },
+        newsletterDescription: { required: false, maxLength: 180 },
+        "formEngineSetup.api.endpoint": {
+          required: false,
+          note: "Must be a real API endpoint when form is used",
         },
-        mediaSlots: {
-          logo: linkPageLogoSlot(),
-          logoBannerImage: linkPageLogoBannerSlot(),
-          avatar: linkPageAvatarSlot(),
-        },
-        requiresSiteCapabilities: linkPageCapabilities("media_library", "contact_form"),
-        notes: [
-          LINK_PAGE_MEDIA_NOTE,
-          "formEngineSetup is optional; omit it to render the newsletter card without a form (use newsletterSlot instead).",
-          "buttonAction.variant controls the submit button style (default, outline, secondary).",
-        ],
+        "links[]": { required: false, minItems: 1, maxItems: 8 },
+        "links[].label": { required: true, maxLength: 50 },
+        "links[].href": { required: true },
+        "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
+        ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
       },
-      exampleProps: {
-        name: "Jamie Taylor",
-        bio: "Marketing Expert & Growth Strategist",
-        avatar: { src: LINK_PAGE_LOGO_URL, alt: "Jamie Taylor" },
-        ...linkPageLogoExampleProps("Jamie Taylor"),
-        socialLinks: [
-          { id: "1", href: "https://instagram.com/jamietaylor" },
-          { id: "2", href: "https://twitter.com/jamietaylor" },
-          { id: "3", href: "https://linkedin.com/in/jamietaylor" },
-        ],
-        newsletterHeading: "Join 10,000+ Marketers",
-        newsletterDescription: "Weekly tips on growth marketing delivered every Friday.",
-        formEngineSetup: {
-          api: { endpoint: "https://example.com/api/subscribe", method: "POST" },
-          fields: [{ name: "email", type: "email", placeholder: "Enter your email", required: true, columnSpan: 12 }],
-          successMessage: "Thank you for subscribing!",
-        },
-        buttonAction: { label: "Subscribe Now", variant: "default" },
-        links: [
-          { id: "1", label: "Free Marketing Course", href: "https://example.com/course", iconName: "lucide/graduation-cap" },
-          { id: "2", label: "Growth Templates", href: "https://example.com/templates", iconName: "lucide/file-spreadsheet" },
-          { id: "3", label: "1-on-1 Coaching", href: "https://example.com/coaching", iconName: "lucide/user-plus" },
-        ],
-        footerAction: { label: "Built with OpenSite", href: "https://opensite.ai" },
-        background: "secondary",
-        pattern: "dashedGridBasic",
-        patternOpacity: 0.08,
+      mediaSlots: {
+        logo: linkPageLogoSlot(),
+        logoBannerImage: linkPageLogoBannerSlot(),
+        avatar: linkPageAvatarSlot(),
       },
+      requiresSiteCapabilities: linkPageCapabilities(
+        "media_library",
+        "contact_form",
+      ),
+      notes: [
+        LINK_PAGE_MEDIA_NOTE,
+        "formEngineSetup is optional; omit it to render the newsletter card without a form (use newsletterSlot instead).",
+        "buttonAction.variant controls the submit button style (default, outline, secondary).",
+      ],
     },
+    exampleProps: {
+      name: "Jamie Taylor",
+      bio: "Marketing Expert & Growth Strategist",
+      avatar: { src: LINK_PAGE_LOGO_URL, alt: "Jamie Taylor" },
+      ...linkPageLogoExampleProps("Jamie Taylor"),
+      socialLinks: [
+        { id: "1", href: "https://instagram.com/jamietaylor" },
+        { id: "2", href: "https://twitter.com/jamietaylor" },
+        { id: "3", href: "https://linkedin.com/in/jamietaylor" },
+      ],
+      newsletterHeading: "Join 10,000+ Marketers",
+      newsletterDescription:
+        "Weekly tips on growth marketing delivered every Friday.",
+      formEngineSetup: {
+        api: { endpoint: "https://example.com/api/subscribe", method: "POST" },
+        fields: [
+          {
+            name: "email",
+            type: "email",
+            placeholder: "Enter your email",
+            required: true,
+            columnSpan: 12,
+          },
+        ],
+        successMessage: "Thank you for subscribing!",
+      },
+      buttonAction: { label: "Subscribe Now", variant: "default" },
+      links: [
+        {
+          id: "1",
+          label: "Free Marketing Course",
+          href: "https://example.com/course",
+          iconName: "lucide/graduation-cap",
+        },
+        {
+          id: "2",
+          label: "Growth Templates",
+          href: "https://example.com/templates",
+          iconName: "lucide/file-spreadsheet",
+        },
+        {
+          id: "3",
+          label: "1-on-1 Coaching",
+          href: "https://example.com/coaching",
+          iconName: "lucide/user-plus",
+        },
+      ],
+      footerAction: {
+        label: "Built with OpenSite",
+        href: "https://opensite.ai",
+      },
+      background: "secondary",
+      pattern: "dashedGridBasic",
+      patternOpacity: 0.08,
+    },
+  },
 
-    "link-page-grid-cards": {
-      exampleUsage: `
+  "link-page-grid-cards": {
+    exampleUsage: `
 <LinkPageGridCards
   name="Marcus Chen"
   bio="Product Designer & Digital Artist"
@@ -4221,61 +4377,103 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
   patternOpacity={0.08}
 />
     `.trim(),
-      importantUsageNotes: `Displays links as a 2- or 3-column grid of cards, each with an icon, label, and optional description. Best for creators or businesses with 4–9 distinct destinations. columns=2 works well on mobile; columns=3 adds a third column on sm and larger screens. Each card has hover scale and shadow transitions. Social links appear above the grid. Profile avatar is typically a logo or portrait. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
-      usageRequirements: {
-        requiredProps: ["name"],
-        propConstraints: {
-          name: { required: true, maxLength: 60 },
-          bio: { required: false, maxLength: 140 },
-          columns: { required: false, note: "2 or 3; defaults to 2" },
-          "links[]": { required: false, minItems: 2, maxItems: 9 },
-          "links[].label": { required: true, maxLength: 30 },
-          "links[].description": { required: false, maxLength: 50 },
-          "links[].href": { required: true },
-          "links[].iconName": { required: false, note: "Iconify icon name displayed in a 48px square icon wrapper" },
-          "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
-          ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
+    importantUsageNotes: `Displays links as a 2- or 3-column grid of cards, each with an icon, label, and optional description. Best for creators or businesses with 4–9 distinct destinations. columns=2 works well on mobile; columns=3 adds a third column on sm and larger screens. Each card has hover scale and shadow transitions. Social links appear above the grid. Profile avatar is typically a logo or portrait. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
+    usageRequirements: {
+      requiredProps: ["name"],
+      propConstraints: {
+        name: { required: true, maxLength: 60 },
+        bio: { required: false, maxLength: 140 },
+        columns: { required: false, note: "2 or 3; defaults to 2" },
+        "links[]": { required: false, minItems: 2, maxItems: 9 },
+        "links[].label": { required: true, maxLength: 30 },
+        "links[].description": { required: false, maxLength: 50 },
+        "links[].href": { required: true },
+        "links[].iconName": {
+          required: false,
+          note: "Iconify icon name displayed in a 48px square icon wrapper",
         },
-        mediaSlots: {
-          logo: linkPageLogoSlot(),
-          logoBannerImage: linkPageLogoBannerSlot(),
-          avatar: linkPageAvatarSlot(),
-        },
-        requiresSiteCapabilities: linkPageCapabilities("media_library"),
-        notes: [
-          LINK_PAGE_MEDIA_NOTE,
-          "Card labels are short (≤30 chars) because they render in centered small text inside each card.",
-          "No featured link concept in this block; use link-tree-block if featured highlighting is needed.",
-        ],
+        "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
+        ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
       },
-      exampleProps: {
-        name: "Marcus Chen",
-        bio: "Product Designer & Digital Artist",
-        avatar: { src: LINK_PAGE_LOGO_URL, alt: "Marcus Chen" },
-        ...linkPageLogoExampleProps("Marcus Chen"),
-        socialLinks: [
-          { id: "1", href: "https://instagram.com/marcuschen" },
-          { id: "2", href: "https://twitter.com/marcuschen" },
-          { id: "3", href: "https://linkedin.com/in/marcuschen" },
-        ],
-        columns: 3,
-        links: [
-          { id: "1", label: "Design Work", description: "View my portfolio", href: "https://example.com/portfolio", iconName: "lucide/palette" },
-          { id: "2", label: "Case Studies", description: "Deep dives into projects", href: "https://example.com/case-studies", iconName: "lucide/file-text" },
-          { id: "3", label: "Design System", description: "Open source toolkit", href: "https://example.com/design-system", iconName: "lucide/layers" },
-          { id: "4", label: "Figma Templates", description: "UI kits & resources", href: "https://example.com/templates", iconName: "lucide/layout-template" },
-          { id: "5", label: "Blog", description: "Thoughts & tutorials", href: "https://example.com/blog", iconName: "lucide/pen-line" },
-          { id: "6", label: "Contact", description: "Let's collaborate", href: "https://example.com/contact", iconName: "lucide/send" },
-        ],
-        footerAction: { label: "Built with OpenSite", href: "https://opensite.ai" },
-        background: "dark",
-        pattern: "diagonalCrossFadeTop",
-        patternOpacity: 0.08,
+      mediaSlots: {
+        logo: linkPageLogoSlot(),
+        logoBannerImage: linkPageLogoBannerSlot(),
+        avatar: linkPageAvatarSlot(),
       },
+      requiresSiteCapabilities: linkPageCapabilities("media_library"),
+      notes: [
+        LINK_PAGE_MEDIA_NOTE,
+        "Card labels are short (≤30 chars) because they render in centered small text inside each card.",
+        "No featured link concept in this block; use link-tree-block if featured highlighting is needed.",
+      ],
     },
+    exampleProps: {
+      name: "Marcus Chen",
+      bio: "Product Designer & Digital Artist",
+      avatar: { src: LINK_PAGE_LOGO_URL, alt: "Marcus Chen" },
+      ...linkPageLogoExampleProps("Marcus Chen"),
+      socialLinks: [
+        { id: "1", href: "https://instagram.com/marcuschen" },
+        { id: "2", href: "https://twitter.com/marcuschen" },
+        { id: "3", href: "https://linkedin.com/in/marcuschen" },
+      ],
+      columns: 3,
+      links: [
+        {
+          id: "1",
+          label: "Design Work",
+          description: "View my portfolio",
+          href: "https://example.com/portfolio",
+          iconName: "lucide/palette",
+        },
+        {
+          id: "2",
+          label: "Case Studies",
+          description: "Deep dives into projects",
+          href: "https://example.com/case-studies",
+          iconName: "lucide/file-text",
+        },
+        {
+          id: "3",
+          label: "Design System",
+          description: "Open source toolkit",
+          href: "https://example.com/design-system",
+          iconName: "lucide/layers",
+        },
+        {
+          id: "4",
+          label: "Figma Templates",
+          description: "UI kits & resources",
+          href: "https://example.com/templates",
+          iconName: "lucide/layout-template",
+        },
+        {
+          id: "5",
+          label: "Blog",
+          description: "Thoughts & tutorials",
+          href: "https://example.com/blog",
+          iconName: "lucide/pen-line",
+        },
+        {
+          id: "6",
+          label: "Contact",
+          description: "Let's collaborate",
+          href: "https://example.com/contact",
+          iconName: "lucide/send",
+        },
+      ],
+      footerAction: {
+        label: "Built with OpenSite",
+        href: "https://opensite.ai",
+      },
+      background: "dark",
+      pattern: "diagonalCrossFadeTop",
+      patternOpacity: 0.08,
+    },
+  },
 
-    "link-page-bento-layout": {
-      exampleUsage: `
+  "link-page-bento-layout": {
+    exampleUsage: `
 <LinkPageBentoLayout
   name="Sarah Mitchell"
   bio="Helping brands tell their story"
@@ -4315,68 +4513,123 @@ const LINK_PAGE_BLOCK_CONTRACTS: Record<string, LinkPageBlockContract> =
   patternOpacity={0.05}
 />
     `.trim(),
-      importantUsageNotes: `Bento-grid style link page that separates links into two tiers: featured (links with featured:true) and regular (all others). Featured links render as large aspect-4/3 cards with optional background images and an overlay gradient. Regular links render as compact icon-and-label rows in a 2-4 column grid. Provide 1–3 featured links and 2–6 regular links for best visual balance. Featured link images MUST use absolute CDN URLs. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
-      usageRequirements: {
-        requiredProps: ["name"],
-        propConstraints: {
-          name: { required: true, maxLength: 60 },
-          bio: { required: false, maxLength: 140 },
-          "links[]": { required: false, minItems: 2, maxItems: 12 },
-          "links[].label": { required: true, maxLength: 50 },
-          "links[].description": { required: false, maxLength: 80, note: "Only visible on featured cards" },
-          "links[].href": { required: true },
-          "links[].featured": { required: false, note: "true → large bento card with optional image; false → compact row" },
-          "links[].image.src": { required: false, note: "Absolute URL; used as background image for featured cards only" },
-          "links[].iconName": { required: false, note: "Iconify icon name; shown on featured cards and regular rows" },
-          "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
-          ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
+    importantUsageNotes: `Bento-grid style link page that separates links into two tiers: featured (links with featured:true) and regular (all others). Featured links render as large aspect-4/3 cards with optional background images and an overlay gradient. Regular links render as compact icon-and-label rows in a 2-4 column grid. Provide 1–3 featured links and 2–6 regular links for best visual balance. Featured link images MUST use absolute CDN URLs. ${LINK_PAGE_LOGO_USAGE_NOTES}`,
+    usageRequirements: {
+      requiredProps: ["name"],
+      propConstraints: {
+        name: { required: true, maxLength: 60 },
+        bio: { required: false, maxLength: 140 },
+        "links[]": { required: false, minItems: 2, maxItems: 12 },
+        "links[].label": { required: true, maxLength: 50 },
+        "links[].description": {
+          required: false,
+          maxLength: 80,
+          note: "Only visible on featured cards",
         },
-        mediaSlots: {
-          logo: linkPageLogoSlot(),
-          logoBannerImage: linkPageLogoBannerSlot(),
-          avatar: linkPageAvatarSlot(),
-          "links[featured].image.src": imageSlot(
-            "links[].image.src",
-            "Background image for featured bento card.",
-            ["feature", "hero"],
-            "medium",
-            false,
-            "4/3",
-          ),
+        "links[].href": { required: true },
+        "links[].featured": {
+          required: false,
+          note: "true → large bento card with optional image; false → compact row",
         },
-        requiresSiteCapabilities: linkPageCapabilities("media_library"),
-        notes: [
-          LINK_PAGE_MEDIA_NOTE,
-          "Featured cards without an image use the primary brand color as the background.",
-          "Regular links (featured:false or omitted) render as compact rows with an icon and label only.",
-          "Recommended: 1–3 featured links, 2–6 regular links.",
-        ],
+        "links[].image.src": {
+          required: false,
+          note: "Absolute URL; used as background image for featured cards only",
+        },
+        "links[].iconName": {
+          required: false,
+          note: "Iconify icon name; shown on featured cards and regular rows",
+        },
+        "socialLinks[]": { required: false, minItems: 1, maxItems: 8 },
+        ...LINK_PAGE_LOGO_PROP_CONSTRAINTS,
       },
-      exampleProps: {
-        name: "Sarah Mitchell",
-        bio: "Helping brands tell their story",
-        avatar: { src: LINK_PAGE_LOGO_URL, alt: "Sarah Mitchell" },
-        ...linkPageLogoExampleProps("Sarah Mitchell"),
-        socialLinks: [
-          { id: "1", href: "https://instagram.com/sarahmitchell" },
-          { id: "2", href: "https://twitter.com/sarahmitchell" },
-          { id: "3", href: "https://linkedin.com/in/sarahmitchell" },
-        ],
-        links: [
-          { id: "1", label: "Latest Video Series", description: "5 Days of Brand Strategy", href: "https://youtube.com/watch?v=example", iconName: "simple-icons/youtube", featured: true, image: { src: LINK_PAGE_EXAMPLE_IMAGE_URL, alt: "Latest Video Series" } },
-          { id: "2", label: "Download Free Guide", description: "The Ultimate Brand Playbook", href: "https://example.com/guide", iconName: "lucide/download", featured: true, image: { src: LINK_PAGE_EXAMPLE_IMAGE_URL, alt: "Brand Playbook" } },
-          { id: "3", label: "Portfolio", href: "https://example.com/portfolio", iconName: "lucide/briefcase" },
-          { id: "4", label: "Book a Call", href: "https://example.com/call", iconName: "lucide/calendar" },
-          { id: "5", label: "Newsletter", href: "https://example.com/newsletter", iconName: "lucide/mail" },
-          { id: "6", label: "Shop", href: "https://example.com/shop", iconName: "lucide/shopping-bag" },
-        ],
-        footerAction: { label: "Made with OpenSite", href: "https://opensite.ai" },
-        background: "dark",
-        pattern: "gridFadeTop",
-        patternOpacity: 0.05,
+      mediaSlots: {
+        logo: linkPageLogoSlot(),
+        logoBannerImage: linkPageLogoBannerSlot(),
+        avatar: linkPageAvatarSlot(),
+        "links[featured].image.src": imageSlot(
+          "links[].image.src",
+          "Background image for featured bento card.",
+          ["feature", "hero"],
+          "medium",
+          false,
+          "4/3",
+        ),
       },
+      requiresSiteCapabilities: linkPageCapabilities("media_library"),
+      notes: [
+        LINK_PAGE_MEDIA_NOTE,
+        "Featured cards without an image use the primary brand color as the background.",
+        "Regular links (featured:false or omitted) render as compact rows with an icon and label only.",
+        "Recommended: 1–3 featured links, 2–6 regular links.",
+      ],
     },
-  };
+    exampleProps: {
+      name: "Sarah Mitchell",
+      bio: "Helping brands tell their story",
+      avatar: { src: LINK_PAGE_LOGO_URL, alt: "Sarah Mitchell" },
+      ...linkPageLogoExampleProps("Sarah Mitchell"),
+      socialLinks: [
+        { id: "1", href: "https://instagram.com/sarahmitchell" },
+        { id: "2", href: "https://twitter.com/sarahmitchell" },
+        { id: "3", href: "https://linkedin.com/in/sarahmitchell" },
+      ],
+      links: [
+        {
+          id: "1",
+          label: "Latest Video Series",
+          description: "5 Days of Brand Strategy",
+          href: "https://youtube.com/watch?v=example",
+          iconName: "simple-icons/youtube",
+          featured: true,
+          image: {
+            src: LINK_PAGE_EXAMPLE_IMAGE_URL,
+            alt: "Latest Video Series",
+          },
+        },
+        {
+          id: "2",
+          label: "Download Free Guide",
+          description: "The Ultimate Brand Playbook",
+          href: "https://example.com/guide",
+          iconName: "lucide/download",
+          featured: true,
+          image: { src: LINK_PAGE_EXAMPLE_IMAGE_URL, alt: "Brand Playbook" },
+        },
+        {
+          id: "3",
+          label: "Portfolio",
+          href: "https://example.com/portfolio",
+          iconName: "lucide/briefcase",
+        },
+        {
+          id: "4",
+          label: "Book a Call",
+          href: "https://example.com/call",
+          iconName: "lucide/calendar",
+        },
+        {
+          id: "5",
+          label: "Newsletter",
+          href: "https://example.com/newsletter",
+          iconName: "lucide/mail",
+        },
+        {
+          id: "6",
+          label: "Shop",
+          href: "https://example.com/shop",
+          iconName: "lucide/shopping-bag",
+        },
+      ],
+      footerAction: {
+        label: "Made with OpenSite",
+        href: "https://opensite.ai",
+      },
+      background: "dark",
+      pattern: "gridFadeTop",
+      patternOpacity: 0.05,
+    },
+  },
+};
 
 // ============================================================================
 // PROCESS BLOCK CONTRACTS
@@ -4414,8 +4667,7 @@ const PROCESS_MEDIA_NOTE =
 // const imageSlot = (path, note, roles?, minPixelClass?, required?, preferredAspect?) => BlockMediaSlot
 // const logoSlot  = (path, note, required?) => BlockMediaSlot
 
-const processCapabilities = (...capabilities: SiteCapability[]) =>
-  capabilities;
+const processCapabilities = (...capabilities: SiteCapability[]) => capabilities;
 
 // ---------------------------------------------------------------------------
 // Contracts
@@ -4454,7 +4706,9 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
         heading: { maxLength: 60 },
         description: { maxLength: 200 },
         steps: { required: true, minItems: 4, maxItems: 8 },
-        "steps[].step": { note: "Short step label like '01'. Auto-generated if omitted." },
+        "steps[].step": {
+          note: "Short step label like '01'. Auto-generated if omitted.",
+        },
         "steps[].title": { required: true, maxLength: 60 },
         "steps[].description": { maxLength: 220 },
       },
@@ -4469,12 +4723,38 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
         { label: "View Pricing", href: "/pricing", variant: "outline" },
       ],
       steps: [
-        { step: "01", title: "Project Kickoff", description: "Align on goals, timeline, and success criteria." },
-        { step: "02", title: "Sprint Planning", description: "Break deliverables into focused sprints prioritised by value." },
-        { step: "03", title: "Design Review", description: "Present wireframes for feedback and iterate quickly." },
-        { step: "04", title: "Development Cycles", description: "Build features incrementally with end-of-sprint demos." },
-        { step: "05", title: "Quality Assurance", description: "Thorough testing across all scenarios before release." },
-        { step: "06", title: "Deployment & Support", description: "Launch with monitoring, training, and ongoing assistance." },
+        {
+          step: "01",
+          title: "Project Kickoff",
+          description: "Align on goals, timeline, and success criteria.",
+        },
+        {
+          step: "02",
+          title: "Sprint Planning",
+          description:
+            "Break deliverables into focused sprints prioritised by value.",
+        },
+        {
+          step: "03",
+          title: "Design Review",
+          description: "Present wireframes for feedback and iterate quickly.",
+        },
+        {
+          step: "04",
+          title: "Development Cycles",
+          description: "Build features incrementally with end-of-sprint demos.",
+        },
+        {
+          step: "05",
+          title: "Quality Assurance",
+          description: "Thorough testing across all scenarios before release.",
+        },
+        {
+          step: "06",
+          title: "Deployment & Support",
+          description:
+            "Launch with monitoring, training, and ongoing assistance.",
+        },
       ],
       spacing: "xl",
       background: "dark",
@@ -4556,14 +4836,42 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
       description:
         "Our agile methodology ensures rapid delivery without compromising quality.",
       actions: [
-        { label: "Start Your Project", href: "/get-started", variant: "default" },
-        { label: "View Case Studies", href: "/case-studies", variant: "outline" },
+        {
+          label: "Start Your Project",
+          href: "/get-started",
+          variant: "default",
+        },
+        {
+          label: "View Case Studies",
+          href: "/case-studies",
+          variant: "outline",
+        },
       ],
       steps: [
-        { step: "01", title: "Requirements Gathering", description: "Comprehensive analysis of business needs.", image: PROCESS_EXAMPLE_IMAGE_URL },
-        { step: "02", title: "Architecture Planning", description: "Design scalable system architecture.", image: PROCESS_EXAMPLE_IMAGE_URL },
-        { step: "03", title: "Iterative Development", description: "Build features in focused sprints.", image: PROCESS_EXAMPLE_IMAGE_URL },
-        { step: "04", title: "Staged Rollout", description: "Gradual deployment with rollback capabilities.", image: PROCESS_EXAMPLE_IMAGE_URL },
+        {
+          step: "01",
+          title: "Requirements Gathering",
+          description: "Comprehensive analysis of business needs.",
+          image: PROCESS_EXAMPLE_IMAGE_URL,
+        },
+        {
+          step: "02",
+          title: "Architecture Planning",
+          description: "Design scalable system architecture.",
+          image: PROCESS_EXAMPLE_IMAGE_URL,
+        },
+        {
+          step: "03",
+          title: "Iterative Development",
+          description: "Build features in focused sprints.",
+          image: PROCESS_EXAMPLE_IMAGE_URL,
+        },
+        {
+          step: "04",
+          title: "Staged Rollout",
+          description: "Gradual deployment with rollback capabilities.",
+          image: PROCESS_EXAMPLE_IMAGE_URL,
+        },
       ],
       spacing: "xl",
       background: "white",
@@ -4637,12 +4945,33 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
     },
     exampleProps: {
       heading: "How We Work",
-      description: "A streamlined approach to delivering exceptional digital experiences.",
+      description:
+        "A streamlined approach to delivering exceptional digital experiences.",
       steps: [
-        { step: "01", title: "Ideate & Define", description: "Transform your vision into a clear project scope.", image: PROCESS_EXAMPLE_IMAGE_URL },
-        { step: "02", title: "Design & Prototype", description: "Create stunning interfaces validated through testing.", image: PROCESS_EXAMPLE_IMAGE_URL },
-        { step: "03", title: "Build & Integrate", description: "Develop robust solutions with seamless integration.", image: PROCESS_EXAMPLE_IMAGE_URL },
-        { step: "04", title: "Deploy & Scale", description: "Launch confidently and scale as your user base grows.", image: PROCESS_EXAMPLE_IMAGE_URL },
+        {
+          step: "01",
+          title: "Ideate & Define",
+          description: "Transform your vision into a clear project scope.",
+          image: PROCESS_EXAMPLE_IMAGE_URL,
+        },
+        {
+          step: "02",
+          title: "Design & Prototype",
+          description: "Create stunning interfaces validated through testing.",
+          image: PROCESS_EXAMPLE_IMAGE_URL,
+        },
+        {
+          step: "03",
+          title: "Build & Integrate",
+          description: "Develop robust solutions with seamless integration.",
+          image: PROCESS_EXAMPLE_IMAGE_URL,
+        },
+        {
+          step: "04",
+          title: "Deploy & Scale",
+          description: "Launch confidently and scale as your user base grows.",
+          image: PROCESS_EXAMPLE_IMAGE_URL,
+        },
       ],
       background: "secondary",
     },
@@ -4694,21 +5023,57 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
         heading: { maxLength: 80 },
         description: { maxLength: 200 },
         steps: { required: true, minItems: 3, maxItems: 8 },
-        "steps[].icon": { required: true, note: "Lucide icon string, e.g. 'lucide/rocket'." },
+        "steps[].icon": {
+          required: true,
+          note: "Lucide icon string, e.g. 'lucide/rocket'.",
+        },
         "steps[].title": { required: true, maxLength: 60 },
         "steps[].description": { maxLength: 220 },
-        "steps[].highlights": { maxItems: 5, note: "Short tag strings shown as pills." },
+        "steps[].highlights": {
+          maxItems: 5,
+          note: "Short tag strings shown as pills.",
+        },
       },
       mediaSlots: {},
     },
     exampleProps: {
       heading: "Product Development Timeline",
-      description: "From concept to launch, our proven process ensures success at every milestone.",
+      description:
+        "From concept to launch, our proven process ensures success at every milestone.",
       steps: [
-        { icon: "lucide/lightbulb", title: "Concept & Validation", description: "Validate your idea through research and user interviews.", highlights: ["Market Research", "User Surveys", "Competitive Analysis"] },
-        { icon: "lucide/layout", title: "Design & Wireframing", description: "Create wireframes and a cohesive design system.", highlights: ["Wireframes", "Design System", "User Flows"] },
-        { icon: "lucide/code", title: "Development Sprint", description: "Build the MVP with agile methodology.", highlights: ["Agile Sprints", "Code Reviews", "Automated Tests"] },
-        { icon: "lucide/rocket", title: "Production Launch", description: "Deploy to production and execute go-to-market.", highlights: ["Production Deploy", "Marketing Launch", "Customer Support"] },
+        {
+          icon: "lucide/lightbulb",
+          title: "Concept & Validation",
+          description:
+            "Validate your idea through research and user interviews.",
+          highlights: [
+            "Market Research",
+            "User Surveys",
+            "Competitive Analysis",
+          ],
+        },
+        {
+          icon: "lucide/layout",
+          title: "Design & Wireframing",
+          description: "Create wireframes and a cohesive design system.",
+          highlights: ["Wireframes", "Design System", "User Flows"],
+        },
+        {
+          icon: "lucide/code",
+          title: "Development Sprint",
+          description: "Build the MVP with agile methodology.",
+          highlights: ["Agile Sprints", "Code Reviews", "Automated Tests"],
+        },
+        {
+          icon: "lucide/rocket",
+          title: "Production Launch",
+          description: "Deploy to production and execute go-to-market.",
+          highlights: [
+            "Production Deploy",
+            "Marketing Launch",
+            "Customer Support",
+          ],
+        },
       ],
       spacing: "xl",
       background: "gray",
@@ -4757,19 +5122,49 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
         description: { maxLength: 200 },
         steps: { required: true, minItems: 3, maxItems: 8 },
         "steps[].title": { required: true, maxLength: 70 },
-        "steps[].description": { maxLength: 160, note: "Collapsed preview text — keep concise." },
-        "steps[].expandedContent": { maxLength: 500, note: "Revealed on click. Can be a full paragraph." },
+        "steps[].description": {
+          maxLength: 160,
+          note: "Collapsed preview text — keep concise.",
+        },
+        "steps[].expandedContent": {
+          maxLength: 500,
+          note: "Revealed on click. Can be a full paragraph.",
+        },
       },
       mediaSlots: {},
     },
     exampleProps: {
       heading: "Our Development Process",
-      description: "A comprehensive workflow designed to deliver exceptional results.",
+      description:
+        "A comprehensive workflow designed to deliver exceptional results.",
       steps: [
-        { title: "Discovery & Research", description: "Deep dive into business goals and competitive landscape.", expandedContent: "We conduct stakeholder interviews and competitive analysis to build a comprehensive project roadmap." },
-        { title: "Strategy & Planning", description: "Create a detailed roadmap with milestones and success metrics.", expandedContent: "We develop a strategic plan covering architecture, user flows, and a phased timeline with measurable KPIs." },
-        { title: "Design & Prototyping", description: "Craft intuitive interfaces with user-centered design.", expandedContent: "Our team creates wireframes, mockups, and interactive prototypes validated through usability testing." },
-        { title: "Development & Implementation", description: "Build robust, scalable solutions using modern technologies.", expandedContent: "Engineering follows agile sprints with code reviews, automated testing, and CI/CD deployment." },
+        {
+          title: "Discovery & Research",
+          description:
+            "Deep dive into business goals and competitive landscape.",
+          expandedContent:
+            "We conduct stakeholder interviews and competitive analysis to build a comprehensive project roadmap.",
+        },
+        {
+          title: "Strategy & Planning",
+          description:
+            "Create a detailed roadmap with milestones and success metrics.",
+          expandedContent:
+            "We develop a strategic plan covering architecture, user flows, and a phased timeline with measurable KPIs.",
+        },
+        {
+          title: "Design & Prototyping",
+          description: "Craft intuitive interfaces with user-centered design.",
+          expandedContent:
+            "Our team creates wireframes, mockups, and interactive prototypes validated through usability testing.",
+        },
+        {
+          title: "Development & Implementation",
+          description:
+            "Build robust, scalable solutions using modern technologies.",
+          expandedContent:
+            "Engineering follows agile sprints with code reviews, automated testing, and CI/CD deployment.",
+        },
       ],
       background: "dark",
     },
@@ -4829,20 +5224,52 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
           required: true,
           note: "status must be one of: completed, in-progress, upcoming. Must be one of: completed, in-progress, upcoming.",
         },
-        "milestones[].date": { maxLength: 20, note: "Display string, e.g. 'Q1 2026'." },
+        "milestones[].date": {
+          maxLength: 20,
+          note: "Display string, e.g. 'Q1 2026'.",
+        },
         "milestones[].description": { maxLength: 200 },
-        "milestones[].features": { maxItems: 6, note: "Short feature tag strings." },
+        "milestones[].features": {
+          maxItems: 6,
+          note: "Short feature tag strings.",
+        },
       },
       mediaSlots: {},
     },
     exampleProps: {
       heading: "Product Roadmap 2026",
-      description: "Our strategic vision for delivering powerful new features throughout the year.",
+      description:
+        "Our strategic vision for delivering powerful new features throughout the year.",
       milestones: [
-        { title: "Platform Foundation", description: "Core infrastructure upgrades and security.", date: "Q1 2026", status: "completed", features: ["API v3", "Database Migration", "SSO Integration"] },
-        { title: "AI-Powered Features", description: "Intelligent automation to streamline workflows.", date: "Q2 2026", status: "in-progress", features: ["Smart Recommendations", "Predictive Analytics"] },
-        { title: "Mobile Experience", description: "Native iOS and Android apps with offline support.", date: "Q3 2026", status: "upcoming", features: ["iOS App", "Android App", "Offline Mode"] },
-        { title: "Enterprise Suite", description: "Custom workflows, white-labeling, and advanced permissions.", date: "Q4 2026", status: "upcoming", features: ["Custom Workflows", "White-label"] },
+        {
+          title: "Platform Foundation",
+          description: "Core infrastructure upgrades and security.",
+          date: "Q1 2026",
+          status: "completed",
+          features: ["API v3", "Database Migration", "SSO Integration"],
+        },
+        {
+          title: "AI-Powered Features",
+          description: "Intelligent automation to streamline workflows.",
+          date: "Q2 2026",
+          status: "in-progress",
+          features: ["Smart Recommendations", "Predictive Analytics"],
+        },
+        {
+          title: "Mobile Experience",
+          description: "Native iOS and Android apps with offline support.",
+          date: "Q3 2026",
+          status: "upcoming",
+          features: ["iOS App", "Android App", "Offline Mode"],
+        },
+        {
+          title: "Enterprise Suite",
+          description:
+            "Custom workflows, white-labeling, and advanced permissions.",
+          date: "Q4 2026",
+          status: "upcoming",
+          features: ["Custom Workflows", "White-label"],
+        },
       ],
       background: "gradient",
     },
@@ -4874,12 +5301,18 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
     usageRequirements: {
       requiredProps: ["missionHeading", "principles"],
       propConstraints: {
-        missionLabel: { maxLength: 40, note: "Uppercase eyebrow label, e.g. 'OUR MISSION'." },
+        missionLabel: {
+          maxLength: 40,
+          note: "Uppercase eyebrow label, e.g. 'OUR MISSION'.",
+        },
         missionHeading: { required: true, maxLength: 80 },
         missionDescription: { maxLength: 400 },
         principlesLabel: { maxLength: 40 },
         principles: { required: true, minItems: 3, maxItems: 6 },
-        "principles[].number": { maxLength: 4, note: "Display string like '01'. Auto-generated if omitted." },
+        "principles[].number": {
+          maxLength: 4,
+          note: "Display string like '01'. Auto-generated if omitted.",
+        },
         "principles[].title": { required: true, maxLength: 50 },
         "principles[].description": { maxLength: 200 },
       },
@@ -4888,15 +5321,46 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
     exampleProps: {
       missionLabel: "OUR MISSION",
       missionHeading: "Empowering Teams to Build Better Products",
-      missionDescription: "We provide tools and support that enable teams to create products users love while maintaining velocity and quality at scale.",
+      missionDescription:
+        "We provide tools and support that enable teams to create products users love while maintaining velocity and quality at scale.",
       principlesLabel: "OUR GUIDING PRINCIPLES",
       principles: [
-        { number: "01", title: "User-Centric Design", description: "Every decision starts with the user. We prioritise intuitive interfaces and accessibility." },
-        { number: "02", title: "Quality Over Speed", description: "We never compromise on quality. Rigorous testing ensures long-term reliability." },
-        { number: "03", title: "Continuous Learning", description: "We foster a culture of experimentation to stay at the forefront of innovation." },
-        { number: "04", title: "Transparent Communication", description: "Open communication builds trust and keeps stakeholders aligned." },
-        { number: "05", title: "Data-Driven Decisions", description: "We measure what matters and let insights guide our choices." },
-        { number: "06", title: "Sustainable Practices", description: "We create scalable architectures that support long-term growth." },
+        {
+          number: "01",
+          title: "User-Centric Design",
+          description:
+            "Every decision starts with the user. We prioritise intuitive interfaces and accessibility.",
+        },
+        {
+          number: "02",
+          title: "Quality Over Speed",
+          description:
+            "We never compromise on quality. Rigorous testing ensures long-term reliability.",
+        },
+        {
+          number: "03",
+          title: "Continuous Learning",
+          description:
+            "We foster a culture of experimentation to stay at the forefront of innovation.",
+        },
+        {
+          number: "04",
+          title: "Transparent Communication",
+          description:
+            "Open communication builds trust and keeps stakeholders aligned.",
+        },
+        {
+          number: "05",
+          title: "Data-Driven Decisions",
+          description:
+            "We measure what matters and let insights guide our choices.",
+        },
+        {
+          number: "06",
+          title: "Sustainable Practices",
+          description:
+            "We create scalable architectures that support long-term growth.",
+        },
       ],
       background: "dark",
     },
@@ -4930,7 +5394,9 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
         heading: { maxLength: 80 },
         description: { maxLength: 200 },
         steps: { required: true, minItems: 3, maxItems: 9 },
-        "steps[].icon": { note: "Lucide icon string, e.g. 'lucide/rocket'. Optional but recommended." },
+        "steps[].icon": {
+          note: "Lucide icon string, e.g. 'lucide/rocket'. Optional but recommended.",
+        },
         "steps[].title": { required: true, maxLength: 60 },
         "steps[].description": { maxLength: 200 },
       },
@@ -4938,14 +5404,41 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
     },
     exampleProps: {
       heading: "Getting Started is Simple",
-      description: "Follow our straightforward onboarding process to go from signup to success in minutes.",
+      description:
+        "Follow our straightforward onboarding process to go from signup to success in minutes.",
       steps: [
-        { icon: "lucide/user-plus", title: "Create Your Account", description: "Sign up in seconds. No credit card required." },
-        { icon: "lucide/settings", title: "Configure Your Workspace", description: "Customise with templates and integrations for your workflow." },
-        { icon: "lucide/users", title: "Invite Your Team", description: "Assign roles and collaborate with granular permissions." },
-        { icon: "lucide/upload", title: "Import Your Data", description: "Migrate existing data with our import tools." },
-        { icon: "lucide/palette", title: "Customise & Brand", description: "Apply your brand colours and styling." },
-        { icon: "lucide/rocket", title: "Launch & Grow", description: "Go live and scale with robust infrastructure." },
+        {
+          icon: "lucide/user-plus",
+          title: "Create Your Account",
+          description: "Sign up in seconds. No credit card required.",
+        },
+        {
+          icon: "lucide/settings",
+          title: "Configure Your Workspace",
+          description:
+            "Customise with templates and integrations for your workflow.",
+        },
+        {
+          icon: "lucide/users",
+          title: "Invite Your Team",
+          description:
+            "Assign roles and collaborate with granular permissions.",
+        },
+        {
+          icon: "lucide/upload",
+          title: "Import Your Data",
+          description: "Migrate existing data with our import tools.",
+        },
+        {
+          icon: "lucide/palette",
+          title: "Customise & Brand",
+          description: "Apply your brand colours and styling.",
+        },
+        {
+          icon: "lucide/rocket",
+          title: "Launch & Grow",
+          description: "Go live and scale with robust infrastructure.",
+        },
       ],
       spacing: "xl",
       background: "gray",
@@ -4996,8 +5489,14 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
         services: { required: true, minItems: 2, maxItems: 8 },
         "services[].title": { required: true, maxLength: 70 },
         "services[].description": { maxLength: 300 },
-        "services[].capabilities": { maxItems: 8, note: "Short chip strings, max ~25 chars each." },
-        "services[].number": { maxLength: 4, note: "Display label like '01'. Auto-generated if omitted." },
+        "services[].capabilities": {
+          maxItems: 8,
+          note: "Short chip strings, max ~25 chars each.",
+        },
+        "services[].number": {
+          maxLength: 4,
+          note: "Display label like '01'. Auto-generated if omitted.",
+        },
         "services[].action.asButton": {
           pinnedValues: { asButton: true },
           note: "Must be true for the Pressable to render as a button element.",
@@ -5007,28 +5506,62 @@ const PROCESS_BLOCK_CONTRACTS: Record<string, ProcessBlockContract> = {
     },
     exampleProps: {
       heading: "Complete Service Offerings",
-      description: "End-to-end solutions designed to transform your digital presence.",
+      description:
+        "End-to-end solutions designed to transform your digital presence.",
       services: [
         {
           number: "01",
           title: "Digital Strategy & Consulting",
-          description: "Strategic guidance to align technology with business goals.",
-          capabilities: ["Market Analysis", "Technology Roadmap", "Competitive Intelligence", "ROI Modeling"],
-          action: { label: "Explore Strategy Services", href: "#", variant: "outline", asButton: true },
+          description:
+            "Strategic guidance to align technology with business goals.",
+          capabilities: [
+            "Market Analysis",
+            "Technology Roadmap",
+            "Competitive Intelligence",
+            "ROI Modeling",
+          ],
+          action: {
+            label: "Explore Strategy Services",
+            href: "#",
+            variant: "outline",
+            asButton: true,
+          },
         },
         {
           number: "02",
           title: "Product Design & UX",
-          description: "User-centered design that drives engagement from research to prototyping.",
-          capabilities: ["User Research", "Wireframing", "UI/UX Design", "Usability Testing"],
-          action: { label: "View Design Portfolio", href: "#", variant: "outline", asButton: true },
+          description:
+            "User-centered design that drives engagement from research to prototyping.",
+          capabilities: [
+            "User Research",
+            "Wireframing",
+            "UI/UX Design",
+            "Usability Testing",
+          ],
+          action: {
+            label: "View Design Portfolio",
+            href: "#",
+            variant: "outline",
+            asButton: true,
+          },
         },
         {
           number: "03",
           title: "Custom Software Development",
-          description: "Scalable, secure applications built with modern technologies.",
-          capabilities: ["Web Applications", "Mobile Apps", "API Development", "Cloud Architecture"],
-          action: { label: "See Development Work", href: "#", variant: "outline", asButton: true },
+          description:
+            "Scalable, secure applications built with modern technologies.",
+          capabilities: [
+            "Web Applications",
+            "Mobile Apps",
+            "API Development",
+            "Cloud Architecture",
+          ],
+          action: {
+            label: "See Development Work",
+            href: "#",
+            variant: "outline",
+            asButton: true,
+          },
         },
       ],
       background: "gray",
@@ -5082,9 +5615,20 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
     usageRequirements: {
       requiredProps: ["stats"],
       propConstraints: {
-        stats: { required: true, minItems: 2, maxItems: 8, note: "4 items recommended for the 4-column grid layout." },
-        "stats[].value": { required: true, note: "Source-backed metric value string, e.g. '90%', '200+'. Never fabricated." },
-        "stats[].label": { required: true, note: "Short label describing the metric." },
+        stats: {
+          required: true,
+          minItems: 2,
+          maxItems: 8,
+          note: "4 items recommended for the 4-column grid layout.",
+        },
+        "stats[].value": {
+          required: true,
+          note: "Source-backed metric value string, e.g. '90%', '200+'. Never fabricated.",
+        },
+        "stats[].label": {
+          required: true,
+          note: "Short label describing the metric.",
+        },
         "actions[0].variant": { pinnedValues: { variant: "default" } },
         "actions[1].variant": { pinnedValues: { variant: "outline" } },
       },
@@ -5125,10 +5669,21 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
     usageRequirements: {
       requiredProps: ["stats"],
       propConstraints: {
-        stats: { required: true, minItems: 2, maxItems: 8, note: "4 items recommended for the 4-column grid layout." },
+        stats: {
+          required: true,
+          minItems: 2,
+          maxItems: 8,
+          note: "4 items recommended for the 4-column grid layout.",
+        },
         "stats[].label": { required: true, note: "Short metric label." },
-        "stats[].value": { required: true, note: "Source-backed metric value." },
-        "stats[].growth": { required: true, note: "Trend text like '18% growth' or '8% decrease'." },
+        "stats[].value": {
+          required: true,
+          note: "Source-backed metric value.",
+        },
+        "stats[].growth": {
+          required: true,
+          note: "Trend text like '18% growth' or '8% decrease'.",
+        },
       },
       mediaSlots: {},
       requiresSiteCapabilities: statsCapabilities("stats_or_metrics"),
@@ -5137,10 +5692,34 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
       heading: "Our Growth in Numbers",
       description: "Key metrics that showcase our impact across the platform",
       stats: [
-        { label: "Active Users", value: "120K+", growth: "18% growth", isPositive: true, icon: "lucide/users" },
-        { label: "Revenue", value: "$3.2M", growth: "32% increase", isPositive: true, icon: "lucide/dollar-sign" },
-        { label: "Response Time", value: "45ms", growth: "12% faster", isPositive: true, icon: "lucide/clock" },
-        { label: "Support Tickets", value: "234", growth: "8% decrease", isPositive: true, icon: "lucide/ticket" },
+        {
+          label: "Active Users",
+          value: "120K+",
+          growth: "18% growth",
+          isPositive: true,
+          icon: "lucide/users",
+        },
+        {
+          label: "Revenue",
+          value: "$3.2M",
+          growth: "32% increase",
+          isPositive: true,
+          icon: "lucide/dollar-sign",
+        },
+        {
+          label: "Response Time",
+          value: "45ms",
+          growth: "12% faster",
+          isPositive: true,
+          icon: "lucide/clock",
+        },
+        {
+          label: "Support Tickets",
+          value: "234",
+          growth: "8% decrease",
+          isPositive: true,
+          icon: "lucide/ticket",
+        },
       ],
     },
   },
@@ -5182,12 +5761,24 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
       requiredProps: ["periods"],
       propConstraints: {
         periods: { required: true, minItems: 2, maxItems: 6 },
-        "periods[].id": { required: true, note: "Unique string identifier for the period." },
-        "periods[].label": { required: true, note: "Display label shown in the tab (e.g. 'Weekly', 'Monthly')." },
+        "periods[].id": {
+          required: true,
+          note: "Unique string identifier for the period.",
+        },
+        "periods[].label": {
+          required: true,
+          note: "Display label shown in the tab (e.g. 'Weekly', 'Monthly').",
+        },
         "periods[].stats": { required: true, minItems: 2, maxItems: 6 },
-        "periods[].stats[].change": { required: true, note: "Numeric percentage change value." },
+        "periods[].stats[].change": {
+          required: true,
+          note: "Numeric percentage change value.",
+        },
         "periods[].stats[].trend": { required: true, note: "'up' or 'down'." },
-        "periods[].stats[].previousLabel": { required: true, note: "Context label like 'last week'." },
+        "periods[].stats[].previousLabel": {
+          required: true,
+          note: "Context label like 'last week'.",
+        },
       },
       mediaSlots: {},
       requiresSiteCapabilities: statsCapabilities("stats_or_metrics"),
@@ -5202,20 +5793,70 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
           id: "weekly",
           label: "Weekly",
           stats: [
-            { label: "New Signups", value: "1,284", change: 12, trend: "up", previousLabel: "last week" },
-            { label: "Active Sessions", value: "32,891", change: 8, trend: "up", previousLabel: "last week" },
-            { label: "Conversion Rate", value: "5.2%", change: 3, trend: "up", previousLabel: "last week" },
-            { label: "Support Tickets", value: "89", change: 15, trend: "down", previousLabel: "last week", inversePositive: true },
+            {
+              label: "New Signups",
+              value: "1,284",
+              change: 12,
+              trend: "up",
+              previousLabel: "last week",
+            },
+            {
+              label: "Active Sessions",
+              value: "32,891",
+              change: 8,
+              trend: "up",
+              previousLabel: "last week",
+            },
+            {
+              label: "Conversion Rate",
+              value: "5.2%",
+              change: 3,
+              trend: "up",
+              previousLabel: "last week",
+            },
+            {
+              label: "Support Tickets",
+              value: "89",
+              change: 15,
+              trend: "down",
+              previousLabel: "last week",
+              inversePositive: true,
+            },
           ],
         },
         {
           id: "monthly",
           label: "Monthly",
           stats: [
-            { label: "New Signups", value: "5,432", change: 24, trend: "up", previousLabel: "last month" },
-            { label: "Active Sessions", value: "142,567", change: 18, trend: "up", previousLabel: "last month" },
-            { label: "Conversion Rate", value: "6.1%", change: 7, trend: "up", previousLabel: "last month" },
-            { label: "Support Tickets", value: "312", change: 22, trend: "down", previousLabel: "last month", inversePositive: true },
+            {
+              label: "New Signups",
+              value: "5,432",
+              change: 24,
+              trend: "up",
+              previousLabel: "last month",
+            },
+            {
+              label: "Active Sessions",
+              value: "142,567",
+              change: 18,
+              trend: "up",
+              previousLabel: "last month",
+            },
+            {
+              label: "Conversion Rate",
+              value: "6.1%",
+              change: 7,
+              trend: "up",
+              previousLabel: "last month",
+            },
+            {
+              label: "Support Tickets",
+              value: "312",
+              change: 22,
+              trend: "down",
+              previousLabel: "last month",
+              inversePositive: true,
+            },
           ],
         },
       ],
@@ -5240,11 +5881,23 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
     usageRequirements: {
       requiredProps: ["primaryValue"],
       propConstraints: {
-        primaryValue: { required: true, note: "Prominent headline metric. Source-backed. Concise (e.g. '92%', '$3.2M')." },
-        primaryDescription: { required: true, note: "Context sentence for the primary metric." },
+        primaryValue: {
+          required: true,
+          note: "Prominent headline metric. Source-backed. Concise (e.g. '92%', '$3.2M').",
+        },
+        primaryDescription: {
+          required: true,
+          note: "Context sentence for the primary metric.",
+        },
         secondaryStats: { minItems: 2, maxItems: 4 },
-        "secondaryStats[].value": { required: true, note: "Source-backed metric value." },
-        "secondaryStats[].label": { required: true, note: "Short label for the metric." },
+        "secondaryStats[].value": {
+          required: true,
+          note: "Source-backed metric value.",
+        },
+        "secondaryStats[].label": {
+          required: true,
+          note: "Short label for the metric.",
+        },
       },
       mediaSlots: {},
       requiresSiteCapabilities: statsCapabilities("stats_or_metrics"),
@@ -5252,7 +5905,8 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
     exampleProps: {
       primaryValue: "92%",
       primaryBadge: "+7% this month",
-      primaryDescription: "of users report improved productivity after adopting our platform",
+      primaryDescription:
+        "of users report improved productivity after adopting our platform",
       secondaryStats: [
         { value: "99.95%", label: "Uptime reliability" },
         { value: "2,000+", label: "Enterprise partners" },
@@ -5303,14 +5957,39 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
       requiredProps: ["milestones"],
       propConstraints: {
         milestones: { required: true, minItems: 2, maxItems: 8 },
-        "milestones[].id": { required: true, note: "Unique identifier string." },
-        "milestones[].year": { required: true, note: "Year string like '2018'. Must be real." },
-        "milestones[].title": { required: true, note: "Milestone event title." },
-        "milestones[].description": { required: true, note: "Brief narrative for the milestone." },
-        "milestones[].metric": { required: true, note: "Object with 'value' and 'label' fields. Source-backed." },
-        currentStats: { minItems: 2, maxItems: 6, note: "4 items recommended for the 4-column layout." },
-        "currentStats[].value": { required: true, note: "Source-backed metric value." },
-        "currentStats[].label": { required: true, note: "Short label for the metric." },
+        "milestones[].id": {
+          required: true,
+          note: "Unique identifier string.",
+        },
+        "milestones[].year": {
+          required: true,
+          note: "Year string like '2018'. Must be real.",
+        },
+        "milestones[].title": {
+          required: true,
+          note: "Milestone event title.",
+        },
+        "milestones[].description": {
+          required: true,
+          note: "Brief narrative for the milestone.",
+        },
+        "milestones[].metric": {
+          required: true,
+          note: "Object with 'value' and 'label' fields. Source-backed.",
+        },
+        currentStats: {
+          minItems: 2,
+          maxItems: 6,
+          note: "4 items recommended for the 4-column layout.",
+        },
+        "currentStats[].value": {
+          required: true,
+          note: "Source-backed metric value.",
+        },
+        "currentStats[].label": {
+          required: true,
+          note: "Short label for the metric.",
+        },
       },
       mediaSlots: {},
       requiresSiteCapabilities: statsCapabilities("stats_or_metrics"),
@@ -5318,13 +5997,15 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
     exampleProps: {
       badge: "Our Journey",
       heading: "Growing From Startup to Industry Leader",
-      description: "A decade of innovation, growth, and commitment to excellence",
+      description:
+        "A decade of innovation, growth, and commitment to excellence",
       milestones: [
         {
           id: "launch",
           year: "2018",
           title: "Company Founded",
-          description: "Started with a small team and a big vision to transform how businesses operate online.",
+          description:
+            "Started with a small team and a big vision to transform how businesses operate online.",
           metric: { value: "5", label: "Team Members" },
           icon: "lucide/calendar-days",
         },
@@ -5332,7 +6013,8 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
           id: "series-a",
           year: "2022",
           title: "Series A",
-          description: "Major funding round enabled global expansion and enterprise features.",
+          description:
+            "Major funding round enabled global expansion and enterprise features.",
           metric: { value: "$25M", label: "Raised" },
           icon: "lucide/trending-up",
         },
@@ -5345,8 +6027,11 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
       ],
       currentStatsHeading: "Where We Are Today",
       futureHeading: "What's Next",
-      futureDescription: "Our roadmap includes AI-powered features, deeper integrations, and continued global expansion.",
-      actions: [{ label: "View Our Roadmap", href: "/roadmap", variant: "default" }],
+      futureDescription:
+        "Our roadmap includes AI-powered features, deeper integrations, and continued global expansion.",
+      actions: [
+        { label: "View Our Roadmap", href: "/roadmap", variant: "default" },
+      ],
     },
   },
 
@@ -5381,12 +6066,24 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
     usageRequirements: {
       requiredProps: ["stats"],
       propConstraints: {
-        stats: { required: true, minItems: 2, maxItems: 6, note: "3 items recommended for the 3-column grid." },
+        stats: {
+          required: true,
+          minItems: 2,
+          maxItems: 6,
+          note: "3 items recommended for the 3-column grid.",
+        },
         "stats[].id": { required: true, note: "Unique string identifier." },
-        "stats[].value": { required: true, note: "Source-backed numeric string." },
+        "stats[].value": {
+          required: true,
+          note: "Source-backed numeric string.",
+        },
         "stats[].label": { required: true, note: "Short metric label." },
-        baselinePercent: { note: "Integer 0–100 for progress bar width. Not the displayed value." },
-        targetPercent: { note: "Integer 0–100 for progress bar width. Not the displayed value." },
+        baselinePercent: {
+          note: "Integer 0–100 for progress bar width. Not the displayed value.",
+        },
+        targetPercent: {
+          note: "Integer 0–100 for progress bar width. Not the displayed value.",
+        },
         "actions[0].variant": { pinnedValues: { variant: "default" } },
         "actions[1].variant": { pinnedValues: { variant: "outline" } },
       },
@@ -5398,12 +6095,37 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
       heading: "Impact You Can Measure",
       description: "See how teams translate insight into meaningful outcomes.",
       stats: [
-        { id: "growth", value: "312", suffix: "%", label: "Revenue Growth", description: "Average year-over-year lift after launch.", icon: "lucide/trending-up" },
-        { id: "velocity", value: "4.6", suffix: "x", label: "Delivery Speed", description: "Faster time-to-value compared to baseline.", icon: "lucide/rocket", iconColor: "text-primary" },
-        { id: "retention", prefix: "+", value: "29", suffix: "%", label: "Customer Retention", description: "Retention gains within the first 90 days.", icon: "lucide/user-check", iconColor: "text-primary" },
+        {
+          id: "growth",
+          value: "312",
+          suffix: "%",
+          label: "Revenue Growth",
+          description: "Average year-over-year lift after launch.",
+          icon: "lucide/trending-up",
+        },
+        {
+          id: "velocity",
+          value: "4.6",
+          suffix: "x",
+          label: "Delivery Speed",
+          description: "Faster time-to-value compared to baseline.",
+          icon: "lucide/rocket",
+          iconColor: "text-primary",
+        },
+        {
+          id: "retention",
+          prefix: "+",
+          value: "29",
+          suffix: "%",
+          label: "Customer Retention",
+          description: "Retention gains within the first 90 days.",
+          icon: "lucide/user-check",
+          iconColor: "text-primary",
+        },
       ],
       comparisonHeading: "Before vs. After",
-      comparisonDescription: "Track the measurable shift between your baseline and optimized performance.",
+      comparisonDescription:
+        "Track the measurable shift between your baseline and optimized performance.",
       baselineLabel: "Baseline",
       baselineValue: "24%",
       baselinePercent: 24,
@@ -5413,7 +6135,11 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
       ctaHeading: "Ready to build your own impact story?",
       actions: [
         { label: "Start the audit", href: "/audit", variant: "default" },
-        { label: "View case studies", href: "/case-studies", variant: "outline" },
+        {
+          label: "View case studies",
+          href: "/case-studies",
+          variant: "outline",
+        },
       ],
     },
   },
@@ -5455,12 +6181,29 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
       requiredProps: ["categories"],
       propConstraints: {
         categories: { required: true, minItems: 2, maxItems: 5 },
-        "categories[].id": { required: true, note: "Unique identifier string." },
-        "categories[].name": { required: true, note: "Display name for the tab." },
-        "categories[].stats": { required: true, minItems: 2, maxItems: 6, note: "4 items recommended for the 4-column grid." },
-        "categories[].stats[].value": { required: true, note: "Number 0–100 used for the SVG progress ring." },
+        "categories[].id": {
+          required: true,
+          note: "Unique identifier string.",
+        },
+        "categories[].name": {
+          required: true,
+          note: "Display name for the tab.",
+        },
+        "categories[].stats": {
+          required: true,
+          minItems: 2,
+          maxItems: 6,
+          note: "4 items recommended for the 4-column grid.",
+        },
+        "categories[].stats[].value": {
+          required: true,
+          note: "Number 0–100 used for the SVG progress ring.",
+        },
         "categories[].stats[].label": { required: true, note: "Metric label." },
-        "categories[].stats[].info": { required: true, note: "Short context string displayed below the label." },
+        "categories[].stats[].info": {
+          required: true,
+          note: "Short context string displayed below the label.",
+        },
       },
       mediaSlots: {},
       requiresSiteCapabilities: statsCapabilities("stats_or_metrics"),
@@ -5468,27 +6211,68 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
     exampleProps: {
       badge: "Performance",
       heading: "Key Performance Indicators",
-      description: "Track our progress across business, technical, and customer success metrics",
+      description:
+        "Track our progress across business, technical, and customer success metrics",
       defaultCategory: "business",
       categories: [
         {
           id: "business",
           name: "Business",
           stats: [
-            { label: "Revenue Growth", value: 84, suffix: "%", info: "Year over year" },
-            { label: "Market Share", value: 67, suffix: "%", info: "In target segment" },
-            { label: "Profit Margin", value: 42, suffix: "%", info: "Net margin" },
-            { label: "Customer LTV", value: 91, suffix: "%", info: "Above industry avg" },
+            {
+              label: "Revenue Growth",
+              value: 84,
+              suffix: "%",
+              info: "Year over year",
+            },
+            {
+              label: "Market Share",
+              value: 67,
+              suffix: "%",
+              info: "In target segment",
+            },
+            {
+              label: "Profit Margin",
+              value: 42,
+              suffix: "%",
+              info: "Net margin",
+            },
+            {
+              label: "Customer LTV",
+              value: 91,
+              suffix: "%",
+              info: "Above industry avg",
+            },
           ],
         },
         {
           id: "technical",
           name: "Technical",
           stats: [
-            { label: "System Uptime", value: 99, suffix: "%", info: "Last 12 months" },
-            { label: "API Response", value: 95, suffix: "%", info: "Under 100ms" },
-            { label: "Code Coverage", value: 88, suffix: "%", info: "Unit tests" },
-            { label: "Security Score", value: 96, suffix: "%", info: "SOC 2 compliant" },
+            {
+              label: "System Uptime",
+              value: 99,
+              suffix: "%",
+              info: "Last 12 months",
+            },
+            {
+              label: "API Response",
+              value: 95,
+              suffix: "%",
+              info: "Under 100ms",
+            },
+            {
+              label: "Code Coverage",
+              value: 88,
+              suffix: "%",
+              info: "Unit tests",
+            },
+            {
+              label: "Security Score",
+              value: 96,
+              suffix: "%",
+              info: "SOC 2 compliant",
+            },
           ],
         },
       ],
@@ -5516,11 +6300,28 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
     usageRequirements: {
       requiredProps: ["stats"],
       propConstraints: {
-        stats: { required: true, count: 3, note: "Exactly 3 stats for the 3-column card layout." },
-        "stats[].value": { required: true, note: "Source-backed metric value." },
-        "stats[].label": { required: true, note: "Short label for the metric." },
-        avatars: { minItems: 2, maxItems: 6, note: "Only rendered when a stat has showAvatars=true. Must be absolute URLs." },
-        "avatars[].src": { required: true, note: "Absolute URL to a real image asset." },
+        stats: {
+          required: true,
+          count: 3,
+          note: "Exactly 3 stats for the 3-column card layout.",
+        },
+        "stats[].value": {
+          required: true,
+          note: "Source-backed metric value.",
+        },
+        "stats[].label": {
+          required: true,
+          note: "Short label for the metric.",
+        },
+        avatars: {
+          minItems: 2,
+          maxItems: 6,
+          note: "Only rendered when a stat has showAvatars=true. Must be absolute URLs.",
+        },
+        "avatars[].src": {
+          required: true,
+          note: "Absolute URL to a real image asset.",
+        },
       },
       mediaSlots: {
         "avatars[].src": imageSlot(
@@ -5537,9 +6338,18 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
     },
     exampleProps: {
       stats: [
-        { icon: "lucide/users", value: "2,000+", label: "Happy Customers", showAvatars: true },
+        {
+          icon: "lucide/users",
+          value: "2,000+",
+          label: "Happy Customers",
+          showAvatars: true,
+        },
         { icon: "lucide/star", value: "4.9/5", label: "Average Rating" },
-        { icon: "lucide/shield-check", value: "99.9%", label: "Uptime Guarantee" },
+        {
+          icon: "lucide/shield-check",
+          value: "99.9%",
+          label: "Uptime Guarantee",
+        },
       ],
       avatars: [
         { src: STATS_EXAMPLE_IMAGE_URL, alt: "Customer avatar" },
@@ -5569,21 +6379,54 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
     usageRequirements: {
       requiredProps: ["stats"],
       propConstraints: {
-        stats: { required: true, minItems: 2, maxItems: 8, note: "4 items recommended for the 4-column grid." },
-        "stats[].value": { required: true, note: "Number that the counter animates to. Source-backed." },
-        "stats[].label": { required: true, note: "Short label describing the metric." },
+        stats: {
+          required: true,
+          minItems: 2,
+          maxItems: 8,
+          note: "4 items recommended for the 4-column grid.",
+        },
+        "stats[].value": {
+          required: true,
+          note: "Number that the counter animates to. Source-backed.",
+        },
+        "stats[].label": {
+          required: true,
+          note: "Short label describing the metric.",
+        },
       },
       mediaSlots: {},
       requiresSiteCapabilities: statsCapabilities("stats_or_metrics"),
     },
     exampleProps: {
       heading: "Our Impact in Numbers",
-      description: "See the measurable difference we've made for businesses worldwide",
+      description:
+        "See the measurable difference we've made for businesses worldwide",
       stats: [
-        { value: 500, suffix: "+", label: "Projects Completed", icon: "lucide/folder-check" },
-        { value: 98, suffix: "%", label: "Client Satisfaction", icon: "lucide/heart" },
-        { value: 50, prefix: "$", suffix: "M+", label: "Revenue Generated", icon: "lucide/trending-up" },
-        { value: 24, suffix: "/7", label: "Support Available", icon: "lucide/headphones" },
+        {
+          value: 500,
+          suffix: "+",
+          label: "Projects Completed",
+          icon: "lucide/folder-check",
+        },
+        {
+          value: 98,
+          suffix: "%",
+          label: "Client Satisfaction",
+          icon: "lucide/heart",
+        },
+        {
+          value: 50,
+          prefix: "$",
+          suffix: "M+",
+          label: "Revenue Generated",
+          icon: "lucide/trending-up",
+        },
+        {
+          value: 24,
+          suffix: "/7",
+          label: "Support Available",
+          icon: "lucide/headphones",
+        },
       ],
       animationDuration: 2000,
     },
@@ -5609,9 +6452,20 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
     usageRequirements: {
       requiredProps: ["stats"],
       propConstraints: {
-        stats: { required: true, minItems: 2, maxItems: 8, note: "4 items recommended for the 4-column grid." },
-        "stats[].value": { required: true, note: "Number that the ticker animates to. Supports decimals (e.g. 99.9). Source-backed." },
-        "stats[].label": { required: true, note: "Short label describing the metric." },
+        stats: {
+          required: true,
+          minItems: 2,
+          maxItems: 8,
+          note: "4 items recommended for the 4-column grid.",
+        },
+        "stats[].value": {
+          required: true,
+          note: "Number that the ticker animates to. Supports decimals (e.g. 99.9). Source-backed.",
+        },
+        "stats[].label": {
+          required: true,
+          note: "Short label describing the metric.",
+        },
       },
       mediaSlots: {},
       requiresSiteCapabilities: statsCapabilities("stats_or_metrics"),
@@ -5619,12 +6473,32 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
     exampleProps: {
       badge: "By The Numbers",
       heading: "Platform Statistics",
-      description: "Real-time metrics that showcase our platform's reach and reliability",
+      description:
+        "Real-time metrics that showcase our platform's reach and reliability",
       stats: [
-        { value: 10000, suffix: "+", label: "Active Users", description: "Growing community of professionals" },
-        { value: 99.9, suffix: "%", label: "Uptime", description: "Enterprise-grade reliability" },
-        { value: 480, label: "Transactions Processed", description: "This month" },
-        { value: 45, suffix: "ms", label: "Avg Response Time", description: "Lightning-fast performance" },
+        {
+          value: 10000,
+          suffix: "+",
+          label: "Active Users",
+          description: "Growing community of professionals",
+        },
+        {
+          value: 99.9,
+          suffix: "%",
+          label: "Uptime",
+          description: "Enterprise-grade reliability",
+        },
+        {
+          value: 480,
+          label: "Transactions Processed",
+          description: "This month",
+        },
+        {
+          value: 45,
+          suffix: "ms",
+          label: "Avg Response Time",
+          description: "Lightning-fast performance",
+        },
       ],
       animationDuration: 2500,
     },
@@ -5649,21 +6523,50 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
       requiredProps: ["milestones"],
       propConstraints: {
         milestones: { required: true, minItems: 3, maxItems: 10 },
-        "milestones[].year": { required: true, note: "Real calendar year string, e.g. '2018'." },
-        "milestones[].title": { required: true, note: "Event or achievement title." },
-        "milestones[].description": { required: true, note: "Narrative description of the milestone. Source-backed." },
+        "milestones[].year": {
+          required: true,
+          note: "Real calendar year string, e.g. '2018'.",
+        },
+        "milestones[].title": {
+          required: true,
+          note: "Event or achievement title.",
+        },
+        "milestones[].description": {
+          required: true,
+          note: "Narrative description of the milestone. Source-backed.",
+        },
       },
       mediaSlots: {},
       requiresSiteCapabilities: statsCapabilities("stats_or_metrics"),
     },
     exampleProps: {
       heading: "Our Journey",
-      description: "Key moments that shaped who we are today and continue to drive our mission forward",
+      description:
+        "Key moments that shaped who we are today and continue to drive our mission forward",
       milestones: [
-        { year: "2018", title: "Company Founded", description: "Started with a vision to transform how businesses operate online." },
-        { year: "2019", title: "First Major Client", description: "Landed our first enterprise customer, validating product-market fit." },
-        { year: "2020", title: "Series A Funding", description: "Raised $15M to accelerate product development and expand the team." },
-        { year: "2022", title: "Global Expansion", description: "Expanded to 30+ countries with localized support." },
+        {
+          year: "2018",
+          title: "Company Founded",
+          description:
+            "Started with a vision to transform how businesses operate online.",
+        },
+        {
+          year: "2019",
+          title: "First Major Client",
+          description:
+            "Landed our first enterprise customer, validating product-market fit.",
+        },
+        {
+          year: "2020",
+          title: "Series A Funding",
+          description:
+            "Raised $15M to accelerate product development and expand the team.",
+        },
+        {
+          year: "2022",
+          title: "Global Expansion",
+          description: "Expanded to 30+ countries with localized support.",
+        },
       ],
     },
   },
@@ -5699,12 +6602,31 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
       requiredProps: ["comparisons"],
       propConstraints: {
         comparisons: { required: true, minItems: 2, maxItems: 6 },
-        "comparisons[].title": { required: true, note: "Metric category title." },
-        "comparisons[].bars": { required: true, count: 2, note: "Exactly 2 bars per group." },
-        "comparisons[].bars[].label": { required: true, note: "Bar label (e.g. 'Our Platform', 'Industry Average')." },
-        "comparisons[].bars[].value": { required: true, note: "Integer 0–100 controlling bar width. Not the display value." },
-        "comparisons[].bars[].displayValue": { required: true, note: "Human-readable metric value shown next to the bar." },
-        "comparisons[].bars[0].color": { pinnedValues: { color: "bg-primary" }, note: "First bar should use bg-primary to highlight your platform." },
+        "comparisons[].title": {
+          required: true,
+          note: "Metric category title.",
+        },
+        "comparisons[].bars": {
+          required: true,
+          count: 2,
+          note: "Exactly 2 bars per group.",
+        },
+        "comparisons[].bars[].label": {
+          required: true,
+          note: "Bar label (e.g. 'Our Platform', 'Industry Average').",
+        },
+        "comparisons[].bars[].value": {
+          required: true,
+          note: "Integer 0–100 controlling bar width. Not the display value.",
+        },
+        "comparisons[].bars[].displayValue": {
+          required: true,
+          note: "Human-readable metric value shown next to the bar.",
+        },
+        "comparisons[].bars[0].color": {
+          pinnedValues: { color: "bg-primary" },
+          note: "First bar should use bg-primary to highlight your platform.",
+        },
       },
       mediaSlots: {},
       requiresSiteCapabilities: statsCapabilities("stats_or_metrics"),
@@ -5712,26 +6634,42 @@ const STATS_BLOCK_CONTRACTS: Record<string, StatsBlockContract> = {
     exampleProps: {
       badge: "Competitive Edge",
       heading: "How We Compare",
-      description: "See how our platform outperforms industry benchmarks across key metrics",
+      description:
+        "See how our platform outperforms industry benchmarks across key metrics",
       comparisons: [
         {
           title: "Revenue Growth",
           bars: [
-            { label: "Our Platform", value: 89, displayValue: "$2.4M", color: "bg-primary" },
+            {
+              label: "Our Platform",
+              value: 89,
+              displayValue: "$2.4M",
+              color: "bg-primary",
+            },
             { label: "Industry Average", value: 34, displayValue: "$920K" },
           ],
         },
         {
           title: "Customer Retention",
           bars: [
-            { label: "Our Platform", value: 94, displayValue: "94%", color: "bg-primary" },
+            {
+              label: "Our Platform",
+              value: 94,
+              displayValue: "94%",
+              color: "bg-primary",
+            },
             { label: "Industry Average", value: 67, displayValue: "67%" },
           ],
         },
         {
           title: "Time to Value",
           bars: [
-            { label: "Our Platform", value: 85, displayValue: "2 weeks", color: "bg-primary" },
+            {
+              label: "Our Platform",
+              value: 85,
+              displayValue: "2 weeks",
+              color: "bg-primary",
+            },
             { label: "Industry Average", value: 35, displayValue: "6 weeks" },
           ],
         },
@@ -5772,7 +6710,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
     },
     exampleProps: {
       heading: "Frequently Asked Questions",
-      description: "Find answers to common questions about our product and billing.",
+      description:
+        "Find answers to common questions about our product and billing.",
       items: [
         {
           id: "pricing",
@@ -5820,7 +6759,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
         },
         {
           question: "What payment methods do you accept?",
-          answer: "We accept all major credit cards, PayPal, and bank transfers for annual plans.",
+          answer:
+            "We accept all major credit cards, PayPal, and bank transfers for annual plans.",
         },
         {
           question: "Is my data backed up?",
@@ -5851,7 +6791,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
         {
           id: "onboarding",
           question: "How long does onboarding take?",
-          answer: "Most teams are fully onboarded within 3–5 business days with guided setup.",
+          answer:
+            "Most teams are fully onboarded within 3–5 business days with guided setup.",
         },
         {
           id: "support",
@@ -5902,7 +6843,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
         {
           id: "upgrade",
           question: "Can I upgrade or downgrade my plan?",
-          answer: "Yes, plan changes take effect immediately. Prorated charges apply.",
+          answer:
+            "Yes, plan changes take effect immediately. Prorated charges apply.",
         },
       ],
       supportText: "Still have questions? Our team is here to help.",
@@ -5974,7 +6916,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
         },
         {
           question: "Do you offer volume discounts?",
-          answer: "Yes, teams of 20+ qualify for custom pricing. Contact sales.",
+          answer:
+            "Yes, teams of 20+ qualify for custom pricing. Contact sales.",
         },
         {
           question: "Is there an API rate limit?",
@@ -6003,7 +6946,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
     },
     exampleProps: {
       heading: "Common Questions",
-      description: "Answers to the most frequently asked questions from our community.",
+      description:
+        "Answers to the most frequently asked questions from our community.",
       items: [
         {
           id: "setup",
@@ -6020,7 +6964,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
         {
           id: "storage",
           question: "How much storage do I get?",
-          answer: "10 GB on Starter, 100 GB on Professional, unlimited on Enterprise.",
+          answer:
+            "10 GB on Starter, 100 GB on Professional, unlimited on Enterprise.",
         },
       ],
       helpHeading: "Still have questions?",
@@ -6056,12 +7001,14 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
             {
               id: "billing-1",
               question: "How are invoices generated?",
-              answer: "Invoices are auto-generated at the start of each billing cycle and emailed to the account owner.",
+              answer:
+                "Invoices are auto-generated at the start of each billing cycle and emailed to the account owner.",
             },
             {
               id: "billing-2",
               question: "Can I change my plan mid-cycle?",
-              answer: "Yes, upgrades take effect immediately with prorated charges.",
+              answer:
+                "Yes, upgrades take effect immediately with prorated charges.",
             },
           ],
         },
@@ -6071,7 +7018,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
             {
               id: "security-1",
               question: "Is data encrypted at rest?",
-              answer: "All data is encrypted using AES-256 at rest and TLS 1.3 in transit.",
+              answer:
+                "All data is encrypted using AES-256 at rest and TLS 1.3 in transit.",
             },
             {
               id: "security-2",
@@ -6104,17 +7052,20 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
         {
           id: "trial",
           question: "Does the free trial include all features?",
-          answer: "The 14-day trial includes all Professional features with no restrictions.",
+          answer:
+            "The 14-day trial includes all Professional features with no restrictions.",
         },
         {
           id: "cancel",
           question: "What happens when I cancel?",
-          answer: "Your account stays active until the end of the billing period. No data is deleted for 30 days.",
+          answer:
+            "Your account stays active until the end of the billing period. No data is deleted for 30 days.",
         },
         {
           id: "migrate",
           question: "Can I import data from another tool?",
-          answer: "Yes, we support CSV imports and direct integrations with popular project management tools.",
+          answer:
+            "Yes, we support CSV imports and direct integrations with popular project management tools.",
         },
       ],
     },
@@ -6142,17 +7093,20 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
         {
           id: "q1",
           question: "What makes your platform different?",
-          answer: "We combine AI-powered workflows with a simple interface so teams ship faster.",
+          answer:
+            "We combine AI-powered workflows with a simple interface so teams ship faster.",
         },
         {
           id: "q2",
           question: "Is there a free tier?",
-          answer: "Yes, our free tier supports up to 3 users and 5 projects with core features.",
+          answer:
+            "Yes, our free tier supports up to 3 users and 5 projects with core features.",
         },
         {
           id: "q3",
           question: "How is pricing calculated for large teams?",
-          answer: "Enterprise pricing is per-seat with volume discounts. Contact sales for a quote.",
+          answer:
+            "Enterprise pricing is per-seat with volume discounts. Contact sales for a quote.",
         },
       ],
     },
@@ -6181,12 +7135,14 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
             {
               id: "gs-1",
               question: "How do I create my first project?",
-              answer: "Click New Project from the dashboard and follow the setup wizard.",
+              answer:
+                "Click New Project from the dashboard and follow the setup wizard.",
             },
             {
               id: "gs-2",
               question: "What should I do first after signing up?",
-              answer: "Complete your profile and invite your team to maximize collaboration.",
+              answer:
+                "Complete your profile and invite your team to maximize collaboration.",
             },
           ],
         },
@@ -6196,12 +7152,14 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
             {
               id: "bill-1",
               question: "When am I charged?",
-              answer: "Monthly plans are charged on the same date each month. Annual plans upfront.",
+              answer:
+                "Monthly plans are charged on the same date each month. Annual plans upfront.",
             },
             {
               id: "bill-2",
               question: "Can I get a receipt for my payment?",
-              answer: "Receipts are emailed automatically after each payment to the billing email.",
+              answer:
+                "Receipts are emailed automatically after each payment to the billing email.",
             },
           ],
         },
@@ -6224,7 +7182,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
     },
     exampleProps: {
       heading: "Help Center",
-      description: "Find answers organized by topic. Use the sidebar to filter.",
+      description:
+        "Find answers organized by topic. Use the sidebar to filter.",
       categories: [
         {
           id: "account",
@@ -6233,12 +7192,14 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
             {
               id: "acc-1",
               question: "How do I reset my password?",
-              answer: "Click Forgot Password on the login page and follow the email instructions.",
+              answer:
+                "Click Forgot Password on the login page and follow the email instructions.",
             },
             {
               id: "acc-2",
               question: "Can I change my email address?",
-              answer: "Yes, update your email in Profile Settings. A confirmation email will be sent.",
+              answer:
+                "Yes, update your email in Profile Settings. A confirmation email will be sent.",
             },
           ],
         },
@@ -6254,7 +7215,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
             {
               id: "bill-2",
               question: "Can I download past invoices?",
-              answer: "All invoices are available in the Billing History section of your account.",
+              answer:
+                "All invoices are available in the Billing History section of your account.",
             },
           ],
         },
@@ -6265,7 +7227,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
             {
               id: "feat-1",
               question: "Is there a mobile app?",
-              answer: "Yes, available on iOS and Android with full feature parity.",
+              answer:
+                "Yes, available on iOS and Android with full feature parity.",
             },
           ],
         },
@@ -6296,7 +7259,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
             {
               id: "gs-1",
               question: "How do I sign up?",
-              answer: "Visit our website, click Get Started, and complete the registration form.",
+              answer:
+                "Visit our website, click Get Started, and complete the registration form.",
             },
           ],
         },
@@ -6306,7 +7270,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
             {
               id: "feat-1",
               question: "Can I customize my dashboard?",
-              answer: "Yes, drag and drop widgets to configure your personal dashboard view.",
+              answer:
+                "Yes, drag and drop widgets to configure your personal dashboard view.",
             },
           ],
         },
@@ -6316,7 +7281,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
             {
               id: "int-1",
               question: "What tools do you integrate with?",
-              answer: "We connect with Slack, Salesforce, Google Workspace, and 50+ others.",
+              answer:
+                "We connect with Slack, Salesforce, Google Workspace, and 50+ others.",
             },
           ],
         },
@@ -6344,17 +7310,20 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
         {
           icon: "lucide/zap",
           title: "Lightning Fast",
-          description: "Sub-100ms response times globally with instant real-time sync.",
+          description:
+            "Sub-100ms response times globally with instant real-time sync.",
         },
         {
           icon: "lucide/shield-check",
           title: "Enterprise Security",
-          description: "SOC 2 Type II certified with end-to-end encryption and GDPR compliance.",
+          description:
+            "SOC 2 Type II certified with end-to-end encryption and GDPR compliance.",
         },
         {
           icon: "lucide/users",
           title: "Built for Teams",
-          description: "Collaboration tools including comments, mentions, and real-time editing.",
+          description:
+            "Collaboration tools including comments, mentions, and real-time editing.",
         },
       ],
     },
@@ -6386,7 +7355,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
         {
           id: "q2",
           question: "Can multiple team members use one account?",
-          answer: "Yes, all plans support multiple users with role-based permissions.",
+          answer:
+            "Yes, all plans support multiple users with role-based permissions.",
         },
         {
           id: "q3",
@@ -6402,7 +7372,9 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
     exampleUsage:
       "FAQ accordion with a sticky sidebar containing a profile card (photo, name, role, bio) and optional contact CTA. Humanizes support pages by showing the expert behind the answers.",
     importantUsageNotes:
-      "`profileImage` must be an absolute URL to a real image — not a placeholder variable. " + FAQ_MEDIA_NOTE + " Each item requires a unique `id` along with `question` and `answer`. `profileName`, `profileRole`, and `profileDescription` populate the sidebar card. `contactText` and `contactAction` add a contact CTA within the profile card.",
+      "`profileImage` must be an absolute URL to a real image — not a placeholder variable. " +
+      FAQ_MEDIA_NOTE +
+      " Each item requires a unique `id` along with `question` and `answer`. `profileName`, `profileRole`, and `profileDescription` populate the sidebar card. `contactText` and `contactAction` add a contact CTA within the profile card.",
     usageRequirements: {
       requiredProps: [],
       requiresSiteCapabilities: faqCapabilities(),
@@ -6420,7 +7392,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
     },
     exampleProps: {
       heading: "Expert Answers",
-      description: "Our specialists have compiled answers to the most common questions.",
+      description:
+        "Our specialists have compiled answers to the most common questions.",
       profileImage: FAQ_EXAMPLE_IMAGE_URL,
       profileName: "Sarah Chen",
       profileRole: "Customer Success Manager",
@@ -6448,7 +7421,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
         {
           id: "sla",
           question: "What are your SLA guarantees?",
-          answer: "99.9% uptime guaranteed. Enterprise plans include priority support.",
+          answer:
+            "99.9% uptime guaranteed. Enterprise plans include priority support.",
         },
       ],
     },
@@ -6458,7 +7432,9 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
     exampleUsage:
       "Full-screen split layout with FAQ accordion on one side and an image or video on the other. Hero-scale FAQ section for landing pages.",
     importantUsageNotes:
-      "`mediaItem` accepts either `image` or `video` — video takes priority when both are provided. " + FAQ_MEDIA_NOTE + " Image `src` and video `src`/`fallbackSrc` must be absolute URLs to real hosted assets. Uses `subheading` (not `description`) for the subtitle text below the heading. Each item requires a unique `id` along with `question` and `answer`. `directionConfig` controls which side the media appears on (desktop: 'mediaRight' | 'mediaLeft', mobile: 'mediaTop' | 'mediaBottom'). Default spacing is 'none' — the block fills the full viewport height.",
+      "`mediaItem` accepts either `image` or `video` — video takes priority when both are provided. " +
+      FAQ_MEDIA_NOTE +
+      " Image `src` and video `src`/`fallbackSrc` must be absolute URLs to real hosted assets. Uses `subheading` (not `description`) for the subtitle text below the heading. Each item requires a unique `id` along with `question` and `answer`. `directionConfig` controls which side the media appears on (desktop: 'mediaRight' | 'mediaLeft', mobile: 'mediaTop' | 'mediaBottom'). Default spacing is 'none' — the block fills the full viewport height.",
     usageRequirements: {
       requiredProps: [],
       requiresSiteCapabilities: faqCapabilities(),
@@ -6476,7 +7452,8 @@ const FAQ_BLOCK_CONTRACTS: Record<string, FaqBlockContract> = {
     },
     exampleProps: {
       heading: "Common Questions",
-      subheading: "Everything you need to know about our platform, features, and pricing.",
+      subheading:
+        "Everything you need to know about our platform, features, and pricing.",
       mediaItem: {
         image: {
           src: FAQ_EXAMPLE_IMAGE_URL,
@@ -6532,7 +7509,11 @@ const BLOG_BLOCK_CONTRACTS: Record<string, BlogBlockContract> = {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-      requiresSiteCapabilities: blogCapabilities("blog_posts", "media_library", "team_members"),
+      requiresSiteCapabilities: blogCapabilities(
+        "blog_posts",
+        "media_library",
+        "team_members",
+      ),
     },
     exampleProps: {
       heading: "Stories from Our Team",
@@ -6645,7 +7626,11 @@ const BLOG_BLOCK_CONTRACTS: Record<string, BlogBlockContract> = {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-      requiresSiteCapabilities: blogCapabilities("blog_posts", "media_library", "team_members"),
+      requiresSiteCapabilities: blogCapabilities(
+        "blog_posts",
+        "media_library",
+        "team_members",
+      ),
     },
     exampleProps: {
       badge: "Latest Articles",
@@ -6871,7 +7856,11 @@ const BLOG_BLOCK_CONTRACTS: Record<string, BlogBlockContract> = {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-      requiresSiteCapabilities: blogCapabilities("blog_posts", "media_library", "team_members"),
+      requiresSiteCapabilities: blogCapabilities(
+        "blog_posts",
+        "media_library",
+        "team_members",
+      ),
     },
     exampleProps: {
       heading: "Tech Insights",
@@ -7107,7 +8096,8 @@ const BLOG_BLOCK_CONTRACTS: Record<string, BlogBlockContract> = {
         {
           id: "2",
           title: "Building Accessible Forms",
-          description: "Creating inclusive form experiences that work for everyone.",
+          description:
+            "Creating inclusive form experiences that work for everyone.",
           image: BLOG_EXAMPLE_IMAGE_URL,
           author: "Laura Anderson",
           date: "April 16, 2024",
@@ -7184,7 +8174,11 @@ const BLOG_BLOCK_CONTRACTS: Record<string, BlogBlockContract> = {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-      requiresSiteCapabilities: blogCapabilities("blog_posts", "media_library", "team_members"),
+      requiresSiteCapabilities: blogCapabilities(
+        "blog_posts",
+        "media_library",
+        "team_members",
+      ),
     },
     exampleProps: {
       heading: "Latest Insights",
@@ -7350,615 +8344,631 @@ const CAROUSEL_MEDIA_NOTE =
 const carouselCapabilities = (...capabilities: SiteCapability[]) =>
   capabilities;
 
-const CAROUSEL_BLOCK_CONTRACTS: Record<string, CarouselBlockContract> =
-  {
-    "carousel-animated-sections": {
-      exampleUsage:
-        "Full-screen section carousel with animated vertical transitions. Each section has a background image, title, subtitle, description, and optional CTA. Navigation via keyboard arrows, scroll wheel, dot indicators, and up/down chevrons.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each section requires a unique 'id' string and an 'image' absolute URL. Supports 2–6 sections; fewer than 2 sections defeats the carousel purpose. The component is full-screen (h-screen) — do not wrap in a height-constrained container. CTA text/href are per-slide; alternatively use the top-level 'actions' array for shared CTA buttons. Default background is 'dark'; slide images render with a high-intensity gradient overlay for readability.`,
-      usageRequirements: {
+const CAROUSEL_BLOCK_CONTRACTS: Record<string, CarouselBlockContract> = {
+  "carousel-animated-sections": {
+    exampleUsage:
+      "Full-screen section carousel with animated vertical transitions. Each section has a background image, title, subtitle, description, and optional CTA. Navigation via keyboard arrows, scroll wheel, dot indicators, and up/down chevrons.",
+    importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each section requires a unique 'id' string and an 'image' absolute URL. Supports 2–6 sections; fewer than 2 sections defeats the carousel purpose. The component is full-screen (h-screen) — do not wrap in a height-constrained container. CTA text/href are per-slide; alternatively use the top-level 'actions' array for shared CTA buttons. Default background is 'dark'; slide images render with a high-intensity gradient overlay for readability.`,
+    usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-        requiresSiteCapabilities: carouselCapabilities("media_library"),
-      },
-      exampleProps: {
-        sections: [
-          {
-            id: "innovation",
-            subtitle: "Technology Leadership",
-            title: "Building the Future of AI",
-            description:
-              "Explore groundbreaking innovations that transform how businesses harness artificial intelligence.",
-            image: CAROUSEL_EXAMPLE_IMAGE_URL,
-            ctaText: "Discover Our Platform",
-            ctaHref: "#platform",
-          },
-          {
-            id: "design",
-            subtitle: "Creative Excellence",
-            title: "Design That Inspires Action",
-            description:
-              "Experience stunning visual narratives crafted with precision and purpose.",
-            image: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-            ctaText: "View Our Work",
-            ctaHref: "#portfolio",
-          },
-          {
-            id: "performance",
-            subtitle: "Speed & Efficiency",
-            title: "Lightning-Fast Performance",
-            description:
-              "Built on cutting-edge infrastructure that delivers millisecond response times.",
-            image: "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0",
-            ctaText: "See Benchmarks",
-            ctaHref: "#performance",
-          },
-        ],
-        background: "dark",
-        spacing: "py-0",
-      },
+      requiresSiteCapabilities: carouselCapabilities("media_library"),
     },
+    exampleProps: {
+      sections: [
+        {
+          id: "innovation",
+          subtitle: "Technology Leadership",
+          title: "Building the Future of AI",
+          description:
+            "Explore groundbreaking innovations that transform how businesses harness artificial intelligence.",
+          image: CAROUSEL_EXAMPLE_IMAGE_URL,
+          ctaText: "Discover Our Platform",
+          ctaHref: "#platform",
+        },
+        {
+          id: "design",
+          subtitle: "Creative Excellence",
+          title: "Design That Inspires Action",
+          description:
+            "Experience stunning visual narratives crafted with precision and purpose.",
+          image:
+            "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+          ctaText: "View Our Work",
+          ctaHref: "#portfolio",
+        },
+        {
+          id: "performance",
+          subtitle: "Speed & Efficiency",
+          title: "Lightning-Fast Performance",
+          description:
+            "Built on cutting-edge infrastructure that delivers millisecond response times.",
+          image:
+            "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0",
+          ctaText: "See Benchmarks",
+          ctaHref: "#performance",
+        },
+      ],
+      background: "dark",
+      spacing: "py-0",
+    },
+  },
 
-    "carousel-auto-progress-slides": {
-      exampleUsage:
-        "Auto-advancing carousel with animated blur transitions, centered headline, and progress dot indicators. Slides advance on a timer; navigation dots fill progressively. Each item has an image src and an optional label.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each SlideItem requires a 'src' absolute URL. Supports 3–8 slide items; too few items makes the progress indicator meaningless. 'autoAdvanceInterval' controls how quickly the progress dot depletes (milliseconds per tick, not total duration). Use 'heading' and 'subheading' to provide context above the carousel. Component fills min-h-screen — suitable for hero use.`,
-      usageRequirements: {
+  "carousel-auto-progress-slides": {
+    exampleUsage:
+      "Auto-advancing carousel with animated blur transitions, centered headline, and progress dot indicators. Slides advance on a timer; navigation dots fill progressively. Each item has an image src and an optional label.",
+    importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each SlideItem requires a 'src' absolute URL. Supports 3–8 slide items; too few items makes the progress indicator meaningless. 'autoAdvanceInterval' controls how quickly the progress dot depletes (milliseconds per tick, not total duration). Use 'heading' and 'subheading' to provide context above the carousel. Component fills min-h-screen — suitable for hero use.`,
+    usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-        requiresSiteCapabilities: carouselCapabilities("media_library"),
-      },
-      exampleProps: {
-        heading: "Product Evolution",
-        subheading: "Watch how our platform transforms businesses",
-        background: "gray",
-        pattern: "gridFadeCenter",
-        patternOpacity: 1,
-        items: [
-          {
-            src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6",
-            label: "Platform Launch - Q1 2024",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/dvz0441h9fxjhh88lzqbwdoyxv52",
-            label: "AI Integration - Q2 2024",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/jhjfvkmdzktacyijd9fh6acc7o2c",
-            label: "Enterprise Features - Q3 2024",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/9covpitzpuuobkg1m4mfokpi0enw",
-            label: "Global Expansion - Q4 2024",
-          },
-        ],
-        autoAdvanceInterval: 75,
-      },
+      requiresSiteCapabilities: carouselCapabilities("media_library"),
     },
+    exampleProps: {
+      heading: "Product Evolution",
+      subheading: "Watch how our platform transforms businesses",
+      background: "gray",
+      pattern: "gridFadeCenter",
+      patternOpacity: 1,
+      items: [
+        {
+          src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6",
+          label: "Platform Launch - Q1 2024",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/dvz0441h9fxjhh88lzqbwdoyxv52",
+          label: "AI Integration - Q2 2024",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/jhjfvkmdzktacyijd9fh6acc7o2c",
+          label: "Enterprise Features - Q3 2024",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/9covpitzpuuobkg1m4mfokpi0enw",
+          label: "Global Expansion - Q4 2024",
+        },
+      ],
+      autoAdvanceInterval: 75,
+    },
+  },
 
-    "carousel-autoplay-progress": {
-      exampleUsage:
-        "Embla-powered carousel with autoplay, animated progress bar, dot navigation, and play/pause toggle. Each slide shows an aspect-video image with optional caption content below. Ideal for galleries or testimonials.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each AutoplaySlide requires a 'src' absolute URL. Supports 3–10 slides for meaningful autoplay navigation. 'autoplayDelay' is in milliseconds (default 5000). The progress bar animates between dots indicating time until next slide. Play/pause toggle is rendered to the right of the progress bar.`,
-      usageRequirements: {
+  "carousel-autoplay-progress": {
+    exampleUsage:
+      "Embla-powered carousel with autoplay, animated progress bar, dot navigation, and play/pause toggle. Each slide shows an aspect-video image with optional caption content below. Ideal for galleries or testimonials.",
+    importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each AutoplaySlide requires a 'src' absolute URL. Supports 3–10 slides for meaningful autoplay navigation. 'autoplayDelay' is in milliseconds (default 5000). The progress bar animates between dots indicating time until next slide. Play/pause toggle is rendered to the right of the progress bar.`,
+    usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-        requiresSiteCapabilities: carouselCapabilities("media_library"),
-      },
-      exampleProps: {
-        background: "dark",
-        pattern: "gridFadeTopRight",
-        patternOpacity: 0.15,
-        options: { loop: true },
-        autoplayDelay: 7000,
-        slides: [
-          {
-            src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac",
-            alt: "Mountain Expedition",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/hu4gmd93sp95wdyr9qijze0rgim9",
-            alt: "Urban Architecture",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/90rcw2mljzpeuxlac8q77mor15xz",
-            alt: "Coastal Sunset",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/9797jh6slgbf9oq6lzlimcdiuziv",
-            alt: "Forest Canopy",
-          },
-        ],
-      },
+      requiresSiteCapabilities: carouselCapabilities("media_library"),
     },
+    exampleProps: {
+      background: "dark",
+      pattern: "gridFadeTopRight",
+      patternOpacity: 0.15,
+      options: { loop: true },
+      autoplayDelay: 7000,
+      slides: [
+        {
+          src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac",
+          alt: "Mountain Expedition",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/hu4gmd93sp95wdyr9qijze0rgim9",
+          alt: "Urban Architecture",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/90rcw2mljzpeuxlac8q77mor15xz",
+          alt: "Coastal Sunset",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/9797jh6slgbf9oq6lzlimcdiuziv",
+          alt: "Forest Canopy",
+        },
+      ],
+    },
+  },
 
-    "carousel-feature-badge": {
-      exampleUsage:
-        "Two-column layout with badge, heading, description, and CTA on the left; Embla carousel of images on the right. Use for product feature showcases, platform screenshot galleries, or marketing capability overviews.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each ImageItem in 'items' requires a 'src' absolute URL and should have a descriptive 'alt'. Supports 3–8 carousel items; carouselItemClassName can override flex-basis. CTA actions are placed below the heading/description using 'actions' array. Badge string renders using the Badge UI component.`,
-      usageRequirements: {
+  "carousel-feature-badge": {
+    exampleUsage:
+      "Two-column layout with badge, heading, description, and CTA on the left; Embla carousel of images on the right. Use for product feature showcases, platform screenshot galleries, or marketing capability overviews.",
+    importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each ImageItem in 'items' requires a 'src' absolute URL and should have a descriptive 'alt'. Supports 3–8 carousel items; carouselItemClassName can override flex-basis. CTA actions are placed below the heading/description using 'actions' array. Badge string renders using the Badge UI component.`,
+    usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-        requiresSiteCapabilities: carouselCapabilities("media_library"),
-      },
-      exampleProps: {
-        badge: "Platform Features",
-        heading: "Everything you need to scale your SaaS business",
-        description:
-          "From powerful analytics to seamless integrations, our platform provides all the tools you need to grow faster.",
-        background: "dark",
-        pattern: "architect",
-        patternOpacity: 0.5,
-        slideLayoutVariant: "square",
-        actions: [
-          {
-            label: "Explore Features",
-            href: "#",
-            variant: "default",
-          },
-          {
-            label: "Case Studies",
-            href: "#",
-            variant: "outline",
-          },
-        ],
-        items: [
-          {
-            src: CAROUSEL_EXAMPLE_IMAGE_URL,
-            alt: "Real-time Analytics Dashboard",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/2d4k8d5shwg82276hzj2ztbj7mxq",
-            alt: "Team Collaboration Tools",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/gg5qnvb4nsl2k3g4dw4ls8bsllwh",
-            alt: "API Integration Hub",
-          },
-        ],
-      },
+      requiresSiteCapabilities: carouselCapabilities("media_library"),
     },
+    exampleProps: {
+      badge: "Platform Features",
+      heading: "Everything you need to scale your SaaS business",
+      description:
+        "From powerful analytics to seamless integrations, our platform provides all the tools you need to grow faster.",
+      background: "dark",
+      pattern: "architect",
+      patternOpacity: 0.5,
+      slideLayoutVariant: "square",
+      actions: [
+        {
+          label: "Explore Features",
+          href: "#",
+          variant: "default",
+        },
+        {
+          label: "Case Studies",
+          href: "#",
+          variant: "outline",
+        },
+      ],
+      items: [
+        {
+          src: CAROUSEL_EXAMPLE_IMAGE_URL,
+          alt: "Real-time Analytics Dashboard",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/2d4k8d5shwg82276hzj2ztbj7mxq",
+          alt: "Team Collaboration Tools",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/gg5qnvb4nsl2k3g4dw4ls8bsllwh",
+          alt: "API Integration Hub",
+        },
+      ],
+    },
+  },
 
-    "carousel-fullscreen-scroll-fx": {
-      exampleUsage:
-        "Document-scroll-driven fullscreen carousel where a sticky viewport advances through full-viewport slides with background images, overlays, and text content. Scoped dot navigation, a scroll indicator, and a slide counter remain inside the active block. Per-slide CTA actions are supported.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each FullscreenSlide requires a unique 'id' string and an 'image' absolute URL. Supports 2–8 slides for effective scroll storytelling. 'overlayColor' accepts rgba strings to tint each slide background independently. Per-slide 'actions' array renders CTA buttons centered over the slide content. The component works as a hero or mid-page section by using the document scroll surface; do not place it inside a height-constrained or vertically scrolling wrapper. Default background is 'dark' with a diagonal cross pattern.`,
-      usageRequirements: {
+  "carousel-fullscreen-scroll-fx": {
+    exampleUsage:
+      "Document-scroll-driven fullscreen carousel where a sticky viewport advances through full-viewport slides with background images, overlays, and text content. Scoped dot navigation, a scroll indicator, and a slide counter remain inside the active block. Per-slide CTA actions are supported.",
+    importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each FullscreenSlide requires a unique 'id' string and an 'image' absolute URL. Supports 2–8 slides for effective scroll storytelling. 'overlayColor' accepts rgba strings to tint each slide background independently. Per-slide 'actions' array renders CTA buttons centered over the slide content. The component works as a hero or mid-page section by using the document scroll surface; do not place it inside a height-constrained or vertically scrolling wrapper. Default background is 'dark' with a diagonal cross pattern.`,
+    usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-        requiresSiteCapabilities: carouselCapabilities("media_library"),
-      },
-      exampleProps: {
-        slides: [
-          {
-            id: "chapter-one",
-            subtitle: "Chapter One",
-            title: "The Journey Begins",
-            description:
-              "Every great story starts with a single step. Vision meets execution.",
-            image: CAROUSEL_EXAMPLE_IMAGE_URL,
-            overlayColor: "rgba(0, 20, 40, 0.6)",
-            actions: [
-              {
-                label: "Get Started",
-                href: "#",
-                asButton: true,
-              },
-            ],
-          },
-          {
-            id: "chapter-two",
-            subtitle: "Chapter Two",
-            title: "Breaking Boundaries",
-            description:
-              "We challenged conventional thinking and pushed beyond limits.",
-            image: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-            overlayColor: "rgba(40, 20, 60, 0.6)",
-          },
-          {
-            id: "chapter-three",
-            subtitle: "Chapter Three",
-            title: "Building Together",
-            description:
-              "Through collaboration and shared purpose, we created something greater.",
-            image: "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q",
-            overlayColor: "rgba(20, 40, 20, 0.6)",
-          },
-        ],
-      },
+      requiresSiteCapabilities: carouselCapabilities("media_library"),
     },
+    exampleProps: {
+      slides: [
+        {
+          id: "chapter-one",
+          subtitle: "Chapter One",
+          title: "The Journey Begins",
+          description:
+            "Every great story starts with a single step. Vision meets execution.",
+          image: CAROUSEL_EXAMPLE_IMAGE_URL,
+          overlayColor: "rgba(0, 20, 40, 0.6)",
+          actions: [
+            {
+              label: "Get Started",
+              href: "#",
+              asButton: true,
+            },
+          ],
+        },
+        {
+          id: "chapter-two",
+          subtitle: "Chapter Two",
+          title: "Breaking Boundaries",
+          description:
+            "We challenged conventional thinking and pushed beyond limits.",
+          image:
+            "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+          overlayColor: "rgba(40, 20, 60, 0.6)",
+        },
+        {
+          id: "chapter-three",
+          subtitle: "Chapter Three",
+          title: "Building Together",
+          description:
+            "Through collaboration and shared purpose, we created something greater.",
+          image:
+            "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q",
+          overlayColor: "rgba(20, 40, 20, 0.6)",
+        },
+      ],
+    },
+  },
 
-    "carousel-gallery-thumbnails": {
-      exampleUsage:
-        "Gallery carousel with a main aspect-video image display area, left/right navigation arrows, caption overlay, and a horizontal thumbnail strip below. Supports auto-play and keyboard arrow navigation.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each GalleryImage requires a 'src' absolute URL; 'alt' doubles as the caption shown on the main slide. Supports 3–12 images; thumbnails scroll horizontally if many images are provided. 'showThumbnails' defaults to true; set to false to hide the thumbnail strip. 'autoPlay' and 'autoPlayInterval' control automatic advancement. 'slideMediaOverlayIntensity' controls gradient darkness over the main slide image.`,
-      usageRequirements: {
+  "carousel-gallery-thumbnails": {
+    exampleUsage:
+      "Gallery carousel with a main aspect-video image display area, left/right navigation arrows, caption overlay, and a horizontal thumbnail strip below. Supports auto-play and keyboard arrow navigation.",
+    importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each GalleryImage requires a 'src' absolute URL; 'alt' doubles as the caption shown on the main slide. Supports 3–12 images; thumbnails scroll horizontally if many images are provided. 'showThumbnails' defaults to true; set to false to hide the thumbnail strip. 'autoPlay' and 'autoPlayInterval' control automatic advancement. 'slideMediaOverlayIntensity' controls gradient darkness over the main slide image.`,
+    usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-        requiresSiteCapabilities: carouselCapabilities("media_library"),
-      },
-      exampleProps: {
-        background: "dark",
-        pattern: "squareAltGrid",
-        patternOpacity: 0.25,
-        autoPlay: true,
-        autoPlayInterval: 6000,
-        showThumbnails: true,
-        images: [
-          {
-            src: CAROUSEL_EXAMPLE_IMAGE_URL,
-            alt: "Modern minimalist living room with floor-to-ceiling windows",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm",
-            alt: "Gourmet kitchen with marble countertops",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v",
-            alt: "Luxurious master bedroom with city skyline views",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc",
-            alt: "Spa-inspired bathroom with rainfall shower",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt",
-            alt: "Private rooftop terrace",
-          },
-        ],
-      },
+      requiresSiteCapabilities: carouselCapabilities("media_library"),
     },
+    exampleProps: {
+      background: "dark",
+      pattern: "squareAltGrid",
+      patternOpacity: 0.25,
+      autoPlay: true,
+      autoPlayInterval: 6000,
+      showThumbnails: true,
+      images: [
+        {
+          src: CAROUSEL_EXAMPLE_IMAGE_URL,
+          alt: "Modern minimalist living room with floor-to-ceiling windows",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm",
+          alt: "Gourmet kitchen with marble countertops",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v",
+          alt: "Luxurious master bedroom with city skyline views",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc",
+          alt: "Spa-inspired bathroom with rainfall shower",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt",
+          alt: "Private rooftop terrace",
+        },
+      ],
+    },
+  },
 
-    "carousel-horizontal-cards": {
-      exampleUsage:
-        "Horizontally scrolling card carousel with animated entrance, header with clickable title, and stat display on each card. Scroll buttons appear when overflow exists. Each card has an aspect-video image, title, optional count/countLabel stat, and optional action buttons.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each CardItem requires 'id' and 'imageSrc' absolute URL. Supports 4–12 cards; fewer cards may not show the scroll navigation buttons. 'count' and 'countLabel' display a stat below the card title. Per-card 'actions' array renders action buttons inside the card body. The header 'headingHref' adds a chevron-right link to the heading. 'background' defaults to 'white'.`,
-      usageRequirements: {
+  "carousel-horizontal-cards": {
+    exampleUsage:
+      "Horizontally scrolling card carousel with animated entrance, header with clickable title, and stat display on each card. Scroll buttons appear when overflow exists. Each card has an aspect-video image, title, optional count/countLabel stat, and optional action buttons.",
+    importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each CardItem requires 'id' and 'imageSrc' absolute URL. Supports 4–12 cards; fewer cards may not show the scroll navigation buttons. 'count' and 'countLabel' display a stat below the card title. Per-card 'actions' array renders action buttons inside the card body. The header 'headingHref' adds a chevron-right link to the heading. 'background' defaults to 'white'.`,
+    usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-        requiresSiteCapabilities: carouselCapabilities("media_library"),
-      },
-      exampleProps: {
-        heading: "Trending Destinations",
-        subtitle: "Discover the world's most captivating travel experiences",
-        headingHref: "#",
-        background: "white",
-        pattern: "diagonalCrossBasic",
-        patternOpacity: 0.7,
-        items: [
-          {
-            id: "santorini",
-            imageSrc: CAROUSEL_EXAMPLE_IMAGE_URL,
-            title: "Santorini, Greece",
-            count: "2,847",
-            countLabel: "Travel Experiences",
-          },
-          {
-            id: "kyoto",
-            imageSrc: "https://toastability-production.s3.amazonaws.com/9covpitzpuuobkg1m4mfokpi0enw",
-            title: "Kyoto, Japan",
-            count: "3,192",
-            countLabel: "Cultural Tours",
-          },
-          {
-            id: "patagonia",
-            imageSrc: "https://toastability-production.s3.amazonaws.com/op92dycs7w856e2jsvx20st0nyz9",
-            title: "Patagonia, Chile",
-            count: "1,563",
-            countLabel: "Adventure Activities",
-          },
-          {
-            id: "reykjavik",
-            imageSrc: "https://toastability-production.s3.amazonaws.com/gl7n7p6atndufbsm6q2ac5jeqttp",
-            title: "Reykjavik, Iceland",
-            count: "2,104",
-            countLabel: "Northern Lights Tours",
-          },
-        ],
-      },
+      requiresSiteCapabilities: carouselCapabilities("media_library"),
     },
+    exampleProps: {
+      heading: "Trending Destinations",
+      subtitle: "Discover the world's most captivating travel experiences",
+      headingHref: "#",
+      background: "white",
+      pattern: "diagonalCrossBasic",
+      patternOpacity: 0.7,
+      items: [
+        {
+          id: "santorini",
+          imageSrc: CAROUSEL_EXAMPLE_IMAGE_URL,
+          title: "Santorini, Greece",
+          count: "2,847",
+          countLabel: "Travel Experiences",
+        },
+        {
+          id: "kyoto",
+          imageSrc:
+            "https://toastability-production.s3.amazonaws.com/9covpitzpuuobkg1m4mfokpi0enw",
+          title: "Kyoto, Japan",
+          count: "3,192",
+          countLabel: "Cultural Tours",
+        },
+        {
+          id: "patagonia",
+          imageSrc:
+            "https://toastability-production.s3.amazonaws.com/op92dycs7w856e2jsvx20st0nyz9",
+          title: "Patagonia, Chile",
+          count: "1,563",
+          countLabel: "Adventure Activities",
+        },
+        {
+          id: "reykjavik",
+          imageSrc:
+            "https://toastability-production.s3.amazonaws.com/gl7n7p6atndufbsm6q2ac5jeqttp",
+          title: "Reykjavik, Iceland",
+          count: "2,104",
+          countLabel: "Northern Lights Tours",
+        },
+      ],
+    },
+  },
 
-    "carousel-image-hero": {
-      exampleUsage:
-        "Full-width hero section with a background image carousel, overlay content (badge, heading, description, CTAs), progress-dot navigation, and prev/next arrows. Images cross-fade automatically on a configurable interval.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each ImageItem in 'images' requires a 'src' absolute URL and 'alt' text. Supports 2–6 images for meaningful rotation. 'autoPlayInterval' is in milliseconds (default 7500). Badge renders above the heading using the Badge component. 'actions' renders CTA buttons centered below the description. Text is rendered white with text-shadow when images are present for readability. The component uses min-h-screen on mobile and min-h-[600px] on desktop.`,
-      usageRequirements: {
+  "carousel-image-hero": {
+    exampleUsage:
+      "Full-width hero section with a background image carousel, overlay content (badge, heading, description, CTAs), progress-dot navigation, and prev/next arrows. Images cross-fade automatically on a configurable interval.",
+    importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each ImageItem in 'images' requires a 'src' absolute URL and 'alt' text. Supports 2–6 images for meaningful rotation. 'autoPlayInterval' is in milliseconds (default 7500). Badge renders above the heading using the Badge component. 'actions' renders CTA buttons centered below the description. Text is rendered white with text-shadow when images are present for readability. The component uses min-h-screen on mobile and min-h-[600px] on desktop.`,
+    usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-        requiresSiteCapabilities: carouselCapabilities("media_library"),
-      },
-      exampleProps: {
-        badge: "New Product Launch",
-        heading: "Innovation That Changes Everything",
-        description:
-          "Experience the next generation of technology designed to empower your business.",
-        background: "dark",
-        spacing: "hero",
-        autoPlayInterval: 5500,
-        actions: [
-          {
-            label: "Start Free Trial",
-            href: "#",
-            variant: "default",
-            size: "lg",
-          },
-          {
-            label: "View Services",
-            href: "#",
-            variant: "outline",
-            size: "lg",
-          },
-        ],
-        images: [
-          {
-            src: CAROUSEL_EXAMPLE_IMAGE_URL,
-            alt: "Seamless integration ecosystem",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-            alt: "Advanced AI-powered workspace",
-          },
-          {
-            src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-            alt: "Collaborative team environment",
-          },
-        ],
-      },
+      requiresSiteCapabilities: carouselCapabilities("media_library"),
     },
+    exampleProps: {
+      badge: "New Product Launch",
+      heading: "Innovation That Changes Everything",
+      description:
+        "Experience the next generation of technology designed to empower your business.",
+      background: "dark",
+      spacing: "hero",
+      autoPlayInterval: 5500,
+      actions: [
+        {
+          label: "Start Free Trial",
+          href: "#",
+          variant: "default",
+          size: "lg",
+        },
+        {
+          label: "View Services",
+          href: "#",
+          variant: "outline",
+          size: "lg",
+        },
+      ],
+      images: [
+        {
+          src: CAROUSEL_EXAMPLE_IMAGE_URL,
+          alt: "Seamless integration ecosystem",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+          alt: "Advanced AI-powered workspace",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+          alt: "Collaborative team environment",
+        },
+      ],
+    },
+  },
 
-    "carousel-multi-step-showcase": {
-      exampleUsage:
-        "Multi-step feature showcase with numbered step buttons (desktop), animated progress bar, split layout (image left, text/steps right), Previous/Next navigation, and optional final CTA actions. Ideal for onboarding flows or process documentation.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Supports 3–6 steps; the progress bar divides 100% by step count. The 'actions' prop renders on the last step in place of the 'Next' button. 'heading' and 'subheading' appear centered above the progress bar. Images display in aspect-video inside an animated container.`,
-      usageRequirements: {
+  "carousel-multi-step-showcase": {
+    exampleUsage:
+      "Multi-step feature showcase with numbered step buttons (desktop), animated progress bar, split layout (image left, text/steps right), Previous/Next navigation, and optional final CTA actions. Ideal for onboarding flows or process documentation.",
+    importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Supports 3–6 steps; the progress bar divides 100% by step count. The 'actions' prop renders on the last step in place of the 'Next' button. 'heading' and 'subheading' appear centered above the progress bar. Images display in aspect-video inside an animated container.`,
+    usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-        requiresSiteCapabilities: carouselCapabilities("media_library"),
-      },
-      exampleProps: {
-        heading: "How It Works",
-        subheading: "Get started in minutes with our simple process",
-        steps: [
-          {
-            id: "step-1",
-            step: 1,
-            title: "Create Your Account",
-            description:
-              "Sign up in seconds with your email or Google account. No credit card required.",
-            image: CAROUSEL_EXAMPLE_IMAGE_URL,
-          },
-          {
-            id: "step-2",
-            step: 2,
-            title: "Connect Your Data",
-            description:
-              "Seamlessly integrate with your existing tools and services.",
-            image: "https://toastability-production.s3.amazonaws.com/dvz0441h9fxjhh88lzqbwdoyxv52",
-          },
-          {
-            id: "step-3",
-            step: 3,
-            title: "Launch & Scale",
-            description:
-              "Go live with confidence and grow your operations effortlessly.",
-            image: "https://toastability-production.s3.amazonaws.com/9covpitzpuuobkg1m4mfokpi0enw",
-          },
-        ],
-        actions: [
-          {
-            label: "Get Started Free",
-            href: "#signup",
-            variant: "default",
-            size: "lg",
-          },
-        ],
-      },
+      requiresSiteCapabilities: carouselCapabilities("media_library"),
     },
+    exampleProps: {
+      heading: "How It Works",
+      subheading: "Get started in minutes with our simple process",
+      steps: [
+        {
+          id: "step-1",
+          step: 1,
+          title: "Create Your Account",
+          description:
+            "Sign up in seconds with your email or Google account. No credit card required.",
+          image: CAROUSEL_EXAMPLE_IMAGE_URL,
+        },
+        {
+          id: "step-2",
+          step: 2,
+          title: "Connect Your Data",
+          description:
+            "Seamlessly integrate with your existing tools and services.",
+          image:
+            "https://toastability-production.s3.amazonaws.com/dvz0441h9fxjhh88lzqbwdoyxv52",
+        },
+        {
+          id: "step-3",
+          step: 3,
+          title: "Launch & Scale",
+          description:
+            "Go live with confidence and grow your operations effortlessly.",
+          image:
+            "https://toastability-production.s3.amazonaws.com/9covpitzpuuobkg1m4mfokpi0enw",
+        },
+      ],
+      actions: [
+        {
+          label: "Get Started Free",
+          href: "#signup",
+          variant: "default",
+          size: "lg",
+        },
+      ],
+    },
+  },
 
-    "carousel-portfolio-hero": {
-      exampleUsage:
-        "Fullscreen portfolio hero with auto-advancing image slider, gradient overlay, per-slide category badge/tag, title, description, and shared CTA actions. Navigation arrows and slide counter are positioned at the bottom. Ideal for creative agency or photography portfolio homepages.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each PortfolioSlide requires 'id' (number|string) and 'image' absolute URL. Supports 3–8 slides; 'autoPlayInterval' in milliseconds (default 5000). Slide 'tag' renders as a Badge above the title. Title is displayed as h1 in white with text-shadow for image readability. The 'actions' prop renders shared CTAs across all slides (not per-slide). Component is h-screen — suitable as a page hero. Default 'slideMediaOverlayIntensity' is 'high' for dark overlays on bright images.`,
-      usageRequirements: {
+  "carousel-portfolio-hero": {
+    exampleUsage:
+      "Fullscreen portfolio hero with auto-advancing image slider, gradient overlay, per-slide category badge/tag, title, description, and shared CTA actions. Navigation arrows and slide counter are positioned at the bottom. Ideal for creative agency or photography portfolio homepages.",
+    importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each PortfolioSlide requires 'id' (number|string) and 'image' absolute URL. Supports 3–8 slides; 'autoPlayInterval' in milliseconds (default 5000). Slide 'tag' renders as a Badge above the title. Title is displayed as h1 in white with text-shadow for image readability. The 'actions' prop renders shared CTAs across all slides (not per-slide). Component is h-screen — suitable as a page hero. Default 'slideMediaOverlayIntensity' is 'high' for dark overlays on bright images.`,
+    usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-        requiresSiteCapabilities: carouselCapabilities("media_library"),
-      },
-      exampleProps: {
-        autoPlayInterval: 6000,
-        slides: [
-          {
-            id: 1,
-            image: CAROUSEL_EXAMPLE_IMAGE_URL,
-            title: "Brand Identity Redesign",
-            description:
-              "Complete visual transformation for a global tech startup",
-            tag: "Branding",
-          },
-          {
-            id: 2,
-            image: "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82",
-            title: "E-Commerce Platform",
-            description:
-              "Award-winning shopping experience with AI-powered recommendations",
-            tag: "Web Design",
-          },
-          {
-            id: 3,
-            image: "https://toastability-production.s3.amazonaws.com/jhjfvkmdzktacyijd9fh6acc7o2c",
-            title: "Mobile Banking App",
-            description: "Intuitive financial management for the modern consumer",
-            tag: "Mobile Design",
-          },
-        ],
-        actions: [
-          {
-            label: "View All Projects",
-            href: "#",
-            variant: "default",
-            size: "lg",
-            asButton: true,
-          },
-        ],
-      },
+      requiresSiteCapabilities: carouselCapabilities("media_library"),
     },
+    exampleProps: {
+      autoPlayInterval: 6000,
+      slides: [
+        {
+          id: 1,
+          image: CAROUSEL_EXAMPLE_IMAGE_URL,
+          title: "Brand Identity Redesign",
+          description:
+            "Complete visual transformation for a global tech startup",
+          tag: "Branding",
+        },
+        {
+          id: 2,
+          image:
+            "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82",
+          title: "E-Commerce Platform",
+          description:
+            "Award-winning shopping experience with AI-powered recommendations",
+          tag: "Web Design",
+        },
+        {
+          id: 3,
+          image:
+            "https://toastability-production.s3.amazonaws.com/jhjfvkmdzktacyijd9fh6acc7o2c",
+          title: "Mobile Banking App",
+          description: "Intuitive financial management for the modern consumer",
+          tag: "Mobile Design",
+        },
+      ],
+      actions: [
+        {
+          label: "View All Projects",
+          href: "#",
+          variant: "default",
+          size: "lg",
+          asButton: true,
+        },
+      ],
+    },
+  },
 
-    "carousel-product-feature-showcase": {
-      exampleUsage:
-        "Interactive product feature carousel with a split layout: animated image on the left with optional color variant swatches; title, description, color selector, and dot indicators on the right. Prev/next arrows overlay the image. Final CTA actions rendered below feature details.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each ProductFeature requires 'id' and 'image' absolute URL. Supports 2–6 features; too many features crowds the dot indicators. 'colors' is optional; each ProductColorVariant can include an optional 'image' to swap the display image. Color 'value' accepts any CSS color string (hex, rgb, named). Image section uses aspect-square on mobile and aspect-4/3 on desktop. 'actions' are shared across all features and render on each feature's detail panel. Default spacing is 'hero'; default background is neutral.`,
-      usageRequirements: {
+  "carousel-product-feature-showcase": {
+    exampleUsage:
+      "Interactive product feature carousel with a split layout: animated image on the left with optional color variant swatches; title, description, color selector, and dot indicators on the right. Prev/next arrows overlay the image. Final CTA actions rendered below feature details.",
+    importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each ProductFeature requires 'id' and 'image' absolute URL. Supports 2–6 features; too many features crowds the dot indicators. 'colors' is optional; each ProductColorVariant can include an optional 'image' to swap the display image. Color 'value' accepts any CSS color string (hex, rgb, named). Image section uses aspect-square on mobile and aspect-4/3 on desktop. 'actions' are shared across all features and render on each feature's detail panel. Default spacing is 'hero'; default background is neutral.`,
+    usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-        requiresSiteCapabilities: carouselCapabilities("media_library"),
-      },
-      exampleProps: {
-        heading: "Premium Wireless Headphones",
-        subheading: "Studio-quality sound meets cutting-edge technology",
-        background: "gray",
-        spacing: "hero",
-        features: [
-          {
-            id: "noise-cancellation",
-            title: "Active Noise Cancellation",
-            description:
-              "Industry-leading ANC technology blocks out ambient noise for an immersive listening experience.",
-            image: CAROUSEL_EXAMPLE_IMAGE_URL,
-            colors: [
-              {
-                name: "Midnight Black",
-                value: "#1a1a1a",
-                image: CAROUSEL_EXAMPLE_IMAGE_URL,
-              },
-              {
-                name: "Silver Mist",
-                value: "#c0c0c0",
-                image: "https://toastability-production.s3.amazonaws.com/f921uoblxbv8f9bmr4s2ik7xxugl",
-              },
-            ],
-          },
-          {
-            id: "battery-life",
-            title: "40-Hour Battery Life",
-            description:
-              "Power through your entire week with up to 40 hours of continuous playback.",
-            image: "https://toastability-production.s3.amazonaws.com/2d4k8d5shwg82276hzj2ztbj7mxq",
-          },
-        ],
-        actions: [
-          {
-            label: "Buy Now",
-            href: "#purchase",
-            variant: "default",
-            size: "lg",
-          },
-          {
-            label: "Learn More",
-            href: "#details",
-            variant: "outline",
-            size: "lg",
-          },
-        ],
-      },
+      requiresSiteCapabilities: carouselCapabilities("media_library"),
     },
+    exampleProps: {
+      heading: "Premium Wireless Headphones",
+      subheading: "Studio-quality sound meets cutting-edge technology",
+      background: "gray",
+      spacing: "hero",
+      features: [
+        {
+          id: "noise-cancellation",
+          title: "Active Noise Cancellation",
+          description:
+            "Industry-leading ANC technology blocks out ambient noise for an immersive listening experience.",
+          image: CAROUSEL_EXAMPLE_IMAGE_URL,
+          colors: [
+            {
+              name: "Midnight Black",
+              value: "#1a1a1a",
+              image: CAROUSEL_EXAMPLE_IMAGE_URL,
+            },
+            {
+              name: "Silver Mist",
+              value: "#c0c0c0",
+              image:
+                "https://toastability-production.s3.amazonaws.com/f921uoblxbv8f9bmr4s2ik7xxugl",
+            },
+          ],
+        },
+        {
+          id: "battery-life",
+          title: "40-Hour Battery Life",
+          description:
+            "Power through your entire week with up to 40 hours of continuous playback.",
+          image:
+            "https://toastability-production.s3.amazonaws.com/2d4k8d5shwg82276hzj2ztbj7mxq",
+        },
+      ],
+      actions: [
+        {
+          label: "Buy Now",
+          href: "#purchase",
+          variant: "default",
+          size: "lg",
+        },
+        {
+          label: "Learn More",
+          href: "#details",
+          variant: "outline",
+          size: "lg",
+        },
+      ],
+    },
+  },
 
-    "carousel-progress-slider": {
-      exampleUsage:
-        "Context-driven slider with animated progress bar indicators for each slide. Left panel shows the current slide image (aspect-video); right panel lists all slide buttons with animated bottom-bar progress. Features play/pause toggle overlaid on the image.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each ProgressSlide requires 'id' string and 'image' absolute URL. Supports 3–6 slides; more slides make individual progress bars hard to read. 'duration' is the auto-advance period per slide in milliseconds (default 8000). 'vertical' switches progress indicators to fill vertically instead of horizontally. 'heading' and 'subheading' are plain strings (not ReactNode) and render via Section title/subtitle. Play/pause button renders bottom-left on the image panel.`,
-      usageRequirements: {
+  "carousel-progress-slider": {
+    exampleUsage:
+      "Context-driven slider with animated progress bar indicators for each slide. Left panel shows the current slide image (aspect-video); right panel lists all slide buttons with animated bottom-bar progress. Features play/pause toggle overlaid on the image.",
+    importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each ProgressSlide requires 'id' string and 'image' absolute URL. Supports 3–6 slides; more slides make individual progress bars hard to read. 'duration' is the auto-advance period per slide in milliseconds (default 8000). 'vertical' switches progress indicators to fill vertically instead of horizontally. 'heading' and 'subheading' are plain strings (not ReactNode) and render via Section title/subtitle. Play/pause button renders bottom-left on the image panel.`,
+    usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-        requiresSiteCapabilities: carouselCapabilities("media_library"),
-      },
-      exampleProps: {
-        heading: "Platform Capabilities",
-        subheading: "Discover what makes our solution the industry leader",
-        background: "gray",
-        spacing: "hero",
-        pattern: "diagonalCrossBasic",
-        patternOpacity: 0.8,
-        duration: 8000,
-        slides: [
-          {
-            id: "analytics",
-            title: "Advanced Analytics",
-            description:
-              "Gain deep insights into your business performance with real-time dashboards.",
-            image: CAROUSEL_EXAMPLE_IMAGE_URL,
-          },
-          {
-            id: "automation",
-            title: "Intelligent Automation",
-            description:
-              "Streamline repetitive tasks with smart automation tools that learn over time.",
-            image: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm",
-          },
-          {
-            id: "collaboration",
-            title: "Team Collaboration",
-            description:
-              "Bring your entire team together with integrated communication tools.",
-            image: "https://toastability-production.s3.amazonaws.com/gg5qnvb4nsl2k3g4dw4ls8bsllwh",
-          },
-        ],
-      },
+      requiresSiteCapabilities: carouselCapabilities("media_library"),
     },
+    exampleProps: {
+      heading: "Platform Capabilities",
+      subheading: "Discover what makes our solution the industry leader",
+      background: "gray",
+      spacing: "hero",
+      pattern: "diagonalCrossBasic",
+      patternOpacity: 0.8,
+      duration: 8000,
+      slides: [
+        {
+          id: "analytics",
+          title: "Advanced Analytics",
+          description:
+            "Gain deep insights into your business performance with real-time dashboards.",
+          image: CAROUSEL_EXAMPLE_IMAGE_URL,
+        },
+        {
+          id: "automation",
+          title: "Intelligent Automation",
+          description:
+            "Streamline repetitive tasks with smart automation tools that learn over time.",
+          image:
+            "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm",
+        },
+        {
+          id: "collaboration",
+          title: "Team Collaboration",
+          description:
+            "Bring your entire team together with integrated communication tools.",
+          image:
+            "https://toastability-production.s3.amazonaws.com/gg5qnvb4nsl2k3g4dw4ls8bsllwh",
+        },
+      ],
+    },
+  },
 
-    "carousel-scrolling-feature-showcase": {
-      exampleUsage:
-        "Scroll-driven feature showcase with a sticky image panel (desktop) that cross-fades to match the feature the user is scrolling past. On mobile each feature shows its own image inline. IntersectionObserver activates features as they enter the viewport.",
-      importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each FeatureItem requires 'id' string and 'image' absolute URL. Supports 3–8 features; too few features makes the sticky panel pointless. The sticky image panel is hidden on mobile (lg:block) — mobile renders inline images. Feature descriptions should be paragraph-length (3–5 sentences) for effective scroll spacing. The right column adds substantial bottom padding (lg:pb-[60vh]) to allow the last feature to scroll into view. The 'heading' and 'subheading' appear centered above the scrollable content.`,
-      usageRequirements: {
+  "carousel-scrolling-feature-showcase": {
+    exampleUsage:
+      "Scroll-driven feature showcase with a sticky image panel (desktop) that cross-fades to match the feature the user is scrolling past. On mobile each feature shows its own image inline. IntersectionObserver activates features as they enter the viewport.",
+    importantUsageNotes: `${CAROUSEL_MEDIA_NOTE} Each FeatureItem requires 'id' string and 'image' absolute URL. Supports 3–8 features; too few features makes the sticky panel pointless. The sticky image panel is hidden on mobile (lg:block) — mobile renders inline images. Feature descriptions should be paragraph-length (3–5 sentences) for effective scroll spacing. The right column adds substantial bottom padding (lg:pb-[60vh]) to allow the last feature to scroll into view. The 'heading' and 'subheading' appear centered above the scrollable content.`,
+    usageRequirements: {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {},
-        requiresSiteCapabilities: carouselCapabilities("media_library"),
-      },
-      exampleProps: {
-        heading: "Revolutionary Features",
-        subheading: "Everything you need to transform your business operations",
-        background: "white",
-        pattern: "diagonalCrossBasic",
-        patternOpacity: 0.7,
-        features: [
-          {
-            id: "ai-assistant",
-            title: "AI-Powered Virtual Assistant",
-            description:
-              "Meet your new intelligent helper that understands context and provides personalized recommendations. Available 24/7 to answer questions, automate tasks, and boost productivity.",
-            image: CAROUSEL_EXAMPLE_IMAGE_URL,
-          },
-          {
-            id: "real-time-sync",
-            title: "Real-Time Data Synchronization",
-            description:
-              "Stay perfectly in sync across all your devices and team members. Changes appear instantly for everyone, eliminating version conflicts.",
-            image: "https://toastability-production.s3.amazonaws.com/9covpitzpuuobkg1m4mfokpi0enw",
-          },
-          {
-            id: "custom-workflows",
-            title: "No-Code Workflow Builder",
-            description:
-              "Design sophisticated business processes without writing a single line of code. Our visual builder includes 200+ pre-built templates.",
-            image: "https://toastability-production.s3.amazonaws.com/op92dycs7w856e2jsvx20st0nyz9",
-          },
-        ],
-      },
+      requiresSiteCapabilities: carouselCapabilities("media_library"),
     },
-  };
+    exampleProps: {
+      heading: "Revolutionary Features",
+      subheading: "Everything you need to transform your business operations",
+      background: "white",
+      pattern: "diagonalCrossBasic",
+      patternOpacity: 0.7,
+      features: [
+        {
+          id: "ai-assistant",
+          title: "AI-Powered Virtual Assistant",
+          description:
+            "Meet your new intelligent helper that understands context and provides personalized recommendations. Available 24/7 to answer questions, automate tasks, and boost productivity.",
+          image: CAROUSEL_EXAMPLE_IMAGE_URL,
+        },
+        {
+          id: "real-time-sync",
+          title: "Real-Time Data Synchronization",
+          description:
+            "Stay perfectly in sync across all your devices and team members. Changes appear instantly for everyone, eliminating version conflicts.",
+          image:
+            "https://toastability-production.s3.amazonaws.com/9covpitzpuuobkg1m4mfokpi0enw",
+        },
+        {
+          id: "custom-workflows",
+          title: "No-Code Workflow Builder",
+          description:
+            "Design sophisticated business processes without writing a single line of code. Our visual builder includes 200+ pre-built templates.",
+          image:
+            "https://toastability-production.s3.amazonaws.com/op92dycs7w856e2jsvx20st0nyz9",
+        },
+      ],
+    },
+  },
+};
 
 // ============================================================================
 // GALLERY BLOCK CONTRACTS
@@ -7973,8 +8983,7 @@ const GALLERY_EXAMPLE_IMAGE_URL =
   "https://cdn.ing/assets/i/r/308196/g6bbn73f7gxal82uu49m9prfd0u8/workplace-in-cafe.webp";
 const GALLERY_MEDIA_NOTE =
   "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.";
-const galleryCapabilities = (...capabilities: SiteCapability[]) =>
-  capabilities;
+const galleryCapabilities = (...capabilities: SiteCapability[]) => capabilities;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // expandable-case-study-cards
@@ -7984,7 +8993,7 @@ const expandableCaseStudyCards: GalleryBlockContract = {
     "Showcase 3–6 portfolio items or case studies in an expandable horizontal strip. The hovered card expands to 60 % width; others shrink to 20 %. Each card carries a background image, optional logo, optional company name, title, description, and category badges.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} The 'items[].image' prop is the full-bleed background; supply a high-contrast image so the white overlay text is legible. The 'items[].logo' prop expects a dark/black logo PNG – the component applies 'invert' CSS so it appears white on dark images. At least 2 items are required for the expand-on-hover UX to be meaningful; 4–6 items are recommended. Each item needs a unique 'id' string.`,
   usageRequirements: {
-      requiredProps: [],
+    requiredProps: [],
     requiresSiteCapabilities: galleryCapabilities(
       "media_library",
       "portfolio_items",
@@ -8048,7 +9057,7 @@ const carouselBadgeCards: GalleryBlockContract = {
     "Display a horizontally-scrollable carousel of content cards, each with a 3:2 image, a category badge, a title, a description, and an optional 'Read more' link. Arrow buttons in the header control navigation.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} Provide at least 3 items so the carousel controls are useful; 5–8 items is the sweet spot. 'readMoreText' is optional – omit it to hide the link row. The 'background' prop controls the card background via 'getNestedCardBg'; prefer 'white' or 'gray' for good contrast.`,
   usageRequirements: {
-      requiredProps: [],
+    requiredProps: [],
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     propConstraints: {
       items: {
@@ -8112,7 +9121,7 @@ const carouselGradientOverlay: GalleryBlockContract = {
     "Present portfolio items or case studies in a carousel where each card is a tall image with a black-to-transparent gradient overlay carrying white title, description, and a 'Read more' link. Dot indicators show position.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} Each card is '320 px' wide on mobile and '360 px' on desktop with an intrinsic 'aspect-video' ratio on large screens. The gradient overlay ('from-black from-20% to-transparent mix-blend-multiply') only reads well on photographic images with tonal variety – avoid flat solid-colour images. Supply at least 3 items so both navigation arrow states (disabled/enabled) are reachable.`,
   usageRequirements: {
-      requiredProps: [],
+    requiredProps: [],
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     propConstraints: {
       items: {
@@ -8175,7 +9184,7 @@ const carouselDemoLink: GalleryBlockContract = {
     "Showcase platform solutions or product features in a carousel with a prominent 'Book a demo' external link in the header. Cards show a 3:2 image with hover-zoom, title, summary, and optional 'Read more' link.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} The 'demoAction' prop renders a styled link with an arrow icon. Pass '{ label, href }' at minimum; the 'href' should be an external URL (calendly, typeform, etc.). Each item uses a 'url' prop (not 'href') as the card link destination. The 'summary' field (not 'description') holds the card body text. Carousel items are 'basis-85%' on mobile and 'max-w-[452px]' on desktop – images should be landscape oriented. Provide 3–8 items; fewer than 3 makes the navigation arrows feel redundant.`,
   usageRequirements: {
-      requiredProps: [],
+    requiredProps: [],
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     propConstraints: {
       items: {
@@ -8240,7 +9249,7 @@ const autoScrollCarousel: GalleryBlockContract = {
     "Display a continuously auto-scrolling image strip alongside a two-column header with a heading, description, and a CTA link. Images animate in a staggered pattern with alternating vertical offsets. Ideal for team photos, product images, or portfolio work.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} The carousel uses 'embla-carousel-auto-scroll' and loops infinitely – do not add manual navigation controls. The 'images' prop is an array of '{ src, alt }' objects; provide at least 6 images for the loop to feel seamless. Each image is constrained to 'max-h-80 max-w-60' and receives alternating top-margin via 'index % 2 === 0 ? 'mt-16' : 'mt-7'' for the staggered look. The 'action' CTA renders as a primary-coloured text link with an arrow; supply '{ label, href }' at minimum.`,
   usageRequirements: {
-      requiredProps: [],
+    requiredProps: [],
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     propConstraints: {
       images: {
@@ -8286,7 +9295,7 @@ const carouselSidebarResources: GalleryBlockContract = {
     "Present a resource library (guides, whitepapers, tutorials, case studies) in a three-column layout: a sidebar listing the first 3 resources with category labels and 'View all' link, and a carousel of full cards with aspect-video thumbnail images.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} category link The sidebar only ever shows the first 3 resources – this is intentional. The carousel shows all of them. Clicking a carousel image opens a built-in lightbox viewer; this is automatic and requires no extra configuration. Provide at least 3 resources to populate the sidebar; 5–8 is ideal for the carousel. 'viewAllText' and 'viewAllHref' are optional but recommended for discoverability.`,
   usageRequirements: {
-      requiredProps: [],
+    requiredProps: [],
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     propConstraints: {
       resources: {
@@ -8349,7 +9358,7 @@ const carouselIconTabs: GalleryBlockContract = {
     "Showcase product features or workflow steps with a centered heading and badge, a full-width image carousel, and clickable icon-tab sections below that sync to carousel slides. Each tab shows an icon, title, and description.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} title text The 'badge' prop appears below the heading as a secondary badge – keep it short (2–4 words). Tabs are only visible on 'md' and above; on mobile the description appears inline below each slide image. Clicking a slide image opens a built-in lightbox – no extra configuration needed. Provide exactly 3 sections for ideal layout balance; fewer looks sparse, more crowds the tab row on desktop.`,
   usageRequirements: {
-      requiredProps: ["sections"],
+    requiredProps: ["sections"],
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     propConstraints: {
       sections: {
@@ -8407,7 +9416,7 @@ const testimonialCarouselCards: GalleryBlockContract = {
     "Display client testimonials in a two-panel carousel: a static left sidebar with heading, description, and navigation buttons; a scrollable right area of cards each pairing a portrait photo with a coloured quote panel showing username badge, quote, and author.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} username quote author image The 'image' prop should be a portrait-oriented photo (at least 400 × 460 px). The optional 'avatar' prop adds a small square avatar beside the author name. The optional 'href' renders a 'Read Review' link below the author. Provide at least 3 testimonials; 4–6 is ideal.`,
   usageRequirements: {
-      requiredProps: [],
+    requiredProps: [],
     requiresSiteCapabilities: galleryCapabilities(
       "media_library",
       "reviews_or_testimonials",
@@ -8475,7 +9484,7 @@ const carouselIconSidebar: GalleryBlockContract = {
     "Showcase product features or service offerings in a two-column layout: a dynamic sidebar panel (showing the active slide's icon, title, description, and navigation arrows) paired with a large image carousel. The sidebar updates as slides change.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} title description The sidebar panel uses card-style styling (shadow, border, bg-card). Do not override with conflicting background colours. Clicking any carousel image opens a built-in lightbox – this is automatic. Images render at a 4:3 aspect ratio inside the carousel. Landscape images work best. Provide at least 2 items; 4–6 is optimal for the sidebar navigation arrows to be useful. The optional 'title' and 'description' section-level props appear above the carousel as a header.`,
   usageRequirements: {
-      requiredProps: [],
+    requiredProps: [],
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     propConstraints: {
       items: {
@@ -8534,7 +9543,7 @@ const carouselGradientText: GalleryBlockContract = {
     "Display portfolio items or product highlights in a two-column layout: heading/subheading with navigation on the left and a portrait-card carousel on the right. Each card has a top-to-bottom gradient overlay with white title and description, plus expanding pill indicators at the bottom.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} Cards render at 'aspect-4/5' with a 'max-h-[500px]' cap – portrait images work best. The 'heading' and 'subheading' are rendered together in a single '<h2>' element: '{heading} {subheading}'. The 'subheading' gets 'text-primary' colouring. The 'tagline' prop renders below the heading as a paragraph. The 'href' per item is optional; omitting it makes the card non-interactive. Expanding pill indicators at the bottom show the active slide title – keep titles short (1–3 words). Provide 4–10 items for a rich indicator strip.`,
   usageRequirements: {
-      requiredProps: [],
+    requiredProps: [],
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     propConstraints: {
       items: {
@@ -8593,7 +9602,7 @@ const serviceHoverCarousel: GalleryBlockContract = {
     "Showcase services or products in a carousel of portrait cards where hovering swaps between a primary image and an alternate hover image. Each card shows a tag badge overlay, title, and price. Includes a progress-bar indicator and a built-in lightbox.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} Each item requires both 'image' AND 'hoverImage' – both must be real absolute URLs. The hover image replaces the primary image on mouse-over via opacity transition. Images render at 'aspect-3/4' (portrait). Provide portrait-oriented images for the best result. The 'tag' prop is displayed as an outline badge in the top-left of the card. The 'price' prop renders as plain text; use 'pricePrefix' to add 'Starting at' or similar label. The 'href' prop is optional; omit it to suppress navigation on click. Provide 3–8 items; the progress-bar width is divided by 'items.length'.`,
   usageRequirements: {
-      requiredProps: [],
+    requiredProps: [],
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     propConstraints: {
       items: {
@@ -8660,7 +9669,7 @@ const carouselTabsContent: GalleryBlockContract = {
     "Present product features or solutions in a tabbed carousel where each slide is a two-column card: rich text content (title, description, note) on the left and an image on the right. An animated underline tab bar syncs with the active slide.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} title description note The 'category' string must be unique across all items – it is used as the tab key and for syncing carousel position. The tab underline indicator is positioned absolutely and animates via measured 'offsetWidth' / 'offsetLeft' – keep tab labels short to avoid overflow. Clicking the image opens a built-in lightbox viewer. Provide 3–6 items; more makes the tab row crowded.`,
   usageRequirements: {
-      requiredProps: [],
+    requiredProps: [],
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     propConstraints: {
       items: {
@@ -8721,7 +9730,7 @@ const carouselScaleFocus: GalleryBlockContract = {
     "Display a gallery of images where the active slide is full-scale and fully opaque, while adjacent slides scale down to 70 % and fade to 40 % opacity. Large navigation arrows are positioned outside the carousel area, and dot indicators allow direct slide selection.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} Each image requires 'src' and 'alt'; the optional 'className' is applied to the image container. Images render at 'aspect-4/3' with 'max-w-200'. Landscape images are strongly recommended. Clicking any image opens a built-in lightbox viewer. The 'startIndex' prop (default '1') sets the initially visible slide – use '1' to start on the second image so adjacent slides are visible. Provide at least 3 images; 5–9 is ideal for the scale-focus effect to be visible.`,
   usageRequirements: {
-      requiredProps: [],
+    requiredProps: [],
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     propConstraints: {
       images: {
@@ -8762,8 +9771,8 @@ const masonryMotionGrid: GalleryBlockContract = {
     "Present a photo gallery or portfolio in a 4-column (2 on mobile) masonry grid with staggered image heights. Each image animates into view with scale and Y-movement. Alternating columns animate from opposite directions. An optional duplicate grid renders below for extended galleries. Clicking an image opens a lightbox.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} column2Images column3Images column4Images'. Each image object requires 'src alt Column 1 and 3 animate upward ('y: 50 → 0'); column 2 and 4 animate downward ('y: -50 → 0') for a natural wave effect. Provide 2–4 images per column for a balanced layout. 'showDuplicateGrid' (default 'true') renders an identical second grid below the first – set to 'false' for shorter galleries. Requires Framer Motion ('framer-motion') to be installed in the consuming app.`,
   usageRequirements: {
-      requiredProps: [],
-      propConstraints: {},
+    requiredProps: [],
+    propConstraints: {},
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     mediaSlots: {
       "column1Images[].src": {
@@ -8781,20 +9790,52 @@ const masonryMotionGrid: GalleryBlockContract = {
     background: "dark",
     spacing: "lg",
     column1Images: [
-      { src: GALLERY_EXAMPLE_IMAGE_URL, alt: "Gallery image 1", height: "h-60" },
-      { src: GALLERY_EXAMPLE_IMAGE_URL, alt: "Gallery image 2", height: "h-80" },
+      {
+        src: GALLERY_EXAMPLE_IMAGE_URL,
+        alt: "Gallery image 1",
+        height: "h-60",
+      },
+      {
+        src: GALLERY_EXAMPLE_IMAGE_URL,
+        alt: "Gallery image 2",
+        height: "h-80",
+      },
     ],
     column2Images: [
-      { src: GALLERY_EXAMPLE_IMAGE_URL, alt: "Gallery image 3", height: "h-72" },
-      { src: GALLERY_EXAMPLE_IMAGE_URL, alt: "Gallery image 4", height: "h-60" },
+      {
+        src: GALLERY_EXAMPLE_IMAGE_URL,
+        alt: "Gallery image 3",
+        height: "h-72",
+      },
+      {
+        src: GALLERY_EXAMPLE_IMAGE_URL,
+        alt: "Gallery image 4",
+        height: "h-60",
+      },
     ],
     column3Images: [
-      { src: GALLERY_EXAMPLE_IMAGE_URL, alt: "Gallery image 5", height: "h-80" },
-      { src: GALLERY_EXAMPLE_IMAGE_URL, alt: "Gallery image 6", height: "h-72" },
+      {
+        src: GALLERY_EXAMPLE_IMAGE_URL,
+        alt: "Gallery image 5",
+        height: "h-80",
+      },
+      {
+        src: GALLERY_EXAMPLE_IMAGE_URL,
+        alt: "Gallery image 6",
+        height: "h-72",
+      },
     ],
     column4Images: [
-      { src: GALLERY_EXAMPLE_IMAGE_URL, alt: "Gallery image 7", height: "h-72" },
-      { src: GALLERY_EXAMPLE_IMAGE_URL, alt: "Gallery image 8", height: "h-80" },
+      {
+        src: GALLERY_EXAMPLE_IMAGE_URL,
+        alt: "Gallery image 7",
+        height: "h-72",
+      },
+      {
+        src: GALLERY_EXAMPLE_IMAGE_URL,
+        alt: "Gallery image 8",
+        height: "h-80",
+      },
     ],
   },
 };
@@ -8807,8 +9848,8 @@ const blurVignetteGrid: GalleryBlockContract = {
     "Showcase a photo portfolio in a 5-column CSS grid where each image has an edge-blurring vignette effect that fades on hover. Images animate into view with Framer Motion. Column span (1–5) and height are configurable per image.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} alt The 'colSpan' values in your image array should sum to multiples of 'gridColumns' (default 5) per row for a neat layout. Common patterns: [2, 3] or [3, 2] per row. The vignette effect is a CSS 'backdrop-filter: blur' mask that is active by default and dissolves on hover. Tweak 'vignetteConfig' props ('radius', 'inset', 'transitionLength', 'blur') to adjust the edge effect. Requires Framer Motion ('framer-motion') to be installed in the consuming app. No built-in lightbox – clicking images has no default action.`,
   usageRequirements: {
-      requiredProps: [],
-      propConstraints: {},
+    requiredProps: [],
+    propConstraints: {},
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     mediaSlots: {
       "images[].src": {
@@ -8874,7 +9915,7 @@ const interiorCarousel: GalleryBlockContract = {
     "Display a looping interior design or real estate image gallery in a multi-column carousel (4-up on desktop) with overlaid semi-transparent navigation arrows. Includes a heading and description header, lightbox on image click, and optional infinite loop.",
   importantUsageNotes: `${GALLERY_MEDIA_NOTE} The 'images' prop accepts either plain URL strings or '{ src, alt, className }' objects – you can mix both. Images render at 'aspect-4/5' (portrait). Provide portrait-oriented images for the best result. Clicking any image opens a built-in lightbox viewer. The 'loop' prop (default 'true') enables infinite looping; set to 'false' for a bounded gallery. Navigation arrows are overlaid on the carousel at vertical centre with 'bg-foreground text-background' styling. Provide 6–12 images for a rich gallery feel.`,
   usageRequirements: {
-      requiredProps: [],
+    requiredProps: [],
     requiresSiteCapabilities: galleryCapabilities("media_library"),
     propConstraints: {
       images: {
@@ -9270,7 +10311,8 @@ const FOOTER_BLOCK_CONTRACTS: Record<string, FooterBlockContract> = {
         alt: "Company Logo",
         title: "Acme",
       },
-      tagline: "Making the world a better place through constructive innovation.",
+      tagline:
+        "Making the world a better place through constructive innovation.",
       sitemap: [
         {
           title: "Product",
@@ -9306,7 +10348,11 @@ const FOOTER_BLOCK_CONTRACTS: Record<string, FooterBlockContract> = {
       requiredProps: [],
       propConstraints: {},
       mediaSlots: {
-        logo: logoSlot("logo.src", "Brand logo shown in the brand column.", false),
+        logo: logoSlot(
+          "logo.src",
+          "Brand logo shown in the brand column.",
+          false,
+        ),
       },
     },
     exampleProps: {
@@ -9370,7 +10416,8 @@ const FOOTER_BLOCK_CONTRACTS: Record<string, FooterBlockContract> = {
         "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
       logoAlt: "Company Logo",
       tagline: "Crafting digital experiences that matter.",
-      description: "We partner with ambitious teams to build products people love.",
+      description:
+        "We partner with ambitious teams to build products people love.",
       linkGroups: [
         {
           title: "Services",
@@ -9575,7 +10622,11 @@ const FOOTER_BLOCK_CONTRACTS: Record<string, FooterBlockContract> = {
       propConstraints: {},
       requiresSiteCapabilities: footerCapabilities("contact_info"),
       mediaSlots: {
-        logo: logoSlot("logo.src", "Brand logo shown above the heading.", false),
+        logo: logoSlot(
+          "logo.src",
+          "Brand logo shown above the heading.",
+          false,
+        ),
       },
     },
     exampleProps: {
@@ -9999,7 +11050,8 @@ const FOOTER_BLOCK_CONTRACTS: Record<string, FooterBlockContract> = {
         alt: "Company Logo",
       },
       newsletterTitle: "Stay in the loop",
-      newsletterDescription: "Get updates on new products and exclusive offers.",
+      newsletterDescription:
+        "Get updates on new products and exclusive offers.",
       footerLinks: [
         {
           title: "Shop",
@@ -10322,19 +11374,19 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
       mediaSlots: {
         logo: logoSlot("logo", "Brand logo.", true),
         "menuLinks[].featuredHeroCard.image": imageSlot(
-                                                "menuLinks[].featuredHeroCard.image",
-                                                "Hero card image for the dropdown panel.",
-                                                ["feature"],
-                                                "large",
-                                                false,
-                                              ),
+          "menuLinks[].featuredHeroCard.image",
+          "Hero card image for the dropdown panel.",
+          ["feature"],
+          "large",
+          false,
+        ),
         "menuLinks[].productCategories[].products[].image": imageSlot(
-                                                              "menuLinks[].productCategories[].products[].image",
-                                                              "Product thumbnail in the mega menu.",
-                                                              ["thumbnail"],
-                                                              "large",
-                                                              false,
-                                                            ),
+          "menuLinks[].productCategories[].products[].image",
+          "Product thumbnail in the mega menu.",
+          ["thumbnail"],
+          "large",
+          false,
+        ),
       },
       propConstraints: {
         menuLinks: { minItems: 2, maxItems: 7 },
@@ -10573,12 +11625,12 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
       mediaSlots: {
         logo: logoSlot("logo", "Brand logo.", true),
         "navigation[].links[].image": imageSlot(
-                                        "navigation[].links[].image",
-                                        "Preview image shown on hover of each dropdown link.",
-                                        ["feature"],
-                                        "large",
-                                        true,
-                                      ),
+          "navigation[].links[].image",
+          "Preview image shown on hover of each dropdown link.",
+          ["feature"],
+          "large",
+          true,
+        ),
       },
       propConstraints: {
         navigation: { minItems: 2, maxItems: 6 },
@@ -10639,7 +11691,11 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
     usageRequirements: {
       requiredProps: ["logo", "navigation"],
       mediaSlots: {
-        logo: logoSlot("logo", "Brand logo (white version recommended for dark theme).", true),
+        logo: logoSlot(
+          "logo",
+          "Brand logo (white version recommended for dark theme).",
+          true,
+        ),
       },
       propConstraints: {
         navigation: { minItems: 2, maxItems: 6 },
@@ -10703,26 +11759,26 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
       mediaSlots: {
         logo: logoSlot("logo", "Brand logo.", true),
         "menuLinks[].links[].image": imageSlot(
-                                       "menuLinks[].links[].image",
-                                       "Preview image for animated-image-preview layout links.",
-                                       ["feature"],
-                                       "large",
-                                       false,
-                                     ),
+          "menuLinks[].links[].image",
+          "Preview image for animated-image-preview layout links.",
+          ["feature"],
+          "large",
+          false,
+        ),
         "menuLinks[].featuredLinks[].background": imageSlot(
-                                                    "menuLinks[].featuredLinks[].background",
-                                                    "Background image for featured card links.",
-                                                    ["feature"],
-                                                    "large",
-                                                    false,
-                                                  ),
+          "menuLinks[].featuredLinks[].background",
+          "Background image for featured card links.",
+          ["feature"],
+          "large",
+          false,
+        ),
         "menuLinks[].imageLink.image": imageSlot(
-                                         "menuLinks[].imageLink.image",
-                                         "Side image for grouped-links-image layout.",
-                                         ["feature"],
-                                         "large",
-                                         false,
-                                       ),
+          "menuLinks[].imageLink.image",
+          "Side image for grouped-links-image layout.",
+          ["feature"],
+          "large",
+          false,
+        ),
       },
       propConstraints: {
         menuLinks: { minItems: 2, maxItems: 6 },
@@ -10926,9 +11982,7 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
         },
         { title: "Analytics", url: "#" },
       ],
-      authActions: [
-        { label: "Upgrade Plan", variant: "default", href: "#" },
-      ],
+      authActions: [{ label: "Upgrade Plan", variant: "default", href: "#" }],
     },
   },
 
@@ -10939,7 +11993,11 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
     usageRequirements: {
       requiredProps: ["logo", "navItems"],
       mediaSlots: {
-        logo: logoSlot("logo", "Brand logo (will be inverted when transparent).", true),
+        logo: logoSlot(
+          "logo",
+          "Brand logo (will be inverted when transparent).",
+          true,
+        ),
       },
       propConstraints: {
         navItems: { minItems: 2, maxItems: 6 },
@@ -10960,9 +12018,7 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
         { title: "Services", url: "#" },
         { title: "Contact", url: "#" },
       ],
-      authActions: [
-        { label: "Let's Talk", variant: "outline", href: "#" },
-      ],
+      authActions: [{ label: "Let's Talk", variant: "outline", href: "#" }],
     },
   },
 
@@ -10975,12 +12031,12 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
       mediaSlots: {
         logo: logoSlot("logo", "Brand logo.", true),
         "menu[].groups[].featuredImage.src": imageSlot(
-                                               "menu[].groups[].featuredImage.src",
-                                               "Featured image displayed alongside the group links.",
-                                               ["feature", "thumbnail"],
-                                               "large",
-                                               false,
-                                             ),
+          "menu[].groups[].featuredImage.src",
+          "Featured image displayed alongside the group links.",
+          ["feature", "thumbnail"],
+          "large",
+          false,
+        ),
       },
       propConstraints: {
         menu: { minItems: 2, maxItems: 6 },
@@ -11213,7 +12269,12 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
         { title: "Company", url: "#" },
       ],
       authActions: [
-        { label: "Start Free Trial", href: "#", asButton: true, variant: "link" },
+        {
+          label: "Start Free Trial",
+          href: "#",
+          asButton: true,
+          variant: "link",
+        },
         { label: "Book a Demo", href: "#", asButton: true, variant: "default" },
       ],
     },
@@ -11248,7 +12309,12 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
         { title: "Settings", url: "#", icon: "lucide/settings" },
       ],
       authActions: [
-        { label: "Notifications", variant: "ghost", href: "#", icon: "lucide/bell" },
+        {
+          label: "Notifications",
+          variant: "ghost",
+          href: "#",
+          icon: "lucide/bell",
+        },
         { label: "Profile", variant: "ghost", href: "#", icon: "lucide/user" },
       ],
     },
@@ -11263,12 +12329,12 @@ const NAVBAR_BLOCK_CONTRACTS: Record<string, NavbarBlockContract> = {
       mediaSlots: {
         logo: logoSlot("logo", "Brand logo.", true),
         "menu[].tabs[].featured.image": imageSlot(
-                                          "menu[].tabs[].featured.image",
-                                          "Featured card image inside the tabbed dropdown panel.",
-                                          ["feature"],
-                                          "large",
-                                          false,
-                                        ),
+          "menu[].tabs[].featured.image",
+          "Featured card image inside the tabbed dropdown panel.",
+          ["feature"],
+          "large",
+          false,
+        ),
       },
       propConstraints: {
         menu: { minItems: 1, maxItems: 5 },
@@ -11431,15 +12497,13 @@ const img = TESTIMONIALS_EXAMPLE_IMAGE_URL;
 // Contracts
 // ---------------------------------------------------------------------------
 
-const TESTIMONIALS_BLOCK_CONTRACTS: Record<
-  string,
-  TestimonialsBlockContract
-> = {
-  // -------------------------------------------------------------------------
-  // testimonials-list-verified
-  // -------------------------------------------------------------------------
-  "testimonials-list-verified": {
-    exampleUsage: `
+const TESTIMONIALS_BLOCK_CONTRACTS: Record<string, TestimonialsBlockContract> =
+  {
+    // -------------------------------------------------------------------------
+    // testimonials-list-verified
+    // -------------------------------------------------------------------------
+    "testimonials-list-verified": {
+      exampleUsage: `
 <TestimonialsListVerified
   heading="Verified Customer Reviews"
   verifiedPurchaseLabel="Verified"
@@ -11475,81 +12539,81 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   background="white"
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each review needs a rating (1–5), a title, content, and an author. The verified flag should only be set when the review platform actually verifies purchases. avatarSrc must be an absolute image URL. The verified indicator renders ONLY when verifiedPurchaseLabel is supplied — there is NO fallback wording; choose a label that fits the client's industry (e.g. 'Verified' / 'Verified Diner' / 'Verified Guest') or omit the prop to hide the indicator entirely.",
-    usageRequirements: {
-      requiredProps: ["reviews"],
-      propConstraints: {
-        reviews: { required: true, minItems: 3, maxItems: 8 },
-        "reviews[].rating": {
-          required: true,
-          note: "Integer 1–5. Must reflect actual review rating.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each review needs a rating (1–5), a title, content, and an author. The verified flag should only be set when the review platform actually verifies purchases. avatarSrc must be an absolute image URL. The verified indicator renders ONLY when verifiedPurchaseLabel is supplied — there is NO fallback wording; choose a label that fits the client's industry (e.g. 'Verified' / 'Verified Diner' / 'Verified Guest') or omit the prop to hide the indicator entirely.",
+      usageRequirements: {
+        requiredProps: ["reviews"],
+        propConstraints: {
+          reviews: { required: true, minItems: 3, maxItems: 8 },
+          "reviews[].rating": {
+            required: true,
+            note: "Integer 1–5. Must reflect actual review rating.",
+          },
+          "reviews[].title": { required: true, maxLength: 80 },
+          "reviews[].content": { required: true, maxLength: 500 },
+          "reviews[].author": { required: true, maxLength: 60 },
+          "reviews[].verified": {
+            note: "Only true when the review platform verifies purchases.",
+          },
         },
-        "reviews[].title": { required: true, maxLength: 80 },
-        "reviews[].content": { required: true, maxLength: 500 },
-        "reviews[].author": { required: true, maxLength: 60 },
-        "reviews[].verified": {
-          note: "Only true when the review platform verifies purchases.",
+        mediaSlots: {
+          "reviews[].avatarSrc": imageSlot(
+            "reviews[].avatarSrc",
+            "Reviewer profile photo.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
         },
-      },
-      mediaSlots: {
-        "reviews[].avatarSrc": imageSlot(
-          "reviews[].avatarSrc",
-          "Reviewer profile photo.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        heading: "Verified Customer Reviews",
+        verifiedPurchaseLabel: "Verified",
+        reviews: [
+          {
+            rating: 5,
+            title: "Outstanding quality and service",
+            content:
+              "This product completely transformed our workflow. The build quality is exceptional and customer support is incredibly responsive.",
+            author: "Daniel Foster",
+            avatarSrc: img,
+            date: "January 20, 2026",
+            verified: true,
+          },
+          {
+            rating: 5,
+            title: "Worth every dollar",
+            content:
+              "After comparing multiple options I chose this product and couldn't be happier. Reliable, efficient, and feature-rich.",
+            author: "Lisa Park",
+            avatarSrc: img,
+            date: "January 18, 2026",
+            verified: true,
+          },
+          {
+            rating: 4,
+            title: "Excellent product with great potential",
+            content:
+              "Very satisfied overall. Core functionality is solid. A few features could be refined but the team ships updates regularly.",
+            author: "Christopher Hughes",
+            avatarSrc: img,
+            date: "January 15, 2026",
+            verified: true,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "Verified Customer Reviews",
-      verifiedPurchaseLabel: "Verified",
-      reviews: [
-        {
-          rating: 5,
-          title: "Outstanding quality and service",
-          content:
-            "This product completely transformed our workflow. The build quality is exceptional and customer support is incredibly responsive.",
-          author: "Daniel Foster",
-          avatarSrc: img,
-          date: "January 20, 2026",
-          verified: true,
-        },
-        {
-          rating: 5,
-          title: "Worth every dollar",
-          content:
-            "After comparing multiple options I chose this product and couldn't be happier. Reliable, efficient, and feature-rich.",
-          author: "Lisa Park",
-          avatarSrc: img,
-          date: "January 18, 2026",
-          verified: true,
-        },
-        {
-          rating: 4,
-          title: "Excellent product with great potential",
-          content:
-            "Very satisfied overall. Core functionality is solid. A few features could be refined but the team ships updates regularly.",
-          author: "Christopher Hughes",
-          avatarSrc: img,
-          date: "January 15, 2026",
-          verified: true,
-        },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-images-helpful
-  // -------------------------------------------------------------------------
-  "testimonials-images-helpful": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-images-helpful
+    // -------------------------------------------------------------------------
+    "testimonials-images-helpful": {
+      exampleUsage: `
 <TestimonialsImagesHelpful
   heading="Customer Reviews"
   verifiedPurchaseLabel="Verified"
@@ -11578,81 +12642,81 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   ]}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. The images[] array holds supplementary review photos from the reviewer — these must be real product/experience photos, not stock imagery. helpful counts must reflect actual platform data. The verified indicator renders ONLY when verifiedPurchaseLabel is supplied — there is NO fallback wording; choose a label that fits the client's industry (e.g. 'Verified' / 'Verified Diner' / 'Verified Guest') or omit the prop to hide the indicator entirely.",
-    usageRequirements: {
-      requiredProps: ["reviews"],
-      propConstraints: {
-        reviews: { required: true, minItems: 2, maxItems: 6 },
-        "reviews[].rating": {
-          required: true,
-          note: "Integer 1–5.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. The images[] array holds supplementary review photos from the reviewer — these must be real product/experience photos, not stock imagery. helpful counts must reflect actual platform data. The verified indicator renders ONLY when verifiedPurchaseLabel is supplied — there is NO fallback wording; choose a label that fits the client's industry (e.g. 'Verified' / 'Verified Diner' / 'Verified Guest') or omit the prop to hide the indicator entirely.",
+      usageRequirements: {
+        requiredProps: ["reviews"],
+        propConstraints: {
+          reviews: { required: true, minItems: 2, maxItems: 6 },
+          "reviews[].rating": {
+            required: true,
+            note: "Integer 1–5.",
+          },
+          "reviews[].title": { required: true, maxLength: 80 },
+          "reviews[].content": { required: true, maxLength: 600 },
+          "reviews[].images": {
+            maxItems: 4,
+            note: "Actual review photos uploaded by the reviewer. Absolute URLs only.",
+          },
         },
-        "reviews[].title": { required: true, maxLength: 80 },
-        "reviews[].content": { required: true, maxLength: 600 },
-        "reviews[].images": {
-          maxItems: 4,
-          note: "Actual review photos uploaded by the reviewer. Absolute URLs only.",
+        mediaSlots: {
+          "reviews[].avatarSrc": imageSlot(
+            "reviews[].avatarSrc",
+            "Reviewer profile photo.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+          "reviews[].images[]": imageSlot(
+            "reviews[].images[]",
+            "Reviewer-submitted photo accompanying the review.",
+            ["gallery", "thumbnail"],
+            "small",
+            false,
+          ),
         },
-      },
-      mediaSlots: {
-        "reviews[].avatarSrc": imageSlot(
-          "reviews[].avatarSrc",
-          "Reviewer profile photo.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
-        "reviews[].images[]": imageSlot(
-          "reviews[].images[]",
-          "Reviewer-submitted photo accompanying the review.",
-          ["gallery", "thumbnail"],
-          "small",
-          false,
-        ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        heading: "Customer Reviews",
+        verifiedPurchaseLabel: "Verified",
+        reviews: [
+          {
+            rating: 5,
+            title: "Transformed our entire operation",
+            content:
+              "We saw immediate ROI within the first 30 days. The onboarding was smooth and the support team is world class.",
+            author: "Sarah Chen",
+            avatarSrc: img,
+            date: "February 2, 2026",
+            verified: true,
+            images: [img, img],
+            helpful: 42,
+          },
+          {
+            rating: 5,
+            title: "Highly recommend for growing teams",
+            content:
+              "As our team scaled from 10 to 50 people this tool grew with us perfectly. Couldn't ask for more.",
+            author: "James Rivera",
+            avatarSrc: img,
+            date: "January 28, 2026",
+            verified: true,
+            helpful: 31,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "Customer Reviews",
-      verifiedPurchaseLabel: "Verified",
-      reviews: [
-        {
-          rating: 5,
-          title: "Transformed our entire operation",
-          content:
-            "We saw immediate ROI within the first 30 days. The onboarding was smooth and the support team is world class.",
-          author: "Sarah Chen",
-          avatarSrc: img,
-          date: "February 2, 2026",
-          verified: true,
-          images: [img, img],
-          helpful: 42,
-        },
-        {
-          rating: 5,
-          title: "Highly recommend for growing teams",
-          content:
-            "As our team scaled from 10 to 50 people this tool grew with us perfectly. Couldn't ask for more.",
-          author: "James Rivera",
-          avatarSrc: img,
-          date: "January 28, 2026",
-          verified: true,
-          helpful: 31,
-        },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-bento-grid
-  // -------------------------------------------------------------------------
-  "testimonials-bento-grid": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-bento-grid
+    // -------------------------------------------------------------------------
+    "testimonials-bento-grid": {
+      exampleUsage: `
 <TestimonialsBentoGrid
   heading="What Our Customers Say"
   description="Real feedback from the people who use our platform every day."
@@ -11689,78 +12753,79 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   ]}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Mark at most one testimonial as featured=true to receive the larger card slot. Provide 4–6 items for a balanced bento layout.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 4, maxItems: 7 },
-        "testimonials[].quote": { required: true, maxLength: 400 },
-        "testimonials[].featured": {
-          note: "At most one item should be featured=true.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Mark at most one testimonial as featured=true to receive the larger card slot. Provide 4–6 items for a balanced bento layout.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 4, maxItems: 7 },
+          "testimonials[].quote": { required: true, maxLength: 400 },
+          "testimonials[].featured": {
+            note: "At most one item should be featured=true.",
+          },
         },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Reviewer avatar.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Reviewer avatar.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        heading: "What Our Customers Say",
+        description:
+          "Real feedback from the people who use our platform every day.",
+        testimonials: [
+          {
+            quote:
+              "Implementing this platform has revolutionized how we handle client communications. The response time improvement alone has justified the investment tenfold.",
+            author: "Sarah Chen",
+            role: "VP of Operations",
+            company: "TechFlow Solutions",
+            avatarSrc: img,
+            featured: true,
+          },
+          {
+            quote:
+              "Our team productivity increased by 40% in the first quarter.",
+            author: "Marcus Johnson",
+            role: "Director of Engineering",
+            company: "Innovate Labs",
+            avatarSrc: img,
+          },
+          {
+            quote:
+              "The analytics dashboard gives us insights we never had before.",
+            author: "Emily Rodriguez",
+            role: "Chief Strategy Officer",
+            company: "DataVision Inc",
+            avatarSrc: img,
+          },
+          {
+            quote:
+              "Customer satisfaction scores jumped from 3.8 to 4.7 within months.",
+            author: "David Park",
+            role: "Head of Customer Success",
+            company: "ServicePro",
+            avatarSrc: img,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "What Our Customers Say",
-      description:
-        "Real feedback from the people who use our platform every day.",
-      testimonials: [
-        {
-          quote:
-            "Implementing this platform has revolutionized how we handle client communications. The response time improvement alone has justified the investment tenfold.",
-          author: "Sarah Chen",
-          role: "VP of Operations",
-          company: "TechFlow Solutions",
-          avatarSrc: img,
-          featured: true,
-        },
-        {
-          quote: "Our team productivity increased by 40% in the first quarter.",
-          author: "Marcus Johnson",
-          role: "Director of Engineering",
-          company: "Innovate Labs",
-          avatarSrc: img,
-        },
-        {
-          quote:
-            "The analytics dashboard gives us insights we never had before.",
-          author: "Emily Rodriguez",
-          role: "Chief Strategy Officer",
-          company: "DataVision Inc",
-          avatarSrc: img,
-        },
-        {
-          quote:
-            "Customer satisfaction scores jumped from 3.8 to 4.7 within months.",
-          author: "David Park",
-          role: "Head of Customer Success",
-          company: "ServicePro",
-          avatarSrc: img,
-        },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-twitter-cards
-  // -------------------------------------------------------------------------
-  "testimonials-twitter-cards": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-twitter-cards
+    // -------------------------------------------------------------------------
+    "testimonials-twitter-cards": {
+      exampleUsage: `
 <TestimonialsTwitterCards
   heading="Buzz on Social Media"
   description="Real feedback from users sharing their experiences on social media."
@@ -11789,82 +12854,82 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   ]}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each item's linkConfig.href must be a real, resolvable post URL — do not use placeholder '#' hrefs for social post links. handle values should match the real platform username.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 3, maxItems: 9 },
-        "testimonials[].content": { required: true, maxLength: 280 },
-        "testimonials[].handle": {
-          note: "Must match the actual social media username.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each item's linkConfig.href must be a real, resolvable post URL — do not use placeholder '#' hrefs for social post links. handle values should match the real platform username.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 3, maxItems: 9 },
+          "testimonials[].content": { required: true, maxLength: 280 },
+          "testimonials[].handle": {
+            note: "Must match the actual social media username.",
+          },
+          "testimonials[].linkConfig.href": {
+            note: "Must be a real post URL, not a placeholder.",
+          },
         },
-        "testimonials[].linkConfig.href": {
-          note: "Must be a real post URL, not a placeholder.",
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Social media profile photo.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
         },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Social media profile photo.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        heading: "Buzz on Social Media",
+        description:
+          "Real feedback from users sharing their experiences on social media.",
+        testimonials: [
+          {
+            content:
+              "Just started using this platform and I'm blown away by how intuitive everything is. Game changer for my workflow!",
+            author: "Alexandra Martinez",
+            handle: "@alexmartinez",
+            avatarSrc: img,
+            linkConfig: {
+              href: "https://twitter.com/alexmartinez/status/123",
+              label: "View Post",
+            },
+          },
+          {
+            content:
+              "Best tool I've discovered this year. The team really cares about user experience and it shows.",
+            author: "David Park",
+            handle: "@davidpark_dev",
+            avatarSrc: img,
+            linkConfig: {
+              href: "https://twitter.com/davidpark_dev/status/456",
+              label: "View Post",
+            },
+          },
+          {
+            content:
+              "After trying 5 different solutions, this is the only one that actually works as advertised.",
+            author: "Sarah Williams",
+            handle: "@swilliams_tech",
+            avatarSrc: img,
+            linkConfig: {
+              href: "https://instagram.com/p/abc",
+              label: "View Post",
+            },
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "Buzz on Social Media",
-      description:
-        "Real feedback from users sharing their experiences on social media.",
-      testimonials: [
-        {
-          content:
-            "Just started using this platform and I'm blown away by how intuitive everything is. Game changer for my workflow!",
-          author: "Alexandra Martinez",
-          handle: "@alexmartinez",
-          avatarSrc: img,
-          linkConfig: {
-            href: "https://twitter.com/alexmartinez/status/123",
-            label: "View Post",
-          },
-        },
-        {
-          content:
-            "Best tool I've discovered this year. The team really cares about user experience and it shows.",
-          author: "David Park",
-          handle: "@davidpark_dev",
-          avatarSrc: img,
-          linkConfig: {
-            href: "https://twitter.com/davidpark_dev/status/456",
-            label: "View Post",
-          },
-        },
-        {
-          content:
-            "After trying 5 different solutions, this is the only one that actually works as advertised.",
-          author: "Sarah Williams",
-          handle: "@swilliams_tech",
-          avatarSrc: img,
-          linkConfig: {
-            href: "https://instagram.com/p/abc",
-            label: "View Post",
-          },
-        },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-carousel-image
-  // -------------------------------------------------------------------------
-  "testimonials-carousel-image": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-carousel-image
+    // -------------------------------------------------------------------------
+    "testimonials-carousel-image": {
+      exampleUsage: `
 <TestimonialsCarouselImage
   testimonials={[
     {
@@ -11895,74 +12960,74 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   autoPlayInterval={5000}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each item's backgroundImage is a full-bleed slide background — use large, high-quality landscape photography with sufficient contrast for overlaid text. Do not use logo or avatar images as backgroundImage.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 2, maxItems: 6 },
-        "testimonials[].quote": { required: true, maxLength: 400 },
-        "testimonials[].backgroundImage": {
-          required: true,
-          note: "Full-bleed background image. Use large landscape photography.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each item's backgroundImage is a full-bleed slide background — use large, high-quality landscape photography with sufficient contrast for overlaid text. Do not use logo or avatar images as backgroundImage.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 2, maxItems: 6 },
+          "testimonials[].quote": { required: true, maxLength: 400 },
+          "testimonials[].backgroundImage": {
+            required: true,
+            note: "Full-bleed background image. Use large landscape photography.",
+          },
+          "testimonials[].rating": {
+            note: "Integer 1–5 if provided.",
+          },
         },
-        "testimonials[].rating": {
-          note: "Integer 1–5 if provided.",
+        mediaSlots: {
+          "testimonials[].backgroundImage": imageSlot(
+            "testimonials[].backgroundImage",
+            "Full-bleed carousel slide background.",
+            ["background", "feature", "hero"],
+            "xlarge",
+            true,
+            "16:9",
+          ),
         },
-      },
-      mediaSlots: {
-        "testimonials[].backgroundImage": imageSlot(
-          "testimonials[].backgroundImage",
-          "Full-bleed carousel slide background.",
-          ["background", "feature", "hero"],
-          "xlarge",
-          true,
-          "16:9",
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        testimonials: [
+          {
+            quote:
+              "This solution exceeded every expectation. The ROI was evident within weeks and our entire team is delighted.",
+            author: "Michael Torres",
+            role: "CEO",
+            company: "BuildCo",
+            backgroundImage: img,
+            rating: 5,
+          },
+          {
+            quote:
+              "The onboarding experience was seamless and the support team is always available when we need them.",
+            author: "Rachel Kim",
+            role: "Head of Product",
+            company: "Launchpad Inc",
+            backgroundImage: img,
+            rating: 5,
+          },
+          {
+            quote:
+              "We integrated it in one afternoon and it immediately improved our customer feedback loop.",
+            author: "Omar Hassan",
+            role: "CTO",
+            company: "DevStream",
+            backgroundImage: img,
+            rating: 4,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      testimonials: [
-        {
-          quote:
-            "This solution exceeded every expectation. The ROI was evident within weeks and our entire team is delighted.",
-          author: "Michael Torres",
-          role: "CEO",
-          company: "BuildCo",
-          backgroundImage: img,
-          rating: 5,
-        },
-        {
-          quote:
-            "The onboarding experience was seamless and the support team is always available when we need them.",
-          author: "Rachel Kim",
-          role: "Head of Product",
-          company: "Launchpad Inc",
-          backgroundImage: img,
-          rating: 5,
-        },
-        {
-          quote:
-            "We integrated it in one afternoon and it immediately improved our customer feedback loop.",
-          author: "Omar Hassan",
-          role: "CTO",
-          company: "DevStream",
-          backgroundImage: img,
-          rating: 4,
-        },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-centered-avatars
-  // -------------------------------------------------------------------------
-  "testimonials-centered-avatars": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-centered-avatars
+    // -------------------------------------------------------------------------
+    "testimonials-centered-avatars": {
+      exampleUsage: `
 <TestimonialsCenteredAvatars
   heading="Loved by Teams Everywhere"
   badge="Testimonials"
@@ -11991,71 +13056,71 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   ]}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Avatars are displayed prominently as navigation; each item should have an avatarSrc for best visual results. Quote text should be concise — typically 1–3 sentences.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 3, maxItems: 6 },
-        "testimonials[].quote": { required: true, maxLength: 300 },
-        "testimonials[].author": { required: true },
-        "testimonials[].avatarSrc": {
-          required: true,
-          note: "Avatar images are used as navigation thumbnails and must be provided.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Avatars are displayed prominently as navigation; each item should have an avatarSrc for best visual results. Quote text should be concise — typically 1–3 sentences.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 3, maxItems: 6 },
+          "testimonials[].quote": { required: true, maxLength: 300 },
+          "testimonials[].author": { required: true },
+          "testimonials[].avatarSrc": {
+            required: true,
+            note: "Avatar images are used as navigation thumbnails and must be provided.",
+          },
         },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Avatar thumbnail used for testimonial navigation.",
-          ["profile", "avatar"],
-          "small",
-          true,
-          "1:1",
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Avatar thumbnail used for testimonial navigation.",
+            ["profile", "avatar"],
+            "small",
+            true,
+            "1:1",
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        heading: "Loved by Teams Everywhere",
+        badge: "Testimonials",
+        testimonials: [
+          {
+            quote:
+              "This platform transformed our daily operations. Adoption was instant and results followed within days.",
+            author: "Maria Santos",
+            role: "Operations Lead",
+            company: "FlowCo",
+            avatarSrc: img,
+          },
+          {
+            quote:
+              "We've never had a tool that brought this kind of clarity to our processes. Highly recommended.",
+            author: "Tom Wallace",
+            role: "Product Manager",
+            company: "ClearPath",
+            avatarSrc: img,
+          },
+          {
+            quote:
+              "The support we received during rollout was exceptional. The team genuinely cared about our success.",
+            author: "Priya Nair",
+            role: "VP Engineering",
+            company: "Nexus Tech",
+            avatarSrc: img,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "Loved by Teams Everywhere",
-      badge: "Testimonials",
-      testimonials: [
-        {
-          quote:
-            "This platform transformed our daily operations. Adoption was instant and results followed within days.",
-          author: "Maria Santos",
-          role: "Operations Lead",
-          company: "FlowCo",
-          avatarSrc: img,
-        },
-        {
-          quote:
-            "We've never had a tool that brought this kind of clarity to our processes. Highly recommended.",
-          author: "Tom Wallace",
-          role: "Product Manager",
-          company: "ClearPath",
-          avatarSrc: img,
-        },
-        {
-          quote:
-            "The support we received during rollout was exceptional. The team genuinely cared about our success.",
-          author: "Priya Nair",
-          role: "VP Engineering",
-          company: "Nexus Tech",
-          avatarSrc: img,
-        },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-company-logo
-  // -------------------------------------------------------------------------
-  "testimonials-company-logo": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-company-logo
+    // -------------------------------------------------------------------------
+    "testimonials-company-logo": {
+      exampleUsage: `
 <TestimonialsCompanyLogo
   testimonial={{
     quote: "Partnering with this platform has been transformative for our organization. The enterprise features, security protocols, and dedicated support have enabled us to scale operations globally.",
@@ -12071,66 +13136,66 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   background="gray"
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. companyLogo must be the actual company's logo — do not use generic imagery. imageSrc is a large feature photograph displayed beside the testimonial; use high-quality business/workspace photography.",
-    usageRequirements: {
-      requiredProps: ["testimonial"],
-      propConstraints: {
-        "testimonial.quote": { required: true, maxLength: 500 },
-        "testimonial.author": { required: true },
-        companyLogo: {
-          required: true,
-          note: "Real company logo. Absolute URL.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. companyLogo must be the actual company's logo — do not use generic imagery. imageSrc is a large feature photograph displayed beside the testimonial; use high-quality business/workspace photography.",
+      usageRequirements: {
+        requiredProps: ["testimonial"],
+        propConstraints: {
+          "testimonial.quote": { required: true, maxLength: 500 },
+          "testimonial.author": { required: true },
+          companyLogo: {
+            required: true,
+            note: "Real company logo. Absolute URL.",
+          },
+          imageSrc: {
+            required: true,
+            note: "Feature photograph beside the testimonial.",
+          },
         },
-        imageSrc: {
-          required: true,
-          note: "Feature photograph beside the testimonial.",
+        mediaSlots: {
+          "testimonial.avatarSrc": imageSlot(
+            "testimonial.avatarSrc",
+            "Author headshot.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+          companyLogo: logoSlot("companyLogo", "Company wordmark or logo."),
+          imageSrc: imageSlot(
+            "imageSrc",
+            "Feature photograph displayed beside the testimonial.",
+            ["feature", "hero"],
+            "large",
+            true,
+          ),
         },
-      },
-      mediaSlots: {
-        "testimonial.avatarSrc": imageSlot(
-          "testimonial.avatarSrc",
-          "Author headshot.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
-        companyLogo: logoSlot("companyLogo", "Company wordmark or logo."),
-        imageSrc: imageSlot(
-          "imageSrc",
-          "Feature photograph displayed beside the testimonial.",
-          ["feature", "hero"],
-          "large",
-          true,
-        ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
-    },
-    exampleProps: {
-      testimonial: {
-        quote:
-          "Partnering with this platform has been transformative for our organization. The enterprise features, security protocols, and dedicated support have enabled us to scale operations globally.",
-        author: "Dr. Catherine Wells",
-        role: "Chief Information Officer",
-        company: "Global Enterprises",
-        avatarSrc: img,
+      exampleProps: {
+        testimonial: {
+          quote:
+            "Partnering with this platform has been transformative for our organization. The enterprise features, security protocols, and dedicated support have enabled us to scale operations globally.",
+          author: "Dr. Catherine Wells",
+          role: "Chief Information Officer",
+          company: "Global Enterprises",
+          avatarSrc: img,
+        },
+        companyLogo: img,
+        companyLogoAlt: "Global Enterprises",
+        imageSrc: img,
+        imageAlt: "Modern office space",
       },
-      companyLogo: img,
-      companyLogoAlt: "Global Enterprises",
-      imageSrc: img,
-      imageAlt: "Modern office space",
     },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-grid-add-review
-  // -------------------------------------------------------------------------
-  "testimonials-grid-add-review": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-grid-add-review
+    // -------------------------------------------------------------------------
+    "testimonials-grid-add-review": {
+      exampleUsage: `
 <TestimonialsGridAddReview
   heading="What Our Customers Think"
   description="Join thousands of satisfied customers who have transformed their workflows."
@@ -12164,70 +13229,72 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   ]}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. This block includes a call-to-action card prompting users to add a review — ensure addReviewText and the CTA action link to a real review submission page, not a placeholder.",
-    usageRequirements: {
-      requiredProps: ["reviews"],
-      propConstraints: {
-        reviews: { required: true, minItems: 3, maxItems: 8 },
-        "reviews[].quote": { required: true, maxLength: 300 },
-        "reviews[].rating": { note: "Integer 1–5 if provided." },
-      },
-      mediaSlots: {
-        "reviews[].avatarSrc": imageSlot(
-          "reviews[].avatarSrc",
-          "Reviewer avatar.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. This block includes a call-to-action card prompting users to add a review — ensure addReviewText and the CTA action link to a real review submission page, not a placeholder.",
+      usageRequirements: {
+        requiredProps: ["reviews"],
+        propConstraints: {
+          reviews: { required: true, minItems: 3, maxItems: 8 },
+          "reviews[].quote": { required: true, maxLength: 300 },
+          "reviews[].rating": { note: "Integer 1–5 if provided." },
+        },
+        mediaSlots: {
+          "reviews[].avatarSrc": imageSlot(
+            "reviews[].avatarSrc",
+            "Reviewer avatar.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        heading: "What Our Customers Think",
+        description:
+          "Join thousands of satisfied customers who have transformed their workflows.",
+        addReviewText: "Share Your Experience",
+        addReviewSubtext: "Your feedback helps others make better decisions.",
+        reviews: [
+          {
+            quote:
+              "Exceptional value and outstanding support. We saw results within days.",
+            author: "James Liu",
+            role: "Product Manager",
+            company: "ScaleUp",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote:
+              "The ease of integration saved us weeks of engineering time.",
+            author: "Rachel Torres",
+            role: "CTO",
+            company: "DevForge",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote: "Best decision we made this year. The entire team loves it.",
+            author: "Naomi Brooks",
+            role: "Head of Operations",
+            company: "OpsFirst",
+            avatarSrc: img,
+            rating: 5,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "What Our Customers Think",
-      description:
-        "Join thousands of satisfied customers who have transformed their workflows.",
-      addReviewText: "Share Your Experience",
-      addReviewSubtext: "Your feedback helps others make better decisions.",
-      reviews: [
-        {
-          quote: "Exceptional value and outstanding support. We saw results within days.",
-          author: "James Liu",
-          role: "Product Manager",
-          company: "ScaleUp",
-          avatarSrc: img,
-          rating: 5,
-        },
-        {
-          quote: "The ease of integration saved us weeks of engineering time.",
-          author: "Rachel Torres",
-          role: "CTO",
-          company: "DevForge",
-          avatarSrc: img,
-          rating: 5,
-        },
-        {
-          quote: "Best decision we made this year. The entire team loves it.",
-          author: "Naomi Brooks",
-          role: "Head of Operations",
-          company: "OpsFirst",
-          avatarSrc: img,
-          rating: 5,
-        },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-marquee
-  // -------------------------------------------------------------------------
-  "testimonials-marquee": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-marquee
+    // -------------------------------------------------------------------------
+    "testimonials-marquee": {
+      exampleUsage: `
 <TestimonialsMarquee
   heading="Trusted by Thousands"
   description="Hear from the teams who rely on us every day."
@@ -12243,57 +13310,99 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   ]}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. The marquee loops continuously so provide at least 6 items to avoid visible repetition. Keep quotes short (1–2 sentences) for best readability while scrolling.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 6, maxItems: 16 },
-        "testimonials[].quote": {
-          required: true,
-          maxLength: 180,
-          note: "Keep short for readability during scroll animation.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. The marquee loops continuously so provide at least 6 items to avoid visible repetition. Keep quotes short (1–2 sentences) for best readability while scrolling.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 6, maxItems: 16 },
+          "testimonials[].quote": {
+            required: true,
+            maxLength: 180,
+            note: "Keep short for readability during scroll animation.",
+          },
+          speed: {
+            note: 'One of "slow" | "normal" | "fast". Default: "normal".',
+          },
         },
-        speed: {
-          note: 'One of "slow" | "normal" | "fast". Default: "normal".',
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Author avatar displayed in the marquee card.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
         },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Author avatar displayed in the marquee card.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        heading: "Trusted by Thousands",
+        description: "Hear from the teams who rely on us every day.",
+        speed: "normal",
+        pauseOnHover: true,
+        testimonials: [
+          {
+            quote: "Transformed our workflow in weeks.",
+            author: "Ana Lima",
+            role: "CEO",
+            company: "Lima Studio",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote: "Best support team we've ever worked with.",
+            author: "Ben Carter",
+            role: "CTO",
+            company: "CartWorks",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote: "Measurable ROI from day one.",
+            author: "Claire Osei",
+            role: "Head of Product",
+            company: "OseiTech",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote: "Simple, powerful, and reliable.",
+            author: "Dan Yoo",
+            role: "VP Engineering",
+            company: "YooApps",
+            avatarSrc: img,
+            rating: 4,
+          },
+          {
+            quote: "Our team adoption was instant.",
+            author: "Elena Ross",
+            role: "Operations",
+            company: "RossGroup",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote: "Scales effortlessly with our growth.",
+            author: "Felix Wu",
+            role: "Founder",
+            company: "WuBuilds",
+            avatarSrc: img,
+            rating: 5,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "Trusted by Thousands",
-      description: "Hear from the teams who rely on us every day.",
-      speed: "normal",
-      pauseOnHover: true,
-      testimonials: [
-        { quote: "Transformed our workflow in weeks.", author: "Ana Lima", role: "CEO", company: "Lima Studio", avatarSrc: img, rating: 5 },
-        { quote: "Best support team we've ever worked with.", author: "Ben Carter", role: "CTO", company: "CartWorks", avatarSrc: img, rating: 5 },
-        { quote: "Measurable ROI from day one.", author: "Claire Osei", role: "Head of Product", company: "OseiTech", avatarSrc: img, rating: 5 },
-        { quote: "Simple, powerful, and reliable.", author: "Dan Yoo", role: "VP Engineering", company: "YooApps", avatarSrc: img, rating: 4 },
-        { quote: "Our team adoption was instant.", author: "Elena Ross", role: "Operations", company: "RossGroup", avatarSrc: img, rating: 5 },
-        { quote: "Scales effortlessly with our growth.", author: "Felix Wu", role: "Founder", company: "WuBuilds", avatarSrc: img, rating: 5 },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-simple-grid
-  // -------------------------------------------------------------------------
-  "testimonials-simple-grid": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-simple-grid
+    // -------------------------------------------------------------------------
+    "testimonials-simple-grid": {
+      exampleUsage: `
 <TestimonialsSimpleGrid
   heading="What Our Users Are Saying"
   description="Honest feedback from people who use the platform daily."
@@ -12308,50 +13417,95 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   ]}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. The columns prop controls layout density (2, 3, or 4 columns). Provide a number of testimonials divisible by the columns value for a clean grid — or add an extra row intentionally.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 3, maxItems: 12 },
-        "testimonials[].quote": { required: true, maxLength: 350 },
-        columns: { note: "2 | 3 | 4 — default 3." },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Author avatar in grid card.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. The columns prop controls layout density (2, 3, or 4 columns). Provide a number of testimonials divisible by the columns value for a clean grid — or add an extra row intentionally.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 3, maxItems: 12 },
+          "testimonials[].quote": { required: true, maxLength: 350 },
+          columns: { note: "2 | 3 | 4 — default 3." },
+        },
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Author avatar in grid card.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        heading: "What Our Users Are Saying",
+        description: "Honest feedback from people who use the platform daily.",
+        columns: 3,
+        testimonials: [
+          {
+            quote:
+              "A genuinely impressive product. Our productivity gains have been measurable.",
+            author: "Lily Chan",
+            role: "Analyst",
+            company: "DataFlow",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote: "Rollout was painless. The team was live within a day.",
+            author: "Sam Peterson",
+            role: "IT Manager",
+            company: "NetOps",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote:
+              "Customer support responds within the hour. Incredibly helpful.",
+            author: "Fiona Grant",
+            role: "Operations",
+            company: "GrantCo",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote:
+              "The pricing model is transparent and very fair for what you get.",
+            author: "Hiro Yamada",
+            role: "CFO",
+            company: "YamaTech",
+            avatarSrc: img,
+            rating: 4,
+          },
+          {
+            quote: "Integrates neatly with all of our existing tools.",
+            author: "Ingrid Holm",
+            role: "VP Product",
+            company: "HolmWorks",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote: "We onboarded our entire org in under a week.",
+            author: "Jake Obi",
+            role: "CEO",
+            company: "ObiGroup",
+            avatarSrc: img,
+            rating: 5,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "What Our Users Are Saying",
-      description: "Honest feedback from people who use the platform daily.",
-      columns: 3,
-      testimonials: [
-        { quote: "A genuinely impressive product. Our productivity gains have been measurable.", author: "Lily Chan", role: "Analyst", company: "DataFlow", avatarSrc: img, rating: 5 },
-        { quote: "Rollout was painless. The team was live within a day.", author: "Sam Peterson", role: "IT Manager", company: "NetOps", avatarSrc: img, rating: 5 },
-        { quote: "Customer support responds within the hour. Incredibly helpful.", author: "Fiona Grant", role: "Operations", company: "GrantCo", avatarSrc: img, rating: 5 },
-        { quote: "The pricing model is transparent and very fair for what you get.", author: "Hiro Yamada", role: "CFO", company: "YamaTech", avatarSrc: img, rating: 4 },
-        { quote: "Integrates neatly with all of our existing tools.", author: "Ingrid Holm", role: "VP Product", company: "HolmWorks", avatarSrc: img, rating: 5 },
-        { quote: "We onboarded our entire org in under a week.", author: "Jake Obi", role: "CEO", company: "ObiGroup", avatarSrc: img, rating: 5 },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-slider-minimal
-  // -------------------------------------------------------------------------
-  "testimonials-slider-minimal": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-slider-minimal
+    // -------------------------------------------------------------------------
+    "testimonials-slider-minimal": {
+      exampleUsage: `
 <TestimonialsSliderMinimal
   autoPlayInterval={6000}
   testimonials={[
@@ -12362,48 +13516,72 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   background="white"
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. This is a minimal single-item slider — keep quotes concise (2–4 sentences). Each testimonial should include an avatarSrc to display the author photo.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 2, maxItems: 8 },
-        "testimonials[].quote": { required: true, maxLength: 350 },
-        "testimonials[].avatarSrc": {
-          required: true,
-          note: "Avatar is prominently displayed in this minimal layout.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. This is a minimal single-item slider — keep quotes concise (2–4 sentences). Each testimonial should include an avatarSrc to display the author photo.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 2, maxItems: 8 },
+          "testimonials[].quote": { required: true, maxLength: 350 },
+          "testimonials[].avatarSrc": {
+            required: true,
+            note: "Avatar is prominently displayed in this minimal layout.",
+          },
         },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Author avatar displayed prominently in the slider.",
-          ["profile", "avatar"],
-          "small",
-          true,
-          "1:1",
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Author avatar displayed prominently in the slider.",
+            ["profile", "avatar"],
+            "small",
+            true,
+            "1:1",
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        autoPlayInterval: 6000,
+        testimonials: [
+          {
+            quote:
+              "This platform is the best investment we've made. Everything works exactly as promised.",
+            author: "Kenji Nakamura",
+            role: "Founder",
+            company: "NakaLabs",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote:
+              "Onboarding our team was remarkably fast. We were operational in hours, not weeks.",
+            author: "Amira Hassan",
+            role: "COO",
+            company: "Nexia Corp",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote:
+              "The feature depth surprised us. We keep discovering capabilities we didn't expect.",
+            author: "Luke Barnes",
+            role: "Head of Product",
+            company: "BarnesTech",
+            avatarSrc: img,
+            rating: 5,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      autoPlayInterval: 6000,
-      testimonials: [
-        { quote: "This platform is the best investment we've made. Everything works exactly as promised.", author: "Kenji Nakamura", role: "Founder", company: "NakaLabs", avatarSrc: img, rating: 5 },
-        { quote: "Onboarding our team was remarkably fast. We were operational in hours, not weeks.", author: "Amira Hassan", role: "COO", company: "Nexia Corp", avatarSrc: img, rating: 5 },
-        { quote: "The feature depth surprised us. We keep discovering capabilities we didn't expect.", author: "Luke Barnes", role: "Head of Product", company: "BarnesTech", avatarSrc: img, rating: 5 },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-split-image
-  // -------------------------------------------------------------------------
-  "testimonials-split-image": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-split-image
+    // -------------------------------------------------------------------------
+    "testimonials-split-image": {
+      exampleUsage: `
 <TestimonialsSplitImage
   testimonial={{
     quote: "This platform represents everything we were looking for — powerful features, intuitive design, and exceptional performance. The transformation in our workflow has been nothing short of remarkable.",
@@ -12418,61 +13596,61 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   background="gray"
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. imageSrc is a large feature photograph occupying half the layout — use professional business/workspace photography. imagePosition controls whether the photo is left or right of the quote.",
-    usageRequirements: {
-      requiredProps: ["testimonial", "imageSrc"],
-      propConstraints: {
-        "testimonial.quote": { required: true, maxLength: 500 },
-        "testimonial.author": { required: true },
-        imageSrc: {
-          required: true,
-          note: "Large feature photograph for the split layout.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. imageSrc is a large feature photograph occupying half the layout — use professional business/workspace photography. imagePosition controls whether the photo is left or right of the quote.",
+      usageRequirements: {
+        requiredProps: ["testimonial", "imageSrc"],
+        propConstraints: {
+          "testimonial.quote": { required: true, maxLength: 500 },
+          "testimonial.author": { required: true },
+          imageSrc: {
+            required: true,
+            note: "Large feature photograph for the split layout.",
+          },
+          imagePosition: { note: '"left" | "right". Default "right".' },
         },
-        imagePosition: { note: '"left" | "right". Default "right".' },
-      },
-      mediaSlots: {
-        "testimonial.avatarSrc": imageSlot(
-          "testimonial.avatarSrc",
-          "Author headshot.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        mediaSlots: {
+          "testimonial.avatarSrc": imageSlot(
+            "testimonial.avatarSrc",
+            "Author headshot.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+          imageSrc: imageSlot(
+            "imageSrc",
+            "Feature photograph occupying half the split layout.",
+            ["feature", "hero"],
+            "large",
+            true,
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
-        imageSrc: imageSlot(
-          "imageSrc",
-          "Feature photograph occupying half the split layout.",
-          ["feature", "hero"],
-          "large",
-          true,
-        ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
-    },
-    exampleProps: {
-      testimonial: {
-        quote:
-          "This platform represents everything we were looking for — powerful features, intuitive design, and exceptional performance. The transformation in our workflow has been nothing short of remarkable.",
-        author: "Dr. Jonathan Parker",
-        role: "Chief Technology Officer",
-        company: "TechVision Enterprises",
-        avatarSrc: img,
+      exampleProps: {
+        testimonial: {
+          quote:
+            "This platform represents everything we were looking for — powerful features, intuitive design, and exceptional performance. The transformation in our workflow has been nothing short of remarkable.",
+          author: "Dr. Jonathan Parker",
+          role: "Chief Technology Officer",
+          company: "TechVision Enterprises",
+          avatarSrc: img,
+        },
+        imageSrc: img,
+        imageAlt: "Modern office workspace",
+        imagePosition: "right",
       },
-      imageSrc: img,
-      imageAlt: "Modern office workspace",
-      imagePosition: "right",
     },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-stats-header
-  // -------------------------------------------------------------------------
-  "testimonials-stats-header": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-stats-header
+    // -------------------------------------------------------------------------
+    "testimonials-stats-header": {
+      exampleUsage: `
 <TestimonialsStatsHeader
   heading="Trusted by Industry Leaders"
   description="Join thousands of businesses achieving exceptional results."
@@ -12488,63 +13666,107 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   ]}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Stats must be sourced from actual business data — do not fabricate metrics. Each stat requires id, value, and label. Stats without real backing numbers should not be used.",
-    usageRequirements: {
-      requiredProps: ["stats", "testimonials"],
-      propConstraints: {
-        stats: {
-          required: true,
-          minItems: 2,
-          maxItems: 4,
-          note: "All metric values must be sourced from real business data.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Stats must be sourced from actual business data — do not fabricate metrics. Each stat requires id, value, and label. Stats without real backing numbers should not be used.",
+      usageRequirements: {
+        requiredProps: ["stats", "testimonials"],
+        propConstraints: {
+          stats: {
+            required: true,
+            minItems: 2,
+            maxItems: 4,
+            note: "All metric values must be sourced from real business data.",
+          },
+          "stats[].id": { required: true },
+          "stats[].value": { required: true, maxLength: 10 },
+          "stats[].label": { required: true, maxLength: 40 },
+          testimonials: { required: true, minItems: 2, maxItems: 6 },
+          "testimonials[].quote": { required: true, maxLength: 350 },
         },
-        "stats[].id": { required: true },
-        "stats[].value": { required: true, maxLength: 10 },
-        "stats[].label": { required: true, maxLength: 40 },
-        testimonials: { required: true, minItems: 2, maxItems: 6 },
-        "testimonials[].quote": { required: true, maxLength: 350 },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Testimonial author avatar.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Testimonial author avatar.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
+          "stats_or_metrics",
         ),
+        notes: [
+          TESTIMONIALS_MEDIA_NOTE,
+          "Stats must reflect real, sourced business metrics. Do not fabricate numeric values.",
+        ],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-        "stats_or_metrics",
-      ),
-      notes: [
-        TESTIMONIALS_MEDIA_NOTE,
-        "Stats must reflect real, sourced business metrics. Do not fabricate numeric values.",
-      ],
+      exampleProps: {
+        heading: "Trusted by Industry Leaders",
+        description:
+          "Join thousands of businesses achieving exceptional results.",
+        stats: [
+          {
+            id: "growth",
+            value: "312",
+            suffix: "%",
+            label: "Revenue Growth",
+            description: "Average year-over-year lift after launch.",
+            icon: "lucide/trending-up",
+          },
+          {
+            id: "velocity",
+            value: "4.6",
+            suffix: "x",
+            label: "Delivery Speed",
+            description: "Faster time-to-value vs baseline.",
+            icon: "lucide/rocket",
+          },
+          {
+            id: "retention",
+            prefix: "+",
+            value: "29",
+            suffix: "%",
+            label: "Customer Retention",
+            description: "Retention gains in the first 90 days.",
+            icon: "lucide/user-check",
+          },
+        ],
+        testimonials: [
+          {
+            quote:
+              "The platform transformed our entire organization. Results exceeded all expectations.",
+            author: "Katherine Reynolds",
+            role: "CEO",
+            company: "Global Enterprises",
+            avatarSrc: img,
+          },
+          {
+            quote:
+              "Implementing this solution was one of the best decisions we've made.",
+            author: "Daniel Kim",
+            role: "VP of Operations",
+            company: "TechForward Inc",
+            avatarSrc: img,
+          },
+          {
+            quote:
+              "Measurable impact from week one. Our team's velocity doubled.",
+            author: "Sarah Mitchell",
+            role: "Head of Engineering",
+            company: "Velocity Labs",
+            avatarSrc: img,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "Trusted by Industry Leaders",
-      description: "Join thousands of businesses achieving exceptional results.",
-      stats: [
-        { id: "growth", value: "312", suffix: "%", label: "Revenue Growth", description: "Average year-over-year lift after launch.", icon: "lucide/trending-up" },
-        { id: "velocity", value: "4.6", suffix: "x", label: "Delivery Speed", description: "Faster time-to-value vs baseline.", icon: "lucide/rocket" },
-        { id: "retention", prefix: "+", value: "29", suffix: "%", label: "Customer Retention", description: "Retention gains in the first 90 days.", icon: "lucide/user-check" },
-      ],
-      testimonials: [
-        { quote: "The platform transformed our entire organization. Results exceeded all expectations.", author: "Katherine Reynolds", role: "CEO", company: "Global Enterprises", avatarSrc: img },
-        { quote: "Implementing this solution was one of the best decisions we've made.", author: "Daniel Kim", role: "VP of Operations", company: "TechForward Inc", avatarSrc: img },
-        { quote: "Measurable impact from week one. Our team's velocity doubled.", author: "Sarah Mitchell", role: "Head of Engineering", company: "Velocity Labs", avatarSrc: img },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-wall-compact
-  // -------------------------------------------------------------------------
-  "testimonials-wall-compact": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-wall-compact
+    // -------------------------------------------------------------------------
+    "testimonials-wall-compact": {
+      exampleUsage: `
 <TestimonialsWallCompact
   heading="Wall of Love"
   description="Thousands of users sharing their success stories."
@@ -12558,55 +13780,88 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   ]}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. handle values should be real social media usernames when available. badge values (e.g., 'Verified', 'Featured') should only be applied when justified by source platform status. Provide 6–12 items for a visually full wall layout.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 6, maxItems: 16 },
-        "testimonials[].quote": {
-          required: true,
-          maxLength: 200,
-          note: "Short form quotes suit the compact wall layout best.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. handle values should be real social media usernames when available. badge values (e.g., 'Verified', 'Featured') should only be applied when justified by source platform status. Provide 6–12 items for a visually full wall layout.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 6, maxItems: 16 },
+          "testimonials[].quote": {
+            required: true,
+            maxLength: 200,
+            note: "Short form quotes suit the compact wall layout best.",
+          },
+          "testimonials[].handle": {
+            note: "Real social media handle when available.",
+          },
         },
-        "testimonials[].handle": {
-          note: "Real social media handle when available.",
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Author avatar in the compact wall card.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
         },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Author avatar in the compact wall card.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        heading: "Wall of Love",
+        description: "Thousands of users sharing their success stories.",
+        testimonials: [
+          {
+            quote: "Amazing product! Changed our entire workflow.",
+            author: "Alex Thompson",
+            handle: "@alexthompson",
+            avatarSrc: img,
+            badge: "Featured",
+          },
+          {
+            quote: "Best investment we made this quarter.",
+            author: "Maria Garcia",
+            handle: "@mariagarcia",
+            avatarSrc: img,
+          },
+          {
+            quote: "Incredible support team. Always helpful!",
+            author: "James Lee",
+            handle: "@jameslee",
+            avatarSrc: img,
+            badge: "Verified",
+          },
+          {
+            quote: "Exactly what we needed. Perfect solution!",
+            author: "Sarah Johnson",
+            handle: "@sarahj",
+            avatarSrc: img,
+          },
+          {
+            quote: "Five stars! Highly recommend to everyone.",
+            author: "Michael Chen",
+            handle: "@mchen",
+            avatarSrc: img,
+          },
+          {
+            quote: "Transformed our business operations completely.",
+            author: "Lisa Martinez",
+            handle: "@lisamartinez",
+            avatarSrc: img,
+            badge: "Featured",
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "Wall of Love",
-      description: "Thousands of users sharing their success stories.",
-      testimonials: [
-        { quote: "Amazing product! Changed our entire workflow.", author: "Alex Thompson", handle: "@alexthompson", avatarSrc: img, badge: "Featured" },
-        { quote: "Best investment we made this quarter.", author: "Maria Garcia", handle: "@mariagarcia", avatarSrc: img },
-        { quote: "Incredible support team. Always helpful!", author: "James Lee", handle: "@jameslee", avatarSrc: img, badge: "Verified" },
-        { quote: "Exactly what we needed. Perfect solution!", author: "Sarah Johnson", handle: "@sarahj", avatarSrc: img },
-        { quote: "Five stars! Highly recommend to everyone.", author: "Michael Chen", handle: "@mchen", avatarSrc: img },
-        { quote: "Transformed our business operations completely.", author: "Lisa Martinez", handle: "@lisamartinez", avatarSrc: img, badge: "Featured" },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-mini-dividers
-  // -------------------------------------------------------------------------
-  "testimonials-mini-dividers": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-mini-dividers
+    // -------------------------------------------------------------------------
+    "testimonials-mini-dividers": {
+      exampleUsage: `
 <TestimonialsMiniDividers
   heading="What Customers Are Saying"
   description="Brief, honest perspectives from people who use us every day."
@@ -12617,50 +13872,74 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   ]}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. This layout uses horizontal dividers between items — keep quotes brief (1–2 sentences) to maintain visual balance. Ratings are optional but should reflect actual review data when provided.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 3, maxItems: 8 },
-        "testimonials[].quote": {
-          required: true,
-          maxLength: 250,
-          note: "Brief quotes suit the divided list layout.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. This layout uses horizontal dividers between items — keep quotes brief (1–2 sentences) to maintain visual balance. Ratings are optional but should reflect actual review data when provided.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 3, maxItems: 8 },
+          "testimonials[].quote": {
+            required: true,
+            maxLength: 250,
+            note: "Brief quotes suit the divided list layout.",
+          },
+          "testimonials[].rating": { note: "Integer 1–5 if provided." },
         },
-        "testimonials[].rating": { note: "Integer 1–5 if provided." },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Author avatar in mini card.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Author avatar in mini card.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        heading: "What Customers Are Saying",
+        description:
+          "Brief, honest perspectives from people who use us every day.",
+        testimonials: [
+          {
+            quote: "Instant team buy-in. Setup took less than an afternoon.",
+            author: "Olivia Reyes",
+            role: "Team Lead",
+            company: "ReyCo",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote:
+              "The reliability is remarkable. We haven't had a single outage in six months.",
+            author: "Nathan Cole",
+            role: "CTO",
+            company: "ColeTech",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote:
+              "Everything we needed in one place. No extra integrations required.",
+            author: "Yuki Tanaka",
+            role: "Product Owner",
+            company: "TanakaLabs",
+            avatarSrc: img,
+            rating: 4,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "What Customers Are Saying",
-      description: "Brief, honest perspectives from people who use us every day.",
-      testimonials: [
-        { quote: "Instant team buy-in. Setup took less than an afternoon.", author: "Olivia Reyes", role: "Team Lead", company: "ReyCo", avatarSrc: img, rating: 5 },
-        { quote: "The reliability is remarkable. We haven't had a single outage in six months.", author: "Nathan Cole", role: "CTO", company: "ColeTech", avatarSrc: img, rating: 5 },
-        { quote: "Everything we needed in one place. No extra integrations required.", author: "Yuki Tanaka", role: "Product Owner", company: "TanakaLabs", avatarSrc: img, rating: 4 },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-logo-cards
-  // -------------------------------------------------------------------------
-  "testimonials-logo-cards": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-logo-cards
+    // -------------------------------------------------------------------------
+    "testimonials-logo-cards": {
+      exampleUsage: `
 <TestimonialsLogoCards
   heading="Trusted by Leading Companies"
   description="See what teams at industry-leading organizations have to say."
@@ -12671,56 +13950,86 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   ]}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each card displays a company logo prominently — companyLogo must be the actual company's logo at an absolute URL. Do not use placeholder images as company logos.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 3, maxItems: 8 },
-        "testimonials[].quote": { required: true, maxLength: 350 },
-        "testimonials[].companyLogo": {
-          required: true,
-          note: "Real company logo. Absolute URL required.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each card displays a company logo prominently — companyLogo must be the actual company's logo at an absolute URL. Do not use placeholder images as company logos.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 3, maxItems: 8 },
+          "testimonials[].quote": { required: true, maxLength: 350 },
+          "testimonials[].companyLogo": {
+            required: true,
+            note: "Real company logo. Absolute URL required.",
+          },
+          "testimonials[].rating": { note: "Integer 1–5 if provided." },
         },
-        "testimonials[].rating": { note: "Integer 1–5 if provided." },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Author headshot.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Author headshot.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+          "testimonials[].companyLogo": logoSlot(
+            "testimonials[].companyLogo",
+            "Company logo displayed in the card header.",
+            true,
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
-        "testimonials[].companyLogo": logoSlot(
-          "testimonials[].companyLogo",
-          "Company logo displayed in the card header.",
-          true,
-        ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        heading: "Trusted by Leading Companies",
+        description:
+          "See what teams at industry-leading organizations have to say.",
+        testimonials: [
+          {
+            quote:
+              "This platform accelerated our digital transformation by years.",
+            author: "Thomas Green",
+            role: "CIO",
+            company: "TechCorp International",
+            avatarSrc: img,
+            companyLogo: img,
+            companyLogoAlt: "TechCorp International",
+            rating: 5,
+          },
+          {
+            quote:
+              "We achieved compliance milestones in record time thanks to this solution.",
+            author: "Laura Bishop",
+            role: "VP Compliance",
+            company: "CloudScale Solutions",
+            avatarSrc: img,
+            companyLogo: img,
+            companyLogoAlt: "CloudScale Solutions",
+            rating: 5,
+          },
+          {
+            quote:
+              "The cost savings alone justified the switch within the first quarter.",
+            author: "Henry Osei",
+            role: "CFO",
+            company: "Finance Dynamics",
+            avatarSrc: img,
+            companyLogo: img,
+            companyLogoAlt: "Finance Dynamics",
+            rating: 5,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "Trusted by Leading Companies",
-      description:
-        "See what teams at industry-leading organizations have to say.",
-      testimonials: [
-        { quote: "This platform accelerated our digital transformation by years.", author: "Thomas Green", role: "CIO", company: "TechCorp International", avatarSrc: img, companyLogo: img, companyLogoAlt: "TechCorp International", rating: 5 },
-        { quote: "We achieved compliance milestones in record time thanks to this solution.", author: "Laura Bishop", role: "VP Compliance", company: "CloudScale Solutions", avatarSrc: img, companyLogo: img, companyLogoAlt: "CloudScale Solutions", rating: 5 },
-        { quote: "The cost savings alone justified the switch within the first quarter.", author: "Henry Osei", role: "CFO", company: "Finance Dynamics", avatarSrc: img, companyLogo: img, companyLogoAlt: "Finance Dynamics", rating: 5 },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-quote-carousel
-  // -------------------------------------------------------------------------
-  "testimonials-quote-carousel": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-quote-carousel
+    // -------------------------------------------------------------------------
+    "testimonials-quote-carousel": {
+      exampleUsage: `
 <TestimonialsQuoteCarousel
   heading="Voices of Our Community"
   description="Real experiences from the people who rely on us every day."
@@ -12731,46 +14040,71 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   ]}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. This layout features large quote typography — quotes should be impactful and 2–4 sentences in length. Include author avatars for credibility.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 2, maxItems: 8 },
-        "testimonials[].quote": { required: true, maxLength: 400 },
-        "testimonials[].author": { required: true },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Author avatar displayed with the quote.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. This layout features large quote typography — quotes should be impactful and 2–4 sentences in length. Include author avatars for credibility.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 2, maxItems: 8 },
+          "testimonials[].quote": { required: true, maxLength: 400 },
+          "testimonials[].author": { required: true },
+        },
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Author avatar displayed with the quote.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        heading: "Voices of Our Community",
+        description:
+          "Real experiences from the people who rely on us every day.",
+        testimonials: [
+          {
+            quote:
+              "The most impactful change to our operations in the last five years. Every team member is more productive.",
+            author: "Diane Walsh",
+            role: "COO",
+            company: "WalshGroup",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote:
+              "Genuine partnership from onboarding through growth. They care about client outcomes.",
+            author: "Stuart Park",
+            role: "CEO",
+            company: "ParkVentures",
+            avatarSrc: img,
+            rating: 5,
+          },
+          {
+            quote:
+              "Our pipeline doubled in 90 days. The analytics made the difference.",
+            author: "Chloe Bennett",
+            role: "VP Sales",
+            company: "BennettSales",
+            avatarSrc: img,
+            rating: 5,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "Voices of Our Community",
-      description: "Real experiences from the people who rely on us every day.",
-      testimonials: [
-        { quote: "The most impactful change to our operations in the last five years. Every team member is more productive.", author: "Diane Walsh", role: "COO", company: "WalshGroup", avatarSrc: img, rating: 5 },
-        { quote: "Genuine partnership from onboarding through growth. They care about client outcomes.", author: "Stuart Park", role: "CEO", company: "ParkVentures", avatarSrc: img, rating: 5 },
-        { quote: "Our pipeline doubled in 90 days. The analytics made the difference.", author: "Chloe Bennett", role: "VP Sales", company: "BennettSales", avatarSrc: img, rating: 5 },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-animated-split
-  // -------------------------------------------------------------------------
-  "testimonials-animated-split": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-animated-split
+    // -------------------------------------------------------------------------
+    "testimonials-animated-split": {
+      exampleUsage: `
 <TestimonialsAnimatedSplit
   testimonials={[
     { quote: "Implementing this platform revolutionized how we handle client communications. Response times improved tenfold.", author: "Sarah Chen", role: "VP of Operations", company: "TechFlow Solutions", avatarSrc: "${img}", image: "${img}" },
@@ -12781,54 +14115,78 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   spacing="xl"
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each testimonial has an animated full-panel image (image prop) alongside the quote — use high-quality feature photography. The image changes with each testimonial transition. Do not use avatars or logos as the image prop.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 3, maxItems: 6 },
-        "testimonials[].quote": { required: true, maxLength: 400 },
-        "testimonials[].image": {
-          required: true,
-          note: "Large feature image for the animated panel. Use high-quality photography.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each testimonial has an animated full-panel image (image prop) alongside the quote — use high-quality feature photography. The image changes with each testimonial transition. Do not use avatars or logos as the image prop.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 3, maxItems: 6 },
+          "testimonials[].quote": { required: true, maxLength: 400 },
+          "testimonials[].image": {
+            required: true,
+            note: "Large feature image for the animated panel. Use high-quality photography.",
+          },
         },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Author avatar displayed with the quote.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Author avatar displayed with the quote.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+          "testimonials[].image": imageSlot(
+            "testimonials[].image",
+            "Full-panel animated feature image for this testimonial slide.",
+            ["feature", "hero", "background"],
+            "large",
+            true,
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
-        "testimonials[].image": imageSlot(
-          "testimonials[].image",
-          "Full-panel animated feature image for this testimonial slide.",
-          ["feature", "hero", "background"],
-          "large",
-          true,
-        ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        testimonials: [
+          {
+            quote:
+              "Implementing this platform revolutionized how we handle client communications. Response times improved tenfold.",
+            author: "Sarah Chen",
+            role: "VP of Operations",
+            company: "TechFlow Solutions",
+            avatarSrc: img,
+            image: img,
+          },
+          {
+            quote:
+              "Team productivity increased by 40% in the first quarter. The interface makes complex workflows effortless.",
+            author: "Marcus Johnson",
+            role: "Director of Engineering",
+            company: "Innovate Labs",
+            avatarSrc: img,
+            image: img,
+          },
+          {
+            quote:
+              "The analytics dashboard gives us insights we never had before. Data-driven decisions are now our competitive edge.",
+            author: "Emily Rodriguez",
+            role: "Chief Strategy Officer",
+            company: "DataVision Inc",
+            avatarSrc: img,
+            image: img,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      testimonials: [
-        { quote: "Implementing this platform revolutionized how we handle client communications. Response times improved tenfold.", author: "Sarah Chen", role: "VP of Operations", company: "TechFlow Solutions", avatarSrc: img, image: img },
-        { quote: "Team productivity increased by 40% in the first quarter. The interface makes complex workflows effortless.", author: "Marcus Johnson", role: "Director of Engineering", company: "Innovate Labs", avatarSrc: img, image: img },
-        { quote: "The analytics dashboard gives us insights we never had before. Data-driven decisions are now our competitive edge.", author: "Emily Rodriguez", role: "Chief Strategy Officer", company: "DataVision Inc", avatarSrc: img, image: img },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-scrolling-columns
-  // -------------------------------------------------------------------------
-  "testimonials-scrolling-columns": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-scrolling-columns
+    // -------------------------------------------------------------------------
+    "testimonials-scrolling-columns": {
+      exampleUsage: `
 <TestimonialsScrollingColumns
   heading="What Our Customers Are Saying"
   description="Real stories from businesses transforming their operations."
@@ -12841,57 +14199,90 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   background="dark"
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each item supports an optional imageSrc (feature photo on the card) and logoSrc (company logo). Both must be absolute URLs when provided. Use high-quality imagery that pairs well on dark backgrounds.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 4, maxItems: 12 },
-        "testimonials[].quote": { required: true, maxLength: 350 },
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Each item supports an optional imageSrc (feature photo on the card) and logoSrc (company logo). Both must be absolute URLs when provided. Use high-quality imagery that pairs well on dark backgrounds.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 4, maxItems: 12 },
+          "testimonials[].quote": { required: true, maxLength: 350 },
+        },
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Author avatar in the scrolling column card.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+          "testimonials[].imageSrc": imageSlot(
+            "testimonials[].imageSrc",
+            "Optional feature photo displayed on the card.",
+            ["feature", "thumbnail"],
+            "medium",
+            false,
+          ),
+          "testimonials[].logoSrc": logoSlot(
+            "testimonials[].logoSrc",
+            "Optional company logo on the card.",
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
+        ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Author avatar in the scrolling column card.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
-        ),
-        "testimonials[].imageSrc": imageSlot(
-          "testimonials[].imageSrc",
-          "Optional feature photo displayed on the card.",
-          ["feature", "thumbnail"],
-          "medium",
-          false,
-        ),
-        "testimonials[].logoSrc": logoSlot(
-          "testimonials[].logoSrc",
-          "Optional company logo on the card.",
-        ),
+      exampleProps: {
+        heading: "What Our Customers Are Saying",
+        description:
+          "Real stories from businesses transforming their operations.",
+        testimonials: [
+          {
+            quote:
+              "Exceptional platform with outstanding results. Efficiency increased by 45% in the first quarter.",
+            author: "Nicole Anderson",
+            role: "Operations Director",
+            company: "AndCo",
+            avatarSrc: img,
+            imageSrc: img,
+          },
+          {
+            quote:
+              "Customer support is incredibly responsive. They truly care about our success.",
+            author: "Marcus Chen",
+            role: "IT Manager",
+            company: "ChenTech",
+            avatarSrc: img,
+            imageSrc: img,
+          },
+          {
+            quote:
+              "Integration was seamless. We were running in days instead of weeks.",
+            author: "Sarah Thompson",
+            role: "CTO",
+            company: "ThompsonIO",
+            avatarSrc: img,
+            imageSrc: img,
+          },
+          {
+            quote:
+              "Analytics insights drive real business value. We make better decisions faster.",
+            author: "James Rodriguez",
+            role: "Head of Analytics",
+            company: "RodAnalytics",
+            avatarSrc: img,
+            imageSrc: img,
+          },
+        ],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
     },
-    exampleProps: {
-      heading: "What Our Customers Are Saying",
-      description: "Real stories from businesses transforming their operations.",
-      testimonials: [
-        { quote: "Exceptional platform with outstanding results. Efficiency increased by 45% in the first quarter.", author: "Nicole Anderson", role: "Operations Director", company: "AndCo", avatarSrc: img, imageSrc: img },
-        { quote: "Customer support is incredibly responsive. They truly care about our success.", author: "Marcus Chen", role: "IT Manager", company: "ChenTech", avatarSrc: img, imageSrc: img },
-        { quote: "Integration was seamless. We were running in days instead of weeks.", author: "Sarah Thompson", role: "CTO", company: "ThompsonIO", avatarSrc: img, imageSrc: img },
-        { quote: "Analytics insights drive real business value. We make better decisions faster.", author: "James Rodriguez", role: "Head of Analytics", company: "RodAnalytics", avatarSrc: img, imageSrc: img },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-minimal-numbered
-  // -------------------------------------------------------------------------
-  "testimonials-minimal-numbered": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-minimal-numbered
+    // -------------------------------------------------------------------------
+    "testimonials-minimal-numbered": {
+      exampleUsage: `
 <TestimonialsMinimalNumbered
   testimonials={[
     { quote: "The platform has completely transformed how we approach our business operations. Every feature is thoughtfully designed and performance is exceptional.", author: "Dr. Catherine Foster", role: "CEO", company: "Innovation Labs", avatarSrc: "${img}" },
@@ -12902,53 +14293,74 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   background="muted"
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. This minimal layout displays a large numbered counter alongside the active quote — quotes should be detailed enough to fill the space (3–5 sentences). Author avatars are prominent in this layout.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 3, maxItems: 8 },
-        "testimonials[].quote": {
-          required: true,
-          maxLength: 500,
-          note: "Longer quotes work well in this numbered minimal layout.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. This minimal layout displays a large numbered counter alongside the active quote — quotes should be detailed enough to fill the space (3–5 sentences). Author avatars are prominent in this layout.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 3, maxItems: 8 },
+          "testimonials[].quote": {
+            required: true,
+            maxLength: 500,
+            note: "Longer quotes work well in this numbered minimal layout.",
+          },
+          "testimonials[].author": { required: true },
+          "testimonials[].avatarSrc": {
+            required: true,
+            note: "Avatar is prominently displayed alongside the numbered counter.",
+          },
         },
-        "testimonials[].author": { required: true },
-        "testimonials[].avatarSrc": {
-          required: true,
-          note: "Avatar is prominently displayed alongside the numbered counter.",
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Author avatar displayed prominently beside the numbered counter.",
+            ["profile", "avatar"],
+            "small",
+            true,
+            "1:1",
+          ),
         },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Author avatar displayed prominently beside the numbered counter.",
-          ["profile", "avatar"],
-          "small",
-          true,
-          "1:1",
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        testimonials: [
+          {
+            quote:
+              "The platform has completely transformed how we approach our business operations. Every feature is thoughtfully designed and performance is exceptional.",
+            author: "Dr. Catherine Foster",
+            role: "CEO",
+            company: "Innovation Labs",
+            avatarSrc: img,
+          },
+          {
+            quote:
+              "We've tried many solutions but this is the only one that truly delivered on its promises. The team's dedication to excellence shows in every detail.",
+            author: "Marcus Rodriguez",
+            role: "VP of Engineering",
+            company: "TechScale",
+            avatarSrc: img,
+          },
+          {
+            quote:
+              "Seamless integration with our existing systems. No disruption, just immediate value from day one.",
+            author: "Jennifer Kim",
+            role: "IT Director",
+            company: "Enterprise Solutions",
+            avatarSrc: img,
+          },
+        ],
+        autoPlayInterval: 8000,
+      },
     },
-    exampleProps: {
-      testimonials: [
-        { quote: "The platform has completely transformed how we approach our business operations. Every feature is thoughtfully designed and performance is exceptional.", author: "Dr. Catherine Foster", role: "CEO", company: "Innovation Labs", avatarSrc: img },
-        { quote: "We've tried many solutions but this is the only one that truly delivered on its promises. The team's dedication to excellence shows in every detail.", author: "Marcus Rodriguez", role: "VP of Engineering", company: "TechScale", avatarSrc: img },
-        { quote: "Seamless integration with our existing systems. No disruption, just immediate value from day one.", author: "Jennifer Kim", role: "IT Director", company: "Enterprise Solutions", avatarSrc: img },
-      ],
-      autoPlayInterval: 8000,
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-parallax-number
-  // -------------------------------------------------------------------------
-  "testimonials-parallax-number": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-parallax-number
+    // -------------------------------------------------------------------------
+    "testimonials-parallax-number": {
+      exampleUsage: `
 <TestimonialsParallaxNumber
   verticalLabel="Reviews"
   testimonials={[
@@ -12960,48 +14372,72 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   spacing="xl"
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. backgroundIcon is a decorative Iconify icon ID (e.g., 'lucide/rocket') rendered as a large watermark behind the testimonial number — use icons that complement the testimonial theme. backgroundLabel is optional decorative text. The vertical side label renders ONLY when verticalLabel is supplied — there is NO fallback wording; choose industry-appropriate text or omit the prop to hide it.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 2, maxItems: 8 },
-        "testimonials[].quote": { required: true, maxLength: 400 },
-        "testimonials[].author": { required: true },
-        "testimonials[].backgroundIcon": {
-          note: "Iconify icon ID (e.g., 'lucide/rocket'). Decorative — do not use logo assets.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. backgroundIcon is a decorative Iconify icon ID (e.g., 'lucide/rocket') rendered as a large watermark behind the testimonial number — use icons that complement the testimonial theme. backgroundLabel is optional decorative text. The vertical side label renders ONLY when verticalLabel is supplied — there is NO fallback wording; choose industry-appropriate text or omit the prop to hide it.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 2, maxItems: 8 },
+          "testimonials[].quote": { required: true, maxLength: 400 },
+          "testimonials[].author": { required: true },
+          "testimonials[].backgroundIcon": {
+            note: "Iconify icon ID (e.g., 'lucide/rocket'). Decorative — do not use logo assets.",
+          },
         },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Author avatar displayed with the parallax testimonial.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Author avatar displayed with the parallax testimonial.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        verticalLabel: "Reviews",
+        testimonials: [
+          {
+            quote:
+              "This platform revolutionized our business operations. Increased productivity, reduced costs, and a happier team.",
+            author: "Victoria Chen",
+            role: "CEO & Founder",
+            company: "Innovation Dynamics",
+            avatarSrc: img,
+            backgroundIcon: "lucide/rocket",
+          },
+          {
+            quote:
+              "The level of innovation and attention to detail is unmatched. Performance is exceptional under any workload.",
+            author: "Alexander Martinez",
+            role: "CTO",
+            company: "TechForward",
+            avatarSrc: img,
+            backgroundIcon: "lucide/bar-chart-2",
+          },
+          {
+            quote:
+              "Complete transformation in how we serve customers. Response times down, satisfaction up, team loves it.",
+            author: "Dr. Rachel Foster",
+            role: "VP of Operations",
+            company: "CustomerFirst Inc",
+            avatarSrc: img,
+            backgroundIcon: "lucide/thumbs-up",
+          },
+        ],
+      },
     },
-    exampleProps: {
-      verticalLabel: "Reviews",
-      testimonials: [
-        { quote: "This platform revolutionized our business operations. Increased productivity, reduced costs, and a happier team.", author: "Victoria Chen", role: "CEO & Founder", company: "Innovation Dynamics", avatarSrc: img, backgroundIcon: "lucide/rocket" },
-        { quote: "The level of innovation and attention to detail is unmatched. Performance is exceptional under any workload.", author: "Alexander Martinez", role: "CTO", company: "TechForward", avatarSrc: img, backgroundIcon: "lucide/bar-chart-2" },
-        { quote: "Complete transformation in how we serve customers. Response times down, satisfaction up, team loves it.", author: "Dr. Rachel Foster", role: "VP of Operations", company: "CustomerFirst Inc", avatarSrc: img, backgroundIcon: "lucide/thumbs-up" },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-masonry-grid
-  // -------------------------------------------------------------------------
-  "testimonials-masonry-grid": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-masonry-grid
+    // -------------------------------------------------------------------------
+    "testimonials-masonry-grid": {
+      exampleUsage: `
 <TestimonialsMasonryGrid
   heading="Community Testimonials"
   description="Real feedback from real users making an impact."
@@ -13015,48 +14451,90 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   ]}
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Masonry layout renders items at varying heights — mix shorter and longer quotes for visual variety. Provide at least 6 items for the masonry effect to read well.",
-    usageRequirements: {
-      requiredProps: ["testimonials"],
-      propConstraints: {
-        testimonials: { required: true, minItems: 6, maxItems: 12 },
-        "testimonials[].quote": { required: true, maxLength: 400 },
-      },
-      mediaSlots: {
-        "testimonials[].avatarSrc": imageSlot(
-          "testimonials[].avatarSrc",
-          "Author avatar in masonry card.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. Masonry layout renders items at varying heights — mix shorter and longer quotes for visual variety. Provide at least 6 items for the masonry effect to read well.",
+      usageRequirements: {
+        requiredProps: ["testimonials"],
+        propConstraints: {
+          testimonials: { required: true, minItems: 6, maxItems: 12 },
+          "testimonials[].quote": { required: true, maxLength: 400 },
+        },
+        mediaSlots: {
+          "testimonials[].avatarSrc": imageSlot(
+            "testimonials[].avatarSrc",
+            "Author avatar in masonry card.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
+      exampleProps: {
+        heading: "Community Testimonials",
+        description: "Real feedback from real users making an impact.",
+        testimonials: [
+          {
+            quote:
+              "This has completely transformed how we approach our daily workflows. The efficiency gains are remarkable.",
+            author: "Rachel Anderson",
+            role: "Operations Manager",
+            company: "AndCo",
+            avatarSrc: img,
+          },
+          {
+            quote:
+              "Best tool we've implemented this year. The team loves it and the results are undeniable.",
+            author: "Marcus Johnson",
+            role: "Team Lead",
+            company: "JohnsonBuilds",
+            avatarSrc: img,
+          },
+          {
+            quote:
+              "Simple yet powerful. Exactly what we needed without unnecessary complexity.",
+            author: "Lisa Chen",
+            role: "Product Designer",
+            company: "ChenDesigns",
+            avatarSrc: img,
+          },
+          {
+            quote:
+              "The customer support is phenomenal. Every question answered promptly. They genuinely care.",
+            author: "David Park",
+            role: "CTO",
+            company: "ParkTech",
+            avatarSrc: img,
+          },
+          {
+            quote:
+              "We've seen a 300% improvement in key metrics. The analytics alone are worth the investment.",
+            author: "Sarah Williams",
+            role: "Analytics Lead",
+            company: "WillAnalytics",
+            avatarSrc: img,
+          },
+          {
+            quote:
+              "Integration with our existing tools was seamless. No disruption to ongoing projects.",
+            author: "Kevin Torres",
+            role: "IT Director",
+            company: "TorresIO",
+            avatarSrc: img,
+          },
+        ],
+      },
     },
-    exampleProps: {
-      heading: "Community Testimonials",
-      description: "Real feedback from real users making an impact.",
-      testimonials: [
-        { quote: "This has completely transformed how we approach our daily workflows. The efficiency gains are remarkable.", author: "Rachel Anderson", role: "Operations Manager", company: "AndCo", avatarSrc: img },
-        { quote: "Best tool we've implemented this year. The team loves it and the results are undeniable.", author: "Marcus Johnson", role: "Team Lead", company: "JohnsonBuilds", avatarSrc: img },
-        { quote: "Simple yet powerful. Exactly what we needed without unnecessary complexity.", author: "Lisa Chen", role: "Product Designer", company: "ChenDesigns", avatarSrc: img },
-        { quote: "The customer support is phenomenal. Every question answered promptly. They genuinely care.", author: "David Park", role: "CTO", company: "ParkTech", avatarSrc: img },
-        { quote: "We've seen a 300% improvement in key metrics. The analytics alone are worth the investment.", author: "Sarah Williams", role: "Analytics Lead", company: "WillAnalytics", avatarSrc: img },
-        { quote: "Integration with our existing tools was seamless. No disruption to ongoing projects.", author: "Kevin Torres", role: "IT Director", company: "TorresIO", avatarSrc: img },
-      ],
-    },
-  },
 
-  // -------------------------------------------------------------------------
-  // testimonials-large-quote
-  // -------------------------------------------------------------------------
-  "testimonials-large-quote": {
-    exampleUsage: `
+    // -------------------------------------------------------------------------
+    // testimonials-large-quote
+    // -------------------------------------------------------------------------
+    "testimonials-large-quote": {
+      exampleUsage: `
 <TestimonialsLargeQuote
   testimonial={{
     quote: "This platform has revolutionized how we approach our business operations. The impact on our team's productivity and morale has been extraordinary.",
@@ -13069,45 +14547,45 @@ const TESTIMONIALS_BLOCK_CONTRACTS: Record<
   spacing="xl"
 />
     `.trim(),
-    importantUsageNotes:
-      "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. This layout renders a single testimonial in large display typography — choose the most impactful, well-articulated quote available. Quote length of 2–4 sentences works best at display size.",
-    usageRequirements: {
-      requiredProps: ["testimonial"],
-      propConstraints: {
-        "testimonial.quote": {
-          required: true,
-          maxLength: 500,
-          note: "Choose the single most impactful quote. 2–4 sentences ideal for display typography.",
+      importantUsageNotes:
+        "Testimonials must come from real, sourced reviews or testimonials. Do not fabricate quotes, names, or company affiliations. This layout renders a single testimonial in large display typography — choose the most impactful, well-articulated quote available. Quote length of 2–4 sentences works best at display size.",
+      usageRequirements: {
+        requiredProps: ["testimonial"],
+        propConstraints: {
+          "testimonial.quote": {
+            required: true,
+            maxLength: 500,
+            note: "Choose the single most impactful quote. 2–4 sentences ideal for display typography.",
+          },
+          "testimonial.author": { required: true },
         },
-        "testimonial.author": { required: true },
-      },
-      mediaSlots: {
-        "testimonial.avatarSrc": imageSlot(
-          "testimonial.avatarSrc",
-          "Author headshot displayed with the large quote.",
-          ["profile", "avatar"],
-          "small",
-          false,
-          "1:1",
+        mediaSlots: {
+          "testimonial.avatarSrc": imageSlot(
+            "testimonial.avatarSrc",
+            "Author headshot displayed with the large quote.",
+            ["profile", "avatar"],
+            "small",
+            false,
+            "1:1",
+          ),
+        },
+        requiresSiteCapabilities: testimonialsCapabilities(
+          "reviews_or_testimonials",
         ),
+        notes: [TESTIMONIALS_MEDIA_NOTE],
       },
-      requiresSiteCapabilities: testimonialsCapabilities(
-        "reviews_or_testimonials",
-      ),
-      notes: [TESTIMONIALS_MEDIA_NOTE],
-    },
-    exampleProps: {
-      testimonial: {
-        quote:
-          "This platform has revolutionized how we approach our business operations. The impact on our team's productivity and morale has been extraordinary.",
-        author: "Victoria Reynolds",
-        role: "Founder & CEO",
-        company: "NextWave Ventures",
-        avatarSrc: img,
+      exampleProps: {
+        testimonial: {
+          quote:
+            "This platform has revolutionized how we approach our business operations. The impact on our team's productivity and morale has been extraordinary.",
+          author: "Victoria Reynolds",
+          role: "Founder & CEO",
+          company: "NextWave Ventures",
+          avatarSrc: img,
+        },
       },
     },
-  },
-};
+  };
 
 // Append the shared Phase 2 dynamic-feeds guidance to every testimonials block
 // contract so testimonials_feed hydration semantics ship uniformly across the
@@ -13134,1169 +14612,1224 @@ const FEATURES_MEDIA_NOTE =
 const featuresCapabilities = (...capabilities: SiteCapability[]) =>
   capabilities;
 
-const FEATURES_BLOCK_CONTRACTS: Record<string, FeaturesBlockContract> =
-  {
-    "feature-showcase": {
-      exampleUsage:
-        "Carousel-style feature section with alternating content/media slides. Use when showcasing multiple product features with images in a paginated layout.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} Each item has a 'content' ReactNode (headings, text) and a 'mediaComponent' ReactNode (images, videos). The carousel handles navigation automatically; provide at least 2 items for pagination to appear. Pass section header content as 'children' above the carousel.`,
-      usageRequirements: {
+const FEATURES_BLOCK_CONTRACTS: Record<string, FeaturesBlockContract> = {
+  "feature-showcase": {
+    exampleUsage:
+      "Carousel-style feature section with alternating content/media slides. Use when showcasing multiple product features with images in a paginated layout.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} Each item has a 'content' ReactNode (headings, text) and a 'mediaComponent' ReactNode (images, videos). The carousel handles navigation automatically; provide at least 2 items for pagination to appear. Pass section header content as 'children' above the carousel.`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          items: { minItems: 2, maxItems: 6 },
-        },
-      },
-      exampleProps: {
-        items: [
-          {
-            content: "<div><h3>Feature One</h3><p>Description of the feature.</p></div>",
-            mediaComponent: `<img src="${FEATURES_EXAMPLE_IMAGE_URL}" alt="Feature One" className="w-full h-full object-cover rounded-md" />`,
-          },
-          {
-            content: "<div><h3>Feature Two</h3><p>Another great capability.</p></div>",
-            mediaComponent: `<img src="${FEATURES_EXAMPLE_IMAGE_URL}" alt="Feature Two" className="w-full h-full object-cover rounded-md" />`,
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        items: { minItems: 2, maxItems: 6 },
       },
     },
+    exampleProps: {
+      items: [
+        {
+          content:
+            "<div><h3>Feature One</h3><p>Description of the feature.</p></div>",
+          mediaComponent: `<img src="${FEATURES_EXAMPLE_IMAGE_URL}" alt="Feature One" className="w-full h-full object-cover rounded-md" />`,
+        },
+        {
+          content:
+            "<div><h3>Feature Two</h3><p>Another great capability.</p></div>",
+          mediaComponent: `<img src="${FEATURES_EXAMPLE_IMAGE_URL}" alt="Feature Two" className="w-full h-full object-cover rounded-md" />`,
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
 
-    "feature-capabilities-grid": {
-      exampleUsage:
-        "Dark capability grid with animated hover highlight cards. Ideal for showcasing platform features, AI capabilities, or service pillars in a 3-column layout.",
-      importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/brain') — no image needed for icons. Supports optional 'href' on each item for linking.`,
-      usageRequirements: {
+  "feature-capabilities-grid": {
+    exampleUsage:
+      "Dark capability grid with animated hover highlight cards. Ideal for showcasing platform features, AI capabilities, or service pillars in a 3-column layout.",
+    importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/brain') — no image needed for icons. Supports optional 'href' on each item for linking.`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities(),
-        propConstraints: {
-          items: { minItems: 3, maxItems: 9 },
-        },
-      },
-      exampleProps: {
-        eyebrow: "Platform Capabilities",
-        heading: "Everything You Need to Scale",
-        items: [
-          {
-            iconName: "lucide/brain",
-            title: "AI-Powered Insights",
-            description: "Harness machine learning to surface actionable insights automatically.",
-          },
-          {
-            iconName: "lucide/zap",
-            title: "Lightning Performance",
-            description: "Sub-100ms response times powered by our global edge network.",
-          },
-          {
-            iconName: "lucide/shield",
-            title: "Enterprise Security",
-            description: "SOC 2 compliant with end-to-end encryption and audit logging.",
-          },
-        ],
-        background: "dark",
-        spacing: "py-12 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities(),
+      propConstraints: {
+        items: { minItems: 3, maxItems: 9 },
       },
     },
+    exampleProps: {
+      eyebrow: "Platform Capabilities",
+      heading: "Everything You Need to Scale",
+      items: [
+        {
+          iconName: "lucide/brain",
+          title: "AI-Powered Insights",
+          description:
+            "Harness machine learning to surface actionable insights automatically.",
+        },
+        {
+          iconName: "lucide/zap",
+          title: "Lightning Performance",
+          description:
+            "Sub-100ms response times powered by our global edge network.",
+        },
+        {
+          iconName: "lucide/shield",
+          title: "Enterprise Security",
+          description:
+            "SOC 2 compliant with end-to-end encryption and audit logging.",
+        },
+      ],
+      background: "dark",
+      spacing: "py-12 md:py-32",
+    },
+  },
 
-    "feature-split-image": {
-      exampleUsage:
-        "Two-column split layout: text/CTAs on the left, image on the right. Best for product introductions, feature highlights, or hero-style feature sections.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} Use 'imageSrc' for a simple image URL; use 'imageSlot' to pass a custom ReactNode. Supports up to 2 CTA buttons via the 'actions' array.`,
-      usageRequirements: {
+  "feature-split-image": {
+    exampleUsage:
+      "Two-column split layout: text/CTAs on the left, image on the right. Best for product introductions, feature highlights, or hero-style feature sections.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} Use 'imageSrc' for a simple image URL; use 'imageSlot' to pass a custom ReactNode. Supports up to 2 CTA buttons via the 'actions' array.`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          actions: { minItems: 1, maxItems: 2 },
-        },
-      },
-      exampleProps: {
-        title: "Build Faster with Our Components",
-        description:
-          "Hundreds of finely crafted components built with React and Tailwind CSS, ready to drop into your project.",
-        imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-        imageAlt: "Team working together in a modern office",
-        actions: [
-          { label: "Get Started", href: "/signup", variant: "default" },
-          { label: "Learn More", href: "/docs", variant: "outline" },
-        ],
-        background: "default",
-        spacing: "py-6 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        actions: { minItems: 1, maxItems: 2 },
       },
     },
+    exampleProps: {
+      title: "Build Faster with Our Components",
+      description:
+        "Hundreds of finely crafted components built with React and Tailwind CSS, ready to drop into your project.",
+      imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+      imageAlt: "Team working together in a modern office",
+      actions: [
+        { label: "Get Started", href: "/signup", variant: "default" },
+        { label: "Learn More", href: "/docs", variant: "outline" },
+      ],
+      background: "default",
+      spacing: "py-6 md:py-32",
+    },
+  },
 
-    "feature-split-image-reverse": {
-      exampleUsage:
-        "Two-column split layout: image on the left, text/CTAs on the right. Use for alternating content sections or visual-first storytelling.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} Mirror of 'feature-split-image' — image column is placed first (left) on desktop. Use 'imageSrc' for a simple URL; use 'imageSlot' for a custom ReactNode.`,
-      usageRequirements: {
+  "feature-split-image-reverse": {
+    exampleUsage:
+      "Two-column split layout: image on the left, text/CTAs on the right. Use for alternating content sections or visual-first storytelling.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} Mirror of 'feature-split-image' — image column is placed first (left) on desktop. Use 'imageSrc' for a simple URL; use 'imageSlot' for a custom ReactNode.`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          actions: { minItems: 1, maxItems: 2 },
-        },
-      },
-      exampleProps: {
-        title: "Designed for Developers",
-        description:
-          "Copy and paste components directly into your project. No configuration required.",
-        imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-        imageAlt: "Developer workspace",
-        actions: [
-          { label: "Get Started", href: "/signup", variant: "default" },
-          { label: "View Docs", href: "/docs", variant: "outline" },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        actions: { minItems: 1, maxItems: 2 },
       },
     },
+    exampleProps: {
+      title: "Designed for Developers",
+      description:
+        "Copy and paste components directly into your project. No configuration required.",
+      imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+      imageAlt: "Developer workspace",
+      actions: [
+        { label: "Get Started", href: "/signup", variant: "default" },
+        { label: "View Docs", href: "/docs", variant: "outline" },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
 
-    "feature-icon-grid-bordered": {
-      exampleUsage:
-        "Four-column grid of icon-text items with dashed left borders creating a visual timeline/separator effect. Best for value propositions, process steps, or capability highlights.",
-      importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/timer'). No images — icons only. Supports optional 'href' on each feature item.`,
-      usageRequirements: {
+  "feature-icon-grid-bordered": {
+    exampleUsage:
+      "Four-column grid of icon-text items with dashed left borders creating a visual timeline/separator effect. Best for value propositions, process steps, or capability highlights.",
+    importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/timer'). No images — icons only. Supports optional 'href' on each feature item.`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities(),
-        propConstraints: {
-          features: { minItems: 4, maxItems: 8 },
-        },
-      },
-      exampleProps: {
-        label: "Why Choose Us?",
-        title: "A Better Way to Build",
-        features: [
-          {
-            iconName: "lucide/timer",
-            title: "Performance",
-            description: "Optimized for speed with sub-100ms load times.",
-          },
-          {
-            iconName: "lucide/zap",
-            title: "Innovation",
-            description: "Cutting-edge technology for modern applications.",
-          },
-          {
-            iconName: "lucide/shield",
-            title: "Security",
-            description: "Enterprise-grade security built in from day one.",
-          },
-          {
-            iconName: "lucide/users",
-            title: "Collaboration",
-            description: "Real-time collaboration tools for your entire team.",
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities(),
+      propConstraints: {
+        features: { minItems: 4, maxItems: 8 },
       },
     },
+    exampleProps: {
+      label: "Why Choose Us?",
+      title: "A Better Way to Build",
+      features: [
+        {
+          iconName: "lucide/timer",
+          title: "Performance",
+          description: "Optimized for speed with sub-100ms load times.",
+        },
+        {
+          iconName: "lucide/zap",
+          title: "Innovation",
+          description: "Cutting-edge technology for modern applications.",
+        },
+        {
+          iconName: "lucide/shield",
+          title: "Security",
+          description: "Enterprise-grade security built in from day one.",
+        },
+        {
+          iconName: "lucide/users",
+          title: "Collaboration",
+          description: "Real-time collaboration tools for your entire team.",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
 
-    "feature-checklist-image": {
-      exampleUsage:
-        "Split layout with a large image on the left and a text + checklist on the right. Best for technology stack highlights, feature benefit lists, or product capability breakdowns.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} description Use 'checklistItems' or the alias 'benefits' — both work. Supports CTA buttons via the 'actions' array.`,
-      usageRequirements: {
+  "feature-checklist-image": {
+    exampleUsage:
+      "Split layout with a large image on the left and a text + checklist on the right. Best for technology stack highlights, feature benefit lists, or product capability breakdowns.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} description Use 'checklistItems' or the alias 'benefits' — both work. Supports CTA buttons via the 'actions' array.`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          checklistItems: { minItems: 3, maxItems: 8 },
-          actions: { minItems: 0, maxItems: 2 },
-        },
-      },
-      exampleProps: {
-        title: "Built with the Latest Technology Stack",
-        description:
-          "Modern tools and frameworks chosen for optimal performance, reliability, and developer experience.",
-        imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-        imageAlt: "Modern technology stack",
-        checklistItems: [
-          "Production-ready quality",
-          "Multi-purpose and extensible",
-          "Easy to use and customize",
-          "Blazing fast performance",
-        ],
-        actions: [{ label: "Learn More", href: "/features", variant: "outline" }],
-        background: "default",
-        spacing: "py-6 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        checklistItems: { minItems: 3, maxItems: 8 },
+        actions: { minItems: 0, maxItems: 2 },
       },
     },
+    exampleProps: {
+      title: "Built with the Latest Technology Stack",
+      description:
+        "Modern tools and frameworks chosen for optimal performance, reliability, and developer experience.",
+      imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+      imageAlt: "Modern technology stack",
+      checklistItems: [
+        "Production-ready quality",
+        "Multi-purpose and extensible",
+        "Easy to use and customize",
+        "Blazing fast performance",
+      ],
+      actions: [{ label: "Learn More", href: "/features", variant: "outline" }],
+      background: "default",
+      spacing: "py-6 md:py-32",
+    },
+  },
 
-    "feature-carousel-progress": {
-      exampleUsage:
-        "Horizontal carousel with progress bar indicator and badge/heading header. Each slide is an icon-card. Best for feature overviews, service highlights, or step-by-step processes.",
-      importantUsageNotes: `Use 'iconName' in format 'prefix/name' on slides (e.g., 'lucide/code'). No images on slides. The progress bar tracks carousel position automatically. title`,
-      usageRequirements: {
+  "feature-carousel-progress": {
+    exampleUsage:
+      "Horizontal carousel with progress bar indicator and badge/heading header. Each slide is an icon-card. Best for feature overviews, service highlights, or step-by-step processes.",
+    importantUsageNotes: `Use 'iconName' in format 'prefix/name' on slides (e.g., 'lucide/code'). No images on slides. The progress bar tracks carousel position automatically. title`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities(),
-        propConstraints: {
-          slides: { minItems: 3, maxItems: 8 },
-        },
-      },
-      exampleProps: {
-        badge: "Features",
-        title: "Everything You Need",
-        description:
-          "A complete platform with all the tools you need to build, launch, and grow.",
-        carouselLabel: "Explore features",
-        slides: [
-          {
-            iconName: "lucide/code",
-            title: "Modern Codebase",
-            description: "Clean, well-documented code following best practices.",
-          },
-          {
-            iconName: "lucide/layout",
-            title: "Responsive Design",
-            description: "Looks great on every device and screen size.",
-          },
-          {
-            iconName: "lucide/rocket",
-            title: "Fast Deployment",
-            description: "Ship to production in minutes, not days.",
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities(),
+      propConstraints: {
+        slides: { minItems: 3, maxItems: 8 },
       },
     },
+    exampleProps: {
+      badge: "Features",
+      title: "Everything You Need",
+      description:
+        "A complete platform with all the tools you need to build, launch, and grow.",
+      carouselLabel: "Explore features",
+      slides: [
+        {
+          iconName: "lucide/code",
+          title: "Modern Codebase",
+          description: "Clean, well-documented code following best practices.",
+        },
+        {
+          iconName: "lucide/layout",
+          title: "Responsive Design",
+          description: "Looks great on every device and screen size.",
+        },
+        {
+          iconName: "lucide/rocket",
+          title: "Fast Deployment",
+          description: "Ship to production in minutes, not days.",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
 
-    "feature-card-grid-linked": {
-      exampleUsage:
-        "Grid of linked feature cards, each with a top image, label, heading, and description. Best for product feature discovery, service category navigation, or content browsing.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} label heading description`,
-      usageRequirements: {
+  "feature-card-grid-linked": {
+    exampleUsage:
+      "Grid of linked feature cards, each with a top image, label, heading, and description. Best for product feature discovery, service category navigation, or content browsing.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} label heading description`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          features: { minItems: 2, maxItems: 8 },
-        },
-      },
-      exampleProps: {
-        title: "Explore Our Features",
-        description: "Discover everything the platform has to offer.",
-        features: [
-          {
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Analytics dashboard",
-            label: "Analytics",
-            heading: "Real-Time Insights",
-            description: "Monitor your metrics as they happen with live dashboards.",
-            url: "/features/analytics",
-          },
-          {
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Automation interface",
-            label: "Automation",
-            heading: "Workflow Automation",
-            description: "Automate repetitive tasks and focus on what matters.",
-            url: "/features/automation",
-          },
-          {
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Collaboration tools",
-            label: "Collaboration",
-            heading: "Team Collaboration",
-            description: "Work together seamlessly with real-time collaboration.",
-            url: "/features/collaboration",
-          },
-          {
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Security features",
-            label: "Security",
-            heading: "Enterprise Security",
-            description: "Keep your data safe with enterprise-grade security.",
-            url: "/features/security",
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        features: { minItems: 2, maxItems: 8 },
       },
     },
+    exampleProps: {
+      title: "Explore Our Features",
+      description: "Discover everything the platform has to offer.",
+      features: [
+        {
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Analytics dashboard",
+          label: "Analytics",
+          heading: "Real-Time Insights",
+          description:
+            "Monitor your metrics as they happen with live dashboards.",
+          url: "/features/analytics",
+        },
+        {
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Automation interface",
+          label: "Automation",
+          heading: "Workflow Automation",
+          description: "Automate repetitive tasks and focus on what matters.",
+          url: "/features/automation",
+        },
+        {
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Collaboration tools",
+          label: "Collaboration",
+          heading: "Team Collaboration",
+          description: "Work together seamlessly with real-time collaboration.",
+          url: "/features/collaboration",
+        },
+        {
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Security features",
+          label: "Security",
+          heading: "Enterprise Security",
+          description: "Keep your data safe with enterprise-grade security.",
+          url: "/features/security",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
 
-    "feature-numbered-cards": {
-      exampleUsage:
-        "Vertically stacked numbered feature cards, each with an image, title, description, optional checklist, and CTA. Best for step-by-step processes, service tiers, or detailed feature breakdowns.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} title description Number badges are auto-generated based on array index.`,
-      usageRequirements: {
+  "feature-numbered-cards": {
+    exampleUsage:
+      "Vertically stacked numbered feature cards, each with an image, title, description, optional checklist, and CTA. Best for step-by-step processes, service tiers, or detailed feature breakdowns.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} title description Number badges are auto-generated based on array index.`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          features: { minItems: 2, maxItems: 5 },
-        },
-      },
-      exampleProps: {
-        title: "How It Works",
-        description: "Three simple steps to get started with our platform.",
-        features: [
-          {
-            title: "Create Your Account",
-            description: "Sign up in minutes with just your email address.",
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Account creation screen",
-            checklistItems: ["No credit card required", "Free tier available"],
-            actions: [{ label: "Sign Up Free", href: "/signup", variant: "default" }],
-          },
-          {
-            title: "Connect Your Tools",
-            description: "Integrate with the services you already use.",
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Integration dashboard",
-            checklistItems: ["100+ integrations", "One-click setup"],
-          },
-          {
-            title: "Start Building",
-            description: "Launch your first project in minutes.",
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Project builder",
-            checklistItems: ["Visual editor", "Live preview"],
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        features: { minItems: 2, maxItems: 5 },
       },
     },
+    exampleProps: {
+      title: "How It Works",
+      description: "Three simple steps to get started with our platform.",
+      features: [
+        {
+          title: "Create Your Account",
+          description: "Sign up in minutes with just your email address.",
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Account creation screen",
+          checklistItems: ["No credit card required", "Free tier available"],
+          actions: [
+            { label: "Sign Up Free", href: "/signup", variant: "default" },
+          ],
+        },
+        {
+          title: "Connect Your Tools",
+          description: "Integrate with the services you already use.",
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Integration dashboard",
+          checklistItems: ["100+ integrations", "One-click setup"],
+        },
+        {
+          title: "Start Building",
+          description: "Launch your first project in minutes.",
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Project builder",
+          checklistItems: ["Visual editor", "Live preview"],
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
 
-    "feature-icon-grid-accent": {
-      exampleUsage:
-        "Three-column icon-card grid with accent-colored icon backgrounds. Best for showcasing product features with a label/heading/description header.",
-      importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/zoom-in'). No images. Accent color for icon backgrounds comes from the site's theme.`,
-      usageRequirements: {
+  "feature-icon-grid-accent": {
+    exampleUsage:
+      "Three-column icon-card grid with accent-colored icon backgrounds. Best for showcasing product features with a label/heading/description header.",
+    importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/zoom-in'). No images. Accent color for icon backgrounds comes from the site's theme.`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities(),
-        propConstraints: {
-          features: { minItems: 3, maxItems: 9 },
-        },
-      },
-      exampleProps: {
-        label: "Core Features",
-        title: "Built for Scale",
-        description: "Everything you need to run a high-performance platform.",
-        features: [
-          {
-            iconName: "lucide/zoom-in",
-            title: "Deep Analytics",
-            description: "Drill into every metric with our powerful analytics engine.",
-          },
-          {
-            iconName: "lucide/cpu",
-            title: "Edge Computing",
-            description: "Process data closer to your users for ultra-low latency.",
-          },
-          {
-            iconName: "lucide/lock",
-            title: "Zero-Trust Security",
-            description: "Every request verified, every connection encrypted.",
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities(),
+      propConstraints: {
+        features: { minItems: 3, maxItems: 9 },
       },
     },
+    exampleProps: {
+      label: "Core Features",
+      title: "Built for Scale",
+      description: "Everything you need to run a high-performance platform.",
+      features: [
+        {
+          iconName: "lucide/zoom-in",
+          title: "Deep Analytics",
+          description:
+            "Drill into every metric with our powerful analytics engine.",
+        },
+        {
+          iconName: "lucide/cpu",
+          title: "Edge Computing",
+          description:
+            "Process data closer to your users for ultra-low latency.",
+        },
+        {
+          iconName: "lucide/lock",
+          title: "Zero-Trust Security",
+          description: "Every request verified, every connection encrypted.",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
 
-    "feature-three-column-values": {
-      exampleUsage:
-        "Three-column grid of icon + title + description value cards. Best for company values, core principles, or product pillars.",
-      importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/timer'). No images. Supports optional 'href' on each value item.`,
-      usageRequirements: {
+  "feature-three-column-values": {
+    exampleUsage:
+      "Three-column grid of icon + title + description value cards. Best for company values, core principles, or product pillars.",
+    importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/timer'). No images. Supports optional 'href' on each value item.`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities(),
-        propConstraints: {
-          values: { minItems: 3, maxItems: 6 },
-        },
-      },
-      exampleProps: {
-        label: "Our Values",
-        title: "What We Stand For",
-        values: [
-          {
-            iconName: "lucide/heart",
-            title: "Customer First",
-            description: "Every decision starts and ends with what's best for our customers.",
-          },
-          {
-            iconName: "lucide/lightbulb",
-            title: "Innovation",
-            description: "We push the boundaries of what's possible every single day.",
-          },
-          {
-            iconName: "lucide/users",
-            title: "Community",
-            description: "Building together is better than building alone.",
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities(),
+      propConstraints: {
+        values: { minItems: 3, maxItems: 6 },
       },
     },
+    exampleProps: {
+      label: "Our Values",
+      title: "What We Stand For",
+      values: [
+        {
+          iconName: "lucide/heart",
+          title: "Customer First",
+          description:
+            "Every decision starts and ends with what's best for our customers.",
+        },
+        {
+          iconName: "lucide/lightbulb",
+          title: "Innovation",
+          description:
+            "We push the boundaries of what's possible every single day.",
+        },
+        {
+          iconName: "lucide/users",
+          title: "Community",
+          description: "Building together is better than building alone.",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
 
-    "feature-badge-grid-six": {
-      exampleUsage:
-        "Six-item feature grid with badge label, main heading, and an optional CTA button. Each item has an icon, heading, and description. Best for comprehensive feature listings.",
-      importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/git-pull-request'). No images. Grid is designed for 6 items (2×3 or 3×2) but accepts 3–9. Provide a 'label' for the badge and a 'title' for the main heading. The 'action' prop controls the single optional CTA button.`,
-      usageRequirements: {
+  "feature-badge-grid-six": {
+    exampleUsage:
+      "Six-item feature grid with badge label, main heading, and an optional CTA button. Each item has an icon, heading, and description. Best for comprehensive feature listings.",
+    importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/git-pull-request'). No images. Grid is designed for 6 items (2×3 or 3×2) but accepts 3–9. Provide a 'label' for the badge and a 'title' for the main heading. The 'action' prop controls the single optional CTA button.`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities(),
-        propConstraints: {
-          features: { minItems: 3, maxItems: 9 },
-        },
-      },
-      exampleProps: {
-        label: "Features",
-        title: "Everything You Need",
-        features: [
-          {
-            iconName: "lucide/git-pull-request",
-            heading: "Version Control",
-            description: "Full Git integration with branch management.",
-          },
-          {
-            iconName: "lucide/layers",
-            heading: "Component Library",
-            description: "200+ pre-built components ready to use.",
-          },
-          {
-            iconName: "lucide/cloud",
-            heading: "Cloud Storage",
-            description: "Unlimited storage with automatic backups.",
-          },
-          {
-            iconName: "lucide/bar-chart",
-            heading: "Analytics",
-            description: "Real-time insights into your application.",
-          },
-          {
-            iconName: "lucide/bell",
-            heading: "Notifications",
-            description: "Smart alerts that keep your team informed.",
-          },
-          {
-            iconName: "lucide/plug",
-            heading: "Integrations",
-            description: "Connect with 100+ third-party services.",
-          },
-        ],
-        action: { label: "View All Features", href: "/features", variant: "outline" },
-        background: "default",
-        spacing: "py-12 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities(),
+      propConstraints: {
+        features: { minItems: 3, maxItems: 9 },
       },
     },
+    exampleProps: {
+      label: "Features",
+      title: "Everything You Need",
+      features: [
+        {
+          iconName: "lucide/git-pull-request",
+          heading: "Version Control",
+          description: "Full Git integration with branch management.",
+        },
+        {
+          iconName: "lucide/layers",
+          heading: "Component Library",
+          description: "200+ pre-built components ready to use.",
+        },
+        {
+          iconName: "lucide/cloud",
+          heading: "Cloud Storage",
+          description: "Unlimited storage with automatic backups.",
+        },
+        {
+          iconName: "lucide/bar-chart",
+          heading: "Analytics",
+          description: "Real-time insights into your application.",
+        },
+        {
+          iconName: "lucide/bell",
+          heading: "Notifications",
+          description: "Smart alerts that keep your team informed.",
+        },
+        {
+          iconName: "lucide/plug",
+          heading: "Integrations",
+          description: "Connect with 100+ third-party services.",
+        },
+      ],
+      action: {
+        label: "View All Features",
+        href: "/features",
+        variant: "outline",
+      },
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
 
-    "feature-pattern-grid-links": {
-      exampleUsage:
-        "Icon-card grid where each card has a title, description, and an inline link. Background pattern adds visual interest. Best for feature navigation or documentation section links.",
-      importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/zoom-in'). No images. Each item supports a 'link' URL and 'linkLabel' text for an inline CTA.`,
-      usageRequirements: {
+  "feature-pattern-grid-links": {
+    exampleUsage:
+      "Icon-card grid where each card has a title, description, and an inline link. Background pattern adds visual interest. Best for feature navigation or documentation section links.",
+    importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/zoom-in'). No images. Each item supports a 'link' URL and 'linkLabel' text for an inline CTA.`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities(),
-        propConstraints: {
-          features: { minItems: 3, maxItems: 9 },
-        },
-      },
-      exampleProps: {
-        title: "Explore Our Platform",
-        description: "Deep dive into the tools that power your success.",
-        features: [
-          {
-            iconName: "lucide/zoom-in",
-            title: "Advanced Search",
-            description: "Full-text search across all your content.",
-            link: "/docs/search",
-            linkLabel: "Learn more",
-          },
-          {
-            iconName: "lucide/database",
-            title: "Data Management",
-            description: "Flexible schemas that adapt to your needs.",
-            link: "/docs/data",
-            linkLabel: "Learn more",
-          },
-          {
-            iconName: "lucide/code-2",
-            title: "Developer API",
-            description: "Comprehensive REST and GraphQL APIs.",
-            link: "/docs/api",
-            linkLabel: "View docs",
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities(),
+      propConstraints: {
+        features: { minItems: 3, maxItems: 9 },
       },
     },
+    exampleProps: {
+      title: "Explore Our Platform",
+      description: "Deep dive into the tools that power your success.",
+      features: [
+        {
+          iconName: "lucide/zoom-in",
+          title: "Advanced Search",
+          description: "Full-text search across all your content.",
+          link: "/docs/search",
+          linkLabel: "Learn more",
+        },
+        {
+          iconName: "lucide/database",
+          title: "Data Management",
+          description: "Flexible schemas that adapt to your needs.",
+          link: "/docs/data",
+          linkLabel: "Learn more",
+        },
+        {
+          iconName: "lucide/code-2",
+          title: "Developer API",
+          description: "Comprehensive REST and GraphQL APIs.",
+          link: "/docs/api",
+          linkLabel: "View docs",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
 
-    "feature-tabbed-content-image": {
-      exampleUsage:
-        "Tabbed section where each tab shows a title, description, feature bullet list, CTA buttons, and a side image. Best for showcasing multiple product areas or use cases.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} Set 'defaultTab' to the 'id' of the initially active tab.`,
-      usageRequirements: {
+  "feature-tabbed-content-image": {
+    exampleUsage:
+      "Tabbed section where each tab shows a title, description, feature bullet list, CTA buttons, and a side image. Best for showcasing multiple product areas or use cases.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} Set 'defaultTab' to the 'id' of the initially active tab.`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          slides: { minItems: 2, maxItems: 5 },
-        },
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        slides: { minItems: 2, maxItems: 5 },
       },
-      exampleProps: {
-        title: "Complete Development Platform",
-        description:
-          "From development to deployment and monitoring, everything you need.",
-        background: "dark",
-        pattern: "dashedGridFadeTop",
-        patternOpacity: 0.2,
-        slides: [
-          {
-            id: "development",
-            tabName: "Development",
-            title: "Build Faster with Modern Tools",
-            description: "Comprehensive development environment with everything you need.",
-            features: [
-              "Hot module replacement for instant feedback",
-              "Built-in TypeScript support and type checking",
-              "Integrated testing framework with coverage reports",
+    },
+    exampleProps: {
+      title: "Complete Development Platform",
+      description:
+        "From development to deployment and monitoring, everything you need.",
+      background: "dark",
+      pattern: "dashedGridFadeTop",
+      patternOpacity: 0.2,
+      slides: [
+        {
+          id: "development",
+          tabName: "Development",
+          title: "Build Faster with Modern Tools",
+          description:
+            "Comprehensive development environment with everything you need.",
+          features: [
+            "Hot module replacement for instant feedback",
+            "Built-in TypeScript support and type checking",
+            "Integrated testing framework with coverage reports",
+          ],
+          actions: [{ label: "Start Building", href: "#", variant: "default" }],
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Development environment",
+        },
+        {
+          id: "deployment",
+          tabName: "Deployment",
+          title: "Deploy to Production in Seconds",
+          description: "Push your code and let our platform handle the rest.",
+          features: [
+            "Zero-downtime deployments with instant rollbacks",
+            "Automatic SSL certificates and custom domains",
+            "Global CDN with 200+ edge locations",
+          ],
+          actions: [
+            { label: "View Deployment Guide", href: "#", variant: "default" },
+          ],
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Deployment pipeline",
+        },
+      ],
+      defaultTab: "development",
+    },
+  },
+
+  "feature-utility-cards-grid": {
+    exampleUsage:
+      "Grid of utility cards with top image, title, description, and optional action. Best for showcasing tools, integrations, or service offerings in a structured layout.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} title description A label with optional icon can be placed above the grid heading.`,
+    usageRequirements: {
+      requiredProps: [],
+      mediaSlots: {},
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        items: { minItems: 2, maxItems: 6 },
+      },
+    },
+    exampleProps: {
+      label: "Utilities",
+      labelIconName: "lucide/wrench",
+      title: "Tools Built for Your Workflow",
+      description:
+        "Powerful utilities that integrate seamlessly into your stack.",
+      items: [
+        {
+          title: "Image Optimizer",
+          description: "Automatically compress and convert images for the web.",
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Image optimization tool",
+          href: "/tools/images",
+        },
+        {
+          title: "Performance Monitor",
+          description:
+            "Track Core Web Vitals and performance metrics in real time.",
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Performance monitoring dashboard",
+          href: "/tools/performance",
+        },
+        {
+          title: "Security Scanner",
+          description:
+            "Continuous vulnerability scanning for your applications.",
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Security scanner interface",
+          href: "/tools/security",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
+
+  "feature-bento-utilities": {
+    exampleUsage:
+      "Bento-style grid of utility feature cards, mixing large and small cards with optional images, badges, and sparkle icons. Best for showcasing a platform's diverse feature set.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} Cards can have 'imageSrc' (URL) for visual cards or just 'title'/'description' for text-only cards. Use 'isDashed: true' for coming-soon placeholder cards. Use 'showSparkle: true' to display a sparkle icon next to the title. Use 'badge' for status labels like 'Coming soon'.`,
+    usageRequirements: {
+      requiredProps: [],
+      mediaSlots: {},
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        cards: { minItems: 3, maxItems: 8 },
+      },
+    },
+    exampleProps: {
+      label: "Platform",
+      title: "One Platform, Infinite Possibilities",
+      cards: [
+        {
+          title: "AI Content Generation",
+          description: "Generate high-quality content with a single prompt.",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "AI content generation interface",
+          showSparkle: true,
+        },
+        {
+          title: "Visual Page Builder",
+          description: "Drag-and-drop your way to beautiful pages.",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Page builder interface",
+        },
+        {
+          title: "Analytics Dashboard",
+          description: "Real-time insights into every aspect of your site.",
+          badge: "Coming soon",
+          isDashed: true,
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
+
+  "feature-checklist-three-column": {
+    exampleUsage:
+      "Three-column card grid where each card has an image, title, description, checklist items, and a link. Best for comparing service plans, feature sets, or product tiers.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} title description badge link Grid is fixed at 3 columns on lg.`,
+    usageRequirements: {
+      requiredProps: [],
+      mediaSlots: {},
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        cards: { minItems: 3, maxItems: 3 },
+      },
+    },
+    exampleProps: {
+      cards: [
+        {
+          title: "Starter",
+          description: "Everything you need to get started.",
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Starter plan",
+          badge: "Free",
+          checklistItems: [
+            "5 projects",
+            "Basic analytics",
+            "Community support",
+          ],
+          link: "/pricing",
+          linkLabel: "Get started",
+        },
+        {
+          title: "Professional",
+          description: "For growing teams that need more power.",
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Professional plan",
+          badge: "Popular",
+          checklistItems: [
+            "Unlimited projects",
+            "Advanced analytics",
+            "Priority support",
+          ],
+          link: "/pricing",
+          linkLabel: "Start free trial",
+        },
+        {
+          title: "Enterprise",
+          description: "Custom solutions for large organizations.",
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Enterprise plan",
+          checklistItems: [
+            "Custom limits",
+            "Dedicated support",
+            "SLA guarantee",
+          ],
+          link: "/contact",
+          linkLabel: "Contact sales",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
+
+  "feature-integration-cards": {
+    exampleUsage:
+      "Grid of integration cards with logo image, title, description, and a link. Best for showcasing third-party integrations and partnerships.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} Use 'iconAlt' for accessibility text on the logo image. Supports 'link' and 'linkLabel' on each card for a 'Connect' CTA.`,
+    usageRequirements: {
+      requiredProps: [],
+      mediaSlots: {},
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        integrations: { minItems: 3, maxItems: 8 },
+      },
+    },
+    exampleProps: {
+      title: "Powerful Integrations",
+      description:
+        "Connect seamlessly with the tools your team already uses. One-click setup gets you started in minutes.",
+      integrations: [
+        {
+          icon: "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png",
+          iconAlt: "Slack logo",
+          title: "Slack",
+          description:
+            "Get real-time notifications directly in your Slack channels.",
+          link: "#",
+          linkLabel: "Connect Slack",
+        },
+        {
+          icon: "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png",
+          iconAlt: "GitHub logo",
+          title: "GitHub",
+          description:
+            "Sync repositories and automate workflows with GitHub Actions.",
+          link: "#",
+          linkLabel: "Connect GitHub",
+        },
+        {
+          icon: "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png",
+          iconAlt: "Google Workspace logo",
+          title: "Google Workspace",
+          description: "Integrate with Gmail, Calendar, and Drive.",
+          link: "#",
+          linkLabel: "Connect Google",
+        },
+        {
+          icon: "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png",
+          iconAlt: "Salesforce logo",
+          title: "Salesforce",
+          description: "Sync customer data and automate your sales workflow.",
+          link: "#",
+          linkLabel: "Connect Salesforce",
+        },
+      ],
+      background: "dark",
+      pattern: "diagonalCrossBasic",
+      patternOpacity: 0.1,
+    },
+  },
+
+  "feature-icon-tabs-content": {
+    exampleUsage:
+      "Tab navigation with icon + label tabs. Each tab reveals a content panel with badge, title, description, CTA buttons, and a side image. Best for multi-feature or multi-use-case showcases.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} title description badge`,
+    usageRequirements: {
+      requiredProps: [],
+      mediaSlots: {},
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        tabs: { minItems: 2, maxItems: 5 },
+      },
+    },
+    exampleProps: {
+      title: "One Platform, Many Solutions",
+      description: "Discover how our platform adapts to your unique needs.",
+      tabs: [
+        {
+          value: "marketing",
+          iconName: "lucide/zap",
+          label: "Marketing",
+          content: {
+            badge: "Marketing",
+            title: "Grow Your Audience Faster",
+            description:
+              "Powerful marketing tools to attract, engage, and convert visitors.",
+            imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+            imageAlt: "Marketing dashboard",
+            actions: [
+              { label: "Explore Marketing", href: "#", variant: "default" },
             ],
-            actions: [{ label: "Start Building", href: "#", variant: "default" }],
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Development environment",
           },
-          {
-            id: "deployment",
-            tabName: "Deployment",
-            title: "Deploy to Production in Seconds",
-            description: "Push your code and let our platform handle the rest.",
-            features: [
-              "Zero-downtime deployments with instant rollbacks",
-              "Automatic SSL certificates and custom domains",
-              "Global CDN with 200+ edge locations",
-            ],
-            actions: [{ label: "View Deployment Guide", href: "#", variant: "default" }],
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Deployment pipeline",
-          },
-        ],
-        defaultTab: "development",
-      },
-    },
-
-    "feature-utility-cards-grid": {
-      exampleUsage:
-        "Grid of utility cards with top image, title, description, and optional action. Best for showcasing tools, integrations, or service offerings in a structured layout.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} title description A label with optional icon can be placed above the grid heading.`,
-      usageRequirements: {
-      requiredProps: [],
-      mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          items: { minItems: 2, maxItems: 6 },
         },
-      },
-      exampleProps: {
-        label: "Utilities",
-        labelIconName: "lucide/wrench",
-        title: "Tools Built for Your Workflow",
-        description: "Powerful utilities that integrate seamlessly into your stack.",
-        items: [
-          {
-            title: "Image Optimizer",
-            description: "Automatically compress and convert images for the web.",
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Image optimization tool",
-            href: "/tools/images",
-          },
-          {
-            title: "Performance Monitor",
-            description: "Track Core Web Vitals and performance metrics in real time.",
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Performance monitoring dashboard",
-            href: "/tools/performance",
-          },
-          {
-            title: "Security Scanner",
-            description: "Continuous vulnerability scanning for your applications.",
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Security scanner interface",
-            href: "/tools/security",
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
-      },
-    },
-
-    "feature-bento-utilities": {
-      exampleUsage:
-        "Bento-style grid of utility feature cards, mixing large and small cards with optional images, badges, and sparkle icons. Best for showcasing a platform's diverse feature set.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} Cards can have 'imageSrc' (URL) for visual cards or just 'title'/'description' for text-only cards. Use 'isDashed: true' for coming-soon placeholder cards. Use 'showSparkle: true' to display a sparkle icon next to the title. Use 'badge' for status labels like 'Coming soon'.`,
-      usageRequirements: {
-      requiredProps: [],
-      mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          cards: { minItems: 3, maxItems: 8 },
-        },
-      },
-      exampleProps: {
-        label: "Platform",
-        title: "One Platform, Infinite Possibilities",
-        cards: [
-          {
-            title: "AI Content Generation",
-            description: "Generate high-quality content with a single prompt.",
-            imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "AI content generation interface",
-            showSparkle: true,
-          },
-          {
-            title: "Visual Page Builder",
-            description: "Drag-and-drop your way to beautiful pages.",
-            imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Page builder interface",
-          },
-          {
-            title: "Analytics Dashboard",
-            description: "Real-time insights into every aspect of your site.",
-            badge: "Coming soon",
-            isDashed: true,
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
-      },
-    },
-
-    "feature-checklist-three-column": {
-      exampleUsage:
-        "Three-column card grid where each card has an image, title, description, checklist items, and a link. Best for comparing service plans, feature sets, or product tiers.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} title description badge link Grid is fixed at 3 columns on lg.`,
-      usageRequirements: {
-      requiredProps: [],
-      mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          cards: { minItems: 3, maxItems: 3 },
-        },
-      },
-      exampleProps: {
-        cards: [
-          {
-            title: "Starter",
-            description: "Everything you need to get started.",
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Starter plan",
-            badge: "Free",
-            checklistItems: ["5 projects", "Basic analytics", "Community support"],
-            link: "/pricing",
-            linkLabel: "Get started",
-          },
-          {
-            title: "Professional",
-            description: "For growing teams that need more power.",
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Professional plan",
-            badge: "Popular",
-            checklistItems: ["Unlimited projects", "Advanced analytics", "Priority support"],
-            link: "/pricing",
-            linkLabel: "Start free trial",
-          },
-          {
-            title: "Enterprise",
-            description: "Custom solutions for large organizations.",
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Enterprise plan",
-            checklistItems: ["Custom limits", "Dedicated support", "SLA guarantee"],
-            link: "/contact",
-            linkLabel: "Contact sales",
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
-      },
-    },
-
-    "feature-integration-cards": {
-      exampleUsage:
-        "Grid of integration cards with logo image, title, description, and a link. Best for showcasing third-party integrations and partnerships.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} Use 'iconAlt' for accessibility text on the logo image. Supports 'link' and 'linkLabel' on each card for a 'Connect' CTA.`,
-      usageRequirements: {
-      requiredProps: [],
-      mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          integrations: { minItems: 3, maxItems: 8 },
-        },
-      },
-      exampleProps: {
-        title: "Powerful Integrations",
-        description:
-          "Connect seamlessly with the tools your team already uses. One-click setup gets you started in minutes.",
-        integrations: [
-          {
-            icon: "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png",
-            iconAlt: "Slack logo",
-            title: "Slack",
-            description: "Get real-time notifications directly in your Slack channels.",
-            link: "#",
-            linkLabel: "Connect Slack",
-          },
-          {
-            icon: "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png",
-            iconAlt: "GitHub logo",
-            title: "GitHub",
-            description: "Sync repositories and automate workflows with GitHub Actions.",
-            link: "#",
-            linkLabel: "Connect GitHub",
-          },
-          {
-            icon: "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png",
-            iconAlt: "Google Workspace logo",
-            title: "Google Workspace",
-            description: "Integrate with Gmail, Calendar, and Drive.",
-            link: "#",
-            linkLabel: "Connect Google",
-          },
-          {
-            icon: "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png",
-            iconAlt: "Salesforce logo",
-            title: "Salesforce",
-            description: "Sync customer data and automate your sales workflow.",
-            link: "#",
-            linkLabel: "Connect Salesforce",
-          },
-        ],
-        background: "dark",
-        pattern: "diagonalCrossBasic",
-        patternOpacity: 0.1,
-      },
-    },
-
-    "feature-icon-tabs-content": {
-      exampleUsage:
-        "Tab navigation with icon + label tabs. Each tab reveals a content panel with badge, title, description, CTA buttons, and a side image. Best for multi-feature or multi-use-case showcases.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} title description badge`,
-      usageRequirements: {
-      requiredProps: [],
-      mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          tabs: { minItems: 2, maxItems: 5 },
-        },
-      },
-      exampleProps: {
-        title: "One Platform, Many Solutions",
-        description: "Discover how our platform adapts to your unique needs.",
-        tabs: [
-          {
-            value: "marketing",
-            iconName: "lucide/zap",
-            label: "Marketing",
-            content: {
-              badge: "Marketing",
-              title: "Grow Your Audience Faster",
-              description: "Powerful marketing tools to attract, engage, and convert visitors.",
-              imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-              imageAlt: "Marketing dashboard",
-              actions: [{ label: "Explore Marketing", href: "#", variant: "default" }],
-            },
-          },
-          {
-            value: "analytics",
-            iconName: "lucide/bar-chart",
-            label: "Analytics",
-            content: {
-              badge: "Analytics",
-              title: "Data-Driven Decisions",
-              description: "Real-time analytics and insights to guide your strategy.",
-              imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-              imageAlt: "Analytics dashboard",
-              actions: [{ label: "Explore Analytics", href: "#", variant: "default" }],
-            },
-          },
-          {
-            value: "automation",
-            iconName: "lucide/settings",
-            label: "Automation",
-            content: {
-              badge: "Automation",
-              title: "Work Smarter, Not Harder",
-              description: "Automate repetitive tasks and free your team for what matters.",
-              imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-              imageAlt: "Automation workflow",
-              actions: [{ label: "Explore Automation", href: "#", variant: "default" }],
-            },
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
-      },
-    },
-
-    "feature-image-overlay-badge": {
-      exampleUsage:
-        "Hero-style feature section with a large image and an overlay badge card with avatar, title, and link. Best for client spotlights, case study teasers, or social proof highlights.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} Use 'imageSrc' for the main background/hero image and 'avatarSrc' for the overlay badge avatar. The overlay card is positioned on top of the image — ensure image has enough visual space.`,
-      usageRequirements: {
-      requiredProps: [],
-      mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          actions: { minItems: 0, maxItems: 2 },
-        },
-      },
-      exampleProps: {
-        badge: "Case Study",
-        title: "How Acme Corp 10x'd Their Revenue",
-        description:
-          "Learn how Acme Corp used our platform to transform their customer acquisition and grow from startup to enterprise.",
-        imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-        imageAlt: "Acme Corp team working in their office",
-        avatarSrc: FEATURES_EXAMPLE_IMAGE_URL,
-        avatarBadgeText: "CEO",
-        overlayTitle: "Acme Corp",
-        overlayLinkText: "Read the full story",
-        overlayLinkUrl: "/case-studies/acme",
-        actions: [
-          { label: "Read Case Study", href: "/case-studies/acme", variant: "default" },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
-      },
-    },
-
-    "feature-category-image-cards": {
-      exampleUsage:
-        "Grid of image cards with category badge, title, and optional link. Best for showcasing feature categories, service types, or content collections.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} title`,
-      usageRequirements: {
-      requiredProps: [],
-      mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          features: { minItems: 3, maxItems: 6 },
-        },
-      },
-      exampleProps: {
-        badge: "Services",
-        title: "What We Offer",
-        description: "Explore our full range of solutions designed to help your business grow.",
-        features: [
-          {
-            title: "Web Development",
-            category: "Development",
-            imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Web development services",
-            href: "/services/web",
-          },
-          {
-            title: "Mobile Apps",
-            category: "Development",
-            imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Mobile app development",
-            href: "/services/mobile",
-          },
-          {
-            title: "Cloud Infrastructure",
-            category: "DevOps",
-            imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Cloud infrastructure services",
-            href: "/services/cloud",
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
-      },
-    },
-
-    "feature-bento-image-grid": {
-      exampleUsage:
-        "Bento-style grid with mixed large and small cards, each containing an icon badge, title, optional link, and image. Best for showcasing a product's feature landscape in a visually dynamic layout.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} Use 'iconName' in format 'prefix/name' for the icon badge on each card. Cards with 'size: 'large'' span more columns than 'size: 'small''. link`,
-      usageRequirements: {
-      requiredProps: [],
-      mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          items: { minItems: 3, maxItems: 6 },
-        },
-      },
-      exampleProps: {
-        title: "A Platform Built for Growth",
-        description: "Explore the features that make us the best choice for your team.",
-        items: [
-          {
-            iconName: "lucide/atom",
-            iconBadge: "New",
-            title: "AI Assistance",
-            linkText: "Learn more",
-            link: "/features/ai",
-            imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "AI assistance feature",
-            size: "large",
-          },
-          {
-            iconName: "lucide/database",
-            title: "Data Sync",
-            linkText: "Learn more",
-            link: "/features/sync",
-            imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Data synchronization",
-            size: "small",
-          },
-          {
-            iconName: "lucide/globe",
-            title: "Global CDN",
-            linkText: "Learn more",
-            link: "/features/cdn",
-            imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Global CDN network",
-            size: "small",
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
-      },
-    },
-
-    "feature-image-cards-three-column": {
-      exampleUsage:
-        "Three-column card grid with image, icon/avatar, badge, title, subtitle, and link. Best for feature highlights, service offerings, or team capability showcases.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} Each card can use either 'iconName' (format 'prefix/name') or 'avatarSrc' (URL) for the card icon. badgeText title subtitle linkText`,
-      usageRequirements: {
-      requiredProps: [],
-      mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          items: { minItems: 3, maxItems: 3 },
-        },
-      },
-      exampleProps: {
-        title: "Feature Highlights",
-        description: "Three powerful capabilities that set us apart.",
-        items: [
-          {
-            iconName: "lucide/zap",
-            badgeText: "Performance",
-            title: "Lightning Fast",
-            subtitle: "Sub-100ms response times globally.",
-            imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Performance metrics",
-            linkText: "Learn more",
-            link: "/features/performance",
-          },
-          {
-            iconName: "lucide/shield",
-            badgeText: "Security",
-            title: "Zero-Trust Security",
-            subtitle: "Every request authenticated and encrypted.",
-            imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Security architecture",
-            linkText: "Learn more",
-            link: "/features/security",
-          },
-          {
-            iconName: "lucide/bar-chart",
-            badgeText: "Analytics",
-            title: "Real-Time Insights",
-            subtitle: "Live data dashboards for your entire stack.",
+        {
+          value: "analytics",
+          iconName: "lucide/bar-chart",
+          label: "Analytics",
+          content: {
+            badge: "Analytics",
+            title: "Data-Driven Decisions",
+            description:
+              "Real-time analytics and insights to guide your strategy.",
             imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
             imageAlt: "Analytics dashboard",
-            linkText: "Learn more",
-            link: "/features/analytics",
+            actions: [
+              { label: "Explore Analytics", href: "#", variant: "default" },
+            ],
           },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
-      },
-    },
-
-    "feature-icon-grid-muted": {
-      exampleUsage:
-        "Simple icon-card grid with muted styling. Each card has an icon, title, and description. Best for supporting feature lists or secondary capability highlights.",
-      importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/check-circle-2'). No images. Supports optional 'href' on each item.`,
-      usageRequirements: {
-      requiredProps: [],
-      mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities(),
-        propConstraints: {
-          features: { minItems: 3, maxItems: 9 },
         },
-      },
-      exampleProps: {
-        title: "Built-In Capabilities",
-        description: "A full suite of tools included out of the box.",
-        features: [
-          {
-            iconName: "lucide/check-circle-2",
-            title: "Auto-Scaling",
-            description: "Automatically scales to handle any traffic spike.",
-          },
-          {
-            iconName: "lucide/check-circle-2",
-            title: "99.99% Uptime SLA",
-            description: "Enterprise-grade reliability you can count on.",
-          },
-          {
-            iconName: "lucide/check-circle-2",
-            title: "24/7 Support",
-            description: "Round-the-clock support from our expert team.",
-          },
-          {
-            iconName: "lucide/check-circle-2",
-            title: "Automated Backups",
-            description: "Daily backups with one-click restore.",
-          },
-          {
-            iconName: "lucide/check-circle-2",
-            title: "Custom Domains",
-            description: "Bring your own domain with free SSL.",
-          },
-          {
-            iconName: "lucide/check-circle-2",
-            title: "Team Management",
-            description: "Role-based access control for your entire organization.",
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
-      },
-    },
-
-    "feature-stats-highlight": {
-      exampleUsage:
-        "Side-by-side layout with content (badge, title, description, CTAs) on one side and a stats grid on the other. Best for social proof, performance highlights, or KPI showcases.",
-      importantUsageNotes: `Use 'stats' array with 'value' (e.g., '99%', '24/7') and 'label' text. No images required — stats cards are text-only. Requires 'stats_or_metrics' site capability for accurate stat data. title description`,
-      usageRequirements: {
-      requiredProps: [],
-      mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("stats_or_metrics"),
-        propConstraints: {
-          stats: { minItems: 3, maxItems: 6 },
-          actions: { minItems: 0, maxItems: 2 },
-        },
-      },
-      exampleProps: {
-        badge: "By the Numbers",
-        title: "Trusted by Thousands of Teams",
-        description:
-          "Our platform is used by teams of all sizes, from startups to Fortune 500 companies.",
-        stats: [
-          { value: "99.99%", label: "Uptime SLA" },
-          { value: "10M+", label: "API requests per day" },
-          { value: "<50ms", label: "Average response time" },
-          { value: "150+", label: "Countries served" },
-        ],
-        actions: [
-          { label: "Start Free Trial", href: "/signup", variant: "default" },
-          { label: "Contact Sales", href: "/contact", variant: "outline" },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
-      },
-    },
-
-    "feature-accordion-image": {
-      exampleUsage:
-        "Split layout with an accordion list on one side and a dynamic image (changes with active accordion item) on the other. Best for detailed feature explanations or FAQ with visuals.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} Set 'defaultValue' to the title of the initially open item.`,
-      usageRequirements: {
-      requiredProps: [],
-      mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          items: { minItems: 3, maxItems: 6 },
-        },
-      },
-      exampleProps: {
-        title: "Frequently Asked Questions",
-        description: "Everything you need to know about our platform.",
-        defaultValue: "What makes your platform unique?",
-        items: [
-          {
-            title: "What makes your platform unique?",
-            content: "Our platform combines AI-powered automation with an intuitive visual editor, giving you the power to build enterprise-grade applications without writing a single line of code.",
+        {
+          value: "automation",
+          iconName: "lucide/settings",
+          label: "Automation",
+          content: {
+            badge: "Automation",
+            title: "Work Smarter, Not Harder",
+            description:
+              "Automate repetitive tasks and free your team for what matters.",
             imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Platform unique features",
+            imageAlt: "Automation workflow",
+            actions: [
+              { label: "Explore Automation", href: "#", variant: "default" },
+            ],
           },
-          {
-            title: "How does pricing work?",
-            content: "We offer flexible plans starting with a generous free tier. Upgrade as you grow with transparent, usage-based pricing and no hidden fees.",
-            imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Pricing plans",
-          },
-          {
-            title: "Is enterprise support available?",
-            content: "Yes, our enterprise plan includes dedicated support, SLA guarantees, custom integrations, and a dedicated success manager.",
-            imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Enterprise support",
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
-      },
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
     },
+  },
 
-    "feature-animated-carousel": {
-      exampleUsage:
-        "Animated side-nav carousel where clicking a feature title slides to the corresponding image. Best for interactive product feature tours or visual storytelling.",
-      importantUsageNotes: `${FEATURES_MEDIA_NOTE} title description The active item is highlighted in the nav; clicking switches the displayed image with animation.`,
-      usageRequirements: {
+  "feature-image-overlay-badge": {
+    exampleUsage:
+      "Hero-style feature section with a large image and an overlay badge card with avatar, title, and link. Best for client spotlights, case study teasers, or social proof highlights.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} Use 'imageSrc' for the main background/hero image and 'avatarSrc' for the overlay badge avatar. The overlay card is positioned on top of the image — ensure image has enough visual space.`,
+    usageRequirements: {
       requiredProps: [],
       mediaSlots: {},
-        requiresSiteCapabilities: featuresCapabilities("media_library"),
-          propConstraints: {
-          features: { minItems: 3, maxItems: 6 },
-        },
-      },
-      exampleProps: {
-        title: "A Complete Platform for Modern Teams",
-        description:
-          "Explore the features that make building and shipping faster than ever before.",
-        features: [
-          {
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Visual page builder",
-            title: "Visual Page Builder",
-            description: "Build pages visually with drag-and-drop simplicity.",
-            href: "/features/builder",
-          },
-          {
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "AI content generation",
-            title: "AI Content Generation",
-            description: "Generate compelling copy in seconds with AI assistance.",
-            href: "/features/ai",
-          },
-          {
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Analytics and reporting",
-            title: "Analytics & Reporting",
-            description: "Track every metric that matters to your business.",
-            href: "/features/analytics",
-          },
-          {
-            image: FEATURES_EXAMPLE_IMAGE_URL,
-            imageAlt: "Global deployment",
-            title: "Global Deployment",
-            description: "Ship to 200+ edge locations in one click.",
-            href: "/features/deploy",
-          },
-        ],
-        background: "default",
-        spacing: "py-12 md:py-32",
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        actions: { minItems: 0, maxItems: 2 },
       },
     },
-  };
+    exampleProps: {
+      badge: "Case Study",
+      title: "How Acme Corp 10x'd Their Revenue",
+      description:
+        "Learn how Acme Corp used our platform to transform their customer acquisition and grow from startup to enterprise.",
+      imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+      imageAlt: "Acme Corp team working in their office",
+      avatarSrc: FEATURES_EXAMPLE_IMAGE_URL,
+      avatarBadgeText: "CEO",
+      overlayTitle: "Acme Corp",
+      overlayLinkText: "Read the full story",
+      overlayLinkUrl: "/case-studies/acme",
+      actions: [
+        {
+          label: "Read Case Study",
+          href: "/case-studies/acme",
+          variant: "default",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
+
+  "feature-category-image-cards": {
+    exampleUsage:
+      "Grid of image cards with category badge, title, and optional link. Best for showcasing feature categories, service types, or content collections.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} title`,
+    usageRequirements: {
+      requiredProps: [],
+      mediaSlots: {},
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        features: { minItems: 3, maxItems: 6 },
+      },
+    },
+    exampleProps: {
+      badge: "Services",
+      title: "What We Offer",
+      description:
+        "Explore our full range of solutions designed to help your business grow.",
+      features: [
+        {
+          title: "Web Development",
+          category: "Development",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Web development services",
+          href: "/services/web",
+        },
+        {
+          title: "Mobile Apps",
+          category: "Development",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Mobile app development",
+          href: "/services/mobile",
+        },
+        {
+          title: "Cloud Infrastructure",
+          category: "DevOps",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Cloud infrastructure services",
+          href: "/services/cloud",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
+
+  "feature-bento-image-grid": {
+    exampleUsage:
+      "Bento-style grid with mixed large and small cards, each containing an icon badge, title, optional link, and image. Best for showcasing a product's feature landscape in a visually dynamic layout.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} Use 'iconName' in format 'prefix/name' for the icon badge on each card. Cards with 'size: 'large'' span more columns than 'size: 'small''. link`,
+    usageRequirements: {
+      requiredProps: [],
+      mediaSlots: {},
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        items: { minItems: 3, maxItems: 6 },
+      },
+    },
+    exampleProps: {
+      title: "A Platform Built for Growth",
+      description:
+        "Explore the features that make us the best choice for your team.",
+      items: [
+        {
+          iconName: "lucide/atom",
+          iconBadge: "New",
+          title: "AI Assistance",
+          linkText: "Learn more",
+          link: "/features/ai",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "AI assistance feature",
+          size: "large",
+        },
+        {
+          iconName: "lucide/database",
+          title: "Data Sync",
+          linkText: "Learn more",
+          link: "/features/sync",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Data synchronization",
+          size: "small",
+        },
+        {
+          iconName: "lucide/globe",
+          title: "Global CDN",
+          linkText: "Learn more",
+          link: "/features/cdn",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Global CDN network",
+          size: "small",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
+
+  "feature-image-cards-three-column": {
+    exampleUsage:
+      "Three-column card grid with image, icon/avatar, badge, title, subtitle, and link. Best for feature highlights, service offerings, or team capability showcases.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} Each card can use either 'iconName' (format 'prefix/name') or 'avatarSrc' (URL) for the card icon. badgeText title subtitle linkText`,
+    usageRequirements: {
+      requiredProps: [],
+      mediaSlots: {},
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        items: { minItems: 3, maxItems: 3 },
+      },
+    },
+    exampleProps: {
+      title: "Feature Highlights",
+      description: "Three powerful capabilities that set us apart.",
+      items: [
+        {
+          iconName: "lucide/zap",
+          badgeText: "Performance",
+          title: "Lightning Fast",
+          subtitle: "Sub-100ms response times globally.",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Performance metrics",
+          linkText: "Learn more",
+          link: "/features/performance",
+        },
+        {
+          iconName: "lucide/shield",
+          badgeText: "Security",
+          title: "Zero-Trust Security",
+          subtitle: "Every request authenticated and encrypted.",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Security architecture",
+          linkText: "Learn more",
+          link: "/features/security",
+        },
+        {
+          iconName: "lucide/bar-chart",
+          badgeText: "Analytics",
+          title: "Real-Time Insights",
+          subtitle: "Live data dashboards for your entire stack.",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Analytics dashboard",
+          linkText: "Learn more",
+          link: "/features/analytics",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
+
+  "feature-icon-grid-muted": {
+    exampleUsage:
+      "Simple icon-card grid with muted styling. Each card has an icon, title, and description. Best for supporting feature lists or secondary capability highlights.",
+    importantUsageNotes: `Use 'iconName' in format 'prefix/name' (e.g., 'lucide/check-circle-2'). No images. Supports optional 'href' on each item.`,
+    usageRequirements: {
+      requiredProps: [],
+      mediaSlots: {},
+      requiresSiteCapabilities: featuresCapabilities(),
+      propConstraints: {
+        features: { minItems: 3, maxItems: 9 },
+      },
+    },
+    exampleProps: {
+      title: "Built-In Capabilities",
+      description: "A full suite of tools included out of the box.",
+      features: [
+        {
+          iconName: "lucide/check-circle-2",
+          title: "Auto-Scaling",
+          description: "Automatically scales to handle any traffic spike.",
+        },
+        {
+          iconName: "lucide/check-circle-2",
+          title: "99.99% Uptime SLA",
+          description: "Enterprise-grade reliability you can count on.",
+        },
+        {
+          iconName: "lucide/check-circle-2",
+          title: "24/7 Support",
+          description: "Round-the-clock support from our expert team.",
+        },
+        {
+          iconName: "lucide/check-circle-2",
+          title: "Automated Backups",
+          description: "Daily backups with one-click restore.",
+        },
+        {
+          iconName: "lucide/check-circle-2",
+          title: "Custom Domains",
+          description: "Bring your own domain with free SSL.",
+        },
+        {
+          iconName: "lucide/check-circle-2",
+          title: "Team Management",
+          description:
+            "Role-based access control for your entire organization.",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
+
+  "feature-stats-highlight": {
+    exampleUsage:
+      "Side-by-side layout with content (badge, title, description, CTAs) on one side and a stats grid on the other. Best for social proof, performance highlights, or KPI showcases.",
+    importantUsageNotes: `Use 'stats' array with 'value' (e.g., '99%', '24/7') and 'label' text. No images required — stats cards are text-only. Requires 'stats_or_metrics' site capability for accurate stat data. title description`,
+    usageRequirements: {
+      requiredProps: [],
+      mediaSlots: {},
+      requiresSiteCapabilities: featuresCapabilities("stats_or_metrics"),
+      propConstraints: {
+        stats: { minItems: 3, maxItems: 6 },
+        actions: { minItems: 0, maxItems: 2 },
+      },
+    },
+    exampleProps: {
+      badge: "By the Numbers",
+      title: "Trusted by Thousands of Teams",
+      description:
+        "Our platform is used by teams of all sizes, from startups to Fortune 500 companies.",
+      stats: [
+        { value: "99.99%", label: "Uptime SLA" },
+        { value: "10M+", label: "API requests per day" },
+        { value: "<50ms", label: "Average response time" },
+        { value: "150+", label: "Countries served" },
+      ],
+      actions: [
+        { label: "Start Free Trial", href: "/signup", variant: "default" },
+        { label: "Contact Sales", href: "/contact", variant: "outline" },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
+
+  "feature-accordion-image": {
+    exampleUsage:
+      "Split layout with an accordion list on one side and a dynamic image (changes with active accordion item) on the other. Best for detailed feature explanations or FAQ with visuals.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} Set 'defaultValue' to the title of the initially open item.`,
+    usageRequirements: {
+      requiredProps: [],
+      mediaSlots: {},
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        items: { minItems: 3, maxItems: 6 },
+      },
+    },
+    exampleProps: {
+      title: "Frequently Asked Questions",
+      description: "Everything you need to know about our platform.",
+      defaultValue: "What makes your platform unique?",
+      items: [
+        {
+          title: "What makes your platform unique?",
+          content:
+            "Our platform combines AI-powered automation with an intuitive visual editor, giving you the power to build enterprise-grade applications without writing a single line of code.",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Platform unique features",
+        },
+        {
+          title: "How does pricing work?",
+          content:
+            "We offer flexible plans starting with a generous free tier. Upgrade as you grow with transparent, usage-based pricing and no hidden fees.",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Pricing plans",
+        },
+        {
+          title: "Is enterprise support available?",
+          content:
+            "Yes, our enterprise plan includes dedicated support, SLA guarantees, custom integrations, and a dedicated success manager.",
+          imageSrc: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Enterprise support",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
+
+  "feature-animated-carousel": {
+    exampleUsage:
+      "Animated side-nav carousel where clicking a feature title slides to the corresponding image. Best for interactive product feature tours or visual storytelling.",
+    importantUsageNotes: `${FEATURES_MEDIA_NOTE} title description The active item is highlighted in the nav; clicking switches the displayed image with animation.`,
+    usageRequirements: {
+      requiredProps: [],
+      mediaSlots: {},
+      requiresSiteCapabilities: featuresCapabilities("media_library"),
+      propConstraints: {
+        features: { minItems: 3, maxItems: 6 },
+      },
+    },
+    exampleProps: {
+      title: "A Complete Platform for Modern Teams",
+      description:
+        "Explore the features that make building and shipping faster than ever before.",
+      features: [
+        {
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Visual page builder",
+          title: "Visual Page Builder",
+          description: "Build pages visually with drag-and-drop simplicity.",
+          href: "/features/builder",
+        },
+        {
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "AI content generation",
+          title: "AI Content Generation",
+          description:
+            "Generate compelling copy in seconds with AI assistance.",
+          href: "/features/ai",
+        },
+        {
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Analytics and reporting",
+          title: "Analytics & Reporting",
+          description: "Track every metric that matters to your business.",
+          href: "/features/analytics",
+        },
+        {
+          image: FEATURES_EXAMPLE_IMAGE_URL,
+          imageAlt: "Global deployment",
+          title: "Global Deployment",
+          description: "Ship to 200+ edge locations in one click.",
+          href: "/features/deploy",
+        },
+      ],
+      background: "default",
+      spacing: "py-12 md:py-32",
+    },
+  },
+};
 
 // ============================================================================
 // CONTACT BLOCK CONTRACTS
@@ -14323,10 +15856,14 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
       requiresSiteCapabilities: contactCapabilities("contact_info"),
       mediaSlots: {},
       propConstraints: {
-        badgeText: { note: "Short bold label (e.g. 'Limited time', 'New feature')" },
+        badgeText: {
+          note: "Short bold label (e.g. 'Limited time', 'New feature')",
+        },
         message: { note: "One sentence call-to-action or announcement" },
         buttonText: { note: "Action label (e.g. 'Learn more', 'Get started')" },
-        buttonHref: { note: "Absolute URL or internal path to destination page" },
+        buttonHref: {
+          note: "Absolute URL or internal path to destination page",
+        },
       },
     },
     exampleProps: {
@@ -14344,12 +15881,21 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission; without it the form renders but cannot submit. callbackProcessLabel and callbackProcessDescription provide an info box to set user expectations (e.g. response time, preparation tips).`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
-        formEngineSetup: { note: "Must include a valid formConfig.endpoint targeting a real API route" },
-        callbackProcessLabel: { note: "Brief heading for the process info box (optional)" },
-        callbackProcessDescription: { note: "One or two sentences explaining the callback process (optional)" },
+        formEngineSetup: {
+          note: "Must include a valid formConfig.endpoint targeting a real API route",
+        },
+        callbackProcessLabel: {
+          note: "Brief heading for the process info box (optional)",
+        },
+        callbackProcessDescription: {
+          note: "One or two sentences explaining the callback process (optional)",
+        },
       },
     },
     exampleProps: {
@@ -14370,10 +15916,15 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `contactOptions items require a real icon name (e.g. 'lucide/phone') and actual contact info string. formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
-        contactOptions: { note: "Array of ContactOption with icon (DynamicIcon name), info (real contact string), and optional href" },
+        contactOptions: {
+          note: "Array of ContactOption with icon (DynamicIcon name), info (real contact string), and optional href",
+        },
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
       },
     },
@@ -14381,8 +15932,16 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
       heading: "Get in Touch",
       description: "Reach out by phone, email, or fill in the form.",
       contactOptions: [
-        { icon: "lucide/phone", info: "+1 (555) 234-5678", href: "tel:+15552345678" },
-        { icon: "lucide/mail", info: "hello@example.com", href: "mailto:hello@example.com" },
+        {
+          icon: "lucide/phone",
+          info: "+1 (555) 234-5678",
+          href: "tel:+15552345678",
+        },
+        {
+          icon: "lucide/mail",
+          info: "hello@example.com",
+          href: "mailto:hello@example.com",
+        },
         { icon: "lucide/map-pin", info: "123 Main St, Phoenix, AZ 85001" },
       ],
       formEngineSetup: {
@@ -14397,16 +15956,24 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
-        formEngineSetup: { note: "Must include a valid formConfig.endpoint for application submissions" },
-        jobListings: { note: "Array of JobListingItem with real position data; optional" },
+        formEngineSetup: {
+          note: "Must include a valid formConfig.endpoint for application submissions",
+        },
+        jobListings: {
+          note: "Array of JobListingItem with real position data; optional",
+        },
       },
     },
     exampleProps: {
       heading: "Join Our Team",
-      description: "We're always looking for talented people. Send us your application.",
+      description:
+        "We're always looking for talented people. Send us your application.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/careers", format: "json" },
       },
@@ -14419,7 +15986,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14427,7 +15997,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Request a Catering Quote",
-      description: "Tell us about your event and we'll create a custom menu proposal.",
+      description:
+        "Tell us about your event and we'll create a custom menu proposal.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/catering", format: "json" },
       },
@@ -14440,7 +16011,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. Duration options (30/60/90/120 minutes) are pre-configured as defaults; override via formEngineSetup fields if needed.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14448,7 +16022,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Book a Free Consultation",
-      description: "Schedule a session with our team at a time that works for you.",
+      description:
+        "Schedule a session with our team at a time that works for you.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/consultation", format: "json" },
       },
@@ -14461,18 +16036,26 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. socialLinks require real profile URLs — do not use placeholder social handles. contactDescription is shown alongside contact options; keep to one sentence.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
-        contactOptions: { note: "Array of ContactDarkOption with icon, info, and optional href using real data" },
-        socialLinks: { note: "Array of ContactDarkSocialLink with real href URLs" },
+        contactOptions: {
+          note: "Array of ContactDarkOption with icon, info, and optional href using real data",
+        },
+        socialLinks: {
+          note: "Array of ContactDarkSocialLink with real href URLs",
+        },
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
       },
     },
     exampleProps: {
       heading: "Contact Us",
       description: "Our team will get back to you within 24 hours.",
-      contactDescription: "Fill out the form and our team will get back to you within 24 hours.",
+      contactDescription:
+        "Fill out the form and our team will get back to you within 24 hours.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/contact", format: "json" },
       },
@@ -14485,7 +16068,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14493,7 +16079,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Request a Demo",
-      description: "See our platform in action. Schedule a personalized walkthrough with our team.",
+      description:
+        "See our platform in action. Schedule a personalized walkthrough with our team.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/demo", format: "json" },
       },
@@ -14506,16 +16093,22 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. contactInfoItems should list real emergency contact numbers and email addresses with accurate response times. Priority response times (e.g. '2 hours', '24 hours') must reflect actual SLA commitments.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
-        contactInfoItems: { note: "Array of ContactInfoItem with icon, label, secondary text (real phone/email), and response time" },
+        contactInfoItems: {
+          note: "Array of ContactInfoItem with icon, label, secondary text (real phone/email), and response time",
+        },
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
       },
     },
     exampleProps: {
       heading: "Emergency Service Request",
-      description: "Available 24/7 for urgent situations. We'll respond within 2 hours.",
+      description:
+        "Available 24/7 for urgent situations. We'll respond within 2 hours.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/emergency", format: "json" },
       },
@@ -14528,7 +16121,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14536,7 +16132,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Book Your Event",
-      description: "Tell us about your event and we'll help you plan the perfect experience.",
+      description:
+        "Tell us about your event and we'll help you plan the perfect experience.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/events", format: "json" },
       },
@@ -14549,10 +16146,15 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. faqs array requires real question/answer pairs — do not use lorem ipsum.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
-        faqs: { note: "Array of FaqItem with real question and answer strings" },
+        faqs: {
+          note: "Array of FaqItem with real question and answer strings",
+        },
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
       },
     },
@@ -14581,7 +16183,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14602,7 +16207,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14623,7 +16231,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14631,7 +16242,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Guest Services",
-      description: "How can we make your stay more comfortable? Send us a message.",
+      description:
+        "How can we make your stay more comfortable? Send us a message.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/guest", format: "json" },
       },
@@ -14647,7 +16259,9 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
       requiresSiteCapabilities: contactCapabilities("contact_info"),
       mediaSlots: {},
       propConstraints: {
-        items: { note: "Array of ContactHelpCenterItem with title, subtitle, icon (DynamicIcon name), and optional href" },
+        items: {
+          note: "Array of ContactHelpCenterItem with title, subtitle, icon (DynamicIcon name), and optional href",
+        },
       },
     },
     exampleProps: {
@@ -14683,7 +16297,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `${CONTACT_MEDIA_NOTE} formEngineSetup is required to enable form submission. contactOverlayItems (phone, email, address) are rendered over the image — use real contact details.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {
         image: {
           path: "image",
@@ -14719,7 +16336,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. Coverage type options should reflect actual policies offered by the business.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14727,7 +16347,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Get a Free Insurance Quote",
-      description: "Tell us about your coverage needs and we'll find the right plan for you.",
+      description:
+        "Tell us about your coverage needs and we'll find the right plan for you.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/insurance", format: "json" },
       },
@@ -14740,7 +16361,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14748,7 +16372,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Schedule Your Interview",
-      description: "Choose a date and time that works for you and we'll confirm shortly.",
+      description:
+        "Choose a date and time that works for you and we'll confirm shortly.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/interview", format: "json" },
       },
@@ -14761,7 +16386,11 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. Location data must use real addresses and phone numbers. Requires the 'locations' site capability if showing multiple locations.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info", "locations"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+        "locations",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14782,7 +16411,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14790,7 +16422,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Submit a Maintenance Request",
-      description: "Describe the issue and we'll schedule a technician to assist you.",
+      description:
+        "Describe the issue and we'll schedule a technician to assist you.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/maintenance", format: "json" },
       },
@@ -14803,7 +16436,11 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. mapProps requires a valid Stadia Maps API key (stadiaApiKey) and real GPS coordinates for markers. GeoMapMarker items must use real latitude/longitude and real location strings. marker mediaItems src values must be absolute URLs to real image assets.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info", "locations"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+        "locations",
+      ),
       mediaSlots: {
         "mapProps.markers[].mediaItems": {
           path: "mapProps.markers[].mediaItems",
@@ -14813,14 +16450,19 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
         },
       },
       propConstraints: {
-        "mapProps.stadiaApiKey": { note: "Must be a valid Stadia Maps API key" },
-        "mapProps.markers": { note: "Array of GeoMapMarker with real latitude, longitude, and location strings" },
+        "mapProps.stadiaApiKey": {
+          note: "Must be a valid Stadia Maps API key",
+        },
+        "mapProps.markers": {
+          note: "Array of GeoMapMarker with real latitude, longitude, and location strings",
+        },
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
       },
     },
     exampleProps: {
       heading: "Contact Us",
-      description: "We're here to help. Send us a message and we'll respond within 24 hours.",
+      description:
+        "We're here to help. Send us a message and we'll respond within 24 hours.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/contact", format: "json" },
       },
@@ -14846,7 +16488,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14867,7 +16512,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14875,7 +16523,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Get a Moving Quote",
-      description: "Tell us about your move and we'll provide a free, no-obligation estimate.",
+      description:
+        "Tell us about your move and we'll provide a free, no-obligation estimate.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/moving", format: "json" },
       },
@@ -14888,15 +16537,21 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. Step labels and progress indicators are managed internally; configure steps via formEngineSetup fields.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
-        formEngineSetup: { note: "Must include a valid formConfig.endpoint; multi-step structure is defined by field groupings" },
+        formEngineSetup: {
+          note: "Must include a valid formConfig.endpoint; multi-step structure is defined by field groupings",
+        },
       },
     },
     exampleProps: {
       heading: "Let's Get Started",
-      description: "Answer a few quick questions and we'll get back to you with a personalized recommendation.",
+      description:
+        "Answer a few quick questions and we'll get back to you with a personalized recommendation.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/contact", format: "json" },
       },
@@ -14909,7 +16564,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. Partnership type options should reflect actual programs the business offers.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14917,7 +16575,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Partner With Us",
-      description: "Interested in a partnership? Tell us about your organization and goals.",
+      description:
+        "Interested in a partnership? Tell us about your organization and goals.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/partnership", format: "json" },
       },
@@ -14930,7 +16589,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `${CONTACT_MEDIA_NOTE} formEngineSetup is required to enable form submission. Project type options (wedding, portrait, corporate, product, real estate) should match the photographer's actual services.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {
         image: {
           path: "image",
@@ -14940,7 +16602,9 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
         },
       },
       propConstraints: {
-        "image.src": { note: "Absolute URL to a real portfolio or showcase image" },
+        "image.src": {
+          note: "Absolute URL to a real portfolio or showcase image",
+        },
         "image.alt": { note: "Descriptive alt text for the image" },
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
       },
@@ -14965,7 +16629,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. Include real press contact email and media kit link if available.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14973,7 +16640,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Press & Media Inquiries",
-      description: "For press inquiries, interviews, or media kit requests, please reach out.",
+      description:
+        "For press inquiries, interviews, or media kit requests, please reach out.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/press", format: "json" },
       },
@@ -14986,7 +16654,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -14994,7 +16665,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Request a Free Quote",
-      description: "Describe your project and we'll provide a detailed estimate within 24 hours.",
+      description:
+        "Describe your project and we'll provide a detailed estimate within 24 hours.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/quote", format: "json" },
       },
@@ -15007,7 +16679,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. Referral incentive details (reward, discount) must reflect actual program terms.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15015,7 +16690,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Refer a Friend",
-      description: "Share our service with someone you know and earn a reward when they sign up.",
+      description:
+        "Share our service with someone you know and earn a reward when they sign up.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/referral", format: "json" },
       },
@@ -15028,7 +16704,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15036,7 +16715,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Report an Issue",
-      description: "Use this form to report a problem, safety concern, or policy violation.",
+      description:
+        "Use this form to report a problem, safety concern, or policy violation.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/report", format: "json" },
       },
@@ -15049,7 +16729,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15057,7 +16740,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Make a Reservation",
-      description: "Reserve your table online. We'll send a confirmation to your email.",
+      description:
+        "Reserve your table online. We'll send a confirmation to your email.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/reservations", format: "json" },
       },
@@ -15070,7 +16754,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15091,7 +16778,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. Meal preference and dietary restriction options should reflect actual event catering choices.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15112,7 +16802,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15120,7 +16813,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Talk to Sales",
-      description: "Interested in our enterprise plan? Our sales team will reach out within one business day.",
+      description:
+        "Interested in our enterprise plan? Our sales team will reach out within one business day.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/sales", format: "json" },
       },
@@ -15133,7 +16827,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15141,7 +16838,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Schedule an Appointment",
-      description: "Pick a date and time and we'll confirm your appointment by email.",
+      description:
+        "Pick a date and time and we'll confirm your appointment by email.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/schedule", format: "json" },
       },
@@ -15154,7 +16852,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. Sponsorship tier options should reflect actual available packages.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15162,7 +16863,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Become a Sponsor",
-      description: "Interested in sponsoring our event? Fill out this form to learn more.",
+      description:
+        "Interested in sponsoring our event? Fill out this form to learn more.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/sponsorship", format: "json" },
       },
@@ -15175,7 +16877,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15183,7 +16888,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Contact Support",
-      description: "Our support team is available Monday–Friday, 9 AM to 5 PM. We aim to respond within 24 hours.",
+      description:
+        "Our support team is available Monday–Friday, 9 AM to 5 PM. We aim to respond within 24 hours.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/support", format: "json" },
       },
@@ -15196,7 +16902,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15204,7 +16913,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Tenant Contact Form",
-      description: "Current tenants can use this form for maintenance requests, questions, or general inquiries.",
+      description:
+        "Current tenants can use this form for maintenance requests, questions, or general inquiries.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/tenant", format: "json" },
       },
@@ -15217,7 +16927,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15225,7 +16938,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Become a Vendor",
-      description: "Interested in supplying products or services? Submit your vendor application.",
+      description:
+        "Interested in supplying products or services? Submit your vendor application.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/vendor", format: "json" },
       },
@@ -15238,7 +16952,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. Volunteer role options and availability fields should reflect real opportunities.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15246,7 +16963,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Volunteer With Us",
-      description: "We welcome volunteers of all backgrounds. Tell us how you'd like to help.",
+      description:
+        "We welcome volunteers of all backgrounds. Tell us how you'd like to help.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/volunteer", format: "json" },
       },
@@ -15259,7 +16977,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15267,7 +16988,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Submit a Warranty Claim",
-      description: "Complete this form to initiate your warranty claim. We'll process it within 3-5 business days.",
+      description:
+        "Complete this form to initiate your warranty claim. We'll process it within 3-5 business days.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/warranty", format: "json" },
       },
@@ -15280,7 +17002,10 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     importantUsageNotes: `formEngineSetup is required to enable form submission. Wedding style and venue capacity options should reflect actual offerings.`,
     usageRequirements: {
       requiredProps: [],
-      requiresSiteCapabilities: contactCapabilities("contact_form", "contact_info"),
+      requiresSiteCapabilities: contactCapabilities(
+        "contact_form",
+        "contact_info",
+      ),
       mediaSlots: {},
       propConstraints: {
         formEngineSetup: { note: "Must include a valid formConfig.endpoint" },
@@ -15288,7 +17013,8 @@ const CONTACT_BLOCK_CONTRACTS: Record<string, ContactBlockContract> = {
     },
     exampleProps: {
       heading: "Plan Your Perfect Day",
-      description: "Tell us about your vision and we'll help make it a reality.",
+      description:
+        "Tell us about your vision and we'll help make it a reality.",
       formEngineSetup: {
         formConfig: { endpoint: "/api/wedding", format: "json" },
       },
@@ -15354,7 +17080,10 @@ const EXAMPLE_VIDEO_1 = {
 // SHARED MEDIA SLOT BUILDERS
 // ---------------------------------------------------------------------------
 
-const backgroundImageSlot = (path: string, required = false): BlockMediaSlot => ({
+const backgroundImageSlot = (
+  path: string,
+  required = false,
+): BlockMediaSlot => ({
   path,
   roles: ["hero", "background"] as MediaRole[],
   disallowedRoles: ["logo", "favicon", "video-thumbnail"] as MediaRole[],
@@ -15366,7 +17095,14 @@ const backgroundImageSlot = (path: string, required = false): BlockMediaSlot => 
 const videoMediaSlot = (path: string): BlockMediaSlot => ({
   path,
   roles: [] as MediaRole[],
-  disallowedRoles: ["logo", "favicon", "hero", "feature", "profile", "thumbnail"] as MediaRole[],
+  disallowedRoles: [
+    "logo",
+    "favicon",
+    "hero",
+    "feature",
+    "profile",
+    "thumbnail",
+  ] as MediaRole[],
   note: "VIDEO MEDIA ONLY. Must be an HLS playlist or MP4 URL, not an image URL.",
 });
 
@@ -15375,7 +17111,6 @@ const videoMediaSlot = (path: string): BlockMediaSlot => ({
 // ---------------------------------------------------------------------------
 
 const HERO_BLOCK_CONTRACTS = {
-
   // -------------------------------------------------------------------------
   // hero-overlay-cta-grid
   // -------------------------------------------------------------------------
@@ -15407,14 +17142,32 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Choose your path",
       description: "Multiple ways to engage with our platform.",
       backgroundImage: HERO_EXAMPLE_IMAGE_URL,
       cards: [
-        { label: "New Features", subtitle: "New AI features to automate workflows", icon: "lucide/bot", href: "#" },
-        { label: "Automation", subtitle: "Dedicated agents to streamline tasks", icon: "lucide/bell", href: "#" },
-        { label: "Performance", subtitle: "Enterprise speed for all business sizes", icon: "lucide/bolt", href: "#" },
+        {
+          label: "New Features",
+          subtitle: "New AI features to automate workflows",
+          icon: "lucide/bot",
+          href: "#",
+        },
+        {
+          label: "Automation",
+          subtitle: "Dedicated agents to streamline tasks",
+          icon: "lucide/bell",
+          href: "#",
+        },
+        {
+          label: "Performance",
+          subtitle: "Enterprise speed for all business sizes",
+          icon: "lucide/bolt",
+          href: "#",
+        },
       ],
     },
   },
@@ -15449,16 +17202,34 @@ const HERO_BLOCK_CONTRACTS = {
       mediaSlots: {},
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       eyebrow: "For Developers",
       heading: "Built for teams that ship fast",
       description: "Powerful features designed for modern development teams.",
       primaryCta: { label: "Get Started", href: "#" },
       secondaryCta: { label: "View Demo", href: "#" },
       cardItems: [
-        { title: "New Features", subtitle: "New AI features to automate workflows", icon: "lucide/bot", href: "#" },
-        { title: "Automation", subtitle: "Dedicated agents to streamline tasks", icon: "lucide/bell", href: "#" },
-        { title: "Performance", subtitle: "Enterprise speed for all business sizes", icon: "lucide/bolt", href: "#" },
+        {
+          title: "New Features",
+          subtitle: "New AI features to automate workflows",
+          icon: "lucide/bot",
+          href: "#",
+        },
+        {
+          title: "Automation",
+          subtitle: "Dedicated agents to streamline tasks",
+          icon: "lucide/bell",
+          href: "#",
+        },
+        {
+          title: "Performance",
+          subtitle: "Enterprise speed for all business sizes",
+          icon: "lucide/bolt",
+          href: "#",
+        },
       ],
     },
   },
@@ -15494,12 +17265,21 @@ const HERO_BLOCK_CONTRACTS = {
         actions: { maxItems: 2, pinnedValues: { "0.variant": "default" } },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Floating decorative images. Use varied, visually interesting photos.", ["feature", "hero"], "medium", false),
+        "images[]": imageSlot(
+          "images[]",
+          "Floating decorative images. Use varied, visually interesting photos.",
+          ["feature", "hero"],
+          "medium",
+          false,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       badge: "Featured Work",
       heading: "Build Stunning Websites",
       description: "We design and build beautiful digital products.",
@@ -15536,15 +17316,30 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 60 },
         description: { maxLength: 160 },
         imageSrc: { required: true },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        imageSrc: { ...imageSlot("imageSrc", "Right-side hero image.", ["feature", "hero"], "large", true), path: "imageSrc" },
+        imageSrc: {
+          ...imageSlot(
+            "imageSrc",
+            "Right-side hero image.",
+            ["feature", "hero"],
+            "large",
+            true,
+          ),
+          path: "imageSrc",
+        },
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       badge: "New Release",
       heading: "Build faster with our platform",
       description: "Everything you need to ship your product in record time.",
@@ -15580,15 +17375,30 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 60 },
         description: { maxLength: 160 },
         imageSrc: { required: true },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        imageSrc: { ...imageSlot("imageSrc", "Left-side hero image.", ["feature", "hero"], "large", true), path: "imageSrc" },
+        imageSrc: {
+          ...imageSlot(
+            "imageSrc",
+            "Left-side hero image.",
+            ["feature", "hero"],
+            "large",
+            true,
+          ),
+          path: "imageSrc",
+        },
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       imageSrc: HERO_EXAMPLE_IMAGE_URL,
       imageAlt: "Product showcase",
       heading: "Beautiful design meets powerful functionality",
@@ -15625,12 +17435,21 @@ const HERO_BLOCK_CONTRACTS = {
         images: { required: true, minItems: 3, maxItems: 6 },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Slider images. Use varied, high-quality photos.", ["feature", "hero"], "large", true),
+        "images[]": imageSlot(
+          "images[]",
+          "Slider images. Use varied, high-quality photos.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Explore our collection",
       description: "Browse through our carefully curated selection.",
       images: [
@@ -15671,24 +17490,54 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
         gridImages: { required: true, count: 6, minItems: 6, maxItems: 6 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        "gridImages[]": imageSlot("gridImages[]", "Grid gallery images. Use diverse, high-quality content.", ["feature", "hero"], "medium", true),
+        "gridImages[]": imageSlot(
+          "gridImages[]",
+          "Grid gallery images. Use diverse, high-quality content.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Visual storytelling at its finest",
       description: "Showcase your work with beautiful grid layouts.",
       gridImages: [
-        { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "Gallery image 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "Gallery image 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j", alt: "Gallery image 3" },
-        { src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson", alt: "Gallery image 4" },
-        { src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg", alt: "Gallery image 5" },
-        { src: "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q", alt: "Gallery image 6" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+          alt: "Gallery image 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+          alt: "Gallery image 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+          alt: "Gallery image 3",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+          alt: "Gallery image 4",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+          alt: "Gallery image 5",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q",
+          alt: "Gallery image 6",
+        },
       ],
       actions: [
         { label: "View Gallery", href: "#", variant: "default" },
@@ -15723,19 +17572,44 @@ const HERO_BLOCK_CONTRACTS = {
         actions: { maxItems: 2, pinnedValues: { "0.variant": "default" } },
       },
       mediaSlots: {
-        imageSrc: { ...imageSlot("imageSrc", "Central product/app screenshot.", ["feature", "hero"], "large", true), path: "imageSrc" },
+        imageSrc: {
+          ...imageSlot(
+            "imageSrc",
+            "Central product/app screenshot.",
+            ["feature", "hero"],
+            "large",
+            true,
+          ),
+          path: "imageSrc",
+        },
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "The all-in-one platform for modern teams",
-      description: "Everything you need to collaborate, communicate, and create amazing work.",
+      description:
+        "Everything you need to collaborate, communicate, and create amazing work.",
       imageSrc: HERO_EXAMPLE_IMAGE_URL,
       imageAlt: "Product interface screenshot",
       actions: [
-        { label: "Try It Free", href: "#", variant: "default", asButton: true, size: "lg" },
-        { label: "See Plans", href: "#", variant: "ghost", asButton: true, size: "lg" },
+        {
+          label: "Try It Free",
+          href: "#",
+          variant: "default",
+          asButton: true,
+          size: "lg",
+        },
+        {
+          label: "See Plans",
+          href: "#",
+          variant: "ghost",
+          asButton: true,
+          size: "lg",
+        },
       ],
     },
   },
@@ -15773,17 +17647,38 @@ const HERO_BLOCK_CONTRACTS = {
       },
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       badge: "Trusted by Leaders",
       heading: "Join the world's most innovative companies",
       description: "Over 10,000 organizations trust our platform.",
       logos: [
-        { src: "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png", alt: "Partner logo 1" },
-        { src: "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png", alt: "Partner logo 2" },
-        { src: "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png", alt: "Partner logo 3" },
-        { src: "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png", alt: "Partner logo 4" },
-        { src: "https://cdn.ing/assets/i/r/288968/nn5xpkit7idgr7i6fa46ez3g9kwn/ui-placeholder-logo-black-5.png", alt: "Partner logo 5" },
-        { src: "https://cdn.ing/assets/i/r/288974/dlb4c51kvgv6ncasqpgr2kvuma7y/ui-placeholder-logo-black-6.png", alt: "Partner logo 6" },
+        {
+          src: "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png",
+          alt: "Partner logo 1",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png",
+          alt: "Partner logo 2",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png",
+          alt: "Partner logo 3",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png",
+          alt: "Partner logo 4",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/288968/nn5xpkit7idgr7i6fa46ez3g9kwn/ui-placeholder-logo-black-5.png",
+          alt: "Partner logo 5",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/288974/dlb4c51kvgv6ncasqpgr2kvuma7y/ui-placeholder-logo-black-6.png",
+          alt: "Partner logo 6",
+        },
       ],
       actions: [{ label: "Get Started", href: "/signup", variant: "default" }],
     },
@@ -15812,8 +17707,17 @@ const HERO_BLOCK_CONTRACTS = {
         image: { required: true },
       },
       mediaSlots: {
-        "logo.src": logoSlot("logo.src", "Brand or company logo above heading."),
-        "image.src": imageSlot("image.src", "Product/app screenshot below heading.", ["feature", "hero"], "large", true),
+        "logo.src": logoSlot(
+          "logo.src",
+          "Brand or company logo above heading.",
+        ),
+        "image.src": imageSlot(
+          "image.src",
+          "Product/app screenshot below heading.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
@@ -15891,12 +17795,18 @@ const HERO_BLOCK_CONTRACTS = {
       propConstraints: {
         heading: { required: true, maxLength: 54 },
         description: { maxLength: 140 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {},
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       badge: "New Release v2.0",
       heading: "The future of productivity is here",
       description: "Experience unprecedented performance and new features.",
@@ -15941,19 +17851,34 @@ const HERO_BLOCK_CONTRACTS = {
         items: { required: true, minItems: 2, maxItems: 4 },
       },
       mediaSlots: {
-        "items[].backgroundMedia[]": imageSlot("items[].backgroundMedia[]", "Background images for each carousel panel.", ["feature", "hero"], "large", false),
-        "items[].logo.src": logoSlot("items[].logo.src", "Optional logo per panel."),
+        "items[].backgroundMedia[]": imageSlot(
+          "items[].backgroundMedia[]",
+          "Background images for each carousel panel.",
+          ["feature", "hero"],
+          "large",
+          false,
+        ),
+        "items[].logo.src": logoSlot(
+          "items[].logo.src",
+          "Optional logo per panel.",
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       items: [
         {
           title: "InsuranceSite",
           content: "Modern broker tooling for independent agents.",
           actions: [{ label: "Get Started", href: "#", variant: "default" }],
-          backgroundMedia: [{ src: HERO_EXAMPLE_IMAGE_URL, alt: "" }, { src: HERO_EXAMPLE_IMAGE_URL, alt: "" }],
+          backgroundMedia: [
+            { src: HERO_EXAMPLE_IMAGE_URL, alt: "" },
+            { src: HERO_EXAMPLE_IMAGE_URL, alt: "" },
+          ],
         },
         {
           title: "RealtorSite",
@@ -15987,12 +17912,24 @@ const HERO_BLOCK_CONTRACTS = {
         imageSrc: { required: true },
       },
       mediaSlots: {
-        imageSrc: { ...imageSlot("imageSrc", "Centered hero image.", ["feature", "hero"], "large", true), path: "imageSrc" },
+        imageSrc: {
+          ...imageSlot(
+            "imageSrc",
+            "Centered hero image.",
+            ["feature", "hero"],
+            "large",
+            true,
+          ),
+          path: "imageSrc",
+        },
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Clean, simple, effective",
       description: "Sometimes less is more. Focus on what matters.",
       imageSrc: HERO_EXAMPLE_IMAGE_URL,
@@ -16032,15 +17969,38 @@ const HERO_BLOCK_CONTRACTS = {
       },
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "A complete platform for modern teams",
       description: "All-in-one solution for communication and collaboration.",
       action: { label: "Explore Features", href: "#", variant: "default" },
       features: [
-        { iconName: "lucide/message-square", title: "Team Chat", description: "Real-time messaging", href: "#" },
-        { iconName: "lucide/video", title: "Video Calls", description: "HD video meetings", href: "#" },
-        { iconName: "lucide/file-text", title: "Documents", description: "Collaborative editing", href: "#" },
-        { iconName: "lucide/calendar", title: "Calendar", description: "Schedule meetings", href: "#" },
+        {
+          iconName: "lucide/message-square",
+          title: "Team Chat",
+          description: "Real-time messaging",
+          href: "#",
+        },
+        {
+          iconName: "lucide/video",
+          title: "Video Calls",
+          description: "HD video meetings",
+          href: "#",
+        },
+        {
+          iconName: "lucide/file-text",
+          title: "Documents",
+          description: "Collaborative editing",
+          href: "#",
+        },
+        {
+          iconName: "lucide/calendar",
+          title: "Calendar",
+          description: "Schedule meetings",
+          href: "#",
+        },
       ],
     },
   },
@@ -16072,12 +18032,21 @@ const HERO_BLOCK_CONTRACTS = {
         images: { required: true, count: 3, minItems: 3, maxItems: 3 },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Stacked card images.", ["feature", "hero"], "medium", true),
+        "images[]": imageSlot(
+          "images[]",
+          "Stacked card images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       badgeText: "Innovative Platform",
       heading: "Innovative solutions that evolve with you",
       description: "Dynamic, flexible, and always improving.",
@@ -16117,18 +18086,31 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 140 },
         images: { required: true, count: 3, minItems: 3, maxItems: 3 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Scattered decorative images.", ["feature", "hero"], "medium", true),
+        "images[]": imageSlot(
+          "images[]",
+          "Scattered decorative images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       badgeText: "Design Excellence",
       heading: "Where creativity meets precision",
-      description: "Award-winning designs that blend artistic vision with technical excellence.",
+      description:
+        "Award-winning designs that blend artistic vision with technical excellence.",
       images: [
         { src: HERO_EXAMPLE_IMAGE_URL, alt: "Image 1" },
         { src: HERO_EXAMPLE_IMAGE_URL, alt: "Image 2" },
@@ -16168,22 +18150,46 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
         images: { required: true, count: 4, minItems: 4, maxItems: 4 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Geometric masonry layout images.", ["feature", "hero"], "medium", true),
+        "images[]": imageSlot(
+          "images[]",
+          "Geometric masonry layout images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Bold design for bold ideas",
       description: "Stand out with striking visuals and modern aesthetics.",
       images: [
-        { src: "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz", alt: "Design 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs", alt: "Design 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0", alt: "Design 3" },
-        { src: "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x", alt: "Design 4" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz",
+          alt: "Design 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs",
+          alt: "Design 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0",
+          alt: "Design 3",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x",
+          alt: "Design 4",
+        },
       ],
       actions: [
         { label: "Explore", href: "/explore", variant: "default" },
@@ -16214,7 +18220,12 @@ const HERO_BLOCK_CONTRACTS = {
     `.trim(),
     importantUsageNotes: `Requires 'mainImage', 'leftOverlayImage', and 'rightOverlayImage'. Do not exceed 50 characters for 'heading'. Do not exceed 140 characters for 'description'. If you supply multiple 'actions', use 'outline' for the first and 'ghost' for the second.  ${HERO_MEDIA_NOTE}`,
     usageRequirements: {
-      requiredProps: ["heading", "mainImage", "leftOverlayImage", "rightOverlayImage"],
+      requiredProps: [
+        "heading",
+        "mainImage",
+        "leftOverlayImage",
+        "rightOverlayImage",
+      ],
       propConstraints: {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 140 },
@@ -16223,14 +18234,35 @@ const HERO_BLOCK_CONTRACTS = {
         rightOverlayImage: { required: true },
       },
       mediaSlots: {
-        "mainImage.src": imageSlot("mainImage.src", "Central hero image.", ["feature", "hero"], "large", true),
-        "leftOverlayImage.src": imageSlot("leftOverlayImage.src", "Left overlay image.", ["feature", "hero"], "medium", true),
-        "rightOverlayImage.src": imageSlot("rightOverlayImage.src", "Right overlay image.", ["feature", "hero"], "medium", true),
+        "mainImage.src": imageSlot(
+          "mainImage.src",
+          "Central hero image.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
+        "leftOverlayImage.src": imageSlot(
+          "leftOverlayImage.src",
+          "Left overlay image.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
+        "rightOverlayImage.src": imageSlot(
+          "rightOverlayImage.src",
+          "Right overlay image.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       announcementPrimary: "Your Voice Matters",
       announcementLinkText: "Learn More",
       announcementHref: "#",
@@ -16273,21 +18305,46 @@ const HERO_BLOCK_CONTRACTS = {
         images: { required: true, minItems: 5, maxItems: 6 },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Scattered product/content images.", ["feature", "hero"], "medium", true),
+        "images[]": imageSlot(
+          "images[]",
+          "Scattered product/content images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Discover unique items from creators worldwide",
-      description: "Shop handcrafted goods, vintage treasures, and one-of-a-kind products.",
+      description:
+        "Shop handcrafted goods, vintage treasures, and one-of-a-kind products.",
       action: { label: "Browse Marketplace", href: "#", variant: "default" },
       images: [
-        { src: "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc", alt: "Product 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v", alt: "Product 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac", alt: "Product 3" },
-        { src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm", alt: "Product 4" },
-        { src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v", alt: "Product 5" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc",
+          alt: "Product 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v",
+          alt: "Product 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac",
+          alt: "Product 3",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm",
+          alt: "Product 4",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v",
+          alt: "Product 5",
+        },
       ],
     },
   },
@@ -16316,15 +18373,24 @@ const HERO_BLOCK_CONTRACTS = {
         announcementBadge: { maxWords: 4 },
         announcementText: { maxLength: 60 },
         backgroundImageUrl: { required: true },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        backgroundImageUrl: { ...backgroundImageSlot("backgroundImageUrl", true), path: "backgroundImageUrl" },
+        backgroundImageUrl: {
+          ...backgroundImageSlot("backgroundImageUrl", true),
+          path: "backgroundImageUrl",
+        },
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       announcementBadge: "Launch",
       announcementText: "Premium design system",
       announcementHref: "#",
@@ -16367,7 +18433,10 @@ const HERO_BLOCK_CONTRACTS = {
           required: true,
           note: "Must contain a valid video object with masterPlaylistUrl and fallbackSrc.",
         },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
         "backgroundVideo.video": videoMediaSlot("backgroundVideo.video"),
@@ -16375,7 +18444,10 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       badgeText: "Immersive Experience",
       heading: "Make an unforgettable first impression",
       description: "Captivate your audience with stunning video backgrounds.",
@@ -16411,9 +18483,13 @@ const HERO_BLOCK_CONTRACTS = {
       mediaSlots: {},
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Work smarter, not harder",
-      description: "Maximize productivity with intelligent tools and workflows.",
+      description:
+        "Maximize productivity with intelligent tools and workflows.",
       action: { label: "Boost Productivity", href: "#", variant: "default" },
       actionSubtext: "No credit card required",
     },
@@ -16450,25 +18526,54 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
         features: { required: true, count: 3, minItems: 2, maxItems: 4 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
-        "logo.src": { note: "LOGO MEDIA ONLY. Must be a brand logo image (SVG, PNG, WebP). Never use a photo, hero image, or video asset." },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
+        "logo.src": {
+          note: "LOGO MEDIA ONLY. Must be a brand logo image (SVG, PNG, WebP). Never use a photo, hero image, or video asset.",
+        },
       },
       mediaSlots: {
-        "logo.src": logoSlot("logo.src", "Brand logo rendered via BrandLogo component above the dashed border content.", false),
+        "logo.src": logoSlot(
+          "logo.src",
+          "Brand logo rendered via BrandLogo component above the dashed border content.",
+          false,
+        ),
       },
-      notes: ["The logo prop is optional. When provided, the BrandLogo component renders it above the announcement badge with responsive sizing."],
+      notes: [
+        "The logo prop is optional. When provided, the BrandLogo component renders it above the announcement badge with responsive sizing.",
+      ],
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Features that make a difference",
       description: "Discover the powerful capabilities that set us apart.",
       badgeText: "New Features",
       announcementText: "Latest innovations",
       announcementHref: "#",
       features: [
-        { iconName: "lucide/zap", title: "Lightning Fast", description: "Optimized for speed", href: "#" },
-        { iconName: "lucide/shield", title: "Secure by Default", description: "Enterprise-grade security", href: "#" },
-        { iconName: "lucide/sparkles", title: "AI-Powered", description: "Smart automation", href: "#" },
+        {
+          iconName: "lucide/zap",
+          title: "Lightning Fast",
+          description: "Optimized for speed",
+          href: "#",
+        },
+        {
+          iconName: "lucide/shield",
+          title: "Secure by Default",
+          description: "Enterprise-grade security",
+          href: "#",
+        },
+        {
+          iconName: "lucide/sparkles",
+          title: "AI-Powered",
+          description: "Smart automation",
+          href: "#",
+        },
       ],
       actions: [
         { label: "Explore Features", href: "#", variant: "default" },
@@ -16511,29 +18616,72 @@ const HERO_BLOCK_CONTRACTS = {
         description: { maxLength: 130 },
         carouselImages: { required: true, count: 4, minItems: 3, maxItems: 5 },
         features: { required: true, count: 3, minItems: 3, maxItems: 3 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
-        "logo.src": { note: "LOGO MEDIA ONLY. Must be a brand logo image. Never use a photo, hero image, or video asset." },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
+        "logo.src": {
+          note: "LOGO MEDIA ONLY. Must be a brand logo image. Never use a photo, hero image, or video asset.",
+        },
       },
       mediaSlots: {
-        "carouselImages[]": imageSlot("carouselImages[]", "Portfolio showcase images for the carousel.", ["feature", "hero"], "medium", true),
-        "logo.src": logoSlot("logo.src", "Brand logo rendered via BrandLogo component above the features and heading.", false),
+        "carouselImages[]": imageSlot(
+          "carouselImages[]",
+          "Portfolio showcase images for the carousel.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
+        "logo.src": logoSlot(
+          "logo.src",
+          "Brand logo rendered via BrandLogo component above the features and heading.",
+          false,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Design portfolio that speaks volumes",
-      description: "Showcase your best work with beautiful, interactive carousels.",
+      description:
+        "Showcase your best work with beautiful, interactive carousels.",
       features: [
-        { iconName: "lucide/target", title: "Strategic Focus", description: "Aligning work with your goals." },
-        { iconName: "lucide/zap", title: "Rapid Execution", description: "Agile methodology for fast delivery." },
-        { iconName: "lucide/heart", title: "Human-Centered", description: "Design for people first." },
+        {
+          iconName: "lucide/target",
+          title: "Strategic Focus",
+          description: "Aligning work with your goals.",
+        },
+        {
+          iconName: "lucide/zap",
+          title: "Rapid Execution",
+          description: "Agile methodology for fast delivery.",
+        },
+        {
+          iconName: "lucide/heart",
+          title: "Human-Centered",
+          description: "Design for people first.",
+        },
       ],
       carouselImages: [
-        { src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc", alt: "Design 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt", alt: "Design 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov", alt: "Design 3" },
-        { src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6", alt: "Design 4" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc",
+          alt: "Design 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt",
+          alt: "Design 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov",
+          alt: "Design 3",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6",
+          alt: "Design 4",
+        },
       ],
       actions: [
         { label: "Schedule Chat", href: "#", variant: "default" },
@@ -16568,14 +18716,24 @@ const HERO_BLOCK_CONTRACTS = {
         actions: { maxItems: 2 },
       },
       mediaSlots: {
-        "image.src": imageSlot("image.src", "Side hero image.", ["feature", "hero"], "large", true),
+        "image.src": imageSlot(
+          "image.src",
+          "Side hero image.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Your success is our mission",
-      description: "Dedicated to helping you achieve your goals with personalized support.",
+      description:
+        "Dedicated to helping you achieve your goals with personalized support.",
       image: { src: HERO_EXAMPLE_IMAGE_URL, alt: "Client success" },
       background: "gradient",
       actions: [
@@ -16615,17 +18773,34 @@ const HERO_BLOCK_CONTRACTS = {
         avatars: { minItems: 2, maxItems: 5 },
       },
       mediaSlots: {
-        "image.src": imageSlot("image.src", "Main hero image on the right side.", ["feature", "hero"], "large", true),
-        "avatars[].src": imageSlot("avatars[].src", "Member profile avatars.", ["profile", "avatar"], "small", false, "1:1"),
+        "image.src": imageSlot(
+          "image.src",
+          "Main hero image on the right side.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
+        "avatars[].src": imageSlot(
+          "avatars[].src",
+          "Member profile avatars.",
+          ["profile", "avatar"],
+          "small",
+          false,
+          "1:1",
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       brandName: "Premium",
       brandSuffix: "Community",
       heading: "Join an exclusive community",
-      description: "Connect with like-minded professionals and gain access to premium resources.",
+      description:
+        "Connect with like-minded professionals and gain access to premium resources.",
       image: { src: HERO_EXAMPLE_IMAGE_URL, alt: "Community gathering" },
       action: { label: "Join Now", href: "#", variant: "default" },
       avatars: [
@@ -16659,16 +18834,28 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
         image: { required: true },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
         "logo.src": logoSlot("logo.src", "Optional brand logo above heading."),
-        "image.src": imageSlot("image.src", "Product/UI showcase image.", ["feature", "hero"], "large", true),
+        "image.src": imageSlot(
+          "image.src",
+          "Product/UI showcase image.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Beautiful components for modern apps",
       description: "A comprehensive UI library with 100+ components.",
       image: { src: HERO_EXAMPLE_IMAGE_URL, alt: "UI component showcase" },
@@ -16701,15 +18888,24 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
         backgroundImage: { required: true },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        backgroundImage: { ...backgroundImageSlot("backgroundImage", true), path: "backgroundImage" },
+        backgroundImage: {
+          ...backgroundImageSlot("backgroundImage", true),
+          path: "backgroundImage",
+        },
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Experience the extraordinary",
       description: "Immersive experiences that captivate and inspire.",
       backgroundImage: HERO_EXAMPLE_IMAGE_URL,
@@ -16746,7 +18942,10 @@ const HERO_BLOCK_CONTRACTS = {
       },
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Building the future of work",
       description: "Join the companies already transforming how they operate.",
       action: { label: "Get Started", href: "#", variant: "default" },
@@ -16791,19 +18990,44 @@ const HERO_BLOCK_CONTRACTS = {
         ratingValue: { note: "Must be a real rating value. Do not fabricate." },
       },
       mediaSlots: {
-        "avatars[].src": imageSlot("avatars[].src", "User avatars for social proof.", ["profile", "avatar"], "small", false, "1:1"),
-        "images[]": imageSlot("images[]", "Background decorative images.", ["feature", "hero"], "large", false),
+        "avatars[].src": imageSlot(
+          "avatars[].src",
+          "User avatars for social proof.",
+          ["profile", "avatar"],
+          "small",
+          false,
+          "1:1",
+        ),
+        "images[]": imageSlot(
+          "images[]",
+          "Background decorative images.",
+          ["feature", "hero"],
+          "large",
+          false,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Loved by thousands of users",
       description: "Join our community of satisfied customers.",
       avatars: [
-        { src: "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82", alt: "User 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "User 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "User 3" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82",
+          alt: "User 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+          alt: "User 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+          alt: "User 3",
+        },
       ],
       images: [
         { src: HERO_EXAMPLE_IMAGE_URL, alt: "Hero 1" },
@@ -16844,16 +19068,27 @@ const HERO_BLOCK_CONTRACTS = {
         description: { maxLength: 130 },
         taskItems: { required: true, minItems: 2, maxItems: 6 },
         timerMinutes: { note: "Defaults to 25 (Pomodoro style)." },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {},
       requiresSiteCapabilities: [],
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Track time, boost productivity",
       description: "Stay focused and manage your time effectively.",
-      taskItems: ["Design mockups", "Code review", "Write documentation", "Ship feature"],
+      taskItems: [
+        "Design mockups",
+        "Code review",
+        "Write documentation",
+        "Ship feature",
+      ],
       timerMinutes: 25,
       timerSeconds: 0,
       background: "dark",
@@ -16906,35 +19141,89 @@ const HERO_BLOCK_CONTRACTS = {
         description: { maxLength: 140 },
         carouselImages1: { required: true, count: 6, minItems: 6, maxItems: 6 },
         carouselImages2: { required: true, count: 6, minItems: 6, maxItems: 6 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        "carouselImages1[]": imageSlot("carouselImages1[]", "First carousel row images.", ["feature", "hero"], "medium", true),
-        "carouselImages2[]": imageSlot("carouselImages2[]", "Second carousel row images.", ["feature", "hero"], "medium", true),
+        "carouselImages1[]": imageSlot(
+          "carouselImages1[]",
+          "First carousel row images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
+        "carouselImages2[]": imageSlot(
+          "carouselImages2[]",
+          "Second carousel row images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       badge: "AI-Powered",
       badgeTagline: "Next Generation Technology",
       heading: "Intelligent automation for your workflow",
       description: "Transform your business with AI-driven solutions.",
       carouselImages1: [
-        { src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j", alt: "Feature 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson", alt: "Feature 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg", alt: "Feature 3" },
-        { src: "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q", alt: "Feature 4" },
-        { src: "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz", alt: "Feature 5" },
-        { src: "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs", alt: "Feature 6" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+          alt: "Feature 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+          alt: "Feature 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+          alt: "Feature 3",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q",
+          alt: "Feature 4",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz",
+          alt: "Feature 5",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs",
+          alt: "Feature 6",
+        },
       ],
       carouselImages2: [
-        { src: "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0", alt: "Feature 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x", alt: "Feature 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc", alt: "Feature 3" },
-        { src: "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v", alt: "Feature 4" },
-        { src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac", alt: "Feature 5" },
-        { src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm", alt: "Feature 6" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0",
+          alt: "Feature 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x",
+          alt: "Feature 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc",
+          alt: "Feature 3",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v",
+          alt: "Feature 4",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac",
+          alt: "Feature 5",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm",
+          alt: "Feature 6",
+        },
       ],
       actions: [
         { label: "Start Free Trial", href: "#", variant: "default" },
@@ -16968,18 +19257,31 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
         mediaItem: { required: true, note: "Can be an image or video object." },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
         "mediaItem.video": videoMediaSlot("mediaItem.video"),
-        "mediaItem.image.src": imageSlot("mediaItem.image.src", "Hero media image (when not a video).", ["feature", "hero"], "large", false),
+        "mediaItem.image.src": imageSlot(
+          "mediaItem.image.src",
+          "Hero media image (when not a video).",
+          ["feature", "hero"],
+          "large",
+          false,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Your ad campaigns excel with AI",
-      description: "Optimize your advertising performance with real-time analytics.",
+      description:
+        "Optimize your advertising performance with real-time analytics.",
       mediaItem: { video: EXAMPLE_VIDEO_0 },
       directionConfig: { desktop: "mediaLeft", mobile: "mediaTop" },
       actions: [{ label: "Start Free Trial", href: "#", variant: "default" }],
@@ -17007,17 +19309,33 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 60 },
         description: { maxLength: 130 },
         imageSrc: { required: true },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        imageSrc: { ...imageSlot("imageSrc", "Product showcase image.", ["feature", "hero"], "large", true), path: "imageSrc" },
+        imageSrc: {
+          ...imageSlot(
+            "imageSrc",
+            "Product showcase image.",
+            ["feature", "hero"],
+            "large",
+            true,
+          ),
+          path: "imageSrc",
+        },
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Flexible product displays that adapt to your brand",
-      description: "Create stunning product showcases with our adaptable grid system.",
+      description:
+        "Create stunning product showcases with our adaptable grid system.",
       imageSrc: HERO_EXAMPLE_IMAGE_URL,
       imageAlt: "Product showcase",
       background: "dark",
@@ -17053,8 +19371,14 @@ const HERO_BLOCK_CONTRACTS = {
       propConstraints: {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
-        backgroundVideo: { required: true, note: "Must contain a valid video with masterPlaylistUrl and fallbackSrc." },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        backgroundVideo: {
+          required: true,
+          note: "Must contain a valid video with masterPlaylistUrl and fallbackSrc.",
+        },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
         "backgroundVideo.video": videoMediaSlot("backgroundVideo.video"),
@@ -17062,10 +19386,14 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       subtitle: "Presentation Platform",
       heading: "Create stunning presentations in minutes",
-      description: "Beautiful templates, smart layouts, and powerful collaboration tools.",
+      description:
+        "Beautiful templates, smart layouts, and powerful collaboration tools.",
       backgroundVideo: { video: EXAMPLE_VIDEO_0 },
       background: "dark",
       actions: [
@@ -17103,19 +19431,38 @@ const HERO_BLOCK_CONTRACTS = {
         images: { required: true, minItems: 3, maxItems: 4 },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Solution category images.", ["feature", "hero"], "medium", true),
+        "images[]": imageSlot(
+          "images[]",
+          "Solution category images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       badgeText: "New Version Launched",
       heading: "Complete solutions for every challenge",
-      description: "From startups to enterprises, we provide comprehensive solutions.",
+      description:
+        "From startups to enterprises, we provide comprehensive solutions.",
       images: [
-        { src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v", alt: "Solution 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc", alt: "Solution 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt", alt: "Solution 3" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v",
+          alt: "Solution 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc",
+          alt: "Solution 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt",
+          alt: "Solution 3",
+        },
       ],
       actions: [{ label: "Explore Solutions", href: "#", variant: "outline" }],
       background: "dark",
@@ -17144,18 +19491,31 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 140 },
         image: { required: true },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        "image.src": imageSlot("image.src", "Product/dashboard screenshot.", ["feature", "hero"], "large", true),
+        "image.src": imageSlot(
+          "image.src",
+          "Product/dashboard screenshot.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       tagline: "Simple CRM",
       heading: "Customer relationships made simple",
-      description: "Manage your entire customer lifecycle in one intuitive platform.",
+      description:
+        "Manage your entire customer lifecycle in one intuitive platform.",
       image: { src: HERO_EXAMPLE_IMAGE_URL, alt: "CRM Dashboard" },
       background: "dark",
       actions: [{ label: "Start Free Trial", href: "#", variant: "default" }],
@@ -17193,27 +19553,64 @@ const HERO_BLOCK_CONTRACTS = {
         description: { maxLength: 140 },
         mainImage: { required: true },
         logos: { required: true, minItems: 4, maxItems: 8 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        "mainImage.src": imageSlot("mainImage.src", "Main product/dashboard image.", ["feature", "hero"], "large", true),
+        "mainImage.src": imageSlot(
+          "mainImage.src",
+          "Main product/dashboard image.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
         "logos[]": logoSlot("logos[]", "Partner or integration logos."),
-        "overlayImages[]": imageSlot("overlayImages[]", "Optional overlay images.", ["feature", "hero"], "small", false),
+        "overlayImages[]": imageSlot(
+          "overlayImages[]",
+          "Optional overlay images.",
+          ["feature", "hero"],
+          "small",
+          false,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Simplified billing for modern businesses",
-      description: "Accept payments, manage subscriptions, and handle invoicing.",
+      description:
+        "Accept payments, manage subscriptions, and handle invoicing.",
       mainImage: { src: HERO_EXAMPLE_IMAGE_URL, alt: "Billing dashboard" },
       logos: [
-        { src: "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png", alt: "Partner logo 1" },
-        { src: "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png", alt: "Partner logo 2" },
-        { src: "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png", alt: "Partner logo 3" },
-        { src: "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png", alt: "Partner logo 4" },
-        { src: "https://cdn.ing/assets/i/r/288968/nn5xpkit7idgr7i6fa46ez3g9kwn/ui-placeholder-logo-black-5.png", alt: "Partner logo 5" },
-        { src: "https://cdn.ing/assets/i/r/288974/dlb4c51kvgv6ncasqpgr2kvuma7y/ui-placeholder-logo-black-6.png", alt: "Partner logo 6" },
+        {
+          src: "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png",
+          alt: "Partner logo 1",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png",
+          alt: "Partner logo 2",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png",
+          alt: "Partner logo 3",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png",
+          alt: "Partner logo 4",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/288968/nn5xpkit7idgr7i6fa46ez3g9kwn/ui-placeholder-logo-black-5.png",
+          alt: "Partner logo 5",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/288974/dlb4c51kvgv6ncasqpgr2kvuma7y/ui-placeholder-logo-black-6.png",
+          alt: "Partner logo 6",
+        },
       ],
       actions: [
         { label: "Start Free Trial", href: "#", variant: "default" },
@@ -17253,25 +19650,49 @@ const HERO_BLOCK_CONTRACTS = {
       propConstraints: {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
-        modalVideo: { required: true, note: "Must contain a valid video object." },
+        modalVideo: {
+          required: true,
+          note: "Must contain a valid video object.",
+        },
         showcaseImages: { required: true, minItems: 3, maxItems: 4 },
       },
       mediaSlots: {
-        "showcaseImages[]": imageSlot("showcaseImages[]", "Product showcase/metric images.", ["feature", "hero"], "medium", true),
+        "showcaseImages[]": imageSlot(
+          "showcaseImages[]",
+          "Product showcase/metric images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
         "modalVideo.video": videoMediaSlot("modalVideo.video"),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Accelerate your growth with data-driven insights",
       description: "See how top companies use our platform to scale faster.",
       videoAction: { label: "Watch Demo", variant: "outline" },
       showcaseImages: [
-        { src: "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov", alt: "Growth metric 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6", alt: "Growth metric 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82", alt: "Growth metric 3" },
-        { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "Growth metric 4" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov",
+          alt: "Growth metric 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6",
+          alt: "Growth metric 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82",
+          alt: "Growth metric 3",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+          alt: "Growth metric 4",
+        },
       ],
       modalVideo: { video: EXAMPLE_VIDEO_1 },
       background: "dark",
@@ -17310,18 +19731,30 @@ const HERO_BLOCK_CONTRACTS = {
       propConstraints: {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
-        modalVideo: { required: true, note: "Must contain a valid video object." },
+        modalVideo: {
+          required: true,
+          note: "Must contain a valid video object.",
+        },
         logos: { minItems: 3, maxItems: 8 },
       },
       mediaSlots: {
         "modalVideo.video": videoMediaSlot("modalVideo.video"),
-        "image.src": imageSlot("image.src", "Optional hero side image.", ["feature", "hero"], "large", false),
+        "image.src": imageSlot(
+          "image.src",
+          "Optional hero side image.",
+          ["feature", "hero"],
+          "large",
+          false,
+        ),
         "logos[]": logoSlot("logos[]", "Partner or customer logos."),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Turn visitors into customers",
       description: "Optimize your conversion funnel with data-driven insights.",
       primaryAction: { label: "Get Started", href: "#", variant: "default" },
@@ -17359,22 +19792,47 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
         logos: { required: true, minItems: 4, maxItems: 8 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
         "logos[]": logoSlot("logos[]", "Brand or partner logos."),
-        "showcaseImage.src": imageSlot("showcaseImage.src", "Optional product showcase image.", ["feature", "hero"], "large", false),
+        "showcaseImage.src": imageSlot(
+          "showcaseImage.src",
+          "Optional product showcase image.",
+          ["feature", "hero"],
+          "large",
+          false,
+        ),
       },
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Trusted by leading brands worldwide",
-      description: "Join thousands of companies who have transformed their design workflow.",
+      description:
+        "Join thousands of companies who have transformed their design workflow.",
       logos: [
-        { src: "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png", alt: "Partner logo 1" },
-        { src: "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png", alt: "Partner logo 2" },
-        { src: "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png", alt: "Partner logo 3" },
-        { src: "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png", alt: "Partner logo 4" },
+        {
+          src: "https://cdn.ing/assets/i/r/288964/4xdrg1wjc2knoy58ulqijicamar3/ui-placeholder-logo-dark-1.png",
+          alt: "Partner logo 1",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/288965/aw0n8ithqntxtfweqrlmseqlcak7/ui-placeholder-logo-black-2.png",
+          alt: "Partner logo 2",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/288972/kppvdeo8kgeweawxisqy9h9ybz6h/ui-placeholder-logo-black-3.png",
+          alt: "Partner logo 3",
+        },
+        {
+          src: "https://cdn.ing/assets/i/r/288970/op9ys0gsyi7len3w742n0os7ebu6/ui-placeholder-logo-black-4.png",
+          alt: "Partner logo 4",
+        },
       ],
       actions: [
         { label: "Get Started", href: "#", variant: "default" },
@@ -17408,20 +19866,38 @@ const HERO_BLOCK_CONTRACTS = {
       propConstraints: {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
-        backgroundVideo: { required: true, note: "Must contain a valid video with masterPlaylistUrl and fallbackSrc." },
-        "trust.message": { note: "Must be real trust/review data. Do not fabricate." },
-        "logo.src": { note: "LOGO MEDIA ONLY. Must be a brand logo image. Never use a photo, hero image, or video asset." },
+        backgroundVideo: {
+          required: true,
+          note: "Must contain a valid video with masterPlaylistUrl and fallbackSrc.",
+        },
+        "trust.message": {
+          note: "Must be real trust/review data. Do not fabricate.",
+        },
+        "logo.src": {
+          note: "LOGO MEDIA ONLY. Must be a brand logo image. Never use a photo, hero image, or video asset.",
+        },
       },
       mediaSlots: {
         "backgroundVideo.video": videoMediaSlot("backgroundVideo.video"),
-        "logo.src": logoSlot("logo.src", "Brand logo rendered via BrandLogo centered above the heading on the video overlay.", false),
+        "logo.src": logoSlot(
+          "logo.src",
+          "Brand logo rendered via BrandLogo centered above the heading on the video overlay.",
+          false,
+        ),
       },
-      requiresSiteCapabilities: heroCapabilities("media_library", "reviews_or_testimonials"),
+      requiresSiteCapabilities: heroCapabilities(
+        "media_library",
+        "reviews_or_testimonials",
+      ),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Trusted by thousands",
-      description: "Our solution is designed to streamline your business operations.",
+      description:
+        "Our solution is designed to streamline your business operations.",
       backgroundVideo: { video: EXAMPLE_VIDEO_1 },
       trust: { starCount: 5, message: "Trusted by 2,500+ customers" },
       actions: [{ label: "Try It Free", href: "#" }],
@@ -17455,7 +19931,10 @@ const HERO_BLOCK_CONTRACTS = {
       propConstraints: {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
         "backgroundVideo.video": videoMediaSlot("backgroundVideo.video"),
@@ -17463,9 +19942,13 @@ const HERO_BLOCK_CONTRACTS = {
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Supercharge your productivity",
-      description: "The ultimate productivity launcher for modern professionals.",
+      description:
+        "The ultimate productivity launcher for modern professionals.",
       backgroundVideo: { video: EXAMPLE_VIDEO_0 },
       versionInfo: { version: "v2.0", osRequirement: "All platforms" },
       actions: [
@@ -17497,17 +19980,24 @@ const HERO_BLOCK_CONTRACTS = {
       propConstraints: {
         description: { maxLength: 130 },
         animatedTexts: { required: true, minItems: 2, maxItems: 6 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
         backgroundImage: backgroundImageSlot("backgroundImage"),
       },
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       headingPrefix: "We're hiring",
       animatedTexts: ["Developers", "Designers", "Marketers"],
-      description: "We're building the future of work and want you to be part of it.",
+      description:
+        "We're building the future of work and want you to be part of it.",
       actions: [
         { label: "View Open Roles", href: "#", variant: "default" },
         { label: "Learn About Us", href: "#", variant: "outline" },
@@ -17538,12 +20028,24 @@ const HERO_BLOCK_CONTRACTS = {
         image: { required: true },
       },
       mediaSlots: {
-        "image.src": imageSlot("image.src", "Right-side image for split layout.", ["feature", "hero"], "large", true),
+        "image.src": imageSlot(
+          "image.src",
+          "Right-side image for split layout.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
       },
-      requiresSiteCapabilities: heroCapabilities("media_library", "contact_form"),
+      requiresSiteCapabilities: heroCapabilities(
+        "media_library",
+        "contact_form",
+      ),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Stay updated with our newsletter",
       description: "Get the latest insights delivered to your inbox.",
       image: { src: HERO_EXAMPLE_IMAGE_URL, alt: "Newsletter preview" },
@@ -17586,10 +20088,14 @@ const HERO_BLOCK_CONTRACTS = {
       mediaSlots: {},
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       badge: "Limited Time Offer",
       heading: "Transform your workflow today",
-      description: "Join thousands of teams who have revolutionized their productivity.",
+      description:
+        "Join thousands of teams who have revolutionized their productivity.",
       actions: [
         { label: "Get Started Free", href: "#", variant: "secondary" },
         { label: "Schedule Demo", href: "#", variant: "outline" },
@@ -17628,19 +20134,42 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
         imageSrc: { required: true },
-        stats: { minItems: 2, maxItems: 4, note: "Must be real stats. Do not fabricate." },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        stats: {
+          minItems: 2,
+          maxItems: 4,
+          note: "Must be real stats. Do not fabricate.",
+        },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        imageSrc: { ...imageSlot("imageSrc", "Hero banner image.", ["feature", "hero"], "large", true), path: "imageSrc" },
+        imageSrc: {
+          ...imageSlot(
+            "imageSrc",
+            "Hero banner image.",
+            ["feature", "hero"],
+            "large",
+            true,
+          ),
+          path: "imageSrc",
+        },
       },
-      requiresSiteCapabilities: heroCapabilities("media_library", "stats_or_metrics"),
+      requiresSiteCapabilities: heroCapabilities(
+        "media_library",
+        "stats_or_metrics",
+      ),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       badge: "Industry Expertise",
       heading: "Trusted by thousands of businesses",
-      description: "Join the companies already experiencing transformative results.",
+      description:
+        "Join the companies already experiencing transformative results.",
       imageSrc: HERO_EXAMPLE_IMAGE_URL,
       imageAlt: "Banner image",
       stats: [
@@ -17650,7 +20179,12 @@ const HERO_BLOCK_CONTRACTS = {
       ],
       actions: [
         { label: "Get Started", href: "#", variant: "default", asButton: true },
-        { label: "Case Studies", href: "#", variant: "outline", asButton: true },
+        {
+          label: "Case Studies",
+          href: "#",
+          variant: "outline",
+          asButton: true,
+        },
       ],
       background: "dark",
     },
@@ -17684,19 +20218,41 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
         features: { required: true, count: 4, minItems: 3, maxItems: 6 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {},
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Everything you need in one place",
       description: "Powerful features that work together seamlessly.",
       features: [
-        { title: "Intuitive Dashboard", description: "Get insights at a glance.", href: "#" },
-        { title: "Team Collaboration", description: "Work together seamlessly.", href: "#" },
-        { title: "Advanced Analytics", description: "Make data-driven decisions.", href: "#" },
-        { title: "Automation", description: "Save time with smart workflows.", href: "#" },
+        {
+          title: "Intuitive Dashboard",
+          description: "Get insights at a glance.",
+          href: "#",
+        },
+        {
+          title: "Team Collaboration",
+          description: "Work together seamlessly.",
+          href: "#",
+        },
+        {
+          title: "Advanced Analytics",
+          description: "Make data-driven decisions.",
+          href: "#",
+        },
+        {
+          title: "Automation",
+          description: "Save time with smart workflows.",
+          href: "#",
+        },
       ],
       actions: [
         { label: "Get Started", href: "#", variant: "default" },
@@ -17736,17 +20292,39 @@ const HERO_BLOCK_CONTRACTS = {
       propConstraints: {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
-        testimonial: { required: true, note: "Must be a real, sourced testimonial. Do not fabricate." },
+        testimonial: {
+          required: true,
+          note: "Must be a real, sourced testimonial. Do not fabricate.",
+        },
         gridImages: { required: true, count: 4, minItems: 4, maxItems: 4 },
       },
       mediaSlots: {
-        "testimonial.avatars[].image": imageSlot("testimonial.avatars[].image", "Testimonial author avatar.", ["profile", "avatar"], "small", false, "1:1"),
-        "gridImages[].src": imageSlot("gridImages[].src", "Grid showcase images.", ["feature", "hero"], "medium", true),
+        "testimonial.avatars[].image": imageSlot(
+          "testimonial.avatars[].image",
+          "Testimonial author avatar.",
+          ["profile", "avatar"],
+          "small",
+          false,
+          "1:1",
+        ),
+        "gridImages[].src": imageSlot(
+          "gridImages[].src",
+          "Grid showcase images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
-      requiresSiteCapabilities: heroCapabilities("media_library", "reviews_or_testimonials"),
+      requiresSiteCapabilities: heroCapabilities(
+        "media_library",
+        "reviews_or_testimonials",
+      ),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Loved by customers worldwide",
       description: "See why thousands of businesses trust us.",
       testimonial: {
@@ -17757,10 +20335,22 @@ const HERO_BLOCK_CONTRACTS = {
         avatars: [{ image: HERO_EXAMPLE_IMAGE_URL, fallback: "SJ" }],
       },
       gridImages: [
-        { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "Customer 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j", alt: "Customer 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson", alt: "Customer 3" },
-        { src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg", alt: "Customer 4" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+          alt: "Customer 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+          alt: "Customer 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+          alt: "Customer 3",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+          alt: "Customer 4",
+        },
       ],
       actions: [{ label: "Get Started", href: "#", variant: "default" }],
       background: "dark",
@@ -17795,22 +20385,44 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 140 },
         images: { required: true, count: 3, minItems: 3, maxItems: 3 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "3D design system showcase images.", ["feature", "hero"], "medium", true),
+        "images[]": imageSlot(
+          "images[]",
+          "3D design system showcase images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       trustBadge: "Design System",
       heading: "Build with a comprehensive design system",
-      description: "Create consistent, beautiful interfaces with our complete set of components.",
+      description:
+        "Create consistent, beautiful interfaces with our complete set of components.",
       images: [
-        { src: "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q", alt: "Component 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz", alt: "Component 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs", alt: "Component 3" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q",
+          alt: "Component 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz",
+          alt: "Component 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs",
+          alt: "Component 3",
+        },
       ],
       background: "dark",
       actions: [
@@ -17841,14 +20453,21 @@ const HERO_BLOCK_CONTRACTS = {
         backgroundImage: { required: true },
       },
       mediaSlots: {
-        backgroundImage: { ...backgroundImageSlot("backgroundImage", true), path: "backgroundImage" },
+        backgroundImage: {
+          ...backgroundImageSlot("backgroundImage", true),
+          path: "backgroundImage",
+        },
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Designing spaces that inspire",
-      description: "Award-winning architecture firm specializing in sustainable, innovative designs.",
+      description:
+        "Award-winning architecture firm specializing in sustainable, innovative designs.",
       action: { label: "View Projects", href: "#", variant: "default" },
       backgroundImage: HERO_EXAMPLE_IMAGE_URL,
     },
@@ -17880,18 +20499,36 @@ const HERO_BLOCK_CONTRACTS = {
         images: { required: true, count: 3, minItems: 3, maxItems: 3 },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Innovation showcase images.", ["feature", "hero"], "medium", true),
+        "images[]": imageSlot(
+          "images[]",
+          "Innovation showcase images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Pioneering the future of technology",
       description: "Pushing boundaries and exploring new frontiers.",
       images: [
-        { src: "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0", alt: "Innovation 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x", alt: "Innovation 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc", alt: "Innovation 3" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0",
+          alt: "Innovation 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x",
+          alt: "Innovation 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc",
+          alt: "Innovation 3",
+        },
       ],
       background: "dark",
       actions: [{ label: "Learn More", href: "#", variant: "default" }],
@@ -17925,16 +20562,28 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
         image: { required: true },
-        modalVideo: { required: true, note: "Must contain a valid video object." },
+        modalVideo: {
+          required: true,
+          note: "Must contain a valid video object.",
+        },
       },
       mediaSlots: {
-        "image.src": imageSlot("image.src", "Platform preview image shown before video.", ["feature", "hero"], "large", true),
+        "image.src": imageSlot(
+          "image.src",
+          "Platform preview image shown before video.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
         "modalVideo.video": videoMediaSlot("modalVideo.video"),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "See our platform in action",
       description: "Get a 3-minute walkthrough of our most powerful features.",
       videoAction: { label: "Watch Demo", variant: "outline" },
@@ -17969,7 +20618,10 @@ const HERO_BLOCK_CONTRACTS = {
       mediaSlots: {},
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Simplicity is the ultimate sophistication",
       description: "Clean, focused, and purposeful.",
       badge: "Industry Leader",
@@ -18003,16 +20655,35 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
         productImage: { required: true },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        "productImage.src": imageSlot("productImage.src", "Main product/showcase image.", ["feature", "hero"], "large", true),
-        "userCount.avatars[]": imageSlot("userCount.avatars[]", "Optional social proof avatars.", ["profile", "avatar"], "small", false, "1:1"),
+        "productImage.src": imageSlot(
+          "productImage.src",
+          "Main product/showcase image.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
+        "userCount.avatars[]": imageSlot(
+          "userCount.avatars[]",
+          "Optional social proof avatars.",
+          ["profile", "avatar"],
+          "small",
+          false,
+          "1:1",
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       badgeText: "New Arrival",
       badgeIcon: "lucide/sparkles",
       heading: "Introducing our latest innovation",
@@ -18053,12 +20724,24 @@ const HERO_BLOCK_CONTRACTS = {
         browserPreview: { required: true },
       },
       mediaSlots: {
-        "browserPreview.image.src": imageSlot("browserPreview.image.src", "Browser preview screenshot.", ["feature", "hero"], "large", true),
+        "browserPreview.image.src": imageSlot(
+          "browserPreview.image.src",
+          "Browser preview screenshot.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
       },
-      requiresSiteCapabilities: heroCapabilities("media_library", "contact_form"),
+      requiresSiteCapabilities: heroCapabilities(
+        "media_library",
+        "contact_form",
+      ),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       badgeText: "SaaS Platform",
       badgeIcon: "lucide/box",
       heading: "The operating system for your business",
@@ -18102,18 +20785,43 @@ const HERO_BLOCK_CONTRACTS = {
       propConstraints: {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
-        testimonial: { required: true, note: "Must be a real, sourced testimonial." },
+        testimonial: {
+          required: true,
+          note: "Must be a real, sourced testimonial.",
+        },
         images: { required: true, count: 3, minItems: 3, maxItems: 3 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        "testimonial.avatar.src": imageSlot("testimonial.avatar.src", "Testimonial author avatar.", ["profile", "avatar"], "small", false, "1:1"),
-        "images[]": imageSlot("images[]", "Therapy/wellness session images.", ["feature", "hero"], "medium", true),
+        "testimonial.avatar.src": imageSlot(
+          "testimonial.avatar.src",
+          "Testimonial author avatar.",
+          ["profile", "avatar"],
+          "small",
+          false,
+          "1:1",
+        ),
+        "images[]": imageSlot(
+          "images[]",
+          "Therapy/wellness session images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
-      requiresSiteCapabilities: heroCapabilities("media_library", "reviews_or_testimonials"),
+      requiresSiteCapabilities: heroCapabilities(
+        "media_library",
+        "reviews_or_testimonials",
+      ),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Real stories, real healing",
       description: "Hear from clients who've found support and healing.",
       testimonial: {
@@ -18122,9 +20830,18 @@ const HERO_BLOCK_CONTRACTS = {
         avatar: { src: HERO_EXAMPLE_IMAGE_URL, alt: "Client testimonial" },
       },
       images: [
-        { src: "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v", alt: "Therapy session 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac", alt: "Therapy session 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm", alt: "Therapy session 3" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v",
+          alt: "Therapy session 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac",
+          alt: "Therapy session 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm",
+          alt: "Therapy session 3",
+        },
       ],
       actions: [
         { label: "Find Your Therapist", href: "#", variant: "default" },
@@ -18163,18 +20880,37 @@ const HERO_BLOCK_CONTRACTS = {
         actions: { maxItems: 2, pinnedValues: { "0.variant": "default" } },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Mosaic business/operations images.", ["feature", "hero"], "medium", true),
+        "images[]": imageSlot(
+          "images[]",
+          "Mosaic business/operations images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Streamline your business operations",
-      description: "Unified platform for managing all aspects of your business.",
+      description:
+        "Unified platform for managing all aspects of your business.",
       images: [
-        { src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v", alt: "Operations 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc", alt: "Operations 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt", alt: "Operations 3" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v",
+          alt: "Operations 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc",
+          alt: "Operations 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt",
+          alt: "Operations 3",
+        },
       ],
       background: "gray",
       actions: [
@@ -18211,19 +20947,41 @@ const HERO_BLOCK_CONTRACTS = {
         actions: { maxItems: 2, pinnedValues: { "0.variant": "default" } },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Animated agency/portfolio project images.", ["feature", "hero"], "medium", true),
+        "images[]": imageSlot(
+          "images[]",
+          "Animated agency/portfolio project images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Creative solutions for modern brands",
-      description: "Discover a platform that empowers you to create and achieve amazing results.",
+      description:
+        "Discover a platform that empowers you to create and achieve amazing results.",
       images: [
-        { src: "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov", alt: "Project 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6", alt: "Project 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82", alt: "Project 3" },
-        { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "Project 4" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov",
+          alt: "Project 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6",
+          alt: "Project 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82",
+          alt: "Project 3",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+          alt: "Project 4",
+        },
       ],
       actions: [{ label: "View Our Work", href: "#", variant: "default" }],
     },
@@ -18260,19 +21018,41 @@ const HERO_BLOCK_CONTRACTS = {
         actions: { maxItems: 2 },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Asymmetric layout images.", ["feature", "hero"], "medium", true),
+        "images[]": imageSlot(
+          "images[]",
+          "Asymmetric layout images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Where innovation meets creativity",
-      description: "Discover a platform that empowers you to create and collaborate.",
+      description:
+        "Discover a platform that empowers you to create and collaborate.",
       images: [
-        { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "Feature 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j", alt: "Feature 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson", alt: "Feature 3" },
-        { src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg", alt: "Feature 4" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+          alt: "Feature 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+          alt: "Feature 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+          alt: "Feature 3",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+          alt: "Feature 4",
+        },
       ],
       background: "dark",
       actions: [
@@ -18312,20 +21092,46 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
         avatars: { minItems: 2, maxItems: 5 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        imageSrc: { ...imageSlot("imageSrc", "Main hero image.", ["feature", "hero"], "large", false), path: "imageSrc" },
-        "avatars[]": imageSlot("avatars[]", "Social proof member avatars.", ["profile", "avatar"], "small", false, "1:1"),
-        "badgeCard.logoSrc": logoSlot("badgeCard.logoSrc", "Optional badge card logo."),
+        imageSrc: {
+          ...imageSlot(
+            "imageSrc",
+            "Main hero image.",
+            ["feature", "hero"],
+            "large",
+            false,
+          ),
+          path: "imageSrc",
+        },
+        "avatars[]": imageSlot(
+          "avatars[]",
+          "Social proof member avatars.",
+          ["profile", "avatar"],
+          "small",
+          false,
+          "1:1",
+        ),
+        "badgeCard.logoSrc": logoSlot(
+          "badgeCard.logoSrc",
+          "Optional badge card logo.",
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       badge: "We're Launching",
       heading: "The future of startups starts here",
-      description: "Join the waitlist for early access to the platform changing how startups scale.",
+      description:
+        "Join the waitlist for early access to the platform changing how startups scale.",
       imageSrc: HERO_EXAMPLE_IMAGE_URL,
       background: "dark",
       actions: [
@@ -18363,19 +21169,38 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
         features: { required: true, count: 3, minItems: 2, maxItems: 4 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {},
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       badge: "Enterprise Grade",
       heading: "Security you can trust",
-      description: "Protect your business with enterprise-grade security features. SOC 2 compliant.",
+      description:
+        "Protect your business with enterprise-grade security features. SOC 2 compliant.",
       features: [
-        { title: "256-bit Encryption", description: "Military-grade protection", href: "#" },
-        { title: "SOC 2 Certified", description: "Independently audited", href: "#" },
-        { title: "24/7 Monitoring", description: "Always watching for threats", href: "#" },
+        {
+          title: "256-bit Encryption",
+          description: "Military-grade protection",
+          href: "#",
+        },
+        {
+          title: "SOC 2 Certified",
+          description: "Independently audited",
+          href: "#",
+        },
+        {
+          title: "24/7 Monitoring",
+          description: "Always watching for threats",
+          href: "#",
+        },
       ],
       actions: [
         { label: "View Security", href: "#", variant: "default" },
@@ -18418,20 +21243,39 @@ const HERO_BLOCK_CONTRACTS = {
         actions: { maxItems: 1 },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Stacked creative portfolio images.", ["feature", "hero"], "medium", true),
+        "images[]": imageSlot(
+          "images[]",
+          "Stacked creative portfolio images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
         "modalVideo.video": videoMediaSlot("modalVideo.video"),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Where creativity meets innovation",
-      description: "Award-winning creative studio specializing in brand identity and digital experiences.",
+      description:
+        "Award-winning creative studio specializing in brand identity and digital experiences.",
       videoAction: { label: "Watch Demo", variant: "default" },
       images: [
-        { src: "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q", alt: "Project 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz", alt: "Project 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs", alt: "Project 3" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/we9r4e711an6d0bd3dwbl9tb9z7q",
+          alt: "Project 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/f8rfrurzo743ym1s7m5xtbombunz",
+          alt: "Project 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/oe0y4bgiylx81fbfvsw31mhdgjzs",
+          alt: "Project 3",
+        },
       ],
       modalVideo: { video: EXAMPLE_VIDEO_0 },
       background: "dark",
@@ -18461,17 +21305,27 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
         backgroundImage: { required: true },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        backgroundImage: { ...backgroundImageSlot("backgroundImage", true), path: "backgroundImage" },
+        backgroundImage: {
+          ...backgroundImageSlot("backgroundImage", true),
+          path: "backgroundImage",
+        },
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Digital experiences that inspire",
-      description: "Full-service digital agency creating award-winning websites and brand experiences.",
+      description:
+        "Full-service digital agency creating award-winning websites and brand experiences.",
       backgroundImage: HERO_EXAMPLE_IMAGE_URL,
       actions: [
         { label: "View Our Work", href: "/work", variant: "default" },
@@ -18507,19 +21361,38 @@ const HERO_BLOCK_CONTRACTS = {
         images: { required: true, count: 3, minItems: 3, maxItems: 3 },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Layered product/UI screenshots.", ["feature", "hero"], "medium", true),
+        "images[]": imageSlot(
+          "images[]",
+          "Layered product/UI screenshots.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Support that your customers love",
-      description: "Deliver exceptional customer experiences with our multi-channel support platform.",
+      description:
+        "Deliver exceptional customer experiences with our multi-channel support platform.",
       tagline: "Customer Support",
       images: [
-        { src: "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0", alt: "Support interface 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x", alt: "Support interface 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc", alt: "Support interface 3" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/sr370c2cnf7uk5k4f6znyshualv0",
+          alt: "Support interface 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/cen5x90p3kbdafb80liq1a5j222x",
+          alt: "Support interface 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/ygob90kp07hxmi5jj4sned76dnmc",
+          alt: "Support interface 3",
+        },
       ],
       actions: [{ label: "Browse Marketplace", href: "#", variant: "default" }],
     },
@@ -18555,19 +21428,40 @@ const HERO_BLOCK_CONTRACTS = {
         actions: { maxItems: 2 },
       },
       mediaSlots: {
-        "layeredImages.backgroundImage.src": imageSlot("layeredImages.backgroundImage.src", "Background layer image.", ["feature", "hero"], "large", true),
-        "layeredImages.foregroundImage.src": imageSlot("layeredImages.foregroundImage.src", "Foreground overlay image.", ["feature", "hero"], "medium", true),
+        "layeredImages.backgroundImage.src": imageSlot(
+          "layeredImages.backgroundImage.src",
+          "Background layer image.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
+        "layeredImages.foregroundImage.src": imageSlot(
+          "layeredImages.foregroundImage.src",
+          "Foreground overlay image.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       eyebrow: "Team Inbox",
       heading: "Collaborate on every customer conversation",
       description: "Shared inbox that brings your team together.",
       layeredImages: {
-        backgroundImage: { src: HERO_EXAMPLE_IMAGE_URL, alt: "Inbox background" },
-        foregroundImage: { src: HERO_EXAMPLE_IMAGE_URL, alt: "Inbox foreground" },
+        backgroundImage: {
+          src: HERO_EXAMPLE_IMAGE_URL,
+          alt: "Inbox background",
+        },
+        foregroundImage: {
+          src: HERO_EXAMPLE_IMAGE_URL,
+          alt: "Inbox foreground",
+        },
       },
       background: "dark",
       actions: [
@@ -18600,17 +21494,30 @@ const HERO_BLOCK_CONTRACTS = {
         headingPrimary: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
         image: { required: true },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        "image.src": imageSlot("image.src", "Main product/dashboard image.", ["feature", "hero"], "large", true),
+        "image.src": imageSlot(
+          "image.src",
+          "Main product/dashboard image.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       headingPrimary: "Unlock insights from",
-      description: "Analyze calls, meetings, and customer interactions with advanced AI.",
+      description:
+        "Analyze calls, meetings, and customer interactions with advanced AI.",
       image: { src: HERO_EXAMPLE_IMAGE_URL, alt: "Intelligence dashboard" },
       background: "dark",
       actions: [
@@ -18646,21 +21553,43 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
         carouselImages: { required: true, minItems: 3, maxItems: 6 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        "carouselImages[]": imageSlot("carouselImages[]", "Carousel slide images.", ["feature", "hero"], "large", true),
+        "carouselImages[]": imageSlot(
+          "carouselImages[]",
+          "Carousel slide images.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Business solutions that scale with you",
-      description: "From startups to enterprises, our platform grows alongside your business.",
+      description:
+        "From startups to enterprises, our platform grows alongside your business.",
       carouselImages: [
-        { src: "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v", alt: "Feature 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac", alt: "Feature 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm", alt: "Feature 3" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/qhz2kawawq3bbh7nusz3bvahln3v",
+          alt: "Feature 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/zykfhuapdqzu94ee1535gsgnvyac",
+          alt: "Feature 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/kh1p8y15v55ctp5ulobm4pd77etm",
+          alt: "Feature 3",
+        },
       ],
       actions: [
         { label: "Get Started", href: "#", variant: "default" },
@@ -18699,21 +21628,36 @@ const HERO_BLOCK_CONTRACTS = {
       propConstraints: {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
         terminalLines: { minItems: 2, maxItems: 10 },
       },
       mediaSlots: {},
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       badgeText: "For Developers",
       heading: "Developer tools that just work",
       description: "Build faster with modern APIs and comprehensive docs.",
       terminalTitle: "quickstart.tsx",
       terminalLines: [
-        { text: "import { Hero } from '@opensite/ui';", colorClass: "text-blue-400" },
-        { text: "export default function Page() {", colorClass: "text-purple-400" },
-        { text: "  return <Hero heading='Hello World' />;", colorClass: "text-green-400" },
+        {
+          text: "import { Hero } from '@opensite/ui';",
+          colorClass: "text-blue-400",
+        },
+        {
+          text: "export default function Page() {",
+          colorClass: "text-purple-400",
+        },
+        {
+          text: "  return <Hero heading='Hello World' />;",
+          colorClass: "text-green-400",
+        },
         { text: "}", colorClass: "text-purple-400" },
       ],
       background: "dark",
@@ -18758,24 +21702,56 @@ const HERO_BLOCK_CONTRACTS = {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
         images: { required: true, count: 4, minItems: 3, maxItems: 4 },
-        stats: { minItems: 2, maxItems: 4, note: "Must be real stats. Do not fabricate." },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        stats: {
+          minItems: 2,
+          maxItems: 4,
+          note: "Must be real stats. Do not fabricate.",
+        },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        "images[]": imageSlot("images[]", "Product showcase images.", ["feature", "hero"], "medium", true),
+        "images[]": imageSlot(
+          "images[]",
+          "Product showcase images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
       },
-      requiresSiteCapabilities: heroCapabilities("media_library", "products", "stats_or_metrics"),
+      requiresSiteCapabilities: heroCapabilities(
+        "media_library",
+        "products",
+        "stats_or_metrics",
+      ),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       badgeText: "New Collection",
       heading: "Premium products for modern living",
       description: "Discover our curated collection of handpicked items.",
       images: [
-        { src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v", alt: "Product 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc", alt: "Product 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt", alt: "Product 3" },
-        { src: "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov", alt: "Product 4" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/8x62o6350p1ejm3pjrp1jwvcbh4v",
+          alt: "Product 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/vvixyoo7ybq3h04q2q0kact0s5wc",
+          alt: "Product 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/t502cfynqso7ntkdvmcmfc87yjkt",
+          alt: "Product 3",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/ihgx63s5nfzp2e93e3ccljjnnrov",
+          alt: "Product 4",
+        },
       ],
       stats: [
         { value: "500+", label: "Products" },
@@ -18818,19 +21794,41 @@ const HERO_BLOCK_CONTRACTS = {
         ratingValue: { note: "Must be a real rating. Do not fabricate." },
       },
       mediaSlots: {
-        "image.src": imageSlot("image.src", "Mobile app screenshot.", ["feature", "hero"], "large", true),
+        "image.src": imageSlot(
+          "image.src",
+          "Mobile app screenshot.",
+          ["feature", "hero"],
+          "large",
+          true,
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       badgeText: "Now on Mobile",
       badgeIcon: "lucide/smartphone",
       heading: "Take us with you, everywhere",
-      description: "Download our mobile app and access all your favorite features on the go.",
+      description:
+        "Download our mobile app and access all your favorite features on the go.",
       storeActions: [
-        { href: "#", label: "Download on the", storePrefix: "Download on the", storeName: "App Store", storeIcon: "cib/apple" },
-        { href: "#", label: "Get it on", storePrefix: "Get it on", storeName: "Google Play", storeIcon: "cib/google" },
+        {
+          href: "#",
+          label: "Download on the",
+          storePrefix: "Download on the",
+          storeName: "App Store",
+          storeIcon: "cib/apple",
+        },
+        {
+          href: "#",
+          label: "Get it on",
+          storePrefix: "Get it on",
+          storeName: "Google Play",
+          storeIcon: "cib/google",
+        },
       ],
       ratingValue: "4.9",
       ratingLabel: "from 50K+ reviews",
@@ -18872,13 +21870,21 @@ const HERO_BLOCK_CONTRACTS = {
       propConstraints: {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
-        plans: { required: true, minItems: 2, maxItems: 3, note: "Must be real pricing plans. Do not fabricate prices." },
+        plans: {
+          required: true,
+          minItems: 2,
+          maxItems: 3,
+          note: "Must be real pricing plans. Do not fabricate prices.",
+        },
       },
       mediaSlots: {},
       requiresSiteCapabilities: heroCapabilities("pricing"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Simple, transparent pricing",
       description: "Choose the plan that's right for you. No hidden fees.",
       plans: [
@@ -18887,7 +21893,11 @@ const HERO_BLOCK_CONTRACTS = {
           price: "$19",
           pricePeriod: "/month",
           features: ["5 Projects", "10GB Storage", "Basic Support"],
-          action: { label: "Get Started", href: "/signup?plan=starter", variant: "outline" },
+          action: {
+            label: "Get Started",
+            href: "/signup?plan=starter",
+            variant: "outline",
+          },
         },
         {
           name: "Professional",
@@ -18895,7 +21905,11 @@ const HERO_BLOCK_CONTRACTS = {
           pricePeriod: "/month",
           features: ["Unlimited Projects", "100GB Storage", "Priority Support"],
           isPopular: true,
-          action: { label: "Start Free Trial", href: "/signup?plan=pro", variant: "default" },
+          action: {
+            label: "Start Free Trial",
+            href: "/signup?plan=pro",
+            variant: "default",
+          },
         },
       ],
     },
@@ -18924,13 +21938,20 @@ const HERO_BLOCK_CONTRACTS = {
       propConstraints: {
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
-        stats: { minItems: 1, maxItems: 3, note: "Must be real stats. Do not fabricate." },
+        stats: {
+          minItems: 1,
+          maxItems: 3,
+          note: "Must be real stats. Do not fabricate.",
+        },
       },
       mediaSlots: {},
       requiresSiteCapabilities: heroCapabilities("contact_form"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       heading: "Stay in the loop",
       description: "Get weekly insights delivered straight to your inbox.",
       buttonAction: { label: "Subscribe", variant: "default" },
@@ -18963,13 +21984,21 @@ const HERO_BLOCK_CONTRACTS = {
         badgeText: { maxLength: 20 },
         heading: { required: true, maxLength: 40 },
         description: { maxLength: 130 },
-        countdownDate: { required: true, note: "Must be a real, future date. Do not fabricate." },
-        socialLinks: { note: "Only include real, verified social links. Do not guess or use placeholders." },
+        countdownDate: {
+          required: true,
+          note: "Must be a real, future date. Do not fabricate.",
+        },
+        socialLinks: {
+          note: "Only include real, verified social links. Do not guess or use placeholders.",
+        },
       },
       mediaSlots: {},
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       badgeIcon: "lucide/rocket",
       badgeText: "Launching Soon",
       heading: "Something amazing is on the way",
@@ -19011,18 +22040,38 @@ const HERO_BLOCK_CONTRACTS = {
       propConstraints: {
         heading: { required: true, maxLength: 50 },
         description: { maxLength: 130 },
-        stats: { minItems: 1, maxItems: 4, note: "Must be real event stats. Do not fabricate." },
+        stats: {
+          minItems: 1,
+          maxItems: 4,
+          note: "Must be real event stats. Do not fabricate.",
+        },
         locationLabel: { note: "Must be a real location. Do not fabricate." },
-        actions: { maxItems: 2, pinnedValues: { "0.variant": "default", "1.variant": "outline" } },
+        actions: {
+          maxItems: 2,
+          pinnedValues: { "0.variant": "default", "1.variant": "outline" },
+        },
       },
       mediaSlots: {
-        "image.src": imageSlot("image.src", "Event venue or speaker image.", ["feature", "hero"], "large", false),
+        "image.src": imageSlot(
+          "image.src",
+          "Event venue or speaker image.",
+          ["feature", "hero"],
+          "large",
+          false,
+        ),
         "logo.src": logoSlot("logo.src", "Optional event or sponsor logo."),
       },
-      requiresSiteCapabilities: heroCapabilities("media_library", "events", "stats_or_metrics"),
+      requiresSiteCapabilities: heroCapabilities(
+        "media_library",
+        "events",
+        "stats_or_metrics",
+      ),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287634/e4cmvu8nbwoqy2qer90t4gpap0ed/logo-light.png",
+        alt: "Brand Logo",
+      },
       badgeText: "Annual Conference",
       badgeIcon: "lucide/calendar",
       heading: "Join us for the event of the year",
@@ -19064,29 +22113,56 @@ const HERO_BLOCK_CONTRACTS = {
         portfolioImages: { required: true, count: 4, minItems: 3, maxItems: 5 },
       },
       mediaSlots: {
-        "portfolioImages[]": imageSlot("portfolioImages[]", "Creative portfolio/project images.", ["feature", "hero"], "medium", true),
-        "profile.avatar.src": imageSlot("profile.avatar.src", "Optional creator/agency profile avatar.", ["profile", "avatar"], "small", false, "1:1"),
+        "portfolioImages[]": imageSlot(
+          "portfolioImages[]",
+          "Creative portfolio/project images.",
+          ["feature", "hero"],
+          "medium",
+          true,
+        ),
+        "profile.avatar.src": imageSlot(
+          "profile.avatar.src",
+          "Optional creator/agency profile avatar.",
+          ["profile", "avatar"],
+          "small",
+          false,
+          "1:1",
+        ),
       },
       requiresSiteCapabilities: heroCapabilities("media_library"),
     },
     exampleProps: {
-      logo: { src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png", alt: "Brand Logo" },
+      logo: {
+        src: "https://cdn.ing/assets/i/r/287635/1tmeh86afyxszfz7hbmvcc0oct8w/logo-dark.png",
+        alt: "Brand Logo",
+      },
       heading: "Creative work that stands out",
-      description: "Award-winning portfolio showcasing our best projects in design and branding.",
+      description:
+        "Award-winning portfolio showcasing our best projects in design and branding.",
       portfolioImages: [
-        { src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6", alt: "Portfolio project 1" },
-        { src: "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82", alt: "Portfolio project 2" },
-        { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "Portfolio project 3" },
-        { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "Portfolio project 4" },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/b555hwjt7ltr81et05v5254q1ak6",
+          alt: "Portfolio project 1",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/c4sgsy0g7o2rrjmvm9x7evxems82",
+          alt: "Portfolio project 2",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+          alt: "Portfolio project 3",
+        },
+        {
+          src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+          alt: "Portfolio project 4",
+        },
       ],
-      actions: [{ label: "View All Work", href: "/portfolio", variant: "default" }],
+      actions: [
+        { label: "View All Work", href: "/portfolio", variant: "default" },
+      ],
     },
   },
-
 };
-
-
-
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -20404,7 +23480,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactFloatingBanner,
     props: "ContactFloatingBannerProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-floating-banner"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-floating-banner"],
   },
   "contact-callback": {
     id: "contact-callback",
@@ -20423,7 +23499,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactCallback,
     props: "ContactCallbackProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-callback"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-callback"],
   },
   "contact-card": {
     id: "contact-card",
@@ -20441,7 +23517,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactCard,
     props: "ContactCardProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-card"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-card"],
   },
   "contact-careers": {
     id: "contact-careers",
@@ -20461,7 +23537,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactCareers,
     props: "ContactCareersProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-careers"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-careers"],
   },
   "contact-catering": {
     id: "contact-catering",
@@ -20480,7 +23556,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactCatering,
     props: "ContactCateringProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-catering"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-catering"],
   },
   "contact-consultation": {
     id: "contact-consultation",
@@ -20499,7 +23575,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactConsultation,
     props: "ContactConsultationProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-consultation"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-consultation"],
   },
   "contact-dark": {
     id: "contact-dark",
@@ -20518,7 +23594,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactDark,
     props: "ContactDarkProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-dark"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-dark"],
   },
   "contact-demo": {
     id: "contact-demo",
@@ -20538,7 +23614,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactDemo,
     props: "ContactDemoProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-demo"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-demo"],
   },
   "contact-emergency": {
     id: "contact-emergency",
@@ -20557,7 +23633,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactEmergency,
     props: "ContactEmergencyProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-emergency"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-emergency"],
   },
   "contact-event": {
     id: "contact-event",
@@ -20575,7 +23651,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactEvent,
     props: "ContactEventProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-event"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-event"],
   },
   "contact-faq": {
     id: "contact-faq",
@@ -20595,7 +23671,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactFaq,
     props: "ContactFaqProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-faq"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-faq"],
   },
   "contact-feedback": {
     id: "contact-feedback",
@@ -20612,7 +23688,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactFeedback,
     props: "ContactFeedbackProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-feedback"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-feedback"],
   },
   "contact-fitness": {
     id: "contact-fitness",
@@ -20630,7 +23706,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactFitness,
     props: "ContactFitnessProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-fitness"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-fitness"],
   },
   "contact-guest": {
     id: "contact-guest",
@@ -20648,7 +23724,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactGuest,
     props: "ContactGuestProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-guest"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-guest"],
   },
   "contact-image": {
     id: "contact-image",
@@ -20666,7 +23742,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactImage,
     props: "ContactImageProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-image"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-image"],
   },
   "contact-insurance": {
     id: "contact-insurance",
@@ -20684,7 +23760,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactInsurance,
     props: "ContactInsuranceProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-insurance"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-insurance"],
   },
   "contact-interview": {
     id: "contact-interview",
@@ -20702,7 +23778,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactInterview,
     props: "ContactInterviewProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-interview"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-interview"],
   },
   "contact-locations": {
     id: "contact-locations",
@@ -20713,7 +23789,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactLocations,
     props: "ContactLocationsProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-locations"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-locations"],
   },
   "contact-maintenance": {
     id: "contact-maintenance",
@@ -20731,7 +23807,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactMaintenance,
     props: "ContactMaintenanceProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-maintenance"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-maintenance"],
   },
   "contact-map": {
     id: "contact-map",
@@ -20742,7 +23818,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactMap,
     props: "ContactMapProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-map"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-map"],
   },
   "contact-minimal": {
     id: "contact-minimal",
@@ -20753,7 +23829,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactMinimal,
     props: "ContactMinimalProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-minimal"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-minimal"],
   },
   "contact-moving": {
     id: "contact-moving",
@@ -20771,7 +23847,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactMoving,
     props: "ContactMovingProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-moving"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-moving"],
   },
   "contact-multistep": {
     id: "contact-multistep",
@@ -20789,7 +23865,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactMultistep,
     props: "ContactMultistepProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-multistep"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-multistep"],
   },
   "contact-partnership": {
     id: "contact-partnership",
@@ -20807,7 +23883,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactPartnership,
     props: "ContactPartnershipProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-partnership"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-partnership"],
   },
   "contact-photography": {
     id: "contact-photography",
@@ -20826,7 +23902,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactPhotography,
     props: "ContactPhotographyProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-photography"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-photography"],
   },
   "contact-press": {
     id: "contact-press",
@@ -20837,7 +23913,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactPress,
     props: "ContactPressProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-press"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-press"],
   },
   "contact-quote": {
     id: "contact-quote",
@@ -20855,7 +23931,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactQuote,
     props: "ContactQuoteProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-quote"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-quote"],
   },
   "contact-referral": {
     id: "contact-referral",
@@ -20873,7 +23949,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactReferral,
     props: "ContactReferralProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-referral"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-referral"],
   },
   "contact-report": {
     id: "contact-report",
@@ -20892,7 +23968,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactReport,
     props: "ContactReportProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-report"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-report"],
   },
   "contact-reservation": {
     id: "contact-reservation",
@@ -20910,7 +23986,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactReservation,
     props: "ContactReservationProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-reservation"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-reservation"],
   },
   "contact-retreat": {
     id: "contact-retreat",
@@ -20928,7 +24004,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactRetreat,
     props: "ContactRetreatProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-retreat"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-retreat"],
   },
   "contact-rsvp": {
     id: "contact-rsvp",
@@ -20946,7 +24022,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactRsvp,
     props: "ContactRsvpProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-rsvp"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-rsvp"],
   },
   "contact-sales": {
     id: "contact-sales",
@@ -20957,7 +24033,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactSales,
     props: "ContactSalesProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-sales"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-sales"],
   },
   "contact-schedule": {
     id: "contact-schedule",
@@ -20975,7 +24051,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactSchedule,
     props: "ContactScheduleProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-schedule"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-schedule"],
   },
   "contact-sponsorship": {
     id: "contact-sponsorship",
@@ -20993,7 +24069,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactSponsorship,
     props: "ContactSponsorshipProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-sponsorship"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-sponsorship"],
   },
   "contact-support": {
     id: "contact-support",
@@ -21004,7 +24080,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactSupport,
     props: "ContactSupportProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-support"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-support"],
   },
   "contact-help-center": {
     id: "contact-help-center",
@@ -21025,7 +24101,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactHelpCenter,
     props: "ContactHelpCenterProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-help-center"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-help-center"],
   },
   "contact-tenant": {
     id: "contact-tenant",
@@ -21043,7 +24119,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactTenant,
     props: "ContactTenantProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-tenant"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-tenant"],
   },
   "contact-vendor": {
     id: "contact-vendor",
@@ -21061,7 +24137,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactVendor,
     props: "ContactVendorProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-vendor"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-vendor"],
   },
   "contact-volunteer": {
     id: "contact-volunteer",
@@ -21079,7 +24155,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactVolunteer,
     props: "ContactVolunteerProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-volunteer"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-volunteer"],
   },
   "contact-warranty": {
     id: "contact-warranty",
@@ -21097,7 +24173,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactWarranty,
     props: "ContactWarrantyProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-warranty"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-warranty"],
   },
   "contact-wedding": {
     id: "contact-wedding",
@@ -21115,7 +24191,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "contact",
     component: ContactWedding,
     props: "ContactWeddingProps",
-          ...CONTACT_BLOCK_CONTRACTS["contact-wedding"],
+    ...CONTACT_BLOCK_CONTRACTS["contact-wedding"],
   },
   "carousel-animated-sections": {
     id: "carousel-animated-sections",
@@ -21136,7 +24212,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "carousel",
     component: CarouselAnimatedSections,
     props: "CarouselAnimatedSectionsProps",
-          ...CAROUSEL_BLOCK_CONTRACTS["carousel-animated-sections"],
+    ...CAROUSEL_BLOCK_CONTRACTS["carousel-animated-sections"],
   },
   "carousel-auto-progress-slides": {
     id: "carousel-auto-progress-slides",
@@ -21157,7 +24233,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "carousel",
     component: CarouselAutoProgressSlides,
     props: "CarouselAutoProgressSlidesProps",
-          ...CAROUSEL_BLOCK_CONTRACTS["carousel-auto-progress-slides"],
+    ...CAROUSEL_BLOCK_CONTRACTS["carousel-auto-progress-slides"],
   },
   "carousel-autoplay-progress": {
     id: "carousel-autoplay-progress",
@@ -21178,7 +24254,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "carousel",
     component: CarouselAutoplayProgress,
     props: "CarouselAutoplayProgressProps",
-          ...CAROUSEL_BLOCK_CONTRACTS["carousel-autoplay-progress"],
+    ...CAROUSEL_BLOCK_CONTRACTS["carousel-autoplay-progress"],
   },
   "carousel-feature-badge": {
     id: "carousel-feature-badge",
@@ -21198,7 +24274,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "carousel",
     component: CarouselFeatureBadge,
     props: "CarouselFeatureBadgeProps",
-          ...CAROUSEL_BLOCK_CONTRACTS["carousel-feature-badge"],
+    ...CAROUSEL_BLOCK_CONTRACTS["carousel-feature-badge"],
   },
   "carousel-fullscreen-scroll-fx": {
     id: "carousel-fullscreen-scroll-fx",
@@ -21219,7 +24295,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "carousel",
     component: CarouselFullscreenScrollFx,
     props: "CarouselFullscreenScrollFxProps",
-          ...CAROUSEL_BLOCK_CONTRACTS["carousel-fullscreen-scroll-fx"],
+    ...CAROUSEL_BLOCK_CONTRACTS["carousel-fullscreen-scroll-fx"],
   },
   "carousel-gallery-thumbnails": {
     id: "carousel-gallery-thumbnails",
@@ -21240,7 +24316,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "carousel",
     component: CarouselGalleryThumbnails,
     props: "CarouselGalleryThumbnailsProps",
-          ...CAROUSEL_BLOCK_CONTRACTS["carousel-gallery-thumbnails"],
+    ...CAROUSEL_BLOCK_CONTRACTS["carousel-gallery-thumbnails"],
   },
   "carousel-horizontal-cards": {
     id: "carousel-horizontal-cards",
@@ -21261,7 +24337,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "carousel",
     component: CarouselHorizontalCards,
     props: "CarouselHorizontalCardsProps",
-          ...CAROUSEL_BLOCK_CONTRACTS["carousel-horizontal-cards"],
+    ...CAROUSEL_BLOCK_CONTRACTS["carousel-horizontal-cards"],
   },
   "carousel-image-hero": {
     id: "carousel-image-hero",
@@ -21282,7 +24358,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "carousel",
     component: CarouselImageHero,
     props: "CarouselImageHeroProps",
-          ...CAROUSEL_BLOCK_CONTRACTS["carousel-image-hero"],
+    ...CAROUSEL_BLOCK_CONTRACTS["carousel-image-hero"],
   },
   "carousel-multi-step-showcase": {
     id: "carousel-multi-step-showcase",
@@ -21303,7 +24379,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "carousel",
     component: CarouselMultiStepShowcase,
     props: "CarouselMultiStepShowcaseProps",
-          ...CAROUSEL_BLOCK_CONTRACTS["carousel-multi-step-showcase"],
+    ...CAROUSEL_BLOCK_CONTRACTS["carousel-multi-step-showcase"],
   },
   "carousel-portfolio-hero": {
     id: "carousel-portfolio-hero",
@@ -21324,7 +24400,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "carousel",
     component: CarouselPortfolioHero,
     props: "CarouselPortfolioHeroProps",
-          ...CAROUSEL_BLOCK_CONTRACTS["carousel-portfolio-hero"],
+    ...CAROUSEL_BLOCK_CONTRACTS["carousel-portfolio-hero"],
   },
   "carousel-product-feature-showcase": {
     id: "carousel-product-feature-showcase",
@@ -21345,7 +24421,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "carousel",
     component: CarouselProductFeatureShowcase,
     props: "CarouselProductFeatureShowcaseProps",
-          ...CAROUSEL_BLOCK_CONTRACTS["carousel-product-feature-showcase"],
+    ...CAROUSEL_BLOCK_CONTRACTS["carousel-product-feature-showcase"],
   },
   "carousel-progress-slider": {
     id: "carousel-progress-slider",
@@ -21366,7 +24442,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "carousel",
     component: CarouselProgressSlider,
     props: "CarouselProgressSliderProps",
-          ...CAROUSEL_BLOCK_CONTRACTS["carousel-progress-slider"],
+    ...CAROUSEL_BLOCK_CONTRACTS["carousel-progress-slider"],
   },
   "carousel-scrolling-feature-showcase": {
     id: "carousel-scrolling-feature-showcase",
@@ -21387,7 +24463,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "carousel",
     component: CarouselScrollingFeatureShowcase,
     props: "CarouselScrollingFeatureShowcaseProps",
-          ...CAROUSEL_BLOCK_CONTRACTS["carousel-scrolling-feature-showcase"],
+    ...CAROUSEL_BLOCK_CONTRACTS["carousel-scrolling-feature-showcase"],
   },
   "feature-showcase": {
     id: "feature-showcase",
@@ -21408,7 +24484,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureShowcase,
     props: "FeatureShowcaseProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-showcase"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-showcase"],
   },
   "feature-capabilities-grid": {
     id: "feature-capabilities-grid",
@@ -21429,7 +24505,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureCapabilitiesGrid,
     props: "FeatureCapabilitiesGridProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-capabilities-grid"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-capabilities-grid"],
   },
   "feature-split-image": {
     id: "feature-split-image",
@@ -21449,7 +24525,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureSplitImage,
     props: "FeatureSplitImageProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-split-image"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-split-image"],
   },
   "feature-split-image-reverse": {
     id: "feature-split-image-reverse",
@@ -21469,7 +24545,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureSplitImageReverse,
     props: "FeatureSplitImageReverseProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-split-image-reverse"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-split-image-reverse"],
   },
   "feature-icon-grid-bordered": {
     id: "feature-icon-grid-bordered",
@@ -21488,7 +24564,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureIconGridBordered,
     props: "FeatureIconGridBorderedProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-icon-grid-bordered"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-icon-grid-bordered"],
   },
   "feature-checklist-image": {
     id: "feature-checklist-image",
@@ -21507,7 +24583,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureChecklistImage,
     props: "FeatureChecklistImageProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-checklist-image"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-checklist-image"],
   },
   "feature-carousel-progress": {
     id: "feature-carousel-progress",
@@ -21526,7 +24602,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureCarouselProgress,
     props: "FeatureCarouselProgressProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-carousel-progress"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-carousel-progress"],
   },
   "feature-card-grid-linked": {
     id: "feature-card-grid-linked",
@@ -21545,7 +24621,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureCardGridLinked,
     props: "FeatureCardGridLinkedProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-card-grid-linked"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-card-grid-linked"],
   },
   "feature-numbered-cards": {
     id: "feature-numbered-cards",
@@ -21564,7 +24640,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureNumberedCards,
     props: "FeatureNumberedCardsProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-numbered-cards"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-numbered-cards"],
   },
   "feature-icon-grid-accent": {
     id: "feature-icon-grid-accent",
@@ -21583,7 +24659,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureIconGridAccent,
     props: "FeatureIconGridAccentProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-icon-grid-accent"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-icon-grid-accent"],
   },
   "feature-three-column-values": {
     id: "feature-three-column-values",
@@ -21602,7 +24678,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureThreeColumnValues,
     props: "FeatureThreeColumnValuesProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-three-column-values"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-three-column-values"],
   },
   "feature-badge-grid-six": {
     id: "feature-badge-grid-six",
@@ -21621,7 +24697,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureBadgeGridSix,
     props: "FeatureBadgeGridSixProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-badge-grid-six"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-badge-grid-six"],
   },
   "feature-pattern-grid-links": {
     id: "feature-pattern-grid-links",
@@ -21640,7 +24716,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeaturePatternGridLinks,
     props: "FeaturePatternGridLinksProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-pattern-grid-links"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-pattern-grid-links"],
   },
   "feature-tabbed-content-image": {
     id: "feature-tabbed-content-image",
@@ -21659,7 +24735,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureTabbedContentImage,
     props: "FeatureTabbedContentImageProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-tabbed-content-image"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-tabbed-content-image"],
   },
   "feature-utility-cards-grid": {
     id: "feature-utility-cards-grid",
@@ -21678,7 +24754,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureUtilityCardsGrid,
     props: "FeatureUtilityCardsGridProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-utility-cards-grid"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-utility-cards-grid"],
   },
   "feature-bento-utilities": {
     id: "feature-bento-utilities",
@@ -21697,7 +24773,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureBentoUtilities,
     props: "FeatureBentoUtilitiesProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-bento-utilities"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-bento-utilities"],
   },
   "feature-checklist-three-column": {
     id: "feature-checklist-three-column",
@@ -21716,7 +24792,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureChecklistThreeColumn,
     props: "FeatureChecklistThreeColumnProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-checklist-three-column"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-checklist-three-column"],
   },
   "feature-integration-cards": {
     id: "feature-integration-cards",
@@ -21735,7 +24811,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureIntegrationCards,
     props: "FeatureIntegrationCardsProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-integration-cards"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-integration-cards"],
   },
   "feature-icon-tabs-content": {
     id: "feature-icon-tabs-content",
@@ -21754,7 +24830,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureIconTabsContent,
     props: "FeatureIconTabsContentProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-icon-tabs-content"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-icon-tabs-content"],
   },
   "feature-image-overlay-badge": {
     id: "feature-image-overlay-badge",
@@ -21774,7 +24850,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureImageOverlayBadge,
     props: "FeatureImageOverlayBadgeProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-image-overlay-badge"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-image-overlay-badge"],
   },
   "feature-category-image-cards": {
     id: "feature-category-image-cards",
@@ -21793,7 +24869,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureCategoryImageCards,
     props: "FeatureCategoryImageCardsProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-category-image-cards"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-category-image-cards"],
   },
   "feature-bento-image-grid": {
     id: "feature-bento-image-grid",
@@ -21813,7 +24889,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureBentoImageGrid,
     props: "FeatureBentoImageGridProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-bento-image-grid"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-bento-image-grid"],
   },
   "feature-image-cards-three-column": {
     id: "feature-image-cards-three-column",
@@ -21832,7 +24908,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureImageCardsThreeColumn,
     props: "FeatureImageCardsThreeColumnProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-image-cards-three-column"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-image-cards-three-column"],
   },
   "feature-icon-grid-muted": {
     id: "feature-icon-grid-muted",
@@ -21851,7 +24927,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureIconGridMuted,
     props: "FeatureIconGridMutedProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-icon-grid-muted"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-icon-grid-muted"],
   },
   "feature-stats-highlight": {
     id: "feature-stats-highlight",
@@ -21870,7 +24946,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureStatsHighlight,
     props: "FeatureStatsHighlightProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-stats-highlight"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-stats-highlight"],
   },
   "feature-accordion-image": {
     id: "feature-accordion-image",
@@ -21889,7 +24965,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureAccordionImage,
     props: "FeatureAccordionImageProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-accordion-image"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-accordion-image"],
   },
   "team-media-showcase": {
     id: "team-media-showcase",
@@ -22736,7 +25812,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterLinksGrid,
     props: "FooterLinksGridProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-links-grid"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-links-grid"],
   },
   "footer-social-newsletter": {
     id: "footer-social-newsletter",
@@ -22756,7 +25832,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterSocialNewsletter,
     props: "FooterSocialNewsletterProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-social-newsletter"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-social-newsletter"],
   },
   "footer-social-apps": {
     id: "footer-social-apps",
@@ -22777,7 +25853,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterSocialApps,
     props: "FooterSocialAppsProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-social-apps"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-social-apps"],
   },
   "footer-simple-centered": {
     id: "footer-simple-centered",
@@ -22797,7 +25873,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterSimpleCentered,
     props: "FooterSimpleCenteredProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-simple-centered"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-simple-centered"],
   },
   "footer-brand-description": {
     id: "footer-brand-description",
@@ -22817,7 +25893,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterBrandDescription,
     props: "FooterBrandDescriptionProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-brand-description"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-brand-description"],
   },
   "footer-brand-links-contact": {
     id: "footer-brand-links-contact",
@@ -22837,7 +25913,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterBrandLinksContact,
     props: "FooterBrandLinksContactProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-brand-links-contact"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-brand-links-contact"],
   },
   "footer-comprehensive-links": {
     id: "footer-comprehensive-links",
@@ -22857,7 +25933,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterComprehensiveLinks,
     props: "FooterComprehensiveLinksProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-comprehensive-links"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-comprehensive-links"],
   },
   "footer-newsletter-grid": {
     id: "footer-newsletter-grid",
@@ -22877,7 +25953,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterNewsletterGrid,
     props: "FooterNewsletterGridProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-newsletter-grid"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-newsletter-grid"],
   },
   "footer-cta-banner": {
     id: "footer-cta-banner",
@@ -22897,7 +25973,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterCtaBanner,
     props: "FooterCtaBannerProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-cta-banner"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-cta-banner"],
   },
   "footer-contact-card": {
     id: "footer-contact-card",
@@ -22918,7 +25994,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterContactCard,
     props: "FooterContactCardProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-contact-card"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-contact-card"],
   },
   "footer-background-card": {
     id: "footer-background-card",
@@ -22939,7 +26015,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterBackgroundCard,
     props: "FooterBackgroundCardProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-background-card"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-background-card"],
   },
   "footer-animated-social": {
     id: "footer-animated-social",
@@ -22959,7 +26035,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterAnimatedSocial,
     props: "FooterAnimatedSocialProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-animated-social"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-animated-social"],
   },
   "footer-newsletter-minimal": {
     id: "footer-newsletter-minimal",
@@ -22979,7 +26055,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterNewsletterMinimal,
     props: "FooterNewsletterMinimalProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-newsletter-minimal"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-newsletter-minimal"],
   },
   "footer-cta-social": {
     id: "footer-cta-social",
@@ -22999,7 +26075,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterCtaSocial,
     props: "FooterCtaSocialProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-cta-social"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-cta-social"],
   },
   "footer-nav-social": {
     id: "footer-nav-social",
@@ -23019,7 +26095,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterNavSocial,
     props: "FooterNavSocialProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-nav-social"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-nav-social"],
   },
   // Gallery blocks
   "expandable-case-study-cards": {
@@ -23041,7 +26117,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: ExpandableCaseStudyCards,
     props: "ExpandableCaseStudyCardsProps",
-          ...GALLERY_BLOCK_CONTRACTS["expandable-case-study-cards"],
+    ...GALLERY_BLOCK_CONTRACTS["expandable-case-study-cards"],
   },
   "carousel-badge-cards": {
     id: "carousel-badge-cards",
@@ -23061,7 +26137,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: CarouselBadgeCards,
     props: "CarouselBadgeCardsProps",
-          ...GALLERY_BLOCK_CONTRACTS["carousel-badge-cards"],
+    ...GALLERY_BLOCK_CONTRACTS["carousel-badge-cards"],
   },
   "carousel-gradient-overlay": {
     id: "carousel-gradient-overlay",
@@ -23081,7 +26157,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: CarouselGradientOverlay,
     props: "CarouselGradientOverlayProps",
-          ...GALLERY_BLOCK_CONTRACTS["carousel-gradient-overlay"],
+    ...GALLERY_BLOCK_CONTRACTS["carousel-gradient-overlay"],
   },
   "carousel-demo-link": {
     id: "carousel-demo-link",
@@ -23101,7 +26177,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: CarouselDemoLink,
     props: "CarouselDemoLinkProps",
-          ...GALLERY_BLOCK_CONTRACTS["carousel-demo-link"],
+    ...GALLERY_BLOCK_CONTRACTS["carousel-demo-link"],
   },
   "auto-scroll-carousel": {
     id: "auto-scroll-carousel",
@@ -23121,7 +26197,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: AutoScrollCarousel,
     props: "AutoScrollCarouselProps",
-          ...GALLERY_BLOCK_CONTRACTS["auto-scroll-carousel"],
+    ...GALLERY_BLOCK_CONTRACTS["auto-scroll-carousel"],
   },
   "carousel-sidebar-resources": {
     id: "carousel-sidebar-resources",
@@ -23141,7 +26217,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: CarouselSidebarResources,
     props: "CarouselSidebarResourcesProps",
-          ...GALLERY_BLOCK_CONTRACTS["carousel-sidebar-resources"],
+    ...GALLERY_BLOCK_CONTRACTS["carousel-sidebar-resources"],
   },
   "carousel-icon-tabs": {
     id: "carousel-icon-tabs",
@@ -23161,7 +26237,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: CarouselIconTabs,
     props: "CarouselIconTabsProps",
-          ...GALLERY_BLOCK_CONTRACTS["carousel-icon-tabs"],
+    ...GALLERY_BLOCK_CONTRACTS["carousel-icon-tabs"],
   },
   "testimonial-carousel-cards": {
     id: "testimonial-carousel-cards",
@@ -23181,7 +26257,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: TestimonialCarouselCards,
     props: "TestimonialCarouselCardsProps",
-          ...GALLERY_BLOCK_CONTRACTS["testimonial-carousel-cards"],
+    ...GALLERY_BLOCK_CONTRACTS["testimonial-carousel-cards"],
   },
   "carousel-icon-sidebar": {
     id: "carousel-icon-sidebar",
@@ -23201,7 +26277,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: CarouselIconSidebar,
     props: "CarouselIconSidebarProps",
-          ...GALLERY_BLOCK_CONTRACTS["carousel-icon-sidebar"],
+    ...GALLERY_BLOCK_CONTRACTS["carousel-icon-sidebar"],
   },
   "carousel-gradient-text": {
     id: "carousel-gradient-text",
@@ -23221,7 +26297,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: CarouselGradientText,
     props: "CarouselGradientTextProps",
-          ...GALLERY_BLOCK_CONTRACTS["carousel-gradient-text"],
+    ...GALLERY_BLOCK_CONTRACTS["carousel-gradient-text"],
   },
   "service-hover-carousel": {
     id: "service-hover-carousel",
@@ -23241,7 +26317,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: ServiceHoverCarousel,
     props: "ServiceHoverCarouselProps",
-          ...GALLERY_BLOCK_CONTRACTS["service-hover-carousel"],
+    ...GALLERY_BLOCK_CONTRACTS["service-hover-carousel"],
   },
   "carousel-tabs-content": {
     id: "carousel-tabs-content",
@@ -23261,7 +26337,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: CarouselTabsContent,
     props: "CarouselTabsContentProps",
-          ...GALLERY_BLOCK_CONTRACTS["carousel-tabs-content"],
+    ...GALLERY_BLOCK_CONTRACTS["carousel-tabs-content"],
   },
   "carousel-scale-focus": {
     id: "carousel-scale-focus",
@@ -23281,7 +26357,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: CarouselScaleFocus,
     props: "CarouselScaleFocusProps",
-          ...GALLERY_BLOCK_CONTRACTS["carousel-scale-focus"],
+    ...GALLERY_BLOCK_CONTRACTS["carousel-scale-focus"],
   },
   "masonry-motion-grid": {
     id: "masonry-motion-grid",
@@ -23301,7 +26377,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: MasonryMotionGrid,
     props: "MasonryMotionGridProps",
-          ...GALLERY_BLOCK_CONTRACTS["masonry-motion-grid"],
+    ...GALLERY_BLOCK_CONTRACTS["masonry-motion-grid"],
   },
   "blur-vignette-grid": {
     id: "blur-vignette-grid",
@@ -23321,7 +26397,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: BlurVignetteGrid,
     props: "BlurVignetteGridProps",
-          ...GALLERY_BLOCK_CONTRACTS["blur-vignette-grid"],
+    ...GALLERY_BLOCK_CONTRACTS["blur-vignette-grid"],
   },
   "interior-carousel": {
     id: "interior-carousel",
@@ -23341,7 +26417,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: InteriorCarousel,
     props: "InteriorCarouselProps",
-          ...GALLERY_BLOCK_CONTRACTS["interior-carousel"],
+    ...GALLERY_BLOCK_CONTRACTS["interior-carousel"],
   },
   "instagram-post-grid": {
     id: "instagram-post-grid",
@@ -23362,7 +26438,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "gallery",
     component: InstagramPostGrid,
     props: "InstagramPostGridProps",
-          ...GALLERY_BLOCK_CONTRACTS["instagram-post-grid"],
+    ...GALLERY_BLOCK_CONTRACTS["instagram-post-grid"],
   },
   "radial-gradient-top": {
     id: "radial-gradient-top",
@@ -24466,7 +27542,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "blog",
     component: BlogGridAuthorCards,
     props: "BlogGridAuthorCardsProps",
-          ...BLOG_BLOCK_CONTRACTS["blog-grid-author-cards"],
+    ...BLOG_BLOCK_CONTRACTS["blog-grid-author-cards"],
   },
   "blog-cards-tagline-cta": {
     id: "blog-cards-tagline-cta",
@@ -24487,7 +27563,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "blog",
     component: BlogCardsTaglineCta,
     props: "BlogCardsTaglineCtaProps",
-          ...BLOG_BLOCK_CONTRACTS["blog-cards-tagline-cta"],
+    ...BLOG_BLOCK_CONTRACTS["blog-cards-tagline-cta"],
   },
   "blog-cards-read-time": {
     id: "blog-cards-read-time",
@@ -24508,7 +27584,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "blog",
     component: BlogCardsReadTime,
     props: "BlogCardsReadTimeProps",
-          ...BLOG_BLOCK_CONTRACTS["blog-cards-read-time"],
+    ...BLOG_BLOCK_CONTRACTS["blog-cards-read-time"],
   },
   "blog-category-overlay": {
     id: "blog-category-overlay",
@@ -24529,7 +27605,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "blog",
     component: BlogCategoryOverlay,
     props: "BlogCategoryOverlayProps",
-          ...BLOG_BLOCK_CONTRACTS["blog-category-overlay"],
+    ...BLOG_BLOCK_CONTRACTS["blog-category-overlay"],
   },
   "blog-featured-popular": {
     id: "blog-featured-popular",
@@ -24553,7 +27629,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "blog",
     component: BlogFeaturedPopular,
     props: "BlogFeaturedPopularProps",
-          ...BLOG_BLOCK_CONTRACTS["blog-featured-popular"],
+    ...BLOG_BLOCK_CONTRACTS["blog-featured-popular"],
   },
   "blog-related-articles": {
     id: "blog-related-articles",
@@ -24574,7 +27650,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "blog",
     component: BlogRelatedArticles,
     props: "BlogRelatedArticlesProps",
-          ...BLOG_BLOCK_CONTRACTS["blog-related-articles"],
+    ...BLOG_BLOCK_CONTRACTS["blog-related-articles"],
   },
   "blog-tech-insights": {
     id: "blog-tech-insights",
@@ -24595,7 +27671,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "blog",
     component: BlogTechInsights,
     props: "BlogTechInsightsProps",
-          ...BLOG_BLOCK_CONTRACTS["blog-tech-insights"],
+    ...BLOG_BLOCK_CONTRACTS["blog-tech-insights"],
   },
   "blog-horizontal-cards": {
     id: "blog-horizontal-cards",
@@ -24615,7 +27691,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "blog",
     component: BlogHorizontalCards,
     props: "BlogHorizontalCardsProps",
-          ...BLOG_BLOCK_CONTRACTS["blog-horizontal-cards"],
+    ...BLOG_BLOCK_CONTRACTS["blog-horizontal-cards"],
   },
   "blog-filtered-results": {
     id: "blog-filtered-results",
@@ -24637,7 +27713,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "blog",
     component: BlogFilteredResults,
     props: "BlogFilteredResultsProps",
-          ...BLOG_BLOCK_CONTRACTS["blog-filtered-results"],
+    ...BLOG_BLOCK_CONTRACTS["blog-filtered-results"],
   },
   "blog-masonry-featured": {
     id: "blog-masonry-featured",
@@ -24658,7 +27734,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "blog",
     component: BlogMasonryFeatured,
     props: "BlogMasonryFeaturedProps",
-          ...BLOG_BLOCK_CONTRACTS["blog-masonry-featured"],
+    ...BLOG_BLOCK_CONTRACTS["blog-masonry-featured"],
   },
   "blog-horizontal-timeline": {
     id: "blog-horizontal-timeline",
@@ -24678,7 +27754,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "blog",
     component: BlogHorizontalTimeline,
     props: "BlogHorizontalTimelineProps",
-          ...BLOG_BLOCK_CONTRACTS["blog-horizontal-timeline"],
+    ...BLOG_BLOCK_CONTRACTS["blog-horizontal-timeline"],
   },
   "blog-grid-nine-posts": {
     id: "blog-grid-nine-posts",
@@ -24699,7 +27775,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "blog",
     component: BlogGridNinePosts,
     props: "BlogGridNinePostsProps",
-          ...BLOG_BLOCK_CONTRACTS["blog-grid-nine-posts"],
+    ...BLOG_BLOCK_CONTRACTS["blog-grid-nine-posts"],
   },
   "blog-carousel-apple": {
     id: "blog-carousel-apple",
@@ -24720,7 +27796,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "blog",
     component: BlogCarouselApple,
     props: "BlogCarouselAppleProps",
-          ...BLOG_BLOCK_CONTRACTS["blog-carousel-apple"],
+    ...BLOG_BLOCK_CONTRACTS["blog-carousel-apple"],
   },
   "article-hero-prose": {
     id: "article-hero-prose",
@@ -24918,7 +27994,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqSimpleAccordion,
     props: "FaqSimpleAccordionProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-simple-accordion"],
+    ...FAQ_BLOCK_CONTRACTS["faq-simple-accordion"],
   },
 
   "faq-static-list": {
@@ -24940,7 +28016,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqStaticList,
     props: "FaqStaticListProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-static-list"],
+    ...FAQ_BLOCK_CONTRACTS["faq-static-list"],
   },
 
   "faq-centered-accordion": {
@@ -24962,7 +28038,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqCenteredAccordion,
     props: "FaqCenteredAccordionProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-centered-accordion"],
+    ...FAQ_BLOCK_CONTRACTS["faq-centered-accordion"],
   },
 
   "faq-badge-support": {
@@ -24985,7 +28061,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqBadgeSupport,
     props: "FaqBadgeSupportProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-badge-support"],
+    ...FAQ_BLOCK_CONTRACTS["faq-badge-support"],
   },
 
   "faq-numbered-list": {
@@ -25008,7 +28084,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqNumberedList,
     props: "FaqNumberedListProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-numbered-list"],
+    ...FAQ_BLOCK_CONTRACTS["faq-numbered-list"],
   },
 
   "faq-numbered-grid": {
@@ -25030,7 +28106,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqNumberedGrid,
     props: "FaqNumberedGridProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-numbered-grid"],
+    ...FAQ_BLOCK_CONTRACTS["faq-numbered-grid"],
   },
 
   "faq-split-help": {
@@ -25053,7 +28129,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqSplitHelp,
     props: "FaqSplitHelpProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-split-help"],
+    ...FAQ_BLOCK_CONTRACTS["faq-split-help"],
   },
 
   "faq-categorized-sections": {
@@ -25075,7 +28151,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqCategorizedSections,
     props: "FaqCategorizedSectionsProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-categorized-sections"],
+    ...FAQ_BLOCK_CONTRACTS["faq-categorized-sections"],
   },
 
   "faq-muted-cards": {
@@ -25097,7 +28173,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqMutedCards,
     props: "FaqMutedCardsProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-muted-cards"],
+    ...FAQ_BLOCK_CONTRACTS["faq-muted-cards"],
   },
 
   "faq-bordered-badge": {
@@ -25120,7 +28196,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqBorderedBadge,
     props: "FaqBorderedBadgeProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-bordered-badge"],
+    ...FAQ_BLOCK_CONTRACTS["faq-bordered-badge"],
   },
 
   "faq-gradient-categories": {
@@ -25143,7 +28219,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqGradientCategories,
     props: "FaqGradientCategoriesProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-gradient-categories"],
+    ...FAQ_BLOCK_CONTRACTS["faq-gradient-categories"],
   },
 
   "faq-sidebar-navigation": {
@@ -25166,7 +28242,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqSidebarNavigation,
     props: "FaqSidebarNavigationProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-sidebar-navigation"],
+    ...FAQ_BLOCK_CONTRACTS["faq-sidebar-navigation"],
   },
 
   "faq-card-categories": {
@@ -25189,7 +28265,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqCardCategories,
     props: "FaqCardCategoriesProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-card-categories"],
+    ...FAQ_BLOCK_CONTRACTS["faq-card-categories"],
   },
 
   "faq-icon-benefits": {
@@ -25211,7 +28287,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqIconBenefits,
     props: "FaqIconBenefitsProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-icon-benefits"],
+    ...FAQ_BLOCK_CONTRACTS["faq-icon-benefits"],
   },
 
   "faq-rounded-cards": {
@@ -25234,7 +28310,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqRoundedCards,
     props: "FaqRoundedCardsProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-rounded-cards"],
+    ...FAQ_BLOCK_CONTRACTS["faq-rounded-cards"],
   },
 
   "faq-profile-sidebar": {
@@ -25258,7 +28334,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqProfileSidebar,
     props: "FaqProfileSidebarProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-profile-sidebar"],
+    ...FAQ_BLOCK_CONTRACTS["faq-profile-sidebar"],
   },
 
   // Hero components
@@ -25282,7 +28358,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroOverlayCtaGrid,
     props: "HeroOverlayCtaGridProps",
-          ...HERO_BLOCK_CONTRACTS["hero-overlay-cta-grid"],
+    ...HERO_BLOCK_CONTRACTS["hero-overlay-cta-grid"],
   },
   "hero-split-icon-cards": {
     id: "hero-split-icon-cards",
@@ -25303,7 +28379,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroSplitIconCards,
     props: "HeroSplitIconCardsProps",
-          ...HERO_BLOCK_CONTRACTS["hero-split-icon-cards"],
+    ...HERO_BLOCK_CONTRACTS["hero-split-icon-cards"],
   },
   "hero-floating-images": {
     id: "hero-floating-images",
@@ -25324,7 +28400,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroFloatingImages,
     props: "HeroFloatingImagesProps",
-          ...HERO_BLOCK_CONTRACTS["hero-floating-images"],
+    ...HERO_BLOCK_CONTRACTS["hero-floating-images"],
   },
   "hero-badge-image-split": {
     id: "hero-badge-image-split",
@@ -25346,7 +28422,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroBadgeImageSplit,
     props: "HeroBadgeImageSplitProps",
-          ...HERO_BLOCK_CONTRACTS["hero-badge-image-split"],
+    ...HERO_BLOCK_CONTRACTS["hero-badge-image-split"],
   },
 
   "hero-image-left-content": {
@@ -25367,7 +28443,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroImageLeftContent,
     props: "HeroImageLeftContentProps",
-          ...HERO_BLOCK_CONTRACTS["hero-image-left-content"],
+    ...HERO_BLOCK_CONTRACTS["hero-image-left-content"],
   },
 
   "hero-image-slider": {
@@ -25390,7 +28466,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroImageSlider,
     props: "HeroImageSliderProps",
-          ...HERO_BLOCK_CONTRACTS["hero-image-slider"],
+    ...HERO_BLOCK_CONTRACTS["hero-image-slider"],
   },
 
   "hero-centered-image-grid": {
@@ -25410,7 +28486,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroCenteredImageGrid,
     props: "HeroCenteredImageGridProps",
-          ...HERO_BLOCK_CONTRACTS["hero-centered-image-grid"],
+    ...HERO_BLOCK_CONTRACTS["hero-centered-image-grid"],
   },
 
   "hero-centered-screenshot": {
@@ -25431,7 +28507,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroCenteredScreenshot,
     props: "HeroCenteredScreenshotProps",
-          ...HERO_BLOCK_CONTRACTS["hero-centered-screenshot"],
+    ...HERO_BLOCK_CONTRACTS["hero-centered-screenshot"],
   },
 
   "hero-pattern-badge-logos": {
@@ -25452,7 +28528,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroPatternBadgeLogos,
     props: "HeroPatternBadgeLogosProps",
-          ...HERO_BLOCK_CONTRACTS["hero-pattern-badge-logos"],
+    ...HERO_BLOCK_CONTRACTS["hero-pattern-badge-logos"],
   },
 
   "hero-logo-centered-screenshot": {
@@ -25473,7 +28549,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroLogoCenteredScreenshot,
     props: "HeroLogoCenteredScreenshotProps",
-          ...HERO_BLOCK_CONTRACTS["hero-logo-centered-screenshot"],
+    ...HERO_BLOCK_CONTRACTS["hero-logo-centered-screenshot"],
   },
 
   "hero-pattern-logo-tech-stack": {
@@ -25495,7 +28571,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroPatternLogoTechStack,
     props: "HeroPatternLogoTechStackProps",
-          ...HERO_BLOCK_CONTRACTS["hero-pattern-logo-tech-stack"],
+    ...HERO_BLOCK_CONTRACTS["hero-pattern-logo-tech-stack"],
   },
 
   "hero-announcement-badge": {
@@ -25515,7 +28591,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroAnnouncementBadge,
     props: "HeroAnnouncementBadgeProps",
-          ...HERO_BLOCK_CONTRACTS["hero-announcement-badge"],
+    ...HERO_BLOCK_CONTRACTS["hero-announcement-badge"],
   },
 
   "hero-tech-carousel": {
@@ -25538,7 +28614,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroTechCarousel,
     props: "HeroTechCarouselProps",
-          ...HERO_BLOCK_CONTRACTS["hero-tech-carousel"],
+    ...HERO_BLOCK_CONTRACTS["hero-tech-carousel"],
   },
 
   "hero-simple-centered-image": {
@@ -25558,7 +28634,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroSimpleCenteredImage,
     props: "HeroSimpleCenteredImageProps",
-          ...HERO_BLOCK_CONTRACTS["hero-simple-centered-image"],
+    ...HERO_BLOCK_CONTRACTS["hero-simple-centered-image"],
   },
 
   "hero-platform-features-grid": {
@@ -25578,7 +28654,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroPlatformFeaturesGrid,
     props: "HeroPlatformFeaturesGridProps",
-          ...HERO_BLOCK_CONTRACTS["hero-platform-features-grid"],
+    ...HERO_BLOCK_CONTRACTS["hero-platform-features-grid"],
   },
 
   "hero-spiral-pattern-cards": {
@@ -25599,7 +28675,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroSpiralPatternCards,
     props: "HeroSpiralPatternCardsProps",
-          ...HERO_BLOCK_CONTRACTS["hero-spiral-pattern-cards"],
+    ...HERO_BLOCK_CONTRACTS["hero-spiral-pattern-cards"],
   },
 
   "hero-split-spiral-shapes": {
@@ -25620,7 +28696,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroSplitSpiralShapes,
     props: "HeroSplitSpiralShapesProps",
-          ...HERO_BLOCK_CONTRACTS["hero-split-spiral-shapes"],
+    ...HERO_BLOCK_CONTRACTS["hero-split-spiral-shapes"],
   },
 
   "hero-split-geometric-shapes": {
@@ -25641,7 +28717,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroSplitGeometricShapes,
     props: "HeroSplitGeometricShapesProps",
-          ...HERO_BLOCK_CONTRACTS["hero-split-geometric-shapes"],
+    ...HERO_BLOCK_CONTRACTS["hero-split-geometric-shapes"],
   },
 
   "hero-community-survey-cta": {
@@ -25661,7 +28737,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroCommunitySurveyCta,
     props: "HeroCommunitySurveyCtaProps",
-          ...HERO_BLOCK_CONTRACTS["hero-community-survey-cta"],
+    ...HERO_BLOCK_CONTRACTS["hero-community-survey-cta"],
   },
 
   "hero-marketplace-scattered-images": {
@@ -25682,7 +28758,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroMarketplaceScatteredImages,
     props: "HeroMarketplaceScatteredImagesProps",
-          ...HERO_BLOCK_CONTRACTS["hero-marketplace-scattered-images"],
+    ...HERO_BLOCK_CONTRACTS["hero-marketplace-scattered-images"],
   },
 
   "hero-badge-shadow-overlay": {
@@ -25703,7 +28779,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroBadgeShadowOverlay,
     props: "HeroBadgeShadowOverlayProps",
-          ...HERO_BLOCK_CONTRACTS["hero-badge-shadow-overlay"],
+    ...HERO_BLOCK_CONTRACTS["hero-badge-shadow-overlay"],
   },
 
   "hero-video-background-dark": {
@@ -25724,7 +28800,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroVideoBackgroundDark,
     props: "HeroVideoBackgroundDarkProps",
-          ...HERO_BLOCK_CONTRACTS["hero-video-background-dark"],
+    ...HERO_BLOCK_CONTRACTS["hero-video-background-dark"],
   },
 
   "hero-grid-pattern-efficiency": {
@@ -25745,7 +28821,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroGridPatternEfficiency,
     props: "HeroGridPatternEfficiencyProps",
-          ...HERO_BLOCK_CONTRACTS["hero-grid-pattern-efficiency"],
+    ...HERO_BLOCK_CONTRACTS["hero-grid-pattern-efficiency"],
   },
 
   "hero-dashed-border-features": {
@@ -25765,7 +28841,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroDashedBorderFeatures,
     props: "HeroDashedBorderFeaturesProps",
-          ...HERO_BLOCK_CONTRACTS["hero-dashed-border-features"],
+    ...HERO_BLOCK_CONTRACTS["hero-dashed-border-features"],
   },
 
   "hero-design-carousel-portfolio": {
@@ -25786,7 +28862,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroDesignCarouselPortfolio,
     props: "HeroDesignCarouselPortfolioProps",
-          ...HERO_BLOCK_CONTRACTS["hero-design-carousel-portfolio"],
+    ...HERO_BLOCK_CONTRACTS["hero-design-carousel-portfolio"],
   },
 
   "hero-gradient-client-focused": {
@@ -25807,7 +28883,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroGradientClientFocused,
     props: "HeroGradientClientFocusedProps",
-          ...HERO_BLOCK_CONTRACTS["hero-gradient-client-focused"],
+    ...HERO_BLOCK_CONTRACTS["hero-gradient-client-focused"],
   },
 
   "hero-premium-split-avatars": {
@@ -25828,7 +28904,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroPremiumSplitAvatars,
     props: "HeroPremiumSplitAvatarsProps",
-          ...HERO_BLOCK_CONTRACTS["hero-premium-split-avatars"],
+    ...HERO_BLOCK_CONTRACTS["hero-premium-split-avatars"],
   },
 
   "hero-ui-library-showcase": {
@@ -25849,7 +28925,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroUiLibraryShowcase,
     props: "HeroUiLibraryShowcaseProps",
-          ...HERO_BLOCK_CONTRACTS["hero-ui-library-showcase"],
+    ...HERO_BLOCK_CONTRACTS["hero-ui-library-showcase"],
   },
 
   "hero-fullscreen-background-image": {
@@ -25870,7 +28946,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroFullscreenBackgroundImage,
     props: "HeroFullscreenBackgroundImageProps",
-          ...HERO_BLOCK_CONTRACTS["hero-fullscreen-background-image"],
+    ...HERO_BLOCK_CONTRACTS["hero-fullscreen-background-image"],
   },
 
   "hero-fullscreen-logo-cta": {
@@ -25891,7 +28967,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroFullscreenLogoCta,
     props: "HeroFullscreenLogoCtaProps",
-          ...HERO_BLOCK_CONTRACTS["hero-fullscreen-logo-cta"],
+    ...HERO_BLOCK_CONTRACTS["hero-fullscreen-logo-cta"],
   },
 
   "hero-gradient-avatars-rating": {
@@ -25912,7 +28988,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroGradientAvatarsRating,
     props: "HeroGradientAvatarsRatingProps",
-          ...HERO_BLOCK_CONTRACTS["hero-gradient-avatars-rating"],
+    ...HERO_BLOCK_CONTRACTS["hero-gradient-avatars-rating"],
   },
 
   "hero-task-timer-animated": {
@@ -25933,7 +29009,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroTaskTimerAnimated,
     props: "HeroTaskTimerAnimatedProps",
-          ...HERO_BLOCK_CONTRACTS["hero-task-timer-animated"],
+    ...HERO_BLOCK_CONTRACTS["hero-task-timer-animated"],
   },
 
   "hero-ai-powered-carousel": {
@@ -25954,7 +29030,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroAiPoweredCarousel,
     props: "HeroAiPoweredCarouselProps",
-          ...HERO_BLOCK_CONTRACTS["hero-ai-powered-carousel"],
+    ...HERO_BLOCK_CONTRACTS["hero-ai-powered-carousel"],
   },
 
   "hero-ad-campaign-expert": {
@@ -25975,7 +29051,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroAdCampaignExpert,
     props: "HeroAdCampaignExpertProps",
-          ...HERO_BLOCK_CONTRACTS["hero-ad-campaign-expert"],
+    ...HERO_BLOCK_CONTRACTS["hero-ad-campaign-expert"],
   },
 
   "hero-adaptable-product-grid": {
@@ -25996,7 +29072,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroAdaptableProductGrid,
     props: "HeroAdaptableProductGridProps",
-          ...HERO_BLOCK_CONTRACTS["hero-adaptable-product-grid"],
+    ...HERO_BLOCK_CONTRACTS["hero-adaptable-product-grid"],
   },
 
   "hero-presentation-platform-video": {
@@ -26017,7 +29093,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroPresentationPlatformVideo,
     props: "HeroPresentationPlatformVideoProps",
-          ...HERO_BLOCK_CONTRACTS["hero-presentation-platform-video"],
+    ...HERO_BLOCK_CONTRACTS["hero-presentation-platform-video"],
   },
 
   "hero-grid-pattern-solutions": {
@@ -26038,7 +29114,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroGridPatternSolutions,
     props: "HeroGridPatternSolutionsProps",
-          ...HERO_BLOCK_CONTRACTS["hero-grid-pattern-solutions"],
+    ...HERO_BLOCK_CONTRACTS["hero-grid-pattern-solutions"],
   },
 
   "hero-crm-streamlined": {
@@ -26059,7 +29135,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroCrmStreamlined,
     props: "HeroCrmStreamlinedProps",
-          ...HERO_BLOCK_CONTRACTS["hero-crm-streamlined"],
+    ...HERO_BLOCK_CONTRACTS["hero-crm-streamlined"],
   },
 
   "hero-billing-platform-logos": {
@@ -26080,7 +29156,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroBillingPlatformLogos,
     props: "HeroBillingPlatformLogosProps",
-          ...HERO_BLOCK_CONTRACTS["hero-billing-platform-logos"],
+    ...HERO_BLOCK_CONTRACTS["hero-billing-platform-logos"],
   },
 
   "hero-software-growth-video-dialog": {
@@ -26101,7 +29177,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroSoftwareGrowthVideoDialog,
     props: "HeroSoftwareGrowthVideoDialogProps",
-          ...HERO_BLOCK_CONTRACTS["hero-software-growth-video-dialog"],
+    ...HERO_BLOCK_CONTRACTS["hero-software-growth-video-dialog"],
   },
 
   "hero-conversion-video-play": {
@@ -26122,7 +29198,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroConversionVideoPlay,
     props: "HeroConversionVideoPlayProps",
-          ...HERO_BLOCK_CONTRACTS["hero-conversion-video-play"],
+    ...HERO_BLOCK_CONTRACTS["hero-conversion-video-play"],
   },
 
   "hero-design-showcase-logos": {
@@ -26143,7 +29219,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroDesignShowcaseLogos,
     props: "HeroDesignShowcaseLogosProps",
-          ...HERO_BLOCK_CONTRACTS["hero-design-showcase-logos"],
+    ...HERO_BLOCK_CONTRACTS["hero-design-showcase-logos"],
   },
 
   "hero-video-overlay-stars": {
@@ -26164,7 +29240,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroVideoOverlayStars,
     props: "HeroVideoOverlayStarsProps",
-          ...HERO_BLOCK_CONTRACTS["hero-video-overlay-stars"],
+    ...HERO_BLOCK_CONTRACTS["hero-video-overlay-stars"],
   },
 
   "hero-productivity-launcher-video": {
@@ -26185,7 +29261,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroProductivityLauncherVideo,
     props: "HeroProductivityLauncherVideoProps",
-          ...HERO_BLOCK_CONTRACTS["hero-productivity-launcher-video"],
+    ...HERO_BLOCK_CONTRACTS["hero-productivity-launcher-video"],
   },
 
   "hero-hiring-animated-text": {
@@ -26206,7 +29282,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroHiringAnimatedText,
     props: "HeroHiringAnimatedTextProps",
-          ...HERO_BLOCK_CONTRACTS["hero-hiring-animated-text"],
+    ...HERO_BLOCK_CONTRACTS["hero-hiring-animated-text"],
   },
 
   "hero-split-image-newsletter": {
@@ -26227,7 +29303,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroSplitImageNewsletter,
     props: "HeroSplitImageNewsletterProps",
-          ...HERO_BLOCK_CONTRACTS["hero-split-image-newsletter"],
+    ...HERO_BLOCK_CONTRACTS["hero-split-image-newsletter"],
   },
 
   "hero-centered-gradient-cta": {
@@ -26248,7 +29324,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroCenteredGradientCta,
     props: "HeroCenteredGradientCtaProps",
-          ...HERO_BLOCK_CONTRACTS["hero-centered-gradient-cta"],
+    ...HERO_BLOCK_CONTRACTS["hero-centered-gradient-cta"],
   },
 
   "hero-stats-social-proof": {
@@ -26269,7 +29345,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroStatsSocialProof,
     props: "HeroStatsSocialProofProps",
-          ...HERO_BLOCK_CONTRACTS["hero-stats-social-proof"],
+    ...HERO_BLOCK_CONTRACTS["hero-stats-social-proof"],
   },
 
   "hero-feature-cards-grid": {
@@ -26290,7 +29366,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroFeatureCardsGrid,
     props: "HeroFeatureCardsGridProps",
-          ...HERO_BLOCK_CONTRACTS["hero-feature-cards-grid"],
+    ...HERO_BLOCK_CONTRACTS["hero-feature-cards-grid"],
   },
 
   "hero-testimonial-image-grid": {
@@ -26311,7 +29387,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroTestimonialImageGrid,
     props: "HeroTestimonialImageGridProps",
-          ...HERO_BLOCK_CONTRACTS["hero-testimonial-image-grid"],
+    ...HERO_BLOCK_CONTRACTS["hero-testimonial-image-grid"],
   },
 
   "hero-design-system-3d": {
@@ -26332,7 +29408,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroDesignSystem3d,
     props: "HeroDesignSystem3dProps",
-          ...HERO_BLOCK_CONTRACTS["hero-design-system-3d"],
+    ...HERO_BLOCK_CONTRACTS["hero-design-system-3d"],
   },
 
   "hero-architecture-fullscreen": {
@@ -26353,7 +29429,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroArchitectureFullscreen,
     props: "HeroArchitectureFullscreenProps",
-          ...HERO_BLOCK_CONTRACTS["hero-architecture-fullscreen"],
+    ...HERO_BLOCK_CONTRACTS["hero-architecture-fullscreen"],
   },
 
   "hero-innovation-image-grid": {
@@ -26374,7 +29450,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroInnovationImageGrid,
     props: "HeroInnovationImageGridProps",
-          ...HERO_BLOCK_CONTRACTS["hero-innovation-image-grid"],
+    ...HERO_BLOCK_CONTRACTS["hero-innovation-image-grid"],
   },
 
   "hero-video-dialog-gradient": {
@@ -26395,7 +29471,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroVideoDialogGradient,
     props: "HeroVideoDialogGradientProps",
-          ...HERO_BLOCK_CONTRACTS["hero-video-dialog-gradient"],
+    ...HERO_BLOCK_CONTRACTS["hero-video-dialog-gradient"],
   },
 
   "hero-minimal-centered-dark": {
@@ -26416,7 +29492,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroMinimalCenteredDark,
     props: "HeroMinimalCenteredDarkProps",
-          ...HERO_BLOCK_CONTRACTS["hero-minimal-centered-dark"],
+    ...HERO_BLOCK_CONTRACTS["hero-minimal-centered-dark"],
   },
 
   "hero-product-showcase-floating": {
@@ -26437,7 +29513,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroProductShowcaseFloating,
     props: "HeroProductShowcaseFloatingProps",
-          ...HERO_BLOCK_CONTRACTS["hero-product-showcase-floating"],
+    ...HERO_BLOCK_CONTRACTS["hero-product-showcase-floating"],
   },
 
   "hero-saas-dashboard-preview": {
@@ -26458,7 +29534,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroSaasDashboardPreview,
     props: "HeroSaasDashboardPreviewProps",
-          ...HERO_BLOCK_CONTRACTS["hero-saas-dashboard-preview"],
+    ...HERO_BLOCK_CONTRACTS["hero-saas-dashboard-preview"],
   },
 
   "hero-therapy-testimonial-grid": {
@@ -26479,7 +29555,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroTherapyTestimonialGrid,
     props: "HeroTherapyTestimonialGridProps",
-          ...HERO_BLOCK_CONTRACTS["hero-therapy-testimonial-grid"],
+    ...HERO_BLOCK_CONTRACTS["hero-therapy-testimonial-grid"],
   },
 
   "hero-mental-health-team": {
@@ -26751,7 +29827,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroBusinessOperationsMosaic,
     props: "HeroBusinessOperationsMosaicProps",
-          ...HERO_BLOCK_CONTRACTS["hero-business-operations-mosaic"],
+    ...HERO_BLOCK_CONTRACTS["hero-business-operations-mosaic"],
   },
 
   "hero-agency-animated-images": {
@@ -26772,7 +29848,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroAgencyAnimatedImages,
     props: "HeroAgencyAnimatedImagesProps",
-          ...HERO_BLOCK_CONTRACTS["hero-agency-animated-images"],
+    ...HERO_BLOCK_CONTRACTS["hero-agency-animated-images"],
   },
 
   "hero-welcome-asymmetric-images": {
@@ -26793,7 +29869,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroWelcomeAsymmetricImages,
     props: "HeroWelcomeAsymmetricImagesProps",
-          ...HERO_BLOCK_CONTRACTS["hero-welcome-asymmetric-images"],
+    ...HERO_BLOCK_CONTRACTS["hero-welcome-asymmetric-images"],
   },
 
   "hero-startup-launch-cta": {
@@ -26814,7 +29890,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroStartupLaunchCta,
     props: "HeroStartupLaunchCtaProps",
-          ...HERO_BLOCK_CONTRACTS["hero-startup-launch-cta"],
+    ...HERO_BLOCK_CONTRACTS["hero-startup-launch-cta"],
   },
 
   "hero-enterprise-security": {
@@ -26835,7 +29911,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroEnterpriseSecurity,
     props: "HeroEnterpriseSecurityProps",
-          ...HERO_BLOCK_CONTRACTS["hero-enterprise-security"],
+    ...HERO_BLOCK_CONTRACTS["hero-enterprise-security"],
   },
 
   "hero-creative-studio-stacked": {
@@ -26856,7 +29932,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroCreativeStudioStacked,
     props: "HeroCreativeStudioStackedProps",
-          ...HERO_BLOCK_CONTRACTS["hero-creative-studio-stacked"],
+    ...HERO_BLOCK_CONTRACTS["hero-creative-studio-stacked"],
   },
 
   "hero-digital-agency-fullscreen": {
@@ -26877,7 +29953,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroDigitalAgencyFullscreen,
     props: "HeroDigitalAgencyFullscreenProps",
-          ...HERO_BLOCK_CONTRACTS["hero-digital-agency-fullscreen"],
+    ...HERO_BLOCK_CONTRACTS["hero-digital-agency-fullscreen"],
   },
 
   "hero-customer-support-layered": {
@@ -26898,7 +29974,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroCustomerSupportLayered,
     props: "HeroCustomerSupportLayeredProps",
-          ...HERO_BLOCK_CONTRACTS["hero-customer-support-layered"],
+    ...HERO_BLOCK_CONTRACTS["hero-customer-support-layered"],
   },
 
   "hero-shared-inbox-layered": {
@@ -26919,7 +29995,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroSharedInboxLayered,
     props: "HeroSharedInboxLayeredProps",
-          ...HERO_BLOCK_CONTRACTS["hero-shared-inbox-layered"],
+    ...HERO_BLOCK_CONTRACTS["hero-shared-inbox-layered"],
   },
 
   "hero-conversation-intelligence": {
@@ -26940,7 +30016,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroConversationIntelligence,
     props: "HeroConversationIntelligenceProps",
-          ...HERO_BLOCK_CONTRACTS["hero-conversation-intelligence"],
+    ...HERO_BLOCK_CONTRACTS["hero-conversation-intelligence"],
   },
 
   "hero-business-carousel-dots": {
@@ -26961,7 +30037,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroBusinessCarouselDots,
     props: "HeroBusinessCarouselDotsProps",
-          ...HERO_BLOCK_CONTRACTS["hero-business-carousel-dots"],
+    ...HERO_BLOCK_CONTRACTS["hero-business-carousel-dots"],
   },
 
   "hero-developer-tools-code": {
@@ -26982,7 +30058,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroDeveloperToolsCode,
     props: "HeroDeveloperToolsCodeProps",
-          ...HERO_BLOCK_CONTRACTS["hero-developer-tools-code"],
+    ...HERO_BLOCK_CONTRACTS["hero-developer-tools-code"],
   },
 
   "hero-ecommerce-product-showcase": {
@@ -27003,7 +30079,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroEcommerceProductShowcase,
     props: "HeroEcommerceProductShowcaseProps",
-          ...HERO_BLOCK_CONTRACTS["hero-ecommerce-product-showcase"],
+    ...HERO_BLOCK_CONTRACTS["hero-ecommerce-product-showcase"],
   },
 
   "hero-mobile-app-download": {
@@ -27024,7 +30100,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroMobileAppDownload,
     props: "HeroMobileAppDownloadProps",
-          ...HERO_BLOCK_CONTRACTS["hero-mobile-app-download"],
+    ...HERO_BLOCK_CONTRACTS["hero-mobile-app-download"],
   },
 
   "hero-pricing-comparison": {
@@ -27045,7 +30121,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroPricingComparison,
     props: "HeroPricingComparisonProps",
-          ...HERO_BLOCK_CONTRACTS["hero-pricing-comparison"],
+    ...HERO_BLOCK_CONTRACTS["hero-pricing-comparison"],
   },
 
   "hero-newsletter-minimal": {
@@ -27066,7 +30142,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroNewsletterMinimal,
     props: "HeroNewsletterMinimalProps",
-          ...HERO_BLOCK_CONTRACTS["hero-newsletter-minimal"],
+    ...HERO_BLOCK_CONTRACTS["hero-newsletter-minimal"],
   },
 
   "hero-coming-soon-countdown": {
@@ -27087,7 +30163,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroComingSoonCountdown,
     props: "HeroComingSoonCountdownProps",
-          ...HERO_BLOCK_CONTRACTS["hero-coming-soon-countdown"],
+    ...HERO_BLOCK_CONTRACTS["hero-coming-soon-countdown"],
   },
 
   "hero-event-registration": {
@@ -27108,7 +30184,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroEventRegistration,
     props: "HeroEventRegistrationProps",
-          ...HERO_BLOCK_CONTRACTS["hero-event-registration"],
+    ...HERO_BLOCK_CONTRACTS["hero-event-registration"],
   },
 
   "hero-portfolio-creative": {
@@ -27129,7 +30205,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "hero",
     component: HeroPortfolioCreative,
     props: "HeroPortfolioCreativeProps",
-          ...HERO_BLOCK_CONTRACTS["hero-portfolio-creative"],
+    ...HERO_BLOCK_CONTRACTS["hero-portfolio-creative"],
   },
 
   // Case Studies List blocks
@@ -27601,7 +30677,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarDropdownMenu,
     props: "NavbarDropdownMenuRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-dropdown-menu"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-dropdown-menu"],
   },
 
   "navbar-centered-menu": {
@@ -27623,7 +30699,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarCenteredMenu,
     props: "NavbarCenteredMenuRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-centered-menu"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-centered-menu"],
   },
 
   "navbar-mega-menu": {
@@ -27646,7 +30722,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarMegaMenu,
     props: "NavbarMegaMenuRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-mega-menu"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-mega-menu"],
   },
 
   "navbar-enterprise-mega": {
@@ -27670,7 +30746,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarEnterpriseMega,
     props: "NavbarEnterpriseMegaRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-enterprise-mega"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-enterprise-mega"],
   },
 
   "navbar-feature-grid": {
@@ -27692,7 +30768,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarFeatureGrid,
     props: "NavbarFeatureGridRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-feature-grid"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-feature-grid"],
   },
 
   "navbar-floating-pill": {
@@ -27715,7 +30791,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarFloatingPill,
     props: "NavbarFloatingPillRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-floating-pill"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-floating-pill"],
   },
 
   "navbar-platform-resources": {
@@ -27738,7 +30814,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarPlatformResources,
     props: "NavbarPlatformResourcesRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-platform-resources"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-platform-resources"],
   },
 
   "navbar-image-preview": {
@@ -27761,7 +30837,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarImagePreview,
     props: "NavbarImagePreviewRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-image-preview"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-image-preview"],
   },
 
   "navbar-dark-icons": {
@@ -27784,7 +30860,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarDarkIcons,
     props: "NavbarDarkIconsRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-dark-icons"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-dark-icons"],
   },
 
   "navbar-animated-preview": {
@@ -27807,7 +30883,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarAnimatedPreview,
     props: "NavbarAnimatedPreviewRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-animated-preview"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-animated-preview"],
   },
 
   "navbar-multi-column-groups": {
@@ -27830,7 +30906,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarMultiColumnGroups,
     props: "NavbarMultiColumnGroupsRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-multi-column-groups"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-multi-column-groups"],
   },
 
   "navbar-sidebar-mobile": {
@@ -27853,7 +30929,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarSidebarMobile,
     props: "NavbarSidebarMobileRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-sidebar-mobile"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-sidebar-mobile"],
   },
 
   "navbar-transparent-overlay": {
@@ -27876,7 +30952,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarTransparentOverlay,
     props: "NavbarTransparentOverlayRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-transparent-overlay"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-transparent-overlay"],
   },
 
   "navbar-education-platform": {
@@ -27899,7 +30975,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarEducationPlatform,
     props: "NavbarEducationPlatformRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-education-platform"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-education-platform"],
   },
 
   "navbar-sticky-compact": {
@@ -27922,7 +30998,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarStickyCompact,
     props: "NavbarStickyCompactRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-sticky-compact"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-sticky-compact"],
   },
 
   "navbar-search-focused": {
@@ -27945,7 +31021,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarSearchFocused,
     props: "NavbarSearchFocusedRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-search-focused"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-search-focused"],
   },
 
   "navbar-simple-links": {
@@ -27968,7 +31044,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarSimpleLinks,
     props: "NavbarSimpleLinksRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-simple-links"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-simple-links"],
   },
 
   "navbar-split-cta": {
@@ -27991,7 +31067,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarSplitCta,
     props: "NavbarSplitCtaRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-split-cta"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-split-cta"],
   },
 
   "navbar-icon-links": {
@@ -28014,7 +31090,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarIconLinks,
     props: "NavbarIconLinksRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-icon-links"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-icon-links"],
   },
 
   "navbar-tabbed-sections": {
@@ -28037,7 +31113,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarTabbedSections,
     props: "NavbarTabbedSectionsRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-tabbed-sections"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-tabbed-sections"],
   },
 
   "navbar-fullscreen-menu": {
@@ -28061,7 +31137,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "navbar",
     component: NavbarFullscreenMenu,
     props: "NavbarFullscreenMenuRuntimeProps",
-          ...NAVBAR_BLOCK_CONTRACTS["navbar-fullscreen-menu"],
+    ...NAVBAR_BLOCK_CONTRACTS["navbar-fullscreen-menu"],
   },
 
   // Logos components
@@ -29150,7 +32226,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "process",
     component: ProcessStickySteps,
     props: "ProcessStickyStepsProps",
-          ...PROCESS_BLOCK_CONTRACTS["process-sticky-steps"],
+    ...PROCESS_BLOCK_CONTRACTS["process-sticky-steps"],
   },
   "process-scroll-image": {
     id: "process-scroll-image",
@@ -29171,7 +32247,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "process",
     component: ProcessScrollImage,
     props: "ProcessScrollImageProps",
-          ...PROCESS_BLOCK_CONTRACTS["process-scroll-image"],
+    ...PROCESS_BLOCK_CONTRACTS["process-scroll-image"],
   },
   "process-hover-cards": {
     id: "process-hover-cards",
@@ -29191,7 +32267,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "process",
     component: ProcessHoverCards,
     props: "ProcessHoverCardsProps",
-          ...PROCESS_BLOCK_CONTRACTS["process-hover-cards"],
+    ...PROCESS_BLOCK_CONTRACTS["process-hover-cards"],
   },
   "process-icon-timeline": {
     id: "process-icon-timeline",
@@ -29212,7 +32288,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "process",
     component: ProcessIconTimeline,
     props: "ProcessIconTimelineProps",
-          ...PROCESS_BLOCK_CONTRACTS["process-icon-timeline"],
+    ...PROCESS_BLOCK_CONTRACTS["process-icon-timeline"],
   },
   "process-expandable-timeline": {
     id: "process-expandable-timeline",
@@ -29232,7 +32308,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "process",
     component: ProcessExpandableTimeline,
     props: "ProcessExpandableTimelineProps",
-          ...PROCESS_BLOCK_CONTRACTS["process-expandable-timeline"],
+    ...PROCESS_BLOCK_CONTRACTS["process-expandable-timeline"],
   },
   "process-roadmap-timeline": {
     id: "process-roadmap-timeline",
@@ -29253,7 +32329,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "process",
     component: ProcessRoadmapTimeline,
     props: "ProcessRoadmapTimelineProps",
-          ...PROCESS_BLOCK_CONTRACTS["process-roadmap-timeline"],
+    ...PROCESS_BLOCK_CONTRACTS["process-roadmap-timeline"],
   },
   "process-mission-principles": {
     id: "process-mission-principles",
@@ -29274,7 +32350,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "process",
     component: ProcessMissionPrinciples,
     props: "ProcessMissionPrinciplesProps",
-          ...PROCESS_BLOCK_CONTRACTS["process-mission-principles"],
+    ...PROCESS_BLOCK_CONTRACTS["process-mission-principles"],
   },
   "process-steps-grid": {
     id: "process-steps-grid",
@@ -29295,7 +32371,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "process",
     component: ProcessStepsGrid,
     props: "ProcessStepsGridProps",
-          ...PROCESS_BLOCK_CONTRACTS["process-steps-grid"],
+    ...PROCESS_BLOCK_CONTRACTS["process-steps-grid"],
   },
   "process-numbered-services": {
     id: "process-numbered-services",
@@ -29315,7 +32391,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "process",
     component: ProcessNumberedServices,
     props: "ProcessNumberedServicesProps",
-          ...PROCESS_BLOCK_CONTRACTS["process-numbered-services"],
+    ...PROCESS_BLOCK_CONTRACTS["process-numbered-services"],
   },
   // Project List components
   "project-alternating-motion": {
@@ -31727,7 +34803,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsListVerified,
     props: "TestimonialsListVerifiedProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-list-verified"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-list-verified"],
   },
   "testimonials-images-helpful": {
     id: "testimonials-images-helpful",
@@ -31748,7 +34824,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsImagesHelpful,
     props: "TestimonialsImagesHelpfulProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-images-helpful"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-images-helpful"],
   },
   "testimonials-bento-grid": {
     id: "testimonials-bento-grid",
@@ -31768,7 +34844,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsBentoGrid,
     props: "TestimonialsBentoGridProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-bento-grid"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-bento-grid"],
   },
   "testimonials-twitter-cards": {
     id: "testimonials-twitter-cards",
@@ -31795,7 +34871,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsTwitterCards,
     props: "TestimonialsTwitterCardsProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-twitter-cards"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-twitter-cards"],
   },
   "testimonials-carousel-image": {
     id: "testimonials-carousel-image",
@@ -31815,7 +34891,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsCarouselImage,
     props: "TestimonialsCarouselImageProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-carousel-image"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-carousel-image"],
   },
   "testimonials-centered-avatars": {
     id: "testimonials-centered-avatars",
@@ -31839,7 +34915,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsCenteredAvatars,
     props: "TestimonialsCenteredAvatarsProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-centered-avatars"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-centered-avatars"],
   },
   "testimonials-company-logo": {
     id: "testimonials-company-logo",
@@ -31859,7 +34935,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsCompanyLogo,
     props: "TestimonialsCompanyLogoProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-company-logo"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-company-logo"],
   },
   "testimonials-grid-add-review": {
     id: "testimonials-grid-add-review",
@@ -31879,7 +34955,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsGridAddReview,
     props: "TestimonialsGridAddReviewProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-grid-add-review"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-grid-add-review"],
   },
   "testimonials-marquee": {
     id: "testimonials-marquee",
@@ -31899,7 +34975,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsMarquee,
     props: "TestimonialsMarqueeProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-marquee"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-marquee"],
   },
   "testimonials-simple-grid": {
     id: "testimonials-simple-grid",
@@ -31919,7 +34995,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsSimpleGrid,
     props: "TestimonialsSimpleGridProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-simple-grid"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-simple-grid"],
   },
   "testimonials-slider-minimal": {
     id: "testimonials-slider-minimal",
@@ -31939,7 +35015,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsSliderMinimal,
     props: "TestimonialsSliderMinimalProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-slider-minimal"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-slider-minimal"],
   },
   "testimonials-split-image": {
     id: "testimonials-split-image",
@@ -31959,7 +35035,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsSplitImage,
     props: "TestimonialsSplitImageProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-split-image"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-split-image"],
   },
   "testimonials-stats-header": {
     id: "testimonials-stats-header",
@@ -31979,7 +35055,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsStatsHeader,
     props: "TestimonialsStatsHeaderProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-stats-header"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-stats-header"],
   },
   "testimonials-wall-compact": {
     id: "testimonials-wall-compact",
@@ -31999,7 +35075,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsWallCompact,
     props: "TestimonialsWallCompactProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-wall-compact"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-wall-compact"],
   },
   "testimonials-mini-dividers": {
     id: "testimonials-mini-dividers",
@@ -32019,7 +35095,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsMiniDividers,
     props: "TestimonialsMiniDividersProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-mini-dividers"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-mini-dividers"],
   },
   "testimonials-logo-cards": {
     id: "testimonials-logo-cards",
@@ -32039,7 +35115,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsLogoCards,
     props: "TestimonialsLogoCardsProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-logo-cards"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-logo-cards"],
   },
   "testimonials-quote-carousel": {
     id: "testimonials-quote-carousel",
@@ -32059,7 +35135,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsQuoteCarousel,
     props: "TestimonialsQuoteCarouselProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-quote-carousel"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-quote-carousel"],
   },
   "testimonials-animated-split": {
     id: "testimonials-animated-split",
@@ -32079,7 +35155,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsAnimatedSplit,
     props: "TestimonialsAnimatedSplitProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-animated-split"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-animated-split"],
   },
   "testimonials-scrolling-columns": {
     id: "testimonials-scrolling-columns",
@@ -32099,7 +35175,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsScrollingColumns,
     props: "TestimonialsScrollingColumnsProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-scrolling-columns"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-scrolling-columns"],
   },
   "testimonials-minimal-numbered": {
     id: "testimonials-minimal-numbered",
@@ -32119,7 +35195,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsMinimalNumbered,
     props: "TestimonialsMinimalNumberedProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-minimal-numbered"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-minimal-numbered"],
   },
   "testimonials-parallax-number": {
     id: "testimonials-parallax-number",
@@ -32139,7 +35215,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsParallaxNumber,
     props: "TestimonialsParallaxNumberProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-parallax-number"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-parallax-number"],
   },
   "testimonials-masonry-grid": {
     id: "testimonials-masonry-grid",
@@ -32159,7 +35235,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsMasonryGrid,
     props: "TestimonialsMasonryGridProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-masonry-grid"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-masonry-grid"],
   },
   "testimonials-large-quote": {
     id: "testimonials-large-quote",
@@ -32179,7 +35255,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "testimonials",
     component: TestimonialsLargeQuote,
     props: "TestimonialsLargeQuoteProps",
-          ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-large-quote"],
+    ...TESTIMONIALS_BLOCK_CONTRACTS["testimonials-large-quote"],
   },
 
   // Service Detail components
@@ -33560,7 +36636,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "stats",
     component: StatsSimpleGrid,
     props: "StatsSimpleGridProps",
-          ...STATS_BLOCK_CONTRACTS["stats-simple-grid"],
+    ...STATS_BLOCK_CONTRACTS["stats-simple-grid"],
   },
   "stats-icon-cards": {
     id: "stats-icon-cards",
@@ -33581,7 +36657,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "stats",
     component: StatsIconCards,
     props: "StatsIconCardsProps",
-          ...STATS_BLOCK_CONTRACTS["stats-icon-cards"],
+    ...STATS_BLOCK_CONTRACTS["stats-icon-cards"],
   },
   "stats-timeline-tabs": {
     id: "stats-timeline-tabs",
@@ -33602,7 +36678,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "stats",
     component: StatsTimelineTabs,
     props: "StatsTimelineTabsProps",
-          ...STATS_BLOCK_CONTRACTS["stats-timeline-tabs"],
+    ...STATS_BLOCK_CONTRACTS["stats-timeline-tabs"],
   },
   "stats-primary-secondary": {
     id: "stats-primary-secondary",
@@ -33622,7 +36698,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "stats",
     component: StatsPrimarySecondary,
     props: "StatsPrimarySecondaryProps",
-          ...STATS_BLOCK_CONTRACTS["stats-primary-secondary"],
+    ...STATS_BLOCK_CONTRACTS["stats-primary-secondary"],
   },
   "stats-growth-timeline": {
     id: "stats-growth-timeline",
@@ -33643,7 +36719,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "stats",
     component: StatsGrowthTimeline,
     props: "StatsGrowthTimelineProps",
-          ...STATS_BLOCK_CONTRACTS["stats-growth-timeline"],
+    ...STATS_BLOCK_CONTRACTS["stats-growth-timeline"],
   },
   "stats-impact-grid": {
     id: "stats-impact-grid",
@@ -33664,7 +36740,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "stats",
     component: StatsImpactGrid,
     props: "StatsImpactGridProps",
-          ...STATS_BLOCK_CONTRACTS["stats-impact-grid"],
+    ...STATS_BLOCK_CONTRACTS["stats-impact-grid"],
   },
   "stats-circular-progress": {
     id: "stats-circular-progress",
@@ -33684,7 +36760,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "stats",
     component: StatsCircularProgress,
     props: "StatsCircularProgressProps",
-          ...STATS_BLOCK_CONTRACTS["stats-circular-progress"],
+    ...STATS_BLOCK_CONTRACTS["stats-circular-progress"],
   },
   "stats-card-group": {
     id: "stats-card-group",
@@ -33704,7 +36780,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "stats",
     component: StatsCardGroup,
     props: "StatsCardGroupProps",
-          ...STATS_BLOCK_CONTRACTS["stats-card-group"],
+    ...STATS_BLOCK_CONTRACTS["stats-card-group"],
   },
   "stats-animated-counter": {
     id: "stats-animated-counter",
@@ -33724,7 +36800,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "stats",
     component: StatsAnimatedCounter,
     props: "StatsAnimatedCounterProps",
-          ...STATS_BLOCK_CONTRACTS["stats-animated-counter"],
+    ...STATS_BLOCK_CONTRACTS["stats-animated-counter"],
   },
   "stats-number-ticker": {
     id: "stats-number-ticker",
@@ -33744,7 +36820,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "stats",
     component: StatsNumberTicker,
     props: "StatsNumberTickerProps",
-          ...STATS_BLOCK_CONTRACTS["stats-number-ticker"],
+    ...STATS_BLOCK_CONTRACTS["stats-number-ticker"],
   },
   "stats-milestone-sidebar": {
     id: "stats-milestone-sidebar",
@@ -33764,7 +36840,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "stats",
     component: StatsMilestoneSidebar,
     props: "StatsMilestoneSidebarProps",
-          ...STATS_BLOCK_CONTRACTS["stats-milestone-sidebar"],
+    ...STATS_BLOCK_CONTRACTS["stats-milestone-sidebar"],
   },
   "stats-bar-comparison": {
     id: "stats-bar-comparison",
@@ -33784,7 +36860,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "stats",
     component: StatsBarComparison,
     props: "StatsBarComparisonProps",
-          ...STATS_BLOCK_CONTRACTS["stats-bar-comparison"],
+    ...STATS_BLOCK_CONTRACTS["stats-bar-comparison"],
   },
   // Timeline components
   "timeline-vertical-icon-dashed": {
@@ -34402,7 +37478,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "features",
     component: FeatureAnimatedCarousel,
     props: "FeatureAnimatedCarouselProps",
-          ...FEATURES_BLOCK_CONTRACTS["feature-animated-carousel"],
+    ...FEATURES_BLOCK_CONTRACTS["feature-animated-carousel"],
   },
 
   // New Footer components
@@ -34424,7 +37500,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterNewsletterContact,
     props: "FooterNewsletterContactProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-newsletter-contact"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-newsletter-contact"],
   },
 
   "footer-split-image-accordion": {
@@ -34445,7 +37521,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterSplitImageAccordion,
     props: "FooterSplitImageAccordionProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-split-image-accordion"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-split-image-accordion"],
   },
 
   "footer-accordion-social": {
@@ -34466,7 +37542,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterAccordionSocial,
     props: "FooterAccordionSocialProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-accordion-social"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-accordion-social"],
   },
 
   "footer-info-cards-accordion": {
@@ -34488,7 +37564,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "footer",
     component: FooterInfoCardsAccordion,
     props: "FooterInfoCardsAccordionProps",
-          ...FOOTER_BLOCK_CONTRACTS["footer-info-cards-accordion"],
+    ...FOOTER_BLOCK_CONTRACTS["footer-info-cards-accordion"],
   },
 
   // New FAQ components
@@ -34519,7 +37595,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "faq",
     component: FaqSplitHero,
     props: "FaqSplitHeroProps",
-          ...FAQ_BLOCK_CONTRACTS["faq-split-hero"],
+    ...FAQ_BLOCK_CONTRACTS["faq-split-hero"],
   },
 };
 
