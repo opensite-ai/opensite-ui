@@ -235,6 +235,16 @@ export interface BlockMetadata extends BlockContractFields {
   exampleUsage: string;
 }
 
+export interface BlockMetadataEntry extends BlockContractFields {
+  id: string;
+  name: string;
+  description: string;
+  semanticTags: string[];
+  category: BlockCategory;
+  props: string;
+  exampleUsage: string;
+}
+
 /**
  * Full block registry entry with component reference
  * @deprecated Use BlockMetadata for new code - this type causes all components to be bundled

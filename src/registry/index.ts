@@ -14,6 +14,10 @@ export {
   searchBlocks,
 } from "./blocks";
 
+export { BLOCK_METADATA_REGISTRY } from "./block-metadata";
+
+export { getAllBlockMetadata, getBlockMetadataById } from "./block-helpers";
+
 export {
   BUILDER_CONTRACT_VERSION,
   createBuilderContractBundle,
@@ -24,6 +28,7 @@ export type {
   BlockContractFields,
   BlockMediaSlot,
   BlockMetadata,
+  BlockMetadataEntry,
   BlockPropConstraint,
   BlockRegistryEntry,
   BlockUsageRequirements,

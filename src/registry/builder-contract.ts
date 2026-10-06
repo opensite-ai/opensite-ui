@@ -1,6 +1,6 @@
 import type {
   BlockCategory,
-  BlockRegistryEntry,
+  BlockMetadataEntry,
   BuilderContractBlock,
   BuilderContractBlockSource,
   BuilderContractBundle,
@@ -10,7 +10,7 @@ import type {
 export const BUILDER_CONTRACT_VERSION = "v1";
 
 export interface CreateBuilderContractBundleOptions {
-  blocks: BlockRegistryEntry[];
+  blocks: BlockMetadataEntry[];
   uiVersion: string;
   exportedAt?: string;
   source?: string;
@@ -83,17 +83,13 @@ function inferLayoutRole(
 }
 
 function normalizeBlock(
-  block: BlockRegistryEntry,
+  block: BlockMetadataEntry,
   source: BuilderContractBlockSource | undefined,
 ): BuilderContractBlock {
   const blockRef =
     source?.exportPath.replace(/^\.\/blocks\//, "") ??
     `${normalizeCategorySegment(block.category)}/${block.id}`;
-  const component = block.component as React.ComponentType & {
-    displayName?: string;
-  };
-  const blockName =
-    component.displayName || component.name || toPascalCase(block.id);
+  const blockName = toPascalCase(block.id);
 
   return {
     componentId: block.id,
@@ -114,17 +110,17 @@ function normalizeBlock(
       exampleUsage: block.exampleUsage || null,
       exampleProps: block.exampleProps
         ? (JSON.parse(JSON.stringify(block.exampleProps)) as Record<
-            string,
-            unknown
-          >)
+          string,
+          unknown
+        >)
         : null,
     },
     source: source ?? null,
     importantUsageNotes: block.importantUsageNotes ?? null,
     usageRequirements: block.usageRequirements
       ? (JSON.parse(JSON.stringify(block.usageRequirements)) as NonNullable<
-          BlockRegistryEntry["usageRequirements"]
-        >)
+        BlockMetadataEntry["usageRequirements"]
+      >)
       : null,
   };
 }

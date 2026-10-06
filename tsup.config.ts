@@ -1318,6 +1318,7 @@ const allEntries = {
   // END advanced + integrations embed blocks
   // ---------------------------------------------------------------------------
   registry: "src/registry.ts",
+  "registry/metadata": "src/registry/metadata.ts",
   utils: "lib/utils.ts",
   types: "src/types/index.ts",
 };

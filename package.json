@@ -3391,6 +3391,11 @@
       "import": "./dist/registry.js",
       "require": "./dist/registry.cjs"
     },
+    "./registry/metadata": {
+      "types": "./dist/registry/metadata.d.ts",
+      "import": "./dist/registry/metadata.js",
+      "require": "./dist/registry/metadata.cjs"
+    },
     "./utils": {
       "types": "./dist/utils.d.ts",
       "import": "./dist/utils.js",

@@ -26,7 +26,7 @@ const __dirname = path.dirname(__filename);
 // Import the compiled registry (ES module version)
 import {
   createBuilderContractBundle,
-  getAllBlocks,
+  getAllBlockMetadata,
 } from '../dist/registry.js';
 
 /**
@@ -84,13 +84,13 @@ function exportRegistry() {
 
   try {
     // Get all blocks from the registry
-    const blocks = getAllBlocks();
+    const blocks = getAllBlockMetadata();
     const blockSources = loadBlockSources();
     const exportedAt = new Date().toISOString();
 
     console.log(`📦 Found ${blocks.length} blocks in registry`);
 
-    // Serialize each block (excluding React component references)
+    // Serialize each metadata block
     const serializedBlocks = blocks.map(serializeBlockEntry);
 
     // Read package.json for version

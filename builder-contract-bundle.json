@@ -2,7 +2,7 @@
   "metadata": {
     "contractVersion": "v1",
     "uiVersion": "3.17.3",
-    "exportedAt": "2026-08-31T21:45:08.448Z",
+    "exportedAt": "2026-10-06T09:23:40.243Z",
     "source": "@opensite/ui",
     "totalBlocks": 611
   },
@@ -3258,7 +3258,7 @@
     },
     {
       "componentId": "article-breadcrumb-social",
-      "blockName": "ArticleBreadcrumbSocialComponent",
+      "blockName": "ArticleBreadcrumbSocial",
       "blockRef": "article/article-breadcrumb-social",
       "displayName": "Article Breadcrumb Social",
       "description": "A comprehensive article layout featuring breadcrumb navigation, social sharing buttons, a sticky table of contents sidebar, and a floating back-to-top button. Includes author information with role, read time, and IntersectionObserver-based section tracking. Perfect for content-heavy articles that need robust navigation and sharing capabilities.",
@@ -3469,7 +3469,7 @@
     },
     {
       "componentId": "article-chapters-author",
-      "blockName": "ArticleChaptersAuthorComponent",
+      "blockName": "ArticleChaptersAuthor",
       "blockRef": "article/article-chapters-author",
       "displayName": "Article Chapters Author",
       "description": "A book-style article layout with numbered chapters navigation in a sticky sidebar, detailed author bio with social links, and a conclusion CTA card. Features breadcrumb navigation, centered title section, and IntersectionObserver-based chapter tracking. Perfect for comprehensive guides, tutorials, and educational content organized into distinct chapters.",
@@ -3694,7 +3694,7 @@
     },
     {
       "componentId": "article-compact-toc",
-      "blockName": "ArticleCompactTocComponent",
+      "blockName": "ArticleCompactToc",
       "blockRef": "article/article-compact-toc",
       "displayName": "Article Compact TOC",
       "description": "A compact, mobile-friendly article layout with a collapsible table of contents, breadcrumb navigation, and inline social sharing buttons. Features a centered content area with author info, read time, and publication date. Ideal for research papers, studies, and articles that need a clean, focused reading experience on all devices.",
@@ -3864,7 +3864,7 @@
     },
     {
       "componentId": "article-hero-prose",
-      "blockName": "ArticleHeroProseComponent",
+      "blockName": "ArticleHeroProse",
       "blockRef": "article/article-hero-prose",
       "displayName": "Article Hero Prose",
       "description": "A full-width content layout featuring a prominent hero media, author information with avatar, and rich prose content including alerts, tables, blockquotes, and lists. Ideal for long-form content that needs visual hierarchy with a strong opening media and detailed content sections.",
@@ -4080,7 +4080,7 @@
     },
     {
       "componentId": "article-sidebar-sticky",
-      "blockName": "ArticleSidebarStickyComponent",
+      "blockName": "ArticleSidebarSticky",
       "blockRef": "article/article-sidebar-sticky",
       "displayName": "Article Sidebar Sticky",
       "description": "A two-column article layout with a sticky sidebar containing author information and a back navigation link. The main content area features prose styling with images and blockquotes. Perfect for documentation-style articles or blog posts where persistent author attribution and navigation are important.",
@@ -4220,7 +4220,7 @@
     },
     {
       "componentId": "article-split-animated",
-      "blockName": "ArticleSplitAnimatedComponent",
+      "blockName": "ArticleSplitAnimated",
       "blockRef": "article/article-split-animated",
       "displayName": "Article Split Animated",
       "description": "A visually striking split-layout article preview with Framer Motion animations. Features a large image on one side with a gradient overlay and category badge, and article details on the other side including title, description, author info, and CTA button. Ideal for featured article sections, hero posts, and content that needs to make a strong visual impact.",
@@ -4382,7 +4382,7 @@
     },
     {
       "componentId": "article-toc-sidebar",
-      "blockName": "ArticleTocSidebarComponent",
+      "blockName": "ArticleTocSidebar",
       "blockRef": "article/article-toc-sidebar",
       "displayName": "Article TOC Sidebar",
       "description": "An article layout with a sticky table of contents sidebar that highlights the active section as users scroll. Includes a CTA card in the sidebar, category badge, author info, and IntersectionObserver-based section tracking. Ideal for technical tutorials, guides, and long-form content that benefits from easy navigation.",
@@ -6691,7 +6691,7 @@
     },
     {
       "componentId": "blog-carousel-apple",
-      "blockName": "BlogCarouselAppleComponent",
+      "blockName": "BlogCarouselApple",
       "blockRef": "blog/blog-carousel-apple",
       "displayName": "Blog Carousel Apple",
       "description": "An eye-catching horizontal carousel featuring Apple-style cards with gradient overlays and smooth animations. Each card displays a featured image, category tag, and title with configurable action types (link, dialog, lightbox). Features optional layout animations and supports custom click handlers. Perfect for showcasing featured content items, latest updates, or curated content collections with a premium, polished aesthetic.",
@@ -6952,7 +6952,7 @@
     },
     {
       "componentId": "blog-filtered-results",
-      "blockName": "BlogFilteredResultsComponent",
+      "blockName": "BlogFilteredResults",
       "blockRef": "blog/blog-filtered-results",
       "displayName": "Filtered Content Results",
       "description": "A comprehensive content listing page with breadcrumb navigation, featured primary item, category filtering, and paginated results. Features a muted background header section with title, description, and primary item card. The main section includes checkbox-based category filters and a pagination button. Perfect for full content listing pages with advanced filtering capabilities.",
@@ -7079,7 +7079,7 @@
     },
     {
       "componentId": "blog-grid-author-cards",
-      "blockName": "BlogGridAuthorCardsComponent",
+      "blockName": "BlogGridAuthorCards",
       "blockRef": "blog/blog-grid-author-cards",
       "displayName": "Blog Grid Author Cards",
       "description": "A responsive grid layout displaying content items with author attribution, category badges, and metadata. Features a 3-column grid on large screens with hover effects on images. Ideal for content listing pages that emphasize author information and categorization.",
@@ -7383,7 +7383,7 @@
     },
     {
       "componentId": "blog-horizontal-timeline",
-      "blockName": "BlogHorizontalTimelineComponent",
+      "blockName": "BlogHorizontalTimeline",
       "blockRef": "blog/blog-horizontal-timeline",
       "displayName": "Blog Horizontal Timeline",
       "description": "A timeline-style layout with large images alongside content cards in a horizontal arrangement. Each item features a rounded image, title, uppercase date, description, and animated action button with arrow icon. Items are separated by borders creating a timeline effect. Perfect for chronological content presentation or editorial storytelling.",
@@ -7460,7 +7460,7 @@
     },
     {
       "componentId": "blog-masonry-featured",
-      "blockName": "BlogMasonryFeaturedComponent",
+      "blockName": "BlogMasonryFeatured",
       "blockRef": "blog/blog-masonry-featured",
       "displayName": "Blog Masonry Featured",
       "description": "A masonry-style grid with a large featured item spanning two columns and rows, surrounded by smaller item cards. The featured item includes a full description while secondary items show only title and metadata. Features a centered heading and hover effects on media. Ideal for visually dynamic layouts that highlight a primary content piece.",
@@ -45243,7 +45243,7 @@
     },
     {
       "componentId": "timeline-ai-workflow-cards",
-      "blockName": "TimelineAIWorkflowCards",
+      "blockName": "TimelineAiWorkflowCards",
       "blockRef": "timeline/timeline-ai-workflow-cards",
       "displayName": "Timeline AI Workflow Cards",
       "description": "A sticky header timeline with scrollable AI feature cards. Features numbered cards (01, 02, 03) with icons, titles, and descriptions on a muted background. The header section remains sticky while cards scroll. Ideal for showcasing AI capabilities, workflow automation features, or technology highlights.",
