@@ -23,11 +23,11 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Import the compiled registry (ES module version)
+// Import the compiled metadata-only registry entry (ES module version)
 import {
   createBuilderContractBundle,
   getAllBlockMetadata,
-} from '../dist/registry.js';
+} from '../dist/registry/metadata.js';
 
 /**
  * Serialize a block entry to JSON-safe format
