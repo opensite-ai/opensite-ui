@@ -71,6 +71,9 @@ JSONEOF
   echo "]" >> "$output_file"
 done
 
+node scripts/add-block-export-names.js
+node scripts/generate-block-loader.js
+
 # Generate exports for UI components
 echo "Processing ui components..."
 output_file="scripts/manifests/ui-components.json"

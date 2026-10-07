@@ -3396,6 +3396,10 @@
       "import": "./dist/registry/metadata.js",
       "require": "./dist/registry/metadata.cjs"
     },
+    "./registry/loader": {
+      "types": "./dist/registry/loader.d.ts",
+      "import": "./dist/registry/loader.js"
+    },
     "./utils": {
       "types": "./dist/utils.d.ts",
       "import": "./dist/utils.js",
@@ -3418,7 +3422,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "pnpm run generate:exports && pnpm run build:lib && pnpm run export:registry",
-    "build:lib": "tsup",
+    "build:lib": "tsup && tsup --config tsup.loader.config.ts",
     "dev": "tsup --watch",
     "test": "vitest",
     "test:ci": "./scripts/test-ci-silent.sh",

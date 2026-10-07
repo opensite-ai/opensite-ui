@@ -641,7 +641,7 @@ const clientEntryNames = new Set([
 // Shared configuration
 // Source maps are disabled by default to reduce NPM package size from ~128MB to ~65MB
 // Set GENERATE_SOURCEMAPS=true to enable source maps for debugging
-const sharedConfig: Partial<Options> = {
+export const sharedConfig: Partial<Options> = {
   format: ["esm", "cjs"],
   dts: true,
   splitting: false,

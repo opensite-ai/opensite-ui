@@ -3,98 +3,98 @@
     "path": "./blocks/timeline/timeline-ai-workflow-cards",
     "types": "./dist/timeline-ai-workflow-cards.d.ts",
     "import": "./dist/timeline-ai-workflow-cards.js",
-    "require": "./dist/timeline-ai-workflow-cards.cjs"
-  }
-,
+    "require": "./dist/timeline-ai-workflow-cards.cjs",
+    "exportName": "TimelineAIWorkflowCards"
+  },
   {
     "path": "./blocks/timeline/timeline-alternating-diagonal",
     "types": "./dist/timeline-alternating-diagonal.d.ts",
     "import": "./dist/timeline-alternating-diagonal.js",
-    "require": "./dist/timeline-alternating-diagonal.cjs"
-  }
-,
+    "require": "./dist/timeline-alternating-diagonal.cjs",
+    "exportName": "TimelineAlternatingDiagonal"
+  },
   {
     "path": "./blocks/timeline/timeline-changelog-badges",
     "types": "./dist/timeline-changelog-badges.d.ts",
     "import": "./dist/timeline-changelog-badges.js",
-    "require": "./dist/timeline-changelog-badges.cjs"
-  }
-,
+    "require": "./dist/timeline-changelog-badges.cjs",
+    "exportName": "TimelineChangelogBadges"
+  },
   {
     "path": "./blocks/timeline/timeline-history-prose",
     "types": "./dist/timeline-history-prose.d.ts",
     "import": "./dist/timeline-history-prose.js",
-    "require": "./dist/timeline-history-prose.cjs"
-  }
-,
+    "require": "./dist/timeline-history-prose.cjs",
+    "exportName": "TimelineHistoryProse"
+  },
   {
     "path": "./blocks/timeline/timeline-horizontal-icons",
     "types": "./dist/timeline-horizontal-icons.d.ts",
     "import": "./dist/timeline-horizontal-icons.js",
-    "require": "./dist/timeline-horizontal-icons.cjs"
-  }
-,
+    "require": "./dist/timeline-horizontal-icons.cjs",
+    "exportName": "TimelineHorizontalIcons"
+  },
   {
     "path": "./blocks/timeline/timeline-horizontal-phases",
     "types": "./dist/timeline-horizontal-phases.d.ts",
     "import": "./dist/timeline-horizontal-phases.js",
-    "require": "./dist/timeline-horizontal-phases.cjs"
-  }
-,
+    "require": "./dist/timeline-horizontal-phases.cjs",
+    "exportName": "TimelineHorizontalPhases"
+  },
   {
     "path": "./blocks/timeline/timeline-product-launch",
     "types": "./dist/timeline-product-launch.d.ts",
     "import": "./dist/timeline-product-launch.js",
-    "require": "./dist/timeline-product-launch.cjs"
-  }
-,
+    "require": "./dist/timeline-product-launch.cjs",
+    "exportName": "TimelineProductLaunch"
+  },
   {
     "path": "./blocks/timeline/timeline-productivity-list",
     "types": "./dist/timeline-productivity-list.d.ts",
     "import": "./dist/timeline-productivity-list.js",
-    "require": "./dist/timeline-productivity-list.cjs"
-  }
-,
+    "require": "./dist/timeline-productivity-list.cjs",
+    "exportName": "TimelineProductivityList"
+  },
   {
     "path": "./blocks/timeline/timeline-scroll-highlight",
     "types": "./dist/timeline-scroll-highlight.d.ts",
     "import": "./dist/timeline-scroll-highlight.js",
-    "require": "./dist/timeline-scroll-highlight.cjs"
-  }
-,
+    "require": "./dist/timeline-scroll-highlight.cjs",
+    "exportName": "TimelineScrollHighlight"
+  },
   {
     "path": "./blocks/timeline/timeline-scroll-sticky-image",
     "types": "./dist/timeline-scroll-sticky-image.d.ts",
     "import": "./dist/timeline-scroll-sticky-image.js",
-    "require": "./dist/timeline-scroll-sticky-image.cjs"
-  }
-,
+    "require": "./dist/timeline-scroll-sticky-image.cjs",
+    "exportName": "TimelineScrollStickyImage"
+  },
   {
     "path": "./blocks/timeline/timeline-stepper-animated",
     "types": "./dist/timeline-stepper-animated.d.ts",
     "import": "./dist/timeline-stepper-animated.js",
-    "require": "./dist/timeline-stepper-animated.cjs"
-  }
-,
+    "require": "./dist/timeline-stepper-animated.cjs",
+    "exportName": "TimelineStepperAnimated"
+  },
   {
     "path": "./blocks/timeline/timeline-tabbed-phases",
     "types": "./dist/timeline-tabbed-phases.d.ts",
     "import": "./dist/timeline-tabbed-phases.js",
-    "require": "./dist/timeline-tabbed-phases.cjs"
-  }
-,
+    "require": "./dist/timeline-tabbed-phases.cjs",
+    "exportName": "TimelineTabbedPhases"
+  },
   {
     "path": "./blocks/timeline/timeline-two-column-featured",
     "types": "./dist/timeline-two-column-featured.d.ts",
     "import": "./dist/timeline-two-column-featured.js",
-    "require": "./dist/timeline-two-column-featured.cjs"
-  }
-,
+    "require": "./dist/timeline-two-column-featured.cjs",
+    "exportName": "TimelineTwoColumnFeatured"
+  },
   {
     "path": "./blocks/timeline/timeline-vertical-icon-dashed",
     "types": "./dist/timeline-vertical-icon-dashed.d.ts",
     "import": "./dist/timeline-vertical-icon-dashed.js",
-    "require": "./dist/timeline-vertical-icon-dashed.cjs"
+    "require": "./dist/timeline-vertical-icon-dashed.cjs",
+    "exportName": "TimelineVerticalIconDashed"
   }
-
 ]

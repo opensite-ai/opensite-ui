@@ -3,161 +3,161 @@
     "path": "./blocks/about/about-company-profile",
     "types": "./dist/about-company-profile.d.ts",
     "import": "./dist/about-company-profile.js",
-    "require": "./dist/about-company-profile.cjs"
-  }
-,
+    "require": "./dist/about-company-profile.cjs",
+    "exportName": "AboutCompanyProfile"
+  },
   {
     "path": "./blocks/about/about-culture-tabs",
     "types": "./dist/about-culture-tabs.d.ts",
     "import": "./dist/about-culture-tabs.js",
-    "require": "./dist/about-culture-tabs.cjs"
-  }
-,
+    "require": "./dist/about-culture-tabs.cjs",
+    "exportName": "AboutCultureTabs"
+  },
   {
     "path": "./blocks/about/about-developer-profile",
     "types": "./dist/about-developer-profile.d.ts",
     "import": "./dist/about-developer-profile.js",
-    "require": "./dist/about-developer-profile.cjs"
-  }
-,
+    "require": "./dist/about-developer-profile.cjs",
+    "exportName": "AboutDeveloperProfile"
+  },
   {
     "path": "./blocks/about/about-developer-story",
     "types": "./dist/about-developer-story.d.ts",
     "import": "./dist/about-developer-story.js",
-    "require": "./dist/about-developer-story.cjs"
-  }
-,
+    "require": "./dist/about-developer-story.cjs",
+    "exportName": "AboutDeveloperStory"
+  },
   {
     "path": "./blocks/about/about-expandable-values",
     "types": "./dist/about-expandable-values.d.ts",
     "import": "./dist/about-expandable-values.js",
-    "require": "./dist/about-expandable-values.cjs"
-  }
-,
+    "require": "./dist/about-expandable-values.cjs",
+    "exportName": "AboutExpandableValues"
+  },
   {
     "path": "./blocks/about/about-interactive-tabs",
     "types": "./dist/about-interactive-tabs.d.ts",
     "import": "./dist/about-interactive-tabs.js",
-    "require": "./dist/about-interactive-tabs.cjs"
-  }
-,
+    "require": "./dist/about-interactive-tabs.cjs",
+    "exportName": "AboutInteractiveTabs"
+  },
   {
     "path": "./blocks/about/about-location-info-hero",
     "types": "./dist/about-location-info-hero.d.ts",
     "import": "./dist/about-location-info-hero.js",
-    "require": "./dist/about-location-info-hero.cjs"
-  }
-,
+    "require": "./dist/about-location-info-hero.cjs",
+    "exportName": "AboutLocationInfoHero"
+  },
   {
     "path": "./blocks/about/about-minimal-story",
     "types": "./dist/about-minimal-story.d.ts",
     "import": "./dist/about-minimal-story.js",
-    "require": "./dist/about-minimal-story.cjs"
-  }
-,
+    "require": "./dist/about-minimal-story.cjs",
+    "exportName": "AboutMinimalStory"
+  },
   {
     "path": "./blocks/about/about-mission-dual-image",
     "types": "./dist/about-mission-dual-image.d.ts",
     "import": "./dist/about-mission-dual-image.js",
-    "require": "./dist/about-mission-dual-image.cjs"
-  }
-,
+    "require": "./dist/about-mission-dual-image.cjs",
+    "exportName": "AboutMissionDualImage"
+  },
   {
     "path": "./blocks/about/about-mission-features",
     "types": "./dist/about-mission-features.d.ts",
     "import": "./dist/about-mission-features.js",
-    "require": "./dist/about-mission-features.cjs"
-  }
-,
+    "require": "./dist/about-mission-features.cjs",
+    "exportName": "AboutMissionFeatures"
+  },
   {
     "path": "./blocks/about/about-mission-principles",
     "types": "./dist/about-mission-principles.d.ts",
     "import": "./dist/about-mission-principles.js",
-    "require": "./dist/about-mission-principles.cjs"
-  }
-,
+    "require": "./dist/about-mission-principles.cjs",
+    "exportName": "AboutMissionPrinciples"
+  },
   {
     "path": "./blocks/about/about-network-spotlight",
     "types": "./dist/about-network-spotlight.d.ts",
     "import": "./dist/about-network-spotlight.js",
-    "require": "./dist/about-network-spotlight.cjs"
-  }
-,
+    "require": "./dist/about-network-spotlight.cjs",
+    "exportName": "AboutNetworkSpotlight"
+  },
   {
     "path": "./blocks/about/about-split-hero",
     "types": "./dist/about-split-hero.d.ts",
     "import": "./dist/about-split-hero.js",
-    "require": "./dist/about-split-hero.cjs"
-  }
-,
+    "require": "./dist/about-split-hero.cjs",
+    "exportName": "AboutSplitHero"
+  },
   {
     "path": "./blocks/about/about-startup-team",
     "types": "./dist/about-startup-team.d.ts",
     "import": "./dist/about-startup-team.js",
-    "require": "./dist/about-startup-team.cjs"
-  }
-,
+    "require": "./dist/about-startup-team.cjs",
+    "exportName": "AboutStartupTeam"
+  },
   {
     "path": "./blocks/about/about-stats-showcase",
     "types": "./dist/about-stats-showcase.d.ts",
     "import": "./dist/about-stats-showcase.js",
-    "require": "./dist/about-stats-showcase.cjs"
-  }
-,
+    "require": "./dist/about-stats-showcase.cjs",
+    "exportName": "AboutStatsShowcase"
+  },
   {
     "path": "./blocks/about/about-stats-sidebar",
     "types": "./dist/about-stats-sidebar.d.ts",
     "import": "./dist/about-stats-sidebar.js",
-    "require": "./dist/about-stats-sidebar.cjs"
-  }
-,
+    "require": "./dist/about-stats-sidebar.cjs",
+    "exportName": "AboutStatsSidebar"
+  },
   {
     "path": "./blocks/about/about-story-expertise",
     "types": "./dist/about-story-expertise.d.ts",
     "import": "./dist/about-story-expertise.js",
-    "require": "./dist/about-story-expertise.cjs"
-  }
-,
+    "require": "./dist/about-story-expertise.cjs",
+    "exportName": "AboutStoryExpertise"
+  },
   {
     "path": "./blocks/about/about-story-gallery",
     "types": "./dist/about-story-gallery.d.ts",
     "import": "./dist/about-story-gallery.js",
-    "require": "./dist/about-story-gallery.cjs"
-  }
-,
+    "require": "./dist/about-story-gallery.cjs",
+    "exportName": "AboutStoryGallery"
+  },
   {
     "path": "./blocks/about/about-story-hero",
     "types": "./dist/about-story-hero.d.ts",
     "import": "./dist/about-story-hero.js",
-    "require": "./dist/about-story-hero.cjs"
-  }
-,
+    "require": "./dist/about-story-hero.cjs",
+    "exportName": "AboutStoryHero"
+  },
   {
     "path": "./blocks/about/about-streamline-team",
     "types": "./dist/about-streamline-team.d.ts",
     "import": "./dist/about-streamline-team.js",
-    "require": "./dist/about-streamline-team.cjs"
-  }
-,
+    "require": "./dist/about-streamline-team.cjs",
+    "exportName": "AboutStreamlineTeam"
+  },
   {
     "path": "./blocks/about/about-vision-gallery",
     "types": "./dist/about-vision-gallery.d.ts",
     "import": "./dist/about-vision-gallery.js",
-    "require": "./dist/about-vision-gallery.cjs"
-  }
-,
+    "require": "./dist/about-vision-gallery.cjs",
+    "exportName": "AboutVisionGallery"
+  },
   {
     "path": "./blocks/about/alternating-blocks",
     "types": "./dist/alternating-blocks.d.ts",
     "import": "./dist/alternating-blocks.js",
-    "require": "./dist/alternating-blocks.cjs"
-  }
-,
+    "require": "./dist/alternating-blocks.cjs",
+    "exportName": "AlternatingBlocks"
+  },
   {
     "path": "./blocks/about/community-initiatives",
     "types": "./dist/community-initiatives.d.ts",
     "import": "./dist/community-initiatives.js",
-    "require": "./dist/community-initiatives.cjs"
+    "require": "./dist/community-initiatives.cjs",
+    "exportName": "CommunityInitiatives"
   }
-
 ]

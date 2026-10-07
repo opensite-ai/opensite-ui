@@ -3,28 +3,28 @@
     "path": "./blocks/industries/industries-badge-list-bordered",
     "types": "./dist/industries-badge-list-bordered.d.ts",
     "import": "./dist/industries-badge-list-bordered.js",
-    "require": "./dist/industries-badge-list-bordered.cjs"
-  }
-,
+    "require": "./dist/industries-badge-list-bordered.cjs",
+    "exportName": "IndustriesBadgeListBordered"
+  },
   {
     "path": "./blocks/industries/industries-expandable-showcase",
     "types": "./dist/industries-expandable-showcase.d.ts",
     "import": "./dist/industries-expandable-showcase.js",
-    "require": "./dist/industries-expandable-showcase.cjs"
-  }
-,
+    "require": "./dist/industries-expandable-showcase.cjs",
+    "exportName": "IndustriesExpandableShowcase"
+  },
   {
     "path": "./blocks/industries/industries-hover-reveal-grid",
     "types": "./dist/industries-hover-reveal-grid.d.ts",
     "import": "./dist/industries-hover-reveal-grid.js",
-    "require": "./dist/industries-hover-reveal-grid.cjs"
-  }
-,
+    "require": "./dist/industries-hover-reveal-grid.cjs",
+    "exportName": "IndustriesHoverRevealGrid"
+  },
   {
     "path": "./blocks/industries/industries-timeline-table",
     "types": "./dist/industries-timeline-table.d.ts",
     "import": "./dist/industries-timeline-table.js",
-    "require": "./dist/industries-timeline-table.cjs"
+    "require": "./dist/industries-timeline-table.cjs",
+    "exportName": "IndustriesTimelineTable"
   }
-
 ]

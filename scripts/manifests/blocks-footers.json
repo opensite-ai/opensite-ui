@@ -3,133 +3,133 @@
     "path": "./blocks/footers/footer-accordion-social",
     "types": "./dist/footer-accordion-social.d.ts",
     "import": "./dist/footer-accordion-social.js",
-    "require": "./dist/footer-accordion-social.cjs"
-  }
-,
+    "require": "./dist/footer-accordion-social.cjs",
+    "exportName": "FooterAccordionSocial"
+  },
   {
     "path": "./blocks/footers/footer-animated-social",
     "types": "./dist/footer-animated-social.d.ts",
     "import": "./dist/footer-animated-social.js",
-    "require": "./dist/footer-animated-social.cjs"
-  }
-,
+    "require": "./dist/footer-animated-social.cjs",
+    "exportName": "FooterAnimatedSocial"
+  },
   {
     "path": "./blocks/footers/footer-background-card",
     "types": "./dist/footer-background-card.d.ts",
     "import": "./dist/footer-background-card.js",
-    "require": "./dist/footer-background-card.cjs"
-  }
-,
+    "require": "./dist/footer-background-card.cjs",
+    "exportName": "FooterBackgroundCard"
+  },
   {
     "path": "./blocks/footers/footer-brand-description",
     "types": "./dist/footer-brand-description.d.ts",
     "import": "./dist/footer-brand-description.js",
-    "require": "./dist/footer-brand-description.cjs"
-  }
-,
+    "require": "./dist/footer-brand-description.cjs",
+    "exportName": "FooterBrandDescription"
+  },
   {
     "path": "./blocks/footers/footer-brand-links-contact",
     "types": "./dist/footer-brand-links-contact.d.ts",
     "import": "./dist/footer-brand-links-contact.js",
-    "require": "./dist/footer-brand-links-contact.cjs"
-  }
-,
+    "require": "./dist/footer-brand-links-contact.cjs",
+    "exportName": "FooterBrandLinksContact"
+  },
   {
     "path": "./blocks/footers/footer-comprehensive-links",
     "types": "./dist/footer-comprehensive-links.d.ts",
     "import": "./dist/footer-comprehensive-links.js",
-    "require": "./dist/footer-comprehensive-links.cjs"
-  }
-,
+    "require": "./dist/footer-comprehensive-links.cjs",
+    "exportName": "FooterComprehensiveLinks"
+  },
   {
     "path": "./blocks/footers/footer-contact-card",
     "types": "./dist/footer-contact-card.d.ts",
     "import": "./dist/footer-contact-card.js",
-    "require": "./dist/footer-contact-card.cjs"
-  }
-,
+    "require": "./dist/footer-contact-card.cjs",
+    "exportName": "FooterContactCard"
+  },
   {
     "path": "./blocks/footers/footer-cta-banner",
     "types": "./dist/footer-cta-banner.d.ts",
     "import": "./dist/footer-cta-banner.js",
-    "require": "./dist/footer-cta-banner.cjs"
-  }
-,
+    "require": "./dist/footer-cta-banner.cjs",
+    "exportName": "FooterCtaBanner"
+  },
   {
     "path": "./blocks/footers/footer-cta-social",
     "types": "./dist/footer-cta-social.d.ts",
     "import": "./dist/footer-cta-social.js",
-    "require": "./dist/footer-cta-social.cjs"
-  }
-,
+    "require": "./dist/footer-cta-social.cjs",
+    "exportName": "FooterCtaSocial"
+  },
   {
     "path": "./blocks/footers/footer-info-cards-accordion",
     "types": "./dist/footer-info-cards-accordion.d.ts",
     "import": "./dist/footer-info-cards-accordion.js",
-    "require": "./dist/footer-info-cards-accordion.cjs"
-  }
-,
+    "require": "./dist/footer-info-cards-accordion.cjs",
+    "exportName": "FooterInfoCardsAccordion"
+  },
   {
     "path": "./blocks/footers/footer-links-grid",
     "types": "./dist/footer-links-grid.d.ts",
     "import": "./dist/footer-links-grid.js",
-    "require": "./dist/footer-links-grid.cjs"
-  }
-,
+    "require": "./dist/footer-links-grid.cjs",
+    "exportName": "FooterLinksGrid"
+  },
   {
     "path": "./blocks/footers/footer-nav-social",
     "types": "./dist/footer-nav-social.d.ts",
     "import": "./dist/footer-nav-social.js",
-    "require": "./dist/footer-nav-social.cjs"
-  }
-,
+    "require": "./dist/footer-nav-social.cjs",
+    "exportName": "FooterNavSocial"
+  },
   {
     "path": "./blocks/footers/footer-newsletter-contact",
     "types": "./dist/footer-newsletter-contact.d.ts",
     "import": "./dist/footer-newsletter-contact.js",
-    "require": "./dist/footer-newsletter-contact.cjs"
-  }
-,
+    "require": "./dist/footer-newsletter-contact.cjs",
+    "exportName": "FooterNewsletterContact"
+  },
   {
     "path": "./blocks/footers/footer-newsletter-grid",
     "types": "./dist/footer-newsletter-grid.d.ts",
     "import": "./dist/footer-newsletter-grid.js",
-    "require": "./dist/footer-newsletter-grid.cjs"
-  }
-,
+    "require": "./dist/footer-newsletter-grid.cjs",
+    "exportName": "FooterNewsletterGrid"
+  },
   {
     "path": "./blocks/footers/footer-newsletter-minimal",
     "types": "./dist/footer-newsletter-minimal.d.ts",
     "import": "./dist/footer-newsletter-minimal.js",
-    "require": "./dist/footer-newsletter-minimal.cjs"
-  }
-,
+    "require": "./dist/footer-newsletter-minimal.cjs",
+    "exportName": "FooterNewsletterMinimal"
+  },
   {
     "path": "./blocks/footers/footer-simple-centered",
     "types": "./dist/footer-simple-centered.d.ts",
     "import": "./dist/footer-simple-centered.js",
-    "require": "./dist/footer-simple-centered.cjs"
-  }
-,
+    "require": "./dist/footer-simple-centered.cjs",
+    "exportName": "FooterSimpleCentered"
+  },
   {
     "path": "./blocks/footers/footer-social-apps",
     "types": "./dist/footer-social-apps.d.ts",
     "import": "./dist/footer-social-apps.js",
-    "require": "./dist/footer-social-apps.cjs"
-  }
-,
+    "require": "./dist/footer-social-apps.cjs",
+    "exportName": "FooterSocialApps"
+  },
   {
     "path": "./blocks/footers/footer-social-newsletter",
     "types": "./dist/footer-social-newsletter.d.ts",
     "import": "./dist/footer-social-newsletter.js",
-    "require": "./dist/footer-social-newsletter.cjs"
-  }
-,
+    "require": "./dist/footer-social-newsletter.cjs",
+    "exportName": "FooterSocialNewsletter"
+  },
   {
     "path": "./blocks/footers/footer-split-image-accordion",
     "types": "./dist/footer-split-image-accordion.d.ts",
     "import": "./dist/footer-split-image-accordion.js",
-    "require": "./dist/footer-split-image-accordion.cjs"
+    "require": "./dist/footer-split-image-accordion.cjs",
+    "exportName": "FooterSplitImageAccordion"
   }
-
 ]

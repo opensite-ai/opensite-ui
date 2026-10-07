@@ -3,70 +3,70 @@
     "path": "./blocks/banner/banner-announcement-dismissible",
     "types": "./dist/banner-announcement-dismissible.d.ts",
     "import": "./dist/banner-announcement-dismissible.js",
-    "require": "./dist/banner-announcement-dismissible.cjs"
-  }
-,
+    "require": "./dist/banner-announcement-dismissible.cjs",
+    "exportName": "BannerAnnouncementDismissible"
+  },
   {
     "path": "./blocks/banner/banner-countdown-sale",
     "types": "./dist/banner-countdown-sale.d.ts",
     "import": "./dist/banner-countdown-sale.js",
-    "require": "./dist/banner-countdown-sale.cjs"
-  }
-,
+    "require": "./dist/banner-countdown-sale.cjs",
+    "exportName": "BannerCountdownSale"
+  },
   {
     "path": "./blocks/banner/banner-delivery-countdown",
     "types": "./dist/banner-delivery-countdown.d.ts",
     "import": "./dist/banner-delivery-countdown.js",
-    "require": "./dist/banner-delivery-countdown.cjs"
-  }
-,
+    "require": "./dist/banner-delivery-countdown.cjs",
+    "exportName": "BannerDeliveryCountdown"
+  },
   {
     "path": "./blocks/banner/banner-event-promo",
     "types": "./dist/banner-event-promo.d.ts",
     "import": "./dist/banner-event-promo.js",
-    "require": "./dist/banner-event-promo.cjs"
-  }
-,
+    "require": "./dist/banner-event-promo.cjs",
+    "exportName": "BannerEventPromo"
+  },
   {
     "path": "./blocks/banner/banner-floating-offer",
     "types": "./dist/banner-floating-offer.d.ts",
     "import": "./dist/banner-floating-offer.js",
-    "require": "./dist/banner-floating-offer.cjs"
-  }
-,
+    "require": "./dist/banner-floating-offer.cjs",
+    "exportName": "BannerFloatingOffer"
+  },
   {
     "path": "./blocks/banner/banner-gdpr-rights",
     "types": "./dist/banner-gdpr-rights.d.ts",
     "import": "./dist/banner-gdpr-rights.js",
-    "require": "./dist/banner-gdpr-rights.cjs"
-  }
-,
+    "require": "./dist/banner-gdpr-rights.cjs",
+    "exportName": "BannerGdprRights"
+  },
   {
     "path": "./blocks/banner/banner-privacy-notice",
     "types": "./dist/banner-privacy-notice.d.ts",
     "import": "./dist/banner-privacy-notice.js",
-    "require": "./dist/banner-privacy-notice.cjs"
-  }
-,
+    "require": "./dist/banner-privacy-notice.cjs",
+    "exportName": "BannerPrivacyNotice"
+  },
   {
     "path": "./blocks/banner/banner-promo-cta",
     "types": "./dist/banner-promo-cta.d.ts",
     "import": "./dist/banner-promo-cta.js",
-    "require": "./dist/banner-promo-cta.cjs"
-  }
-,
+    "require": "./dist/banner-promo-cta.cjs",
+    "exportName": "BannerPromoCta"
+  },
   {
     "path": "./blocks/banner/banner-social-follow",
     "types": "./dist/banner-social-follow.d.ts",
     "import": "./dist/banner-social-follow.js",
-    "require": "./dist/banner-social-follow.cjs"
-  }
-,
+    "require": "./dist/banner-social-follow.cjs",
+    "exportName": "BannerSocialFollow"
+  },
   {
     "path": "./blocks/banner/banner-survey-incentive",
     "types": "./dist/banner-survey-incentive.d.ts",
     "import": "./dist/banner-survey-incentive.js",
-    "require": "./dist/banner-survey-incentive.cjs"
+    "require": "./dist/banner-survey-incentive.cjs",
+    "exportName": "BannerSurveyIncentive"
   }
-
 ]
